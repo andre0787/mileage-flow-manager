@@ -13,27 +13,26 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export default function Dashboard() {
-  // Mock data - será substituído por dados reais posteriormente
+  // Dados integrados do sistema de estoque por donos
   const metrics = {
-    totalMiles: 2450000,
-    totalValue: 12250,
-    monthlyProfit: 3840,
-    activeAccounts: 15,
-    pendingSales: 8,
-    cpfAlerts: 2
+    totalMiles: 544000, // Estoque real de milhas disponíveis
+    totalInvested: 2560, // Total investido em pontos/milhas
+    monthlyRevenue: 3120, // Faturamento do mês
+    monthlyProfit: 560, // Lucro líquido
+    activeAccounts: 3,
+    pendingSales: 2,
+    cpfAlerts: 1
   };
 
-  const programData = [
-    { program: "LATAM Pass", miles: 850000, value: 4250, cpfCount: 18, maxCpf: 22 },
-    { program: "Smiles", miles: 720000, value: 3600, cpfCount: 15, maxCpf: 22 },
-    { program: "Livelo", miles: 580000, value: 2900, cpfCount: 12, maxCpf: 22 },
-    { program: "Esfera", miles: 300000, value: 1500, cpfCount: 8, maxCpf: 22 }
+  const ownerData = [
+    { owner: "João Silva", programs: ["LATAM Pass", "Livelo"], totalMiles: 480000, totalInvested: 2200, cpfCount: 18, maxCpf: 22 },
+    { owner: "Maria Santos", programs: ["Smiles"], totalMiles: 64000, totalInvested: 360, cpfCount: 15, maxCpf: 22 },
+    { owner: "Pedro Costa", programs: ["Esfera"], totalMiles: 0, totalInvested: 0, cpfCount: 8, maxCpf: 22 }
   ];
 
   const recentSales = [
-    { id: 1, client: "João Silva", program: "LATAM Pass", miles: 50000, value: 250, status: "Concluído" },
-    { id: 2, client: "Maria Santos", program: "Smiles", miles: 75000, value: 375, status: "Pendente" },
-    { id: 3, client: "Pedro Costa", program: "Livelo", miles: 30000, value: 150, status: "Pago" },
+    { id: 1, owner: "João Silva", client: "Carlos Mendes", program: "LATAM Pass", miles: 50000, value: 300, status: "Concluído" },
+    { id: 2, owner: "Maria Santos", client: "Ana Silva", program: "Smiles", miles: 30000, value: 180, status: "Pendente" },
   ];
 
   return (
@@ -49,27 +48,35 @@ export default function Dashboard() {
       {/* Main Metrics */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <MetricCard
-          title="Total de Milhas"
+          title="Estoque de Milhas"
           value={metrics.totalMiles.toLocaleString('pt-BR')}
-          subtitle="Estoque atual"
+          subtitle="Milhas disponíveis"
           icon={Coins}
           trend={{ value: 12.5, isPositive: true }}
         />
         <MetricCard
-          title="Valor do Estoque"
-          value={`R$ ${metrics.totalValue.toLocaleString('pt-BR')}`}
-          subtitle="Valor total investido"
+          title="Total Investido"
+          value={`R$ ${metrics.totalInvested.toLocaleString('pt-BR')}`}
+          subtitle="Capital aplicado"
           icon={Wallet}
           variant="success"
           trend={{ value: 8.2, isPositive: true }}
         />
         <MetricCard
-          title="Lucro Mensal"
-          value={`R$ ${metrics.monthlyProfit.toLocaleString('pt-BR')}`}
-          subtitle="Ganho atual"
-          icon={TrendingUp}
+          title="Faturamento Mensal"
+          value={`R$ ${metrics.monthlyRevenue.toLocaleString('pt-BR')}`}
+          subtitle="Receita atual"
+          icon={DollarSign}
           variant="success"
           trend={{ value: 15.3, isPositive: true }}
+        />
+        <MetricCard
+          title="Lucro Mensal"
+          value={`R$ ${metrics.monthlyProfit.toLocaleString('pt-BR')}`}
+          subtitle="Ganho líquido"
+          icon={TrendingUp}
+          variant="success"
+          trend={{ value: 18.7, isPositive: true }}
         />
         <MetricCard
           title="Contas Ativas"
@@ -80,7 +87,13 @@ export default function Dashboard() {
       </div>
 
       {/* Secondary Metrics */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-3">
+        <MetricCard
+          title="Contas Ativas"
+          value={metrics.activeAccounts}
+          subtitle="Contas operacionais"
+          icon={CreditCard}
+        />
         <MetricCard
           title="Vendas Pendentes"
           value={metrics.pendingSales}
@@ -96,34 +109,34 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* Program Overview */}
+      {/* Owner Overview */}
       <Card className="shadow-card">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <DollarSign className="h-5 w-5 text-primary" />
-            Estoque por Programa
+            <Users className="h-5 w-5 text-primary" />
+            Estoque por Dono
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {programData.map((program) => (
-              <div key={program.program} className="flex items-center justify-between p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
+            {ownerData.map((owner) => (
+              <div key={owner.owner} className="flex items-center justify-between p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
                 <div className="space-y-1">
-                  <h3 className="font-medium text-foreground">{program.program}</h3>
+                  <h3 className="font-medium text-foreground">{owner.owner}</h3>
                   <p className="text-sm text-muted-foreground">
-                    {program.miles.toLocaleString('pt-BR')} milhas
+                    {owner.programs.join(", ")} • {owner.totalMiles.toLocaleString('pt-BR')} milhas
                   </p>
                 </div>
                 <div className="text-right space-y-1">
                   <p className="font-semibold text-foreground">
-                    R$ {program.value.toLocaleString('pt-BR')}
+                    R$ {owner.totalInvested.toLocaleString('pt-BR')} investido
                   </p>
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-muted-foreground">
-                      CPFs: {program.cpfCount}/{program.maxCpf}
+                      CPFs: {owner.cpfCount}/{owner.maxCpf}
                     </span>
-                    <Badge variant={program.cpfCount >= 20 ? "destructive" : program.cpfCount >= 18 ? "secondary" : "outline"}>
-                      {program.cpfCount >= 20 ? "Crítico" : program.cpfCount >= 18 ? "Atenção" : "OK"}
+                    <Badge variant={owner.cpfCount >= 20 ? "destructive" : owner.cpfCount >= 18 ? "secondary" : "outline"}>
+                      {owner.cpfCount >= 20 ? "Crítico" : owner.cpfCount >= 18 ? "Atenção" : "OK"}
                     </Badge>
                   </div>
                 </div>
@@ -148,7 +161,7 @@ export default function Dashboard() {
                 <div className="space-y-1">
                   <h4 className="font-medium text-foreground">{sale.client}</h4>
                   <p className="text-sm text-muted-foreground">
-                    {sale.program} • {sale.miles.toLocaleString('pt-BR')} milhas
+                    {sale.owner} • {sale.program} • {sale.miles.toLocaleString('pt-BR')} milhas
                   </p>
                 </div>
                 <div className="text-right space-y-1">

@@ -13,41 +13,47 @@ interface Account {
   id: number;
   name: string;
   program: string;
-  owner: string;
+  ownerName: string;
   status: "ativa" | "inativa";
-  balance: number;
-  value: number;
+  pointsBalance: number;
+  milesBalance: number;
+  averageCostPerMile: number;
+  totalInvested: number;
 }
 
 export default function Contas() {
   const [accounts, setAccounts] = useState<Account[]>([
-    { id: 1, name: "Conta Principal LATAM", program: "LATAM Pass", owner: "Próprio", status: "ativa", balance: 450000, value: 2250 },
-    { id: 2, name: "Smiles Premium", program: "Smiles", owner: "Próprio", status: "ativa", balance: 320000, value: 1600 },
-    { id: 3, name: "Livelo Gold", program: "Livelo", owner: "Terceiro - João", status: "ativa", balance: 180000, value: 900 },
-    { id: 4, name: "Esfera Black", program: "Esfera", owner: "Próprio", status: "inativa", balance: 75000, value: 375 },
+    { id: 1, name: "Conta Principal LATAM", program: "LATAM Pass", ownerName: "João Silva", status: "ativa", pointsBalance: 0, milesBalance: 400000, averageCostPerMile: 0.0045, totalInvested: 1800 },
+    { id: 2, name: "Smiles Premium", program: "Smiles", ownerName: "Maria Santos", status: "ativa", pointsBalance: 0, milesBalance: 64000, averageCostPerMile: 0.005625, totalInvested: 360 },
+    { id: 3, name: "Livelo Gold", program: "Livelo", ownerName: "João Silva", status: "ativa", pointsBalance: 0, milesBalance: 80000, averageCostPerMile: 0.005, totalInvested: 400 },
+    { id: 4, name: "Esfera Black", program: "Esfera", ownerName: "Pedro Costa", status: "inativa", pointsBalance: 0, milesBalance: 0, averageCostPerMile: 0.006, totalInvested: 0 },
   ]);
 
   const [newAccount, setNewAccount] = useState({
     name: "",
     program: "",
-    owner: "",
+    ownerName: "",
     status: "ativa" as "ativa" | "inativa"
   });
+
+  const [owners] = useState(["João Silva", "Maria Santos", "Pedro Costa"]);
 
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
   const programs = ["LATAM Pass", "Smiles", "Livelo", "Esfera", "Cartão de Crédito"];
 
   const handleCreateAccount = () => {
-    if (newAccount.name && newAccount.program && newAccount.owner) {
+    if (newAccount.name && newAccount.program && newAccount.ownerName) {
       const account: Account = {
         id: Date.now(),
         ...newAccount,
-        balance: 0,
-        value: 0
+        pointsBalance: 0,
+        milesBalance: 0,
+        averageCostPerMile: 0,
+        totalInvested: 0
       };
       setAccounts([...accounts, account]);
-      setNewAccount({ name: "", program: "", owner: "", status: "ativa" });
+      setNewAccount({ name: "", program: "", ownerName: "", status: "ativa" });
       setIsCreateDialogOpen(false);
     }
   };
@@ -113,12 +119,16 @@ export default function Contas() {
               
               <div className="space-y-2">
                 <Label htmlFor="owner">Dono da Conta</Label>
-                <Input
-                  id="owner"
-                  value={newAccount.owner}
-                  onChange={(e) => setNewAccount({...newAccount, owner: e.target.value})}
-                  placeholder="Ex: Próprio ou Terceiro - Nome"
-                />
+                <Select value={newAccount.ownerName} onValueChange={(value) => setNewAccount({...newAccount, ownerName: value})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o dono" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {owners.map((owner) => (
+                      <SelectItem key={owner} value={owner}>{owner}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               
               <div className="flex items-center space-x-2">
@@ -174,16 +184,20 @@ export default function Contas() {
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Saldo:</span>
-                  <span className="font-semibold">{account.balance.toLocaleString('pt-BR')} milhas</span>
+                  <span className="text-sm text-muted-foreground">Estoque Milhas:</span>
+                  <span className="font-semibold">{account.milesBalance.toLocaleString('pt-BR')}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Valor:</span>
-                  <span className="font-semibold text-success">R$ {account.value.toLocaleString('pt-BR')}</span>
+                  <span className="text-sm text-muted-foreground">Custo/Milha:</span>
+                  <span className="font-semibold">R$ {account.averageCostPerMile.toFixed(4)}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Valor Investido:</span>
+                  <span className="font-semibold text-success">R$ {account.totalInvested.toLocaleString('pt-BR')}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Dono:</span>
-                  <span className="text-sm">{account.owner}</span>
+                  <span className="text-sm font-medium">{account.ownerName}</span>
                 </div>
               </div>
               
@@ -233,15 +247,15 @@ export default function Contas() {
             </div>
             <div className="text-center p-4 rounded-lg bg-muted/30">
               <p className="text-2xl font-bold text-foreground">
-                {accounts.reduce((sum, acc) => sum + acc.balance, 0).toLocaleString('pt-BR')}
+                {accounts.reduce((sum, acc) => sum + acc.milesBalance, 0).toLocaleString('pt-BR')}
               </p>
               <p className="text-sm text-muted-foreground">Total de Milhas</p>
             </div>
             <div className="text-center p-4 rounded-lg bg-success-light">
               <p className="text-2xl font-bold text-success">
-                R$ {accounts.reduce((sum, acc) => sum + acc.value, 0).toLocaleString('pt-BR')}
+                R$ {accounts.reduce((sum, acc) => sum + acc.totalInvested, 0).toLocaleString('pt-BR')}
               </p>
-              <p className="text-sm text-muted-foreground">Valor Total</p>
+              <p className="text-sm text-muted-foreground">Total Investido</p>
             </div>
           </div>
         </CardContent>

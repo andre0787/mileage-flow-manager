@@ -8,6 +8,10 @@ import { AppSidebar } from "@/components/AppSidebar";
 import Dashboard from "./pages/Dashboard";
 import Contas from "./pages/Contas";
 import Clientes from "./pages/Clientes";
+import Entradas from "./pages/Entradas";
+import Vendas from "./pages/Vendas";
+import ControleCPF from "./pages/ControleCPF";
+import Relatorios from "./pages/Relatorios";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +37,10 @@ const App = () => (
                   <Route path="/" element={<Dashboard />} />
                   <Route path="/contas" element={<Contas />} />
                   <Route path="/clientes" element={<Clientes />} />
+                  <Route path="/entradas" element={<Entradas />} />
+                  <Route path="/vendas" element={<Vendas />} />
+                  <Route path="/cpf" element={<ControleCPF />} />
+                  <Route path="/relatorios" element={<Relatorios />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
