@@ -157,7 +157,7 @@ export default function ControleCPF() {
                 <p className="text-xs text-muted-foreground">{limit.description}</p>
               </CardHeader>
               
-              <CardContent className="space-y-3">
+              <CardContent className="space-y-3 animate-slide-up">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-sm">
                     <span>Uso atual:</span>
@@ -165,7 +165,17 @@ export default function ControleCPF() {
                       {limit.currentCount}/{limit.maxCPFs} CPFs
                     </span>
                   </div>
-                  <Progress value={percentage} className="h-2" />
+                  <Progress 
+                    value={percentage} 
+                    className="h-2 transition-all duration-1000" 
+                    style={{
+                      ['--progress-color' as string]: percentage >= 90 
+                        ? 'hsl(var(--destructive))' 
+                        : percentage >= 80 
+                          ? 'hsl(var(--warning))' 
+                          : 'hsl(var(--primary))'
+                    }}
+                  />
                 </div>
                 
                 <Badge 
