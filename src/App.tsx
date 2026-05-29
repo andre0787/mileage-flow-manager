@@ -34,7 +34,7 @@ const App = () => (
                     <h2 className="text-lg font-semibold text-foreground">MilesControl</h2>
                   </div>
                 </header>
-                <main className="flex-1 p-6 bg-background">
+                <main className="flex-1 p-4 md:p-6 bg-background">
                   <Routes>
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/contas" element={<Contas />} />
