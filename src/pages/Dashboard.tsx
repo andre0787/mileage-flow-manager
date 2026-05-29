@@ -9,6 +9,7 @@ import {
   DollarSign
 } from "lucide-react";
 import { MetricCard } from "@/components/MetricCard";
+import { DashboardCharts } from "@/components/DashboardCharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -78,13 +79,9 @@ export default function Dashboard() {
           variant="success"
           trend={{ value: 18.7, isPositive: true }}
         />
-        <MetricCard
-          title="Contas Ativas"
-          value={metrics.activeAccounts}
-          subtitle="Programas disponíveis"
-          icon={CreditCard}
-        />
       </div>
+
+      <DashboardCharts />
 
       {/* Secondary Metrics */}
       <div className="grid gap-4 md:grid-cols-3">
