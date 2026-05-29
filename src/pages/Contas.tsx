@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -156,8 +157,8 @@ export default function Contas() {
       {/* Accounts Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {accounts.map((account) => (
-          <Card key={account.id} className="shadow-card hover:shadow-elegant transition-all duration-200">
-            <CardHeader className="pb-3">
+          <Card key={account.id} className="shadow-card hover:shadow-elegant hover:-translate-y-0.5 transition-all duration-200">
+            <CardHeader className="pb-3 bg-gradient-card">
               <div className="flex items-start justify-between">
                 <div className="space-y-1">
                   <CardTitle className="text-lg">{account.name}</CardTitle>
@@ -199,6 +200,14 @@ export default function Contas() {
                   <span className="text-sm text-muted-foreground">Dono:</span>
                   <span className="text-sm font-medium">{account.ownerName}</span>
                 </div>
+              </div>
+
+              <div className="space-y-1">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-muted-foreground">Utilização de milhas</span>
+                  <span className="font-medium">{Math.round((account.milesBalance / 500000) * 100)}%</span>
+                </div>
+                <Progress value={Math.round((account.milesBalance / 500000) * 100)} className="h-1.5" />
               </div>
               
               <div className="flex items-center gap-2 pt-2 border-t">

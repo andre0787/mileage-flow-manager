@@ -261,7 +261,7 @@ export default function Entradas() {
               </div>
 
               {newEntry.pointsAcquired && newEntry.amountPaid && newEntry.conversionRate && (
-                <div className="p-4 bg-muted/30 rounded-lg space-y-2">
+                <div className="p-4 bg-gradient-success/10 border border-success/20 rounded-lg space-y-2 animate-slide-up">
                   <h4 className="font-semibold text-sm">Cálculos Automáticos:</h4>
                   <div className="grid grid-cols-2 gap-4 text-xs">
                     <div>
@@ -365,9 +365,31 @@ export default function Entradas() {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Badge variant="outline">
-                      {entryTypes.find(t => t.value === entry.entryType)?.label}
-                    </Badge>
+                    {entry.entryType === 'compra_direta' && (
+                      <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
+                        {entryTypes.find(t => t.value === entry.entryType)?.label}
+                      </Badge>
+                    )}
+                    {entry.entryType === 'transferencia' && (
+                      <Badge variant="secondary">
+                        {entryTypes.find(t => t.value === entry.entryType)?.label}
+                      </Badge>
+                    )}
+                    {entry.entryType === 'clube_pontos' && (
+                      <Badge variant="default">
+                        {entryTypes.find(t => t.value === entry.entryType)?.label}
+                      </Badge>
+                    )}
+                    {entry.entryType === 'promocao' && (
+                      <Badge variant="outline">
+                        {entryTypes.find(t => t.value === entry.entryType)?.label}
+                      </Badge>
+                    )}
+                    {entry.entryType === 'cartao_credito' && (
+                      <Badge variant="outline" className="hover:bg-accent">
+                        {entryTypes.find(t => t.value === entry.entryType)?.label}
+                      </Badge>
+                    )}
                   </TableCell>
                   <TableCell>{entry.pointsAcquired.toLocaleString('pt-BR')}</TableCell>
                   <TableCell>R$ {entry.amountPaid.toLocaleString('pt-BR')}</TableCell>
