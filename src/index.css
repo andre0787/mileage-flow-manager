@@ -101,6 +101,10 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    transition: color-scheme 0.3s;
+  }
+
   body {
     @apply bg-background text-foreground;
   }

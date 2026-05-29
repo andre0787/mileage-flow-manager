@@ -12,6 +12,7 @@ import {
   Plane,
   Coins
 } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
 
 import {
   Sidebar,
@@ -92,6 +93,10 @@ export function AppSidebar() {
 
         {/* Bottom Actions */}
         <div className="mt-auto p-4 border-t">
+          <div className="flex items-center justify-between px-3 py-2 mb-2">
+            {!collapsed && <span className="text-sm text-muted-foreground">Tema</span>}
+            <ThemeToggle />
+          </div>
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
