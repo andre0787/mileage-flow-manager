@@ -3,25 +3,16 @@ import { Plus, CreditCard, Eye, EyeOff, Edit, Trash2, Filter } from "lucide-reac
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Switch } from "@/components/ui/switch";
 import { useData } from "@/contexts/DataContext";
+import AccountDialog from "@/components/AccountDialog";
+import type { Account } from "@/types";
 
 export default function Contas() {
-  const { accounts, owners, programs, addAccount, updateAccount, deleteAccount } = useData();
+  const { accounts, owners, programs, updateAccount, deleteAccount } = useData();
   const [filterType, setFilterType] = useState<"todas" | "pontos" | "milhas">("todas");
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const [newAccount, setNewAccount] = useState({
-    name: "",
-    ownerId: "",
-    programId: "",
-    type: "milhas" as "pontos" | "milhas",
-    status: "ativa" as "ativa" | "inativa",
-  });
-  const [accountErrors, setAccountErrors] = useState<Partial<Record<"name" | "ownerId" | "programId", string>>>({});
+  const [editAccount, setEditAccount] = useState<Account | undefined>(undefined);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   const filteredAccounts = filterType === "todas"
     ? accounts
@@ -29,30 +20,6 @@ export default function Contas() {
 
   const ownerName = (id: string) => owners.find(o => o.id === id)?.name ?? id;
   const programName = (id: string) => programs.find(p => p.id === id)?.name ?? id;
-
-  const validateAccount = () => {
-    const errors: Partial<Record<"name" | "ownerId" | "programId", string>> = {};
-    if (!newAccount.name.trim()) errors.name = "Nome é obrigatório";
-    if (!newAccount.ownerId) errors.ownerId = "Selecione um dono";
-    if (!newAccount.programId) errors.programId = "Selecione um programa";
-    setAccountErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  const handleCreateAccount = () => {
-    if (!validateAccount()) return;
-    addAccount({
-      name: newAccount.name,
-      ownerId: newAccount.ownerId,
-      programId: newAccount.programId,
-      type: newAccount.type,
-      balance: 0,
-      status: newAccount.status,
-    });
-    setNewAccount({ name: "", ownerId: "", programId: "", type: "milhas", status: "ativa" });
-    setAccountErrors({});
-    setIsCreateDialogOpen(false);
-  };
 
   const toggleAccountStatus = (id: string) => {
     const account = accounts.find(a => a.id === id);
@@ -71,82 +38,24 @@ export default function Contas() {
           </p>
         </div>
 
-        <Dialog open={isCreateDialogOpen} onOpenChange={(open) => { setIsCreateDialogOpen(open); if (!open) setAccountErrors({}); }}>
-          <DialogTrigger asChild>
-            <Button className="gap-2 bg-gradient-primary hover:opacity-90">
-              <Plus className="h-4 w-4" />
-              Nova Conta
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>Criar Nova Conta</DialogTitle>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Nome da Conta</Label>
-                <Input id="name" value={newAccount.name} onChange={(e) => { setNewAccount({...newAccount, name: e.target.value}); setAccountErrors(prev => ({...prev, name: ""})); }} placeholder="Ex: Conta Principal LATAM" />
-                {accountErrors.name && <p className="text-xs text-destructive">{accountErrors.name}</p>}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="accountType">Tipo de Conta</Label>
-                <Select value={newAccount.type} onValueChange={(value) => setNewAccount({...newAccount, type: value as "pontos" | "milhas"})}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione o tipo" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="pontos">Pontos</SelectItem>
-                    <SelectItem value="milhas">Milhas</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="owner">Dono da Conta</Label>
-                <Select value={newAccount.ownerId} onValueChange={(value) => { setNewAccount({...newAccount, ownerId: value}); setAccountErrors(prev => ({...prev, ownerId: ""})); }}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione o dono" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {owners.map((owner) => (
-                      <SelectItem key={owner.id} value={owner.id}>{owner.name}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {accountErrors.ownerId && <p className="text-xs text-destructive">{accountErrors.ownerId}</p>}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="program">Programa</Label>
-                <Select value={newAccount.programId} onValueChange={(value) => { setNewAccount({...newAccount, programId: value}); setAccountErrors(prev => ({...prev, programId: ""})); }}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione o programa" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {programs.map((program) => (
-                      <SelectItem key={program.id} value={program.id}>
-                        {program.name} ({program.type === "pontos" ? "Pontos" : "Milhas"})
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {accountErrors.programId && <p className="text-xs text-destructive">{accountErrors.programId}</p>}
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <Switch id="status" checked={newAccount.status === "ativa"} onCheckedChange={(checked) => setNewAccount({...newAccount, status: checked ? "ativa" : "inativa"})} />
-                <Label htmlFor="status">Conta Ativa</Label>
-              </div>
-            </div>
-
-            <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>Cancelar</Button>
-              <Button onClick={handleCreateAccount} className="bg-gradient-primary hover:opacity-90">Criar Conta</Button>
-            </div>
-          </DialogContent>
-        </Dialog>
+        <Button className="gap-2 bg-gradient-primary hover:opacity-90" onClick={() => setIsCreateDialogOpen(true)}>
+          <Plus className="h-4 w-4" />
+          Nova Conta
+        </Button>
       </div>
+
+      <AccountDialog
+        mode="create"
+        open={isCreateDialogOpen}
+        onOpenChange={(open) => { setIsCreateDialogOpen(open); }}
+      />
+
+      <AccountDialog
+        mode="edit"
+        account={editAccount}
+        open={isEditDialogOpen}
+        onOpenChange={(open) => { setIsEditDialogOpen(open); if (!open) setEditAccount(undefined); }}
+      />
 
       {/* Filter */}
       <div className="flex items-center gap-2">
@@ -211,7 +120,7 @@ export default function Contas() {
                 <Button size="sm" variant="outline" onClick={() => toggleAccountStatus(account.id)} className="flex-1">
                   {account.status === "ativa" ? "Desativar" : "Ativar"}
                 </Button>
-                <Button size="sm" variant="outline" className="px-3">
+                <Button size="sm" variant="outline" className="px-3" onClick={() => { setEditAccount(account); setIsEditDialogOpen(true); }}>
                   <Edit className="h-4 w-4" />
                 </Button>
                 <Button size="sm" variant="outline" className="px-3 text-destructive hover:text-destructive" onClick={() => deleteAccount(account.id)}>
