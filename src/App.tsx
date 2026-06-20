@@ -37,19 +37,19 @@ const App = () => (
                   </div>
                 </header>
                 <main className="flex-1 p-4 md:p-6 bg-background">
-                  <DataProvider>
-                    <Routes>
-                      <Route path="/" element={<Dashboard />} />
-                      <Route path="/contas" element={<Contas />} />
-                      <Route path="/clientes" element={<Clientes />} />
-                      <Route path="/entradas" element={<Entradas />} />
-                      <Route path="/vendas" element={<Vendas />} />
-                      <Route path="/cpf" element={<ControleCPF />} />
-                      <Route path="/relatorios" element={<Relatorios />} />
-                      <Route path="/configuracoes" element={<Configuracoes />} />
-                      <Route path="*" element={<NotFound />} />
-                    </Routes>
-                  </DataProvider>
+                <DataProvider>
+                  <Routes>
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/contas" element={<Contas />} />
+                    <Route path="/clientes" element={<Clientes />} />
+                    <Route path="/entradas" element={<Entradas />} />
+                    <Route path="/vendas" element={<Vendas />} />
+                    <Route path="/cpf" element={<ControleCPF />} />
+                    <Route path="/relatorios" element={<Relatorios />} />
+                    <Route path="/configuracoes" element={<Configuracoes />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </DataProvider>
                 </main>
               </div>
             </div>
