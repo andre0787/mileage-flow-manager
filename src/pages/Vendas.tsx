@@ -1,69 +1,48 @@
-import { useState } from "react";
-import { Plus, TrendingDown, DollarSign, Users } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Plus, TrendingDown, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Textarea } from "@/components/ui/textarea";
 import { useData } from "@/contexts/DataContext";
-
-interface Sale {
-  id: number;
-  ownerName: string;
-  accountName: string;
-  program: string;
-  clientId: string;
-  clientName: string;
-  milesUsed: number;
-  saleValue: number;
-  costPerMile: number;
-  profit: number;
-  profitMargin: number;
-  status: "pendente" | "pago" | "concluido";
-  ticketLocator: string;
-  passengers: { name: string; cpf: string }[];
-  date: string;
-}
+import type { Sale } from "@/types";
 
 interface StockInfo {
+  accountId: string;
+  ownerId: string;
   ownerName: string;
+  accountName: string;
   program: string;
   availableMiles: number;
   averageCostPerMile: number;
 }
 
 export default function Vendas() {
-  const { clients } = useData();
+  const { clients, accounts, owners, programs, sales, addSale, updateSale, addClient } = useData();
 
-  const [sales, setSales] = useState<Sale[]>([
-    {
-      id: 1,
-      ownerName: "João Silva",
-      accountName: "Conta Principal LATAM",
-      program: "LATAM Pass",
-      clientId: "1",
-      clientName: "Carlos Mendes",
-      milesUsed: 50000,
-      saleValue: 300,
-      costPerMile: 0.0045,
-      profit: 75,
-      profitMargin: 25,
-      status: "concluido",
-      ticketLocator: "ABC123",
-      passengers: [{ name: "Carlos Mendes", cpf: "123.456.789-00" }],
-      date: "2024-01-20"
-    }
-  ]);
+  const stockInfo = useMemo(() => {
+    return accounts
+      .filter(a => a.type === "milhas" && a.status === "ativa")
+      .map(a => ({
+        accountId: a.id,
+        ownerId: a.ownerId,
+        ownerName: owners.find(o => o.id === a.ownerId)?.name ?? "",
+        accountName: a.name,
+        program: programs.find(p => p.id === a.programId)?.name ?? "",
+        availableMiles: a.balance,
+        averageCostPerMile: a.averageCostPerMile ?? 0
+      }));
+  }, [accounts, owners, programs]);
 
-  const [stockInfo] = useState<StockInfo[]>([
-    { ownerName: "João Silva", program: "LATAM Pass", availableMiles: 400000, averageCostPerMile: 0.0045 },
-    { ownerName: "Maria Santos", program: "Smiles", availableMiles: 64000, averageCostPerMile: 0.005625 },
-    { ownerName: "João Silva", program: "Livelo", availableMiles: 80000, averageCostPerMile: 0.005 }
-  ]);
+  const createEmptyPassenger = () => ({
+    name: "",
+    passengerId: crypto.randomUUID(),
+    cpf: "",
+    clientId: undefined as string | undefined
+  });
 
   const [newSale, setNewSale] = useState({
     ownerName: "",
@@ -72,30 +51,75 @@ export default function Vendas() {
     clientId: "",
     clientName: "",
     milesUsed: "",
+    pricePerMile: "",
     saleValue: "",
+    additionalCost: "",
+    additionalCostDesc: "",
     ticketLocator: "",
-    passengers: [{ name: "", cpf: "" }]
+    passengers: [createEmptyPassenger()]
   });
 
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isClientDialogOpen, setIsClientDialogOpen] = useState(false);
+  const [newClient, setNewClient] = useState({
+    name: "",
+    cpf: "",
+    email: "",
+    phone: "",
+    telegram: ""
+  });
 
-  const owners = [...new Set(stockInfo.map(s => s.ownerName))];
+  const ownersList = [...new Set(stockInfo.map(s => s.ownerName))];
   const selectedOwnerStock = stockInfo.filter(s => s.ownerName === newSale.ownerName);
   const selectedProgramStock = stockInfo.find(s => 
     s.ownerName === newSale.ownerName && s.program === newSale.program
   );
 
+  const formatCPF = (cpf: string) => {
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  };
+
+  const [clientErrors, setClientErrors] = useState<Partial<Record<string, string>>>({});
+
+  const handleCreateClient = () => {
+    const errs: Partial<Record<string, string>> = {};
+    if (!newClient.name.trim()) errs.name = "Nome é obrigatório";
+    setClientErrors(errs);
+    if (Object.keys(errs).length > 0) return;
+
+    const id = crypto.randomUUID();
+    addClient({
+      name: newClient.name.trim(),
+      cpf: newClient.cpf,
+      email: newClient.email.trim(),
+      phone: newClient.phone,
+      telegram: newClient.telegram,
+      totalPurchases: 0,
+      usageHistory: []
+    }, id);
+
+    setNewSale({
+      ...newSale,
+      clientId: id,
+      clientName: newClient.name.trim()
+    });
+
+    setNewClient({ name: "", cpf: "", email: "", phone: "", telegram: "" });
+    setClientErrors({});
+    setIsClientDialogOpen(false);
+  };
+
   const handleCreateSale = () => {
     if (newSale.ownerName && newSale.program && newSale.clientId && newSale.milesUsed && newSale.saleValue) {
       const milesUsed = parseFloat(newSale.milesUsed);
       const saleValue = parseFloat(newSale.saleValue);
+      const additionalCost = parseFloat(newSale.additionalCost || "0");
       const costPerMile = selectedProgramStock?.averageCostPerMile || 0;
       const totalCost = milesUsed * costPerMile;
-      const profit = saleValue - totalCost;
-      const profitMargin = (profit / saleValue) * 100;
+      const profit = saleValue - totalCost - additionalCost;
+      const profitMargin = saleValue > 0 ? (profit / saleValue) * 100 : 0;
 
-      const sale: Sale = {
-        id: Date.now(),
+      addSale({
         ownerName: newSale.ownerName,
         accountName: newSale.accountName,
         program: newSale.program,
@@ -103,16 +127,17 @@ export default function Vendas() {
         clientName: newSale.clientName,
         milesUsed,
         saleValue,
+        pricePerMile: parseFloat(newSale.pricePerMile || "0") || undefined,
+        additionalCost: additionalCost || undefined,
+        additionalCostDesc: newSale.additionalCostDesc.trim() || undefined,
         costPerMile,
         profit,
         profitMargin,
         status: "pendente",
         ticketLocator: newSale.ticketLocator,
-        passengers: newSale.passengers.filter(p => p.name && p.cpf),
+        passengers: newSale.passengers.filter(p => p.name || p.passengerId),
         date: new Date().toISOString().split('T')[0]
-      };
-
-      setSales([...sales, sale]);
+      });
       setNewSale({
         ownerName: "",
         accountName: "",
@@ -120,9 +145,12 @@ export default function Vendas() {
         clientId: "",
         clientName: "",
         milesUsed: "",
+        pricePerMile: "",
         saleValue: "",
+        additionalCost: "",
+        additionalCostDesc: "",
         ticketLocator: "",
-        passengers: [{ name: "", cpf: "" }]
+        passengers: [createEmptyPassenger()]
       });
       setIsCreateDialogOpen(false);
     }
@@ -131,7 +159,7 @@ export default function Vendas() {
   const addPassenger = () => {
     setNewSale({
       ...newSale,
-      passengers: [...newSale.passengers, { name: "", cpf: "" }]
+      passengers: [...newSale.passengers, createEmptyPassenger()]
     });
   };
 
@@ -151,10 +179,8 @@ export default function Vendas() {
     }
   };
 
-  const updateSaleStatus = (id: number, status: Sale['status']) => {
-    setSales(sales.map(sale => 
-      sale.id === id ? { ...sale, status } : sale
-    ));
+  const updateSaleStatus = (id: string, status: Sale['status']) => {
+    updateSale(id, { status });
   };
 
   const totalRevenue = sales.reduce((sum, sale) => sum + sale.saleValue, 0);
@@ -194,7 +220,7 @@ export default function Vendas() {
                       <SelectValue placeholder="Selecione o dono" />
                     </SelectTrigger>
                     <SelectContent>
-                      {owners.map((owner) => (
+                      {ownersList.map((owner) => (
                         <SelectItem key={owner} value={owner}>{owner}</SelectItem>
                       ))}
                     </SelectContent>
@@ -240,29 +266,36 @@ export default function Vendas() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="client">Cliente</Label>
-                  <Select
-                    value={newSale.clientId}
-                    onValueChange={(value) => {
-                      const client = clients.find(c => c.id === value);
-                      setNewSale({
-                        ...newSale,
-                        clientId: value,
-                        clientName: client?.name || ""
-                      });
-                    }}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selecione o cliente" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {clients.map((client) => (
-                        <SelectItem key={client.id} value={client.id}>
-                          {client.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <Label>Cliente</Label>
+                  <div className="flex gap-2">
+                    <div className="flex-1">
+                      <Select
+                        value={newSale.clientId}
+                        onValueChange={(value) => {
+                          const client = clients.find(c => c.id === value);
+                          setNewSale({
+                            ...newSale,
+                            clientId: value,
+                            clientName: client?.name || ""
+                          });
+                        }}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione o cliente" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {clients.map((client) => (
+                            <SelectItem key={client.id} value={client.id}>
+                              {client.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <Button variant="outline" size="icon" onClick={() => setIsClientDialogOpen(true)} title="Novo cliente">
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
 
                 <div className="space-y-2">
@@ -276,20 +309,51 @@ export default function Vendas() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="miles">Milhas Utilizadas</Label>
                   <Input
                     id="miles"
                     type="number"
                     value={newSale.milesUsed}
-                    onChange={(e) => setNewSale({...newSale, milesUsed: e.target.value})}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val && newSale.pricePerMile) {
+                        setNewSale({...newSale, milesUsed: val, saleValue: (parseFloat(val) * parseFloat(newSale.pricePerMile)).toFixed(2)});
+                      } else {
+                        setNewSale({...newSale, milesUsed: val});
+                      }
+                    }}
                     placeholder="Ex: 50000"
                     max={selectedProgramStock?.availableMiles}
                   />
+                  {selectedProgramStock && (
+                    <p className="text-xs text-muted-foreground">
+                      Estoque: {selectedProgramStock.availableMiles.toLocaleString('pt-BR')} milhas
+                    </p>
+                  )}
                   {newSale.milesUsed && selectedProgramStock && parseFloat(newSale.milesUsed) > selectedProgramStock.availableMiles && (
                     <p className="text-xs text-destructive">Quantidade superior ao estoque disponível</p>
                   )}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="pricePerMile">Valor por Milha (R$)</Label>
+                  <Input
+                    id="pricePerMile"
+                    type="number"
+                    step="0.0001"
+                    value={newSale.pricePerMile}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val && newSale.milesUsed) {
+                        setNewSale({...newSale, pricePerMile: val, saleValue: (parseFloat(val) * parseFloat(newSale.milesUsed)).toFixed(2)});
+                      } else {
+                        setNewSale({...newSale, pricePerMile: val});
+                      }
+                    }}
+                    placeholder="Ex: 0.03"
+                  />
                 </div>
 
                 <div className="space-y-2">
@@ -302,24 +366,58 @@ export default function Vendas() {
                     onChange={(e) => setNewSale({...newSale, saleValue: e.target.value})}
                     placeholder="Ex: 300.00"
                   />
+                  {newSale.pricePerMile && newSale.milesUsed && (
+                    <p className="text-xs text-muted-foreground">
+                      {parseFloat(newSale.milesUsed).toLocaleString('pt-BR')} × R$ {parseFloat(newSale.pricePerMile).toFixed(4)}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="additionalCost">Custo Adicional (R$)</Label>
+                  <Input
+                    id="additionalCost"
+                    type="number"
+                    step="0.01"
+                    value={newSale.additionalCost}
+                    onChange={(e) => setNewSale({...newSale, additionalCost: e.target.value})}
+                    placeholder="Ex: 50.00"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="additionalCostDesc">Observação do Custo</Label>
+                  <Input
+                    id="additionalCostDesc"
+                    value={newSale.additionalCostDesc}
+                    onChange={(e) => setNewSale({...newSale, additionalCostDesc: e.target.value})}
+                    placeholder="Ex: Taxa de embarque"
+                  />
                 </div>
               </div>
 
               {newSale.milesUsed && newSale.saleValue && selectedProgramStock && (
                 <div className="p-3 bg-success-light rounded-lg">
                   <h4 className="font-semibold text-sm mb-2">Cálculo de Lucro:</h4>
-                  <div className="grid grid-cols-3 gap-4 text-xs">
+                  <div className="grid grid-cols-4 gap-4 text-xs">
                     <div>
                       <span className="text-muted-foreground">Custo total:</span>
                       <p className="font-semibold">R$ {(parseFloat(newSale.milesUsed) * selectedProgramStock.averageCostPerMile).toFixed(2)}</p>
                     </div>
+                    {newSale.additionalCost && parseFloat(newSale.additionalCost) > 0 && (
+                      <div>
+                        <span className="text-muted-foreground">Custo adicional:</span>
+                        <p className="font-semibold text-destructive">R$ {parseFloat(newSale.additionalCost).toFixed(2)}</p>
+                      </div>
+                    )}
                     <div>
                       <span className="text-muted-foreground">Lucro:</span>
-                      <p className="font-semibold text-success">R$ {(parseFloat(newSale.saleValue) - (parseFloat(newSale.milesUsed) * selectedProgramStock.averageCostPerMile)).toFixed(2)}</p>
+                      <p className="font-semibold text-success">R$ {(parseFloat(newSale.saleValue) - (parseFloat(newSale.milesUsed) * selectedProgramStock.averageCostPerMile) - parseFloat(newSale.additionalCost || "0")).toFixed(2)}</p>
                     </div>
                     <div>
                       <span className="text-muted-foreground">Margem:</span>
-                      <p className="font-semibold">{(((parseFloat(newSale.saleValue) - (parseFloat(newSale.milesUsed) * selectedProgramStock.averageCostPerMile)) / parseFloat(newSale.saleValue)) * 100).toFixed(1)}%</p>
+                      <p className="font-semibold">{(((parseFloat(newSale.saleValue) - (parseFloat(newSale.milesUsed) * selectedProgramStock.averageCostPerMile) - parseFloat(newSale.additionalCost || "0")) / parseFloat(newSale.saleValue)) * 100).toFixed(1)}%</p>
                     </div>
                   </div>
                 </div>
@@ -333,24 +431,64 @@ export default function Vendas() {
                   </Button>
                 </div>
                 {newSale.passengers.map((passenger, index) => (
-                  <div key={index} className="grid grid-cols-2 gap-2">
+                  <div key={index} className="grid grid-cols-[auto_1fr_1fr_1fr_auto] gap-2">
+                    <Select
+                      value={passenger.clientId ?? ""}
+                      onValueChange={(value) => {
+                        if (value === "__manual__") {
+                          const updatedPassengers = newSale.passengers.map((p, i) =>
+                            i === index ? { ...p, clientId: undefined, name: "", cpf: "" } : p
+                          );
+                          setNewSale({ ...newSale, passengers: updatedPassengers });
+                        } else {
+                          const client = clients.find(c => c.id === value);
+                          if (client) {
+                            const updatedPassengers = newSale.passengers.map((p, i) =>
+                              i === index ? {
+                                ...p,
+                                clientId: client.id,
+                                name: client.name,
+                                cpf: client.cpf ?? p.cpf
+                              } : p
+                            );
+                            setNewSale({ ...newSale, passengers: updatedPassengers });
+                          }
+                        }
+                      }}
+                    >
+                      <SelectTrigger className="w-24 text-xs">
+                        <SelectValue placeholder="Cliente" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="__manual__">— Manual —</SelectItem>
+                        {clients.map((client) => (
+                          <SelectItem key={client.id} value={client.id}>
+                            {client.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <Input
                       placeholder="Nome completo"
                       value={passenger.name}
                       onChange={(e) => updatePassenger(index, 'name', e.target.value)}
                     />
-                    <div className="flex gap-2">
-                      <Input
-                        placeholder="CPF"
-                        value={passenger.cpf}
-                        onChange={(e) => updatePassenger(index, 'cpf', e.target.value)}
-                      />
-                      {newSale.passengers.length > 1 && (
-                        <Button type="button" size="sm" variant="outline" onClick={() => removePassenger(index)}>
-                          ×
-                        </Button>
-                      )}
-                    </div>
+                    <Input
+                      placeholder="ID Passageiro"
+                      value={passenger.passengerId}
+                      disabled
+                      className="bg-muted/30 text-muted-foreground text-xs"
+                    />
+                    <Input
+                      placeholder="CPF"
+                      value={passenger.cpf}
+                      onChange={(e) => updatePassenger(index, 'cpf', e.target.value)}
+                    />
+                    {newSale.passengers.length > 1 && (
+                      <Button type="button" size="sm" variant="outline" onClick={() => removePassenger(index)}>
+                        ×
+                      </Button>
+                    )}
                   </div>
                 ))}
               </div>
@@ -363,9 +501,78 @@ export default function Vendas() {
               <Button 
                 onClick={handleCreateSale} 
                 className="bg-gradient-primary hover:opacity-90"
-                disabled={!newSale.milesUsed || !selectedProgramStock || parseFloat(newSale.milesUsed) > selectedProgramStock.availableMiles}
+                disabled={!newSale.ownerName || !newSale.program || !newSale.clientId || !newSale.milesUsed || !newSale.saleValue || !selectedProgramStock || parseFloat(newSale.milesUsed) > selectedProgramStock.availableMiles}
               >
                 Registrar Venda
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={isClientDialogOpen} onOpenChange={(open) => { setIsClientDialogOpen(open); if (!open) setClientErrors({}); }}>
+          <DialogContent className="sm:max-w-[350px]">
+            <DialogHeader>
+              <DialogTitle>Novo Cliente</DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="space-y-2">
+                <Label>Nome Completo</Label>
+                <Input
+                  value={newClient.name}
+                  onChange={(e) => { setNewClient({...newClient, name: e.target.value}); setClientErrors(p => ({...p, name: ""})); }}
+                  placeholder="Digite o nome completo"
+                />
+                {clientErrors.name && <p className="text-xs text-destructive">{clientErrors.name}</p>}
+              </div>
+
+              <div className="space-y-2">
+                <Label>CPF</Label>
+                <Input
+                  value={newClient.cpf}
+                  onChange={(e) => {
+                    const numbers = e.target.value.replace(/\D/g, "").slice(0, 11);
+                    const formatted = formatCPF(numbers);
+                    setNewClient({...newClient, cpf: formatted});
+                  }}
+                  placeholder="000.000.000-00"
+                  maxLength={14}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>E-mail</Label>
+                <Input
+                  type="email"
+                  value={newClient.email}
+                  onChange={(e) => setNewClient({...newClient, email: e.target.value})}
+                  placeholder="cliente@email.com"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Telefone</Label>
+                <Input
+                  value={newClient.phone}
+                  onChange={(e) => setNewClient({...newClient, phone: e.target.value})}
+                  placeholder="(11) 99999-9999"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Contato Telegram</Label>
+                <Input
+                  value={newClient.telegram}
+                  onChange={(e) => setNewClient({...newClient, telegram: e.target.value})}
+                  placeholder="@usuario"
+                />
+              </div>
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => { setIsClientDialogOpen(false); setClientErrors({}); }}>
+                Cancelar
+              </Button>
+              <Button onClick={handleCreateClient} className="bg-gradient-primary hover:opacity-90">
+                Cadastrar
               </Button>
             </div>
           </DialogContent>
@@ -459,7 +666,7 @@ export default function Vendas() {
                   <TableCell>
                     <Select 
                       value={sale.status} 
-                      onValueChange={(value) => updateSaleStatus(sale.id, value as Sale['status'])}
+                      onValueChange={(value) => updateSaleStatus(sale.id, value as "pendente" | "pago" | "concluido")}
                     >
                       <SelectTrigger className="w-28">
                         <span className={`h-2 w-2 rounded-full ${sale.status === 'pendente' ? 'bg-warning' : sale.status === 'pago' ? 'bg-primary' : 'bg-success'}`} />

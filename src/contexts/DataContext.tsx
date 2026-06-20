@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
 
 interface DataContextType {
@@ -21,7 +21,7 @@ interface DataContextType {
   deleteProgram: (id: string) => void
 
   // Origem Types
-  addOrigemType: (data: Omit<OrigemType, "id">) => void
+  addOrigemType: (data: Omit<OrigemType, "id">, id?: string) => void
   updateOrigemType: (id: string, data: Partial<OrigemType>) => void
   deleteOrigemType: (id: string) => void
 
@@ -40,65 +40,62 @@ interface DataContextType {
   deleteSale: (id: string) => void
 
   // Clients
-  addClient: (data: Omit<Client, "id">) => void
+  addClient: (data: Omit<Client, "id">, id?: string) => void
   updateClient: (id: string, data: Partial<Client>) => void
   deleteClient: (id: string) => void
 }
 
 const DataContext = createContext<DataContextType | null>(null);
 
-const initialOwners: Owner[] = [
-  { id: "1", name: "João Silva", cpf: "123.456.789-00", phone: "(11) 99999-9999" },
-  { id: "2", name: "Maria Santos", cpf: "987.654.321-00", phone: "(11) 88888-8888" },
-  { id: "3", name: "Pedro Costa", cpf: "456.789.123-00", phone: "(11) 77777-7777" },
-];
+const STORAGE_PREFIX = "mc-";
 
-const initialPrograms: Program[] = [
-  { id: "1", name: "LATAM Pass", type: "milhas" },
-  { id: "2", name: "Smiles", type: "milhas" },
-  { id: "3", name: "Livelo", type: "pontos" },
-  { id: "4", name: "Esfera", type: "pontos" },
-];
+function loadFromStorage<T>(key: string, fallback: T): T {
+  try {
+    const saved = localStorage.getItem(STORAGE_PREFIX + key);
+    return saved ? JSON.parse(saved) : fallback;
+  } catch {
+    return fallback;
+  }
+}
 
-const initialOrigemTypes: OrigemType[] = [
-  { id: "1", name: "Cartão de Crédito", accountType: "pontos", color: "#3b82f6" },
-  { id: "2", name: "Clube de Pontos", accountType: "pontos", color: "#8b5cf6" },
-  { id: "3", name: "Compra Direta", accountType: "milhas", color: "#10b981" },
-  { id: "4", name: "Transferência", accountType: "milhas", color: "#f59e0b" },
-  { id: "5", name: "Bonificação", accountType: "milhas", color: "#ef4444" },
-  { id: "6", name: "Promoção", accountType: "milhas", color: "#06b6d4" },
-];
+function persistToStorage<T>(key: string, data: T): void {
+  try {
+    localStorage.setItem(STORAGE_PREFIX + key, JSON.stringify(data));
+  } catch {
+    // localStorage may be full or unavailable
+  }
+}
 
-const initialAccounts: Account[] = [
-  { id: "1", name: "Conta Principal LATAM", ownerId: "1", programId: "1", type: "milhas", balance: 400000, averageCostPerMile: 0.0045, totalInvested: 1800, status: "ativa", createdAt: "2024-01-01" },
-  { id: "2", name: "Smiles Premium", ownerId: "2", programId: "2", type: "milhas", balance: 64000, averageCostPerMile: 0.005625, totalInvested: 360, status: "ativa", createdAt: "2024-01-01" },
-  { id: "3", name: "Livelo Gold", ownerId: "1", programId: "3", type: "milhas", balance: 80000, averageCostPerMile: 0.005, totalInvested: 400, status: "ativa", createdAt: "2024-01-01" },
-  { id: "4", name: "Esfera Black", ownerId: "3", programId: "4", type: "milhas", balance: 0, averageCostPerMile: 0.006, totalInvested: 0, status: "inativa", createdAt: "2024-01-01" },
-];
+const initialOwners: Owner[] = [];
 
-const initialEntries: PointEntry[] = [
-  { id: "1", accountId: "1", origemTypeId: "3", amount: 100000, amountPaid: 450, costPerThousand: 4.5, conversionRate: 1.0, milesGenerated: 100000, costPerMile: 0.0045, date: "2024-01-15" },
-  { id: "2", accountId: "2", origemTypeId: "2", amount: 80000, amountPaid: 360, costPerThousand: 4.5, conversionRate: 0.8, milesGenerated: 64000, costPerMile: 0.005625, date: "2024-01-16" },
-];
+const initialPrograms: Program[] = [];
 
-const initialClients: Client[] = [
-  { id: "1", name: "João Silva", cpf: "123.456.789-00", email: "joao.silva@email.com", phone: "(11) 99999-9999", totalPurchases: 5, usageHistory: [{ program: "LATAM Pass", count: 3, year: 2024 }, { program: "Smiles", count: 2, year: 2024 }] },
-  { id: "2", name: "Maria Santos", cpf: "987.654.321-00", email: "maria.santos@email.com", phone: "(11) 88888-8888", totalPurchases: 8, usageHistory: [{ program: "LATAM Pass", count: 4, year: 2024 }, { program: "Livelo", count: 3, year: 2024 }, { program: "Smiles", count: 1, year: 2024 }] },
-  { id: "3", name: "Pedro Costa", cpf: "456.789.123-00", email: "pedro.costa@email.com", phone: "(11) 77777-7777", totalPurchases: 3, usageHistory: [{ program: "Livelo", count: 2, year: 2024 }, { program: "Esfera", count: 1, year: 2024 }] },
-];
+const initialOrigemTypes: OrigemType[] = [];
 
-const initialSales: Sale[] = [
-  { id: "1", accountId: "1", clientId: "1", clientName: "Carlos Mendes", milesUsed: 50000, saleValue: 300, costPerMile: 0.0045, profit: 75, profitMargin: 25, status: "concluido", ticketLocator: "ABC123", passengers: [{ name: "Carlos Mendes", cpf: "123.456.789-00" }], date: "2024-01-20" },
-];
+const initialAccounts: Account[] = [];
+
+const initialEntries: PointEntry[] = [];
+
+const initialClients: Client[] = [];
+
+const initialSales: Sale[] = [];
 
 export function DataProvider({ children }: { children: ReactNode }) {
-  const [owners, setOwners] = useState<Owner[]>(initialOwners);
-  const [programs, setPrograms] = useState<Program[]>(initialPrograms);
-  const [origemTypes, setOrigemTypes] = useState<OrigemType[]>(initialOrigemTypes);
-  const [accounts, setAccounts] = useState<Account[]>(initialAccounts);
-  const [entries, setEntries] = useState<PointEntry[]>(initialEntries);
-  const [sales, setSales] = useState<Sale[]>(initialSales);
-  const [clients, setClients] = useState<Client[]>(initialClients);
+  const [owners, setOwners] = useState<Owner[]>(() => loadFromStorage("owners", initialOwners));
+  const [programs, setPrograms] = useState<Program[]>(() => loadFromStorage("programs", initialPrograms));
+  const [origemTypes, setOrigemTypes] = useState<OrigemType[]>(() => loadFromStorage("origemTypes", initialOrigemTypes));
+  const [accounts, setAccounts] = useState<Account[]>(() => loadFromStorage("accounts", initialAccounts));
+  const [entries, setEntries] = useState<PointEntry[]>(() => loadFromStorage("entries", initialEntries));
+  const [sales, setSales] = useState<Sale[]>(() => loadFromStorage("sales", initialSales));
+  const [clients, setClients] = useState<Client[]>(() => loadFromStorage("clients", initialClients));
+
+  useEffect(() => { persistToStorage("owners", owners); }, [owners]);
+  useEffect(() => { persistToStorage("programs", programs); }, [programs]);
+  useEffect(() => { persistToStorage("origemTypes", origemTypes); }, [origemTypes]);
+  useEffect(() => { persistToStorage("accounts", accounts); }, [accounts]);
+  useEffect(() => { persistToStorage("entries", entries); }, [entries]);
+  useEffect(() => { persistToStorage("sales", sales); }, [sales]);
+  useEffect(() => { persistToStorage("clients", clients); }, [clients]);
 
   const addOwner = (data: Omit<Owner, "id">) =>
     setOwners(prev => [...prev, { id: crypto.randomUUID(), ...data }]);
@@ -118,8 +115,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const deleteProgram = (id: string) =>
     setPrograms(prev => prev.filter(p => p.id !== id));
 
-  const addOrigemType = (data: Omit<OrigemType, "id">) =>
-    setOrigemTypes(prev => [...prev, { id: crypto.randomUUID(), ...data }]);
+  const addOrigemType = (data: Omit<OrigemType, "id">, id?: string) =>
+    setOrigemTypes(prev => [...prev, { id: id ?? crypto.randomUUID(), ...data }]);
 
   const updateOrigemType = (id: string, data: Partial<OrigemType>) =>
     setOrigemTypes(prev => prev.map(o => o.id === id ? { ...o, ...data } : o));
@@ -140,11 +137,71 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const deleteAccount = (id: string) =>
     setAccounts(prev => prev.filter(a => a.id !== id));
 
-  const addEntry = (data: Omit<PointEntry, "id">) =>
-    setEntries(prev => [...prev, { id: crypto.randomUUID(), ...data }]);
+  const addEntry = (data: Omit<PointEntry, "id">) => {
+    const entry = { id: crypto.randomUUID(), ...data };
+    setEntries(prev => [...prev, entry]);
+    setAccounts(prev => prev.map(acc => {
+      if (acc.id !== entry.accountId) return acc;
+      const amountToAdd = entry.milesGenerated ?? entry.amount;
+      const newBalance = acc.balance + amountToAdd;
+      const newTotalInvested = (acc.totalInvested ?? 0) + entry.amountPaid;
+      return {
+        ...acc,
+        balance: newBalance,
+        totalInvested: newTotalInvested,
+        averageCostPerMile: newBalance > 0 ? newTotalInvested / newBalance : acc.averageCostPerMile,
+      };
+    }));
+    if (entry.sourceAccountId) {
+      setAccounts(prev => prev.map(acc => {
+        if (acc.id !== entry.sourceAccountId) return acc;
+        const avgCost = acc.balance > 0 ? (acc.totalInvested ?? 0) / acc.balance : 0;
+        const costToRemove = entry.amount * avgCost;
+        const newBalance = Math.max(0, acc.balance - entry.amount);
+        const newTotalInvested = Math.max(0, (acc.totalInvested ?? 0) - costToRemove);
+        return {
+          ...acc,
+          balance: newBalance,
+          totalInvested: newTotalInvested,
+          averageCostPerMile: newBalance > 0 ? newTotalInvested / newBalance : 0,
+        };
+      }));
+    }
+  };
 
-  const deleteEntry = (id: string) =>
+  const deleteEntry = (id: string) => {
+    const entry = entries.find(e => e.id === id);
     setEntries(prev => prev.filter(e => e.id !== id));
+    if (entry) {
+      setAccounts(prev => prev.map(acc => {
+        if (acc.id !== entry.accountId) return acc;
+        const amountToRemove = entry.milesGenerated ?? entry.amount;
+        const newBalance = Math.max(0, acc.balance - amountToRemove);
+        const newTotalInvested = Math.max(0, (acc.totalInvested ?? 0) - entry.amountPaid);
+        return {
+          ...acc,
+          balance: newBalance,
+          totalInvested: newTotalInvested,
+          averageCostPerMile: newBalance > 0 ? newTotalInvested / newBalance : 0,
+        };
+      }));
+      if (entry.sourceAccountId) {
+        setAccounts(prev => prev.map(acc => {
+          if (acc.id !== entry.sourceAccountId) return acc;
+          const avgCostAtTransfer = entry.amount > 0 ? entry.amountPaid / entry.amount : 0;
+          const costToRestore = entry.amount * avgCostAtTransfer;
+          const newBalance = acc.balance + entry.amount;
+          const newTotalInvested = (acc.totalInvested ?? 0) + costToRestore;
+          return {
+            ...acc,
+            balance: newBalance,
+            totalInvested: newTotalInvested,
+            averageCostPerMile: newBalance > 0 ? newTotalInvested / newBalance : 0,
+          };
+        }));
+      }
+    }
+  };
 
   const addSale = (data: Omit<Sale, "id">) =>
     setSales(prev => [...prev, { id: crypto.randomUUID(), ...data }]);
@@ -155,8 +212,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const deleteSale = (id: string) =>
     setSales(prev => prev.filter(s => s.id !== id));
 
-  const addClient = (data: Omit<Client, "id">) =>
-    setClients(prev => [...prev, { id: crypto.randomUUID(), ...data }]);
+  const addClient = (data: Omit<Client, "id">, id?: string) =>
+    setClients(prev => [...prev, { id: id ?? crypto.randomUUID(), ...data }]);
 
   const updateClient = (id: string, data: Partial<Client>) =>
     setClients(prev => prev.map(c => c.id === id ? { ...c, ...data } : c));
