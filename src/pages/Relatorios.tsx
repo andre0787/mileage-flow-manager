@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BarChart3, TrendingUp, Download, Calendar, Filter } from "lucide-react";
+import { BarChart3, TrendingUp, Download, Calendar, Filter, AlertTriangle, Lightbulb, Award, TrendingDown } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -351,7 +351,7 @@ export default function Relatorios() {
         <CardContent>
           <div className="space-y-4">
             <div className="p-4 bg-success-light rounded-lg">
-              <h4 className="font-semibold text-success mb-2">✓ Melhor Performance</h4>
+              <h4 className="font-semibold text-success mb-2 flex items-center gap-2"><Award className="h-4 w-4 text-success" /> Melhor Performance</h4>
               <p className="text-sm">
                 {ownerReports.sort((a, b) => b.roi - a.roi)[0]?.ownerName} apresenta o melhor ROI 
                 ({ownerReports.sort((a, b) => b.roi - a.roi)[0]?.roi.toFixed(1)}%)
@@ -359,7 +359,7 @@ export default function Relatorios() {
             </div>
             
             <div className="p-4 bg-warning-light rounded-lg">
-              <h4 className="font-semibold text-warning mb-2">⚠ Atenção</h4>
+              <h4 className="font-semibold text-warning mb-2 flex items-center gap-2"><AlertTriangle className="h-4 w-4 text-warning" /> Atenção</h4>
               <p className="text-sm">
                 Programa {programReports.sort((a, b) => a.profit - b.profit)[0]?.program} 
                 com menor lucratividade. Considere revisar estratégia de preços.
@@ -367,7 +367,7 @@ export default function Relatorios() {
             </div>
             
             <div className="p-4 bg-muted/30 rounded-lg">
-              <h4 className="font-semibold mb-2">📊 Oportunidades</h4>
+              <h4 className="font-semibold mb-2 flex items-center gap-2"><Lightbulb className="h-4 w-4 text-primary" /> Oportunidades</h4>
               <p className="text-sm">
                 Estoque total de {metrics.totalStock.toLocaleString('pt-BR')} milhas disponível. 
                 Considere campanhas promocionais para acelerar vendas.

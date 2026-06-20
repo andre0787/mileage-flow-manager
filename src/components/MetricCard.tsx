@@ -11,6 +11,7 @@ interface MetricCardProps {
     isPositive: boolean;
   };
   variant?: "default" | "success" | "warning";
+  sparklineData?: number[];
 }
 
 export function MetricCard({ 
@@ -19,7 +20,8 @@ export function MetricCard({
   subtitle, 
   icon: Icon, 
   trend, 
-  variant = "default" 
+  variant = "default",
+  sparklineData
 }: MetricCardProps) {
   const getVariantClasses = () => {
     switch (variant) {
@@ -66,6 +68,29 @@ export function MetricCard({
             <span className="text-xs text-muted-foreground ml-1">
               vs. mês anterior
             </span>
+          </div>
+        )}
+        {sparklineData && (
+          <div className="mt-3 h-8">
+            <svg viewBox="0 0 100 30" className="w-full h-full" preserveAspectRatio="none">
+              <path
+                d={(function() {
+                  const max = Math.max(...sparklineData);
+                  const min = Math.min(...sparklineData);
+                  const range = max - min || 1;
+                  return sparklineData.map((val, i) => {
+                    const x = (i / (sparklineData.length - 1)) * 100;
+                    const y = 30 - ((val - min) / range) * 25 - 2;
+                    return `${i === 0 ? "M" : "L"}${x},${y}`;
+                  }).join(" ");
+                })()}
+                fill="none"
+                stroke={variant === "success" ? "hsl(142 76% 36%)" : variant === "warning" ? "hsl(38 92% 50%)" : "hsl(221 83% 53%)"}
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </div>
         )}
       </CardContent>

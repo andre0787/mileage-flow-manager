@@ -1,0 +1,485 @@
+import { useState } from "react";
+import { Plus, Edit, Trash2, User, Building2, Settings, Palette } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useData } from "@/contexts/DataContext";
+import type { Owner, Program, OrigemType } from "@/types";
+
+export default function Configuracoes() {
+  const { owners, programs, origemTypes, accounts, addOwner, updateOwner, deleteOwner, addProgram, updateProgram, deleteProgram, addOrigemType, updateOrigemType, deleteOrigemType } = useData();
+
+  // Owner CRUD state
+  const [newOwner, setNewOwner] = useState({ name: "", cpf: "", phone: "" });
+  const [editingOwner, setEditingOwner] = useState<Owner | null>(null);
+  const [isOwnerDialogOpen, setIsOwnerDialogOpen] = useState(false);
+  const [ownerError, setOwnerError] = useState("");
+
+  // Program CRUD state
+  const [newProgram, setNewProgram] = useState({ name: "", type: "milhas" as Program["type"] });
+  const [editingProgram, setEditingProgram] = useState<Program | null>(null);
+  const [isProgramDialogOpen, setIsProgramDialogOpen] = useState(false);
+  const [programError, setProgramError] = useState("");
+
+  // OrigemType CRUD state
+  const [newOrigemType, setNewOrigemType] = useState({ name: "", accountType: "pontos" as OrigemType["accountType"], color: "#3b82f6" });
+  const [editingOrigemType, setEditingOrigemType] = useState<OrigemType | null>(null);
+  const [isOrigemTypeDialogOpen, setIsOrigemTypeDialogOpen] = useState(false);
+  const [origemTypeError, setOrigemTypeError] = useState("");
+
+  const [defaultConversionRate, setDefaultConversionRate] = useState("1.0");
+  const [currency] = useState("BRL");
+
+  const formatCPF = (cpf: string) => {
+    const numbers = cpf.replace(/\D/g, "").slice(0, 11);
+    return numbers.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  };
+
+  const resetOwnerDialog = () => {
+    setNewOwner({ name: "", cpf: "", phone: "" });
+    setEditingOwner(null);
+    setOwnerError("");
+    setIsOwnerDialogOpen(false);
+  };
+
+  const handleSaveOwner = () => {
+    if (!newOwner.name) {
+      setOwnerError("Nome é obrigatório");
+      return;
+    }
+    if (editingOwner) {
+      updateOwner(editingOwner.id, newOwner);
+    } else {
+      addOwner(newOwner);
+    }
+    resetOwnerDialog();
+  };
+
+  const handleEditOwner = (owner: Owner) => {
+    setEditingOwner(owner);
+    setNewOwner({ name: owner.name, cpf: owner.cpf, phone: owner.phone });
+    setIsOwnerDialogOpen(true);
+  };
+
+  const resetProgramDialog = () => {
+    setNewProgram({ name: "", type: "milhas" });
+    setEditingProgram(null);
+    setProgramError("");
+    setIsProgramDialogOpen(false);
+  };
+
+  const handleSaveProgram = () => {
+    if (!newProgram.name) {
+      setProgramError("Nome é obrigatório");
+      return;
+    }
+    if (editingProgram) {
+      updateProgram(editingProgram.id, newProgram);
+    } else {
+      addProgram(newProgram);
+    }
+    resetProgramDialog();
+  };
+
+  const handleEditProgram = (program: Program) => {
+    setEditingProgram(program);
+    setNewProgram({ name: program.name, type: program.type });
+    setIsProgramDialogOpen(true);
+  };
+
+  const resetOrigemTypeDialog = () => {
+    setNewOrigemType({ name: "", accountType: "pontos", color: "#3b82f6" });
+    setEditingOrigemType(null);
+    setOrigemTypeError("");
+    setIsOrigemTypeDialogOpen(false);
+  };
+
+  const handleSaveOrigemType = () => {
+    if (!newOrigemType.name) {
+      setOrigemTypeError("Nome é obrigatório");
+      return;
+    }
+    if (editingOrigemType) {
+      updateOrigemType(editingOrigemType.id, newOrigemType);
+    } else {
+      addOrigemType(newOrigemType);
+    }
+    resetOrigemTypeDialog();
+  };
+
+  const handleEditOrigemType = (ot: OrigemType) => {
+    setEditingOrigemType(ot);
+    setNewOrigemType({ name: ot.name, accountType: ot.accountType, color: ot.color });
+    setIsOrigemTypeDialogOpen(true);
+  };
+
+  const milhasTypes = origemTypes.filter(ot => ot.accountType === "milhas");
+
+  return (
+    <div className="space-y-6 animate-fade-in">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-foreground">Configurações</h1>
+          <p className="text-muted-foreground">
+            Gerencie donos, programas, tipos de origem e preferências
+          </p>
+        </div>
+      </div>
+
+      <Tabs defaultValue="owners" className="space-y-6">
+        <TabsList>
+          <TabsTrigger value="owners" className="gap-2">
+            <User className="h-4 w-4" />
+            Donos
+          </TabsTrigger>
+          <TabsTrigger value="programs" className="gap-2">
+            <Building2 className="h-4 w-4" />
+            Programas
+          </TabsTrigger>
+          <TabsTrigger value="origem-milhas" className="gap-2">
+            <Palette className="h-4 w-4" />
+            Tipo de Operação
+          </TabsTrigger>
+          <TabsTrigger value="preferences" className="gap-2">
+            <Settings className="h-4 w-4" />
+            Preferências
+          </TabsTrigger>
+        </TabsList>
+
+        {/* Donos Tab */}
+        <TabsContent value="owners" className="space-y-4">
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-muted-foreground">
+              {owners.length} dono(s) cadastrado(s)
+            </p>
+            <Dialog open={isOwnerDialogOpen} onOpenChange={(open) => {
+              if (!open) resetOwnerDialog();
+              else setIsOwnerDialogOpen(true);
+            }}>
+              <DialogTrigger asChild>
+                <Button className="gap-2 bg-gradient-primary hover:opacity-90">
+                  <Plus className="h-4 w-4" />
+                  Novo Dono
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>{editingOwner ? "Editar Dono" : "Novo Dono"}</DialogTitle>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="ownerName">Nome Completo</Label>
+                    <Input id="ownerName" value={newOwner.name} onChange={(e) => { setNewOwner({ ...newOwner, name: e.target.value }); setOwnerError(""); }} placeholder="Nome do dono" />
+                    {ownerError && <p className="text-xs text-destructive">{ownerError}</p>}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="ownerCpf">CPF</Label>
+                    <Input id="ownerCpf" value={newOwner.cpf} onChange={(e) => setNewOwner({ ...newOwner, cpf: formatCPF(e.target.value) })} placeholder="000.000.000-00" maxLength={14} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="ownerPhone">Telefone</Label>
+                    <Input id="ownerPhone" value={newOwner.phone} onChange={(e) => setNewOwner({ ...newOwner, phone: e.target.value })} placeholder="(11) 99999-9999" />
+                  </div>
+                </div>
+                <div className="flex justify-end gap-2">
+                  <Button variant="outline" onClick={resetOwnerDialog}>Cancelar</Button>
+                  <Button onClick={handleSaveOwner} className="bg-gradient-primary hover:opacity-90">
+                    {editingOwner ? "Salvar Alterações" : "Cadastrar"}
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
+
+          <Card className="shadow-card">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <User className="h-5 w-5 text-primary" />
+                Donos das Contas
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Nome</TableHead>
+                    <TableHead>CPF</TableHead>
+                    <TableHead>Telefone</TableHead>
+                    <TableHead>Contas</TableHead>
+                    <TableHead className="text-right">Ações</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {owners.map((owner) => (
+                    <TableRow key={owner.id}>
+                      <TableCell className="font-medium">{owner.name}</TableCell>
+                      <TableCell className="font-mono">{owner.cpf}</TableCell>
+                      <TableCell>{owner.phone}</TableCell>
+                      <TableCell>
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                          {accounts.filter(a => a.ownerId === owner.id).length}
+                        </span>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex justify-end gap-2">
+                          <Button size="sm" variant="outline" className="px-3" onClick={() => handleEditOwner(owner)}>
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline" className="px-3 text-destructive hover:text-destructive" onClick={() => deleteOwner(owner.id)}>
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              {owners.length === 0 && (
+                <div className="text-center py-8">
+                  <User className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                  <p className="text-muted-foreground">Nenhum dono cadastrado</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Programas Tab */}
+        <TabsContent value="programs" className="space-y-4">
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-muted-foreground">
+              {programs.length} programa(s) cadastrado(s)
+            </p>
+            <Dialog open={isProgramDialogOpen} onOpenChange={(open) => {
+              if (!open) resetProgramDialog();
+              else setIsProgramDialogOpen(true);
+            }}>
+              <DialogTrigger asChild>
+                <Button className="gap-2 bg-gradient-primary hover:opacity-90">
+                  <Plus className="h-4 w-4" />
+                  Novo Programa
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>{editingProgram ? "Editar Programa" : "Novo Programa"}</DialogTitle>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="programName">Nome do Programa</Label>
+                    <Input id="programName" value={newProgram.name} onChange={(e) => { setNewProgram({ ...newProgram, name: e.target.value }); setProgramError(""); }} placeholder="Ex: LATAM Pass" />
+                    {programError && <p className="text-xs text-destructive">{programError}</p>}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="programType">Tipo</Label>
+                    <Select value={newProgram.type} onValueChange={(value) => setNewProgram({ ...newProgram, type: value as Program["type"] })}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione o tipo" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="pontos">Programa de Pontos</SelectItem>
+                        <SelectItem value="milhas">Programa de Milhas</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div className="flex justify-end gap-2">
+                  <Button variant="outline" onClick={resetProgramDialog}>Cancelar</Button>
+                  <Button onClick={handleSaveProgram} className="bg-gradient-primary hover:opacity-90">
+                    {editingProgram ? "Salvar Alterações" : "Cadastrar"}
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
+
+          <Card className="shadow-card">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Building2 className="h-5 w-5 text-primary" />
+                Programas de Fidelidade
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Programa</TableHead>
+                    <TableHead>Tipo</TableHead>
+                    <TableHead className="text-right">Ações</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {programs.map((program) => (
+                    <TableRow key={program.id}>
+                      <TableCell className="font-medium">
+                        <div className="flex items-center gap-2">
+                          <Building2 className="h-4 w-4 text-primary" />
+                          {program.name}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant={program.type === "pontos" ? "secondary" : "default"}>
+                          {program.type === "pontos" ? "Pontos" : "Milhas"}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex justify-end gap-2">
+                          <Button size="sm" variant="outline" className="px-3" onClick={() => handleEditProgram(program)}>
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline" className="px-3 text-destructive hover:text-destructive" onClick={() => deleteProgram(program.id)}>
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              {programs.length === 0 && (
+                <div className="text-center py-8">
+                  <Building2 className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                  <p className="text-muted-foreground">Nenhum programa cadastrado</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Tipos de Milhas Tab */}
+        <TabsContent value="origem-milhas" className="space-y-4">
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-muted-foreground">
+              {milhasTypes.length} tipo(s) de operação cadastrado(s)
+            </p>
+            <Dialog open={isOrigemTypeDialogOpen && newOrigemType.accountType === "milhas"} onOpenChange={(open) => {
+              if (!open) resetOrigemTypeDialog();
+              else { setNewOrigemType(prev => ({ ...prev, accountType: "milhas" })); setIsOrigemTypeDialogOpen(true); }
+            }}>
+              <DialogTrigger asChild>
+                <Button className="gap-2 bg-gradient-primary hover:opacity-90" onClick={() => setNewOrigemType({ name: "", accountType: "milhas", color: "#10b981" })}>
+                  <Plus className="h-4 w-4" />
+                  Nova Operação
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>{editingOrigemType ? "Editar Operação" : "Nova Operação"}</DialogTitle>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="otNameMilhas">Nome</Label>
+                    <Input id="otNameMilhas" value={newOrigemType.name} onChange={(e) => { setNewOrigemType({ ...newOrigemType, name: e.target.value }); setOrigemTypeError(""); }} placeholder="Ex: Compra Direta" />
+                    {origemTypeError && <p className="text-xs text-destructive">{origemTypeError}</p>}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="otColorMilhas">Cor</Label>
+                    <div className="flex gap-2 items-center">
+                      <Input id="otColorMilhas" type="color" value={newOrigemType.color} onChange={(e) => setNewOrigemType({ ...newOrigemType, color: e.target.value })} className="w-12 h-10 p-1" />
+                      <span className="text-sm text-muted-foreground">{newOrigemType.color}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex justify-end gap-2">
+                  <Button variant="outline" onClick={resetOrigemTypeDialog}>Cancelar</Button>
+                  <Button onClick={handleSaveOrigemType} className="bg-gradient-primary hover:opacity-90">
+                    {editingOrigemType ? "Salvar Alterações" : "Cadastrar"}
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
+
+          <Card className="shadow-card">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Palette className="h-5 w-5 text-primary" />
+                Tipos de Operação
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Nome</TableHead>
+                    <TableHead>Cor</TableHead>
+                    <TableHead className="text-right">Ações</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {milhasTypes.map((ot) => (
+                    <TableRow key={ot.id}>
+                      <TableCell className="font-medium">{ot.name}</TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-4 rounded-full border" style={{ backgroundColor: ot.color }} />
+                          <span className="text-xs font-mono">{ot.color}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex justify-end gap-2">
+                          <Button size="sm" variant="outline" className="px-3" onClick={() => { setNewOrigemType({ name: ot.name, accountType: "milhas", color: ot.color }); setEditingOrigemType(ot); setIsOrigemTypeDialogOpen(true); }}>
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline" className="px-3 text-destructive hover:text-destructive" onClick={() => deleteOrigemType(ot.id)}>
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              {milhasTypes.length === 0 && (
+                <div className="text-center py-8">
+                  <Palette className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                  <p className="text-muted-foreground">Nenhum tipo de origem cadastrado</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Preferências Tab */}
+        <TabsContent value="preferences" className="space-y-4">
+          <Card className="shadow-card">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Settings className="h-5 w-5 text-primary" />
+                Preferências Gerais
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="conversionRate">Taxa de Conversão Padrão</Label>
+                  <Input id="conversionRate" type="number" step="0.01" value={defaultConversionRate} onChange={(e) => setDefaultConversionRate(e.target.value)} placeholder="1.0" />
+                  <p className="text-xs text-muted-foreground">
+                    Quantas milhas 1 ponto gera (ex: 1.0 = 1 ponto = 1 milha)
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="currency">Moeda Padrão</Label>
+                  <Input id="currency" value={currency} disabled />
+                  <p className="text-xs text-muted-foreground">Apenas BRL suportado no momento</p>
+                </div>
+              </div>
+              <div className="p-4 bg-muted/30 rounded-lg">
+                <p className="text-sm text-muted-foreground">
+                  As preferências são salvas localmente durante a sessão. A persistência será implementada futuramente.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}

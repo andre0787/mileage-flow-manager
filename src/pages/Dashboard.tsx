@@ -9,6 +9,7 @@ import {
   DollarSign
 } from "lucide-react";
 import { MetricCard } from "@/components/MetricCard";
+import { DashboardCharts } from "@/components/DashboardCharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -53,6 +54,7 @@ export default function Dashboard() {
           subtitle="Milhas disponíveis"
           icon={Coins}
           trend={{ value: 12.5, isPositive: true }}
+          sparklineData={[320000, 380000, 420000, 490000, 510000, 544000]}
         />
         <MetricCard
           title="Total Investido"
@@ -61,6 +63,7 @@ export default function Dashboard() {
           icon={Wallet}
           variant="success"
           trend={{ value: 8.2, isPositive: true }}
+          sparklineData={[1800, 1950, 2100, 2300, 2480, 2560]}
         />
         <MetricCard
           title="Faturamento Mensal"
@@ -69,6 +72,7 @@ export default function Dashboard() {
           icon={DollarSign}
           variant="success"
           trend={{ value: 15.3, isPositive: true }}
+          sparklineData={[1800, 2200, 1900, 2600, 2400, 3120]}
         />
         <MetricCard
           title="Lucro Mensal"
@@ -77,14 +81,11 @@ export default function Dashboard() {
           icon={TrendingUp}
           variant="success"
           trend={{ value: 18.7, isPositive: true }}
-        />
-        <MetricCard
-          title="Contas Ativas"
-          value={metrics.activeAccounts}
-          subtitle="Programas disponíveis"
-          icon={CreditCard}
+          sparklineData={[200, 350, 280, 450, 380, 560]}
         />
       </div>
+
+      <DashboardCharts />
 
       {/* Secondary Metrics */}
       <div className="grid gap-4 md:grid-cols-3">

@@ -428,7 +428,7 @@ export default function Vendas() {
                   </TableCell>
                   <TableCell>{sale.milesUsed.toLocaleString('pt-BR')}</TableCell>
                   <TableCell>R$ {sale.saleValue.toLocaleString('pt-BR')}</TableCell>
-                  <TableCell className="font-semibold text-success">
+                  <TableCell className={`font-semibold ${sale.profit < 0 ? 'text-destructive' : 'text-success'}`}>
                     R$ {sale.profit.toLocaleString('pt-BR')}
                   </TableCell>
                   <TableCell>{sale.profitMargin.toFixed(1)}%</TableCell>
@@ -437,7 +437,8 @@ export default function Vendas() {
                       value={sale.status} 
                       onValueChange={(value) => updateSaleStatus(sale.id, value as Sale['status'])}
                     >
-                      <SelectTrigger className="w-24">
+                      <SelectTrigger className="w-28">
+                        <span className={`h-2 w-2 rounded-full ${sale.status === 'pendente' ? 'bg-warning' : sale.status === 'pago' ? 'bg-primary' : 'bg-success'}`} />
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -448,12 +449,10 @@ export default function Vendas() {
                     </Select>
                   </TableCell>
                   <TableCell>
-                    <Badge variant={
-                      sale.status === "concluido" ? "default" : 
-                      sale.status === "pago" ? "secondary" : "outline"
-                    }>
-                      {sale.passengers.length} pax
-                    </Badge>
+                    <div className="flex items-center gap-1">
+                      <Users className="h-3 w-3 text-muted-foreground" />
+                      <span className="text-xs">{sale.passengers.length} pax</span>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
