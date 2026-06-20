@@ -56,6 +56,12 @@ export default function Vendas() {
       }));
   }, [accounts, owners, programs]);
 
+  const createEmptyPassenger = () => ({
+    name: "",
+    passengerId: crypto.randomUUID(),
+    cpf: ""
+  });
+
   const [newSale, setNewSale] = useState({
     ownerName: "",
     accountName: "",
@@ -65,7 +71,7 @@ export default function Vendas() {
     milesUsed: "",
     saleValue: "",
     ticketLocator: "",
-        passengers: [{ name: "", passengerId: "", cpf: "" }]
+    passengers: [createEmptyPassenger()]
   });
 
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
@@ -155,7 +161,7 @@ export default function Vendas() {
         milesUsed: "",
         saleValue: "",
         ticketLocator: "",
-    passengers: [{ name: "", passengerId: "", cpf: "" }]
+        passengers: [createEmptyPassenger()]
       });
       setIsCreateDialogOpen(false);
     }
@@ -164,7 +170,7 @@ export default function Vendas() {
   const addPassenger = () => {
     setNewSale({
       ...newSale,
-      passengers: [...newSale.passengers, { name: "", passengerId: "", cpf: "" }]
+      passengers: [...newSale.passengers, createEmptyPassenger()]
     });
   };
 
@@ -382,7 +388,8 @@ export default function Vendas() {
                     <Input
                       placeholder="ID Passageiro"
                       value={passenger.passengerId}
-                      onChange={(e) => updatePassenger(index, 'passengerId', e.target.value)}
+                      disabled
+                      className="bg-muted/30 text-muted-foreground text-xs"
                     />
                     <Input
                       placeholder="CPF"
