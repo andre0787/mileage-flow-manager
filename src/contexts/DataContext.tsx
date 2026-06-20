@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
 
 interface DataContextType {
@@ -47,6 +47,23 @@ interface DataContextType {
 
 const DataContext = createContext<DataContextType | null>(null);
 
+const STORAGE_PREFIX = "mc-";
+
+function loadFromStorage<T>(key: string, fallback: T): T {
+  try {
+    const saved = localStorage.getItem(STORAGE_PREFIX + key);
+    return saved ? JSON.parse(saved) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function persistToStorage<T>(key: string, data: T): void {
+  try {
+    localStorage.setItem(STORAGE_PREFIX + key, JSON.stringify(data));
+  } catch {}
+}
+
 const initialOwners: Owner[] = [
   { id: "1", name: "João Silva", cpf: "123.456.789-00", phone: "(11) 99999-9999" },
   { id: "2", name: "Maria Santos", cpf: "987.654.321-00", phone: "(11) 88888-8888" },
@@ -78,13 +95,21 @@ const initialClients: Client[] = [];
 const initialSales: Sale[] = [];
 
 export function DataProvider({ children }: { children: ReactNode }) {
-  const [owners, setOwners] = useState<Owner[]>(initialOwners);
-  const [programs, setPrograms] = useState<Program[]>(initialPrograms);
-  const [origemTypes, setOrigemTypes] = useState<OrigemType[]>(initialOrigemTypes);
-  const [accounts, setAccounts] = useState<Account[]>(initialAccounts);
-  const [entries, setEntries] = useState<PointEntry[]>(initialEntries);
-  const [sales, setSales] = useState<Sale[]>(initialSales);
-  const [clients, setClients] = useState<Client[]>(initialClients);
+  const [owners, setOwners] = useState<Owner[]>(() => loadFromStorage("owners", initialOwners));
+  const [programs, setPrograms] = useState<Program[]>(() => loadFromStorage("programs", initialPrograms));
+  const [origemTypes, setOrigemTypes] = useState<OrigemType[]>(() => loadFromStorage("origemTypes", initialOrigemTypes));
+  const [accounts, setAccounts] = useState<Account[]>(() => loadFromStorage("accounts", initialAccounts));
+  const [entries, setEntries] = useState<PointEntry[]>(() => loadFromStorage("entries", initialEntries));
+  const [sales, setSales] = useState<Sale[]>(() => loadFromStorage("sales", initialSales));
+  const [clients, setClients] = useState<Client[]>(() => loadFromStorage("clients", initialClients));
+
+  useEffect(() => { persistToStorage("owners", owners); }, [owners]);
+  useEffect(() => { persistToStorage("programs", programs); }, [programs]);
+  useEffect(() => { persistToStorage("origemTypes", origemTypes); }, [origemTypes]);
+  useEffect(() => { persistToStorage("accounts", accounts); }, [accounts]);
+  useEffect(() => { persistToStorage("entries", entries); }, [entries]);
+  useEffect(() => { persistToStorage("sales", sales); }, [sales]);
+  useEffect(() => { persistToStorage("clients", clients); }, [clients]);
 
   const addOwner = (data: Omit<Owner, "id">) =>
     setOwners(prev => [...prev, { id: crypto.randomUUID(), ...data }]);

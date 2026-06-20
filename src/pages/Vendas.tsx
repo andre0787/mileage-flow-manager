@@ -413,7 +413,7 @@ export default function Vendas() {
               <Button 
                 onClick={handleCreateSale} 
                 className="bg-gradient-primary hover:opacity-90"
-                disabled={!newSale.milesUsed || !selectedProgramStock || parseFloat(newSale.milesUsed) > selectedProgramStock.availableMiles}
+                disabled={!newSale.ownerName || !newSale.program || !newSale.clientId || !newSale.milesUsed || !newSale.saleValue || !selectedProgramStock || parseFloat(newSale.milesUsed) > selectedProgramStock.availableMiles}
               >
                 Registrar Venda
               </Button>
