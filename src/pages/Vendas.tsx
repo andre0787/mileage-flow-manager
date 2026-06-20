@@ -23,7 +23,7 @@ interface Sale {
   profitMargin: number;
   status: "pendente" | "pago" | "concluido";
   ticketLocator: string;
-  passengers: { name: string; cpf: string }[];
+  passengers: { name: string; passengerId: string; cpf: string }[];
   date: string;
 }
 
@@ -65,7 +65,7 @@ export default function Vendas() {
     milesUsed: "",
     saleValue: "",
     ticketLocator: "",
-    passengers: [{ name: "", cpf: "" }]
+        passengers: [{ name: "", passengerId: "", cpf: "" }]
   });
 
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
@@ -74,7 +74,8 @@ export default function Vendas() {
     name: "",
     cpf: "",
     email: "",
-    phone: ""
+    phone: "",
+    telegram: ""
   });
 
   const ownersList = [...new Set(stockInfo.map(s => s.ownerName))];
@@ -92,8 +93,6 @@ export default function Vendas() {
   const handleCreateClient = () => {
     const errs: Partial<Record<string, string>> = {};
     if (!newClient.name.trim()) errs.name = "Nome é obrigatório";
-    if (!newClient.cpf.trim()) errs.cpf = "CPF é obrigatório";
-    if (!newClient.email.trim()) errs.email = "E-mail é obrigatório";
     setClientErrors(errs);
     if (Object.keys(errs).length > 0) return;
 
@@ -103,6 +102,7 @@ export default function Vendas() {
       cpf: newClient.cpf,
       email: newClient.email.trim(),
       phone: newClient.phone,
+      telegram: newClient.telegram,
       totalPurchases: 0,
       usageHistory: []
     }, id);
@@ -113,7 +113,7 @@ export default function Vendas() {
       clientName: newClient.name.trim()
     });
 
-    setNewClient({ name: "", cpf: "", email: "", phone: "" });
+    setNewClient({ name: "", cpf: "", email: "", phone: "", telegram: "" });
     setClientErrors({});
     setIsClientDialogOpen(false);
   };
@@ -141,7 +141,7 @@ export default function Vendas() {
         profitMargin,
         status: "pendente",
         ticketLocator: newSale.ticketLocator,
-        passengers: newSale.passengers.filter(p => p.name && p.cpf),
+        passengers: newSale.passengers.filter(p => p.name || p.passengerId),
         date: new Date().toISOString().split('T')[0]
       };
 
@@ -155,7 +155,7 @@ export default function Vendas() {
         milesUsed: "",
         saleValue: "",
         ticketLocator: "",
-        passengers: [{ name: "", cpf: "" }]
+    passengers: [{ name: "", passengerId: "", cpf: "" }]
       });
       setIsCreateDialogOpen(false);
     }
@@ -164,7 +164,7 @@ export default function Vendas() {
   const addPassenger = () => {
     setNewSale({
       ...newSale,
-      passengers: [...newSale.passengers, { name: "", cpf: "" }]
+      passengers: [...newSale.passengers, { name: "", passengerId: "", cpf: "" }]
     });
   };
 
@@ -373,24 +373,27 @@ export default function Vendas() {
                   </Button>
                 </div>
                 {newSale.passengers.map((passenger, index) => (
-                  <div key={index} className="grid grid-cols-2 gap-2">
+                  <div key={index} className="grid grid-cols-[1fr_1fr_1fr_auto] gap-2">
                     <Input
                       placeholder="Nome completo"
                       value={passenger.name}
                       onChange={(e) => updatePassenger(index, 'name', e.target.value)}
                     />
-                    <div className="flex gap-2">
-                      <Input
-                        placeholder="CPF"
-                        value={passenger.cpf}
-                        onChange={(e) => updatePassenger(index, 'cpf', e.target.value)}
-                      />
-                      {newSale.passengers.length > 1 && (
-                        <Button type="button" size="sm" variant="outline" onClick={() => removePassenger(index)}>
-                          ×
-                        </Button>
-                      )}
-                    </div>
+                    <Input
+                      placeholder="ID Passageiro"
+                      value={passenger.passengerId}
+                      onChange={(e) => updatePassenger(index, 'passengerId', e.target.value)}
+                    />
+                    <Input
+                      placeholder="CPF"
+                      value={passenger.cpf}
+                      onChange={(e) => updatePassenger(index, 'cpf', e.target.value)}
+                    />
+                    {newSale.passengers.length > 1 && (
+                      <Button type="button" size="sm" variant="outline" onClick={() => removePassenger(index)}>
+                        ×
+                      </Button>
+                    )}
                   </div>
                 ))}
               </div>
@@ -435,12 +438,10 @@ export default function Vendas() {
                     const numbers = e.target.value.replace(/\D/g, "").slice(0, 11);
                     const formatted = formatCPF(numbers);
                     setNewClient({...newClient, cpf: formatted});
-                    setClientErrors(p => ({...p, cpf: ""}));
                   }}
                   placeholder="000.000.000-00"
                   maxLength={14}
                 />
-                {clientErrors.cpf && <p className="text-xs text-destructive">{clientErrors.cpf}</p>}
               </div>
 
               <div className="space-y-2">
@@ -448,10 +449,9 @@ export default function Vendas() {
                 <Input
                   type="email"
                   value={newClient.email}
-                  onChange={(e) => { setNewClient({...newClient, email: e.target.value}); setClientErrors(p => ({...p, email: ""})); }}
+                  onChange={(e) => setNewClient({...newClient, email: e.target.value})}
                   placeholder="cliente@email.com"
                 />
-                {clientErrors.email && <p className="text-xs text-destructive">{clientErrors.email}</p>}
               </div>
 
               <div className="space-y-2">
@@ -460,6 +460,15 @@ export default function Vendas() {
                   value={newClient.phone}
                   onChange={(e) => setNewClient({...newClient, phone: e.target.value})}
                   placeholder="(11) 99999-9999"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Contato Telegram</Label>
+                <Input
+                  value={newClient.telegram}
+                  onChange={(e) => setNewClient({...newClient, telegram: e.target.value})}
+                  placeholder="@usuario"
                 />
               </div>
             </div>

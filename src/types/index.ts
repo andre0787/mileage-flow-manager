@@ -1,9 +1,10 @@
 export interface Client {
   id: string
   name: string
-  cpf: string
-  email: string
+  cpf?: string
+  email?: string
   phone: string
+  telegram?: string
   totalPurchases: number
   usageHistory: {
     program: string
@@ -71,6 +72,6 @@ export interface Sale {
   profitMargin: number
   status: 'pendente' | 'pago' | 'concluido'
   ticketLocator: string
-  passengers: { name: string; cpf: string }[]
+  passengers: { name: string; passengerId: string; cpf: string }[]
   date: string
 }

@@ -17,7 +17,8 @@ export default function Clientes() {
     name: "",
     cpf: "",
     email: "",
-    phone: ""
+    phone: "",
+    telegram: ""
   });
 
   const [editClientData, setEditClientData] = useState<{
@@ -26,6 +27,7 @@ export default function Clientes() {
     cpf: string;
     email: string;
     phone: string;
+    telegram: string;
   } | null>(null);
 
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
@@ -39,18 +41,22 @@ export default function Clientes() {
 
   const filteredClients = clients.filter(client =>
     client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    client.cpf.includes(searchTerm) ||
-    client.email.toLowerCase().includes(searchTerm.toLowerCase())
+    (client.cpf && client.cpf.includes(searchTerm)) ||
+    (client.email && client.email.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   const handleCreateClient = () => {
-    if (newClient.name && newClient.cpf && newClient.email) {
+    if (newClient.name) {
       addClient({
-        ...newClient,
+        name: newClient.name,
+        cpf: newClient.cpf,
+        email: newClient.email,
+        phone: newClient.phone,
+        telegram: newClient.telegram,
         totalPurchases: 0,
         usageHistory: []
       });
-      setNewClient({ name: "", cpf: "", email: "", phone: "" });
+      setNewClient({ name: "", cpf: "", email: "", phone: "", telegram: "" });
       setIsCreateDialogOpen(false);
     }
   };
@@ -59,20 +65,22 @@ export default function Clientes() {
     setEditClientData({
       id: client.id,
       name: client.name,
-      cpf: client.cpf,
-      email: client.email,
-      phone: client.phone
+      cpf: client.cpf ?? "",
+      email: client.email ?? "",
+      phone: client.phone,
+      telegram: client.telegram ?? ""
     });
     setIsEditDialogOpen(true);
   };
 
   const handleSaveEdit = () => {
-    if (editClientData && editClientData.name && editClientData.cpf && editClientData.email) {
+    if (editClientData && editClientData.name) {
       updateClient(editClientData.id, {
         name: editClientData.name,
         cpf: editClientData.cpf,
         email: editClientData.email,
-        phone: editClientData.phone
+        phone: editClientData.phone,
+        telegram: editClientData.telegram
       });
       setEditClientData(null);
       setIsEditDialogOpen(false);
@@ -171,6 +179,16 @@ export default function Clientes() {
                   placeholder="(11) 99999-9999"
                 />
               </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="telegram">Contato Telegram</Label>
+                <Input
+                  id="telegram"
+                  value={newClient.telegram}
+                  onChange={(e) => setNewClient({...newClient, telegram: e.target.value})}
+                  placeholder="@usuario"
+                />
+              </div>
             </div>
             
             <div className="flex justify-end gap-2">
@@ -233,6 +251,16 @@ export default function Clientes() {
                   value={editClientData?.phone ?? ""}
                   onChange={(e) => setEditClientData(prev => prev ? { ...prev, phone: e.target.value } : null)}
                   placeholder="(11) 99999-9999"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="edit-telegram">Contato Telegram</Label>
+                <Input
+                  id="edit-telegram"
+                  value={editClientData?.telegram ?? ""}
+                  onChange={(e) => setEditClientData(prev => prev ? { ...prev, telegram: e.target.value } : null)}
+                  placeholder="@usuario"
                 />
               </div>
             </div>
@@ -326,11 +354,11 @@ export default function Clientes() {
                       </div>
                       <div>
                         <p className="font-medium">{client.name}</p>
-                        <p className="text-sm text-muted-foreground">{client.email}</p>
+                        <p className="text-sm text-muted-foreground">{client.email ?? "-"}</p>
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell className="font-mono">{client.cpf}</TableCell>
+                  <TableCell className="font-mono">{client.cpf ?? "-"}</TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
                       <Phone className="h-4 w-4 text-muted-foreground" />
