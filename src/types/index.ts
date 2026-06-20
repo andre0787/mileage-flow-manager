@@ -1,9 +1,10 @@
 export interface Client {
   id: string
   name: string
-  cpf: string
-  email: string
+  cpf?: string
+  email?: string
   phone: string
+  telegram?: string
   totalPurchases: number
   usageHistory: {
     program: string
@@ -55,22 +56,30 @@ export interface PointEntry {
   conversionRate?: number
   milesGenerated?: number
   costPerMile?: number
+  sourceAccountId?: string
+  bonusPercent?: number
   date: string
   description?: string
 }
 
 export interface Sale {
   id: string
-  accountId: string
+  accountId?: string
+  accountName: string
+  ownerName: string
+  program: string
   clientId: string
   clientName: string
   milesUsed: number
   saleValue: number
+  pricePerMile?: number
   costPerMile: number
+  additionalCost?: number
+  additionalCostDesc?: string
   profit: number
   profitMargin: number
   status: 'pendente' | 'pago' | 'concluido'
   ticketLocator: string
-  passengers: { name: string; cpf: string }[]
+  passengers: { name: string; passengerId: string; cpf: string; clientId?: string }[]
   date: string
 }
