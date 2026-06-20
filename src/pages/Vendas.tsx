@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Plus, TrendingDown, DollarSign, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -30,14 +30,17 @@ interface Sale {
 }
 
 interface StockInfo {
+  accountId: string;
+  ownerId: string;
   ownerName: string;
+  accountName: string;
   program: string;
   availableMiles: number;
   averageCostPerMile: number;
 }
 
 export default function Vendas() {
-  const { clients } = useData();
+  const { clients, accounts, owners, programs } = useData();
 
   const [sales, setSales] = useState<Sale[]>([
     {
@@ -59,11 +62,19 @@ export default function Vendas() {
     }
   ]);
 
-  const [stockInfo] = useState<StockInfo[]>([
-    { ownerName: "João Silva", program: "LATAM Pass", availableMiles: 400000, averageCostPerMile: 0.0045 },
-    { ownerName: "Maria Santos", program: "Smiles", availableMiles: 64000, averageCostPerMile: 0.005625 },
-    { ownerName: "João Silva", program: "Livelo", availableMiles: 80000, averageCostPerMile: 0.005 }
-  ]);
+  const stockInfo = useMemo(() => {
+    return accounts
+      .filter(a => a.type === "milhas" && a.status === "ativa")
+      .map(a => ({
+        accountId: a.id,
+        ownerId: a.ownerId,
+        ownerName: owners.find(o => o.id === a.ownerId)?.name ?? "",
+        accountName: a.name,
+        program: programs.find(p => p.id === a.programId)?.name ?? "",
+        availableMiles: a.balance,
+        averageCostPerMile: a.averageCostPerMile ?? 0
+      }));
+  }, [accounts, owners, programs]);
 
   const [newSale, setNewSale] = useState({
     ownerName: "",
@@ -79,7 +90,7 @@ export default function Vendas() {
 
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
-  const owners = [...new Set(stockInfo.map(s => s.ownerName))];
+  const ownersList = [...new Set(stockInfo.map(s => s.ownerName))];
   const selectedOwnerStock = stockInfo.filter(s => s.ownerName === newSale.ownerName);
   const selectedProgramStock = stockInfo.find(s => 
     s.ownerName === newSale.ownerName && s.program === newSale.program
@@ -194,7 +205,7 @@ export default function Vendas() {
                       <SelectValue placeholder="Selecione o dono" />
                     </SelectTrigger>
                     <SelectContent>
-                      {owners.map((owner) => (
+                      {ownersList.map((owner) => (
                         <SelectItem key={owner} value={owner}>{owner}</SelectItem>
                       ))}
                     </SelectContent>
