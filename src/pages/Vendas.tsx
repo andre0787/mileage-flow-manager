@@ -40,25 +40,7 @@ interface StockInfo {
 export default function Vendas() {
   const { clients, accounts, owners, programs, addClient } = useData();
 
-  const [sales, setSales] = useState<Sale[]>([
-    {
-      id: 1,
-      ownerName: "João Silva",
-      accountName: "Conta Principal LATAM",
-      program: "LATAM Pass",
-      clientId: "1",
-      clientName: "Carlos Mendes",
-      milesUsed: 50000,
-      saleValue: 300,
-      costPerMile: 0.0045,
-      profit: 75,
-      profitMargin: 25,
-      status: "concluido",
-      ticketLocator: "ABC123",
-      passengers: [{ name: "Carlos Mendes", cpf: "123.456.789-00" }],
-      date: "2024-01-20"
-    }
-  ]);
+  const [sales, setSales] = useState<Sale[]>([]);
 
   const stockInfo = useMemo(() => {
     return accounts

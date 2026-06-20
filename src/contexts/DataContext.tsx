@@ -50,14 +50,11 @@ const DataContext = createContext<DataContextType | null>(null);
 const initialOwners: Owner[] = [
   { id: "1", name: "João Silva", cpf: "123.456.789-00", phone: "(11) 99999-9999" },
   { id: "2", name: "Maria Santos", cpf: "987.654.321-00", phone: "(11) 88888-8888" },
-  { id: "3", name: "Pedro Costa", cpf: "456.789.123-00", phone: "(11) 77777-7777" },
 ];
 
 const initialPrograms: Program[] = [
   { id: "1", name: "LATAM Pass", type: "milhas" },
   { id: "2", name: "Smiles", type: "milhas" },
-  { id: "3", name: "Livelo", type: "pontos" },
-  { id: "4", name: "Esfera", type: "pontos" },
 ];
 
 const initialOrigemTypes: OrigemType[] = [
@@ -72,24 +69,13 @@ const initialOrigemTypes: OrigemType[] = [
 const initialAccounts: Account[] = [
   { id: "1", name: "Conta Principal LATAM", ownerId: "1", programId: "1", type: "milhas", balance: 400000, averageCostPerMile: 0.0045, totalInvested: 1800, status: "ativa", createdAt: "2024-01-01" },
   { id: "2", name: "Smiles Premium", ownerId: "2", programId: "2", type: "milhas", balance: 64000, averageCostPerMile: 0.005625, totalInvested: 360, status: "ativa", createdAt: "2024-01-01" },
-  { id: "3", name: "Livelo Gold", ownerId: "1", programId: "3", type: "milhas", balance: 80000, averageCostPerMile: 0.005, totalInvested: 400, status: "ativa", createdAt: "2024-01-01" },
-  { id: "4", name: "Esfera Black", ownerId: "3", programId: "4", type: "milhas", balance: 0, averageCostPerMile: 0.006, totalInvested: 0, status: "inativa", createdAt: "2024-01-01" },
 ];
 
-const initialEntries: PointEntry[] = [
-  { id: "1", accountId: "1", origemTypeId: "3", amount: 100000, amountPaid: 450, costPerThousand: 4.5, conversionRate: 1.0, milesGenerated: 100000, costPerMile: 0.0045, date: "2024-01-15" },
-  { id: "2", accountId: "2", origemTypeId: "2", amount: 80000, amountPaid: 360, costPerThousand: 4.5, conversionRate: 0.8, milesGenerated: 64000, costPerMile: 0.005625, date: "2024-01-16" },
-];
+const initialEntries: PointEntry[] = [];
 
-const initialClients: Client[] = [
-  { id: "1", name: "João Silva", cpf: "123.456.789-00", email: "joao.silva@email.com", phone: "(11) 99999-9999", totalPurchases: 5, usageHistory: [{ program: "LATAM Pass", count: 3, year: 2024 }, { program: "Smiles", count: 2, year: 2024 }] },
-  { id: "2", name: "Maria Santos", cpf: "987.654.321-00", email: "maria.santos@email.com", phone: "(11) 88888-8888", totalPurchases: 8, usageHistory: [{ program: "LATAM Pass", count: 4, year: 2024 }, { program: "Livelo", count: 3, year: 2024 }, { program: "Smiles", count: 1, year: 2024 }] },
-  { id: "3", name: "Pedro Costa", cpf: "456.789.123-00", email: "pedro.costa@email.com", phone: "(11) 77777-7777", totalPurchases: 3, usageHistory: [{ program: "Livelo", count: 2, year: 2024 }, { program: "Esfera", count: 1, year: 2024 }] },
-];
+const initialClients: Client[] = [];
 
-const initialSales: Sale[] = [
-  { id: "1", accountId: "1", clientId: "1", clientName: "Carlos Mendes", milesUsed: 50000, saleValue: 300, costPerMile: 0.0045, profit: 75, profitMargin: 25, status: "concluido", ticketLocator: "ABC123", passengers: [{ name: "Carlos Mendes", cpf: "123.456.789-00" }], date: "2024-01-20" },
-];
+const initialSales: Sale[] = [];
 
 export function DataProvider({ children }: { children: ReactNode }) {
   const [owners, setOwners] = useState<Owner[]>(initialOwners);
