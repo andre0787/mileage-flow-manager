@@ -102,31 +102,38 @@ export default function Vendas() {
   );
 
   const formatCPF = (cpf: string) => {
-    const numbers = cpf.replace(/\D/g, "").slice(0, 11);
-    return numbers.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
   };
 
+  const [clientErrors, setClientErrors] = useState<Partial<Record<string, string>>>({});
+
   const handleCreateClient = () => {
-    if (newClient.name && newClient.cpf && newClient.email) {
-      const id = crypto.randomUUID();
-      addClient({
-        name: newClient.name,
-        cpf: newClient.cpf,
-        email: newClient.email,
-        phone: newClient.phone,
-        totalPurchases: 0,
-        usageHistory: []
-      }, id);
+    const errs: Partial<Record<string, string>> = {};
+    if (!newClient.name.trim()) errs.name = "Nome é obrigatório";
+    if (!newClient.cpf.trim()) errs.cpf = "CPF é obrigatório";
+    if (!newClient.email.trim()) errs.email = "E-mail é obrigatório";
+    setClientErrors(errs);
+    if (Object.keys(errs).length > 0) return;
 
-      setNewSale({
-        ...newSale,
-        clientId: id,
-        clientName: newClient.name
-      });
+    const id = crypto.randomUUID();
+    addClient({
+      name: newClient.name.trim(),
+      cpf: newClient.cpf,
+      email: newClient.email.trim(),
+      phone: newClient.phone,
+      totalPurchases: 0,
+      usageHistory: []
+    }, id);
 
-      setNewClient({ name: "", cpf: "", email: "", phone: "" });
-      setIsClientDialogOpen(false);
-    }
+    setNewSale({
+      ...newSale,
+      clientId: id,
+      clientName: newClient.name.trim()
+    });
+
+    setNewClient({ name: "", cpf: "", email: "", phone: "" });
+    setClientErrors({});
+    setIsClientDialogOpen(false);
   };
 
   const handleCreateSale = () => {
@@ -422,7 +429,7 @@ export default function Vendas() {
           </DialogContent>
         </Dialog>
 
-        <Dialog open={isClientDialogOpen} onOpenChange={setIsClientDialogOpen}>
+        <Dialog open={isClientDialogOpen} onOpenChange={(open) => { setIsClientDialogOpen(open); if (!open) setClientErrors({}); }}>
           <DialogContent className="sm:max-w-[350px]">
             <DialogHeader>
               <DialogTitle>Novo Cliente</DialogTitle>
@@ -432,9 +439,10 @@ export default function Vendas() {
                 <Label>Nome Completo</Label>
                 <Input
                   value={newClient.name}
-                  onChange={(e) => setNewClient({...newClient, name: e.target.value})}
+                  onChange={(e) => { setNewClient({...newClient, name: e.target.value}); setClientErrors(p => ({...p, name: ""})); }}
                   placeholder="Digite o nome completo"
                 />
+                {clientErrors.name && <p className="text-xs text-destructive">{clientErrors.name}</p>}
               </div>
 
               <div className="space-y-2">
@@ -445,10 +453,12 @@ export default function Vendas() {
                     const numbers = e.target.value.replace(/\D/g, "").slice(0, 11);
                     const formatted = formatCPF(numbers);
                     setNewClient({...newClient, cpf: formatted});
+                    setClientErrors(p => ({...p, cpf: ""}));
                   }}
                   placeholder="000.000.000-00"
                   maxLength={14}
                 />
+                {clientErrors.cpf && <p className="text-xs text-destructive">{clientErrors.cpf}</p>}
               </div>
 
               <div className="space-y-2">
@@ -456,9 +466,10 @@ export default function Vendas() {
                 <Input
                   type="email"
                   value={newClient.email}
-                  onChange={(e) => setNewClient({...newClient, email: e.target.value})}
+                  onChange={(e) => { setNewClient({...newClient, email: e.target.value}); setClientErrors(p => ({...p, email: ""})); }}
                   placeholder="cliente@email.com"
                 />
+                {clientErrors.email && <p className="text-xs text-destructive">{clientErrors.email}</p>}
               </div>
 
               <div className="space-y-2">
@@ -471,7 +482,7 @@ export default function Vendas() {
               </div>
             </div>
             <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() => setIsClientDialogOpen(false)}>
+              <Button variant="outline" onClick={() => { setIsClientDialogOpen(false); setClientErrors({}); }}>
                 Cancelar
               </Button>
               <Button onClick={handleCreateClient} className="bg-gradient-primary hover:opacity-90">
