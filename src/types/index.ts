@@ -72,6 +72,6 @@ export interface Sale {
   profitMargin: number
   status: 'pendente' | 'pago' | 'concluido'
   ticketLocator: string
-  passengers: { name: string; passengerId: string; cpf: string }[]
+  passengers: { name: string; passengerId: string; cpf: string; clientId?: string }[]
   date: string
 }

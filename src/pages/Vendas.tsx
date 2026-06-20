@@ -23,7 +23,7 @@ interface Sale {
   profitMargin: number;
   status: "pendente" | "pago" | "concluido";
   ticketLocator: string;
-  passengers: { name: string; passengerId: string; cpf: string }[];
+  passengers: { name: string; passengerId: string; cpf: string; clientId?: string }[];
   date: string;
 }
 
@@ -59,7 +59,8 @@ export default function Vendas() {
   const createEmptyPassenger = () => ({
     name: "",
     passengerId: crypto.randomUUID(),
-    cpf: ""
+    cpf: "",
+    clientId: undefined as string | undefined
   });
 
   const [newSale, setNewSale] = useState({
@@ -379,7 +380,43 @@ export default function Vendas() {
                   </Button>
                 </div>
                 {newSale.passengers.map((passenger, index) => (
-                  <div key={index} className="grid grid-cols-[1fr_1fr_1fr_auto] gap-2">
+                  <div key={index} className="grid grid-cols-[auto_1fr_1fr_1fr_auto] gap-2">
+                    <Select
+                      value={passenger.clientId ?? ""}
+                      onValueChange={(value) => {
+                        if (value === "__manual__") {
+                          const updatedPassengers = newSale.passengers.map((p, i) =>
+                            i === index ? { ...p, clientId: undefined, name: "", cpf: "" } : p
+                          );
+                          setNewSale({ ...newSale, passengers: updatedPassengers });
+                        } else {
+                          const client = clients.find(c => c.id === value);
+                          if (client) {
+                            const updatedPassengers = newSale.passengers.map((p, i) =>
+                              i === index ? {
+                                ...p,
+                                clientId: client.id,
+                                name: client.name,
+                                cpf: client.cpf ?? p.cpf
+                              } : p
+                            );
+                            setNewSale({ ...newSale, passengers: updatedPassengers });
+                          }
+                        }
+                      }}
+                    >
+                      <SelectTrigger className="w-24 text-xs">
+                        <SelectValue placeholder="Cliente" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="__manual__">— Manual —</SelectItem>
+                        {clients.map((client) => (
+                          <SelectItem key={client.id} value={client.id}>
+                            {client.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <Input
                       placeholder="Nome completo"
                       value={passenger.name}
