@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
-import type { Owner, Program, OrigemType, Account, PointEntry, Sale } from "@/types";
+import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
 
 interface DataContextType {
   owners: Owner[]
@@ -8,6 +8,7 @@ interface DataContextType {
   accounts: Account[]
   entries: PointEntry[]
   sales: Sale[]
+  clients: Client[]
 
   // Owners
   addOwner: (data: Omit<Owner, "id">) => void
@@ -37,6 +38,11 @@ interface DataContextType {
   addSale: (data: Omit<Sale, "id">) => void
   updateSale: (id: string, data: Partial<Sale>) => void
   deleteSale: (id: string) => void
+
+  // Clients
+  addClient: (data: Omit<Client, "id">) => void
+  updateClient: (id: string, data: Partial<Client>) => void
+  deleteClient: (id: string) => void
 }
 
 const DataContext = createContext<DataContextType | null>(null);
@@ -75,8 +81,14 @@ const initialEntries: PointEntry[] = [
   { id: "2", accountId: "2", origemTypeId: "2", amount: 80000, amountPaid: 360, costPerThousand: 4.5, conversionRate: 0.8, milesGenerated: 64000, costPerMile: 0.005625, date: "2024-01-16" },
 ];
 
+const initialClients: Client[] = [
+  { id: "1", name: "João Silva", cpf: "123.456.789-00", email: "joao.silva@email.com", phone: "(11) 99999-9999", totalPurchases: 5, usageHistory: [{ program: "LATAM Pass", count: 3, year: 2024 }, { program: "Smiles", count: 2, year: 2024 }] },
+  { id: "2", name: "Maria Santos", cpf: "987.654.321-00", email: "maria.santos@email.com", phone: "(11) 88888-8888", totalPurchases: 8, usageHistory: [{ program: "LATAM Pass", count: 4, year: 2024 }, { program: "Livelo", count: 3, year: 2024 }, { program: "Smiles", count: 1, year: 2024 }] },
+  { id: "3", name: "Pedro Costa", cpf: "456.789.123-00", email: "pedro.costa@email.com", phone: "(11) 77777-7777", totalPurchases: 3, usageHistory: [{ program: "Livelo", count: 2, year: 2024 }, { program: "Esfera", count: 1, year: 2024 }] },
+];
+
 const initialSales: Sale[] = [
-  { id: "1", accountId: "1", clientName: "Carlos Mendes", milesUsed: 50000, saleValue: 300, costPerMile: 0.0045, profit: 75, profitMargin: 25, status: "concluido", ticketLocator: "ABC123", passengers: [{ name: "Carlos Mendes", cpf: "123.456.789-00" }], date: "2024-01-20" },
+  { id: "1", accountId: "1", clientId: "1", clientName: "Carlos Mendes", milesUsed: 50000, saleValue: 300, costPerMile: 0.0045, profit: 75, profitMargin: 25, status: "concluido", ticketLocator: "ABC123", passengers: [{ name: "Carlos Mendes", cpf: "123.456.789-00" }], date: "2024-01-20" },
 ];
 
 export function DataProvider({ children }: { children: ReactNode }) {
@@ -86,6 +98,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const [accounts, setAccounts] = useState<Account[]>(initialAccounts);
   const [entries, setEntries] = useState<PointEntry[]>(initialEntries);
   const [sales, setSales] = useState<Sale[]>(initialSales);
+  const [clients, setClients] = useState<Client[]>(initialClients);
 
   const addOwner = (data: Omit<Owner, "id">) =>
     setOwners(prev => [...prev, { id: crypto.randomUUID(), ...data }]);
@@ -142,15 +155,25 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const deleteSale = (id: string) =>
     setSales(prev => prev.filter(s => s.id !== id));
 
+  const addClient = (data: Omit<Client, "id">) =>
+    setClients(prev => [...prev, { id: crypto.randomUUID(), ...data }]);
+
+  const updateClient = (id: string, data: Partial<Client>) =>
+    setClients(prev => prev.map(c => c.id === id ? { ...c, ...data } : c));
+
+  const deleteClient = (id: string) =>
+    setClients(prev => prev.filter(c => c.id !== id));
+
   return (
     <DataContext.Provider value={{
-      owners, programs, origemTypes, accounts, entries, sales,
+      owners, programs, origemTypes, accounts, entries, sales, clients,
       addOwner, updateOwner, deleteOwner,
       addProgram, updateProgram, deleteProgram,
       addOrigemType, updateOrigemType, deleteOrigemType,
       addAccount, updateAccount, deleteAccount,
       addEntry, deleteEntry,
       addSale, updateSale, deleteSale,
+      addClient, updateClient, deleteClient,
     }}>
       {children}
     </DataContext.Provider>

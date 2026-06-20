@@ -1,3 +1,17 @@
+export interface Client {
+  id: string
+  name: string
+  cpf: string
+  email: string
+  phone: string
+  totalPurchases: number
+  usageHistory: {
+    program: string
+    count: number
+    year: number
+  }[]
+}
+
 export interface Owner {
   id: string
   name: string
@@ -48,6 +62,7 @@ export interface PointEntry {
 export interface Sale {
   id: string
   accountId: string
+  clientId: string
   clientName: string
   milesUsed: number
   saleValue: number

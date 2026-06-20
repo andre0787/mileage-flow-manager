@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Users, Search, Edit, Trash2, Phone, Mail } from "lucide-react";
+import { Plus, Users, Search, Edit, Trash2, Phone, AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,61 +7,11 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-
-interface Client {
-  id: number;
-  name: string;
-  cpf: string;
-  email: string;
-  phone: string;
-  totalPurchases: number;
-  usageHistory: {
-    program: string;
-    count: number;
-    year: number;
-  }[];
-}
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { useData } from "@/contexts/DataContext";
 
 export default function Clientes() {
-  const [clients, setClients] = useState<Client[]>([
-    {
-      id: 1,
-      name: "João Silva",
-      cpf: "123.456.789-00",
-      email: "joao.silva@email.com",
-      phone: "(11) 99999-9999",
-      totalPurchases: 5,
-      usageHistory: [
-        { program: "LATAM Pass", count: 3, year: 2024 },
-        { program: "Smiles", count: 2, year: 2024 }
-      ]
-    },
-    {
-      id: 2,
-      name: "Maria Santos",
-      cpf: "987.654.321-00",
-      email: "maria.santos@email.com",
-      phone: "(11) 88888-8888",
-      totalPurchases: 8,
-      usageHistory: [
-        { program: "LATAM Pass", count: 4, year: 2024 },
-        { program: "Livelo", count: 3, year: 2024 },
-        { program: "Smiles", count: 1, year: 2024 }
-      ]
-    },
-    {
-      id: 3,
-      name: "Pedro Costa",
-      cpf: "456.789.123-00",
-      email: "pedro.costa@email.com",
-      phone: "(11) 77777-7777",
-      totalPurchases: 3,
-      usageHistory: [
-        { program: "Livelo", count: 2, year: 2024 },
-        { program: "Esfera", count: 1, year: 2024 }
-      ]
-    }
-  ]);
+  const { clients, sales, addClient, updateClient, deleteClient } = useData();
 
   const [newClient, setNewClient] = useState({
     name: "",
@@ -70,8 +20,22 @@ export default function Clientes() {
     phone: ""
   });
 
+  const [editClientData, setEditClientData] = useState<{
+    id: string;
+    name: string;
+    cpf: string;
+    email: string;
+    phone: string;
+  } | null>(null);
+
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [deleteBlocked, setDeleteBlocked] = useState<{
+    open: boolean;
+    clientName: string;
+    relatedSales: { id: string; ticketLocator: string; date: string; milesUsed: number }[];
+  }>({ open: false, clientName: "", relatedSales: [] });
 
   const filteredClients = clients.filter(client =>
     client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -81,20 +45,55 @@ export default function Clientes() {
 
   const handleCreateClient = () => {
     if (newClient.name && newClient.cpf && newClient.email) {
-      const client: Client = {
-        id: Date.now(),
+      addClient({
         ...newClient,
         totalPurchases: 0,
         usageHistory: []
-      };
-      setClients([...clients, client]);
+      });
       setNewClient({ name: "", cpf: "", email: "", phone: "" });
       setIsCreateDialogOpen(false);
     }
   };
 
-  const deleteClient = (id: number) => {
-    setClients(clients.filter(client => client.id !== id));
+  const handleEditClient = (client: typeof clients[number]) => {
+    setEditClientData({
+      id: client.id,
+      name: client.name,
+      cpf: client.cpf,
+      email: client.email,
+      phone: client.phone
+    });
+    setIsEditDialogOpen(true);
+  };
+
+  const handleSaveEdit = () => {
+    if (editClientData && editClientData.name && editClientData.cpf && editClientData.email) {
+      updateClient(editClientData.id, {
+        name: editClientData.name,
+        cpf: editClientData.cpf,
+        email: editClientData.email,
+        phone: editClientData.phone
+      });
+      setEditClientData(null);
+      setIsEditDialogOpen(false);
+    }
+  };
+
+  const handleDeleteClient = (id: string, name: string) => {
+    const relatedSales = sales
+      .filter(sale => sale.clientId === id)
+      .map(sale => ({
+        id: sale.id,
+        ticketLocator: sale.ticketLocator,
+        date: sale.date,
+        milesUsed: sale.milesUsed
+      }));
+
+    if (relatedSales.length > 0) {
+      setDeleteBlocked({ open: true, clientName: name, relatedSales });
+    } else {
+      deleteClient(id);
+    }
   };
 
   const formatCPF = (cpf: string) => {
@@ -102,11 +101,8 @@ export default function Clientes() {
   };
 
   const handleCPFChange = (value: string) => {
-    // Remove todos os caracteres não numéricos
     const numbers = value.replace(/\D/g, "");
-    // Limita a 11 dígitos
     const limited = numbers.slice(0, 11);
-    // Aplica a formatação
     const formatted = formatCPF(limited);
     setNewClient({ ...newClient, cpf: formatted });
   };
@@ -183,6 +179,70 @@ export default function Clientes() {
               </Button>
               <Button onClick={handleCreateClient} className="bg-gradient-primary hover:opacity-90">
                 Cadastrar
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+        {/* Edit Dialog */}
+        <Dialog open={isEditDialogOpen} onOpenChange={(open) => { setIsEditDialogOpen(open); if (!open) setEditClientData(null); }}>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Editar Cliente</DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="space-y-2">
+                <Label htmlFor="edit-name">Nome Completo</Label>
+                <Input
+                  id="edit-name"
+                  value={editClientData?.name ?? ""}
+                  onChange={(e) => setEditClientData(prev => prev ? { ...prev, name: e.target.value } : null)}
+                  placeholder="Digite o nome completo"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="edit-cpf">CPF</Label>
+                <Input
+                  id="edit-cpf"
+                  value={editClientData?.cpf ?? ""}
+                  onChange={(e) => {
+                    const numbers = e.target.value.replace(/\D/g, "").slice(0, 11);
+                    const formatted = numbers.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+                    setEditClientData(prev => prev ? { ...prev, cpf: formatted } : null);
+                  }}
+                  placeholder="000.000.000-00"
+                  maxLength={14}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="edit-email">E-mail</Label>
+                <Input
+                  id="edit-email"
+                  type="email"
+                  value={editClientData?.email ?? ""}
+                  onChange={(e) => setEditClientData(prev => prev ? { ...prev, email: e.target.value } : null)}
+                  placeholder="cliente@email.com"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="edit-phone">Telefone</Label>
+                <Input
+                  id="edit-phone"
+                  value={editClientData?.phone ?? ""}
+                  onChange={(e) => setEditClientData(prev => prev ? { ...prev, phone: e.target.value } : null)}
+                  placeholder="(11) 99999-9999"
+                />
+              </div>
+            </div>
+            
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => { setIsEditDialogOpen(false); setEditClientData(null); }}>
+                Cancelar
+              </Button>
+              <Button onClick={handleSaveEdit} className="bg-gradient-primary hover:opacity-90">
+                Salvar
               </Button>
             </div>
           </DialogContent>
@@ -291,14 +351,14 @@ export default function Clientes() {
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button size="sm" variant="outline" className="px-3">
+                      <Button size="sm" variant="outline" className="px-3" onClick={() => handleEditClient(client)}>
                         <Edit className="h-4 w-4" />
                       </Button>
                       <Button 
                         size="sm" 
                         variant="outline" 
                         className="px-3 text-destructive hover:text-destructive"
-                        onClick={() => deleteClient(client.id)}
+                        onClick={() => handleDeleteClient(client.id, client.name)}
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
@@ -319,6 +379,43 @@ export default function Clientes() {
           )}
         </CardContent>
       </Card>
+
+      {/* Delete Blocked Alert */}
+      <AlertDialog open={deleteBlocked.open} onOpenChange={(open) => setDeleteBlocked(prev => ({ ...prev, open }))}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2 text-destructive">
+              <AlertTriangle className="h-5 w-5" />
+              Exclusão não permitida
+            </AlertDialogTitle>
+            <AlertDialogDescription asChild>
+              <div className="space-y-3">
+                <span>
+                  O cliente <strong>{deleteBlocked.clientName}</strong> possui vendas associadas e não pode ser excluído.
+                </span>
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-foreground">Vendas vinculadas:</p>
+                  {deleteBlocked.relatedSales.map(sale => (
+                    <div key={sale.id} className="flex items-center justify-between p-2 bg-muted/30 rounded text-sm">
+                      <span className="text-muted-foreground">
+                        {new Date(sale.date).toLocaleDateString('pt-BR')}
+                      </span>
+                      <span className="font-mono text-xs">{sale.ticketLocator}</span>
+                      <span className="font-medium">{sale.milesUsed.toLocaleString('pt-BR')} milhas</span>
+                    </div>
+                  ))}
+                </div>
+                <span className="text-xs text-muted-foreground">
+                  Remova as vendas vinculadas antes de excluir este cliente.
+                </span>
+              </div>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction>Entendi</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
