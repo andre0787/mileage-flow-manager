@@ -67,16 +67,6 @@ export default function Contas() {
         ))}
       </div>
 
-      {/* Filter */}
-      <div className="flex items-center gap-2">
-        <Filter className="h-4 w-4 text-muted-foreground" />
-        {(["todas", "pontos", "milhas"] as const).map((t) => (
-          <Button key={t} variant={filterType === t ? "default" : "outline"} size="sm" onClick={() => setFilterType(t)}>
-            {t === "todas" ? "Todas" : t === "pontos" ? "Pontos" : "Milhas"}
-          </Button>
-        ))}
-      </div>
-
       {/* Accounts Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {filteredAccounts.map((account) => (

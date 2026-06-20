@@ -9,12 +9,14 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
+import { useData } from "@/contexts/DataContext";
 
 interface Sale {
   id: number;
   ownerName: string;
   accountName: string;
   program: string;
+  clientId: string;
   clientName: string;
   milesUsed: number;
   saleValue: number;
@@ -35,12 +37,15 @@ interface StockInfo {
 }
 
 export default function Vendas() {
+  const { clients } = useData();
+
   const [sales, setSales] = useState<Sale[]>([
     {
       id: 1,
       ownerName: "João Silva",
       accountName: "Conta Principal LATAM",
       program: "LATAM Pass",
+      clientId: "1",
       clientName: "Carlos Mendes",
       milesUsed: 50000,
       saleValue: 300,
@@ -64,6 +69,7 @@ export default function Vendas() {
     ownerName: "",
     accountName: "",
     program: "",
+    clientId: "",
     clientName: "",
     milesUsed: "",
     saleValue: "",
@@ -80,7 +86,7 @@ export default function Vendas() {
   );
 
   const handleCreateSale = () => {
-    if (newSale.ownerName && newSale.program && newSale.clientName && newSale.milesUsed && newSale.saleValue) {
+    if (newSale.ownerName && newSale.program && newSale.clientId && newSale.milesUsed && newSale.saleValue) {
       const milesUsed = parseFloat(newSale.milesUsed);
       const saleValue = parseFloat(newSale.saleValue);
       const costPerMile = selectedProgramStock?.averageCostPerMile || 0;
@@ -93,6 +99,7 @@ export default function Vendas() {
         ownerName: newSale.ownerName,
         accountName: newSale.accountName,
         program: newSale.program,
+        clientId: newSale.clientId,
         clientName: newSale.clientName,
         milesUsed,
         saleValue,
@@ -110,6 +117,7 @@ export default function Vendas() {
         ownerName: "",
         accountName: "",
         program: "",
+        clientId: "",
         clientName: "",
         milesUsed: "",
         saleValue: "",
@@ -233,12 +241,28 @@ export default function Vendas() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="client">Cliente</Label>
-                  <Input
-                    id="client"
-                    value={newSale.clientName}
-                    onChange={(e) => setNewSale({...newSale, clientName: e.target.value})}
-                    placeholder="Nome do cliente"
-                  />
+                  <Select
+                    value={newSale.clientId}
+                    onValueChange={(value) => {
+                      const client = clients.find(c => c.id === value);
+                      setNewSale({
+                        ...newSale,
+                        clientId: value,
+                        clientName: client?.name || ""
+                      });
+                    }}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione o cliente" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {clients.map((client) => (
+                        <SelectItem key={client.id} value={client.id}>
+                          {client.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div className="space-y-2">
