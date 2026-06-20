@@ -40,7 +40,7 @@ interface DataContextType {
   deleteSale: (id: string) => void
 
   // Clients
-  addClient: (data: Omit<Client, "id">) => void
+  addClient: (data: Omit<Client, "id">, id?: string) => void
   updateClient: (id: string, data: Partial<Client>) => void
   deleteClient: (id: string) => void
 }
@@ -155,8 +155,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const deleteSale = (id: string) =>
     setSales(prev => prev.filter(s => s.id !== id));
 
-  const addClient = (data: Omit<Client, "id">) =>
-    setClients(prev => [...prev, { id: crypto.randomUUID(), ...data }]);
+  const addClient = (data: Omit<Client, "id">, id?: string) =>
+    setClients(prev => [...prev, { id: id ?? crypto.randomUUID(), ...data }]);
 
   const updateClient = (id: string, data: Partial<Client>) =>
     setClients(prev => prev.map(c => c.id === id ? { ...c, ...data } : c));

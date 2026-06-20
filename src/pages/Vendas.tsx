@@ -1,14 +1,12 @@
 import { useState, useMemo } from "react";
-import { Plus, TrendingDown, DollarSign, Users } from "lucide-react";
+import { Plus, TrendingDown, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Textarea } from "@/components/ui/textarea";
 import { useData } from "@/contexts/DataContext";
 
 interface Sale {
@@ -40,7 +38,7 @@ interface StockInfo {
 }
 
 export default function Vendas() {
-  const { clients, accounts, owners, programs } = useData();
+  const { clients, accounts, owners, programs, addClient } = useData();
 
   const [sales, setSales] = useState<Sale[]>([
     {
@@ -89,12 +87,47 @@ export default function Vendas() {
   });
 
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isClientDialogOpen, setIsClientDialogOpen] = useState(false);
+  const [newClient, setNewClient] = useState({
+    name: "",
+    cpf: "",
+    email: "",
+    phone: ""
+  });
 
   const ownersList = [...new Set(stockInfo.map(s => s.ownerName))];
   const selectedOwnerStock = stockInfo.filter(s => s.ownerName === newSale.ownerName);
   const selectedProgramStock = stockInfo.find(s => 
     s.ownerName === newSale.ownerName && s.program === newSale.program
   );
+
+  const formatCPF = (cpf: string) => {
+    const numbers = cpf.replace(/\D/g, "").slice(0, 11);
+    return numbers.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  };
+
+  const handleCreateClient = () => {
+    if (newClient.name && newClient.cpf && newClient.email) {
+      const id = crypto.randomUUID();
+      addClient({
+        name: newClient.name,
+        cpf: newClient.cpf,
+        email: newClient.email,
+        phone: newClient.phone,
+        totalPurchases: 0,
+        usageHistory: []
+      }, id);
+
+      setNewSale({
+        ...newSale,
+        clientId: id,
+        clientName: newClient.name
+      });
+
+      setNewClient({ name: "", cpf: "", email: "", phone: "" });
+      setIsClientDialogOpen(false);
+    }
+  };
 
   const handleCreateSale = () => {
     if (newSale.ownerName && newSale.program && newSale.clientId && newSale.milesUsed && newSale.saleValue) {
@@ -251,29 +284,36 @@ export default function Vendas() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="client">Cliente</Label>
-                  <Select
-                    value={newSale.clientId}
-                    onValueChange={(value) => {
-                      const client = clients.find(c => c.id === value);
-                      setNewSale({
-                        ...newSale,
-                        clientId: value,
-                        clientName: client?.name || ""
-                      });
-                    }}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selecione o cliente" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {clients.map((client) => (
-                        <SelectItem key={client.id} value={client.id}>
-                          {client.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <Label>Cliente</Label>
+                  <div className="flex gap-2">
+                    <div className="flex-1">
+                      <Select
+                        value={newSale.clientId}
+                        onValueChange={(value) => {
+                          const client = clients.find(c => c.id === value);
+                          setNewSale({
+                            ...newSale,
+                            clientId: value,
+                            clientName: client?.name || ""
+                          });
+                        }}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione o cliente" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {clients.map((client) => (
+                            <SelectItem key={client.id} value={client.id}>
+                              {client.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <Button variant="outline" size="icon" onClick={() => setIsClientDialogOpen(true)} title="Novo cliente">
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
 
                 <div className="space-y-2">
@@ -377,6 +417,65 @@ export default function Vendas() {
                 disabled={!newSale.milesUsed || !selectedProgramStock || parseFloat(newSale.milesUsed) > selectedProgramStock.availableMiles}
               >
                 Registrar Venda
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={isClientDialogOpen} onOpenChange={setIsClientDialogOpen}>
+          <DialogContent className="sm:max-w-[350px]">
+            <DialogHeader>
+              <DialogTitle>Novo Cliente</DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="space-y-2">
+                <Label>Nome Completo</Label>
+                <Input
+                  value={newClient.name}
+                  onChange={(e) => setNewClient({...newClient, name: e.target.value})}
+                  placeholder="Digite o nome completo"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>CPF</Label>
+                <Input
+                  value={newClient.cpf}
+                  onChange={(e) => {
+                    const numbers = e.target.value.replace(/\D/g, "").slice(0, 11);
+                    const formatted = formatCPF(numbers);
+                    setNewClient({...newClient, cpf: formatted});
+                  }}
+                  placeholder="000.000.000-00"
+                  maxLength={14}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>E-mail</Label>
+                <Input
+                  type="email"
+                  value={newClient.email}
+                  onChange={(e) => setNewClient({...newClient, email: e.target.value})}
+                  placeholder="cliente@email.com"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Telefone</Label>
+                <Input
+                  value={newClient.phone}
+                  onChange={(e) => setNewClient({...newClient, phone: e.target.value})}
+                  placeholder="(11) 99999-9999"
+                />
+              </div>
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setIsClientDialogOpen(false)}>
+                Cancelar
+              </Button>
+              <Button onClick={handleCreateClient} className="bg-gradient-primary hover:opacity-90">
+                Cadastrar
               </Button>
             </div>
           </DialogContent>
