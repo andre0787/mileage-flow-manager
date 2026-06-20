@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { AppSidebar } from "@/components/AppSidebar";
+import { DataProvider } from "@/contexts/DataContext";
 import Dashboard from "./pages/Dashboard";
 import Contas from "./pages/Contas";
 import Clientes from "./pages/Clientes";
@@ -13,6 +14,7 @@ import Entradas from "./pages/Entradas";
 import Vendas from "./pages/Vendas";
 import ControleCPF from "./pages/ControleCPF";
 import Relatorios from "./pages/Relatorios";
+import Configuracoes from "./pages/Configuracoes";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,16 +37,19 @@ const App = () => (
                   </div>
                 </header>
                 <main className="flex-1 p-4 md:p-6 bg-background">
-                  <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/contas" element={<Contas />} />
-                    <Route path="/clientes" element={<Clientes />} />
-                    <Route path="/entradas" element={<Entradas />} />
-                    <Route path="/vendas" element={<Vendas />} />
-                    <Route path="/cpf" element={<ControleCPF />} />
-                    <Route path="/relatorios" element={<Relatorios />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
+                  <DataProvider>
+                    <Routes>
+                      <Route path="/" element={<Dashboard />} />
+                      <Route path="/contas" element={<Contas />} />
+                      <Route path="/clientes" element={<Clientes />} />
+                      <Route path="/entradas" element={<Entradas />} />
+                      <Route path="/vendas" element={<Vendas />} />
+                      <Route path="/cpf" element={<ControleCPF />} />
+                      <Route path="/relatorios" element={<Relatorios />} />
+                      <Route path="/configuracoes" element={<Configuracoes />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </DataProvider>
                 </main>
               </div>
             </div>
