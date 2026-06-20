@@ -56,18 +56,26 @@ export interface PointEntry {
   conversionRate?: number
   milesGenerated?: number
   costPerMile?: number
+  sourceAccountId?: string
+  bonusPercent?: number
   date: string
   description?: string
 }
 
 export interface Sale {
   id: string
-  accountId: string
+  accountId?: string
+  accountName: string
+  ownerName: string
+  program: string
   clientId: string
   clientName: string
   milesUsed: number
   saleValue: number
+  pricePerMile?: number
   costPerMile: number
+  additionalCost?: number
+  additionalCostDesc?: string
   profit: number
   profitMargin: number
   status: 'pendente' | 'pago' | 'concluido'

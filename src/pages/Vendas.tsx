@@ -8,24 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useData } from "@/contexts/DataContext";
-
-interface Sale {
-  id: number;
-  ownerName: string;
-  accountName: string;
-  program: string;
-  clientId: string;
-  clientName: string;
-  milesUsed: number;
-  saleValue: number;
-  costPerMile: number;
-  profit: number;
-  profitMargin: number;
-  status: "pendente" | "pago" | "concluido";
-  ticketLocator: string;
-  passengers: { name: string; passengerId: string; cpf: string; clientId?: string }[];
-  date: string;
-}
+import type { Sale } from "@/types";
 
 interface StockInfo {
   accountId: string;
@@ -38,9 +21,7 @@ interface StockInfo {
 }
 
 export default function Vendas() {
-  const { clients, accounts, owners, programs, addClient } = useData();
-
-  const [sales, setSales] = useState<Sale[]>([]);
+  const { clients, accounts, owners, programs, sales, addSale, updateSale, addClient } = useData();
 
   const stockInfo = useMemo(() => {
     return accounts
@@ -70,7 +51,10 @@ export default function Vendas() {
     clientId: "",
     clientName: "",
     milesUsed: "",
+    pricePerMile: "",
     saleValue: "",
+    additionalCost: "",
+    additionalCostDesc: "",
     ticketLocator: "",
     passengers: [createEmptyPassenger()]
   });
@@ -129,13 +113,13 @@ export default function Vendas() {
     if (newSale.ownerName && newSale.program && newSale.clientId && newSale.milesUsed && newSale.saleValue) {
       const milesUsed = parseFloat(newSale.milesUsed);
       const saleValue = parseFloat(newSale.saleValue);
+      const additionalCost = parseFloat(newSale.additionalCost || "0");
       const costPerMile = selectedProgramStock?.averageCostPerMile || 0;
       const totalCost = milesUsed * costPerMile;
-      const profit = saleValue - totalCost;
-      const profitMargin = (profit / saleValue) * 100;
+      const profit = saleValue - totalCost - additionalCost;
+      const profitMargin = saleValue > 0 ? (profit / saleValue) * 100 : 0;
 
-      const sale: Sale = {
-        id: Date.now(),
+      addSale({
         ownerName: newSale.ownerName,
         accountName: newSale.accountName,
         program: newSale.program,
@@ -143,6 +127,9 @@ export default function Vendas() {
         clientName: newSale.clientName,
         milesUsed,
         saleValue,
+        pricePerMile: parseFloat(newSale.pricePerMile || "0") || undefined,
+        additionalCost: additionalCost || undefined,
+        additionalCostDesc: newSale.additionalCostDesc.trim() || undefined,
         costPerMile,
         profit,
         profitMargin,
@@ -150,9 +137,7 @@ export default function Vendas() {
         ticketLocator: newSale.ticketLocator,
         passengers: newSale.passengers.filter(p => p.name || p.passengerId),
         date: new Date().toISOString().split('T')[0]
-      };
-
-      setSales([...sales, sale]);
+      });
       setNewSale({
         ownerName: "",
         accountName: "",
@@ -160,7 +145,10 @@ export default function Vendas() {
         clientId: "",
         clientName: "",
         milesUsed: "",
+        pricePerMile: "",
         saleValue: "",
+        additionalCost: "",
+        additionalCostDesc: "",
         ticketLocator: "",
         passengers: [createEmptyPassenger()]
       });
@@ -191,10 +179,8 @@ export default function Vendas() {
     }
   };
 
-  const updateSaleStatus = (id: number, status: Sale['status']) => {
-    setSales(sales.map(sale => 
-      sale.id === id ? { ...sale, status } : sale
-    ));
+  const updateSaleStatus = (id: string, status: Sale['status']) => {
+    updateSale(id, { status });
   };
 
   const totalRevenue = sales.reduce((sum, sale) => sum + sale.saleValue, 0);
@@ -323,20 +309,51 @@ export default function Vendas() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="miles">Milhas Utilizadas</Label>
                   <Input
                     id="miles"
                     type="number"
                     value={newSale.milesUsed}
-                    onChange={(e) => setNewSale({...newSale, milesUsed: e.target.value})}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val && newSale.pricePerMile) {
+                        setNewSale({...newSale, milesUsed: val, saleValue: (parseFloat(val) * parseFloat(newSale.pricePerMile)).toFixed(2)});
+                      } else {
+                        setNewSale({...newSale, milesUsed: val});
+                      }
+                    }}
                     placeholder="Ex: 50000"
                     max={selectedProgramStock?.availableMiles}
                   />
+                  {selectedProgramStock && (
+                    <p className="text-xs text-muted-foreground">
+                      Estoque: {selectedProgramStock.availableMiles.toLocaleString('pt-BR')} milhas
+                    </p>
+                  )}
                   {newSale.milesUsed && selectedProgramStock && parseFloat(newSale.milesUsed) > selectedProgramStock.availableMiles && (
                     <p className="text-xs text-destructive">Quantidade superior ao estoque disponível</p>
                   )}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="pricePerMile">Valor por Milha (R$)</Label>
+                  <Input
+                    id="pricePerMile"
+                    type="number"
+                    step="0.0001"
+                    value={newSale.pricePerMile}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val && newSale.milesUsed) {
+                        setNewSale({...newSale, pricePerMile: val, saleValue: (parseFloat(val) * parseFloat(newSale.milesUsed)).toFixed(2)});
+                      } else {
+                        setNewSale({...newSale, pricePerMile: val});
+                      }
+                    }}
+                    placeholder="Ex: 0.03"
+                  />
                 </div>
 
                 <div className="space-y-2">
@@ -349,24 +366,58 @@ export default function Vendas() {
                     onChange={(e) => setNewSale({...newSale, saleValue: e.target.value})}
                     placeholder="Ex: 300.00"
                   />
+                  {newSale.pricePerMile && newSale.milesUsed && (
+                    <p className="text-xs text-muted-foreground">
+                      {parseFloat(newSale.milesUsed).toLocaleString('pt-BR')} × R$ {parseFloat(newSale.pricePerMile).toFixed(4)}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="additionalCost">Custo Adicional (R$)</Label>
+                  <Input
+                    id="additionalCost"
+                    type="number"
+                    step="0.01"
+                    value={newSale.additionalCost}
+                    onChange={(e) => setNewSale({...newSale, additionalCost: e.target.value})}
+                    placeholder="Ex: 50.00"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="additionalCostDesc">Observação do Custo</Label>
+                  <Input
+                    id="additionalCostDesc"
+                    value={newSale.additionalCostDesc}
+                    onChange={(e) => setNewSale({...newSale, additionalCostDesc: e.target.value})}
+                    placeholder="Ex: Taxa de embarque"
+                  />
                 </div>
               </div>
 
               {newSale.milesUsed && newSale.saleValue && selectedProgramStock && (
                 <div className="p-3 bg-success-light rounded-lg">
                   <h4 className="font-semibold text-sm mb-2">Cálculo de Lucro:</h4>
-                  <div className="grid grid-cols-3 gap-4 text-xs">
+                  <div className="grid grid-cols-4 gap-4 text-xs">
                     <div>
                       <span className="text-muted-foreground">Custo total:</span>
                       <p className="font-semibold">R$ {(parseFloat(newSale.milesUsed) * selectedProgramStock.averageCostPerMile).toFixed(2)}</p>
                     </div>
+                    {newSale.additionalCost && parseFloat(newSale.additionalCost) > 0 && (
+                      <div>
+                        <span className="text-muted-foreground">Custo adicional:</span>
+                        <p className="font-semibold text-destructive">R$ {parseFloat(newSale.additionalCost).toFixed(2)}</p>
+                      </div>
+                    )}
                     <div>
                       <span className="text-muted-foreground">Lucro:</span>
-                      <p className="font-semibold text-success">R$ {(parseFloat(newSale.saleValue) - (parseFloat(newSale.milesUsed) * selectedProgramStock.averageCostPerMile)).toFixed(2)}</p>
+                      <p className="font-semibold text-success">R$ {(parseFloat(newSale.saleValue) - (parseFloat(newSale.milesUsed) * selectedProgramStock.averageCostPerMile) - parseFloat(newSale.additionalCost || "0")).toFixed(2)}</p>
                     </div>
                     <div>
                       <span className="text-muted-foreground">Margem:</span>
-                      <p className="font-semibold">{(((parseFloat(newSale.saleValue) - (parseFloat(newSale.milesUsed) * selectedProgramStock.averageCostPerMile)) / parseFloat(newSale.saleValue)) * 100).toFixed(1)}%</p>
+                      <p className="font-semibold">{(((parseFloat(newSale.saleValue) - (parseFloat(newSale.milesUsed) * selectedProgramStock.averageCostPerMile) - parseFloat(newSale.additionalCost || "0")) / parseFloat(newSale.saleValue)) * 100).toFixed(1)}%</p>
                     </div>
                   </div>
                 </div>
@@ -615,7 +666,7 @@ export default function Vendas() {
                   <TableCell>
                     <Select 
                       value={sale.status} 
-                      onValueChange={(value) => updateSaleStatus(sale.id, value as Sale['status'])}
+                      onValueChange={(value) => updateSaleStatus(sale.id, value as "pendente" | "pago" | "concluido")}
                     >
                       <SelectTrigger className="w-28">
                         <span className={`h-2 w-2 rounded-full ${sale.status === 'pendente' ? 'bg-warning' : sale.status === 'pago' ? 'bg-primary' : 'bg-success'}`} />

@@ -21,7 +21,7 @@ interface DataContextType {
   deleteProgram: (id: string) => void
 
   // Origem Types
-  addOrigemType: (data: Omit<OrigemType, "id">) => void
+  addOrigemType: (data: Omit<OrigemType, "id">, id?: string) => void
   updateOrigemType: (id: string, data: Partial<OrigemType>) => void
   deleteOrigemType: (id: string) => void
 
@@ -61,32 +61,18 @@ function loadFromStorage<T>(key: string, fallback: T): T {
 function persistToStorage<T>(key: string, data: T): void {
   try {
     localStorage.setItem(STORAGE_PREFIX + key, JSON.stringify(data));
-  } catch {}
+  } catch {
+    // localStorage may be full or unavailable
+  }
 }
 
-const initialOwners: Owner[] = [
-  { id: "1", name: "João Silva", cpf: "123.456.789-00", phone: "(11) 99999-9999" },
-  { id: "2", name: "Maria Santos", cpf: "987.654.321-00", phone: "(11) 88888-8888" },
-];
+const initialOwners: Owner[] = [];
 
-const initialPrograms: Program[] = [
-  { id: "1", name: "LATAM Pass", type: "milhas" },
-  { id: "2", name: "Smiles", type: "milhas" },
-];
+const initialPrograms: Program[] = [];
 
-const initialOrigemTypes: OrigemType[] = [
-  { id: "1", name: "Cartão de Crédito", accountType: "pontos", color: "#3b82f6" },
-  { id: "2", name: "Clube de Pontos", accountType: "pontos", color: "#8b5cf6" },
-  { id: "3", name: "Compra Direta", accountType: "milhas", color: "#10b981" },
-  { id: "4", name: "Transferência", accountType: "milhas", color: "#f59e0b" },
-  { id: "5", name: "Bonificação", accountType: "milhas", color: "#ef4444" },
-  { id: "6", name: "Promoção", accountType: "milhas", color: "#06b6d4" },
-];
+const initialOrigemTypes: OrigemType[] = [];
 
-const initialAccounts: Account[] = [
-  { id: "1", name: "Conta Principal LATAM", ownerId: "1", programId: "1", type: "milhas", balance: 400000, averageCostPerMile: 0.0045, totalInvested: 1800, status: "ativa", createdAt: "2024-01-01" },
-  { id: "2", name: "Smiles Premium", ownerId: "2", programId: "2", type: "milhas", balance: 64000, averageCostPerMile: 0.005625, totalInvested: 360, status: "ativa", createdAt: "2024-01-01" },
-];
+const initialAccounts: Account[] = [];
 
 const initialEntries: PointEntry[] = [];
 
@@ -129,8 +115,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const deleteProgram = (id: string) =>
     setPrograms(prev => prev.filter(p => p.id !== id));
 
-  const addOrigemType = (data: Omit<OrigemType, "id">) =>
-    setOrigemTypes(prev => [...prev, { id: crypto.randomUUID(), ...data }]);
+  const addOrigemType = (data: Omit<OrigemType, "id">, id?: string) =>
+    setOrigemTypes(prev => [...prev, { id: id ?? crypto.randomUUID(), ...data }]);
 
   const updateOrigemType = (id: string, data: Partial<OrigemType>) =>
     setOrigemTypes(prev => prev.map(o => o.id === id ? { ...o, ...data } : o));
@@ -151,11 +137,71 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const deleteAccount = (id: string) =>
     setAccounts(prev => prev.filter(a => a.id !== id));
 
-  const addEntry = (data: Omit<PointEntry, "id">) =>
-    setEntries(prev => [...prev, { id: crypto.randomUUID(), ...data }]);
+  const addEntry = (data: Omit<PointEntry, "id">) => {
+    const entry = { id: crypto.randomUUID(), ...data };
+    setEntries(prev => [...prev, entry]);
+    setAccounts(prev => prev.map(acc => {
+      if (acc.id !== entry.accountId) return acc;
+      const amountToAdd = entry.milesGenerated ?? entry.amount;
+      const newBalance = acc.balance + amountToAdd;
+      const newTotalInvested = (acc.totalInvested ?? 0) + entry.amountPaid;
+      return {
+        ...acc,
+        balance: newBalance,
+        totalInvested: newTotalInvested,
+        averageCostPerMile: newBalance > 0 ? newTotalInvested / newBalance : acc.averageCostPerMile,
+      };
+    }));
+    if (entry.sourceAccountId) {
+      setAccounts(prev => prev.map(acc => {
+        if (acc.id !== entry.sourceAccountId) return acc;
+        const avgCost = acc.balance > 0 ? (acc.totalInvested ?? 0) / acc.balance : 0;
+        const costToRemove = entry.amount * avgCost;
+        const newBalance = Math.max(0, acc.balance - entry.amount);
+        const newTotalInvested = Math.max(0, (acc.totalInvested ?? 0) - costToRemove);
+        return {
+          ...acc,
+          balance: newBalance,
+          totalInvested: newTotalInvested,
+          averageCostPerMile: newBalance > 0 ? newTotalInvested / newBalance : 0,
+        };
+      }));
+    }
+  };
 
-  const deleteEntry = (id: string) =>
+  const deleteEntry = (id: string) => {
+    const entry = entries.find(e => e.id === id);
     setEntries(prev => prev.filter(e => e.id !== id));
+    if (entry) {
+      setAccounts(prev => prev.map(acc => {
+        if (acc.id !== entry.accountId) return acc;
+        const amountToRemove = entry.milesGenerated ?? entry.amount;
+        const newBalance = Math.max(0, acc.balance - amountToRemove);
+        const newTotalInvested = Math.max(0, (acc.totalInvested ?? 0) - entry.amountPaid);
+        return {
+          ...acc,
+          balance: newBalance,
+          totalInvested: newTotalInvested,
+          averageCostPerMile: newBalance > 0 ? newTotalInvested / newBalance : 0,
+        };
+      }));
+      if (entry.sourceAccountId) {
+        setAccounts(prev => prev.map(acc => {
+          if (acc.id !== entry.sourceAccountId) return acc;
+          const avgCostAtTransfer = entry.amount > 0 ? entry.amountPaid / entry.amount : 0;
+          const costToRestore = entry.amount * avgCostAtTransfer;
+          const newBalance = acc.balance + entry.amount;
+          const newTotalInvested = (acc.totalInvested ?? 0) + costToRestore;
+          return {
+            ...acc,
+            balance: newBalance,
+            totalInvested: newTotalInvested,
+            averageCostPerMile: newBalance > 0 ? newTotalInvested / newBalance : 0,
+          };
+        }));
+      }
+    }
+  };
 
   const addSale = (data: Omit<Sale, "id">) =>
     setSales(prev => [...prev, { id: crypto.randomUUID(), ...data }]);
