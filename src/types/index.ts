@@ -24,6 +24,9 @@ export interface Program {
   id: string
   name: string
   type: 'pontos' | 'milhas'
+  maxPassengers?: number
+  passengerCycleType?: 'anual' | 'dias'
+  passengerCycleDays?: number
 }
 
 export interface OrigemType {
