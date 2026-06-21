@@ -21,7 +21,7 @@ interface StockInfo {
 }
 
 export default function Vendas() {
-  const { clients, accounts, owners, programs, sales, addSale, updateSale, addClient } = useData();
+  const { clients, accounts, owners, programs, sales, addSale, updateSale, addClient, updateAccount } = useData();
 
   const stockInfo = useMemo(() => {
     return accounts
@@ -138,6 +138,16 @@ export default function Vendas() {
         passengers: newSale.passengers.filter(p => p.name || p.passengerId),
         date: new Date().toISOString().split('T')[0]
       });
+
+      if (selectedProgramStock) {
+        const account = accounts.find(a => a.id === selectedProgramStock.accountId);
+        if (account) {
+          updateAccount(account.id, {
+            balance: account.balance - milesUsed
+          });
+        }
+      }
+
       setNewSale({
         ownerName: "",
         accountName: "",
