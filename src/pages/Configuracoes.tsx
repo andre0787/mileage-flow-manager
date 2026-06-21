@@ -79,6 +79,14 @@ export default function Configuracoes() {
       setProgramError("Nome é obrigatório");
       return;
     }
+    if (newProgram.passengerCycleType !== "none" && !newProgram.maxPassengers) {
+      setProgramError("Máx. Passageiros é obrigatório para controle ativo");
+      return;
+    }
+    if (newProgram.passengerCycleType === "dias" && !newProgram.passengerCycleDays) {
+      setProgramError("Janela em dias é obrigatória para ciclo por dias");
+      return;
+    }
     const programData = {
       name: newProgram.name,
       type: newProgram.type,
@@ -392,8 +400,8 @@ export default function Configuracoes() {
                         {program.passengerCycleType ? (
                           <Badge variant="outline">
                             {program.passengerCycleType === "anual"
-                              ? `Anual — ${program.maxPassengers} pax/ano`
-                              : `${program.maxPassengers} pax/${program.passengerCycleDays}d`}
+                              ? `Anual — ${program.maxPassengers ?? "?"} pax/ano`
+                              : `${program.maxPassengers ?? "?"} pax/${program.passengerCycleDays ?? "?"}d`}
                           </Badge>
                         ) : (
                           <span className="text-muted-foreground text-sm">—</span>
