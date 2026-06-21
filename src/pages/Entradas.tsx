@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, TrendingUp, TrendingDown, Calculator, Palette, Users } from "lucide-react";
+import { Plus, TrendingUp, TrendingDown, Calculator, Palette } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -138,40 +138,6 @@ export default function Entradas() {
           <p className="text-muted-foreground">
             Gerencie aquisição de pontos e milhas
           </p>
-        </div>
-
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          {owners.map(owner => {
-            const ownerPoints = accounts
-              .filter(a => a.ownerId === owner.id && a.type === "pontos")
-              .reduce((sum, acc) => sum + acc.balance, 0);
-            const ownerMiles = accounts
-              .filter(a => a.ownerId === owner.id && a.type === "milhas")
-              .reduce((sum, acc) => sum + acc.balance, 0);
-            
-            if (ownerPoints === 0 && ownerMiles === 0) return null;
-
-            return (
-              <Card key={owner.id} className="shadow-sm border-primary/10 overflow-hidden">
-                <CardHeader className="p-3 bg-muted/30">
-                  <CardTitle className="text-sm font-semibold flex items-center gap-2">
-                    <Users className="h-4 w-4 text-primary" />
-                    {owner.name}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-3 space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Pontos</span>
-                    <span className="text-sm font-bold">{ownerPoints.toLocaleString('pt-BR')}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Milhas</span>
-                    <span className="text-sm font-bold text-success">{ownerMiles.toLocaleString('pt-BR')}</span>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
         </div>
 
         <Dialog open={isCreateDialogOpen} onOpenChange={(open) => {
