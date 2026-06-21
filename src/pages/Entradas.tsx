@@ -86,7 +86,7 @@ export default function Entradas() {
     if (!newEntry.accountId) errors.accountId = "Selecione uma conta";
     if (!newEntry.origemTypeId) errors.origemTypeId = "Selecione o tipo de origem";
     if (!newEntry.amount || parseFloat(newEntry.amount) <= 0) errors.amount = "Informe a quantidade";
-    if (!newEntry.amountPaid || parseFloat(newEntry.amountPaid) <= 0) errors.amountPaid = "Informe o valor pago";
+    if (!isTransfer && (!newEntry.amountPaid || parseFloat(newEntry.amountPaid) <= 0)) errors.amountPaid = "Informe o valor pago";
     if (isTransfer && !newEntry.sourceAccountId) errors.sourceAccountId = "Selecione a conta de origem";
     if (isTransfer && newEntry.sourceAccountId && newEntry.accountId) {
       const srcAccount = accounts.find(a => a.id === newEntry.sourceAccountId);
