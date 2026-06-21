@@ -142,8 +142,12 @@ export default function Vendas() {
       if (selectedProgramStock) {
         const account = accounts.find(a => a.id === selectedProgramStock.accountId);
         if (account) {
+          const proportionalInvested = account.totalInvested
+            ? account.totalInvested * (milesUsed / account.balance)
+            : 0;
           updateAccount(account.id, {
-            balance: account.balance - milesUsed
+            balance: account.balance - milesUsed,
+            totalInvested: Math.max(0, (account.totalInvested ?? 0) - proportionalInvested),
           });
         }
       }
