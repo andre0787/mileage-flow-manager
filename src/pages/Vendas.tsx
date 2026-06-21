@@ -154,7 +154,7 @@ export default function Vendas() {
         profitMargin,
         status: "pendente",
         ticketLocator: newSale.ticketLocator,
-        passengers: newSale.passengers.filter(p => p.name || p.passengerId),
+        passengers: newSale.passengers.filter(p => p.name.trim()),
         date: new Date().toISOString().split('T')[0]
       });
 
@@ -526,7 +526,7 @@ export default function Vendas() {
                 ))}
               </div>
               {programConfig?.maxPassengers && (() => {
-                const newCount = newSale.passengers.filter(p => p.name || p.passengerId).length;
+                const newCount = newSale.passengers.filter(p => p.name.trim()).length;
                 const totalAfter = usedPassengersInCycle + newCount;
                 if (totalAfter > programConfig.maxPassengers) {
                   return (
@@ -547,7 +547,7 @@ export default function Vendas() {
               <Button 
                 onClick={handleCreateSale} 
                 className="bg-gradient-primary hover:opacity-90"
-                disabled={!newSale.ownerName || !newSale.program || !newSale.clientId || !newSale.milesUsed || !newSale.saleValue || !selectedProgramStock || parseFloat(newSale.milesUsed) > selectedProgramStock.availableMiles || (programConfig?.maxPassengers && usedPassengersInCycle + newSale.passengers.filter(p => p.name || p.passengerId).length > programConfig.maxPassengers)}
+                disabled={!newSale.ownerName || !newSale.program || !newSale.clientId || !newSale.milesUsed || !newSale.saleValue || !selectedProgramStock || parseFloat(newSale.milesUsed) > selectedProgramStock.availableMiles || (programConfig?.maxPassengers && usedPassengersInCycle + newSale.passengers.filter(p => p.name.trim()).length > programConfig.maxPassengers)}
               >
                 Registrar Venda
               </Button>
