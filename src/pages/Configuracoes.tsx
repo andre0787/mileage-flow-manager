@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useData } from "@/contexts/DataContext";
+import { useData, TRANSFERENCIA_ID } from "@/contexts/DataContext";
 import type { Owner, Program, OrigemType } from "@/types";
 
 export default function Configuracoes() {
@@ -22,7 +22,7 @@ export default function Configuracoes() {
   const [ownerError, setOwnerError] = useState("");
 
   // Program CRUD state
-  const [newProgram, setNewProgram] = useState({ name: "", type: "milhas" as Program["type"] });
+  const [newProgram, setNewProgram] = useState({ name: "", type: "milhas" as Program["type"], maxPassengers: "", passengerCycleType: "none" as "none" | "anual" | "dias", passengerCycleDays: "" });
   const [editingProgram, setEditingProgram] = useState<Program | null>(null);
   const [isProgramDialogOpen, setIsProgramDialogOpen] = useState(false);
   const [programError, setProgramError] = useState("");
@@ -68,7 +68,7 @@ export default function Configuracoes() {
   };
 
   const resetProgramDialog = () => {
-    setNewProgram({ name: "", type: "milhas" });
+    setNewProgram({ name: "", type: "milhas", maxPassengers: "", passengerCycleType: "none", passengerCycleDays: "" });
     setEditingProgram(null);
     setProgramError("");
     setIsProgramDialogOpen(false);
@@ -79,17 +79,38 @@ export default function Configuracoes() {
       setProgramError("Nome é obrigatório");
       return;
     }
+    if (newProgram.passengerCycleType !== "none" && !newProgram.maxPassengers) {
+      setProgramError("Máx. Passageiros é obrigatório para controle ativo");
+      return;
+    }
+    if (newProgram.passengerCycleType === "dias" && !newProgram.passengerCycleDays) {
+      setProgramError("Janela em dias é obrigatória para ciclo por dias");
+      return;
+    }
+    const programData = {
+      name: newProgram.name,
+      type: newProgram.type,
+      maxPassengers: newProgram.passengerCycleType !== "none" && newProgram.maxPassengers ? parseInt(newProgram.maxPassengers) : undefined,
+      passengerCycleType: newProgram.passengerCycleType !== "none" ? newProgram.passengerCycleType : undefined,
+      passengerCycleDays: newProgram.passengerCycleType === "dias" && newProgram.passengerCycleDays ? parseInt(newProgram.passengerCycleDays) : undefined,
+    };
     if (editingProgram) {
-      updateProgram(editingProgram.id, newProgram);
+      updateProgram(editingProgram.id, programData);
     } else {
-      addProgram(newProgram);
+      addProgram(programData);
     }
     resetProgramDialog();
   };
 
   const handleEditProgram = (program: Program) => {
     setEditingProgram(program);
-    setNewProgram({ name: program.name, type: program.type });
+    setNewProgram({
+      name: program.name,
+      type: program.type,
+      maxPassengers: program.maxPassengers?.toString() ?? "",
+      passengerCycleType: program.passengerCycleType ?? "none",
+      passengerCycleDays: program.passengerCycleDays?.toString() ?? "",
+    });
     setIsProgramDialogOpen(true);
   };
 
@@ -119,7 +140,7 @@ export default function Configuracoes() {
     setIsOrigemTypeDialogOpen(true);
   };
 
-  const milhasTypes = origemTypes.filter(ot => ot.accountType === "milhas");
+  const milhasTypes = origemTypes.filter(ot => ot.accountType === "milhas" && ot.id !== TRANSFERENCIA_ID);
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -288,6 +309,51 @@ export default function Configuracoes() {
                       </SelectContent>
                     </Select>
                   </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="programCycle">Controle de Passageiros</Label>
+                    <Select
+                      value={newProgram.passengerCycleType}
+                      onValueChange={(value) => setNewProgram({ ...newProgram, passengerCycleType: value as "none" | "anual" | "dias" })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione o controle" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">Não Controlar</SelectItem>
+                        <SelectItem value="anual">Ciclo Anual</SelectItem>
+                        <SelectItem value="dias">Ciclo por Dias</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {newProgram.passengerCycleType !== "none" && (
+                    <div className="space-y-2">
+                      <Label htmlFor="programMaxPassengers">Máx. Passageiros por Ciclo</Label>
+                      <Input
+                        id="programMaxPassengers"
+                        type="number"
+                        min="1"
+                        value={newProgram.maxPassengers}
+                        onChange={(e) => setNewProgram({ ...newProgram, maxPassengers: e.target.value })}
+                        placeholder="Ex: 5"
+                      />
+                    </div>
+                  )}
+
+                  {newProgram.passengerCycleType === "dias" && (
+                    <div className="space-y-2">
+                      <Label htmlFor="programCycleDays">Janela (dias)</Label>
+                      <Input
+                        id="programCycleDays"
+                        type="number"
+                        min="1"
+                        value={newProgram.passengerCycleDays}
+                        onChange={(e) => setNewProgram({ ...newProgram, passengerCycleDays: e.target.value })}
+                        placeholder="Ex: 365"
+                      />
+                    </div>
+                  )}
                 </div>
                 <div className="flex justify-end gap-2">
                   <Button variant="outline" onClick={resetProgramDialog}>Cancelar</Button>
@@ -312,6 +378,7 @@ export default function Configuracoes() {
                   <TableRow>
                     <TableHead>Programa</TableHead>
                     <TableHead>Tipo</TableHead>
+                    <TableHead>Controle</TableHead>
                     <TableHead className="text-right">Ações</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -328,6 +395,17 @@ export default function Configuracoes() {
                         <Badge variant={program.type === "pontos" ? "secondary" : "default"}>
                           {program.type === "pontos" ? "Pontos" : "Milhas"}
                         </Badge>
+                      </TableCell>
+                      <TableCell>
+                        {program.passengerCycleType ? (
+                          <Badge variant="outline">
+                            {program.passengerCycleType === "anual"
+                              ? `Anual — ${program.maxPassengers ?? "?"} pax/ano`
+                              : `${program.maxPassengers ?? "?"} pax/${program.passengerCycleDays ?? "?"}d`}
+                          </Badge>
+                        ) : (
+                          <span className="text-muted-foreground text-sm">—</span>
+                        )}
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">

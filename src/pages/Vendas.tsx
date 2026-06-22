@@ -21,7 +21,7 @@ interface StockInfo {
 }
 
 export default function Vendas() {
-  const { clients, accounts, owners, programs, sales, addSale, updateSale, addClient } = useData();
+  const { clients, accounts, owners, programs, sales, addSale, updateSale, addClient, updateAccount } = useData();
 
   const stockInfo = useMemo(() => {
     return accounts
@@ -74,6 +74,25 @@ export default function Vendas() {
   const selectedProgramStock = stockInfo.find(s => 
     s.ownerName === newSale.ownerName && s.program === newSale.program
   );
+
+  const programConfig = programs.find(p => p.name === newSale.program);
+
+  const usedPassengersInCycle = useMemo(() => {
+    if (!programConfig?.passengerCycleType || !programConfig?.maxPassengers) return 0;
+    
+    let relevantSales = sales.filter(s => s.program === newSale.program);
+    
+    if (programConfig.passengerCycleType === "anual") {
+      const currentYear = new Date().getFullYear();
+      relevantSales = relevantSales.filter(s => new Date(s.date).getFullYear() === currentYear);
+    } else if (programConfig.passengerCycleType === "dias" && programConfig.passengerCycleDays) {
+      const cutoff = new Date();
+      cutoff.setDate(cutoff.getDate() - programConfig.passengerCycleDays);
+      relevantSales = relevantSales.filter(s => new Date(s.date) >= cutoff);
+    }
+    
+    return relevantSales.reduce((sum, s) => sum + s.passengers.length, 0);
+  }, [sales, newSale.program, programConfig]);
 
   const formatCPF = (cpf: string) => {
     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
@@ -135,9 +154,23 @@ export default function Vendas() {
         profitMargin,
         status: "pendente",
         ticketLocator: newSale.ticketLocator,
-        passengers: newSale.passengers.filter(p => p.name || p.passengerId),
+        passengers: newSale.passengers.filter(p => p.name.trim()),
         date: new Date().toISOString().split('T')[0]
       });
+
+      if (selectedProgramStock) {
+        const account = accounts.find(a => a.id === selectedProgramStock.accountId);
+        if (account) {
+          const proportionalInvested = account.totalInvested
+            ? account.totalInvested * (milesUsed / account.balance)
+            : 0;
+          updateAccount(account.id, {
+            balance: account.balance - milesUsed,
+            totalInvested: Math.max(0, (account.totalInvested ?? 0) - proportionalInvested),
+          });
+        }
+      }
+
       setNewSale({
         ownerName: "",
         accountName: "",
@@ -492,6 +525,19 @@ export default function Vendas() {
                   </div>
                 ))}
               </div>
+              {programConfig?.maxPassengers && (() => {
+                const newCount = newSale.passengers.filter(p => p.name.trim()).length;
+                const totalAfter = usedPassengersInCycle + newCount;
+                if (totalAfter > programConfig.maxPassengers) {
+                  return (
+                    <p className="text-xs text-destructive">
+                      Limite de {programConfig.maxPassengers} passageiros excedido para este ciclo.
+                      Usados: {usedPassengersInCycle} + {newCount} novo(s) = {totalAfter}
+                    </p>
+                  );
+                }
+                return null;
+              })()}
             </div>
             
             <div className="flex justify-end gap-2">
@@ -501,7 +547,7 @@ export default function Vendas() {
               <Button 
                 onClick={handleCreateSale} 
                 className="bg-gradient-primary hover:opacity-90"
-                disabled={!newSale.ownerName || !newSale.program || !newSale.clientId || !newSale.milesUsed || !newSale.saleValue || !selectedProgramStock || parseFloat(newSale.milesUsed) > selectedProgramStock.availableMiles}
+                disabled={!newSale.ownerName || !newSale.program || !newSale.clientId || !newSale.milesUsed || !newSale.saleValue || !selectedProgramStock || parseFloat(newSale.milesUsed) > selectedProgramStock.availableMiles || (programConfig?.maxPassengers && usedPassengersInCycle + newSale.passengers.filter(p => p.name.trim()).length > programConfig.maxPassengers)}
               >
                 Registrar Venda
               </Button>

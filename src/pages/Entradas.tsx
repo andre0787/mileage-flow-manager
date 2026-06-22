@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, TrendingUp, TrendingDown, Calculator, Palette, Users } from "lucide-react";
+import { Plus, TrendingUp, TrendingDown, Calculator, Palette } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useData } from "@/contexts/DataContext";
+import { useData, TRANSFERENCIA_ID } from "@/contexts/DataContext";
 import type { Program, OrigemType } from "@/types";
 
 export default function Entradas() {
@@ -45,7 +45,7 @@ export default function Entradas() {
 
   const selectedAccount = accounts.find(a => a.id === newEntry.accountId);
   const selectedOrigemType = origemTypes.find(ot => ot.id === newEntry.origemTypeId);
-  const isTransfer = selectedOrigemType?.name === "Transferência";
+  const isTransfer = selectedOrigemType?.id === TRANSFERENCIA_ID;
   const sourceAccounts = accounts.filter(a =>
     a.type === "pontos" && a.status === "ativa" && a.ownerId === selectedAccount?.ownerId
   );
@@ -86,8 +86,15 @@ export default function Entradas() {
     if (!newEntry.accountId) errors.accountId = "Selecione uma conta";
     if (!newEntry.origemTypeId) errors.origemTypeId = "Selecione o tipo de origem";
     if (!newEntry.amount || parseFloat(newEntry.amount) <= 0) errors.amount = "Informe a quantidade";
-    if (!newEntry.amountPaid || parseFloat(newEntry.amountPaid) <= 0) errors.amountPaid = "Informe o valor pago";
+    if (!isTransfer && (!newEntry.amountPaid || parseFloat(newEntry.amountPaid) <= 0)) errors.amountPaid = "Informe o valor pago";
     if (isTransfer && !newEntry.sourceAccountId) errors.sourceAccountId = "Selecione a conta de origem";
+    if (isTransfer && newEntry.sourceAccountId && newEntry.accountId) {
+      const srcAccount = accounts.find(a => a.id === newEntry.sourceAccountId);
+      const dstAccount = accounts.find(a => a.id === newEntry.accountId);
+      if (srcAccount && dstAccount && srcAccount.ownerId !== dstAccount.ownerId) {
+        errors.sourceAccountId = "Conta de origem deve pertencer ao mesmo dono";
+      }
+    }
     if (isTransfer && newEntry.sourceAccountId && selectedSourceAccount && parseFloat(newEntry.amount) > selectedSourceAccount.balance) {
       errors.amount = "Saldo insuficiente na conta de origem";
     }
@@ -138,40 +145,6 @@ export default function Entradas() {
           <p className="text-muted-foreground">
             Gerencie aquisição de pontos e milhas
           </p>
-        </div>
-
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          {owners.map(owner => {
-            const ownerPoints = accounts
-              .filter(a => a.ownerId === owner.id && a.type === "pontos")
-              .reduce((sum, acc) => sum + acc.balance, 0);
-            const ownerMiles = accounts
-              .filter(a => a.ownerId === owner.id && a.type === "milhas")
-              .reduce((sum, acc) => sum + acc.balance, 0);
-            
-            if (ownerPoints === 0 && ownerMiles === 0) return null;
-
-            return (
-              <Card key={owner.id} className="shadow-sm border-primary/10 overflow-hidden">
-                <CardHeader className="p-3 bg-muted/30">
-                  <CardTitle className="text-sm font-semibold flex items-center gap-2">
-                    <Users className="h-4 w-4 text-primary" />
-                    {owner.name}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-3 space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Pontos</span>
-                    <span className="text-sm font-bold">{ownerPoints.toLocaleString('pt-BR')}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Milhas</span>
-                    <span className="text-sm font-bold text-success">{ownerMiles.toLocaleString('pt-BR')}</span>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
         </div>
 
         <Dialog open={isCreateDialogOpen} onOpenChange={(open) => {
@@ -307,8 +280,10 @@ export default function Entradas() {
                   )}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="amountPaid">Valor Pago (R$)</Label>
-                  <Input id="amountPaid" type="number" step="0.01" value={newEntry.amountPaid} onChange={(e) => { setNewEntry({...newEntry, amountPaid: e.target.value}); setEntryErrors(prev => ({...prev, amountPaid: ""})); }} placeholder="Ex: 450.00" />
+                  <Label htmlFor="amountPaid">
+                    {isTransfer ? "Custo (calculado)" : "Valor Pago (R$)"}
+                  </Label>
+                  <Input id="amountPaid" type="number" step="0.01" value={newEntry.amountPaid} disabled={isTransfer} onChange={(e) => { setNewEntry({...newEntry, amountPaid: e.target.value}); setEntryErrors(prev => ({...prev, amountPaid: ""})); }} placeholder="Ex: 450.00" />
                   {entryErrors.amountPaid && <p className="text-xs text-destructive">{entryErrors.amountPaid}</p>}
                   {isTransfer && selectedSourceAccount && newEntry.amount && sourceAvgCostPerPoint > 0 && (
                     <p className="text-xs text-muted-foreground">
