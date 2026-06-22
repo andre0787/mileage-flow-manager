@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useData } from "@/contexts/DataContext";
+import { useData, TRANSFERENCIA_ID } from "@/contexts/DataContext";
 import type { Program, OrigemType } from "@/types";
 
 export default function Entradas() {
@@ -45,7 +45,7 @@ export default function Entradas() {
 
   const selectedAccount = accounts.find(a => a.id === newEntry.accountId);
   const selectedOrigemType = origemTypes.find(ot => ot.id === newEntry.origemTypeId);
-  const isTransfer = selectedOrigemType?.name === "Transferência";
+  const isTransfer = selectedOrigemType?.id === TRANSFERENCIA_ID;
   const sourceAccounts = accounts.filter(a =>
     a.type === "pontos" && a.status === "ativa" && a.ownerId === selectedAccount?.ownerId
   );

@@ -1,6 +1,8 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
 
+export const TRANSFERENCIA_ID = "builtin-transferencia";
+
 interface DataContextType {
   owners: Owner[]
   programs: Program[]
@@ -70,7 +72,9 @@ const initialOwners: Owner[] = [];
 
 const initialPrograms: Program[] = [];
 
-const initialOrigemTypes: OrigemType[] = [];
+const initialOrigemTypes: OrigemType[] = [
+  { id: TRANSFERENCIA_ID, name: "Transferência", accountType: "milhas", color: "#8b5cf6" },
+];
 
 const initialAccounts: Account[] = [];
 
@@ -121,8 +125,10 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const updateOrigemType = (id: string, data: Partial<OrigemType>) =>
     setOrigemTypes(prev => prev.map(o => o.id === id ? { ...o, ...data } : o));
 
-  const deleteOrigemType = (id: string) =>
+  const deleteOrigemType = (id: string) => {
+    if (id === TRANSFERENCIA_ID) return;
     setOrigemTypes(prev => prev.filter(o => o.id !== id));
+  };
 
   const addAccount = (data: Omit<Account, "id" | "createdAt">) =>
     setAccounts(prev => [...prev, {
