@@ -68,20 +68,20 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
   // Ensure built-in TRANSFERENCIA type exists
   useEffect(() => {
-    if (!user || !origemTypes.length) return;
+    if (!user) return;
     const hasBuiltin = origemTypes.some((ot) => ot.id === TRANSFERENCIA_ID);
     if (!hasBuiltin) {
-      supabase.from("origem_types").insert({
+      supabase.from("origem_types").upsert({
         id: TRANSFERENCIA_ID,
         user_id: user.id,
         name: "Transferência",
         account_type: "milhas",
         color: "#8b5cf6",
-      }).then(() => {
+      }, { onConflict: "id" }).then(() => {
         queryClient.invalidateQueries({ queryKey: ["origem_types"] });
       });
     }
-  }, [user, origemTypes.length]);
+  }, [user, origemTypes]);
 
   // Migrate localStorage data to Supabase on first login
   useEffect(() => {
