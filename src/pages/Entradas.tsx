@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, TrendingUp, TrendingDown, Calculator, Palette } from "lucide-react";
+import { Plus, TrendingUp, TrendingDown, ArrowLeftRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -60,6 +60,21 @@ export default function Entradas() {
   const ownerName = (id: string) => owners.find(o => o.id === id)?.name ?? id;
   const programName = (id: string) => programs.find(p => p.id === id)?.name ?? id;
   const origemTypeName = (id: string) => origemTypes.find(ot => ot.id === id)?.name ?? id;
+
+  const handleOpenTransfer = () => {
+    setActiveTab("milhas");
+    setNewEntry({
+      accountId: "",
+      origemTypeId: TRANSFERENCIA_ID,
+      amount: "",
+      amountPaid: "",
+      conversionRate: "",
+      sourceAccountId: "",
+      bonusPercent: "",
+    });
+    setEntryErrors({});
+    setIsCreateDialogOpen(true);
+  };
 
   const resetForm = () => {
     setNewEntry({ accountId: "", origemTypeId: "", amount: "", amountPaid: "", conversionRate: "", sourceAccountId: "", bonusPercent: "" });
@@ -147,16 +162,22 @@ export default function Entradas() {
           </p>
         </div>
 
-        <Dialog open={isCreateDialogOpen} onOpenChange={(open) => {
-          if (!open) resetForm();
-          setIsCreateDialogOpen(open);
-        }}>
-          <DialogTrigger asChild>
-            <Button className="gap-2 bg-gradient-primary hover:opacity-90">
-              <Plus className="h-4 w-4" />
-              Nova Entrada
-            </Button>
-          </DialogTrigger>
+        <div className="flex gap-2">
+          <Button onClick={handleOpenTransfer} className="gap-2 bg-gradient-primary hover:opacity-90">
+            <ArrowLeftRight className="h-4 w-4" />
+            Transferir
+          </Button>
+
+          <Dialog open={isCreateDialogOpen} onOpenChange={(open) => {
+            if (!open) resetForm();
+            setIsCreateDialogOpen(open);
+          }}>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="gap-2">
+                <Plus className="h-4 w-4" />
+                Nova Entrada
+              </Button>
+            </DialogTrigger>
           <DialogContent className="sm:max-w-[500px]">
             <DialogHeader>
               <DialogTitle>Registrar Nova Entrada - {activeTab === "pontos" ? "Pontos" : "Milhas"}</DialogTitle>
@@ -382,6 +403,7 @@ export default function Entradas() {
             </div>
           </DialogContent>
         </Dialog>
+      </div>
       </div>
 
       {/* Sub-abas Pontos / Milhas */}

@@ -1,7 +1,9 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
+import { seedOwners, seedPrograms, seedAccounts, seedEntries, seedClients, seedSales } from "@/data/seed";
 
 export const TRANSFERENCIA_ID = "builtin-transferencia";
+const STORAGE_VERSION = 2;
 
 interface DataContextType {
   owners: Owner[]
@@ -51,6 +53,19 @@ const DataContext = createContext<DataContextType | null>(null);
 
 const STORAGE_PREFIX = "mc-";
 
+// Clear stale localStorage data so seed data loads fresh
+try {
+  const storedVersion = localStorage.getItem(STORAGE_PREFIX + "version");
+  if (storedVersion !== String(STORAGE_VERSION)) {
+    Object.keys(localStorage)
+      .filter((k) => k.startsWith(STORAGE_PREFIX))
+      .forEach((k) => localStorage.removeItem(k));
+    localStorage.setItem(STORAGE_PREFIX + "version", String(STORAGE_VERSION));
+  }
+} catch {
+  // ignore
+}
+
 function loadFromStorage<T>(key: string, fallback: T): T {
   try {
     const saved = localStorage.getItem(STORAGE_PREFIX + key);
@@ -68,30 +83,139 @@ function persistToStorage<T>(key: string, data: T): void {
   }
 }
 
-const initialOwners: Owner[] = [];
+const initialOwners: Owner[] = seedOwners;
 
-const initialPrograms: Program[] = [];
+const initialPrograms: Program[] = seedPrograms;
 
 const initialOrigemTypes: OrigemType[] = [
   { id: TRANSFERENCIA_ID, name: "Transferência", accountType: "milhas", color: "#8b5cf6" },
 ];
 
-const initialAccounts: Account[] = [];
+const initialAccounts: Account[] = seedAccounts;
 
-const initialEntries: PointEntry[] = [];
+const initialEntries: PointEntry[] = seedEntries;
 
-const initialClients: Client[] = [];
+const initialClients: Client[] = seedClients;
 
-const initialSales: Sale[] = [];
+function sanitizeClient(c: Partial<Client>): Client {
+  return {
+    id: c.id ?? crypto.randomUUID(),
+    name: c.name ?? "",
+    cpf: c.cpf,
+    email: c.email,
+    phone: c.phone ?? "",
+    telegram: c.telegram,
+    totalPurchases: c.totalPurchases ?? 0,
+    usageHistory: c.usageHistory ?? [],
+  };
+}
+
+function sanitizeOwner(o: Partial<Owner>): Owner {
+  return {
+    id: o.id ?? crypto.randomUUID(),
+    name: o.name ?? "",
+    cpf: o.cpf ?? "",
+    phone: o.phone ?? "",
+  };
+}
+
+function sanitizeProgram(p: Partial<Program>): Program {
+  return {
+    id: p.id ?? crypto.randomUUID(),
+    name: p.name ?? "",
+    type: p.type ?? "milhas",
+    maxPassengers: p.maxPassengers,
+    passengerCycleType: p.passengerCycleType,
+    passengerCycleDays: p.passengerCycleDays,
+  };
+}
+
+function sanitizeAccount(a: Partial<Account>): Account {
+  return {
+    id: a.id ?? crypto.randomUUID(),
+    name: a.name ?? "",
+    ownerId: a.ownerId ?? "",
+    programId: a.programId ?? "",
+    type: a.type ?? "milhas",
+    balance: a.balance ?? 0,
+    averageCostPerMile: a.averageCostPerMile,
+    totalInvested: a.totalInvested,
+    status: a.status ?? "ativa",
+    createdAt: a.createdAt ?? new Date().toISOString().split('T')[0],
+  };
+}
+
+function sanitizeEntry(e: Partial<PointEntry>): PointEntry {
+  return {
+    id: e.id ?? crypto.randomUUID(),
+    accountId: e.accountId ?? "",
+    origemTypeId: e.origemTypeId ?? "",
+    amount: e.amount ?? 0,
+    amountPaid: e.amountPaid ?? 0,
+    costPerThousand: e.costPerThousand ?? 0,
+    date: e.date ?? new Date().toISOString().split('T')[0],
+    conversionRate: e.conversionRate,
+    milesGenerated: e.milesGenerated,
+    costPerMile: e.costPerMile,
+    sourceAccountId: e.sourceAccountId,
+    bonusPercent: e.bonusPercent,
+    description: e.description,
+  };
+}
+
+const initialSales: Sale[] = seedSales;
+
+function sanitizeSale(s: Partial<Sale>): Sale {
+  return {
+    id: s.id ?? crypto.randomUUID(),
+    accountName: s.accountName ?? "",
+    ownerName: s.ownerName ?? "",
+    program: s.program ?? "",
+    clientId: s.clientId ?? "",
+    clientName: s.clientName ?? "",
+    milesUsed: s.milesUsed ?? 0,
+    saleValue: s.saleValue ?? 0,
+    costPerMile: s.costPerMile ?? 0,
+    profit: s.profit ?? 0,
+    profitMargin: s.profitMargin ?? 0,
+    status: s.status ?? "pendente",
+    ticketLocator: s.ticketLocator ?? "",
+    passengers: s.passengers ?? [],
+    date: s.date ?? new Date().toISOString().split('T')[0],
+    accountId: s.accountId,
+    pricePerMile: s.pricePerMile,
+    additionalCost: s.additionalCost,
+    additionalCostDesc: s.additionalCostDesc,
+  };
+}
 
 export function DataProvider({ children }: { children: ReactNode }) {
-  const [owners, setOwners] = useState<Owner[]>(() => loadFromStorage("owners", initialOwners));
-  const [programs, setPrograms] = useState<Program[]>(() => loadFromStorage("programs", initialPrograms));
-  const [origemTypes, setOrigemTypes] = useState<OrigemType[]>(() => loadFromStorage("origemTypes", initialOrigemTypes));
-  const [accounts, setAccounts] = useState<Account[]>(() => loadFromStorage("accounts", initialAccounts));
-  const [entries, setEntries] = useState<PointEntry[]>(() => loadFromStorage("entries", initialEntries));
-  const [sales, setSales] = useState<Sale[]>(() => loadFromStorage("sales", initialSales));
-  const [clients, setClients] = useState<Client[]>(() => loadFromStorage("clients", initialClients));
+  const [owners, setOwners] = useState<Owner[]>(() => {
+    return loadFromStorage<Owner[]>("owners", initialOwners).map(sanitizeOwner);
+  });
+  const [programs, setPrograms] = useState<Program[]>(() => {
+    return loadFromStorage<Program[]>("programs", initialPrograms).map(sanitizeProgram);
+  });
+  const [origemTypes, setOrigemTypes] = useState<OrigemType[]>(() => {
+    const stored = loadFromStorage<OrigemType[]>("origemTypes", initialOrigemTypes);
+    if (!stored.some(ot => ot.id === TRANSFERENCIA_ID)) {
+      return [...stored, ...initialOrigemTypes.filter(ot => ot.id === TRANSFERENCIA_ID)];
+    }
+    return stored;
+  });
+  const [accounts, setAccounts] = useState<Account[]>(() => {
+    return loadFromStorage<Account[]>("accounts", initialAccounts).map(sanitizeAccount);
+  });
+  const [entries, setEntries] = useState<PointEntry[]>(() => {
+    return loadFromStorage<PointEntry[]>("entries", initialEntries).map(sanitizeEntry);
+  });
+  const [sales, setSales] = useState<Sale[]>(() => {
+    const raw = loadFromStorage<Sale[]>("sales", initialSales);
+    return raw.map(sanitizeSale);
+  });
+  const [clients, setClients] = useState<Client[]>(() => {
+    return loadFromStorage<Client[]>("clients", initialClients).map(sanitizeClient);
+  });
 
   useEffect(() => { persistToStorage("owners", owners); }, [owners]);
   useEffect(() => { persistToStorage("programs", programs); }, [programs]);
@@ -122,8 +246,10 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const addOrigemType = (data: Omit<OrigemType, "id">, id?: string) =>
     setOrigemTypes(prev => [...prev, { id: id ?? crypto.randomUUID(), ...data }]);
 
-  const updateOrigemType = (id: string, data: Partial<OrigemType>) =>
+  const updateOrigemType = (id: string, data: Partial<OrigemType>) => {
+    if (id === TRANSFERENCIA_ID) return;
     setOrigemTypes(prev => prev.map(o => o.id === id ? { ...o, ...data } : o));
+  };
 
   const deleteOrigemType = (id: string) => {
     if (id === TRANSFERENCIA_ID) return;
