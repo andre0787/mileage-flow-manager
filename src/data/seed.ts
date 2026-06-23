@@ -39,7 +39,7 @@ export const seedClients: Client[] = [
   { id: o(), name: "Fernanda Rocha", cpf: "159.753.486-00", phone: "(11) 98888-0010", totalPurchases: 0, usageHistory: [] },
 ];
 
-const TRANSFERENCIA_ID = "135451fe-4144-46e2-bb9c-9c4e365a5f35";
+const TRANSFERENCIA_ID = crypto.randomUUID();
 
 export const seedEntries: PointEntry[] = [
   // Smiles Ana: 157k total (100k balance + 57k sold)

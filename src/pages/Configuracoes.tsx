@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useData, TRANSFERENCIA_ID } from "@/contexts/DataContext";
+import { useData, isTransferencia } from "@/contexts/DataContext";
 import type { Owner, Program, OrigemType } from "@/types";
 
 export default function Configuracoes() {
@@ -140,7 +140,7 @@ export default function Configuracoes() {
     setIsOrigemTypeDialogOpen(true);
   };
 
-  const milhasTypes = origemTypes.filter(ot => ot.accountType === "milhas" && ot.id !== TRANSFERENCIA_ID);
+  const milhasTypes = origemTypes.filter(ot => ot.accountType === "milhas" && !isTransferencia(ot));
 
   return (
     <div className="space-y-6 animate-fade-in">

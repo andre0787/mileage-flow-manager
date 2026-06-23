@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useData, TRANSFERENCIA_ID } from "@/contexts/DataContext";
+import { useData, isTransferencia } from "@/contexts/DataContext";
 import type { Program, OrigemType } from "@/types";
 
 export default function Entradas() {
@@ -45,7 +45,7 @@ export default function Entradas() {
 
   const selectedAccount = accounts.find(a => a.id === newEntry.accountId);
   const selectedOrigemType = origemTypes.find(ot => ot.id === newEntry.origemTypeId);
-  const isTransfer = selectedOrigemType?.id === TRANSFERENCIA_ID;
+  const isTransfer = selectedOrigemType ? isTransferencia(selectedOrigemType) : false;
   const sourceAccounts = accounts.filter(a =>
     a.type === "pontos" && a.status === "ativa" && a.ownerId === selectedAccount?.ownerId
   );
@@ -62,10 +62,11 @@ export default function Entradas() {
   const origemTypeName = (id: string) => origemTypes.find(ot => ot.id === id)?.name ?? id;
 
   const handleOpenTransfer = () => {
+    const transferId = origemTypes.find((ot) => isTransferencia(ot))?.id ?? "";
     setActiveTab("milhas");
     setNewEntry({
       accountId: "",
-      origemTypeId: TRANSFERENCIA_ID,
+      origemTypeId: transferId,
       amount: "",
       amountPaid: "",
       conversionRate: "",

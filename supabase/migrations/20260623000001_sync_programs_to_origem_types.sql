@@ -8,12 +8,12 @@ insert into public.origem_types (id, user_id, name, account_type, color)
     and not exists (select 1 from public.origem_types ot where ot.id = p.id)
 on conflict (id) do nothing;
 
--- Ensure the built-in TRANSFERENCIA type exists for all existing users
+-- Ensure the built-in TRANSFERENCIA type exists for every user
+-- Each user gets their own UUID (id is PK so it must be unique per row)
 insert into public.origem_types (id, user_id, name, account_type, color)
-  select '135451fe-4144-46e2-bb9c-9c4e365a5f35', up.user_id, 'Transferência', 'milhas', '#8b5cf6'
-  from (select distinct p.user_id from public.programs p) up
+  select gen_random_uuid(), p.id, 'Transferência', 'milhas', '#8b5cf6'
+  from public.profiles p
   where not exists (
     select 1 from public.origem_types ot
-    where ot.id = '135451fe-4144-46e2-bb9c-9c4e365a5f35' and ot.user_id = up.user_id
-  )
-on conflict (id) do nothing;
+    where ot.name = 'Transferência' and ot.account_type = 'milhas' and ot.user_id = p.id
+  );

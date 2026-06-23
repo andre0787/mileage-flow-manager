@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, type ReactNode } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
@@ -12,7 +12,9 @@ import { useAddSaleMutation, useUpdateSaleMutation, useDeleteSaleMutation } from
 import { useAddClientMutation, useUpdateClientMutation, useDeleteClientMutation } from "@/hooks/useDatabase";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
 
-export const TRANSFERENCIA_ID = "135451fe-4144-46e2-bb9c-9c4e365a5f35";
+export function isTransferencia(ot: OrigemType): boolean {
+  return ot.name === "Transferência" && ot.accountType === "milhas";
+}
 const STORAGE_PREFIX = "mc-";
 
 interface DataContextType {
@@ -66,19 +68,23 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const { data: clients = [] } = useClientsQuery();
   const { data: sales = [] } = useSalesQuery();
 
-  // Ensure built-in TRANSFERENCIA type exists
+  // Ensure built-in TRANSFERENCIA type exists for every user
+  const creatingTransferencia = useRef(false);
   useEffect(() => {
-    if (!user) return;
-    const hasBuiltin = origemTypes.some((ot) => ot.id === TRANSFERENCIA_ID);
+    if (!user || creatingTransferencia.current) return;
+    const hasBuiltin = origemTypes.some((ot) => isTransferencia(ot));
     if (!hasBuiltin) {
-      supabase.from("origem_types").upsert({
-        id: TRANSFERENCIA_ID,
+      creatingTransferencia.current = true;
+      supabase.from("origem_types").insert({
+        id: crypto.randomUUID(),
         user_id: user.id,
         name: "Transferência",
         account_type: "milhas",
         color: "#8b5cf6",
-      }, { onConflict: "id" }).then(() => {
+      }).then(() => {
         queryClient.invalidateQueries({ queryKey: ["origem_types"] });
+      }).finally(() => {
+        creatingTransferencia.current = false;
       });
     }
   }, [user, origemTypes]);
@@ -139,6 +145,15 @@ export function DataProvider({ children }: { children: ReactNode }) {
           { onConflict: "id" }
         );
         if (error) console.warn("Migration origemTypes:", error.message);
+      }
+
+      // Ensure TRANSFERENCIA exists for this user after migration
+      const { data: existingTransfer } = await supabase.from("origem_types").select("id")
+        .eq("name", "Transferência").eq("account_type", "milhas").eq("user_id", userId).maybeSingle();
+      if (!existingTransfer) {
+        await supabase.from("origem_types").insert({
+          id: crypto.randomUUID(), user_id: userId, name: "Transferência", account_type: "milhas", color: "#8b5cf6",
+        });
       }
 
       // Migrate accounts
@@ -271,12 +286,14 @@ export function DataProvider({ children }: { children: ReactNode }) {
   };
 
   const updateOrigemType = (id: string, data: Partial<OrigemType>) => {
-    if (id === TRANSFERENCIA_ID) return;
+    const ot = origemTypes.find((o) => o.id === id);
+    if (ot && isTransferencia(ot)) return;
     updateOrigemTypeM.mutate({ id, ...data });
   };
 
   const deleteOrigemType = (id: string) => {
-    if (id === TRANSFERENCIA_ID) return;
+    const ot = origemTypes.find((o) => o.id === id);
+    if (ot && isTransferencia(ot)) return;
     deleteOrigemTypeM.mutate(id);
   };
 
