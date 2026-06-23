@@ -1,7 +1,19 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import { createContext, useContext, useEffect, type ReactNode } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/contexts/AuthContext";
+import { useOwnersQuery, useProgramsQuery, useOrigemTypesQuery, useAccountsQuery, useEntriesQuery, useClientsQuery, useSalesQuery } from "@/hooks/useDatabase";
+import { useAddOwnerMutation, useUpdateOwnerMutation, useDeleteOwnerMutation } from "@/hooks/useDatabase";
+import { useAddProgramMutation, useUpdateProgramMutation, useDeleteProgramMutation } from "@/hooks/useDatabase";
+import { useAddOrigemTypeMutation, useUpdateOrigemTypeMutation, useDeleteOrigemTypeMutation } from "@/hooks/useDatabase";
+import { useAddAccountMutation, useUpdateAccountMutation, useDeleteAccountMutation } from "@/hooks/useDatabase";
+import { useAddEntryMutation, useDeleteEntryMutation } from "@/hooks/useDatabase";
+import { useAddSaleMutation, useUpdateSaleMutation, useDeleteSaleMutation } from "@/hooks/useDatabase";
+import { useAddClientMutation, useUpdateClientMutation, useDeleteClientMutation } from "@/hooks/useDatabase";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
 
 export const TRANSFERENCIA_ID = "builtin-transferencia";
+const STORAGE_PREFIX = "mc-";
 
 interface DataContextType {
   owners: Owner[]
@@ -12,36 +24,29 @@ interface DataContextType {
   sales: Sale[]
   clients: Client[]
 
-  // Owners
   addOwner: (data: Omit<Owner, "id">) => void
   updateOwner: (id: string, data: Partial<Owner>) => void
   deleteOwner: (id: string) => void
 
-  // Programs
   addProgram: (data: Omit<Program, "id">) => void
   updateProgram: (id: string, data: Partial<Program>) => void
   deleteProgram: (id: string) => void
 
-  // Origem Types
   addOrigemType: (data: Omit<OrigemType, "id">, id?: string) => void
   updateOrigemType: (id: string, data: Partial<OrigemType>) => void
   deleteOrigemType: (id: string) => void
 
-  // Accounts
   addAccount: (data: Omit<Account, "id" | "createdAt">) => void
   updateAccount: (id: string, data: Partial<Account>) => void
   deleteAccount: (id: string) => void
 
-  // Entries
   addEntry: (data: Omit<PointEntry, "id">) => void
   deleteEntry: (id: string) => void
 
-  // Sales
   addSale: (data: Omit<Sale, "id">) => void
   updateSale: (id: string, data: Partial<Sale>) => void
   deleteSale: (id: string) => void
 
-  // Clients
   addClient: (data: Omit<Client, "id">, id?: string) => void
   updateClient: (id: string, data: Partial<Client>) => void
   deleteClient: (id: string) => void
@@ -49,183 +54,268 @@ interface DataContextType {
 
 const DataContext = createContext<DataContextType | null>(null);
 
-const STORAGE_PREFIX = "mc-";
-
-function loadFromStorage<T>(key: string, fallback: T): T {
-  try {
-    const saved = localStorage.getItem(STORAGE_PREFIX + key);
-    return saved ? JSON.parse(saved) : fallback;
-  } catch {
-    return fallback;
-  }
-}
-
-function persistToStorage<T>(key: string, data: T): void {
-  try {
-    localStorage.setItem(STORAGE_PREFIX + key, JSON.stringify(data));
-  } catch {
-    // localStorage may be full or unavailable
-  }
-}
-
-const initialOwners: Owner[] = [];
-
-const initialPrograms: Program[] = [];
-
-const initialOrigemTypes: OrigemType[] = [
-  { id: TRANSFERENCIA_ID, name: "Transferência", accountType: "milhas", color: "#8b5cf6" },
-];
-
-const initialAccounts: Account[] = [];
-
-const initialEntries: PointEntry[] = [];
-
-const initialClients: Client[] = [];
-
-const initialSales: Sale[] = [];
-
 export function DataProvider({ children }: { children: ReactNode }) {
-  const [owners, setOwners] = useState<Owner[]>(() => loadFromStorage("owners", initialOwners));
-  const [programs, setPrograms] = useState<Program[]>(() => loadFromStorage("programs", initialPrograms));
-  const [origemTypes, setOrigemTypes] = useState<OrigemType[]>(() => loadFromStorage("origemTypes", initialOrigemTypes));
-  const [accounts, setAccounts] = useState<Account[]>(() => loadFromStorage("accounts", initialAccounts));
-  const [entries, setEntries] = useState<PointEntry[]>(() => loadFromStorage("entries", initialEntries));
-  const [sales, setSales] = useState<Sale[]>(() => loadFromStorage("sales", initialSales));
-  const [clients, setClients] = useState<Client[]>(() => loadFromStorage("clients", initialClients));
+  const { user } = useAuth();
+  const queryClient = useQueryClient();
 
-  useEffect(() => { persistToStorage("owners", owners); }, [owners]);
-  useEffect(() => { persistToStorage("programs", programs); }, [programs]);
-  useEffect(() => { persistToStorage("origemTypes", origemTypes); }, [origemTypes]);
-  useEffect(() => { persistToStorage("accounts", accounts); }, [accounts]);
-  useEffect(() => { persistToStorage("entries", entries); }, [entries]);
-  useEffect(() => { persistToStorage("sales", sales); }, [sales]);
-  useEffect(() => { persistToStorage("clients", clients); }, [clients]);
+  const { data: owners = [] } = useOwnersQuery();
+  const { data: programs = [] } = useProgramsQuery();
+  const { data: origemTypes = [] } = useOrigemTypesQuery();
+  const { data: accounts = [] } = useAccountsQuery();
+  const { data: entries = [] } = useEntriesQuery();
+  const { data: clients = [] } = useClientsQuery();
+  const { data: sales = [] } = useSalesQuery();
 
-  const addOwner = (data: Omit<Owner, "id">) =>
-    setOwners(prev => [...prev, { id: crypto.randomUUID(), ...data }]);
+  // Ensure built-in TRANSFERENCIA type exists
+  useEffect(() => {
+    if (!user || !origemTypes.length) return;
+    const hasBuiltin = origemTypes.some((ot) => ot.id === TRANSFERENCIA_ID);
+    if (!hasBuiltin) {
+      supabase.from("origem_types").insert({
+        id: TRANSFERENCIA_ID,
+        user_id: user.id,
+        name: "Transferência",
+        account_type: "milhas",
+        color: "#8b5cf6",
+      }).then(() => {
+        queryClient.invalidateQueries({ queryKey: ["origem_types"] });
+      });
+    }
+  }, [user, origemTypes.length]);
 
-  const updateOwner = (id: string, data: Partial<Owner>) =>
-    setOwners(prev => prev.map(o => o.id === id ? { ...o, ...data } : o));
+  // Migrate localStorage data to Supabase on first login
+  useEffect(() => {
+    if (!user) return;
+    const migratedKey = STORAGE_PREFIX + "migrated";
+    if (localStorage.getItem(migratedKey)) return;
 
-  const deleteOwner = (id: string) =>
-    setOwners(prev => prev.filter(o => o.id !== id));
+    const migrate = async () => {
+      const data = loadStorageData();
+      if (!data) return;
+      localStorage.setItem(migratedKey, "true");
 
-  const addProgram = (data: Omit<Program, "id">) =>
-    setPrograms(prev => [...prev, { id: crypto.randomUUID(), ...data }]);
+      const userId = user.id;
 
-  const updateProgram = (id: string, data: Partial<Program>) =>
-    setPrograms(prev => prev.map(p => p.id === id ? { ...p, ...data } : p));
+      // Migrate owners
+      if (data.owners?.length) {
+        const { error } = await supabase.from("owners").upsert(
+          data.owners.map((o: Owner) => ({ ...o, user_id: userId })),
+          { onConflict: "id" }
+        );
+        if (error) console.warn("Migration owners:", error.message);
+      }
 
-  const deleteProgram = (id: string) =>
-    setPrograms(prev => prev.filter(p => p.id !== id));
+      // Migrate programs
+      if (data.programs?.length) {
+        const { error } = await supabase.from("programs").upsert(
+          data.programs.map((p: Program) => ({
+            id: p.id, user_id: userId, name: p.name, type: p.type,
+            max_passengers: p.maxPassengers, passenger_cycle_type: p.passengerCycleType,
+            passenger_cycle_days: p.passengerCycleDays,
+          })),
+          { onConflict: "id" }
+        );
+        if (error) console.warn("Migration programs:", error.message);
+      }
 
-  const addOrigemType = (data: Omit<OrigemType, "id">, id?: string) =>
-    setOrigemTypes(prev => [...prev, { id: id ?? crypto.randomUUID(), ...data }]);
+      // Migrate origem types
+      if (data.origemTypes?.length) {
+        const { error } = await supabase.from("origem_types").upsert(
+          data.origemTypes.map((ot: OrigemType) => ({
+            id: ot.id, user_id: userId, name: ot.name, account_type: ot.accountType, color: ot.color,
+          })),
+          { onConflict: "id" }
+        );
+        if (error) console.warn("Migration origemTypes:", error.message);
+      }
 
-  const updateOrigemType = (id: string, data: Partial<OrigemType>) =>
-    setOrigemTypes(prev => prev.map(o => o.id === id ? { ...o, ...data } : o));
+      // Migrate accounts
+      if (data.accounts?.length) {
+        const { error } = await supabase.from("accounts").upsert(
+          data.accounts.map((a: Account) => ({
+            id: a.id, user_id: userId, owner_id: a.ownerId, program_id: a.programId,
+            name: a.name, type: a.type, balance: a.balance,
+            average_cost_per_mile: a.averageCostPerMile, total_invested: a.totalInvested,
+            status: a.status, created_at: a.createdAt,
+          })),
+          { onConflict: "id" }
+        );
+        if (error) console.warn("Migration accounts:", error.message);
+      }
+
+      // Migrate entries
+      if (data.entries?.length) {
+        const { error } = await supabase.from("entries").upsert(
+          data.entries.map((e: PointEntry) => ({
+            id: e.id, user_id: userId, account_id: e.accountId, origem_type_id: e.origemTypeId,
+            amount: e.amount, amount_paid: e.amountPaid, cost_per_thousand: e.costPerThousand,
+            conversion_rate: e.conversionRate, miles_generated: e.milesGenerated,
+            cost_per_mile: e.costPerMile, source_account_id: e.sourceAccountId,
+            bonus_percent: e.bonusPercent, date: e.date, description: e.description,
+          })),
+          { onConflict: "id" }
+        );
+        if (error) console.warn("Migration entries:", error.message);
+      }
+
+      // Migrate clients
+      if (data.clients?.length) {
+        const { error } = await supabase.from("clients").upsert(
+          data.clients.map((c: Client) => ({
+            id: c.id, user_id: userId, name: c.name, cpf: c.cpf, email: c.email,
+            phone: c.phone, telegram: c.telegram, total_purchases: c.totalPurchases,
+            usage_history: c.usageHistory,
+          })),
+          { onConflict: "id" }
+        );
+        if (error) console.warn("Migration clients:", error.message);
+      }
+
+      // Migrate sales
+      if (data.sales?.length) {
+        const { error } = await supabase.from("sales").upsert(
+          data.sales.map((s: Sale) => ({
+            id: s.id, user_id: userId, account_id: s.accountId, account_name: s.accountName,
+            owner_name: s.ownerName, program: s.program, client_id: s.clientId,
+            client_name: s.clientName, miles_used: s.milesUsed, sale_value: s.saleValue,
+            price_per_mile: s.pricePerMile, cost_per_mile: s.costPerMile,
+            additional_cost: s.additionalCost, additional_cost_desc: s.additionalCostDesc,
+            profit: s.profit, profit_margin: s.profitMargin, status: s.status,
+            ticket_locator: s.ticketLocator, passengers: s.passengers, date: s.date,
+          })),
+          { onConflict: "id" }
+        );
+        if (error) console.warn("Migration sales:", error.message);
+      }
+
+      // Clear localStorage
+      Object.keys(localStorage)
+        .filter((k) => k.startsWith(STORAGE_PREFIX))
+        .forEach((k) => localStorage.removeItem(k));
+
+      queryClient.invalidateQueries();
+    };
+
+    migrate();
+  }, [user]);
+
+  // ── Mutation wrappers ──
+
+  const addOwnerM = useAddOwnerMutation();
+  const updateOwnerM = useUpdateOwnerMutation();
+  const deleteOwnerM = useDeleteOwnerMutation();
+
+  const addProgramM = useAddProgramMutation();
+  const updateProgramM = useUpdateProgramMutation();
+  const deleteProgramM = useDeleteProgramMutation();
+
+  const addOrigemTypeM = useAddOrigemTypeMutation();
+  const updateOrigemTypeM = useUpdateOrigemTypeMutation();
+  const deleteOrigemTypeM = useDeleteOrigemTypeMutation();
+
+  const addAccountM = useAddAccountMutation();
+  const updateAccountM = useUpdateAccountMutation();
+  const deleteAccountM = useDeleteAccountMutation();
+
+  const addEntryM = useAddEntryMutation();
+  const deleteEntryM = useDeleteEntryMutation();
+
+  const addSaleM = useAddSaleMutation();
+  const updateSaleM = useUpdateSaleMutation();
+  const deleteSaleM = useDeleteSaleMutation();
+
+  const addClientM = useAddClientMutation();
+  const updateClientM = useUpdateClientMutation();
+  const deleteClientM = useDeleteClientMutation();
+
+  const addOwner = (data: Omit<Owner, "id">) => {
+    const id = crypto.randomUUID();
+    addOwnerM.mutate({ id, ...data });
+  };
+
+  const updateOwner = (id: string, data: Partial<Owner>) => {
+    updateOwnerM.mutate({ id, ...data });
+  };
+
+  const deleteOwner = (id: string) => {
+    deleteOwnerM.mutate(id);
+  };
+
+  const addProgram = (data: Omit<Program, "id">) => {
+    const id = crypto.randomUUID();
+    addProgramM.mutate({ id, ...data });
+  };
+
+  const updateProgram = (id: string, data: Partial<Program>) => {
+    updateProgramM.mutate({ id, ...data });
+  };
+
+  const deleteProgram = (id: string) => {
+    deleteProgramM.mutate(id);
+  };
+
+  const addOrigemType = (data: Omit<OrigemType, "id">, id?: string) => {
+    addOrigemTypeM.mutate({ id: id ?? crypto.randomUUID(), ...data });
+  };
+
+  const updateOrigemType = (id: string, data: Partial<OrigemType>) => {
+    if (id === TRANSFERENCIA_ID) return;
+    updateOrigemTypeM.mutate({ id, ...data });
+  };
 
   const deleteOrigemType = (id: string) => {
     if (id === TRANSFERENCIA_ID) return;
-    setOrigemTypes(prev => prev.filter(o => o.id !== id));
+    deleteOrigemTypeM.mutate(id);
   };
 
-  const addAccount = (data: Omit<Account, "id" | "createdAt">) =>
-    setAccounts(prev => [...prev, {
-      id: crypto.randomUUID(),
-      ...data,
+  const addAccount = (data: Omit<Account, "id" | "createdAt">) => {
+    const id = crypto.randomUUID();
+    addAccountM.mutate({
+      id, ...data,
       createdAt: new Date().toISOString().split("T")[0],
-    }]);
+    });
+  };
 
-  const updateAccount = (id: string, data: Partial<Account>) =>
-    setAccounts(prev => prev.map(a => a.id === id ? { ...a, ...data } : a));
+  const updateAccount = (id: string, data: Partial<Account>) => {
+    updateAccountM.mutate({ id, ...data });
+  };
 
-  const deleteAccount = (id: string) =>
-    setAccounts(prev => prev.filter(a => a.id !== id));
+  const deleteAccount = (id: string) => {
+    deleteAccountM.mutate(id);
+  };
 
   const addEntry = (data: Omit<PointEntry, "id">) => {
-    const entry = { id: crypto.randomUUID(), ...data };
-    setEntries(prev => [...prev, entry]);
-    setAccounts(prev => prev.map(acc => {
-      if (acc.id !== entry.accountId) return acc;
-      const amountToAdd = entry.milesGenerated ?? entry.amount;
-      const newBalance = acc.balance + amountToAdd;
-      const newTotalInvested = (acc.totalInvested ?? 0) + entry.amountPaid;
-      return {
-        ...acc,
-        balance: newBalance,
-        totalInvested: newTotalInvested,
-        averageCostPerMile: newBalance > 0 ? newTotalInvested / newBalance : acc.averageCostPerMile,
-      };
-    }));
-    if (entry.sourceAccountId) {
-      setAccounts(prev => prev.map(acc => {
-        if (acc.id !== entry.sourceAccountId) return acc;
-        const avgCost = acc.balance > 0 ? (acc.totalInvested ?? 0) / acc.balance : 0;
-        const costToRemove = entry.amount * avgCost;
-        const newBalance = Math.max(0, acc.balance - entry.amount);
-        const newTotalInvested = Math.max(0, (acc.totalInvested ?? 0) - costToRemove);
-        return {
-          ...acc,
-          balance: newBalance,
-          totalInvested: newTotalInvested,
-          averageCostPerMile: newBalance > 0 ? newTotalInvested / newBalance : 0,
-        };
-      }));
-    }
+    addEntryM.mutate({ id: crypto.randomUUID(), ...data });
   };
 
   const deleteEntry = (id: string) => {
-    const entry = entries.find(e => e.id === id);
-    setEntries(prev => prev.filter(e => e.id !== id));
-    if (entry) {
-      setAccounts(prev => prev.map(acc => {
-        if (acc.id !== entry.accountId) return acc;
-        const amountToRemove = entry.milesGenerated ?? entry.amount;
-        const newBalance = Math.max(0, acc.balance - amountToRemove);
-        const newTotalInvested = Math.max(0, (acc.totalInvested ?? 0) - entry.amountPaid);
-        return {
-          ...acc,
-          balance: newBalance,
-          totalInvested: newTotalInvested,
-          averageCostPerMile: newBalance > 0 ? newTotalInvested / newBalance : 0,
-        };
-      }));
-      if (entry.sourceAccountId) {
-        setAccounts(prev => prev.map(acc => {
-          if (acc.id !== entry.sourceAccountId) return acc;
-          const avgCostAtTransfer = entry.amount > 0 ? entry.amountPaid / entry.amount : 0;
-          const costToRestore = entry.amount * avgCostAtTransfer;
-          const newBalance = acc.balance + entry.amount;
-          const newTotalInvested = (acc.totalInvested ?? 0) + costToRestore;
-          return {
-            ...acc,
-            balance: newBalance,
-            totalInvested: newTotalInvested,
-            averageCostPerMile: newBalance > 0 ? newTotalInvested / newBalance : 0,
-          };
-        }));
-      }
-    }
+    const entry = entries.find((e) => e.id === id);
+    if (entry) deleteEntryM.mutate(entry);
   };
 
-  const addSale = (data: Omit<Sale, "id">) =>
-    setSales(prev => [...prev, { id: crypto.randomUUID(), ...data }]);
+  const addSale = (data: Omit<Sale, "id">) => {
+    addSaleM.mutate({ id: crypto.randomUUID(), ...data });
+  };
 
-  const updateSale = (id: string, data: Partial<Sale>) =>
-    setSales(prev => prev.map(s => s.id === id ? { ...s, ...data } : s));
+  const updateSale = (id: string, data: Partial<Sale>) => {
+    updateSaleM.mutate({ id, ...data });
+  };
 
-  const deleteSale = (id: string) =>
-    setSales(prev => prev.filter(s => s.id !== id));
+  const deleteSale = (id: string) => {
+    deleteSaleM.mutate(id);
+  };
 
-  const addClient = (data: Omit<Client, "id">, id?: string) =>
-    setClients(prev => [...prev, { id: id ?? crypto.randomUUID(), ...data }]);
+  const addClient = (data: Omit<Client, "id">, id?: string) => {
+    addClientM.mutate({ id: id ?? crypto.randomUUID(), ...data });
+  };
 
-  const updateClient = (id: string, data: Partial<Client>) =>
-    setClients(prev => prev.map(c => c.id === id ? { ...c, ...data } : c));
+  const updateClient = (id: string, data: Partial<Client>) => {
+    updateClientM.mutate({ id, ...data });
+  };
 
-  const deleteClient = (id: string) =>
-    setClients(prev => prev.filter(c => c.id !== id));
+  const deleteClient = (id: string) => {
+    deleteClientM.mutate(id);
+  };
 
   return (
     <DataContext.Provider value={{
@@ -247,4 +337,25 @@ export function useData(): DataContextType {
   const ctx = useContext(DataContext);
   if (!ctx) throw new Error("useData must be used within DataProvider");
   return ctx;
+}
+
+// ── LocalStorage migration helpers ──
+
+function loadStorageData(): Record<string, unknown[]> | null {
+  try {
+    const prefix = STORAGE_PREFIX;
+    const keys = ["owners", "programs", "origemTypes", "accounts", "entries", "clients", "sales"];
+    let hasData = false;
+    const data: Record<string, unknown[]> = {};
+    for (const key of keys) {
+      const raw = localStorage.getItem(prefix + key);
+      if (raw) {
+        data[key] = JSON.parse(raw);
+        hasData = true;
+      }
+    }
+    return hasData ? data : null;
+  } catch {
+    return null;
+  }
 }

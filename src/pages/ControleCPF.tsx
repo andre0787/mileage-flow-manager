@@ -5,96 +5,57 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
-interface CPFUsage {
-  cpf: string;
-  clientName: string;
-  program: string;
-  usageCount: number;
-  lastUsed: string;
-  year: number;
-}
-
-interface ProgramLimit {
-  program: string;
-  maxCPFs: number;
-  currentCount: number;
-  resetType: "rolling" | "annual";
-  description: string;
-}
+import { useData } from "@/contexts/DataContext";
+import { useClientCycleAvailability } from "@/hooks/useClientCycleAvailability";
 
 export default function ControleCPF() {
-  const [selectedYear, setSelectedYear] = useState("2024");
+  const { sales, programs } = useData();
+  const { usage, programs: programNames, owners } = useClientCycleAvailability(sales, programs);
+
   const [selectedProgram, setSelectedProgram] = useState("todos");
+  const [selectedOwner, setSelectedOwner] = useState("todos");
 
-  const programLimits: ProgramLimit[] = [
-    {
-      program: "LATAM Pass",
-      maxCPFs: 22,
-      currentCount: 18,
-      resetType: "rolling",
-      description: "Últimos 12 meses (rolling window)"
-    },
-    {
-      program: "Smiles",
-      maxCPFs: 22,
-      currentCount: 15,
-      resetType: "annual",
-      description: "Ano civil (zera em janeiro)"
-    },
-    {
-      program: "Livelo",
-      maxCPFs: 22,
-      currentCount: 12,
-      resetType: "annual",
-      description: "Ano civil (zera em janeiro)"
-    },
-    {
-      program: "Esfera",
-      maxCPFs: 22,
-      currentCount: 8,
-      resetType: "annual",
-      description: "Ano civil (zera em janeiro)"
-    }
-  ];
-
-  const cpfUsages: CPFUsage[] = [
-    { cpf: "123.456.789-00", clientName: "João Silva", program: "LATAM Pass", usageCount: 3, lastUsed: "2024-01-15", year: 2024 },
-    { cpf: "987.654.321-00", clientName: "Maria Santos", program: "LATAM Pass", usageCount: 4, lastUsed: "2024-01-20", year: 2024 },
-    { cpf: "456.789.123-00", clientName: "Pedro Costa", program: "LATAM Pass", usageCount: 2, lastUsed: "2024-01-18", year: 2024 },
-    { cpf: "789.123.456-00", clientName: "Ana Oliveira", program: "Smiles", usageCount: 2, lastUsed: "2024-01-22", year: 2024 },
-    { cpf: "321.654.987-00", clientName: "Carlos Mendes", program: "Smiles", usageCount: 1, lastUsed: "2024-01-25", year: 2024 },
-    { cpf: "654.987.321-00", clientName: "Lucia Ferreira", program: "Livelo", usageCount: 3, lastUsed: "2024-01-28", year: 2024 },
-    { cpf: "147.258.369-00", clientName: "Roberto Silva", program: "Esfera", usageCount: 1, lastUsed: "2024-01-30", year: 2024 },
-  ];
-
-  const years = ["2023", "2024"];
-  const programs = ["todos", ...programLimits.map(p => p.program)];
-
-  const filteredUsages = cpfUsages.filter(usage => {
-    const yearMatch = usage.year.toString() === selectedYear;
-    const programMatch = selectedProgram === "todos" || usage.program === selectedProgram;
-    return yearMatch && programMatch;
+  const filteredUsage = usage.filter(u => {
+    const programMatch = selectedProgram === "todos" || u.programName === selectedProgram;
+    const ownerMatch = selectedOwner === "todos" || u.ownerName === selectedOwner;
+    return programMatch && ownerMatch;
   });
 
-  const getStatusColor = (current: number, max: number) => {
-    const percentage = (current / max) * 100;
-    if (percentage >= 90) return "destructive";
-    if (percentage >= 80) return "secondary";
-    return "default";
+  const programConfigs = new Map(programs.map(p => [p.name, p]));
+  const usageByProgram = new Map<string, { limit: number | null; used: Set<string> }>();
+  for (const u of usage) {
+    const prev = usageByProgram.get(u.programName) || { limit: null, used: new Set<string>() };
+    const program = programConfigs.get(u.programName);
+    const limit = program?.maxPassengers ?? null;
+    for (const c of u.clients) prev.used.add(c.clientId);
+    usageByProgram.set(u.programName, { limit, used: prev.used });
+  }
+
+  const programsAlert = Array.from(usageByProgram.entries())
+    .filter(([_, info]) => info.limit !== null && info.used.size >= info.limit! * 0.8)
+    .length;
+
+  const programsCritical = Array.from(usageByProgram.entries())
+    .filter(([_, info]) => info.limit !== null && info.used.size >= info.limit! * 0.9)
+    .length;
+
+  const totalUniqueClients = new Set(usage.flatMap(u => u.clients.map(c => c.clientId))).size;
+
+  const hasLimit = (limit: number | null): limit is number => limit !== null;
+
+  const getStatusColor = (used: number, limit: number | null) => {
+    if (!hasLimit(limit)) return "default" as const;
+    const pct = (used / limit) * 100;
+    if (pct >= 90) return "destructive" as const;
+    if (pct >= 80) return "secondary" as const;
+    return "default" as const;
   };
 
-  const getStatusIcon = (current: number, max: number) => {
-    const percentage = (current / max) * 100;
-    if (percentage >= 90) return <AlertTriangle className="h-4 w-4" />;
-    if (percentage >= 80) return <Shield className="h-4 w-4" />;
-    return <CheckCircle className="h-4 w-4" />;
-  };
-
-  const getAlertLevel = (current: number, max: number) => {
-    const percentage = (current / max) * 100;
-    if (percentage >= 90) return "Crítico";
-    if (percentage >= 80) return "Atenção";
+  const getAlertLevel = (used: number, limit: number | null) => {
+    if (!hasLimit(limit)) return "Sem limite";
+    const pct = (used / limit) * 100;
+    if (pct >= 90) return "Crítico";
+    if (pct >= 80) return "Atenção";
     return "Normal";
   };
 
@@ -103,9 +64,9 @@ export default function ControleCPF() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Controle de CPFs</h1>
+          <h1 className="text-3xl font-bold text-foreground">Controle de Clientes por Programa</h1>
           <p className="text-muted-foreground">
-            Monitore o uso de CPFs por programa e evite bloqueios
+            Monitore a disponibilidade de clientes por ciclo, programa e dono
           </p>
         </div>
       </div>
@@ -113,172 +74,169 @@ export default function ControleCPF() {
       {/* Filters */}
       <div className="flex items-center gap-4">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Ano:</label>
-          <Select value={selectedYear} onValueChange={setSelectedYear}>
-            <SelectTrigger className="w-32">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {years.map((year) => (
-                <SelectItem key={year} value={year}>{year}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
           <label className="text-sm font-medium">Programa:</label>
           <Select value={selectedProgram} onValueChange={setSelectedProgram}>
             <SelectTrigger className="w-48">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {programs.map((program) => (
-                <SelectItem key={program} value={program}>
-                  {program === "todos" ? "Todos os Programas" : program}
-                </SelectItem>
+              <SelectItem value="todos">Todos os Programas</SelectItem>
+              {programNames.map((program) => (
+                <SelectItem key={program} value={program}>{program}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-sm font-medium">Dono:</label>
+          <Select value={selectedOwner} onValueChange={setSelectedOwner}>
+            <SelectTrigger className="w-48">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="todos">Todos os Donos</SelectItem>
+              {owners.map((owner) => (
+                <SelectItem key={owner} value={owner}>{owner}</SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
       </div>
 
-      {/* Program Limits Overview */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {programLimits.map((limit) => {
-          const percentage = (limit.currentCount / limit.maxCPFs) * 100;
-          return (
-            <Card key={limit.program} className="shadow-card">
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg">{limit.program}</CardTitle>
-                  {getStatusIcon(limit.currentCount, limit.maxCPFs)}
-                </div>
-                <p className="text-xs text-muted-foreground">{limit.description}</p>
-              </CardHeader>
-              
-              <CardContent className="space-y-3 animate-slide-up">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between text-sm">
-                    <span>Uso atual:</span>
-                    <span className="font-semibold">
-                      {limit.currentCount}/{limit.maxCPFs} CPFs
-                    </span>
-                  </div>
-                  <Progress 
-                    value={percentage} 
-                    className="h-2 transition-all duration-1000" 
-                    style={{
-                      ['--progress-color' as string]: percentage >= 90 
-                        ? 'hsl(var(--destructive))' 
-                        : percentage >= 80 
-                          ? 'hsl(var(--warning))' 
-                          : 'hsl(var(--primary))'
-                    }}
-                  />
-                </div>
-                
-                <Badge 
-                  variant={getStatusColor(limit.currentCount, limit.maxCPFs)}
-                  className="w-full justify-center"
-                >
-                  {getAlertLevel(limit.currentCount, limit.maxCPFs)}
-                </Badge>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
-
       {/* Summary Cards */}
       <div className="grid gap-4 md:grid-cols-3">
         <Card className="shadow-card">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Total de CPFs Únicos</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total de Clientes Únicos</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-foreground">
-              {new Set(filteredUsages.map(u => u.cpf)).size}
-            </div>
+            <div className="text-2xl font-bold text-foreground">{totalUniqueClients}</div>
           </CardContent>
         </Card>
-        
+
         <Card className="shadow-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Programas em Alerta</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-warning">
-              {programLimits.filter(p => (p.currentCount / p.maxCPFs) >= 0.8).length}
-            </div>
+            <div className="text-2xl font-bold text-warning">{programsAlert}</div>
           </CardContent>
         </Card>
-        
+
         <Card className="shadow-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Situação Crítica</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-destructive">
-              {programLimits.filter(p => (p.currentCount / p.maxCPFs) >= 0.9).length}
-            </div>
+            <div className="text-2xl font-bold text-destructive">{programsCritical}</div>
           </CardContent>
         </Card>
       </div>
 
-      {/* CPF Usage Table */}
+      {/* Program Usage Cards */}
+      {usageByProgram.size > 0 && (
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {Array.from(usageByProgram.entries()).map(([programName, info]) => {
+            const percentage = hasLimit(info.limit) ? (info.used.size / info.limit) * 100 : 0;
+            const cycleInfo = usage.find(u => u.programName === programName);
+
+            return (
+              <Card key={programName} className="shadow-card">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg">{programName}</CardTitle>
+                    {hasLimit(info.limit) ? (
+                      percentage >= 90 ? <AlertTriangle className="h-4 w-4 text-destructive" /> :
+                      percentage >= 80 ? <Shield className="h-4 w-4 text-warning" /> :
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                    ) : (
+                      <CheckCircle className="h-4 w-4 text-muted-foreground" />
+                    )}
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {cycleInfo?.cycleLabel || "Sem ciclo definido"}
+                  </p>
+                </CardHeader>
+
+                <CardContent className="space-y-3 animate-slide-up">
+                  {hasLimit(info.limit) ? (
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-sm">
+                        <span>Uso atual:</span>
+                        <span className="font-semibold">{info.used.size}/{info.limit} clientes</span>
+                      </div>
+                      <Progress
+                        value={percentage}
+                        className="h-2 transition-all duration-1000"
+                        style={{
+                          ['--progress-color' as string]: percentage >= 90
+                            ? 'hsl(var(--destructive))'
+                            : percentage >= 80
+                              ? 'hsl(var(--warning))'
+                              : 'hsl(var(--primary))'
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-between text-sm">
+                      <span>Uso atual:</span>
+                      <span className="font-semibold">{info.used.size} clientes</span>
+                    </div>
+                  )}
+
+                  <Badge
+                    variant={getStatusColor(info.used.size, info.limit)}
+                    className="w-full justify-center"
+                  >
+                    {getAlertLevel(info.used.size, info.limit)}
+                  </Badge>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Detail Table */}
       <Card className="shadow-card">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Users className="h-5 w-5 text-primary" />
-            Histórico de Uso por CPF ({selectedYear})
+            Detalhamento por Cliente
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>CPF</TableHead>
-                <TableHead>Cliente</TableHead>
-                <TableHead>Programa</TableHead>
-                <TableHead>Qtd. Usos</TableHead>
-                <TableHead>Último Uso</TableHead>
-                <TableHead>Status</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredUsages.map((usage, index) => {
-                const programLimit = programLimits.find(p => p.program === usage.program);
-                const isFrequentUser = usage.usageCount >= 3;
-                
-                return (
+          {filteredUsage.length > 0 ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Cliente</TableHead>
+                  <TableHead>CPF</TableHead>
+                  <TableHead>Dono</TableHead>
+                  <TableHead>Programa</TableHead>
+                  <TableHead>Ciclo</TableHead>
+                  <TableHead>Último Uso</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredUsage.flatMap(u =>
+                  u.clients.map(c => ({ ...c, programName: u.programName, ownerName: u.ownerName, cycleLabel: u.cycleLabel }))
+                ).map((row, index) => (
                   <TableRow key={index}>
-                    <TableCell className="font-mono">{usage.cpf}</TableCell>
-                    <TableCell className="font-medium">{usage.clientName}</TableCell>
+                    <TableCell className="font-medium">{row.name}</TableCell>
+                    <TableCell className="font-mono">{row.cpf}</TableCell>
+                    <TableCell>{row.ownerName}</TableCell>
                     <TableCell>
-                      <Badge variant="outline">{usage.program}</Badge>
+                      <Badge variant="outline">{row.programName}</Badge>
                     </TableCell>
-                    <TableCell>
-                      <Badge variant={isFrequentUser ? "secondary" : "outline"}>
-                        {usage.usageCount}x
-                      </Badge>
-                    </TableCell>
-                    <TableCell>{new Date(usage.lastUsed).toLocaleDateString('pt-BR')}</TableCell>
-                    <TableCell>
-                      <Badge 
-                        variant={isFrequentUser ? "secondary" : "default"}
-                        className="text-xs"
-                      >
-                        {isFrequentUser ? "Frequente" : "Normal"}
-                      </Badge>
-                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">{row.cycleLabel}</TableCell>
+                    <TableCell>{new Date(row.lastSaleDate).toLocaleDateString('pt-BR')}</TableCell>
                   </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-          
-          {filteredUsages.length === 0 && (
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
             <div className="text-center py-8">
               <Shield className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
               <p className="text-muted-foreground">
@@ -290,7 +248,9 @@ export default function ControleCPF() {
       </Card>
 
       {/* Alert Messages */}
-      {programLimits.some(p => (p.currentCount / p.maxCPFs) >= 0.9) && (
+      {Array.from(usageByProgram.entries()).some(
+        ([_, info]) => hasLimit(info.limit) && info.used.size >= info.limit! * 0.9
+      ) && (
         <Card className="shadow-card border-destructive">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-destructive">
@@ -300,14 +260,14 @@ export default function ControleCPF() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              {programLimits
-                .filter(p => (p.currentCount / p.maxCPFs) >= 0.9)
-                .map(program => (
-                  <div key={program.program} className="flex items-center justify-between p-3 bg-destructive/10 rounded-lg">
+              {Array.from(usageByProgram.entries())
+                .filter(([_, info]) => hasLimit(info.limit) && info.used.size >= info.limit! * 0.9)
+                .map(([programName, info]) => (
+                  <div key={programName} className="flex items-center justify-between p-3 bg-destructive/10 rounded-lg">
                     <div>
-                      <p className="font-semibold">{program.program}</p>
+                      <p className="font-semibold">{programName}</p>
                       <p className="text-sm text-muted-foreground">
-                        {program.currentCount} de {program.maxCPFs} CPFs utilizados
+                        {info.used.size} de {info.limit} clientes utilizados
                       </p>
                     </div>
                     <Badge variant="destructive">Crítico</Badge>
