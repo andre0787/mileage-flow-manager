@@ -12,7 +12,7 @@ import { useAddSaleMutation, useUpdateSaleMutation, useDeleteSaleMutation } from
 import { useAddClientMutation, useUpdateClientMutation, useDeleteClientMutation } from "@/hooks/useDatabase";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
 
-export const TRANSFERENCIA_ID = "builtin-transferencia";
+export const TRANSFERENCIA_ID = "135451fe-4144-46e2-bb9c-9c4e365a5f35";
 const STORAGE_PREFIX = "mc-";
 
 interface DataContextType {
