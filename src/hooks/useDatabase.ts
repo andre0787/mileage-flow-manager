@@ -186,8 +186,18 @@ export function useAddProgramMutation() {
         max_passengers: program.maxPassengers, passenger_cycle_type: program.passengerCycleType, passenger_cycle_days: program.passengerCycleDays,
       });
       if (error) throw error;
+
+      // Ensure a matching origem_type exists for pontos programs
+      // (entries.origem_type_id FK references origem_types, but pontos entries
+      // use the program ID as origem_type_id)
+      if (program.type === "pontos") {
+        const { error: otError } = await supabase.from("origem_types").upsert({
+          id: program.id, user_id: user!.id, name: program.name, account_type: "pontos", color: "#3b82f6",
+        }, { onConflict: "id" });
+        if (otError) throw otError;
+      }
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["programs"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["programs", "origem_types"] }),
   });
 }
 
