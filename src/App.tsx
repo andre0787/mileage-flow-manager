@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { AppSidebar } from "@/components/AppSidebar";
+import { BottomTabBar } from "@/components/BottomTabBar";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { DataProvider } from "@/contexts/DataContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
@@ -33,7 +34,7 @@ const AppLayout = () => (
             <h2 className="text-lg font-semibold text-foreground">MilesControl</h2>
           </div>
         </header>
-        <main className="flex-1 p-4 md:p-6 bg-background">
+        <main className="flex-1 p-4 md:p-6 pb-16 md:pb-6 bg-background">
           <DataProvider>
             <Routes>
               <Route path="/" element={<Dashboard />} />
@@ -48,6 +49,7 @@ const AppLayout = () => (
             </Routes>
           </DataProvider>
         </main>
+          <BottomTabBar />
       </div>
     </div>
   </SidebarProvider>
