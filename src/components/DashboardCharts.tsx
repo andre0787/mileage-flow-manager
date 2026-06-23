@@ -2,22 +2,33 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 import { PieChartIcon, BarChart3 } from "lucide-react"
 
-const programData = [
-  { name: "LATAM Pass", value: 400000, color: "hsl(221 83% 53%)" },
-  { name: "Smiles", value: 64000, color: "hsl(142 76% 36%)" },
-  { name: "Livelo", value: 80000, color: "hsl(38 92% 50%)" },
-]
+interface ProgramData {
+  name: string
+  value: number
+  color: string
+}
 
-const monthlySales = [
-  { month: "Jan", vendas: 1200, lucro: 200 },
-  { month: "Fev", vendas: 1800, lucro: 350 },
-  { month: "Mar", vendas: 1400, lucro: 280 },
-  { month: "Abr", vendas: 2200, lucro: 450 },
-  { month: "Mai", vendas: 1900, lucro: 380 },
-  { month: "Jun", vendas: 3120, lucro: 560 },
-]
+interface MonthlyData {
+  month: string
+  vendas: number
+  lucro: number
+}
 
-export function DashboardCharts() {
+interface DashboardChartsProps {
+  programData: ProgramData[]
+  monthlySales: MonthlyData[]
+}
+
+const COLORS = [
+  "hsl(221 83% 53%)",
+  "hsl(142 76% 36%)",
+  "hsl(38 92% 50%)",
+  "hsl(271 81% 56%)",
+  "hsl(0 72% 51%)",
+  "hsl(190 95% 39%)",
+];
+
+export function DashboardCharts({ programData, monthlySales }: DashboardChartsProps) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <Card className="shadow-card">
@@ -40,8 +51,8 @@ export function DashboardCharts() {
                   paddingAngle={4}
                   dataKey="value"
                 >
-                  {programData.map((entry, index) => (
-                    <Cell key={index} fill={entry.color} />
+                  {programData.map((_, index) => (
+                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
                 <Tooltip
@@ -51,10 +62,10 @@ export function DashboardCharts() {
             </ResponsiveContainer>
           </div>
           <div className="mt-4 space-y-2">
-            {programData.map((entry) => (
+            {programData.map((entry, index) => (
               <div key={entry.name} className="flex items-center justify-between text-sm">
                 <div className="flex items-center gap-2">
-                  <div className="h-3 w-3 rounded-full" style={{ backgroundColor: entry.color }} />
+                  <div className="h-3 w-3 rounded-full" style={{ backgroundColor: COLORS[index % COLORS.length] }} />
                   <span className="text-muted-foreground">{entry.name}</span>
                 </div>
                 <span className="font-medium">{entry.value.toLocaleString('pt-BR')}</span>

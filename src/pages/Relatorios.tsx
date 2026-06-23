@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { BarChart3, TrendingUp, Download, Calendar, Filter, AlertTriangle, Lightbulb, Award, TrendingDown } from "lucide-react";
+import { useState, useMemo } from "react";
+import { BarChart3, TrendingUp, Download, Calendar, Filter, AlertTriangle, Lightbulb, Award } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { DatePickerWithRange } from "@/components/ui/date-range-picker";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useData } from "@/contexts/DataContext";
 
 interface OwnerReport {
   ownerName: string;
@@ -32,56 +32,90 @@ export default function Relatorios() {
   const [selectedOwner, setSelectedOwner] = useState("todos");
   const [selectedProgram, setSelectedProgram] = useState("todos");
 
-  // Mock data - seria substituído por dados reais da API
-  const ownerReports: OwnerReport[] = [
-    {
-      ownerName: "João Silva",
-      totalPointsAcquired: 500000,
-      totalAmountInvested: 2250,
-      totalMilesGenerated: 450000,
-      totalRevenue: 2700,
-      totalProfit: 450,
-      profitMargin: 16.67,
-      roi: 20
-    },
-    {
-      ownerName: "Maria Santos",
-      totalPointsAcquired: 200000,
-      totalAmountInvested: 900,
-      totalMilesGenerated: 160000,
-      totalRevenue: 1080,
-      totalProfit: 180,
-      profitMargin: 16.67,
-      roi: 20
-    }
-  ];
+  const { owners, accounts, programs, entries, sales } = useData();
 
-  const programReports: ProgramReport[] = [
-    {
-      program: "LATAM Pass",
-      totalStock: 400000,
-      averageCostPerMile: 0.0045,
-      totalSold: 150000,
-      revenue: 900,
-      profit: 225
-    },
-    {
-      program: "Smiles",
-      totalStock: 160000,
-      averageCostPerMile: 0.005625,
-      totalSold: 80000,
-      revenue: 480,
-      profit: 30
-    },
-    {
-      program: "Livelo",
-      totalStock: 80000,
-      averageCostPerMile: 0.005,
-      totalSold: 40000,
-      revenue: 240,
-      profit: 40
-    }
-  ];
+  const dateCutoff = useMemo(() => {
+    if (selectedPeriod === "custom") return null;
+    const d = new Date();
+    d.setDate(d.getDate() - parseInt(selectedPeriod));
+    return d;
+  }, [selectedPeriod]);
+
+  const filteredEntries = useMemo(() => {
+    if (!dateCutoff) return entries;
+    return entries.filter(e => new Date(e.date) >= dateCutoff!);
+  }, [entries, dateCutoff]);
+
+  const filteredSales = useMemo(() => {
+    if (!dateCutoff) return sales;
+    return sales.filter(s => new Date(s.date) >= dateCutoff!);
+  }, [sales, dateCutoff]);
+
+  const ownerReports = useMemo(() => {
+    return owners.map(owner => {
+      const ownerAccountIds = accounts.filter(a => a.ownerId === owner.id).map(a => a.id);
+
+      const ownerEntries = filteredEntries.filter(e => ownerAccountIds.includes(e.accountId));
+      const totalPointsAcquired = ownerEntries.reduce((sum, e) => sum + e.amount, 0);
+      const totalAmountInvested = ownerEntries.reduce((sum, e) => sum + e.amountPaid, 0);
+      const totalMilesGenerated = ownerEntries.reduce((sum, e) => sum + (e.milesGenerated ?? e.amount), 0);
+
+      const ownerSales = filteredSales.filter(s => ownerAccountIds.includes(s.accountId ?? ""));
+      const totalRevenue = ownerSales.reduce((sum, s) => sum + s.saleValue, 0);
+      const totalProfit = ownerSales.reduce((sum, s) => sum + s.profit, 0);
+
+      const profitMargin = totalRevenue > 0 ? (totalProfit / totalRevenue) * 100 : 0;
+      const roi = totalAmountInvested > 0 ? (totalProfit / totalAmountInvested) * 100 : 0;
+
+      return {
+        ownerName: owner.name,
+        totalPointsAcquired,
+        totalAmountInvested,
+        totalMilesGenerated,
+        totalRevenue,
+        totalProfit,
+        profitMargin,
+        roi,
+      };
+    });
+  }, [owners, accounts, filteredEntries, filteredSales]);
+
+  const programReports = useMemo(() => {
+    return programs.map(program => {
+      const programAccounts = accounts.filter(a => a.programId === program.id);
+      const totalStock = programAccounts.reduce((sum, a) => sum + a.balance, 0);
+      const weightedCost = programAccounts.reduce((sum, a) =>
+        sum + (a.averageCostPerMile ?? 0) * a.balance, 0);
+      const averageCostPerMile = totalStock > 0 ? weightedCost / totalStock : 0;
+
+      const programSales = filteredSales.filter(s => s.program === program.name);
+      const totalSold = programSales.reduce((sum, s) => sum + s.milesUsed, 0);
+      const revenue = programSales.reduce((sum, s) => sum + s.saleValue, 0);
+      const profit = programSales.reduce((sum, s) => sum + s.profit, 0);
+
+      return {
+        program: program.name,
+        totalStock,
+        averageCostPerMile,
+        totalSold,
+        revenue,
+        profit,
+      };
+    });
+  }, [programs, accounts, filteredSales]);
+
+  const ownerNames = useMemo(() => ["todos", ...owners.map(o => o.name)], [owners]);
+  const programNames = useMemo(() => ["todos", ...programs.map(p => p.name)], [programs]);
+
+  const filteredOwnerReports = useMemo(() => {
+    if (selectedOwner === "todos") return ownerReports;
+    return ownerReports.filter(r => r.ownerName === selectedOwner);
+  }, [ownerReports, selectedOwner]);
+
+  const filteredProgramReports = useMemo(() => {
+    if (selectedProgram === "todos") return programReports;
+    return programReports.filter(r => r.program === selectedProgram);
+  }, [programReports, selectedProgram]);
 
   const periods = [
     { value: "7", label: "Últimos 7 dias" },
@@ -91,24 +125,16 @@ export default function Relatorios() {
     { value: "custom", label: "Período personalizado" }
   ];
 
-  const owners = ["todos", ...ownerReports.map(r => r.ownerName)];
-  const programs = ["todos", ...programReports.map(r => r.program)];
-
   const exportReport = (type: "pdf" | "excel") => {
-    // Implementar exportação
     console.log(`Exportando relatório em ${type}`);
   };
 
-  const getTotalMetrics = () => {
-    return {
-      totalInvested: ownerReports.reduce((sum, r) => sum + r.totalAmountInvested, 0),
-      totalRevenue: ownerReports.reduce((sum, r) => sum + r.totalRevenue, 0),
-      totalProfit: ownerReports.reduce((sum, r) => sum + r.totalProfit, 0),
-      totalStock: programReports.reduce((sum, r) => sum + r.totalStock, 0)
-    };
-  };
-
-  const metrics = getTotalMetrics();
+  const metrics = useMemo(() => ({
+    totalInvested: ownerReports.reduce((sum, r) => sum + r.totalAmountInvested, 0),
+    totalRevenue: ownerReports.reduce((sum, r) => sum + r.totalRevenue, 0),
+    totalProfit: ownerReports.reduce((sum, r) => sum + r.totalProfit, 0),
+    totalStock: programReports.reduce((sum, r) => sum + r.totalStock, 0),
+  }), [ownerReports, programReports]);
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -120,7 +146,7 @@ export default function Relatorios() {
             Análise completa de performance e rentabilidade por dono
           </p>
         </div>
-        
+
         <div className="flex items-center gap-2">
           <Button variant="outline" onClick={() => exportReport("excel")} className="gap-2">
             <Download className="h-4 w-4" />
@@ -166,7 +192,7 @@ export default function Relatorios() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {owners.map((owner) => (
+                  {ownerNames.map((owner) => (
                     <SelectItem key={owner} value={owner}>
                       {owner === "todos" ? "Todos os Donos" : owner}
                     </SelectItem>
@@ -182,7 +208,7 @@ export default function Relatorios() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {programs.map((program) => (
+                  {programNames.map((program) => (
                     <SelectItem key={program} value={program}>
                       {program === "todos" ? "Todos os Programas" : program}
                     </SelectItem>
@@ -213,7 +239,7 @@ export default function Relatorios() {
             </div>
           </CardContent>
         </Card>
-        
+
         <Card className="shadow-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Faturamento</CardTitle>
@@ -224,7 +250,7 @@ export default function Relatorios() {
             </div>
           </CardContent>
         </Card>
-        
+
         <Card className="shadow-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Lucro Total</CardTitle>
@@ -271,7 +297,7 @@ export default function Relatorios() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {ownerReports.map((report) => (
+              {filteredOwnerReports.map((report) => (
                 <TableRow key={report.ownerName}>
                   <TableCell className="font-medium">{report.ownerName}</TableCell>
                   <TableCell>{report.totalPointsAcquired.toLocaleString('pt-BR')}</TableCell>
@@ -318,7 +344,7 @@ export default function Relatorios() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {programReports.map((report) => {
+              {filteredProgramReports.map((report) => {
                 const stockUtilization = (report.totalSold / (report.totalStock + report.totalSold)) * 100;
                 return (
                   <TableRow key={report.program}>
@@ -353,23 +379,23 @@ export default function Relatorios() {
             <div className="p-4 bg-success-light rounded-lg">
               <h4 className="font-semibold text-success mb-2 flex items-center gap-2"><Award className="h-4 w-4 text-success" /> Melhor Performance</h4>
               <p className="text-sm">
-                {ownerReports.sort((a, b) => b.roi - a.roi)[0]?.ownerName} apresenta o melhor ROI 
+                {ownerReports.sort((a, b) => b.roi - a.roi)[0]?.ownerName} apresenta o melhor ROI
                 ({ownerReports.sort((a, b) => b.roi - a.roi)[0]?.roi.toFixed(1)}%)
               </p>
             </div>
-            
+
             <div className="p-4 bg-warning-light rounded-lg">
               <h4 className="font-semibold text-warning mb-2 flex items-center gap-2"><AlertTriangle className="h-4 w-4 text-warning" /> Atenção</h4>
               <p className="text-sm">
-                Programa {programReports.sort((a, b) => a.profit - b.profit)[0]?.program} 
+                Programa {programReports.sort((a, b) => a.profit - b.profit)[0]?.program}
                 com menor lucratividade. Considere revisar estratégia de preços.
               </p>
             </div>
-            
+
             <div className="p-4 bg-muted/30 rounded-lg">
               <h4 className="font-semibold mb-2 flex items-center gap-2"><Lightbulb className="h-4 w-4 text-primary" /> Oportunidades</h4>
               <p className="text-sm">
-                Estoque total de {metrics.totalStock.toLocaleString('pt-BR')} milhas disponível. 
+                Estoque total de {metrics.totalStock.toLocaleString('pt-BR')} milhas disponível.
                 Considere campanhas promocionais para acelerar vendas.
               </p>
             </div>

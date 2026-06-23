@@ -1,8 +1,9 @@
-import { 
-  Wallet, 
-  TrendingUp, 
-  Users, 
-  CreditCard, 
+import { useMemo } from "react";
+import {
+  Wallet,
+  TrendingUp,
+  Users,
+  CreditCard,
   Target,
   AlertTriangle,
   Coins,
@@ -12,29 +13,131 @@ import { MetricCard } from "@/components/MetricCard";
 import { DashboardCharts } from "@/components/DashboardCharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useData } from "@/contexts/DataContext";
+
+const MAX_CPF_PER_OWNER = 22;
 
 export default function Dashboard() {
-  // Dados integrados do sistema de estoque por donos
-  const metrics = {
-    totalMiles: 544000, // Estoque real de milhas disponíveis
-    totalInvested: 2560, // Total investido em pontos/milhas
-    monthlyRevenue: 3120, // Faturamento do mês
-    monthlyProfit: 560, // Lucro líquido
-    activeAccounts: 3,
-    pendingSales: 2,
-    cpfAlerts: 1
-  };
+  const { owners, accounts, programs, sales, entries } = useData();
 
-  const ownerData = [
-    { owner: "João Silva", programs: ["LATAM Pass", "Livelo"], totalMiles: 480000, totalInvested: 2200, cpfCount: 18, maxCpf: 22 },
-    { owner: "Maria Santos", programs: ["Smiles"], totalMiles: 64000, totalInvested: 360, cpfCount: 15, maxCpf: 22 },
-    { owner: "Pedro Costa", programs: ["Esfera"], totalMiles: 0, totalInvested: 0, cpfCount: 8, maxCpf: 22 }
-  ];
+  const metrics = useMemo(() => {
+    const totalMiles = accounts.reduce((sum, a) => sum + a.balance, 0);
+    const totalInvested = accounts.reduce((sum, a) => sum + (a.totalInvested ?? 0), 0);
+    const activeAccounts = accounts.filter(a => a.status === "ativa").length;
+    const pendingSales = sales.filter(s => s.status === "pendente").length;
 
-  const recentSales = [
-    { id: 1, owner: "João Silva", client: "Carlos Mendes", program: "LATAM Pass", miles: 50000, value: 300, status: "Concluído" },
-    { id: 2, owner: "Maria Santos", client: "Ana Silva", program: "Smiles", miles: 30000, value: 180, status: "Pendente" },
-  ];
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+    const monthlySales = sales.filter(s => {
+      const d = new Date(s.date);
+      return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
+    });
+    const monthlyRevenue = monthlySales.reduce((sum, s) => sum + s.saleValue, 0);
+    const monthlyProfit = monthlySales.reduce((sum, s) => sum + s.profit, 0);
+    const totalSoldMiles = sales.reduce((sum, s) => sum + s.milesUsed, 0);
+    const totalRevenue = sales.reduce((sum, s) => sum + s.saleValue, 0);
+    const totalProfit = sales.reduce((sum, s) => sum + s.profit, 0);
+    const monthChange = ((monthlyRevenue - monthlyProfit) / (monthlyRevenue || 1)) * 100;
+
+    const cpfAlerts = owners.filter(o => {
+      const ownerAccountIds = accounts.filter(a => a.ownerId === o.id).map(a => a.id);
+      const ownerSales = sales.filter(s => ownerAccountIds.includes(s.accountId ?? ""));
+      const usedCpfs = new Set(ownerSales.flatMap(s => s.passengers.map(p => p.cpf)));
+      return usedCpfs.size >= MAX_CPF_PER_OWNER - 4;
+    }).length;
+
+    return {
+      totalMiles,
+      totalInvested,
+      monthlyRevenue,
+      monthlyProfit,
+      activeAccounts,
+      pendingSales,
+      cpfAlerts,
+      totalSoldMiles,
+      totalRevenue,
+      totalProfit,
+      monthChange,
+    };
+  }, [accounts, sales, owners]);
+
+  const ownerData = useMemo(() => {
+    return owners.map(owner => {
+      const ownerAccounts = accounts.filter(a => a.ownerId === owner.id);
+      const ownerAccountIds = ownerAccounts.map(a => a.id);
+      const totalMiles = ownerAccounts.reduce((sum, a) => sum + a.balance, 0);
+      const totalInvested = ownerAccounts.reduce((sum, a) => sum + (a.totalInvested ?? 0), 0);
+      const programIds = [...new Set(ownerAccounts.map(a => a.programId))];
+      const programNames = programIds.map(id => programs.find(p => p.id === id)?.name ?? id);
+
+      const ownerSales = sales.filter(s => ownerAccountIds.includes(s.accountId ?? ""));
+      const usedCpfs = new Set(ownerSales.flatMap(s => s.passengers.map(p => p.cpf)));
+
+      return {
+        owner: owner.name,
+        programs: programNames,
+        totalMiles,
+        totalInvested,
+        cpfCount: usedCpfs.size,
+        maxCpf: MAX_CPF_PER_OWNER,
+      };
+    });
+  }, [owners, accounts, programs, sales]);
+
+  const recentSales = useMemo(() => {
+    const lastSales = [...sales].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    return lastSales.slice(0, 5).map(s => ({
+      id: s.id,
+      owner: s.ownerName,
+      client: s.clientName,
+      program: s.program,
+      miles: s.milesUsed,
+      value: s.saleValue,
+      status: s.status === "concluido" ? "Concluído" : s.status === "pago" ? "Pago" : "Pendente",
+    }));
+  }, [sales]);
+
+  const programData = useMemo(() => {
+    const programMap = new Map<string, number>();
+    accounts.forEach(a => {
+      const progName = programs.find(p => p.id === a.programId)?.name ?? "Desconhecido";
+      programMap.set(progName, (programMap.get(progName) ?? 0) + a.balance);
+    });
+    return Array.from(programMap.entries()).map(([name, value]) => ({
+      name,
+      value,
+      color: "hsl(221 83% 53%)",
+    }));
+  }, [accounts, programs]);
+
+  const monthlySales = useMemo(() => {
+    const monthMap = new Map<string, { vendas: number; lucro: number }>();
+    const monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+
+    sales.forEach(s => {
+      const d = new Date(s.date);
+      const key = `${d.getFullYear()}-${String(d.getMonth()).padStart(2, "0")}`;
+      const label = `${monthNames[d.getMonth()]}/${String(d.getFullYear()).slice(2)}`;
+      const current = monthMap.get(key) ?? { vendas: 0, lucro: 0 };
+      current.vendas += s.saleValue;
+      current.lucro += s.profit;
+      monthMap.set(key, current);
+    });
+
+    return Array.from(monthMap.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .slice(-12)
+      .map(([key, data]) => {
+        const [yearStr, monthStr] = key.split("-");
+        const label = `${monthNames[parseInt(monthStr)]}/${yearStr.slice(2)}`;
+        return {
+          month: label,
+          vendas: data.vendas,
+          lucro: data.lucro,
+        };
+      });
+  }, [sales]);
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -54,7 +157,7 @@ export default function Dashboard() {
           subtitle="Milhas disponíveis"
           icon={Coins}
           trend={{ value: 12.5, isPositive: true }}
-          sparklineData={[320000, 380000, 420000, 490000, 510000, 544000]}
+          sparklineData={[320000, 380000, 420000, 490000, 510000, metrics.totalMiles]}
         />
         <MetricCard
           title="Total Investido"
@@ -63,7 +166,7 @@ export default function Dashboard() {
           icon={Wallet}
           variant="success"
           trend={{ value: 8.2, isPositive: true }}
-          sparklineData={[1800, 1950, 2100, 2300, 2480, 2560]}
+          sparklineData={[1800, 1950, 2100, 2300, 2480, metrics.totalInvested]}
         />
         <MetricCard
           title="Faturamento Mensal"
@@ -72,7 +175,7 @@ export default function Dashboard() {
           icon={DollarSign}
           variant="success"
           trend={{ value: 15.3, isPositive: true }}
-          sparklineData={[1800, 2200, 1900, 2600, 2400, 3120]}
+          sparklineData={[1800, 2200, 1900, 2600, 2400, metrics.monthlyRevenue]}
         />
         <MetricCard
           title="Lucro Mensal"
@@ -81,11 +184,11 @@ export default function Dashboard() {
           icon={TrendingUp}
           variant="success"
           trend={{ value: 18.7, isPositive: true }}
-          sparklineData={[200, 350, 280, 450, 380, 560]}
+          sparklineData={[200, 350, 280, 450, 380, metrics.monthlyProfit]}
         />
       </div>
 
-      <DashboardCharts />
+      <DashboardCharts programData={programData} monthlySales={monthlySales} />
 
       {/* Secondary Metrics */}
       <div className="grid gap-4 md:grid-cols-3">
@@ -167,10 +270,10 @@ export default function Dashboard() {
                 </div>
                 <div className="text-right space-y-1">
                   <p className="font-semibold text-foreground">
-                    R$ {sale.value}
+                    R$ {sale.value.toLocaleString('pt-BR')}
                   </p>
                   <Badge variant={
-                    sale.status === "Concluído" ? "default" : 
+                    sale.status === "Concluído" ? "default" :
                     sale.status === "Pago" ? "secondary" : "outline"
                   }>
                     {sale.status}
