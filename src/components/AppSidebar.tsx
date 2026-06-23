@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   CreditCard,
@@ -10,9 +10,11 @@ import {
   BarChart3,
   Settings,
   Plane,
-  Coins
+  Coins,
+  LogOut,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { useAuth } from "@/contexts/AuthContext";
 
 import {
   Sidebar,
@@ -39,6 +41,8 @@ const menuItems = [
 export function AppSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
+  const navigate = useNavigate();
+  const { signOut } = useAuth();
   const currentPath = location.pathname;
   const collapsed = state === "collapsed";
 
@@ -107,6 +111,20 @@ export function AppSidebar() {
                   <Settings className="w-4 h-4" />
                   {!collapsed && <span>Configurações</span>}
                 </NavLink>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <button
+                  onClick={async () => {
+                    await signOut();
+                    navigate("/login");
+                  }}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all w-full text-left hover:bg-accent/50 text-muted-foreground hover:text-foreground`}
+                >
+                  <LogOut className="w-4 h-4" />
+                  {!collapsed && <span>Sair</span>}
+                </button>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
