@@ -116,6 +116,18 @@ export function DataProvider({ children }: { children: ReactNode }) {
           { onConflict: "id" }
         );
         if (error) console.warn("Migration programs:", error.message);
+
+        // Create matching origem_types for pontos programs
+        const pontosPrograms = (data.programs as Program[]).filter((p) => p.type === "pontos");
+        if (pontosPrograms.length) {
+          const { error: otErr } = await supabase.from("origem_types").upsert(
+            pontosPrograms.map((p) => ({
+              id: p.id, user_id: userId, name: p.name, account_type: "pontos", color: "#3b82f6",
+            })),
+            { onConflict: "id" }
+          );
+          if (otErr) console.warn("Migration pontos origem_types:", otErr.message);
+        }
       }
 
       // Migrate origem types
