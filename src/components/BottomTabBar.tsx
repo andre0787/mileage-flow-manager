@@ -26,7 +26,7 @@ export function BottomTabBar() {
   const location = useLocation()
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 z-40 h-16 bg-background border-t flex items-center justify-around md:hidden">
+    <nav className="fixed bottom-0 inset-x-0 z-40 h-16 bg-background border-t flex items-center justify-around md:hidden safe-area-bottom">
       {tabs.map((tab) => {
         const isActive = location.pathname === tab.url
         return (
