@@ -464,49 +464,89 @@ export default function Entradas() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Data</TableHead>
-                    <TableHead>Conta</TableHead>
-                    <TableHead>Origem</TableHead>
-                    <TableHead>Pontos</TableHead>
-                    <TableHead>Valor Pago</TableHead>
-                    <TableHead>Taxa Conv.</TableHead>
-                    <TableHead>Milhas</TableHead>
-                    <TableHead>Custo/Milha</TableHead>
-                    <TableHead className="text-right">Ações</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {entriesFiltered.map((entry) => (
-                    <TableRow key={entry.id}>
-                      <TableCell>{new Date(entry.date).toLocaleDateString('pt-BR')}</TableCell>
-                      <TableCell>
-                        <p className="font-medium">{accounts.find(a => a.id === entry.accountId)?.name}</p>
-                        <p className="text-xs text-muted-foreground">{ownerName(accounts.find(a => a.id === entry.accountId)?.ownerId ?? "")}</p>
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="outline" className="gap-1">
-                          {programs.find(p => p.id === entry.origemTypeId)?.name ?? "-"}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>{entry.amount.toLocaleString('pt-BR')}</TableCell>
-                      <TableCell>R$ {entry.amountPaid.toLocaleString('pt-BR')}</TableCell>
-                      <TableCell>{entry.conversionRate ?? "-"}</TableCell>
-                      <TableCell className="font-semibold text-success">
-                        {(entry.milesGenerated ?? entry.amount).toLocaleString('pt-BR')}
-                      </TableCell>
-                      <TableCell>R$ {entry.costPerMile.toFixed(4)}</TableCell>
-                      <TableCell className="text-right">
-                        <Button size="sm" variant="outline" className="px-2 text-destructive" onClick={() => deleteEntry(entry.id)}>
-                          Excluir
-                        </Button>
-                      </TableCell>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="hidden md:table-cell">Data</TableHead>
+                      <TableHead className="hidden md:table-cell">Conta</TableHead>
+                      <TableHead className="hidden md:table-cell">Origem</TableHead>
+                      <TableHead className="hidden md:table-cell">Pontos</TableHead>
+                      <TableHead className="hidden md:table-cell">Valor Pago</TableHead>
+                      <TableHead className="hidden md:table-cell">Taxa Conv.</TableHead>
+                      <TableHead className="hidden md:table-cell">Milhas</TableHead>
+                      <TableHead className="hidden md:table-cell">Custo/Milha</TableHead>
+                      <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {entriesFiltered.map((entry) => (
+                      <TableRow key={entry.id}>
+                        <TableCell className="hidden md:table-cell">{new Date(entry.date).toLocaleDateString('pt-BR')}</TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          <p className="font-medium">{accounts.find(a => a.id === entry.accountId)?.name}</p>
+                          <p className="text-xs text-muted-foreground">{ownerName(accounts.find(a => a.id === entry.accountId)?.ownerId ?? "")}</p>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          <Badge variant="outline" className="gap-1">
+                            {programs.find(p => p.id === entry.origemTypeId)?.name ?? "-"}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">{entry.amount.toLocaleString('pt-BR')}</TableCell>
+                        <TableCell className="hidden md:table-cell">R$ {entry.amountPaid.toLocaleString('pt-BR')}</TableCell>
+                        <TableCell className="hidden md:table-cell">{entry.conversionRate ?? "-"}</TableCell>
+                        <TableCell className="hidden md:table-cell font-semibold text-success">
+                          {(entry.milesGenerated ?? entry.amount).toLocaleString('pt-BR')}
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">R$ {entry.costPerMile.toFixed(4)}</TableCell>
+                        <TableCell className="hidden md:table-cell text-right">
+                          <Button size="sm" variant="outline" className="px-2 text-destructive min-w-[44px] min-h-[44px]" onClick={() => deleteEntry(entry.id)}>
+                            Excluir
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+
+              {/* Mobile card list */}
+              <div className="md:hidden space-y-3 mt-4">
+                {entriesFiltered.map((entry) => (
+                  <div key={entry.id} className="border rounded-lg p-4 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium">{programs.find(p => p.id === entry.origemTypeId)?.name ?? "-"}</p>
+                        <p className="text-xs text-muted-foreground">{new Date(entry.date).toLocaleDateString('pt-BR')}</p>
+                      </div>
+                      <Badge variant="outline">{accounts.find(a => a.id === entry.accountId)?.name}</Badge>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <span className="text-muted-foreground">Pontos:</span>
+                        <p className="font-semibold">{entry.amount.toLocaleString('pt-BR')}</p>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Valor Pago:</span>
+                        <p className="font-semibold">R$ {entry.amountPaid.toLocaleString('pt-BR')}</p>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Milhas Geradas:</span>
+                        <p className="font-semibold text-success">{(entry.milesGenerated ?? entry.amount).toLocaleString('pt-BR')}</p>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Custo/Milha:</span>
+                        <p className="font-semibold">R$ {entry.costPerMile.toFixed(4)}</p>
+                      </div>
+                    </div>
+                    <div className="flex justify-end pt-1">
+                      <Button size="sm" variant="outline" className="px-3 text-destructive min-h-[44px]" onClick={() => deleteEntry(entry.id)}>
+                        Excluir
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -547,44 +587,80 @@ export default function Entradas() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Data</TableHead>
-                    <TableHead>Conta</TableHead>
-                    <TableHead>Origem</TableHead>
-                    <TableHead>Milhas</TableHead>
-                    <TableHead>Valor Pago</TableHead>
-                    <TableHead>Custo/Milha</TableHead>
-                    <TableHead className="text-right">Ações</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {entriesFiltered.map((entry) => (
-                    <TableRow key={entry.id}>
-                      <TableCell>{new Date(entry.date).toLocaleDateString('pt-BR')}</TableCell>
-                      <TableCell>
-                        <p className="font-medium">{accounts.find(a => a.id === entry.accountId)?.name}</p>
-                        <p className="text-xs text-muted-foreground">{ownerName(accounts.find(a => a.id === entry.accountId)?.ownerId ?? "")}</p>
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="outline" className="gap-1">
-                          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: origemTypes.find(ot => ot.id === entry.origemTypeId)?.color }} />
-                          {origemTypeName(entry.origemTypeId)}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>{entry.amount.toLocaleString('pt-BR')}</TableCell>
-                      <TableCell>R$ {entry.amountPaid.toLocaleString('pt-BR')}</TableCell>
-                      <TableCell>R$ {entry.costPerMile.toFixed(4)}</TableCell>
-                      <TableCell className="text-right">
-                        <Button size="sm" variant="outline" className="px-2 text-destructive" onClick={() => deleteEntry(entry.id)}>
-                          Excluir
-                        </Button>
-                      </TableCell>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="hidden md:table-cell">Data</TableHead>
+                      <TableHead className="hidden md:table-cell">Conta</TableHead>
+                      <TableHead className="hidden md:table-cell">Origem</TableHead>
+                      <TableHead className="hidden md:table-cell">Milhas</TableHead>
+                      <TableHead className="hidden md:table-cell">Valor Pago</TableHead>
+                      <TableHead className="hidden md:table-cell">Custo/Milha</TableHead>
+                      <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {entriesFiltered.map((entry) => (
+                      <TableRow key={entry.id}>
+                        <TableCell className="hidden md:table-cell">{new Date(entry.date).toLocaleDateString('pt-BR')}</TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          <p className="font-medium">{accounts.find(a => a.id === entry.accountId)?.name}</p>
+                          <p className="text-xs text-muted-foreground">{ownerName(accounts.find(a => a.id === entry.accountId)?.ownerId ?? "")}</p>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          <Badge variant="outline" className="gap-1">
+                            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: origemTypes.find(ot => ot.id === entry.origemTypeId)?.color }} />
+                            {origemTypeName(entry.origemTypeId)}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">{entry.amount.toLocaleString('pt-BR')}</TableCell>
+                        <TableCell className="hidden md:table-cell">R$ {entry.amountPaid.toLocaleString('pt-BR')}</TableCell>
+                        <TableCell className="hidden md:table-cell">R$ {entry.costPerMile.toFixed(4)}</TableCell>
+                        <TableCell className="hidden md:table-cell text-right">
+                          <Button size="sm" variant="outline" className="px-2 text-destructive min-w-[44px] min-h-[44px]" onClick={() => deleteEntry(entry.id)}>
+                            Excluir
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+
+              {/* Mobile card list */}
+              <div className="md:hidden space-y-3 mt-4">
+                {entriesFiltered.map((entry) => (
+                  <div key={entry.id} className="border rounded-lg p-4 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium">{origemTypeName(entry.origemTypeId)}</p>
+                        <p className="text-xs text-muted-foreground">{new Date(entry.date).toLocaleDateString('pt-BR')}</p>
+                      </div>
+                      <Badge variant="outline">{accounts.find(a => a.id === entry.accountId)?.name}</Badge>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <span className="text-muted-foreground">Milhas:</span>
+                        <p className="font-semibold">{entry.amount.toLocaleString('pt-BR')}</p>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Valor Pago:</span>
+                        <p className="font-semibold">R$ {entry.amountPaid.toLocaleString('pt-BR')}</p>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Custo/Milha:</span>
+                        <p className="font-semibold">R$ {entry.costPerMile.toFixed(4)}</p>
+                      </div>
+                    </div>
+                    <div className="flex justify-end pt-1">
+                      <Button size="sm" variant="outline" className="px-3 text-destructive min-h-[44px]" onClick={() => deleteEntry(entry.id)}>
+                        Excluir
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
