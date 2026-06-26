@@ -1,11 +1,13 @@
 import { useState, useMemo } from "react";
 import { Plus, TrendingDown, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { FormDrawer } from "@/components/FormDrawer";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useData } from "@/contexts/DataContext";
 import type { Sale } from "@/types";
@@ -233,18 +235,16 @@ export default function Vendas() {
           </p>
         </div>
         
-        <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-          <DialogTrigger asChild>
-            <Button className="gap-2 bg-gradient-primary hover:opacity-90">
-              <Plus className="h-4 w-4" />
-              Nova Venda
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px]">
-            <DialogHeader>
-              <DialogTitle>Registrar Nova Venda</DialogTitle>
-            </DialogHeader>
-            <div className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto">
+         <Button className="gap-2 bg-gradient-primary hover:opacity-90" onClick={() => setIsCreateDialogOpen(true)}>
+           <Plus className="h-4 w-4" />
+           Nova Venda
+         </Button>
+         <FormDrawer
+           open={isCreateDialogOpen}
+           onOpenChange={setIsCreateDialogOpen}
+           title="Registrar Nova Venda"
+         >
+           <div className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="owner">Dono da Conta</Label>
@@ -538,91 +538,89 @@ export default function Vendas() {
                 }
                 return null;
               })()}
-            </div>
-            
-            <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
-                Cancelar
-              </Button>
-              <Button 
-                onClick={handleCreateSale} 
-                className="bg-gradient-primary hover:opacity-90"
-                disabled={!newSale.ownerName || !newSale.program || !newSale.clientId || !newSale.milesUsed || !newSale.saleValue || !selectedProgramStock || parseFloat(newSale.milesUsed) > selectedProgramStock.availableMiles || (programConfig?.maxPassengers && usedPassengersInCycle + newSale.passengers.filter(p => p.name.trim()).length > programConfig.maxPassengers)}
-              >
-                Registrar Venda
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
+             </div>
+             
+             <div className="flex justify-end gap-2 mt-4">
+               <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
+                 Cancelar
+               </Button>
+               <Button 
+                 onClick={handleCreateSale} 
+                 className="bg-gradient-primary hover:opacity-90"
+                 disabled={!newSale.ownerName || !newSale.program || !newSale.clientId || !newSale.milesUsed || !newSale.saleValue || !selectedProgramStock || parseFloat(newSale.milesUsed) > selectedProgramStock.availableMiles || (programConfig?.maxPassengers && usedPassengersInCycle + newSale.passengers.filter(p => p.name.trim()).length > programConfig.maxPassengers)}
+               >
+                 Registrar Venda
+               </Button>
+             </div>
+         </FormDrawer>
 
-        <Dialog open={isClientDialogOpen} onOpenChange={(open) => { setIsClientDialogOpen(open); if (!open) setClientErrors({}); }}>
-          <DialogContent className="sm:max-w-[350px]">
-            <DialogHeader>
-              <DialogTitle>Novo Cliente</DialogTitle>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="space-y-2">
-                <Label>Nome Completo</Label>
-                <Input
-                  value={newClient.name}
-                  onChange={(e) => { setNewClient({...newClient, name: e.target.value}); setClientErrors(p => ({...p, name: ""})); }}
-                  placeholder="Digite o nome completo"
-                />
-                {clientErrors.name && <p className="text-xs text-destructive">{clientErrors.name}</p>}
-              </div>
+         <FormDrawer
+           open={isClientDialogOpen}
+           onOpenChange={(open) => { setIsClientDialogOpen(open); if (!open) setClientErrors({}); }}
+           title="Novo Cliente"
+         >
+           <div className="grid gap-4 py-4">
+             <div className="space-y-2">
+               <Label>Nome Completo</Label>
+               <Input
+                 value={newClient.name}
+                 onChange={(e) => { setNewClient({...newClient, name: e.target.value}); setClientErrors(p => ({...p, name: ""})); }}
+                 placeholder="Digite o nome completo"
+               />
+               {clientErrors.name && <p className="text-xs text-destructive">{clientErrors.name}</p>}
+             </div>
 
-              <div className="space-y-2">
-                <Label>CPF</Label>
-                <Input
-                  value={newClient.cpf}
-                  onChange={(e) => {
-                    const numbers = e.target.value.replace(/\D/g, "").slice(0, 11);
-                    const formatted = formatCPF(numbers);
-                    setNewClient({...newClient, cpf: formatted});
-                  }}
-                  placeholder="000.000.000-00"
-                  maxLength={14}
-                />
-              </div>
+             <div className="space-y-2">
+               <Label>CPF</Label>
+               <Input
+                 value={newClient.cpf}
+                 onChange={(e) => {
+                   const numbers = e.target.value.replace(/\D/g, "").slice(0, 11);
+                   const formatted = formatCPF(numbers);
+                   setNewClient({...newClient, cpf: formatted});
+                 }}
+                 placeholder="000.000.000-00"
+                 maxLength={14}
+               />
+             </div>
 
-              <div className="space-y-2">
-                <Label>E-mail</Label>
-                <Input
-                  type="email"
-                  value={newClient.email}
-                  onChange={(e) => setNewClient({...newClient, email: e.target.value})}
-                  placeholder="cliente@email.com"
-                />
-              </div>
+             <div className="space-y-2">
+               <Label>E-mail</Label>
+               <Input
+                 type="email"
+                 value={newClient.email}
+                 onChange={(e) => setNewClient({...newClient, email: e.target.value})}
+                 placeholder="cliente@email.com"
+               />
+             </div>
 
-              <div className="space-y-2">
-                <Label>Telefone</Label>
-                <Input
-                  value={newClient.phone}
-                  onChange={(e) => setNewClient({...newClient, phone: e.target.value})}
-                  placeholder="(11) 99999-9999"
-                />
-              </div>
+             <div className="space-y-2">
+               <Label>Telefone</Label>
+               <Input
+                 value={newClient.phone}
+                 onChange={(e) => setNewClient({...newClient, phone: e.target.value})}
+                 placeholder="(11) 99999-9999"
+               />
+             </div>
 
-              <div className="space-y-2">
-                <Label>Contato Telegram</Label>
-                <Input
-                  value={newClient.telegram}
-                  onChange={(e) => setNewClient({...newClient, telegram: e.target.value})}
-                  placeholder="@usuario"
-                />
-              </div>
-            </div>
-            <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() => { setIsClientDialogOpen(false); setClientErrors({}); }}>
-                Cancelar
-              </Button>
-              <Button onClick={handleCreateClient} className="bg-gradient-primary hover:opacity-90">
-                Cadastrar
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
+             <div className="space-y-2">
+               <Label>Contato Telegram</Label>
+               <Input
+                 value={newClient.telegram}
+                 onChange={(e) => setNewClient({...newClient, telegram: e.target.value})}
+                 placeholder="@usuario"
+               />
+             </div>
+           </div>
+           <div className="flex justify-end gap-2 mt-4">
+             <Button variant="outline" onClick={() => { setIsClientDialogOpen(false); setClientErrors({}); }}>
+               Cancelar
+             </Button>
+             <Button onClick={handleCreateClient} className="bg-gradient-primary hover:opacity-90">
+               Cadastrar
+             </Button>
+           </div>
+         </FormDrawer>
       </div>
 
       {/* Summary Cards */}
@@ -673,68 +671,116 @@ export default function Vendas() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Data</TableHead>
-                <TableHead>Dono/Programa</TableHead>
-                <TableHead>Cliente</TableHead>
-                <TableHead>Milhas</TableHead>
-                <TableHead>Valor</TableHead>
-                <TableHead>Lucro</TableHead>
-                <TableHead>Margem</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Ações</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {sales.map((sale) => (
-                <TableRow key={sale.id}>
-                  <TableCell>{new Date(sale.date).toLocaleDateString('pt-BR')}</TableCell>
-                  <TableCell>
-                    <div>
-                      <p className="font-medium">{sale.ownerName}</p>
-                      <p className="text-xs text-muted-foreground">{sale.program}</p>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <div>
-                      <p className="font-medium">{sale.clientName}</p>
-                      <p className="text-xs text-muted-foreground">{sale.ticketLocator}</p>
-                    </div>
-                  </TableCell>
-                  <TableCell>{sale.milesUsed.toLocaleString('pt-BR')}</TableCell>
-                  <TableCell>R$ {sale.saleValue.toLocaleString('pt-BR')}</TableCell>
-                  <TableCell className={`font-semibold ${sale.profit < 0 ? 'text-destructive' : 'text-success'}`}>
-                    R$ {sale.profit.toLocaleString('pt-BR')}
-                  </TableCell>
-                  <TableCell>{sale.profitMargin.toFixed(1)}%</TableCell>
-                  <TableCell>
-                    <Select 
-                      value={sale.status} 
-                      onValueChange={(value) => updateSaleStatus(sale.id, value as "pendente" | "pago" | "concluido")}
-                    >
-                      <SelectTrigger className="w-28">
-                        <span className={`h-2 w-2 rounded-full ${sale.status === 'pendente' ? 'bg-warning' : sale.status === 'pago' ? 'bg-primary' : 'bg-success'}`} />
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="pendente">Pendente</SelectItem>
-                        <SelectItem value="pago">Pago</SelectItem>
-                        <SelectItem value="concluido">Concluído</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-1">
-                      <Users className="h-3 w-3 text-muted-foreground" />
-                      <span className="text-xs">{sale.passengers.length} pax</span>
-                    </div>
-                  </TableCell>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="hidden md:table-cell">Data</TableHead>
+                  <TableHead className="hidden md:table-cell">Dono/Programa</TableHead>
+                  <TableHead className="hidden md:table-cell">Cliente</TableHead>
+                  <TableHead className="hidden md:table-cell">Milhas</TableHead>
+                  <TableHead className="hidden md:table-cell">Valor</TableHead>
+                  <TableHead className="hidden md:table-cell">Lucro</TableHead>
+                  <TableHead className="hidden md:table-cell">Margem</TableHead>
+                  <TableHead className="hidden md:table-cell">Status</TableHead>
+                  <TableHead className="hidden md:table-cell">Ações</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {sales.map((sale) => (
+                  <TableRow key={sale.id}>
+                    <TableCell className="hidden md:table-cell">{new Date(sale.date).toLocaleDateString('pt-BR')}</TableCell>
+                    <TableCell className="hidden md:table-cell">
+                      <div>
+                        <p className="font-medium">{sale.ownerName}</p>
+                        <p className="text-xs text-muted-foreground">{sale.program}</p>
+                      </div>
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell">
+                      <div>
+                        <p className="font-medium">{sale.clientName}</p>
+                        <p className="text-xs text-muted-foreground">{sale.ticketLocator}</p>
+                      </div>
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell">{sale.milesUsed.toLocaleString('pt-BR')}</TableCell>
+                    <TableCell className="hidden md:table-cell">R$ {sale.saleValue.toLocaleString('pt-BR')}</TableCell>
+                    <TableCell className={`hidden md:table-cell font-semibold ${sale.profit < 0 ? 'text-destructive' : 'text-success'}`}>
+                      R$ {sale.profit.toLocaleString('pt-BR')}
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell">{sale.profitMargin.toFixed(1)}%</TableCell>
+                    <TableCell className="hidden md:table-cell">
+                      <Select 
+                        value={sale.status} 
+                        onValueChange={(value) => updateSaleStatus(sale.id, value as "pendente" | "pago" | "concluido")}
+                      >
+                        <SelectTrigger className="w-28">
+                          <span className={`h-2 w-2 rounded-full ${sale.status === 'pendente' ? 'bg-warning' : sale.status === 'pago' ? 'bg-primary' : 'bg-success'}`} />
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="pendente">Pendente</SelectItem>
+                          <SelectItem value="pago">Pago</SelectItem>
+                          <SelectItem value="concluido">Concluído</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell">
+                      <div className="flex items-center gap-1">
+                        <Users className="h-3 w-3 text-muted-foreground" />
+                        <span className="text-xs">{sale.passengers.length} pax</span>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+
+          {/* Mobile card list */}
+          <div className="md:hidden space-y-3 mt-4">
+            {sales.map((sale) => (
+              <div key={sale.id} className="border rounded-lg p-4 space-y-2">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">{sale.program}</p>
+                    <p className="text-xs text-muted-foreground">{sale.ownerName} • {new Date(sale.date).toLocaleDateString('pt-BR')}</p>
+                  </div>
+                  <Badge variant="outline" className={sale.status === 'pendente' ? 'text-warning border-warning' : sale.status === 'pago' ? 'text-primary border-primary' : 'text-success border-success'}>
+                    {sale.status === 'pendente' ? 'Pendente' : sale.status === 'pago' ? 'Pago' : 'Concluído'}
+                  </Badge>
+                </div>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div>
+                    <span className="text-muted-foreground">Cliente:</span>
+                    <p className="font-semibold">{sale.clientName}</p>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Milhas:</span>
+                    <p className="font-semibold">{sale.milesUsed.toLocaleString('pt-BR')}</p>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Valor:</span>
+                    <p className="font-semibold">R$ {sale.saleValue.toLocaleString('pt-BR')}</p>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Lucro:</span>
+                    <p className={`font-semibold ${sale.profit < 0 ? 'text-destructive' : 'text-success'}`}>
+                      R$ {sale.profit.toLocaleString('pt-BR')}
+                    </p>
+                  </div>
+                </div>
+                {sale.ticketLocator && (
+                  <p className="text-xs text-muted-foreground">Localizador: {sale.ticketLocator}</p>
+                )}
+                <div className="flex justify-end pt-1">
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <Users className="h-3 w-3" />
+                    <span>{sale.passengers.length} pax</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </CardContent>
       </Card>
     </div>

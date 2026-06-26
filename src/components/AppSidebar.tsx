@@ -53,8 +53,9 @@ export function AppSidebar() {
       : "hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-all duration-200";
 
   return (
-    <Sidebar collapsible="icon">
-      <SidebarContent>
+    <div className="hidden md:block">
+      <Sidebar collapsible="icon">
+        <SidebarContent>
         {/* Header */}
         <div className="p-4 border-b">
           <div className="flex items-center gap-3">
@@ -131,5 +132,6 @@ export function AppSidebar() {
         </div>
       </SidebarContent>
     </Sidebar>
+  </div>
   );
 }

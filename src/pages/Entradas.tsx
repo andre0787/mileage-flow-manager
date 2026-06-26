@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { FormDrawer } from "@/components/FormDrawer";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -169,20 +170,18 @@ export default function Entradas() {
             Transferir
           </Button>
 
-          <Dialog open={isCreateDialogOpen} onOpenChange={(open) => {
-            if (!open) resetForm();
-            setIsCreateDialogOpen(open);
-          }}>
-            <DialogTrigger asChild>
-              <Button variant="outline" className="gap-2">
-                <Plus className="h-4 w-4" />
-                Nova Entrada
-              </Button>
-            </DialogTrigger>
-          <DialogContent className="sm:max-w-[500px]">
-            <DialogHeader>
-              <DialogTitle>Registrar Nova Entrada - {activeTab === "pontos" ? "Pontos" : "Milhas"}</DialogTitle>
-            </DialogHeader>
+          <Button variant="outline" className="gap-2" onClick={() => setIsCreateDialogOpen(true)}>
+            <Plus className="h-4 w-4" />
+            Nova Entrada
+          </Button>
+          <FormDrawer
+            open={isCreateDialogOpen}
+            onOpenChange={(open) => {
+              if (!open) resetForm();
+              setIsCreateDialogOpen(open);
+            }}
+            title={`Registrar Nova Entrada - ${activeTab === "pontos" ? "Pontos" : "Milhas"}`}
+          >
             <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto">
               <div className="space-y-2">
                 <Label htmlFor="entryAccount">Conta</Label>
@@ -233,49 +232,43 @@ export default function Entradas() {
                     </Select>
                   </div>
                   {activeTab === "milhas" && (
-                    <Dialog open={isOrigemTypeDialogOpen} onOpenChange={(open) => { setIsOrigemTypeDialogOpen(open); if (!open) setOrigemTypeErrors({}); }}>
-                      <DialogTrigger asChild>
-                        <Button variant="outline" size="icon" title="Novo tipo de origem">
-                          <Plus className="h-4 w-4" />
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-[350px]">
-                        <DialogHeader>
-                          <DialogTitle>Novo Tipo de Origem</DialogTitle>
-                        </DialogHeader>
-                        <div className="grid gap-4 py-4">
-                          <div className="space-y-2">
-                            <Label>Nome</Label>
+                    <FormDrawer
+                      open={isOrigemTypeDialogOpen}
+                      onOpenChange={(open) => { setIsOrigemTypeDialogOpen(open); if (!open) setOrigemTypeErrors({}); }}
+                      title="Novo Tipo de Origem"
+                    >
+                      <div className="grid gap-4 py-4">
+                        <div className="space-y-2">
+                          <Label>Nome</Label>
+                          <Input
+                            value={newOrigemType.name}
+                            onChange={(e) => { setNewOrigemType({...newOrigemType, name: e.target.value}); setOrigemTypeErrors(p => ({...p, name: ""})); }}
+                            placeholder="Ex: Cashback"
+                          />
+                          {origemTypeErrors.name && <p className="text-xs text-destructive">{origemTypeErrors.name}</p>}
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Cor</Label>
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: newOrigemType.color }} />
                             <Input
-                              value={newOrigemType.name}
-                              onChange={(e) => { setNewOrigemType({...newOrigemType, name: e.target.value}); setOrigemTypeErrors(p => ({...p, name: ""})); }}
-                              placeholder="Ex: Cashback"
+                              type="color"
+                              value={newOrigemType.color}
+                              onChange={(e) => setNewOrigemType({...newOrigemType, color: e.target.value})}
+                              className="w-full h-10 p-1"
                             />
-                            {origemTypeErrors.name && <p className="text-xs text-destructive">{origemTypeErrors.name}</p>}
-                          </div>
-                          <div className="space-y-2">
-                            <Label>Cor</Label>
-                            <div className="flex items-center gap-2">
-                              <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: newOrigemType.color }} />
-                              <Input
-                                type="color"
-                                value={newOrigemType.color}
-                                onChange={(e) => setNewOrigemType({...newOrigemType, color: e.target.value})}
-                                className="w-full h-10 p-1"
-                              />
-                            </div>
                           </div>
                         </div>
-                        <div className="flex justify-end gap-2">
-                          <Button variant="outline" onClick={() => { setIsOrigemTypeDialogOpen(false); setOrigemTypeErrors({}); }}>
-                            Cancelar
-                          </Button>
-                          <Button onClick={handleCreateOrigemType} className="bg-gradient-primary hover:opacity-90">
-                            Cadastrar
-                          </Button>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
+                      </div>
+                      <div className="flex justify-end gap-2 mt-4">
+                        <Button variant="outline" onClick={() => { setIsOrigemTypeDialogOpen(false); setOrigemTypeErrors({}); }}>
+                          Cancelar
+                        </Button>
+                        <Button onClick={handleCreateOrigemType} className="bg-gradient-primary hover:opacity-90">
+                          Cadastrar
+                        </Button>
+                      </div>
+                    </FormDrawer>
                   )}
                 </div>
                 {entryErrors.origemTypeId && <p className="text-xs text-destructive">{entryErrors.origemTypeId}</p>}
@@ -398,12 +391,11 @@ export default function Entradas() {
               )}
             </div>
 
-            <div className="flex justify-end gap-2">
+            <div className="flex justify-end gap-2 mt-4">
               <Button variant="outline" onClick={() => { resetForm(); setIsCreateDialogOpen(false); }}>Cancelar</Button>
               <Button onClick={handleCreateEntry} className="bg-gradient-primary hover:opacity-90">Registrar Entrada</Button>
             </div>
-          </DialogContent>
-        </Dialog>
+          </FormDrawer>
       </div>
       </div>
 
@@ -464,49 +456,89 @@ export default function Entradas() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Data</TableHead>
-                    <TableHead>Conta</TableHead>
-                    <TableHead>Origem</TableHead>
-                    <TableHead>Pontos</TableHead>
-                    <TableHead>Valor Pago</TableHead>
-                    <TableHead>Taxa Conv.</TableHead>
-                    <TableHead>Milhas</TableHead>
-                    <TableHead>Custo/Milha</TableHead>
-                    <TableHead className="text-right">Ações</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {entriesFiltered.map((entry) => (
-                    <TableRow key={entry.id}>
-                      <TableCell>{new Date(entry.date).toLocaleDateString('pt-BR')}</TableCell>
-                      <TableCell>
-                        <p className="font-medium">{accounts.find(a => a.id === entry.accountId)?.name}</p>
-                        <p className="text-xs text-muted-foreground">{ownerName(accounts.find(a => a.id === entry.accountId)?.ownerId ?? "")}</p>
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="outline" className="gap-1">
-                          {programs.find(p => p.id === entry.origemTypeId)?.name ?? "-"}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>{entry.amount.toLocaleString('pt-BR')}</TableCell>
-                      <TableCell>R$ {entry.amountPaid.toLocaleString('pt-BR')}</TableCell>
-                      <TableCell>{entry.conversionRate ?? "-"}</TableCell>
-                      <TableCell className="font-semibold text-success">
-                        {(entry.milesGenerated ?? entry.amount).toLocaleString('pt-BR')}
-                      </TableCell>
-                      <TableCell>R$ {entry.costPerMile.toFixed(4)}</TableCell>
-                      <TableCell className="text-right">
-                        <Button size="sm" variant="outline" className="px-2 text-destructive" onClick={() => deleteEntry(entry.id)}>
-                          Excluir
-                        </Button>
-                      </TableCell>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="hidden md:table-cell">Data</TableHead>
+                      <TableHead className="hidden md:table-cell">Conta</TableHead>
+                      <TableHead className="hidden md:table-cell">Origem</TableHead>
+                      <TableHead className="hidden md:table-cell">Pontos</TableHead>
+                      <TableHead className="hidden md:table-cell">Valor Pago</TableHead>
+                      <TableHead className="hidden md:table-cell">Taxa Conv.</TableHead>
+                      <TableHead className="hidden md:table-cell">Milhas</TableHead>
+                      <TableHead className="hidden md:table-cell">Custo/Milha</TableHead>
+                      <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {entriesFiltered.map((entry) => (
+                      <TableRow key={entry.id}>
+                        <TableCell className="hidden md:table-cell">{new Date(entry.date).toLocaleDateString('pt-BR')}</TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          <p className="font-medium">{accounts.find(a => a.id === entry.accountId)?.name}</p>
+                          <p className="text-xs text-muted-foreground">{ownerName(accounts.find(a => a.id === entry.accountId)?.ownerId ?? "")}</p>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          <Badge variant="outline" className="gap-1">
+                            {programs.find(p => p.id === entry.origemTypeId)?.name ?? "-"}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">{entry.amount.toLocaleString('pt-BR')}</TableCell>
+                        <TableCell className="hidden md:table-cell">R$ {entry.amountPaid.toLocaleString('pt-BR')}</TableCell>
+                        <TableCell className="hidden md:table-cell">{entry.conversionRate ?? "-"}</TableCell>
+                        <TableCell className="hidden md:table-cell font-semibold text-success">
+                          {(entry.milesGenerated ?? entry.amount).toLocaleString('pt-BR')}
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">R$ {entry.costPerMile.toFixed(4)}</TableCell>
+                        <TableCell className="hidden md:table-cell text-right">
+                          <Button size="sm" variant="outline" className="px-2 text-destructive min-w-[44px] min-h-[44px]" onClick={() => deleteEntry(entry.id)}>
+                            Excluir
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+
+              {/* Mobile card list */}
+              <div className="md:hidden space-y-3 mt-4">
+                {entriesFiltered.map((entry) => (
+                  <div key={entry.id} className="border rounded-lg p-4 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium">{programs.find(p => p.id === entry.origemTypeId)?.name ?? "-"}</p>
+                        <p className="text-xs text-muted-foreground">{new Date(entry.date).toLocaleDateString('pt-BR')}</p>
+                      </div>
+                      <Badge variant="outline">{accounts.find(a => a.id === entry.accountId)?.name}</Badge>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <span className="text-muted-foreground">Pontos:</span>
+                        <p className="font-semibold">{entry.amount.toLocaleString('pt-BR')}</p>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Valor Pago:</span>
+                        <p className="font-semibold">R$ {entry.amountPaid.toLocaleString('pt-BR')}</p>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Milhas Geradas:</span>
+                        <p className="font-semibold text-success">{(entry.milesGenerated ?? entry.amount).toLocaleString('pt-BR')}</p>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Custo/Milha:</span>
+                        <p className="font-semibold">R$ {entry.costPerMile.toFixed(4)}</p>
+                      </div>
+                    </div>
+                    <div className="flex justify-end pt-1">
+                      <Button size="sm" variant="outline" className="px-3 text-destructive min-h-[44px]" onClick={() => deleteEntry(entry.id)}>
+                        Excluir
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -547,44 +579,80 @@ export default function Entradas() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Data</TableHead>
-                    <TableHead>Conta</TableHead>
-                    <TableHead>Origem</TableHead>
-                    <TableHead>Milhas</TableHead>
-                    <TableHead>Valor Pago</TableHead>
-                    <TableHead>Custo/Milha</TableHead>
-                    <TableHead className="text-right">Ações</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {entriesFiltered.map((entry) => (
-                    <TableRow key={entry.id}>
-                      <TableCell>{new Date(entry.date).toLocaleDateString('pt-BR')}</TableCell>
-                      <TableCell>
-                        <p className="font-medium">{accounts.find(a => a.id === entry.accountId)?.name}</p>
-                        <p className="text-xs text-muted-foreground">{ownerName(accounts.find(a => a.id === entry.accountId)?.ownerId ?? "")}</p>
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="outline" className="gap-1">
-                          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: origemTypes.find(ot => ot.id === entry.origemTypeId)?.color }} />
-                          {origemTypeName(entry.origemTypeId)}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>{entry.amount.toLocaleString('pt-BR')}</TableCell>
-                      <TableCell>R$ {entry.amountPaid.toLocaleString('pt-BR')}</TableCell>
-                      <TableCell>R$ {entry.costPerMile.toFixed(4)}</TableCell>
-                      <TableCell className="text-right">
-                        <Button size="sm" variant="outline" className="px-2 text-destructive" onClick={() => deleteEntry(entry.id)}>
-                          Excluir
-                        </Button>
-                      </TableCell>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="hidden md:table-cell">Data</TableHead>
+                      <TableHead className="hidden md:table-cell">Conta</TableHead>
+                      <TableHead className="hidden md:table-cell">Origem</TableHead>
+                      <TableHead className="hidden md:table-cell">Milhas</TableHead>
+                      <TableHead className="hidden md:table-cell">Valor Pago</TableHead>
+                      <TableHead className="hidden md:table-cell">Custo/Milha</TableHead>
+                      <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {entriesFiltered.map((entry) => (
+                      <TableRow key={entry.id}>
+                        <TableCell className="hidden md:table-cell">{new Date(entry.date).toLocaleDateString('pt-BR')}</TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          <p className="font-medium">{accounts.find(a => a.id === entry.accountId)?.name}</p>
+                          <p className="text-xs text-muted-foreground">{ownerName(accounts.find(a => a.id === entry.accountId)?.ownerId ?? "")}</p>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          <Badge variant="outline" className="gap-1">
+                            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: origemTypes.find(ot => ot.id === entry.origemTypeId)?.color }} />
+                            {origemTypeName(entry.origemTypeId)}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">{entry.amount.toLocaleString('pt-BR')}</TableCell>
+                        <TableCell className="hidden md:table-cell">R$ {entry.amountPaid.toLocaleString('pt-BR')}</TableCell>
+                        <TableCell className="hidden md:table-cell">R$ {entry.costPerMile.toFixed(4)}</TableCell>
+                        <TableCell className="hidden md:table-cell text-right">
+                          <Button size="sm" variant="outline" className="px-2 text-destructive min-w-[44px] min-h-[44px]" onClick={() => deleteEntry(entry.id)}>
+                            Excluir
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+
+              {/* Mobile card list */}
+              <div className="md:hidden space-y-3 mt-4">
+                {entriesFiltered.map((entry) => (
+                  <div key={entry.id} className="border rounded-lg p-4 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium">{origemTypeName(entry.origemTypeId)}</p>
+                        <p className="text-xs text-muted-foreground">{new Date(entry.date).toLocaleDateString('pt-BR')}</p>
+                      </div>
+                      <Badge variant="outline">{accounts.find(a => a.id === entry.accountId)?.name}</Badge>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <span className="text-muted-foreground">Milhas:</span>
+                        <p className="font-semibold">{entry.amount.toLocaleString('pt-BR')}</p>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Valor Pago:</span>
+                        <p className="font-semibold">R$ {entry.amountPaid.toLocaleString('pt-BR')}</p>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Custo/Milha:</span>
+                        <p className="font-semibold">R$ {entry.costPerMile.toFixed(4)}</p>
+                      </div>
+                    </div>
+                    <div className="flex justify-end pt-1">
+                      <Button size="sm" variant="outline" className="px-3 text-destructive min-h-[44px]" onClick={() => deleteEntry(entry.id)}>
+                        Excluir
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
