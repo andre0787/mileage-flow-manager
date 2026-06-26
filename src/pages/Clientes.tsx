@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { FormDrawer } from "@/components/FormDrawer";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
@@ -126,124 +127,121 @@ export default function Clientes() {
           </p>
         </div>
         
-        <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-          <DialogTrigger asChild>
-            <Button className="gap-2 bg-gradient-primary hover:opacity-90">
-              <Plus className="h-4 w-4" />
-              Novo Cliente
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>Cadastrar Novo Cliente</DialogTitle>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Nome Completo</Label>
-                <Input
-                  id="name"
-                  value={newClient.name}
-                  onChange={(e) => setNewClient({...newClient, name: e.target.value})}
-                  placeholder="Digite o nome completo"
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="cpf">CPF</Label>
-                <Input
-                  id="cpf"
-                  value={newClient.cpf}
-                  onChange={(e) => handleCPFChange(e.target.value)}
-                  placeholder="000.000.000-00"
-                  maxLength={14}
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="email">E-mail</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={newClient.email}
-                  onChange={(e) => setNewClient({...newClient, email: e.target.value})}
-                  placeholder="cliente@email.com"
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="phone">Telefone</Label>
-                <Input
-                  id="phone"
-                  value={newClient.phone}
-                  onChange={(e) => setNewClient({...newClient, phone: e.target.value})}
-                  placeholder="(11) 99999-9999"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="telegram">Contato Telegram</Label>
-                <Input
-                  id="telegram"
-                  value={newClient.telegram}
-                  onChange={(e) => setNewClient({...newClient, telegram: e.target.value})}
-                  placeholder="@usuario"
-                />
-              </div>
+        <Button className="gap-2 bg-gradient-primary hover:opacity-90" onClick={() => setIsCreateDialogOpen(true)}>
+          <Plus className="h-4 w-4" />
+          Novo Cliente
+        </Button>
+        <FormDrawer
+          open={isCreateDialogOpen}
+          onOpenChange={setIsCreateDialogOpen}
+          title="Cadastrar Novo Cliente"
+        >
+          <div className="grid gap-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Nome Completo</Label>
+              <Input
+                id="name"
+                value={newClient.name}
+                onChange={(e) => setNewClient({...newClient, name: e.target.value})}
+                placeholder="Digite o nome completo"
+              />
             </div>
             
-            <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
-                Cancelar
-              </Button>
-              <Button onClick={handleCreateClient} className="bg-gradient-primary hover:opacity-90">
-                Cadastrar
-              </Button>
+            <div className="space-y-2">
+              <Label htmlFor="cpf">CPF</Label>
+              <Input
+                id="cpf"
+                value={newClient.cpf}
+                onChange={(e) => handleCPFChange(e.target.value)}
+                placeholder="000.000.000-00"
+                maxLength={14}
+              />
             </div>
-          </DialogContent>
-        </Dialog>
+            
+            <div className="space-y-2">
+              <Label htmlFor="email">E-mail</Label>
+              <Input
+                id="email"
+                type="email"
+                value={newClient.email}
+                onChange={(e) => setNewClient({...newClient, email: e.target.value})}
+                placeholder="cliente@email.com"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="phone">Telefone</Label>
+              <Input
+                id="phone"
+                value={newClient.phone}
+                onChange={(e) => setNewClient({...newClient, phone: e.target.value})}
+                placeholder="(11) 99999-9999"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="telegram">Contato Telegram</Label>
+              <Input
+                id="telegram"
+                value={newClient.telegram}
+                onChange={(e) => setNewClient({...newClient, telegram: e.target.value})}
+                placeholder="@usuario"
+              />
+            </div>
+          </div>
+          
+          <div className="flex justify-end gap-2 mt-4">
+            <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
+              Cancelar
+            </Button>
+            <Button onClick={handleCreateClient} className="bg-gradient-primary hover:opacity-90">
+              Cadastrar
+            </Button>
+          </div>
+        </FormDrawer>
         {/* Edit Dialog */}
-        <Dialog open={isEditDialogOpen} onOpenChange={(open) => { setIsEditDialogOpen(open); if (!open) setEditClientData(null); }}>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>Editar Cliente</DialogTitle>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="space-y-2">
-                <Label htmlFor="edit-name">Nome Completo</Label>
-                <Input
-                  id="edit-name"
-                  value={editClientData?.name ?? ""}
-                  onChange={(e) => setEditClientData(prev => prev ? { ...prev, name: e.target.value } : null)}
-                  placeholder="Digite o nome completo"
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="edit-cpf">CPF</Label>
-                <Input
-                  id="edit-cpf"
-                  value={editClientData?.cpf ?? ""}
-                  onChange={(e) => {
-                    const numbers = e.target.value.replace(/\D/g, "").slice(0, 11);
-                    const formatted = numbers.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-                    setEditClientData(prev => prev ? { ...prev, cpf: formatted } : null);
-                  }}
-                  placeholder="000.000.000-00"
-                  maxLength={14}
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="edit-email">E-mail</Label>
-                <Input
-                  id="edit-email"
-                  type="email"
-                  value={editClientData?.email ?? ""}
-                  onChange={(e) => setEditClientData(prev => prev ? { ...prev, email: e.target.value } : null)}
-                  placeholder="cliente@email.com"
-                />
-              </div>
-              
+        <FormDrawer
+          open={isEditDialogOpen}
+          onOpenChange={(open) => { setIsEditDialogOpen(open); if (!open) setEditClientData(null); }}
+          title="Editar Cliente"
+        >
+          <div className="grid gap-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="edit-name">Nome Completo</Label>
+              <Input
+                id="edit-name"
+                value={editClientData?.name ?? ""}
+                onChange={(e) => setEditClientData(prev => prev ? { ...prev, name: e.target.value } : null)}
+                placeholder="Digite o nome completo"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="edit-cpf">CPF</Label>
+              <Input
+                id="edit-cpf"
+                value={editClientData?.cpf ?? ""}
+                onChange={(e) => {
+                  const numbers = e.target.value.replace(/\D/g, "").slice(0, 11);
+                  const formatted = numbers.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+                  setEditClientData(prev => prev ? { ...prev, cpf: formatted } : null);
+                }}
+                placeholder="000.000.000-00"
+                maxLength={14}
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="edit-email">E-mail</Label>
+              <Input
+                id="edit-email"
+                type="email"
+                value={editClientData?.email ?? ""}
+                onChange={(e) => setEditClientData(prev => prev ? { ...prev, email: e.target.value } : null)}
+                placeholder="cliente@email.com"
+              />
+            </div>
+            
               <div className="space-y-2">
                 <Label htmlFor="edit-phone">Telefone</Label>
                 <Input
@@ -263,18 +261,17 @@ export default function Clientes() {
                   placeholder="@usuario"
                 />
               </div>
-            </div>
-            
-            <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() => { setIsEditDialogOpen(false); setEditClientData(null); }}>
-                Cancelar
-              </Button>
-              <Button onClick={handleSaveEdit} className="bg-gradient-primary hover:opacity-90">
-                Salvar
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
+          </div>
+          
+          <div className="flex justify-end gap-2 mt-4">
+            <Button variant="outline" onClick={() => { setIsEditDialogOpen(false); setEditClientData(null); }}>
+              Cancelar
+            </Button>
+            <Button onClick={handleSaveEdit} className="bg-gradient-primary hover:opacity-90">
+              Salvar
+            </Button>
+          </div>
+        </FormDrawer>
       </div>
 
       {/* Search */}
