@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { FormDrawer } from "@/components/FormDrawer";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -169,20 +170,18 @@ export default function Entradas() {
             Transferir
           </Button>
 
-          <Dialog open={isCreateDialogOpen} onOpenChange={(open) => {
-            if (!open) resetForm();
-            setIsCreateDialogOpen(open);
-          }}>
-            <DialogTrigger asChild>
-              <Button variant="outline" className="gap-2">
-                <Plus className="h-4 w-4" />
-                Nova Entrada
-              </Button>
-            </DialogTrigger>
-          <DialogContent className="sm:max-w-[500px]">
-            <DialogHeader>
-              <DialogTitle>Registrar Nova Entrada - {activeTab === "pontos" ? "Pontos" : "Milhas"}</DialogTitle>
-            </DialogHeader>
+          <Button variant="outline" className="gap-2" onClick={() => setIsCreateDialogOpen(true)}>
+            <Plus className="h-4 w-4" />
+            Nova Entrada
+          </Button>
+          <FormDrawer
+            open={isCreateDialogOpen}
+            onOpenChange={(open) => {
+              if (!open) resetForm();
+              setIsCreateDialogOpen(open);
+            }}
+            title={`Registrar Nova Entrada - ${activeTab === "pontos" ? "Pontos" : "Milhas"}`}
+          >
             <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto">
               <div className="space-y-2">
                 <Label htmlFor="entryAccount">Conta</Label>
@@ -233,49 +232,43 @@ export default function Entradas() {
                     </Select>
                   </div>
                   {activeTab === "milhas" && (
-                    <Dialog open={isOrigemTypeDialogOpen} onOpenChange={(open) => { setIsOrigemTypeDialogOpen(open); if (!open) setOrigemTypeErrors({}); }}>
-                      <DialogTrigger asChild>
-                        <Button variant="outline" size="icon" title="Novo tipo de origem">
-                          <Plus className="h-4 w-4" />
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-[350px]">
-                        <DialogHeader>
-                          <DialogTitle>Novo Tipo de Origem</DialogTitle>
-                        </DialogHeader>
-                        <div className="grid gap-4 py-4">
-                          <div className="space-y-2">
-                            <Label>Nome</Label>
+                    <FormDrawer
+                      open={isOrigemTypeDialogOpen}
+                      onOpenChange={(open) => { setIsOrigemTypeDialogOpen(open); if (!open) setOrigemTypeErrors({}); }}
+                      title="Novo Tipo de Origem"
+                    >
+                      <div className="grid gap-4 py-4">
+                        <div className="space-y-2">
+                          <Label>Nome</Label>
+                          <Input
+                            value={newOrigemType.name}
+                            onChange={(e) => { setNewOrigemType({...newOrigemType, name: e.target.value}); setOrigemTypeErrors(p => ({...p, name: ""})); }}
+                            placeholder="Ex: Cashback"
+                          />
+                          {origemTypeErrors.name && <p className="text-xs text-destructive">{origemTypeErrors.name}</p>}
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Cor</Label>
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: newOrigemType.color }} />
                             <Input
-                              value={newOrigemType.name}
-                              onChange={(e) => { setNewOrigemType({...newOrigemType, name: e.target.value}); setOrigemTypeErrors(p => ({...p, name: ""})); }}
-                              placeholder="Ex: Cashback"
+                              type="color"
+                              value={newOrigemType.color}
+                              onChange={(e) => setNewOrigemType({...newOrigemType, color: e.target.value})}
+                              className="w-full h-10 p-1"
                             />
-                            {origemTypeErrors.name && <p className="text-xs text-destructive">{origemTypeErrors.name}</p>}
-                          </div>
-                          <div className="space-y-2">
-                            <Label>Cor</Label>
-                            <div className="flex items-center gap-2">
-                              <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: newOrigemType.color }} />
-                              <Input
-                                type="color"
-                                value={newOrigemType.color}
-                                onChange={(e) => setNewOrigemType({...newOrigemType, color: e.target.value})}
-                                className="w-full h-10 p-1"
-                              />
-                            </div>
                           </div>
                         </div>
-                        <div className="flex justify-end gap-2">
-                          <Button variant="outline" onClick={() => { setIsOrigemTypeDialogOpen(false); setOrigemTypeErrors({}); }}>
-                            Cancelar
-                          </Button>
-                          <Button onClick={handleCreateOrigemType} className="bg-gradient-primary hover:opacity-90">
-                            Cadastrar
-                          </Button>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
+                      </div>
+                      <div className="flex justify-end gap-2 mt-4">
+                        <Button variant="outline" onClick={() => { setIsOrigemTypeDialogOpen(false); setOrigemTypeErrors({}); }}>
+                          Cancelar
+                        </Button>
+                        <Button onClick={handleCreateOrigemType} className="bg-gradient-primary hover:opacity-90">
+                          Cadastrar
+                        </Button>
+                      </div>
+                    </FormDrawer>
                   )}
                 </div>
                 {entryErrors.origemTypeId && <p className="text-xs text-destructive">{entryErrors.origemTypeId}</p>}
@@ -398,12 +391,11 @@ export default function Entradas() {
               )}
             </div>
 
-            <div className="flex justify-end gap-2">
+            <div className="flex justify-end gap-2 mt-4">
               <Button variant="outline" onClick={() => { resetForm(); setIsCreateDialogOpen(false); }}>Cancelar</Button>
               <Button onClick={handleCreateEntry} className="bg-gradient-primary hover:opacity-90">Registrar Entrada</Button>
             </div>
-          </DialogContent>
-        </Dialog>
+          </FormDrawer>
       </div>
       </div>
 
