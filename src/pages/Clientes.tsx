@@ -333,70 +333,112 @@ export default function Clientes() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Cliente</TableHead>
-                <TableHead>CPF</TableHead>
-                <TableHead>Contato</TableHead>
-                <TableHead>Compras</TableHead>
-                <TableHead>Histórico de Uso</TableHead>
-                <TableHead className="text-right">Ações</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredClients.map((client) => (
-                <TableRow key={client.id} className="transition-colors">
-                  <TableCell>
-                    <div className="flex items-center gap-3">
-                      <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-semibold text-primary">
-                        {client.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
-                      </div>
-                      <div>
-                        <p className="font-medium">{client.name}</p>
-                        <p className="text-sm text-muted-foreground">{client.email ?? "-"}</p>
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell className="font-mono">{client.cpf ?? "-"}</TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <Phone className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm">{client.phone}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant="outline">{client.totalPurchases} compras</Badge>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex flex-wrap gap-1">
-                      {client.usageHistory.map((usage, index) => (
-                        <Badge key={index} variant="secondary" className="text-xs">
-                          {usage.program}: {usage.count}x
-                        </Badge>
-                      ))}
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <Button size="sm" variant="outline" className="px-3" onClick={() => handleEditClient(client)}>
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        size="sm" 
-                        variant="outline" 
-                        className="px-3 text-destructive hover:text-destructive"
-                        onClick={() => handleDeleteClient(client.id, client.name)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </TableCell>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="hidden md:table-cell">Cliente</TableHead>
+                  <TableHead className="hidden md:table-cell">CPF</TableHead>
+                  <TableHead className="hidden md:table-cell">Contato</TableHead>
+                  <TableHead className="hidden md:table-cell">Compras</TableHead>
+                  <TableHead className="hidden md:table-cell">Histórico de Uso</TableHead>
+                  <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          
+              </TableHeader>
+              <TableBody>
+                {filteredClients.map((client) => (
+                  <TableRow key={client.id} className="transition-colors">
+                    <TableCell className="hidden md:table-cell">
+                      <div className="flex items-center gap-3">
+                        <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-semibold text-primary">
+                          {client.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
+                        </div>
+                        <div>
+                          <p className="font-medium">{client.name}</p>
+                          <p className="text-sm text-muted-foreground">{client.email ?? "-"}</p>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell font-mono">{client.cpf ?? "-"}</TableCell>
+                    <TableCell className="hidden md:table-cell">
+                      <div className="flex items-center gap-2">
+                        <Phone className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-sm">{client.phone}</span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell">
+                      <Badge variant="outline">{client.totalPurchases} compras</Badge>
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell">
+                      <div className="flex flex-wrap gap-1">
+                        {client.usageHistory.map((usage, index) => (
+                          <Badge key={index} variant="secondary" className="text-xs">
+                            {usage.program}: {usage.count}x
+                          </Badge>
+                        ))}
+                      </div>
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell text-right">
+                      <div className="flex justify-end gap-2">
+                        <Button size="sm" variant="outline" className="px-2 min-w-[44px] min-h-[44px]" onClick={() => handleEditClient(client)}>
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="px-2 text-destructive hover:text-destructive min-w-[44px] min-h-[44px]"
+                          onClick={() => handleDeleteClient(client.id, client.name)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+
+          {/* Mobile card list */}
+          <div className="md:hidden space-y-3 mt-4">
+            {filteredClients.map((client) => (
+              <div key={client.id} className="border rounded-lg p-4 space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-sm font-semibold text-primary">
+                      {client.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
+                    </div>
+                    <div>
+                      <p className="font-medium">{client.name}</p>
+                      <p className="text-xs text-muted-foreground">{client.email ?? "-"}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div>
+                    <span className="text-muted-foreground">CPF:</span>
+                    <p className="font-mono text-xs">{client.cpf ?? "-"}</p>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Telefone:</span>
+                    <p>{client.phone}</p>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <Badge variant="outline">{client.totalPurchases} compras</Badge>
+                  <div className="flex gap-2">
+                    <Button size="sm" variant="outline" className="px-2 min-h-[44px] min-w-[44px]" onClick={() => handleEditClient(client)}>
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                    <Button size="sm" variant="outline" className="px-2 text-destructive hover:text-destructive min-h-[44px] min-w-[44px]" onClick={() => handleDeleteClient(client.id, client.name)}>
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
           {filteredClients.length === 0 && (
             <div className="text-center py-8">
               <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
