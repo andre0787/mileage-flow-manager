@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { FormDrawer } from "@/components/FormDrawer";
 import { Badge } from "@/components/ui/badge";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useData, isTransferencia } from "@/contexts/DataContext";
@@ -32,6 +33,7 @@ export default function Entradas() {
   const [isOrigemTypeDialogOpen, setIsOrigemTypeDialogOpen] = useState(false);
   const [newOrigemType, setNewOrigemType] = useState({ name: "", color: "#10b981" });
   const [origemTypeErrors, setOrigemTypeErrors] = useState<Partial<Record<string, string>>>({});
+  const [entryToDelete, setEntryToDelete] = useState<string | null>(null);
 
   const milhasOrigemTypes = origemTypes.filter(ot => ot.accountType === "milhas");
   const currentOrigemTypes = activeTab === "pontos"
@@ -492,9 +494,27 @@ export default function Entradas() {
                         </TableCell>
                         <TableCell className="hidden md:table-cell">R$ {entry.costPerMile.toFixed(4)}</TableCell>
                         <TableCell className="hidden md:table-cell text-right">
-                          <Button size="sm" variant="outline" className="px-2 text-destructive min-w-[44px] min-h-[44px]" onClick={() => deleteEntry(entry.id)}>
-                            Excluir
-                          </Button>
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button size="sm" variant="outline" className="px-2 text-destructive min-w-[44px] min-h-[44px]" onClick={() => setEntryToDelete(entry.id)}>
+                                Excluir
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>Excluir entrada?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  Esta ação não pode ser desfeita. A entrada será removida permanentemente e o saldo da conta será ajustado.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                <AlertDialogAction className="bg-destructive text-destructive-foreground" onClick={() => { deleteEntry(entryToDelete!); setEntryToDelete(null); }}>
+                                  Excluir
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -532,9 +552,27 @@ export default function Entradas() {
                       </div>
                     </div>
                     <div className="flex justify-end pt-1">
-                      <Button size="sm" variant="outline" className="px-3 text-destructive min-h-[44px]" onClick={() => deleteEntry(entry.id)}>
-                        Excluir
-                      </Button>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button size="sm" variant="outline" className="px-3 text-destructive min-h-[44px]" onClick={() => setEntryToDelete(entry.id)}>
+                            Excluir
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Excluir entrada?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Esta ação não pode ser desfeita. A entrada será removida permanentemente e o saldo da conta será ajustado.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                            <AlertDialogAction className="bg-destructive text-destructive-foreground" onClick={() => { deleteEntry(entryToDelete!); setEntryToDelete(null); }}>
+                              Excluir
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </div>
                   </div>
                 ))}
@@ -610,9 +648,27 @@ export default function Entradas() {
                         <TableCell className="hidden md:table-cell">R$ {entry.amountPaid.toLocaleString('pt-BR')}</TableCell>
                         <TableCell className="hidden md:table-cell">R$ {entry.costPerMile.toFixed(4)}</TableCell>
                         <TableCell className="hidden md:table-cell text-right">
-                          <Button size="sm" variant="outline" className="px-2 text-destructive min-w-[44px] min-h-[44px]" onClick={() => deleteEntry(entry.id)}>
-                            Excluir
-                          </Button>
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button size="sm" variant="outline" className="px-2 text-destructive min-w-[44px] min-h-[44px]" onClick={() => setEntryToDelete(entry.id)}>
+                                Excluir
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>Excluir entrada?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  Esta ação não pode ser desfeita. A entrada será removida permanentemente e o saldo da conta será ajustado.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                <AlertDialogAction className="bg-destructive text-destructive-foreground" onClick={() => { deleteEntry(entryToDelete!); setEntryToDelete(null); }}>
+                                  Excluir
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -646,9 +702,27 @@ export default function Entradas() {
                       </div>
                     </div>
                     <div className="flex justify-end pt-1">
-                      <Button size="sm" variant="outline" className="px-3 text-destructive min-h-[44px]" onClick={() => deleteEntry(entry.id)}>
-                        Excluir
-                      </Button>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button size="sm" variant="outline" className="px-3 text-destructive min-h-[44px]" onClick={() => setEntryToDelete(entry.id)}>
+                            Excluir
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Excluir entrada?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Esta ação não pode ser desfeita. A entrada será removida permanentemente e o saldo da conta será ajustado.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                            <AlertDialogAction className="bg-destructive text-destructive-foreground" onClick={() => { deleteEntry(entryToDelete!); setEntryToDelete(null); }}>
+                              Excluir
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </div>
                   </div>
                 ))}
