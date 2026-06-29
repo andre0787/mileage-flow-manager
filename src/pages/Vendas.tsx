@@ -772,11 +772,25 @@ export default function Vendas() {
                 {sale.ticketLocator && (
                   <p className="text-xs text-muted-foreground">Localizador: {sale.ticketLocator}</p>
                 )}
-                <div className="flex justify-end pt-1">
+                <div className="flex items-center justify-between pt-1">
                   <div className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Users className="h-3 w-3" />
                     <span>{sale.passengers.length} pax</span>
                   </div>
+                  <Select 
+                    value={sale.status} 
+                    onValueChange={(value) => updateSaleStatus(sale.id, value as "pendente" | "pago" | "concluido")}
+                  >
+                    <SelectTrigger className="w-32 min-h-[44px] min-w-[44px]">
+                      <span className={`h-2 w-2 rounded-full ${sale.status === 'pendente' ? 'bg-warning' : sale.status === 'pago' ? 'bg-primary' : 'bg-success'}`} />
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="pendente">Pendente</SelectItem>
+                      <SelectItem value="pago">Pago</SelectItem>
+                      <SelectItem value="concluido">Concluído</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
             ))}
