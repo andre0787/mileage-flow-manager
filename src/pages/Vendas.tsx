@@ -9,7 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { FormDrawer } from "@/components/FormDrawer";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useData } from "@/contexts/DataContext";
+import { useData, deleteSaleWithRestore } from "@/contexts/DataContext";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import type { Sale } from "@/types";
 
 interface StockInfo {
@@ -23,7 +24,7 @@ interface StockInfo {
 }
 
 export default function Vendas() {
-  const { clients, accounts, owners, programs, sales, addSale, updateSale, addClient, updateAccount } = useData();
+  const { clients, accounts, owners, programs, sales, addSale, updateSale, addClient, updateAccount, deleteSaleWithRestore } = useData();
 
   const stockInfo = useMemo(() => {
     return accounts
@@ -223,6 +224,36 @@ export default function Vendas() {
   const totalMilesSold = sales.reduce((sum, sale) => sum + sale.milesUsed, 0);
   const averageProfitMargin = sales.length > 0 ? 
     sales.reduce((sum, sale) => sum + sale.profitMargin, 0) / sales.length : 0;
+
+  const handleDeleteSale = (sale: Sale) => {
+    deleteSaleWithRestore(sale.id);
+  };
+
+  const DeleteSaleDialog = ({ sale }: { sale: Sale }) => {
+    return (
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button size="sm" variant="outline" className="px-3 text-destructive min-h-[44px]">
+            Excluir
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Excluir venda?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Esta ação não pode ser desfeita. A venda será removida permanentemente e o saldo de milhas da conta será restaurado.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction className="bg-destructive text-destructive-foreground" onClick={() => handleDeleteSale(sale)}>
+              Excluir
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    );
+  };
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -724,79 +755,85 @@ export default function Vendas() {
                         </SelectContent>
                       </Select>
                     </TableCell>
-                    <TableCell className="hidden md:table-cell">
+<TableCell className="hidden md:table-cell">
                       <div className="flex items-center gap-1">
                         <Users className="h-3 w-3 text-muted-foreground" />
                         <span className="text-xs">{sale.passengers.length} pax</span>
                       </div>
                     </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
+                    <TableCell className="hidden md:table-cell text-right">
+                      <DeleteSaleDialog sale={sale} />
+                    </TableCell>
+                   </TableRow>
+                 ))}
+               </TableBody>
+             </Table>
+           </div>
 
-          {/* Mobile card list */}
-          <div className="md:hidden space-y-3 mt-4">
-            {sales.map((sale) => (
-              <div key={sale.id} className="border rounded-lg p-4 space-y-2">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium">{sale.program}</p>
-                    <p className="text-xs text-muted-foreground">{sale.ownerName} • {new Date(sale.date).toLocaleDateString('pt-BR')}</p>
-                  </div>
-                  <Badge variant="outline" className={sale.status === 'pendente' ? 'text-warning border-warning' : sale.status === 'pago' ? 'text-primary border-primary' : 'text-success border-success'}>
-                    {sale.status === 'pendente' ? 'Pendente' : sale.status === 'pago' ? 'Pago' : 'Concluído'}
-                  </Badge>
-                </div>
-                <div className="grid grid-cols-2 gap-2 text-sm">
-                  <div>
-                    <span className="text-muted-foreground">Cliente:</span>
-                    <p className="font-semibold">{sale.clientName}</p>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground">Milhas:</span>
-                    <p className="font-semibold">{sale.milesUsed.toLocaleString('pt-BR')}</p>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground">Valor:</span>
-                    <p className="font-semibold">R$ {sale.saleValue.toLocaleString('pt-BR')}</p>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground">Lucro:</span>
-                    <p className={`font-semibold ${sale.profit < 0 ? 'text-destructive' : 'text-success'}`}>
-                      R$ {sale.profit.toLocaleString('pt-BR')}
-                    </p>
-                  </div>
-                </div>
-                {sale.ticketLocator && (
-                  <p className="text-xs text-muted-foreground">Localizador: {sale.ticketLocator}</p>
-                )}
-                <div className="flex items-center justify-between pt-1">
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Users className="h-3 w-3" />
-                    <span>{sale.passengers.length} pax</span>
-                  </div>
-                  <Select 
-                    value={sale.status} 
-                    onValueChange={(value) => updateSaleStatus(sale.id, value as "pendente" | "pago" | "concluido")}
-                  >
-                    <SelectTrigger className="w-32 min-h-[44px] min-w-[44px]">
-                      <span className={`h-2 w-2 rounded-full ${sale.status === 'pendente' ? 'bg-warning' : sale.status === 'pago' ? 'bg-primary' : 'bg-success'}`} />
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="pendente">Pendente</SelectItem>
-                      <SelectItem value="pago">Pago</SelectItem>
-                      <SelectItem value="concluido">Concluído</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
+           {/* Mobile card list */}
+           <div className="md:hidden space-y-3 mt-4">
+             {sales.map((sale) => (
+               <div key={sale.id} className="border rounded-lg p-4 space-y-2">
+                 <div className="flex items-center justify-between">
+                   <div>
+                     <p className="font-medium">{sale.program}</p>
+                     <p className="text-xs text-muted-foreground">{sale.ownerName} • {new Date(sale.date).toLocaleDateString('pt-BR')}</p>
+                   </div>
+                   <Badge variant="outline" className={sale.status === 'pendente' ? 'text-warning border-warning' : sale.status === 'pago' ? 'text-primary border-primary' : 'text-success border-success'}>
+                     {sale.status === 'pendente' ? 'Pendente' : sale.status === 'pago' ? 'Pago' : 'Concluído'}
+                   </Badge>
+                 </div>
+                 <div className="grid grid-cols-2 gap-2 text-sm">
+                   <div>
+                     <span className="text-muted-foreground">Cliente:</span>
+                     <p className="font-semibold">{sale.clientName}</p>
+                   </div>
+                   <div>
+                     <span className="text-muted-foreground">Milhas:</span>
+                     <p className="font-semibold">{sale.milesUsed.toLocaleString('pt-BR')}</p>
+                   </div>
+                   <div>
+                     <span className="text-muted-foreground">Valor:</span>
+                     <p className="font-semibold">R$ {sale.saleValue.toLocaleString('pt-BR')}</p>
+                   </div>
+                   <div>
+                     <span className="text-muted-foreground">Lucro:</span>
+                     <p className={`font-semibold ${sale.profit < 0 ? 'text-destructive' : 'text-success'}`}>
+                       R$ {sale.profit.toLocaleString('pt-BR')}
+                     </p>
+                   </div>
+                 </div>
+                 {sale.ticketLocator && (
+                   <p className="text-xs text-muted-foreground">Localizador: {sale.ticketLocator}</p>
+                 )}
+                 <div className="flex items-center justify-between pt-1">
+                   <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                     <Users className="h-3 w-3" />
+                     <span>{sale.passengers.length} pax</span>
+                   </div>
+                   <div className="flex items-center gap-2">
+                     <DeleteSaleDialog sale={sale} />
+                     <Select 
+                       value={sale.status} 
+                       onValueChange={(value) => updateSaleStatus(sale.id, value as "pendente" | "pago" | "concluido")}
+                     >
+                       <SelectTrigger className="w-32 min-h-[44px] min-w-[44px]">
+                         <span className={`h-2 w-2 rounded-full ${sale.status === 'pendente' ? 'bg-warning' : sale.status === 'pago' ? 'bg-primary' : 'bg-success'}`} />
+                         <SelectValue />
+                       </SelectTrigger>
+                       <SelectContent>
+                         <SelectItem value="pendente">Pendente</SelectItem>
+                         <SelectItem value="pago">Pago</SelectItem>
+                         <SelectItem value="concluido">Concluído</SelectItem>
+                       </SelectContent>
+                     </Select>
+                   </div>
+                 </div>
+               </div>
+             ))}
+           </div>
+         </CardContent>
+       </Card>
+     </div>
+   );
+ }
