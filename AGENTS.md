@@ -24,15 +24,19 @@
 - Backend Supabase com PostgreSQL (tabelas: profiles, owners, programs, origem_types, accounts, entries, clients, sales)
 - Autenticação via Supabase Auth (email/senha), sem confirmação de email
 - Dados carregados via React Query (staleTime: 30s) com RLS por usuário
-- DataContext adaptado para usar React Query + Supabase (mesma interface pública)
+- DataContext adaptado para usar React Query + Supabase
 - Migração automática de dados do localStorage para Supabase no primeiro login
 - Login/Cadastro em /login, logout na sidebar
 - Design system definido em CSS vars HSL no index.css
+- Feature "cancelado" implementada para vendas: restaura saldo e totalInvested, excluída de métricas financeiras
+- Feature de transferências entre contas de pontos (com bonificação)
+- Exclusão em cascata de entradas com vendas vinculadas
+- Controle de CPF com ciclo de passageiros por programa
 
 ## Git Workflow
 - `main` → produção (https://mileage-flow-manager.vercel.app)
 - `develop` → desenvolvimento
-- Features: `feature/nome` → PR para `develop` → merge `develop` → `main`
+- Fixes: `fix/nome` → PR para `develop` → merge `develop` → `main`
 
 ## Comandos
 - `npm run dev` - servidor dev (localhost:8080)
@@ -43,8 +47,33 @@
 - URL: https://mileage-flow-manager.vercel.app
 - Framework: Vite
 - Variáveis de ambiente: VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY
+- CLI: `vercel --prod`
+
+## Estrutura do Projeto
+```
+src/
+├── components/       # Componentes reutilizáveis
+│   └── ui/           # Componentes shadcn/ui
+├── contexts/         # DataContext e AuthContext
+├── hooks/            # React Query hooks + mutations
+├── lib/              # Utilitários (supabase client, tipos)
+├── pages/            # Páginas/rotas
+│   ├── Dashboard.tsx
+│   ├── Entradas.tsx  # Entrada de milhas/pontos + transferências
+│   ├── Vendas.tsx    # Vendas com status cancelado
+│   ├── Contas.tsx
+│   ├── Clientes.tsx
+│   ├── ControleCPF.tsx
+│   ├── Relatorios.tsx
+│   ├── Configuracoes.tsx
+│   └── Login.tsx
+└── types/            # Definições de tipos TypeScript
+```
 
 ## Observações
 - Não adicionar dependências sem necessidade
 - Seguir padrão do shadcn/ui para novos componentes
 - Manter consistência do design system (cores, sombras, animações)
+- Todas as queries e mutations usam React Query com `invalidateQueries`
+- Supabase RLS policies por `user_id` (auth.uid())
+- Tokens armazenados em `~/.config/opencode/tokens.json` (gitignored)
