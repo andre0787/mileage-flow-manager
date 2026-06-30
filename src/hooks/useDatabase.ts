@@ -500,12 +500,114 @@ export function useCancelSaleMutation() {
 
 export function useDeleteSaleMutation() {
   const queryClient = useQueryClient();
+  const { user } = useAuth();
   return useMutation({
     mutationFn: async (id: string) => {
+      const { data: sale, error: fetchError } = await supabase
+        .from("sales")
+        .select("*")
+        .eq("id", id)
+        .single();
+      if (fetchError) throw fetchError;
+
       const { error } = await supabase.from("sales").delete().eq("id", id);
       if (error) throw error;
+
+      if (sale.account_id) {
+        const { data: acc } = await supabase
+          .from("accounts")
+          .select("balance, total_invested, average_cost_per_mile")
+          .eq("id", sale.account_id)
+          .single();
+        if (acc) {
+          const milesToRestore = Number(sale.miles_used);
+          const currentBalance = Number(acc.balance);
+          const currentInvested = Number(acc.total_invested ?? 0);
+          const currentAvgCost = Number(acc.average_cost_per_mile ?? 0);
+
+          const investedToRestore = currentAvgCost > 0 && currentBalance > 0
+            ? (currentInvested / currentBalance) * milesToRestore
+            : sale.cost_per_mile * milesToRestore;
+
+          await supabase.from("accounts").update({
+            balance: currentBalance + milesToRestore,
+            total_invested: currentInvested + investedToRestore,
+            average_cost_per_mile: (currentBalance + milesToRestore) > 0
+              ? (currentInvested + investedToRestore) / (currentBalance + milesToRestore)
+              : 0,
+          }).eq("id", sale.account_id);
+        }
+      }
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["sales", "accounts"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["sales"] });
+      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+    },
+  });
+}
+
+export function useDeleteSalesBatchMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (saleIds: string[]) => {
+      if (saleIds.length === 0) return;
+
+      const { data: sales, error: fetchError } = await supabase
+        .from("sales")
+        .select("*")
+        .in("id", saleIds);
+      if (fetchError) throw fetchError;
+
+      const { error } = await supabase.from("sales").delete().in("id", saleIds);
+      if (error) throw error;
+
+      const accountsToUpdate = new Map<string, { balance: number; total_invested: number; average_cost_per_mile: number; milesToRestore: number }>();
+
+      for (const sale of sales) {
+        if (!sale.account_id) continue;
+
+        const existing = accountsToUpdate.get(sale.account_id) || {
+          balance: 0,
+          total_invested: 0,
+          average_cost_per_mile: 0,
+          milesToRestore: 0,
+        };
+
+        const milesToRestore = Number(sale.miles_used);
+        existing.milesToRestore += milesToRestore;
+        accountsToUpdate.set(sale.account_id, existing);
+      }
+
+      for (const [accountId, aggregate] of accountsToUpdate) {
+        const { data: acc } = await supabase
+          .from("accounts")
+          .select("balance, total_invested, average_cost_per_mile")
+          .eq("id", accountId)
+          .single();
+
+        if (acc) {
+          const currentBalance = Number(acc.balance);
+          const currentInvested = Number(acc.total_invested ?? 0);
+          const currentAvgCost = Number(acc.average_cost_per_mile ?? 0);
+
+          const investedToRestore = currentAvgCost > 0 && currentBalance > 0
+            ? (currentInvested / currentBalance) * aggregate.milesToRestore
+            : 0;
+
+          await supabase.from("accounts").update({
+            balance: currentBalance + aggregate.milesToRestore,
+            total_invested: currentInvested + investedToRestore,
+            average_cost_per_mile: (currentBalance + aggregate.milesToRestore) > 0
+              ? (currentInvested + investedToRestore) / (currentBalance + aggregate.milesToRestore)
+              : 0,
+          }).eq("id", accountId);
+        }
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["sales"] });
+      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+    },
   });
 }
 
