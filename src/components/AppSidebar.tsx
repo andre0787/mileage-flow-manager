@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -10,11 +9,11 @@ import {
   BarChart3,
   Settings,
   Plane,
-  Coins,
   LogOut,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useAuth } from "@/contexts/AuthContext";
+import { cn } from "@/lib/utils";
 
 import {
   Sidebar,
@@ -47,91 +46,108 @@ export function AppSidebar() {
   const collapsed = state === "collapsed";
 
   const isActive = (path: string) => currentPath === path;
-  const getNavClasses = (path: string) =>
-    isActive(path) 
-      ? "bg-primary text-primary-foreground font-medium shadow-sm" 
-      : "hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-all duration-200";
 
   return (
     <div className="hidden md:block">
       <Sidebar collapsible="icon">
         <SidebarContent>
-        {/* Header */}
-        <div className="p-4 border-b">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <Plane className="w-4 h-4 text-white" />
-            </div>
-            {!collapsed && (
-              <div>
-                <h2 className="text-lg font-bold text-foreground">MilesControl</h2>
-                <p className="text-xs text-muted-foreground">Sistema de Gestão</p>
+          {/* Header */}
+          <div className="p-4 border-b border-sidebar-border">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 bg-gradient-primary rounded-xl flex items-center justify-center shadow-sm">
+                <Plane className="w-[18px] h-[18px] text-white" />
               </div>
-            )}
+              {!collapsed && (
+                <div>
+                  <h2 className="text-base font-bold text-foreground font-display">MilesControl</h2>
+                  <p className="text-[10px] text-muted-foreground font-medium tracking-wide">Gestão de Milhas</p>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
 
-        {/* Navigation Menu */}
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground">
-            {!collapsed && "Menu Principal"}
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
+          {/* Navigation Menu */}
+          <SidebarGroup>
+            <SidebarGroupLabel className={cn(
+              "text-[10px] font-semibold text-muted-foreground tracking-wider uppercase",
+              collapsed && "sr-only"
+            )}>
+              Navegação
+            </SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {menuItems.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <NavLink
+                        to={item.url}
+                        end
+                        className={cn(
+                          "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200",
+                          "relative group",
+                          isActive(item.url)
+                            ? "bg-primary text-primary-foreground font-medium shadow-sm"
+                            : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                        )}
+                      >
+                        <item.icon className={cn(
+                          "w-4 h-4 shrink-0 transition-transform duration-200",
+                          !isActive(item.url) && "group-hover:scale-110"
+                        )} />
+                        {!collapsed && (
+                          <span className="text-sm font-medium font-body">{item.title}</span>
+                        )}
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+
+          {/* Bottom Actions */}
+          <div className="mt-auto p-4 border-t border-sidebar-border">
+            <div className={cn(
+              "flex items-center px-3 py-2 rounded-lg transition-colors mb-1",
+              !collapsed && "justify-between"
+            )}>
+              {!collapsed && <span className="text-xs text-muted-foreground font-medium">Tema</span>}
+              <ThemeToggle />
+            </div>
             <SidebarMenu>
-              {menuItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <NavLink 
-                      to={item.url} 
-                      end
-                      className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${getNavClasses(item.url)}`}
-                    >
-                      <item.icon className="w-4 h-4" />
-                      {!collapsed && <span>{item.title}</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <NavLink
+                    to="/configuracoes"
+                    className={cn(
+                      "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200",
+                      "text-muted-foreground hover:text-foreground hover:bg-accent/50",
+                      isActive("/configuracoes") && "bg-primary text-primary-foreground font-medium shadow-sm"
+                    )}
+                  >
+                    <Settings className="w-4 h-4 shrink-0" />
+                    {!collapsed && <span className="text-sm font-medium font-body">Configurações</span>}
+                  </NavLink>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <button
+                    onClick={async () => {
+                      await signOut();
+                      navigate("/login");
+                    }}
+                    className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                  >
+                    <LogOut className="w-4 h-4 shrink-0" />
+                    {!collapsed && <span className="text-sm font-medium font-body">Sair</span>}
+                  </button>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        {/* Bottom Actions */}
-        <div className="mt-auto p-4 border-t">
-          <div className="flex items-center justify-between px-3 py-2 mb-2">
-            {!collapsed && <span className="text-sm text-muted-foreground">Tema</span>}
-            <ThemeToggle />
           </div>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <NavLink 
-                  to="/configuracoes" 
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${getNavClasses("/configuracoes")}`}
-                >
-                  <Settings className="w-4 h-4" />
-                  {!collapsed && <span>Configurações</span>}
-                </NavLink>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <button
-                  onClick={async () => {
-                    await signOut();
-                    navigate("/login");
-                  }}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all w-full text-left hover:bg-accent/50 text-muted-foreground hover:text-foreground`}
-                >
-                  <LogOut className="w-4 h-4" />
-                  {!collapsed && <span>Sair</span>}
-                </button>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </div>
-      </SidebarContent>
-    </Sidebar>
-  </div>
+        </SidebarContent>
+      </Sidebar>
+    </div>
   );
 }
