@@ -4,15 +4,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { FormDrawer } from "@/components/FormDrawer";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { useData } from "@/contexts/DataContext";
+import { useAddClientMutation, useUpdateClientMutation, useDeleteClientMutation } from "@/hooks/useDatabase";
+import { formatCPF } from "@/lib/utils";
 
 export default function Clientes() {
-  const { clients, sales, addClient, updateClient, deleteClient } = useData();
+  const { clients, sales } = useData();
+
+  const addClientM = useAddClientMutation();
+  const updateClientM = useUpdateClientMutation();
+  const deleteClientM = useDeleteClientMutation();
 
   const [newClient, setNewClient] = useState({
     name: "",
@@ -48,7 +53,7 @@ export default function Clientes() {
 
   const handleCreateClient = () => {
     if (newClient.name) {
-      addClient({
+      addClientM.mutate({ id: crypto.randomUUID(),
         name: newClient.name,
         cpf: newClient.cpf,
         email: newClient.email,
@@ -76,7 +81,7 @@ export default function Clientes() {
 
   const handleSaveEdit = () => {
     if (editClientData && editClientData.name) {
-      updateClient(editClientData.id, {
+      updateClientM.mutate({ id: editClientData.id,
         name: editClientData.name,
         cpf: editClientData.cpf,
         email: editClientData.email,
@@ -101,12 +106,8 @@ export default function Clientes() {
     if (relatedSales.length > 0) {
       setDeleteBlocked({ open: true, clientName: name, relatedSales });
     } else {
-      deleteClient(id);
+      deleteClientM.mutate(id);
     }
-  };
-
-  const formatCPF = (cpf: string) => {
-    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
   };
 
   const handleCPFChange = (value: string) => {
@@ -222,8 +223,7 @@ export default function Clientes() {
                 id="edit-cpf"
                 value={editClientData?.cpf ?? ""}
                 onChange={(e) => {
-                  const numbers = e.target.value.replace(/\D/g, "").slice(0, 11);
-                  const formatted = numbers.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+                  const formatted = formatCPF(e.target.value);
                   setEditClientData(prev => prev ? { ...prev, cpf: formatted } : null);
                 }}
                 placeholder="000.000.000-00"

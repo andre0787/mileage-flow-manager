@@ -4,11 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useData } from "@/contexts/DataContext";
+import { useUpdateAccountMutation, useDeleteAccountMutation } from "@/hooks/useDatabase";
 import AccountDialog from "@/components/AccountDialog";
 import type { Account } from "@/types";
 
 export default function Contas() {
-  const { accounts, owners, programs, updateAccount, deleteAccount } = useData();
+  const { accounts, owners, programs } = useData();
+  const updateAccountM = useUpdateAccountMutation();
+  const deleteAccountM = useDeleteAccountMutation();
   const [filterType, setFilterType] = useState<"todas" | "pontos" | "milhas">("todas");
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [editAccount, setEditAccount] = useState<Account | undefined>(undefined);
@@ -24,7 +27,7 @@ export default function Contas() {
   const toggleAccountStatus = (id: string) => {
     const account = accounts.find(a => a.id === id);
     if (account) {
-      updateAccount(id, { status: account.status === "ativa" ? "inativa" : "ativa" });
+      updateAccountM.mutate({ id, status: account.status === "ativa" ? "inativa" : "ativa" });
     }
   };
 
@@ -123,7 +126,7 @@ export default function Contas() {
                 <Button size="sm" variant="outline" className="px-3" onClick={() => { setEditAccount(account); setIsEditDialogOpen(true); }}>
                   <Edit className="h-4 w-4" />
                 </Button>
-                <Button size="sm" variant="outline" className="px-3 text-destructive hover:text-destructive" onClick={() => deleteAccount(account.id)}>
+                <Button size="sm" variant="outline" className="px-3 text-destructive hover:text-destructive" onClick={() => deleteAccountM.mutate(account.id)}>
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>

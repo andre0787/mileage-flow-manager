@@ -18,7 +18,6 @@ import { AnimatedNumber } from "@/components/AnimatedNumber";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useData } from "@/contexts/DataContext";
-import { cn } from "@/lib/utils";
 
 const MAX_CPF_PER_OWNER = 22;
 

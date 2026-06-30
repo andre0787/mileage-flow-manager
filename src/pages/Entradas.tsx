@@ -5,17 +5,22 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+
 import { FormDrawer } from "@/components/FormDrawer";
 import { Badge } from "@/components/ui/badge";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useData, isTransferencia, deleteEntryWithSales } from "@/contexts/DataContext";
+import { useData, isTransferencia } from "@/contexts/DataContext";
+import { useAddEntryMutation, useDeleteEntryMutation, useAddOrigemTypeMutation, useDeleteSaleMutation } from "@/hooks/useDatabase";
 import type { Program, OrigemType, PointEntry } from "@/types";
 
 export default function Entradas() {
-  const { entries, accounts, owners, programs, origemTypes, sales, addEntry, deleteEntry, deleteEntryWithSales, addOrigemType } = useData();
+  const { entries, accounts, owners, programs, origemTypes, sales } = useData();
+  const addEntryM = useAddEntryMutation();
+  const deleteEntryM = useDeleteEntryMutation();
+  const deleteSaleM = useDeleteSaleMutation();
+  const addOrigemTypeM = useAddOrigemTypeMutation();
 
   const [activeTab, setActiveTab] = useState<"pontos" | "milhas">("pontos");
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
@@ -95,7 +100,7 @@ export default function Entradas() {
     if (Object.keys(errs).length > 0) return;
 
     const id = crypto.randomUUID();
-    addOrigemType({ name: newOrigemType.name.trim(), accountType: "milhas", color: newOrigemType.color }, id);
+    addOrigemTypeM.mutate({ id, name: newOrigemType.name.trim(), accountType: "milhas", color: newOrigemType.color });
     setNewEntry({ ...newEntry, origemTypeId: id });
 
     setNewOrigemType({ name: "", color: "#10b981" });
@@ -135,7 +140,7 @@ export default function Entradas() {
       const costPerThousand = (amountPaid / (isTransfer ? milesGenerated : amount)) * 1000;
       const costPerMile = amountPaid / milesGenerated;
 
-      addEntry({
+      addEntryM.mutate({ id: crypto.randomUUID(),
         accountId: newEntry.accountId,
         origemTypeId: newEntry.origemTypeId,
         amount,
@@ -160,7 +165,9 @@ export default function Entradas() {
   const averageCostPerMile = totalMilesGenerated > 0 ? totalAmountPaid / totalMilesGenerated : 0;
 
   const handleDeleteEntry = (entry: PointEntry) => {
-    deleteEntryWithSales(entry.id);
+    const relatedSales = sales?.filter(s => s.accountId === entry.accountId) || [];
+    relatedSales.forEach(sale => deleteSaleM.mutate(sale.id));
+    deleteEntryM.mutate(entry);
   };
 
   const DeleteEntryDialog = ({ entry }: { entry: PointEntry }) => {

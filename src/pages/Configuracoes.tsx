@@ -10,10 +10,26 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useData, isTransferencia } from "@/contexts/DataContext";
+import { useAddOwnerMutation, useUpdateOwnerMutation, useDeleteOwnerMutation } from "@/hooks/useDatabase";
+import { useAddProgramMutation, useUpdateProgramMutation, useDeleteProgramMutation } from "@/hooks/useDatabase";
+import { useAddOrigemTypeMutation, useUpdateOrigemTypeMutation, useDeleteOrigemTypeMutation } from "@/hooks/useDatabase";
+import { formatCPF } from "@/lib/utils";
 import type { Owner, Program, OrigemType } from "@/types";
 
 export default function Configuracoes() {
-  const { owners, programs, origemTypes, accounts, addOwner, updateOwner, deleteOwner, addProgram, updateProgram, deleteProgram, addOrigemType, updateOrigemType, deleteOrigemType, clearCache, clearAccountData } = useData();
+  const { owners, programs, origemTypes, accounts, clearCache, clearAccountData } = useData();
+
+  const addOwnerM = useAddOwnerMutation();
+  const updateOwnerM = useUpdateOwnerMutation();
+  const deleteOwnerM = useDeleteOwnerMutation();
+
+  const addProgramM = useAddProgramMutation();
+  const updateProgramM = useUpdateProgramMutation();
+  const deleteProgramM = useDeleteProgramMutation();
+
+  const addOrigemTypeM = useAddOrigemTypeMutation();
+  const updateOrigemTypeM = useUpdateOrigemTypeMutation();
+  const deleteOrigemTypeM = useDeleteOrigemTypeMutation();
 
   // Owner CRUD state
   const [newOwner, setNewOwner] = useState({ name: "", cpf: "", phone: "" });
@@ -33,14 +49,8 @@ export default function Configuracoes() {
   const [isOrigemTypeDialogOpen, setIsOrigemTypeDialogOpen] = useState(false);
   const [origemTypeError, setOrigemTypeError] = useState("");
 
-  const [defaultConversionRate, setDefaultConversionRate] = useState("1.0");
-  const [currency] = useState("BRL");
-  const [showClearConfirm, setShowClearConfirm] = useState(false);
 
-  const formatCPF = (cpf: string) => {
-    const numbers = cpf.replace(/\D/g, "").slice(0, 11);
-    return numbers.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-  };
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   const resetOwnerDialog = () => {
     setNewOwner({ name: "", cpf: "", phone: "" });
@@ -55,9 +65,9 @@ export default function Configuracoes() {
       return;
     }
     if (editingOwner) {
-      updateOwner(editingOwner.id, newOwner);
+      updateOwnerM.mutate({ id: editingOwner.id, ...newOwner });
     } else {
-      addOwner(newOwner);
+      addOwnerM.mutate({ id: crypto.randomUUID(), ...newOwner });
     }
     resetOwnerDialog();
   };
@@ -96,9 +106,9 @@ export default function Configuracoes() {
       passengerCycleDays: newProgram.passengerCycleType === "dias" && newProgram.passengerCycleDays ? parseInt(newProgram.passengerCycleDays) : undefined,
     };
     if (editingProgram) {
-      updateProgram(editingProgram.id, programData);
+      updateProgramM.mutate({ id: editingProgram.id, ...programData });
     } else {
-      addProgram(programData);
+      addProgramM.mutate({ id: crypto.randomUUID(), ...programData });
     }
     resetProgramDialog();
   };
@@ -128,9 +138,9 @@ export default function Configuracoes() {
       return;
     }
     if (editingOrigemType) {
-      updateOrigemType(editingOrigemType.id, newOrigemType);
+      updateOrigemTypeM.mutate({ id: editingOrigemType.id, ...newOrigemType });
     } else {
-      addOrigemType(newOrigemType);
+      addOrigemTypeM.mutate({ id: crypto.randomUUID(), ...newOrigemType });
     }
     resetOrigemTypeDialog();
   };
@@ -253,7 +263,7 @@ export default function Configuracoes() {
                           <Button size="sm" variant="outline" className="px-3" onClick={() => handleEditOwner(owner)}>
                             <Edit className="h-4 w-4" />
                           </Button>
-                          <Button size="sm" variant="outline" className="px-3 text-destructive hover:text-destructive" onClick={() => deleteOwner(owner.id)}>
+                          <Button size="sm" variant="outline" className="px-3 text-destructive hover:text-destructive" onClick={() => deleteOwnerM.mutate(owner.id)}>
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
@@ -413,7 +423,7 @@ export default function Configuracoes() {
                           <Button size="sm" variant="outline" className="px-3" onClick={() => handleEditProgram(program)}>
                             <Edit className="h-4 w-4" />
                           </Button>
-                          <Button size="sm" variant="outline" className="px-3 text-destructive hover:text-destructive" onClick={() => deleteProgram(program.id)}>
+                          <Button size="sm" variant="outline" className="px-3 text-destructive hover:text-destructive" onClick={() => deleteProgramM.mutate(program.id)}>
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
@@ -507,7 +517,7 @@ export default function Configuracoes() {
                           <Button size="sm" variant="outline" className="px-3" onClick={() => { setNewOrigemType({ name: ot.name, accountType: "milhas", color: ot.color }); setEditingOrigemType(ot); setIsOrigemTypeDialogOpen(true); }}>
                             <Edit className="h-4 w-4" />
                           </Button>
-                          <Button size="sm" variant="outline" className="px-3 text-destructive hover:text-destructive" onClick={() => deleteOrigemType(ot.id)}>
+                          <Button size="sm" variant="outline" className="px-3 text-destructive hover:text-destructive" onClick={() => deleteOrigemTypeM.mutate(ot.id)}>
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
@@ -538,15 +548,8 @@ export default function Configuracoes() {
             <CardContent className="space-y-6">
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="conversionRate">Taxa de Conversão Padrão</Label>
-                  <Input id="conversionRate" type="number" step="0.01" value={defaultConversionRate} onChange={(e) => setDefaultConversionRate(e.target.value)} placeholder="1.0" />
-                  <p className="text-xs text-muted-foreground">
-                    Quantas milhas 1 ponto gera (ex: 1.0 = 1 ponto = 1 milha)
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="currency">Moeda Padrão</Label>
-                  <Input id="currency" value={currency} disabled />
+                  <Label>Moeda Padrão</Label>
+                  <Input value="BRL" disabled />
                   <p className="text-xs text-muted-foreground">Apenas BRL suportado no momento</p>
                 </div>
               </div>

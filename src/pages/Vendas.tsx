@@ -7,10 +7,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { FormDrawer } from "@/components/FormDrawer";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useData } from "@/contexts/DataContext";
+import { useAddSaleMutation, useUpdateSaleMutation, useCancelSaleMutation, useAddClientMutation, useUpdateAccountMutation } from "@/hooks/useDatabase";
+import { formatCPF } from "@/lib/utils";
 import type { Sale } from "@/types";
 
 interface StockInfo {
@@ -24,7 +25,13 @@ interface StockInfo {
 }
 
 export default function Vendas() {
-  const { clients, accounts, owners, programs, sales, addSale, updateSale, cancelSale, addClient, updateAccount } = useData();
+  const { clients, accounts, owners, programs, sales } = useData();
+
+  const addSaleM = useAddSaleMutation();
+  const updateSaleM = useUpdateSaleMutation();
+  const cancelSaleM = useCancelSaleMutation();
+  const addClientM = useAddClientMutation();
+  const updateAccountM = useUpdateAccountMutation();
 
   const stockInfo = useMemo(() => {
     return accounts
@@ -98,10 +105,6 @@ export default function Vendas() {
     return relevantSales.reduce((sum, s) => sum + s.passengers.length, 0);
   }, [sales, newSale.program, programConfig]);
 
-  const formatCPF = (cpf: string) => {
-    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-  };
-
   const [clientErrors, setClientErrors] = useState<Partial<Record<string, string>>>({});
 
   const handleCreateClient = () => {
@@ -111,7 +114,7 @@ export default function Vendas() {
     if (Object.keys(errs).length > 0) return;
 
     const id = crypto.randomUUID();
-    addClient({
+    addClientM.mutate({ id,
       name: newClient.name.trim(),
       cpf: newClient.cpf,
       email: newClient.email.trim(),
@@ -142,7 +145,7 @@ export default function Vendas() {
       const profit = saleValue - totalCost - additionalCost;
       const profitMargin = saleValue > 0 ? (profit / saleValue) * 100 : 0;
 
-      addSale({
+      addSaleM.mutate({ id: crypto.randomUUID(),
         ownerName: newSale.ownerName,
         accountName: newSale.accountName,
         program: newSale.program,
@@ -168,7 +171,7 @@ export default function Vendas() {
           const proportionalInvested = account.totalInvested
             ? account.totalInvested * (milesUsed / account.balance)
             : 0;
-          updateAccount(account.id, {
+          updateAccountM.mutate({ id: account.id,
             balance: account.balance - milesUsed,
             totalInvested: Math.max(0, (account.totalInvested ?? 0) - proportionalInvested),
           });
@@ -217,7 +220,7 @@ export default function Vendas() {
   };
 
   const updateSaleStatus = (id: string, status: Sale['status']) => {
-    updateSale(id, { status });
+    updateSaleM.mutate({ id, status });
   };
 
   const activeSales = sales.filter(s => s.status !== 'cancelado');
@@ -835,7 +838,7 @@ export default function Vendas() {
             <AlertDialogCancel>Voltar</AlertDialogCancel>
             <AlertDialogAction className="bg-destructive hover:bg-destructive/90" onClick={() => {
               if (cancelConfirmId) {
-                cancelSale(cancelConfirmId);
+                cancelSaleM.mutate(cancelConfirmId);
                 setCancelConfirmId(null);
               }
             }}>
