@@ -1,19 +1,9 @@
 {
+  "framework": "vite",
   "rewrites": [
     {
       "source": "/(.*)",
       "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-SPA-Routing",
-          "value": "enabled"
-        }
-      ]
     }
   ]
 }
