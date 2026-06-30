@@ -15,8 +15,6 @@ import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } fr
 export function isTransferencia(ot: OrigemType): boolean {
   return ot.name === "Transferência" && ot.accountType === "milhas";
 }
-const STORAGE_PREFIX = "mc-";
-
 interface DataContextType {
   owners: Owner[]
   programs: Program[]
@@ -90,142 +88,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
     }
   }, [user, origemTypes]);
 
-  // Migrate localStorage data to Supabase on first login
-  useEffect(() => {
-    if (!user) return;
-    const migratedKey = STORAGE_PREFIX + "migrated";
-    if (localStorage.getItem(migratedKey)) return;
 
-    const migrate = async () => {
-      const data = loadStorageData();
-      if (!data) return;
-      localStorage.setItem(migratedKey, "true");
-
-      const userId = user.id;
-
-      // Migrate owners
-      if (data.owners?.length) {
-        const { error } = await supabase.from("owners").upsert(
-          data.owners.map((o: Owner) => ({ ...o, user_id: userId })),
-          { onConflict: "id" }
-        );
-        if (error) console.warn("Migration owners:", error.message);
-      }
-
-      // Migrate programs
-      if (data.programs?.length) {
-        const { error } = await supabase.from("programs").upsert(
-          data.programs.map((p: Program) => ({
-            id: p.id, user_id: userId, name: p.name, type: p.type,
-            max_passengers: p.maxPassengers, passenger_cycle_type: p.passengerCycleType,
-            passenger_cycle_days: p.passengerCycleDays,
-          })),
-          { onConflict: "id" }
-        );
-        if (error) console.warn("Migration programs:", error.message);
-
-        // Create matching origem_types for pontos programs
-        const pontosPrograms = (data.programs as Program[]).filter((p) => p.type === "pontos");
-        if (pontosPrograms.length) {
-          const { error: otErr } = await supabase.from("origem_types").upsert(
-            pontosPrograms.map((p) => ({
-              id: p.id, user_id: userId, name: p.name, account_type: "pontos", color: "#3b82f6",
-            })),
-            { onConflict: "id" }
-          );
-          if (otErr) console.warn("Migration pontos origem_types:", otErr.message);
-        }
-      }
-
-      // Migrate origem types
-      if (data.origemTypes?.length) {
-        const { error } = await supabase.from("origem_types").upsert(
-          data.origemTypes.map((ot: OrigemType) => ({
-            id: ot.id, user_id: userId, name: ot.name, account_type: ot.accountType, color: ot.color,
-          })),
-          { onConflict: "id" }
-        );
-        if (error) console.warn("Migration origemTypes:", error.message);
-      }
-
-      // Ensure TRANSFERENCIA exists for this user after migration
-      const { data: existingTransfer } = await supabase.from("origem_types").select("id")
-        .eq("name", "Transferência").eq("account_type", "milhas").eq("user_id", userId).maybeSingle();
-      if (!existingTransfer) {
-        await supabase.from("origem_types").insert({
-          id: crypto.randomUUID(), user_id: userId, name: "Transferência", account_type: "milhas", color: "#8b5cf6",
-        });
-      }
-
-      // Migrate accounts
-      if (data.accounts?.length) {
-        const { error } = await supabase.from("accounts").upsert(
-          data.accounts.map((a: Account) => ({
-            id: a.id, user_id: userId, owner_id: a.ownerId, program_id: a.programId,
-            name: a.name, type: a.type, balance: a.balance,
-            average_cost_per_mile: a.averageCostPerMile, total_invested: a.totalInvested,
-            status: a.status, created_at: a.createdAt,
-          })),
-          { onConflict: "id" }
-        );
-        if (error) console.warn("Migration accounts:", error.message);
-      }
-
-      // Migrate entries
-      if (data.entries?.length) {
-        const { error } = await supabase.from("entries").upsert(
-          data.entries.map((e: PointEntry) => ({
-            id: e.id, user_id: userId, account_id: e.accountId, origem_type_id: e.origemTypeId,
-            amount: e.amount, amount_paid: e.amountPaid, cost_per_thousand: e.costPerThousand,
-            conversion_rate: e.conversionRate, miles_generated: e.milesGenerated,
-            cost_per_mile: e.costPerMile, source_account_id: e.sourceAccountId,
-            bonus_percent: e.bonusPercent, date: e.date, description: e.description,
-          })),
-          { onConflict: "id" }
-        );
-        if (error) console.warn("Migration entries:", error.message);
-      }
-
-      // Migrate clients
-      if (data.clients?.length) {
-        const { error } = await supabase.from("clients").upsert(
-          data.clients.map((c: Client) => ({
-            id: c.id, user_id: userId, name: c.name, cpf: c.cpf, email: c.email,
-            phone: c.phone, telegram: c.telegram, total_purchases: c.totalPurchases,
-            usage_history: c.usageHistory,
-          })),
-          { onConflict: "id" }
-        );
-        if (error) console.warn("Migration clients:", error.message);
-      }
-
-      // Migrate sales
-      if (data.sales?.length) {
-        const { error } = await supabase.from("sales").upsert(
-          data.sales.map((s: Sale) => ({
-            id: s.id, user_id: userId, account_id: s.accountId, account_name: s.accountName,
-            owner_name: s.ownerName, program: s.program, client_id: s.clientId,
-            client_name: s.clientName, miles_used: s.milesUsed, sale_value: s.saleValue,
-            price_per_mile: s.pricePerMile, cost_per_mile: s.costPerMile,
-            additional_cost: s.additionalCost, additional_cost_desc: s.additionalCostDesc,
-            profit: s.profit, profit_margin: s.profitMargin, status: s.status,
-            ticket_locator: s.ticketLocator, passengers: s.passengers, date: s.date,
-          })),
-          { onConflict: "id" }
-        );
-        if (error) console.warn("Migration sales:", error.message);
-      }
-
-      // Clear localStorage
-      Object.keys(localStorage)
-        .filter((k) => k.startsWith(STORAGE_PREFIX))
-        .forEach((k) => localStorage.removeItem(k));
-
-      queryClient.invalidateQueries();
-    };
-
-    migrate();
-  }, [user]);
 
   // ── Mutation wrappers ──
 
@@ -374,23 +237,4 @@ export function useData(): DataContextType {
   return ctx;
 }
 
-// ── LocalStorage migration helpers ──
 
-function loadStorageData(): Record<string, unknown[]> | null {
-  try {
-    const prefix = STORAGE_PREFIX;
-    const keys = ["owners", "programs", "origemTypes", "accounts", "entries", "clients", "sales"];
-    let hasData = false;
-    const data: Record<string, unknown[]> = {};
-    for (const key of keys) {
-      const raw = localStorage.getItem(prefix + key);
-      if (raw) {
-        data[key] = JSON.parse(raw);
-        hasData = true;
-      }
-    }
-    return hasData ? data : null;
-  } catch {
-    return null;
-  }
-}
