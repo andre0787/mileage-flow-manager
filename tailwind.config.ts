@@ -16,6 +16,11 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+				body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+				mono: ['"JetBrains Mono"', 'monospace'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -54,6 +59,16 @@ export default {
 					DEFAULT: 'hsl(var(--accent))',
 					foreground: 'hsl(var(--accent-foreground))'
 				},
+				gold: {
+					DEFAULT: 'hsl(var(--gold))',
+					foreground: 'hsl(var(--gold-foreground))',
+					light: 'hsl(var(--gold-light))'
+				},
+				teal: {
+					DEFAULT: 'hsl(var(--teal))',
+					foreground: 'hsl(var(--teal-foreground))',
+					light: 'hsl(var(--teal-light))'
+				},
 				popover: {
 					DEFAULT: 'hsl(var(--popover))',
 					foreground: 'hsl(var(--popover-foreground))'
@@ -80,12 +95,17 @@ export default {
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-gold': 'var(--gradient-gold)',
 				'gradient-success': 'var(--gradient-success)',
-				'gradient-card': 'var(--gradient-card)'
+				'gradient-card': 'var(--gradient-card)',
+				'gradient-hero': 'var(--gradient-hero)',
+				'gradient-hero-glow': 'var(--gradient-hero-glow)',
 			},
 			boxShadow: {
 				'elegant': 'var(--shadow-elegant)',
-				'card': 'var(--shadow-card)'
+				'card': 'var(--shadow-card)',
+				'glow': 'var(--shadow-glow)',
+				'glow-gold': 'var(--shadow-glow-gold)',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -139,7 +159,50 @@ export default {
 				'pulse-soft': {
 					'0%, 100%': { opacity: '1' },
 					'50%': { opacity: '0.8' }
-				}
+				},
+				'count-up': {
+					'0%': { opacity: '0', transform: 'translateY(8px)' },
+					'100%': { opacity: '1', transform: 'translateY(0)' }
+				},
+				'shimmer': {
+					'0%': { backgroundPosition: '-200% 0' },
+					'100%': { backgroundPosition: '200% 0' }
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-6px)' }
+				},
+				'route-draw': {
+					'0%': { strokeDashoffset: '1000' },
+					'100%': { strokeDashoffset: '0' }
+				},
+				'gradient-shift': {
+					'0%, 100%': { backgroundPosition: '0% 50%' },
+					'50%': { backgroundPosition: '100% 50%' }
+				},
+				'appear': {
+					'0%': { opacity: '0', transform: 'translateY(12px) scale(0.98)' },
+					'100%': { opacity: '1', transform: 'translateY(0) scale(1)' }
+				},
+				'draw-line': {
+					'0%': { strokeDashoffset: '800' },
+					'100%': { strokeDashoffset: '0' }
+				},
+				'pulse-glow': {
+					'0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+					'50%': { opacity: '0.8', transform: 'scale(1.05)' }
+				},
+				'drift': {
+					'0%, 100%': { transform: 'translate(0, 0) scale(1)', opacity: '0.3' },
+					'25%': { transform: 'translate(10px, -15px) scale(1.1)', opacity: '0.5' },
+					'50%': { transform: 'translate(-5px, -25px) scale(0.9)', opacity: '0.2' },
+					'75%': { transform: 'translate(-15px, -10px) scale(1.05)', opacity: '0.4' },
+				},
+				'drift-slow': {
+					'0%, 100%': { transform: 'translate(0, 0) scale(1)', opacity: '0.2' },
+					'33%': { transform: 'translate(-8px, -12px) scale(1.1)', opacity: '0.35' },
+					'66%': { transform: 'translate(12px, -8px) scale(0.95)', opacity: '0.25' },
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -149,7 +212,17 @@ export default {
 				'slide-up': 'slide-up 0.3s ease-out',
 				'slide-down': 'slide-down 0.3s ease-out',
 				'hover-lift': 'hover-lift 0.2s ease-out',
-				'pulse-soft': 'pulse-soft 2s infinite'
+				'pulse-soft': 'pulse-soft 2s infinite',
+				'count-up': 'count-up 0.5s ease-out',
+				'shimmer': 'shimmer 3s linear infinite',
+				'float': 'float 3s ease-in-out infinite',
+				'route-draw': 'route-draw 2s ease-out forwards',
+				'gradient-shift': 'gradient-shift 8s ease infinite',
+				'appear': 'appear 0.5s ease-out forwards',
+				'draw-line': 'draw-line 1.5s ease-out forwards',
+				'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
+				'drift': 'drift 6s ease-in-out infinite',
+				'drift-slow': 'drift-slow 8s ease-in-out infinite',
 			}
 		}
 	},

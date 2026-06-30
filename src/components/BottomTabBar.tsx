@@ -26,7 +26,7 @@ export function BottomTabBar() {
   const location = useLocation()
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 z-40 h-16 bg-background border-t flex items-center justify-around md:hidden safe-area-bottom">
+    <nav className="fixed bottom-0 inset-x-0 z-40 h-16 bg-background/80 backdrop-blur-lg border-t flex items-center justify-around md:hidden safe-area-bottom">
       {tabs.map((tab) => {
         const isActive = location.pathname === tab.url
         return (
@@ -34,14 +34,25 @@ export function BottomTabBar() {
             key={tab.url}
             to={tab.url}
             className={cn(
-              "flex flex-col items-center justify-center gap-0.5 min-w-[48px] min-h-[44px] px-3 py-1 rounded-lg transition-colors",
+              "flex flex-col items-center justify-center gap-0.5 min-w-[48px] min-h-[44px] px-3 py-1 rounded-lg transition-all duration-200 relative",
               isActive
                 ? "text-primary"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
-            <tab.icon className="h-5 w-5" />
-            <span className="text-[10px] font-medium leading-tight">{tab.title}</span>
+            {isActive && (
+              <span className="absolute -top-px left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary rounded-full" />
+            )}
+            <tab.icon className={cn(
+              "h-5 w-5 transition-transform duration-200",
+              isActive && "scale-110"
+            )} />
+            <span className={cn(
+              "text-[10px] font-medium leading-tight font-display",
+              isActive && "font-semibold"
+            )}>
+              {tab.title}
+            </span>
           </NavLink>
         )
       })}

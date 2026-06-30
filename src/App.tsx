@@ -3,7 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { AppSidebar } from "@/components/AppSidebar";
 import { BottomTabBar } from "@/components/BottomTabBar";
@@ -21,39 +21,56 @@ import Relatorios from "./pages/Relatorios";
 import Configuracoes from "./pages/Configuracoes";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 30 * 1000,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
-const AppLayout = () => (
-  <SidebarProvider>
-    <div className="min-h-screen flex w-full">
-      <AppSidebar />
-      <div className="flex-1 flex flex-col">
-        <header className="h-14 flex items-center border-b bg-background px-6">
-          <SidebarTrigger />
-          <div className="ml-4">
-            <h2 className="text-lg font-semibold text-foreground">MilesControl</h2>
-          </div>
-        </header>
-        <main className="flex-1 p-4 md:p-6 pb-16 md:pb-6 bg-background">
-          <DataProvider>
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/contas" element={<Contas />} />
-              <Route path="/clientes" element={<Clientes />} />
-              <Route path="/entradas" element={<Entradas />} />
-              <Route path="/vendas" element={<Vendas />} />
-              <Route path="/cpf" element={<ControleCPF />} />
-              <Route path="/relatorios" element={<Relatorios />} />
-              <Route path="/configuracoes" element={<Configuracoes />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </DataProvider>
-        </main>
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <Routes location={location} key={location.pathname}>
+      <Route path="/" element={<div className="animate-fade-in"><Dashboard /></div>} />
+      <Route path="/contas" element={<div className="animate-fade-in"><Contas /></div>} />
+      <Route path="/clientes" element={<div className="animate-fade-in"><Clientes /></div>} />
+      <Route path="/entradas" element={<div className="animate-fade-in"><Entradas /></div>} />
+      <Route path="/vendas" element={<div className="animate-fade-in"><Vendas /></div>} />
+      <Route path="/cpf" element={<div className="animate-fade-in"><ControleCPF /></div>} />
+      <Route path="/relatorios" element={<div className="animate-fade-in"><Relatorios /></div>} />
+      <Route path="/configuracoes" element={<div className="animate-fade-in"><Configuracoes /></div>} />
+      <Route path="*" element={<div className="animate-fade-in"><NotFound /></div>} />
+    </Routes>
+  );
+};
+
+const AppLayout = () => {
+  return (
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full">
+        <AppSidebar />
+        <div className="flex-1 flex flex-col">
+          <header className="h-14 flex items-center border-b bg-background/80 backdrop-blur-sm px-6 sticky top-0 z-30">
+            <SidebarTrigger />
+            <div className="ml-4">
+              <h2 className="text-base font-semibold text-foreground font-display">MilesControl</h2>
+            </div>
+          </header>
+          <main className="flex-1 p-4 md:p-6 pb-16 md:pb-6 bg-background">
+            <DataProvider>
+              <AnimatedRoutes />
+            </DataProvider>
+          </main>
           <BottomTabBar />
+        </div>
       </div>
-    </div>
-  </SidebarProvider>
-);
+    </SidebarProvider>
+  );
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

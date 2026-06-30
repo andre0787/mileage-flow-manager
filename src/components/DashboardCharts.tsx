@@ -20,20 +20,20 @@ interface DashboardChartsProps {
 }
 
 const COLORS = [
-  "hsl(221 83% 53%)",
-  "hsl(142 76% 36%)",
-  "hsl(38 92% 50%)",
+  "hsl(230 65% 50%)",
+  "hsl(152 65% 35%)",
+  "hsl(42 85% 52%)",
+  "hsl(175 70% 38%)",
   "hsl(271 81% 56%)",
   "hsl(0 72% 51%)",
-  "hsl(190 95% 39%)",
 ];
 
 export function DashboardCharts({ programData, monthlySales }: DashboardChartsProps) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
-      <Card className="shadow-card">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-sm font-medium">
+      <Card className="overflow-hidden">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-sm font-semibold font-display">
             <PieChartIcon className="h-4 w-4 text-primary" />
             Milhas por Programa
           </CardTitle>
@@ -66,18 +66,18 @@ export function DashboardCharts({ programData, monthlySales }: DashboardChartsPr
               <div key={entry.name} className="flex items-center justify-between text-sm">
                 <div className="flex items-center gap-2">
                   <div className="h-3 w-3 rounded-full" style={{ backgroundColor: COLORS[index % COLORS.length] }} />
-                  <span className="text-muted-foreground">{entry.name}</span>
+                  <span className="text-muted-foreground font-body">{entry.name}</span>
                 </div>
-                <span className="font-medium">{entry.value.toLocaleString('pt-BR')}</span>
+                <span className="font-mono text-sm font-medium">{entry.value.toLocaleString('pt-BR')}</span>
               </div>
             ))}
           </div>
         </CardContent>
       </Card>
 
-      <Card className="shadow-card">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-sm font-medium">
+      <Card className="overflow-hidden">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-sm font-semibold font-display">
             <BarChart3 className="h-4 w-4 text-primary" />
             Vendas Mensais
           </CardTitle>
@@ -90,8 +90,8 @@ export function DashboardCharts({ programData, monthlySales }: DashboardChartsPr
                 <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
                 <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
                 <Tooltip />
-                <Bar dataKey="vendas" fill="hsl(221 83% 53%)" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="lucro" fill="hsl(142 76% 36%)" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="vendas" fill="hsl(230 65% 50%)" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="lucro" fill="hsl(152 65% 35%)" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
