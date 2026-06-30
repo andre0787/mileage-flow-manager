@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useData } from "@/contexts/DataContext";
+import { toast } from "sonner";
 
 interface OwnerReport {
   ownerName: string;
@@ -126,7 +127,7 @@ export default function Relatorios() {
   ];
 
   const exportReport = (type: "pdf" | "excel") => {
-    console.log(`Exportando relatório em ${type}`);
+    toast.info(`Exportação em ${type.toUpperCase()} estará disponível em breve`);
   };
 
   const metrics = useMemo(() => ({
