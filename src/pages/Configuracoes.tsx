@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Edit, Trash2, User, Building2, Settings, Palette } from "lucide-react";
+import { Plus, Edit, Trash2, User, Building2, Settings, Palette, RotateCcw, AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,7 +13,7 @@ import { useData, isTransferencia } from "@/contexts/DataContext";
 import type { Owner, Program, OrigemType } from "@/types";
 
 export default function Configuracoes() {
-  const { owners, programs, origemTypes, accounts, addOwner, updateOwner, deleteOwner, addProgram, updateProgram, deleteProgram, addOrigemType, updateOrigemType, deleteOrigemType } = useData();
+  const { owners, programs, origemTypes, accounts, addOwner, updateOwner, deleteOwner, addProgram, updateProgram, deleteProgram, addOrigemType, updateOrigemType, deleteOrigemType, clearCache, clearAccountData } = useData();
 
   // Owner CRUD state
   const [newOwner, setNewOwner] = useState({ name: "", cpf: "", phone: "" });
@@ -35,6 +35,7 @@ export default function Configuracoes() {
 
   const [defaultConversionRate, setDefaultConversionRate] = useState("1.0");
   const [currency] = useState("BRL");
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   const formatCPF = (cpf: string) => {
     const numbers = cpf.replace(/\D/g, "").slice(0, 11);
@@ -556,6 +557,61 @@ export default function Configuracoes() {
               </div>
             </CardContent>
           </Card>
+
+          <Card className="shadow-card border-destructive/20">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-destructive">
+                <AlertTriangle className="h-5 w-5" />
+                Gerenciamento de Dados
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Ações de manutenção dos dados da sua conta.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Button variant="outline" className="gap-2" onClick={clearCache}>
+                  <RotateCcw className="h-4 w-4" />
+                  Limpar Cache
+                </Button>
+                <Button variant="destructive" className="gap-2" onClick={() => setShowClearConfirm(true)}>
+                  <Trash2 className="h-4 w-4" />
+                  Limpar Conta
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Dialog open={showClearConfirm} onOpenChange={setShowClearConfirm}>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2 text-destructive">
+                  <AlertTriangle className="h-5 w-5" />
+                  Limpar Conta
+                </DialogTitle>
+              </DialogHeader>
+              <div className="py-4 space-y-4">
+                <p className="text-sm text-foreground">
+                  Tem certeza que deseja limpar todos os dados da sua conta?
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Esta ação irá remover permanentemente todas as contas, entradas, vendas, clientes, donos, programas e tipos de operação. O tipo "Transferência" será preservado. Esta operação não pode ser desfeita.
+                </p>
+              </div>
+              <div className="flex justify-end gap-2">
+                <Button variant="outline" onClick={() => setShowClearConfirm(false)}>Cancelar</Button>
+                <Button
+                  variant="destructive"
+                  onClick={() => {
+                    setShowClearConfirm(false);
+                    clearAccountData();
+                  }}
+                >
+                  Sim, limpar tudo
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
         </TabsContent>
       </Tabs>
     </div>

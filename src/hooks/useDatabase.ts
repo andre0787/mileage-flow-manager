@@ -656,3 +656,19 @@ export function useDeleteClientMutation() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["clients", "sales"] }),
   });
 }
+
+export function useClearAccountDataMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async () => {
+      const tables = ["sales", "entries", "accounts", "clients", "owners", "programs", "origem_types"];
+      for (const table of tables) {
+        const { error } = await supabase.from(table).delete().neq("id", "00000000-0000-0000-0000-000000000000");
+        if (error) throw error;
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+}

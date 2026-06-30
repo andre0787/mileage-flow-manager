@@ -9,7 +9,7 @@ import { useAddOrigemTypeMutation, useUpdateOrigemTypeMutation, useDeleteOrigemT
 import { useAddAccountMutation, useUpdateAccountMutation, useDeleteAccountMutation } from "@/hooks/useDatabase";
 import { useAddEntryMutation, useDeleteEntryMutation } from "@/hooks/useDatabase";
 import { useAddSaleMutation, useUpdateSaleMutation, useCancelSaleMutation, useDeleteSaleMutation } from "@/hooks/useDatabase";
-import { useAddClientMutation, useUpdateClientMutation, useDeleteClientMutation } from "@/hooks/useDatabase";
+import { useAddClientMutation, useUpdateClientMutation, useDeleteClientMutation, useClearAccountDataMutation } from "@/hooks/useDatabase";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
 
 export function isTransferencia(ot: OrigemType): boolean {
@@ -51,6 +51,9 @@ interface DataContextType {
   addClient: (data: Omit<Client, "id">, id?: string) => void
   updateClient: (id: string, data: Partial<Client>) => void
   deleteClient: (id: string) => void
+
+  clearCache: () => void
+  clearAccountData: () => void
 }
 
 const DataContext = createContext<DataContextType | null>(null);
@@ -119,6 +122,24 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const addClientM = useAddClientMutation();
   const updateClientM = useUpdateClientMutation();
   const deleteClientM = useDeleteClientMutation();
+
+  const clearAccountM = useClearAccountDataMutation();
+
+  const clearCache = () => {
+    const keys = Object.keys(localStorage).filter(k => k.startsWith("mc-") || k === "mc-migrated");
+    keys.forEach(k => localStorage.removeItem(k));
+    queryClient.clear();
+    window.location.reload();
+  };
+
+  const clearAccountData = () => {
+    clearAccountM.mutate(undefined, {
+      onSuccess: () => {
+        queryClient.clear();
+        window.location.reload();
+      },
+    });
+  };
 
   const addOwner = (data: Omit<Owner, "id">) => {
     const id = crypto.randomUUID();
@@ -225,6 +246,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
       addEntry, deleteEntry,
       addSale, updateSale, cancelSale, deleteSale,
       addClient, updateClient, deleteClient,
+      clearCache, clearAccountData,
     }}>
       {children}
     </DataContext.Provider>
