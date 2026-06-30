@@ -35,3 +35,5 @@ dist-ssr
 # Debug artifacts
 entradas-page.txt
 entradas-transferir.png
+.vercel
+.env*
