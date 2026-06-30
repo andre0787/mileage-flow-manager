@@ -81,7 +81,7 @@ export interface Sale {
   additionalCostDesc?: string
   profit: number
   profitMargin: number
-  status: 'pendente' | 'pago' | 'concluido'
+  status: 'pendente' | 'pago' | 'concluido' | 'cancelado'
   ticketLocator: string
   passengers: { name: string; passengerId: string; cpf: string; clientId?: string }[]
   date: string

@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { FormDrawer } from "@/components/FormDrawer";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useData, deleteSaleWithRestore } from "@/contexts/DataContext";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { useData } from "@/contexts/DataContext";
 import type { Sale } from "@/types";
 
 interface StockInfo {
@@ -24,7 +24,7 @@ interface StockInfo {
 }
 
 export default function Vendas() {
-  const { clients, accounts, owners, programs, sales, addSale, updateSale, addClient, updateAccount, deleteSaleWithRestore } = useData();
+  const { clients, accounts, owners, programs, sales, addSale, updateSale, cancelSale, addClient, updateAccount } = useData();
 
   const stockInfo = useMemo(() => {
     return accounts
@@ -64,6 +64,7 @@ export default function Vendas() {
 
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isClientDialogOpen, setIsClientDialogOpen] = useState(false);
+  const [cancelConfirmId, setCancelConfirmId] = useState<string | null>(null);
   const [newClient, setNewClient] = useState({
     name: "",
     cpf: "",
@@ -219,41 +220,12 @@ export default function Vendas() {
     updateSale(id, { status });
   };
 
-  const totalRevenue = sales.reduce((sum, sale) => sum + sale.saleValue, 0);
-  const totalProfit = sales.reduce((sum, sale) => sum + sale.profit, 0);
-  const totalMilesSold = sales.reduce((sum, sale) => sum + sale.milesUsed, 0);
-  const averageProfitMargin = sales.length > 0 ? 
-    sales.reduce((sum, sale) => sum + sale.profitMargin, 0) / sales.length : 0;
-
-  const handleDeleteSale = (sale: Sale) => {
-    deleteSaleWithRestore(sale.id);
-  };
-
-  const DeleteSaleDialog = ({ sale }: { sale: Sale }) => {
-    return (
-      <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button size="sm" variant="outline" className="px-3 text-destructive min-h-[44px]">
-            Excluir
-          </Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Excluir venda?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Esta ação não pode ser desfeita. A venda será removida permanentemente e o saldo de milhas da conta será restaurado.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction className="bg-destructive text-destructive-foreground" onClick={() => handleDeleteSale(sale)}>
-              Excluir
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    );
-  };
+  const activeSales = sales.filter(s => s.status !== 'cancelado');
+  const totalRevenue = activeSales.reduce((sum, sale) => sum + sale.saleValue, 0);
+  const totalProfit = activeSales.reduce((sum, sale) => sum + sale.profit, 0);
+  const totalMilesSold = activeSales.reduce((sum, sale) => sum + sale.milesUsed, 0);
+  const averageProfitMargin = activeSales.length > 0 ? 
+    activeSales.reduce((sum, sale) => sum + sale.profitMargin, 0) / activeSales.length : 0;
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -719,7 +691,7 @@ export default function Vendas() {
               </TableHeader>
               <TableBody>
                 {sales.map((sale) => (
-                  <TableRow key={sale.id}>
+                  <TableRow key={sale.id} className={sale.status === 'cancelado' ? 'opacity-50' : ''}>
                     <TableCell className="hidden md:table-cell">{new Date(sale.date).toLocaleDateString('pt-BR')}</TableCell>
                     <TableCell className="hidden md:table-cell">
                       <div>
@@ -740,11 +712,99 @@ export default function Vendas() {
                     </TableCell>
                     <TableCell className="hidden md:table-cell">{sale.profitMargin.toFixed(1)}%</TableCell>
                     <TableCell className="hidden md:table-cell">
+                      {sale.status === 'cancelado' ? (
+                        <Badge variant="outline" className="text-destructive border-destructive">Cancelado</Badge>
+                      ) : (
+                        <Select 
+                          value={sale.status} 
+                          onValueChange={(value) => updateSaleStatus(sale.id, value as "pendente" | "pago" | "concluido")}
+                        >
+                          <SelectTrigger className="w-28">
+                            <span className={`h-2 w-2 rounded-full ${sale.status === 'pendente' ? 'bg-warning' : sale.status === 'pago' ? 'bg-primary' : 'bg-success'}`} />
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="pendente">Pendente</SelectItem>
+                            <SelectItem value="pago">Pago</SelectItem>
+                            <SelectItem value="concluido">Concluído</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      )}
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell">
+                      <div className="flex items-center gap-2">
+                        <Users className="h-3 w-3 text-muted-foreground" />
+                        <span className="text-xs">{sale.passengers.length} pax</span>
+                        {sale.status !== 'cancelado' && (
+                          <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive h-6 text-xs" onClick={() => setCancelConfirmId(sale.id)}>
+                            Cancelar
+                          </Button>
+                        )}
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+
+          {/* Mobile card list */}
+          <div className="md:hidden space-y-3 mt-4">
+            {sales.map((sale) => (
+              <div key={sale.id} className={`border rounded-lg p-4 space-y-2 ${sale.status === 'cancelado' ? 'opacity-50' : ''}`}>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">{sale.program}</p>
+                    <p className="text-xs text-muted-foreground">{sale.ownerName} • {new Date(sale.date).toLocaleDateString('pt-BR')}</p>
+                  </div>
+                  {sale.status === 'cancelado' ? (
+                    <Badge variant="outline" className="text-destructive border-destructive">Cancelado</Badge>
+                  ) : (
+                    <Badge variant="outline" className={sale.status === 'pendente' ? 'text-warning border-warning' : sale.status === 'pago' ? 'text-primary border-primary' : 'text-success border-success'}>
+                      {sale.status === 'pendente' ? 'Pendente' : sale.status === 'pago' ? 'Pago' : 'Concluído'}
+                    </Badge>
+                  )}
+                </div>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div>
+                    <span className="text-muted-foreground">Cliente:</span>
+                    <p className="font-semibold">{sale.clientName}</p>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Milhas:</span>
+                    <p className="font-semibold">{sale.milesUsed.toLocaleString('pt-BR')}</p>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Valor:</span>
+                    <p className="font-semibold">R$ {sale.saleValue.toLocaleString('pt-BR')}</p>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Lucro:</span>
+                    <p className={`font-semibold ${sale.profit < 0 ? 'text-destructive' : 'text-success'}`}>
+                      R$ {sale.profit.toLocaleString('pt-BR')}
+                    </p>
+                  </div>
+                </div>
+                {sale.ticketLocator && (
+                  <p className="text-xs text-muted-foreground">Localizador: {sale.ticketLocator}</p>
+                )}
+                <div className="flex items-center justify-between pt-1">
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <Users className="h-3 w-3" />
+                    <span>{sale.passengers.length} pax</span>
+                  </div>
+                  {sale.status === 'cancelado' ? (
+                    <Badge variant="outline" className="text-destructive border-destructive">Cancelado</Badge>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive h-6 text-xs" onClick={() => setCancelConfirmId(sale.id)}>
+                        Cancelar
+                      </Button>
                       <Select 
                         value={sale.status} 
                         onValueChange={(value) => updateSaleStatus(sale.id, value as "pendente" | "pago" | "concluido")}
                       >
-                        <SelectTrigger className="w-28">
+                        <SelectTrigger className="w-32 min-h-[44px] min-w-[44px]">
                           <span className={`h-2 w-2 rounded-full ${sale.status === 'pendente' ? 'bg-warning' : sale.status === 'pago' ? 'bg-primary' : 'bg-success'}`} />
                           <SelectValue />
                         </SelectTrigger>
@@ -754,86 +814,36 @@ export default function Vendas() {
                           <SelectItem value="concluido">Concluído</SelectItem>
                         </SelectContent>
                       </Select>
-                    </TableCell>
-<TableCell className="hidden md:table-cell">
-                      <div className="flex items-center gap-1">
-                        <Users className="h-3 w-3 text-muted-foreground" />
-                        <span className="text-xs">{sale.passengers.length} pax</span>
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell text-right">
-                      <DeleteSaleDialog sale={sale} />
-                    </TableCell>
-                   </TableRow>
-                 ))}
-               </TableBody>
-             </Table>
-           </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
 
-           {/* Mobile card list */}
-           <div className="md:hidden space-y-3 mt-4">
-             {sales.map((sale) => (
-               <div key={sale.id} className="border rounded-lg p-4 space-y-2">
-                 <div className="flex items-center justify-between">
-                   <div>
-                     <p className="font-medium">{sale.program}</p>
-                     <p className="text-xs text-muted-foreground">{sale.ownerName} • {new Date(sale.date).toLocaleDateString('pt-BR')}</p>
-                   </div>
-                   <Badge variant="outline" className={sale.status === 'pendente' ? 'text-warning border-warning' : sale.status === 'pago' ? 'text-primary border-primary' : 'text-success border-success'}>
-                     {sale.status === 'pendente' ? 'Pendente' : sale.status === 'pago' ? 'Pago' : 'Concluído'}
-                   </Badge>
-                 </div>
-                 <div className="grid grid-cols-2 gap-2 text-sm">
-                   <div>
-                     <span className="text-muted-foreground">Cliente:</span>
-                     <p className="font-semibold">{sale.clientName}</p>
-                   </div>
-                   <div>
-                     <span className="text-muted-foreground">Milhas:</span>
-                     <p className="font-semibold">{sale.milesUsed.toLocaleString('pt-BR')}</p>
-                   </div>
-                   <div>
-                     <span className="text-muted-foreground">Valor:</span>
-                     <p className="font-semibold">R$ {sale.saleValue.toLocaleString('pt-BR')}</p>
-                   </div>
-                   <div>
-                     <span className="text-muted-foreground">Lucro:</span>
-                     <p className={`font-semibold ${sale.profit < 0 ? 'text-destructive' : 'text-success'}`}>
-                       R$ {sale.profit.toLocaleString('pt-BR')}
-                     </p>
-                   </div>
-                 </div>
-                 {sale.ticketLocator && (
-                   <p className="text-xs text-muted-foreground">Localizador: {sale.ticketLocator}</p>
-                 )}
-                 <div className="flex items-center justify-between pt-1">
-                   <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                     <Users className="h-3 w-3" />
-                     <span>{sale.passengers.length} pax</span>
-                   </div>
-                   <div className="flex items-center gap-2">
-                     <DeleteSaleDialog sale={sale} />
-                     <Select 
-                       value={sale.status} 
-                       onValueChange={(value) => updateSaleStatus(sale.id, value as "pendente" | "pago" | "concluido")}
-                     >
-                       <SelectTrigger className="w-32 min-h-[44px] min-w-[44px]">
-                         <span className={`h-2 w-2 rounded-full ${sale.status === 'pendente' ? 'bg-warning' : sale.status === 'pago' ? 'bg-primary' : 'bg-success'}`} />
-                         <SelectValue />
-                       </SelectTrigger>
-                       <SelectContent>
-                         <SelectItem value="pendente">Pendente</SelectItem>
-                         <SelectItem value="pago">Pago</SelectItem>
-                         <SelectItem value="concluido">Concluído</SelectItem>
-                       </SelectContent>
-                     </Select>
-                   </div>
-                 </div>
-               </div>
-             ))}
-           </div>
-         </CardContent>
-       </Card>
-     </div>
-   );
- }
+      <AlertDialog open={!!cancelConfirmId} onOpenChange={(open) => { if (!open) setCancelConfirmId(null); }}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Cancelar venda?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Esta ação irá marcar a venda como cancelada e restaurar o saldo de milhas na conta. Esta ação não pode ser desfeita.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Voltar</AlertDialogCancel>
+            <AlertDialogAction className="bg-destructive hover:bg-destructive/90" onClick={() => {
+              if (cancelConfirmId) {
+                cancelSale(cancelConfirmId);
+                setCancelConfirmId(null);
+              }
+            }}>
+              Sim, cancelar venda
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </div>
+  );
+}

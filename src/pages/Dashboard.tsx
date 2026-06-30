@@ -21,28 +21,29 @@ export default function Dashboard() {
   const { owners, accounts, programs, sales, entries } = useData();
 
   const metrics = useMemo(() => {
+    const activeSales = sales.filter(s => s.status !== "cancelado");
     const totalMiles = accounts.reduce((sum, a) => sum + a.balance, 0);
     const totalInvested = accounts.reduce((sum, a) => sum + (a.totalInvested ?? 0), 0);
     const activeAccounts = accounts.filter(a => a.status === "ativa").length;
-    const pendingSales = sales.filter(s => s.status === "pendente").length;
+    const pendingSales = activeSales.filter(s => s.status === "pendente").length;
 
     const now = new Date();
     const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
-    const monthlySales = sales.filter(s => {
+    const monthlySales = activeSales.filter(s => {
       const d = new Date(s.date);
       return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
     });
     const monthlyRevenue = monthlySales.reduce((sum, s) => sum + s.saleValue, 0);
     const monthlyProfit = monthlySales.reduce((sum, s) => sum + s.profit, 0);
-    const totalSoldMiles = sales.reduce((sum, s) => sum + s.milesUsed, 0);
-    const totalRevenue = sales.reduce((sum, s) => sum + s.saleValue, 0);
-    const totalProfit = sales.reduce((sum, s) => sum + s.profit, 0);
+    const totalSoldMiles = activeSales.reduce((sum, s) => sum + s.milesUsed, 0);
+    const totalRevenue = activeSales.reduce((sum, s) => sum + s.saleValue, 0);
+    const totalProfit = activeSales.reduce((sum, s) => sum + s.profit, 0);
     const monthChange = ((monthlyRevenue - monthlyProfit) / (monthlyRevenue || 1)) * 100;
 
     const cpfAlerts = owners.filter(o => {
       const ownerAccountIds = accounts.filter(a => a.ownerId === o.id).map(a => a.id);
-      const ownerSales = sales.filter(s => ownerAccountIds.includes(s.accountId ?? ""));
+      const ownerSales = activeSales.filter(s => ownerAccountIds.includes(s.accountId ?? ""));
       const usedCpfs = new Set(ownerSales.flatMap(s => s.passengers.map(p => p.cpf)));
       return usedCpfs.size >= MAX_CPF_PER_OWNER - 4;
     }).length;
@@ -71,7 +72,7 @@ export default function Dashboard() {
       const programIds = [...new Set(ownerAccounts.map(a => a.programId))];
       const programNames = programIds.map(id => programs.find(p => p.id === id)?.name ?? id);
 
-      const ownerSales = sales.filter(s => ownerAccountIds.includes(s.accountId ?? ""));
+      const ownerSales = sales.filter(s => s.status !== "cancelado" && ownerAccountIds.includes(s.accountId ?? ""));
       const usedCpfs = new Set(ownerSales.flatMap(s => s.passengers.map(p => p.cpf)));
 
       return {
@@ -94,7 +95,7 @@ export default function Dashboard() {
       program: s.program,
       miles: s.milesUsed,
       value: s.saleValue,
-      status: s.status === "concluido" ? "Concluído" : s.status === "pago" ? "Pago" : "Pendente",
+      status: s.status === "concluido" ? "Concluído" : s.status === "pago" ? "Pago" : s.status === "cancelado" ? "Cancelado" : "Pendente",
     }));
   }, [sales]);
 
@@ -115,7 +116,7 @@ export default function Dashboard() {
     const monthMap = new Map<string, { vendas: number; lucro: number }>();
     const monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
 
-    sales.forEach(s => {
+    sales.filter(s => s.status !== "cancelado").forEach(s => {
       const d = new Date(s.date);
       const key = `${d.getFullYear()}-${String(d.getMonth()).padStart(2, "0")}`;
       const label = `${monthNames[d.getMonth()]}/${String(d.getFullYear()).slice(2)}`;
@@ -273,6 +274,7 @@ export default function Dashboard() {
                     R$ {sale.value.toLocaleString('pt-BR')}
                   </p>
                   <Badge variant={
+                    sale.status === "Cancelado" ? "destructive" :
                     sale.status === "Concluído" ? "default" :
                     sale.status === "Pago" ? "secondary" : "outline"
                   }>

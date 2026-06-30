@@ -8,7 +8,7 @@ import { useAddProgramMutation, useUpdateProgramMutation, useDeleteProgramMutati
 import { useAddOrigemTypeMutation, useUpdateOrigemTypeMutation, useDeleteOrigemTypeMutation } from "@/hooks/useDatabase";
 import { useAddAccountMutation, useUpdateAccountMutation, useDeleteAccountMutation } from "@/hooks/useDatabase";
 import { useAddEntryMutation, useDeleteEntryMutation } from "@/hooks/useDatabase";
-import { useAddSaleMutation, useUpdateSaleMutation, useDeleteSaleMutation, useDeleteSalesBatchMutation } from "@/hooks/useDatabase";
+import { useAddSaleMutation, useUpdateSaleMutation, useCancelSaleMutation, useDeleteSaleMutation } from "@/hooks/useDatabase";
 import { useAddClientMutation, useUpdateClientMutation, useDeleteClientMutation } from "@/hooks/useDatabase";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
 
@@ -42,14 +42,13 @@ interface DataContextType {
   updateAccount: (id: string, data: Partial<Account>) => void
   deleteAccount: (id: string) => void
 
-addEntry: (data: Omit<PointEntry, "id">) => void
+  addEntry: (data: Omit<PointEntry, "id">) => void
   deleteEntry: (id: string) => void
-  deleteEntryWithSales: (entryId: string) => void
 
   addSale: (data: Omit<Sale, "id">) => void
   updateSale: (id: string, data: Partial<Sale>) => void
+  cancelSale: (id: string) => void
   deleteSale: (id: string) => void
-  deleteSaleWithRestore: (saleId: string) => void
 
   addClient: (data: Omit<Client, "id">, id?: string) => void
   updateClient: (id: string, data: Partial<Client>) => void
@@ -251,8 +250,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
   const addSaleM = useAddSaleMutation();
   const updateSaleM = useUpdateSaleMutation();
+  const cancelSaleM = useCancelSaleMutation();
   const deleteSaleM = useDeleteSaleMutation();
-  const deleteSalesBatchM = useDeleteSalesBatchMutation();
 
   const addClientM = useAddClientMutation();
   const updateClientM = useUpdateClientMutation();
@@ -325,23 +324,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
     if (entry) deleteEntryM.mutate(entry);
   };
 
-  const deleteEntryWithSales = (entryId: string) => {
-    const entry = entries.find((e) => e.id === entryId);
-    if (!entry) return;
-
-    // Find sales with same accountId as the entry
-    const relatedSales = sales.filter((s) => s.accountId === entry.accountId);
-    const saleIds = relatedSales.map((s) => s.id);
-
-    // First delete the entry (which restores account balance for the entry)
-    deleteEntryM.mutate(entry);
-
-    // Then batch delete related sales (which restores account balance for each sale)
-    if (saleIds.length > 0) {
-      deleteSalesBatchM.mutate(saleIds);
-    }
-  };
-
   const addSale = (data: Omit<Sale, "id">) => {
     addSaleM.mutate({ id: crypto.randomUUID(), ...data });
   };
@@ -350,11 +332,11 @@ export function DataProvider({ children }: { children: ReactNode }) {
     updateSaleM.mutate({ id, ...data });
   };
 
-  const deleteSale = (id: string) => {
-    deleteSaleM.mutate(id);
+  const cancelSale = (id: string) => {
+    cancelSaleM.mutate(id);
   };
 
-  const deleteSaleWithRestore = (id: string) => {
+  const deleteSale = (id: string) => {
     deleteSaleM.mutate(id);
   };
 
@@ -377,8 +359,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
       addProgram, updateProgram, deleteProgram,
       addOrigemType, updateOrigemType, deleteOrigemType,
       addAccount, updateAccount, deleteAccount,
-      addEntry, deleteEntry, deleteEntryWithSales,
-      addSale, updateSale, deleteSale, deleteSaleWithRestore,
+      addEntry, deleteEntry,
+      addSale, updateSale, cancelSale, deleteSale,
       addClient, updateClient, deleteClient,
     }}>
       {children}

@@ -32,6 +32,9 @@ dist-ssr
 # Brainstorming mockups
 .superpowers/
 
+# Vercel
+.vercel/
+
 # Debug artifacts
 entradas-page.txt
 entradas-transferir.png
