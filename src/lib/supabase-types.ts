@@ -240,7 +240,7 @@ export interface Database {
           additional_cost_desc: string | null
           profit: number
           profit_margin: number
-          status: "pendente" | "pago" | "concluido"
+          status: "pendente" | "pago" | "concluido" | "cancelado"
           ticket_locator: string
           passengers: { name: string; passengerId: string; cpf: string; clientId?: string }[]
           date: string

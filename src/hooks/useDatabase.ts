@@ -471,6 +471,33 @@ export function useUpdateSaleMutation() {
   });
 }
 
+export function useCancelSaleMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const { data: sale, error: fetchError } = await supabase.from("sales").select("*").eq("id", id).single();
+      if (fetchError || !sale) throw fetchError ?? new Error("Venda não encontrada");
+
+      const { error: updateError } = await supabase.from("sales").update({ status: "cancelado" }).eq("id", id);
+      if (updateError) throw updateError;
+
+      if (sale.account_id) {
+        const { data: acc } = await supabase.from("accounts").select("balance, total_invested").eq("id", sale.account_id).single();
+        if (acc) {
+          const miles = Number(sale.miles_used);
+          const avgCost = Number(sale.cost_per_mile);
+          const costToRestore = miles * avgCost;
+          await supabase.from("accounts").update({
+            balance: Number(acc.balance) + miles,
+            total_invested: (Number(acc.total_invested ?? 0)) + costToRestore,
+          }).eq("id", sale.account_id);
+        }
+      }
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["sales", "accounts"] }),
+  });
+}
+
 export function useDeleteSaleMutation() {
   const queryClient = useQueryClient();
   return useMutation({

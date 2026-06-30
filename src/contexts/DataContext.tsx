@@ -8,7 +8,7 @@ import { useAddProgramMutation, useUpdateProgramMutation, useDeleteProgramMutati
 import { useAddOrigemTypeMutation, useUpdateOrigemTypeMutation, useDeleteOrigemTypeMutation } from "@/hooks/useDatabase";
 import { useAddAccountMutation, useUpdateAccountMutation, useDeleteAccountMutation } from "@/hooks/useDatabase";
 import { useAddEntryMutation, useDeleteEntryMutation } from "@/hooks/useDatabase";
-import { useAddSaleMutation, useUpdateSaleMutation, useDeleteSaleMutation } from "@/hooks/useDatabase";
+import { useAddSaleMutation, useUpdateSaleMutation, useCancelSaleMutation, useDeleteSaleMutation } from "@/hooks/useDatabase";
 import { useAddClientMutation, useUpdateClientMutation, useDeleteClientMutation } from "@/hooks/useDatabase";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
 
@@ -47,6 +47,7 @@ interface DataContextType {
 
   addSale: (data: Omit<Sale, "id">) => void
   updateSale: (id: string, data: Partial<Sale>) => void
+  cancelSale: (id: string) => void
   deleteSale: (id: string) => void
 
   addClient: (data: Omit<Client, "id">, id?: string) => void
@@ -249,6 +250,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
   const addSaleM = useAddSaleMutation();
   const updateSaleM = useUpdateSaleMutation();
+  const cancelSaleM = useCancelSaleMutation();
   const deleteSaleM = useDeleteSaleMutation();
 
   const addClientM = useAddClientMutation();
@@ -330,6 +332,10 @@ export function DataProvider({ children }: { children: ReactNode }) {
     updateSaleM.mutate({ id, ...data });
   };
 
+  const cancelSale = (id: string) => {
+    cancelSaleM.mutate(id);
+  };
+
   const deleteSale = (id: string) => {
     deleteSaleM.mutate(id);
   };
@@ -354,7 +360,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
       addOrigemType, updateOrigemType, deleteOrigemType,
       addAccount, updateAccount, deleteAccount,
       addEntry, deleteEntry,
-      addSale, updateSale, deleteSale,
+      addSale, updateSale, cancelSale, deleteSale,
       addClient, updateClient, deleteClient,
     }}>
       {children}
