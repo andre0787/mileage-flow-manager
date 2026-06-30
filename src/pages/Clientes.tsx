@@ -111,10 +111,7 @@ export default function Clientes() {
   };
 
   const handleCPFChange = (value: string) => {
-    const numbers = value.replace(/\D/g, "");
-    const limited = numbers.slice(0, 11);
-    const formatted = formatCPF(limited);
-    setNewClient({ ...newClient, cpf: formatted });
+    setNewClient({ ...newClient, cpf: formatCPF(value) });
   };
 
   return (

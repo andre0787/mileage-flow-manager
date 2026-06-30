@@ -6,10 +6,6 @@ import { useOwnersQuery, useProgramsQuery, useOrigemTypesQuery, useAccountsQuery
 import { useClearAccountDataMutation } from "@/hooks/useDatabase";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
 
-export function isTransferencia(ot: OrigemType): boolean {
-  return ot.name === "Transferência" && ot.accountType === "milhas";
-}
-
 interface DataContextType {
   owners: Owner[]
   programs: Program[]

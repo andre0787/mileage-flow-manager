@@ -9,7 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useData, isTransferencia } from "@/contexts/DataContext";
+import { useData } from "@/contexts/DataContext";
+import { isTransferencia } from "@/lib/utils";
 import { useAddOwnerMutation, useUpdateOwnerMutation, useDeleteOwnerMutation } from "@/hooks/useDatabase";
 import { useAddProgramMutation, useUpdateProgramMutation, useDeleteProgramMutation } from "@/hooks/useDatabase";
 import { useAddOrigemTypeMutation, useUpdateOrigemTypeMutation, useDeleteOrigemTypeMutation } from "@/hooks/useDatabase";
@@ -159,7 +160,7 @@ export default function Configuracoes() {
         <div>
           <h1 className="text-3xl font-bold text-foreground">Configurações</h1>
           <p className="text-muted-foreground">
-            Gerencie donos, programas, tipos de origem e preferências
+            Gerencie donos, programas e tipos de operação
           </p>
         </div>
       </div>
@@ -538,29 +539,6 @@ export default function Configuracoes() {
 
         {/* Preferências Tab */}
         <TabsContent value="preferences" className="space-y-4">
-          <Card className="shadow-card">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Settings className="h-5 w-5 text-primary" />
-                Preferências Gerais
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid gap-4 md:grid-cols-2">
-                <div className="space-y-2">
-                  <Label>Moeda Padrão</Label>
-                  <Input value="BRL" disabled />
-                  <p className="text-xs text-muted-foreground">Apenas BRL suportado no momento</p>
-                </div>
-              </div>
-              <div className="p-4 bg-muted/30 rounded-lg">
-                <p className="text-sm text-muted-foreground">
-                  As preferências são salvas localmente durante a sessão. A persistência será implementada futuramente.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
           <Card className="shadow-card border-destructive/20">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-destructive">

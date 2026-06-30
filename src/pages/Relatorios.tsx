@@ -36,20 +36,17 @@ export default function Relatorios() {
   const { owners, accounts, programs, entries, sales } = useData();
 
   const dateCutoff = useMemo(() => {
-    if (selectedPeriod === "custom") return null;
     const d = new Date();
     d.setDate(d.getDate() - parseInt(selectedPeriod));
     return d;
   }, [selectedPeriod]);
 
   const filteredEntries = useMemo(() => {
-    if (!dateCutoff) return entries;
-    return entries.filter(e => new Date(e.date) >= dateCutoff!);
+    return entries.filter(e => new Date(e.date) >= dateCutoff);
   }, [entries, dateCutoff]);
 
   const filteredSales = useMemo(() => {
-    if (!dateCutoff) return sales;
-    return sales.filter(s => new Date(s.date) >= dateCutoff!);
+    return sales.filter(s => new Date(s.date) >= dateCutoff);
   }, [sales, dateCutoff]);
 
   const ownerReports = useMemo(() => {
@@ -122,8 +119,7 @@ export default function Relatorios() {
     { value: "7", label: "Últimos 7 dias" },
     { value: "30", label: "Últimos 30 dias" },
     { value: "90", label: "Últimos 90 dias" },
-    { value: "365", label: "Último ano" },
-    { value: "custom", label: "Período personalizado" }
+    { value: "365", label: "Último ano" }
   ];
 
   const exportReport = (type: "pdf" | "excel") => {

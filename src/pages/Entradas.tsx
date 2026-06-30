@@ -11,7 +11,8 @@ import { Badge } from "@/components/ui/badge";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useData, isTransferencia } from "@/contexts/DataContext";
+import { useData } from "@/contexts/DataContext";
+import { isTransferencia } from "@/lib/utils";
 import { useAddEntryMutation, useDeleteEntryMutation, useAddOrigemTypeMutation, useDeleteSaleMutation } from "@/hooks/useDatabase";
 import type { Program, OrigemType, PointEntry } from "@/types";
 
@@ -66,11 +67,6 @@ export default function Entradas() {
   const ownerName = (id: string) => owners.find(o => o.id === id)?.name ?? id;
   const programName = (id: string) => programs.find(p => p.id === id)?.name ?? id;
   const origemTypeName = (id: string) => origemTypes.find(ot => ot.id === id)?.name ?? id;
-
-  const hasRelatedSales = (entry: PointEntry) => {
-    return entries.some(e => e.accountId === entry.accountId && e.id !== entry.id) || 
-           sales?.some(s => s.accountId === entry.accountId);
-  };
 
   const handleOpenTransfer = () => {
     const transferId = origemTypes.find((ot) => isTransferencia(ot))?.id ?? "";
