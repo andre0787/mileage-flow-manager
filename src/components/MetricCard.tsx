@@ -13,7 +13,6 @@ interface MetricCardProps {
     isPositive: boolean;
   };
   variant?: "default" | "success" | "warning" | "gold" | "teal";
-  animate?: boolean;
   prefix?: string;
 }
 
@@ -47,7 +46,6 @@ export function MetricCard({
   icon: Icon,
   trend,
   variant = "default",
-  animate = true,
   prefix,
 }: MetricCardProps) {
   const vs = variantStyles[variant];
@@ -81,7 +79,7 @@ export function MetricCard({
 
         <div className="font-mono text-2xl font-bold text-foreground tracking-tight">
           {prefix && <span className="text-muted-foreground text-lg mr-0.5">{prefix}</span>}
-          {numericValue !== undefined && animate ? (
+          {numericValue !== undefined ? (
             <AnimatedNumber value={numericValue} />
           ) : (
             value
