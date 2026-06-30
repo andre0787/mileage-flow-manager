@@ -157,8 +157,6 @@ export default function Dashboard() {
           value={metrics.totalMiles.toLocaleString('pt-BR')}
           subtitle="Milhas disponíveis"
           icon={Coins}
-          trend={{ value: 12.5, isPositive: true }}
-          sparklineData={[320000, 380000, 420000, 490000, 510000, metrics.totalMiles]}
         />
         <MetricCard
           title="Total Investido"
@@ -166,8 +164,6 @@ export default function Dashboard() {
           subtitle="Capital aplicado"
           icon={Wallet}
           variant="success"
-          trend={{ value: 8.2, isPositive: true }}
-          sparklineData={[1800, 1950, 2100, 2300, 2480, metrics.totalInvested]}
         />
         <MetricCard
           title="Faturamento Mensal"
@@ -175,8 +171,6 @@ export default function Dashboard() {
           subtitle="Receita atual"
           icon={DollarSign}
           variant="success"
-          trend={{ value: 15.3, isPositive: true }}
-          sparklineData={[1800, 2200, 1900, 2600, 2400, metrics.monthlyRevenue]}
         />
         <MetricCard
           title="Lucro Mensal"
@@ -184,8 +178,6 @@ export default function Dashboard() {
           subtitle="Ganho líquido"
           icon={TrendingUp}
           variant="success"
-          trend={{ value: 18.7, isPositive: true }}
-          sparklineData={[200, 350, 280, 450, 380, metrics.monthlyProfit]}
         />
       </div>
 
