@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { BarChart3, TrendingUp, Download, Calendar, Filter, AlertTriangle, Lightbulb, Award } from "lucide-react";
+import { BarChart3, TrendingUp, Download, Filter, AlertTriangle, Lightbulb, Award } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -169,8 +169,8 @@ export default function Relatorios() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-4">
-            <div className="space-y-2">
+            <div className="grid gap-4 md:grid-cols-3">
+              <div className="space-y-2">
               <label className="text-sm font-medium">Período:</label>
               <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
                 <SelectTrigger>
@@ -218,12 +218,6 @@ export default function Relatorios() {
               </Select>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Ação:</label>
-              <Button className="w-full bg-gradient-primary hover:opacity-90">
-                Aplicar Filtros
-              </Button>
-            </div>
           </div>
         </CardContent>
       </Card>

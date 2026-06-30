@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useData } from "@/contexts/DataContext";
+import { useAddOwnerMutation, useAddProgramMutation, useAddAccountMutation, useUpdateAccountMutation } from "@/hooks/useDatabase";
 import type { Account } from "@/types";
 
 interface AccountDialogProps {
@@ -17,7 +18,11 @@ interface AccountDialogProps {
 }
 
 export default function AccountDialog({ mode, account, open, onOpenChange }: AccountDialogProps) {
-  const { owners, programs, addOwner, addProgram, addAccount, updateAccount } = useData();
+  const { owners, programs } = useData();
+  const addOwnerM = useAddOwnerMutation();
+  const addProgramM = useAddProgramMutation();
+  const addAccountM = useAddAccountMutation();
+  const updateAccountM = useUpdateAccountMutation();
 
   const [name, setName] = useState("");
   const [ownerId, setOwnerId] = useState("");
@@ -98,16 +103,16 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
       status,
     };
     if (mode === "create") {
-      addAccount(data);
+      addAccountM.mutate({ id: crypto.randomUUID(), createdAt: new Date().toISOString().split("T")[0], ...data });
     } else if (account) {
-      updateAccount(account.id, data);
+      updateAccountM.mutate({ id: account.id, ...data });
     }
     onOpenChange(false);
   };
 
   const handleCreateOwner = () => {
     if (!newOwnerName.trim()) return;
-    addOwner({ name: newOwnerName.trim(), cpf: newOwnerCpf, phone: newOwnerPhone });
+    addOwnerM.mutate({ id: crypto.randomUUID(), name: newOwnerName.trim(), cpf: newOwnerCpf, phone: newOwnerPhone });
     setNewOwnerName("");
     setNewOwnerCpf("");
     setNewOwnerPhone("");
@@ -116,7 +121,7 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
 
   const handleCreateProgram = () => {
     if (!newProgramName.trim()) return;
-    addProgram({ name: newProgramName.trim(), type: newProgramType });
+    addProgramM.mutate({ id: crypto.randomUUID(), name: newProgramName.trim(), type: newProgramType });
     setNewProgramName("");
     setNewProgramType("milhas");
     setProgramDialogOpen(false);

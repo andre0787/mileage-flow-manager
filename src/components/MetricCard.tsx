@@ -13,7 +13,6 @@ interface MetricCardProps {
     isPositive: boolean;
   };
   variant?: "default" | "success" | "warning" | "gold" | "teal";
-  sparklineData?: number[];
   animate?: boolean;
   prefix?: string;
 }
@@ -22,27 +21,22 @@ const variantStyles = {
   default: {
     iconBg: "bg-primary/10",
     iconColor: "text-primary",
-    sparkColor: "hsl(var(--primary))",
   },
   success: {
     iconBg: "bg-success/10",
     iconColor: "text-success",
-    sparkColor: "hsl(var(--success))",
   },
   warning: {
     iconBg: "bg-warning/10",
     iconColor: "text-warning",
-    sparkColor: "hsl(var(--warning))",
   },
   gold: {
     iconBg: "bg-gold/10",
     iconColor: "text-gold",
-    sparkColor: "hsl(var(--gold))",
   },
   teal: {
     iconBg: "bg-teal/10",
     iconColor: "text-teal",
-    sparkColor: "hsl(var(--teal))",
   },
 };
 
@@ -53,7 +47,6 @@ export function MetricCard({
   icon: Icon,
   trend,
   variant = "default",
-  sparklineData,
   animate = true,
   prefix,
 }: MetricCardProps) {
@@ -112,48 +105,6 @@ export function MetricCard({
               {trend.isPositive ? "↑" : "↓"} {Math.abs(trend.value)}%
             </span>
             <span className="text-xs text-muted-foreground">vs. mês anterior</span>
-          </div>
-        )}
-
-        {sparklineData && sparklineData.length > 1 && (
-          <div className="mt-4 h-10 -mx-1">
-            <svg viewBox="0 0 120 40" className="w-full h-full" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id={`spark-${title.replace(/\s/g, "")}`} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor={vs.sparkColor} stopOpacity="0.25" />
-                  <stop offset="100%" stopColor={vs.sparkColor} stopOpacity="0" />
-                </linearGradient>
-              </defs>
-              <path
-                d={sparklineData.reduce((acc, val, i) => {
-                  const max = Math.max(...sparklineData);
-                  const min = Math.min(...sparklineData);
-                  const range = max - min || 1;
-                  const x = (i / (sparklineData.length - 1)) * 120;
-                  const y = 40 - ((val - min) / range) * 30 - 4;
-                  return acc + `${i === 0 ? "M" : "L"}${x},${y}`;
-                }, "")}
-                fill="none"
-                stroke={vs.sparkColor}
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d={(() => {
-                  const max = Math.max(...sparklineData);
-                  const min = Math.min(...sparklineData);
-                  const range = max - min || 1;
-                  const points = sparklineData.map((val, i) => {
-                    const x = (i / (sparklineData.length - 1)) * 120;
-                    const y = 40 - ((val - min) / range) * 30 - 4;
-                    return `${x},${y}`;
-                  }).join(" ");
-                  return `M0,40 L${points} L120,40 Z`;
-                })()}
-                fill={`url(#spark-${title.replace(/\s/g, "")})`}
-              />
-            </svg>
           </div>
         )}
       </CardContent>

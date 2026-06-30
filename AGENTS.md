@@ -24,14 +24,14 @@
 - Backend Supabase com PostgreSQL (tabelas: profiles, owners, programs, origem_types, accounts, entries, clients, sales)
 - Autenticação via Supabase Auth (email/senha), sem confirmação de email
 - Dados carregados via React Query (staleTime: 30s) com RLS por usuário
-- DataContext adaptado para usar React Query + Supabase
-- Migração automática de dados do localStorage para Supabase no primeiro login
+- **DataContext simplificado**: contém apenas dados + clearCache/clearAccountData. Mutations removidas — componentes importam hooks diretamente de `useDatabase.ts`
 - Login/Cadastro em /login, logout na sidebar
 - Design system definido em CSS vars HSL no index.css
 - Feature "cancelado" implementada para vendas: restaura saldo e totalInvested, excluída de métricas financeiras
 - Feature de transferências entre contas de pontos (com bonificação)
-- Exclusão em cascata de entradas com vendas vinculadas
+- Exclusão em cascata de entradas com vendas vinculadas (implementada via `useDeleteSaleMutation` + `useDeleteEntryMutation` em Entradas)
 - Controle de CPF com ciclo de passageiros por programa
+- `formatCPF` centralizado em `src/lib/utils.ts`
 
 ## Git Workflow
 - `main` → produção (https://mileage-flow-manager.vercel.app)

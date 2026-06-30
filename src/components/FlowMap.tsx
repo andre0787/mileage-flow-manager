@@ -11,7 +11,6 @@ interface FlowNode {
   color: string;
   bg: string;
   border: string;
-  glow: string;
 }
 
 interface FlowMapProps {
@@ -40,7 +39,6 @@ export function FlowMap({
       color: "text-primary",
       bg: "bg-primary/10",
       border: "border-primary/20",
-      glow: "shadow-glow",
     },
     {
       id: "accounts",
@@ -50,7 +48,6 @@ export function FlowMap({
       color: "text-teal",
       bg: "bg-teal/10",
       border: "border-teal/20",
-      glow: "",
     },
     {
       id: "sold",
@@ -60,7 +57,6 @@ export function FlowMap({
       color: "text-gold",
       bg: "bg-gold/10",
       border: "border-gold/20",
-      glow: "shadow-glow-gold",
     },
     {
       id: "revenue",
@@ -70,7 +66,6 @@ export function FlowMap({
       color: "text-success",
       bg: "bg-success/10",
       border: "border-success/20",
-      glow: "",
     },
   ], [totalMiles, activeAccounts, totalSoldMiles, totalRevenue]);
 
@@ -101,7 +96,7 @@ export function FlowMap({
               <div className={cn(
                 "flex-1 flex flex-col items-center justify-center gap-3 p-4 rounded-xl border text-center transition-all duration-300",
                 "hover:-translate-y-1 hover:shadow-elegant",
-                node.border, node.bg, node.glow,
+                node.border, node.bg, node.id === "miles" ? "shadow-glow" : "",
                 index === 0 && "animate-appear",
                 index === 1 && "animate-appear animate-delay-100",
                 index === 2 && "animate-appear animate-delay-200",
