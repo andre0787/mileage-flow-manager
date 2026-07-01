@@ -323,7 +323,7 @@ export default function Dashboard() {
                   <span className="relative rounded-full bg-success h-2 w-2" />
                 </span>
                 <span className="text-[10px] font-mono tracking-[0.2em] text-muted-foreground uppercase font-medium">
-                  Sistema Operacional
+                  {selectedOwner ? owners.find(o => o.id === selectedOwner)?.name ?? "Sistema" : "Sistema Operacional"}
                 </span>
                 <span className="h-3 w-px bg-border" />
                 <span className="text-[10px] font-mono text-muted-foreground">
@@ -525,7 +525,7 @@ export default function Dashboard() {
                   <span className="relative rounded-full bg-success h-2 w-2" />
                 </span>
                 <span className="text-[10px] font-mono tracking-[0.2em] text-muted-foreground uppercase font-medium">
-                  Investimento em Pontos
+                  {selectedOwner ? owners.find(o => o.id === selectedOwner)?.name ?? "Sistema" : "Investimento em Pontos"}
                 </span>
                 <span className="h-3 w-px bg-border" />
                 <span className="text-[10px] font-mono text-muted-foreground">
