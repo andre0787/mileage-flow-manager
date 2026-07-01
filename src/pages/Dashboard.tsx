@@ -135,7 +135,8 @@ export default function Dashboard() {
       const programNames = programIds.map(id => programs.find(p => p.id === id)?.name ?? id);
       const ownerSales = currentSales.filter(s => s.status !== "cancelado" && ownerAccountIds.includes(s.accountId ?? ""));
       const usedCpfs = new Set(ownerSales.flatMap(s => s.passengers.map(p => p.cpf)));
-      return { owner: owner.name, programs: programNames, totalMiles, totalInvested, cpfCount: usedCpfs.size, maxCpf: MAX_CPF_PER_OWNER };
+      const avgCost = totalMiles > 0 ? totalInvested / totalMiles : 0;
+      return { owner: owner.name, programs: programNames, totalMiles, totalInvested, avgCost, cpfCount: usedCpfs.size, maxCpf: MAX_CPF_PER_OWNER };
     });
   }, [owners, currentAccounts, programs, currentSales]);
 
@@ -378,6 +379,7 @@ export default function Dashboard() {
                       </div>
                       <div className="text-right space-y-0.5">
                         <p className="font-mono text-sm font-semibold text-foreground">R$ {owner.totalInvested.toLocaleString("pt-BR")}</p>
+                        <p className="text-[10px] text-muted-foreground font-mono">R$ {owner.avgCost.toFixed(4)}/milha</p>
                         <div className="flex items-center gap-2 justify-end">
                           <span className="text-[10px] text-muted-foreground font-mono">CPFs: {owner.cpfCount}/{owner.maxCpf}</span>
                           <Badge variant={owner.cpfCount >= 20 ? "destructive" : owner.cpfCount >= 18 ? "secondary" : "outline"} className="text-[10px] px-1.5 py-0">{owner.cpfCount >= 20 ? "Crítico" : owner.cpfCount >= 18 ? "Atenção" : "OK"}</Badge>
@@ -530,6 +532,7 @@ export default function Dashboard() {
                       </div>
                       <div className="text-right space-y-0.5">
                         <p className="font-mono text-sm font-semibold text-foreground">R$ {owner.totalInvested.toLocaleString("pt-BR")}</p>
+                        <p className="text-[10px] text-muted-foreground font-mono">R$ {owner.avgCost.toFixed(4)}/ponto</p>
                       </div>
                     </div>
                   ))}
