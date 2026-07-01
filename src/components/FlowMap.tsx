@@ -20,6 +20,7 @@ interface FlowMapProps {
   totalRevenue: number;
   ownersCount: number;
   className?: string;
+  unitLabel?: string;
 }
 
 export function FlowMap({
@@ -29,11 +30,12 @@ export function FlowMap({
   totalRevenue,
   ownersCount,
   className,
+  unitLabel = "Milhas",
 }: FlowMapProps) {
   const nodes: FlowNode[] = useMemo(() => [
     {
       id: "miles",
-      label: "Milhas em Estoque",
+      label: `${unitLabel} em Estoque`,
       value: totalMiles.toLocaleString("pt-BR"),
       icon: Coins,
       color: "text-primary",
@@ -51,7 +53,7 @@ export function FlowMap({
     },
     {
       id: "sold",
-      label: "Milhas Vendidas",
+      label: `${unitLabel} Vendidas`,
       value: totalSoldMiles.toLocaleString("pt-BR"),
       icon: TrendingUp,
       color: "text-gold",
@@ -67,7 +69,7 @@ export function FlowMap({
       bg: "bg-success/10",
       border: "border-success/20",
     },
-  ], [totalMiles, activeAccounts, totalSoldMiles, totalRevenue]);
+  ], [totalMiles, activeAccounts, totalSoldMiles, totalRevenue, unitLabel]);
 
   return (
     <Card className={cn("overflow-hidden", className)}>
@@ -78,7 +80,7 @@ export function FlowMap({
             <Plane className="w-4 h-4 text-primary" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-foreground font-display">Fluxo de Milhas</h3>
+            <h3 className="text-sm font-semibold text-foreground font-display">Fluxo de {unitLabel}</h3>
             <p className="text-xs text-muted-foreground">{ownersCount} proprietário{ownersCount !== 1 ? "s" : ""} ativo{ownersCount !== 1 ? "s" : ""}</p>
           </div>
 
