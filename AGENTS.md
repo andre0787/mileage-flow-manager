@@ -31,7 +31,11 @@
 - Feature de transferências entre contas de pontos (com bonificação)
 - Exclusão em cascata de entradas com vendas vinculadas (implementada via `useDeleteSaleMutation` + `useDeleteEntryMutation` em Entradas)
 - Controle de CPF com ciclo de passageiros por programa
-- `formatCPF` centralizado em `src/lib/utils.ts`
+- `formatCPF` e `isTransferencia` centralizados em `src/lib/utils.ts`
+- **Componentes shadcn/ui mantidos**: alert-dialog, badge, button, card, dialog, drawer, input, label, progress, select, separator, sheet, skeleton, sidebar, sonner, switch, table, tabs, tooltip (~31 componentes não utilizados foram removidos)
+- Toast system removido (app usa Sonner). `animate` prop removida do MetricCard (sempre true)
+- Período "custom" removido do Relatorios (não tinha implementação)
+- Aba "Preferências Gerais" removida do Configuracoes (UI especulativa)
 
 ## Git Workflow
 - `main` → produção (https://mileage-flow-manager.vercel.app)
@@ -53,10 +57,18 @@
 ```
 src/
 ├── components/       # Componentes reutilizáveis
-│   └── ui/           # Componentes shadcn/ui
+│   ├── ui/           # Componentes shadcn/ui (19 mantidos)
+│   ├── AccountDialog.tsx
+│   ├── AnimatedNumber.tsx
+│   ├── AppSidebar.tsx
+│   ├── BottomTabBar.tsx
+│   ├── FlowMap.tsx
+│   ├── FormDrawer.tsx
+│   ├── MetricCard.tsx
+│   └── ProtectedRoute.tsx
 ├── contexts/         # DataContext e AuthContext
-├── hooks/            # React Query hooks + mutations
-├── lib/              # Utilitários (supabase client, tipos)
+├── hooks/            # React Query hooks + mutations (useDatabase.ts)
+├── lib/              # Utilitários (supabase, utils com formatCPF + isTransferencia)
 ├── pages/            # Páginas/rotas
 │   ├── Dashboard.tsx
 │   ├── Entradas.tsx  # Entrada de milhas/pontos + transferências
@@ -72,8 +84,9 @@ src/
 
 ## Observações
 - Não adicionar dependências sem necessidade
-- Seguir padrão do shadcn/ui para novos componentes
+- Seguir padrão do shadcn/ui para novos componentes (só adicionar se realmente for usar)
 - Manter consistência do design system (cores, sombras, animações)
 - Todas as queries e mutations usam React Query com `invalidateQueries`
 - Supabase RLS policies por `user_id` (auth.uid())
 - Tokens armazenados em `~/.config/opencode/tokens.json` (gitignored)
+- **Ponytail mode**: não criar abstrações antes de precisar, preferir stdlib/nativo, remover código morto
