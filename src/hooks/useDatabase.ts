@@ -197,7 +197,10 @@ export function useAddProgramMutation() {
         if (otError) throw otError;
       }
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["programs", "origem_types"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["programs"] });
+      queryClient.invalidateQueries({ queryKey: ["origem_types"] });
+    },
   });
 }
 
@@ -313,7 +316,11 @@ export function useDeleteAccountMutation() {
       const { error } = await supabase.from("accounts").delete().eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["accounts", "entries", "sales"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      queryClient.invalidateQueries({ queryKey: ["entries"] });
+      queryClient.invalidateQueries({ queryKey: ["sales"] });
+    },
   });
 }
 
@@ -494,7 +501,10 @@ export function useCancelSaleMutation() {
         }
       }
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["sales", "accounts"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["sales"] });
+      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+    },
   });
 }
 
@@ -588,7 +598,10 @@ export function useDeleteClientMutation() {
       const { error } = await supabase.from("clients").delete().eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["clients", "sales"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["clients"] });
+      queryClient.invalidateQueries({ queryKey: ["sales"] });
+    },
   });
 }
 
