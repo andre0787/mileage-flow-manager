@@ -4,6 +4,7 @@ import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
 import { useOwnersQuery, useProgramsQuery, useOrigemTypesQuery, useAccountsQuery, useEntriesQuery, useClientsQuery, useSalesQuery } from "@/hooks/useDatabase";
 import { useClearAccountDataMutation } from "@/hooks/useDatabase";
+import { isTransferencia } from "@/lib/utils";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
 
 interface DataContextType {
