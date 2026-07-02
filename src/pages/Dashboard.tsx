@@ -334,7 +334,7 @@ export default function Dashboard() {
               <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
                 <div className="flex-1">
                   <div className="flex items-baseline gap-3">
-                    <h1 className="font-mono text-5xl md:text-6xl lg:text-7xl font-bold text-foreground tracking-tight leading-none">
+                    <h1 className="font-mono text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground tracking-tight leading-none">
                       <AnimatedNumber value={currentMetrics.totalMiles} />
                     </h1>
                     <span className="text-sm font-medium text-muted-foreground tracking-wider uppercase font-display hidden sm:inline">
@@ -536,7 +536,7 @@ export default function Dashboard() {
               <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
                 <div className="flex-1">
                   <div className="flex items-baseline gap-3">
-                    <h1 className="font-mono text-5xl md:text-6xl lg:text-7xl font-bold text-foreground tracking-tight leading-none">
+                    <h1 className="font-mono text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground tracking-tight leading-none">
                       <AnimatedNumber value={currentMetrics.totalMiles} />
                     </h1>
                     <span className="text-sm font-medium text-muted-foreground tracking-wider uppercase font-display hidden sm:inline">
