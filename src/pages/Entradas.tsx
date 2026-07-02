@@ -199,15 +199,15 @@ export default function Entradas() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Entradas</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Entradas</h1>
+          <p className="text-sm text-muted-foreground">
             Gerencie aquisição de pontos e milhas
           </p>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 w-full sm:w-auto">
           <Button onClick={handleOpenTransfer} className="gap-2 bg-gradient-primary hover:opacity-90">
             <ArrowLeftRight className="h-4 w-4" />
             Transferir

@@ -156,17 +156,18 @@ export default function Configuracoes() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Configurações</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Configurações</h1>
+          <p className="text-sm text-muted-foreground">
             Gerencie donos, programas e tipos de operação
           </p>
         </div>
       </div>
 
       <Tabs defaultValue="owners" className="space-y-6">
-        <TabsList>
+        <div className="overflow-x-auto pb-1 -mb-1">
+        <TabsList className="w-full sm:w-auto inline-flex">
           <TabsTrigger value="owners" className="gap-2">
             <User className="h-4 w-4" />
             Donos
@@ -184,10 +185,11 @@ export default function Configuracoes() {
             Preferências
           </TabsTrigger>
         </TabsList>
+        </div>
 
         {/* Donos Tab */}
         <TabsContent value="owners" className="space-y-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p className="text-sm text-muted-foreground">
               {owners.length} dono(s) cadastrado(s)
             </p>
@@ -196,7 +198,7 @@ export default function Configuracoes() {
               else setIsOwnerDialogOpen(true);
             }}>
               <DialogTrigger asChild>
-                <Button className="gap-2 bg-gradient-primary hover:opacity-90">
+                <Button className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto">
                   <Plus className="h-4 w-4" />
                   Novo Dono
                 </Button>
@@ -285,7 +287,7 @@ export default function Configuracoes() {
 
         {/* Programas Tab */}
         <TabsContent value="programs" className="space-y-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p className="text-sm text-muted-foreground">
               {programs.length} programa(s) cadastrado(s)
             </p>
@@ -294,7 +296,7 @@ export default function Configuracoes() {
               else setIsProgramDialogOpen(true);
             }}>
               <DialogTrigger asChild>
-                <Button className="gap-2 bg-gradient-primary hover:opacity-90">
+                <Button className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto">
                   <Plus className="h-4 w-4" />
                   Novo Programa
                 </Button>
@@ -445,7 +447,7 @@ export default function Configuracoes() {
 
         {/* Tipos de Milhas Tab */}
         <TabsContent value="origem-milhas" className="space-y-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p className="text-sm text-muted-foreground">
               {milhasTypes.length} tipo(s) de operação cadastrado(s)
             </p>
@@ -454,7 +456,7 @@ export default function Configuracoes() {
               else { setNewOrigemType(prev => ({ ...prev, accountType: "milhas" })); setIsOrigemTypeDialogOpen(true); }
             }}>
               <DialogTrigger asChild>
-                <Button className="gap-2 bg-gradient-primary hover:opacity-90" onClick={() => setNewOrigemType({ name: "", accountType: "milhas", color: "#10b981" })}>
+                <Button className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto" onClick={() => setNewOrigemType({ name: "", accountType: "milhas", color: "#10b981" })}>
                   <Plus className="h-4 w-4" />
                   Nova Operação
                 </Button>
