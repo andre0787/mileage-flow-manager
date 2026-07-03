@@ -342,7 +342,7 @@ export default function Dashboard() {
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 mt-6">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4 mt-6">
                     <div className="px-3 py-2.5 rounded-xl bg-background/60 border border-border/60">
                       <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-0.5">
                         <ArrowUpRight className="w-3 h-3 text-success" />
@@ -379,21 +379,24 @@ export default function Dashboard() {
                         {currentMetrics.activeAccounts}
                       </p>
                     </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-row md:flex-col gap-2">
-                  <div className="px-4 py-3 rounded-xl bg-background/70 border border-primary/20 min-w-[130px]">
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">Margem Média</p>
-                    <p className="font-mono text-xl font-bold text-success">
-                      {financialMetrics.avgProfitMargin.toFixed(1)}%
-                    </p>
-                  </div>
-                  <div className="px-4 py-3 rounded-xl bg-background/70 border border-gold/20 min-w-[130px]">
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">Receita Total</p>
-                    <p className="font-mono text-xl font-bold text-gold">
-                      R$ <AnimatedNumber value={financialMetrics.totalRevenue} />
-                    </p>
+                    <div className="px-3 py-2.5 rounded-xl bg-background/60 border border-primary/20">
+                      <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-0.5">
+                        <Target className="w-3 h-3 text-success" />
+                        Margem Média
+                      </div>
+                      <p className="font-mono text-sm font-bold text-success">
+                        {financialMetrics.avgProfitMargin.toFixed(1)}%
+                      </p>
+                    </div>
+                    <div className="px-3 py-2.5 rounded-xl bg-background/60 border border-gold/20">
+                      <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-0.5">
+                        <DollarSign className="w-3 h-3 text-gold" />
+                        Receita Total
+                      </div>
+                      <p className="font-mono text-sm font-bold text-gold">
+                        R$ <AnimatedNumber value={financialMetrics.totalRevenue} />
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

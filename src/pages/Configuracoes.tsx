@@ -240,6 +240,7 @@ export default function Configuracoes() {
               </CardTitle>
             </CardHeader>
             <CardContent>
+              <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -263,10 +264,10 @@ export default function Configuracoes() {
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
-                          <Button size="sm" variant="outline" className="px-3" onClick={() => handleEditOwner(owner)}>
+                          <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => handleEditOwner(owner)}>
                             <Edit className="h-4 w-4" />
                           </Button>
-                          <Button size="sm" variant="outline" className="px-3 text-destructive hover:text-destructive" onClick={() => deleteOwnerM.mutate(owner.id)}>
+                          <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive" onClick={() => deleteOwnerM.mutate(owner.id)}>
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
@@ -275,6 +276,7 @@ export default function Configuracoes() {
                   ))}
                 </TableBody>
               </Table>
+              </div>
               {owners.length === 0 && (
                 <div className="text-center py-8">
                   <User className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
@@ -387,6 +389,7 @@ export default function Configuracoes() {
               </CardTitle>
             </CardHeader>
             <CardContent>
+              <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -423,10 +426,10 @@ export default function Configuracoes() {
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
-                          <Button size="sm" variant="outline" className="px-3" onClick={() => handleEditProgram(program)}>
+                          <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => handleEditProgram(program)}>
                             <Edit className="h-4 w-4" />
                           </Button>
-                          <Button size="sm" variant="outline" className="px-3 text-destructive hover:text-destructive" onClick={() => deleteProgramM.mutate(program.id)}>
+                          <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive" onClick={() => deleteProgramM.mutate(program.id)}>
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
@@ -435,6 +438,7 @@ export default function Configuracoes() {
                   ))}
                 </TableBody>
               </Table>
+              </div>
               {programs.length === 0 && (
                 <div className="text-center py-8">
                   <Building2 className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
@@ -497,6 +501,7 @@ export default function Configuracoes() {
               </CardTitle>
             </CardHeader>
             <CardContent>
+              <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -517,10 +522,10 @@ export default function Configuracoes() {
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
-                          <Button size="sm" variant="outline" className="px-3" onClick={() => { setNewOrigemType({ name: ot.name, accountType: "milhas", color: ot.color }); setEditingOrigemType(ot); setIsOrigemTypeDialogOpen(true); }}>
+                          <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => { setNewOrigemType({ name: ot.name, accountType: "milhas", color: ot.color }); setEditingOrigemType(ot); setIsOrigemTypeDialogOpen(true); }}>
                             <Edit className="h-4 w-4" />
                           </Button>
-                          <Button size="sm" variant="outline" className="px-3 text-destructive hover:text-destructive" onClick={() => deleteOrigemTypeM.mutate(ot.id)}>
+                          <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive" onClick={() => deleteOrigemTypeM.mutate(ot.id)}>
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
@@ -529,6 +534,7 @@ export default function Configuracoes() {
                   ))}
                 </TableBody>
               </Table>
+              </div>
               {milhasTypes.length === 0 && (
                 <div className="text-center py-8">
                   <Palette className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
