@@ -135,6 +135,13 @@
   code, pre, .font-mono-force {
     font-family: 'JetBrains Mono', monospace;
   }
+
+  input,
+  select,
+  textarea,
+  button {
+    scroll-margin-bottom: 40dvh;
+  }
 }
 
 @layer utilities {
@@ -152,6 +159,10 @@
 
   .safe-area-right {
     padding-right: env(safe-area-inset-right, 0px);
+  }
+
+  .pb-safe {
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
   }
 
   .min-tap-target {

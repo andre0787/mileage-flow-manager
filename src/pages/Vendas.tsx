@@ -348,7 +348,7 @@ export default function Vendas() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="miles">Milhas Utilizadas</Label>
                   <Input
@@ -439,7 +439,7 @@ export default function Vendas() {
               {newSale.milesUsed && newSale.saleValue && selectedProgramStock && (
                 <div className="p-3 bg-success-light rounded-lg">
                   <h4 className="font-semibold text-sm mb-2">Cálculo de Lucro:</h4>
-                  <div className="grid grid-cols-4 gap-4 text-xs">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
                     <div>
                       <span className="text-muted-foreground">Custo total:</span>
                       <p className="font-semibold">R$ {(parseFloat(newSale.milesUsed) * selectedProgramStock.averageCostPerMile).toFixed(2)}</p>
@@ -771,7 +771,7 @@ export default function Vendas() {
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div>
                     <span className="text-muted-foreground">Cliente:</span>
-                    <p className="font-semibold">{sale.clientName}</p>
+                    <p className="font-semibold truncate">{sale.clientName}</p>
                   </div>
                   <div>
                     <span className="text-muted-foreground">Milhas:</span>

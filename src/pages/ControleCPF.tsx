@@ -76,7 +76,7 @@ export default function ControleCPF() {
         <div className="space-y-2">
           <label className="text-sm font-medium">Programa:</label>
           <Select value={selectedProgram} onValueChange={setSelectedProgram}>
-            <SelectTrigger className="w-48">
+            <SelectTrigger className="w-full sm:w-48">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -91,7 +91,7 @@ export default function ControleCPF() {
         <div className="space-y-2">
           <label className="text-sm font-medium">Dono:</label>
           <Select value={selectedOwner} onValueChange={setSelectedOwner}>
-            <SelectTrigger className="w-48">
+            <SelectTrigger className="w-full sm:w-48">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -208,6 +208,7 @@ export default function ControleCPF() {
         </CardHeader>
         <CardContent>
           {filteredUsage.length > 0 ? (
+            <div className="overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -236,6 +237,7 @@ export default function ControleCPF() {
                 ))}
               </TableBody>
             </Table>
+            </div>
           ) : (
             <div className="text-center py-8">
               <Shield className="h-12 w-12 text-muted-foreground mx-auto mb-4" />

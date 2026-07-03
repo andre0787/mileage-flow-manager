@@ -274,6 +274,7 @@ export default function Relatorios() {
           </CardTitle>
         </CardHeader>
         <CardContent>
+          <div className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
@@ -310,6 +311,7 @@ export default function Relatorios() {
               ))}
             </TableBody>
           </Table>
+          </div>
         </CardContent>
       </Card>
 
@@ -322,6 +324,7 @@ export default function Relatorios() {
           </CardTitle>
         </CardHeader>
         <CardContent>
+          <div className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
@@ -357,6 +360,7 @@ export default function Relatorios() {
               })}
             </TableBody>
           </Table>
+          </div>
         </CardContent>
       </Card>
 
