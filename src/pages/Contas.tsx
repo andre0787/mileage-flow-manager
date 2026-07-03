@@ -123,10 +123,10 @@ export default function Contas() {
                 <Button size="sm" variant="outline" onClick={() => toggleAccountStatus(account.id)} className="flex-1">
                   {account.status === "ativa" ? "Desativar" : "Ativar"}
                 </Button>
-                <Button size="sm" variant="outline" className="px-3" onClick={() => { setEditAccount(account); setIsEditDialogOpen(true); }}>
+                <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => { setEditAccount(account); setIsEditDialogOpen(true); }}>
                   <Edit className="h-4 w-4" />
                 </Button>
-                <Button size="sm" variant="outline" className="px-3 text-destructive hover:text-destructive" onClick={() => deleteAccountM.mutate(account.id)}>
+                <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive" onClick={() => deleteAccountM.mutate(account.id)}>
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>

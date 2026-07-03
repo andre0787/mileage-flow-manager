@@ -157,7 +157,7 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
                     </SelectContent>
                   </Select>
                 </div>
-                <Button variant="outline" size="icon" onClick={() => setProgramDialogOpen(true)} title="Novo programa">
+                <Button variant="outline" size="icon" className="min-h-[44px] min-w-[44px]" onClick={() => setProgramDialogOpen(true)} title="Novo programa">
                   <Plus className="h-4 w-4" />
                 </Button>
               </div>
@@ -193,7 +193,7 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
                     </SelectContent>
                   </Select>
                 </div>
-                <Button variant="outline" size="icon" onClick={() => setOwnerDialogOpen(true)} title="Novo dono">
+                <Button variant="outline" size="icon" className="min-h-[44px] min-w-[44px]" onClick={() => setOwnerDialogOpen(true)} title="Novo dono">
                   <Plus className="h-4 w-4" />
                 </Button>
               </div>

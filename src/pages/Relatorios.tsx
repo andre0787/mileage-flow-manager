@@ -145,11 +145,11 @@ export default function Relatorios() {
         </div>
 
         <div className="flex items-center gap-2">
-          <Button variant="outline" onClick={() => exportReport("excel")} className="gap-2 flex-1 sm:flex-none">
+          <Button variant="outline" onClick={() => exportReport("excel")} className="gap-2 flex-1 sm:flex-none min-h-[44px]">
             <Download className="h-4 w-4" />
             Excel
           </Button>
-          <Button variant="outline" onClick={() => exportReport("pdf")} className="gap-2 flex-1 sm:flex-none">
+          <Button variant="outline" onClick={() => exportReport("pdf")} className="gap-2 flex-1 sm:flex-none min-h-[44px]">
             <Download className="h-4 w-4" />
             PDF
           </Button>
