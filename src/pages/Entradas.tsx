@@ -198,7 +198,7 @@ export default function Entradas() {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-appear">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Entradas</h1>
@@ -217,7 +217,10 @@ export default function Entradas() {
             <Plus className="h-4 w-4" />
             Nova Entrada
           </Button>
-          <FormDrawer
+        </div>
+      </div>
+
+        <FormDrawer
             open={isCreateDialogOpen}
             onOpenChange={(open) => {
               if (!open) resetForm();
@@ -439,8 +442,7 @@ export default function Entradas() {
               <Button onClick={handleCreateEntry} className="bg-gradient-primary hover:opacity-90">Registrar Entrada</Button>
             </div>
           </FormDrawer>
-      </div>
-      </div>
+
 
       {/* Sub-abas Pontos / Milhas */}
       <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as "pontos" | "milhas")}>
@@ -455,8 +457,8 @@ export default function Entradas() {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="pontos" className="space-y-4">
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+        <TabsContent value="pontos" className="space-y-4 animate-appear">
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 animate-appear animate-delay-200">
             <Card className="shadow-card">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">Total de Pontos</CardTitle>
@@ -491,7 +493,7 @@ export default function Entradas() {
             </Card>
           </div>
 
-          <Card className="shadow-card">
+          <Card className="shadow-card animate-appear animate-delay-400">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-primary" />
@@ -582,8 +584,8 @@ export default function Entradas() {
            </Card>
          </TabsContent>
 
-         <TabsContent value="milhas" className="space-y-4">
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+         <TabsContent value="milhas" className="space-y-4 animate-appear">
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 animate-appear animate-delay-200">
             <Card className="shadow-card">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">Total de Milhas</CardTitle>
@@ -610,7 +612,7 @@ export default function Entradas() {
             </Card>
           </div>
 
-          <Card className="shadow-card">
+          <Card className="shadow-card animate-appear animate-delay-400">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingDown className="h-5 w-5 text-primary" />

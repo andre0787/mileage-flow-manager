@@ -230,7 +230,7 @@ export default function Vendas() {
     activeSales.reduce((sum, sale) => sum + sale.profitMargin, 0) / activeSales.length : 0;
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-appear">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
@@ -244,6 +244,8 @@ export default function Vendas() {
            <Plus className="h-4 w-4" />
            Nova Venda
          </Button>
+      </div>
+
          <FormDrawer
            open={isCreateDialogOpen}
            onOpenChange={setIsCreateDialogOpen}
@@ -626,10 +628,10 @@ export default function Vendas() {
              </Button>
            </div>
          </FormDrawer>
-      </div>
+
 
       {/* Summary Cards */}
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 animate-appear animate-delay-300">
         <Card className="shadow-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Faturamento Total</CardTitle>
@@ -668,7 +670,7 @@ export default function Vendas() {
       </div>
 
       {/* Sales Table */}
-      <Card className="shadow-card">
+      <Card className="shadow-card animate-appear animate-delay-600">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <TrendingDown className="h-5 w-5 text-primary" />

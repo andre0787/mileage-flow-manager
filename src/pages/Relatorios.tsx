@@ -8,6 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { useData } from "@/contexts/DataContext";
 import { toast } from "sonner";
 import { calcProfitMargin, calcROI, calcWeightedAverageCost } from "@/lib/metrics";
+import { PERIOD_OPTIONS } from "@/lib/dates";
 
 interface OwnerReport {
   ownerName: string;
@@ -128,7 +129,7 @@ export default function Relatorios() {
   }), [ownerReports, programReports]);
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-appear">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
@@ -151,7 +152,7 @@ export default function Relatorios() {
       </div>
 
       {/* Filters */}
-      <Card className="shadow-card">
+      <Card className="shadow-card animate-appear animate-delay-200">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Filter className="h-5 w-5 text-primary" />
@@ -213,8 +214,8 @@ export default function Relatorios() {
       </Card>
 
       {/* Summary Metrics */}
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
-        <Card className="shadow-card">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 animate-appear animate-delay-300">
+        <Card className="shadow-card animate-appear animate-delay-300">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Total Investido</CardTitle>
           </CardHeader>
@@ -225,7 +226,7 @@ export default function Relatorios() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-card">
+        <Card className="shadow-card animate-appear animate-delay-400">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Faturamento</CardTitle>
           </CardHeader>
@@ -236,7 +237,7 @@ export default function Relatorios() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-card">
+        <Card className="shadow-card animate-appear animate-delay-500">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Lucro Total</CardTitle>
           </CardHeader>
@@ -247,7 +248,7 @@ export default function Relatorios() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-card">
+        <Card className="shadow-card animate-appear animate-delay-600">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Estoque Total</CardTitle>
           </CardHeader>
@@ -260,7 +261,7 @@ export default function Relatorios() {
       </div>
 
       {/* Owner Performance Report */}
-      <Card className="shadow-card">
+      <Card className="shadow-card animate-appear animate-delay-600">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <TrendingUp className="h-5 w-5 text-primary" />
@@ -357,7 +358,7 @@ export default function Relatorios() {
       </Card>
 
       {/* Program Performance Report */}
-      <Card className="shadow-card">
+      <Card className="shadow-card animate-appear animate-delay-800">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <BarChart3 className="h-5 w-5 text-primary" />
@@ -452,7 +453,7 @@ export default function Relatorios() {
       </Card>
 
       {/* Key Insights */}
-      <Card className="shadow-card">
+      <Card className="shadow-card animate-appear animate-delay-1000">
         <CardHeader>
           <CardTitle>Insights e Recomendações</CardTitle>
         </CardHeader>
