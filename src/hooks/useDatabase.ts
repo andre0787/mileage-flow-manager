@@ -368,6 +368,67 @@ export function useAddEntryMutation() {
   });
 }
 
+export function useUpdateEntryMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ oldEntry, updates }: { oldEntry: PointEntry; updates: Partial<PointEntry> }) => {
+      // 1. Reverse original account effects (same as delete)
+      const { error: delErr } = await supabase.from("entries").delete().eq("id", oldEntry.id);
+      if (delErr) throw delErr;
+
+      const reverseDest = await supabase.from("accounts").select("balance, total_invested").eq("id", oldEntry.accountId).single();
+      if (reverseDest.data) {
+        const amountToRemove = oldEntry.milesGenerated ?? oldEntry.amount;
+        const update = calcAccountUpdate(Number(reverseDest.data.balance), Number(reverseDest.data.total_invested ?? 0), -amountToRemove, -oldEntry.amountPaid);
+        await supabase.from("accounts").update(update).eq("id", oldEntry.accountId);
+      }
+
+      if (oldEntry.sourceAccountId) {
+        const reverseSrc = await supabase.from("accounts").select("balance, total_invested").eq("id", oldEntry.sourceAccountId).single();
+        if (reverseSrc.data) {
+          const update = calcAccountUpdate(Number(reverseSrc.data.balance), Number(reverseSrc.data.total_invested ?? 0), oldEntry.amount, oldEntry.amountPaid);
+          await supabase.from("accounts").update(update).eq("id", oldEntry.sourceAccountId);
+        }
+      }
+
+      // 2. Merge old + updates, insert as new entry
+      const merged: PointEntry = { ...oldEntry, ...updates };
+      const { error: insErr } = await supabase.from("entries").insert({
+        id: merged.id, user_id: (await supabase.auth.getUser()).data.user!.id,
+        account_id: merged.accountId, origem_type_id: merged.origemTypeId,
+        amount: merged.amount, amount_paid: merged.amountPaid, cost_per_thousand: merged.costPerThousand,
+        conversion_rate: merged.conversionRate, miles_generated: merged.milesGenerated,
+        cost_per_mile: merged.costPerMile, source_account_id: merged.sourceAccountId,
+        bonus_percent: merged.bonusPercent, date: merged.date, description: merged.description,
+      });
+      if (insErr) throw insErr;
+
+      // 3. Apply new account effects (same as add)
+      if (merged.sourceAccountId) {
+        const srcRes = await supabase.from("accounts").select("balance, total_invested").eq("id", merged.sourceAccountId).single();
+        if (srcRes.data) {
+          const srcBalance = Number(srcRes.data.balance);
+          const srcInvested = Number(srcRes.data.total_invested ?? 0);
+          const proportionalCost = calcProportionalCost(merged.amount, srcBalance, srcInvested);
+          const srcUpdate = calcAccountUpdate(srcBalance, srcInvested, -merged.amount, -proportionalCost);
+          await supabase.from("accounts").update(srcUpdate).eq("id", merged.sourceAccountId);
+        }
+      }
+
+      const destRes = await supabase.from("accounts").select("balance, total_invested").eq("id", merged.accountId).single();
+      if (destRes.data) {
+        const amountToAdd = merged.milesGenerated ?? merged.amount;
+        const destUpdate = calcAccountUpdate(Number(destRes.data.balance), Number(destRes.data.total_invested ?? 0), amountToAdd, merged.amountPaid);
+        await supabase.from("accounts").update(destUpdate).eq("id", merged.accountId);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["entries"] });
+      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+    },
+  });
+}
+
 export function useDeleteEntryMutation() {
   const queryClient = useQueryClient();
   return useMutation({

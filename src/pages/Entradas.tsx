@@ -14,18 +14,21 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
 import { calcMilesGenerated, calcCostPerThousand, calcCostPerMile } from "@/lib/metrics";
-import { useAddEntryMutation, useDeleteEntryMutation, useAddOrigemTypeMutation, useDeleteSaleMutation } from "@/hooks/useDatabase";
+import { useAddEntryMutation, useUpdateEntryMutation, useDeleteEntryMutation, useAddOrigemTypeMutation, useDeleteSaleMutation } from "@/hooks/useDatabase";
 import type { Program, OrigemType, PointEntry } from "@/types";
 
 export default function Entradas() {
   const { entries, accounts, owners, programs, origemTypes, sales } = useData();
   const addEntryM = useAddEntryMutation();
+  const updateEntryM = useUpdateEntryMutation();
   const deleteEntryM = useDeleteEntryMutation();
   const deleteSaleM = useDeleteSaleMutation();
   const addOrigemTypeM = useAddOrigemTypeMutation();
 
   const [activeTab, setActiveTab] = useState<"pontos" | "milhas">("pontos");
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingEntry, setEditingEntry] = useState<PointEntry | null>(null);
   const [newEntry, setNewEntry] = useState({
     accountId: "",
     origemTypeId: "",
@@ -88,6 +91,52 @@ export default function Entradas() {
   const resetForm = () => {
     setNewEntry({ accountId: "", origemTypeId: "", amount: "", amountPaid: "", conversionRate: "", sourceAccountId: "", bonusPercent: "" });
     setEntryErrors({});
+  };
+
+  const openEditDialog = (entry: PointEntry) => {
+    setEditingEntry(entry);
+    setNewEntry({
+      accountId: entry.accountId,
+      origemTypeId: entry.origemTypeId,
+      amount: String(entry.amount),
+      amountPaid: String(entry.amountPaid),
+      conversionRate: entry.conversionRate ? String(entry.conversionRate) : "",
+      sourceAccountId: entry.sourceAccountId ?? "",
+      bonusPercent: entry.bonusPercent ? String(entry.bonusPercent) : "",
+    });
+    setEntryErrors({});
+    setIsEditDialogOpen(true);
+  };
+
+  const handleUpdateEntry = () => {
+    if (!editingEntry || !validateEntry()) return;
+    const amount = parseFloat(newEntry.amount);
+    const amountPaid = parseFloat(newEntry.amountPaid);
+    const conversionRate = parseFloat(newEntry.conversionRate || "1");
+    const bonusPercent = isTransfer ? parseFloat(newEntry.bonusPercent || "0") : undefined;
+    const milesGenerated = calcMilesGenerated(amount, conversionRate, bonusPercent);
+    const costPerThousand = calcCostPerThousand(amountPaid, isTransfer ? milesGenerated : amount);
+    const costPerMile = calcCostPerMile(amountPaid, milesGenerated);
+
+    updateEntryM.mutate({
+      oldEntry: editingEntry,
+      updates: {
+        accountId: newEntry.accountId,
+        origemTypeId: newEntry.origemTypeId,
+        amount,
+        amountPaid,
+        costPerThousand,
+        conversionRate: isTransfer ? 1 + parseFloat(newEntry.bonusPercent || "0") / 100 : (activeTab === "milhas" ? undefined : conversionRate),
+        milesGenerated,
+        costPerMile,
+        sourceAccountId: isTransfer ? newEntry.sourceAccountId : undefined,
+        bonusPercent: isTransfer ? parseFloat(newEntry.bonusPercent || "0") : undefined,
+      },
+    });
+
+    resetForm();
+    setEditingEntry(null);
+    setIsEditDialogOpen(false);
   };
 
   const handleCreateOrigemType = () => {
@@ -537,7 +586,12 @@ export default function Entradas() {
                         </TableCell>
                         <TableCell className="hidden md:table-cell">R$ {entry.costPerMile.toFixed(4)}</TableCell>
 <TableCell className="hidden md:table-cell text-right">
-                          <DeleteEntryDialog entry={entry} />
+                          <div className="flex gap-2 justify-end">
+                            <Button size="sm" variant="outline" className="px-3 min-h-[44px]" onClick={() => openEditDialog(entry)}>
+                              Editar
+                            </Button>
+                            <DeleteEntryDialog entry={entry} />
+                          </div>
                         </TableCell>
                        </TableRow>
                      ))}
@@ -574,7 +628,10 @@ export default function Entradas() {
                         <p className="font-semibold">R$ {entry.costPerMile.toFixed(4)}</p>
                       </div>
                     </div>
-<div className="flex justify-end pt-1">
+<div className="flex justify-end gap-2 pt-1">
+                      <Button size="sm" variant="outline" className="px-3 min-h-[44px]" onClick={() => openEditDialog(entry)}>
+                        Editar
+                      </Button>
                       <DeleteEntryDialog entry={entry} />
                     </div>
                    </div>
@@ -651,7 +708,12 @@ export default function Entradas() {
                         <TableCell className="hidden md:table-cell">R$ {entry.amountPaid.toLocaleString('pt-BR')}</TableCell>
                         <TableCell className="hidden md:table-cell">R$ {entry.costPerMile.toFixed(4)}</TableCell>
 <TableCell className="hidden md:table-cell text-right">
-                          <DeleteEntryDialog entry={entry} />
+                          <div className="flex gap-2 justify-end">
+                            <Button size="sm" variant="outline" className="px-3 min-h-[44px]" onClick={() => openEditDialog(entry)}>
+                              Editar
+                            </Button>
+                            <DeleteEntryDialog entry={entry} />
+                          </div>
                         </TableCell>
                        </TableRow>
                      ))}
@@ -684,7 +746,10 @@ export default function Entradas() {
                         <p className="font-semibold">R$ {entry.costPerMile.toFixed(4)}</p>
                       </div>
                     </div>
-<div className="flex justify-end pt-1">
+<div className="flex justify-end gap-2 pt-1">
+                      <Button size="sm" variant="outline" className="px-3 min-h-[44px]" onClick={() => openEditDialog(entry)}>
+                        Editar
+                      </Button>
                       <DeleteEntryDialog entry={entry} />
                     </div>
                    </div>
@@ -694,6 +759,230 @@ export default function Entradas() {
            </Card>
          </TabsContent>
        </Tabs>
+
+       {/* Edit Drawer */}
+        <FormDrawer
+            open={isEditDialogOpen}
+            onOpenChange={(open) => {
+              if (!open) { resetForm(); setEditingEntry(null); }
+              setIsEditDialogOpen(open);
+            }}
+            title={`Editar Entrada - ${activeTab === "pontos" ? "Pontos" : "Milhas"}`}
+          >
+            <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto">
+              <div className="space-y-2">
+                <Label htmlFor="editEntryAccount">Conta</Label>
+                <Select value={newEntry.accountId} onValueChange={(value) => { setNewEntry({...newEntry, accountId: value}); setEntryErrors(prev => ({...prev, accountId: ""})); }}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione a conta" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availableAccounts.map((acc) => (
+                      <SelectItem key={acc.id} value={acc.id}>
+                        {acc.name} ({ownerName(acc.ownerId)})
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {entryErrors.accountId && <p className="text-xs text-destructive">{entryErrors.accountId}</p>}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="editEntryType">Tipo de Origem</Label>
+                <div className="flex gap-2">
+                  <div className="flex-1">
+                    <Select value={newEntry.origemTypeId} onValueChange={(value) => { setNewEntry({...newEntry, origemTypeId: value}); setEntryErrors(prev => ({...prev, origemTypeId: ""})); }}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione o tipo" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {currentOrigemTypes.map((item) => {
+                          if (activeTab === "pontos") {
+                            const p = item as Program;
+                            return (
+                              <SelectItem key={p.id} value={p.id}>
+                                {p.name}
+                              </SelectItem>
+                            );
+                          }
+                          const ot = item as OrigemType;
+                          return (
+                            <SelectItem key={ot.id} value={ot.id}>
+                              <div className="flex items-center gap-2">
+                                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: ot.color }} />
+                                {ot.name}
+                              </div>
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  {activeTab === "milhas" && (
+                    <FormDrawer
+                      open={isOrigemTypeDialogOpen}
+                      onOpenChange={(open) => { setIsOrigemTypeDialogOpen(open); if (!open) setOrigemTypeErrors({}); }}
+                      title="Novo Tipo de Origem"
+                    >
+                      <div className="grid gap-4 py-4">
+                        <div className="space-y-2">
+                          <Label>Nome</Label>
+                          <Input
+                            value={newOrigemType.name}
+                            onChange={(e) => { setNewOrigemType({...newOrigemType, name: e.target.value}); setOrigemTypeErrors(p => ({...p, name: ""})); }}
+                            placeholder="Ex: Cashback"
+                          />
+                          {origemTypeErrors.name && <p className="text-xs text-destructive">{origemTypeErrors.name}</p>}
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Cor</Label>
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: newOrigemType.color }} />
+                            <Input
+                              type="color"
+                              value={newOrigemType.color}
+                              onChange={(e) => setNewOrigemType({...newOrigemType, color: e.target.value})}
+                              className="w-full h-10 p-1"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex justify-end gap-2 mt-4">
+                        <Button variant="outline" onClick={() => { setIsOrigemTypeDialogOpen(false); setOrigemTypeErrors({}); }}>
+                          Cancelar
+                        </Button>
+                        <Button onClick={handleCreateOrigemType} className="bg-gradient-primary hover:opacity-90">
+                          Cadastrar
+                        </Button>
+                      </div>
+                    </FormDrawer>
+                  )}
+                </div>
+                {entryErrors.origemTypeId && <p className="text-xs text-destructive">{entryErrors.origemTypeId}</p>}
+              </div>
+
+              {selectedAccount && (
+                <div className="p-3 bg-muted/30 rounded-lg text-sm">
+                  <span className="text-muted-foreground">Programa: </span>
+                  <span className="font-medium">{programName(selectedAccount.programId)}</span>
+                </div>
+              )}
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="editAmount">
+                    {isTransfer ? "Pontos Transferidos" : activeTab === "pontos" ? "Pontos Adquiridos" : "Milhas Adquiridas"}
+                  </Label>
+                  <Input id="editAmount" type="number" value={newEntry.amount} onChange={(e) => { const val = e.target.value; if (isTransfer && val && sourceAvgCostPerPoint > 0) { setNewEntry({...newEntry, amount: val, amountPaid: (parseFloat(val) * sourceAvgCostPerPoint).toFixed(2)}); } else { setNewEntry({...newEntry, amount: val}); } setEntryErrors(prev => ({...prev, amount: ""})); }} placeholder="Ex: 100000" />
+                  {entryErrors.amount && <p className="text-xs text-destructive">{entryErrors.amount}</p>}
+                  {isTransfer && selectedSourceAccount && (
+                    <p className={`text-xs ${parseFloat(newEntry.amount || "0") > selectedSourceAccount.balance ? "text-destructive" : "text-muted-foreground"}`}>
+                      Saldo disponível: {selectedSourceAccount.balance.toLocaleString('pt-BR')} pontos
+                    </p>
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="editAmountPaid">
+                    {isTransfer ? "Custo (calculado)" : "Valor Pago (R$)"}
+                  </Label>
+                  <Input id="editAmountPaid" type="number" step="0.01" value={newEntry.amountPaid} disabled={isTransfer} onChange={(e) => { setNewEntry({...newEntry, amountPaid: e.target.value}); setEntryErrors(prev => ({...prev, amountPaid: ""})); }} placeholder="Ex: 450.00" />
+                  {entryErrors.amountPaid && <p className="text-xs text-destructive">{entryErrors.amountPaid}</p>}
+                  {isTransfer && selectedSourceAccount && newEntry.amount && sourceAvgCostPerPoint > 0 && (
+                    <p className="text-xs text-muted-foreground">
+                      Custo de aquisição: {parseFloat(newEntry.amount).toLocaleString('pt-BR')} pts × R$ {sourceAvgCostPerPoint.toFixed(4)} = R$ {(parseFloat(newEntry.amount) * sourceAvgCostPerPoint).toFixed(2)}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {isTransfer && (
+                <>
+                  <div className="space-y-2">
+                    <Label htmlFor="editSourceAccount">Conta de Pontos Origem</Label>
+                    <Select value={newEntry.sourceAccountId} onValueChange={(value) => { setNewEntry({...newEntry, sourceAccountId: value, amount: "", amountPaid: ""}); setEntryErrors(prev => ({...prev, sourceAccountId: ""})); }}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione a conta de pontos" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {sourceAccounts.map((acc) => (
+                          <SelectItem key={acc.id} value={acc.id}>
+                            {acc.name} ({acc.balance.toLocaleString('pt-BR')} pts)
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {entryErrors.sourceAccountId && <p className="text-xs text-destructive">{entryErrors.sourceAccountId}</p>}
+                    {selectedSourceAccount && (
+                      <p className="text-xs text-muted-foreground">
+                        Programa: {programName(selectedSourceAccount.programId)}
+                      </p>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="editBonus">Bonificação (%)</Label>
+                    <Input
+                      id="editBonus"
+                      type="number"
+                      step="0.1"
+                      min="0"
+                      value={newEntry.bonusPercent}
+                      onChange={(e) => setNewEntry({...newEntry, bonusPercent: e.target.value})}
+                      placeholder="Ex: 30"
+                    />
+                    {newEntry.bonusPercent && parseFloat(newEntry.bonusPercent) > 0 && newEntry.amount && (
+                      <p className="text-xs text-success">
+                        Milhas recebidas: {effectiveMiles.toLocaleString('pt-BR')} ({parseFloat(newEntry.amount).toLocaleString('pt-BR')} + {parseFloat(newEntry.bonusPercent)}%)
+                      </p>
+                    )}
+                  </div>
+                </>
+              )}
+
+              {activeTab === "pontos" && (
+                <div className="space-y-2">
+                  <Label htmlFor="editConversion">Taxa de Conversão (Pontos → Milhas)</Label>
+                  <Input id="editConversion" type="number" step="0.01" value={newEntry.conversionRate} onChange={(e) => setNewEntry({...newEntry, conversionRate: e.target.value})} placeholder="Ex: 1.0" />
+                </div>
+              )}
+
+              {newEntry.amount && newEntry.amountPaid && (activeTab === "milhas" || newEntry.conversionRate) && (
+                <div className="p-4 bg-gradient-success/10 border border-success/20 rounded-lg space-y-2 animate-slide-up">
+                  <h4 className="font-semibold text-sm">Cálculos Automáticos:</h4>
+                  <div className="grid grid-cols-2 gap-4 text-xs">
+                    <div>
+                      <span className="text-muted-foreground">Custo por milhar:</span>
+                      <p className="font-semibold">
+                        R$ {((parseFloat(newEntry.amountPaid) / (isTransfer && effectiveMiles > 0 ? effectiveMiles : parseFloat(newEntry.amount))) * 1000).toFixed(2)}
+                      </p>
+                    </div>
+                    {isTransfer && (
+                      <div>
+                        <span className="text-muted-foreground">Milhas recebidas:</span>
+                        <p className="font-semibold text-success">{effectiveMiles.toLocaleString('pt-BR')}</p>
+                      </div>
+                    )}
+                    {activeTab === "pontos" && (
+                      <div>
+                        <span className="text-muted-foreground">Milhas geradas:</span>
+                        <p className="font-semibold">{(parseFloat(newEntry.amount) * parseFloat(newEntry.conversionRate || "1")).toLocaleString('pt-BR')}</p>
+                      </div>
+                    )}
+                    <div>
+                      <span className="text-muted-foreground">Custo por milha:</span>
+                      <p className="font-semibold">
+                        R$ {(parseFloat(newEntry.amountPaid) / (isTransfer ? effectiveMiles : parseFloat(newEntry.amount) * (activeTab === "milhas" ? 1 : parseFloat(newEntry.conversionRate || "1")))).toFixed(4)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="flex justify-end gap-2 mt-4">
+              <Button variant="outline" onClick={() => { resetForm(); setEditingEntry(null); setIsEditDialogOpen(false); }}>Cancelar</Button>
+              <Button onClick={handleUpdateEntry} className="bg-gradient-primary hover:opacity-90">Salvar Alterações</Button>
+            </div>
+          </FormDrawer>
      </div>
    );
  }
