@@ -141,9 +141,8 @@ export default function Vendas() {
       const saleValue = parseFloat(newSale.saleValue);
       const additionalCost = parseFloat(newSale.additionalCost || "0");
       const costPerMile = selectedProgramStock?.averageCostPerMile || 0;
-      const totalCost = milesUsed * costPerMile;
-      const profit = saleValue - totalCost - additionalCost;
-      const profitMargin = saleValue > 0 ? (profit / saleValue) * 100 : 0;
+      const profit = calcProfit(saleValue, milesUsed, costPerMile, additionalCost);
+      const profitMargin = calcProfitMargin(profit, saleValue);
 
       addSaleM.mutate({ id: crypto.randomUUID(),
         ownerName: newSale.ownerName,

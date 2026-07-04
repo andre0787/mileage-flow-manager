@@ -1,6 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
+import { calcProportionalCost } from "@/lib/metrics";
+import { calcAccountUpdate } from "@/lib/accounts";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
 import type { Database } from "@/lib/supabase-types";
 
@@ -343,15 +345,11 @@ export function useAddEntryMutation() {
       if (entry.sourceAccountId) {
         const { data: source } = await supabase.from("accounts").select("balance, total_invested").eq("id", entry.sourceAccountId).single();
         if (source) {
-          const avgCost = Number(source.balance) > 0 ? Number(source.total_invested ?? 0) / Number(source.balance) : 0;
-          const costToRemove = entry.amount * avgCost;
-          const newBalance = Math.max(0, Number(source.balance) - entry.amount);
-          const newTotalInvested = Math.max(0, Number(source.total_invested ?? 0) - costToRemove);
-          await supabase.from("accounts").update({
-            balance: newBalance,
-            total_invested: newTotalInvested,
-            average_cost_per_mile: newBalance > 0 ? newTotalInvested / newBalance : 0,
-          }).eq("id", entry.sourceAccountId);
+          const srcBalance = Number(source.balance);
+          const srcInvested = Number(source.total_invested ?? 0);
+          const proportionalCost = calcProportionalCost(entry.amount, srcBalance, srcInvested);
+          const update = calcAccountUpdate(srcBalance, srcInvested, -entry.amount, -proportionalCost);
+          await supabase.from("accounts").update(update).eq("id", entry.sourceAccountId);
         }
       }
 
@@ -359,13 +357,8 @@ export function useAddEntryMutation() {
       const { data: dest } = await supabase.from("accounts").select("balance, total_invested").eq("id", entry.accountId).single();
       if (dest) {
         const amountToAdd = entry.milesGenerated ?? entry.amount;
-        const newBalance = Number(dest.balance) + amountToAdd;
-        const newTotalInvested = (Number(dest.total_invested ?? 0)) + entry.amountPaid;
-        await supabase.from("accounts").update({
-          balance: newBalance,
-          total_invested: newTotalInvested,
-          average_cost_per_mile: newBalance > 0 ? newTotalInvested / newBalance : 0,
-        }).eq("id", entry.accountId);
+        const update = calcAccountUpdate(Number(dest.balance), Number(dest.total_invested ?? 0), amountToAdd, entry.amountPaid);
+        await supabase.from("accounts").update(update).eq("id", entry.accountId);
       }
     },
     onSuccess: () => {
@@ -386,28 +379,17 @@ export function useDeleteEntryMutation() {
       const { data: dest } = await supabase.from("accounts").select("balance, total_invested").eq("id", entry.accountId).single();
       if (dest) {
         const amountToRemove = entry.milesGenerated ?? entry.amount;
-        const newBalance = Math.max(0, Number(dest.balance) - amountToRemove);
-        const newTotalInvested = Math.max(0, (Number(dest.total_invested ?? 0)) - entry.amountPaid);
-        await supabase.from("accounts").update({
-          balance: newBalance,
-          total_invested: newTotalInvested,
-          average_cost_per_mile: newBalance > 0 ? newTotalInvested / newBalance : 0,
-        }).eq("id", entry.accountId);
+        const update = calcAccountUpdate(Number(dest.balance), Number(dest.total_invested ?? 0), -amountToRemove, -entry.amountPaid);
+        await supabase.from("accounts").update(update).eq("id", entry.accountId);
       }
 
       // Reverse source account update if transfer
       if (entry.sourceAccountId) {
         const { data: source } = await supabase.from("accounts").select("balance, total_invested").eq("id", entry.sourceAccountId).single();
         if (source) {
-          const avgCostAtTransfer = entry.amount > 0 ? entry.amountPaid / entry.amount : 0;
-          const costToRestore = entry.amount * avgCostAtTransfer;
-          const newBalance = Number(source.balance) + entry.amount;
-          const newTotalInvested = (Number(source.total_invested ?? 0)) + costToRestore;
-          await supabase.from("accounts").update({
-            balance: newBalance,
-            total_invested: newTotalInvested,
-            average_cost_per_mile: newBalance > 0 ? newTotalInvested / newBalance : 0,
-          }).eq("id", entry.sourceAccountId);
+          // costToRestore simplifies to entry.amountPaid (amount * (amountPaid / amount) = amountPaid)
+          const update = calcAccountUpdate(Number(source.balance), Number(source.total_invested ?? 0), entry.amount, entry.amountPaid);
+          await supabase.from("accounts").update(update).eq("id", entry.sourceAccountId);
         }
       }
     },
@@ -435,10 +417,13 @@ export function useAddSaleMutation() {
       if (error) throw error;
 
       // Update account balance (deduct used miles)
+      // Nota: totalInvested é atualizado separadamente em Vendas.tsx handleCreateSale
+      // via updateAccountM.mutate. Pendente de centralizar futuramente.
       if (sale.accountId) {
         const { data: acc } = await supabase.from("accounts").select("balance").eq("id", sale.accountId).single();
         if (acc) {
-          await supabase.from("accounts").update({ balance: Math.max(0, Number(acc.balance) - sale.milesUsed) }).eq("id", sale.accountId);
+          const newBalance = Math.max(0, Number(acc.balance) - sale.milesUsed);
+          await supabase.from("accounts").update({ balance: newBalance }).eq("id", sale.accountId);
         }
       }
     },
@@ -493,12 +478,9 @@ export function useCancelSaleMutation() {
         const { data: acc } = await supabase.from("accounts").select("balance, total_invested").eq("id", sale.account_id).single();
         if (acc) {
           const miles = Number(sale.miles_used);
-          const avgCost = Number(sale.cost_per_mile);
-          const costToRestore = miles * avgCost;
-          await supabase.from("accounts").update({
-            balance: Number(acc.balance) + miles,
-            total_invested: (Number(acc.total_invested ?? 0)) + costToRestore,
-          }).eq("id", sale.account_id);
+          const costToRestore = miles * Number(sale.cost_per_mile);
+          const update = calcAccountUpdate(Number(acc.balance), Number(acc.total_invested ?? 0), miles, costToRestore);
+          await supabase.from("accounts").update(update).eq("id", sale.account_id);
         }
       }
     },
@@ -537,16 +519,11 @@ export function useDeleteSaleMutation() {
           const currentAvgCost = Number(acc.average_cost_per_mile ?? 0);
 
           const investedToRestore = currentAvgCost > 0 && currentBalance > 0
-            ? (currentInvested / currentBalance) * milesToRestore
-            : sale.cost_per_mile * milesToRestore;
+            ? calcProportionalCost(milesToRestore, currentBalance, currentInvested)
+            : Number(sale.cost_per_mile) * milesToRestore;
 
-          await supabase.from("accounts").update({
-            balance: currentBalance + milesToRestore,
-            total_invested: currentInvested + investedToRestore,
-            average_cost_per_mile: (currentBalance + milesToRestore) > 0
-              ? (currentInvested + investedToRestore) / (currentBalance + milesToRestore)
-              : 0,
-          }).eq("id", sale.account_id);
+          const update = calcAccountUpdate(currentBalance, currentInvested, milesToRestore, investedToRestore);
+          await supabase.from("accounts").update(update).eq("id", sale.account_id);
         }
       }
     },

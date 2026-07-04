@@ -13,6 +13,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
+import { calcMilesGenerated, calcCostPerThousand, calcCostPerMile } from "@/lib/metrics";
 import { useAddEntryMutation, useDeleteEntryMutation, useAddOrigemTypeMutation, useDeleteSaleMutation } from "@/hooks/useDatabase";
 import type { Program, OrigemType, PointEntry } from "@/types";
 
@@ -130,11 +131,10 @@ export default function Entradas() {
       const amount = parseFloat(newEntry.amount);
       const amountPaid = parseFloat(newEntry.amountPaid);
       const conversionRate = parseFloat(newEntry.conversionRate || "1");
-      const milesGenerated = isTransfer
-        ? amount * (1 + parseFloat(newEntry.bonusPercent || "0") / 100)
-        : amount * conversionRate;
-      const costPerThousand = (amountPaid / (isTransfer ? milesGenerated : amount)) * 1000;
-      const costPerMile = amountPaid / milesGenerated;
+      const bonusPercent = isTransfer ? parseFloat(newEntry.bonusPercent || "0") : undefined;
+      const milesGenerated = calcMilesGenerated(amount, conversionRate, bonusPercent);
+      const costPerThousand = calcCostPerThousand(amountPaid, isTransfer ? milesGenerated : amount);
+      const costPerMile = calcCostPerMile(amountPaid, milesGenerated);
 
       addEntryM.mutate({ id: crypto.randomUUID(),
         accountId: newEntry.accountId,

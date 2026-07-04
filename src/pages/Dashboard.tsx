@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo } from "react";
 import {
   Wallet,
   TrendingUp,
@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
+import { computeDashboardMetrics } from "@/lib/metrics";
 import type { Account, Sale, PointEntry } from "@/types";
 
 const MAX_CPF_PER_OWNER = 22;
@@ -66,57 +67,6 @@ export default function Dashboard() {
   const currentEntries = activeTab === "milhas" ? milhasEntries : pontosEntries;
   const unitLabel = activeTab === "milhas" ? "Milhas" : "Pontos";
 
-  const computeMetrics = useCallback((accts: Account[], sls: Sale[], entrs: PointEntry[]) => {
-    const activeSales = sls.filter(s => s.status !== "cancelado");
-    const totalMiles = accts.reduce((sum, a) => sum + a.balance, 0);
-    const totalInvested = accts.reduce((sum, a) => sum + (a.totalInvested ?? 0), 0);
-    const activeAccounts = accts.filter(a => a.status === "ativa").length;
-    const pendingSales = activeSales.filter(s => s.status === "pendente").length;
-
-    const now = new Date();
-    const currentMonth = now.getMonth();
-    const currentYear = now.getFullYear();
-    const monthlySales = activeSales.filter(s => {
-      const d = new Date(s.date);
-      return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
-    });
-    const monthlyRevenue = monthlySales.reduce((sum, s) => sum + s.saleValue, 0);
-    const monthlyProfit = monthlySales.reduce((sum, s) => sum + s.profit, 0);
-    const totalSoldMiles = activeSales.reduce((sum, s) => sum + s.milesUsed, 0);
-    const totalRevenue = activeSales.reduce((sum, s) => sum + s.saleValue, 0);
-    const totalProfit = activeSales.reduce((sum, s) => sum + s.profit, 0);
-    const avgProfitMargin = totalRevenue > 0 ? (totalProfit / totalRevenue) * 100 : 0;
-    const avgCostPerMile = totalMiles > 0 ? totalInvested / totalMiles : 0;
-
-    const monthlyEntries = entrs.filter(e => {
-      const d = new Date(e.date);
-      return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
-    });
-    const monthlyMilesIn = monthlyEntries.reduce((sum, e) => sum + e.amount, 0);
-
-    const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-    const prevMonthSales = activeSales.filter(s => {
-      const d = new Date(s.date);
-      return d.getMonth() === lastMonth.getMonth() && d.getFullYear() === lastMonth.getFullYear();
-    });
-    const prevRevenue = prevMonthSales.reduce((sum, s) => sum + s.saleValue, 0);
-    const revenueChange = prevRevenue > 0 ? ((monthlyRevenue - prevRevenue) / prevRevenue) * 100 : 0;
-
-    const cpfAlerts = owners.filter(o => {
-      const ownerAccountIds = accts.filter(a => a.ownerId === o.id).map(a => a.id);
-      const ownerSales = activeSales.filter(s => ownerAccountIds.includes(s.accountId ?? ""));
-      const usedCpfs = new Set(ownerSales.flatMap(s => s.passengers.map(p => p.cpf)));
-      return usedCpfs.size >= MAX_CPF_PER_OWNER - 4;
-    }).length;
-
-    return {
-      totalMiles, totalInvested, monthlyRevenue, monthlyProfit,
-      activeAccounts, pendingSales, cpfAlerts,
-      totalSoldMiles, totalRevenue, totalProfit,
-      avgProfitMargin, avgCostPerMile, monthlyMilesIn, revenueChange,
-    };
-  }, [owners]);
-
   const filteredAccounts = useMemo(
     () => !selectedOwner ? currentAccounts : currentAccounts.filter(a => a.ownerId === selectedOwner),
     [currentAccounts, selectedOwner]
@@ -139,8 +89,8 @@ export default function Dashboard() {
   );
 
   const currentMetrics = useMemo(
-    () => computeMetrics(filteredAccounts, filteredSales, filteredEntries),
-    [computeMetrics, filteredAccounts, filteredSales, filteredEntries]
+    () => computeDashboardMetrics(filteredAccounts, filteredSales, filteredEntries, owners, MAX_CPF_PER_OWNER),
+    [filteredAccounts, filteredSales, filteredEntries, owners]
   );
 
   const filteredMilhasAccounts = useMemo(
@@ -165,8 +115,8 @@ export default function Dashboard() {
   );
 
   const financialMetrics = useMemo(
-    () => computeMetrics(filteredMilhasAccounts, filteredMilhasSales, filteredMilhasEntries),
-    [computeMetrics, filteredMilhasAccounts, filteredMilhasSales, filteredMilhasEntries]
+    () => computeDashboardMetrics(filteredMilhasAccounts, filteredMilhasSales, filteredMilhasEntries, owners, MAX_CPF_PER_OWNER),
+    [filteredMilhasAccounts, filteredMilhasSales, filteredMilhasEntries, owners]
   );
 
   const ownerData = useMemo(() => {

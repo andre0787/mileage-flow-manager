@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useData } from "@/contexts/DataContext";
 import { toast } from "sonner";
+import { calcProfitMargin, calcROI, calcWeightedAverageCost } from "@/lib/metrics";
 
 interface OwnerReport {
   ownerName: string;
@@ -62,8 +63,8 @@ export default function Relatorios() {
       const totalRevenue = ownerSales.reduce((sum, s) => sum + s.saleValue, 0);
       const totalProfit = ownerSales.reduce((sum, s) => sum + s.profit, 0);
 
-      const profitMargin = totalRevenue > 0 ? (totalProfit / totalRevenue) * 100 : 0;
-      const roi = totalAmountInvested > 0 ? (totalProfit / totalAmountInvested) * 100 : 0;
+      const profitMargin = calcProfitMargin(totalProfit, totalRevenue);
+      const roi = calcROI(totalProfit, totalAmountInvested);
 
       return {
         ownerName: owner.name,
@@ -82,9 +83,7 @@ export default function Relatorios() {
     return programs.map(program => {
       const programAccounts = accounts.filter(a => a.programId === program.id);
       const totalStock = programAccounts.reduce((sum, a) => sum + a.balance, 0);
-      const weightedCost = programAccounts.reduce((sum, a) =>
-        sum + (a.averageCostPerMile ?? 0) * a.balance, 0);
-      const averageCostPerMile = totalStock > 0 ? weightedCost / totalStock : 0;
+      const averageCostPerMile = calcWeightedAverageCost(programAccounts);
 
       const programSales = filteredSales.filter(s => s.program === program.name);
       const totalSold = programSales.reduce((sum, s) => sum + s.milesUsed, 0);
@@ -115,12 +114,7 @@ export default function Relatorios() {
     return programReports.filter(r => r.program === selectedProgram);
   }, [programReports, selectedProgram]);
 
-  const periods = [
-    { value: "7", label: "Últimos 7 dias" },
-    { value: "30", label: "Últimos 30 dias" },
-    { value: "90", label: "Últimos 90 dias" },
-    { value: "365", label: "Último ano" }
-  ];
+  const periods = PERIOD_OPTIONS;
 
   const exportReport = (type: "pdf" | "excel") => {
     toast.info(`Exportação em ${type.toUpperCase()} estará disponível em breve`);

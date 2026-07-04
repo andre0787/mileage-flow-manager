@@ -91,3 +91,11 @@ src/
 - Supabase RLS policies por `user_id` (auth.uid())
 - Tokens armazenados em `~/.config/opencode/tokens.json` (gitignored)
 - **Ponytail mode**: não criar abstrações antes de precisar, preferir stdlib/nativo, remover código morto
+
+## Princípios de Código (DRY & Modularidade)
+- **Nunca duplicar regra de negócio**: cálculos de lucro, margem, saldo, custo médio — cada um em ponto único em `src/lib/`
+- **Regras de negócio isoladas do framework**: funções puras em `src/lib/*.ts`, sem React, sem Supabase, sem hooks
+- **Ponto único de alteração**: qualquer mudança em lógica de domínio reflete em 1 arquivo apenas
+- **Business logic em `lib/`, queries/mutations em `hooks/`, UI em `pages/` e `components/`**
+- **Todo mapper snake_case → camelCase** centralizado em `lib/utils.ts` ou no próprio módulo de domínio
+- **Preferir criar módulo novo** a duplicar lógica existente
