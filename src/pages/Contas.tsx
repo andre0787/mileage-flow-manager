@@ -64,7 +64,7 @@ export default function Contas() {
       <div className="flex items-center gap-2">
         <Filter className="h-4 w-4 text-muted-foreground" />
         {(["todas", "pontos", "milhas"] as const).map((t) => (
-          <Button key={t} variant={filterType === t ? "default" : "outline"} size="sm" onClick={() => setFilterType(t)}>
+          <Button key={t} variant={filterType === t ? "default" : "outline"} size="sm" className="min-h-[44px]" onClick={() => setFilterType(t)}>
             {t === "todas" ? "Todas" : t === "pontos" ? "Pontos" : "Milhas"}
           </Button>
         ))}
@@ -120,7 +120,7 @@ export default function Contas() {
               </div>
 
               <div className="flex items-center gap-2 pt-2 border-t">
-                <Button size="sm" variant="outline" onClick={() => toggleAccountStatus(account.id)} className="flex-1">
+                <Button size="sm" variant="outline" onClick={() => toggleAccountStatus(account.id)} className="flex-1 min-h-[44px]">
                   {account.status === "ativa" ? "Desativar" : "Ativar"}
                 </Button>
                 <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => { setEditAccount(account); setIsEditDialogOpen(true); }}>
@@ -144,7 +144,7 @@ export default function Contas() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
             <div className="text-center p-4 rounded-lg bg-muted/30">
               <p className="text-2xl font-bold text-foreground">{accounts.length}</p>
               <p className="text-sm text-muted-foreground">Total de Contas</p>

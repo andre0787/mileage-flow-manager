@@ -465,7 +465,7 @@ export default function Vendas() {
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <Label>Passageiros no Bilhete</Label>
-                  <Button type="button" size="sm" variant="outline" onClick={addPassenger}>
+                  <Button type="button" size="sm" variant="outline" className="min-h-[44px]" onClick={addPassenger}>
                     Adicionar
                   </Button>
                 </div>
@@ -524,7 +524,7 @@ export default function Vendas() {
                       onChange={(e) => updatePassenger(index, 'cpf', e.target.value)}
                     />
                     {newSale.passengers.length > 1 && (
-                      <Button type="button" size="sm" variant="outline" onClick={() => removePassenger(index)}>
+                      <Button type="button" size="sm" variant="outline" className="min-h-[44px] min-w-[44px]" onClick={() => removePassenger(index)}>
                         ×
                       </Button>
                     )}

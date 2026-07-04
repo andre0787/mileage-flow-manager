@@ -244,25 +244,25 @@ export default function Configuracoes() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Nome</TableHead>
-                    <TableHead>CPF</TableHead>
-                    <TableHead>Telefone</TableHead>
-                    <TableHead>Contas</TableHead>
-                    <TableHead className="text-right">Ações</TableHead>
+                    <TableHead className="hidden md:table-cell">Nome</TableHead>
+                    <TableHead className="hidden md:table-cell">CPF</TableHead>
+                    <TableHead className="hidden md:table-cell">Telefone</TableHead>
+                    <TableHead className="hidden md:table-cell">Contas</TableHead>
+                    <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {owners.map((owner) => (
                     <TableRow key={owner.id}>
-                      <TableCell className="font-medium">{owner.name}</TableCell>
-                      <TableCell className="font-mono">{owner.cpf}</TableCell>
-                      <TableCell>{owner.phone}</TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell font-medium">{owner.name}</TableCell>
+                      <TableCell className="hidden md:table-cell font-mono">{owner.cpf}</TableCell>
+                      <TableCell className="hidden md:table-cell">{owner.phone}</TableCell>
+                      <TableCell className="hidden md:table-cell">
                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
                           {accounts.filter(a => a.ownerId === owner.id).length}
                         </span>
                       </TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="hidden md:table-cell text-right">
                         <div className="flex justify-end gap-2">
                           <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => handleEditOwner(owner)}>
                             <Edit className="h-4 w-4" />
@@ -276,6 +276,37 @@ export default function Configuracoes() {
                   ))}
                 </TableBody>
               </Table>
+              </div>
+              {/* Mobile card list - Donos */}
+              <div className="md:hidden space-y-3 mt-4">
+                {owners.map((owner) => (
+                  <div key={owner.id} className="border rounded-lg p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <p className="font-semibold text-base truncate">{owner.name}</p>
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary shrink-0 ml-2">
+                        {accounts.filter(a => a.ownerId === owner.id).length} conta(s)
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <span className="text-muted-foreground text-xs">CPF</span>
+                        <p className="font-mono truncate">{owner.cpf || "—"}</p>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground text-xs">Telefone</span>
+                        <p className="truncate">{owner.phone || "—"}</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2 pt-1 border-t">
+                      <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px]" onClick={() => handleEditOwner(owner)}>
+                        <Edit className="h-4 w-4" /> Editar
+                      </Button>
+                      <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive" onClick={() => deleteOwnerM.mutate(owner.id)}>
+                        <Trash2 className="h-4 w-4" /> Excluir
+                      </Button>
+                    </div>
+                  </div>
+                ))}
               </div>
               {owners.length === 0 && (
                 <div className="text-center py-8">
@@ -393,27 +424,27 @@ export default function Configuracoes() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Programa</TableHead>
-                    <TableHead>Tipo</TableHead>
-                    <TableHead>Controle</TableHead>
-                    <TableHead className="text-right">Ações</TableHead>
+                    <TableHead className="hidden md:table-cell">Programa</TableHead>
+                    <TableHead className="hidden md:table-cell">Tipo</TableHead>
+                    <TableHead className="hidden md:table-cell">Controle</TableHead>
+                    <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {programs.map((program) => (
                     <TableRow key={program.id}>
-                      <TableCell className="font-medium">
+                      <TableCell className="hidden md:table-cell font-medium">
                         <div className="flex items-center gap-2">
                           <Building2 className="h-4 w-4 text-primary" />
                           {program.name}
                         </div>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell">
                         <Badge variant={program.type === "pontos" ? "secondary" : "default"}>
                           {program.type === "pontos" ? "Pontos" : "Milhas"}
                         </Badge>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell">
                         {program.passengerCycleType ? (
                           <Badge variant="outline">
                             {program.passengerCycleType === "anual"
@@ -424,7 +455,7 @@ export default function Configuracoes() {
                           <span className="text-muted-foreground text-sm">—</span>
                         )}
                       </TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="hidden md:table-cell text-right">
                         <div className="flex justify-end gap-2">
                           <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => handleEditProgram(program)}>
                             <Edit className="h-4 w-4" />
@@ -438,6 +469,41 @@ export default function Configuracoes() {
                   ))}
                 </TableBody>
               </Table>
+              </div>
+              {/* Mobile card list - Programas */}
+              <div className="md:hidden space-y-3 mt-4">
+                {programs.map((program) => (
+                  <div key={program.id} className="border rounded-lg p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <p className="font-semibold text-base truncate">{program.name}</p>
+                      <Badge variant={program.type === "pontos" ? "secondary" : "default"} className="shrink-0 ml-2">
+                        {program.type === "pontos" ? "Pontos" : "Milhas"}
+                      </Badge>
+                    </div>
+                    <div className="grid grid-cols-1 gap-2 text-sm">
+                      <div>
+                        <span className="text-muted-foreground text-xs">Controle</span>
+                        <p className="truncate">
+                          {program.passengerCycleType ? (
+                            program.passengerCycleType === "anual"
+                              ? `Anual — ${program.maxPassengers ?? "?"} pax/ano`
+                              : `${program.maxPassengers ?? "?"} pax/${program.passengerCycleDays ?? "?"}d`
+                          ) : (
+                            "—"
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2 pt-1 border-t">
+                      <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px]" onClick={() => handleEditProgram(program)}>
+                        <Edit className="h-4 w-4" /> Editar
+                      </Button>
+                      <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive" onClick={() => deleteProgramM.mutate(program.id)}>
+                        <Trash2 className="h-4 w-4" /> Excluir
+                      </Button>
+                    </div>
+                  </div>
+                ))}
               </div>
               {programs.length === 0 && (
                 <div className="text-center py-8">
@@ -505,22 +571,22 @@ export default function Configuracoes() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Nome</TableHead>
-                    <TableHead>Cor</TableHead>
-                    <TableHead className="text-right">Ações</TableHead>
+                    <TableHead className="hidden md:table-cell">Nome</TableHead>
+                    <TableHead className="hidden md:table-cell">Cor</TableHead>
+                    <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {milhasTypes.map((ot) => (
                     <TableRow key={ot.id}>
-                      <TableCell className="font-medium">{ot.name}</TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell font-medium">{ot.name}</TableCell>
+                      <TableCell className="hidden md:table-cell">
                         <div className="flex items-center gap-2">
                           <div className="w-4 h-4 rounded-full border" style={{ backgroundColor: ot.color }} />
                           <span className="text-xs font-mono">{ot.color}</span>
                         </div>
                       </TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="hidden md:table-cell text-right">
                         <div className="flex justify-end gap-2">
                           <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => { setNewOrigemType({ name: ot.name, accountType: "milhas", color: ot.color }); setEditingOrigemType(ot); setIsOrigemTypeDialogOpen(true); }}>
                             <Edit className="h-4 w-4" />
@@ -534,6 +600,28 @@ export default function Configuracoes() {
                   ))}
                 </TableBody>
               </Table>
+              </div>
+              {/* Mobile card list - Tipo de Operação */}
+              <div className="md:hidden space-y-3 mt-4">
+                {milhasTypes.map((ot) => (
+                  <div key={ot.id} className="border rounded-lg p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <p className="font-semibold text-base truncate">{ot.name}</p>
+                      <div className="flex items-center gap-2 shrink-0 ml-2">
+                        <div className="w-4 h-4 rounded-full border" style={{ backgroundColor: ot.color }} />
+                        <span className="text-xs font-mono text-muted-foreground">{ot.color}</span>
+                      </div>
+                    </div>
+                    <div className="flex gap-2 pt-1 border-t">
+                      <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px]" onClick={() => { setNewOrigemType({ name: ot.name, accountType: "milhas", color: ot.color }); setEditingOrigemType(ot); setIsOrigemTypeDialogOpen(true); }}>
+                        <Edit className="h-4 w-4" /> Editar
+                      </Button>
+                      <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive" onClick={() => deleteOrigemTypeM.mutate(ot.id)}>
+                        <Trash2 className="h-4 w-4" /> Excluir
+                      </Button>
+                    </div>
+                  </div>
+                ))}
               </div>
               {milhasTypes.length === 0 && (
                 <div className="text-center py-8">

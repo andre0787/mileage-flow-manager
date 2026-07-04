@@ -406,7 +406,7 @@ export default function Dashboard() {
           </section>
 
           {/* METRIC CARDS */}
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 animate-appear animate-delay-200">
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 animate-appear animate-delay-200">
             <MetricCard title="Total Investido" value={financialMetrics.totalInvested} subtitle="Capital aplicado" icon={Wallet} variant="gold" prefix="R$" trend={{ value: Math.round(financialMetrics.revenueChange), isPositive: financialMetrics.revenueChange >= 0 }} />
             <MetricCard title="Faturamento Mensal" value={financialMetrics.monthlyRevenue} subtitle="Receita do mês" icon={DollarSign} variant="success" prefix="R$" />
             <MetricCard title="Lucro Mensal" value={financialMetrics.monthlyProfit} subtitle="Ganho líquido" icon={TrendingUp} variant="teal" prefix="R$" />
@@ -424,7 +424,7 @@ export default function Dashboard() {
           </div>
 
           {/* SECONDARY METRICS */}
-          <div className="grid gap-4 md:grid-cols-3 animate-appear animate-delay-800">
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 animate-appear animate-delay-800">
             <MetricCard title="Contas Ativas" value={currentMetrics.activeAccounts} subtitle="Contas operacionais" icon={CreditCard} variant="teal" />
             <MetricCard title="Vendas Pendentes" value={currentMetrics.pendingSales} subtitle="Aguardando processamento" icon={Target} variant="default" />
             <MetricCard title="Alertas CPF" value={currentMetrics.cpfAlerts} subtitle="Próximo ao limite" icon={AlertTriangle} variant="warning" />
