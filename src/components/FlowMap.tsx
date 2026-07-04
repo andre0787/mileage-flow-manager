@@ -85,7 +85,7 @@ export function FlowMap({
           </div>
 
           {/* Flow indicator */}
-          <div className="ml-auto hidden sm:flex items-center gap-2 text-[10px] text-muted-foreground font-mono tracking-wide">
+          <div className="ml-auto hidden sm:flex items-center gap-2 text-xs text-muted-foreground tracking-wide">
             <span className="w-1.5 h-1.5 rounded-full bg-success" />
             FLUXO ATIVO
           </div>
@@ -108,8 +108,8 @@ export function FlowMap({
                   <node.icon className="w-5 h-5" />
                 </div>
                 <div className="space-y-0.5">
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">{node.label}</p>
-                  <p className={cn("font-mono text-base font-bold", node.color)}>{node.value}</p>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium">{node.label}</p>
+                  <p className={cn("text-base font-bold", node.color)}>{node.value}</p>
                 </div>
               </div>
 
@@ -139,8 +139,8 @@ export function FlowMap({
                   <node.icon className="w-4 h-4" />
                 </div>
                 <div className="space-y-0.5">
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">{node.label}</p>
-                  <p className={cn("font-mono text-sm font-bold", node.color)}>{node.value}</p>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium">{node.label}</p>
+                  <p className={cn("text-sm font-bold", node.color)}>{node.value}</p>
                 </div>
               </div>
 

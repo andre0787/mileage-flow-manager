@@ -64,7 +64,7 @@ export default function ControleCPF() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-3xl font-bold text-foreground">Controle de Clientes por Programa</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Controle de Clientes por Programa</h1>
           <p className="text-sm text-muted-foreground">
             Monitore a disponibilidade de clientes por ciclo, programa e dono
           </p>

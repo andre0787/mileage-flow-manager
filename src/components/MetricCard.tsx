@@ -77,7 +77,7 @@ export function MetricCard({
           </div>
         </div>
 
-        <div className="font-mono text-2xl font-bold text-foreground tracking-tight">
+        <div className="text-2xl font-bold text-foreground tracking-tight">
           {prefix && <span className="text-muted-foreground text-lg mr-0.5">{prefix}</span>}
           {numericValue !== undefined ? (
             <AnimatedNumber value={numericValue} />
@@ -95,7 +95,7 @@ export function MetricCard({
         {trend && (
           <div className="flex items-center gap-1.5 mt-3">
             <span className={cn(
-              "text-xs font-semibold px-1.5 py-0.5 rounded-md font-mono",
+              "text-xs font-semibold px-1.5 py-0.5 rounded-md",
               trend.isPositive
                 ? "text-success bg-success/10"
                 : "text-destructive bg-destructive/10"

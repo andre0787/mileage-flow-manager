@@ -60,7 +60,7 @@ export function AppSidebar() {
               {!collapsed && (
                 <div>
                   <h2 className="text-base font-bold text-foreground font-display">MilesControl</h2>
-                  <p className="text-[10px] text-muted-foreground font-medium tracking-wide">Gestão de Milhas</p>
+                  <p className="text-xs text-muted-foreground font-medium tracking-wide">Gestão de Milhas</p>
                 </div>
               )}
             </div>
@@ -69,7 +69,7 @@ export function AppSidebar() {
           {/* Navigation Menu */}
           <SidebarGroup>
             <SidebarGroupLabel className={cn(
-              "text-[10px] font-semibold text-muted-foreground tracking-wider uppercase",
+              "text-xs font-semibold text-muted-foreground tracking-wider uppercase",
               collapsed && "sr-only"
             )}>
               Navegação

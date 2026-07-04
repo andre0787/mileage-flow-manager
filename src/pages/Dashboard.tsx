@@ -302,7 +302,7 @@ export default function Dashboard() {
             <div className="absolute inset-0 bg-gradient-hero bg-[length:200%_200%] animate-gradient-shift" />
             <div className="absolute inset-0 hero-glow" />
             <div className="absolute inset-0 bg-grid-subtle [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_70%)]" />
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="hidden sm:block absolute inset-0 overflow-hidden pointer-events-none">
               <div className="absolute w-2 h-2 rounded-full bg-primary/30 top-[15%] left-[10%] animate-drift" />
               <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/40 top-[25%] right-[20%] animate-drift-slow" style={{ animationDelay: "-2s" }} />
               <div className="absolute w-1 h-1 rounded-full bg-teal/30 top-[60%] left-[30%] animate-drift" style={{ animationDelay: "-3s" }} />
@@ -310,90 +310,90 @@ export default function Dashboard() {
               <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/25 top-[70%] right-[40%] animate-drift" style={{ animationDelay: "-4s" }} />
               <div className="absolute w-1 h-1 rounded-full bg-white/20 top-[40%] left-[60%] animate-drift-slow" style={{ animationDelay: "-5s" }} />
             </div>
-            <div className="absolute top-0 right-1/4 w-72 h-72 bg-primary/[0.06] rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-gold/[0.05] rounded-full blur-3xl" />
-            <div className="absolute right-6 bottom-4 text-foreground/[0.025] pointer-events-none select-none">
+            <div className="hidden sm:block absolute top-0 right-1/4 w-72 h-72 bg-primary/[0.06] rounded-full blur-3xl" />
+            <div className="hidden sm:block absolute bottom-0 left-1/3 w-96 h-96 bg-gold/[0.05] rounded-full blur-3xl" />
+            <div className="hidden sm:block absolute right-6 bottom-4 text-foreground/[0.025] pointer-events-none select-none">
               <Plane className="w-32 h-32 md:w-48 md:h-48" />
             </div>
 
-            <div className="relative p-6 md:p-8">
-              <div className="flex items-center gap-2.5 mb-5">
+            <div className="relative p-4 md:p-8">
+              <div className="flex items-center gap-2 mb-4 sm:mb-5">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inset-0 rounded-full bg-success animate-ping opacity-50" />
                   <span className="relative rounded-full bg-success h-2 w-2" />
                 </span>
-                <span className="text-[10px] font-mono tracking-[0.2em] text-muted-foreground uppercase font-medium">
+                <span className="text-xs tracking-wider text-muted-foreground uppercase font-medium">
                   {selectedOwner ? owners.find(o => o.id === selectedOwner)?.name ?? "Sistema" : "Sistema Operacional"}
                 </span>
                 <span className="h-3 w-px bg-border" />
-                <span className="text-[10px] font-mono text-muted-foreground">
+                <span className="text-xs text-muted-foreground">
                   {new Date().toLocaleDateString("pt-BR")}
                 </span>
               </div>
 
               <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
                 <div className="flex-1">
-                  <div className="flex items-baseline gap-3">
-                    <h1 className="font-mono text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground tracking-tight leading-none">
+                  <div className="flex items-baseline gap-2 sm:gap-3">
+                    <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-none">
                       <AnimatedNumber value={currentMetrics.totalMiles} />
                     </h1>
-                    <span className="text-sm font-medium text-muted-foreground tracking-wider uppercase font-display hidden sm:inline">
+                    <span className="text-xs sm:text-sm font-medium text-muted-foreground tracking-wider uppercase font-display">
                       milhas
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4 mt-6">
-                    <div className="px-3 py-2.5 rounded-xl bg-background/60 border border-border/60">
-                      <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-0.5">
-                        <ArrowUpRight className="w-3 h-3 text-success" />
-                        Entradas no mês
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 md:gap-4 mt-4 sm:mt-6">
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <ArrowUpRight className="w-3 h-3 text-success shrink-0" />
+                        <span className="truncate">Entradas no mês</span>
                       </div>
-                      <p className="font-mono text-sm font-bold text-success">
+                      <p className="text-xs sm:text-sm font-bold text-success">
                         +<AnimatedNumber value={currentMetrics.monthlyMilesIn} />
                       </p>
                     </div>
-                    <div className="px-3 py-2.5 rounded-xl bg-background/60 border border-border/60">
-                      <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-0.5">
-                        <ArrowDownRight className="w-3 h-3 text-gold" />
-                        Milhas vendidas
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <ArrowDownRight className="w-3 h-3 text-gold shrink-0" />
+                        <span className="truncate">Milhas vendidas</span>
                       </div>
-                      <p className="font-mono text-sm font-bold text-gold">
+                      <p className="text-xs sm:text-sm font-bold text-gold">
                         <AnimatedNumber value={currentMetrics.totalSoldMiles} />
                       </p>
                     </div>
-                    <div className="px-3 py-2.5 rounded-xl bg-background/60 border border-border/60">
-                      <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-0.5">
-                        <DollarSign className="w-3 h-3 text-teal" />
-                        Custo médio/milha
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <DollarSign className="w-3 h-3 text-teal shrink-0" />
+                        <span className="truncate">Custo médio/milha</span>
                       </div>
-                      <p className="font-mono text-sm font-bold text-teal">
+                      <p className="text-xs sm:text-sm font-bold text-teal">
                         R$ {currentMetrics.avgCostPerMile.toFixed(3)}
                       </p>
                     </div>
-                    <div className="px-3 py-2.5 rounded-xl bg-background/60 border border-border/60">
-                      <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-0.5">
-                        <TrendingUp className="w-3 h-3 text-primary" />
-                        Contas ativas
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <TrendingUp className="w-3 h-3 text-primary shrink-0" />
+                        <span className="truncate">Contas ativas</span>
                       </div>
-                      <p className="font-mono text-sm font-bold text-primary">
+                      <p className="text-xs sm:text-sm font-bold text-primary">
                         {currentMetrics.activeAccounts}
                       </p>
                     </div>
-                    <div className="px-3 py-2.5 rounded-xl bg-background/60 border border-primary/20">
-                      <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-0.5">
-                        <Target className="w-3 h-3 text-success" />
-                        Margem Média
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-primary/20">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <Target className="w-3 h-3 text-success shrink-0" />
+                        <span className="truncate">Margem Média</span>
                       </div>
-                      <p className="font-mono text-sm font-bold text-success">
+                      <p className="text-xs sm:text-sm font-bold text-success">
                         {financialMetrics.avgProfitMargin.toFixed(1)}%
                       </p>
                     </div>
-                    <div className="px-3 py-2.5 rounded-xl bg-background/60 border border-gold/20">
-                      <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-0.5">
-                        <DollarSign className="w-3 h-3 text-gold" />
-                        Receita Total
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-gold/20">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <DollarSign className="w-3 h-3 text-gold shrink-0" />
+                        <span className="truncate">Receita Total</span>
                       </div>
-                      <p className="font-mono text-sm font-bold text-gold">
+                      <p className="text-xs sm:text-sm font-bold text-gold">
                         R$ <AnimatedNumber value={financialMetrics.totalRevenue} />
                       </p>
                     </div>
@@ -449,14 +449,14 @@ export default function Dashboard() {
                         <div key={owner.owner} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">
                           <div className="space-y-0.5">
                             <h3 className="font-semibold text-sm text-foreground font-display">{owner.owner}</h3>
-                            <p className="text-xs text-muted-foreground font-body">{owner.programs.join(", ")} • <span className="font-mono">{owner.totalMiles.toLocaleString("pt-BR")} milhas</span></p>
+                            <p className="text-xs text-muted-foreground font-body">{owner.programs.join(", ")} • <span className="font-semibold">{owner.totalMiles.toLocaleString("pt-BR")} milhas</span></p>
                           </div>
                           <div className="text-right space-y-0.5">
-                            <p className="font-mono text-sm font-semibold text-foreground">R$ {owner.totalInvested.toLocaleString("pt-BR")}</p>
-                            <p className="text-[10px] text-muted-foreground font-mono">R$ {owner.avgCost.toFixed(4)}/milha</p>
+                            <p className="text-sm font-semibold text-foreground">R$ {owner.totalInvested.toLocaleString("pt-BR")}</p>
+                            <p className="text-xs text-muted-foreground">R$ {owner.avgCost.toFixed(4)}/milha</p>
                             <div className="flex items-center gap-2 justify-end">
-                              <span className="text-[10px] text-muted-foreground font-mono">CPFs: {owner.cpfCount}/{owner.maxCpf}</span>
-                              <Badge variant={owner.cpfCount >= 20 ? "destructive" : owner.cpfCount >= 18 ? "secondary" : "outline"} className="text-[10px] px-1.5 py-0">{owner.cpfCount >= 20 ? "Crítico" : owner.cpfCount >= 18 ? "Atenção" : "OK"}</Badge>
+                              <span className="text-xs text-muted-foreground">CPFs: {owner.cpfCount}/{owner.maxCpf}</span>
+                              <Badge variant={owner.cpfCount >= 20 ? "destructive" : owner.cpfCount >= 18 ? "secondary" : "outline"} className="text-xs px-1.5 py-0">{owner.cpfCount >= 20 ? "Crítico" : owner.cpfCount >= 18 ? "Atenção" : "OK"}</Badge>
                             </div>
                           </div>
                         </div>
@@ -483,11 +483,11 @@ export default function Dashboard() {
                       <div key={sale.id} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">
                         <div className="space-y-0.5 min-w-0">
                           <h4 className="font-semibold text-sm text-foreground font-display truncate">{sale.client}</h4>
-                          <p className="text-xs text-muted-foreground font-body truncate">{sale.owner} • {sale.program} • <span className="font-mono">{sale.miles.toLocaleString("pt-BR")} milhas</span></p>
+                          <p className="text-xs text-muted-foreground font-body truncate">{sale.owner} • {sale.program} • <span className="font-semibold">{sale.miles.toLocaleString("pt-BR")} milhas</span></p>
                         </div>
                         <div className="text-right space-y-0.5 shrink-0 ml-3">
-                          <p className="font-mono text-sm font-semibold text-foreground">R$ {sale.value.toLocaleString("pt-BR")}</p>
-                          <Badge variant={sale.statusColor} className="text-[10px] px-1.5 py-0">{sale.status}</Badge>
+                          <p className="text-sm font-semibold text-foreground">R$ {sale.value.toLocaleString("pt-BR")}</p>
+                          <Badge variant={sale.statusColor} className="text-xs px-1.5 py-0">{sale.status}</Badge>
                         </div>
                       </div>
                     ))
@@ -507,7 +507,7 @@ export default function Dashboard() {
             <div className="absolute inset-0 bg-gradient-hero bg-[length:200%_200%] animate-gradient-shift" />
             <div className="absolute inset-0 hero-glow" />
             <div className="absolute inset-0 bg-grid-subtle [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_70%)]" />
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="hidden sm:block absolute inset-0 overflow-hidden pointer-events-none">
               <div className="absolute w-2 h-2 rounded-full bg-primary/30 top-[15%] left-[10%] animate-drift" />
               <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/40 top-[25%] right-[20%] animate-drift-slow" style={{ animationDelay: "-2s" }} />
               <div className="absolute w-1 h-1 rounded-full bg-teal/30 top-[60%] left-[30%] animate-drift" style={{ animationDelay: "-3s" }} />
@@ -515,63 +515,63 @@ export default function Dashboard() {
               <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/25 top-[70%] right-[40%] animate-drift" style={{ animationDelay: "-4s" }} />
               <div className="absolute w-1 h-1 rounded-full bg-white/20 top-[40%] left-[60%] animate-drift-slow" style={{ animationDelay: "-5s" }} />
             </div>
-            <div className="absolute top-0 right-1/4 w-72 h-72 bg-primary/[0.06] rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-gold/[0.05] rounded-full blur-3xl" />
-            <div className="absolute right-6 bottom-4 text-foreground/[0.025] pointer-events-none select-none">
+            <div className="hidden sm:block absolute top-0 right-1/4 w-72 h-72 bg-primary/[0.06] rounded-full blur-3xl" />
+            <div className="hidden sm:block absolute bottom-0 left-1/3 w-96 h-96 bg-gold/[0.05] rounded-full blur-3xl" />
+            <div className="hidden sm:block absolute right-6 bottom-4 text-foreground/[0.025] pointer-events-none select-none">
               <Plane className="w-32 h-32 md:w-48 md:h-48" />
             </div>
 
-            <div className="relative p-6 md:p-8">
-              <div className="flex items-center gap-2.5 mb-5">
+            <div className="relative p-4 md:p-8">
+              <div className="flex items-center gap-2 mb-4 sm:mb-5">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inset-0 rounded-full bg-success animate-ping opacity-50" />
                   <span className="relative rounded-full bg-success h-2 w-2" />
                 </span>
-                <span className="text-[10px] font-mono tracking-[0.2em] text-muted-foreground uppercase font-medium">
+                <span className="text-xs tracking-wider text-muted-foreground uppercase font-medium">
                   {selectedOwner ? owners.find(o => o.id === selectedOwner)?.name ?? "Sistema" : "Investimento em Pontos"}
                 </span>
                 <span className="h-3 w-px bg-border" />
-                <span className="text-[10px] font-mono text-muted-foreground">
+                <span className="text-xs text-muted-foreground">
                   {new Date().toLocaleDateString("pt-BR")}
                 </span>
               </div>
 
               <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
                 <div className="flex-1">
-                  <div className="flex items-baseline gap-3">
-                    <h1 className="font-mono text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground tracking-tight leading-none">
+                  <div className="flex items-baseline gap-2 sm:gap-3">
+                    <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-none">
                       <AnimatedNumber value={currentMetrics.totalMiles} />
                     </h1>
-                    <span className="text-sm font-medium text-muted-foreground tracking-wider uppercase font-display hidden sm:inline">
+                    <span className="text-xs sm:text-sm font-medium text-muted-foreground tracking-wider uppercase font-display">
                       pontos
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4 mt-6">
-                    <div className="px-3 py-2.5 rounded-xl bg-background/60 border border-border/60">
-                      <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-0.5">
-                        <Wallet className="w-3 h-3 text-teal" />
-                        Total Investido
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 md:gap-4 mt-4 sm:mt-6">
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <Wallet className="w-3 h-3 text-teal shrink-0" />
+                        <span className="truncate">Total Investido</span>
                       </div>
-                      <p className="font-mono text-sm font-bold text-teal">
+                      <p className="text-xs sm:text-sm font-bold text-teal">
                         R$ <AnimatedNumber value={currentMetrics.totalInvested} />
                       </p>
                     </div>
-                    <div className="px-3 py-2.5 rounded-xl bg-background/60 border border-border/60">
-                      <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-0.5">
-                        <DollarSign className="w-3 h-3 text-teal" />
-                        Custo médio/ponto
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <DollarSign className="w-3 h-3 text-teal shrink-0" />
+                        <span className="truncate">Custo médio/ponto</span>
                       </div>
-                      <p className="font-mono text-sm font-bold text-teal">
+                      <p className="text-xs sm:text-sm font-bold text-teal">
                         R$ {currentMetrics.avgCostPerMile.toFixed(3)}
                       </p>
                     </div>
-                    <div className="px-3 py-2.5 rounded-xl bg-background/60 border border-border/60">
-                      <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-0.5">
-                        <TrendingUp className="w-3 h-3 text-primary" />
-                        Contas ativas
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <TrendingUp className="w-3 h-3 text-primary shrink-0" />
+                        <span className="truncate">Contas ativas</span>
                       </div>
-                      <p className="font-mono text-sm font-bold text-primary">
+                      <p className="text-xs sm:text-sm font-bold text-primary">
                         {currentMetrics.activeAccounts}
                       </p>
                     </div>
@@ -612,11 +612,11 @@ export default function Dashboard() {
                         <div key={owner.owner} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">
                           <div className="space-y-0.5">
                             <h3 className="font-semibold text-sm text-foreground font-display">{owner.owner}</h3>
-                            <p className="text-xs text-muted-foreground font-body">{owner.programs.join(", ")} • <span className="font-mono">{owner.totalMiles.toLocaleString("pt-BR")} pontos</span></p>
+                            <p className="text-xs text-muted-foreground font-body">{owner.programs.join(", ")} • <span className="font-semibold">{owner.totalMiles.toLocaleString("pt-BR")} pontos</span></p>
                           </div>
                           <div className="text-right space-y-0.5">
-                            <p className="font-mono text-sm font-semibold text-foreground">R$ {owner.totalInvested.toLocaleString("pt-BR")}</p>
-                            <p className="text-[10px] text-muted-foreground font-mono">R$ {owner.avgCost.toFixed(4)}/ponto</p>
+                            <p className="text-sm font-semibold text-foreground">R$ {owner.totalInvested.toLocaleString("pt-BR")}</p>
+                            <p className="text-xs text-muted-foreground">R$ {owner.avgCost.toFixed(4)}/ponto</p>
                           </div>
                         </div>
                       ))
@@ -645,8 +645,8 @@ export default function Dashboard() {
                           <p className="text-xs text-muted-foreground font-body">{new Date(t.date).toLocaleDateString("pt-BR")} • {t.destAccountName} {t.bonusPercent ? `• +${t.bonusPercent}% bônus` : ""}</p>
                         </div>
                         <div className="text-right space-y-0.5 shrink-0 ml-3">
-                          <p className="font-mono text-sm font-semibold text-foreground">{t.pointsDebited.toLocaleString("pt-BR")} pts</p>
-                          <p className="text-[10px] text-success font-mono">→ {t.milesReceived.toLocaleString("pt-BR")} milhas</p>
+                          <p className="text-sm font-semibold text-foreground">{t.pointsDebited.toLocaleString("pt-BR")} pts</p>
+                          <p className="text-xs text-success">→ {t.milesReceived.toLocaleString("pt-BR")} milhas</p>
                         </div>
                       </div>
                     ))

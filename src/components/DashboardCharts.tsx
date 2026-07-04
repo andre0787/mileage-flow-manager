@@ -70,7 +70,7 @@ export function DashboardCharts({ programData, monthlySales, unitLabel = "Milhas
                   <div className="h-3 w-3 rounded-full" style={{ backgroundColor: COLORS[index % COLORS.length] }} />
                   <span className="text-muted-foreground font-body">{entry.name}</span>
                 </div>
-                <span className="font-mono text-sm font-medium">{entry.value.toLocaleString('pt-BR')}</span>
+                <span className="text-sm font-medium">{entry.value.toLocaleString('pt-BR')}</span>
               </div>
             ))}
           </div>

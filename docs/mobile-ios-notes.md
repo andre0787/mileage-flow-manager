@@ -18,9 +18,28 @@
 - **Overflow de texto em cards** — `truncate` em nomes de cliente no card mobile
 - **Selects com `w-full` em mobile** — ControleCPF: `w-48` → `w-full sm:w-48`
 
+## Finalizado
+
+### Alinhamento com Entradas (página de referência)
+- ✅ Fontes: `text-[10px]` e `text-[11px]` removidos em todo o app → `text-xs`
+- ✅ `font-mono` removido de valores métricos (mantido apenas para CPF, cores hex, códigos)
+- ✅ Sem `tracking-[0.2em]` ou classes arbitrárias de font/tracking
+- ✅ Headers: `flex-col sm:flex-row` em todas as páginas
+- ✅ Títulos: `text-2xl sm:text-3xl font-bold` em todas as páginas
+- ✅ Cards summary: label `text-sm font-medium text-muted-foreground`, valor `text-2xl font-bold`
+- ✅ Tabelas com `overflow-x-auto` e `max-sm:text-sm`
+- ✅ Cards mobile com `md:hidden space-y-3 mt-4`
+- ✅ Touch targets: `min-h-[44px] min-w-[44px]` em todos botões de ação
+- ✅ `overflow-x: hidden` no body
+- ✅ BottomTabBar: `text-xs` com `truncate`
+- ✅ Dashboard hero responsivo (Milhas + Pontos): decorações escondidas no mobile, padding reduzido, labels visíveis
+- ✅ Safe areas: DrawerContent, DialogContent, FormDrawer
+- ✅ Sticky hover Safari: `ontouchstart=""` no `<body>`
+- ✅ Scroll margin inputs: `scroll-margin-bottom: 40dvh`
+- ✅ Selects `w-full sm:w-48` em ControleCPF
+- ✅ Build: sem erros, zero `text-[10px]`/`text-[11px]` no `src/`
+
 ## Para revisar depois no iPhone real
 - status do teclado em formulários longos (Drawer/Sheet)
 - qualquer corte em textos muito longos de cards restantes
-- possíveis `text-xs`/`text-[10px]` que ainda fiquem apertados
-- comportamento das novas safe areas nos dialogs/drawers
 - scroll suave das tabelas com overflow-x

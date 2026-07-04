@@ -48,7 +48,7 @@ export function BottomTabBar() {
               isActive && "scale-110"
             )} />
             <span className={cn(
-              "text-[11px] font-medium leading-tight font-display",
+              "text-xs font-medium leading-tight font-display",
               isActive && "font-semibold"
             )}>
               {tab.title}

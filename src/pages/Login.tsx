@@ -164,7 +164,7 @@ export default function Login() {
           </CardContent>
         </Card>
 
-        <p className="text-center text-[10px] text-muted-foreground mt-6 font-body">
+        <p className="text-center text-xs text-muted-foreground mt-6 font-body">
           Gerencie suas milhas com inteligência e praticidade
         </p>
       </div>
