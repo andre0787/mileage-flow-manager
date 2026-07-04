@@ -117,15 +117,15 @@ export default function Clientes() {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Clientes</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Clientes</h1>
+          <p className="text-sm text-muted-foreground">
             Gerencie seus clientes e acompanhe o histórico de utilização
           </p>
         </div>
         
-        <Button className="gap-2 bg-gradient-primary hover:opacity-90" onClick={() => setIsCreateDialogOpen(true)}>
+        <Button className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto" onClick={() => setIsCreateDialogOpen(true)}>
           <Plus className="h-4 w-4" />
           Novo Cliente
         </Button>
@@ -287,7 +287,7 @@ export default function Clientes() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
         <Card className="shadow-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Total de Clientes</CardTitle>

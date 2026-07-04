@@ -199,15 +199,15 @@ export default function Entradas() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Entradas</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Entradas</h1>
+          <p className="text-sm text-muted-foreground">
             Gerencie aquisição de pontos e milhas
           </p>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 w-full sm:w-auto">
           <Button onClick={handleOpenTransfer} className="gap-2 bg-gradient-primary hover:opacity-90">
             <ArrowLeftRight className="h-4 w-4" />
             Transferir
@@ -456,7 +456,7 @@ export default function Entradas() {
         </TabsList>
 
         <TabsContent value="pontos" className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
             <Card className="shadow-card">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">Total de Pontos</CardTitle>
@@ -583,7 +583,7 @@ export default function Entradas() {
          </TabsContent>
 
          <TabsContent value="milhas" className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
             <Card className="shadow-card">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">Total de Milhas</CardTitle>

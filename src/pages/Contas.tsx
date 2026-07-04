@@ -33,15 +33,15 @@ export default function Contas() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Contas</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Contas</h1>
+          <p className="text-sm text-muted-foreground">
             Gerencie suas contas de programas de fidelidade
           </p>
         </div>
 
-        <Button className="gap-2 bg-gradient-primary hover:opacity-90" onClick={() => setIsCreateDialogOpen(true)}>
+        <Button className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto" onClick={() => setIsCreateDialogOpen(true)}>
           <Plus className="h-4 w-4" />
           Nova Conta
         </Button>
@@ -64,7 +64,7 @@ export default function Contas() {
       <div className="flex items-center gap-2">
         <Filter className="h-4 w-4 text-muted-foreground" />
         {(["todas", "pontos", "milhas"] as const).map((t) => (
-          <Button key={t} variant={filterType === t ? "default" : "outline"} size="sm" onClick={() => setFilterType(t)}>
+          <Button key={t} variant={filterType === t ? "default" : "outline"} size="sm" className="min-h-[44px]" onClick={() => setFilterType(t)}>
             {t === "todas" ? "Todas" : t === "pontos" ? "Pontos" : "Milhas"}
           </Button>
         ))}
@@ -120,13 +120,13 @@ export default function Contas() {
               </div>
 
               <div className="flex items-center gap-2 pt-2 border-t">
-                <Button size="sm" variant="outline" onClick={() => toggleAccountStatus(account.id)} className="flex-1">
+                <Button size="sm" variant="outline" onClick={() => toggleAccountStatus(account.id)} className="flex-1 min-h-[44px]">
                   {account.status === "ativa" ? "Desativar" : "Ativar"}
                 </Button>
-                <Button size="sm" variant="outline" className="px-3" onClick={() => { setEditAccount(account); setIsEditDialogOpen(true); }}>
+                <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => { setEditAccount(account); setIsEditDialogOpen(true); }}>
                   <Edit className="h-4 w-4" />
                 </Button>
-                <Button size="sm" variant="outline" className="px-3 text-destructive hover:text-destructive" onClick={() => deleteAccountM.mutate(account.id)}>
+                <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive" onClick={() => deleteAccountM.mutate(account.id)}>
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>
@@ -144,7 +144,7 @@ export default function Contas() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
             <div className="text-center p-4 rounded-lg bg-muted/30">
               <p className="text-2xl font-bold text-foreground">{accounts.length}</p>
               <p className="text-sm text-muted-foreground">Total de Contas</p>

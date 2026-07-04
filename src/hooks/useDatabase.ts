@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
+import type { Database } from "@/lib/supabase-types";
 
 function useUserId(): string | null {
   const { user } = useAuth();
@@ -10,31 +11,31 @@ function useUserId(): string | null {
 
 // ── Generic helpers ──
 
-function mapOwner(row: any): Owner {
+function mapOwner(row: Database["public"]["Tables"]["owners"]["Row"]): Owner {
   return { id: row.id, name: row.name, cpf: row.cpf ?? "", phone: row.phone ?? "" };
 }
 
-function mapProgram(row: any): Program {
+function mapProgram(row: Database["public"]["Tables"]["programs"]["Row"]): Program {
   return { id: row.id, name: row.name, type: row.type, maxPassengers: row.max_passengers, passengerCycleType: row.passenger_cycle_type, passengerCycleDays: row.passenger_cycle_days };
 }
 
-function mapOrigemType(row: any): OrigemType {
+function mapOrigemType(row: Database["public"]["Tables"]["origem_types"]["Row"]): OrigemType {
   return { id: row.id, name: row.name, accountType: row.account_type, color: row.color };
 }
 
-function mapAccount(row: any): Account {
+function mapAccount(row: Database["public"]["Tables"]["accounts"]["Row"]): Account {
   return { id: row.id, name: row.name, ownerId: row.owner_id, programId: row.program_id, type: row.type, balance: Number(row.balance), averageCostPerMile: row.average_cost_per_mile != null ? Number(row.average_cost_per_mile) : undefined, totalInvested: row.total_invested != null ? Number(row.total_invested) : undefined, status: row.status, createdAt: row.created_at };
 }
 
-function mapEntry(row: any): PointEntry {
+function mapEntry(row: Database["public"]["Tables"]["entries"]["Row"]): PointEntry {
   return { id: row.id, accountId: row.account_id, origemTypeId: row.origem_type_id, amount: Number(row.amount), amountPaid: Number(row.amount_paid), costPerThousand: Number(row.cost_per_thousand), date: row.date, conversionRate: row.conversion_rate, milesGenerated: row.miles_generated, costPerMile: row.cost_per_mile, sourceAccountId: row.source_account_id, bonusPercent: row.bonus_percent, description: row.description };
 }
 
-function mapClient(row: any): Client {
+function mapClient(row: Database["public"]["Tables"]["clients"]["Row"]): Client {
   return { id: row.id, name: row.name, cpf: row.cpf, email: row.email, phone: row.phone ?? "", telegram: row.telegram, totalPurchases: row.total_purchases, usageHistory: row.usage_history ?? [] };
 }
 
-function mapSale(row: any): Sale {
+function mapSale(row: Database["public"]["Tables"]["sales"]["Row"]): Sale {
   return { id: row.id, accountId: row.account_id, accountName: row.account_name, ownerName: row.owner_name, program: row.program, clientId: row.client_id, clientName: row.client_name, milesUsed: Number(row.miles_used), saleValue: Number(row.sale_value), pricePerMile: row.price_per_mile, costPerMile: Number(row.cost_per_mile), additionalCost: row.additional_cost, additionalCostDesc: row.additional_cost_desc, profit: Number(row.profit), profitMargin: Number(row.profit_margin), status: row.status, ticketLocator: row.ticket_locator, passengers: row.passengers ?? [], date: row.date };
 }
 

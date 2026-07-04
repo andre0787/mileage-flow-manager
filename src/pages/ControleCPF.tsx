@@ -62,21 +62,21 @@ export default function ControleCPF() {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Controle de Clientes por Programa</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Controle de Clientes por Programa</h1>
+          <p className="text-sm text-muted-foreground">
             Monitore a disponibilidade de clientes por ciclo, programa e dono
           </p>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-end gap-4">
         <div className="space-y-2">
           <label className="text-sm font-medium">Programa:</label>
           <Select value={selectedProgram} onValueChange={setSelectedProgram}>
-            <SelectTrigger className="w-48">
+            <SelectTrigger className="w-full sm:w-48">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -91,7 +91,7 @@ export default function ControleCPF() {
         <div className="space-y-2">
           <label className="text-sm font-medium">Dono:</label>
           <Select value={selectedOwner} onValueChange={setSelectedOwner}>
-            <SelectTrigger className="w-48">
+            <SelectTrigger className="w-full sm:w-48">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -105,7 +105,7 @@ export default function ControleCPF() {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
         <Card className="shadow-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Total de Clientes Únicos</CardTitle>
@@ -208,15 +208,17 @@ export default function ControleCPF() {
         </CardHeader>
         <CardContent>
           {filteredUsage.length > 0 ? (
+            <>
+            <div className="overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Cliente</TableHead>
-                  <TableHead>CPF</TableHead>
-                  <TableHead>Dono</TableHead>
-                  <TableHead>Programa</TableHead>
-                  <TableHead>Ciclo</TableHead>
-                  <TableHead>Último Uso</TableHead>
+                  <TableHead className="hidden md:table-cell">Cliente</TableHead>
+                  <TableHead className="hidden md:table-cell">CPF</TableHead>
+                  <TableHead className="hidden md:table-cell">Dono</TableHead>
+                  <TableHead className="hidden md:table-cell">Programa</TableHead>
+                  <TableHead className="hidden md:table-cell">Ciclo</TableHead>
+                  <TableHead className="hidden md:table-cell">Último Uso</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -224,18 +226,50 @@ export default function ControleCPF() {
                   u.clients.map(c => ({ ...c, programName: u.programName, ownerName: u.ownerName, cycleLabel: u.cycleLabel }))
                 ).map((row, index) => (
                   <TableRow key={index}>
-                    <TableCell className="font-medium">{row.name}</TableCell>
-                    <TableCell className="font-mono">{row.cpf}</TableCell>
-                    <TableCell>{row.ownerName}</TableCell>
-                    <TableCell>
+                    <TableCell className="hidden md:table-cell font-medium">{row.name}</TableCell>
+                    <TableCell className="hidden md:table-cell font-mono">{row.cpf}</TableCell>
+                    <TableCell className="hidden md:table-cell">{row.ownerName}</TableCell>
+                    <TableCell className="hidden md:table-cell">
                       <Badge variant="outline">{row.programName}</Badge>
                     </TableCell>
-                    <TableCell className="text-sm text-muted-foreground">{row.cycleLabel}</TableCell>
-                    <TableCell>{new Date(row.lastSaleDate).toLocaleDateString('pt-BR')}</TableCell>
+                    <TableCell className="hidden md:table-cell text-sm text-muted-foreground">{row.cycleLabel}</TableCell>
+                    <TableCell className="hidden md:table-cell">{new Date(row.lastSaleDate).toLocaleDateString('pt-BR')}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
+            </div>
+            {/* Mobile card list - Detalhamento */}
+            <div className="md:hidden space-y-3 mt-4">
+              {filteredUsage.flatMap(u =>
+                u.clients.map(c => ({ ...c, programName: u.programName, ownerName: u.ownerName, cycleLabel: u.cycleLabel }))
+              ).map((row, index) => (
+                <div key={index} className="border rounded-lg p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="min-w-0 flex-1">
+                      <p className="font-semibold text-base truncate">{row.name}</p>
+                      <p className="text-xs text-muted-foreground truncate">{row.cpf}</p>
+                    </div>
+                    <Badge variant="outline" className="shrink-0 ml-2">{row.programName}</Badge>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <div>
+                      <span className="text-muted-foreground text-xs">Dono</span>
+                      <p className="truncate">{row.ownerName}</p>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground text-xs">Ciclo</span>
+                      <p className="truncate">{row.cycleLabel}</p>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground text-xs">Último Uso</span>
+                      <p>{new Date(row.lastSaleDate).toLocaleDateString('pt-BR')}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            </>
           ) : (
             <div className="text-center py-8">
               <Shield className="h-12 w-12 text-muted-foreground mx-auto mb-4" />

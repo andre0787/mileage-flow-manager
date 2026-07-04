@@ -26,7 +26,7 @@ export function BottomTabBar() {
   const location = useLocation()
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 z-40 h-16 bg-background/80 backdrop-blur-lg border-t flex items-center justify-around md:hidden safe-area-bottom">
+    <nav className="fixed bottom-0 inset-x-0 z-40 bg-background/80 backdrop-blur-lg border-t flex items-center justify-around md:hidden safe-area-bottom">
       {tabs.map((tab) => {
         const isActive = location.pathname === tab.url
         return (
@@ -48,7 +48,7 @@ export function BottomTabBar() {
               isActive && "scale-110"
             )} />
             <span className={cn(
-              "text-[10px] font-medium leading-tight font-display",
+              "text-xs font-medium leading-tight font-display",
               isActive && "font-semibold"
             )}>
               {tab.title}

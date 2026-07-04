@@ -17,6 +17,8 @@ interface MonthlyData {
 interface DashboardChartsProps {
   programData: ProgramData[]
   monthlySales: MonthlyData[]
+  unitLabel?: string
+  hideBarChart?: boolean
 }
 
 const COLORS = [
@@ -28,14 +30,14 @@ const COLORS = [
   "hsl(0 72% 51%)",
 ];
 
-export function DashboardCharts({ programData, monthlySales }: DashboardChartsProps) {
+export function DashboardCharts({ programData, monthlySales, unitLabel = "Milhas", hideBarChart = false }: DashboardChartsProps) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <Card className="overflow-hidden">
         <CardHeader className="pb-3">
           <CardTitle className="flex items-center gap-2 text-sm font-semibold font-display">
             <PieChartIcon className="h-4 w-4 text-primary" />
-            Milhas por Programa
+            {unitLabel} por Programa
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -68,35 +70,37 @@ export function DashboardCharts({ programData, monthlySales }: DashboardChartsPr
                   <div className="h-3 w-3 rounded-full" style={{ backgroundColor: COLORS[index % COLORS.length] }} />
                   <span className="text-muted-foreground font-body">{entry.name}</span>
                 </div>
-                <span className="font-mono text-sm font-medium">{entry.value.toLocaleString('pt-BR')}</span>
+                <span className="text-sm font-medium">{entry.value.toLocaleString('pt-BR')}</span>
               </div>
             ))}
           </div>
         </CardContent>
       </Card>
 
-      <Card className="overflow-hidden">
-        <CardHeader className="pb-3">
-          <CardTitle className="flex items-center gap-2 text-sm font-semibold font-display">
-            <BarChart3 className="h-4 w-4 text-primary" />
-            Vendas Mensais
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="h-[250px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={monthlySales}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
-                <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
-                <Tooltip />
-                <Bar dataKey="vendas" fill="hsl(230 65% 50%)" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="lucro" fill="hsl(152 65% 35%)" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </CardContent>
-      </Card>
+      {!hideBarChart && (
+        <Card className="overflow-hidden">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-sm font-semibold font-display">
+              <BarChart3 className="h-4 w-4 text-primary" />
+              Vendas Mensais
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[250px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={monthlySales}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                  <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                  <Tooltip />
+                  <Bar dataKey="vendas" fill="hsl(230 65% 50%)" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="lucro" fill="hsl(152 65% 35%)" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   )
 }

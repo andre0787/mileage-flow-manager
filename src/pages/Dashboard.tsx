@@ -1,7 +1,8 @@
-import { useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import {
   Wallet,
   TrendingUp,
+  TrendingDown,
   Users,
   CreditCard,
   Target,
@@ -17,18 +18,59 @@ import { FlowMap } from "@/components/FlowMap";
 import { AnimatedNumber } from "@/components/AnimatedNumber";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useData } from "@/contexts/DataContext";
+import { isTransferencia } from "@/lib/utils";
+import type { Account, Sale, PointEntry } from "@/types";
 
 const MAX_CPF_PER_OWNER = 22;
 
 export default function Dashboard() {
-  const { owners, accounts, programs, sales, entries } = useData();
+  const { owners, accounts, programs, sales, entries, origemTypes } = useData();
+  const [activeTab, setActiveTab] = useState<"milhas" | "pontos">("milhas");
+  const [selectedOwner, setSelectedOwner] = useState<string | null>(null);
 
-  const metrics = useMemo(() => {
-    const activeSales = sales.filter(s => s.status !== "cancelado");
-    const totalMiles = accounts.reduce((sum, a) => sum + a.balance, 0);
-    const totalInvested = accounts.reduce((sum, a) => sum + (a.totalInvested ?? 0), 0);
-    const activeAccounts = accounts.filter(a => a.status === "ativa").length;
+  const milhasAccounts = useMemo(() => accounts.filter(a => a.type === "milhas"), [accounts]);
+  const pontosAccounts = useMemo(() => accounts.filter(a => a.type === "pontos"), [accounts]);
+
+  const milhasSales = useMemo(
+    () => sales.filter(s => {
+      if (!s.accountId) return false;
+      const acct = accounts.find(a => a.id === s.accountId);
+      return acct?.type === "milhas";
+    }),
+    [sales, accounts]
+  );
+
+  const pontosSales = useMemo(() => [], []);
+
+  const milhasEntries = useMemo(
+    () => entries.filter(e => {
+      const acct = accounts.find(a => a.id === e.accountId);
+      return acct?.type === "milhas";
+    }),
+    [entries, accounts]
+  );
+
+  const pontosEntries = useMemo(
+    () => entries.filter(e => {
+      const acct = accounts.find(a => a.id === e.accountId);
+      return acct?.type === "pontos";
+    }),
+    [entries, accounts]
+  );
+
+  const currentAccounts = activeTab === "milhas" ? milhasAccounts : pontosAccounts;
+  const currentSales = activeTab === "milhas" ? milhasSales : pontosSales;
+  const currentEntries = activeTab === "milhas" ? milhasEntries : pontosEntries;
+  const unitLabel = activeTab === "milhas" ? "Milhas" : "Pontos";
+
+  const computeMetrics = useCallback((accts: Account[], sls: Sale[], entrs: PointEntry[]) => {
+    const activeSales = sls.filter(s => s.status !== "cancelado");
+    const totalMiles = accts.reduce((sum, a) => sum + a.balance, 0);
+    const totalInvested = accts.reduce((sum, a) => sum + (a.totalInvested ?? 0), 0);
+    const activeAccounts = accts.filter(a => a.status === "ativa").length;
     const pendingSales = activeSales.filter(s => s.status === "pendente").length;
 
     const now = new Date();
@@ -46,11 +88,11 @@ export default function Dashboard() {
     const avgProfitMargin = totalRevenue > 0 ? (totalProfit / totalRevenue) * 100 : 0;
     const avgCostPerMile = totalMiles > 0 ? totalInvested / totalMiles : 0;
 
-    const monthlyEntries = entries.filter(e => {
+    const monthlyEntries = entrs.filter(e => {
       const d = new Date(e.date);
       return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
     });
-    const monthlyMilesIn = monthlyEntries.reduce((sum, e) => sum + e.miles, 0);
+    const monthlyMilesIn = monthlyEntries.reduce((sum, e) => sum + e.amount, 0);
 
     const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
     const prevMonthSales = activeSales.filter(s => {
@@ -61,7 +103,7 @@ export default function Dashboard() {
     const revenueChange = prevRevenue > 0 ? ((monthlyRevenue - prevRevenue) / prevRevenue) * 100 : 0;
 
     const cpfAlerts = owners.filter(o => {
-      const ownerAccountIds = accounts.filter(a => a.ownerId === o.id).map(a => a.id);
+      const ownerAccountIds = accts.filter(a => a.ownerId === o.id).map(a => a.id);
       const ownerSales = activeSales.filter(s => ownerAccountIds.includes(s.accountId ?? ""));
       const usedCpfs = new Set(ownerSales.flatMap(s => s.passengers.map(p => p.cpf)));
       return usedCpfs.size >= MAX_CPF_PER_OWNER - 4;
@@ -73,24 +115,77 @@ export default function Dashboard() {
       totalSoldMiles, totalRevenue, totalProfit,
       avgProfitMargin, avgCostPerMile, monthlyMilesIn, revenueChange,
     };
-  }, [accounts, sales, owners, entries]);
+  }, [owners]);
+
+  const filteredAccounts = useMemo(
+    () => !selectedOwner ? currentAccounts : currentAccounts.filter(a => a.ownerId === selectedOwner),
+    [currentAccounts, selectedOwner]
+  );
+
+  const filteredSales = useMemo(
+    () => !selectedOwner ? currentSales : currentSales.filter(s => {
+      const acct = accounts.find(a => a.id === s.accountId);
+      return acct?.ownerId === selectedOwner;
+    }),
+    [currentSales, selectedOwner, accounts]
+  );
+
+  const filteredEntries = useMemo(
+    () => !selectedOwner ? currentEntries : currentEntries.filter(e => {
+      const acct = accounts.find(a => a.id === e.accountId);
+      return acct?.ownerId === selectedOwner;
+    }),
+    [currentEntries, selectedOwner, accounts]
+  );
+
+  const currentMetrics = useMemo(
+    () => computeMetrics(filteredAccounts, filteredSales, filteredEntries),
+    [computeMetrics, filteredAccounts, filteredSales, filteredEntries]
+  );
+
+  const filteredMilhasAccounts = useMemo(
+    () => !selectedOwner ? milhasAccounts : milhasAccounts.filter(a => a.ownerId === selectedOwner),
+    [milhasAccounts, selectedOwner]
+  );
+
+  const filteredMilhasSales = useMemo(
+    () => !selectedOwner ? milhasSales : milhasSales.filter(s => {
+      const acct = accounts.find(a => a.id === s.accountId);
+      return acct?.ownerId === selectedOwner;
+    }),
+    [milhasSales, selectedOwner, accounts]
+  );
+
+  const filteredMilhasEntries = useMemo(
+    () => !selectedOwner ? milhasEntries : milhasEntries.filter(e => {
+      const acct = accounts.find(a => a.id === e.accountId);
+      return acct?.ownerId === selectedOwner;
+    }),
+    [milhasEntries, selectedOwner, accounts]
+  );
+
+  const financialMetrics = useMemo(
+    () => computeMetrics(filteredMilhasAccounts, filteredMilhasSales, filteredMilhasEntries),
+    [computeMetrics, filteredMilhasAccounts, filteredMilhasSales, filteredMilhasEntries]
+  );
 
   const ownerData = useMemo(() => {
     return owners.map(owner => {
-      const ownerAccounts = accounts.filter(a => a.ownerId === owner.id);
+      const ownerAccounts = filteredAccounts.filter(a => a.ownerId === owner.id);
       const ownerAccountIds = ownerAccounts.map(a => a.id);
       const totalMiles = ownerAccounts.reduce((sum, a) => sum + a.balance, 0);
       const totalInvested = ownerAccounts.reduce((sum, a) => sum + (a.totalInvested ?? 0), 0);
       const programIds = [...new Set(ownerAccounts.map(a => a.programId))];
       const programNames = programIds.map(id => programs.find(p => p.id === id)?.name ?? id);
-      const ownerSales = sales.filter(s => s.status !== "cancelado" && ownerAccountIds.includes(s.accountId ?? ""));
+      const ownerSales = filteredSales.filter(s => s.status !== "cancelado" && ownerAccountIds.includes(s.accountId ?? ""));
       const usedCpfs = new Set(ownerSales.flatMap(s => s.passengers.map(p => p.cpf)));
-      return { owner: owner.name, programs: programNames, totalMiles, totalInvested, cpfCount: usedCpfs.size, maxCpf: MAX_CPF_PER_OWNER };
-    });
-  }, [owners, accounts, programs, sales]);
+      const avgCost = totalMiles > 0 ? totalInvested / totalMiles : 0;
+      return { owner: owner.name, programs: programNames, totalMiles, totalInvested, avgCost, cpfCount: usedCpfs.size, maxCpf: MAX_CPF_PER_OWNER };
+    }).filter(o => o.totalMiles > 0 || o.totalInvested > 0);
+  }, [owners, filteredAccounts, programs, filteredSales]);
 
   const recentSales = useMemo(() => {
-    return [...sales]
+    return [...filteredSales]
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
       .slice(0, 6)
       .map(s => ({
@@ -99,21 +194,21 @@ export default function Dashboard() {
         status: s.status === "concluido" ? "Concluído" : s.status === "pago" ? "Pago" : s.status === "cancelado" ? "Cancelado" : "Pendente",
         statusColor: s.status === "concluido" ? "success" : s.status === "pago" ? "secondary" : s.status === "cancelado" ? "destructive" : "outline" as const,
       }));
-  }, [sales]);
+  }, [filteredSales]);
 
   const programData = useMemo(() => {
     const programMap = new Map<string, number>();
-    accounts.forEach(a => {
+    filteredAccounts.forEach(a => {
       const progName = programs.find(p => p.id === a.programId)?.name ?? "Desconhecido";
       programMap.set(progName, (programMap.get(progName) ?? 0) + a.balance);
     });
     return Array.from(programMap.entries()).map(([name, value]) => ({ name, value, color: "hsl(230 65% 50%)" }));
-  }, [accounts, programs]);
+  }, [filteredAccounts, programs]);
 
   const monthlySales = useMemo(() => {
     const monthMap = new Map<string, { vendas: number; lucro: number }>();
     const monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
-    sales.filter(s => s.status !== "cancelado").forEach(s => {
+    filteredSales.filter(s => s.status !== "cancelado").forEach(s => {
       const d = new Date(s.date);
       const key = `${d.getFullYear()}-${String(d.getMonth()).padStart(2, "0")}`;
       const current = monthMap.get(key) ?? { vendas: 0, lucro: 0 };
@@ -127,220 +222,441 @@ export default function Dashboard() {
         const [yearStr, monthStr] = key.split("-");
         return { month: `${monthNames[parseInt(monthStr)]}/${yearStr.slice(2)}`, vendas: data.vendas, lucro: data.lucro };
       });
-  }, [sales]);
+  }, [filteredSales]);
+
+  const recentEntries = useMemo(() => {
+    return [...filteredEntries]
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .slice(0, 6)
+      .map(e => ({
+        id: e.id,
+        amount: e.amount,
+        accountName: accounts.find(a => a.id === e.accountId)?.name ?? "",
+      }));
+  }, [filteredEntries, accounts]);
+
+  const recentTransfers = useMemo(() => {
+    const transferOrigemIds = new Set(origemTypes.filter(ot => isTransferencia(ot)).map(ot => ot.id));
+    return [...filteredEntries]
+      .filter(e => e.sourceAccountId && transferOrigemIds.has(e.origemTypeId))
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .slice(0, 8)
+      .map(e => {
+        const srcAccount = accounts.find(a => a.id === e.sourceAccountId);
+        const dstAccount = accounts.find(a => a.id === e.accountId);
+        return {
+          id: e.id,
+          date: e.date,
+          sourceAccountName: srcAccount?.name ?? "",
+          pointsDebited: e.amount,
+          bonusPercent: e.bonusPercent,
+          milesReceived: e.milesGenerated ?? e.amount,
+          destAccountName: dstAccount?.name ?? "",
+        };
+      });
+  }, [filteredEntries, accounts, origemTypes]);
 
   return (
     <div className="space-y-6">
-      {/* ═══════════════════════════════════════════ */}
-      {/* HERO — ALTÍMETRO */}
-      {/* ═══════════════════════════════════════════ */}
-      <section className="relative overflow-hidden rounded-2xl border border-primary/15 shadow-elegant animate-appear">
-        {/* Animated gradient background — higher contrast */}
-        <div className="absolute inset-0 bg-gradient-hero bg-[length:200%_200%] animate-gradient-shift" />
-        <div className="absolute inset-0 hero-glow" />
-        <div className="absolute inset-0 bg-grid-subtle [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_70%)]" />
+      <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as "milhas" | "pontos")}>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <TabsList>
+            <TabsTrigger value="milhas" className="gap-2">
+              <TrendingDown className="h-4 w-4" />
+              Milhas
+            </TabsTrigger>
+            <TabsTrigger value="pontos" className="gap-2">
+              <TrendingUp className="h-4 w-4" />
+              Pontos
+            </TabsTrigger>
+          </TabsList>
 
-        {/* Floating particles */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute w-2 h-2 rounded-full bg-primary/30 top-[15%] left-[10%] animate-drift" />
-          <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/40 top-[25%] right-[20%] animate-drift-slow" style={{ animationDelay: "-2s" }} />
-          <div className="absolute w-1 h-1 rounded-full bg-teal/30 top-[60%] left-[30%] animate-drift" style={{ animationDelay: "-3s" }} />
-          <div className="absolute w-2.5 h-2.5 rounded-full bg-primary/20 bottom-[20%] right-[15%] animate-drift-slow" style={{ animationDelay: "-1s" }} />
-          <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/25 top-[70%] right-[40%] animate-drift" style={{ animationDelay: "-4s" }} />
-          <div className="absolute w-1 h-1 rounded-full bg-white/20 top-[40%] left-[60%] animate-drift-slow" style={{ animationDelay: "-5s" }} />
-        </div>
-
-        {/* Ambient orbs */}
-        <div className="absolute top-0 right-1/4 w-72 h-72 bg-primary/[0.06] rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-gold/[0.05] rounded-full blur-3xl" />
-
-        {/* Decorative plane watermark */}
-        <div className="absolute right-6 bottom-4 text-foreground/[0.025] pointer-events-none select-none">
-          <Plane className="w-32 h-32 md:w-48 md:h-48" />
-        </div>
-
-        {/* Content */}
-        <div className="relative p-6 md:p-8">
-          {/* Eyebrow */}
-          <div className="flex items-center gap-2.5 mb-5">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inset-0 rounded-full bg-success animate-ping opacity-50" />
-              <span className="relative rounded-full bg-success h-2 w-2" />
-            </span>
-            <span className="text-[10px] font-mono tracking-[0.2em] text-muted-foreground uppercase font-medium">
-              Sistema Operacional
-            </span>
-            <span className="h-3 w-px bg-border" />
-            <span className="text-[10px] font-mono text-muted-foreground">
-              {new Date().toLocaleDateString("pt-BR")}
-            </span>
+          <div className="flex flex-wrap gap-1">
+            <Button
+              key="all"
+              variant={selectedOwner === null ? "default" : "outline"}
+              size="sm"
+              onClick={() => setSelectedOwner(null)}
+            >
+              Todos
+            </Button>
+            {owners.map(o => (
+              <Button
+                key={o.id}
+                variant={selectedOwner === o.id ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSelectedOwner(o.id)}
+              >
+                {o.name.split(" ")[0]}
+              </Button>
+            ))}
           </div>
+        </div>
 
-          {/* Main metric — altimeter style */}
-          <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
-            <div className="flex-1">
-              <div className="flex items-baseline gap-3">
-                <h1 className="font-mono text-5xl md:text-6xl lg:text-7xl font-bold text-foreground tracking-tight leading-none">
-                  <AnimatedNumber value={metrics.totalMiles} />
-                </h1>
-                <span className="text-sm font-medium text-muted-foreground tracking-wider uppercase font-display hidden sm:inline">
-                  milhas
+        {/* ═══════════════════════════════════════════ */}
+        {/* MILHAS TAB */}
+        {/* ═══════════════════════════════════════════ */}
+        <TabsContent value="milhas" className="space-y-6 mt-6">
+          {/* HERO — ALTÍMETRO */}
+          <section className="relative overflow-hidden rounded-2xl border border-primary/15 shadow-elegant animate-appear">
+            <div className="absolute inset-0 bg-gradient-hero bg-[length:200%_200%] animate-gradient-shift" />
+            <div className="absolute inset-0 hero-glow" />
+            <div className="absolute inset-0 bg-grid-subtle [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_70%)]" />
+            <div className="hidden sm:block absolute inset-0 overflow-hidden pointer-events-none">
+              <div className="absolute w-2 h-2 rounded-full bg-primary/30 top-[15%] left-[10%] animate-drift" />
+              <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/40 top-[25%] right-[20%] animate-drift-slow" style={{ animationDelay: "-2s" }} />
+              <div className="absolute w-1 h-1 rounded-full bg-teal/30 top-[60%] left-[30%] animate-drift" style={{ animationDelay: "-3s" }} />
+              <div className="absolute w-2.5 h-2.5 rounded-full bg-primary/20 bottom-[20%] right-[15%] animate-drift-slow" style={{ animationDelay: "-1s" }} />
+              <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/25 top-[70%] right-[40%] animate-drift" style={{ animationDelay: "-4s" }} />
+              <div className="absolute w-1 h-1 rounded-full bg-white/20 top-[40%] left-[60%] animate-drift-slow" style={{ animationDelay: "-5s" }} />
+            </div>
+            <div className="hidden sm:block absolute top-0 right-1/4 w-72 h-72 bg-primary/[0.06] rounded-full blur-3xl" />
+            <div className="hidden sm:block absolute bottom-0 left-1/3 w-96 h-96 bg-gold/[0.05] rounded-full blur-3xl" />
+            <div className="hidden sm:block absolute right-6 bottom-4 text-foreground/[0.025] pointer-events-none select-none">
+              <Plane className="w-32 h-32 md:w-48 md:h-48" />
+            </div>
+
+            <div className="relative p-4 md:p-8">
+              <div className="flex items-center gap-2 mb-4 sm:mb-5">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inset-0 rounded-full bg-success animate-ping opacity-50" />
+                  <span className="relative rounded-full bg-success h-2 w-2" />
+                </span>
+                <span className="text-xs tracking-wider text-muted-foreground uppercase font-medium">
+                  {selectedOwner ? owners.find(o => o.id === selectedOwner)?.name ?? "Sistema" : "Sistema Operacional"}
+                </span>
+                <span className="h-3 w-px bg-border" />
+                <span className="text-xs text-muted-foreground">
+                  {new Date().toLocaleDateString("pt-BR")}
                 </span>
               </div>
 
-              {/* Sub-metrics grid — higher contrast backgrounds */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 mt-6">
-                <div className="px-3 py-2.5 rounded-xl bg-background/60 border border-border/60">
-                  <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-0.5">
-                    <ArrowUpRight className="w-3 h-3 text-success" />
-                    Entradas no mês
+              <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
+                <div className="flex-1">
+                  <div className="flex items-baseline gap-2 sm:gap-3">
+                    <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-none">
+                      <AnimatedNumber value={currentMetrics.totalMiles} />
+                    </h1>
+                    <span className="text-xs sm:text-sm font-medium text-muted-foreground tracking-wider uppercase font-display">
+                      milhas
+                    </span>
                   </div>
-                  <p className="font-mono text-sm font-bold text-success">
-                    +<AnimatedNumber value={metrics.monthlyMilesIn} />
-                  </p>
-                </div>
-                <div className="px-3 py-2.5 rounded-xl bg-background/60 border border-border/60">
-                  <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-0.5">
-                    <ArrowDownRight className="w-3 h-3 text-gold" />
-                    Milhas vendidas
-                  </div>
-                  <p className="font-mono text-sm font-bold text-gold">
-                    <AnimatedNumber value={metrics.totalSoldMiles} />
-                  </p>
-                </div>
-                <div className="px-3 py-2.5 rounded-xl bg-background/60 border border-border/60">
-                  <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-0.5">
-                    <DollarSign className="w-3 h-3 text-teal" />
-                    Custo médio/milha
-                  </div>
-                  <p className="font-mono text-sm font-bold text-teal">
-                    R$ {metrics.avgCostPerMile.toFixed(3)}
-                  </p>
-                </div>
-                <div className="px-3 py-2.5 rounded-xl bg-background/60 border border-border/60">
-                  <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-0.5">
-                    <TrendingUp className="w-3 h-3 text-primary" />
-                    Contas ativas
-                  </div>
-                  <p className="font-mono text-sm font-bold text-primary">
-                    {metrics.activeAccounts}
-                  </p>
-                </div>
-              </div>
-            </div>
 
-            {/* Side stats */}
-            <div className="flex flex-row md:flex-col gap-2">
-              <div className="px-4 py-3 rounded-xl bg-background/70 border border-primary/20 min-w-[130px]">
-                <p className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">Margem Média</p>
-                <p className="font-mono text-xl font-bold text-success">
-                  {metrics.avgProfitMargin.toFixed(1)}%
-                </p>
-              </div>
-              <div className="px-4 py-3 rounded-xl bg-background/70 border border-gold/20 min-w-[130px]">
-                <p className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">Receita Total</p>
-                <p className="font-mono text-xl font-bold text-gold">
-                  R$ <AnimatedNumber value={metrics.totalRevenue} />
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom accent bar */}
-        <div className="relative h-1 bg-gradient-to-r from-primary/30 via-gold/30 to-teal/30" />
-      </section>
-
-      {/* ═══════════════════════════════════════════ */}
-      {/* METRIC CARDS — stagger with 200ms gaps */}
-      {/* ═══════════════════════════════════════════ */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 animate-appear animate-delay-200">
-        <MetricCard title="Total Investido" value={metrics.totalInvested} subtitle="Capital aplicado" icon={Wallet} variant="gold" prefix="R$" trend={{ value: Math.round(metrics.revenueChange), isPositive: metrics.revenueChange >= 0 }} />
-        <MetricCard title="Faturamento Mensal" value={metrics.monthlyRevenue} subtitle="Receita do mês" icon={DollarSign} variant="success" prefix="R$" />
-        <MetricCard title="Lucro Mensal" value={metrics.monthlyProfit} subtitle="Ganho líquido" icon={TrendingUp} variant="teal" prefix="R$" />
-        <MetricCard title="Margem de Lucro" value={`${metrics.avgProfitMargin.toFixed(1)}%`} subtitle="Sobre receita total" icon={Target} variant="default" />
-      </div>
-
-      {/* ═══════════════════════════════════════════ */}
-      {/* FLOW MAP */}
-      {/* ═══════════════════════════════════════════ */}
-      <div className="animate-appear animate-delay-400">
-        <FlowMap totalMiles={metrics.totalMiles} activeAccounts={metrics.activeAccounts} totalSoldMiles={metrics.totalSoldMiles} totalRevenue={metrics.totalRevenue} ownersCount={owners.length} />
-      </div>
-
-      {/* ═══════════════════════════════════════════ */}
-      {/* CHARTS */}
-      {/* ═══════════════════════════════════════════ */}
-      <div className="animate-appear animate-delay-600">
-        <DashboardCharts programData={programData} monthlySales={monthlySales} />
-      </div>
-
-      {/* ═══════════════════════════════════════════ */}
-      {/* SECONDARY METRICS */}
-      {/* ═══════════════════════════════════════════ */}
-      <div className="grid gap-4 md:grid-cols-3 animate-appear animate-delay-800">
-        <MetricCard title="Contas Ativas" value={metrics.activeAccounts} subtitle="Contas operacionais" icon={CreditCard} variant="teal" />
-        <MetricCard title="Vendas Pendentes" value={metrics.pendingSales} subtitle="Aguardando processamento" icon={Target} variant="default" />
-        <MetricCard title="Alertas CPF" value={metrics.cpfAlerts} subtitle="Próximo ao limite" icon={AlertTriangle} variant="warning" />
-      </div>
-
-      {/* ═══════════════════════════════════════════ */}
-      {/* OWNER + SALES */}
-      {/* ═══════════════════════════════════════════ */}
-      <div className="grid gap-4 md:grid-cols-2 animate-appear animate-delay-1000">
-        <Card className="overflow-hidden">
-          <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-sm font-semibold font-display">
-              <Users className="h-4 w-4 text-primary" />
-              Estoque por Dono
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-1">
-              {ownerData.map((owner) => (
-                <div key={owner.owner} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">
-                  <div className="space-y-0.5">
-                    <h3 className="font-semibold text-sm text-foreground font-display">{owner.owner}</h3>
-                    <p className="text-xs text-muted-foreground font-body">{owner.programs.join(", ")} • <span className="font-mono">{owner.totalMiles.toLocaleString("pt-BR")} milhas</span></p>
-                  </div>
-                  <div className="text-right space-y-0.5">
-                    <p className="font-mono text-sm font-semibold text-foreground">R$ {owner.totalInvested.toLocaleString("pt-BR")}</p>
-                    <div className="flex items-center gap-2 justify-end">
-                      <span className="text-[10px] text-muted-foreground font-mono">CPFs: {owner.cpfCount}/{owner.maxCpf}</span>
-                      <Badge variant={owner.cpfCount >= 20 ? "destructive" : owner.cpfCount >= 18 ? "secondary" : "outline"} className="text-[10px] px-1.5 py-0">{owner.cpfCount >= 20 ? "Crítico" : owner.cpfCount >= 18 ? "Atenção" : "OK"}</Badge>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 md:gap-4 mt-4 sm:mt-6">
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <ArrowUpRight className="w-3 h-3 text-success shrink-0" />
+                        <span className="truncate">Entradas no mês</span>
+                      </div>
+                      <p className="text-xs sm:text-sm font-bold text-success">
+                        +<AnimatedNumber value={currentMetrics.monthlyMilesIn} />
+                      </p>
+                    </div>
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <ArrowDownRight className="w-3 h-3 text-gold shrink-0" />
+                        <span className="truncate">Milhas vendidas</span>
+                      </div>
+                      <p className="text-xs sm:text-sm font-bold text-gold">
+                        <AnimatedNumber value={currentMetrics.totalSoldMiles} />
+                      </p>
+                    </div>
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <DollarSign className="w-3 h-3 text-teal shrink-0" />
+                        <span className="truncate">Custo médio/milha</span>
+                      </div>
+                      <p className="text-xs sm:text-sm font-bold text-teal">
+                        R$ {currentMetrics.avgCostPerMile.toFixed(3)}
+                      </p>
+                    </div>
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <TrendingUp className="w-3 h-3 text-primary shrink-0" />
+                        <span className="truncate">Contas ativas</span>
+                      </div>
+                      <p className="text-xs sm:text-sm font-bold text-primary">
+                        {currentMetrics.activeAccounts}
+                      </p>
+                    </div>
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-primary/20">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <Target className="w-3 h-3 text-success shrink-0" />
+                        <span className="truncate">Margem Média</span>
+                      </div>
+                      <p className="text-xs sm:text-sm font-bold text-success">
+                        {financialMetrics.avgProfitMargin.toFixed(1)}%
+                      </p>
+                    </div>
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-gold/20">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <DollarSign className="w-3 h-3 text-gold shrink-0" />
+                        <span className="truncate">Receita Total</span>
+                      </div>
+                      <p className="text-xs sm:text-sm font-bold text-gold">
+                        R$ <AnimatedNumber value={financialMetrics.totalRevenue} />
+                      </p>
                     </div>
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
-          </CardContent>
-        </Card>
 
-        <Card className="overflow-hidden">
-          <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-sm font-semibold font-display">
-              <TrendingUp className="h-4 w-4 text-primary" />
-              Vendas Recentes
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-1">
-              {recentSales.map((sale) => (
-                <div key={sale.id} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">
-                  <div className="space-y-0.5 min-w-0">
-                    <h4 className="font-semibold text-sm text-foreground font-display truncate">{sale.client}</h4>
-                    <p className="text-xs text-muted-foreground font-body truncate">{sale.owner} • {sale.program} • <span className="font-mono">{sale.miles.toLocaleString("pt-BR")} milhas</span></p>
+            <div className="relative h-1 bg-gradient-to-r from-primary/30 via-gold/30 to-teal/30" />
+          </section>
+
+          {/* METRIC CARDS */}
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 animate-appear animate-delay-200">
+            <MetricCard title="Total Investido" value={financialMetrics.totalInvested} subtitle="Capital aplicado" icon={Wallet} variant="gold" prefix="R$" trend={{ value: Math.round(financialMetrics.revenueChange), isPositive: financialMetrics.revenueChange >= 0 }} />
+            <MetricCard title="Faturamento Mensal" value={financialMetrics.monthlyRevenue} subtitle="Receita do mês" icon={DollarSign} variant="success" prefix="R$" />
+            <MetricCard title="Lucro Mensal" value={financialMetrics.monthlyProfit} subtitle="Ganho líquido" icon={TrendingUp} variant="teal" prefix="R$" />
+            <MetricCard title="Margem de Lucro" value={`${financialMetrics.avgProfitMargin.toFixed(1)}%`} subtitle="Sobre receita total" icon={Target} variant="default" />
+          </div>
+
+          {/* FLOW MAP */}
+          <div className="animate-appear animate-delay-400">
+            <FlowMap totalMiles={currentMetrics.totalMiles} activeAccounts={currentMetrics.activeAccounts} totalSoldMiles={currentMetrics.totalSoldMiles} totalRevenue={financialMetrics.totalRevenue} ownersCount={selectedOwner ? 1 : owners.length} unitLabel="Milhas" />
+          </div>
+
+          {/* CHARTS */}
+          <div className="animate-appear animate-delay-600">
+            <DashboardCharts programData={programData} monthlySales={monthlySales} unitLabel="Milhas" />
+          </div>
+
+          {/* SECONDARY METRICS */}
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 animate-appear animate-delay-800">
+            <MetricCard title="Contas Ativas" value={currentMetrics.activeAccounts} subtitle="Contas operacionais" icon={CreditCard} variant="teal" />
+            <MetricCard title="Vendas Pendentes" value={currentMetrics.pendingSales} subtitle="Aguardando processamento" icon={Target} variant="default" />
+            <MetricCard title="Alertas CPF" value={currentMetrics.cpfAlerts} subtitle="Próximo ao limite" icon={AlertTriangle} variant="warning" />
+          </div>
+
+          {/* OWNER + SALES */}
+          <div className={`grid gap-4 ${selectedOwner ? "md:grid-cols-1" : "md:grid-cols-2"} animate-appear animate-delay-1000`}>
+            {!selectedOwner && (
+              <Card className="overflow-hidden">
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center gap-2 text-sm font-semibold font-display">
+                    <Users className="h-4 w-4 text-primary" />
+                    Estoque por Dono
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-1">
+                    {ownerData.length === 0 ? (
+                      <p className="text-sm text-muted-foreground text-center py-8">Nenhum dado para exibir</p>
+                    ) : (
+                      ownerData.map((owner) => (
+                        <div key={owner.owner} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">
+                          <div className="space-y-0.5">
+                            <h3 className="font-semibold text-sm text-foreground font-display">{owner.owner}</h3>
+                            <p className="text-xs text-muted-foreground font-body">{owner.programs.join(", ")} • <span className="font-semibold">{owner.totalMiles.toLocaleString("pt-BR")} milhas</span></p>
+                          </div>
+                          <div className="text-right space-y-0.5">
+                            <p className="text-sm font-semibold text-foreground">R$ {owner.totalInvested.toLocaleString("pt-BR")}</p>
+                            <p className="text-xs text-muted-foreground">R$ {owner.avgCost.toFixed(4)}/milha</p>
+                            <div className="flex items-center gap-2 justify-end">
+                              <span className="text-xs text-muted-foreground">CPFs: {owner.cpfCount}/{owner.maxCpf}</span>
+                              <Badge variant={owner.cpfCount >= 20 ? "destructive" : owner.cpfCount >= 18 ? "secondary" : "outline"} className="text-xs px-1.5 py-0">{owner.cpfCount >= 20 ? "Crítico" : owner.cpfCount >= 18 ? "Atenção" : "OK"}</Badge>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    )}
                   </div>
-                  <div className="text-right space-y-0.5 shrink-0 ml-3">
-                    <p className="font-mono text-sm font-semibold text-foreground">R$ {sale.value.toLocaleString("pt-BR")}</p>
-                    <Badge variant={sale.statusColor} className="text-[10px] px-1.5 py-0">{sale.status}</Badge>
+                </CardContent>
+              </Card>
+            )}
+
+            <Card className="overflow-hidden">
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-sm font-semibold font-display">
+                  <TrendingUp className="h-4 w-4 text-primary" />
+                  Vendas Recentes
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-1">
+                  {recentSales.length === 0 ? (
+                    <p className="text-sm text-muted-foreground text-center py-8">Nenhuma venda registrada</p>
+                  ) : (
+                    recentSales.map((sale) => (
+                      <div key={sale.id} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">
+                        <div className="space-y-0.5 min-w-0">
+                          <h4 className="font-semibold text-sm text-foreground font-display truncate">{sale.client}</h4>
+                          <p className="text-xs text-muted-foreground font-body truncate">{sale.owner} • {sale.program} • <span className="font-semibold">{sale.miles.toLocaleString("pt-BR")} milhas</span></p>
+                        </div>
+                        <div className="text-right space-y-0.5 shrink-0 ml-3">
+                          <p className="text-sm font-semibold text-foreground">R$ {sale.value.toLocaleString("pt-BR")}</p>
+                          <Badge variant={sale.statusColor} className="text-xs px-1.5 py-0">{sale.status}</Badge>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        {/* ═══════════════════════════════════════════ */}
+        {/* PONTOS TAB */}
+        {/* ═══════════════════════════════════════════ */}
+        <TabsContent value="pontos" className="space-y-6 mt-6">
+          {/* HERO — INVESTIMENTO EM PONTOS */}
+          <section className="relative overflow-hidden rounded-2xl border border-primary/15 shadow-elegant animate-appear">
+            <div className="absolute inset-0 bg-gradient-hero bg-[length:200%_200%] animate-gradient-shift" />
+            <div className="absolute inset-0 hero-glow" />
+            <div className="absolute inset-0 bg-grid-subtle [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_70%)]" />
+            <div className="hidden sm:block absolute inset-0 overflow-hidden pointer-events-none">
+              <div className="absolute w-2 h-2 rounded-full bg-primary/30 top-[15%] left-[10%] animate-drift" />
+              <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/40 top-[25%] right-[20%] animate-drift-slow" style={{ animationDelay: "-2s" }} />
+              <div className="absolute w-1 h-1 rounded-full bg-teal/30 top-[60%] left-[30%] animate-drift" style={{ animationDelay: "-3s" }} />
+              <div className="absolute w-2.5 h-2.5 rounded-full bg-primary/20 bottom-[20%] right-[15%] animate-drift-slow" style={{ animationDelay: "-1s" }} />
+              <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/25 top-[70%] right-[40%] animate-drift" style={{ animationDelay: "-4s" }} />
+              <div className="absolute w-1 h-1 rounded-full bg-white/20 top-[40%] left-[60%] animate-drift-slow" style={{ animationDelay: "-5s" }} />
+            </div>
+            <div className="hidden sm:block absolute top-0 right-1/4 w-72 h-72 bg-primary/[0.06] rounded-full blur-3xl" />
+            <div className="hidden sm:block absolute bottom-0 left-1/3 w-96 h-96 bg-gold/[0.05] rounded-full blur-3xl" />
+            <div className="hidden sm:block absolute right-6 bottom-4 text-foreground/[0.025] pointer-events-none select-none">
+              <Plane className="w-32 h-32 md:w-48 md:h-48" />
+            </div>
+
+            <div className="relative p-4 md:p-8">
+              <div className="flex items-center gap-2 mb-4 sm:mb-5">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inset-0 rounded-full bg-success animate-ping opacity-50" />
+                  <span className="relative rounded-full bg-success h-2 w-2" />
+                </span>
+                <span className="text-xs tracking-wider text-muted-foreground uppercase font-medium">
+                  {selectedOwner ? owners.find(o => o.id === selectedOwner)?.name ?? "Sistema" : "Investimento em Pontos"}
+                </span>
+                <span className="h-3 w-px bg-border" />
+                <span className="text-xs text-muted-foreground">
+                  {new Date().toLocaleDateString("pt-BR")}
+                </span>
+              </div>
+
+              <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
+                <div className="flex-1">
+                  <div className="flex items-baseline gap-2 sm:gap-3">
+                    <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-none">
+                      <AnimatedNumber value={currentMetrics.totalMiles} />
+                    </h1>
+                    <span className="text-xs sm:text-sm font-medium text-muted-foreground tracking-wider uppercase font-display">
+                      pontos
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 md:gap-4 mt-4 sm:mt-6">
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <Wallet className="w-3 h-3 text-teal shrink-0" />
+                        <span className="truncate">Total Investido</span>
+                      </div>
+                      <p className="text-xs sm:text-sm font-bold text-teal">
+                        R$ <AnimatedNumber value={currentMetrics.totalInvested} />
+                      </p>
+                    </div>
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <DollarSign className="w-3 h-3 text-teal shrink-0" />
+                        <span className="truncate">Custo médio/ponto</span>
+                      </div>
+                      <p className="text-xs sm:text-sm font-bold text-teal">
+                        R$ {currentMetrics.avgCostPerMile.toFixed(3)}
+                      </p>
+                    </div>
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
+                        <TrendingUp className="w-3 h-3 text-primary shrink-0" />
+                        <span className="truncate">Contas ativas</span>
+                      </div>
+                      <p className="text-xs sm:text-sm font-bold text-primary">
+                        {currentMetrics.activeAccounts}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
-          </CardContent>
-        </Card>
-      </div>
+
+            <div className="relative h-1 bg-gradient-to-r from-primary/30 via-gold/30 to-teal/30" />
+          </section>
+
+          {/* CHARTS — só pizza */}
+          <div className="animate-appear animate-delay-600">
+            <DashboardCharts programData={programData} monthlySales={monthlySales} unitLabel="Pontos" hideBarChart />
+          </div>
+
+          {/* SECONDARY METRICS */}
+          <div className="grid gap-4 md:grid-cols-1 animate-appear animate-delay-800">
+            <MetricCard title="Contas Ativas (Pontos)" value={currentMetrics.activeAccounts} subtitle="Contas de pontos operacionais" icon={CreditCard} variant="teal" />
+          </div>
+
+          {/* OWNER + TRANSFERS */}
+          <div className={`grid gap-4 ${selectedOwner ? "md:grid-cols-1" : "md:grid-cols-2"} animate-appear animate-delay-1000`}>
+            {!selectedOwner && (
+              <Card className="overflow-hidden">
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center gap-2 text-sm font-semibold font-display">
+                    <Users className="h-4 w-4 text-primary" />
+                    Estoque por Dono (Pontos)
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-1">
+                    {ownerData.length === 0 ? (
+                      <p className="text-sm text-muted-foreground text-center py-8">Nenhum dado para exibir</p>
+                    ) : (
+                      ownerData.map((owner) => (
+                        <div key={owner.owner} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">
+                          <div className="space-y-0.5">
+                            <h3 className="font-semibold text-sm text-foreground font-display">{owner.owner}</h3>
+                            <p className="text-xs text-muted-foreground font-body">{owner.programs.join(", ")} • <span className="font-semibold">{owner.totalMiles.toLocaleString("pt-BR")} pontos</span></p>
+                          </div>
+                          <div className="text-right space-y-0.5">
+                            <p className="text-sm font-semibold text-foreground">R$ {owner.totalInvested.toLocaleString("pt-BR")}</p>
+                            <p className="text-xs text-muted-foreground">R$ {owner.avgCost.toFixed(4)}/ponto</p>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            <Card className="overflow-hidden">
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-sm font-semibold font-display">
+                  <TrendingUp className="h-4 w-4 text-primary" />
+                  Transferências Recentes
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-1">
+                  {recentTransfers.length === 0 ? (
+                    <p className="text-sm text-muted-foreground text-center py-8">Nenhuma transferência registrada</p>
+                  ) : (
+                    recentTransfers.map((t) => (
+                      <div key={t.id} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">
+                        <div className="space-y-0.5 min-w-0">
+                          <h4 className="font-semibold text-sm text-foreground font-display truncate">{t.sourceAccountName}</h4>
+                          <p className="text-xs text-muted-foreground font-body">{new Date(t.date).toLocaleDateString("pt-BR")} • {t.destAccountName} {t.bonusPercent ? `• +${t.bonusPercent}% bônus` : ""}</p>
+                        </div>
+                        <div className="text-right space-y-0.5 shrink-0 ml-3">
+                          <p className="text-sm font-semibold text-foreground">{t.pointsDebited.toLocaleString("pt-BR")} pts</p>
+                          <p className="text-xs text-success">→ {t.milesReceived.toLocaleString("pt-BR")} milhas</p>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

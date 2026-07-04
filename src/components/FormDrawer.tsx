@@ -33,7 +33,7 @@ export function FormDrawer({ open, onOpenChange, title, description, children }:
             <DrawerTitle>{title}</DrawerTitle>
             {description && <DrawerDescription>{description}</DrawerDescription>}
           </DrawerHeader>
-          <div className="px-4 pb-6 overflow-y-auto">{children}</div>
+          <div className="px-4 pb-safe overflow-y-auto">{children}</div>
         </DrawerContent>
       </Drawer>
     )

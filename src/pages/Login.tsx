@@ -78,7 +78,7 @@ export default function Login() {
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Seu nome"
                     required
-                    className="h-10"
+                    className="h-11"
                   />
                 </div>
               )}
@@ -92,7 +92,7 @@ export default function Login() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="seu@email.com"
                   required
-                  className="h-10"
+                  className="h-11"
                 />
               </div>
 
@@ -105,7 +105,7 @@ export default function Login() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Sua senha"
                   required
-                  className="h-10"
+                  className="h-11"
                 />
               </div>
 
@@ -115,7 +115,7 @@ export default function Login() {
                 </div>
               )}
 
-              <Button type="submit" className="w-full h-10 gap-2" disabled={loading}>
+              <Button type="submit" className="w-full h-11 gap-2" disabled={loading}>
                 {loading ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
                 ) : (
@@ -141,7 +141,7 @@ export default function Login() {
                     Novo por aqui?{" "}
                     <button
                       type="button"
-                      className="text-primary hover:text-primary/80 font-medium transition-colors"
+                      className="text-primary hover:text-primary/80 font-medium transition-colors min-h-[44px] inline-flex items-center"
                       onClick={() => { setMode("register"); setError(null); }}
                     >
                       Cadastre-se
@@ -152,7 +152,7 @@ export default function Login() {
                     Já tem conta?{" "}
                     <button
                       type="button"
-                      className="text-primary hover:text-primary/80 font-medium transition-colors"
+                      className="text-primary hover:text-primary/80 font-medium transition-colors min-h-[44px] inline-flex items-center"
                       onClick={() => { setMode("login"); setError(null); }}
                     >
                       Entrar
@@ -164,7 +164,7 @@ export default function Login() {
           </CardContent>
         </Card>
 
-        <p className="text-center text-[10px] text-muted-foreground mt-6 font-body">
+        <p className="text-center text-xs text-muted-foreground mt-6 font-body">
           Gerencie suas milhas com inteligência e praticidade
         </p>
       </div>

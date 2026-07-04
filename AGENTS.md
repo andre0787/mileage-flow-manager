@@ -32,6 +32,7 @@
 - Exclusão em cascata de entradas com vendas vinculadas (implementada via `useDeleteSaleMutation` + `useDeleteEntryMutation` em Entradas)
 - Controle de CPF com ciclo de passageiros por programa
 - `formatCPF` e `isTransferencia` centralizados em `src/lib/utils.ts`
+- **Dashboard com abas Milhas/Pontos**: abas separam contas por tipo. Aba Milhas: dashboard completo (hero, FlowMap, charts, vendas). Aba Pontos: foco em investimento (estoque, custo médio, transferências). Filtro por dono via botões segmentados — todas as métricas refletem o dono selecionado.
 - **Componentes shadcn/ui mantidos**: alert-dialog, badge, button, card, dialog, drawer, input, label, progress, select, separator, sheet, skeleton, sidebar, sonner, switch, table, tabs, tooltip (~31 componentes não utilizados foram removidos)
 - Toast system removido (app usa Sonner). `animate` prop removida do MetricCard (sempre true)
 - Período "custom" removido do Relatorios (não tinha implementação)
