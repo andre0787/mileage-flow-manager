@@ -92,6 +92,17 @@ src/
 - Tokens armazenados em `~/.config/opencode/tokens.json` (gitignored)
 - **Ponytail mode**: não criar abstrações antes de precisar, preferir stdlib/nativo, remover código morto
 
+## Testes (Playwright)
+- Testes E2E em `tests/` com Playwright
+- Comando: `npx playwright test --reporter=list --workers=1`
+- Configuração em `playwright.config.ts` (viewport 1280x900, webServer com `npm run dev`)
+- **Usar `{ force: true }` em cliques de botões dentro de Dialog/Drawer** (podem estar fora do viewport)
+- **Usar `.first()` em `text=`** quando o valor aparece em múltiplos lugares (summary card + tabela + mobile)
+- **Estratégia**: registrar usuário via UI, criar dados de teste via fetch direto ao Supabase REST API (com token da sessão), testar UI
+- IDs dos campos do formulário de entrada: `#amount`, `#amountPaid`, `#conversion` (criar), `#editAmount`, `#editAmountPaid` (editar)
+- Para criar dados de teste via API, usar `localStorage.getItem('sb-{project-ref}-auth-token')` para obter o token de acesso
+- Viewport padrão: 1280x900 (suficiente para evitar overflow em diálogos)
+
 ## Princípios de Código (DRY & Modularidade)
 - **Nunca duplicar regra de negócio**: cálculos de lucro, margem, saldo, custo médio — cada um em ponto único em `src/lib/`
 - **Regras de negócio isoladas do framework**: funções puras em `src/lib/*.ts`, sem React, sem Supabase, sem hooks
