@@ -493,7 +493,6 @@ export function useCancelSaleMutation() {
 
 export function useDeleteSaleMutation() {
   const queryClient = useQueryClient();
-  const { user } = useAuth();
   return useMutation({
     mutationFn: async (id: string) => {
       const { data: sale, error: fetchError } = await supabase
@@ -589,7 +588,7 @@ export function useClearAccountDataMutation() {
     mutationFn: async () => {
       const tables = ["sales", "entries", "accounts", "clients", "owners", "programs", "origem_types"];
       for (const table of tables) {
-        const { error } = await supabase.from(table).delete().neq("id", "00000000-0000-0000-0000-000000000000");
+        const { error } = await supabase.from(table).delete().not("id", "is", null);
         if (error) throw error;
       }
     },
