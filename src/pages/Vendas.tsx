@@ -630,7 +630,7 @@ export default function Vendas() {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
         <Card className="shadow-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Faturamento Total</CardTitle>
@@ -754,60 +754,74 @@ export default function Vendas() {
           {/* Mobile card list */}
           <div className="md:hidden space-y-3 mt-4">
             {sales.map((sale) => (
-              <div key={sale.id} className={`border rounded-lg p-4 space-y-2 ${sale.status === 'cancelado' ? 'opacity-50' : ''}`}>
+              <div key={sale.id} className={`border rounded-lg p-4 space-y-3 ${sale.status === 'cancelado' ? 'opacity-50' : ''}`}>
+                {/* Header: Program + Status */}
                 <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium">{sale.program}</p>
-                    <p className="text-xs text-muted-foreground">{sale.ownerName} • {new Date(sale.date).toLocaleDateString('pt-BR')}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold truncate">{sale.program}</p>
+                    <p className="text-xs text-muted-foreground truncate">{sale.ownerName} • {new Date(sale.date).toLocaleDateString('pt-BR')}</p>
                   </div>
                   {sale.status === 'cancelado' ? (
-                    <Badge variant="outline" className="text-destructive border-destructive">Cancelado</Badge>
+                    <Badge variant="outline" className="text-destructive border-destructive shrink-0 ml-2">Cancelado</Badge>
                   ) : (
-                    <Badge variant="outline" className={sale.status === 'pendente' ? 'text-warning border-warning' : sale.status === 'pago' ? 'text-primary border-primary' : 'text-success border-success'}>
+                    <Badge variant="outline" className={`shrink-0 ml-2 ${sale.status === 'pendente' ? 'text-warning border-warning' : sale.status === 'pago' ? 'text-primary border-primary' : 'text-success border-success'}`}>
                       {sale.status === 'pendente' ? 'Pendente' : sale.status === 'pago' ? 'Pago' : 'Concluído'}
                     </Badge>
                   )}
                 </div>
+
+                {/* Details grid */}
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div>
-                    <span className="text-muted-foreground">Cliente:</span>
+                    <span className="text-muted-foreground text-xs">Cliente:</span>
                     <p className="font-semibold truncate">{sale.clientName}</p>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Milhas:</span>
+                    <span className="text-muted-foreground text-xs">Milhas:</span>
                     <p className="font-semibold">{sale.milesUsed.toLocaleString('pt-BR')}</p>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Valor:</span>
+                    <span className="text-muted-foreground text-xs">Valor:</span>
                     <p className="font-semibold">R$ {sale.saleValue.toLocaleString('pt-BR')}</p>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Lucro:</span>
+                    <span className="text-muted-foreground text-xs">Lucro:</span>
                     <p className={`font-semibold ${sale.profit < 0 ? 'text-destructive' : 'text-success'}`}>
                       R$ {sale.profit.toLocaleString('pt-BR')}
                     </p>
                   </div>
                 </div>
-                {sale.ticketLocator && (
-                  <p className="text-xs text-muted-foreground">Localizador: {sale.ticketLocator}</p>
-                )}
-                <div className="flex items-center justify-between pt-1">
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Users className="h-3 w-3" />
-                    <span>{sale.passengers.length} pax</span>
+
+                {/* Locator + passengers */}
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <div className="flex items-center gap-2 min-w-0 flex-1">
+                    {sale.ticketLocator && (
+                      <span className="truncate">Localizador: {sale.ticketLocator}</span>
+                    )}
+                    <span className="flex items-center gap-1 shrink-0">
+                      <Users className="h-3 w-3" />
+                      {sale.passengers.length} pax
+                    </span>
                   </div>
-                  {sale.status === 'cancelado' ? (
-                    <Badge variant="outline" className="text-destructive border-destructive">Cancelado</Badge>
-                  ) : (
-                    <div className="flex items-center gap-2">
-                      <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive h-6 text-xs" onClick={() => setCancelConfirmId(sale.id)}>
-                        Cancelar
-                      </Button>
+                </div>
+
+                {/* Status + Actions */}
+                {sale.status !== 'cancelado' && (
+                  <div className="flex items-center gap-2 pt-1 border-t">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="text-destructive hover:text-destructive hover:bg-destructive/10 h-9 px-3 min-h-[44px]"
+                      onClick={() => setCancelConfirmId(sale.id)}
+                    >
+                      Cancelar
+                    </Button>
+                    <div className="flex-1">
                       <Select 
                         value={sale.status} 
                         onValueChange={(value) => updateSaleStatus(sale.id, value as "pendente" | "pago" | "concluido")}
                       >
-                        <SelectTrigger className="w-32 min-h-[44px] min-w-[44px]">
+                        <SelectTrigger className="w-full min-h-[44px]">
                           <span className={`h-2 w-2 rounded-full ${sale.status === 'pendente' ? 'bg-warning' : sale.status === 'pago' ? 'bg-primary' : 'bg-success'}`} />
                           <SelectValue />
                         </SelectTrigger>
@@ -818,8 +832,8 @@ export default function Vendas() {
                         </SelectContent>
                       </Select>
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
