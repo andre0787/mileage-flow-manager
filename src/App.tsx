@@ -34,15 +34,15 @@ const AnimatedRoutes = () => {
 
   return (
     <Routes location={location} key={location.pathname}>
-      <Route path="/" element={<div className="animate-fade-in"><Dashboard /></div>} />
-      <Route path="/contas" element={<div className="animate-fade-in"><Contas /></div>} />
-      <Route path="/clientes" element={<div className="animate-fade-in"><Clientes /></div>} />
-      <Route path="/entradas" element={<div className="animate-fade-in"><Entradas /></div>} />
-      <Route path="/vendas" element={<div className="animate-fade-in"><Vendas /></div>} />
-      <Route path="/cpf" element={<div className="animate-fade-in"><ControleCPF /></div>} />
-      <Route path="/relatorios" element={<div className="animate-fade-in"><Relatorios /></div>} />
-      <Route path="/configuracoes" element={<div className="animate-fade-in"><Configuracoes /></div>} />
-      <Route path="*" element={<div className="animate-fade-in"><NotFound /></div>} />
+      <Route path="/" element={<div className="animate-appear"><Dashboard /></div>} />
+      <Route path="/contas" element={<div className="animate-appear"><Contas /></div>} />
+      <Route path="/clientes" element={<div className="animate-appear"><Clientes /></div>} />
+      <Route path="/entradas" element={<div className="animate-appear"><Entradas /></div>} />
+      <Route path="/vendas" element={<div className="animate-appear"><Vendas /></div>} />
+      <Route path="/cpf" element={<div className="animate-appear"><ControleCPF /></div>} />
+      <Route path="/relatorios" element={<div className="animate-appear"><Relatorios /></div>} />
+      <Route path="/configuracoes" element={<div className="animate-appear"><Configuracoes /></div>} />
+      <Route path="*" element={<div className="animate-appear"><NotFound /></div>} />
     </Routes>
   );
 };

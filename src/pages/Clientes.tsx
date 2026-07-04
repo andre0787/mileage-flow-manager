@@ -115,7 +115,7 @@ export default function Clientes() {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-appear">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
@@ -129,6 +129,8 @@ export default function Clientes() {
           <Plus className="h-4 w-4" />
           Novo Cliente
         </Button>
+      </div>
+
         <FormDrawer
           open={isCreateDialogOpen}
           onOpenChange={setIsCreateDialogOpen}
@@ -269,7 +271,7 @@ export default function Clientes() {
             </Button>
           </div>
         </FormDrawer>
-      </div>
+
 
       {/* Search - sticky on mobile */}
       <div className="sticky top-0 z-10 bg-background py-2 -mx-4 px-4 md:static md:mx-0 md:px-0">
@@ -287,7 +289,7 @@ export default function Clientes() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 animate-appear animate-delay-300">
         <Card className="shadow-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Total de Clientes</CardTitle>
@@ -321,7 +323,7 @@ export default function Clientes() {
       </div>
 
       {/* Clients Table */}
-      <Card className="shadow-card">
+      <Card className="shadow-card animate-appear animate-delay-600">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Users className="h-5 w-5 text-primary" />

@@ -60,7 +60,7 @@ export default function ControleCPF() {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-appear">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
@@ -105,7 +105,7 @@ export default function ControleCPF() {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 animate-appear animate-delay-300">
         <Card className="shadow-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Total de Clientes Únicos</CardTitle>
@@ -136,7 +136,7 @@ export default function ControleCPF() {
 
       {/* Program Usage Cards */}
       {usageByProgram.size > 0 && (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 animate-appear animate-delay-600">
           {Array.from(usageByProgram.entries()).map(([programName, info]) => {
             const percentage = hasLimit(info.limit) ? (info.used.size / info.limit) * 100 : 0;
             const cycleInfo = usage.find(u => u.programName === programName);

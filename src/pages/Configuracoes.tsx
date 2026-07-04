@@ -155,7 +155,7 @@ export default function Configuracoes() {
   const milhasTypes = origemTypes.filter(ot => ot.accountType === "milhas" && !isTransferencia(ot));
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-appear">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Configurações</h1>
@@ -188,7 +188,7 @@ export default function Configuracoes() {
         </div>
 
         {/* Donos Tab */}
-        <TabsContent value="owners" className="space-y-4">
+        <TabsContent value="owners" className="space-y-4 animate-appear animate-delay-200">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p className="text-sm text-muted-foreground">
               {owners.length} dono(s) cadastrado(s)
@@ -319,7 +319,7 @@ export default function Configuracoes() {
         </TabsContent>
 
         {/* Programas Tab */}
-        <TabsContent value="programs" className="space-y-4">
+        <TabsContent value="programs" className="space-y-4 animate-appear animate-delay-200">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p className="text-sm text-muted-foreground">
               {programs.length} programa(s) cadastrado(s)
@@ -516,7 +516,7 @@ export default function Configuracoes() {
         </TabsContent>
 
         {/* Tipos de Milhas Tab */}
-        <TabsContent value="origem-milhas" className="space-y-4">
+        <TabsContent value="origem-milhas" className="space-y-4 animate-appear animate-delay-200">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p className="text-sm text-muted-foreground">
               {milhasTypes.length} tipo(s) de operação cadastrado(s)
@@ -634,7 +634,7 @@ export default function Configuracoes() {
         </TabsContent>
 
         {/* Preferências Tab */}
-        <TabsContent value="preferences" className="space-y-4">
+        <TabsContent value="preferences" className="space-y-4 animate-appear animate-delay-200">
           <Card className="shadow-card border-destructive/20">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-destructive">
