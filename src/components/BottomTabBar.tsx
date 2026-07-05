@@ -4,6 +4,7 @@ import {
   TrendingUp,
   TrendingDown,
   Users,
+  User,
   Settings,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -19,6 +20,7 @@ const tabs: TabItem[] = [
   { title: "Entradas", url: "/entradas", icon: TrendingUp },
   { title: "Vendas", url: "/vendas", icon: TrendingDown },
   { title: "Clientes", url: "/clientes", icon: Users },
+  { title: "Perfil", url: "/perfil", icon: User },
   { title: "Ajustes", url: "/configuracoes", icon: Settings },
 ]
 

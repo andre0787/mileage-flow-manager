@@ -10,6 +10,7 @@ import {
   Settings,
   Plane,
   LogOut,
+  User,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useAuth } from "@/contexts/AuthContext";
@@ -115,6 +116,21 @@ export function AppSidebar() {
               <ThemeToggle />
             </div>
             <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <NavLink
+                    to="/perfil"
+                    className={cn(
+                      "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200",
+                      "text-muted-foreground hover:text-foreground hover:bg-accent/50",
+                      isActive("/perfil") && "bg-primary text-primary-foreground font-medium shadow-sm"
+                    )}
+                  >
+                    <User className="w-4 h-4 shrink-0" />
+                    {!collapsed && <span className="text-sm font-medium font-body">Perfil</span>}
+                  </NavLink>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                   <NavLink

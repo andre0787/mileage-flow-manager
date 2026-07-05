@@ -18,6 +18,7 @@ import Vendas from "./pages/Vendas";
 import ControleCPF from "./pages/ControleCPF";
 import Relatorios from "./pages/Relatorios";
 import Configuracoes from "./pages/Configuracoes";
+import Perfil from "./pages/Perfil";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -42,6 +43,7 @@ const AnimatedRoutes = () => {
       <Route path="/cpf" element={<div className="animate-appear"><ControleCPF /></div>} />
       <Route path="/relatorios" element={<div className="animate-appear"><Relatorios /></div>} />
       <Route path="/configuracoes" element={<div className="animate-appear"><Configuracoes /></div>} />
+      <Route path="/perfil" element={<div className="animate-appear"><Perfil /></div>} />
       <Route path="*" element={<div className="animate-appear"><NotFound /></div>} />
     </Routes>
   );

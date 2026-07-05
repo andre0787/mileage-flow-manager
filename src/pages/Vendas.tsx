@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Plus, TrendingDown, Users, Search } from "lucide-react";
+import { Plus, TrendingDown, Users, Search, Calculator } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -29,6 +29,14 @@ export default function Vendas() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("todos");
+  const [simulatorOpen, setSimulatorOpen] = useState(false);
+  const [simInputs, setSimInputs] = useState({
+    accountId: "",
+    miles: "",
+    pricePerMile: "",
+    costPerMile: "",
+    additionalCost: "",
+  });
 
   const addSaleM = useAddSaleMutation();
   const updateSaleM = useUpdateSaleMutation();
@@ -82,6 +90,28 @@ export default function Vendas() {
     phone: "",
     telegram: ""
   });
+
+  const simResults = useMemo(() => {
+    const miles = parseFloat(simInputs.miles) || 0;
+    const price = parseFloat(simInputs.pricePerMile) || 0;
+    const cost = parseFloat(simInputs.costPerMile) || 0;
+    const addCost = parseFloat(simInputs.additionalCost) || 0;
+    const saleValue = miles * price;
+    const totalCost = miles * cost + addCost;
+    const profit = saleValue - totalCost;
+    const margin = saleValue > 0 ? (profit / saleValue) * 100 : 0;
+    const roi = totalCost > 0 ? (profit / totalCost) * 100 : 0;
+    return { saleValue, totalCost, profit, margin, roi };
+  }, [simInputs]);
+
+  const handleSelectSimAccount = (accountId: string) => {
+    const account = accounts.find(a => a.id === accountId);
+    setSimInputs({
+      ...simInputs,
+      accountId,
+      costPerMile: account ? String(account.averageCostPerMile ?? 0) : "",
+    });
+  };
 
   const ownersList = [...new Set(stockInfo.map(s => s.ownerName))];
   const selectedOwnerStock = stockInfo.filter(s => s.ownerName === newSale.ownerName);
@@ -279,6 +309,10 @@ export default function Vendas() {
               <SelectItem value="cancelado">Cancelado</SelectItem>
             </SelectContent>
           </Select>
+          <Button variant="outline" className="gap-2 shrink-0" onClick={() => setSimulatorOpen(true)}>
+            <Calculator className="h-4 w-4" />
+            Simular
+          </Button>
           <Button className="gap-2 bg-gradient-primary hover:opacity-90 shrink-0" onClick={() => setIsCreateDialogOpen(true)}>
             <Plus className="h-4 w-4" />
             Nova Venda
@@ -907,6 +941,130 @@ export default function Vendas() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Simulador de Venda */}
+      <FormDrawer
+        open={simulatorOpen}
+        onOpenChange={(open) => {
+          setSimulatorOpen(open);
+          if (!open) setSimInputs({ accountId: "", miles: "", pricePerMile: "", costPerMile: "", additionalCost: "" });
+        }}
+        title="Simulador de Venda"
+      >
+        <div className="grid gap-4 py-4">
+          <p className="text-sm text-muted-foreground">
+            Calcule rapidamente o lucro e a margem de uma venda sem criar registro.
+          </p>
+
+          <div className="space-y-2">
+            <Label>Conta (opcional — preenche custo automaticamente)</Label>
+            <Select value={simInputs.accountId} onValueChange={handleSelectSimAccount}>
+              <SelectTrigger>
+                <SelectValue placeholder="Selecione uma conta" />
+              </SelectTrigger>
+              <SelectContent>
+                {stockInfo.map((s) => (
+                  <SelectItem key={s.accountId} value={s.accountId}>
+                    {s.accountName} ({s.ownerName}) — R$ {s.averageCostPerMile.toFixed(4)}/milha
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="simMiles">Milhas</Label>
+              <Input
+                id="simMiles"
+                type="number"
+                value={simInputs.miles}
+                onChange={(e) => setSimInputs({...simInputs, miles: e.target.value})}
+                placeholder="Ex: 50000"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="simPrice">Preço por Milha (R$)</Label>
+              <Input
+                id="simPrice"
+                type="number"
+                step="0.0001"
+                value={simInputs.pricePerMile}
+                onChange={(e) => setSimInputs({...simInputs, pricePerMile: e.target.value})}
+                placeholder="Ex: 0.03"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="simCost">Custo por Milha (R$)</Label>
+              <Input
+                id="simCost"
+                type="number"
+                step="0.0001"
+                value={simInputs.costPerMile}
+                onChange={(e) => setSimInputs({...simInputs, costPerMile: e.target.value})}
+                placeholder="Ex: 0.07"
+              />
+              {simInputs.accountId && (
+                <p className="text-xs text-muted-foreground">Preenchido automaticamente da conta</p>
+              )}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="simAddCost">Custo Adicional (R$)</Label>
+              <Input
+                id="simAddCost"
+                type="number"
+                step="0.01"
+                value={simInputs.additionalCost}
+                onChange={(e) => setSimInputs({...simInputs, additionalCost: e.target.value})}
+                placeholder="Ex: 50.00"
+              />
+            </div>
+          </div>
+
+          {simResults.saleValue > 0 && (
+            <div className="p-4 bg-gradient-success/10 border border-success/20 rounded-lg space-y-3 animate-slide-up">
+              <h4 className="font-semibold text-sm">Resultado da Simulação:</h4>
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                <div>
+                  <span className="text-muted-foreground text-xs">Valor da Venda:</span>
+                  <p className="font-bold text-lg">R$ {simResults.saleValue.toFixed(2)}</p>
+                </div>
+                <div>
+                  <span className="text-muted-foreground text-xs">Custo Total:</span>
+                  <p className="font-semibold">R$ {simResults.totalCost.toFixed(2)}</p>
+                </div>
+                <div>
+                  <span className="text-muted-foreground text-xs">Lucro:</span>
+                  <p className={`font-bold text-lg ${simResults.profit >= 0 ? 'text-success' : 'text-destructive'}`}>
+                    {simResults.profit >= 0 ? '+' : ''}R$ {simResults.profit.toFixed(2)}
+                  </p>
+                </div>
+                <div>
+                  <span className="text-muted-foreground text-xs">Margem:</span>
+                  <p className={`font-bold text-lg ${simResults.margin >= 0 ? 'text-success' : 'text-destructive'}`}>
+                    {simResults.margin.toFixed(1)}%
+                  </p>
+                </div>
+                <div className="col-span-2">
+                  <span className="text-muted-foreground text-xs">ROI:</span>
+                  <p className={`font-bold text-lg ${simResults.roi >= 0 ? 'text-success' : 'text-destructive'}`}>
+                    {simResults.roi.toFixed(1)}%
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {parseFloat(simInputs.miles) > 0 && simResults.saleValue === 0 && (
+            <div className="p-3 bg-muted/30 rounded-lg text-sm text-muted-foreground text-center">
+              Preencha o preço por milha para ver os resultados
+            </div>
+          )}
+        </div>
+      </FormDrawer>
     </div>
   );
 }
