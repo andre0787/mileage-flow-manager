@@ -143,6 +143,20 @@
   button {
     scroll-margin-bottom: 40dvh;
   }
+
+  /* View Transitions API — navegação fluida entre páginas */
+  @media (prefers-reduced-motion: no-preference) {
+    ::view-transition-old(root) {
+      animation: 200ms ease-out both fade-out;
+    }
+    ::view-transition-new(root) {
+      animation: 350ms ease-out both fade-in;
+    }
+  }
+
+  @keyframes fade-out {
+    to { opacity: 0; transform: translateY(-4px); }
+  }
 }
 
 @layer utilities {

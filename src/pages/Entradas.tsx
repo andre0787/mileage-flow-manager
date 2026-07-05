@@ -12,6 +12,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { EmptyState } from "@/components/EmptyState";
 import { SkeletonPage, SkeletonMetricCard } from "@/components/SkeletonLoader";
+import { useHaptic } from "@/hooks/useHaptic";
+import confetti from "canvas-confetti";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
@@ -28,6 +30,7 @@ export default function Entradas() {
   const addEntryM = useAddEntryMutation();
   const updateEntryM = useUpdateEntryMutation();
   const addOrigemTypeM = useAddOrigemTypeMutation();
+  const haptic = useHaptic();
 
   const [activeTab, setActiveTab] = useState<"pontos" | "milhas">("pontos");
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
@@ -204,7 +207,8 @@ export default function Entradas() {
       const costPerThousand = calcCostPerThousand(amountPaid, isTransfer ? milesGenerated : amount);
       const costPerMile = calcCostPerMile(amountPaid, milesGenerated);
 
-      addEntryM.mutate({ id: crypto.randomUUID(),
+      addEntryM.mutate(
+        { id: crypto.randomUUID(),
         accountId: newEntry.accountId,
         origemTypeId: newEntry.origemTypeId,
         amount,
@@ -216,7 +220,19 @@ export default function Entradas() {
         sourceAccountId: isTransfer ? newEntry.sourceAccountId : undefined,
         bonusPercent: isTransfer ? parseFloat(newEntry.bonusPercent || "0") : undefined,
         date: new Date().toISOString().split('T')[0],
-      });
+      },
+      {
+        onSuccess: () => {
+          haptic.success();
+          confetti({
+            particleCount: 40,
+            spread: 60,
+            origin: { y: 0.6 },
+            colors: ["#6366f1", "#10b981", "#f59e0b"],
+          });
+        },
+      }
+    );
 
       resetForm();
       setEntryErrors({});

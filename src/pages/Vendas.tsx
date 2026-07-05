@@ -11,6 +11,8 @@ import { FormDrawer } from "@/components/FormDrawer";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { SkeletonMetricCard, SkeletonTable } from "@/components/SkeletonLoader";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useHaptic } from "@/hooks/useHaptic";
+import confetti from "canvas-confetti";
 import { useData } from "@/contexts/DataContext";
 import { useAddSaleMutation, useUpdateSaleMutation, useCancelSaleMutation, useAddClientMutation } from "@/hooks/useDatabase";
 import { formatCPF } from "@/lib/utils";
@@ -45,6 +47,7 @@ export default function Vendas() {
   const updateSaleM = useUpdateSaleMutation();
   const cancelSaleM = useCancelSaleMutation();
   const addClientM = useAddClientMutation();
+  const haptic = useHaptic();
 
   const stockInfo = useMemo(() => {
     return accounts
@@ -179,7 +182,8 @@ export default function Vendas() {
       const profit = calcProfit(saleValue, milesUsed, costPerMile, additionalCost);
       const profitMargin = calcProfitMargin(profit, saleValue);
 
-      addSaleM.mutate({ id: crypto.randomUUID(),
+      addSaleM.mutate(
+        { id: crypto.randomUUID(),
         ownerName: newSale.ownerName,
         accountName: newSale.accountName,
         program: newSale.program,
@@ -197,7 +201,21 @@ export default function Vendas() {
         ticketLocator: newSale.ticketLocator,
         passengers: newSale.passengers.filter(p => p.name.trim()),
         date: new Date().toISOString().split('T')[0]
-      });
+      },
+      {
+        onSuccess: () => {
+          haptic.success();
+          if (saleValue >= 200) {
+            confetti({
+              particleCount: 60,
+              spread: 70,
+              origin: { y: 0.6 },
+              colors: ["#6366f1", "#f59e0b", "#10b981"],
+            });
+          }
+        },
+      }
+    );
 
 
 
