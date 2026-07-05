@@ -37,6 +37,11 @@
 - Toast system removido (app usa Sonner). `animate` prop removida do MetricCard (sempre true)
 - Período "custom" removido do Relatorios (não tinha implementação)
 - Aba "Preferências Gerais" removida do Configuracoes (UI especulativa)
+- **Export CSV em Relatorios**: botões "Exportar Donos" e "Exportar Programas" baixam CSV com BOM UTF-8 (compatível Excel)
+- **Busca em Entradas**: campo de busca no header filtra por nome da conta, origem ou data
+- **Busca + Filtro em Vendas**: campo de busca (cliente/dono/programa/localizador) + dropdown de status (todos/pendente/pago/concluído/cancelado)
+- **Página de Perfil (`/perfil`)**: atualizar nome (user_metadata), email (com confirmação), senha (com verificação da atual)
+- **Simulador de Venda**: modal na página de Vendas com inputs (milhas, preço, custo, custo adicional) e resultado ao vivo (valor, lucro, margem, ROI)
 
 ## Git Workflow
 - `main` → produção (https://mileage-flow-manager.vercel.app)
@@ -73,7 +78,8 @@ src/
 ├── pages/            # Páginas/rotas
 │   ├── Dashboard.tsx
 │   ├── Entradas.tsx  # Entrada de milhas/pontos + transferências
-│   ├── Vendas.tsx    # Vendas com status cancelado
+│   ├── Vendas.tsx    # Vendas com status cancelado + simulador
+│   ├── Perfil.tsx     # Editar nome/email/senha
 │   ├── Contas.tsx
 │   ├── Clientes.tsx
 │   ├── ControleCPF.tsx
@@ -102,6 +108,8 @@ src/
 - IDs dos campos do formulário de entrada: `#amount`, `#amountPaid`, `#conversion` (criar), `#editAmount`, `#editAmountPaid` (editar)
 - Para criar dados de teste via API, usar `localStorage.getItem('sb-{project-ref}-auth-token')` para obter o token de acesso
 - Viewport padrão: 1280x900 (suficiente para evitar overflow em diálogos)
+- **Teste atual**: `tests/entradas.spec.ts` — fluxo completo criar → editar → excluir entrada
+- **Helpers**: `tests/helpers.ts` — funções para criar dados de teste via REST API com retry
 
 ## Princípios de Código (DRY & Modularidade)
 - **Nunca duplicar regra de negócio**: cálculos de lucro, margem, saldo, custo médio — cada um em ponto único em `src/lib/`

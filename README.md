@@ -10,14 +10,19 @@ Sistema de gerenciamento de milhas e pontos para controle de aquisição, transf
 - **Entradas** - Registro de aquisição de pontos/milhas e transferências entre contas (com bonificação)
 - **Vendas** - Registro de vendas com cálculo automático de lucro e margem; suporte a cancelamento
 - **Controle CPF** - Monitoramento de ciclo de passageiros por programa com alertas
-- **Relatórios** - Visualização consolidada de dados
+- **Relatórios** - Visualização consolidada de dados com exportação CSV (donos e programas)
+- **Perfil** - Edição de nome, email e senha
+- **Simulador de Venda** - Cálculo rápido de lucro, margem e ROI sem criar registro
 
 ## Stack
 
 - React 18 + TypeScript + Vite
 - Tailwind CSS + shadcn/ui
 - React Router v6 + TanStack React Query
+- Recharts (gráficos)
 - Supabase (PostgreSQL, Auth, RLS)
+- Playwright (testes E2E)
+- Vercel (deploy)
 
 ## Desenvolvimento
 
