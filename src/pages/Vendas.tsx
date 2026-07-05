@@ -10,7 +10,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { FormDrawer } from "@/components/FormDrawer";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useData } from "@/contexts/DataContext";
-import { useAddSaleMutation, useUpdateSaleMutation, useCancelSaleMutation, useAddClientMutation, useUpdateAccountMutation } from "@/hooks/useDatabase";
+import { useAddSaleMutation, useUpdateSaleMutation, useCancelSaleMutation, useAddClientMutation } from "@/hooks/useDatabase";
 import { formatCPF } from "@/lib/utils";
 import type { Sale } from "@/types";
 
@@ -42,7 +42,6 @@ export default function Vendas() {
   const updateSaleM = useUpdateSaleMutation();
   const cancelSaleM = useCancelSaleMutation();
   const addClientM = useAddClientMutation();
-  const updateAccountM = useUpdateAccountMutation();
 
   const stockInfo = useMemo(() => {
     return accounts
@@ -197,18 +196,7 @@ export default function Vendas() {
         date: new Date().toISOString().split('T')[0]
       });
 
-      if (selectedProgramStock) {
-        const account = accounts.find(a => a.id === selectedProgramStock.accountId);
-        if (account) {
-          const proportionalInvested = account.totalInvested
-            ? account.totalInvested * (milesUsed / account.balance)
-            : 0;
-          updateAccountM.mutate({ id: account.id,
-            balance: account.balance - milesUsed,
-            totalInvested: Math.max(0, (account.totalInvested ?? 0) - proportionalInvested),
-          });
-        }
-      }
+
 
       setNewSale({
         ownerName: "",

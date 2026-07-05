@@ -477,14 +477,18 @@ export function useAddSaleMutation() {
       });
       if (error) throw error;
 
-      // Update account balance (deduct used miles)
-      // Nota: totalInvested é atualizado separadamente em Vendas.tsx handleCreateSale
-      // via updateAccountM.mutate. Pendente de centralizar futuramente.
+      // Update account balance and totalInvested (deduct used miles)
       if (sale.accountId) {
-        const { data: acc } = await supabase.from("accounts").select("balance").eq("id", sale.accountId).single();
+        const { data: acc } = await supabase.from("accounts").select("balance, total_invested, average_cost_per_mile").eq("id", sale.accountId).single();
         if (acc) {
-          const newBalance = Math.max(0, Number(acc.balance) - sale.milesUsed);
-          await supabase.from("accounts").update({ balance: newBalance }).eq("id", sale.accountId);
+          const currentBalance = Number(acc.balance);
+          const currentInvested = Number(acc.total_invested ?? 0);
+          const currentAvgCost = Number(acc.average_cost_per_mile ?? 0);
+          const proportionalInvested = currentAvgCost > 0
+            ? currentAvgCost * sale.milesUsed
+            : calcProportionalCost(sale.milesUsed, currentBalance, currentInvested);
+          const update = calcAccountUpdate(currentBalance, currentInvested, -sale.milesUsed, -proportionalInvested);
+          await supabase.from("accounts").update(update).eq("id", sale.accountId);
         }
       }
     },
