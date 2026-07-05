@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Plus, TrendingUp, TrendingDown, ArrowLeftRight, Search } from "lucide-react";
+import { Plus, TrendingUp, TrendingDown, ArrowLeftRight, Search, Package } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,11 @@ import { FormDrawer } from "@/components/FormDrawer";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { EmptyState } from "@/components/EmptyState";
+import { SkeletonPage, SkeletonMetricCard } from "@/components/SkeletonLoader";
+import { useHaptic } from "@/hooks/useHaptic";
+import confetti from "canvas-confetti";
+import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
 import { calcMilesGenerated, calcCostPerThousand, calcCostPerMile } from "@/lib/metrics";
@@ -18,12 +23,14 @@ import { DeleteEntryDialog } from "@/components/DeleteEntryDialog";
 import type { Program, OrigemType, PointEntry } from "@/types";
 
 export default function Entradas() {
-  const { entries, accounts, owners, programs, origemTypes, sales } = useData();
+  const { entries, accounts, owners, programs, origemTypes, sales, isLoading } = useData();
 
   const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearch = useDebounce(searchTerm, 300);
   const addEntryM = useAddEntryMutation();
   const updateEntryM = useUpdateEntryMutation();
   const addOrigemTypeM = useAddOrigemTypeMutation();
+  const haptic = useHaptic();
 
   const [activeTab, setActiveTab] = useState<"pontos" | "milhas">("pontos");
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
@@ -57,8 +64,8 @@ export default function Entradas() {
   }, [entries, accounts, activeTab]);
 
   const entriesFiltered = useMemo(() => {
-    if (!searchTerm) return entriesByTab;
-    const q = searchTerm.toLowerCase();
+    if (!debouncedSearch) return entriesByTab;
+    const q = debouncedSearch.toLowerCase();
     return entriesByTab.filter(e => {
       const account = accounts.find(a => a.id === e.accountId);
       const accountName = account?.name.toLowerCase() ?? "";
@@ -67,7 +74,7 @@ export default function Entradas() {
       const dateStr = new Date(e.date).toLocaleDateString('pt-BR');
       return accountName.includes(q) || origemNome.includes(q) || dateStr.includes(q);
     });
-  }, [entriesByTab, searchTerm, accounts, origemTypes, programs]);
+  }, [entriesByTab, debouncedSearch, accounts, origemTypes, programs]);
 
   const selectedAccount = accounts.find(a => a.id === newEntry.accountId);
   const selectedOrigemType = origemTypes.find(ot => ot.id === newEntry.origemTypeId);
@@ -200,7 +207,8 @@ export default function Entradas() {
       const costPerThousand = calcCostPerThousand(amountPaid, isTransfer ? milesGenerated : amount);
       const costPerMile = calcCostPerMile(amountPaid, milesGenerated);
 
-      addEntryM.mutate({ id: crypto.randomUUID(),
+      addEntryM.mutate(
+        { id: crypto.randomUUID(),
         accountId: newEntry.accountId,
         origemTypeId: newEntry.origemTypeId,
         amount,
@@ -212,7 +220,19 @@ export default function Entradas() {
         sourceAccountId: isTransfer ? newEntry.sourceAccountId : undefined,
         bonusPercent: isTransfer ? parseFloat(newEntry.bonusPercent || "0") : undefined,
         date: new Date().toISOString().split('T')[0],
-      });
+      },
+      {
+        onSuccess: () => {
+          haptic.success();
+          confetti({
+            particleCount: 40,
+            spread: 60,
+            origin: { y: 0.6 },
+            colors: ["#6366f1", "#10b981", "#f59e0b"],
+          });
+        },
+      }
+    );
 
       resetForm();
       setEntryErrors({});
@@ -224,6 +244,9 @@ export default function Entradas() {
   const totalMilesGenerated = entriesFiltered.reduce((s, e) => s + (e.milesGenerated ?? e.amount), 0);
   const averageCostPerMile = totalMilesGenerated > 0 ? totalAmountPaid / totalMilesGenerated : 0;
 
+  if (isLoading) {
+    return <SkeletonPage />;
+  }
 
   return (
     <div className="space-y-6 animate-appear">
@@ -554,7 +577,13 @@ export default function Entradas() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {entriesFiltered.map((entry) => (
+                    {entriesFiltered.length === 0 ? (
+                      <TableRow>
+                        <TableCell colSpan={9} className="py-12">
+                          <EmptyState icon={Package} title="Nenhuma entrada de pontos" description="Registre sua primeira entrada de pontos ou altere o filtro de busca." />
+                        </TableCell>
+                      </TableRow>
+                    ) : entriesFiltered.map((entry) => (
                       <TableRow key={entry.id}>
                         <TableCell className="hidden md:table-cell">{new Date(entry.date).toLocaleDateString('pt-BR')}</TableCell>
                         <TableCell className="hidden md:table-cell">
@@ -589,7 +618,9 @@ export default function Entradas() {
 
                {/* Mobile card list */}
                <div className="md:hidden space-y-3 mt-4">
-                 {entriesFiltered.map((entry) => (
+                 {entriesFiltered.length === 0 ? (
+                   <EmptyState icon={Package} title="Nenhuma entrada de pontos" description="Registre sua primeira entrada de pontos ou altere o filtro de busca." />
+                 ) : entriesFiltered.map((entry) => (
                    <div key={entry.id} className="border rounded-lg p-4 space-y-2">
                      <div className="flex items-center justify-between">
                        <div>
@@ -679,7 +710,13 @@ export default function Entradas() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {entriesFiltered.map((entry) => (
+                    {entriesFiltered.length === 0 ? (
+                      <TableRow>
+                        <TableCell colSpan={7} className="py-12">
+                          <EmptyState icon={Package} title="Nenhuma entrada de milhas" description="Registre sua primeira entrada de milhas ou altere o filtro de busca." />
+                        </TableCell>
+                      </TableRow>
+                    ) : entriesFiltered.map((entry) => (
                       <TableRow key={entry.id}>
                         <TableCell className="hidden md:table-cell">{new Date(entry.date).toLocaleDateString('pt-BR')}</TableCell>
                         <TableCell className="hidden md:table-cell">
@@ -711,7 +748,9 @@ export default function Entradas() {
 
                {/* Mobile card list */}
                <div className="md:hidden space-y-3 mt-4">
-                 {entriesFiltered.map((entry) => (
+                 {entriesFiltered.length === 0 ? (
+                   <EmptyState icon={Package} title="Nenhuma entrada de milhas" description="Registre sua primeira entrada de milhas ou altere o filtro de busca." />
+                 ) : entriesFiltered.map((entry) => (
                   <div key={entry.id} className="border rounded-lg p-4 space-y-2">
                     <div className="flex items-center justify-between">
                       <div>

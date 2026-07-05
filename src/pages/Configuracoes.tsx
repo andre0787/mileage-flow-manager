@@ -18,7 +18,7 @@ import { formatCPF } from "@/lib/utils";
 import type { Owner, Program, OrigemType } from "@/types";
 
 export default function Configuracoes() {
-  const { owners, programs, origemTypes, accounts, clearCache, clearAccountData } = useData();
+  const { owners, programs, origemTypes, accounts, clearCache, clearAccountData, isLoading } = useData();
 
   const addOwnerM = useAddOwnerMutation();
   const updateOwnerM = useUpdateOwnerMutation();
@@ -153,6 +153,24 @@ export default function Configuracoes() {
   };
 
   const milhasTypes = origemTypes.filter(ot => ot.accountType === "milhas" && !isTransferencia(ot));
+
+  if (isLoading) {
+    return (
+      <div className="space-y-6 animate-appear">
+        <div className="space-y-2 mb-6">
+          <div className="h-8 w-48 bg-muted rounded animate-pulse" />
+          <div className="h-4 w-72 bg-muted rounded animate-pulse" />
+        </div>
+        <div className="flex gap-2 mb-6">
+          <div className="h-10 w-24 bg-muted rounded-lg animate-pulse" />
+          <div className="h-10 w-24 bg-muted rounded-lg animate-pulse" />
+          <div className="h-10 w-24 bg-muted rounded-lg animate-pulse" />
+        </div>
+        <div className="h-64 bg-muted rounded-xl animate-pulse" />
+        <div className="h-64 bg-muted rounded-xl animate-pulse" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 animate-appear">

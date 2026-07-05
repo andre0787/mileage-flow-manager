@@ -15,6 +15,7 @@ interface DataContextType {
   entries: PointEntry[]
   sales: Sale[]
   clients: Client[]
+  isLoading: boolean
   clearCache: () => void
   clearAccountData: () => void
 }
@@ -25,13 +26,23 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
-  const { data: owners = [] } = useOwnersQuery();
-  const { data: programs = [] } = useProgramsQuery();
-  const { data: origemTypes = [] } = useOrigemTypesQuery();
-  const { data: accounts = [] } = useAccountsQuery();
-  const { data: entries = [] } = useEntriesQuery();
-  const { data: clients = [] } = useClientsQuery();
-  const { data: sales = [] } = useSalesQuery();
+  const ownersQ = useOwnersQuery();
+  const programsQ = useProgramsQuery();
+  const origemTypesQ = useOrigemTypesQuery();
+  const accountsQ = useAccountsQuery();
+  const entriesQ = useEntriesQuery();
+  const clientsQ = useClientsQuery();
+  const salesQ = useSalesQuery();
+
+  const isLoading = ownersQ.isPending || programsQ.isPending || origemTypesQ.isPending || accountsQ.isPending || entriesQ.isPending || clientsQ.isPending || salesQ.isPending;
+
+  const owners = ownersQ.data ?? [];
+  const programs = programsQ.data ?? [];
+  const origemTypes = origemTypesQ.data ?? [];
+  const accounts = accountsQ.data ?? [];
+  const entries = entriesQ.data ?? [];
+  const clients = clientsQ.data ?? [];
+  const sales = salesQ.data ?? [];
 
   // Ensure built-in TRANSFERENCIA type exists for every user
   const creatingTransferencia = useRef(false);
@@ -75,6 +86,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   return (
     <DataContext.Provider value={{
       owners, programs, origemTypes, accounts, entries, sales, clients,
+      isLoading,
       clearCache, clearAccountData,
     }}>
       {children}

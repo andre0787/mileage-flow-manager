@@ -9,7 +9,7 @@ import { useData } from "@/contexts/DataContext";
 import { useClientCycleAvailability } from "@/hooks/useClientCycleAvailability";
 
 export default function ControleCPF() {
-  const { sales, programs } = useData();
+  const { sales, programs, isLoading } = useData();
   const { usage, programs: programNames, owners } = useClientCycleAvailability(sales, programs);
 
   const [selectedProgram, setSelectedProgram] = useState("todos");
@@ -58,6 +58,29 @@ export default function ControleCPF() {
     if (pct >= 80) return "Atenção";
     return "Normal";
   };
+
+  if (isLoading) {
+    return (
+      <div className="space-y-6 animate-appear">
+        <div className="space-y-2 mb-6">
+          <div className="h-8 w-64 bg-muted rounded animate-pulse" />
+          <div className="h-4 w-80 bg-muted rounded animate-pulse" />
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+          <div className="h-24 bg-muted rounded-xl animate-pulse" />
+          <div className="h-24 bg-muted rounded-xl animate-pulse" />
+          <div className="h-24 bg-muted rounded-xl animate-pulse" />
+          <div className="h-24 bg-muted rounded-xl animate-pulse" />
+        </div>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="h-40 bg-muted rounded-xl animate-pulse" />
+          <div className="h-40 bg-muted rounded-xl animate-pulse" />
+          <div className="h-40 bg-muted rounded-xl animate-pulse" />
+          <div className="h-40 bg-muted rounded-xl animate-pulse" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 animate-appear">

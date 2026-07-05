@@ -35,7 +35,7 @@ export default function Relatorios() {
   const [selectedOwner, setSelectedOwner] = useState("todos");
   const [selectedProgram, setSelectedProgram] = useState("todos");
 
-  const { owners, accounts, programs, entries, sales } = useData();
+  const { owners, accounts, programs, entries, sales, isLoading } = useData();
 
   const dateCutoff = useMemo(() => {
     const d = new Date();
@@ -181,6 +181,24 @@ export default function Relatorios() {
     totalProfit: ownerReports.reduce((sum, r) => sum + r.totalProfit, 0),
     totalStock: programReports.reduce((sum, r) => sum + r.totalStock, 0),
   }), [ownerReports, programReports]);
+
+  if (isLoading) {
+    return (
+      <div className="space-y-6 animate-appear">
+        <div className="space-y-2 mb-6">
+          <div className="h-8 w-48 bg-muted rounded animate-pulse" />
+          <div className="h-4 w-72 bg-muted rounded animate-pulse" />
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+          <div className="h-24 bg-muted rounded-xl animate-pulse" />
+          <div className="h-24 bg-muted rounded-xl animate-pulse" />
+          <div className="h-24 bg-muted rounded-xl animate-pulse" />
+          <div className="h-24 bg-muted rounded-xl animate-pulse" />
+        </div>
+        <div className="h-96 bg-muted rounded-xl animate-pulse" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 animate-appear">
