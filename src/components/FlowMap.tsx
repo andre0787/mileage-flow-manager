@@ -127,7 +127,7 @@ export function FlowMap({
         </div>
 
         {/* Mobile: horizontal scroll */}
-        <div className="flex md:hidden items-stretch gap-2 overflow-x-auto pb-2 snap-x snap-mandatory">
+        <div className="flex md:hidden items-stretch gap-2 overflow-x-auto pb-2 snap-x snap-mandatory max-w-full">
           {nodes.map((node, index) => (
             <div key={node.id} className="flex items-stretch gap-2 snap-center">
               <div className={cn(
