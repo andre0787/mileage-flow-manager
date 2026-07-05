@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Plus, Users, Search, Edit, Trash2, Phone, AlertTriangle } from "lucide-react";
+import { Plus, Users, Search, Edit, Trash2, Phone, AlertTriangle, UserPlus } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,7 @@ import { FormDrawer } from "@/components/FormDrawer";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { EmptyState } from "@/components/EmptyState";
 import { SkeletonMetricCard, SkeletonTable } from "@/components/SkeletonLoader";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
@@ -468,11 +469,8 @@ export default function Clientes() {
           </div>
 
           {filteredClients.length === 0 && (
-            <div className="text-center py-8">
-              <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-              <p className="text-muted-foreground">
-                {searchTerm ? "Nenhum cliente encontrado" : "Nenhum cliente cadastrado ainda"}
-              </p>
+            <div className="py-8">
+              <EmptyState icon={searchTerm ? Search : UserPlus} title={searchTerm ? "Nenhum cliente encontrado" : "Nenhum cliente cadastrado"} description={searchTerm ? "Tente alterar o termo de busca." : "Cadastre seu primeiro cliente para começar."} action={searchTerm ? undefined : { label: "Cadastrar Cliente", onClick: () => setIsCreateDialogOpen(true) }} />
             </div>
           )}
         </CardContent>

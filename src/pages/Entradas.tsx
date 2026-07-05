@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Plus, TrendingUp, TrendingDown, ArrowLeftRight, Search } from "lucide-react";
+import { Plus, TrendingUp, TrendingDown, ArrowLeftRight, Search, Package } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,7 @@ import { FormDrawer } from "@/components/FormDrawer";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { EmptyState } from "@/components/EmptyState";
 import { SkeletonPage, SkeletonMetricCard } from "@/components/SkeletonLoader";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
@@ -560,7 +561,13 @@ export default function Entradas() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {entriesFiltered.map((entry) => (
+                    {entriesFiltered.length === 0 ? (
+                      <TableRow>
+                        <TableCell colSpan={9} className="py-12">
+                          <EmptyState icon={Package} title="Nenhuma entrada de pontos" description="Registre sua primeira entrada de pontos ou altere o filtro de busca." />
+                        </TableCell>
+                      </TableRow>
+                    ) : entriesFiltered.map((entry) => (
                       <TableRow key={entry.id}>
                         <TableCell className="hidden md:table-cell">{new Date(entry.date).toLocaleDateString('pt-BR')}</TableCell>
                         <TableCell className="hidden md:table-cell">
@@ -595,7 +602,9 @@ export default function Entradas() {
 
                {/* Mobile card list */}
                <div className="md:hidden space-y-3 mt-4">
-                 {entriesFiltered.map((entry) => (
+                 {entriesFiltered.length === 0 ? (
+                   <EmptyState icon={Package} title="Nenhuma entrada de pontos" description="Registre sua primeira entrada de pontos ou altere o filtro de busca." />
+                 ) : entriesFiltered.map((entry) => (
                    <div key={entry.id} className="border rounded-lg p-4 space-y-2">
                      <div className="flex items-center justify-between">
                        <div>
@@ -685,7 +694,13 @@ export default function Entradas() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {entriesFiltered.map((entry) => (
+                    {entriesFiltered.length === 0 ? (
+                      <TableRow>
+                        <TableCell colSpan={7} className="py-12">
+                          <EmptyState icon={Package} title="Nenhuma entrada de milhas" description="Registre sua primeira entrada de milhas ou altere o filtro de busca." />
+                        </TableCell>
+                      </TableRow>
+                    ) : entriesFiltered.map((entry) => (
                       <TableRow key={entry.id}>
                         <TableCell className="hidden md:table-cell">{new Date(entry.date).toLocaleDateString('pt-BR')}</TableCell>
                         <TableCell className="hidden md:table-cell">
@@ -717,7 +732,9 @@ export default function Entradas() {
 
                {/* Mobile card list */}
                <div className="md:hidden space-y-3 mt-4">
-                 {entriesFiltered.map((entry) => (
+                 {entriesFiltered.length === 0 ? (
+                   <EmptyState icon={Package} title="Nenhuma entrada de milhas" description="Registre sua primeira entrada de milhas ou altere o filtro de busca." />
+                 ) : entriesFiltered.map((entry) => (
                   <div key={entry.id} className="border rounded-lg p-4 space-y-2">
                     <div className="flex items-center justify-between">
                       <div>

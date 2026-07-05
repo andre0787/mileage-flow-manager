@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Plus, CreditCard, Eye, EyeOff, Edit, Trash2, Filter } from "lucide-react";
+import { Plus, CreditCard, Eye, EyeOff, Edit, Trash2, Filter, Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { EmptyState } from "@/components/EmptyState";
 import { SkeletonMetricCard } from "@/components/SkeletonLoader";
 import { useData } from "@/contexts/DataContext";
 import { useUpdateAccountMutation, useDeleteAccountMutation } from "@/hooks/useDatabase";
@@ -91,6 +92,9 @@ export default function Contas() {
       </div>
 
       {/* Accounts Grid */}
+      {filteredAccounts.length === 0 ? (
+        <EmptyState icon={Building2} title="Nenhuma conta encontrada" description={filterType !== "todas" ? "Nenhuma conta com este tipo de filtro." : "Crie sua primeira conta para começar."} action={{ label: "Nova Conta", onClick: () => setIsCreateDialogOpen(true) }} />
+      ) : (
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {filteredAccounts.map((account) => (
           <Card key={account.id} className="shadow-card hover:shadow-elegant hover:-translate-y-0.5 transition-all duration-200">
@@ -154,6 +158,7 @@ export default function Contas() {
           </Card>
         ))}
       </div>
+      )}
 
       {/* Summary Card */}
       <Card className="shadow-card">

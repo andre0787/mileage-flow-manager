@@ -427,7 +427,7 @@ export default function Dashboard() {
                 <CardContent>
                   <div className="space-y-1">
                     {ownerData.length === 0 ? (
-                      <p className="text-sm text-muted-foreground text-center py-8">Nenhum dado para exibir</p>
+                      <EmptyState icon={Users} title="Nenhum dono com estoque" description="Adicione contas e registre entradas para começar." />
                     ) : (
                       ownerData.map((owner) => (
                         <div key={owner.owner} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">
@@ -461,7 +461,7 @@ export default function Dashboard() {
               <CardContent>
                 <div className="space-y-1">
                   {recentSales.length === 0 ? (
-                    <p className="text-sm text-muted-foreground text-center py-8">Nenhuma venda registrada</p>
+                    <EmptyState icon={TrendingUp} title="Nenhuma venda registrada" description="Crie sua primeira venda na aba Vendas." />
                   ) : (
                     recentSales.map((sale) => (
                       <div key={sale.id} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">
@@ -590,7 +590,7 @@ export default function Dashboard() {
                 <CardContent>
                   <div className="space-y-1">
                     {ownerData.length === 0 ? (
-                      <p className="text-sm text-muted-foreground text-center py-8">Nenhum dado para exibir</p>
+                      <EmptyState icon={Users} title="Nenhum dono com pontos" description="Adicione contas de pontos para começar." />
                     ) : (
                       ownerData.map((owner) => (
                         <div key={owner.owner} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">
@@ -620,7 +620,7 @@ export default function Dashboard() {
               <CardContent>
                 <div className="space-y-1">
                   {recentTransfers.length === 0 ? (
-                    <p className="text-sm text-muted-foreground text-center py-8">Nenhuma transferência registrada</p>
+                    <EmptyState icon={TrendingUp} title="Nenhuma transferência" description="Transfira pontos entre contas na opção Transferir em Entradas." />
                   ) : (
                     recentTransfers.map((t) => (
                       <div key={t.id} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">

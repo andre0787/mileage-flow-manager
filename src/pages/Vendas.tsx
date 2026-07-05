@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Plus, TrendingDown, Users, Search, Calculator } from "lucide-react";
+import { Plus, TrendingDown, Users, Search, Calculator, Package } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -844,8 +844,8 @@ export default function Vendas() {
           {/* Mobile card list */}
           <div className="md:hidden space-y-3 mt-4">
             {filteredSales.length === 0 && (
-              <div className="text-center py-8 text-muted-foreground">
-                Nenhuma venda encontrada
+              <div className="py-8">
+                <EmptyState icon={Package} title="Nenhuma venda encontrada" description={searchTerm || statusFilter !== "todos" ? "Tente alterar os filtros de busca." : "Registre sua primeira venda para começar."} />
               </div>
             )}
             {filteredSales.map((sale) => (
