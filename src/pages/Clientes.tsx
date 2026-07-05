@@ -132,7 +132,7 @@ export default function Clientes() {
           </div>
           <div className="h-10 w-32 bg-muted rounded-lg animate-pulse" />
         </div>
-        <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(130px,1fr))]">
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
           <SkeletonMetricCard />
           <SkeletonMetricCard />
           <SkeletonMetricCard />
@@ -320,7 +320,7 @@ export default function Clientes() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(130px,1fr))] animate-appear animate-delay-300">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 animate-appear animate-delay-300">
         <Card className="shadow-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Total de Clientes</CardTitle>

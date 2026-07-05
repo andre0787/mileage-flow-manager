@@ -22,37 +22,41 @@
 
 ## Responsividade (Grid Dinâmico)
 
-Grids de cards **estatísticos** (MetricCards, summary stats, mini-métricas) devem usar `auto-fit` com `minmax()` em vez de breakpoints fixos:
+### Regra de ouro: máximo 2 colunas
+
+Grids de cards devem usar no **máximo 2 colunas**. O padrão é:
+- **Mobile** (`< 640px`): 1 coluna (empilhado)
+- **Desktop** (`≥ 640px`): 2 colunas
 
 ```tsx
-{/* ✅ Correto — dinâmico, se adapta a qualquer viewport */}
-<div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(160px,1fr))]">
+{/* ✅ Padrão — cabe em qualquer tela */}
+<div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
   <MetricCard ... />
   <MetricCard ... />
 </div>
 
-{/* ❌ Evitar — breakpoints fixos quebram em telas intermediárias */}
-<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+{/* Mini-métricas do hero — sempre 2 colunas (cards compactos) */}
+<div className="grid grid-cols-2 gap-2">
+  <Box />
+  <Box />
+</div>
+
+{/* ❌ Evitar — mais de 2 colunas ou auto-fit com minmax */}
+<div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
+<div className="grid grid-cols-[repeat(auto-fit,minmax(130px,1fr))]">
 ```
 
-### Tamanhos mínimos (minmax) por tipo de card
-
-| Tipo de card | `minmax` | Exemplo |
-|---|---|---|
-| Mini-métricas (hero) | `110px` | Entradas/mês, custo médio |
-| Summary stats compactos | `130px` | Total de Pontos, Total de Clientes |
-| Summary stats médios | `140px` | Faturamento, Lucro Total |
-| MetricCards | `160px-170px` | Contas Ativas, Total Investido |
-| Gráficos / conteúdo grande | Breakpoints fixos `md:grid-cols-2` | PieChart, BarChart |
-
-### Quando NÃO usar auto-fit
-- **Cards de conteúdo grande** (tabelas, listas extensas, formulários): usar breakpoints fixos (`md:grid-cols-2 lg:grid-cols-3`)
-- **Dois cards lado a lado** que precisam de largura mínima (ex: Owner + Sales): breakpoints fixos com `sm:grid-cols-2`
-- **Loading skeletons**: manter breakpoints fixos (são temporários)
+### Quando usar grids diferentes
+- **Mini-métricas do hero** (Entradas/mês, Total Investido, Custo Médio): `grid-cols-2` — sempre 2
+- **MetricCards e Summary stats**: `grid-cols-1 sm:grid-cols-2` — 1 no celular, 2 em telas maiores
+- **Content cards** (Owner+Sales, tabelas, listas): `grid-cols-1 md:grid-cols-2` — só 2 em desktop+tablet
+- **Gráficos** (PieChart, BarChart): `md:grid-cols-2` — 2 só quando há espaço
 
 ### Por quê?
-- `auto-fit` com `minmax()` delega ao CSS o cálculo do número de colunas — funciona em **qualquer largura de tela** (iPhone SE, iPhone 16, iPad, ultrawide)
-- Elimina a necessidade de guessing breakpoints e evita espaços vazios ou cards estourados
+- No iPhone (375-430px), 1 coluna dá largura suficiente para os cards respirarem
+- 2 colunas no máximo garante que cada card tenha largura mínima de ~170px no sm e mais em telas maiores
+- Evita cards espremidos, truncados ou com layout quebrado
+- Funciona em **qualquer dispositivo** sem breakpoints adivinhados
 - Compatível com Safari, Chrome e Firefox (CSS Grid Level 1)
 
 ## Estado Atual

@@ -327,7 +327,7 @@ export default function Dashboard() {
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-[repeat(auto-fit,minmax(110px,1fr))] gap-2 sm:gap-3 md:gap-4 mt-4 sm:mt-6">
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 mt-4 sm:mt-6">
                     <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
                       <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
                         <ArrowUpRight className="w-3 h-3 text-success shrink-0" />
@@ -391,7 +391,7 @@ export default function Dashboard() {
           </section>
 
           {/* METRIC CARDS */}
-          <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(170px,1fr))] animate-appear animate-delay-200">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 animate-appear animate-delay-200">
             <MetricCard title="Total Investido" value={financialMetrics.totalInvested} subtitle="Capital aplicado" icon={Wallet} variant="gold" prefix="R$" trend={{ value: Math.round(financialMetrics.revenueChange), isPositive: financialMetrics.revenueChange >= 0 }} />
             <MetricCard title="Faturamento Mensal" value={financialMetrics.monthlyRevenue} subtitle="Receita do mês" icon={DollarSign} variant="success" prefix="R$" />
             <MetricCard title="Lucro Mensal" value={financialMetrics.monthlyProfit} subtitle="Ganho líquido" icon={TrendingUp} variant="teal" prefix="R$" />
@@ -409,7 +409,7 @@ export default function Dashboard() {
           </div>
 
           {/* SECONDARY METRICS */}
-          <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(170px,1fr))] animate-appear animate-delay-800">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 animate-appear animate-delay-800">
             <MetricCard title="Contas Ativas" value={currentMetrics.activeAccounts} subtitle="Contas operacionais" icon={CreditCard} variant="teal" />
             <MetricCard title="Vendas Pendentes" value={currentMetrics.pendingSales} subtitle="Aguardando processamento" icon={Target} variant="default" />
             <MetricCard title="Alertas CPF" value={currentMetrics.cpfAlerts} subtitle="Próximo ao limite" icon={AlertTriangle} variant="warning" />
@@ -532,7 +532,7 @@ export default function Dashboard() {
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-[repeat(auto-fit,minmax(110px,1fr))] gap-2 sm:gap-3 md:gap-4 mt-4 sm:mt-6">
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 mt-4 sm:mt-6">
                     <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
                       <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
                         <Wallet className="w-3 h-3 text-teal shrink-0" />

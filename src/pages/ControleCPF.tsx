@@ -66,7 +66,7 @@ export default function ControleCPF() {
           <div className="h-8 w-64 bg-muted rounded animate-pulse" />
           <div className="h-4 w-80 bg-muted rounded animate-pulse" />
         </div>
-        <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(140px,1fr))]">
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
           <div className="h-24 bg-muted rounded-xl animate-pulse" />
           <div className="h-24 bg-muted rounded-xl animate-pulse" />
           <div className="h-24 bg-muted rounded-xl animate-pulse" />
@@ -128,7 +128,7 @@ export default function ControleCPF() {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(140px,1fr))] animate-appear animate-delay-300">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 animate-appear animate-delay-300">
         <Card className="shadow-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Total de Clientes Únicos</CardTitle>

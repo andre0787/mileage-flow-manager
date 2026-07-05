@@ -169,7 +169,7 @@ export default function Contas() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(130px,1fr))]">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
             <div className="text-center p-4 rounded-lg bg-muted/30">
               <p className="text-2xl font-bold text-foreground">{accounts.length}</p>
               <p className="text-sm text-muted-foreground">Total de Contas</p>
