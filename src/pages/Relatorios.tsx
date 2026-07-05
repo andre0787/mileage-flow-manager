@@ -117,8 +117,62 @@ export default function Relatorios() {
 
   const periods = PERIOD_OPTIONS;
 
-  const exportReport = (type: "pdf" | "excel") => {
-    toast.info(`Exportação em ${type.toUpperCase()} estará disponível em breve`);
+  const downloadCSV = (data: Record<string, string | number>[], filename: string) => {
+    if (data.length === 0) {
+      toast.info("Nenhum dado para exportar");
+      return;
+    }
+    const headers = Object.keys(data[0]);
+    const csvRows = [
+      headers.join(","),
+      ...data.map(row =>
+        headers.map(h => {
+          const val = String(row[h] ?? "");
+          if (val.includes(",") || val.includes('"') || val.includes("\n")) {
+            return `"${val.replace(/"/g, '""')}"`;
+          }
+          return val;
+        }).join(",")
+      ),
+    ].join("\n");
+
+    const BOM = "\uFEFF";
+    const blob = new Blob([BOM + csvRows], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    toast.success(`${filename} baixado com sucesso`);
+  };
+
+  const exportOwnerReport = () => {
+    const data = filteredOwnerReports.map(r => ({
+      Dono: r.ownerName,
+      "Pontos Adquiridos": r.totalPointsAcquired,
+      Investimento: r.totalAmountInvested,
+      "Milhas Geradas": r.totalMilesGenerated,
+      Faturamento: r.totalRevenue,
+      Lucro: r.totalProfit,
+      Margem: `${r.profitMargin.toFixed(1)}%`,
+      ROI: `${r.roi.toFixed(1)}%`,
+    }));
+    downloadCSV(data, `relatorio-donos-${selectedPeriod}-dias.csv`);
+  };
+
+  const exportProgramReport = () => {
+    const data = filteredProgramReports.map(r => ({
+      Programa: r.program,
+      "Estoque Atual": r.totalStock,
+      "Custo Médio/Milha": r.averageCostPerMile.toFixed(4),
+      "Milhas Vendidas": r.totalSold,
+      Faturamento: r.revenue,
+      Lucro: r.profit,
+    }));
+    downloadCSV(data, `relatorio-programas-${selectedPeriod}-dias.csv`);
   };
 
   const metrics = useMemo(() => ({
@@ -140,13 +194,13 @@ export default function Relatorios() {
         </div>
 
         <div className="flex items-center gap-2">
-          <Button variant="outline" onClick={() => exportReport("excel")} className="gap-2 flex-1 sm:flex-none min-h-[44px]">
+          <Button variant="outline" onClick={exportOwnerReport} className="gap-2 flex-1 sm:flex-none min-h-[44px]">
             <Download className="h-4 w-4" />
-            Excel
+            Exportar Donos
           </Button>
-          <Button variant="outline" onClick={() => exportReport("pdf")} className="gap-2 flex-1 sm:flex-none min-h-[44px]">
+          <Button variant="outline" onClick={exportProgramReport} className="gap-2 flex-1 sm:flex-none min-h-[44px]">
             <Download className="h-4 w-4" />
-            PDF
+            Exportar Programas
           </Button>
         </div>
       </div>

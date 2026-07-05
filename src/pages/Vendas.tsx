@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Plus, TrendingDown, Users } from "lucide-react";
+import { Plus, TrendingDown, Users, Search } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -26,6 +26,9 @@ interface StockInfo {
 
 export default function Vendas() {
   const { clients, accounts, owners, programs, sales } = useData();
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState<string>("todos");
 
   const addSaleM = useAddSaleMutation();
   const updateSaleM = useUpdateSaleMutation();
@@ -222,7 +225,21 @@ export default function Vendas() {
     updateSaleM.mutate({ id, status });
   };
 
-  const activeSales = sales.filter(s => s.status !== 'cancelado');
+  const filteredSales = useMemo(() => {
+    return sales.filter(s => {
+      if (statusFilter !== "todos" && s.status !== statusFilter) return false;
+      if (!searchTerm) return true;
+      const q = searchTerm.toLowerCase();
+      return (
+        s.clientName.toLowerCase().includes(q) ||
+        s.ownerName.toLowerCase().includes(q) ||
+        s.program.toLowerCase().includes(q) ||
+        s.ticketLocator.toLowerCase().includes(q)
+      );
+    });
+  }, [sales, statusFilter, searchTerm]);
+
+  const activeSales = filteredSales.filter(s => s.status !== 'cancelado');
   const totalRevenue = activeSales.reduce((sum, sale) => sum + sale.saleValue, 0);
   const totalProfit = activeSales.reduce((sum, sale) => sum + sale.profit, 0);
   const totalMilesSold = activeSales.reduce((sum, sale) => sum + sale.milesUsed, 0);
@@ -239,11 +256,34 @@ export default function Vendas() {
             Gerencie as vendas de milhas e controle de estoque por dono
           </p>
         </div>
-        
-         <Button className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto" onClick={() => setIsCreateDialogOpen(true)}>
-           <Plus className="h-4 w-4" />
-           Nova Venda
-         </Button>
+
+        <div className="flex gap-2 w-full sm:w-auto">
+          <div className="relative flex-1 sm:flex-none">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+            <Input
+              className="pl-9 w-full sm:w-56"
+              placeholder="Buscar venda..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <SelectTrigger className="w-32">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="todos">Todos</SelectItem>
+              <SelectItem value="pendente">Pendente</SelectItem>
+              <SelectItem value="pago">Pago</SelectItem>
+              <SelectItem value="concluido">Concluído</SelectItem>
+              <SelectItem value="cancelado">Cancelado</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button className="gap-2 bg-gradient-primary hover:opacity-90 shrink-0" onClick={() => setIsCreateDialogOpen(true)}>
+            <Plus className="h-4 w-4" />
+            Nova Venda
+          </Button>
+        </div>
       </div>
 
          <FormDrawer
@@ -694,7 +734,7 @@ export default function Vendas() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {sales.map((sale) => (
+                {filteredSales.map((sale) => (
                   <TableRow key={sale.id} className={sale.status === 'cancelado' ? 'opacity-50' : ''}>
                     <TableCell className="hidden md:table-cell">{new Date(sale.date).toLocaleDateString('pt-BR')}</TableCell>
                     <TableCell className="hidden md:table-cell">
@@ -754,7 +794,12 @@ export default function Vendas() {
 
           {/* Mobile card list */}
           <div className="md:hidden space-y-3 mt-4">
-            {sales.map((sale) => (
+            {filteredSales.length === 0 && (
+              <div className="text-center py-8 text-muted-foreground">
+                Nenhuma venda encontrada
+              </div>
+            )}
+            {filteredSales.map((sale) => (
               <div key={sale.id} className={`border rounded-lg p-4 space-y-3 ${sale.status === 'cancelado' ? 'opacity-50' : ''}`}>
                 {/* Header: Program + Status */}
                 <div className="flex items-center justify-between">

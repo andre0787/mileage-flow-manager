@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Plus, TrendingUp, TrendingDown, ArrowLeftRight } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Plus, TrendingUp, TrendingDown, ArrowLeftRight, Search } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,6 +19,8 @@ import type { Program, OrigemType, PointEntry } from "@/types";
 
 export default function Entradas() {
   const { entries, accounts, owners, programs, origemTypes, sales } = useData();
+
+  const [searchTerm, setSearchTerm] = useState("");
   const addEntryM = useAddEntryMutation();
   const updateEntryM = useUpdateEntryMutation();
   const deleteEntryM = useDeleteEntryMutation();
@@ -49,10 +51,25 @@ export default function Entradas() {
     : milhasOrigemTypes;
   const availableAccounts = accounts.filter(a => a.type === activeTab && a.status === "ativa");
 
-  const entriesFiltered = entries.filter(e => {
-    const account = accounts.find(a => a.id === e.accountId);
-    return account?.type === activeTab;
-  });
+  const entriesByTab = useMemo(() => {
+    return entries.filter(e => {
+      const account = accounts.find(a => a.id === e.accountId);
+      return account?.type === activeTab;
+    });
+  }, [entries, accounts, activeTab]);
+
+  const entriesFiltered = useMemo(() => {
+    if (!searchTerm) return entriesByTab;
+    const q = searchTerm.toLowerCase();
+    return entriesByTab.filter(e => {
+      const account = accounts.find(a => a.id === e.accountId);
+      const accountName = account?.name.toLowerCase() ?? "";
+      const origemNome = origemTypes.find(ot => ot.id === e.origemTypeId)?.name.toLowerCase()
+        ?? programs.find(p => p.id === e.origemTypeId)?.name.toLowerCase() ?? "";
+      const dateStr = new Date(e.date).toLocaleDateString('pt-BR');
+      return accountName.includes(q) || origemNome.includes(q) || dateStr.includes(q);
+    });
+  }, [entriesByTab, searchTerm, accounts, origemTypes, programs]);
 
   const selectedAccount = accounts.find(a => a.id === newEntry.accountId);
   const selectedOrigemType = origemTypes.find(ot => ot.id === newEntry.origemTypeId);
@@ -256,13 +273,22 @@ export default function Entradas() {
           </p>
         </div>
 
-        <div className="flex gap-2 w-full sm:w-auto">
-          <Button onClick={handleOpenTransfer} className="gap-2 bg-gradient-primary hover:opacity-90">
+        <div className="flex gap-2 w-full sm:w-auto flex-wrap">
+          <div className="relative flex-1 sm:flex-none min-w-[180px]">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+            <Input
+              className="pl-9 w-full"
+              placeholder="Buscar entrada..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <Button onClick={handleOpenTransfer} className="gap-2 bg-gradient-primary hover:opacity-90 shrink-0">
             <ArrowLeftRight className="h-4 w-4" />
             Transferir
           </Button>
 
-          <Button variant="outline" className="gap-2" onClick={() => setIsCreateDialogOpen(true)}>
+          <Button variant="outline" className="gap-2 shrink-0" onClick={() => setIsCreateDialogOpen(true)}>
             <Plus className="h-4 w-4" />
             Nova Entrada
           </Button>
