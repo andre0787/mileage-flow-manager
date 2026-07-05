@@ -9,6 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { FormDrawer } from "@/components/FormDrawer";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { SkeletonMetricCard, SkeletonTable } from "@/components/SkeletonLoader";
+import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
 import { useAddSaleMutation, useUpdateSaleMutation, useCancelSaleMutation, useAddClientMutation } from "@/hooks/useDatabase";
 import { formatCPF } from "@/lib/utils";
@@ -25,9 +27,10 @@ interface StockInfo {
 }
 
 export default function Vendas() {
-  const { clients, accounts, owners, programs, sales } = useData();
+  const { clients, accounts, owners, programs, sales, isLoading } = useData();
 
   const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearch = useDebounce(searchTerm, 300);
   const [statusFilter, setStatusFilter] = useState<string>("todos");
   const [simulatorOpen, setSimulatorOpen] = useState(false);
   const [simInputs, setSimInputs] = useState({
@@ -246,8 +249,8 @@ export default function Vendas() {
   const filteredSales = useMemo(() => {
     return sales.filter(s => {
       if (statusFilter !== "todos" && s.status !== statusFilter) return false;
-      if (!searchTerm) return true;
-      const q = searchTerm.toLowerCase();
+      if (!debouncedSearch) return true;
+      const q = debouncedSearch.toLowerCase();
       return (
         s.clientName.toLowerCase().includes(q) ||
         s.ownerName.toLowerCase().includes(q) ||
@@ -255,7 +258,7 @@ export default function Vendas() {
         s.ticketLocator.toLowerCase().includes(q)
       );
     });
-  }, [sales, statusFilter, searchTerm]);
+  }, [sales, statusFilter, debouncedSearch]);
 
   const activeSales = filteredSales.filter(s => s.status !== 'cancelado');
   const totalRevenue = activeSales.reduce((sum, sale) => sum + sale.saleValue, 0);
@@ -263,6 +266,30 @@ export default function Vendas() {
   const totalMilesSold = activeSales.reduce((sum, sale) => sum + sale.milesUsed, 0);
   const averageProfitMargin = activeSales.length > 0 ? 
     activeSales.reduce((sum, sale) => sum + sale.profitMargin, 0) / activeSales.length : 0;
+
+  if (isLoading) {
+    return (
+      <div className="space-y-6 animate-appear">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="space-y-2">
+            <div className="h-8 w-48 bg-muted rounded animate-pulse" />
+            <div className="h-4 w-64 bg-muted rounded animate-pulse" />
+          </div>
+          <div className="h-10 w-32 bg-muted rounded-lg animate-pulse" />
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+          <SkeletonMetricCard />
+          <SkeletonMetricCard />
+          <SkeletonMetricCard />
+          <SkeletonMetricCard />
+        </div>
+        <div className="rounded-xl border border-border p-6 space-y-4">
+          <div className="h-6 w-40 bg-muted rounded animate-pulse" />
+          <SkeletonTable rows={4} cols={5} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 animate-appear">

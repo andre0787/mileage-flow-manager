@@ -3,13 +3,14 @@ import { Plus, CreditCard, Eye, EyeOff, Edit, Trash2, Filter } from "lucide-reac
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { SkeletonMetricCard } from "@/components/SkeletonLoader";
 import { useData } from "@/contexts/DataContext";
 import { useUpdateAccountMutation, useDeleteAccountMutation } from "@/hooks/useDatabase";
 import AccountDialog from "@/components/AccountDialog";
 import type { Account } from "@/types";
 
 export default function Contas() {
-  const { accounts, owners, programs } = useData();
+  const { accounts, owners, programs, isLoading } = useData();
   const updateAccountM = useUpdateAccountMutation();
   const deleteAccountM = useDeleteAccountMutation();
   const [filterType, setFilterType] = useState<"todas" | "pontos" | "milhas">("todas");
@@ -30,6 +31,25 @@ export default function Contas() {
       updateAccountM.mutate({ id, status: account.status === "ativa" ? "inativa" : "ativa" });
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="space-y-6 animate-appear">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="space-y-2">
+            <div className="h-8 w-48 bg-muted rounded animate-pulse" />
+            <div className="h-4 w-64 bg-muted rounded animate-pulse" />
+          </div>
+          <div className="h-10 w-32 bg-muted rounded-lg animate-pulse" />
+        </div>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <SkeletonMetricCard />
+          <SkeletonMetricCard />
+          <SkeletonMetricCard />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 animate-appear">

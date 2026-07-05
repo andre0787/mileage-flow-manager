@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { AppSidebar } from "@/components/AppSidebar";
 import { BottomTabBar } from "@/components/BottomTabBar";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { DataProvider } from "@/contexts/DataContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
@@ -35,15 +36,15 @@ const AnimatedRoutes = () => {
 
   return (
     <Routes location={location} key={location.pathname}>
-      <Route path="/" element={<div className="animate-appear"><Dashboard /></div>} />
-      <Route path="/contas" element={<div className="animate-appear"><Contas /></div>} />
-      <Route path="/clientes" element={<div className="animate-appear"><Clientes /></div>} />
-      <Route path="/entradas" element={<div className="animate-appear"><Entradas /></div>} />
-      <Route path="/vendas" element={<div className="animate-appear"><Vendas /></div>} />
-      <Route path="/cpf" element={<div className="animate-appear"><ControleCPF /></div>} />
-      <Route path="/relatorios" element={<div className="animate-appear"><Relatorios /></div>} />
-      <Route path="/configuracoes" element={<div className="animate-appear"><Configuracoes /></div>} />
-      <Route path="/perfil" element={<div className="animate-appear"><Perfil /></div>} />
+      <Route path="/" element={<ErrorBoundary><div className="animate-appear"><Dashboard /></div></ErrorBoundary>} />
+      <Route path="/contas" element={<ErrorBoundary><div className="animate-appear"><Contas /></div></ErrorBoundary>} />
+      <Route path="/clientes" element={<ErrorBoundary><div className="animate-appear"><Clientes /></div></ErrorBoundary>} />
+      <Route path="/entradas" element={<ErrorBoundary><div className="animate-appear"><Entradas /></div></ErrorBoundary>} />
+      <Route path="/vendas" element={<ErrorBoundary><div className="animate-appear"><Vendas /></div></ErrorBoundary>} />
+      <Route path="/cpf" element={<ErrorBoundary><div className="animate-appear"><ControleCPF /></div></ErrorBoundary>} />
+      <Route path="/relatorios" element={<ErrorBoundary><div className="animate-appear"><Relatorios /></div></ErrorBoundary>} />
+      <Route path="/configuracoes" element={<ErrorBoundary><div className="animate-appear"><Configuracoes /></div></ErrorBoundary>} />
+      <Route path="/perfil" element={<ErrorBoundary><div className="animate-appear"><Perfil /></div></ErrorBoundary>} />
       <Route path="*" element={<div className="animate-appear"><NotFound /></div>} />
     </Routes>
   );

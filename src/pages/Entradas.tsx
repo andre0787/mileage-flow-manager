@@ -10,6 +10,8 @@ import { FormDrawer } from "@/components/FormDrawer";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { SkeletonPage, SkeletonMetricCard } from "@/components/SkeletonLoader";
+import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
 import { calcMilesGenerated, calcCostPerThousand, calcCostPerMile } from "@/lib/metrics";
@@ -18,9 +20,10 @@ import { DeleteEntryDialog } from "@/components/DeleteEntryDialog";
 import type { Program, OrigemType, PointEntry } from "@/types";
 
 export default function Entradas() {
-  const { entries, accounts, owners, programs, origemTypes, sales } = useData();
+  const { entries, accounts, owners, programs, origemTypes, sales, isLoading } = useData();
 
   const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearch = useDebounce(searchTerm, 300);
   const addEntryM = useAddEntryMutation();
   const updateEntryM = useUpdateEntryMutation();
   const addOrigemTypeM = useAddOrigemTypeMutation();
@@ -57,8 +60,8 @@ export default function Entradas() {
   }, [entries, accounts, activeTab]);
 
   const entriesFiltered = useMemo(() => {
-    if (!searchTerm) return entriesByTab;
-    const q = searchTerm.toLowerCase();
+    if (!debouncedSearch) return entriesByTab;
+    const q = debouncedSearch.toLowerCase();
     return entriesByTab.filter(e => {
       const account = accounts.find(a => a.id === e.accountId);
       const accountName = account?.name.toLowerCase() ?? "";
@@ -67,7 +70,7 @@ export default function Entradas() {
       const dateStr = new Date(e.date).toLocaleDateString('pt-BR');
       return accountName.includes(q) || origemNome.includes(q) || dateStr.includes(q);
     });
-  }, [entriesByTab, searchTerm, accounts, origemTypes, programs]);
+  }, [entriesByTab, debouncedSearch, accounts, origemTypes, programs]);
 
   const selectedAccount = accounts.find(a => a.id === newEntry.accountId);
   const selectedOrigemType = origemTypes.find(ot => ot.id === newEntry.origemTypeId);
@@ -224,6 +227,9 @@ export default function Entradas() {
   const totalMilesGenerated = entriesFiltered.reduce((s, e) => s + (e.milesGenerated ?? e.amount), 0);
   const averageCostPerMile = totalMilesGenerated > 0 ? totalAmountPaid / totalMilesGenerated : 0;
 
+  if (isLoading) {
+    return <SkeletonPage />;
+  }
 
   return (
     <div className="space-y-6 animate-appear">

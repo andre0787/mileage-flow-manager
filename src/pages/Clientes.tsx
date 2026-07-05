@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Plus, Users, Search, Edit, Trash2, Phone, AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,12 +8,14 @@ import { FormDrawer } from "@/components/FormDrawer";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { SkeletonMetricCard, SkeletonTable } from "@/components/SkeletonLoader";
+import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
 import { useAddClientMutation, useUpdateClientMutation, useDeleteClientMutation } from "@/hooks/useDatabase";
 import { formatCPF } from "@/lib/utils";
 
 export default function Clientes() {
-  const { clients, sales } = useData();
+  const { clients, sales, isLoading } = useData();
 
   const addClientM = useAddClientMutation();
   const updateClientM = useUpdateClientMutation();
@@ -39,17 +41,22 @@ export default function Clientes() {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearch = useDebounce(searchTerm, 300);
   const [deleteBlocked, setDeleteBlocked] = useState<{
     open: boolean;
     clientName: string;
     relatedSales: { id: string; ticketLocator: string; date: string; milesUsed: number }[];
   }>({ open: false, clientName: "", relatedSales: [] });
 
-  const filteredClients = clients.filter(client =>
-    client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (client.cpf && client.cpf.includes(searchTerm)) ||
-    (client.email && client.email.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  const filteredClients = useMemo(() => {
+    if (!debouncedSearch) return clients;
+    const q = debouncedSearch.toLowerCase();
+    return clients.filter(client =>
+      client.name.toLowerCase().includes(q) ||
+      (client.cpf && client.cpf.includes(q)) ||
+      (client.email && client.email.toLowerCase().includes(q))
+    );
+  }, [clients, debouncedSearch]);
 
   const handleCreateClient = () => {
     if (newClient.name) {
@@ -113,6 +120,29 @@ export default function Clientes() {
   const handleCPFChange = (value: string) => {
     setNewClient({ ...newClient, cpf: formatCPF(value) });
   };
+
+  if (isLoading) {
+    return (
+      <div className="space-y-6 animate-appear">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="space-y-2">
+            <div className="h-8 w-48 bg-muted rounded animate-pulse" />
+            <div className="h-4 w-64 bg-muted rounded animate-pulse" />
+          </div>
+          <div className="h-10 w-32 bg-muted rounded-lg animate-pulse" />
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+          <SkeletonMetricCard />
+          <SkeletonMetricCard />
+          <SkeletonMetricCard />
+        </div>
+        <div className="rounded-xl border border-border p-6 space-y-4">
+          <div className="h-6 w-40 bg-muted rounded animate-pulse" />
+          <SkeletonTable rows={4} cols={5} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 animate-appear">
