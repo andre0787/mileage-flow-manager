@@ -43,7 +43,7 @@ export default function Contas() {
           </div>
           <div className="h-10 w-32 bg-muted rounded-lg animate-pulse" />
         </div>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <SkeletonMetricCard />
           <SkeletonMetricCard />
           <SkeletonMetricCard />
@@ -95,7 +95,7 @@ export default function Contas() {
       {filteredAccounts.length === 0 ? (
         <EmptyState icon={Building2} title="Nenhuma conta encontrada" description={filterType !== "todas" ? "Nenhuma conta com este tipo de filtro." : "Crie sua primeira conta para começar."} action={{ label: "Nova Conta", onClick: () => setIsCreateDialogOpen(true) }} />
       ) : (
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filteredAccounts.map((account) => (
           <Card key={account.id} className="shadow-card hover:shadow-elegant hover:-translate-y-0.5 transition-all duration-200">
             <CardHeader className="pb-3 bg-gradient-card">
@@ -169,7 +169,7 @@ export default function Contas() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+          <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(130px,1fr))]">
             <div className="text-center p-4 rounded-lg bg-muted/30">
               <p className="text-2xl font-bold text-foreground">{accounts.length}</p>
               <p className="text-sm text-muted-foreground">Total de Contas</p>

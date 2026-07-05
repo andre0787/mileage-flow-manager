@@ -66,13 +66,13 @@ export default function ControleCPF() {
           <div className="h-8 w-64 bg-muted rounded animate-pulse" />
           <div className="h-4 w-80 bg-muted rounded animate-pulse" />
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+        <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(140px,1fr))]">
           <div className="h-24 bg-muted rounded-xl animate-pulse" />
           <div className="h-24 bg-muted rounded-xl animate-pulse" />
           <div className="h-24 bg-muted rounded-xl animate-pulse" />
           <div className="h-24 bg-muted rounded-xl animate-pulse" />
         </div>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
           <div className="h-40 bg-muted rounded-xl animate-pulse" />
           <div className="h-40 bg-muted rounded-xl animate-pulse" />
           <div className="h-40 bg-muted rounded-xl animate-pulse" />
@@ -128,7 +128,7 @@ export default function ControleCPF() {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 animate-appear animate-delay-300">
+      <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(140px,1fr))] animate-appear animate-delay-300">
         <Card className="shadow-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Total de Clientes Únicos</CardTitle>
@@ -159,7 +159,7 @@ export default function ControleCPF() {
 
       {/* Program Usage Cards */}
       {usageByProgram.size > 0 && (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 animate-appear animate-delay-600">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 animate-appear animate-delay-600">
           {Array.from(usageByProgram.entries()).map(([programName, info]) => {
             const percentage = hasLimit(info.limit) ? (info.used.size / info.limit) * 100 : 0;
             const cycleInfo = usage.find(u => u.programName === programName);

@@ -32,7 +32,7 @@ const COLORS = [
 
 export function DashboardCharts({ programData, monthlySales, unitLabel = "Milhas", hideBarChart = false }: DashboardChartsProps) {
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className={`grid gap-4 ${hideBarChart ? '' : 'md:grid-cols-2 lg:grid-cols-2'}`}>
       <Card className="overflow-hidden">
         <CardHeader className="pb-3">
           <CardTitle className="flex items-center gap-2 text-sm font-semibold font-display">

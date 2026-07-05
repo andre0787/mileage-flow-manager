@@ -296,7 +296,7 @@ export default function Vendas() {
           </div>
           <div className="h-10 w-32 bg-muted rounded-lg animate-pulse" />
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+        <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(140px,1fr))]">
           <SkeletonMetricCard />
           <SkeletonMetricCard />
           <SkeletonMetricCard />
@@ -739,7 +739,7 @@ export default function Vendas() {
 
 
       {/* Summary Cards */}
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 animate-appear animate-delay-300">
+      <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(140px,1fr))] animate-appear animate-delay-300">
         <Card className="shadow-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Faturamento Total</CardTitle>

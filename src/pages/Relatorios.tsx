@@ -189,7 +189,7 @@ export default function Relatorios() {
           <div className="h-8 w-48 bg-muted rounded animate-pulse" />
           <div className="h-4 w-72 bg-muted rounded animate-pulse" />
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+        <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(140px,1fr))]">
           <div className="h-24 bg-muted rounded-xl animate-pulse" />
           <div className="h-24 bg-muted rounded-xl animate-pulse" />
           <div className="h-24 bg-muted rounded-xl animate-pulse" />
@@ -232,7 +232,7 @@ export default function Relatorios() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
               <div className="space-y-2">
               <label className="text-sm font-medium">Período:</label>
               <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
@@ -286,7 +286,7 @@ export default function Relatorios() {
       </Card>
 
       {/* Summary Metrics */}
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 animate-appear animate-delay-300">
+      <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(160px,1fr))] animate-appear animate-delay-300">
         <Card className="shadow-card animate-appear animate-delay-300">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Total Investido</CardTitle>

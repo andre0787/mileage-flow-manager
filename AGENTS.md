@@ -20,6 +20,41 @@
 - Nomes de arquivos: PascalCase para componentes, camelCase para utils
 - Interface em português (pt-BR)
 
+## Responsividade (Grid Dinâmico)
+
+Grids de cards **estatísticos** (MetricCards, summary stats, mini-métricas) devem usar `auto-fit` com `minmax()` em vez de breakpoints fixos:
+
+```tsx
+{/* ✅ Correto — dinâmico, se adapta a qualquer viewport */}
+<div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(160px,1fr))]">
+  <MetricCard ... />
+  <MetricCard ... />
+</div>
+
+{/* ❌ Evitar — breakpoints fixos quebram em telas intermediárias */}
+<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+```
+
+### Tamanhos mínimos (minmax) por tipo de card
+
+| Tipo de card | `minmax` | Exemplo |
+|---|---|---|
+| Mini-métricas (hero) | `110px` | Entradas/mês, custo médio |
+| Summary stats compactos | `130px` | Total de Pontos, Total de Clientes |
+| Summary stats médios | `140px` | Faturamento, Lucro Total |
+| MetricCards | `160px-170px` | Contas Ativas, Total Investido |
+| Gráficos / conteúdo grande | Breakpoints fixos `md:grid-cols-2` | PieChart, BarChart |
+
+### Quando NÃO usar auto-fit
+- **Cards de conteúdo grande** (tabelas, listas extensas, formulários): usar breakpoints fixos (`md:grid-cols-2 lg:grid-cols-3`)
+- **Dois cards lado a lado** que precisam de largura mínima (ex: Owner + Sales): breakpoints fixos com `sm:grid-cols-2`
+- **Loading skeletons**: manter breakpoints fixos (são temporários)
+
+### Por quê?
+- `auto-fit` com `minmax()` delega ao CSS o cálculo do número de colunas — funciona em **qualquer largura de tela** (iPhone SE, iPhone 16, iPad, ultrawide)
+- Elimina a necessidade de guessing breakpoints e evita espaços vazios ou cards estourados
+- Compatível com Safari, Chrome e Firefox (CSS Grid Level 1)
+
 ## Estado Atual
 - Backend Supabase com PostgreSQL (tabelas: profiles, owners, programs, origem_types, accounts, entries, clients, sales)
 - Autenticação via Supabase Auth (email/senha), sem confirmação de email

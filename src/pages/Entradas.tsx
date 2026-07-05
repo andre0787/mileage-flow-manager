@@ -518,7 +518,7 @@ export default function Entradas() {
         </TabsList>
 
         <TabsContent value="pontos" className="space-y-4 animate-appear">
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 animate-appear animate-delay-200">
+          <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(130px,1fr))] animate-appear animate-delay-200">
             <Card className="shadow-card">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">Total de Pontos</CardTitle>
@@ -661,7 +661,7 @@ export default function Entradas() {
          </TabsContent>
 
          <TabsContent value="milhas" className="space-y-4 animate-appear">
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 animate-appear animate-delay-200">
+          <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(130px,1fr))] animate-appear animate-delay-200">
             <Card className="shadow-card">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">Total de Milhas</CardTitle>

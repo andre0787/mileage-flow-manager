@@ -184,22 +184,22 @@ export default function Configuracoes() {
       </div>
 
       <Tabs defaultValue="owners" className="space-y-6">
-        <div className="overflow-x-auto pb-1 -mb-1">
-        <TabsList className="w-full sm:w-auto inline-flex">
-          <TabsTrigger value="owners" className="gap-2">
-            <User className="h-4 w-4" />
+        <div className="-mx-4 sm:mx-0 overflow-x-auto pb-1 -mb-1 px-4 sm:px-0">
+        <TabsList className="inline-flex gap-1 w-max sm:w-auto sm:flex-wrap sm:justify-center">
+          <TabsTrigger value="owners" className="gap-2 whitespace-nowrap">
+            <User className="h-4 w-4 shrink-0" />
             Donos
           </TabsTrigger>
-          <TabsTrigger value="programs" className="gap-2">
-            <Building2 className="h-4 w-4" />
+          <TabsTrigger value="programs" className="gap-2 whitespace-nowrap">
+            <Building2 className="h-4 w-4 shrink-0" />
             Programas
           </TabsTrigger>
-          <TabsTrigger value="origem-milhas" className="gap-2">
-            <Palette className="h-4 w-4" />
+          <TabsTrigger value="origem-milhas" className="gap-2 whitespace-nowrap">
+            <Palette className="h-4 w-4 shrink-0" />
             Tipo de Operação
           </TabsTrigger>
-          <TabsTrigger value="preferences" className="gap-2">
-            <Settings className="h-4 w-4" />
+          <TabsTrigger value="preferences" className="gap-2 whitespace-nowrap">
+            <Settings className="h-4 w-4 shrink-0" />
             Preferências
           </TabsTrigger>
         </TabsList>
