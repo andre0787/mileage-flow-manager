@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { FormDrawer } from "@/components/FormDrawer";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { EmptyState } from "@/components/EmptyState";
 import { SkeletonMetricCard, SkeletonTable } from "@/components/SkeletonLoader";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useHaptic } from "@/hooks/useHaptic";

@@ -20,6 +20,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { EmptyState } from "@/components/EmptyState";
 import { SkeletonHero, SkeletonMetricCard, SkeletonTable } from "@/components/SkeletonLoader";
 import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
