@@ -1,69 +1,291 @@
-# UX Sprint — Memória de Planejamento
+# 🧠 MEMORY — MilesControl
 
-## Branch
-`feat/ux-sprint` (baseada em `main`)
+> Arquivo de memória do projeto. Contém histórico de decisões, sprints concluídas,
+> convenções estabelecidas e contexto para agentes futuros.
 
-## Sprints
+---
+
+## 📋 Índice
+1. [Stack & Setup](#stack--setup)
+2. [Estrutura do Projeto](#estrutura-do-projeto)
+3. [Convenções de Código](#convenções-de-código)
+4. [Git Workflow](#git-workflow)
+5. [UX Sprint — Histórico](#ux-sprint--histórico)
+6. [Componentes e Padrões de UI](#componentes-e-padrões-de-ui)
+7. [Regras de Negócio](#regras-de-negócio)
+8. [Testes](#testes)
+9. [Deploy](#deploy)
+
+---
+
+## Stack & Setup
+
+| Tecnologia | Versão | Uso |
+|-----------|--------|-----|
+| React 18 + TypeScript | ^18 | UI |
+| Vite | ^5 | Bundler |
+| Tailwind CSS | ^3 | Estilização |
+| shadcn/ui | — | Componentes base |
+| React Router v6 | ^6 | Rotas |
+| TanStack React Query | ^5 | Server state |
+| Recharts | ^2 | Gráficos |
+| react-hook-form + zod | — | Formulários |
+| Supabase | — | Backend (Auth + PostgreSQL + RLS) |
+| canvas-confetti | ^1 | Confete |
+| Playwright | ^1 | E2E |
+
+### Comandos
+```bash
+npm run dev        # servidor dev (localhost:8080)
+npm run build      # build produção
+npm run lint       # ESLint
+npx tsc --noEmit   # TypeScript check
+npx playwright test --reporter=list --workers=1  # E2E
+```
+
+---
+
+## Estrutura do Projeto
+
+```
+src/
+├── components/           # Componentes reutilizáveis
+│   ├── ui/               # shadcn/ui (19 mantidos)
+│   ├── AccountDialog.tsx
+│   ├── AnimatedNumber.tsx
+│   ├── AppSidebar.tsx
+│   ├── BottomTabBar.tsx
+│   ├── DeleteEntryDialog.tsx   # Extraído de Entradas.tsx
+│   ├── EmptyState.tsx          # UX Sprint 2
+│   ├── ErrorBoundary.tsx       # UX Sprint 1
+│   ├── FlowMap.tsx
+│   ├── FormDrawer.tsx
+│   ├── MetricCard.tsx
+│   ├── ProtectedRoute.tsx
+│   └── SkeletonLoader.tsx      # UX Sprint 1
+├── contexts/
+│   ├── AuthContext.tsx         # Auth + sessão
+│   └── DataContext.tsx         # Dados + isLoading + cache
+├── hooks/
+│   ├── useDatabase.ts          # Todas queries + mutations React Query
+│   ├── useDebounce.ts          # UX Sprint 1 (300ms)
+│   └── useHaptic.ts            # UX Sprint 3 (vibração mobile)
+├── lib/
+│   ├── metrics.ts              # Cálculos de domínio (funções puras)
+│   ├── utils.ts                # formatCPF + isTransferencia + helpers
+│   └── supabase.ts             # Cliente Supabase
+├── pages/
+│   ├── Dashboard.tsx           # Abas Milhas/Pontos
+│   ├── Entradas.tsx            # Entradas + Transferências
+│   ├── Vendas.tsx              # Vendas + Simulador
+│   ├── Contas.tsx
+│   ├── Clientes.tsx
+│   ├── ControleCPF.tsx
+│   ├── Relatorios.tsx
+│   ├── Configuracoes.tsx
+│   ├── Perfil.tsx
+│   └── Login.tsx
+└── types/
+    └── index.ts                # Tipos TS
+```
+
+---
+
+## Convenções de Código
+
+### Arquitetura Geral
+- **Business logic em `lib/`**, queries/mutations em `hooks/`, UI em `pages/` e `components/`
+- **Nunca duplicar regra de negócio**: cada cálculo (lucro, margem, saldo, custo médio) em ponto único em `lib/`
+- **Funções puras em `lib/*.ts`**: sem React, sem Supabase, sem hooks
+- **Ponto único de alteração**: mudança em lógica de domínio reflete em 1 arquivo apenas
+- **Todo mapper snake_case → camelCase** centralizado em `lib/utils.ts` ou no módulo de domínio
+- **Preferir criar módulo novo** a duplicar lógica existente
+
+### Nomenclatura
+- Componentes: `PascalCase.tsx` (ex: `MetricCard.tsx`)
+- Utilitários/hooks: `camelCase.ts` (ex: `useDebounce.ts`)
+- Import paths: `@/` aponta para `src/`
+- Interface em português (pt-BR)
+
+### React & Estado
+- **DataContext**: apenas dados + `isLoading` + `clearCache`/`clearAccountData`.
+  Mutations NÃO ficam no contexto — componentes importam hooks de `useDatabase.ts` diretamente.
+- **React Query**: `staleTime: 30s`, `invalidateQueries` após mutations
+- **Loading states**: usar `isPending` do TanStack Query para skeletons iniciais
+- **Ponytail mode**: não criar abstrações antes de precisar, preferir stdlib/nativo, remover código morto
+- **shadcn/ui**: só adicionar componente se realmente for usar. Atualmente 19 mantidos.
+
+### UI & UX (estabelecido na UX Sprint)
+- **SkeletonLoader**: 4 variantes — `SkeletonPage`, `SkeletonMetricCard`, `SkeletonTable`, `SkeletonHero`
+- **ErrorBoundary**: class component global em `App.tsx`, com botão "Tentar novamente"
+- **Debounce**: 300ms em campos de busca (Entradas, Vendas, Clientes), via `useDebounce` hook
+- **EmptyState**: componente com `icon`, `title`, `description`, `action` opcional (label + onClick)
+- **Confetti**: `canvas-confetti` em criação de entrada (sempre) e venda ≥ R$ 200
+- **Haptic**: `useHaptic` hook com `light`/`medium`/`heavy`/`success` via `navigator.vibrate()`
+- **View Transitions API**: fade-out 200ms + fade-in 350ms entre páginas (respeita `prefers-reduced-motion`)
+- **MetricCard**: `animate` prop sempre true (removida a prop)
+- **Toast**: sistema removido, app usa Sonner exclusivamente
+
+---
+
+## Git Workflow
+
+```
+main ───── produção (Vercel)
+  ↑
+develop ── desenvolvimento
+  ↑
+fix/* ──── PR → develop → merge develop → main
+```
+
+**Ramo atual**: `main` (produção) — deploy automático via Vercel.
+**Histórico UX Sprint**: branch `feat/ux-sprint` merged em `main` via `--no-ff`.
+
+### Commits recentes em main
+```
+916a0cb feat(ux): sprint completo — loading, empty states, confetti, haptic e view transitions
+dd6a414 refactor: centraliza deducao de total invested em vendas + extrai DeleteEntryDialog
+31383d8 docs: atualiza AGENTS.md e README com novas features
+```
+
+---
+
+## UX Sprint — Histórico
 
 ### Sprint 1 — Critical UX (Loading + Error + Debounce)
-**Objetivo**: Percepção de performance e resiliência
+**Commit**: `0435e54` → merged em `916a0cb`
 
-| Item | Arquivos | Status |
-|------|----------|--------|
-| 1.1 DataContext: expor `isLoading` | `src/contexts/DataContext.tsx` | ✅ |
-| 1.2 ErrorBoundary global | `src/components/ErrorBoundary.tsx`, `src/App.tsx` | ✅ |
-| 1.3 useDebounce hook | `src/hooks/useDebounce.ts` | ✅ |
-| 1.4 SkeletonLoader component | `src/components/SkeletonLoader.tsx` | ✅ |
-| 1.5 Skeletons em Dashboard | `src/pages/Dashboard.tsx` | ✅ |
-| 1.6 Skeletons em Entradas | `src/pages/Entradas.tsx` | ✅ |
-| 1.7 Skeletons em Vendas | `src/pages/Vendas.tsx` | ✅ |
-| 1.8 Skeletons em Clientes | `src/pages/Clientes.tsx` | ✅ |
-| 1.9 Debounce em Entradas | `src/pages/Entradas.tsx` | ✅ |
-| 1.10 Debounce em Vendas | `src/pages/Vendas.tsx` | ✅ |
-| 1.11 Debounce em Clientes | `src/pages/Clientes.tsx` | ✅ |
-| 1.12 Validação: build + lint + E2E | — | ✅ |
+| Item | Arquivo | Feito |
+|------|---------|-------|
+| DataContext: expor `isLoading` | `DataContext.tsx` | ✅ |
+| ErrorBoundary global | `ErrorBoundary.tsx`, `App.tsx` | ✅ |
+| useDebounce hook | `useDebounce.ts` | ✅ |
+| SkeletonLoader (4 variantes) | `SkeletonLoader.tsx` | ✅ |
+| Skeletons em Dashboard | `Dashboard.tsx` | ✅ |
+| Skeletons em Entradas | `Entradas.tsx` | ✅ |
+| Skeletons em Vendas | `Vendas.tsx` | ✅ |
+| Skeletons em Clientes | `Clientes.tsx` | ✅ |
+| Skeletons em Contas | `Contas.tsx` | ✅ |
+| Skeletons em ControleCPF | `ControleCPF.tsx` | ✅ |
+| Skeletons em Relatorios | `Relatorios.tsx` | ✅ |
+| Skeletons em Configuracoes | `Configuracoes.tsx` | ✅ |
+| Debounce em Entradas | `Entradas.tsx` | ✅ |
+| Debounce em Vendas | `Vendas.tsx` | ✅ |
+| Debounce em Clientes | `Clientes.tsx` | ✅ |
+| Fix hooks ordering no Dashboard | `Dashboard.tsx` | ✅ |
 
-### Sprint 2 — Visual Hierarchy + Empty States
-**Objetivo**: Guiar olhar do usuário do macro → micro
+### Sprint 2 — Empty States
+**Commit**: `93a1bde` → merged em `916a0cb`
 
-| Item | Arquivos | Status |
-|------|----------|--------|
-| 2.1 EmptyState component | `src/components/EmptyState.tsx` | ✅ |
-| 2.2 Empty states em Dashboard | `src/pages/Dashboard.tsx` | ✅ |
-| 2.3 Empty states em Entradas | `src/pages/Entradas.tsx` | ✅ |
-| 2.4 Empty states em Vendas | `src/pages/Vendas.tsx` | ✅ |
-| 2.5 Empty states em Clientes | `src/pages/Clientes.tsx` | ✅ |
-| 2.6 Empty states em Contas | `src/pages/Contas.tsx` | ✅ |
-| 2.7 Validação: build + lint + E2E | — | ✅ |
+| Item | Arquivo | Feito |
+|------|---------|-------|
+| EmptyState component | `EmptyState.tsx` | ✅ |
+| Empty states Dashboard (Milhas + Pontos) | `Dashboard.tsx` | ✅ |
+| Empty states Entradas | `Entradas.tsx` | ✅ |
+| Empty states Vendas | `Vendas.tsx` | ✅ |
+| Empty states Clientes | `Clientes.tsx` | ✅ |
+| Empty states Contas | `Contas.tsx` | ✅ |
 
 ### Sprint 3 — Polish & Micro-interações
-**Objetivo**: Feedback emocional e refinamento
+**Commit**: `e2a40a8` → merged em `916a0cb`
 
-| Item | Arquivos | Status |
-|------|----------|--------|
-| 3.1 Confetti em venda concluída | `src/pages/Vendas.tsx` | ✅ |
-| 3.2 Haptic feedback em ações críticas | `src/hooks/useHaptic.ts` | ✅ |
-| 3.3 JetBrains Mono + font swap (já configurado) | `index.html` | ✅ |
-| 3.4 Transições de página (View Transitions API) | `src/index.css` | ✅ |
-| 3.5 Confetti em criação de entrada | `src/pages/Entradas.tsx` | ✅ |
-| 3.6 Validação: full test suite | — | ✅ |
+| Item | Arquivo | Feito |
+|------|---------|-------|
+| canvas-confetti instalado | `package.json` | ✅ |
+| Confetti em criação de entrada | `Entradas.tsx` | ✅ |
+| Confetti em venda ≥ R$ 200 | `Vendas.tsx` | ✅ |
+| useHaptic com 4 padrões | `useHaptic.ts` | ✅ |
+| Haptic success em entradas + vendas | `Entradas.tsx`, `Vendas.tsx` | ✅ |
+| View Transitions API (fade) | `index.css` | ✅ |
+| MEMORY.md criado | `MEMORY.md` | ✅ |
 
-### Validação Final
-| Item | Status |
-|------|--------|
-| `npx tsc --noEmit` | ✅ |
-| `npm run build` | ✅ |
-| `npm run lint` | ✅ (0 errors) |
-| `npx playwright test` | ✅ (13.7s) |
-| Aprovação do usuário | 🔴 |
-| Merge `main` + push | 🔴 |
+---
 
-## Notas técnicas
-- Loading states: usar `isPending` do TanStack Query para skeletons iniciais
-- ErrorBoundary: class component, sem dependências
-- Debounce: 300ms, hook customizado com `useEffect` + `setTimeout`
-- EmptyState: componente com icon, title, description, action (opcional)
-- View Transitions: API nativa do browser (sem framer-motion)
-- Confetti: `canvas-confetti` — import direto (40–60 particles)
-- Haptic: `navigator.vibrate()` com fallback silencioso
-- JetBrains Mono já incluso com `display=swap` no index.html
+## Componentes e Padrões de UI
+
+### shadcn/ui mantidos (19)
+alert-dialog, badge, button, card, dialog, drawer, input, label, progress, select, separator, sheet, skeleton, sidebar, sonner, switch, table, tabs, tooltip
+
+### Componentes próprios criados
+| Componente | Localização | Propósito |
+|-----------|-------------|-----------|
+| `EmptyState` | `components/EmptyState.tsx` | Estado vazio com CTA |
+| `ErrorBoundary` | `components/ErrorBoundary.tsx` | Captura de erros com retry |
+| `SkeletonLoader` | `components/SkeletonLoader.tsx` | 4 variantes de skeleton |
+| `DeleteEntryDialog` | `components/DeleteEntryDialog.tsx` | Diálogo de exclusão com cascata |
+
+### Hooks customizados
+| Hook | Localização | Propósito |
+|------|-------------|-----------|
+| `useDebounce` | `hooks/useDebounce.ts` | Debounce 300ms |
+| `useHaptic` | `hooks/useHaptic.ts` | Vibração tátil mobile |
+
+---
+
+## Regras de Negócio
+
+### Vendas
+- Status: `pendente` → `pago` → `concluído` | `cancelado`
+- **Cancelamento**: restaura saldo e `totalInvested` da conta, excluído de métricas financeiras
+- **Proportional cost**: ao criar venda, deduz `totalInvested` proporcionalmente via `calcProportionalCost` + `calcAccountUpdate`
+
+### Transferências
+- Entre contas de pontos com bonificação
+- `isTransferencia()` em `lib/utils.ts`
+
+### Entradas
+- Exclusão em cascata: se entrada tem vendas vinculadas, exclui vendas primeiro
+- `DeleteEntryDialog` gerencia confirmação + execução
+
+### CPF
+- Controle de ciclo de passageiros por programa
+- `formatCPF` em `lib/utils.ts`
+
+---
+
+## Testes
+
+### E2E Playwright
+- Arquivo: `tests/entradas.spec.ts` — fluxo criar → editar → excluir entrada
+- Helpers: `tests/helpers.ts` — criar dados via REST API com retry
+- Viewport: 1280x900
+- Comando: `npx playwright test --reporter=list --workers=1`
+
+### Convenções de teste
+- `{ force: true }` em cliques dentro de Dialog/Drawer
+- `.first()` em `text=` quando valor aparece em múltiplos lugares
+- Registrar usuário via UI, criar dados via Supabase REST API
+- Token de acesso: `localStorage.getItem('sb-{project-ref}-auth-token')`
+- IDs dos campos de entrada: `#amount`, `#amountPaid`, `#conversion` (criar), `#editAmount`, `#editAmountPaid` (editar)
+
+---
+
+## Deploy
+
+- **URL**: https://mileage-flow-manager.vercel.app
+- **Framework**: Vite
+- **Variáveis**: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
+- **CLI**: `vercel --prod`
+- **Deploy automático**: push para `main` → Vercel
+
+---
+
+## Design System
+
+### Cores (CSS vars HSL em `index.css`)
+- `--primary`: 245 58% 51% (índigo)
+- `--success`: 160 84% 39% (verde)
+- `--warning`: 38 92% 50% (âmbar)
+- `--destructive`: 0 84% 60% (vermelho)
+- Backgrounds, cards, foreground e muted seguem padrão shadcn/ui
+
+### Tipografia
+- Display: `Plus Jakarta Sans` (Google Fonts com `display=swap`)
+- Mono: `JetBrains Mono` (Google Fonts com `display=swap`)
+- Classe `.font-display` para títulos, `.font-body` para texto corrido
+
+### Animações
+- Classes utilitárias: `.animate-appear`, `.animate-delay-NNN`
+- View Transitions: fade-out 200ms + fade-in 350ms
+- Hover: `hover:-translate-y-0.5 hover:shadow-elegant transition-all duration-200` em cards
+- Confetti: 40-60 particles, spread 60-70, cores [indigo, amber, green]
