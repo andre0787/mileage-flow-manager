@@ -199,6 +199,40 @@ dd6a414 refactor: centraliza deducao de total invested em vendas + extrai Delete
 | View Transitions API (fade) | `index.css` | ✅ |
 | MEMORY.md criado | `MEMORY.md` | ✅ |
 
+### Validação Final
+| Item | Status |
+|------|--------|
+| `npx tsc --noEmit` | ✅ |
+| `npm run build` | ✅ |
+| `npm run lint` | ✅ (0 errors, 7 warnings pré-existentes) |
+| `npx playwright test` | ✅ (14.1s) |
+| Aprovação do usuário | ✅ |
+| Merge `main` + push | ✅ Deploy automático Vercel |
+
+## ⚠️ Post-mortem — Runtime Error no Deploy
+
+**Sintoma**: Dashboard e Vendas quebravam no runtime com erro "EmptyState is not defined".
+
+**Causa raiz**: `Dashboard.tsx` e `Vendas.tsx` usavam `<EmptyState />` sem importar o componente.
+O `tsconfig.json` tem `noUnusedLocals: false` e `strictNullChecks: false`, então `tsc --noEmit`
+**não acusou erro** — apenas o runtime revelou.
+
+**Solução**: Adicionar `import { EmptyState } from "@/components/EmptyState"` em ambos os arquivos.
+Commit `1bc6258`.
+
+**Proteção futura**: Sempre verificar imports manualmente mesmo com `tsc` zerado, ou ativar
+`noUnusedLocals: true` e `strict: true` no tsconfig.
+
+## 📚 Commits em main (produção)
+
+```
+1bc6258 fix: importa EmptyState em Dashboard e Vendas (runtime error)
+fe5e09c docs: atualiza MEMORY.md com historico completo e convencoes do projeto
+916a0cb feat(ux): sprint completo — loading, empty states, confetti, haptic e view transitions
+dd6a414 refactor: centraliza deducao de total invested em vendas + extrai DeleteEntryDialog
+31383d8 docs: atualiza AGENTS.md e README com novas features
+```
+
 ---
 
 ## Componentes e Padrões de UI
