@@ -336,6 +336,12 @@ Documentada em `AGENTS.md`. Executar antes de todo push em `main`:
 - `github_workflow_status`: status dos workflows/deploy
 - Deps: `octokit`
 
+### Ponytail (lazy senior dev mode)
+Instalado via `pi install npm:@dietrichgebert/ponytail@4.8.4`
+- **Extensão**: `~/.pi/agent/npm/node_modules/@dietrichgebert/ponytail/pi-extension/index.js`
+- **Skills** (6): `ponytail`, `ponytail-audit`, `ponytail-debt`, `ponytail-gain`, `ponytail-help`, `ponytail-review`
+- Uso: ativar via `/skill:ponytail` para modo código mínimo
+
 #### Mantidos via bash
 - `playwright` → `npx playwright test`
 - `filesystem` → `read`/`write`/`edit` nativos
@@ -360,10 +366,11 @@ Documentada em `AGENTS.md`. Executar antes de todo push em `main`:
 - **Importante**: configurar redirect URLs no Supabase Dashboard
 
 ### Skills Instaladas (Jul 2026)
-**3 repositórios, 102 skills** em `~/.pi/agent/skills/`:
-- `anthropic-skills/` (18 skills): `webapp-testing`, `frontend-design`, `doc-coauthoring`, `skill-creator`, documentos (pdf, docx, xlsx)
+**Skills instaladas**: 95 (16 Anthropic + 67 design + 6 planning + 6 ponytail)
+- `anthropic-skills/` (16 skills): `webapp-testing`, `frontend-design`, `doc-coauthoring`, `skill-creator`, documentos (pdf, docx, xlsx)
 - `awesome-design-skills/` (67 temas UI): `bento`, `modern`, `shadcn`, `corporate`, `neobrutalism`, `glassmorphism`
-- `planning-with-files/` (17 skills): planejamento persistente (★24.7K)
+- `planning-with-files/` (6 skills): planejamento persistente + 5 traduções
+- `ponytail/` (6 skills): lazy senior dev mode (instalado via `pi install npm:@dietrichgebert/ponytail@4.8.4`)
 
 ---
 

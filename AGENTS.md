@@ -145,8 +145,8 @@ src/
 - **Modelo**: `deepseek-v4-flash-free`
 - **Ferramentas nativas**: `read`, `write`, `edit`, `bash`
 - **Custom tools em `~/.pi/agent/bin/`**: `fd` (busca arquivos), `rg` (busca texto)
-- **Skills carregadas**: 89 (16 Anthropic + 67 design + 6 planning)
-- **Extensões**: nenhuma (`~/.pi/agent/extensions/` vazio)
+- **Skills carregadas**: 95 (16 Anthropic + 67 design + 6 planning + 6 ponytail)
+- **Extensões**: `mcp-supabase` (3 tools), `mcp-github` (3 tools), `ponytail` (lazy senior dev mode)
 - **Temas**: nenhum (`~/.pi/themes/` vazio)
 - **Pacotes pi**: nenhum (`~/.pi/packages/` vazio)
 - **Hooks**: nenhum
