@@ -1,0 +1,9 @@
+{
+  "theme": "mileage-dark",
+  "sessionDir": ".pi/sessions",
+  "quietStartup": true,
+  "compaction": {
+    "reserveTokens": 20480,
+    "keepRecentTokens": 24000
+  }
+}

@@ -35,6 +35,11 @@ dist-ssr
 # Vercel
 .vercel/
 
+# pi project config (sessions, settings, prompts)
+.pi/packages
+.pi/npm
+.pi/sessions
+
 # Debug artifacts
 entradas-page.txt
 entradas-transferir.png

@@ -347,6 +347,60 @@ Instalado via `pi install npm:@dietrichgebert/ponytail@4.8.4`
 - `filesystem` → `read`/`write`/`edit` nativos
 - `context7` + `sequential-thinking` → skill `planning-with-files`
 
+### Prompt Templates (6 templates)
+
+**Global** (`~/.pi/agent/prompts/`): `/commit`, `/pr`, `/review`, `/fix`, `/deploy`
+**Projeto** (`.pi/prompts/`): `/migration`
+
+| Comando | Quando ativar | Efeito |
+|---------|---------------|--------|
+| `/commit` | Após `git add` | Gera mensagem conventional commit do diff staged |
+| `/pr` | Antes de abrir PR | Cria descrição de PR com changelog |
+| `/review` | Antes de commit/deploy | Code review do diff (bugs + DRY + segurança) |
+| `/fix <erro>` | Ao encontrar erro | Analisa e localiza a correção |
+| `/deploy` | Antes de deploy | Executa build + testes (bateria obrigatória) |
+| `/migration` | Ao alterar banco | Snippet SQL com RLS |
+
+**Atalho**: `/` no editor → autocomplete.
+
+### Tema TUI mileage-dark
+`~/.pi/agent/themes/mileage-dark.json` — ativado via `theme` em `.pi/settings.json`
+- Fundo: navy `#0B1020`
+- Accent: `#5B72C4` (primary)
+- Destaques: `#CE9E1D` (gold), `#22A68F` (teal)
+- 51 tokens de cor definidos + export colors
+
+### Configurações de Projeto (`.pi/settings.json`)
+```json
+{
+  "theme": "mileage-dark",
+  "sessionDir": ".pi/sessions",
+  "quietStartup": true,
+  "compaction": {
+    "reserveTokens": 20480,
+    "keepRecentTokens": 24000
+  }
+}
+```
+- Sessões salvas dentro do projeto (`.pi/sessions/`, gitignorado)
+- Startup mais silencioso
+- Mais tokens preservados na compactação
+
+### Shell Aliases (recomendados em ~/.bashrc)
+```bash
+alias pi-miles='pi --name "$(basename $(pwd))"'
+alias pi-q='pi -p'
+alias pi-r='pi -c'
+alias pi-build='pi -p "npm run build && npx playwright test --reporter=list --workers=1"'
+```
+
+### tmux (para tasks paralelas)
+Não instalado. Quando disponível, configurar `~/.tmux.conf`:
+```
+set -g extended-keys on
+set -g extended-keys-format csi-u
+```
+
 ### Sessão: Upgrade Visual (Jul 2026)
 **Commits**: `b136908`, `c947ef9`, `5bf678a`
 - **Design tokens**: paleta refinada (navy 222), shadows com elevação, radius 0.75rem

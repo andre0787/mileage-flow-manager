@@ -146,9 +146,12 @@ src/
 - **Ferramentas nativas**: `read`, `write`, `edit`, `bash`
 - **Custom tools em `~/.pi/agent/bin/`**: `fd` (busca arquivos), `rg` (busca texto)
 - **Skills carregadas**: 95 (16 Anthropic + 67 design + 6 planning + 6 ponytail)
+- **Prompt templates**: 5 globais (`/commit`, `/pr`, `/review`, `/fix`, `/deploy`) + 1 projeto (`/migration`)
 - **Extensões**: `mcp-supabase` (3 tools), `mcp-github` (3 tools), `ponytail` (lazy senior dev mode)
-- **Temas**: nenhum (`~/.pi/themes/` vazio)
-- **Pacotes pi**: nenhum (`~/.pi/packages/` vazio)
+- **Prompt templates**: 5 globais (`/commit`, `/pr`, `/review`, `/fix`, `/deploy`) + 1 projeto (`/migration`)
+- **Tema TUI**: `mileage-dark` (custom navy/gold/teal)
+- **Config projeto**: `.pi/settings.json` (sessionDir, quietStartup, compaction)
+- **Pacotes pi**: 1 (`ponytail`)
 - **Hooks**: nenhum
 
 ### opencode (provider/delegate)
@@ -205,6 +208,89 @@ Preciso de uma ferramenta?
 ├── Já tenho bash/comando?   → usa bash (Playwright, git, curl)
 ├── Extensão instalada?      → usa pi.registerTool() (Supabase, GitHub)
 └── Nada disso?              → cria extensão nova em ~/.pi/agent/extensions/
+```
+
+### Prompt Templates (/comandos)
+
+Templates markdown que expandem via `/:nome` no editor. Disponíveis em dois níveis:
+
+| Escopo | Diretório | Ativado por |
+|--------|-----------|-------------|
+| **Global** | `~/.pi/agent/prompts/` | Sempre disponível |
+| **Projeto** | `.pi/prompts/` | Após confiar no projeto (`/trust`) |
+
+#### Templates disponíveis
+
+| Comando | Quando usar | Descrição |
+|---------|-------------|-----------|
+| `/commit` | Após `git add` (staged) | Gera mensagem de commit convencional em português |
+| `/pr` | Antes de abrir PR | Cria descrição de PR com resumo de mudanças |
+| `/review` | Antes de commit/deploy | Code review do staged diff (bugs, DRY, segurança) |
+| `/fix` | Ao encontrar erro | Analisa mensagem de erro e sugere correção com localização |
+| `/deploy` | Antes de deploy | Executa bateria obrigatória (`npm run build` + testes) |
+| `/migration` | Ao alterar banco | Gera snippet de migração Supabase com RLS |
+
+**Atalho**: digitar `/` no editor → autocomplete mostra todos.
+
+### Tema do TUI (mileage-dark)
+
+Arquivo: `~/.pi/agent/themes/mileage-dark.json`
+
+Tema customizado com as cores do projeto:
+- **Fundo**: navy `#0B1020` (equivalente ao `hsl(222, 47%, 11%)` do CSS)
+- **Accent**: `#5B72C4` (primary)
+- **Destaques**: `#CE9E1D` (gold), `#22A68F` (teal)
+- **Cabeçalhos markdown**: gold
+- **Links**: teal
+- **Código**: primaryLight
+
+**Ativação automática**: definido como `theme: mileage-dark` em `.pi/settings.json`.
+
+### Configurações do Projeto (`.pi/settings.json`)
+
+Arquivo: `.pi/settings.json` (projeto, versionado)
+
+```json
+{
+  "theme": "mileage-dark",
+  "sessionDir": ".pi/sessions",
+  "quietStartup": true,
+  "compaction": {
+    "reserveTokens": 20480,
+    "keepRecentTokens": 24000
+  }
+}
+```
+
+**Efeito**:
+- `sessionDir`: sessões salvas dentro do projeto (`.pi/sessions/`, gitignorado)
+- `quietStartup`: sem header na inicialização
+- `compaction`: mais tokens preservados (24K vs 20K padrão) para contextos maiores
+- **Ativação**: requer `/trust` na primeira execução no diretório do projeto
+
+### Shell Aliases (recomendados)
+
+Adicione ao `~/.bashrc` ou `~/.zshrc`:
+
+```bash
+alias pi-miles='pi --name "$(basename $(pwd))"'
+alias pi-q='pi -p'    # modo print (resposta única, sem loop)
+alias pi-r='pi -c'    # continuar última sessão
+alias pi-build='pi -p "roda npm run build e me mostra se passou"'
+```
+
+### tmux (para sub-agentes e tasks paralelas)
+
+Não instalado no sistema atualmente. Quando disponível:
+- Rodar `npm run dev` em um painel enquanto o agente trabalha em outro
+- Monitorar testes longos em background
+- Executar deploys sem travar a sessão principal
+
+Configuração recomendada para `~/.tmux.conf`:
+```
+set -g extended-keys on
+set -g extended-keys-format csi-u
+```
 
 ## Testes (Playwright)
 - Testes E2E em `tests/` com Playwright
