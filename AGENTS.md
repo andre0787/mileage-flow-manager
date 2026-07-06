@@ -148,7 +148,6 @@ src/
 - **Skills carregadas**: 95 (16 Anthropic + 67 design + 6 planning + 6 ponytail)
 - **Prompt templates**: 5 globais (`/commit`, `/pr`, `/review`, `/fix`, `/deploy`) + 1 projeto (`/migration`)
 - **Extensões**: `mcp-supabase` (3 tools), `mcp-github` (3 tools), `ponytail` (lazy senior dev mode)
-- **Prompt templates**: 5 globais (`/commit`, `/pr`, `/review`, `/fix`, `/deploy`) + 1 projeto (`/migration`)
 - **Tema TUI**: `mileage-dark` (custom navy/gold/teal)
 - **Config projeto**: `.pi/settings.json` (sessionDir, quietStartup, compaction)
 - **Pacotes pi**: 1 (`ponytail`)
@@ -268,29 +267,15 @@ Arquivo: `.pi/settings.json` (projeto, versionado)
 - `compaction`: mais tokens preservados (24K vs 20K padrão) para contextos maiores
 - **Ativação**: requer `/trust` na primeira execução no diretório do projeto
 
-### Shell Aliases (recomendados)
-
-Adicione ao `~/.bashrc` ou `~/.zshrc`:
+### Shell Aliases
 
 ```bash
-alias pi-miles='pi --name "$(basename $(pwd))"'
-alias pi-q='pi -p'    # modo print (resposta única, sem loop)
-alias pi-r='pi -c'    # continuar última sessão
-alias pi-build='pi -p "roda npm run build e me mostra se passou"'
+alias pi-build='pi -p "npm run build && echo build ok"'
 ```
 
-### tmux (para sub-agentes e tasks paralelas)
+### tmux
 
-Não instalado no sistema atualmente. Quando disponível:
-- Rodar `npm run dev` em um painel enquanto o agente trabalha em outro
-- Monitorar testes longos em background
-- Executar deploys sem travar a sessão principal
-
-Configuração recomendada para `~/.tmux.conf`:
-```
-set -g extended-keys on
-set -g extended-keys-format csi-u
-```
+Não instalado. Quando tiver, veja `~/.pi/agent/docs/tmux.md`.
 
 ## Testes (Playwright)
 - Testes E2E em `tests/` com Playwright
