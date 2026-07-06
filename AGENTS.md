@@ -137,6 +137,74 @@ src/
 - Tokens armazenados em `~/.config/opencode/tokens.json` (gitignored)
 - **Ponytail mode**: não criar abstrações antes de precisar, preferir stdlib/nativo, remover código morto
 
+## Ecossistema do Agente
+
+### pi (harness atual)
+- **Versão**: 0.80.3
+- **Provider**: opencode (delega runtime)
+- **Modelo**: `deepseek-v4-flash-free`
+- **Ferramentas nativas**: `read`, `write`, `edit`, `bash`
+- **Custom tools em `~/.pi/agent/bin/`**: `fd` (busca arquivos), `rg` (busca texto)
+- **Skills carregadas**: 89 (16 Anthropic + 67 design + 6 planning)
+- **Extensões**: nenhuma (`~/.pi/agent/extensions/` vazio)
+- **Temas**: nenhum (`~/.pi/themes/` vazio)
+- **Pacotes pi**: nenhum (`~/.pi/packages/` vazio)
+- **Hooks**: nenhum
+
+### opencode (provider/delegate)
+Configurado em `~/.config/opencode/opencode.jsonc`.
+
+#### MCPs disponíveis (6 — só no opencode, pi não suporta MCP)
+| MCP | Funcionalidade | alternativa no pi |
+|-----|---------------|-------------------|
+| `context7` | Contexto persistente do projeto | skills + session manager |
+| `sequential-thinking` | Raciocínio estruturado | skill `planning-with-files` |
+| `playwright` | Automação de navegador | `bash` + `npx playwright` (já usamos) |
+| `filesystem` | Acesso a arquivos | `read`/`write`/`bash` nativos |
+| `github` | API do GitHub | `bash` + `gh` CLI ou `curl` |
+| `supabase` | API do Supabase | `bash` + `curl` ou SDK direto no código |
+
+> **Nota**: pi deliberadamente não suporta MCP ([filosofia](https://mariozechner.at/posts/2025-11-02-what-if-you-dont-need-mcp/)).
+> Em vez disso, usa **extensões TypeScript** que podem registrar tools customizadas via `pi.registerTool()`.
+
+#### Plugins (4)
+- `superpowers` + `ponytail` (opencode plugins)
+- `anthropic-agent-skills` + `planning-with-files` (Claude IDE plugins — só funcionam lá)
+
+### Skills instaladas (89, em `~/.pi/agent/skills/`)
+- **Anthropic Skills** (16): `webapp-testing`, `frontend-design`, `doc-coauthoring`, `skill-creator`, `theme-factory`, `brand-guidelines`, `mcp-builder`, `canvas-design`, `web-artifacts-builder`, `algorithmic-art`, `slack-gif-creator`, `internal-comms`, `docx`, `pdf`, `pptx`, `xlsx`
+- **Awesome Design Skills** (67 temas): `bento`, `shadcn`, `modern`, `corporate`, `glassmorphism`, `neobrutalism`, `minimal`, `premium`, `vintage`, `retro`, `sketch`, `futuristic`, etc.
+- **Planning With Files** (6): planejamento persistente + traduções (AR, DE, ES, ZH, ZHT)
+
+### Como habilitar funcionalidades de MCP no pi
+
+O pi **não** suporta MCP, mas permite o mesmo resultado via **extensões TypeScript**
+em `~/.pi/agent/extensions/`. Existem duas abordagens:
+
+**A) Extensão wrapper MCP** (recomendada para MCPs existentes)
+Criar uma extensão que usa o `@modelcontextprotocol/sdk` para conectar no servidor MCP
+(e.g., `supabase`, `github`) e expõe como `pi.registerTool()`:
+```typescript
+// ~/.pi/agent/extensions/mcp-supabase.ts
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+// registerTool com call para o MCP server...
+```
+
+**B) SDK nativo direto** (mais simples, sem dependência do MCP)
+Usar a biblioteca oficial no código da extensão:
+```typescript
+// ~/.pi/agent/extensions/github-tool.ts
+import { Octokit } from "octokit";
+// pi.registerTool() que chama a API via Octokit
+```
+
+**C) Via bash (já funciona, sem extensão)**
+Para casos pontuais, o `bash` já supre:
+- Playwright: `npx playwright test`
+- Supabase: `curl -X POST ...` com token
+- GitHub: `gh` CLI
+
 ## Testes (Playwright)
 - Testes E2E em `tests/` com Playwright
 - Comando: `npx playwright test --reporter=list --workers=1`
