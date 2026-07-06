@@ -176,34 +176,35 @@ Configurado em `~/.config/opencode/opencode.jsonc`.
 - **Awesome Design Skills** (67 temas): `bento`, `shadcn`, `modern`, `corporate`, `glassmorphism`, `neobrutalism`, `minimal`, `premium`, `vintage`, `retro`, `sketch`, `futuristic`, etc.
 - **Planning With Files** (6): planejamento persistente + traduções (AR, DE, ES, ZH, ZHT)
 
-### Como habilitar funcionalidades de MCP no pi
+### Extensões pi instaladas (substituem MCPs)
 
-O pi **não** suporta MCP, mas permite o mesmo resultado via **extensões TypeScript**
-em `~/.pi/agent/extensions/`. Existem duas abordagens:
+Todas em `~/.pi/agent/extensions/`. Descoberta automática pelo pi.
 
-**A) Extensão wrapper MCP** (recomendada para MCPs existentes)
-Criar uma extensão que usa o `@modelcontextprotocol/sdk` para conectar no servidor MCP
-(e.g., `supabase`, `github`) e expõe como `pi.registerTool()`:
-```typescript
-// ~/.pi/agent/extensions/mcp-supabase.ts
-import { Client } from "@modelcontextprotocol/sdk/client/index.js";
-import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
-// registerTool com call para o MCP server...
+| Extensão | Tools | Dependência |
+|----------|-------|-------------|
+| `mcp-supabase/` | `supabase_query` (SQL), `supabase_select` (tabelas c/ filtros), `supabase_auth_list` (usuários) | `@supabase/supabase-js` |
+| `mcp-github/` | `github_pr_list`, `github_create_pr`, `github_workflow_status` | `octokit` |
+
+#### Uso:
+- **Supabase**: usar `supabase_select` para consultas rápidas, `supabase_query` para SQL arbitrário
+- **GitHub**: usar `github_pr_list` para ver PRs abertos, `github_workflow_status` para status do deploy
+
+### MCPs mantidos via bash (sem extensão necessária)
+
+| MCP | Como usamos no pi |
+|-----|-------------------|
+| `playwright` | `npx playwright test --reporter=list --workers=1` (bateria de testes) |
+| `filesystem` | Ferramentas nativas `read`/`write`/`edit` + `bash` |
+| `context7` | Substituído pela skill `planning-with-files` (planejamento persistente) |
+| `sequential-thinking` | Substituído pela skill `planning-with-files` (raciocínio estruturado) |
+
+### Fluxo de decisão
+
 ```
-
-**B) SDK nativo direto** (mais simples, sem dependência do MCP)
-Usar a biblioteca oficial no código da extensão:
-```typescript
-// ~/.pi/agent/extensions/github-tool.ts
-import { Octokit } from "octokit";
-// pi.registerTool() que chama a API via Octokit
-```
-
-**C) Via bash (já funciona, sem extensão)**
-Para casos pontuais, o `bash` já supre:
-- Playwright: `npx playwright test`
-- Supabase: `curl -X POST ...` com token
-- GitHub: `gh` CLI
+Preciso de uma ferramenta?
+├── Já tenho bash/comando?   → usa bash (Playwright, git, curl)
+├── Extensão instalada?      → usa pi.registerTool() (Supabase, GitHub)
+└── Nada disso?              → cria extensão nova em ~/.pi/agent/extensions/
 
 ## Testes (Playwright)
 - Testes E2E em `tests/` com Playwright

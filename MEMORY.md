@@ -321,6 +321,26 @@ Documentada em `AGENTS.md`. Executar antes de todo push em `main`:
 
 ## Sessões Recentes
 
+### Extensões pi (MCPs substituídos)
+**Criadas em**: `~/.pi/agent/extensions/`
+
+#### `mcp-supabase/` (3 tools)
+- `supabase_query`: SQL arbitrário via RPC
+- `supabase_select`: consulta tabelas com filtros
+- `supabase_auth_list`: lista usuários do Auth
+- Deps: `@supabase/supabase-js`
+
+#### `mcp-github/` (3 tools)
+- `github_pr_list`: lista PRs do repositório
+- `github_create_pr`: cria PR
+- `github_workflow_status`: status dos workflows/deploy
+- Deps: `octokit`
+
+#### Mantidos via bash
+- `playwright` → `npx playwright test`
+- `filesystem` → `read`/`write`/`edit` nativos
+- `context7` + `sequential-thinking` → skill `planning-with-files`
+
 ### Sessão: Upgrade Visual (Jul 2026)
 **Commits**: `b136908`, `c947ef9`, `5bf678a`
 - **Design tokens**: paleta refinada (navy 222), shadows com elevação, radius 0.75rem
