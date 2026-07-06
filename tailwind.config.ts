@@ -19,7 +19,7 @@ export default {
 			fontFamily: {
 				display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
 				body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-				displayAlt: ['"Instrument Serif"', 'Georgia', 'serif'],
+				displayAlt: ['"Plus Jakarta Sans"', 'sans-serif'],
 				mono: ['"JetBrains Mono"', 'monospace'],
 			},
 			colors: {

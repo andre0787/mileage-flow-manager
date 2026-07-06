@@ -242,14 +242,6 @@
     border-radius: inherit;
   }
 
-  /* ── Display Alt (Instrument Serif) para números grandes ── */
-  .font-display-alt {
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-style: italic;
-    font-weight: 400;
-    letter-spacing: -0.02em;
-  }
-
   .animate-delay-100 {
     animation-delay: 100ms !important;
   }
