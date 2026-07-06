@@ -147,8 +147,18 @@ src/
 - IDs dos campos do formulário de entrada: `#amount`, `#amountPaid`, `#conversion` (criar), `#editAmount`, `#editAmountPaid` (editar)
 - Para criar dados de teste via API, usar `localStorage.getItem('sb-{project-ref}-auth-token')` para obter o token de acesso
 - Viewport padrão: 1280x900 (suficiente para evitar overflow em diálogos)
-- **Teste atual**: `tests/entradas.spec.ts` — fluxo completo criar → editar → excluir entrada
 - **Helpers**: `tests/helpers.ts` — funções para criar dados de teste via REST API com retry
+
+### Bateria Obrigatória (pré-deploy)
+Antes de todo deploy em produção, executar obrigatoriamente:
+1. `npm run build` — build sem erros
+2. `npx playwright test --reporter=list --workers=1` — **todos os testes** (funcional + responsivo)
+  - `tests/entradas.spec.ts` — CRUD de entradas
+  - `tests/responsivo.spec.ts` — 11 páginas × 4 viewports + redimensionamento
+3. **Zero overflow horizontal** em todos os viewports (verificado pelo teste responsivo)
+4. **Screenshots automáticos** salvos em `tests/screenshots/` para inspeção visual
+
+**Qualquer falha → blocker. Não deployar sem bateria verde.**
 
 ## Princípios de Código (DRY & Modularidade)
 - **Nunca duplicar regra de negócio**: cálculos de lucro, margem, saldo, custo médio — cada um em ponto único em `src/lib/`
