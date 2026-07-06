@@ -344,6 +344,12 @@ Documentada em `AGENTS.md`. Executar antes de todo push em `main`:
 - Nenhum elemento usa `#fff`
 - Sombras com ~50% mais opacidade
 
+**Pós-audit: fontes simplificadas (3732400):**
+- `Instrument Serif` removida — números do hero agora usam `Plus Jakarta Sans` (mesma fonte do app)
+- Classe `.font-display-alt` deletada do CSS
+- Google Fonts: só `Plus Jakarta Sans` e `JetBrains Mono`
+- `tailwind.config.ts`: `displayAlt` aponta para Plus Jakarta Sans (fallback, não usado em componentes)
+
 **Bateria pré-deploy**: build ✅ + 2 playwright tests ✅ (48s)
 
 ---
@@ -487,10 +493,9 @@ set -g extended-keys-format csi-u
 - `bg-gradient-hero-glow`: radial glow no hero
 
 ### Tipografia
-- Display: `Plus Jakarta Sans` (Google Fonts com `display=swap`)
-- Display Alt: `Instrument Serif` itálico — usado para números grandes no hero (`font-display-alt`)
+- Display: `Plus Jakarta Sans` (Google Fonts com `display=swap`) — usada em todo o app, inclusive números do hero
 - Mono: `JetBrains Mono` (Google Fonts com `display=swap`)
-- Classe `.font-display` para títulos, `.font-body` para texto corrido, `.font-display-alt` para números hero
+- Classe `.font-display` para títulos, `.font-body` para texto corrido
 
 ### Animações
 - Classes utilitárias: `.animate-appear`, `.animate-delay-NNN`

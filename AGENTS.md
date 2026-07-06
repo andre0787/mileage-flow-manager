@@ -73,7 +73,7 @@ Grids de cards devem usar no **máximo 2 colunas**. O padrão é:
 - `formatCPF` e `isTransferencia` centralizados em `src/lib/utils.ts`
 - **Dashboard com abas Milhas/Pontos**: abas separam contas por tipo. Aba Milhas: dashboard completo (hero, FlowMap, charts, vendas). Aba Pontos: foco em investimento (estoque, custo médio, transferências). Filtro por dono via botões segmentados — todas as métricas refletem o dono selecionado.
 - **AltitudeBar (`AltitudeBar.tsx`)**: barra horizontal animada no hero contra meta configurável (500K milhas / 300K pontos), com gradiente primary→gold ou teal→gold
-- **Números grandes usam Instrument Serif**: classe `font-display-alt` nos números do hero (itálico serifado), diferenciando do corpo Plus Jakarta Sans
+- **Números grandes usam Plus Jakarta Sans** (`font-display`) — mesma fonte do restante do app, sem serifa ou itálico diferenciado
 - **Light mode moderno**: 3 camadas de profundidade — fundo `92%`, cards `96%` (off-white, sem branco puro), bordas `80%`. Nenhum elemento usa `#fff`.
 - **Componentes shadcn/ui mantidos**: alert-dialog, badge, button, card, dialog, drawer, input, label, progress, select, separator, sheet, skeleton, sidebar, sonner, switch, table, tabs, tooltip (~31 componentes não utilizados foram removidos)
 - Toast system removido (app usa Sonner). `animate` prop removida do MetricCard (sempre true)
