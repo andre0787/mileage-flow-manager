@@ -321,8 +321,8 @@ export default function Vendas() {
           </p>
         </div>
 
-        <div className="flex gap-2 w-full sm:w-auto">
-          <div className="relative flex-1 sm:flex-none">
+        <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+          <div className="relative flex-1 sm:flex-none min-w-0">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
             <Input
               className="pl-9 w-full sm:w-56"
@@ -343,14 +343,16 @@ export default function Vendas() {
               <SelectItem value="cancelado">Cancelado</SelectItem>
             </SelectContent>
           </Select>
-          <Button variant="outline" className="gap-2 shrink-0" onClick={() => setSimulatorOpen(true)}>
-            <Calculator className="h-4 w-4" />
-            Simular
-          </Button>
-          <Button className="gap-2 bg-gradient-primary hover:opacity-90 shrink-0" onClick={() => setIsCreateDialogOpen(true)}>
-            <Plus className="h-4 w-4" />
-            Nova Venda
-          </Button>
+          <div className="flex gap-2 w-full sm:w-auto">
+            <Button variant="outline" className="flex-1 sm:flex-none gap-2" onClick={() => setSimulatorOpen(true)}>
+              <Calculator className="h-4 w-4" />
+              Simular
+            </Button>
+            <Button className="flex-1 sm:flex-none gap-2 bg-gradient-primary hover:opacity-90" onClick={() => setIsCreateDialogOpen(true)}>
+              <Plus className="h-4 w-4" />
+              Nova Venda
+            </Button>
+          </div>
         </div>
       </div>
 
