@@ -89,20 +89,6 @@ export function calcRevenueChange(current: number, previous: number): number {
   return previous > 0 ? ((current - previous) / previous) * 100 : 0;
 }
 
-/** Faturamento médio por milha vendida */
-export function calcPricePerMile(revenue: number, milesSold: number): number {
-  return milesSold > 0 ? revenue / milesSold : 0;
-}
-
-/** Percentual de ocupação do ciclo de passageiros */
-export function calcCycleOccupation(
-  used: number,
-  limit: number | null,
-): number {
-  if (limit === null || limit <= 0) return 0;
-  return (used / limit) * 100;
-}
-
 // ─── Métricas Agregadas (Dashboard / Relatórios) ───
 
 export interface DashboardMetrics {

@@ -1,17 +1,28 @@
-import { useCounter } from "@/hooks/useCounter";
+import { useState, useEffect, useRef } from "react";
 
 interface AnimatedNumberProps {
   value: number;
-  duration?: number;
-  formatter?: (n: number) => string;
 }
 
-export function AnimatedNumber({ value, duration = 800, formatter }: AnimatedNumberProps) {
-  const count = useCounter(value, duration, true);
+export function AnimatedNumber({ value }: AnimatedNumberProps) {
+  const [count, setCount] = useState(0);
+  const startedRef = useRef(false);
+  const duration = 800;
 
-  if (formatter) {
-    return <>{formatter(count)}</>;
-  }
+  useEffect(() => {
+    if (startedRef.current) return;
+    startedRef.current = true;
+
+    const startTime = performance.now();
+    const animate = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(value * eased));
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+  }, [value, duration]);
 
   return <>{count.toLocaleString("pt-BR")}</>;
 }
