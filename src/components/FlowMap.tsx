@@ -72,7 +72,8 @@ export function FlowMap({
   ], [totalMiles, activeAccounts, totalSoldMiles, totalRevenue, unitLabel]);
 
   return (
-    <Card className={cn("overflow-hidden", className)}>
+    <Card className={cn("overflow-hidden transition-card duration-300 hover:shadow-elegant", className)}>
+      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/60 via-gold/40 to-teal/30" />
       <div className="absolute inset-0 bg-gradient-to-r from-primary/[0.01] via-transparent to-gold/[0.01] pointer-events-none" />
       <CardContent className="p-5 md:p-6 relative">
         <div className="flex items-center gap-3 mb-5">
@@ -96,15 +97,19 @@ export function FlowMap({
           {nodes.map((node, index) => (
             <div key={node.id} className="flex-1 flex flex-col items-stretch">
               <div className={cn(
-                "flex-1 flex flex-col items-center justify-center gap-3 p-4 rounded-xl border text-center transition-all duration-300",
-                "hover:-translate-y-1 hover:shadow-elegant",
-                node.border, node.bg, node.id === "miles" ? "shadow-glow" : "",
+                "flex-1 flex flex-col items-center justify-center gap-3 p-4 rounded-xl border text-center transition-card duration-300",
+                "hover:-translate-y-1.5 hover:shadow-elegant hover:border-primary/30",
+                node.border, node.bg, node.id === "miles" ? "shadow-glow border-primary/30" : "",
                 index === 0 && "animate-appear",
                 index === 1 && "animate-appear animate-delay-100",
                 index === 2 && "animate-appear animate-delay-200",
                 index === 3 && "animate-appear animate-delay-300",
               )}>
-                <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center", node.bg, node.color)}>
+                <div className={cn(
+                  "w-10 h-10 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110",
+                  "backdrop-blur-sm",
+                  node.bg, node.color
+                )}>
                   <node.icon className="w-5 h-5" />
                 </div>
                 <div className="space-y-0.5">

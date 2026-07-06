@@ -102,6 +102,9 @@ export default {
 				'gradient-hero-glow': 'var(--gradient-hero-glow)',
 			},
 			boxShadow: {
+				'sm': 'var(--shadow-sm)',
+				'md': 'var(--shadow-md)',
+				'lg': 'var(--shadow-lg)',
 				'elegant': 'var(--shadow-elegant)',
 				'card': 'var(--shadow-card)',
 				'glow': 'var(--shadow-glow)',

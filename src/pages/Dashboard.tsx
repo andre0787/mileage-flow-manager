@@ -328,7 +328,7 @@ export default function Dashboard() {
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 mt-4 sm:mt-6">
-                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl glass border-border/60 transition-card duration-300 hover:shadow-md">
                       <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
                         <ArrowUpRight className="w-3 h-3 text-success shrink-0" />
                         <span className="truncate">Entradas no mês</span>
@@ -337,7 +337,7 @@ export default function Dashboard() {
                         +<AnimatedNumber value={currentMetrics.monthlyMilesIn} />
                       </p>
                     </div>
-                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl glass border-border/60 transition-card duration-300 hover:shadow-md">
                       <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
                         <ArrowDownRight className="w-3 h-3 text-gold shrink-0" />
                         <span className="truncate">Milhas vendidas</span>
@@ -346,7 +346,7 @@ export default function Dashboard() {
                         <AnimatedNumber value={currentMetrics.totalSoldMiles} />
                       </p>
                     </div>
-                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl glass border-border/60 transition-card duration-300 hover:shadow-md">
                       <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
                         <DollarSign className="w-3 h-3 text-teal shrink-0" />
                         <span className="truncate">Custo médio/milha</span>
@@ -355,7 +355,7 @@ export default function Dashboard() {
                         R$ {currentMetrics.avgCostPerMile.toFixed(3)}
                       </p>
                     </div>
-                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl glass border-border/60 transition-card duration-300 hover:shadow-md">
                       <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
                         <TrendingUp className="w-3 h-3 text-primary shrink-0" />
                         <span className="truncate">Contas ativas</span>
@@ -364,7 +364,7 @@ export default function Dashboard() {
                         {currentMetrics.activeAccounts}
                       </p>
                     </div>
-                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-primary/20">
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl glass border-primary/20 transition-card duration-300 hover:shadow-md">
                       <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
                         <Target className="w-3 h-3 text-success shrink-0" />
                         <span className="truncate">Margem Média</span>
@@ -373,7 +373,7 @@ export default function Dashboard() {
                         {financialMetrics.avgProfitMargin.toFixed(1)}%
                       </p>
                     </div>
-                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-gold/20">
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl glass border-gold/20 transition-card duration-300 hover:shadow-md">
                       <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
                         <DollarSign className="w-3 h-3 text-gold shrink-0" />
                         <span className="truncate">Receita Total</span>
@@ -533,7 +533,7 @@ export default function Dashboard() {
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 mt-4 sm:mt-6">
-                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl glass border-border/60 transition-card duration-300 hover:shadow-md">
                       <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
                         <Wallet className="w-3 h-3 text-teal shrink-0" />
                         <span className="truncate">Total Investido</span>
@@ -542,7 +542,7 @@ export default function Dashboard() {
                         R$ <AnimatedNumber value={currentMetrics.totalInvested} />
                       </p>
                     </div>
-                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl glass border-border/60 transition-card duration-300 hover:shadow-md">
                       <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
                         <DollarSign className="w-3 h-3 text-teal shrink-0" />
                         <span className="truncate">Custo médio/ponto</span>
@@ -551,7 +551,7 @@ export default function Dashboard() {
                         R$ {currentMetrics.avgCostPerMile.toFixed(3)}
                       </p>
                     </div>
-                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl bg-background/60 border border-border/60">
+                    <div className="p-2 sm:px-3 sm:py-2.5 rounded-xl glass border-border/60 transition-card duration-300 hover:shadow-md">
                       <div className="flex items-center gap-1 text-xs text-muted-foreground tracking-wide font-medium mb-0.5">
                         <TrendingUp className="w-3 h-3 text-primary shrink-0" />
                         <span className="truncate">Contas ativas</span>
