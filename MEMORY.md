@@ -143,6 +143,9 @@ fix/* ──── PR → develop → merge develop → main
 
 ### Commits em main (produção)
 ```
+71dbee2 fix: light mode moderno (fundo 92%, cards 96%, sem branco puro)
+852212c feat: redesign visual completo (Instrument Serif + AltitudeBar + Pontos teal + graficos tema)
+2d80fc3 fix: remove docs especulativas e linha duplicada (ponytail-review)
 5bf678a docs: bateria obrigatoria de testes pre-deploy documentada em AGENTS.md
 c947ef9 fix: botao Nova Venda nao vaza mais no mobile (flex-wrap)
 b136908 feat: upgrade visual (design tokens + bento cards + glass effect)
@@ -230,6 +233,9 @@ Commit `1bc6258`.
 ## 📚 Commits em main (produção)
 
 ```
+71dbee2 fix: light mode moderno (fundo 92%, cards 96%, sem branco puro)
+852212c feat: redesign visual completo (Instrument Serif + AltitudeBar + Pontos teal + graficos tema)
+2d80fc3 fix: remove docs especulativas e linha duplicada (ponytail-review)
 1bc6258 fix: importa EmptyState em Dashboard e Vendas (runtime error)
 fe5e09c docs: atualiza MEMORY.md com historico completo e convencoes do projeto
 916a0cb feat(ux): sprint completo — loading, empty states, confetti, haptic e view transitions
@@ -251,6 +257,7 @@ alert-dialog, badge, button, card, dialog, drawer, input, label, progress, selec
 | `ErrorBoundary` | `components/ErrorBoundary.tsx` | Captura de erros com retry |
 | `SkeletonLoader` | `components/SkeletonLoader.tsx` | 4 variantes de skeleton |
 | `DeleteEntryDialog` | `components/DeleteEntryDialog.tsx` | Diálogo de exclusão com cascata |
+| `AltitudeBar` | `components/AltitudeBar.tsx` | Barra animada no hero (meta configurável) |
 
 ### Hooks customizados
 | Hook | Localização | Propósito |
@@ -319,7 +326,29 @@ Documentada em `AGENTS.md`. Executar antes de todo push em `main`:
 
 ---
 
-## Sessões Recentes
+### Sessão: Redesign Visual Completo (Jul 2026)
+**Commits**: `852212c`, `71dbee2`
+
+**5 fases implementadas:**
+1. **Tipografia** — Instrument Serif (`font-display-alt`) nos números hero, Google Fonts + tailwind config
+2. **AltitudeBar** — `AltitudeBar.tsx` barra horizontal animada, meta 500K milhas / 300K pontos, gradiente dinâmico
+3. **FlowMap** — Já era fluxo desde upgrade anterior (4 nodes + setas)
+4. **Pontos teal** — Hero com `bg-gradient-hero-teal`, drift particles teal/gold, AltitudeBar teal→gold
+5. **Gráficos tema** — COLORS do `DashboardCharts.tsx` agora usam `hsl(var(--primary))`, `--teal`, `--gold`, `--success`
+
+**Light mode moderno (71dbee2):**
+- Fundo: `92%` (era 97%)
+- Cards: `96%` off-white (era 100% branco puro)
+- Bordas: `80%` (era 88%)
+- 3 camadas de profundidade: fundo → card → popover
+- Nenhum elemento usa `#fff`
+- Sombras com ~50% mais opacidade
+
+**Bateria pré-deploy**: build ✅ + 2 playwright tests ✅ (48s)
+
+---
+
+## Sessões Recentes (legado)
 
 ### Extensões pi (MCPs substituídos)
 **Criadas em**: `~/.pi/agent/extensions/`
@@ -452,14 +481,16 @@ set -g extended-keys-format csi-u
 - `bg-gradient-primary`: primary → primary-light
 - `bg-gradient-gold`: gold → gold-light
 - `bg-gradient-success`: success → success-light
-- `bg-gradient-card`: sutil 145°
+- `bg-gradient-card`: sutil 145° (agora `hsl(0 0% 96%) → hsl(222 15% 92%)`)
 - `bg-gradient-hero`: animado (gradient-shift) para hero do Dashboard
+- `bg-gradient-hero-teal`: animado para hero da aba Pontos (teal/gold)
 - `bg-gradient-hero-glow`: radial glow no hero
 
 ### Tipografia
 - Display: `Plus Jakarta Sans` (Google Fonts com `display=swap`)
+- Display Alt: `Instrument Serif` itálico — usado para números grandes no hero (`font-display-alt`)
 - Mono: `JetBrains Mono` (Google Fonts com `display=swap`)
-- Classe `.font-display` para títulos, `.font-body` para texto corrido
+- Classe `.font-display` para títulos, `.font-body` para texto corrido, `.font-display-alt` para números hero
 
 ### Animações
 - Classes utilitárias: `.animate-appear`, `.animate-delay-NNN`
