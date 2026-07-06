@@ -13,6 +13,7 @@ import {
   ArrowDownRight,
 } from "lucide-react";
 import { MetricCard } from "@/components/MetricCard";
+import { AltitudeBar } from "@/components/AltitudeBar";
 import { DashboardCharts } from "@/components/DashboardCharts";
 import { FlowMap } from "@/components/FlowMap";
 import { AnimatedNumber } from "@/components/AnimatedNumber";
@@ -316,10 +317,16 @@ export default function Dashboard() {
                 </span>
               </div>
 
+              <AltitudeBar
+                value={currentMetrics.totalMiles}
+                goal={500000}
+                className="mb-5"
+              />
+
               <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
                 <div className="flex-1">
                   <div className="flex items-baseline gap-2 sm:gap-3">
-                    <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-none">
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display-alt text-foreground tracking-tight leading-none">
                       <AnimatedNumber value={currentMetrics.totalMiles} />
                     </h1>
                     <span className="text-xs sm:text-sm font-medium text-muted-foreground tracking-wider uppercase font-display">
@@ -488,21 +495,21 @@ export default function Dashboard() {
         {/* ═══════════════════════════════════════════ */}
         <TabsContent value="pontos" className="space-y-6 mt-6">
           {/* HERO — INVESTIMENTO EM PONTOS */}
-          <section className="relative overflow-hidden rounded-2xl border border-primary/15 shadow-elegant animate-appear">
-            <div className="absolute inset-0 bg-gradient-hero bg-[length:200%_200%] animate-gradient-shift" />
+          <section className="relative overflow-hidden rounded-2xl border border-teal/20 shadow-elegant animate-appear">
+            <div className="absolute inset-0 bg-gradient-hero-teal bg-[length:200%_200%] animate-gradient-shift" />
             <div className="absolute inset-0 hero-glow" />
             <div className="absolute inset-0 bg-grid-subtle [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_70%)]" />
             <div className="hidden sm:block absolute inset-0 overflow-hidden pointer-events-none">
-              <div className="absolute w-2 h-2 rounded-full bg-primary/30 top-[15%] left-[10%] animate-drift" />
-              <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/40 top-[25%] right-[20%] animate-drift-slow" style={{ animationDelay: "-2s" }} />
-              <div className="absolute w-1 h-1 rounded-full bg-teal/30 top-[60%] left-[30%] animate-drift" style={{ animationDelay: "-3s" }} />
-              <div className="absolute w-2.5 h-2.5 rounded-full bg-primary/20 bottom-[20%] right-[15%] animate-drift-slow" style={{ animationDelay: "-1s" }} />
-              <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/25 top-[70%] right-[40%] animate-drift" style={{ animationDelay: "-4s" }} />
-              <div className="absolute w-1 h-1 rounded-full bg-white/20 top-[40%] left-[60%] animate-drift-slow" style={{ animationDelay: "-5s" }} />
+              <div className="absolute w-2 h-2 rounded-full bg-teal/40 top-[15%] left-[10%] animate-drift" />
+              <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/30 top-[25%] right-[20%] animate-drift-slow" style={{ animationDelay: "-2s" }} />
+              <div className="absolute w-1 h-1 rounded-full bg-teal/40 top-[60%] left-[30%] animate-drift" style={{ animationDelay: "-3s" }} />
+              <div className="absolute w-2.5 h-2.5 rounded-full bg-teal/30 bottom-[20%] right-[15%] animate-drift-slow" style={{ animationDelay: "-1s" }} />
+              <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/20 top-[70%] right-[40%] animate-drift" style={{ animationDelay: "-4s" }} />
+              <div className="absolute w-1 h-1 rounded-full bg-white/10 top-[40%] left-[60%] animate-drift-slow" style={{ animationDelay: "-5s" }} />
             </div>
-            <div className="hidden sm:block absolute top-0 right-1/4 w-72 h-72 bg-primary/[0.06] rounded-full blur-3xl" />
-            <div className="hidden sm:block absolute bottom-0 left-1/3 w-96 h-96 bg-gold/[0.05] rounded-full blur-3xl" />
-            <div className="hidden sm:block absolute right-6 bottom-4 text-foreground/[0.025] pointer-events-none select-none">
+            <div className="hidden sm:block absolute top-0 right-1/4 w-72 h-72 bg-teal/[0.10] rounded-full blur-3xl" />
+            <div className="hidden sm:block absolute bottom-0 left-1/3 w-96 h-96 bg-gold/[0.04] rounded-full blur-3xl" />
+            <div className="hidden sm:block absolute right-6 bottom-4 text-foreground/[0.02] pointer-events-none select-none">
               <Plane className="w-32 h-32 md:w-48 md:h-48" />
             </div>
 
@@ -521,10 +528,17 @@ export default function Dashboard() {
                 </span>
               </div>
 
+              <AltitudeBar
+                value={currentMetrics.totalMiles}
+                goal={300000}
+                className="mb-5"
+                color="linear-gradient(90deg, hsl(var(--teal)), hsl(var(--gold)))"
+              />
+
               <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
                 <div className="flex-1">
                   <div className="flex items-baseline gap-2 sm:gap-3">
-                    <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-none">
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display-alt text-foreground tracking-tight leading-none">
                       <AnimatedNumber value={currentMetrics.totalMiles} />
                     </h1>
                     <span className="text-xs sm:text-sm font-medium text-muted-foreground tracking-wider uppercase font-display">
@@ -565,7 +579,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="relative h-1 bg-gradient-to-r from-primary/30 via-gold/30 to-teal/30" />
+            <div className="relative h-1 bg-gradient-to-r from-teal/40 via-gold/30 to-teal/20" />
           </section>
 
           {/* CHARTS — só pizza */}

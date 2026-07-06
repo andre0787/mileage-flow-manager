@@ -42,6 +42,7 @@
     --gradient-success: linear-gradient(135deg, hsl(152 60% 33%), hsl(152 60% 43%));
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(222 20% 97%));
     --gradient-hero: linear-gradient(-45deg, hsl(222 70% 45% / 0.12), hsl(38 85% 50% / 0.08), hsl(170 65% 36% / 0.06), hsl(222 70% 45% / 0.10));
+    --gradient-hero-teal: linear-gradient(-45deg, hsl(170 65% 36% / 0.18), hsl(38 85% 50% / 0.08), hsl(170 65% 36% / 0.06), hsl(170 65% 36% / 0.14));
     --gradient-hero-glow: radial-gradient(ellipse at 20% 50%, hsl(222 70% 45% / 0.15), transparent 60%), radial-gradient(ellipse at 80% 50%, hsl(38 85% 50% / 0.12), transparent 60%);
     --shadow-sm: 0 1px 3px hsl(222 35% 10% / 0.05);
     --shadow-md: 0 4px 16px -2px hsl(222 35% 10% / 0.08);
@@ -107,6 +108,7 @@
     --gradient-success: linear-gradient(135deg, hsl(152 60% 40%), hsl(152 60% 48%));
     --gradient-card: linear-gradient(145deg, hsl(222 30% 10%), hsl(222 30% 14%));
     --gradient-hero: linear-gradient(-45deg, hsl(222 70% 58% / 0.18), hsl(38 80% 55% / 0.12), hsl(170 65% 42% / 0.08), hsl(222 70% 58% / 0.15));
+    --gradient-hero-teal: linear-gradient(-45deg, hsl(170 65% 42% / 0.25), hsl(38 80% 55% / 0.12), hsl(170 65% 42% / 0.08), hsl(170 65% 42% / 0.20));
     --gradient-hero-glow: radial-gradient(ellipse at 20% 50%, hsl(222 70% 58% / 0.2), transparent 60%), radial-gradient(ellipse at 80% 50%, hsl(38 80% 55% / 0.15), transparent 60%);
     --shadow-sm: 0 1px 3px hsl(0 0% 0% / 0.3);
     --shadow-md: 0 4px 16px -2px hsl(0 0% 0% / 0.4);
@@ -238,6 +240,14 @@
     background: var(--gradient-hero-glow);
     pointer-events: none;
     border-radius: inherit;
+  }
+
+  /* ── Display Alt (Instrument Serif) para números grandes ── */
+  .font-display-alt {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.02em;
   }
 
   .animate-delay-100 {

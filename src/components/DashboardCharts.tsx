@@ -22,12 +22,12 @@ interface DashboardChartsProps {
 }
 
 const COLORS = [
-  "hsl(230 65% 50%)",
-  "hsl(152 65% 35%)",
-  "hsl(42 85% 52%)",
-  "hsl(175 70% 38%)",
-  "hsl(271 81% 56%)",
-  "hsl(0 72% 51%)",
+  "hsl(var(--primary))",
+  "hsl(var(--teal))",
+  "hsl(var(--gold))",
+  "hsl(var(--success))",
+  "hsl(var(--warning))",
+  "hsl(var(--destructive))",
 ];
 
 export function DashboardCharts({ programData, monthlySales, unitLabel = "Milhas", hideBarChart = false }: DashboardChartsProps) {
@@ -93,8 +93,8 @@ export function DashboardCharts({ programData, monthlySales, unitLabel = "Milhas
                   <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
                   <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
                   <Tooltip />
-                  <Bar dataKey="vendas" fill="hsl(230 65% 50%)" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="lucro" fill="hsl(152 65% 35%)" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="vendas" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="lucro" fill="hsl(var(--teal))" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>

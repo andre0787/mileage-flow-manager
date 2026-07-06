@@ -19,6 +19,7 @@ export default {
 			fontFamily: {
 				display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
 				body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+				displayAlt: ['"Instrument Serif"', 'Georgia', 'serif'],
 				mono: ['"JetBrains Mono"', 'monospace'],
 			},
 			colors: {
@@ -99,6 +100,7 @@ export default {
 				'gradient-success': 'var(--gradient-success)',
 				'gradient-card': 'var(--gradient-card)',
 				'gradient-hero': 'var(--gradient-hero)',
+				'gradient-hero-teal': 'var(--gradient-hero-teal)',
 				'gradient-hero-glow': 'var(--gradient-hero-glow)',
 			},
 			boxShadow: {
