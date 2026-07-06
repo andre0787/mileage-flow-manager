@@ -139,10 +139,14 @@ fix/* ──── PR → develop → merge develop → main
 ```
 
 **Ramo atual**: `main` (produção) — deploy automático via Vercel.
-**Histórico UX Sprint**: branch `feat/ux-sprint` merged em `main` via `--no-ff`.
+**Fluxo padrão**: Commitar em `develop`, mergear em `main`, push → Vercel auto-deploy.
 
-### Commits recentes em main
+### Commits em main (produção)
 ```
+5bf678a docs: bateria obrigatoria de testes pre-deploy documentada em AGENTS.md
+c947ef9 fix: botao Nova Venda nao vaza mais no mobile (flex-wrap)
+b136908 feat: upgrade visual (design tokens + bento cards + glass effect)
+c84db8f feat: esqueci minha senha (fluxo completo)
 916a0cb feat(ux): sprint completo — loading, empty states, confetti, haptic e view transitions
 dd6a414 refactor: centraliza deducao de total invested em vendas + extrai DeleteEntryDialog
 31383d8 docs: atualiza AGENTS.md e README com novas features
@@ -280,10 +284,21 @@ alert-dialog, badge, button, card, dialog, drawer, input, label, progress, selec
 ## Testes
 
 ### E2E Playwright
-- Arquivo: `tests/entradas.spec.ts` — fluxo criar → editar → excluir entrada
+- Arquivos:
+  - `tests/entradas.spec.ts` — fluxo criar → editar → excluir entrada
+  - `tests/responsivo.spec.ts` — 11 páginas × 4 viewports + redimensionamento
 - Helpers: `tests/helpers.ts` — criar dados via REST API com retry
 - Viewport: 1280x900
 - Comando: `npx playwright test --reporter=list --workers=1`
+
+### Bateria Obrigatória (pré-deploy)
+Documentada em `AGENTS.md`. Executar antes de todo push em `main`:
+1. `npm run build` — sem erros
+2. `npx playwright test --reporter=list --workers=1` — ambos os testes
+3. Zero overflow horizontal (verificado pelo teste responsivo)
+4. Screenshots salvos em `tests/screenshots/`
+
+**Qualquer falha → blocker.**
 
 ### Convenções de teste
 - `{ force: true }` em cliques dentro de Dialog/Drawer
@@ -304,14 +319,61 @@ alert-dialog, badge, button, card, dialog, drawer, input, label, progress, selec
 
 ---
 
+## Sessões Recentes
+
+### Sessão: Upgrade Visual (Jul 2026)
+**Commits**: `b136908`, `c947ef9`, `5bf678a`
+- **Design tokens**: paleta refinada (navy 222), shadows com elevação, radius 0.75rem
+- **MetricCard**: barra gradiente no topo + glass icon + hover scale
+- **FlowMap**: gradiente no topo + hover suave + glass icon
+- **Dashboard hero**: glass effect nos mini cards + hover shadow
+- **Overflow fix**: Vendas header com `flex-wrap` (botões vão pra row 2 no mobile)
+- **Test battery**: documentada em AGENTS.md como pré-requisito de deploy
+
+### Sessão: Esqueci minha senha (Jul 2026)
+**Commit**: `c84db8f`
+- `AuthContext`: add `resetPassword(email)` + `updatePassword(password)`
+- `ForgotPassword.tsx`: formulário de email + tela de sucesso com check spam
+- `ResetPassword.tsx`: landing do magic link → nova senha → redirect login
+- `Login.tsx`: link "Esqueceu a senha?" no form de login
+- Rotas: `/forgot-password` e `/reset-password`
+- **Importante**: configurar redirect URLs no Supabase Dashboard
+
+### Skills Instaladas (Jul 2026)
+**3 repositórios, 102 skills** em `~/.pi/agent/skills/`:
+- `anthropic-skills/` (18 skills): `webapp-testing`, `frontend-design`, `doc-coauthoring`, `skill-creator`, documentos (pdf, docx, xlsx)
+- `awesome-design-skills/` (67 temas UI): `bento`, `modern`, `shadcn`, `corporate`, `neobrutalism`, `glassmorphism`
+- `planning-with-files/` (17 skills): planejamento persistente (★24.7K)
+
+---
+
 ## Design System
 
 ### Cores (CSS vars HSL em `index.css`)
-- `--primary`: 245 58% 51% (índigo)
-- `--success`: 160 84% 39% (verde)
-- `--warning`: 38 92% 50% (âmbar)
-- `--destructive`: 0 84% 60% (vermelho)
+- `--primary`: 222 70% 45% (navy premium)
+- `--gold`: 38 85% 50% (ouro)
+- `--teal`: 170 65% 36% (teal)
+- `--success`: 152 60% 33% (verde)
+- `--warning`: 38 90% 48% (âmbar)
+- `--destructive`: 0 75% 55% (vermelho)
 - Backgrounds, cards, foreground e muted seguem padrão shadcn/ui
+- Dark mode: valores ajustados (ex: `--primary: 222 70% 58%`)
+
+### Shadows (Tailwind + CSS vars)
+- `shadow-sm`: `var(--shadow-sm)` — cards
+- `shadow-md`: `var(--shadow-md)` — hover de cards
+- `shadow-lg`: `var(--shadow-lg)` — modais
+- `shadow-elegant`: `var(--shadow-elegant)` — glow primary
+- `shadow-card`: `var(--shadow-card)` — padrão
+- `shadow-glow` / `shadow-glow-gold`: glow decorativo (hero)
+
+### Gradientes
+- `bg-gradient-primary`: primary → primary-light
+- `bg-gradient-gold`: gold → gold-light
+- `bg-gradient-success`: success → success-light
+- `bg-gradient-card`: sutil 145°
+- `bg-gradient-hero`: animado (gradient-shift) para hero do Dashboard
+- `bg-gradient-hero-glow`: radial glow no hero
 
 ### Tipografia
 - Display: `Plus Jakarta Sans` (Google Fonts com `display=swap`)
@@ -321,5 +383,8 @@ alert-dialog, badge, button, card, dialog, drawer, input, label, progress, selec
 ### Animações
 - Classes utilitárias: `.animate-appear`, `.animate-delay-NNN`
 - View Transitions: fade-out 200ms + fade-in 350ms
-- Hover: `hover:-translate-y-0.5 hover:shadow-elegant transition-all duration-200` em cards
-- Confetti: 40-60 particles, spread 60-70, cores [indigo, amber, green]
+- Hover em MetricCard: `hover:-translate-y-0.5 hover:shadow-elegant transition-card duration-300`
+- Ícone do MetricCard: `backdrop-blur-sm` + `group-hover:scale-110`
+- Barra gradiente no topo de MetricCard e FlowMap
+- Confetti: 40-60 particles, spread 60-70, cores [primary, gold, green]
+- `animate-ping` no indicador verde
