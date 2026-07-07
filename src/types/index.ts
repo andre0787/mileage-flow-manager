@@ -61,10 +61,32 @@ export interface PointEntry {
   costPerMile?: number
   sourceAccountId?: string
   bonusPercent?: number
+  /** Quantidade de pontos extras comprados no carrinho (transferência) */
   cartAmount?: number
+  /** Valor total pago pelos pontos extras do carrinho */
   cartCost?: number
   date: string
   description?: string
+}
+
+/** Serializa cartAmount/cartCost para o campo description como JSON */
+export function serializeCart(cartAmount?: number, cartCost?: number): string | undefined {
+  if (cartAmount && cartAmount > 0) {
+    return JSON.stringify({ cartAmount, cartCost });
+  }
+  return undefined;
+}
+
+/** Extrai cartAmount/cartCost do campo description (JSON) */
+export function parseCart(description?: string | null): { cartAmount?: number; cartCost?: number } {
+  if (!description) return {};
+  try {
+    const parsed = JSON.parse(description);
+    if (typeof parsed.cartAmount === 'number') {
+      return { cartAmount: parsed.cartAmount, cartCost: parsed.cartCost };
+    }
+  } catch {}
+  return {};
 }
 
 export interface Sale {

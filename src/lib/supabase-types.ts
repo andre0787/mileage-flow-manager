@@ -151,8 +151,6 @@ export interface Database {
           cost_per_mile: number | null
           source_account_id: string | null
           bonus_percent: number | null
-          cart_amount: number | null
-          cart_cost: number | null
           date: string
           description: string | null
         }
@@ -169,8 +167,6 @@ export interface Database {
           cost_per_mile?: number | null
           source_account_id?: string | null
           bonus_percent?: number | null
-          cart_amount?: number | null
-          cart_cost?: number | null
           date?: string
           description?: string | null
         }
@@ -187,8 +183,6 @@ export interface Database {
           cost_per_mile?: number | null
           source_account_id?: string | null
           bonus_percent?: number | null
-          cart_amount?: number | null
-          cart_cost?: number | null
           date?: string
           description?: string | null
         }

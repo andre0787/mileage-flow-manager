@@ -4,6 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { calcProportionalCost } from "@/lib/metrics";
 import { calcAccountUpdate } from "@/lib/accounts";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
+import { parseCart, serializeCart } from "@/types";
 import type { Database } from "@/lib/supabase-types";
 
 function useUserId(): string | null {
@@ -30,7 +31,8 @@ function mapAccount(row: Database["public"]["Tables"]["accounts"]["Row"]): Accou
 }
 
 function mapEntry(row: Database["public"]["Tables"]["entries"]["Row"]): PointEntry {
-  return { id: row.id, accountId: row.account_id, origemTypeId: row.origem_type_id, amount: Number(row.amount), amountPaid: Number(row.amount_paid), costPerThousand: Number(row.cost_per_thousand), date: row.date, conversionRate: row.conversion_rate, milesGenerated: row.miles_generated, costPerMile: row.cost_per_mile, sourceAccountId: row.source_account_id, bonusPercent: row.bonus_percent, cartAmount: row.cart_amount ?? undefined, cartCost: row.cart_cost ?? undefined, description: row.description };
+  const cart = parseCart(row.description);
+  return { id: row.id, accountId: row.account_id, origemTypeId: row.origem_type_id, amount: Number(row.amount), amountPaid: Number(row.amount_paid), costPerThousand: Number(row.cost_per_thousand), date: row.date, conversionRate: row.conversion_rate, milesGenerated: row.miles_generated, costPerMile: row.cost_per_mile, sourceAccountId: row.source_account_id, bonusPercent: row.bonus_percent, cartAmount: cart.cartAmount, cartCost: cart.cartCost, description: row.description };
 }
 
 function mapClient(row: Database["public"]["Tables"]["clients"]["Row"]): Client {
@@ -337,8 +339,9 @@ export function useAddEntryMutation() {
         amount: entry.amount, amount_paid: entry.amountPaid, cost_per_thousand: entry.costPerThousand,
         conversion_rate: entry.conversionRate, miles_generated: entry.milesGenerated,
         cost_per_mile: entry.costPerMile, source_account_id: entry.sourceAccountId,
-        bonus_percent: entry.bonusPercent, cart_amount: entry.cartAmount, cart_cost: entry.cartCost,
-        date: entry.date, description: entry.description,
+        bonus_percent: entry.bonusPercent,
+        description: serializeCart(entry.cartAmount, entry.cartCost) ?? entry.description ?? null,
+        date: entry.date,
       });
       if (error) throw error;
 
@@ -400,7 +403,7 @@ export function useUpdateEntryMutation() {
         amount: merged.amount, amount_paid: merged.amountPaid, cost_per_thousand: merged.costPerThousand,
         conversion_rate: merged.conversionRate, miles_generated: merged.milesGenerated,
         cost_per_mile: merged.costPerMile, source_account_id: merged.sourceAccountId,
-        bonus_percent: merged.bonusPercent, cart_amount: merged.cartAmount, cart_cost: merged.cartCost, date: merged.date, description: merged.description,
+        bonus_percent: merged.bonusPercent, description: serializeCart(merged.cartAmount, merged.cartCost) ?? merged.description ?? null, date: merged.date,
       });
       if (insErr) throw insErr;
 
