@@ -96,7 +96,12 @@ export default function Entradas() {
 
   const ownerName = (id: string) => owners.find(o => o.id === id)?.name ?? id;
   const programName = (id: string) => programs.find(p => p.id === id)?.name ?? id;
-  const origemTypeName = (id: string) => origemTypes.find(ot => ot.id === id)?.name ?? id;
+  const origemTypeName = (id: string) => {
+    const ot = origemTypes.find(ot => ot.id === id);
+    if (ot) return ot.name;
+    const prog = programs.find(p => p.id === id);
+    return prog?.name ?? id;
+  };
 
   const handleOpenTransfer = () => {
     const transferId = origemTypes.find((ot) => isTransferencia(ot))?.id ?? "";
