@@ -61,6 +61,8 @@ export interface PointEntry {
   costPerMile?: number
   sourceAccountId?: string
   bonusPercent?: number
+  cartAmount?: number
+  cartCost?: number
   date: string
   description?: string
 }

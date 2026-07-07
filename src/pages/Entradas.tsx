@@ -44,6 +44,8 @@ export default function Entradas() {
     conversionRate: "",
     sourceAccountId: "",
     bonusPercent: "",
+    cartAmount: "",
+    cartCost: "",
   });
   const [entryErrors, setEntryErrors] = useState<Partial<Record<"accountId" | "origemTypeId" | "amount" | "amountPaid" | "sourceAccountId", string>>>({});
 
@@ -87,7 +89,7 @@ export default function Entradas() {
     ? (selectedSourceAccount.totalInvested ?? 0) / selectedSourceAccount.balance
     : 0;
   const effectiveMiles = isTransfer && newEntry.amount
-    ? parseFloat(newEntry.amount) * (1 + parseFloat(newEntry.bonusPercent || "0") / 100)
+    ? (parseFloat(newEntry.amount) + parseFloat(newEntry.cartAmount || "0")) * (1 + parseFloat(newEntry.bonusPercent || "0") / 100)
     : parseFloat(newEntry.amount || "0");
 
   const ownerName = (id: string) => owners.find(o => o.id === id)?.name ?? id;
@@ -105,13 +107,15 @@ export default function Entradas() {
       conversionRate: "",
       sourceAccountId: "",
       bonusPercent: "",
+      cartAmount: "",
+      cartCost: "",
     });
     setEntryErrors({});
     setIsCreateDialogOpen(true);
   };
 
   const resetForm = () => {
-    setNewEntry({ accountId: "", origemTypeId: "", amount: "", amountPaid: "", conversionRate: "", sourceAccountId: "", bonusPercent: "" });
+    setNewEntry({ accountId: "", origemTypeId: "", amount: "", amountPaid: "", conversionRate: "", sourceAccountId: "", bonusPercent: "", cartAmount: "", cartCost: "" });
     setEntryErrors({});
   };
 
@@ -125,6 +129,8 @@ export default function Entradas() {
       conversionRate: entry.conversionRate ? String(entry.conversionRate) : "",
       sourceAccountId: entry.sourceAccountId ?? "",
       bonusPercent: entry.bonusPercent ? String(entry.bonusPercent) : "",
+      cartAmount: entry.cartAmount ? String(entry.cartAmount) : "",
+      cartCost: entry.cartCost ? String(entry.cartCost) : "",
     });
     setEntryErrors({});
     setIsEditDialogOpen(true);
@@ -133,12 +139,16 @@ export default function Entradas() {
   const handleUpdateEntry = () => {
     if (!editingEntry || !validateEntry()) return;
     const amount = parseFloat(newEntry.amount);
+    const cartAmount = parseFloat(newEntry.cartAmount || "0");
     const amountPaid = parseFloat(newEntry.amountPaid);
+    const cartCost = parseFloat(newEntry.cartCost || "0");
     const conversionRate = parseFloat(newEntry.conversionRate || "1");
     const bonusPercent = isTransfer ? parseFloat(newEntry.bonusPercent || "0") : undefined;
-    const milesGenerated = calcMilesGenerated(amount, conversionRate, bonusPercent);
-    const costPerThousand = calcCostPerThousand(amountPaid, isTransfer ? milesGenerated : amount);
-    const costPerMile = calcCostPerMile(amountPaid, milesGenerated);
+    const totalAmount = amount + (isTransfer ? cartAmount : 0);
+    const totalPaid = amountPaid + cartCost;
+    const milesGenerated = calcMilesGenerated(totalAmount, conversionRate, bonusPercent);
+    const costPerThousand = calcCostPerThousand(totalPaid, milesGenerated);
+    const costPerMile = calcCostPerMile(totalPaid, milesGenerated);
 
     updateEntryM.mutate({
       oldEntry: editingEntry,
@@ -146,13 +156,15 @@ export default function Entradas() {
         accountId: newEntry.accountId,
         origemTypeId: newEntry.origemTypeId,
         amount,
-        amountPaid,
+        amountPaid: totalPaid,
         costPerThousand,
         conversionRate: isTransfer ? 1 + parseFloat(newEntry.bonusPercent || "0") / 100 : (activeTab === "milhas" ? undefined : conversionRate),
         milesGenerated,
         costPerMile,
         sourceAccountId: isTransfer ? newEntry.sourceAccountId : undefined,
         bonusPercent: isTransfer ? parseFloat(newEntry.bonusPercent || "0") : undefined,
+        cartAmount: isTransfer && cartAmount > 0 ? cartAmount : undefined,
+        cartCost: isTransfer && cartCost > 0 ? cartCost : undefined,
       },
     });
 
@@ -200,25 +212,31 @@ export default function Entradas() {
   const handleCreateEntry = () => {
     if (!validateEntry()) return;
       const amount = parseFloat(newEntry.amount);
+      const cartAmount = parseFloat(newEntry.cartAmount || "0");
       const amountPaid = parseFloat(newEntry.amountPaid);
+      const cartCost = parseFloat(newEntry.cartCost || "0");
       const conversionRate = parseFloat(newEntry.conversionRate || "1");
       const bonusPercent = isTransfer ? parseFloat(newEntry.bonusPercent || "0") : undefined;
-      const milesGenerated = calcMilesGenerated(amount, conversionRate, bonusPercent);
-      const costPerThousand = calcCostPerThousand(amountPaid, isTransfer ? milesGenerated : amount);
-      const costPerMile = calcCostPerMile(amountPaid, milesGenerated);
+      const totalAmount = amount + (isTransfer ? cartAmount : 0);
+      const totalPaid = amountPaid + cartCost;
+      const milesGenerated = calcMilesGenerated(totalAmount, conversionRate, bonusPercent);
+      const costPerThousand = calcCostPerThousand(totalPaid, milesGenerated);
+      const costPerMile = calcCostPerMile(totalPaid, milesGenerated);
 
       addEntryM.mutate(
         { id: crypto.randomUUID(),
         accountId: newEntry.accountId,
         origemTypeId: newEntry.origemTypeId,
         amount,
-        amountPaid,
+        amountPaid: totalPaid,
         costPerThousand,
         conversionRate: isTransfer ? 1 + parseFloat(newEntry.bonusPercent || "0") / 100 : (activeTab === "milhas" ? undefined : conversionRate),
         milesGenerated,
         costPerMile,
         sourceAccountId: isTransfer ? newEntry.sourceAccountId : undefined,
         bonusPercent: isTransfer ? parseFloat(newEntry.bonusPercent || "0") : undefined,
+        cartAmount: isTransfer && cartAmount > 0 ? cartAmount : undefined,
+        cartCost: isTransfer && cartCost > 0 ? cartCost : undefined,
         date: new Date().toISOString().split('T')[0],
       },
       {
@@ -454,6 +472,47 @@ export default function Entradas() {
                       </p>
                     )}
                   </div>
+
+                  {/* Compra no Carrinho */}
+                  <div className="border border-dashed border-primary/20 rounded-lg p-3 space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-gold" />
+                      <Label className="font-semibold text-sm cursor-pointer">
+                        Compra no Carrinho <span className="text-muted-foreground font-normal">(opcional)</span>
+                      </Label>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="space-y-1">
+                        <Label className="text-xs">Pontos Extras</Label>
+                        <Input
+                          type="number"
+                          value={newEntry.cartAmount}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setNewEntry({...newEntry, cartAmount: val});
+                          }}
+                          placeholder="Ex: 10000"
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <Label className="text-xs">Valor Total (R$)</Label>
+                        <Input
+                          type="number"
+                          step="0.01"
+                          value={newEntry.cartCost}
+                          onChange={(e) => setNewEntry({...newEntry, cartCost: e.target.value})}
+                          placeholder="Ex: 200.00"
+                        />
+                      </div>
+                    </div>
+                    {newEntry.cartAmount && parseFloat(newEntry.cartAmount) > 0 && (
+                      <p className="text-xs text-muted-foreground">
+                        +{parseFloat(newEntry.cartAmount).toLocaleString('pt-BR')} pts × {(parseFloat(newEntry.bonusPercent || "0")).toFixed(0)}% bonus ={" "}
+                        {(parseFloat(newEntry.cartAmount) * (1 + parseFloat(newEntry.bonusPercent || "0") / 100)).toLocaleString('pt-BR', { maximumFractionDigits: 0 })}{" "}
+                        milhas geradas
+                      </p>
+                    )}
+                  </div>
                 </>
               )}
 
@@ -478,6 +537,12 @@ export default function Entradas() {
                       <div>
                         <span className="text-muted-foreground">Milhas recebidas:</span>
                         <p className="font-semibold text-success">{effectiveMiles.toLocaleString('pt-BR')}</p>
+                        {parseFloat(newEntry.cartAmount || "0") > 0 && (
+                          <div className="mt-1 space-y-0.5 text-[10px] text-muted-foreground border-t border-success/20 pt-1">
+                            <p>Da transferência: {(parseFloat(newEntry.amount) * (1 + parseFloat(newEntry.bonusPercent || "0") / 100)).toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p>
+                            <p>Do carrinho: {(parseFloat(newEntry.cartAmount) * (1 + parseFloat(newEntry.bonusPercent || "0") / 100)).toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p>
+                          </div>
+                        )}
                       </div>
                     )}
                     {activeTab === "pontos" && (
@@ -591,9 +656,16 @@ export default function Entradas() {
                           <p className="text-xs text-muted-foreground">{ownerName(accounts.find(a => a.id === entry.accountId)?.ownerId ?? "")}</p>
                         </TableCell>
                         <TableCell className="hidden md:table-cell">
-                          <Badge variant="outline" className="gap-1">
-                            {programs.find(p => p.id === entry.origemTypeId)?.name ?? "-"}
-                          </Badge>
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <Badge variant="outline" className="gap-1">
+                              {programs.find(p => p.id === entry.origemTypeId)?.name ?? "-"}
+                            </Badge>
+                            {entry.cartAmount && entry.cartAmount > 0 && (
+                              <Badge variant="secondary" className="text-[10px] h-5 gap-1">
+                                🛒 Carrinho
+                              </Badge>
+                            )}
+                          </div>
                         </TableCell>
                         <TableCell className="hidden md:table-cell">{entry.amount.toLocaleString('pt-BR')}</TableCell>
                         <TableCell className="hidden md:table-cell">R$ {entry.amountPaid.toLocaleString('pt-BR')}</TableCell>
@@ -624,12 +696,17 @@ export default function Entradas() {
                    <div key={entry.id} className="border rounded-lg p-4 space-y-2">
                      <div className="flex items-center justify-between">
                        <div>
+                       <div className="flex items-center gap-1">
                          <p className="font-medium">{programs.find(p => p.id === entry.origemTypeId)?.name ?? "-"}</p>
-                         <p className="text-xs text-muted-foreground">{new Date(entry.date).toLocaleDateString('pt-BR')}</p>
+                         {entry.cartAmount && entry.cartAmount > 0 && (
+                           <Badge variant="secondary" className="text-[10px] h-5 gap-1">🛒 Carrinho</Badge>
+                         )}
                        </div>
-                       <Badge variant="outline">{accounts.find(a => a.id === entry.accountId)?.name}</Badge>
+                       <p className="text-xs text-muted-foreground">{new Date(entry.date).toLocaleDateString('pt-BR')}</p>
                      </div>
-                     <div className="grid grid-cols-2 gap-2 text-sm">
+                     <Badge variant="outline">{accounts.find(a => a.id === entry.accountId)?.name}</Badge>
+                   </div>
+                   <div className="grid grid-cols-2 gap-2 text-sm">
                       <div>
                         <span className="text-muted-foreground">Pontos:</span>
                         <p className="font-semibold">{entry.amount.toLocaleString('pt-BR')}</p>
@@ -724,10 +801,17 @@ export default function Entradas() {
                           <p className="text-xs text-muted-foreground">{ownerName(accounts.find(a => a.id === entry.accountId)?.ownerId ?? "")}</p>
                         </TableCell>
                         <TableCell className="hidden md:table-cell">
-                          <Badge variant="outline" className="gap-1">
-                            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: origemTypes.find(ot => ot.id === entry.origemTypeId)?.color }} />
-                            {origemTypeName(entry.origemTypeId)}
-                          </Badge>
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <Badge variant="outline" className="gap-1">
+                              <div className="w-2 h-2 rounded-full" style={{ backgroundColor: origemTypes.find(ot => ot.id === entry.origemTypeId)?.color }} />
+                              {origemTypeName(entry.origemTypeId)}
+                            </Badge>
+                            {entry.cartAmount && entry.cartAmount > 0 && (
+                              <Badge variant="secondary" className="text-[10px] h-5 gap-1">
+                                🛒 Carrinho
+                              </Badge>
+                            )}
+                          </div>
                         </TableCell>
                         <TableCell className="hidden md:table-cell">{entry.amount.toLocaleString('pt-BR')}</TableCell>
                         <TableCell className="hidden md:table-cell">R$ {entry.amountPaid.toLocaleString('pt-BR')}</TableCell>
@@ -754,16 +838,21 @@ export default function Entradas() {
                   <div key={entry.id} className="border rounded-lg p-4 space-y-2">
                     <div className="flex items-center justify-between">
                       <div>
+                      <div className="flex items-center gap-1">
                         <p className="font-medium">{origemTypeName(entry.origemTypeId)}</p>
-                        <p className="text-xs text-muted-foreground">{new Date(entry.date).toLocaleDateString('pt-BR')}</p>
+                        {entry.cartAmount && entry.cartAmount > 0 && (
+                          <Badge variant="secondary" className="text-[10px] h-5 gap-1">🛒 Carrinho</Badge>
+                        )}
                       </div>
-                      <Badge variant="outline">{accounts.find(a => a.id === entry.accountId)?.name}</Badge>
+                      <p className="text-xs text-muted-foreground">{new Date(entry.date).toLocaleDateString('pt-BR')}</p>
                     </div>
-                    <div className="grid grid-cols-2 gap-2 text-sm">
-                      <div>
-                        <span className="text-muted-foreground">Milhas:</span>
-                        <p className="font-semibold">{entry.amount.toLocaleString('pt-BR')}</p>
-                      </div>
+                    <Badge variant="outline">{accounts.find(a => a.id === entry.accountId)?.name}</Badge>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <div>
+                      <span className="text-muted-foreground">Milhas:</span>
+                      <p className="font-semibold">{entry.amount.toLocaleString('pt-BR')}</p>
+                    </div>
                       <div>
                         <span className="text-muted-foreground">Valor Pago:</span>
                         <p className="font-semibold">R$ {entry.amountPaid.toLocaleString('pt-BR')}</p>
@@ -962,6 +1051,47 @@ export default function Entradas() {
                       </p>
                     )}
                   </div>
+
+                  {/* Compra no Carrinho */}
+                  <div className="border border-dashed border-primary/20 rounded-lg p-3 space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-gold" />
+                      <Label className="font-semibold text-sm cursor-pointer">
+                        Compra no Carrinho <span className="text-muted-foreground font-normal">(opcional)</span>
+                      </Label>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="space-y-1">
+                        <Label className="text-xs">Pontos Extras</Label>
+                        <Input
+                          type="number"
+                          value={newEntry.cartAmount}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setNewEntry({...newEntry, cartAmount: val});
+                          }}
+                          placeholder="Ex: 10000"
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <Label className="text-xs">Valor Total (R$)</Label>
+                        <Input
+                          type="number"
+                          step="0.01"
+                          value={newEntry.cartCost}
+                          onChange={(e) => setNewEntry({...newEntry, cartCost: e.target.value})}
+                          placeholder="Ex: 200.00"
+                        />
+                      </div>
+                    </div>
+                    {newEntry.cartAmount && parseFloat(newEntry.cartAmount) > 0 && (
+                      <p className="text-xs text-muted-foreground">
+                        +{parseFloat(newEntry.cartAmount).toLocaleString('pt-BR')} pts × {(parseFloat(newEntry.bonusPercent || "0")).toFixed(0)}% bonus ={" "}
+                        {(parseFloat(newEntry.cartAmount) * (1 + parseFloat(newEntry.bonusPercent || "0") / 100)).toLocaleString('pt-BR', { maximumFractionDigits: 0 })}{" "}
+                        milhas geradas
+                      </p>
+                    )}
+                  </div>
                 </>
               )}
 
@@ -986,6 +1116,12 @@ export default function Entradas() {
                       <div>
                         <span className="text-muted-foreground">Milhas recebidas:</span>
                         <p className="font-semibold text-success">{effectiveMiles.toLocaleString('pt-BR')}</p>
+                        {parseFloat(newEntry.cartAmount || "0") > 0 && (
+                          <div className="mt-1 space-y-0.5 text-[10px] text-muted-foreground border-t border-success/20 pt-1">
+                            <p>Da transferência: {(parseFloat(newEntry.amount) * (1 + parseFloat(newEntry.bonusPercent || "0") / 100)).toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p>
+                            <p>Do carrinho: {(parseFloat(newEntry.cartAmount) * (1 + parseFloat(newEntry.bonusPercent || "0") / 100)).toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p>
+                          </div>
+                        )}
                       </div>
                     )}
                     {activeTab === "pontos" && (
