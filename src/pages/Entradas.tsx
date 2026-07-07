@@ -54,9 +54,10 @@ export default function Entradas() {
   const [isOrigemTypeDialogOpen, setIsOrigemTypeDialogOpen] = useState(false);
   const [newOrigemType, setNewOrigemType] = useState({ name: "", color: "#10b981" });
   const [origemTypeErrors, setOrigemTypeErrors] = useState<Partial<Record<string, string>>>({});
+  const milhasOrigemTypes = origemTypes.filter(ot => ot.accountType === "milhas");
   const currentOrigemTypes = activeTab === "pontos"
     ? programs.filter(p => p.type === "pontos")
-    : programs.filter(p => p.type === "milhas");
+    : [...milhasOrigemTypes, ...programs.filter(p => p.type === "milhas")];
   const availableAccounts = accounts.filter(a => a.type === activeTab && a.status === "ativa");
 
   const entriesByTab = useMemo(() => {
@@ -344,9 +345,16 @@ export default function Entradas() {
                         <SelectValue placeholder="Selecione o tipo" />
                       </SelectTrigger>
                       <SelectContent>
-                        {currentOrigemTypes.map((p) => (
-                          <SelectItem key={p.id} value={p.id}>
-                            {p.name}
+                        {currentOrigemTypes.map((item) => (
+                          <SelectItem key={item.id} value={item.id}>
+                            {"color" in item ? (
+                              <div className="flex items-center gap-2">
+                                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: (item as OrigemType).color }} />
+                                {item.name}
+                              </div>
+                            ) : (
+                              item.name
+                            )}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -1001,9 +1009,16 @@ export default function Entradas() {
                         <SelectValue placeholder="Selecione o tipo" />
                       </SelectTrigger>
                       <SelectContent>
-                        {currentOrigemTypes.map((p) => (
-                          <SelectItem key={p.id} value={p.id}>
-                            {p.name}
+                        {currentOrigemTypes.map((item) => (
+                          <SelectItem key={item.id} value={item.id}>
+                            {"color" in item ? (
+                              <div className="flex items-center gap-2">
+                                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: (item as OrigemType).color }} />
+                                {item.name}
+                              </div>
+                            ) : (
+                              item.name
+                            )}
                           </SelectItem>
                         ))}
                       </SelectContent>
