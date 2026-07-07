@@ -4,7 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { calcProportionalCost } from "@/lib/metrics";
 import { calcAccountUpdate } from "@/lib/accounts";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
-import { parseCart, serializeCart } from "@/types";
+import { parseDescription, serializeDescription } from "@/types";
 import type { Database } from "@/lib/supabase-types";
 
 function useUserId(): string | null {
@@ -329,21 +329,96 @@ export function useDeleteAccountMutation() {
   });
 }
 
+/** Gera N entradas futuras para recorrência de clube */
+function generateRecurringEntries(
+  entry: PointEntry,
+  userId: string,
+  intervalDays: number,
+  endDate: string,
+): Partial<PointEntry>[] {
+  const future: Partial<PointEntry>[] = [];
+  const startDate = new Date(entry.date);
+  const end = new Date(endDate);
+  let cursor = new Date(startDate);
+  while (cursor < end) {
+    cursor = new Date(cursor.getTime() + intervalDays * 24 * 60 * 60 * 1000);
+    if (cursor > end) break;
+    const dateStr = cursor.toISOString().split('T')[0];
+    future.push({
+      id: crypto.randomUUID(),
+      accountId: entry.accountId,
+      origemTypeId: entry.origemTypeId,
+      amount: entry.amount,
+      amountPaid: entry.amountPaid,
+      costPerThousand: entry.costPerThousand,
+      conversionRate: entry.conversionRate,
+      milesGenerated: entry.milesGenerated,
+      costPerMile: entry.costPerMile,
+      sourceAccountId: entry.sourceAccountId,
+      bonusPercent: entry.bonusPercent,
+      cartAmount: entry.cartAmount,
+      cartCost: entry.cartCost,
+      date: dateStr,
+      entryStatus: 'aguardando',
+      parentEntryId: entry.id,
+      recurrenceInterval: intervalDays,
+      recurrenceEnd: endDate,
+    });
+  }
+  return future;
+}
+
 export function useAddEntryMutation() {
   const queryClient = useQueryClient();
   const { user } = useAuth();
   return useMutation({
     mutationFn: async (entry: PointEntry) => {
+      const isAguardando = entry.entryStatus === 'aguardando';
+
+      // Insert the entry
       const { error } = await supabase.from("entries").insert({
         id: entry.id, user_id: user!.id, account_id: entry.accountId, origem_type_id: entry.origemTypeId,
         amount: entry.amount, amount_paid: entry.amountPaid, cost_per_thousand: entry.costPerThousand,
         conversion_rate: entry.conversionRate, miles_generated: entry.milesGenerated,
         cost_per_mile: entry.costPerMile, source_account_id: entry.sourceAccountId,
         bonus_percent: entry.bonusPercent,
-        description: serializeCart(entry.cartAmount, entry.cartCost) ?? entry.description ?? null,
+        description: serializeDescription({
+          cartAmount: entry.cartAmount,
+          cartCost: entry.cartCost,
+          entryStatus: entry.entryStatus,
+          parentEntryId: entry.parentEntryId,
+          recurrenceInterval: entry.recurrenceInterval,
+          recurrenceEnd: entry.recurrenceEnd,
+        }) ?? null,
         date: entry.date,
       });
       if (error) throw error;
+
+      // If recurring parent entry, generate future entries
+      if (!isAguardando && entry.recurrenceInterval && entry.recurrenceEnd) {
+        const futureEntries = generateRecurringEntries(entry, user!.id, entry.recurrenceInterval, entry.recurrenceEnd);
+        for (const fe of futureEntries) {
+          await supabase.from("entries").insert({
+            id: fe.id!, user_id: user!.id, account_id: fe.accountId!, origem_type_id: fe.origemTypeId!,
+            amount: fe.amount!, amount_paid: fe.amountPaid!, cost_per_thousand: fe.costPerThousand!,
+            conversion_rate: fe.conversionRate ?? null, miles_generated: fe.milesGenerated ?? null,
+            cost_per_mile: fe.costPerMile ?? null, source_account_id: fe.sourceAccountId ?? null,
+            bonus_percent: fe.bonusPercent ?? null,
+            description: serializeDescription({
+              cartAmount: fe.cartAmount,
+              cartCost: fe.cartCost,
+              entryStatus: fe.entryStatus,
+              parentEntryId: fe.parentEntryId,
+              recurrenceInterval: fe.recurrenceInterval,
+              recurrenceEnd: fe.recurrenceEnd,
+            }) ?? null,
+            date: fe.date!,
+          });
+        }
+      }
+
+      // Skip account updates for pending entries
+      if (isAguardando) return;
 
       // Update source account if transfer
       if (entry.sourceAccountId) {
@@ -372,26 +447,59 @@ export function useAddEntryMutation() {
   });
 }
 
+export function useConfirmEntryMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (entry: PointEntry) => {
+      // 1. Update entry status to confirmada
+      const newDesc = serializeDescription({
+        cartAmount: entry.cartAmount,
+        cartCost: entry.cartCost,
+        recurrenceInterval: entry.recurrenceInterval,
+        recurrenceEnd: entry.recurrenceEnd,
+      });
+      const { error } = await supabase.from("entries").update({ description: newDesc ?? null }).eq("id", entry.id);
+      if (error) throw error;
+
+      // 2. Update account balance (like a normal entry)
+      const { data: dest } = await supabase.from("accounts").select("balance, total_invested").eq("id", entry.accountId).single();
+      if (dest) {
+        const amountToAdd = entry.milesGenerated ?? entry.amount;
+        const update = calcAccountUpdate(Number(dest.balance), Number(dest.total_invested ?? 0), amountToAdd, entry.amountPaid);
+        await supabase.from("accounts").update(update).eq("id", entry.accountId);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["entries"] });
+      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+    },
+  });
+}
+
 export function useUpdateEntryMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ oldEntry, updates }: { oldEntry: PointEntry; updates: Partial<PointEntry> }) => {
-      // 1. Reverse original account effects (same as delete)
+      const isAguardando = oldEntry.entryStatus === 'aguardando';
+
+      // 1. Reverse original account effects (same as delete, skip for aguardando)
       const { error: delErr } = await supabase.from("entries").delete().eq("id", oldEntry.id);
       if (delErr) throw delErr;
 
-      const reverseDest = await supabase.from("accounts").select("balance, total_invested").eq("id", oldEntry.accountId).single();
-      if (reverseDest.data) {
-        const amountToRemove = oldEntry.milesGenerated ?? oldEntry.amount;
-        const update = calcAccountUpdate(Number(reverseDest.data.balance), Number(reverseDest.data.total_invested ?? 0), -amountToRemove, -oldEntry.amountPaid);
-        await supabase.from("accounts").update(update).eq("id", oldEntry.accountId);
-      }
+      if (!isAguardando) {
+        const reverseDest = await supabase.from("accounts").select("balance, total_invested").eq("id", oldEntry.accountId).single();
+        if (reverseDest.data) {
+          const amountToRemove = oldEntry.milesGenerated ?? oldEntry.amount;
+          const update = calcAccountUpdate(Number(reverseDest.data.balance), Number(reverseDest.data.total_invested ?? 0), -amountToRemove, -oldEntry.amountPaid);
+          await supabase.from("accounts").update(update).eq("id", oldEntry.accountId);
+        }
 
-      if (oldEntry.sourceAccountId) {
-        const reverseSrc = await supabase.from("accounts").select("balance, total_invested").eq("id", oldEntry.sourceAccountId).single();
-        if (reverseSrc.data) {
-          const update = calcAccountUpdate(Number(reverseSrc.data.balance), Number(reverseSrc.data.total_invested ?? 0), oldEntry.amount, oldEntry.amountPaid);
-          await supabase.from("accounts").update(update).eq("id", oldEntry.sourceAccountId);
+        if (oldEntry.sourceAccountId) {
+          const reverseSrc = await supabase.from("accounts").select("balance, total_invested").eq("id", oldEntry.sourceAccountId).single();
+          if (reverseSrc.data) {
+            const update = calcAccountUpdate(Number(reverseSrc.data.balance), Number(reverseSrc.data.total_invested ?? 0), oldEntry.amount, oldEntry.amountPaid);
+            await supabase.from("accounts").update(update).eq("id", oldEntry.sourceAccountId);
+          }
         }
       }
 
@@ -403,9 +511,21 @@ export function useUpdateEntryMutation() {
         amount: merged.amount, amount_paid: merged.amountPaid, cost_per_thousand: merged.costPerThousand,
         conversion_rate: merged.conversionRate, miles_generated: merged.milesGenerated,
         cost_per_mile: merged.costPerMile, source_account_id: merged.sourceAccountId,
-        bonus_percent: merged.bonusPercent, description: serializeCart(merged.cartAmount, merged.cartCost) ?? merged.description ?? null, date: merged.date,
+        bonus_percent: merged.bonusPercent,
+        description: serializeDescription({
+          cartAmount: merged.cartAmount,
+          cartCost: merged.cartCost,
+          entryStatus: merged.entryStatus,
+          parentEntryId: merged.parentEntryId,
+          recurrenceInterval: merged.recurrenceInterval,
+          recurrenceEnd: merged.recurrenceEnd,
+        }) ?? null,
+        date: merged.date,
       });
       if (insErr) throw insErr;
+
+      // Skip account updates for aguardando
+      if (merged.entryStatus === 'aguardando') return;
 
       // 3. Apply new account effects (same as add)
       if (merged.sourceAccountId) {
@@ -437,24 +557,36 @@ export function useDeleteEntryMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (entry: PointEntry) => {
+      // Delete child entries (from clube recurrence)
+      if (entry.recurrenceInterval && entry.recurrenceEnd) {
+        const { data: childEntries } = await supabase.from("entries").select("id").filter("description", "like", `%"parentEntryId":"${entry.id}"%`);
+        if (childEntries) {
+          for (const child of childEntries) {
+            await supabase.from("entries").delete().eq("id", child.id);
+          }
+        }
+      }
+
       const { error } = await supabase.from("entries").delete().eq("id", entry.id);
       if (error) throw error;
 
-      // Reverse destination account update
-      const { data: dest } = await supabase.from("accounts").select("balance, total_invested").eq("id", entry.accountId).single();
-      if (dest) {
-        const amountToRemove = entry.milesGenerated ?? entry.amount;
-        const update = calcAccountUpdate(Number(dest.balance), Number(dest.total_invested ?? 0), -amountToRemove, -entry.amountPaid);
-        await supabase.from("accounts").update(update).eq("id", entry.accountId);
-      }
+      // Only reverse account updates if entry was confirmed (not aguardando)
+      if (entry.entryStatus !== 'aguardando') {
+        // Reverse destination account update
+        const { data: dest } = await supabase.from("accounts").select("balance, total_invested").eq("id", entry.accountId).single();
+        if (dest) {
+          const amountToRemove = entry.milesGenerated ?? entry.amount;
+          const update = calcAccountUpdate(Number(dest.balance), Number(dest.total_invested ?? 0), -amountToRemove, -entry.amountPaid);
+          await supabase.from("accounts").update(update).eq("id", entry.accountId);
+        }
 
-      // Reverse source account update if transfer
-      if (entry.sourceAccountId) {
-        const { data: source } = await supabase.from("accounts").select("balance, total_invested").eq("id", entry.sourceAccountId).single();
-        if (source) {
-          // costToRestore simplifies to entry.amountPaid (amount * (amountPaid / amount) = amountPaid)
-          const update = calcAccountUpdate(Number(source.balance), Number(source.total_invested ?? 0), entry.amount, entry.amountPaid);
-          await supabase.from("accounts").update(update).eq("id", entry.sourceAccountId);
+        // Reverse source account update if transfer
+        if (entry.sourceAccountId) {
+          const { data: source } = await supabase.from("accounts").select("balance, total_invested").eq("id", entry.sourceAccountId).single();
+          if (source) {
+            const update = calcAccountUpdate(Number(source.balance), Number(source.total_invested ?? 0), entry.amount, entry.amountPaid);
+            await supabase.from("accounts").update(update).eq("id", entry.sourceAccountId);
+          }
         }
       }
     },

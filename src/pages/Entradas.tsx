@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Plus, TrendingUp, TrendingDown, ArrowLeftRight, Search, Package } from "lucide-react";
+import { Plus, TrendingUp, TrendingDown, ArrowLeftRight, Search, Package, RefreshCcw, CheckCircle2, AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,6 +46,8 @@ export default function Entradas() {
     bonusPercent: "",
     cartAmount: "",
     cartCost: "",
+    isClube: false,
+    clubeMeses: "",
   });
   const [entryErrors, setEntryErrors] = useState<Partial<Record<"accountId" | "origemTypeId" | "amount" | "amountPaid" | "sourceAccountId", string>>>({});
 
@@ -109,13 +111,15 @@ export default function Entradas() {
       bonusPercent: "",
       cartAmount: "",
       cartCost: "",
+      isClube: false,
+      clubeMeses: "",
     });
     setEntryErrors({});
     setIsCreateDialogOpen(true);
   };
 
   const resetForm = () => {
-    setNewEntry({ accountId: "", origemTypeId: "", amount: "", amountPaid: "", conversionRate: "", sourceAccountId: "", bonusPercent: "", cartAmount: "", cartCost: "" });
+    setNewEntry({ accountId: "", origemTypeId: "", amount: "", amountPaid: "", conversionRate: "", sourceAccountId: "", bonusPercent: "", cartAmount: "", cartCost: "", isClube: false, clubeMeses: "" });
     setEntryErrors({});
   };
 
@@ -131,6 +135,8 @@ export default function Entradas() {
       bonusPercent: entry.bonusPercent ? String(entry.bonusPercent) : "",
       cartAmount: entry.cartAmount ? String(entry.cartAmount) : "",
       cartCost: entry.cartCost ? String(entry.cartCost) : "",
+      isClube: !!(entry.recurrenceInterval && entry.recurrenceEnd),
+      clubeMeses: entry.recurrenceEnd ? String(Math.ceil((new Date(entry.recurrenceEnd).getTime() - new Date(entry.date).getTime()) / (30 * 24 * 60 * 60 * 1000))) : "",
     });
     setEntryErrors({});
     setIsEditDialogOpen(true);
@@ -165,6 +171,9 @@ export default function Entradas() {
         bonusPercent: isTransfer ? parseFloat(newEntry.bonusPercent || "0") : undefined,
         cartAmount: isTransfer && cartAmount > 0 ? cartAmount : undefined,
         cartCost: isTransfer && cartCost > 0 ? cartCost : undefined,
+        entryStatus: newEntry.isClube ? undefined : undefined,
+        recurrenceInterval: newEntry.isClube ? 30 : undefined,
+        recurrenceEnd: newEntry.isClube && newEntry.clubeMeses ? new Date(new Date().getTime() + parseInt(newEntry.clubeMeses) * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] : undefined,
       },
     });
 
@@ -237,6 +246,9 @@ export default function Entradas() {
         bonusPercent: isTransfer ? parseFloat(newEntry.bonusPercent || "0") : undefined,
         cartAmount: isTransfer && cartAmount > 0 ? cartAmount : undefined,
         cartCost: isTransfer && cartCost > 0 ? cartCost : undefined,
+        entryStatus: newEntry.isClube ? undefined : undefined, // parent is always confirmada
+        recurrenceInterval: newEntry.isClube ? 30 : undefined,
+        recurrenceEnd: newEntry.isClube && newEntry.clubeMeses ? new Date(new Date().getTime() + parseInt(newEntry.clubeMeses) * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] : undefined,
         date: new Date().toISOString().split('T')[0],
       },
       {
@@ -257,9 +269,11 @@ export default function Entradas() {
       setIsCreateDialogOpen(false);
   };
 
-  const totalAmount = entriesFiltered.reduce((s, e) => s + e.amount, 0);
-  const totalAmountPaid = entriesFiltered.reduce((s, e) => s + e.amountPaid, 0);
-  const totalMilesGenerated = entriesFiltered.reduce((s, e) => s + (e.milesGenerated ?? e.amount), 0);
+  const confirmedEntries = useMemo(() => entriesFiltered.filter(e => e.entryStatus !== 'aguardando'), [entriesFiltered]);
+  const pendingEntries = useMemo(() => entries.filter(e => e.entryStatus === 'aguardando'), [entries]);
+  const totalAmount = confirmedEntries.reduce((s, e) => s + e.amount, 0);
+  const totalAmountPaid = confirmedEntries.reduce((s, e) => s + e.amountPaid, 0);
+  const totalMilesGenerated = confirmedEntries.reduce((s, e) => s + (e.milesGenerated ?? e.amount), 0);
   const averageCostPerMile = totalMilesGenerated > 0 ? totalAmountPaid / totalMilesGenerated : 0;
 
   if (isLoading) {
@@ -516,6 +530,50 @@ export default function Entradas() {
                 </>
               )}
 
+              {/* Recorrência (Clube) - disponível em ambas abas, só quando não é transferência */}
+              {!isTransfer && (
+                <div className="border border-dashed border-amber-400/40 rounded-lg p-3 space-y-3">
+                  <div className="flex items-center gap-2">
+                    <RefreshCcw className="h-4 w-4 text-amber-500" />
+                    <Label className="font-semibold text-sm cursor-pointer">
+                      Recorrência <span className="text-muted-foreground font-normal">(Clube)</span>
+                    </Label>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        id="isClube"
+                        checked={newEntry.isClube}
+                        onChange={(e) => setNewEntry({...newEntry, isClube: e.target.checked})}
+                        className="h-4 w-4 rounded border-border accent-primary"
+                      />
+                      <Label htmlFor="isClube" className="text-sm cursor-pointer">
+                        Gerar recorrência mensal
+                      </Label>
+                    </div>
+                    {newEntry.isClube && (
+                      <div className="space-y-2">
+                        <Label className="text-xs">Quantidade de meses</Label>
+                        <Input
+                          type="number"
+                          min="1"
+                          max="120"
+                          value={newEntry.clubeMeses}
+                          onChange={(e) => setNewEntry({...newEntry, clubeMeses: e.target.value})}
+                          placeholder="Ex: 12"
+                        />
+                        {newEntry.clubeMeses && parseInt(newEntry.clubeMeses) > 0 && (
+                          <p className="text-xs text-amber-600 dark:text-amber-400">
+                            ⏳{new Date(new Date().getTime() + parseInt(newEntry.clubeMeses) * 30 * 24 * 60 * 60 * 1000).toLocaleDateString('pt-BR')} — serão geradas {newEntry.clubeMeses} entrada(s) futura(s) com status "Aguardando"
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
               {activeTab === "pontos" && (
                 <div className="space-y-2">
                   <Label htmlFor="conversion">Taxa de Conversão (Pontos → Milhas)</Label>
@@ -568,6 +626,21 @@ export default function Entradas() {
             </div>
           </FormDrawer>
 
+
+      {/* Banner de entradas pendentes do Clube */}
+      {pendingEntries.length > 0 && (
+        <div className="rounded-lg border border-amber-400/30 bg-amber-50 dark:bg-amber-950/20 p-3 sm:p-4 flex items-start gap-3">
+          <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium text-amber-800 dark:text-amber-300">
+              {pendingEntries.length} entrada(s) pendente(s) de confirmação
+            </p>
+            <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
+              Entradas geradas pelo Clube de {activeTab === "milhas" ? "Milhas" : "Pontos"} aguardando confirmação. Confirme abaixo para atualizar o saldo da conta.
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Sub-abas Pontos / Milhas */}
       <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as "pontos" | "milhas")}>
@@ -688,7 +761,7 @@ export default function Entradas() {
                  </Table>
                </div>
 
-               {/* Mobile card list */}
+               {/* Mobile card list - Pontos */}
                <div className="md:hidden space-y-3 mt-4">
                  {entriesFiltered.length === 0 ? (
                    <EmptyState icon={Package} title="Nenhuma entrada de pontos" description="Registre sua primeira aquisição de pontos ou use a busca para filtrar." />
@@ -705,8 +778,14 @@ export default function Entradas() {
                        <p className="text-xs text-muted-foreground">{new Date(entry.date).toLocaleDateString('pt-BR')}</p>
                      </div>
                      <Badge variant="outline">{accounts.find(a => a.id === entry.accountId)?.name}</Badge>
-                   </div>
-                   <div className="grid grid-cols-2 gap-2 text-sm">
+                    {entry.recurrenceInterval && entry.entryStatus !== 'aguardando' && (
+                      <Badge variant="secondary" className="bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 text-[10px] gap-1">🔄 Clube</Badge>
+                    )}
+                    {entry.entryStatus === 'aguardando' && (
+                      <Badge variant="secondary" className="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 text-[10px] gap-1">⏳ Aguardando</Badge>
+                    )}
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
                       <div>
                         <span className="text-muted-foreground">Pontos:</span>
                         <p className="font-semibold">{entry.amount.toLocaleString('pt-BR')}</p>
@@ -811,6 +890,16 @@ export default function Entradas() {
                                 🛒 Carrinho
                               </Badge>
                             )}
+                            {entry.recurrenceInterval && entry.entryStatus !== 'aguardando' && (
+                              <Badge variant="secondary" className="text-[10px] h-5 gap-1 bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400">
+                                🔄 Clube
+                              </Badge>
+                            )}
+                            {entry.entryStatus === 'aguardando' && (
+                              <Badge variant="secondary" className="text-[10px] h-5 gap-1 bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+                                ⏳ Aguardando
+                              </Badge>
+                            )}
                           </div>
                         </TableCell>
                         <TableCell className="hidden md:table-cell">{entry.amount.toLocaleString('pt-BR')}</TableCell>
@@ -818,6 +907,12 @@ export default function Entradas() {
                         <TableCell className="hidden md:table-cell">R$ {entry.costPerMile.toFixed(4)}</TableCell>
 <TableCell className="hidden md:table-cell text-right">
                           <div className="flex gap-2 justify-end">
+                            {entry.entryStatus === 'aguardando' && (
+                              <Button size="sm" variant="outline" className="px-3 min-h-[44px] gap-1 border-blue-300 dark:border-blue-700" onClick={() => confirmEntryM.mutate(entry)}>
+                                <CheckCircle2 className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+                                Confirmar
+                              </Button>
+                            )}
                             <Button size="sm" variant="outline" className="px-3 min-h-[44px]" onClick={() => openEditDialog(entry)}>
                               Editar
                             </Button>
@@ -830,7 +925,7 @@ export default function Entradas() {
                  </Table>
                </div>
 
-               {/* Mobile card list */}
+               {/* Mobile card list - Milhas */}
                <div className="md:hidden space-y-3 mt-4">
                  {entriesFiltered.length === 0 ? (
                    <EmptyState icon={Package} title="Nenhuma entrada de milhas" description="Registre sua primeira aquisição de milhas ou use a busca para filtrar." />
@@ -847,6 +942,12 @@ export default function Entradas() {
                       <p className="text-xs text-muted-foreground">{new Date(entry.date).toLocaleDateString('pt-BR')}</p>
                     </div>
                     <Badge variant="outline">{accounts.find(a => a.id === entry.accountId)?.name}</Badge>
+                    {entry.recurrenceInterval && entry.entryStatus !== 'aguardando' && (
+                      <Badge variant="secondary" className="bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 text-[10px] gap-1">🔄 Clube</Badge>
+                    )}
+                    {entry.entryStatus === 'aguardando' && (
+                      <Badge variant="secondary" className="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 text-[10px] gap-1">⏳ Aguardando</Badge>
+                    )}
                   </div>
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     <div>
@@ -862,7 +963,13 @@ export default function Entradas() {
                         <p className="font-semibold">R$ {entry.costPerMile.toFixed(4)}</p>
                       </div>
                     </div>
-<div className="flex justify-end gap-2 pt-1">
+<div className="flex flex-wrap justify-end gap-2 pt-1">
+                      {entry.entryStatus === 'aguardando' && (
+                        <Button size="sm" variant="outline" className="px-3 min-h-[44px] gap-1 border-blue-300 dark:border-blue-700" onClick={() => confirmEntryM.mutate(entry)}>
+                          <CheckCircle2 className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+                          Confirmar
+                        </Button>
+                      )}
                       <Button size="sm" variant="outline" className="px-3 min-h-[44px]" onClick={() => openEditDialog(entry)}>
                         Editar
                       </Button>
@@ -1093,6 +1200,49 @@ export default function Entradas() {
                     )}
                   </div>
                 </>
+              )}
+
+              {/* Recorrência (Clube) - edit */}
+              {!isTransfer && (
+                <div className="border border-dashed border-amber-400/40 rounded-lg p-3 space-y-3">
+                  <div className="flex items-center gap-2">
+                    <RefreshCcw className="h-4 w-4 text-amber-500" />
+                    <Label className="font-semibold text-sm cursor-pointer">
+                      Recorrência <span className="text-muted-foreground font-normal">(Clube)</span>
+                    </Label>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        id="editIsClube"
+                        checked={newEntry.isClube}
+                        onChange={(e) => setNewEntry({...newEntry, isClube: e.target.checked})}
+                        className="h-4 w-4 rounded border-border accent-primary"
+                      />
+                      <Label htmlFor="editIsClube" className="text-sm cursor-pointer">
+                        Gerar recorrência mensal
+                      </Label>
+                    </div>
+                    {newEntry.isClube && (
+                      <div className="space-y-2">
+                        <Label className="text-xs">Quantidade de meses</Label>
+                        <Input
+                          id="editClubeMeses"
+                          type="number"
+                          min="1"
+                          max="120"
+                          value={newEntry.clubeMeses}
+                          onChange={(e) => setNewEntry({...newEntry, clubeMeses: e.target.value})}
+                          placeholder="Ex: 12"
+                        />
+                        <p className="text-xs text-amber-600 dark:text-amber-400">
+                          ⏳ Altere com cuidado — novas entradas futuras serão geradas
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
               )}
 
               {activeTab === "pontos" && (

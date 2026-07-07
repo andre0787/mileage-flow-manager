@@ -279,6 +279,24 @@ export default function Dashboard() {
           </div>
         </div>
 
+        {/* Entradas pendentes do Clube */}
+        {entries.filter(e => e.entryStatus === 'aguardando').length > 0 && (
+          <div className="rounded-lg border border-amber-400/30 bg-amber-50 dark:bg-amber-950/20 p-3 sm:p-4 flex items-start gap-3 animate-appear" onClick={() => window.location.href = '/entradas'}>
+            <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-amber-800 dark:text-amber-300">
+                {entries.filter(e => e.entryStatus === 'aguardando').length} entrada(s) pendente(s) de confirmação
+              </p>
+              <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
+                Clube de {activeTab === 'milhas' ? 'Milhas' : 'Pontos'} — confirme em Entradas para atualizar o saldo
+              </p>
+            </div>
+            <Button variant="ghost" size="sm" className="shrink-0 text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/30" asChild>
+              <a href="/entradas">Ver →</a>
+            </Button>
+          </div>
+        )}
+
         {/* ═══════════════════════════════════════════ */}
         {/* MILHAS TAB */}
         {/* ═══════════════════════════════════════════ */}
