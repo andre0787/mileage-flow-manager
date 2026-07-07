@@ -171,7 +171,6 @@ export default function Entradas() {
         bonusPercent: isTransfer ? parseFloat(newEntry.bonusPercent || "0") : undefined,
         cartAmount: isTransfer && cartAmount > 0 ? cartAmount : undefined,
         cartCost: isTransfer && cartCost > 0 ? cartCost : undefined,
-        entryStatus: newEntry.isClube ? undefined : undefined,
         recurrenceInterval: newEntry.isClube ? 30 : undefined,
         recurrenceEnd: newEntry.isClube && newEntry.clubeMeses ? new Date(new Date().getTime() + parseInt(newEntry.clubeMeses) * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] : undefined,
       },
@@ -246,7 +245,6 @@ export default function Entradas() {
         bonusPercent: isTransfer ? parseFloat(newEntry.bonusPercent || "0") : undefined,
         cartAmount: isTransfer && cartAmount > 0 ? cartAmount : undefined,
         cartCost: isTransfer && cartCost > 0 ? cartCost : undefined,
-        entryStatus: newEntry.isClube ? undefined : undefined, // parent is always confirmada
         recurrenceInterval: newEntry.isClube ? 30 : undefined,
         recurrenceEnd: newEntry.isClube && newEntry.clubeMeses ? new Date(new Date().getTime() + parseInt(newEntry.clubeMeses) * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] : undefined,
         date: new Date().toISOString().split('T')[0],

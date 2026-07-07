@@ -31,8 +31,8 @@ function mapAccount(row: Database["public"]["Tables"]["accounts"]["Row"]): Accou
 }
 
 function mapEntry(row: Database["public"]["Tables"]["entries"]["Row"]): PointEntry {
-  const cart = parseCart(row.description);
-  return { id: row.id, accountId: row.account_id, origemTypeId: row.origem_type_id, amount: Number(row.amount), amountPaid: Number(row.amount_paid), costPerThousand: Number(row.cost_per_thousand), date: row.date, conversionRate: row.conversion_rate, milesGenerated: row.miles_generated, costPerMile: row.cost_per_mile, sourceAccountId: row.source_account_id, bonusPercent: row.bonus_percent, cartAmount: cart.cartAmount, cartCost: cart.cartCost, description: row.description };
+  const parsed = parseDescription(row.description);
+  return { id: row.id, accountId: row.account_id, origemTypeId: row.origem_type_id, amount: Number(row.amount), amountPaid: Number(row.amount_paid), costPerThousand: Number(row.cost_per_thousand), date: row.date, conversionRate: row.conversion_rate, milesGenerated: row.miles_generated, costPerMile: row.cost_per_mile, sourceAccountId: row.source_account_id, bonusPercent: row.bonus_percent, cartAmount: parsed.cartAmount, cartCost: parsed.cartCost, description: row.description, entryStatus: parsed.entryStatus, parentEntryId: parsed.parentEntryId, recurrenceInterval: parsed.recurrenceInterval, recurrenceEnd: parsed.recurrenceEnd };
 }
 
 function mapClient(row: Database["public"]["Tables"]["clients"]["Row"]): Client {
