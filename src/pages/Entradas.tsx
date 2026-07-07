@@ -54,10 +54,9 @@ export default function Entradas() {
   const [isOrigemTypeDialogOpen, setIsOrigemTypeDialogOpen] = useState(false);
   const [newOrigemType, setNewOrigemType] = useState({ name: "", color: "#10b981" });
   const [origemTypeErrors, setOrigemTypeErrors] = useState<Partial<Record<string, string>>>({});
-  const milhasOrigemTypes = origemTypes.filter(ot => ot.accountType === "milhas");
   const currentOrigemTypes = activeTab === "pontos"
     ? programs.filter(p => p.type === "pontos")
-    : [...milhasOrigemTypes, ...programs.filter(p => p.type === "milhas")];
+    : origemTypes.filter(ot => ot.accountType === "milhas");
   const availableAccounts = accounts.filter(a => a.type === activeTab && a.status === "ativa");
 
   const entriesByTab = useMemo(() => {
@@ -525,9 +524,8 @@ export default function Entradas() {
                 </>
               )}
 
-              {/* Recorrência (Clube) - disponível em ambas abas, só quando não é transferência */}
-              {!isTransfer && (
-                <div className="border border-dashed border-amber-400/40 rounded-lg p-3 space-y-3">
+              {/* Recorrência (Clube) */}
+              <div className="border border-dashed border-amber-400/40 rounded-lg p-3 space-y-3">
                   <div className="flex items-center gap-2">
                     <RefreshCcw className="h-4 w-4 text-amber-500" />
                     <Label className="font-semibold text-sm cursor-pointer">
@@ -567,7 +565,6 @@ export default function Entradas() {
                     )}
                   </div>
                 </div>
-              )}
 
               {activeTab === "pontos" && (
                 <div className="space-y-2">
@@ -1152,8 +1149,7 @@ export default function Entradas() {
               )}
 
               {/* Recorrência (Clube) - edit */}
-              {!isTransfer && (
-                <div className="border border-dashed border-amber-400/40 rounded-lg p-3 space-y-3">
+              <div className="border border-dashed border-amber-400/40 rounded-lg p-3 space-y-3">
                   <div className="flex items-center gap-2">
                     <RefreshCcw className="h-4 w-4 text-amber-500" />
                     <Label className="font-semibold text-sm cursor-pointer">
@@ -1192,7 +1188,6 @@ export default function Entradas() {
                     )}
                   </div>
                 </div>
-              )}
 
               {activeTab === "pontos" && (
                 <div className="space-y-2">
