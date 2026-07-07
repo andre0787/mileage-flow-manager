@@ -261,7 +261,7 @@ test.describe("Responsividade em todos os viewports", () => {
     await page.waitForTimeout(2_000);
 
     // Cards de resumo devem estar empilhados (1 coluna) no mobile
-    const cards = page.locator("[class*='rounded-lg'][class*='border']");
+    const cards = page.locator("[class*='rounded-xl'][class*='border']");
     const totalCards = await cards.count();
     expect(totalCards).toBeGreaterThan(0);
 
