@@ -93,7 +93,7 @@ export default function Contas() {
 
       {/* Accounts Grid */}
       {filteredAccounts.length === 0 ? (
-        <EmptyState icon={Building2} title="Nenhuma conta encontrada" description={filterType !== "todas" ? "Nenhuma conta com este tipo de filtro." : "Crie sua primeira conta para começar."} action={{ label: "Nova Conta", onClick: () => setIsCreateDialogOpen(true) }} />
+        <EmptyState icon={Building2} title="Nenhuma conta encontrada" description={filterType !== "todas" ? "Nenhuma conta encontrada com este filtro. Tente outro tipo." : "Toda jornada começa com uma conta. Crie a primeira e acompanhe seu estoque."} action={{ label: "Nova Conta", onClick: () => setIsCreateDialogOpen(true) }} />
       ) : (
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filteredAccounts.map((account) => (

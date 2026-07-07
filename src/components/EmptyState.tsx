@@ -12,18 +12,20 @@ interface EmptyStateProps {
     onClick: () => void
     variant?: ButtonProps["variant"]
   }
+  step?: { current: number; total: number }
   className?: string
 }
 
 /**
- * Componente de estado vazio com ilustração (ícone), título,
- * descrição opcional e CTA opcional.
+ * Estado vazio com narrativa — guia o usuário com tom convidativo.
+ * storytelling: cada empty state é um "próximo passo", não um beco sem saída.
  */
 export function EmptyState({
   icon: Icon,
   title,
   description,
   action,
+  step,
   className,
 }: EmptyStateProps) {
   return (
@@ -33,14 +35,19 @@ export function EmptyState({
         className,
       )}
     >
-      <div className="h-16 w-16 rounded-2xl bg-muted flex items-center justify-center mb-4">
-        <Icon className="h-8 w-8 text-muted-foreground/60" />
+      {step && (
+        <span className="text-xs font-medium text-muted-foreground tracking-wider uppercase mb-3">
+          Passo {step.current} de {step.total}
+        </span>
+      )}
+      <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center mb-4 ring-1 ring-primary/10">
+        <Icon className="h-8 w-8 text-primary/60" />
       </div>
       <h3 className="text-lg font-semibold text-foreground font-display mb-1">
         {title}
       </h3>
       {description && (
-        <p className="text-sm text-muted-foreground max-w-sm mb-6">
+        <p className="text-sm text-muted-foreground max-w-sm mb-6 leading-relaxed">
           {description}
         </p>
       )}

@@ -866,7 +866,7 @@ export default function Vendas() {
           <div className="md:hidden space-y-3 mt-4">
             {filteredSales.length === 0 && (
               <div className="py-8">
-                <EmptyState icon={Package} title="Nenhuma venda encontrada" description={searchTerm || statusFilter !== "todos" ? "Tente alterar os filtros de busca." : "Registre sua primeira venda para começar."} />
+                <EmptyState icon={Package} title="Nenhuma venda encontrada" description={searchTerm || statusFilter !== "todos" ? "Tente alterar os filtros ou limpar a busca." : "Milhas no estoque esperando uma oportunidade. Registre sua primeira venda e veja o lucro acontecer."} />
               </div>
             )}
             {filteredSales.map((sale) => (

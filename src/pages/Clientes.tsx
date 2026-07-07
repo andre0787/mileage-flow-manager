@@ -470,7 +470,7 @@ export default function Clientes() {
 
           {filteredClients.length === 0 && (
             <div className="py-8">
-              <EmptyState icon={searchTerm ? Search : UserPlus} title={searchTerm ? "Nenhum cliente encontrado" : "Nenhum cliente cadastrado"} description={searchTerm ? "Tente alterar o termo de busca." : "Cadastre seu primeiro cliente para começar."} action={searchTerm ? undefined : { label: "Cadastrar Cliente", onClick: () => setIsCreateDialogOpen(true) }} />
+              <EmptyState icon={searchTerm ? Search : UserPlus} title={searchTerm ? "Nenhum cliente encontrado" : "Nenhum cliente cadastrado"} description={searchTerm ? "Tente alterar o termo ou limpar a busca." : "Clientes são o coração do negócio. Cadastre o primeiro e comece a vender."} action={searchTerm ? undefined : { label: "Cadastrar Cliente", onClick: () => setIsCreateDialogOpen(true) }} />
             </div>
           )}
         </CardContent>

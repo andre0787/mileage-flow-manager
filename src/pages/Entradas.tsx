@@ -580,7 +580,7 @@ export default function Entradas() {
                     {entriesFiltered.length === 0 ? (
                       <TableRow>
                         <TableCell colSpan={9} className="py-12">
-                          <EmptyState icon={Package} title="Nenhuma entrada de pontos" description="Registre sua primeira entrada de pontos ou altere o filtro de busca." />
+                          <EmptyState icon={Package} title="Nenhuma entrada de pontos" description="Registre sua primeira aquisição de pontos ou use a busca para filtrar." />
                         </TableCell>
                       </TableRow>
                     ) : entriesFiltered.map((entry) => (
@@ -619,7 +619,7 @@ export default function Entradas() {
                {/* Mobile card list */}
                <div className="md:hidden space-y-3 mt-4">
                  {entriesFiltered.length === 0 ? (
-                   <EmptyState icon={Package} title="Nenhuma entrada de pontos" description="Registre sua primeira entrada de pontos ou altere o filtro de busca." />
+                   <EmptyState icon={Package} title="Nenhuma entrada de pontos" description="Registre sua primeira aquisição de pontos ou use a busca para filtrar." />
                  ) : entriesFiltered.map((entry) => (
                    <div key={entry.id} className="border rounded-lg p-4 space-y-2">
                      <div className="flex items-center justify-between">
@@ -713,7 +713,7 @@ export default function Entradas() {
                     {entriesFiltered.length === 0 ? (
                       <TableRow>
                         <TableCell colSpan={7} className="py-12">
-                          <EmptyState icon={Package} title="Nenhuma entrada de milhas" description="Registre sua primeira entrada de milhas ou altere o filtro de busca." />
+                          <EmptyState icon={Package} title="Nenhuma entrada de milhas" description="Registre sua primeira aquisição de milhas ou use a busca para filtrar." />
                         </TableCell>
                       </TableRow>
                     ) : entriesFiltered.map((entry) => (
@@ -749,7 +749,7 @@ export default function Entradas() {
                {/* Mobile card list */}
                <div className="md:hidden space-y-3 mt-4">
                  {entriesFiltered.length === 0 ? (
-                   <EmptyState icon={Package} title="Nenhuma entrada de milhas" description="Registre sua primeira entrada de milhas ou altere o filtro de busca." />
+                   <EmptyState icon={Package} title="Nenhuma entrada de milhas" description="Registre sua primeira aquisição de milhas ou use a busca para filtrar." />
                  ) : entriesFiltered.map((entry) => (
                   <div key={entry.id} className="border rounded-lg p-4 space-y-2">
                     <div className="flex items-center justify-between">
