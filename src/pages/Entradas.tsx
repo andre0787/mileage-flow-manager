@@ -54,10 +54,9 @@ export default function Entradas() {
   const [isOrigemTypeDialogOpen, setIsOrigemTypeDialogOpen] = useState(false);
   const [newOrigemType, setNewOrigemType] = useState({ name: "", color: "#10b981" });
   const [origemTypeErrors, setOrigemTypeErrors] = useState<Partial<Record<string, string>>>({});
-  const milhasOrigemTypes = origemTypes.filter(ot => ot.accountType === "milhas");
   const currentOrigemTypes = activeTab === "pontos"
     ? programs.filter(p => p.type === "pontos")
-    : milhasOrigemTypes;
+    : programs.filter(p => p.type === "milhas");
   const availableAccounts = accounts.filter(a => a.type === activeTab && a.status === "ativa");
 
   const entriesByTab = useMemo(() => {
@@ -345,34 +344,20 @@ export default function Entradas() {
                         <SelectValue placeholder="Selecione o tipo" />
                       </SelectTrigger>
                       <SelectContent>
-                        {currentOrigemTypes.map((item) => {
-                          if (activeTab === "pontos") {
-                            const p = item as Program;
-                            return (
-                              <SelectItem key={p.id} value={p.id}>
-                                {p.name}
-                              </SelectItem>
-                            );
-                          }
-                          const ot = item as OrigemType;
-                          return (
-                            <SelectItem key={ot.id} value={ot.id}>
-                              <div className="flex items-center gap-2">
-                                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: ot.color }} />
-                                {ot.name}
-                              </div>
-                            </SelectItem>
-                          );
-                        })}
+                        {currentOrigemTypes.map((p) => (
+                          <SelectItem key={p.id} value={p.id}>
+                            {p.name}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
-                  {activeTab === "milhas" && (
-                    <FormDrawer
-                      open={isOrigemTypeDialogOpen}
-                      onOpenChange={(open) => { setIsOrigemTypeDialogOpen(open); if (!open) setOrigemTypeErrors({}); }}
-                      title="Novo Tipo de Origem"
-                    >
+                  {/* Botão disponível em ambas abas para criar origem types (usado em transferências) */}
+                  <FormDrawer
+                    open={isOrigemTypeDialogOpen}
+                    onOpenChange={(open) => { setIsOrigemTypeDialogOpen(open); if (!open) setOrigemTypeErrors({}); }}
+                    title="Novo Tipo de Origem"
+                  >
                       <div className="grid gap-4 py-4">
                         <div className="space-y-2">
                           <Label>Nome</Label>
@@ -405,7 +390,6 @@ export default function Entradas() {
                         </Button>
                       </div>
                     </FormDrawer>
-                  )}
                 </div>
                 {entryErrors.origemTypeId && <p className="text-xs text-destructive">{entryErrors.origemTypeId}</p>}
               </div>
@@ -1017,67 +1001,14 @@ export default function Entradas() {
                         <SelectValue placeholder="Selecione o tipo" />
                       </SelectTrigger>
                       <SelectContent>
-                        {currentOrigemTypes.map((item) => {
-                          if (activeTab === "pontos") {
-                            const p = item as Program;
-                            return (
-                              <SelectItem key={p.id} value={p.id}>
-                                {p.name}
-                              </SelectItem>
-                            );
-                          }
-                          const ot = item as OrigemType;
-                          return (
-                            <SelectItem key={ot.id} value={ot.id}>
-                              <div className="flex items-center gap-2">
-                                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: ot.color }} />
-                                {ot.name}
-                              </div>
-                            </SelectItem>
-                          );
-                        })}
+                        {currentOrigemTypes.map((p) => (
+                          <SelectItem key={p.id} value={p.id}>
+                            {p.name}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
-                  {activeTab === "milhas" && (
-                    <FormDrawer
-                      open={isOrigemTypeDialogOpen}
-                      onOpenChange={(open) => { setIsOrigemTypeDialogOpen(open); if (!open) setOrigemTypeErrors({}); }}
-                      title="Novo Tipo de Origem"
-                    >
-                      <div className="grid gap-4 py-4">
-                        <div className="space-y-2">
-                          <Label>Nome</Label>
-                          <Input
-                            value={newOrigemType.name}
-                            onChange={(e) => { setNewOrigemType({...newOrigemType, name: e.target.value}); setOrigemTypeErrors(p => ({...p, name: ""})); }}
-                            placeholder="Ex: Cashback"
-                          />
-                          {origemTypeErrors.name && <p className="text-xs text-destructive">{origemTypeErrors.name}</p>}
-                        </div>
-                        <div className="space-y-2">
-                          <Label>Cor</Label>
-                          <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: newOrigemType.color }} />
-                            <Input
-                              type="color"
-                              value={newOrigemType.color}
-                              onChange={(e) => setNewOrigemType({...newOrigemType, color: e.target.value})}
-                              className="w-full h-10 p-1"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex justify-end gap-2 mt-4">
-                        <Button variant="outline" onClick={() => { setIsOrigemTypeDialogOpen(false); setOrigemTypeErrors({}); }}>
-                          Cancelar
-                        </Button>
-                        <Button onClick={handleCreateOrigemType} className="bg-gradient-primary hover:opacity-90">
-                          Cadastrar
-                        </Button>
-                      </div>
-                    </FormDrawer>
-                  )}
                 </div>
                 {entryErrors.origemTypeId && <p className="text-xs text-destructive">{entryErrors.origemTypeId}</p>}
               </div>
