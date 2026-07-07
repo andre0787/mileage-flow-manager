@@ -18,7 +18,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
 import { calcMilesGenerated, calcCostPerThousand, calcCostPerMile } from "@/lib/metrics";
-import { useAddEntryMutation, useUpdateEntryMutation, useAddOrigemTypeMutation } from "@/hooks/useDatabase";
+import { useAddEntryMutation, useUpdateEntryMutation, useAddOrigemTypeMutation, useConfirmEntryMutation } from "@/hooks/useDatabase";
 import { DeleteEntryDialog } from "@/components/DeleteEntryDialog";
 import type { Program, OrigemType, PointEntry } from "@/types";
 import { serializeOrigemTypeDescription, parseOrigemTypeDescription } from "@/types";
@@ -31,6 +31,7 @@ export default function Entradas() {
   const addEntryM = useAddEntryMutation();
   const updateEntryM = useUpdateEntryMutation();
   const addOrigemTypeM = useAddOrigemTypeMutation();
+  const confirmEntryM = useConfirmEntryMutation();
   const haptic = useHaptic();
 
   const [activeTab, setActiveTab] = useState<"pontos" | "milhas">("pontos");
@@ -53,11 +54,9 @@ export default function Entradas() {
   const [entryErrors, setEntryErrors] = useState<Partial<Record<"accountId" | "origemTypeId" | "amount" | "amountPaid" | "sourceAccountId", string>>>({});
 
   const [isOrigemTypeDialogOpen, setIsOrigemTypeDialogOpen] = useState(false);
-  const [newOrigemType, setNewOrigemType] = useState({ name: "", color: "#10b981", hasRecurrence: false, recurrenceMonths: "" });
+  const [newOrigemType, setNewOrigemType] = useState({ name: "", color: "#10b981", hasRecurrence: false });
   const [origemTypeErrors, setOrigemTypeErrors] = useState<Partial<Record<string, string>>>({});
-  const currentOrigemTypes = activeTab === "pontos"
-    ? programs.filter(p => p.type === "pontos")
-    : origemTypes.filter(ot => ot.accountType === "milhas");
+  const currentOrigemTypes = origemTypes.filter(ot => ot.accountType === activeTab);
   const availableAccounts = accounts.filter(a => a.type === activeTab && a.status === "ativa");
 
   const entriesByTab = useMemo(() => {
@@ -189,13 +188,11 @@ export default function Entradas() {
   const handleCreateOrigemType = () => {
     const errs: Partial<Record<string, string>> = {};
     if (!newOrigemType.name.trim()) errs.name = "Nome é obrigatório";
-    if (newOrigemType.hasRecurrence && (!newOrigemType.recurrenceMonths || parseInt(newOrigemType.recurrenceMonths) < 1)) errs.recurrenceMonths = "Informe a quantidade de meses";
+
     setOrigemTypeErrors(errs);
     if (Object.keys(errs).length > 0) return;
 
-    const desc = newOrigemType.hasRecurrence
-      ? serializeOrigemTypeDescription({ recurrenceInterval: 30, recurrenceAmount: parseInt(newOrigemType.recurrenceMonths) })
-      : undefined;
+    const desc = serializeOrigemTypeDescription(newOrigemType.hasRecurrence);
 
     const id = crypto.randomUUID();
     addOrigemTypeM.mutate({
@@ -207,11 +204,10 @@ export default function Entradas() {
     const next = { ...newEntry, origemTypeId: id };
     if (newOrigemType.hasRecurrence) {
       next.isClube = true;
-      next.clubeMeses = newOrigemType.recurrenceMonths;
     }
     setNewEntry(next);
 
-    setNewOrigemType({ name: "", color: "#10b981", hasRecurrence: false, recurrenceMonths: "" });
+    setNewOrigemType({ name: "", color: "#10b981", hasRecurrence: false });
     setOrigemTypeErrors({});
     setIsOrigemTypeDialogOpen(false);
   };
@@ -288,7 +284,7 @@ export default function Entradas() {
   };
 
   const confirmedEntries = useMemo(() => entriesFiltered.filter(e => e.entryStatus !== 'aguardando'), [entriesFiltered]);
-  const pendingEntries = useMemo(() => entries.filter(e => e.entryStatus === 'aguardando'), [entries]);
+  const pendingEntries = useMemo(() => entriesByTab.filter(e => e.entryStatus === 'aguardando'), [entriesByTab]);
   const totalAmount = confirmedEntries.reduce((s, e) => s + e.amount, 0);
   const totalAmountPaid = confirmedEntries.reduce((s, e) => s + e.amountPaid, 0);
   const totalMilesGenerated = confirmedEntries.reduce((s, e) => s + (e.milesGenerated ?? e.amount), 0);
@@ -365,8 +361,7 @@ export default function Entradas() {
                       const desc = ot ? parseOrigemTypeDescription(ot.description) : {};
                       setNewEntry({
                         ...newEntry, origemTypeId: value,
-                        isClube: !!desc.recurrenceInterval,
-                        clubeMeses: desc.recurrenceAmount ? String(desc.recurrenceAmount) : "",
+                        isClube: !!desc.hasRecurrence,
                       });
                       setEntryErrors(prev => ({...prev, origemTypeId: ""}));
                     }}>
@@ -389,7 +384,9 @@ export default function Entradas() {
                       </SelectContent>
                     </Select>
                   </div>
-                  {/* Botão disponível em ambas abas para criar origem types (usado em transferências) */}
+                  <Button variant="outline" size="icon" className="shrink-0" onClick={() => setIsOrigemTypeDialogOpen(true)}>
+                    <Plus className="h-4 w-4" />
+                  </Button>
                   <FormDrawer
                     open={isOrigemTypeDialogOpen}
                     onOpenChange={(open) => { setIsOrigemTypeDialogOpen(open); if (!open) setOrigemTypeErrors({}); }}
@@ -418,29 +415,15 @@ export default function Entradas() {
                           </div>
                         </div>
                         <div className="border-t pt-3 space-y-3">
-                          <Label className="flex items-center gap-2 text-sm">
+                          <Label className="flex items-center gap-2 text-sm text-muted-foreground">
                             <input
                               type="checkbox"
                               checked={newOrigemType.hasRecurrence}
                               onChange={(e) => setNewOrigemType({...newOrigemType, hasRecurrence: e.target.checked})}
                               className="h-4 w-4 rounded border-border accent-primary"
                             />
-                            Gerar recorrência mensal nas entradas
+                            Habilitar recorrência mensal
                           </Label>
-                          {newOrigemType.hasRecurrence && (
-                            <div className="space-y-2">
-                              <Label className="text-xs">Quantidade de meses</Label>
-                              <Input
-                                type="number"
-                                min="1"
-                                max="120"
-                                value={newOrigemType.recurrenceMonths}
-                                onChange={(e) => setNewOrigemType({...newOrigemType, recurrenceMonths: e.target.value})}
-                                placeholder="Ex: 12"
-                              />
-                              {origemTypeErrors.recurrenceMonths && <p className="text-xs text-destructive">{origemTypeErrors.recurrenceMonths}</p>}
-                            </div>
-                          )}
                         </div>
                       </div>
                       <div className="flex justify-end gap-2 mt-4">
@@ -574,8 +557,8 @@ export default function Entradas() {
                 </>
               )}
 
-              {/* Recorrência (Clube) */}
-              <div className="border border-dashed border-amber-400/40 rounded-lg p-3 space-y-3">
+              {newEntry.isClube && (
+                <div className="border border-dashed border-amber-400/40 rounded-lg p-3 space-y-3">
                   <div className="flex items-center gap-2">
                     <RefreshCcw className="h-4 w-4 text-amber-500" />
                     <Label className="font-semibold text-sm cursor-pointer">
@@ -583,38 +566,28 @@ export default function Entradas() {
                     </Label>
                   </div>
                   <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <input
-                        type="checkbox"
-                        id="isClube"
-                        checked={newEntry.isClube}
-                        onChange={(e) => setNewEntry({...newEntry, isClube: e.target.checked})}
-                        className="h-4 w-4 rounded border-border accent-primary"
+                    <p className="text-xs text-amber-600 dark:text-amber-400">
+                      Recorrência ativada pelo tipo de origem selecionado
+                    </p>
+                    <div className="space-y-2">
+                      <Label className="text-xs">Quantidade de meses</Label>
+                      <Input
+                        type="number"
+                        min="1"
+                        max="120"
+                        value={newEntry.clubeMeses}
+                        onChange={(e) => setNewEntry({...newEntry, clubeMeses: e.target.value})}
+                        placeholder="Ex: 12"
                       />
-                      <Label htmlFor="isClube" className="text-sm cursor-pointer">
-                        Gerar recorrência mensal
-                      </Label>
+                      {newEntry.clubeMeses && parseInt(newEntry.clubeMeses) > 0 && (
+                        <p className="text-xs text-amber-600 dark:text-amber-400">
+                          ⏳{new Date(new Date().getTime() + parseInt(newEntry.clubeMeses) * 30 * 24 * 60 * 60 * 1000).toLocaleDateString('pt-BR')} — serão geradas {newEntry.clubeMeses} entrada(s) futura(s) com status "Aguardando"
+                        </p>
+                      )}
                     </div>
-                    {newEntry.isClube && (
-                      <div className="space-y-2">
-                        <Label className="text-xs">Quantidade de meses</Label>
-                        <Input
-                          type="number"
-                          min="1"
-                          max="120"
-                          value={newEntry.clubeMeses}
-                          onChange={(e) => setNewEntry({...newEntry, clubeMeses: e.target.value})}
-                          placeholder="Ex: 12"
-                        />
-                        {newEntry.clubeMeses && parseInt(newEntry.clubeMeses) > 0 && (
-                          <p className="text-xs text-amber-600 dark:text-amber-400">
-                            ⏳{new Date(new Date().getTime() + parseInt(newEntry.clubeMeses) * 30 * 24 * 60 * 60 * 1000).toLocaleDateString('pt-BR')} — serão geradas {newEntry.clubeMeses} entrada(s) futura(s) com status "Aguardando"
-                          </p>
-                        )}
-                      </div>
-                    )}
                   </div>
                 </div>
+              )}
 
               {activeTab === "pontos" && (
                 <div className="space-y-2">
@@ -791,6 +764,12 @@ export default function Entradas() {
                         <TableCell className="hidden md:table-cell">R$ {entry.costPerMile.toFixed(4)}</TableCell>
 <TableCell className="hidden md:table-cell text-right">
                           <div className="flex gap-2 justify-end">
+                            {entry.entryStatus === 'aguardando' && (
+                              <Button size="sm" variant="outline" className="px-3 min-h-[44px] gap-1 border-blue-300 dark:border-blue-700" onClick={() => confirmEntryM.mutate(entry)}>
+                                <CheckCircle2 className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+                                Confirmar
+                              </Button>
+                            )}
                             <Button size="sm" variant="outline" className="px-3 min-h-[44px]" onClick={() => openEditDialog(entry)}>
                               Editar
                             </Button>
@@ -845,7 +824,13 @@ export default function Entradas() {
                         <p className="font-semibold">R$ {entry.costPerMile.toFixed(4)}</p>
                       </div>
                     </div>
-<div className="flex justify-end gap-2 pt-1">
+<div className="flex flex-wrap justify-end gap-2 pt-1">
+                      {entry.entryStatus === 'aguardando' && (
+                        <Button size="sm" variant="outline" className="px-3 min-h-[44px] gap-1 border-blue-300 dark:border-blue-700" onClick={() => confirmEntryM.mutate(entry)}>
+                          <CheckCircle2 className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+                          Confirmar
+                        </Button>
+                      )}
                       <Button size="sm" variant="outline" className="px-3 min-h-[44px]" onClick={() => openEditDialog(entry)}>
                         Editar
                       </Button>
@@ -901,7 +886,7 @@ export default function Entradas() {
                       <TableHead className="hidden md:table-cell">Data</TableHead>
                       <TableHead className="hidden md:table-cell">Conta</TableHead>
                       <TableHead className="hidden md:table-cell">Origem</TableHead>
-                      <TableHead className="hidden md:table-cell">Milhas</TableHead>
+                      <TableHead className="hidden md:table-cell">Milhas Geradas</TableHead>
                       <TableHead className="hidden md:table-cell">Valor Pago</TableHead>
                       <TableHead className="hidden md:table-cell">Custo/Milha</TableHead>
                       <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
@@ -944,7 +929,7 @@ export default function Entradas() {
                             )}
                           </div>
                         </TableCell>
-                        <TableCell className="hidden md:table-cell">{entry.amount.toLocaleString('pt-BR')}</TableCell>
+                        <TableCell className="hidden md:table-cell">{(entry.milesGenerated ?? entry.amount).toLocaleString('pt-BR')}</TableCell>
                         <TableCell className="hidden md:table-cell">R$ {entry.amountPaid.toLocaleString('pt-BR')}</TableCell>
                         <TableCell className="hidden md:table-cell">R$ {entry.costPerMile.toFixed(4)}</TableCell>
 <TableCell className="hidden md:table-cell text-right">
@@ -994,7 +979,7 @@ export default function Entradas() {
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     <div>
                       <span className="text-muted-foreground">Milhas:</span>
-                      <p className="font-semibold">{entry.amount.toLocaleString('pt-BR')}</p>
+                      <p className="font-semibold">{(entry.milesGenerated ?? entry.amount).toLocaleString('pt-BR')}</p>
                     </div>
                       <div>
                         <span className="text-muted-foreground">Valor Pago:</span>
@@ -1061,8 +1046,7 @@ export default function Entradas() {
                       const desc = ot ? parseOrigemTypeDescription(ot.description) : {};
                       setNewEntry({
                         ...newEntry, origemTypeId: value,
-                        isClube: !!desc.recurrenceInterval,
-                        clubeMeses: desc.recurrenceAmount ? String(desc.recurrenceAmount) : "",
+                        isClube: !!desc.hasRecurrence,
                       });
                       setEntryErrors(prev => ({...prev, origemTypeId: ""}));
                     }}>
@@ -1207,8 +1191,8 @@ export default function Entradas() {
                 </>
               )}
 
-              {/* Recorrência (Clube) - edit */}
-              <div className="border border-dashed border-amber-400/40 rounded-lg p-3 space-y-3">
+              {newEntry.isClube && (
+                <div className="border border-dashed border-amber-400/40 rounded-lg p-3 space-y-3">
                   <div className="flex items-center gap-2">
                     <RefreshCcw className="h-4 w-4 text-amber-500" />
                     <Label className="font-semibold text-sm cursor-pointer">
@@ -1216,37 +1200,27 @@ export default function Entradas() {
                     </Label>
                   </div>
                   <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <input
-                        type="checkbox"
-                        id="editIsClube"
-                        checked={newEntry.isClube}
-                        onChange={(e) => setNewEntry({...newEntry, isClube: e.target.checked})}
-                        className="h-4 w-4 rounded border-border accent-primary"
+                    <p className="text-xs text-amber-600 dark:text-amber-400">
+                      Recorrência ativada pelo tipo de origem
+                    </p>
+                    <div className="space-y-2">
+                      <Label className="text-xs">Quantidade de meses</Label>
+                      <Input
+                        id="editClubeMeses"
+                        type="number"
+                        min="1"
+                        max="120"
+                        value={newEntry.clubeMeses}
+                        onChange={(e) => setNewEntry({...newEntry, clubeMeses: e.target.value})}
+                        placeholder="Ex: 12"
                       />
-                      <Label htmlFor="editIsClube" className="text-sm cursor-pointer">
-                        Gerar recorrência mensal
-                      </Label>
+                      <p className="text-xs text-amber-600 dark:text-amber-400">
+                        ⏳ Altere com cuidado — novas entradas futuras serão geradas
+                      </p>
                     </div>
-                    {newEntry.isClube && (
-                      <div className="space-y-2">
-                        <Label className="text-xs">Quantidade de meses</Label>
-                        <Input
-                          id="editClubeMeses"
-                          type="number"
-                          min="1"
-                          max="120"
-                          value={newEntry.clubeMeses}
-                          onChange={(e) => setNewEntry({...newEntry, clubeMeses: e.target.value})}
-                          placeholder="Ex: 12"
-                        />
-                        <p className="text-xs text-amber-600 dark:text-amber-400">
-                          ⏳ Altere com cuidado — novas entradas futuras serão geradas
-                        </p>
-                      </div>
-                    )}
                   </div>
                 </div>
+              )}
 
               {activeTab === "pontos" && (
                 <div className="space-y-2">

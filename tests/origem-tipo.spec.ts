@@ -1,0 +1,50 @@
+import { test, expect } from "@playwright/test";
+
+const TEST_PASSWORD = "Test@123456";
+const email = `test_origem_${Date.now()}@teste.com`;
+
+test("Novo Tipo de Origem com recorrência", async ({ page }) => {
+  test.setTimeout(60000);
+
+  // 1. Registrar
+  await page.goto("/login", { waitUntil: "domcontentloaded" });
+  await page.waitForSelector("text=Cadastre-se", { timeout: 15000 });
+  await page.click("text=Cadastre-se");
+  await page.waitForSelector("#name", { timeout: 5000 });
+
+  await page.fill("#name", "Teste");
+  await page.fill("#email", email);
+  await page.fill("#password", TEST_PASSWORD);
+  await page.click("button[type='submit']");
+  await page.waitForURL(/dashboard|\//, { timeout: 30000 });
+  await page.waitForTimeout(1000);
+
+  // 2. Entradas
+  await page.goto("/entradas", { waitUntil: "domcontentloaded" });
+  await page.waitForTimeout(3000);
+
+  // 3. Abre Nova Entrada
+  await page.getByRole("button", { name: "Nova Entrada" }).click();
+  await page.waitForTimeout(1000);
+
+  // 4. Plus button ao lado do Tipo de Origem
+  const plusBtn = page.locator("button:has(svg.lucide-plus)").last();
+  await expect(plusBtn).toBeVisible({ timeout: 10000 });
+  await plusBtn.click();
+  await page.waitForTimeout(500);
+
+  // 5. Verifica modal
+  await expect(page.getByText("Novo Tipo de Origem")).toBeVisible({ timeout: 5000 });
+
+  // 6. Preenche e cadastra
+  await page.locator('input[placeholder="Ex: Cashback"]').fill("Clube Mensal");
+  await page.getByRole('checkbox', { name: 'Habilitar recorrência mensal' }).check({ force: true });
+  await page.waitForTimeout(300);
+
+  await page.getByRole("button", { name: "Cadastrar" }).click();
+  await page.waitForTimeout(2000);
+
+  // 7. Verifica que a recorrência foi ativada (texto informativo + input de meses)
+  await expect(page.locator('text=Recorrência ativada pelo tipo de origem selecionado')).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('input[placeholder="Ex: 12"]')).toBeVisible({ timeout: 3000 });
+});
