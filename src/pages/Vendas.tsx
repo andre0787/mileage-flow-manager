@@ -138,6 +138,7 @@ export default function Vendas() {
     } else if (programConfig.passengerCycleType === "dias" && programConfig.passengerCycleDays) {
       const cutoff = new Date();
       cutoff.setDate(cutoff.getDate() - programConfig.passengerCycleDays);
+      cutoff.setHours(0, 0, 0, 0);
       relevantSales = relevantSales.filter(s => new Date(s.date) >= cutoff);
     }
     

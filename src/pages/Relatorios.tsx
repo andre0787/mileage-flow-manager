@@ -40,6 +40,7 @@ export default function Relatorios() {
   const dateCutoff = useMemo(() => {
     const d = new Date();
     d.setDate(d.getDate() - parseInt(selectedPeriod));
+    d.setHours(0, 0, 0, 0);
     return d;
   }, [selectedPeriod]);
 
@@ -205,7 +206,7 @@ export default function Relatorios() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Relatórios</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground font-display">Relatórios</h1>
           <p className="text-sm text-muted-foreground">
             Análise completa de performance e rentabilidade por dono
           </p>
@@ -287,7 +288,7 @@ export default function Relatorios() {
 
       {/* Summary Metrics */}
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 animate-appear animate-delay-300">
-        <Card className="shadow-card animate-appear animate-delay-300">
+        <Card className="shadow-card animate-appear animate-delay-300 border-t-2 border-t-primary/20">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Total Investido</CardTitle>
           </CardHeader>
@@ -298,7 +299,7 @@ export default function Relatorios() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-card animate-appear animate-delay-400">
+        <Card className="shadow-card animate-appear animate-delay-400 border-t-2 border-t-teal/20">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Faturamento</CardTitle>
           </CardHeader>
@@ -309,7 +310,7 @@ export default function Relatorios() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-card animate-appear animate-delay-500">
+        <Card className="shadow-card animate-appear animate-delay-500 border-t-2 border-t-success/20">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Lucro Total</CardTitle>
           </CardHeader>
@@ -320,7 +321,7 @@ export default function Relatorios() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-card animate-appear animate-delay-600">
+        <Card className="shadow-card animate-appear animate-delay-600 border-t-2 border-t-gold/20">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Estoque Total</CardTitle>
           </CardHeader>
@@ -335,7 +336,7 @@ export default function Relatorios() {
       {/* Owner Performance Report */}
       <Card className="shadow-card animate-appear animate-delay-600">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 border-l-4 border-primary pl-3">
             <TrendingUp className="h-5 w-5 text-primary" />
             Performance por Dono
           </CardTitle>
@@ -432,7 +433,7 @@ export default function Relatorios() {
       {/* Program Performance Report */}
       <Card className="shadow-card animate-appear animate-delay-800">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 border-l-4 border-primary pl-3">
             <BarChart3 className="h-5 w-5 text-primary" />
             Performance por Programa
           </CardTitle>
