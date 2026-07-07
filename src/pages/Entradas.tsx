@@ -21,6 +21,7 @@ import { calcMilesGenerated, calcCostPerThousand, calcCostPerMile } from "@/lib/
 import { useAddEntryMutation, useUpdateEntryMutation, useAddOrigemTypeMutation } from "@/hooks/useDatabase";
 import { DeleteEntryDialog } from "@/components/DeleteEntryDialog";
 import type { Program, OrigemType, PointEntry } from "@/types";
+import { serializeOrigemTypeDescription, parseOrigemTypeDescription } from "@/types";
 
 export default function Entradas() {
   const { entries, accounts, owners, programs, origemTypes, sales, isLoading } = useData();
@@ -52,7 +53,7 @@ export default function Entradas() {
   const [entryErrors, setEntryErrors] = useState<Partial<Record<"accountId" | "origemTypeId" | "amount" | "amountPaid" | "sourceAccountId", string>>>({});
 
   const [isOrigemTypeDialogOpen, setIsOrigemTypeDialogOpen] = useState(false);
-  const [newOrigemType, setNewOrigemType] = useState({ name: "", color: "#10b981" });
+  const [newOrigemType, setNewOrigemType] = useState({ name: "", color: "#10b981", hasRecurrence: false, recurrenceMonths: "" });
   const [origemTypeErrors, setOrigemTypeErrors] = useState<Partial<Record<string, string>>>({});
   const currentOrigemTypes = activeTab === "pontos"
     ? programs.filter(p => p.type === "pontos")
@@ -188,14 +189,29 @@ export default function Entradas() {
   const handleCreateOrigemType = () => {
     const errs: Partial<Record<string, string>> = {};
     if (!newOrigemType.name.trim()) errs.name = "Nome é obrigatório";
+    if (newOrigemType.hasRecurrence && (!newOrigemType.recurrenceMonths || parseInt(newOrigemType.recurrenceMonths) < 1)) errs.recurrenceMonths = "Informe a quantidade de meses";
     setOrigemTypeErrors(errs);
     if (Object.keys(errs).length > 0) return;
 
-    const id = crypto.randomUUID();
-    addOrigemTypeM.mutate({ id, name: newOrigemType.name.trim(), accountType: "milhas", color: newOrigemType.color });
-    setNewEntry({ ...newEntry, origemTypeId: id });
+    const desc = newOrigemType.hasRecurrence
+      ? serializeOrigemTypeDescription({ recurrenceInterval: 30, recurrenceAmount: parseInt(newOrigemType.recurrenceMonths) })
+      : undefined;
 
-    setNewOrigemType({ name: "", color: "#10b981" });
+    const id = crypto.randomUUID();
+    addOrigemTypeM.mutate({
+      id, name: newOrigemType.name.trim(), accountType: "milhas",
+      color: newOrigemType.color, description: desc,
+    });
+
+    // Auto-preenche Clube se o tipo de origem tem recorrência
+    const next = { ...newEntry, origemTypeId: id };
+    if (newOrigemType.hasRecurrence) {
+      next.isClube = true;
+      next.clubeMeses = newOrigemType.recurrenceMonths;
+    }
+    setNewEntry(next);
+
+    setNewOrigemType({ name: "", color: "#10b981", hasRecurrence: false, recurrenceMonths: "" });
     setOrigemTypeErrors({});
     setIsOrigemTypeDialogOpen(false);
   };
@@ -344,7 +360,16 @@ export default function Entradas() {
                 <Label htmlFor="entryType">Tipo de Origem</Label>
                 <div className="flex gap-2">
                   <div className="flex-1">
-                    <Select value={newEntry.origemTypeId} onValueChange={(value) => { setNewEntry({...newEntry, origemTypeId: value}); setEntryErrors(prev => ({...prev, origemTypeId: ""})); }}>
+                    <Select value={newEntry.origemTypeId} onValueChange={(value) => {
+                      const ot = origemTypes.find(o => o.id === value);
+                      const desc = ot ? parseOrigemTypeDescription(ot.description) : {};
+                      setNewEntry({
+                        ...newEntry, origemTypeId: value,
+                        isClube: !!desc.recurrenceInterval,
+                        clubeMeses: desc.recurrenceAmount ? String(desc.recurrenceAmount) : "",
+                      });
+                      setEntryErrors(prev => ({...prev, origemTypeId: ""}));
+                    }}>
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione o tipo" />
                       </SelectTrigger>
@@ -391,6 +416,31 @@ export default function Entradas() {
                               className="w-full h-10 p-1"
                             />
                           </div>
+                        </div>
+                        <div className="border-t pt-3 space-y-3">
+                          <Label className="flex items-center gap-2 text-sm">
+                            <input
+                              type="checkbox"
+                              checked={newOrigemType.hasRecurrence}
+                              onChange={(e) => setNewOrigemType({...newOrigemType, hasRecurrence: e.target.checked})}
+                              className="h-4 w-4 rounded border-border accent-primary"
+                            />
+                            Gerar recorrência mensal nas entradas
+                          </Label>
+                          {newOrigemType.hasRecurrence && (
+                            <div className="space-y-2">
+                              <Label className="text-xs">Quantidade de meses</Label>
+                              <Input
+                                type="number"
+                                min="1"
+                                max="120"
+                                value={newOrigemType.recurrenceMonths}
+                                onChange={(e) => setNewOrigemType({...newOrigemType, recurrenceMonths: e.target.value})}
+                                placeholder="Ex: 12"
+                              />
+                              {origemTypeErrors.recurrenceMonths && <p className="text-xs text-destructive">{origemTypeErrors.recurrenceMonths}</p>}
+                            </div>
+                          )}
                         </div>
                       </div>
                       <div className="flex justify-end gap-2 mt-4">
@@ -1006,7 +1056,16 @@ export default function Entradas() {
                 <Label htmlFor="editEntryType">Tipo de Origem</Label>
                 <div className="flex gap-2">
                   <div className="flex-1">
-                    <Select value={newEntry.origemTypeId} onValueChange={(value) => { setNewEntry({...newEntry, origemTypeId: value}); setEntryErrors(prev => ({...prev, origemTypeId: ""})); }}>
+                    <Select value={newEntry.origemTypeId} onValueChange={(value) => {
+                      const ot = origemTypes.find(o => o.id === value);
+                      const desc = ot ? parseOrigemTypeDescription(ot.description) : {};
+                      setNewEntry({
+                        ...newEntry, origemTypeId: value,
+                        isClube: !!desc.recurrenceInterval,
+                        clubeMeses: desc.recurrenceAmount ? String(desc.recurrenceAmount) : "",
+                      });
+                      setEntryErrors(prev => ({...prev, origemTypeId: ""}));
+                    }}>
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione o tipo" />
                       </SelectTrigger>

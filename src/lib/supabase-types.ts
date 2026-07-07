@@ -80,6 +80,7 @@ export interface Database {
           name: string
           account_type: "pontos" | "milhas"
           color: string
+          description: string | null
         }
         Insert: {
           id?: string
@@ -87,6 +88,7 @@ export interface Database {
           name: string
           account_type: "pontos" | "milhas"
           color?: string
+          description?: string | null
         }
         Update: {
           id?: string
@@ -94,6 +96,7 @@ export interface Database {
           name?: string
           account_type?: "pontos" | "milhas"
           color?: string
+          description?: string | null
         }
       }
       accounts: {

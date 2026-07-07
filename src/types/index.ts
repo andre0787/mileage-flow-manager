@@ -34,6 +34,7 @@ export interface OrigemType {
   name: string
   accountType: 'pontos' | 'milhas'
   color: string
+  description?: string
 }
 
 export interface Account {
@@ -108,6 +109,29 @@ export function parseDescription(description?: string | null): {
   parentEntryId?: string
   recurrenceInterval?: number
   recurrenceEnd?: string
+} {
+  if (!description) return {};
+  try {
+    return JSON.parse(description);
+  } catch {}
+  return {};
+}
+
+/** Serializa configuração de recorrência para description do tipo de origem */
+export function serializeOrigemTypeDescription(opts: {
+  recurrenceInterval?: number
+  recurrenceAmount?: number
+}): string | undefined {
+  const obj: Record<string, unknown> = {};
+  if (opts.recurrenceInterval) obj.recurrenceInterval = opts.recurrenceInterval;
+  if (opts.recurrenceAmount) obj.recurrenceAmount = opts.recurrenceAmount;
+  return Object.keys(obj).length > 0 ? JSON.stringify(obj) : undefined;
+}
+
+/** Extrai configuração de recorrência do description do tipo de origem */
+export function parseOrigemTypeDescription(description?: string | null): {
+  recurrenceInterval?: number
+  recurrenceAmount?: number
 } {
   if (!description) return {};
   try {

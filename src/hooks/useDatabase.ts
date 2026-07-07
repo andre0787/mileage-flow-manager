@@ -23,7 +23,7 @@ function mapProgram(row: Database["public"]["Tables"]["programs"]["Row"]): Progr
 }
 
 function mapOrigemType(row: Database["public"]["Tables"]["origem_types"]["Row"]): OrigemType {
-  return { id: row.id, name: row.name, accountType: row.account_type, color: row.color };
+  return { id: row.id, name: row.name, accountType: row.account_type, color: row.color, description: row.description ?? undefined };
 }
 
 function mapAccount(row: Database["public"]["Tables"]["accounts"]["Row"]): Account {
@@ -242,9 +242,12 @@ export function useAddOrigemTypeMutation() {
   const { user } = useAuth();
   return useMutation({
     mutationFn: async (ot: OrigemType) => {
-      const { error } = await supabase.from("origem_types").insert({
+      const data: Record<string, unknown> = {
         id: ot.id, user_id: user!.id, name: ot.name, account_type: ot.accountType, color: ot.color,
-      });
+      };
+      // ponytail: description column added by migration; only include if defined so it works pre-migration
+      if (ot.description !== undefined) data.description = ot.description;
+      const { error } = await supabase.from("origem_types").insert(data);
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["origem_types"] }),
@@ -259,6 +262,8 @@ export function useUpdateOrigemTypeMutation() {
       if (data.name !== undefined) updateData.name = data.name;
       if (data.accountType !== undefined) updateData.account_type = data.accountType;
       if (data.color !== undefined) updateData.color = data.color;
+      // ponytail: description column added by migration; only include if defined so it works pre-migration
+      if (data.description !== undefined) updateData.description = data.description;
       const { error } = await supabase.from("origem_types").update(updateData).eq("id", id);
       if (error) throw error;
     },
