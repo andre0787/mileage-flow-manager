@@ -27,7 +27,7 @@ test.describe("Clube de Milhas", () => {
     const supabaseUrl = 'https://ohyplfpcwxzakujjfwdf.supabase.co';
     const supabaseAnonKey = 'sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs';
 
-    const { ownerId, programId, accountId } = await page.evaluate(async ({ url, anonKey }) => {
+    const { ownerId, programId, accountId, otId } = await page.evaluate(async ({ url, anonKey }) => {
       const sessionStr = localStorage.getItem('sb-ohyplfpcwxzakujjfwdf-auth-token');
       if (!sessionStr) throw new Error('Sessão não encontrada');
       const session = JSON.parse(sessionStr);
@@ -41,23 +41,30 @@ test.describe("Clube de Milhas", () => {
       };
 
       async function post(table: string, body: Record<string, unknown>) {
-        const res = await fetch(`${url}/rest/v1/${table}`, { method: 'POST', headers, body: JSON.stringify({ ...body, user_id: userId }) });
-        if (!res.ok) {
-          const t = await res.text();
-          if (t.includes('duplicate key')) return;
-          throw new Error(`Falha ao criar ${table}: ${t}`);
-        }
+        await fetch(`${url}/rest/v1/${table}`, {
+          method: 'POST', headers,
+          body: JSON.stringify({ ...body, user_id: userId }),
+        });
       }
 
       const ownerId = crypto.randomUUID();
       const programId = crypto.randomUUID();
       const accountId = crypto.randomUUID();
+      const otId = crypto.randomUUID();
 
-      await post('owners', { id: ownerId, name: 'Dono Clube', cpf: '555.666.777-88' });
-      await post('programs', { id: programId, name: 'Programa Milhas', type: 'milhas', max_passengers: 9, passenger_cycle_type: 'anual', passenger_cycle_days: 365 });
-      await post('accounts', { id: accountId, owner_id: ownerId, program_id: programId, name: 'Conta Milhas', type: 'milhas', balance: 0, total_invested: 0, average_cost_per_mile: 0, status: 'ativa' });
+      await post('owners', { id: ownerId, name: 'Dono Clube' });
+      await post('programs', { id: programId, name: 'Programa Milhas', type: 'milhas' });
+      // Origem tipo com hasRecurrence: true → ativa recorrência automaticamente
+      await post('origem_types', {
+        id: otId, name: 'Clube Fidelidade', account_type: 'milhas', color: '#f59e0b',
+        description: JSON.stringify({ hasRecurrence: true }),
+      });
+      await post('accounts', {
+        id: accountId, owner_id: ownerId, program_id: programId, name: 'Conta Milhas',
+        type: 'milhas', balance: 0, total_invested: 0, average_cost_per_mile: 0, status: 'ativa',
+      });
 
-      return { ownerId, programId, accountId };
+      return { ownerId, programId, accountId, otId };
     }, { url: supabaseUrl, anonKey: supabaseAnonKey });
 
     // ═══════════════════════════════════════
@@ -67,25 +74,30 @@ test.describe("Clube de Milhas", () => {
     await page.waitForSelector("text=Entradas", { timeout: 15_000 });
     await page.waitForTimeout(1_000);
 
+    // Ir para aba Milhas (conta é do tipo milhas)
+    await page.getByRole("tab", { name: /milhas/i }).click();
+    await page.waitForTimeout(500);
+
     // Abrir dialog de nova entrada
     await page.locator("button:has-text('Nova Entrada')").click();
     await page.waitForTimeout(500);
 
-    // Preencher formulário
+    // Preencher formulário — selecionar conta
     await page.locator("button[role='combobox']").first().click();
     await page.waitForTimeout(300);
     await page.locator("text=Conta Milhas").click();
 
+    // Selecionar tipo de origem com recorrência
     await page.locator("button[role='combobox']").nth(1).click();
     await page.waitForTimeout(300);
-    await page.locator("role=option").first().click();
+    await page.locator("text=Clube Fidelidade").click();
+    await page.waitForTimeout(500);
+
+    // Recorrência ativada automaticamente → seção "meses" aparece
+    await expect(page.locator("text=Recorrência ativada pelo tipo de origem selecionado")).toBeVisible({ timeout: 3_000 });
 
     await page.fill("#amount", "10000");
     await page.fill("#amountPaid", "350.00");
-
-    // Marcar recorrência
-    await page.locator("#isClube").click();
-    await page.waitForTimeout(300);
 
     // Preencher meses
     await page.fill("input[placeholder='Ex: 12']", "3");
