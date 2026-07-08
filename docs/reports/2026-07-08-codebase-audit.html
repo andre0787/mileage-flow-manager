@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auditoria — MilesControl (Jul/2026)</title>
+<style>
+  :root {
+    --primary: #5B72C4;
+    --gold: #CE9E1D;
+    --teal: #22A68F;
+    --red: #d32f2f;
+    --orange: #e67e22;
+    --bg: #f5f6fa;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --muted: #666;
+  }
+  body { font-family: system-ui, -apple-system, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1.5rem; background: var(--bg); color: var(--text); line-height: 1.6; }
+  h1 { border-bottom: 3px solid var(--primary); padding-bottom: .5rem; font-size: 1.75rem; }
+  h2 { margin-top: 2rem; color: var(--primary); font-size: 1.3rem; }
+  h3 { margin-top: 1.5rem; font-size: 1.1rem; }
+  .meta { display: flex; gap: .75rem; flex-wrap: wrap; margin: 1rem 0; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 5px; font-size: .8rem; font-weight: 600; }
+  .badge-critical { background: #ffebee; color: #c62828; }
+  .badge-high { background: #fff3e0; color: #e65100; }
+  .badge-medium { background: #fff8e1; color: #f9a825; }
+  .badge-low { background: #e8f5e9; color: #2e7d32; }
+  .badge-ok { background: #e3f2fd; color: #1565c0; }
+  .stat-card { display: inline-block; background: var(--card); padding: .5rem 1rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.08); font-size: .9rem; }
+  .finding { background: var(--card); border-radius: 8px; padding: 1rem 1.25rem; margin: .75rem 0; box-shadow: 0 1px 3px rgba(0,0,0,.06); border-left: 4px solid var(--primary); }
+  .finding.crit { border-left-color: var(--red); }
+  .finding.high { border-left-color: var(--orange); }
+  .finding.med { border-left-color: var(--gold); }
+  .finding code { background: #f0f0f0; padding: 1px 5px; border-radius: 3px; font-size: .85rem; }
+  .finding pre { background: #f5f5f5; padding: .75rem; border-radius: 6px; overflow-x: auto; font-size: .8rem; margin: .5rem 0; }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: .75rem; margin: 1rem 0; }
+  .summary-item { background: var(--card); border-radius: 8px; padding: .75rem; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .summary-num { font-size: 1.5rem; font-weight: 700; display: block; }
+  .summary-label { font-size: .8rem; color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .9rem; }
+  th, td { text-align: left; padding: .5rem .75rem; border-bottom: 1px solid #eee; }
+  th { background: #f8f9fa; font-weight: 600; }
+  .bar { display: inline-block; height: 8px; border-radius: 4px; margin-right: 4px; }
+  .file-list { columns: 3; column-gap: 1rem; }
+  .file-list li { break-inside: avoid; padding: 2px 0; font-size: .85rem; }
+  @media (max-width: 640px) { .file-list { columns: 2; } }
+</style>
+</head>
+<body>
+
+<h1>🕵️ MilesControl — Auditoria Técnica</h1>
+<p style="color: var(--muted);">Análise completa do código-fonte em 07/07/2026 · Branch: <code>main</code>+<code>develop</code></p>
+
+<div class="meta">
+  <span class="badge badge-critical">3 críticos</span>
+  <span class="badge badge-high">5 altos</span>
+  <span class="badge badge-medium">4 médios</span>
+  <span class="badge badge-low">5 baixos</span>
+  <span class="stat-card">📁 68 arquivos fonte</span>
+  <span class="stat-card">📏 ~11.617 linhas TypeScript</span>
+  <span class="stat-card">🧪 8 testes E2E · 0 unitários</span>
+</div>
+
+<div class="summary-grid">
+  <div class="summary-item"><span class="summary-num" style="color: var(--red);">3</span><span class="summary-label">críticos</span></div>
+  <div class="summary-item"><span class="summary-num" style="color: var(--orange);">5</span><span class="summary-label">alta prioridade</span></div>
+  <div class="summary-item"><span class="summary-num" style="color: var(--gold);">4</span><span class="summary-label">média</span></div>
+  <div class="summary-item"><span class="summary-num" style="color: var(--teal);">5</span><span class="summary-label">baixa</span></div>
+  <div class="summary-item"><span class="summary-num">0%</span><span class="summary-label">cobertura unit tests</span></div>
+  <div class="summary-item"><span class="summary-num" style="color: var(--primary);">9</span><span class="summary-label">recomendações</span></div>
+</div>
+
+<!-- ============================================================ -->
+<h2>🔴 Críticos</h2>
+
+<div class="finding crit">
+  <strong>C1 — strictNullChecks desligado</strong>
+  <p><code>tsconfig.json</code> tem <code>strictNullChecks: false</code>. Isso significa que <code>null</code> e <code>undefined</code>
+  passam despercebidos pelo compilador e só aparecem em runtime. É a principal fonte de crashes do tipo
+  <code>Cannot read properties of undefined</code>.</p>
+  <pre>// tsconfig.json
+"strictNullChecks": false  ← DESLIGADO
+"noImplicitAny": false     ← DESLIGADO
+"noUnusedParameters": false
+"noUnusedLocals": false</pre>
+  <p>💡 <strong>Ação:</strong> ativar <code>strict: true</code> gradualmente, corrigindo os erros um por um.</p>
+</div>
+
+<div class="finding crit">
+  <strong>C2 — Zero cobertura de testes unitários</strong>
+  <p>O projeto tem <strong>8 testes E2E</strong> (Playwright) mas <strong>zero testes unitários</strong>.
+  <code>src/lib/metrics.ts</code> tem 209 linhas de funções PURAS perfeitas para unit test — mas
+  nenhuma delas é testada individualmente. Toda a lógica financeira (cálculo de lucro, margem, ROI,
+  custo médio) depende exclusivamente dos testes E2E para ser validada.</p>
+  <p>📊 Funções sem teste:</p>
+  <ul>
+    <li><code>calcCostPerMile</code>, <code>calcCostPerThousand</code>, <code>calcAverageCostPerMile</code></li>
+    <li><code>calcProfit</code>, <code>calcProfitMargin</code>, <code>calcROI</code></li>
+    <li><code>calcMilesGenerated</code>, <code>calcProportionalCost</code></li>
+    <li><code>calcWeightedAverageCost</code>, <code>calcRevenueChange</code></li>
+    <li><code>filterActiveSales</code>, <code>filterSalesByMonth</code></li>
+    <li><code>computeDashboardMetrics</code></li>
+  </ul>
+  <p>💡 <strong>Ação:</strong> adicionar vitest + testes para todas as funções em <code>src/lib/</code>.</p>
+</div>
+
+<div class="finding crit">
+  <strong>C3 — DRY violado: Vendas.tsx recalcula profit/margin/ROI inline</strong>
+  <p><code>src/pages/Vendas.tsx</code> (1117 linhas) NÃO importa <code>calcProfit</code>, <code>calcProfitMargin</code>
+  ou <code>calcROI</code> de <code>src/lib/metrics.ts</code>. Em vez disso, recalcula tudo inline em 3 lugares:</p>
+  <p><strong>1. Simulador (linhas 106-113):</strong></p>
+  <pre>const profit = saleValue - totalCost;
+const margin = saleValue > 0 ? (profit / saleValue) * 100 : 0;
+const roi = totalCost > 0 ? (profit / totalCost) * 100 : 0;</pre>
+  <p><strong>2. JSX do formulário (linhas 578-582):</strong></p>
+  <pre>R$ {(... saleValue - miles*costPerMile - additionalCost).toFixed(2)}
+{((... / saleValue) * 100).toFixed(1)}%</pre>
+  <p>💡 <strong>Ação:</strong> substituir por <code>calcProfit()</code>, <code>calcProfitMargin()</code>, <code>calcROI()</code> de metrics.ts.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>🟠 Alta Prioridade</h2>
+
+<div class="finding high">
+  <strong>A1 — Entradas.tsx (1276 linhas) num único function component</strong>
+  <p>É o maior arquivo do projeto. Tudo está dentro de <code>export default function Entradas()</code> —
+  sem subcomponentes, sem extração de hooks customizados, sem separação de responsabilidades.
+  Mistura: renderização de 2 abas (Milhas/Pontos), formulário de criação, formulário de edição,
+  lógica de transferência, lógica de carrinho, busca, resumo de métricas, resumo por conta.</p>
+  <p>💡 <strong>Ação:</strong> extrair <code>EntryForm</code>, <code>EntryTable</code>, <code>EntrySummary</code>,
+  <code>TransferForm</code>, <code>CartForm</code> em componentes separados.</p>
+</div>
+
+<div class="finding high">
+  <strong>A2 — Vendas.tsx (1117 linhas) no mesmo problema</strong>
+  <p>Segundo maior arquivo. Mesmo padrão: tudo em um function component.
+  Mistura: tabela de vendas com 2 visões (mobile/desktop), formulário de criação,
+  simulador em modal, métricas do header, busca + filtro.</p>
+  <p>💡 <strong>Ação:</strong> extrair <code>SaleForm</code>, <code>SaleTable</code>, <code>SaleSimulator</code>,
+  <code>SaleMetrics</code> em componentes separados.</p>
+</div>
+
+<div class="finding high">
+  <strong>A3 — useDatabase.ts com 40 funções de 7 entidades</strong>
+  <p>822 linhas, 40 funções exportadas. Mistura queries + mutations de <code>owners</code>,
+  <code>programs</code>, <code>origem_types</code>, <code>accounts</code>, <code>entries</code>,
+  <code>sales</code>, <code>clients</code>. Cada mutation repete o mesmo padrão
+  (declara queryClient, faz insert/update/delete, invalida queries).</p>
+  <p>💡 <strong>Ação:</strong> quebrar em <code>useOwners.ts</code>, <code>useAccounts.ts</code>,
+  <code>useEntries.ts</code>, <code>useSales.ts</code>, <code>useClients.ts</code> etc.</p>
+  <p>💡 <strong>Opcional:</strong> criar helper <code>createMutation</code> para eliminar o boilerplate repetitivo.</p>
+</div>
+
+<div class="finding high">
+  <strong>A4 — Lint errors não corrigidos (3 erros)</strong>
+  <pre>src/types/index.ts:116   error  Empty block statement  (catch {})
+tests/fluxo-completo.spec.ts:219  error  'mCmb' → use 'const'
+tests/fluxo-completo.spec.ts:285  error  'vCmb' → use 'const'</pre>
+  <p>O <code>catch {}</code> vazio engole erros de parse silenciosamente. Os <code>let</code> deveriam ser <code>const</code>.</p>
+  <p>💡 <strong>Ação:</strong> <code>catch { return {}; }</code> e <code>let</code> → <code>const</code>.</p>
+</div>
+
+<div class="finding high">
+  <strong>A5 — Formatação numérica espalhada (dezenas de toLocaleString)</strong>
+  <p><code>.toLocaleString('pt-BR')</code> e <code>.toFixed()</code> aparecem dezenas de vezes em
+  <code>Entradas.tsx</code> e <code>Vendas.tsx</code> — cada um com parâmetros diferentes.
+  Não há uma utility centralizada <code>formatCurrency()</code> ou <code>formatNumber()</code>.</p>
+  <p>💡 <strong>Ação:</strong> centralizar em <code>src/lib/utils.ts</code>:</p>
+  <pre>export function formatCurrency(value: number): string
+export function formatNumber(value: number): string
+export function formatPercent(value: number): string</pre>
+</div>
+
+<!-- ============================================================ -->
+<h2>🟡 Média Prioridade</h2>
+
+<div class="finding med">
+  <strong>M1 — Configuracoes.tsx (751 linhas) — terceiro maior</strong>
+  <p>Agrupa CRUD de 4 entidades (Donos, Programas, Origens, Contas) no mesmo arquivo.
+  Cada entidade tem seu próprio estado, validação e formulário — tudo inline.</p>
+  <p>💡 <strong>Ação:</strong> extrair <code>OwnerSection</code>, <code>ProgramSection</code>,
+  <code>OrigemTypeSection</code>, <code>AccountSection</code>.</p>
+</div>
+
+<div class="finding med">
+  <strong>M2 — supabase-types.ts (299 linhas) — tipagem gigante gerada</strong>
+  <p>Arquivo de tipos gerados automaticamente do Supabase. É esperado que seja grande,
+  mas poderia ser movido para <code>src/types/supabase.ts</code> e simplificado com
+  <code>z.infer</code> do Zod em vez de depender de tipos gerados.</p>
+  <p>💡 <strong>Ação:</strong> manter como está se for gerado automaticamente, ou migrar para Zod.</p>
+</div>
+
+<div class="finding med">
+  <strong>M3 — Testes E2E duplicam setup de dados</strong>
+  <p>Cada spec.ts faz seu próprio <code>page.evaluate()</code> para criar dados via REST API,
+  com headers, URLs e lógica duplicados. O <code>tests/helpers.ts</code> existe mas parece
+  subutilizado — os testes criam os próprios helpers inline.</p>
+  <p>💡 <strong>Ação:</strong> centralizar a criação de dados de teste em <code>helpers.ts</code>
+  e reutilizar entre specs.</p>
+</div>
+
+<div class="finding med">
+  <strong>M4 — Sem Prettier ou formatador padronizado</strong>
+  <p>Não há <code>.prettierrc</code> nem configuração de formatação automática.
+  O estilo do código depende exclusivamente dos autores. Isso leva a inconsistências
+  (espaços vs tabs, aspas simples vs duplas, ponto-e-vírgula vs sem).</p>
+  <p>💡 <strong>Ação:</strong> adicionar Prettier + <code>.prettierrc</code> + script <code>format</code>.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>🟢 Baixa Prioridade</h2>
+
+<div class="finding low">
+  <strong>B1 — src/lib/accounts.ts pouco utilizado (1 import)</strong>
+  <p>O módulo tem funções de conta que só são importadas em 1 lugar.
+  Pode indicar que a lógica de domínio migrou para as páginas ou hooks.</p>
+  <p>💡 Verificar se o módulo ainda é necessário ou se o código foi duplicado nas páginas.</p>
+</div>
+
+<div class="finding low">
+  <strong>B2 — src/lib/accounts.ts e origemTypes.ts com 71 e 33 linhas</strong>
+  <p>Módulos de domínio muito pequenos. Podem ser fundidos em <code>src/lib/domain.ts</code>
+  ou expandidos com a lógica que hoje está inline nas páginas.</p>
+</div>
+
+<div class="finding low">
+  <strong>B3 — ErrorBoundary em toda rota (9x em App.tsx)</strong>
+  <p>Cada rota em <code>App.tsx</code> wrappa o componente com <code>&lt;ErrorBoundary&gt;</code>.
+  Poderia ser aplicado uma vez no nível do layout.</p>
+  <pre>// Em vez de repetir 9x:
+&lt;Route path="/x" element={&lt;ErrorBoundary&gt;&lt;X /&gt;&lt;/ErrorBoundary&gt;} /&gt;
+// Usar um layout wrapper:
+&lt;Route element={&lt;ErrorBoundaryLayout /&gt;}&gt; ... &lt;/Route&gt;</pre>
+</div>
+
+<div class="finding low">
+  <strong>B4 — AnimatedNumber só usado no Dashboard</strong>
+  <p>Componente de animação numérica está em <code>src/components/AnimatedNumber.tsx</code>
+  mas só é usado no Dashboard. MetricCard tem sua própria lógica interna também.</p>
+  <p>💡 Poderia ser incorporado ao MetricCard ou mantido como está.</p>
+</div>
+
+<div class="finding low">
+  <strong>B5 — testes/responsivo.spec.ts (283 linhas) — maior test file</strong>
+  <p>Teste responsivo é o maior arquivo de teste. Verifica 11 páginas × 4 viewports.
+  É valioso mas poderia ser otimizado com fixtures do Playwright para evitar repetição.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>📊 Distribuição de Linhas por Arquivo</h2>
+
+<table>
+  <tr><th>Arquivo</th><th>Linhas</th><th>% do total</th><th>Problema</th></tr>
+  <tr><td>src/pages/Entradas.tsx</td><td>1.276</td><td>11%</td><td><span class="badge badge-high">monolito</span></td></tr>
+  <tr><td>src/pages/Vendas.tsx</td><td>1.117</td><td>9,6%</td><td><span class="badge badge-high">monolito</span></td></tr>
+  <tr><td>src/hooks/useDatabase.ts</td><td>822</td><td>7,1%</td><td><span class="badge badge-high">40 funções</span></td></tr>
+  <tr><td>src/pages/Configuracoes.tsx</td><td>751</td><td>6,5%</td><td><span class="badge badge-medium">monolito</span></td></tr>
+  <tr><td>src/pages/Dashboard.tsx</td><td>679</td><td>5,8%</td><td><span class="badge badge-ok">aceitável</span></td></tr>
+  <tr><td>src/pages/Relatorios.tsx</td><td>563</td><td>4,8%</td><td><span class="badge badge-ok">aceitável</span></td></tr>
+  <tr><td>src/pages/Clientes.tsx</td><td>517</td><td>4,5%</td><td><span class="badge badge-ok">aceitável</span></td></tr>
+  <tr><td>src/lib/supabase-types.ts</td><td>299</td><td>2,6%</td><td><span class="badge badge-low">gerado</span></td></tr>
+  <tr><td colspan="2"><strong>Demais (61 arquivos)</strong></td><td>5.481</td><td>47%</td><td></td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2>📋 Recomendações Prioritárias</h2>
+
+<ol style="padding-left: 1.25rem;">
+  <li><strong>Adicionar vitest + testes unitários</strong> — começar por <code>src/lib/metrics.ts</code>
+    (funções puras, fáceis de testar). Incluir na bateria pré-deploy.
+    <br><span class="badge badge-critical">crítico</span></li>
+
+  <li><strong>Ativar strictNullChecks</strong> gradualmente no tsconfig. Corrigir os erros tipo
+    <code>object is possibly undefined</code> antes de ativar.
+    <br><span class="badge badge-critical">crítico</span></li>
+
+  <li><strong>Corrigir DRY em Vendas.tsx</strong> — usar <code>calcProfit</code>, <code>calcProfitMargin</code>, <code>calcROI</code> de metrics.ts.
+    <br><span class="badge badge-high">alto</span></li>
+
+  <li><strong>Extrair subcomponentes</strong> de Entradas.tsx (EntryForm, EntryTable, EntrySummary, TransferForm).
+    <br><span class="badge badge-high">alto</span></li>
+
+  <li><strong>Quebrar useDatabase.ts</strong> em módulos por entidade.
+    <br><span class="badge badge-high">alto</span></li>
+
+  <li><strong>Centralizar formatação</strong> em <code>src/lib/utils.ts</code> (formatCurrency, formatNumber, formatPercent).
+    <br><span class="badge badge-high">alto</span></li>
+
+  <li><strong>Corrigir lint errors</strong> (catch vazio, let→const).
+    <br><span class="badge badge-high">alto</span></li>
+
+  <li><strong>Adicionar Prettier</strong> + script de formatação.
+    <br><span class="badge badge-medium">médio</span></li>
+
+  <li><strong>Centralizar helpers de teste</strong> em <code>tests/helpers.ts</code> — parar de duplicar
+    <code>page.evaluate</code> com REST API em cada spec.
+    <br><span class="badge badge-medium">médio</span></li>
+</ol>
+
+<!-- ============================================================ -->
+<h2>🔬 Estatísticas do Projeto</h2>
+
+<table>
+  <tr><th>Métrica</th><th>Valor</th></tr>
+  <tr><td>Total de arquivos fonte</td><td>68 (.ts/.tsx)</td></tr>
+  <tr><td>Total de linhas TypeScript</td><td>~11.617</td></tr>
+  <tr><td>Componentes customizados (não-shadcn)</td><td>15</td></tr>
+  <tr><td>Componentes shadcn/ui</td><td>19</td></tr>
+  <tr><td>Páginas</td><td>13</td></tr>
+  <tr><td>Hooks customizados</td><td>5</td></tr>
+  <tr><td>Módulos lib/</td><td>7 (649 linhas)</td></tr>
+  <tr><td>Funções em useDatabase.ts</td><td>40</td></tr>
+  <tr><td>Testes E2E (Playwright)</td><td>8</td></tr>
+  <tr><td>Testes unitários</td><td>0</td></tr>
+  <tr><td>Lint errors</td><td>3</td></tr>
+  <tr><td>Lint warnings</td><td>7</td></tr>
+  <tr><td>Dependências de produção</td><td>26</td></tr>
+  <tr><td>Dependências de desenvolvimento</td><td>17</td></tr>
+</table>
+
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;">
+<p style="color: var(--muted); font-size: .85rem; text-align: center;">
+  MilesControl · Auditoria gerada em 07/07/2026 · Branch <code>chore/codebase-audit</code>
+</p>
+
+</body>
+</html>
