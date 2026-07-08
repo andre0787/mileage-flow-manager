@@ -7,11 +7,21 @@
 
 ## 🎯 Meta da Sprint
 
-Fechar pendências técnicas e estruturar documentação do projeto.
+Limpeza de arquivos residuais na raiz + fechar pendências técnicas.
 
 ---
 
 ## 🔄 Em Andamento
+
+### 🔴 Prioridade Máxima — Limpeza de Arquivos
+
+- [ ] **Deletar `entradas-transferir.png`** — screenshot de debug, 80KB, não versionado
+- [ ] **Deletar `entradas-page.txt`** — dump de HTML, 5,8KB, não versionado
+- [ ] **Deletar `bun.lockb`** — lockfile do Bun (projeto usa npm), 198KB, não versionado
+- [ ] **Verificar `.playwright-mcp/`** — diretório auto-gerado, ver se algo depende
+- [ ] **Adicionar `*.md` e `*.png` residuais no `.gitignore`** se necessário
+
+### 🟡 Pendências Técnicas
 
 - [ ] **#1 — Overflow após confirmar entrada**
   Teste de fluxo morre com "Target page closed" após clicar em Confirmar.
@@ -48,6 +58,9 @@ Fechar pendências técnicas e estruturar documentação do projeto.
 
 ## ✅ Finalizados (sprint atual)
 
+- [x] `SPRINT_NEXT.md` deletado (conteúdo migrado pra AGENDA.md)
+- [x] `progress.md` movido para `docs/`
+- [x] `task_plan.md` movido para `docs/`
 - [x] Estrutura `docs/` criada (9 arquivos modulares)
 - [x] AGENTS.md enxugado para sumário executivo
 - [x] MAP.md — índice entry point
@@ -59,6 +72,6 @@ Fechar pendências técnicas e estruturar documentação do projeto.
 
 ## 📌 Backlog
 
-- [ ] `chore/` → `feat/` — criar `feat/nova-funcionalidade` com council
+- [ ] `feat/nova-funcionalidade` com council
 - [ ] Template `/sprint` no `.pi/prompts/` para abrir AGENDA.md automaticamente
 - [ ] Avaliar se algum doc cresceu demais e precisa ser dividido
