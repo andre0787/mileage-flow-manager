@@ -35,8 +35,10 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.fill("#email", email);
     await page.fill("#password", PASSWORD);
     await page.click("button[type='submit']");
-    await page.waitForURL(/dashboard|\//, { timeout: 30000 });
-    await page.waitForTimeout(1500);
+    await page.waitForURL("**/", { timeout: 30000 });
+    // Wait for React to render fully
+    await page.waitForFunction(() => document.title.includes("MilesControl"), { timeout: 15000 });
+    await page.waitForTimeout(500);
     await save("01-login");
     pass("Registro concluído");
 
@@ -109,13 +111,13 @@ test("Fluxo completo de experiência", async ({ page }) => {
 
     // ═══ 3. ENTRADA PONTOS (COMPRA DIRETA) ═══
     await page.goto("/entradas", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(2000);
-
-    await page.getByRole("tab", { name: /pontos/i }).click();
     await page.waitForTimeout(500);
 
+    await page.getByRole("tab", { name: /pontos/i }).click();
+    await page.waitForTimeout(200);
+
     await page.getByRole("button", { name: "Nova Entrada" }).click();
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(300);
 
     let cmb = page.locator("[role=combobox]");
     await cmb.nth(0).click();
@@ -126,9 +128,9 @@ test("Fluxo completo de experiência", async ({ page }) => {
 
     await page.fill("#amount", "50000");
     await page.fill("#amountPaid", "2500");
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(300);
     await page.getByRole("button", { name: /registrar/i }).click();
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(1500);
     pass("Entrada 1: 50.000 pontos registrada");
 
     await expect(page.locator("text=50.000").first()).toBeVisible({ timeout: 5000 });
@@ -136,7 +138,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
 
     // ═══ 4. ENTRADA CLUBE ═══
     await page.getByRole("button", { name: "Nova Entrada" }).click();
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(300);
 
     cmb = page.locator("[role=combobox]");
     await cmb.nth(0).click();
@@ -154,13 +156,13 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.fill("#amountPaid", "800");
 
     await page.getByRole("button", { name: /registrar/i }).click();
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(1500);
     pass("Entrada 2: Clube 10.000 (3 meses) registrada");
 
     // ═══ 5. VERIFICAR PENDÊNCIAS E CONFIRMAR ═══
     // Recarrega a página para garantir dados frescos
     await page.goto("/entradas", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(1500);
 
     // Debug: log o que tem na tabela
     const rows = await page.locator("table tbody tr").count();
@@ -195,48 +197,57 @@ test("Fluxo completo de experiência", async ({ page }) => {
     const confirmBtn = page.locator("text=Confirmar").first();
     if (await confirmBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
       await confirmBtn.click();
-      await page.waitForTimeout(2000);
+      await page.waitForTimeout(1000);
       pass("Entrada confirmada!");
     } else {
       fail("Nenhum Confirmar visível");
     }
 
     await save("05-pendencias");
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(500);
 
     // ═══ 6. TRANSFERÊNCIA ═══
     await page.goto("/entradas", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(2000);
-    await page.getByRole("tab", { name: /milhas/i }).click();
     await page.waitForTimeout(1000);
-
-    await page.getByRole("button", { name: /nova entrada/i }).click();
+    await page.getByRole("tab", { name: /milhas/i }).click();
     await page.waitForTimeout(500);
 
+    await page.getByRole("button", { name: /nova entrada/i }).click();
+    await page.waitForTimeout(300);
+
+    // Milhas tab: only "Latam Pass" account and "Transferência" origem type are available
     let mCmb = page.locator("[role=combobox]");
     await mCmb.nth(0).click();
-    await page.getByRole("option", { name: /smiles/i }).click();
+    await page.waitForTimeout(300);
+    await page.getByRole("option", { name: /latam/i }).click();
     await mCmb.nth(1).click();
-    await page.getByRole("option", { name: /latam pass/i }).click();
+    await page.waitForTimeout(300);
+    await page.getByRole("option", { name: /transferência/i }).click();
+    await page.waitForTimeout(300);
+
+    // Select source account (Smiles) BEFORE amount (source onChange clears amount)
+    await mCmb.nth(2).click();
+    await page.waitForTimeout(300);
+    await page.getByRole("option", { name: /smiles/i }).click();
 
     await page.fill("#amount", "20000");
-    await page.fill("#amountPaid", "200");
+    // amountPaid is auto-calculated (disabled input for transfers)
 
-    const bonus = page.locator('input[placeholder*="Ex: 100"]');
+    const bonus = page.locator('#bonus');
     if (await bonus.isVisible()) await bonus.fill("50");
 
     await page.getByRole("button", { name: /registrar/i }).click();
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(1500);
     pass("Transferência de 20.000 com 50% bônus registrada");
 
     // ═══ 7. VERIFICAR SALDOS ═══
     await page.goto("/contas", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(1000);
 
-    // Smiles: 50.000 + 10.000 - 20.000 (transferidos) = 40.000
-    const saldoUm = page.locator("text=40.000").first();
+    // Smiles: 50.000 (compra) + 10.000 (clube pai) + 10.000 (confirmada) - 20.000 (transferidos) = 50.000
+    const saldoUm = page.locator("text=50.000").first();
     const saldoUmOk = await saldoUm.isVisible({ timeout: 5000 }).catch(() => false);
-    if (saldoUmOk) pass("Saldo Smiles = 40.000 (60k - 20k)");
+    if (saldoUmOk) pass("Saldo Smiles = 50.000 (70k - 20k, 1 pendente ativada)");
     else fail("Saldo Smiles incorreto");
 
     // Latam: 30.000 (20.000 + 50% bonus)
@@ -249,50 +260,56 @@ test("Fluxo completo de experiência", async ({ page }) => {
 
     // ═══ 8. DASHBOARD ═══
     await page.goto("/", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(3000);
-    await expect(page.locator("text=Entradas/mês")).toBeVisible({ timeout: 5000 });
+    await page.waitForTimeout(500);
+    await page.locator("text=Entradas no mês").waitFor({ state: "visible", timeout: 10000 });
     pass("Dashboard carregado");
     await save("08-dashboard");
 
     // ═══ 9. CLIENTE + VENDA ═══
-    await page.goto("/clientes", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(2000);
+    await page.goto("/clientes", { waitUntil: "load" });
+    await page.waitForTimeout(1000);
     await page.getByRole("button", { name: /novo cliente/i }).click();
-    await page.waitForTimeout(500);
-    await page.fill('input[placeholder*="Nome"]', "Maria Silva");
+    await page.waitForTimeout(300);
+    await page.fill('#name', "Maria Silva");
     const phone = page.locator('#phone, input[placeholder*="Telefone"]');
     if (await phone.isVisible()) await phone.fill("11999999999");
     await page.getByRole("button", { name: /salvar|cadastrar|criar/i }).click();
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(1500);
     pass("Cliente Maria Silva criado");
 
     await page.goto("/vendas", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(1000);
     await page.getByRole("button", { name: /nova venda/i }).click();
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(300);
+    // Dialog combos: nth(1)=Dono, nth(2)=Conta, nth(3)=Cliente
     let vCmb = page.locator("[role=combobox]");
-    await vCmb.nth(0).click();
-    await page.getByRole("option", { name: /maria/i }).click();
     await vCmb.nth(1).click();
-    await page.getByRole("option", { name: /latam/i }).click();
+    await page.waitForTimeout(200);
+    await page.getByRole("option", { name: /joão/i }).click();
+    await vCmb.nth(2).click();
+    await page.waitForTimeout(200);
+    await page.getByRole("option", { name: /latam/i }).first().click();
+    await vCmb.nth(3).click();
+    await page.waitForTimeout(200);
+    await page.getByRole("option", { name: /maria/i }).click();
     await page.fill("#miles", "10000");
-    await page.fill("#price", "2500");
+    await page.fill("#pricePerMile", "0.25");
     await page.getByRole("button", { name: /registrar/i }).click();
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(1500);
     pass("Venda de 10.000 milhas registrada");
     await save("09-venda");
 
     // ═══ 10. RELATÓRIOS ═══
     await page.goto("/relatorios", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(3000);
-    await expect(page.locator("text=Relatórios")).toBeVisible({ timeout: 5000 });
+    await page.waitForTimeout(1500);
+    await expect(page.locator("text=Relatórios").first()).toBeVisible({ timeout: 5000 });
     pass("Relatórios carregado");
     await save("10-relatorios");
 
     // ═══ 11. MOBILE ═══
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/entradas", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(1500);
     const bodyW = await page.evaluate(() => document.body.scrollWidth);
     const vpW = await page.evaluate(() => window.innerWidth);
     if (bodyW <= vpW + 2) pass(`Sem overflow mobile (${bodyW}px ≤ ${vpW}px)`);
@@ -302,7 +319,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
 
     // ═══ 12. LOGOUT/LOGIN ═══
     await page.goto("/", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(1000);
     const logoutBtn = page.getByRole("button", { name: /sair|logout/i });
     if (await logoutBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
       await logoutBtn.click();
@@ -311,7 +328,9 @@ test("Fluxo completo de experiência", async ({ page }) => {
       await page.fill("#email", email);
       await page.fill("#password", PASSWORD);
       await page.click("button[type='submit']");
-      await page.waitForURL(/dashboard|\//, { timeout: 30000 });
+      await page.waitForURL("**/", { timeout: 30000 });
+      await page.waitForFunction(() => document.title.includes("MilesControl"), { timeout: 15000 });
+      await page.waitForTimeout(500);
       pass("Re-login OK");
     } else {
       fail("Logout não encontrado");
@@ -320,8 +339,12 @@ test("Fluxo completo de experiência", async ({ page }) => {
     pass(" Fluxo completo!");
   } catch (e) {
     fail(`Erro: ${e instanceof Error ? e.message : String(e)}`);
-    const html = await page.evaluate(() => document.querySelector("table")?.outerHTML?.substring(0, 2000) || "no table");
-    log("Table HTML capture:", html.substring(0, 500));
+    try {
+      const html = await page.evaluate(() => document.querySelector("table")?.outerHTML?.substring(0, 2000) || "no table");
+      log("Table HTML capture:", html.substring(0, 500));
+    } catch {
+      log("Page closed during error capture");
+    }
     throw e;
   } finally {
     writeFileSync(REPORT_PATH, report.join("\n"), "utf-8");
