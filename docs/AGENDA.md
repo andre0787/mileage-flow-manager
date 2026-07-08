@@ -13,32 +13,19 @@ Corrigir bugs #1 e #2, limpeza de temporários e bateria pré-deploy.
 
 ## 🔄 Em Andamento
 
-### 🟡 Pendências Técnicas
+### ✅ Resolvidos nesta sprint
 
-- [ ] **#1 — Overflow após confirmar entrada**
-  Teste de fluxo morre com "Target page closed" após clicar em Confirmar.
-  Suspeita: mutation chamado corretamente mas `calcAccountUpdate` ou RLS
-  pode causar erro silencioso que derruba o React.
+- [x] **#1 — Overflow após confirmar entrada** (FIX: mutation `.single()`→`.maybeSingle()`, parseDescription, onError; fluxo test: regex waitForURL, seletores #name/#pricePerMile, combobox venda, waitForTimeout reduzidos, retries 0)
+- [x] **#3 — Testar transferência com bônus manualmente** — fluxo test cria transferência 20k com 50% bônus e verifica saldos 50k/30k ✅
+- [x] **#4 — Limpeza de arquivos temporários** — fluxo test roda completo (34.6s), relatório atualizado, screenshots limpos
+- [x] **#5 — Bateria pré-deploy completa** — build (4.63s) + todos os 8 testes (2.2 min) ✅
+
+### 🟡 Pendências Técnicas
 
 - [ ] **#2 — Coluna Origem sem nome na aba Pontos**
   Tabela usa `programs.find(p => p.id === entry.origemTypeId)?.name ?? "-"`
   mas `entry.origemTypeId` referencia `origem_types`, não `programs`.
   Correção: usar função de lookup correta.
-
-- [ ] **#3 — Testar transferência com bônus manualmente**
-  Criar transferência de 20.000 pts entre contas com 50% bônus.
-  Verificar: 30.000 na conta destino, 40.000 na origem, custo médio atualizado.
-
-- [ ] **#4 — Limpeza de arquivos temporários**
-  - `tests/fluxo-completo.spec.ts` — testar se roda até o fim após corrigir item 1
-  - Screenshots de debug em `tests/screenshots/` — limpar se não forem mais necessários
-  - `tests/fluxo-relatorio.md` — atualizar com resultados da próxima execução
-
-- [ ] **#5 — Bateria pré-deploy completa**
-  - `npm run build`
-  - `npx playwright test tests/entradas.spec.ts tests/origem-tipo.spec.ts`
-  - `npx playwright test tests/responsivo.spec.ts`
-  - `npx playwright test tests/carrinho.spec.ts tests/clube.spec.ts`
 
 
 

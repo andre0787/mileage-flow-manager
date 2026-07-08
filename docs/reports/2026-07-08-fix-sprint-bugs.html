@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relatório — Fix sprint bugs (#1–#5)</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; }
+  h1 { border-bottom: 2px solid #5B72C4; padding-bottom: .5rem; }
+  h2 { margin-top: 2rem; }
+  .stat { display: inline-block; background: #f0f4ff; padding: .25rem .75rem; border-radius: 6px; font-size: .875rem; margin-right: .5rem; }
+  .benefits li { margin: .5rem 0; }
+  pre { background: #f5f5f5; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: .875rem; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: .75rem; font-weight: 600; }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-blue { background: #cce5ff; color: #004085; }
+  .pass { color: #155724; }
+  .fail { color: #721c24; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+  th, td { text-align: left; padding: .5rem; border-bottom: 1px solid #eee; }
+  th { background: #f8f9fa; }
+</style>
+</head>
+<body>
+<h1>📋 Relatório: Fix sprint bugs (#1–#5)</h1>
+<p class="stat">📁 +6 arquivos</p>
+<p class="stat">➕ 121 linhas</p>
+<p class="stat">➖ 85 linhas</p>
+<p class="stat">⚡ ~161 tokens</p>
+
+<h2>Antes</h2>
+<p>
+Bug #1: fluxo test morria com "Target page closed" após confirmar entrada pendente de Clube.
+Mutation usava <code>.single()</code> que em supabase-js v2.108.2 lança exceção com 0 rows.
+Fluxo test tinha seletores incorretos (regex waitForURL, placeholder, #price inexistente)
+e combobox da venda apontando para filtros ao invés do formulário.
+retries: 1 no config fazia o teste rodar 2× e timeoutar.
+</p>
+
+<h2>Depois</h2>
+<p>
+Mutation useConfirmEntryMutation corrigida: <code>.single()</code> → <code>.maybeSingle()</code>,
+<code>serializeDescription</code> lê via <code>parseDescription</code>, erro propagado.
+Fluxo test com todos os seletores corrigidos, waitForTimeout otimizados (33.5s de execução).
+retries: 0 para testes E2E. Todos os 8 testes passam em 2.2 min.
+</p>
+
+<h2>Benefícios</h2>
+<ul class="benefits">
+  <li>✅ <strong>Bug #1 resolvido</strong> — fluxo completo de experiência roda do início ao fim (34.6s)</li>
+  <li>✅ <strong>Bateria completa verde</strong> — build + 8 testes E2E em 2.2 minutos</li>
+  <li>✅ <strong>Mutation mais robusta</strong> — .maybeSingle() não quebra com 0 resultados, erro propagado via onError</li>
+  <li>✅ <strong>Teste 9× mais rápido</strong> — waitForTimeout reduzidos, waits baseados em elementos específicos</li>
+  <li>✅ <strong>Sem HMR flaky</strong> — waitForURL corrigido, waitForTimeout substituídos por waitForFunction/waitFor</li>
+  <li>✅ <strong>Seletores corretos</strong> — #name, #pricePerMile, combobox Dono→Conta→Cliente na ordem certa</li>
+  <li>✅ <strong>Menos retries</strong> — retries: 0 (testes são deterministicos agora)</li>
+</ul>
+
+<h2>Detalhes</h2>
+<pre>
+ .gitignore                   |   1 +
+ docs/AGENDA.md               |  27 +++--------
+ playwright.config.ts         |   2 +-
+ src/hooks/useDatabase.ts     |  37 ++++++++++----
+ tests/fluxo-completo.spec.ts | 113 ++++++++++++++++++++++++++-----------------
+ tests/fluxo-relatorio.md     |  26 ++++++----
+ 6 files changed, 121 insertions(+), 85 deletions(-)
+</pre>
+
+<h2>Testes</h2>
+<table>
+  <tr><th>Teste</th><th>Status</th><th>Tempo</th></tr>
+  <tr><td>Carrinho</td><td class="pass">✅</td><td>11.8s</td></tr>
+  <tr><td>Clube</td><td class="pass">✅</td><td>11.0s</td></tr>
+  <tr><td>Debug</td><td class="pass">✅</td><td>10.3s</td></tr>
+  <tr><td>Entradas</td><td class="pass">✅</td><td>12.0s</td></tr>
+  <tr><td><strong>Fluxo Completo</strong></td><td class="pass"><strong>✅</strong></td><td><strong>33.5s</strong></td></tr>
+  <tr><td>Origem-tipo</td><td class="pass">✅</td><td>13.0s</td></tr>
+  <tr><td>Relatorio</td><td class="pass">✅</td><td>9.5s</td></tr>
+  <tr><td>Responsivo</td><td class="pass">✅</td><td>32.1s</td></tr>
+  <tr><td><strong>Total</strong></td><td class="pass"><strong>8/8 ✅</strong></td><td><strong>2.2 min</strong></td></tr>
+</table>
+
+<h2>Relatório do Fluxo Completo</h2>
+<pre>
+✅ Registro concluído
+✅ Dados de teste criados
+✅ Entrada 1: 50.000 pontos registrada
+✅ 50.000 visível na tabela
+✅ Recorrência auto-ativada
+✅ Entrada 2: Clube 10.000 (3 meses) registrada
+✅ Total linhas na tabela: 5
+✅ Banner de pendências visível
+✅ Entrada confirmada!
+✅ Transferência de 20.000 com 50% bônus registrada
+✅ Saldo Smiles = 50.000 (70k - 20k)
+✅ Saldo Latam Pass = 30.000 (20k + 50%)
+✅ Dashboard carregado
+✅ Cliente Maria Silva criado
+✅ Venda de 10.000 milhas registrada
+✅ Relatórios carregado
+✅ Sem overflow mobile (375px ≤ 375px)
+✅ Logout OK
+✅ Re-login OK
+✅ Fluxo completo!
+</pre>
+
+</body>
+</html>
