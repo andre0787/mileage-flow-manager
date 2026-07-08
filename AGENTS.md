@@ -86,9 +86,41 @@ Grids de cards devem usar no **máximo 2 colunas**. O padrão é:
 - **Simulador de Venda**: modal na página de Vendas com inputs (milhas, preço, custo, custo adicional) e resultado ao vivo (valor, lucro, margem, ROI)
 
 ## Git Workflow
-- `main` → produção (https://mileage-flow-manager.vercel.app)
-- `develop` → desenvolvimento
-- Fixes: `fix/nome` → PR para `develop` → merge `develop` → `main`
+
+### Nomenclatura de branches
+
+Usar prefixos padronizados em inglês:
+
+| Prefixo | Uso | Exemplo |
+|---------|-----|--------|
+| `feat/` | Nova funcionalidade | `feat/csv-import` |
+| `fix/` | Correção de bug | `fix/login-redirect` |
+| `hotfix/` | Correção urgente em produção | `hotfix/critical-security` |
+| `chore/` | Tarefa de manutenção | `chore/project-conventions` |
+| `refactor/` | Refatoração sem mudar comportamento | `refactor/query-optimization` |
+| `docs/` | Documentação | `docs/api-endpoints` |
+| `test/` | Testes | `test/entradas-edge-cases` |
+| `style/` | Formatação, estilos | `style/tailwind-cleanup` |
+| `perf/` | Performance | `perf/lazy-loading` |
+
+Regras:
+- **Inglês**: `feat/csv-import`, não `feat/importar-csv`
+- **kebab-case**: `feat/csv-import`, não `feat/csvImport` ou `feat/CSV_Import`
+- **Curto e descritivo**: `feat/csv-import`, não `feat/add-new-feature-for-importing-csv-files`
+
+### Fluxo
+```
+main ─────────────────── produção (Vercel)
+  ↑
+develop ──────────────── desenvolvimento
+  ↑
+feat/*, fix/*, chore/*, refactor/*, ...
+```
+
+- Toda branch → PR para `develop`
+- `develop` → merge em `main` (após bateria de testes)
+- `main` → deploy automático Vercel
+- `hotfix/*` → PR direto para `main` (com bateria de testes)
 
 ## Comandos
 - `npm run dev` - servidor dev (localhost:8080)
