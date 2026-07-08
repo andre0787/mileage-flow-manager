@@ -52,3 +52,7 @@ entradas-transferir.png
 entradas-page.txt
 bun.lockb
 .playwright-mcp/
+
+# Playwright artifacts
+test-results/
+tests/screenshots/
