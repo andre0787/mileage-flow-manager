@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relatório — Extração de Componentes de Vendas.tsx</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; }
+  h1 { border-bottom: 2px solid #5B72C4; padding-bottom: .5rem; }
+  .stat { display: inline-block; background: #f0f4ff; padding: .25rem .75rem; border-radius: 6px; font-size: .875rem; }
+  .benefits li { margin: .5rem 0; }
+  pre { background: #f5f5f5; padding: 1rem; border-radius: 6px; overflow-x: auto; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: .75rem; font-weight: 600; }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-blue { background: #cce5ff; color: #004085; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+  th, td { border: 1px solid #ddd; padding: .5rem; text-align: left; }
+  th { background: #f0f4ff; }
+</style>
+</head>
+<body>
+<h1>📋 Relatório: Extração de Componentes de Vendas.tsx</h1>
+<p class="stat">📁 5 arquivos alterados · ➕ 750 linhas · ➖ 1.047 linhas</p>
+<p class="stat" style="margin-left: .5rem;">⚡ ~2.400 tokens de diff</p>
+
+<h2>Antes</h2>
+<p>
+<code>src/pages/Vendas.tsx</code> com <strong>1.117 linhas</strong> continha todo o estado, JSX e lógica
+de formulário de criação, tabela desktop+mobile, simulador de vendas, diálogo de cancelamento,
+criação de cliente inline, e cálculos de lucro/margem duplicados inline — tudo no mesmo arquivo.
+</p>
+
+<h2>Depois</h2>
+<p>
+<code>src/pages/Vendas.tsx</code> caiu para <strong>203 linhas</strong> (-82%).
+4 componentes extraídos em <code>src/components/</code>, seguindo exatamente o padrão do #6 (Entradas):
+</p>
+
+<table>
+  <tr><th>Componente</th><th>Linhas</th><th>Responsabilidade</th></tr>
+  <tr><td>SaleMetrics</td><td>27</td><td>4 MetricCards (Faturamento, Lucro, Milhas Vendidas, Margem)</td></tr>
+  <tr><td>SaleSimulator</td><td>107</td><td>FormDrawer com inputs + calcProfit/calcProfitMargin/calcROI</td></tr>
+  <tr><td>SaleTable</td><td>152</td><td>Tabela desktop + lista mobile + AlertDialog de cancelamento</td></tr>
+  <tr><td>SaleForm</td><td>332</td><td>FormDrawer criação + diálogo novo cliente + preview lucro + passageiros</td></tr>
+  <tr><td><strong>Vendas.tsx</strong></td><td><strong>203</strong></td><td>Orquestrador: data fetching, filtros, mutations</td></tr>
+</table>
+
+<h2>Benefícios</h2>
+<ul class="benefits">
+  <li>✅ <strong>-82% no page component</strong>: 1.117 → 203 linhas, mais fácil de manter</li>
+  <li>✅ <strong>DRY com metrics.ts</strong>: cálculos inline de lucro/margem substituídos por <code>calcProfit</code> / <code>calcProfitMargin</code> — mesma função reusada no form preview, submit, e simulator</li>
+  <li>✅ <strong>Componentes reusáveis</strong>: SaleForm, SaleTable, SaleMetrics, SaleSimulator podem ser usados em outras páginas se necessário</li>
+  <li>✅ <strong>Estado descentralizado</strong>: cada componente gerencia seu próprio estado (form inputs, simulador, cancel confirm), página só coordena</li>
+  <li>✅ <strong>Separação de responsabilidades</strong>: página = orquestrador, componente = UI + lógica local</li>
+  <li>✅ <strong>Padrão consistente</strong>: mesma arquitetura do #6 (Entradas → EntryForm/EntryTable/EntrySummary)</li>
+</ul>
+
+<h2>Detalhes</h2>
+<pre>
+ src/components/SaleForm.tsx      |  332 +++++++++++
+ src/components/SaleMetrics.tsx   |   27 +
+ src/components/SaleSimulator.tsx |  107 ++++
+ src/components/SaleTable.tsx     |  152 +++++
+ src/pages/Vendas.tsx             | 1179 +++++---------------------------------
+ 5 files changed, 750 insertions(+), 1047 deletions(-)
+</pre>
+
+<h2>Build</h2>
+<p><span class="badge badge-green">✅ npx tsc --noEmit — zero erros</span></p>
+</body>
+</html>
