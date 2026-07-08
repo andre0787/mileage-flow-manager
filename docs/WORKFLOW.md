@@ -39,6 +39,7 @@ Cada advisor produz análise independente → peer review anônimo → chairman 
 5. **subagent-driven-development** — subagent por tarefa com dois estágios de review
 6. **requesting-code-review** — entre tarefas, bloqueia se critical
 7. **finishing-a-development-branch** — testes verdes, merge/PR
+8. **relatório** — `/report` gera HTML com antes/depois, benefícios e consumo de tokens em `docs/reports/`
 
 ## Gatilhos
 
@@ -60,3 +61,4 @@ Features triviais podem usar Superpowers direto sem council ("let's build X" →
 | Brainstorm | Spec | `docs/superpowers/specs/` |
 | Planning | Plano | `docs/superpowers/plans/` |
 | Execução | Código + testes | `src/` + `tests/` |
+| Relatório | HTML before/after | `docs/reports/<data>-<nome>.html` |

@@ -52,6 +52,25 @@ import { formatCPF } from "@/lib/utils"
 import { MetricCard } from "../../components/MetricCard"
 ```
 
+## Relatório Pós-Implementação
+
+**Toda tarefa (feature ou manutenção) DEVE gerar um relatório HTML** com:
+- Antes/Depois: o que existia vs o que foi implementado
+- Benefícios: o que melhorou (menos código, performance, UX, etc.)
+- Consumo de tokens: estimado a partir do diff
+
+Use `/report` no final da implementação para gerar o relatório.
+Salvar em `docs/reports/<data>-<nome>.html`.
+
+## Escopo Estrito
+
+**Nunca modifique nada além do que foi pedido.** Se um arquivo precisar de
+ajuste não solicitado (lint, formatação, refactor, renomear, deletar), pergunte
+antes. "Já que estou aqui" gera diff imprevisível e quebra revisão.
+
+Exceção: correções óbvias que impedem o código de funcionar (import faltando,
+typo em variável, erro de sintaxe).
+
 ## Observações Gerais
 
 - Não adicionar dependências sem necessidade
