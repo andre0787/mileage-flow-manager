@@ -7,23 +7,20 @@
 
 ## 🎯 Meta da Sprint (COMPLETA ✅)
 
-Todos os bugs #1–#5 resolvidos, bateria verde.
+Todos os bugs #1–#5 resolvidos + docs workflow / sprint template / docs growth.
 
 ---
 
 ## ✅ Resolvidos nesta sprint
 
-- [x] **#1 — Overflow após confirmar entrada** — mutation `.single()`→`.maybeSingle()`, seletores corrigidos, waitForTimeout reduzidos, retries 0 ✅
-- [x] **#2 — Coluna Origem sem nome na aba Pontos** — já corrigido no commit `feat: clube de milhas` (`origemTypeName` faz lookup em `origemTypes` primeiro, fallback pra `programs`). Todas as 4 posições na tabela usam a função correta. ✅
-- [x] **#3 — Testar transferência com bônus manualmente** — fluxo test cria transferência 20k com 50% bônus e verifica saldos 50k/30k ✅
-- [x] **#4 — Limpeza de arquivos temporários** — fluxo test roda completo (34.6s), relatório atualizado, screenshots limpos ✅
-- [x] **#5 — Bateria pré-deploy completa** — build (4.63s) + todos os 8 testes (2.2 min) ✅
-
-### 🟡 Pendências Técnicas
-
-Nenhuma no momento.
-
-
+- [x] **#1 — Overflow após confirmar entrada** ✅
+- [x] **#2 — Coluna Origem sem nome na aba Pontos** ✅
+- [x] **#3 — Testar transferência com bônus manualmente** ✅
+- [x] **#4 — Limpeza de arquivos temporários** ✅
+- [x] **#5 — Bateria pré-deploy completa** ✅
+- [x] **Regra de branch por sprint** adicionada ao `GIT-WORKFLOW.md` ✅
+- [x] **Template `/sprint`** criado em `.pi/prompts/sprint.md` ✅
+- [x] **Docs growth avaliado** — todos < 4KB, maior tem 103 linhas. Nada precisa ser dividido. ✅
 
 ---
 
@@ -43,11 +40,12 @@ Nenhuma no momento.
 - [x] Relatório pós-implementação (CONVENTIONS.md + /report template)
 - [x] Regra de escopo estrito (não alterar além do pedido)
 - [x] Deploy: PR #27 → develop → main
+- [x] Regra de branch por sprint (GIT-WORKFLOW.md)
+- [x] Template /sprint (.pi/prompts/sprint.md)
+- [x] Docs growth avaliado (todos saudáveis)
 
 ---
 
 ## 📌 Backlog
 
 - [ ] `feat/nova-funcionalidade` com council
-- [ ] Template `/sprint` no `.pi/prompts/` para abrir AGENDA.md automaticamente
-- [ ] Avaliar se algum doc cresceu demais e precisa ser dividido
