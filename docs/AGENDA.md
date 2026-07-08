@@ -46,6 +46,24 @@ Todos os bugs #1–#5 resolvidos + docs workflow / sprint template / docs growth
 
 ---
 
-## 📌 Backlog
+## 📌 Sprint #2
 
+### 🖥️ Código
+- [x] **#6 — Entradas.tsx (1276 linhas)**: extrair EntryForm, EntryTable, EntrySummary em componentes separados (333 linhas, -74%)
+- [ ] **#7 — Vendas.tsx (1117 linhas)**: extrair SaleForm, SaleTable, SaleSimulator, SaleMetrics + usar calcProfit/calcProfitMargin/calcROI de metrics.ts (DRY)
+- [ ] **#8 — useDatabase.ts (822 linhas, 40 funções)**: quebrar em módulos por entidade (useOwners.ts, useAccounts.ts, useEntries.ts, useSales.ts, useClients.ts)
+- [ ] **#9 — strictNullChecks**: ativar gradualmente e corrigir erros
+- [ ] **#10 — Testes unitários**: adicionar vitest + testes para src/lib/metrics.ts (funções puras)
+- [ ] **#11 — Lint errors**: corrigir catch vazio (types/index.ts:116) + let→const (testes)
+- [ ] **#12 — Centralizar formatação**: formatCurrency, formatNumber, formatPercent em src/lib/utils.ts
+- [ ] **#16 — Configuracoes.tsx (751 linhas)**: extrair seções OwnerSection, ProgramSection, OrigemTypeSection, AccountSection
+
+### 🧪 Testes
+- [ ] **#13 — Helpers de teste**: centralizar criação de dados via REST API em tests/helpers.ts
+- [ ] **#14 — Incluir vitest na bateria pré-deploy
+
+### 🔧 Infra
+- [ ] **#15 — Adicionar Prettier** + .prettierrc + script format
+
+### 🎯 Extra
 - [ ] `feat/nova-funcionalidade` com council
