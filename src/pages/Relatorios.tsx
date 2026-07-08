@@ -177,11 +177,11 @@ export default function Relatorios() {
   };
 
   const metrics = useMemo(() => ({
-    totalInvested: ownerReports.reduce((sum, r) => sum + r.totalAmountInvested, 0),
-    totalRevenue: ownerReports.reduce((sum, r) => sum + r.totalRevenue, 0),
-    totalProfit: ownerReports.reduce((sum, r) => sum + r.totalProfit, 0),
-    totalStock: programReports.reduce((sum, r) => sum + r.totalStock, 0),
-  }), [ownerReports, programReports]);
+    totalInvested: filteredOwnerReports.reduce((sum, r) => sum + r.totalAmountInvested, 0),
+    totalRevenue: filteredOwnerReports.reduce((sum, r) => sum + r.totalRevenue, 0),
+    totalProfit: filteredOwnerReports.reduce((sum, r) => sum + r.totalProfit, 0),
+    totalStock: filteredProgramReports.reduce((sum, r) => sum + r.totalStock, 0),
+  }), [filteredOwnerReports, filteredProgramReports]);
 
   if (isLoading) {
     return (
