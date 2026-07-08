@@ -31,10 +31,22 @@ develop ──────────────── desenvolvimento
 feat/*, fix/*, chore/*, refactor/*, ...
 ```
 
-- Toda branch feature → PR para `develop`
+- Toda branch → PR para `develop`
 - `develop` → merge em `main` (após bateria de testes)
 - `main` → deploy automático Vercel
 - `hotfix/*` → PR direto para `main` (com bateria obrigatória)
+
+## Regra de Sprint
+
+**Cada item da sprint gera uma branch nova.** Nunca acumular múltiplos
+itens na mesma branch. Sequência:
+
+1. Criar branch a partir de `develop`
+2. Implementar o item
+3. PR → `develop` → merge
+4. Só então criar a próxima branch para o próximo item
+
+Isso garante que cada PR seja pequeno, focado, e reversível independentemente.
 
 ## Commits
 
