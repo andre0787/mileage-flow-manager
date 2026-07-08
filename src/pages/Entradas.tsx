@@ -196,7 +196,7 @@ export default function Entradas() {
 
     const id = crypto.randomUUID();
     addOrigemTypeM.mutate({
-      id, name: newOrigemType.name.trim(), accountType: "milhas",
+      id, name: newOrigemType.name.trim(), accountType: activeTab,
       color: newOrigemType.color, description: desc,
     });
 
@@ -746,7 +746,7 @@ export default function Entradas() {
                         <TableCell className="hidden md:table-cell">
                           <div className="flex items-center gap-1.5 flex-wrap">
                             <Badge variant="outline" className="gap-1">
-                              {programs.find(p => p.id === entry.origemTypeId)?.name ?? "-"}
+                              {origemTypeName(entry.origemTypeId)}
                             </Badge>
                             {entry.cartAmount && entry.cartAmount > 0 && (
                               <Badge variant="secondary" className="text-[10px] h-5 gap-1">
@@ -791,7 +791,7 @@ export default function Entradas() {
                      <div className="flex items-center justify-between">
                        <div>
                        <div className="flex items-center gap-1">
-                         <p className="font-medium">{programs.find(p => p.id === entry.origemTypeId)?.name ?? "-"}</p>
+                         <p className="font-medium">{origemTypeName(entry.origemTypeId)}</p>
                          {entry.cartAmount && entry.cartAmount > 0 && (
                            <Badge variant="secondary" className="text-[10px] h-5 gap-1">🛒 Carrinho</Badge>
                          )}

@@ -47,4 +47,14 @@ test("Novo Tipo de Origem com recorrência", async ({ page }) => {
   // 7. Verifica que a recorrência foi ativada (texto informativo + input de meses)
   await expect(page.locator('text=Recorrência ativada pelo tipo de origem selecionado')).toBeVisible({ timeout: 5000 });
   await expect(page.locator('input[placeholder="Ex: 12"]')).toBeVisible({ timeout: 3000 });
+
+  // 8. Fecha e reabre o formulário para garantir que o tipo novo ficou disponível na aba Pontos
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(300);
+  await page.getByRole("button", { name: "Nova Entrada" }).click();
+  await page.waitForTimeout(700);
+
+  const origemCombobox = page.locator("button[role='combobox']").nth(1);
+  await origemCombobox.click();
+  await expect(page.getByRole('option', { name: /Clube Mensal/i })).toBeVisible({ timeout: 5000 });
 });
