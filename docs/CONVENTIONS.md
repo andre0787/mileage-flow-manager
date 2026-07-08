@@ -52,15 +52,27 @@ import { formatCPF } from "@/lib/utils"
 import { MetricCard } from "../../components/MetricCard"
 ```
 
-## Relatório Pós-Implementação
+## Relatório Pós-Implementação — OBRIGATÓRIO
 
-**Toda tarefa (feature ou manutenção) DEVE gerar um relatório HTML** com:
-- Antes/Depois: o que existia vs o que foi implementado
-- Benefícios: o que melhorou (menos código, performance, UX, etc.)
-- Consumo de tokens: estimado a partir do diff
+**Toda tarefa (feature ou manutenção) DEVE gerar um relatório HTML antes do PR.**
+Passo final obrigatório do workflow (ver `WORKFLOW.md` etapa 8).
 
-Use `/report` no final da implementação para gerar o relatório.
-Salvar em `docs/reports/<data>-<nome>.html`.
+Use `/report` (template em `.pi/prompts/report.md`) que:
+1. Obtém o diff: `git diff $(git merge-base HEAD origin/develop)..HEAD`
+2. Extrai antes/depois, benefícios e estimativa de tokens
+3. Gera HTML em `docs/reports/<data>-<nome>.html`
+4. Versiona o relatório junto com o código
+
+### O que o relatório deve conter:
+- **Antes/Depois**: o que existia vs o que foi implementado (máx 3 linhas cada)
+- **Benefícios**: tópicos do que melhorou (menos código, performance, UX, etc.)
+- **Consumo de tokens**: estimado a partir do diff (~¾ token por linha)
+- **Badges**: tipo da branch, PR, ambiente, data
+
+### Exemplo real:
+```
+docs/reports/2026-07-07-docs-modulares-limpeza.html
+```
 
 ## Escopo Estrito
 
