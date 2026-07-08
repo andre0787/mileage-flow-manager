@@ -117,25 +117,6 @@ export function parseDescription(description?: string | null): {
   return {};
 }
 
-/** Serializa configuração de recorrência para description do tipo de origem */
-export function serializeOrigemTypeDescription(hasRecurrence: boolean): string | undefined {
-  return hasRecurrence ? JSON.stringify({ hasRecurrence: true }) : undefined;
-}
-
-/** Extrai configuração de recorrência do description do tipo de origem */
-export function parseOrigemTypeDescription(description?: string | null): {
-  hasRecurrence?: boolean
-} {
-  if (!description) return {};
-  try {
-    const parsed = JSON.parse(description);
-    // Compatível com formato antigo { recurrenceInterval, recurrenceAmount }
-    if (parsed.recurrenceInterval) parsed.hasRecurrence = true;
-    return parsed;
-  } catch {}
-  return {};
-}
-
 export interface Sale {
   id: string
   accountId?: string

@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useData } from "@/contexts/DataContext";
+import { parseOrigemTypeDescription, serializeOrigemTypeDescription } from "@/lib/origemTypes";
 import { isTransferencia } from "@/lib/utils";
 import { useAddOwnerMutation, useUpdateOwnerMutation, useDeleteOwnerMutation } from "@/hooks/useDatabase";
 import { useAddProgramMutation, useUpdateProgramMutation, useDeleteProgramMutation } from "@/hooks/useDatabase";
@@ -45,7 +46,7 @@ export default function Configuracoes() {
   const [programError, setProgramError] = useState("");
 
   // OrigemType CRUD state
-  const [newOrigemType, setNewOrigemType] = useState({ name: "", accountType: "pontos" as OrigemType["accountType"], color: "#3b82f6" });
+  const [newOrigemType, setNewOrigemType] = useState({ name: "", accountType: "pontos" as OrigemType["accountType"], color: "#3b82f6", hasRecurrence: false });
   const [editingOrigemType, setEditingOrigemType] = useState<OrigemType | null>(null);
   const [isOrigemTypeDialogOpen, setIsOrigemTypeDialogOpen] = useState(false);
   const [origemTypeError, setOrigemTypeError] = useState("");
@@ -127,7 +128,7 @@ export default function Configuracoes() {
   };
 
   const resetOrigemTypeDialog = () => {
-    setNewOrigemType({ name: "", accountType: "pontos", color: "#3b82f6" });
+    setNewOrigemType({ name: "", accountType: "pontos", color: "#3b82f6", hasRecurrence: false });
     setEditingOrigemType(null);
     setOrigemTypeError("");
     setIsOrigemTypeDialogOpen(false);
@@ -138,17 +139,29 @@ export default function Configuracoes() {
       setOrigemTypeError("Nome é obrigatório");
       return;
     }
+    const description = serializeOrigemTypeDescription(newOrigemType.hasRecurrence);
+    const payload = {
+      name: newOrigemType.name,
+      accountType: newOrigemType.accountType,
+      color: newOrigemType.color,
+      description,
+    };
     if (editingOrigemType) {
-      updateOrigemTypeM.mutate({ id: editingOrigemType.id, ...newOrigemType });
+      updateOrigemTypeM.mutate({ id: editingOrigemType.id, ...payload });
     } else {
-      addOrigemTypeM.mutate({ id: crypto.randomUUID(), ...newOrigemType });
+      addOrigemTypeM.mutate({ id: crypto.randomUUID(), ...payload });
     }
     resetOrigemTypeDialog();
   };
 
   const handleEditOrigemType = (ot: OrigemType) => {
     setEditingOrigemType(ot);
-    setNewOrigemType({ name: ot.name, accountType: ot.accountType, color: ot.color });
+    setNewOrigemType({
+      name: ot.name,
+      accountType: ot.accountType,
+      color: ot.color,
+      hasRecurrence: parseOrigemTypeDescription(ot.description).hasRecurrence,
+    });
     setIsOrigemTypeDialogOpen(true);
   };
 
@@ -544,7 +557,7 @@ export default function Configuracoes() {
               else { setNewOrigemType(prev => ({ ...prev, accountType: "milhas" })); setIsOrigemTypeDialogOpen(true); }
             }}>
               <DialogTrigger asChild>
-                <Button className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto" onClick={() => setNewOrigemType({ name: "", accountType: "milhas", color: "#10b981" })}>
+                <Button className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto" onClick={() => setNewOrigemType({ name: "", accountType: "milhas", color: "#10b981", hasRecurrence: false })}>
                   <Plus className="h-4 w-4" />
                   Nova Operação
                 </Button>
@@ -565,6 +578,21 @@ export default function Configuracoes() {
                       <Input id="otColorMilhas" type="color" value={newOrigemType.color} onChange={(e) => setNewOrigemType({ ...newOrigemType, color: e.target.value })} className="w-12 h-10 p-1" />
                       <span className="text-sm text-muted-foreground">{newOrigemType.color}</span>
                     </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="otRecurrenceMilhas">Recorrência</Label>
+                    <Select
+                      value={newOrigemType.hasRecurrence ? "sim" : "nao"}
+                      onValueChange={(value) => setNewOrigemType({ ...newOrigemType, hasRecurrence: value === "sim" })}
+                    >
+                      <SelectTrigger id="otRecurrenceMilhas">
+                        <SelectValue placeholder="Selecione" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="nao">Não recorrente</SelectItem>
+                        <SelectItem value="sim">Recorrente mensal</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
                 <div className="flex justify-end gap-2">
@@ -591,6 +619,7 @@ export default function Configuracoes() {
                   <TableRow>
                     <TableHead className="hidden md:table-cell">Nome</TableHead>
                     <TableHead className="hidden md:table-cell">Cor</TableHead>
+                    <TableHead className="hidden md:table-cell">Recorrência</TableHead>
                     <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -604,9 +633,14 @@ export default function Configuracoes() {
                           <span className="text-xs font-mono">{ot.color}</span>
                         </div>
                       </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        <Badge variant={parseOrigemTypeDescription(ot.description).hasRecurrence ? "default" : "secondary"}>
+                          {parseOrigemTypeDescription(ot.description).hasRecurrence ? "Mensal" : "Avulsa"}
+                        </Badge>
+                      </TableCell>
                       <TableCell className="hidden md:table-cell text-right">
                         <div className="flex justify-end gap-2">
-                          <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => { setNewOrigemType({ name: ot.name, accountType: "milhas", color: ot.color }); setEditingOrigemType(ot); setIsOrigemTypeDialogOpen(true); }}>
+                          <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => handleEditOrigemType(ot)}>
                             <Edit className="h-4 w-4" />
                           </Button>
                           <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive" onClick={() => deleteOrigemTypeM.mutate(ot.id)}>
@@ -630,8 +664,11 @@ export default function Configuracoes() {
                         <span className="text-xs font-mono text-muted-foreground">{ot.color}</span>
                       </div>
                     </div>
+                    <Badge variant={parseOrigemTypeDescription(ot.description).hasRecurrence ? "default" : "secondary"} className="w-fit">
+                      {parseOrigemTypeDescription(ot.description).hasRecurrence ? "Recorrente mensal" : "Avulsa"}
+                    </Badge>
                     <div className="flex gap-2 pt-1 border-t">
-                      <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px]" onClick={() => { setNewOrigemType({ name: ot.name, accountType: "milhas", color: ot.color }); setEditingOrigemType(ot); setIsOrigemTypeDialogOpen(true); }}>
+                      <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px]" onClick={() => handleEditOrigemType(ot)}>
                         <Edit className="h-4 w-4" /> Editar
                       </Button>
                       <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive" onClick={() => deleteOrigemTypeM.mutate(ot.id)}>

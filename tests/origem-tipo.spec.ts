@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 const TEST_PASSWORD = "Test@123456";
 const email = `test_origem_${Date.now()}@teste.com`;
 
-test("Novo Tipo de Origem com recorrência", async ({ page }) => {
+test("Tipos de origem marcam recorrência corretamente", async ({ page }) => {
   test.setTimeout(60000);
 
   // 1. Registrar
@@ -57,4 +57,25 @@ test("Novo Tipo de Origem com recorrência", async ({ page }) => {
   const origemCombobox = page.locator("button[role='combobox']").nth(1);
   await origemCombobox.click();
   await expect(page.getByRole('option', { name: /Clube Mensal/i })).toBeVisible({ timeout: 5000 });
+  await page.keyboard.press('Escape');
+
+  // 9. Cria um tipo avulso e valida que não ativa recorrência
+  await page.locator("button:has(svg.lucide-plus)").last().click();
+  await expect(page.getByText("Novo Tipo de Origem")).toBeVisible({ timeout: 5000 });
+  await page.locator('input[placeholder="Ex: Cashback"]').fill("Compra Avulsa");
+  await page.getByRole("button", { name: "Cadastrar" }).click();
+  await page.waitForTimeout(1500);
+
+  await expect(page.locator('text=Recorrência ativada pelo tipo de origem selecionado')).not.toBeVisible();
+  await expect(page.locator('input[placeholder="Ex: 12"]')).not.toBeVisible();
+
+  // 10. Configurações também exige marcação explícita e persiste como avulsa
+  await page.keyboard.press('Escape');
+  await page.goto('/configuracoes', { waitUntil: 'domcontentloaded' });
+  await page.getByRole('tab', { name: /tipo de operação/i }).click();
+  await page.getByRole('button', { name: /nova operação/i }).click();
+  await page.fill('#otNameMilhas', 'Operação Avulsa Config');
+  await page.getByRole('button', { name: 'Cadastrar' }).click();
+  await expect(page.getByText('Operação Avulsa Config').first()).toBeVisible({ timeout: 5000 });
+  await expect(page.getByText('Avulsa').first()).toBeVisible({ timeout: 5000 });
 });

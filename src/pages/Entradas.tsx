@@ -18,10 +18,10 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
 import { calcMilesGenerated, calcCostPerThousand, calcCostPerMile } from "@/lib/metrics";
+import { buildMonthlyRecurrence, parseOrigemTypeDescription, serializeOrigemTypeDescription } from "@/lib/origemTypes";
 import { useAddEntryMutation, useUpdateEntryMutation, useAddOrigemTypeMutation, useConfirmEntryMutation } from "@/hooks/useDatabase";
 import { DeleteEntryDialog } from "@/components/DeleteEntryDialog";
 import type { Program, OrigemType, PointEntry } from "@/types";
-import { serializeOrigemTypeDescription, parseOrigemTypeDescription } from "@/types";
 
 export default function Entradas() {
   const { entries, accounts, owners, programs, origemTypes, sales, isLoading } = useData();
@@ -175,8 +175,7 @@ export default function Entradas() {
         bonusPercent: isTransfer ? parseFloat(newEntry.bonusPercent || "0") : undefined,
         cartAmount: isTransfer && cartAmount > 0 ? cartAmount : undefined,
         cartCost: isTransfer && cartCost > 0 ? cartCost : undefined,
-        recurrenceInterval: newEntry.isClube ? 30 : undefined,
-        recurrenceEnd: newEntry.isClube && newEntry.clubeMeses ? new Date(new Date().getTime() + parseInt(newEntry.clubeMeses) * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] : undefined,
+        ...buildMonthlyRecurrence(newEntry.isClube, newEntry.clubeMeses),
       },
     });
 
@@ -261,8 +260,7 @@ export default function Entradas() {
         bonusPercent: isTransfer ? parseFloat(newEntry.bonusPercent || "0") : undefined,
         cartAmount: isTransfer && cartAmount > 0 ? cartAmount : undefined,
         cartCost: isTransfer && cartCost > 0 ? cartCost : undefined,
-        recurrenceInterval: newEntry.isClube ? 30 : undefined,
-        recurrenceEnd: newEntry.isClube && newEntry.clubeMeses ? new Date(new Date().getTime() + parseInt(newEntry.clubeMeses) * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] : undefined,
+        ...buildMonthlyRecurrence(newEntry.isClube, newEntry.clubeMeses),
         date: new Date().toISOString().split('T')[0],
       },
       {
