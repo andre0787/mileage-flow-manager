@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relatório — fix/origem-column (bug #2)</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; }
+  h1 { border-bottom: 2px solid #5B72C4; padding-bottom: .5rem; }
+  .stat { display: inline-block; background: #f0f4ff; padding: .25rem .75rem; border-radius: 6px; font-size: .875rem; }
+  pre { background: #f5f5f5; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: .875rem; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: .75rem; font-weight: 600; }
+  .badge-red { background: #f8d7da; color: #721c24; }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-blue { background: #cce5ff; color: #004085; }
+</style>
+</head>
+<body>
+<h1>📋 Relatório: fix/origem-column — Bug #2</h1>
+<p class="stat">📁 1 arquivo · ➕ 7 linhas · ➖ 11 linhas</p>
+<p class="stat" style="margin-left: .5rem;">⚡ ~52 tokens</p>
+<p>
+  <span class="badge badge-red">fix/origem-column</span>
+  <span class="badge badge-green">PR #29</span>
+  <span class="badge badge-blue">2026-07-08</span>
+</p>
+
+<h2>Antes</h2>
+<p>Bug #2 listado como pendente no AGENDA: "Coluna Origem sem nome na aba Pontos". Descrição descrevia código antigo com <code>programs.find(...origemTypeId)</code>, mas o fix já havia sido aplicado em commit anterior (<code>feat: clube de milhas</code>).</p>
+
+<h2>Depois</h2>
+<p>Bug #2 verificado como já corrigido — função <code>origemTypeName</code> faz lookup em <code>origemTypes</code> primeiro com fallback para <code>programs</code>. AGENDA atualizado marcando como resolvido.</p>
+
+<h2>Benefícios</h2>
+<ul>
+  <li>✅ AGENDA reflete estado real do código</li>
+  <li>✅ Sprint board limpo sem pendências fantasmas</li>
+  <li>✅ Documentação investigativa: git bisect confirmou o commit do fix</li>
+</ul>
+
+<h2>Detalhes</h2>
+<pre>
+ docs/AGENDA.md | 18 +++++++-----------
+ 1 file changed, 7 insertions(+), 11 deletions(-)
+</pre>
+</body>
+</html>
