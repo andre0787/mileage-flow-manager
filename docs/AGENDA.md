@@ -7,19 +7,11 @@
 
 ## 🎯 Meta da Sprint
 
-Limpeza de arquivos residuais na raiz + fechar pendências técnicas.
+Corrigir bugs #1 e #2, limpeza de temporários e bateria pré-deploy.
 
 ---
 
 ## 🔄 Em Andamento
-
-### 🔴 Prioridade Máxima — Limpeza de Arquivos
-
-- [ ] **Deletar `entradas-transferir.png`** — screenshot de debug, 80KB, não versionado
-- [ ] **Deletar `entradas-page.txt`** — dump de HTML, 5,8KB, não versionado
-- [ ] **Deletar `bun.lockb`** — lockfile do Bun (projeto usa npm), 198KB, não versionado
-- [ ] **Verificar `.playwright-mcp/`** — diretório auto-gerado, ver se algo depende
-- [ ] **Adicionar `*.md` e `*.png` residuais no `.gitignore`** se necessário
 
 ### 🟡 Pendências Técnicas
 
@@ -27,12 +19,6 @@ Limpeza de arquivos residuais na raiz + fechar pendências técnicas.
   Teste de fluxo morre com "Target page closed" após clicar em Confirmar.
   Suspeita: mutation chamado corretamente mas `calcAccountUpdate` ou RLS
   pode causar erro silencioso que derruba o React.
-  - Verificar se `entry.accountId` é válido para entradas futuras (Clube)
-  - Testar mutation manualmente via console do navegador
-
----
-
-## ⏳ Próximas
 
 - [ ] **#2 — Coluna Origem sem nome na aba Pontos**
   Tabela usa `programs.find(p => p.id === entry.origemTypeId)?.name ?? "-"`
@@ -49,15 +35,16 @@ Limpeza de arquivos residuais na raiz + fechar pendências técnicas.
   - `tests/fluxo-relatorio.md` — atualizar com resultados da próxima execução
 
 - [ ] **#5 — Bateria pré-deploy completa**
-  - `npm run build` ✅ (passa)
-  - `npx playwright test tests/entradas.spec.ts tests/origem-tipo.spec.ts` ✅ (passam)
-  - `npx playwright test tests/responsivo.spec.ts` — verificar timeout
-  - `npx playwright test tests/carrinho.spec.ts tests/clube.spec.ts` — verificar se passam
+  - `npm run build`
+  - `npx playwright test tests/entradas.spec.ts tests/origem-tipo.spec.ts`
+  - `npx playwright test tests/responsivo.spec.ts`
+  - `npx playwright test tests/carrinho.spec.ts tests/clube.spec.ts`
+
+
 
 ---
 
 ## ✅ Finalizados (sprint atual)
-
 - [x] `SPRINT_NEXT.md` deletado (conteúdo migrado pra AGENDA.md)
 - [x] `progress.md` movido para `docs/`
 - [x] `task_plan.md` movido para `docs/`
@@ -67,6 +54,12 @@ Limpeza de arquivos residuais na raiz + fechar pendências técnicas.
 - [x] AGENDA.md — sprint board
 - [x] Convenção de branches: inglês + kebab-case + prefixos padronizados
 - [x] Workflow council-to-superpowers documentado e instalado
+- [x] Deletar `entradas-transferir.png`, `entradas-page.txt`, `bun.lockb`
+- [x] Verificar e limpar `.playwright-mcp/`
+- [x] Adicionar artifacts de debug ao `.gitignore` (test-results, screenshots, .playwright-mcp)
+- [x] Relatório pós-implementação (CONVENTIONS.md + /report template)
+- [x] Regra de escopo estrito (não alterar além do pedido)
+- [x] Deploy: PR #27 → develop → main
 
 ---
 
