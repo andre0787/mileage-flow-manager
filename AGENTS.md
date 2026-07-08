@@ -11,6 +11,7 @@
 | Convenções de código | `docs/CONVENTIONS.md` |
 | Design system & UI | `docs/UI-GUIDE.md` |
 | Workflow obrigatório | `docs/WORKFLOW.md` |
+| Sprint & tarefas | `docs/AGENDA.md` |
 | Git & deploy | `docs/GIT-WORKFLOW.md` |
 | Testes | `docs/TESTING.md` |
 | Mapa completo | `docs/MAP.md` |
@@ -26,6 +27,6 @@
 
 ## Começando
 
-Sempre leia `docs/WORKFLOW.md` + `docs/ARCHITECTURE.md` + `docs/CONVENTIONS.md` antes de codificar.
+Sempre leia `docs/AGENDA.md` + `docs/WORKFLOW.md` + `docs/ARCHITECTURE.md` + `docs/CONVENTIONS.md` antes de codificar.
 
 Para contexto de sessões anteriores, veja `MEMORY.md`.

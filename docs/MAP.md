@@ -16,6 +16,7 @@
 | Arquivo | Quando ler | O que contém |
 |---------|-----------|--------------|
 | `WORKFLOW.md` | Antes de iniciar qualquer feature | Workflow council-to-superpowers + LLM Council |
+| `AGENDA.md` | Início de toda sessão | Sprint atual, tarefas em andamento, próximas, backlog |
 | `GIT-WORKFLOW.md` | Antes de commitar/criar PR | Branches, commits, PR, deploy |
 | `TESTING.md` | Antes de rodar testes | Playwright, bateria obrigatória, helpers |
 
@@ -28,4 +29,4 @@
 
 ## Regra de Ouro
 
-**Sempre leia `WORKFLOW.md` + `ARCHITECTURE.md` + `CONVENTIONS.md` antes de começar qualquer tarefa.**
+**Sempre leia `AGENDA.md` + `WORKFLOW.md` + `ARCHITECTURE.md` + `CONVENTIONS.md` antes de começar qualquer tarefa.**
