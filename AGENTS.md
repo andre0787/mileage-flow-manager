@@ -24,6 +24,7 @@
 4. **Bateria pré-deploy**: build + testes E2E — veja `docs/TESTING.md`
 5. **Ponytail mode**: stdlib/nativo primeiro, sem abstrações especulativas
 6. **Interface**: português (pt-BR)
+7. **🔴 Relatório HTML obrigatório antes do PR**: toda branch que altera código OU docs DEVE gerar `docs/reports/<data>-<nome>.html` antes do PR. Template: `/report`. Hook de pre-push bloqueia se esquecer.
 
 ## Começando
 
