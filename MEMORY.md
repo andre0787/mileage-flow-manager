@@ -130,6 +130,9 @@ src/
 
 ## Git Workflow
 
+### Nomenclatura de branches
+`fix/descricao`, `feat/descricao`, `refactor/descricao` — prefixo + slash, sempre.
+
 ```
 main ───── produção (Vercel)
   ↑
