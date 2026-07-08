@@ -58,11 +58,11 @@ test.describe("Transferência com Compra no Carrinho", () => {
           transferId = data[0].id;
         } else {
           transferId = crypto.randomUUID();
-          await post('origem_types', { id: transferId, name: 'Transferência', account_type: 'milhas', color: '#8b5cf6' });
+          await post('origem_types', { id: transferId, name: 'Transferência', account_type: 'milhas', color: '#8b5cf6', description: JSON.stringify({ hasRecurrence: false }) });
         }
       } else {
         transferId = crypto.randomUUID();
-        await post('origem_types', { id: transferId, name: 'Transferência', account_type: 'milhas', color: '#8b5cf6' });
+        await post('origem_types', { id: transferId, name: 'Transferência', account_type: 'milhas', color: '#8b5cf6', description: JSON.stringify({ hasRecurrence: false }) });
       }
 
       const ownerId = crypto.randomUUID();

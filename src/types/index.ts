@@ -34,6 +34,7 @@ export interface OrigemType {
   name: string
   accountType: 'pontos' | 'milhas'
   color: string
+  description?: string
 }
 
 export interface Account {
@@ -48,6 +49,8 @@ export interface Account {
   status: 'ativa' | 'inativa'
   createdAt: string
 }
+
+export type EntryStatus = 'confirmada' | 'aguardando'
 
 export interface PointEntry {
   id: string
@@ -65,26 +68,51 @@ export interface PointEntry {
   cartAmount?: number
   /** Valor total pago pelos pontos extras do carrinho */
   cartCost?: number
+  /** Status da entrada: confirmada (padrão) ou aguardando (gerada por recorrência) */
+  entryStatus?: EntryStatus
+  /** ID da entrada pai (para entradas geradas por recorrência) */
+  parentEntryId?: string
+  /** Intervalo em dias entre recorrências */
+  recurrenceInterval?: number
+  /** Data final da recorrência */
+  recurrenceEnd?: string
   date: string
   description?: string
 }
 
-/** Serializa cartAmount/cartCost para o campo description como JSON */
-export function serializeCart(cartAmount?: number, cartCost?: number): string | undefined {
-  if (cartAmount && cartAmount > 0) {
-    return JSON.stringify({ cartAmount, cartCost });
+/** Serializa cart e clube fields para description como JSON */
+export function serializeDescription(opts: {
+  cartAmount?: number
+  cartCost?: number
+  entryStatus?: EntryStatus
+  parentEntryId?: string
+  recurrenceInterval?: number
+  recurrenceEnd?: string
+}): string | undefined {
+  const obj: Record<string, unknown> = {};
+  if (opts.cartAmount && opts.cartAmount > 0) {
+    obj.cartAmount = opts.cartAmount;
+    obj.cartCost = opts.cartCost;
   }
-  return undefined;
+  if (opts.entryStatus && opts.entryStatus !== 'confirmada') obj.entryStatus = opts.entryStatus;
+  if (opts.parentEntryId) obj.parentEntryId = opts.parentEntryId;
+  if (opts.recurrenceInterval) obj.recurrenceInterval = opts.recurrenceInterval;
+  if (opts.recurrenceEnd) obj.recurrenceEnd = opts.recurrenceEnd;
+  return Object.keys(obj).length > 0 ? JSON.stringify(obj) : undefined;
 }
 
-/** Extrai cartAmount/cartCost do campo description (JSON) */
-export function parseCart(description?: string | null): { cartAmount?: number; cartCost?: number } {
+/** Extrai todos os campos do description (JSON) */
+export function parseDescription(description?: string | null): {
+  cartAmount?: number
+  cartCost?: number
+  entryStatus?: EntryStatus
+  parentEntryId?: string
+  recurrenceInterval?: number
+  recurrenceEnd?: string
+} {
   if (!description) return {};
   try {
-    const parsed = JSON.parse(description);
-    if (typeof parsed.cartAmount === 'number') {
-      return { cartAmount: parsed.cartAmount, cartCost: parsed.cartCost };
-    }
+    return JSON.parse(description);
   } catch {}
   return {};
 }

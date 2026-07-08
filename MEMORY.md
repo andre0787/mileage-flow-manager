@@ -267,9 +267,11 @@ alert-dialog, badge, button, card, dialog, drawer, input, label, progress, selec
 
 ---
 
-## Regras de Negócio
-
-### Vendas
+## Convenção de Recorrência (estabelecida Ago 2026)
+- **Todo `origem_type`** deve ter `description` com `hasRecurrence: true` ou `hasRecurrence: false` (nunca `undefined`).
+- **Cálculo de `recurrenceEnd` e `recurrenceInterval`**: centralizado em `buildMonthlyRecurrence()` em `src/lib/origemTypes.ts`.
+- **Helpers**: `serializeOrigemTypeDescription`, `parseOrigemTypeDescription`, `buildMonthlyRecurrence` — todas em `src/lib/origemTypes.ts`.
+- **UI**: Configurações tem select `s tem select `<Select>` "Avulsa" / "Recorrente mensal" ao criar/editar tipo.\n- **Backfill**: migration `20260705010000` preenche `hasRecurrence` em tipos existentes.\n- **Testes**: `tests/origem-tipo.spec.ts` cobre criação recorrente + avulsa + persistência.\n\n## Regras de Negócio\n\n### Vendas"}]
 - Status: `pendente` → `pago` → `concluído` | `cancelado`
 - **Cancelamento**: restaura saldo e `totalInvested` da conta, excluído de métricas financeiras
 - **Proportional cost**: ao criar venda, deduz `totalInvested` proporcionalmente via `calcProportionalCost` + `calcAccountUpdate`
@@ -453,6 +455,12 @@ set -g extended-keys-format csi-u
 - `Login.tsx`: link "Esqueceu a senha?" no form de login
 - Rotas: `/forgot-password` e `/reset-password`
 - **Importante**: configurar redirect URLs no Supabase Dashboard
+
+### Caveman (Ago 2026)
+Instalado via `npm i -g @juliusbrussee/caveman`.
+- **Skill**: comunicação concisa (economiza tokens).
+- **Ativação**: `/skill:caveman` ou modo padrão se configurado.
+- **Efeito**: respostas diretas, sem prosa, sem desculpas.
 
 ### Skills Instaladas (Jul 2026)
 **Skills instaladas**: 95 (16 Anthropic + 67 design + 6 planning + 6 ponytail)

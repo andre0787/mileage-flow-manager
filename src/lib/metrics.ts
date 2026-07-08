@@ -129,6 +129,7 @@ interface MetricSale {
 interface MetricEntry {
   date: string
   amount: number
+  entryStatus?: string
 }
 
 interface MetricOwner {
@@ -161,6 +162,7 @@ export function computeDashboardMetrics(
   owners: MetricOwner[],
   maxCpfPerOwner = 22,
 ): DashboardMetrics {
+  const confirmedEntries = entrs.filter(e => e.entryStatus !== 'aguardando');
   const activeSales = filterActiveSales(sls);
   const totalMiles = accts.reduce((sum, a) => sum + a.balance, 0);
   const totalInvested = accts.reduce((sum, a) => sum + (a.totalInvested ?? 0), 0);
@@ -180,7 +182,7 @@ export function computeDashboardMetrics(
   const avgProfitMargin = calcProfitMargin(totalProfit, totalRevenue);
   const avgCostPerMile = calcAverageCostPerMile(totalInvested, totalMiles);
 
-  const monthlyEntries = entrs.filter(e => {
+  const monthlyEntries = confirmedEntries.filter(e => {
     const d = new Date(e.date);
     return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
   });

@@ -24,6 +24,7 @@ interface StockInfo {
   ownerId: string;
   ownerName: string;
   accountName: string;
+  programId: string;
   program: string;
   availableMiles: number;
   averageCostPerMile: number;
@@ -58,6 +59,7 @@ export default function Vendas() {
         ownerId: a.ownerId,
         ownerName: owners.find(o => o.id === a.ownerId)?.name ?? "",
         accountName: a.name,
+        programId: a.programId,
         program: programs.find(p => p.id === a.programId)?.name ?? "",
         availableMiles: a.balance,
         averageCostPerMile: a.averageCostPerMile ?? 0
@@ -73,6 +75,7 @@ export default function Vendas() {
 
   const [newSale, setNewSale] = useState({
     ownerName: "",
+    accountId: "",
     accountName: "",
     program: "",
     clientId: "",
@@ -121,11 +124,9 @@ export default function Vendas() {
 
   const ownersList = [...new Set(stockInfo.map(s => s.ownerName))];
   const selectedOwnerStock = stockInfo.filter(s => s.ownerName === newSale.ownerName);
-  const selectedProgramStock = stockInfo.find(s => 
-    s.ownerName === newSale.ownerName && s.program === newSale.program
-  );
+  const selectedProgramStock = stockInfo.find((s) => s.accountId === newSale.accountId);
 
-  const programConfig = programs.find(p => p.name === newSale.program);
+  const programConfig = programs.find((p) => p.id === selectedProgramStock?.programId);
 
   const usedPassengersInCycle = useMemo(() => {
     if (!programConfig?.passengerCycleType || !programConfig?.maxPassengers) return 0;
@@ -176,7 +177,7 @@ export default function Vendas() {
   };
 
   const handleCreateSale = () => {
-    if (newSale.ownerName && newSale.program && newSale.clientId && newSale.milesUsed && newSale.saleValue) {
+    if (newSale.ownerName && newSale.accountId && newSale.program && newSale.clientId && newSale.milesUsed && newSale.saleValue) {
       const milesUsed = parseFloat(newSale.milesUsed);
       const saleValue = parseFloat(newSale.saleValue);
       const additionalCost = parseFloat(newSale.additionalCost || "0");
@@ -186,6 +187,7 @@ export default function Vendas() {
 
       addSaleM.mutate(
         { id: crypto.randomUUID(),
+        accountId: newSale.accountId,
         ownerName: newSale.ownerName,
         accountName: newSale.accountName,
         program: newSale.program,
@@ -223,6 +225,7 @@ export default function Vendas() {
 
       setNewSale({
         ownerName: "",
+        accountId: "",
         accountName: "",
         program: "",
         clientId: "",
@@ -366,7 +369,7 @@ export default function Vendas() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="owner">Dono da Conta</Label>
-                  <Select value={newSale.ownerName} onValueChange={(value) => setNewSale({...newSale, ownerName: value, program: ""})}>
+                  <Select value={newSale.ownerName} onValueChange={(value) => setNewSale({...newSale, ownerName: value, accountId: "", accountName: "", program: ""})}>
                     <SelectTrigger>
                       <SelectValue placeholder="Selecione o dono" />
                     </SelectTrigger>
@@ -379,19 +382,27 @@ export default function Vendas() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="program">Programa</Label>
+                  <Label htmlFor="program">Conta / Programa</Label>
                   <Select 
-                    value={newSale.program} 
-                    onValueChange={(value) => setNewSale({...newSale, program: value})}
+                    value={newSale.accountId} 
+                    onValueChange={(value) => {
+                      const stock = selectedOwnerStock.find((item) => item.accountId === value);
+                      setNewSale({
+                        ...newSale,
+                        accountId: value,
+                        accountName: stock?.accountName ?? "",
+                        program: stock?.program ?? "",
+                      });
+                    }}
                     disabled={!newSale.ownerName}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Selecione o programa" />
+                      <SelectValue placeholder="Selecione a conta" />
                     </SelectTrigger>
                     <SelectContent>
                       {selectedOwnerStock.map((stock) => (
-                        <SelectItem key={stock.program} value={stock.program}>
-                          {stock.program} ({stock.availableMiles.toLocaleString('pt-BR')} milhas)
+                        <SelectItem key={stock.accountId} value={stock.accountId}>
+                          {stock.program} — {stock.accountName} ({stock.availableMiles.toLocaleString('pt-BR')} milhas)
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -665,7 +676,7 @@ export default function Vendas() {
                <Button 
                  onClick={handleCreateSale} 
                  className="bg-gradient-primary hover:opacity-90"
-                 disabled={!newSale.ownerName || !newSale.program || !newSale.clientId || !newSale.milesUsed || !newSale.saleValue || !selectedProgramStock || parseFloat(newSale.milesUsed) > selectedProgramStock.availableMiles || (programConfig?.maxPassengers && usedPassengersInCycle + newSale.passengers.filter(p => p.name.trim()).length > programConfig.maxPassengers)}
+                 disabled={!newSale.ownerName || !newSale.accountId || !newSale.program || !newSale.clientId || !newSale.milesUsed || !newSale.saleValue || !selectedProgramStock || parseFloat(newSale.milesUsed) > selectedProgramStock.availableMiles || (programConfig?.maxPassengers && usedPassengersInCycle + newSale.passengers.filter(p => p.name.trim()).length > programConfig.maxPassengers)}
                >
                  Registrar Venda
                </Button>

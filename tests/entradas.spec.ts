@@ -65,7 +65,7 @@ test.describe("Edição de Entradas", () => {
       // Cria origem_type (FK alternativo para entries)
       const otRes = await fetch(`${url}/rest/v1/origem_types`, {
         method: 'POST', headers,
-        body: JSON.stringify({ id: otId, user_id: userId, name: 'Programa Teste', account_type: 'milhas', color: '#10b981' }),
+        body: JSON.stringify({ id: otId, user_id: userId, name: 'Programa Teste', account_type: 'milhas', color: '#10b981', description: '{"hasRecurrence":false}' }),
       });
       if (!otRes.ok) throw new Error('Falha ao criar origem_type: ' + await otRes.text());
 
