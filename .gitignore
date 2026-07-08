@@ -46,3 +46,13 @@ entradas-transferir.png
 .vercel
 .env*
 
+
+# Debug artifacts
+entradas-transferir.png
+entradas-page.txt
+bun.lockb
+.playwright-mcp/
+
+# Playwright artifacts
+test-results/
+tests/screenshots/
