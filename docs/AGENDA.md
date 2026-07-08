@@ -7,57 +7,31 @@
 
 ## 🎯 Meta da Sprint
 
-Limpeza de arquivos residuais na raiz + fechar pendências técnicas.
+Corrigir bugs #1 e #2, limpeza de temporários e bateria pré-deploy.
 
 ---
 
 ## 🔄 Em Andamento
 
-### 🔴 Prioridade Máxima — Limpeza de Arquivos
+### ✅ Resolvidos nesta sprint
 
-- [ ] **Deletar `entradas-transferir.png`** — screenshot de debug, 80KB, não versionado
-- [ ] **Deletar `entradas-page.txt`** — dump de HTML, 5,8KB, não versionado
-- [ ] **Deletar `bun.lockb`** — lockfile do Bun (projeto usa npm), 198KB, não versionado
-- [ ] **Verificar `.playwright-mcp/`** — diretório auto-gerado, ver se algo depende
-- [ ] **Adicionar `*.md` e `*.png` residuais no `.gitignore`** se necessário
+- [x] **#1 — Overflow após confirmar entrada** (FIX: mutation `.single()`→`.maybeSingle()`, parseDescription, onError; fluxo test: regex waitForURL, seletores #name/#pricePerMile, combobox venda, waitForTimeout reduzidos, retries 0)
+- [x] **#3 — Testar transferência com bônus manualmente** — fluxo test cria transferência 20k com 50% bônus e verifica saldos 50k/30k ✅
+- [x] **#4 — Limpeza de arquivos temporários** — fluxo test roda completo (34.6s), relatório atualizado, screenshots limpos
+- [x] **#5 — Bateria pré-deploy completa** — build (4.63s) + todos os 8 testes (2.2 min) ✅
 
 ### 🟡 Pendências Técnicas
-
-- [ ] **#1 — Overflow após confirmar entrada**
-  Teste de fluxo morre com "Target page closed" após clicar em Confirmar.
-  Suspeita: mutation chamado corretamente mas `calcAccountUpdate` ou RLS
-  pode causar erro silencioso que derruba o React.
-  - Verificar se `entry.accountId` é válido para entradas futuras (Clube)
-  - Testar mutation manualmente via console do navegador
-
----
-
-## ⏳ Próximas
 
 - [ ] **#2 — Coluna Origem sem nome na aba Pontos**
   Tabela usa `programs.find(p => p.id === entry.origemTypeId)?.name ?? "-"`
   mas `entry.origemTypeId` referencia `origem_types`, não `programs`.
   Correção: usar função de lookup correta.
 
-- [ ] **#3 — Testar transferência com bônus manualmente**
-  Criar transferência de 20.000 pts entre contas com 50% bônus.
-  Verificar: 30.000 na conta destino, 40.000 na origem, custo médio atualizado.
 
-- [ ] **#4 — Limpeza de arquivos temporários**
-  - `tests/fluxo-completo.spec.ts` — testar se roda até o fim após corrigir item 1
-  - Screenshots de debug em `tests/screenshots/` — limpar se não forem mais necessários
-  - `tests/fluxo-relatorio.md` — atualizar com resultados da próxima execução
-
-- [ ] **#5 — Bateria pré-deploy completa**
-  - `npm run build` ✅ (passa)
-  - `npx playwright test tests/entradas.spec.ts tests/origem-tipo.spec.ts` ✅ (passam)
-  - `npx playwright test tests/responsivo.spec.ts` — verificar timeout
-  - `npx playwright test tests/carrinho.spec.ts tests/clube.spec.ts` — verificar se passam
 
 ---
 
 ## ✅ Finalizados (sprint atual)
-
 - [x] `SPRINT_NEXT.md` deletado (conteúdo migrado pra AGENDA.md)
 - [x] `progress.md` movido para `docs/`
 - [x] `task_plan.md` movido para `docs/`
@@ -67,6 +41,12 @@ Limpeza de arquivos residuais na raiz + fechar pendências técnicas.
 - [x] AGENDA.md — sprint board
 - [x] Convenção de branches: inglês + kebab-case + prefixos padronizados
 - [x] Workflow council-to-superpowers documentado e instalado
+- [x] Deletar `entradas-transferir.png`, `entradas-page.txt`, `bun.lockb`
+- [x] Verificar e limpar `.playwright-mcp/`
+- [x] Adicionar artifacts de debug ao `.gitignore` (test-results, screenshots, .playwright-mcp)
+- [x] Relatório pós-implementação (CONVENTIONS.md + /report template)
+- [x] Regra de escopo estrito (não alterar além do pedido)
+- [x] Deploy: PR #27 → develop → main
 
 ---
 

@@ -456,27 +456,44 @@ export function useConfirmEntryMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (entry: PointEntry) => {
-      // 1. Update entry status to confirmada
+      // 1. Read current description, remove entryStatus to confirm
+      const currentDesc = parseDescription(entry.description);
       const newDesc = serializeDescription({
-        cartAmount: entry.cartAmount,
-        cartCost: entry.cartCost,
-        recurrenceInterval: entry.recurrenceInterval,
-        recurrenceEnd: entry.recurrenceEnd,
+        cartAmount: currentDesc.cartAmount,
+        cartCost: currentDesc.cartCost,
+        parentEntryId: currentDesc.parentEntryId,
+        recurrenceInterval: currentDesc.recurrenceInterval,
+        recurrenceEnd: currentDesc.recurrenceEnd,
+        // intentionally omit entryStatus — removing it marks entry as confirmed
       });
-      const { error } = await supabase.from("entries").update({ description: newDesc ?? null }).eq("id", entry.id);
-      if (error) throw error;
+      const { error: updErr } = await supabase.from("entries").update({ description: newDesc ?? null }).eq("id", entry.id);
+      if (updErr) throw updErr;
 
       // 2. Update account balance (like a normal entry)
-      const { data: dest } = await supabase.from("accounts").select("balance, total_invested").eq("id", entry.accountId).single();
+      const { data: dest, error: accErr } = await supabase
+        .from("accounts")
+        .select("balance, total_invested")
+        .eq("id", entry.accountId)
+        .maybeSingle();
+      if (accErr) throw accErr;
       if (dest) {
         const amountToAdd = entry.milesGenerated ?? entry.amount;
-        const update = calcAccountUpdate(Number(dest.balance), Number(dest.total_invested ?? 0), amountToAdd, entry.amountPaid);
-        await supabase.from("accounts").update(update).eq("id", entry.accountId);
+        const update = calcAccountUpdate(
+          Number(dest.balance),
+          Number(dest.total_invested ?? 0),
+          amountToAdd,
+          entry.amountPaid,
+        );
+        const { error: updAccErr } = await supabase.from("accounts").update(update).eq("id", entry.accountId);
+        if (updAccErr) throw updAccErr;
       }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["entries"] });
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
+    },
+    onError: (err) => {
+      console.error("[confirmEntry]", err);
     },
   });
 }
