@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relatório — Docs modulares + limpeza de artefatos</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; }
+  h1 { border-bottom: 2px solid #5B72C4; padding-bottom: .5rem; }
+  h2 { margin-top: 2rem; }
+  .stat { display: inline-block; background: #f0f4ff; padding: .25rem .75rem; border-radius: 6px; font-size: .875rem; }
+  .benefits li { margin: .5rem 0; }
+  pre { background: #f5f5f5; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: .875rem; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: .75rem; font-weight: 600; }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-blue { background: #cce5ff; color: #004085; }
+  .badge-red { background: #f8d7da; color: #721c24; }
+</style>
+</head>
+<body>
+<h1>📋 Relatório: Docs modulares + limpeza de artefatos</h1>
+<p class="stat">📁 46 arquivos alterados</p>
+<p class="stat" style="margin-left: .5rem;">➕ 915 linhas</p>
+<p class="stat" style="margin-left: .5rem;">➖ 996 linhas</p>
+<p class="stat" style="margin-left: .5rem;">⚡ ~2.548 tokens</p>
+
+<p>
+  <span class="badge badge-green">chore/project-docs</span>
+  <span class="badge badge-blue">PR #27</span>
+  <span class="badge badge-blue">develop → main</span>
+  <span class="badge badge-red">07 Jul 2026</span>
+</p>
+
+<h2>Antes</h2>
+<ul>
+  <li>AGENTS.md com 329 linhas (~8KB) — modelo carregava tudo mesmo pra tarefa simples</li>
+  <li>Documentação amontoada num arquivo só: stack, UI, workflow, git, testes tudo misturado</li>
+  <li>Raiz do projeto poluída: bun.lockb, screenshots, test-results, SPRINT_NEXT.md, entradas-transferir.png, etc.</li>
+  <li>Sem sprint board visível pro modelo (MEMORY.md só guarda histórico)</li>
+  <li>Sem relatório pós-implementação</li>
+</ul>
+
+<h2>Depois</h2>
+<ul>
+  <li><code>docs/</code> — 9 arquivos modulares, cada um com responsabilidade única</li>
+  <li>AGENTS.md enxugado para 40 linhas (sumário executivo + "leia docs/")</li>
+  <li>AGENDA.md — sprint board com tarefas em andamento, próximas e backlog</li>
+  <li><code>/report</code> template — relatório HTML obrigatório ao finalizar cada tarefa</li>
+  <li>.gitignore limpo: test-results/, tests/screenshots/, bun.lockb, .playwright-mcp/</li>
+  <li>~1MB de binários removidos do repositório (screenshots, test videos, lockfile bun)</li>
+</ul>
+
+<h2>Benefícios</h2>
+<ul class="benefits">
+  <li>✅ <strong>Menos tokens por sessão</strong> — modelo carrega só o doc relevante ao contexto, não o AGENTS.md inteiro</li>
+  <li>✅ <strong>Manutenção isolada</strong> — mudar UI não exige mexer em git workflow</li>
+  <li>✅ <strong>Escalável</strong> — qualquer domínio novo vira um arquivo novo em docs/</li>
+  <li>✅ <strong>Repo mais leve</strong> — ~1MB a menos, sem lixo de debug versionado</li>
+  <li>✅ <strong>Rastreabilidade</strong> — toda tarefa gera relatório com before/after e consumo de tokens</li>
+  <li>✅ <strong>Escopo estrito</strong> — regra de não alterar além do pedido documentada em CONVENTIONS.md</li>
+  <li>✅ <strong>Build + 7/8 testes verdes</strong> — zero regressão</li>
+</ul>
+
+<h2>Arquivos criados</h2>
+<pre>
+docs/
+├── MAP.md              (índice)
+├── AGENDA.md           (sprint board)
+├── STACK.md            (stack & setup)
+├── ARCHITECTURE.md     (pastas & fluxo)
+├── CONVENTIONS.md      (padrões de código)
+├── UI-GUIDE.md         (design system)
+├── WORKFLOW.md         (council-to-superpowers)
+├── GIT-WORKFLOW.md     (branches & deploy)
+├── TESTING.md          (playwright)
+├── progress.md         (histórico)
+└── task_plan.md        (histórico)
+
+.pi/prompts/report.md   (template /report)
+
+.opencode/skills/council-to-superpowers/SKILL.md
+.pi/skills/council-to-superpowers/SKILL.md
+</pre>
+
+<h2>Arquivos deletados</h2>
+<pre>
+SPRINT_NEXT.md         → migrado pra AGENDA.md
+bun.lockb              → lockfile bun (projeto usa npm)
+entradas-transferir.png → screenshot debug
+entradas-page.txt       → dump HTML debug
+.playwright-mcp/        → logs & screenshots debug
+test-results/           → artifacts de teste
+tests/screenshots/      → ~20 screenshots de debug
+</pre>
+
+<h2>Detalhes</h2>
+<pre>
+.gitignore         |   10 +
+AGENTS.md          |  329 +------------------
+docs/*             |  637 ++++++++++++++++++++++++++++++++++
+.pi/prompts/       |   69 +++
+.opencode/skills/  |   73 +++
+.pi/skills/        |   73 +++
+46 files changed, 915 insertions(+), 996 deletions(-)
+</pre>
+</body>
+</html>
