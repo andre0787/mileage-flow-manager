@@ -25,9 +25,31 @@
 5. **Ponytail mode**: stdlib/nativo primeiro, sem abstrações especulativas
 6. **Interface**: português (pt-BR)
 7. **🔴 Relatório HTML obrigatório antes do PR**: toda branch que altera código OU docs DEVE gerar `docs/reports/<data>-<nome>.html` antes do PR. Template: `/report`. Hook de pre-push bloqueia se esquecer.
+8. **📋 HANDOFF.md obrigatório no início da sessão**: leia `HANDOFF.md` antes de qualquer trabalho. Atualize antes de `/new` ou quando a sessão atingir ~12+ turns. O estado da sessão anterior é restaurado via este arquivo.
 
 ## Começando
 
-Sempre leia `docs/AGENDA.md` + `docs/WORKFLOW.md` + `docs/ARCHITECTURE.md` + `docs/CONVENTIONS.md` antes de codificar.
+Ordem obrigatória no início de cada sessão:
 
-Para contexto de sessões anteriores, veja `MEMORY.md`.
+1. **Ler `HANDOFF.md`** — restaura contexto de sessões anteriores
+2. **Ler `docs/AGENDA.md`** — sprint board
+3. **Ler `docs/WORKFLOW.md`** — processo obrigatório
+4. **Ler `docs/ARCHITECTURE.md`** — estrutura do projeto
+5. **Ler `docs/CONVENTIONS.md`** — padrões de código
+
+Para contexto histórico de sessões anteriores, veja também `MEMORY.md`.
+
+## Compatibilidade Cross-Harness
+
+Este projeto é usado com pi (harness principal), Claude Code e OpenCode.
+Todas as skills em `.pi/skills/` seguem o Agent Skills standard e funcionam
+nos três. Para usar a skill `handoff` em outros harnesses:
+
+- **Claude Code**: adicionar em `.claude/settings.local.json`:
+  ```json
+  { "skills": ["../.pi/skills/handoff"] }
+  ```
+- **OpenCode**: adicionar em `.opencode/settings.json`:
+  ```json
+  { "skills": ["../.pi/skills/handoff"] }
+  ```
