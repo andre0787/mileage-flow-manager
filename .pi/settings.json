@@ -2,6 +2,7 @@
   "theme": "mileage-dark",
   "sessionDir": ".pi/sessions",
   "quietStartup": true,
+  "skills": ["~/.config/opencode/skills", ".pi/skills"],
   "compaction": {
     "reserveTokens": 20480,
     "keepRecentTokens": 24000

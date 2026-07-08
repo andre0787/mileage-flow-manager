@@ -131,18 +131,38 @@ src/
 ## Git Workflow
 
 ### Nomenclatura de branches
-`fix/descricao`, `feat/descricao`, `refactor/descricao` — prefixo + slash, sempre.
+Usar prefixos padronizados em inglês no formato `tipo/descricao-kebab-case`:
 
+| Prefixo | Uso | Exemplo |
+|---------|-----|--------|
+| `feat/` | Nova funcionalidade | `feat/csv-import` |
+| `fix/` | Correção de bug | `fix/login-redirect` |
+| `hotfix/` | Correção urgente em produção | `hotfix/critical-security` |
+| `chore/` | Tarefa de manutenção | `chore/project-conventions` |
+| `refactor/` | Refatoração | `refactor/query-optimization` |
+| `docs/` | Documentação | `docs/api-endpoints` |
+| `test/` | Testes | `test/entradas-edge-cases` |
+| `style/` | Formatação/estilos | `style/tailwind-cleanup` |
+| `perf/` | Performance | `perf/lazy-loading` |
+
+Regras:
+- **Inglês** — `feat/csv-import`, não `feat/importar-csv`
+- **kebab-case** — `feat/csv-import`, não `feat/csvImport`
+- **Curto e descritivo** — `feat/csv-import`, não `feat/adds-new-csv-import-feature`
+
+### Fluxo
 ```
-main ───── produção (Vercel)
+main ─────────────────── produção (Vercel)
   ↑
-develop ── desenvolvimento
+develop ──────────────── desenvolvimento
   ↑
-fix/* ──── PR → develop → merge develop → main
+feat/*, fix/*, chore/*, refactor/*, ...
 ```
 
-**Ramo atual**: `main` (produção) — deploy automático via Vercel.
-**Fluxo padrão**: Commitar em `develop`, mergear em `main`, push → Vercel auto-deploy.
+- Toda branch → PR para `develop`
+- `develop` → merge em `main` (após bateria de testes)
+- `main` → deploy automático Vercel
+- `hotfix/*` → PR direto para `main`
 
 ### Commits em main (produção)
 ```
