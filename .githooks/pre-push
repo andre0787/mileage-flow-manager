@@ -1,0 +1,38 @@
+#!/bin/bash
+# Pre-push hook — verifica relatório HTML antes de push
+# Ativado via: git config core.hooksPath .githooks
+
+ZERO_COMMIT="0000000000000000000000000000000000000000"
+
+while read local_ref local_sha remote_ref remote_sha; do
+  # Pula pushes de delete de branch
+  [ "$local_sha" = "$ZERO_COMMIT" ] && continue
+
+  # Pula pushes para main/develop
+  case "$remote_ref" in
+    refs/heads/main|refs/heads/develop) continue ;;
+  esac
+
+  # Pula branches exclusivamente de docs
+  case "$remote_ref" in
+    refs/heads/docs/*|refs/heads/chore/docs*) continue ;;
+  esac
+
+  # Verifica se existe ao menos um relatório .html em docs/reports/
+  reports=$(ls docs/reports/*.html 2>/dev/null | head -5)
+  if [ -z "$reports" ]; then
+    echo ""
+    echo "⚠️  NENHUM RELATÓRIO HTML encontrado em docs/reports/"
+    echo "   Regra obrigatória: toda branch DEVE gerar relatório antes do PR."
+    echo "   Rode /report ou gere manualmente antes do push."
+    echo ""
+    printf "❓ Ignorar e continuar push? (s/N): "
+    read -r answer
+    case "$answer" in
+      [sS]|[yY]|[sS][iI][mM]|[yY][eE][sS]) ;;
+      *) echo "❌ Push cancelado. Gere o relatório primeiro."; exit 1 ;;
+    esac
+  fi
+done
+
+exit 0
