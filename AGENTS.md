@@ -149,12 +149,12 @@ src/
 - **Modelo**: `deepseek-v4-flash-free`
 - **Ferramentas nativas**: `read`, `write`, `edit`, `bash`
 - **Custom tools em `~/.pi/agent/bin/`**: `fd` (busca arquivos), `rg` (busca texto)
-- **Skills carregadas**: 95 (16 Anthropic + 67 design + 6 planning + 6 ponytail)
+- **Skills carregadas**: 112 (16 Anthropic + 67 design + 6 planning + 6 ponytail + 14 superpowers + llm-council + caveman + caveman-commit + caveman-review + caveman-compress + caveman-help + caveman-stats + cavecrew + council-to-superpowers)
 - **Prompt templates**: 5 globais (`/commit`, `/pr`, `/review`, `/fix`, `/deploy`) + 1 projeto (`/migration`)
 - **Extensões**: `mcp-supabase` (3 tools), `mcp-github` (3 tools), `ponytail` (lazy senior dev mode)
 - **Tema TUI**: `mileage-dark` (custom navy/gold/teal)
 - **Config projeto**: `.pi/settings.json` (sessionDir, quietStartup, compaction)
-- **Pacotes pi**: 1 (`ponytail`)
+- **Pacotes pi**: 2 (`ponytail`, `superpowers`)
 - **Hooks**: nenhum
 
 ### opencode (provider/delegate)
@@ -173,8 +173,8 @@ Configurado em `~/.config/opencode/opencode.jsonc`.
 > **Nota**: pi deliberadamente não suporta MCP ([filosofia](https://mariozechner.at/posts/2025-11-02-what-if-you-dont-need-mcp/)).
 > Em vez disso, usa **extensões TypeScript** que podem registrar tools customizadas via `pi.registerTool()`.
 
-#### Plugins (4)
-- `superpowers` + `ponytail` (opencode plugins)
+#### Plugins (5)
+- `superpowers` + `ponytail` + `caveman` (opencode plugins)
 - `anthropic-agent-skills` + `planning-with-files` (Claude IDE plugins — só funcionam lá)
 
 ### Skills instaladas (89, em `~/.pi/agent/skills/`)
@@ -258,6 +258,7 @@ Arquivo: `.pi/settings.json` (projeto, versionado)
   "theme": "mileage-dark",
   "sessionDir": ".pi/sessions",
   "quietStartup": true,
+  "skills": ["~/.config/opencode/skills", ".pi/skills"],
   "compaction": {
     "reserveTokens": 20480,
     "keepRecentTokens": 24000
@@ -303,6 +304,36 @@ Antes de todo deploy em produção, executar obrigatoriamente:
 4. **Screenshots automáticos** salvos em `tests/screenshots/` para inspeção visual
 
 **Qualquer falha → blocker. Não deployar sem bateria verde.**
+
+## Workflow Obrigatório (council-to-superpowers)
+
+**Toda feature ou modificação neste projeto DEVE passar pelo workflow
+council-to-superpowers.** Não implemente nada sem passar pelas duas fases.
+
+Skills disponíveis:
+
+| Skill | Localização | Função |
+|-------|-------------|--------|
+| `council-to-superpowers` | `.opencode/skills/`, `.pi/skills/` | Workflow combinado (única skill visível) |
+| `llm-council` | `~/.config/opencode/skills/` | Conselho de 5 advisors (escondido, usado internamente) |
+| `superpowers` (14 skills) | Pacote pi | Execução disciplinada (escondidas, lidas manualmente) |
+| `caveman` | `~/.config/opencode/skills/` | Modo compacto de tokens |
+
+**Regra:** qualquer menção a adicionar, modificar, criar, refatorar ou construir
+algo neste projeto → dispara council-to-superpowers automaticamente.
+
+**Fluxo:**
+1. **council-to-superpowers** assume
+2. Fase 1 — LLM Council: 5 advisors + peer review + chairman decidem se faz sentido
+3. Se aprovado → Fase 2 — Superpowers: brainstorm → plano → TDD → subagents → PR
+4. Se rejeitado → apresenta veredito com justificativa e para
+
+**Não contorne.** Se o usuário pedir algo simples como "adicionar um botão X",
+passa pelo council primeiro. O council pode dizer "vai direto, sem necessidade
+de debate" e aí o Superpowers executa.
+
+Para uso direto do Superpowers sem council (features simples):
+"let's build X" — brainstorming assume sozinho.
 
 ## Princípios de Código (DRY & Modularidade)
 - **Nunca duplicar regra de negócio**: cálculos de lucro, margem, saldo, custo médio — cada um em ponto único em `src/lib/`
