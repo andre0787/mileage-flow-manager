@@ -5,27 +5,23 @@
 
 ---
 
-## 🎯 Meta da Sprint
+## 🎯 Meta da Sprint (COMPLETA ✅)
 
-Corrigir bugs #1 e #2, limpeza de temporários e bateria pré-deploy.
+Todos os bugs #1–#5 resolvidos, bateria verde.
 
 ---
 
-## 🔄 Em Andamento
+## ✅ Resolvidos nesta sprint
 
-### ✅ Resolvidos nesta sprint
-
-- [x] **#1 — Overflow após confirmar entrada** (FIX: mutation `.single()`→`.maybeSingle()`, parseDescription, onError; fluxo test: regex waitForURL, seletores #name/#pricePerMile, combobox venda, waitForTimeout reduzidos, retries 0)
+- [x] **#1 — Overflow após confirmar entrada** — mutation `.single()`→`.maybeSingle()`, seletores corrigidos, waitForTimeout reduzidos, retries 0 ✅
+- [x] **#2 — Coluna Origem sem nome na aba Pontos** — já corrigido no commit `feat: clube de milhas` (`origemTypeName` faz lookup em `origemTypes` primeiro, fallback pra `programs`). Todas as 4 posições na tabela usam a função correta. ✅
 - [x] **#3 — Testar transferência com bônus manualmente** — fluxo test cria transferência 20k com 50% bônus e verifica saldos 50k/30k ✅
-- [x] **#4 — Limpeza de arquivos temporários** — fluxo test roda completo (34.6s), relatório atualizado, screenshots limpos
+- [x] **#4 — Limpeza de arquivos temporários** — fluxo test roda completo (34.6s), relatório atualizado, screenshots limpos ✅
 - [x] **#5 — Bateria pré-deploy completa** — build (4.63s) + todos os 8 testes (2.2 min) ✅
 
 ### 🟡 Pendências Técnicas
 
-- [ ] **#2 — Coluna Origem sem nome na aba Pontos**
-  Tabela usa `programs.find(p => p.id === entry.origemTypeId)?.name ?? "-"`
-  mas `entry.origemTypeId` referencia `origem_types`, não `programs`.
-  Correção: usar função de lookup correta.
+Nenhuma no momento.
 
 
 
