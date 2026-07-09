@@ -52,6 +52,16 @@ import { formatCPF } from "@/lib/utils"
 import { MetricCard } from "../../components/MetricCard"
 ```
 
+## HANDOFF.md — Atualização Obrigatória Pós-PR
+
+**Sempre que subir um PR (criar ou mergear), atualize o `HANDOFF.md`** com:
+- Progresso atualizado (Done / In Progress / Pending)
+- PRs criados/mergeados
+- Branch atual
+- Próximos passos
+
+Isso garante continuidade entre sessões sem perda de contexto.
+
 ## Relatório Pós-Implementação — OBRIGATÓRIO
 
 **Toda tarefa (feature ou manutenção) DEVE gerar um relatório HTML antes do PR.**

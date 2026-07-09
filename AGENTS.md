@@ -25,7 +25,7 @@
 5. **Ponytail mode**: stdlib/nativo primeiro, sem abstrações especulativas
 6. **Interface**: português (pt-BR)
 7. **🔴 Relatório HTML obrigatório antes do PR**: toda branch que altera código OU docs DEVE gerar `docs/reports/<data>-<nome>.html` antes do PR. Template: `/report`. Hook de pre-push bloqueia se esquecer.
-8. **📋 HANDOFF.md obrigatório no início da sessão**: leia `HANDOFF.md` antes de qualquer trabalho. Atualize antes de `/new` ou quando a sessão atingir ~12+ turns. O estado da sessão anterior é restaurado via este arquivo.
+8. **📋 HANDOFF.md obrigatório no início da sessão**: leia `HANDOFF.md` antes de qualquer trabalho. Atualize antes de `/new`, quando a sessão atingir ~12+ turns, **ou sempre que criar/merger um PR**. O estado da sessão anterior é restaurado via este arquivo.
 
 ## Começando
 
