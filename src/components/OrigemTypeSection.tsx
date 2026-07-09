@@ -14,8 +14,8 @@ import type { OrigemType } from "@/types";
 
 interface OrigemTypeSectionProps {
   origemTypes: OrigemType[]
-  onAdd: (data: { id: string; name: string; accountType: OrigemType["accountType"]; color: string; description: string | null }) => void
-  onUpdate: (data: { id: string; name: string; accountType: OrigemType["accountType"]; color: string; description: string | null }) => void
+  onAdd: (data: { id: string; name: string; accountType: OrigemType["accountType"]; color: string; description: string | undefined }) => void
+  onUpdate: (data: { id: string; name: string; accountType: OrigemType["accountType"]; color: string; description: string | undefined }) => void
   onDelete: (id: string) => void
 }
 
