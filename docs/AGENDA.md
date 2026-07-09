@@ -5,18 +5,19 @@
 
 ---
 
-## ✅ Sprint #3 — Completa (PR #54 merged em 2026-07-09)
+## ✅ Sprint #3 — Completa (PR #54)
 
 - [x] #6–#16 — Refatoração, testes, formatação, strictNullChecks
 
----
-
-## ✅ Sprint #4 — Completa (PR #55 merged em 2026-07-09)
+## ✅ Sprint #4 — Completa (PR #55)
 
 - [x] CSV export em Vendas.tsx
 - [x] Playwright retries
-- [x] Dashboard charts (já existia)
-- [x] Relatório HTML gerado
+
+## ✅ Bugfix — PR #58
+
+- [x] #56 — origem-tipo: isClube setado ao criar tipo com recorrência
+- [x] #57 — fluxo-completo: safePost() com timeout, ignora 409
 
 ---
 
@@ -26,8 +27,7 @@
 
 ## 📌 Backlog Futuro
 
-- [ ] #56 — Corrigir teste origem-tipo (isClube não setado)
-- [ ] #57 — Corrigir teste fluxo-completo (Supabase 409)
+- [ ] Investigar timeout fluxo-completo (muitas chamadas API Supabase)
 - [ ] Exportação PDF dos relatórios
 - [ ] Notificações push para confirmação de entradas
 - [ ] Modo offline com sincronização
