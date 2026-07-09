@@ -19,6 +19,10 @@
 - [x] #56 — origem-tipo: isClube setado ao criar tipo com recorrência
 - [x] #57 — fluxo-completo: safePost() com timeout, ignora 409
 
+## ✅ Fix — PR #59
+
+- [x] fluxo-completo: reload para React Query + selectors corrigidos
+
 ---
 
 ## 🎯 Sprint #5 — A definir
@@ -27,7 +31,7 @@
 
 ## 📌 Backlog Futuro
 
-- [ ] Investigar timeout fluxo-completo (muitas chamadas API Supabase)
+- [ ] Corrigir entradas.spec.ts (`#editAmount` selector não existe)
 - [ ] Exportação PDF dos relatórios
 - [ ] Notificações push para confirmação de entradas
 - [ ] Modo offline com sincronização

@@ -1,12 +1,12 @@
-# HANDOFF — Bugs #56 e #57 Resolvidos
+# HANDOFF — Fluxo-completo Resolvido
 
-## Status: ✅ PR #58 merged — Bugs corrigidos
+## Status: ✅ PR #59 merged — Teste fluxo-completo funciona
 
-### Último trabalho: PR #58 merged em 2026-07-09
+### Último trabalho: PR #59 merged em 2026-07-09
 
-- #56 corrigido: `isClube` setado ao criar tipo com recorrência
-- #57 melhorado: `safePost()` com timeout e ignora 409
-- Issues #56 e #57 fechadas
+- Root cause: FKs dummy + React Query cache + selectors errados
+- fluxo-completo agora passa em ~42s
+- Relatório: `docs/reports/PR59-2026-07-09-fix-fluxo-completo.html`
 
 ### Branch atual
 
@@ -15,10 +15,10 @@
 ### Status dos testes
 
 - ✅ 33/33 unitários (vitest)
-- ✅ 5/5 E2E (carrinho, clube, debug, origem-tipo, relatorio)
-- ⚠️ fluxo-completo: timeout pré-existente (melhorado, não resolvido)
+- ✅ 7/8 E2E (carrinho, clube, debug, fluxo-completo, origem-tipo, relatorio, responsivo)
+- ⚠️ entradas.spec.ts: `#editAmount` selector não existe (issue separada)
 
 ### Próximos passos
 
-1. Definir Sprint #5
-2. Investigar timeout fluxo-completo (problema estrutural: muitas chamadas API)
+1. Corrigir entradas.spec.ts (`#editAmount` → placeholder correto)
+2. Definir Sprint #5
