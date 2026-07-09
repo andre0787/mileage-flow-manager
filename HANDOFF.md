@@ -1,17 +1,17 @@
-# HANDOFF — PR #61 code splitting recharts
+# HANDOFF — PR #61 merged — Code splitting recharts
 
-## Status: ✅ PR #61 criado — Aguardando review/merge
+## Status: ✅ PR #61 merged — Deploy automático Vercel
 
 ### Último trabalho: 2026-07-09
 
-- PR #61: code splitting recharts via lazy loading
+- PR #61 merged: code splitting recharts via lazy loading
 - Bundle principal: 1MB → 637kB (-38.6%)
 - Relatório: `docs/reports/PR61-2026-07-09-code-splitting-recharts.html`
-- Council: code splitting recomendado sobre notificações e i18n
+- Council: code splitting recomendado (melhor custo-benefício)
 
 ### Branch atual
 
-`feat/code-splitting-recharts` — PR aberto para develop
+`main` — produção limpa (deploy automático Vercel)
 
 ### Status dos testes
 
@@ -20,6 +20,5 @@
 
 ### Próximos passos
 
-1. Merge PR #61 em develop
-2. Verificar se deploy foi para produção
-3. Avaliar próximo item do backlog
+1. Verificar se deploy foi para produção
+2. Avaliar próximo item do backlog: Notificações push ou i18n
