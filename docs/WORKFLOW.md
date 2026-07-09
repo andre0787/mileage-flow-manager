@@ -62,4 +62,4 @@ Features triviais podem usar Superpowers direto sem council ("let's build X" →
 | Brainstorm | Spec | `docs/superpowers/specs/` |
 | Planning | Plano | `docs/superpowers/plans/` |
 | Execução | Código + testes | `src/` + `tests/` |
-| Relatório | HTML before/after | `docs/reports/<data>-<nome>.html` |
+| Relatório | HTML before/after | `docs/reports/<PR>-<data>-<nome>.html` |

@@ -65,5 +65,5 @@ Calcular a partir do diff:
 </html>
 ```
 
-3. Salve o HTML em `docs/reports/<data>-<nome-da-tarefa>.html`
+3. Salve o HTML em `docs/reports/<PR>-<data>-<nome-da-tarefa>.html` (inclua o número da PR no início)
 4. Informe o usuário do caminho do arquivo

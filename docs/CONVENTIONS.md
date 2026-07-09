@@ -79,9 +79,14 @@ Use `/report` (template em `.pi/prompts/report.md`) que:
 - **Consumo de tokens**: estimado a partir do diff (~¾ token por linha)
 - **Badges**: tipo da branch, PR, ambiente, data
 
-### Exemplo real:
+### Nomenclatura — OBRIGATÓRIO: número da PR
+
+O relatório DEVE começar com o número da PR: `docs/reports/<PR>-<data>-<nome>.html`
+
+### Exemplos reais:
 ```
-docs/reports/2026-07-07-docs-modulares-limpeza.html
+docs/reports/PR58-2026-07-09-bugfix-testes.html
+docs/reports/PR55-2026-07-09-sprint4-csv-export.html
 ```
 
 ## Escopo Estrito
