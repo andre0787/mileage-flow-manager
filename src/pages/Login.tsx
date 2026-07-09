@@ -25,9 +25,8 @@ export default function Login() {
     setError(null);
     setLoading(true);
 
-    const errMsg = mode === "login"
-      ? await signIn(email, password)
-      : await signUp(email, password, name);
+    const errMsg =
+      mode === "login" ? await signIn(email, password) : await signUp(email, password, name);
 
     setLoading(false);
     if (errMsg) {
@@ -71,7 +70,9 @@ export default function Login() {
             <form onSubmit={handleSubmit} className="space-y-4">
               {mode === "register" && (
                 <div className="space-y-2">
-                  <Label htmlFor="name" className="text-xs font-medium">Nome</Label>
+                  <Label htmlFor="name" className="text-xs font-medium">
+                    Nome
+                  </Label>
                   <Input
                     id="name"
                     value={name}
@@ -84,7 +85,9 @@ export default function Login() {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-xs font-medium">Email</Label>
+                <Label htmlFor="email" className="text-xs font-medium">
+                  Email
+                </Label>
                 <Input
                   id="email"
                   type="email"
@@ -98,7 +101,9 @@ export default function Login() {
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="password" className="text-xs font-medium">Senha</Label>
+                  <Label htmlFor="password" className="text-xs font-medium">
+                    Senha
+                  </Label>
                   {mode === "login" && (
                     <Link
                       to="/forgot-password"
@@ -152,7 +157,10 @@ export default function Login() {
                     <button
                       type="button"
                       className="text-primary hover:text-primary/80 font-medium transition-colors min-h-[44px] inline-flex items-center"
-                      onClick={() => { setMode("register"); setError(null); }}
+                      onClick={() => {
+                        setMode("register");
+                        setError(null);
+                      }}
                     >
                       Cadastre-se
                     </button>
@@ -163,7 +171,10 @@ export default function Login() {
                     <button
                       type="button"
                       className="text-primary hover:text-primary/80 font-medium transition-colors min-h-[44px] inline-flex items-center"
-                      onClick={() => { setMode("login"); setError(null); }}
+                      onClick={() => {
+                        setMode("login");
+                        setError(null);
+                      }}
                     >
                       Entrar
                     </button>

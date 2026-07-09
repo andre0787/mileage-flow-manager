@@ -145,7 +145,7 @@ export default function Dashboard() {
         id: s.id, owner: s.ownerName, client: s.clientName, program: s.program,
         miles: s.milesUsed, value: s.saleValue,
         status: s.status === "concluido" ? "Concluído" : s.status === "pago" ? "Pago" : s.status === "cancelado" ? "Cancelado" : "Pendente",
-        statusColor: s.status === "concluido" ? "success" : s.status === "pago" ? "secondary" : s.status === "cancelado" ? "destructive" : "outline" as const,
+        statusColor: (s.status === "concluido" ? "default" : s.status === "pago" ? "secondary" : s.status === "cancelado" ? "destructive" : "outline") as "default" | "destructive" | "outline" | "secondary",
       }));
   }, [filteredSales]);
 

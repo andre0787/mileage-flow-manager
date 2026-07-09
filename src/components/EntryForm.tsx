@@ -176,8 +176,8 @@ export function EntryForm({
               value={form.origemTypeId}
               onValueChange={(value) => {
                 const ot = origemTypes.find((o) => o.id === value)
-                const desc = ot ? parseOrigemTypeDescription(ot.description) : {}
-                set({ origemTypeId: value, isClube: !!desc.hasRecurrence })
+                const desc = ot ? parseOrigemTypeDescription(ot.description) : { hasRecurrence: false }
+                set({ origemTypeId: value, isClube: desc.hasRecurrence })
                 clearErr("origemTypeId")
               }}
             >
@@ -187,14 +187,10 @@ export function EntryForm({
               <SelectContent>
                 {currentOrigemTypes.map((item) => (
                   <SelectItem key={item.id} value={item.id}>
-                    {"color" in item ? (
-                      <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: (item as OrigemType).color }} />
-                        {item.name}
-                      </div>
-                    ) : (
-                      item.name
-                    )}
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+                      {item.name}
+                    </div>
                   </SelectItem>
                 ))}
               </SelectContent>

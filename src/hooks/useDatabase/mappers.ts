@@ -8,8 +8,10 @@ export function mapOwner(row: Database["public"]["Tables"]["owners"]["Row"]): Ow
 
 export function mapProgram(row: Database["public"]["Tables"]["programs"]["Row"]): Program {
   return {
-    id: row.id, name: row.name, type: row.type, maxPassengers: row.max_passengers,
-    passengerCycleType: row.passenger_cycle_type, passengerCycleDays: row.passenger_cycle_days,
+    id: row.id, name: row.name, type: row.type,
+    maxPassengers: row.max_passengers ?? undefined,
+    passengerCycleType: row.passenger_cycle_type ?? undefined,
+    passengerCycleDays: row.passenger_cycle_days ?? undefined,
   };
 }
 
@@ -30,9 +32,12 @@ export function mapEntry(row: Database["public"]["Tables"]["entries"]["Row"]): P
   return {
     id: row.id, accountId: row.account_id, origemTypeId: row.origem_type_id, amount: Number(row.amount),
     amountPaid: Number(row.amount_paid), costPerThousand: Number(row.cost_per_thousand), date: row.date,
-    conversionRate: row.conversion_rate, milesGenerated: row.miles_generated, costPerMile: row.cost_per_mile,
-    sourceAccountId: row.source_account_id, bonusPercent: row.bonus_percent,
-    cartAmount: parsed.cartAmount, cartCost: parsed.cartCost, description: row.description,
+    conversionRate: row.conversion_rate ?? undefined,
+    milesGenerated: row.miles_generated ?? undefined,
+    costPerMile: row.cost_per_mile ?? undefined,
+    sourceAccountId: row.source_account_id ?? undefined,
+    bonusPercent: row.bonus_percent ?? undefined,
+    cartAmount: parsed.cartAmount, cartCost: parsed.cartCost, description: row.description ?? undefined,
     entryStatus: parsed.entryStatus, parentEntryId: parsed.parentEntryId,
     recurrenceInterval: parsed.recurrenceInterval, recurrenceEnd: parsed.recurrenceEnd,
   };
@@ -40,18 +45,18 @@ export function mapEntry(row: Database["public"]["Tables"]["entries"]["Row"]): P
 
 export function mapClient(row: Database["public"]["Tables"]["clients"]["Row"]): Client {
   return {
-    id: row.id, name: row.name, cpf: row.cpf, email: row.email, phone: row.phone ?? "",
-    telegram: row.telegram, totalPurchases: row.total_purchases, usageHistory: row.usage_history ?? [],
+    id: row.id, name: row.name, cpf: row.cpf ?? "", email: row.email ?? "", phone: row.phone ?? "",
+    telegram: row.telegram ?? "", totalPurchases: row.total_purchases ?? 0, usageHistory: row.usage_history ?? [],
   };
 }
 
 export function mapSale(row: Database["public"]["Tables"]["sales"]["Row"]): Sale {
   return {
-    id: row.id, accountId: row.account_id, accountName: row.account_name, ownerName: row.owner_name,
+    id: row.id, accountId: row.account_id ?? undefined, accountName: row.account_name ?? "", ownerName: row.owner_name ?? "",
     program: row.program, clientId: row.client_id, clientName: row.client_name, milesUsed: Number(row.miles_used),
-    saleValue: Number(row.sale_value), pricePerMile: row.price_per_mile, costPerMile: Number(row.cost_per_mile),
-    additionalCost: row.additional_cost, additionalCostDesc: row.additional_cost_desc, profit: Number(row.profit),
-    profitMargin: Number(row.profit_margin), status: row.status, ticketLocator: row.ticket_locator,
+    saleValue: Number(row.sale_value), pricePerMile: row.price_per_mile ?? undefined, costPerMile: Number(row.cost_per_mile),
+    additionalCost: row.additional_cost ?? undefined, additionalCostDesc: row.additional_cost_desc ?? undefined, profit: Number(row.profit),
+    profitMargin: Number(row.profit_margin), status: row.status, ticketLocator: row.ticket_locator ?? undefined,
     passengers: row.passengers ?? [], date: row.date,
   };
 }

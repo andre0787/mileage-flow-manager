@@ -88,9 +88,7 @@ export default function ResetPassword() {
             <CheckCircle2 className="w-6 h-6 text-green-600 dark:text-green-400" />
           </div>
           <h2 className="text-xl font-bold font-display mb-2">Senha redefinida!</h2>
-          <p className="text-sm text-muted-foreground">
-            Redirecionando para o login...
-          </p>
+          <p className="text-sm text-muted-foreground">Redirecionando para o login...</p>
         </div>
       </div>
     );
@@ -110,9 +108,7 @@ export default function ResetPassword() {
                 <AlertCircle className="w-6 h-6 text-destructive" />
               </div>
               <CardTitle className="text-lg font-display">Link inválido</CardTitle>
-              <CardDescription className="text-sm">
-                {error}
-              </CardDescription>
+              <CardDescription className="text-sm">{error}</CardDescription>
             </CardHeader>
             <CardContent>
               <Button asChild className="w-full">
@@ -137,9 +133,7 @@ export default function ResetPassword() {
             <Plane className="w-7 h-7 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-foreground font-display">MilesControl</h1>
-          <p className="text-sm text-muted-foreground mt-1 font-body">
-            Redefina sua senha
-          </p>
+          <p className="text-sm text-muted-foreground mt-1 font-body">Redefina sua senha</p>
         </div>
 
         <Card className="border-primary/10 shadow-elegant animate-slide-up">
@@ -152,7 +146,9 @@ export default function ResetPassword() {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-xs font-medium">Nova senha</Label>
+                <Label htmlFor="password" className="text-xs font-medium">
+                  Nova senha
+                </Label>
                 <Input
                   id="password"
                   type="password"
@@ -166,7 +162,9 @@ export default function ResetPassword() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword" className="text-xs font-medium">Confirmar senha</Label>
+                <Label htmlFor="confirmPassword" className="text-xs font-medium">
+                  Confirmar senha
+                </Label>
                 <Input
                   id="confirmPassword"
                   type="password"

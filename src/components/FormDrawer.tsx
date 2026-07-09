@@ -1,29 +1,29 @@
-import { useIsMobile } from "@/hooks/use-mobile"
+import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import {
   Drawer,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
   DrawerDescription,
-} from "@/components/ui/drawer"
+} from "@/components/ui/drawer";
 
 interface FormDrawerProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  title: string
-  description?: string
-  children: React.ReactNode
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  title: string;
+  description?: string;
+  children: React.ReactNode;
 }
 
 export function FormDrawer({ open, onOpenChange, title, description, children }: FormDrawerProps) {
-  const isMobile = useIsMobile()
+  const isMobile = useIsMobile();
 
   if (isMobile) {
     return (
@@ -36,7 +36,7 @@ export function FormDrawer({ open, onOpenChange, title, description, children }:
           <div className="px-4 pb-safe overflow-y-auto">{children}</div>
         </DrawerContent>
       </Drawer>
-    )
+    );
   }
 
   return (
@@ -49,5 +49,5 @@ export function FormDrawer({ open, onOpenChange, title, description, children }:
         {children}
       </DialogContent>
     </Dialog>
-  )
+  );
 }

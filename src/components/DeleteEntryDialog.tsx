@@ -23,11 +23,11 @@ export function DeleteEntryDialog({ entry }: Props) {
   const deleteEntryM = useDeleteEntryMutation();
   const deleteSaleM = useDeleteSaleMutation();
 
-  const relatedSales = sales?.filter(s => s.accountId === entry.accountId) || [];
+  const relatedSales = sales?.filter((s) => s.accountId === entry.accountId) || [];
   const hasSales = relatedSales.length > 0;
 
   const handleDelete = () => {
-    relatedSales.forEach(sale => deleteSaleM.mutate(sale.id));
+    relatedSales.forEach((sale) => deleteSaleM.mutate(sale.id));
     deleteEntryM.mutate(entry);
   };
 
@@ -49,7 +49,10 @@ export function DeleteEntryDialog({ entry }: Props) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
-          <AlertDialogAction className="bg-destructive text-destructive-foreground" onClick={handleDelete}>
+          <AlertDialogAction
+            className="bg-destructive text-destructive-foreground"
+            onClick={handleDelete}
+          >
             {hasSales ? `Excluir entrada e ${relatedSales.length} venda(s)` : "Excluir"}
           </AlertDialogAction>
         </AlertDialogFooter>

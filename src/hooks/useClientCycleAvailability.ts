@@ -2,26 +2,26 @@ import { useMemo } from "react";
 import type { Sale, Program } from "@/types";
 
 export interface ClientUsage {
-  clientId: string
-  name: string
-  cpf: string
-  lastSaleDate: string
+  clientId: string;
+  name: string;
+  cpf: string;
+  lastSaleDate: string;
 }
 
 export interface ProgramOwnerUsage {
-  programName: string
-  ownerName: string
-  cycleLabel: string
-  limit: number | null
-  used: number
-  available: number | null
-  percentage: number
-  clients: ClientUsage[]
+  programName: string;
+  ownerName: string;
+  cycleLabel: string;
+  limit: number | null;
+  used: number;
+  available: number | null;
+  percentage: number;
+  clients: ClientUsage[];
 }
 
 export function useClientCycleAvailability(sales: Sale[], programs: Program[]) {
   return useMemo(() => {
-    const programsByName = new Map(programs.map(p => [p.name, p]));
+    const programsByName = new Map(programs.map((p) => [p.name, p]));
     const usageByKey = new Map<string, ProgramOwnerUsage>();
     const allPrograms = new Set<string>();
     const allOwners = new Set<string>();
@@ -58,7 +58,7 @@ export function useClientCycleAvailability(sales: Sale[], programs: Program[]) {
         const id = passenger.clientId || passenger.cpf;
         if (!id) continue;
 
-        const existing = entry.clients.find(c => c.clientId === id);
+        const existing = entry.clients.find((c) => c.clientId === id);
         if (existing) {
           if (sale.date > existing.lastSaleDate) {
             existing.lastSaleDate = sale.date;

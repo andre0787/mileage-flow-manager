@@ -1,67 +1,94 @@
-import { useState, useMemo } from "react"
-import { Plus, ArrowLeftRight, Search, AlertTriangle, TrendingUp, TrendingDown } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { FormDrawer } from "@/components/FormDrawer"
-import { SkeletonPage } from "@/components/SkeletonLoader"
-import { useHaptic } from "@/hooks/useHaptic"
-import { useDebounce } from "@/hooks/useDebounce"
-import { useData } from "@/contexts/DataContext"
-import { isTransferencia } from "@/lib/utils"
-import { calcMilesGenerated, calcCostPerThousand, calcCostPerMile } from "@/lib/metrics"
-import { buildMonthlyRecurrence, serializeOrigemTypeDescription } from "@/lib/origemTypes"
-import { useAddEntryMutation, useUpdateEntryMutation, useAddOrigemTypeMutation, useConfirmEntryMutation } from "@/hooks/useDatabase"
-import { EntrySummary } from "@/components/EntrySummary"
-import { EntryTable } from "@/components/EntryTable"
-import { EntryForm } from "@/components/EntryForm"
-import type { EntryFormData } from "@/components/EntryForm"
-import confetti from "canvas-confetti"
-import type { PointEntry } from "@/types"
+import { useState, useMemo } from "react";
+import {
+  Plus,
+  ArrowLeftRight,
+  Search,
+  AlertTriangle,
+  TrendingUp,
+  TrendingDown,
+} from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { FormDrawer } from "@/components/FormDrawer";
+import { SkeletonPage } from "@/components/SkeletonLoader";
+import { useHaptic } from "@/hooks/useHaptic";
+import { useDebounce } from "@/hooks/useDebounce";
+import { useData } from "@/contexts/DataContext";
+import { isTransferencia } from "@/lib/utils";
+import { calcMilesGenerated, calcCostPerThousand, calcCostPerMile } from "@/lib/metrics";
+import { buildMonthlyRecurrence, serializeOrigemTypeDescription } from "@/lib/origemTypes";
+import {
+  useAddEntryMutation,
+  useUpdateEntryMutation,
+  useAddOrigemTypeMutation,
+  useConfirmEntryMutation,
+} from "@/hooks/useDatabase";
+import { EntrySummary } from "@/components/EntrySummary";
+import { EntryTable } from "@/components/EntryTable";
+import { EntryForm } from "@/components/EntryForm";
+import type { EntryFormData } from "@/components/EntryForm";
+import confetti from "canvas-confetti";
+import type { PointEntry } from "@/types";
 
 export default function Entradas() {
-  const { entries, accounts, owners, programs, origemTypes, isLoading } = useData()
-  const [searchTerm, setSearchTerm] = useState("")
-  const debouncedSearch = useDebounce(searchTerm, 300)
-  const addEntryM = useAddEntryMutation()
-  const updateEntryM = useUpdateEntryMutation()
-  const addOrigemTypeM = useAddOrigemTypeMutation()
-  const confirmEntryM = useConfirmEntryMutation()
-  const haptic = useHaptic()
+  const { entries, accounts, owners, programs, origemTypes, isLoading } = useData();
+  const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearch = useDebounce(searchTerm, 300);
+  const addEntryM = useAddEntryMutation();
+  const updateEntryM = useUpdateEntryMutation();
+  const addOrigemTypeM = useAddOrigemTypeMutation();
+  const confirmEntryM = useConfirmEntryMutation();
+  const haptic = useHaptic();
 
-  const [activeTab, setActiveTab] = useState<"pontos" | "milhas">("pontos")
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
-  const [editingEntry, setEditingEntry] = useState<PointEntry | null>(null)
-  const [transferInitialData, setTransferInitialData] = useState<Partial<EntryFormData> | undefined>(undefined)
+  const [activeTab, setActiveTab] = useState<"pontos" | "milhas">("pontos");
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingEntry, setEditingEntry] = useState<PointEntry | null>(null);
+  const [transferInitialData, setTransferInitialData] = useState<
+    Partial<EntryFormData> | undefined
+  >(undefined);
 
   const handleOpenTransfer = () => {
-    const transferId = origemTypes.find((ot) => isTransferencia(ot))?.id ?? ""
-    setActiveTab("milhas")
-    setTransferInitialData({ origemTypeId: transferId })
-    setIsCreateDialogOpen(true)
-  }
+    const transferId = origemTypes.find((ot) => isTransferencia(ot))?.id ?? "";
+    setActiveTab("milhas");
+    setTransferInitialData({ origemTypeId: transferId });
+    setIsCreateDialogOpen(true);
+  };
 
   const computeFromForm = (form: EntryFormData) => {
-    const ot = origemTypes.find((ot) => ot.id === form.origemTypeId)
-    const isTransfer = ot ? isTransferencia(ot) : false
-    const amount = parseFloat(form.amount)
-    const cartAmount = parseFloat(form.cartAmount || "0")
-    const amountPaid = parseFloat(form.amountPaid)
-    const cartCost = parseFloat(form.cartCost || "0")
-    const conversionRate = parseFloat(form.conversionRate || "1")
-    const bonusPercent = isTransfer ? parseFloat(form.bonusPercent || "0") : undefined
-    const totalAmount = amount + (isTransfer ? cartAmount : 0)
-    const totalPaid = amountPaid + cartCost
-    const milesGenerated = calcMilesGenerated(totalAmount, conversionRate, bonusPercent)
-    const costPerThousand = calcCostPerThousand(totalPaid, milesGenerated)
-    const costPerMile = calcCostPerMile(totalPaid, milesGenerated)
-    return { isTransfer, amount, cartAmount, amountPaid, cartCost, conversionRate, bonusPercent, totalAmount, totalPaid, milesGenerated, costPerThousand, costPerMile }
-  }
+    const ot = origemTypes.find((ot) => ot.id === form.origemTypeId);
+    const isTransfer = ot ? isTransferencia(ot) : false;
+    const amount = parseFloat(form.amount);
+    const cartAmount = parseFloat(form.cartAmount || "0");
+    const amountPaid = parseFloat(form.amountPaid);
+    const cartCost = parseFloat(form.cartCost || "0");
+    const conversionRate = parseFloat(form.conversionRate || "1");
+    const bonusPercent = isTransfer ? parseFloat(form.bonusPercent || "0") : undefined;
+    const totalAmount = amount + (isTransfer ? cartAmount : 0);
+    const totalPaid = amountPaid + cartCost;
+    const milesGenerated = calcMilesGenerated(totalAmount, conversionRate, bonusPercent);
+    const costPerThousand = calcCostPerThousand(totalPaid, milesGenerated);
+    const costPerMile = calcCostPerMile(totalPaid, milesGenerated);
+    return {
+      isTransfer,
+      amount,
+      cartAmount,
+      amountPaid,
+      cartCost,
+      conversionRate,
+      bonusPercent,
+      totalAmount,
+      totalPaid,
+      milesGenerated,
+      costPerThousand,
+      costPerMile,
+    };
+  };
 
   const handleCreateEntry = (form: EntryFormData) => {
-    const c = computeFromForm(form)
+    const c = computeFromForm(form);
     addEntryM.mutate(
       {
         id: crypto.randomUUID(),
@@ -70,7 +97,11 @@ export default function Entradas() {
         amount: c.amount,
         amountPaid: c.totalPaid,
         costPerThousand: c.costPerThousand,
-        conversionRate: c.isTransfer ? 1 + parseFloat(form.bonusPercent || "0") / 100 : activeTab === "milhas" ? undefined : c.conversionRate,
+        conversionRate: c.isTransfer
+          ? 1 + parseFloat(form.bonusPercent || "0") / 100
+          : activeTab === "milhas"
+            ? undefined
+            : c.conversionRate,
         milesGenerated: c.milesGenerated,
         costPerMile: c.costPerMile,
         sourceAccountId: c.isTransfer ? form.sourceAccountId : undefined,
@@ -82,17 +113,22 @@ export default function Entradas() {
       },
       {
         onSuccess: () => {
-          haptic.success()
-          confetti({ particleCount: 40, spread: 60, origin: { y: 0.6 }, colors: ["#6366f1", "#10b981", "#f59e0b"] })
+          haptic.success();
+          confetti({
+            particleCount: 40,
+            spread: 60,
+            origin: { y: 0.6 },
+            colors: ["#6366f1", "#10b981", "#f59e0b"],
+          });
         },
-      }
-    )
-    setIsCreateDialogOpen(false)
-  }
+      },
+    );
+    setIsCreateDialogOpen(false);
+  };
 
   const handleUpdateEntry = (form: EntryFormData) => {
-    if (!editingEntry) return
-    const c = computeFromForm(form)
+    if (!editingEntry) return;
+    const c = computeFromForm(form);
     updateEntryM.mutate({
       oldEntry: editingEntry,
       updates: {
@@ -101,7 +137,11 @@ export default function Entradas() {
         amount: c.amount,
         amountPaid: c.totalPaid,
         costPerThousand: c.costPerThousand,
-        conversionRate: c.isTransfer ? 1 + parseFloat(form.bonusPercent || "0") / 100 : activeTab === "milhas" ? undefined : c.conversionRate,
+        conversionRate: c.isTransfer
+          ? 1 + parseFloat(form.bonusPercent || "0") / 100
+          : activeTab === "milhas"
+            ? undefined
+            : c.conversionRate,
         milesGenerated: c.milesGenerated,
         costPerMile: c.costPerMile,
         sourceAccountId: c.isTransfer ? form.sourceAccountId : undefined,
@@ -110,45 +150,68 @@ export default function Entradas() {
         cartCost: c.isTransfer && c.cartCost > 0 ? c.cartCost : undefined,
         ...buildMonthlyRecurrence(form.isClube, form.clubeMeses),
       },
-    })
-    setEditingEntry(null)
-    setIsEditDialogOpen(false)
-  }
+    });
+    setEditingEntry(null);
+    setIsEditDialogOpen(false);
+  };
 
-  const handleCreateOrigemType = (data: { name: string; color: string; hasRecurrence: boolean }) => {
-    const id = crypto.randomUUID()
-    const desc = serializeOrigemTypeDescription(data.hasRecurrence)
-    addOrigemTypeM.mutate({ id, name: data.name, accountType: activeTab, color: data.color, description: desc })
-    return id
-  }
+  const handleCreateOrigemType = (data: {
+    name: string;
+    color: string;
+    hasRecurrence: boolean;
+  }) => {
+    const id = crypto.randomUUID();
+    const desc = serializeOrigemTypeDescription(data.hasRecurrence);
+    addOrigemTypeM.mutate({
+      id,
+      name: data.name,
+      accountType: activeTab,
+      color: data.color,
+      description: desc,
+    });
+    return id;
+  };
 
   const entriesByTab = useMemo(
     () => entries.filter((e) => accounts.find((a) => a.id === e.accountId)?.type === activeTab),
-    [entries, accounts, activeTab]
-  )
+    [entries, accounts, activeTab],
+  );
 
   const entriesFiltered = useMemo(() => {
-    if (!debouncedSearch) return entriesByTab
-    const q = debouncedSearch.toLowerCase()
+    if (!debouncedSearch) return entriesByTab;
+    const q = debouncedSearch.toLowerCase();
     return entriesByTab.filter((e) => {
-      const account = accounts.find((a) => a.id === e.accountId)
-      const accountName = account?.name.toLowerCase() ?? ""
+      const account = accounts.find((a) => a.id === e.accountId);
+      const accountName = account?.name.toLowerCase() ?? "";
       const origemNome =
         origemTypes.find((ot) => ot.id === e.origemTypeId)?.name.toLowerCase() ??
         programs.find((p) => p.id === e.origemTypeId)?.name.toLowerCase() ??
-        ""
-      return accountName.includes(q) || origemNome.includes(q) || new Date(e.date).toLocaleDateString("pt-BR").includes(q)
-    })
-  }, [entriesByTab, debouncedSearch, accounts, origemTypes, programs])
+        "";
+      return (
+        accountName.includes(q) ||
+        origemNome.includes(q) ||
+        new Date(e.date).toLocaleDateString("pt-BR").includes(q)
+      );
+    });
+  }, [entriesByTab, debouncedSearch, accounts, origemTypes, programs]);
 
-  const confirmedEntries = useMemo(() => entriesFiltered.filter((e) => e.entryStatus !== "aguardando"), [entriesFiltered])
-  const pendingEntries = useMemo(() => entriesByTab.filter((e) => e.entryStatus === "aguardando"), [entriesByTab])
-  const totalAmount = confirmedEntries.reduce((s, e) => s + e.amount, 0)
-  const totalAmountPaid = confirmedEntries.reduce((s, e) => s + e.amountPaid, 0)
-  const totalMilesGenerated = confirmedEntries.reduce((s, e) => s + (e.milesGenerated ?? e.amount), 0)
-  const averageCostPerMile = totalMilesGenerated > 0 ? totalAmountPaid / totalMilesGenerated : 0
+  const confirmedEntries = useMemo(
+    () => entriesFiltered.filter((e) => e.entryStatus !== "aguardando"),
+    [entriesFiltered],
+  );
+  const pendingEntries = useMemo(
+    () => entriesByTab.filter((e) => e.entryStatus === "aguardando"),
+    [entriesByTab],
+  );
+  const totalAmount = confirmedEntries.reduce((s, e) => s + e.amount, 0);
+  const totalAmountPaid = confirmedEntries.reduce((s, e) => s + e.amountPaid, 0);
+  const totalMilesGenerated = confirmedEntries.reduce(
+    (s, e) => s + (e.milesGenerated ?? e.amount),
+    0,
+  );
+  const averageCostPerMile = totalMilesGenerated > 0 ? totalAmountPaid / totalMilesGenerated : 0;
 
-  if (isLoading) return <SkeletonPage />
+  if (isLoading) return <SkeletonPage />;
 
   return (
     <div className="space-y-6 animate-appear">
@@ -168,11 +231,21 @@ export default function Entradas() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <Button onClick={handleOpenTransfer} className="gap-2 bg-gradient-primary hover:opacity-90 shrink-0">
+          <Button
+            onClick={handleOpenTransfer}
+            className="gap-2 bg-gradient-primary hover:opacity-90 shrink-0"
+          >
             <ArrowLeftRight className="h-4 w-4" />
             Transferir
           </Button>
-          <Button variant="outline" className="gap-2 shrink-0" onClick={() => { setTransferInitialData(undefined); setIsCreateDialogOpen(true); }}>
+          <Button
+            variant="outline"
+            className="gap-2 shrink-0"
+            onClick={() => {
+              setTransferInitialData(undefined);
+              setIsCreateDialogOpen(true);
+            }}
+          >
             <Plus className="h-4 w-4" />
             Nova Entrada
           </Button>
@@ -188,7 +261,8 @@ export default function Entradas() {
               {pendingEntries.length} entrada(s) pendente(s) de confirmação
             </p>
             <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
-              Entradas geradas pelo Clube de {activeTab === "milhas" ? "Milhas" : "Pontos"} aguardando confirmação. Confirme abaixo para atualizar o saldo da conta.
+              Entradas geradas pelo Clube de {activeTab === "milhas" ? "Milhas" : "Pontos"}{" "}
+              aguardando confirmação. Confirme abaixo para atualizar o saldo da conta.
             </p>
           </div>
         </div>
@@ -230,7 +304,10 @@ export default function Entradas() {
                 origemTypes={origemTypes}
                 programs={programs}
                 owners={owners}
-                onEdit={(entry) => { setEditingEntry(entry); setIsEditDialogOpen(true); }}
+                onEdit={(entry) => {
+                  setEditingEntry(entry);
+                  setIsEditDialogOpen(true);
+                }}
                 onConfirm={(entry) => confirmEntryM.mutate(entry)}
               />
             </CardContent>
@@ -260,7 +337,10 @@ export default function Entradas() {
                 origemTypes={origemTypes}
                 programs={programs}
                 owners={owners}
-                onEdit={(entry) => { setEditingEntry(entry); setIsEditDialogOpen(true); }}
+                onEdit={(entry) => {
+                  setEditingEntry(entry);
+                  setIsEditDialogOpen(true);
+                }}
                 onConfirm={(entry) => confirmEntryM.mutate(entry)}
               />
             </CardContent>
@@ -272,8 +352,11 @@ export default function Entradas() {
       <FormDrawer
         open={isCreateDialogOpen}
         onOpenChange={(open) => {
-          if (!open) { setTransferInitialData(undefined); setIsCreateDialogOpen(false); }
-          setIsCreateDialogOpen(open)
+          if (!open) {
+            setTransferInitialData(undefined);
+            setIsCreateDialogOpen(false);
+          }
+          setIsCreateDialogOpen(open);
         }}
         title={`Registrar Nova Entrada - ${activeTab === "pontos" ? "Pontos" : "Milhas"}`}
       >
@@ -287,7 +370,10 @@ export default function Entradas() {
           activeTab={activeTab}
           onCreateOrigemType={handleCreateOrigemType}
           onSubmit={handleCreateEntry}
-          onCancel={() => { setTransferInitialData(undefined); setIsCreateDialogOpen(false); }}
+          onCancel={() => {
+            setTransferInitialData(undefined);
+            setIsCreateDialogOpen(false);
+          }}
         />
       </FormDrawer>
 
@@ -295,8 +381,10 @@ export default function Entradas() {
       <FormDrawer
         open={isEditDialogOpen}
         onOpenChange={(open) => {
-          if (!open) { setEditingEntry(null); }
-          setIsEditDialogOpen(open)
+          if (!open) {
+            setEditingEntry(null);
+          }
+          setIsEditDialogOpen(open);
         }}
         title={`Editar Entrada - ${activeTab === "pontos" ? "Pontos" : "Milhas"}`}
       >
@@ -308,14 +396,22 @@ export default function Entradas() {
               origemTypeId: editingEntry.origemTypeId,
               amount: String(editingEntry.amount),
               amountPaid: String(editingEntry.amountPaid),
-              conversionRate: editingEntry.conversionRate ? String(editingEntry.conversionRate) : "",
+              conversionRate: editingEntry.conversionRate
+                ? String(editingEntry.conversionRate)
+                : "",
               sourceAccountId: editingEntry.sourceAccountId ?? "",
               bonusPercent: editingEntry.bonusPercent ? String(editingEntry.bonusPercent) : "",
               cartAmount: editingEntry.cartAmount ? String(editingEntry.cartAmount) : "",
               cartCost: editingEntry.cartCost ? String(editingEntry.cartCost) : "",
               isClube: !!(editingEntry.recurrenceInterval && editingEntry.recurrenceEnd),
               clubeMeses: editingEntry.recurrenceEnd
-                ? String(Math.ceil((new Date(editingEntry.recurrenceEnd).getTime() - new Date(editingEntry.date).getTime()) / (30 * 24 * 60 * 60 * 1000)))
+                ? String(
+                    Math.ceil(
+                      (new Date(editingEntry.recurrenceEnd).getTime() -
+                        new Date(editingEntry.date).getTime()) /
+                        (30 * 24 * 60 * 60 * 1000),
+                    ),
+                  )
                 : "",
             }}
             accounts={accounts}
@@ -324,10 +420,13 @@ export default function Entradas() {
             owners={owners}
             activeTab={activeTab}
             onSubmit={handleUpdateEntry}
-            onCancel={() => { setEditingEntry(null); setIsEditDialogOpen(false); }}
+            onCancel={() => {
+              setEditingEntry(null);
+              setIsEditDialogOpen(false);
+            }}
           />
         )}
       </FormDrawer>
     </div>
-  )
+  );
 }

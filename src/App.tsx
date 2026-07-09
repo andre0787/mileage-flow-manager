@@ -38,16 +38,104 @@ const AnimatedRoutes = () => {
 
   return (
     <Routes location={location} key={location.pathname}>
-      <Route path="/" element={<ErrorBoundary><div className="animate-appear"><Dashboard /></div></ErrorBoundary>} />
-      <Route path="/contas" element={<ErrorBoundary><div className="animate-appear"><Contas /></div></ErrorBoundary>} />
-      <Route path="/clientes" element={<ErrorBoundary><div className="animate-appear"><Clientes /></div></ErrorBoundary>} />
-      <Route path="/entradas" element={<ErrorBoundary><div className="animate-appear"><Entradas /></div></ErrorBoundary>} />
-      <Route path="/vendas" element={<ErrorBoundary><div className="animate-appear"><Vendas /></div></ErrorBoundary>} />
-      <Route path="/cpf" element={<ErrorBoundary><div className="animate-appear"><ControleCPF /></div></ErrorBoundary>} />
-      <Route path="/relatorios" element={<ErrorBoundary><div className="animate-appear"><Relatorios /></div></ErrorBoundary>} />
-      <Route path="/configuracoes" element={<ErrorBoundary><div className="animate-appear"><Configuracoes /></div></ErrorBoundary>} />
-      <Route path="/perfil" element={<ErrorBoundary><div className="animate-appear"><Perfil /></div></ErrorBoundary>} />
-      <Route path="*" element={<div className="animate-appear"><NotFound /></div>} />
+      <Route
+        path="/"
+        element={
+          <ErrorBoundary>
+            <div className="animate-appear">
+              <Dashboard />
+            </div>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/contas"
+        element={
+          <ErrorBoundary>
+            <div className="animate-appear">
+              <Contas />
+            </div>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/clientes"
+        element={
+          <ErrorBoundary>
+            <div className="animate-appear">
+              <Clientes />
+            </div>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/entradas"
+        element={
+          <ErrorBoundary>
+            <div className="animate-appear">
+              <Entradas />
+            </div>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/vendas"
+        element={
+          <ErrorBoundary>
+            <div className="animate-appear">
+              <Vendas />
+            </div>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/cpf"
+        element={
+          <ErrorBoundary>
+            <div className="animate-appear">
+              <ControleCPF />
+            </div>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/relatorios"
+        element={
+          <ErrorBoundary>
+            <div className="animate-appear">
+              <Relatorios />
+            </div>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/configuracoes"
+        element={
+          <ErrorBoundary>
+            <div className="animate-appear">
+              <Configuracoes />
+            </div>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/perfil"
+        element={
+          <ErrorBoundary>
+            <div className="animate-appear">
+              <Perfil />
+            </div>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="*"
+        element={
+          <div className="animate-appear">
+            <NotFound />
+          </div>
+        }
+      />
     </Routes>
   );
 };
@@ -64,7 +152,10 @@ const AppLayout = () => {
               <h2 className="text-base font-semibold text-foreground font-display">MilesControl</h2>
             </div>
           </header>
-          <main className="flex-1 p-4 md:p-6 pb-20 md:pb-6 bg-background safe-area-bottom overflow-x-hidden" style={{ overscrollBehavior: "contain" }}>
+          <main
+            className="flex-1 p-4 md:p-6 pb-20 md:pb-6 bg-background safe-area-bottom overflow-x-hidden"
+            style={{ overscrollBehavior: "contain" }}
+          >
             <DataProvider>
               <AnimatedRoutes />
             </DataProvider>
@@ -87,11 +178,14 @@ const App = () => (
               <Route path="/login" element={<Login />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/*" element={
-                <ProtectedRoute>
-                  <AppLayout />
-                </ProtectedRoute>
-              } />
+              <Route
+                path="/*"
+                element={
+                  <ProtectedRoute>
+                    <AppLayout />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
           </BrowserRouter>
         </TooltipProvider>

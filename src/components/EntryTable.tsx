@@ -125,7 +125,7 @@ export function EntryTable({
         )}
         <div>
           <span className="text-muted-foreground">Custo/Milha:</span>
-          <p className="font-semibold">R$ {entry.costPerMile.toFixed(4)}</p>
+          <p className="font-semibold">R$ {(entry.costPerMile ?? 0).toFixed(4)}</p>
         </div>
       </div>
 
@@ -190,7 +190,7 @@ export function EntryTable({
                       <TableCell className="hidden md:table-cell">R$ {entry.amountPaid.toLocaleString("pt-BR")}</TableCell>
                     </>
                   )}
-                  <TableCell className="hidden md:table-cell">R$ {entry.costPerMile.toFixed(4)}</TableCell>
+                  <TableCell className="hidden md:table-cell">R$ {(entry.costPerMile ?? 0).toFixed(4)}</TableCell>
                   <TableCell className="hidden md:table-cell text-right">{renderActions(entry)}</TableCell>
                 </TableRow>
               ))

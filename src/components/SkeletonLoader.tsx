@@ -3,11 +3,11 @@ import { cn } from "@/lib/utils";
 
 interface SkeletonLoaderProps {
   /** Número de linhas na tabela */
-  rows?: number
+  rows?: number;
   /** Número de colunas na tabela */
-  cols?: number
+  cols?: number;
   /** Classes adicionais */
-  className?: string
+  className?: string;
 }
 
 /** Placeholder para tabelas em loading */

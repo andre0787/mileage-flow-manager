@@ -19,7 +19,10 @@ export default function Perfil() {
   const [saving, setSaving] = useState<string | null>(null);
 
   const handleUpdateName = async () => {
-    if (!name.trim()) { toast.error("Nome não pode ficar vazio"); return; }
+    if (!name.trim()) {
+      toast.error("Nome não pode ficar vazio");
+      return;
+    }
     setSaving("name");
     const { error } = await supabase.auth.updateUser({ data: { name: name.trim() } });
     if (error) toast.error(error.message);
@@ -28,7 +31,10 @@ export default function Perfil() {
   };
 
   const handleUpdateEmail = async () => {
-    if (!email.trim()) { toast.error("Email não pode ficar vazio"); return; }
+    if (!email.trim()) {
+      toast.error("Email não pode ficar vazio");
+      return;
+    }
     setSaving("email");
     const { error } = await supabase.auth.updateUser({ email: email.trim() });
     if (error) toast.error(error.message);
@@ -37,9 +43,18 @@ export default function Perfil() {
   };
 
   const handleUpdatePassword = async () => {
-    if (!currentPassword) { toast.error("Digite sua senha atual"); return; }
-    if (!newPassword || newPassword.length < 6) { toast.error("Nova senha deve ter no mínimo 6 caracteres"); return; }
-    if (newPassword !== confirmPassword) { toast.error("Senhas não conferem"); return; }
+    if (!currentPassword) {
+      toast.error("Digite sua senha atual");
+      return;
+    }
+    if (!newPassword || newPassword.length < 6) {
+      toast.error("Nova senha deve ter no mínimo 6 caracteres");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      toast.error("Senhas não conferem");
+      return;
+    }
     setSaving("password");
 
     // Verifica senha atual antes de alterar
@@ -47,7 +62,11 @@ export default function Perfil() {
       email: user?.email ?? "",
       password: currentPassword,
     });
-    if (signInError) { toast.error("Senha atual incorreta"); setSaving(null); return; }
+    if (signInError) {
+      toast.error("Senha atual incorreta");
+      setSaving(null);
+      return;
+    }
 
     const { error } = await supabase.auth.updateUser({ password: newPassword });
     if (error) toast.error(error.message);
@@ -65,9 +84,7 @@ export default function Perfil() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Perfil</h1>
-          <p className="text-sm text-muted-foreground">
-            Gerencie suas informações de conta
-          </p>
+          <p className="text-sm text-muted-foreground">Gerencie suas informações de conta</p>
         </div>
       </div>
 
@@ -90,7 +107,11 @@ export default function Perfil() {
                 placeholder="Seu nome"
                 className="flex-1"
               />
-              <Button onClick={handleUpdateName} disabled={saving === "name"} className="shrink-0 min-h-[44px]">
+              <Button
+                onClick={handleUpdateName}
+                disabled={saving === "name"}
+                className="shrink-0 min-h-[44px]"
+              >
                 {saving === "name" ? "Salvando..." : "Salvar"}
               </Button>
             </div>
@@ -121,7 +142,11 @@ export default function Perfil() {
                 placeholder="seu@email.com"
                 className="flex-1"
               />
-              <Button onClick={handleUpdateEmail} disabled={saving === "email"} className="shrink-0 min-h-[44px]">
+              <Button
+                onClick={handleUpdateEmail}
+                disabled={saving === "email"}
+                className="shrink-0 min-h-[44px]"
+              >
                 {saving === "email" ? "Salvando..." : "Salvar"}
               </Button>
             </div>

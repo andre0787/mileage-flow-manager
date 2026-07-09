@@ -1,6 +1,6 @@
 export interface PeriodOption {
-  value: string
-  label: string
+  value: string;
+  label: string;
 }
 
 export const PERIOD_OPTIONS: PeriodOption[] = [

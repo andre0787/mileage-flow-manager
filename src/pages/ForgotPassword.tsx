@@ -50,12 +50,10 @@ export default function ForgotPassword() {
               <div className="flex items-center justify-center w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-full mx-auto mb-3">
                 <CheckCircle2 className="w-6 h-6 text-green-600 dark:text-green-400" />
               </div>
-              <CardTitle className="text-lg font-display text-center">
-                Email enviado!
-              </CardTitle>
+              <CardTitle className="text-lg font-display text-center">Email enviado!</CardTitle>
               <CardDescription className="text-sm font-body text-center">
-                Enviamos um link de redefinição de senha para <strong>{email}</strong>.
-                Verifique sua caixa de entrada e spam.
+                Enviamos um link de redefinição de senha para <strong>{email}</strong>. Verifique
+                sua caixa de entrada e spam.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -102,7 +100,9 @@ export default function ForgotPassword() {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-xs font-medium">Email</Label>
+                <Label htmlFor="email" className="text-xs font-medium">
+                  Email
+                </Label>
                 <Input
                   id="email"
                   type="email"

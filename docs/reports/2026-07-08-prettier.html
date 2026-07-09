@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório — Prettier</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem;color:#1a1a1a;background:#fafafa}
+h1{font-size:1.5rem;margin-bottom:.25rem}
+.date{color:#666;font-size:.875rem;margin-bottom:1.5rem}
+.badges{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.badge{padding:.25rem .625rem;border-radius:999px;font-size:.75rem;font-weight:600}
+.badge-chore{background:#e0e7ff;color:#3730a3}
+.badge-infra{background:#fce7f3;color:#9d174d}
+.badge-added{background:#d1fae5;color:#065f46}
+table{width:100%;border-collapse:collapse;margin:1rem 0}
+th,td{text-align:left;padding:.5rem;border-bottom:1px solid #e5e7eb}
+th{font-weight:600;color:#374151}
+.section{margin:1.5rem 0}
+.section h2{font-size:1.125rem;margin-bottom:.5rem}
+ul{padding-left:1.25rem}
+li{margin-bottom:.25rem}
+code{background:#e5e7eb;padding:.125rem.375rem;border-radius:4px;font-size:.875rem}
+</style>
+</head>
+<body>
+
+<h1>🎨 Prettier — Configuração + Formatação</h1>
+<div class="date">2026-07-08</div>
+<div class="badges">
+  <span class="badge badge-chore">chore</span>
+  <span class="badge badge-infra">infra</span>
+</div>
+
+<div class="section">
+<h2>Antes</h2>
+<ul>
+  <li>Sem formatador automático — código com estilos mistos (aspas, vírgulas, tabs)</li>
+  <li>Sem padronização de formatação entre devs</li>
+  <li>Sem script de formatação no CI</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Depois</h2>
+<ul>
+  <li><code>.prettierrc</code> com regras definidas</li>
+  <li><code>.prettierignore</code> para builds/logs</li>
+  <li><code>npm run format</code> e <code>format:check</code> scripts</li>
+  <li>prettier@3.9.4 como devDependency</li>
+  <li>Todos os 80 arquivos fonte formatados consistentemente</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Benefícios</h2>
+<ul>
+  <li>✔️ Código consistente sem discussão de estilo</li>
+  <li>✔️ <code>format:check</code> pode rodar no CI</li>
+  <li>✔️ Prettier + ESLint sem conflito (regras estilísticas pro Prettier)</li>
+  <li>✔️ 80 arquivos padronizados de uma vez</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Tokens</h2>
+<table>
+<tr><th>Métrica</th><th>Valor</th></tr>
+<tr><td>Arquivos alterados</td><td>80 (5653 ins, 3307 del)</td></tr>
+<tr><td>Novos arquivos</td><td>2 (.prettierrc, .prettierignore)</td></tr>
+<tr><td>Dependências</td><td>1 (prettier@3.9.4)</td></tr>
+</table>
+</div>
+
+</body>
+</html>

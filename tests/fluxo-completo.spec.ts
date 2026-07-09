@@ -216,7 +216,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.waitForTimeout(300);
 
     // Milhas tab: only "Latam Pass" account and "Transferência" origem type are available
-    let mCmb = page.locator("[role=combobox]");
+    const mCmb = page.locator("[role=combobox]");
     await mCmb.nth(0).click();
     await page.waitForTimeout(300);
     await page.getByRole("option", { name: /latam/i }).click();
@@ -282,7 +282,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.getByRole("button", { name: /nova venda/i }).click();
     await page.waitForTimeout(300);
     // Dialog combos: nth(1)=Dono, nth(2)=Conta, nth(3)=Cliente
-    let vCmb = page.locator("[role=combobox]");
+    const vCmb = page.locator("[role=combobox]");
     await vCmb.nth(1).click();
     await page.waitForTimeout(200);
     await page.getByRole("option", { name: /joão/i }).click();
