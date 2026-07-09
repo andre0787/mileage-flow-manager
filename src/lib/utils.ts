@@ -13,3 +13,18 @@ export function formatCPF(cpf: string) {
 export function isTransferencia(ot: { name: string; accountType: string }): boolean {
   return ot.name === "Transferência" && ot.accountType === "milhas";
 }
+
+/** Formata valor monetário em R$ */
+export function formatCurrency(value: number): string {
+  return `R$ ${value.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
+/** Formata número com separador de milhar pt-BR */
+export function formatNumber(value: number, digits = 0): string {
+  return value.toLocaleString('pt-BR', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+}
+
+/** Formata percentual com 1 casa decimal + % */
+export function formatPercent(value: number): string {
+  return `${value.toFixed(1)}%`;
+}
