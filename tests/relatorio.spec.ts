@@ -1,9 +1,8 @@
 import { test, expect } from "@playwright/test";
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./helpers";
 
 const PASSWORD = "Test@123456";
 const email = `rel_${Date.now()}@teste.com`;
-const SUPABASE_URL = "https://ohyplfpcwxzakujjfwdf.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs";
 
 test("filtros refletem nos resumos e tabelas", async ({ page }) => {
   test.setTimeout(120_000);
