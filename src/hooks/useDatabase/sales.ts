@@ -1,11 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
+import type { Database } from "@/lib/supabase-types";
 import { useAuth } from "@/contexts/AuthContext";
 import { calcProportionalCost } from "@/lib/metrics";
 import { calcAccountUpdate } from "@/lib/accounts";
 import type { Sale } from "@/types";
 import { useUserId } from "./shared";
 import { mapSale } from "./mappers";
+
+type SaleUpdate = Database["public"]["Tables"]["sales"]["Update"];
 
 export function useSalesQuery() {
   const userId = useUserId();
@@ -62,7 +65,7 @@ export function useUpdateSaleMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, ...data }: Partial<Sale> & { id: string }) => {
-      const updateData: Record<string, unknown> = {};
+      const updateData: SaleUpdate = {};
       if (data.accountId !== undefined) updateData.account_id = data.accountId;
       if (data.accountName !== undefined) updateData.account_name = data.accountName;
       if (data.ownerName !== undefined) updateData.owner_name = data.ownerName;
@@ -77,7 +80,7 @@ export function useUpdateSaleMutation() {
       if (data.additionalCostDesc !== undefined) updateData.additional_cost_desc = data.additionalCostDesc;
       if (data.profit !== undefined) updateData.profit = data.profit;
       if (data.profitMargin !== undefined) updateData.profit_margin = data.profitMargin;
-      if (data.status !== undefined) updateData.status = data.status;
+      if (data.status !== undefined) updateData.status = data.status as SaleUpdate["status"];
       if (data.ticketLocator !== undefined) updateData.ticket_locator = data.ticketLocator;
       if (data.passengers !== undefined) updateData.passengers = data.passengers;
       if (data.date !== undefined) updateData.date = data.date;

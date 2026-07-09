@@ -1,9 +1,12 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
+import type { Database } from "@/lib/supabase-types";
 import { useAuth } from "@/contexts/AuthContext";
 import type { Program } from "@/types";
 import { useUserId } from "./shared";
 import { mapProgram } from "./mappers";
+
+type ProgramUpdate = Database["public"]["Tables"]["programs"]["Update"];
 
 export function useProgramsQuery() {
   const userId = useUserId();
@@ -48,7 +51,7 @@ export function useUpdateProgramMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, ...data }: Partial<Program> & { id: string }) => {
-      const updateData: Record<string, unknown> = {};
+      const updateData: ProgramUpdate = {};
       if (data.name !== undefined) updateData.name = data.name;
       if (data.type !== undefined) updateData.type = data.type;
       if (data.maxPassengers !== undefined) updateData.max_passengers = data.maxPassengers;

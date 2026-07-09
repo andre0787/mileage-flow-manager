@@ -17,6 +17,7 @@ export interface Database {
           name?: string
           created_at?: string
         }
+        Relationships: []
       }
       owners: {
         Row: {
@@ -43,6 +44,7 @@ export interface Database {
           phone?: string
           created_at?: string
         }
+        Relationships: []
       }
       programs: {
         Row: {
@@ -72,6 +74,7 @@ export interface Database {
           passenger_cycle_type?: "anual" | "dias" | null
           passenger_cycle_days?: number | null
         }
+        Relationships: []
       }
       origem_types: {
         Row: {
@@ -98,6 +101,7 @@ export interface Database {
           color?: string
           description?: string | null
         }
+        Relationships: []
       }
       accounts: {
         Row: {
@@ -139,6 +143,7 @@ export interface Database {
           status?: "ativa" | "inativa"
           created_at?: string
         }
+        Relationships: []
       }
       entries: {
         Row: {
@@ -189,6 +194,7 @@ export interface Database {
           date?: string
           description?: string | null
         }
+        Relationships: []
       }
       clients: {
         Row: {
@@ -224,6 +230,7 @@ export interface Database {
           total_purchases?: number
           usage_history?: { program: string; count: number; year: number }[]
         }
+        Relationships: []
       }
       sales: {
         Row: {
@@ -265,7 +272,7 @@ export interface Database {
           additional_cost_desc?: string | null
           profit?: number
           profit_margin?: number
-          status?: "pendente" | "pago" | "concluido"
+          status?: "pendente" | "pago" | "concluido" | "cancelado"
           ticket_locator?: string
           passengers?: { name: string; passengerId: string; cpf: string; clientId?: string }[]
           date?: string
@@ -287,13 +294,15 @@ export interface Database {
           additional_cost_desc?: string | null
           profit?: number
           profit_margin?: number
-          status?: "pendente" | "pago" | "concluido"
+          status?: "pendente" | "pago" | "concluido" | "cancelado"
           ticket_locator?: string
           passengers?: { name: string; passengerId: string; cpf: string; clientId?: string }[]
           date?: string
         }
+        Relationships: []
       }
     }
+    Views: Record<string, never>
     Functions: Record<string, never>
   }
 }

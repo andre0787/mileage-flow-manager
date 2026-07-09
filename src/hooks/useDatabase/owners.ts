@@ -1,9 +1,12 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
+import type { Database } from "@/lib/supabase-types";
 import type { Owner } from "@/types";
 import { useAuth } from "@/contexts/AuthContext";
 import { useUserId } from "./shared";
 import { mapOwner } from "./mappers";
+
+type OwnerInsert = Database["public"]["Tables"]["owners"]["Insert"];
 
 export function useOwnersQuery() {
   const userId = useUserId();
@@ -24,9 +27,10 @@ export function useAddOwnerMutation() {
   const { user } = useAuth();
   return useMutation({
     mutationFn: async (owner: Owner) => {
-      const { error } = await supabase.from("owners").insert({
+      const row: OwnerInsert = {
         id: owner.id, user_id: user!.id, name: owner.name, cpf: owner.cpf, phone: owner.phone,
-      });
+      };
+      const { error } = await supabase.from("owners").insert(row);
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["owners"] }),
