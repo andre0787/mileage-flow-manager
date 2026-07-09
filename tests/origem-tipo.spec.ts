@@ -74,7 +74,7 @@ test("Tipos de origem marcam recorrência corretamente", async ({ page }) => {
   await page.goto('/configuracoes', { waitUntil: 'domcontentloaded' });
   await page.getByRole('tab', { name: /tipo de operação/i }).click();
   await page.getByRole('button', { name: /nova operação/i }).click();
-  await page.fill('#otNameMilhas', 'Operação Avulsa Config');
+  await page.fill('#otName', 'Operação Avulsa Config');
   await page.getByRole('button', { name: 'Cadastrar' }).click();
   await expect(page.getByText('Operação Avulsa Config').first()).toBeVisible({ timeout: 5000 });
   await expect(page.getByText('Avulsa').first()).toBeVisible({ timeout: 5000 });
