@@ -113,7 +113,9 @@ export function parseDescription(description?: string | null): {
   if (!description) return {};
   try {
     return JSON.parse(description);
-  } catch {}
+  } catch {
+    // ponytail: descrição não-JSON → objeto vazio
+  }
   return {};
 }
 
