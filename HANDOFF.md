@@ -1,39 +1,31 @@
-# HANDOFF — Sprint #4 Em Andamento
+# HANDOFF — Sprint #4 Completa
 
-## Status: Sprint #4 🔄 PR #55 aberta
+## Status: Sprint #4 ✅ Completa — PR #55 merged
 
-### Último trabalho: CSV export + fixes
+### Último trabalho: PR #55 merged em 2026-07-09
 
-PR #55 (`develop` → `main`) aberta.
+- PR #55 (`develop` → `main`) merged
+- Issues #56 e #57 criadas (bugs de teste pré-existentes)
+- Relatório HTML: `docs/reports/2026-07-09-sprint4-csv-export.html`
 
 ### Branch atual
 
-`develop` — PR #55 pendente
+`main` — produção limpa
 
 ### Entregues nesta sprint
 
 | Tarefa | Status |
 |--------|--------|
-| CSV export em Vendas.tsx | ✅ Feito |
-| Playwright retries | ✅ Feito |
-| Bug sync origem-tipo | ✅ Identificado |
+| CSV export em Vendas.tsx | ✅ |
+| Playwright retries | ✅ |
+| Dashboard charts | ✅ Já existia |
 
-### Status dos testes
+### Issues abertas
 
-- ✅ 33/33 testes unitários (vitest)
-- ✅ 4/4 E2E tests (carrinho, clube, debug, relatorio)
-- ⚠️ 2 tests com issues pré-existentes:
-  - `fluxo-completo`: Supabase API 409 (dados duplicados)
-  - `origem-tipo`: bug de sincronização (recorrência não ativava ao criar tipo)
+- #56 — teste origem-tipo (isClube não setado ao criar tipo)
+- #57 — teste fluxo-completo (Supabase 409)
 
-### Pendências
+### Próximos passos
 
-- [ ] Merge PR #55
-- [ ] Corrigir teste origem-tipo (bug real: `isClube` não setado ao criar tipo)
-- [ ] Investigar fluxo-completo 409
-
-### Configurações importantes
-
-- `playwright.config.ts`: `retries: 1`, `testMatch: "*.spec.ts"`
-- `tsconfig.app.json`: `strictNullChecks: true`
-- `.prettierrc`: semi, singleQuote: false, trailingComma: all, printWidth: 100
+1. Definir Sprint #5
+2. Corrigir issues #56 e #57 quando pertinente

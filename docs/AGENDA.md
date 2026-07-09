@@ -7,39 +7,29 @@
 
 ## ✅ Sprint #3 — Completa (PR #54 merged em 2026-07-09)
 
-### Entregues
-- [x] #6 — Entradas.tsx → componentes extraídos
-- [x] #7 — Vendas.tsx → componentes extraídos
-- [x] #8 — useDatabase.ts → split em 10 módulos
-- [x] #9 — strictNullChecks ativado
-- [x] #10 — 33 testes unitários (metrics.ts)
-- [x] #11 — Lint errors corrigidos
-- [x] #12 — Centralizar formatação
-- [x] #13 — Helpers de teste
-- [x] #14 — Vitest na bateria pré-deploy
-- [x] #15 — Prettier configurado
-- [x] #16 — Configuracoes.tsx → seções extraídas
+- [x] #6–#16 — Refatoração, testes, formatação, strictNullChecks
 
 ---
 
-## 🔄 Sprint #4 — Em Andamento (PR #55 aberta)
+## ✅ Sprint #4 — Completa (PR #55 merged em 2026-07-09)
 
-### Entregues
-- [x] CSV export em Vendas.tsx (botão "Exportar")
-- [x] Playwright retries (retries: 1)
-- [x] Dashboard com gráficos (já existia — PieChart + BarChart via recharts)
+- [x] CSV export em Vendas.tsx
+- [x] Playwright retries
+- [x] Dashboard charts (já existia)
+- [x] Relatório HTML gerado
 
-### Pendentes
-- [ ] Merge PR #55 → main
-- [ ] Corrigir teste origem-tipo (bug: isClube não setado ao criar tipo)
-- [ ] Investigar teste fluxo-completo (Supabase 409)
+---
+
+## 🎯 Sprint #5 — A definir
 
 ---
 
 ## 📌 Backlog Futuro
 
+- [ ] #56 — Corrigir teste origem-tipo (isClube não setado)
+- [ ] #57 — Corrigir teste fluxo-completo (Supabase 409)
 - [ ] Exportação PDF dos relatórios
 - [ ] Notificações push para confirmação de entradas
 - [ ] Modo offline com sincronização
 - [ ] Multi-idioma (i18n)
-- [ ] Code splitting (recharts é 163kB — lazy load)
+- [ ] Code splitting (recharts 163kB — lazy load)
