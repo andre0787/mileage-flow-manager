@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relatório — PR59 Fix fluxo-completo</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; }
+  h1 { border-bottom: 2px solid #5B72C4; padding-bottom: .5rem; }
+  .stat { display: inline-block; background: #f0f4ff; padding: .25rem .75rem; border-radius: 6px; font-size: .875rem; }
+  .benefits li { margin: .5rem 0; }
+  pre { background: #f5f5f5; padding: 1rem; border-radius: 6px; overflow-x: auto; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: .75rem; font-weight: 600; }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-blue { background: #cce5ff; color: #004085; }
+</style>
+</head>
+<body>
+<h1>📋 Relatório: PR59 — Fix fluxo-completo timeout</h1>
+<p>
+  <span class="badge badge-blue">fix</span>
+  <span class="badge badge-green">test</span>
+</p>
+<p class="stat">⚡ ~30 tokens</p>
+
+<h2>Antes</h2>
+<p>Teste fluxo-completo hangava em 300s. Comboboxes vazios porque React Query não refazia fetch após criação de dados via API. Seletor #miles não existia no SaleForm.</p>
+
+<h2>Depois</h2>
+<p>Reload com networkidle + 3s wait garante que React Query busca dados frescos. Seletor #miles corrigido para input[placeholder="Ex: 50000"]. Teste completa em ~42s.</p>
+
+<h2>Benefícios</h2>
+<ul class="benefits">
+  <li>✅ fluxo-completo passa em 42s (antes hangava 300s)</li>
+  <li>✅ 7/8 E2E tests passing</li>
+  <li>✅ Root cause identificado: FKs dummy + React Query stale cache</li>
+</ul>
+
+<h2>Causa Raiz</h2>
+<pre>
+1. Accounts criados com owner_id/program_id dummy → RLS reject → count:0
+2. React Query staleTime 30s + refetchOnWindowFocus:false → cache miss
+3. Combobox options = [] → teste hangava tentando clicar option inexistente
+</pre>
+
+<h2>Testes</h2>
+<ul class="benefits">
+  <li>✅ 33/33 unitários</li>
+  <li>✅ 7/8 E2E (entradas.spec.ts tem issue separada)</li>
+</ul>
+</body>
+</html>
