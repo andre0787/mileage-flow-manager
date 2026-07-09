@@ -3,13 +3,13 @@ import { AlertTriangle, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface Props {
-  children: ReactNode
-  fallback?: ReactNode
+  children: ReactNode;
+  fallback?: ReactNode;
 }
 
 interface State {
-  error: Error | null
-  errorInfo: ErrorInfo | null
+  error: Error | null;
+  errorInfo: ErrorInfo | null;
 }
 
 export class ErrorBoundary extends Component<Props, State> {
@@ -43,12 +43,10 @@ export class ErrorBoundary extends Component<Props, State> {
             <AlertTriangle className="h-8 w-8 text-destructive" />
           </div>
           <div className="text-center space-y-2 max-w-md">
-            <h2 className="text-xl font-semibold text-foreground font-display">
-              Algo deu errado
-            </h2>
+            <h2 className="text-xl font-semibold text-foreground font-display">Algo deu errado</h2>
             <p className="text-sm text-muted-foreground">
-              Ocorreu um erro inesperado ao carregar esta seção.
-              Tente recarregar a página ou clique no botão abaixo.
+              Ocorreu um erro inesperado ao carregar esta seção. Tente recarregar a página ou clique
+              no botão abaixo.
             </p>
             {process.env.NODE_ENV === "development" && this.state.error && (
               <details className="text-left mt-4">
@@ -63,11 +61,7 @@ export class ErrorBoundary extends Component<Props, State> {
             )}
           </div>
           <div className="flex gap-3">
-            <Button
-              variant="outline"
-              className="gap-2"
-              onClick={() => window.location.reload()}
-            >
+            <Button variant="outline" className="gap-2" onClick={() => window.location.reload()}>
               <RefreshCw className="h-4 w-4" />
               Recarregar Página
             </Button>

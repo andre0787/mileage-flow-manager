@@ -61,7 +61,9 @@ export function AppSidebar() {
               {!collapsed && (
                 <div>
                   <h2 className="text-base font-bold text-foreground font-display">MilesControl</h2>
-                  <p className="text-xs text-muted-foreground font-medium tracking-wide">Gestão de Milhas</p>
+                  <p className="text-xs text-muted-foreground font-medium tracking-wide">
+                    Gestão de Milhas
+                  </p>
                 </div>
               )}
             </div>
@@ -69,10 +71,12 @@ export function AppSidebar() {
 
           {/* Navigation Menu */}
           <SidebarGroup>
-            <SidebarGroupLabel className={cn(
-              "text-xs font-semibold text-muted-foreground tracking-wider uppercase",
-              collapsed && "sr-only"
-            )}>
+            <SidebarGroupLabel
+              className={cn(
+                "text-xs font-semibold text-muted-foreground tracking-wider uppercase",
+                collapsed && "sr-only",
+              )}
+            >
               Navegação
             </SidebarGroupLabel>
             <SidebarGroupContent>
@@ -88,13 +92,15 @@ export function AppSidebar() {
                           "relative group",
                           isActive(item.url)
                             ? "bg-primary text-primary-foreground font-medium shadow-sm"
-                            : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                            : "text-muted-foreground hover:text-foreground hover:bg-accent/50",
                         )}
                       >
-                        <item.icon className={cn(
-                          "w-4 h-4 shrink-0 transition-transform duration-200",
-                          !isActive(item.url) && "group-hover:scale-110"
-                        )} />
+                        <item.icon
+                          className={cn(
+                            "w-4 h-4 shrink-0 transition-transform duration-200",
+                            !isActive(item.url) && "group-hover:scale-110",
+                          )}
+                        />
                         {!collapsed && (
                           <span className="text-sm font-medium font-body">{item.title}</span>
                         )}
@@ -108,11 +114,15 @@ export function AppSidebar() {
 
           {/* Bottom Actions */}
           <div className="mt-auto p-4 border-t border-sidebar-border">
-            <div className={cn(
-              "flex items-center px-3 py-2 rounded-lg transition-colors mb-1",
-              !collapsed && "justify-between"
-            )}>
-              {!collapsed && <span className="text-xs text-muted-foreground font-medium">Tema</span>}
+            <div
+              className={cn(
+                "flex items-center px-3 py-2 rounded-lg transition-colors mb-1",
+                !collapsed && "justify-between",
+              )}
+            >
+              {!collapsed && (
+                <span className="text-xs text-muted-foreground font-medium">Tema</span>
+              )}
               <ThemeToggle />
             </div>
             <SidebarMenu>
@@ -123,7 +133,8 @@ export function AppSidebar() {
                     className={cn(
                       "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200",
                       "text-muted-foreground hover:text-foreground hover:bg-accent/50",
-                      isActive("/perfil") && "bg-primary text-primary-foreground font-medium shadow-sm"
+                      isActive("/perfil") &&
+                        "bg-primary text-primary-foreground font-medium shadow-sm",
                     )}
                   >
                     <User className="w-4 h-4 shrink-0" />
@@ -138,11 +149,14 @@ export function AppSidebar() {
                     className={cn(
                       "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200",
                       "text-muted-foreground hover:text-foreground hover:bg-accent/50",
-                      isActive("/configuracoes") && "bg-primary text-primary-foreground font-medium shadow-sm"
+                      isActive("/configuracoes") &&
+                        "bg-primary text-primary-foreground font-medium shadow-sm",
                     )}
                   >
                     <Settings className="w-4 h-4 shrink-0" />
-                    {!collapsed && <span className="text-sm font-medium font-body">Configurações</span>}
+                    {!collapsed && (
+                      <span className="text-sm font-medium font-body">Configurações</span>
+                    )}
                   </NavLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>

@@ -6,13 +6,32 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormDrawer } from "@/components/FormDrawer";
 import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { EmptyState } from "@/components/EmptyState";
 import { SkeletonMetricCard, SkeletonTable } from "@/components/SkeletonLoader";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
-import { useAddClientMutation, useUpdateClientMutation, useDeleteClientMutation } from "@/hooks/useDatabase";
+import {
+  useAddClientMutation,
+  useUpdateClientMutation,
+  useDeleteClientMutation,
+} from "@/hooks/useDatabase";
 import { formatCPF } from "@/lib/utils";
 
 export default function Clientes() {
@@ -27,7 +46,7 @@ export default function Clientes() {
     cpf: "",
     email: "",
     phone: "",
-    telegram: ""
+    telegram: "",
   });
 
   const [editClientData, setEditClientData] = useState<{
@@ -52,49 +71,52 @@ export default function Clientes() {
   const filteredClients = useMemo(() => {
     if (!debouncedSearch) return clients;
     const q = debouncedSearch.toLowerCase();
-    return clients.filter(client =>
-      client.name.toLowerCase().includes(q) ||
-      (client.cpf && client.cpf.includes(q)) ||
-      (client.email && client.email.toLowerCase().includes(q))
+    return clients.filter(
+      (client) =>
+        client.name.toLowerCase().includes(q) ||
+        (client.cpf && client.cpf.includes(q)) ||
+        (client.email && client.email.toLowerCase().includes(q)),
     );
   }, [clients, debouncedSearch]);
 
   const handleCreateClient = () => {
     if (newClient.name) {
-      addClientM.mutate({ id: crypto.randomUUID(),
+      addClientM.mutate({
+        id: crypto.randomUUID(),
         name: newClient.name,
         cpf: newClient.cpf,
         email: newClient.email,
         phone: newClient.phone,
         telegram: newClient.telegram,
         totalPurchases: 0,
-        usageHistory: []
+        usageHistory: [],
       });
       setNewClient({ name: "", cpf: "", email: "", phone: "", telegram: "" });
       setIsCreateDialogOpen(false);
     }
   };
 
-  const handleEditClient = (client: typeof clients[number]) => {
+  const handleEditClient = (client: (typeof clients)[number]) => {
     setEditClientData({
       id: client.id,
       name: client.name,
       cpf: client.cpf ?? "",
       email: client.email ?? "",
       phone: client.phone,
-      telegram: client.telegram ?? ""
+      telegram: client.telegram ?? "",
     });
     setIsEditDialogOpen(true);
   };
 
   const handleSaveEdit = () => {
     if (editClientData && editClientData.name) {
-      updateClientM.mutate({ id: editClientData.id,
+      updateClientM.mutate({
+        id: editClientData.id,
         name: editClientData.name,
         cpf: editClientData.cpf,
         email: editClientData.email,
         phone: editClientData.phone,
-        telegram: editClientData.telegram
+        telegram: editClientData.telegram,
       });
       setEditClientData(null);
       setIsEditDialogOpen(false);
@@ -103,12 +125,12 @@ export default function Clientes() {
 
   const handleDeleteClient = (id: string, name: string) => {
     const relatedSales = sales
-      .filter(sale => sale.clientId === id)
-      .map(sale => ({
+      .filter((sale) => sale.clientId === id)
+      .map((sale) => ({
         id: sale.id,
         ticketLocator: sale.ticketLocator,
         date: sale.date,
-        milesUsed: sale.milesUsed
+        milesUsed: sale.milesUsed,
       }));
 
     if (relatedSales.length > 0) {
@@ -155,154 +177,173 @@ export default function Clientes() {
             Gerencie seus clientes e acompanhe o histórico de utilização
           </p>
         </div>
-        
-        <Button className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto" onClick={() => setIsCreateDialogOpen(true)}>
+
+        <Button
+          className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto"
+          onClick={() => setIsCreateDialogOpen(true)}
+        >
           <Plus className="h-4 w-4" />
           Novo Cliente
         </Button>
       </div>
 
-        <FormDrawer
-          open={isCreateDialogOpen}
-          onOpenChange={setIsCreateDialogOpen}
-          title="Cadastrar Novo Cliente"
-        >
-          <div className="grid gap-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Nome Completo</Label>
-              <Input
-                id="name"
-                value={newClient.name}
-                onChange={(e) => setNewClient({...newClient, name: e.target.value})}
-                placeholder="Digite o nome completo"
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="cpf">CPF</Label>
-              <Input
-                id="cpf"
-                value={newClient.cpf}
-                onChange={(e) => handleCPFChange(e.target.value)}
-                placeholder="000.000.000-00"
-                maxLength={14}
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="email">E-mail</Label>
-              <Input
-                id="email"
-                type="email"
-                value={newClient.email}
-                onChange={(e) => setNewClient({...newClient, email: e.target.value})}
-                placeholder="cliente@email.com"
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="phone">Telefone</Label>
-              <Input
-                id="phone"
-                value={newClient.phone}
-                onChange={(e) => setNewClient({...newClient, phone: e.target.value})}
-                placeholder="(11) 99999-9999"
-              />
-            </div>
+      <FormDrawer
+        open={isCreateDialogOpen}
+        onOpenChange={setIsCreateDialogOpen}
+        title="Cadastrar Novo Cliente"
+      >
+        <div className="grid gap-4 py-4">
+          <div className="space-y-2">
+            <Label htmlFor="name">Nome Completo</Label>
+            <Input
+              id="name"
+              value={newClient.name}
+              onChange={(e) => setNewClient({ ...newClient, name: e.target.value })}
+              placeholder="Digite o nome completo"
+            />
+          </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="telegram">Contato Telegram</Label>
-              <Input
-                id="telegram"
-                value={newClient.telegram}
-                onChange={(e) => setNewClient({...newClient, telegram: e.target.value})}
-                placeholder="@usuario"
-              />
-            </div>
+          <div className="space-y-2">
+            <Label htmlFor="cpf">CPF</Label>
+            <Input
+              id="cpf"
+              value={newClient.cpf}
+              onChange={(e) => handleCPFChange(e.target.value)}
+              placeholder="000.000.000-00"
+              maxLength={14}
+            />
           </div>
-          
-          <div className="flex justify-end gap-2 mt-4">
-            <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
-              Cancelar
-            </Button>
-            <Button onClick={handleCreateClient} className="bg-gradient-primary hover:opacity-90">
-              Cadastrar
-            </Button>
-          </div>
-        </FormDrawer>
-        {/* Edit Dialog */}
-        <FormDrawer
-          open={isEditDialogOpen}
-          onOpenChange={(open) => { setIsEditDialogOpen(open); if (!open) setEditClientData(null); }}
-          title="Editar Cliente"
-        >
-          <div className="grid gap-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="edit-name">Nome Completo</Label>
-              <Input
-                id="edit-name"
-                value={editClientData?.name ?? ""}
-                onChange={(e) => setEditClientData(prev => prev ? { ...prev, name: e.target.value } : null)}
-                placeholder="Digite o nome completo"
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="edit-cpf">CPF</Label>
-              <Input
-                id="edit-cpf"
-                value={editClientData?.cpf ?? ""}
-                onChange={(e) => {
-                  const formatted = formatCPF(e.target.value);
-                  setEditClientData(prev => prev ? { ...prev, cpf: formatted } : null);
-                }}
-                placeholder="000.000.000-00"
-                maxLength={14}
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="edit-email">E-mail</Label>
-              <Input
-                id="edit-email"
-                type="email"
-                value={editClientData?.email ?? ""}
-                onChange={(e) => setEditClientData(prev => prev ? { ...prev, email: e.target.value } : null)}
-                placeholder="cliente@email.com"
-              />
-            </div>
-            
-              <div className="space-y-2">
-                <Label htmlFor="edit-phone">Telefone</Label>
-                <Input
-                  id="edit-phone"
-                  value={editClientData?.phone ?? ""}
-                  onChange={(e) => setEditClientData(prev => prev ? { ...prev, phone: e.target.value } : null)}
-                  placeholder="(11) 99999-9999"
-                />
-              </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="edit-telegram">Contato Telegram</Label>
-                <Input
-                  id="edit-telegram"
-                  value={editClientData?.telegram ?? ""}
-                  onChange={(e) => setEditClientData(prev => prev ? { ...prev, telegram: e.target.value } : null)}
-                  placeholder="@usuario"
-                />
-              </div>
+          <div className="space-y-2">
+            <Label htmlFor="email">E-mail</Label>
+            <Input
+              id="email"
+              type="email"
+              value={newClient.email}
+              onChange={(e) => setNewClient({ ...newClient, email: e.target.value })}
+              placeholder="cliente@email.com"
+            />
           </div>
-          
-          <div className="flex justify-end gap-2 mt-4">
-            <Button variant="outline" onClick={() => { setIsEditDialogOpen(false); setEditClientData(null); }}>
-              Cancelar
-            </Button>
-            <Button onClick={handleSaveEdit} className="bg-gradient-primary hover:opacity-90">
-              Salvar
-            </Button>
-          </div>
-        </FormDrawer>
 
+          <div className="space-y-2">
+            <Label htmlFor="phone">Telefone</Label>
+            <Input
+              id="phone"
+              value={newClient.phone}
+              onChange={(e) => setNewClient({ ...newClient, phone: e.target.value })}
+              placeholder="(11) 99999-9999"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="telegram">Contato Telegram</Label>
+            <Input
+              id="telegram"
+              value={newClient.telegram}
+              onChange={(e) => setNewClient({ ...newClient, telegram: e.target.value })}
+              placeholder="@usuario"
+            />
+          </div>
+        </div>
+
+        <div className="flex justify-end gap-2 mt-4">
+          <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
+            Cancelar
+          </Button>
+          <Button onClick={handleCreateClient} className="bg-gradient-primary hover:opacity-90">
+            Cadastrar
+          </Button>
+        </div>
+      </FormDrawer>
+      {/* Edit Dialog */}
+      <FormDrawer
+        open={isEditDialogOpen}
+        onOpenChange={(open) => {
+          setIsEditDialogOpen(open);
+          if (!open) setEditClientData(null);
+        }}
+        title="Editar Cliente"
+      >
+        <div className="grid gap-4 py-4">
+          <div className="space-y-2">
+            <Label htmlFor="edit-name">Nome Completo</Label>
+            <Input
+              id="edit-name"
+              value={editClientData?.name ?? ""}
+              onChange={(e) =>
+                setEditClientData((prev) => (prev ? { ...prev, name: e.target.value } : null))
+              }
+              placeholder="Digite o nome completo"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="edit-cpf">CPF</Label>
+            <Input
+              id="edit-cpf"
+              value={editClientData?.cpf ?? ""}
+              onChange={(e) => {
+                const formatted = formatCPF(e.target.value);
+                setEditClientData((prev) => (prev ? { ...prev, cpf: formatted } : null));
+              }}
+              placeholder="000.000.000-00"
+              maxLength={14}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="edit-email">E-mail</Label>
+            <Input
+              id="edit-email"
+              type="email"
+              value={editClientData?.email ?? ""}
+              onChange={(e) =>
+                setEditClientData((prev) => (prev ? { ...prev, email: e.target.value } : null))
+              }
+              placeholder="cliente@email.com"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="edit-phone">Telefone</Label>
+            <Input
+              id="edit-phone"
+              value={editClientData?.phone ?? ""}
+              onChange={(e) =>
+                setEditClientData((prev) => (prev ? { ...prev, phone: e.target.value } : null))
+              }
+              placeholder="(11) 99999-9999"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="edit-telegram">Contato Telegram</Label>
+            <Input
+              id="edit-telegram"
+              value={editClientData?.telegram ?? ""}
+              onChange={(e) =>
+                setEditClientData((prev) => (prev ? { ...prev, telegram: e.target.value } : null))
+              }
+              placeholder="@usuario"
+            />
+          </div>
+        </div>
+
+        <div className="flex justify-end gap-2 mt-4">
+          <Button
+            variant="outline"
+            onClick={() => {
+              setIsEditDialogOpen(false);
+              setEditClientData(null);
+            }}
+          >
+            Cancelar
+          </Button>
+          <Button onClick={handleSaveEdit} className="bg-gradient-primary hover:opacity-90">
+            Salvar
+          </Button>
+        </div>
+      </FormDrawer>
 
       {/* Search - sticky on mobile */}
       <div className="sticky top-0 z-10 bg-background py-2 -mx-4 px-4 md:static md:mx-0 md:px-0">
@@ -323,27 +364,33 @@ export default function Clientes() {
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 animate-appear animate-delay-300">
         <Card className="shadow-card">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Total de Clientes</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              Total de Clientes
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-foreground">{clients.length}</div>
           </CardContent>
         </Card>
-        
+
         <Card className="shadow-card">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Clientes Ativos</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              Clientes Ativos
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-success">
-              {clients.filter(c => c.totalPurchases > 0).length}
+              {clients.filter((c) => c.totalPurchases > 0).length}
             </div>
           </CardContent>
         </Card>
-        
+
         <Card className="shadow-card">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Total de Compras</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              Total de Compras
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-foreground">
@@ -380,7 +427,12 @@ export default function Clientes() {
                     <TableCell className="hidden md:table-cell">
                       <div className="flex items-center gap-3">
                         <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-semibold text-primary">
-                          {client.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
+                          {client.name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")
+                            .slice(0, 2)
+                            .toUpperCase()}
                         </div>
                         <div>
                           <p className="font-medium">{client.name}</p>
@@ -388,7 +440,9 @@ export default function Clientes() {
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="hidden md:table-cell font-mono">{client.cpf ?? "-"}</TableCell>
+                    <TableCell className="hidden md:table-cell font-mono">
+                      {client.cpf ?? "-"}
+                    </TableCell>
                     <TableCell className="hidden md:table-cell">
                       <div className="flex items-center gap-2">
                         <Phone className="h-4 w-4 text-muted-foreground" />
@@ -409,12 +463,17 @@ export default function Clientes() {
                     </TableCell>
                     <TableCell className="hidden md:table-cell text-right">
                       <div className="flex justify-end gap-2">
-                        <Button size="sm" variant="outline" className="px-2 min-w-[44px] min-h-[44px]" onClick={() => handleEditClient(client)}>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="px-2 min-w-[44px] min-h-[44px]"
+                          onClick={() => handleEditClient(client)}
+                        >
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button 
-                          size="sm" 
-                          variant="outline" 
+                        <Button
+                          size="sm"
+                          variant="outline"
                           className="px-2 text-destructive hover:text-destructive min-w-[44px] min-h-[44px]"
                           onClick={() => handleDeleteClient(client.id, client.name)}
                         >
@@ -435,7 +494,12 @@ export default function Clientes() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-sm font-semibold text-primary">
-                      {client.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
+                      {client.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")
+                        .slice(0, 2)
+                        .toUpperCase()}
                     </div>
                     <div>
                       <p className="font-medium">{client.name}</p>
@@ -456,10 +520,20 @@ export default function Clientes() {
                 <div className="flex items-center justify-between">
                   <Badge variant="outline">{client.totalPurchases} compras</Badge>
                   <div className="flex gap-2">
-                    <Button size="sm" variant="outline" className="px-2 min-h-[44px] min-w-[44px]" onClick={() => handleEditClient(client)}>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="px-2 min-h-[44px] min-w-[44px]"
+                      onClick={() => handleEditClient(client)}
+                    >
                       <Edit className="h-4 w-4" />
                     </Button>
-                    <Button size="sm" variant="outline" className="px-2 text-destructive hover:text-destructive min-h-[44px] min-w-[44px]" onClick={() => handleDeleteClient(client.id, client.name)}>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="px-2 text-destructive hover:text-destructive min-h-[44px] min-w-[44px]"
+                      onClick={() => handleDeleteClient(client.id, client.name)}
+                    >
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
@@ -470,14 +544,30 @@ export default function Clientes() {
 
           {filteredClients.length === 0 && (
             <div className="py-8">
-              <EmptyState icon={searchTerm ? Search : UserPlus} title={searchTerm ? "Nenhum cliente encontrado" : "Nenhum cliente cadastrado"} description={searchTerm ? "Tente alterar o termo ou limpar a busca." : "Clientes são o coração do negócio. Cadastre o primeiro e comece a vender."} action={searchTerm ? undefined : { label: "Cadastrar Cliente", onClick: () => setIsCreateDialogOpen(true) }} />
+              <EmptyState
+                icon={searchTerm ? Search : UserPlus}
+                title={searchTerm ? "Nenhum cliente encontrado" : "Nenhum cliente cadastrado"}
+                description={
+                  searchTerm
+                    ? "Tente alterar o termo ou limpar a busca."
+                    : "Clientes são o coração do negócio. Cadastre o primeiro e comece a vender."
+                }
+                action={
+                  searchTerm
+                    ? undefined
+                    : { label: "Cadastrar Cliente", onClick: () => setIsCreateDialogOpen(true) }
+                }
+              />
             </div>
           )}
         </CardContent>
       </Card>
 
       {/* Delete Blocked Alert */}
-      <AlertDialog open={deleteBlocked.open} onOpenChange={(open) => setDeleteBlocked(prev => ({ ...prev, open }))}>
+      <AlertDialog
+        open={deleteBlocked.open}
+        onOpenChange={(open) => setDeleteBlocked((prev) => ({ ...prev, open }))}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle className="flex items-center gap-2 text-destructive">
@@ -487,17 +577,23 @@ export default function Clientes() {
             <AlertDialogDescription asChild>
               <div className="space-y-3">
                 <span>
-                  O cliente <strong>{deleteBlocked.clientName}</strong> possui vendas associadas e não pode ser excluído.
+                  O cliente <strong>{deleteBlocked.clientName}</strong> possui vendas associadas e
+                  não pode ser excluído.
                 </span>
                 <div className="space-y-2">
                   <p className="text-sm font-medium text-foreground">Vendas vinculadas:</p>
-                  {deleteBlocked.relatedSales.map(sale => (
-                    <div key={sale.id} className="flex items-center justify-between p-2 bg-muted/30 rounded text-sm">
+                  {deleteBlocked.relatedSales.map((sale) => (
+                    <div
+                      key={sale.id}
+                      className="flex items-center justify-between p-2 bg-muted/30 rounded text-sm"
+                    >
                       <span className="text-muted-foreground">
-                        {new Date(sale.date).toLocaleDateString('pt-BR')}
+                        {new Date(sale.date).toLocaleDateString("pt-BR")}
                       </span>
                       <span className="font-mono text-xs">{sale.ticketLocator}</span>
-                      <span className="font-medium">{sale.milesUsed.toLocaleString('pt-BR')} milhas</span>
+                      <span className="font-medium">
+                        {sale.milesUsed.toLocaleString("pt-BR")} milhas
+                      </span>
                     </div>
                   ))}
                 </div>

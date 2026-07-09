@@ -6,9 +6,9 @@
 import { calcAverageCostPerMile, calcProportionalCost } from "./metrics";
 
 export interface AccountBalanceState {
-  balance: number
-  total_invested: number
-  average_cost_per_mile: number
+  balance: number;
+  total_invested: number;
+  average_cost_per_mile: number;
 }
 
 /**
@@ -55,7 +55,12 @@ export function deductFromAccount(
   const proportionalInvested = currentAverageCost
     ? currentAverageCost * amountToRemove
     : calcProportionalCost(amountToRemove, currentBalance, currentTotalInvested);
-  return calcAccountUpdate(currentBalance, currentTotalInvested, -amountToRemove, -proportionalInvested);
+  return calcAccountUpdate(
+    currentBalance,
+    currentTotalInvested,
+    -amountToRemove,
+    -proportionalInvested,
+  );
 }
 
 /**
@@ -67,5 +72,10 @@ export function restoreToAccount(
   amountToRestore: number,
   investedToRestore: number,
 ): AccountBalanceState {
-  return calcAccountUpdate(currentBalance, currentTotalInvested, amountToRestore, investedToRestore);
+  return calcAccountUpdate(
+    currentBalance,
+    currentTotalInvested,
+    amountToRestore,
+    investedToRestore,
+  );
 }

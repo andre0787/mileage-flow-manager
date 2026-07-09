@@ -1,25 +1,67 @@
 import { useState } from "react";
-import { Plus, Edit, Trash2, User, Building2, Settings, Palette, RotateCcw, AlertTriangle } from "lucide-react";
+import {
+  Plus,
+  Edit,
+  Trash2,
+  User,
+  Building2,
+  Settings,
+  Palette,
+  RotateCcw,
+  AlertTriangle,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { useData } from "@/contexts/DataContext";
 import { parseOrigemTypeDescription, serializeOrigemTypeDescription } from "@/lib/origemTypes";
 import { isTransferencia } from "@/lib/utils";
-import { useAddOwnerMutation, useUpdateOwnerMutation, useDeleteOwnerMutation } from "@/hooks/useDatabase";
-import { useAddProgramMutation, useUpdateProgramMutation, useDeleteProgramMutation } from "@/hooks/useDatabase";
-import { useAddOrigemTypeMutation, useUpdateOrigemTypeMutation, useDeleteOrigemTypeMutation } from "@/hooks/useDatabase";
+import {
+  useAddOwnerMutation,
+  useUpdateOwnerMutation,
+  useDeleteOwnerMutation,
+} from "@/hooks/useDatabase";
+import {
+  useAddProgramMutation,
+  useUpdateProgramMutation,
+  useDeleteProgramMutation,
+} from "@/hooks/useDatabase";
+import {
+  useAddOrigemTypeMutation,
+  useUpdateOrigemTypeMutation,
+  useDeleteOrigemTypeMutation,
+} from "@/hooks/useDatabase";
 import { formatCPF } from "@/lib/utils";
 import type { Owner, Program, OrigemType } from "@/types";
 
 export default function Configuracoes() {
-  const { owners, programs, origemTypes, accounts, clearCache, clearAccountData, isLoading } = useData();
+  const { owners, programs, origemTypes, accounts, clearCache, clearAccountData, isLoading } =
+    useData();
 
   const addOwnerM = useAddOwnerMutation();
   const updateOwnerM = useUpdateOwnerMutation();
@@ -40,17 +82,27 @@ export default function Configuracoes() {
   const [ownerError, setOwnerError] = useState("");
 
   // Program CRUD state
-  const [newProgram, setNewProgram] = useState({ name: "", type: "milhas" as Program["type"], maxPassengers: "", passengerCycleType: "none" as "none" | "anual" | "dias", passengerCycleDays: "" });
+  const [newProgram, setNewProgram] = useState({
+    name: "",
+    type: "milhas" as Program["type"],
+    maxPassengers: "",
+    passengerCycleType: "none" as "none" | "anual" | "dias",
+    passengerCycleDays: "",
+  });
   const [editingProgram, setEditingProgram] = useState<Program | null>(null);
   const [isProgramDialogOpen, setIsProgramDialogOpen] = useState(false);
   const [programError, setProgramError] = useState("");
 
   // OrigemType CRUD state
-  const [newOrigemType, setNewOrigemType] = useState({ name: "", accountType: "pontos" as OrigemType["accountType"], color: "#3b82f6", hasRecurrence: false });
+  const [newOrigemType, setNewOrigemType] = useState({
+    name: "",
+    accountType: "pontos" as OrigemType["accountType"],
+    color: "#3b82f6",
+    hasRecurrence: false,
+  });
   const [editingOrigemType, setEditingOrigemType] = useState<OrigemType | null>(null);
   const [isOrigemTypeDialogOpen, setIsOrigemTypeDialogOpen] = useState(false);
   const [origemTypeError, setOrigemTypeError] = useState("");
-
 
   const [showClearConfirm, setShowClearConfirm] = useState(false);
 
@@ -81,7 +133,13 @@ export default function Configuracoes() {
   };
 
   const resetProgramDialog = () => {
-    setNewProgram({ name: "", type: "milhas", maxPassengers: "", passengerCycleType: "none", passengerCycleDays: "" });
+    setNewProgram({
+      name: "",
+      type: "milhas",
+      maxPassengers: "",
+      passengerCycleType: "none",
+      passengerCycleDays: "",
+    });
     setEditingProgram(null);
     setProgramError("");
     setIsProgramDialogOpen(false);
@@ -103,9 +161,16 @@ export default function Configuracoes() {
     const programData = {
       name: newProgram.name,
       type: newProgram.type,
-      maxPassengers: newProgram.passengerCycleType !== "none" && newProgram.maxPassengers ? parseInt(newProgram.maxPassengers) : undefined,
-      passengerCycleType: newProgram.passengerCycleType !== "none" ? newProgram.passengerCycleType : undefined,
-      passengerCycleDays: newProgram.passengerCycleType === "dias" && newProgram.passengerCycleDays ? parseInt(newProgram.passengerCycleDays) : undefined,
+      maxPassengers:
+        newProgram.passengerCycleType !== "none" && newProgram.maxPassengers
+          ? parseInt(newProgram.maxPassengers)
+          : undefined,
+      passengerCycleType:
+        newProgram.passengerCycleType !== "none" ? newProgram.passengerCycleType : undefined,
+      passengerCycleDays:
+        newProgram.passengerCycleType === "dias" && newProgram.passengerCycleDays
+          ? parseInt(newProgram.passengerCycleDays)
+          : undefined,
     };
     if (editingProgram) {
       updateProgramM.mutate({ id: editingProgram.id, ...programData });
@@ -165,7 +230,9 @@ export default function Configuracoes() {
     setIsOrigemTypeDialogOpen(true);
   };
 
-  const milhasTypes = origemTypes.filter(ot => ot.accountType === "milhas" && !isTransferencia(ot));
+  const milhasTypes = origemTypes.filter(
+    (ot) => ot.accountType === "milhas" && !isTransferencia(ot),
+  );
 
   if (isLoading) {
     return (
@@ -198,36 +265,37 @@ export default function Configuracoes() {
 
       <Tabs defaultValue="owners" className="space-y-6">
         <div className="-mx-4 sm:mx-0 overflow-x-auto pb-1 -mb-1 px-4 sm:px-0">
-        <TabsList className="inline-flex gap-1 w-max sm:w-auto sm:flex-wrap sm:justify-center">
-          <TabsTrigger value="owners" className="gap-2 whitespace-nowrap">
-            <User className="h-4 w-4 shrink-0" />
-            Donos
-          </TabsTrigger>
-          <TabsTrigger value="programs" className="gap-2 whitespace-nowrap">
-            <Building2 className="h-4 w-4 shrink-0" />
-            Programas
-          </TabsTrigger>
-          <TabsTrigger value="origem-milhas" className="gap-2 whitespace-nowrap">
-            <Palette className="h-4 w-4 shrink-0" />
-            Tipo de Operação
-          </TabsTrigger>
-          <TabsTrigger value="preferences" className="gap-2 whitespace-nowrap">
-            <Settings className="h-4 w-4 shrink-0" />
-            Preferências
-          </TabsTrigger>
-        </TabsList>
+          <TabsList className="inline-flex gap-1 w-max sm:w-auto sm:flex-wrap sm:justify-center">
+            <TabsTrigger value="owners" className="gap-2 whitespace-nowrap">
+              <User className="h-4 w-4 shrink-0" />
+              Donos
+            </TabsTrigger>
+            <TabsTrigger value="programs" className="gap-2 whitespace-nowrap">
+              <Building2 className="h-4 w-4 shrink-0" />
+              Programas
+            </TabsTrigger>
+            <TabsTrigger value="origem-milhas" className="gap-2 whitespace-nowrap">
+              <Palette className="h-4 w-4 shrink-0" />
+              Tipo de Operação
+            </TabsTrigger>
+            <TabsTrigger value="preferences" className="gap-2 whitespace-nowrap">
+              <Settings className="h-4 w-4 shrink-0" />
+              Preferências
+            </TabsTrigger>
+          </TabsList>
         </div>
 
         {/* Donos Tab */}
         <TabsContent value="owners" className="space-y-4 animate-appear animate-delay-200">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <p className="text-sm text-muted-foreground">
-              {owners.length} dono(s) cadastrado(s)
-            </p>
-            <Dialog open={isOwnerDialogOpen} onOpenChange={(open) => {
-              if (!open) resetOwnerDialog();
-              else setIsOwnerDialogOpen(true);
-            }}>
+            <p className="text-sm text-muted-foreground">{owners.length} dono(s) cadastrado(s)</p>
+            <Dialog
+              open={isOwnerDialogOpen}
+              onOpenChange={(open) => {
+                if (!open) resetOwnerDialog();
+                else setIsOwnerDialogOpen(true);
+              }}
+            >
               <DialogTrigger asChild>
                 <Button className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto">
                   <Plus className="h-4 w-4" />
@@ -241,21 +309,45 @@ export default function Configuracoes() {
                 <div className="grid gap-4 py-4">
                   <div className="space-y-2">
                     <Label htmlFor="ownerName">Nome Completo</Label>
-                    <Input id="ownerName" value={newOwner.name} onChange={(e) => { setNewOwner({ ...newOwner, name: e.target.value }); setOwnerError(""); }} placeholder="Nome do dono" />
+                    <Input
+                      id="ownerName"
+                      value={newOwner.name}
+                      onChange={(e) => {
+                        setNewOwner({ ...newOwner, name: e.target.value });
+                        setOwnerError("");
+                      }}
+                      placeholder="Nome do dono"
+                    />
                     {ownerError && <p className="text-xs text-destructive">{ownerError}</p>}
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="ownerCpf">CPF</Label>
-                    <Input id="ownerCpf" value={newOwner.cpf} onChange={(e) => setNewOwner({ ...newOwner, cpf: formatCPF(e.target.value) })} placeholder="000.000.000-00" maxLength={14} />
+                    <Input
+                      id="ownerCpf"
+                      value={newOwner.cpf}
+                      onChange={(e) => setNewOwner({ ...newOwner, cpf: formatCPF(e.target.value) })}
+                      placeholder="000.000.000-00"
+                      maxLength={14}
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="ownerPhone">Telefone</Label>
-                    <Input id="ownerPhone" value={newOwner.phone} onChange={(e) => setNewOwner({ ...newOwner, phone: e.target.value })} placeholder="(11) 99999-9999" />
+                    <Input
+                      id="ownerPhone"
+                      value={newOwner.phone}
+                      onChange={(e) => setNewOwner({ ...newOwner, phone: e.target.value })}
+                      placeholder="(11) 99999-9999"
+                    />
                   </div>
                 </div>
                 <div className="flex justify-end gap-2">
-                  <Button variant="outline" onClick={resetOwnerDialog}>Cancelar</Button>
-                  <Button onClick={handleSaveOwner} className="bg-gradient-primary hover:opacity-90">
+                  <Button variant="outline" onClick={resetOwnerDialog}>
+                    Cancelar
+                  </Button>
+                  <Button
+                    onClick={handleSaveOwner}
+                    className="bg-gradient-primary hover:opacity-90"
+                  >
                     {editingOwner ? "Salvar Alterações" : "Cadastrar"}
                   </Button>
                 </div>
@@ -272,41 +364,55 @@ export default function Configuracoes() {
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="hidden md:table-cell">Nome</TableHead>
-                    <TableHead className="hidden md:table-cell">CPF</TableHead>
-                    <TableHead className="hidden md:table-cell">Telefone</TableHead>
-                    <TableHead className="hidden md:table-cell">Contas</TableHead>
-                    <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {owners.map((owner) => (
-                    <TableRow key={owner.id}>
-                      <TableCell className="hidden md:table-cell font-medium">{owner.name}</TableCell>
-                      <TableCell className="hidden md:table-cell font-mono">{owner.cpf}</TableCell>
-                      <TableCell className="hidden md:table-cell">{owner.phone}</TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
-                          {accounts.filter(a => a.ownerId === owner.id).length}
-                        </span>
-                      </TableCell>
-                      <TableCell className="hidden md:table-cell text-right">
-                        <div className="flex justify-end gap-2">
-                          <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => handleEditOwner(owner)}>
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive" onClick={() => deleteOwnerM.mutate(owner.id)}>
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </TableCell>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="hidden md:table-cell">Nome</TableHead>
+                      <TableHead className="hidden md:table-cell">CPF</TableHead>
+                      <TableHead className="hidden md:table-cell">Telefone</TableHead>
+                      <TableHead className="hidden md:table-cell">Contas</TableHead>
+                      <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {owners.map((owner) => (
+                      <TableRow key={owner.id}>
+                        <TableCell className="hidden md:table-cell font-medium">
+                          {owner.name}
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell font-mono">
+                          {owner.cpf}
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">{owner.phone}</TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                            {accounts.filter((a) => a.ownerId === owner.id).length}
+                          </span>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell text-right">
+                          <div className="flex justify-end gap-2">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="px-3 min-h-[44px] min-w-[44px]"
+                              onClick={() => handleEditOwner(owner)}
+                            >
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive"
+                              onClick={() => deleteOwnerM.mutate(owner.id)}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </div>
               {/* Mobile card list - Donos */}
               <div className="md:hidden space-y-3 mt-4">
@@ -315,7 +421,7 @@ export default function Configuracoes() {
                     <div className="flex items-center justify-between">
                       <p className="font-semibold text-base truncate">{owner.name}</p>
                       <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary shrink-0 ml-2">
-                        {accounts.filter(a => a.ownerId === owner.id).length} conta(s)
+                        {accounts.filter((a) => a.ownerId === owner.id).length} conta(s)
                       </span>
                     </div>
                     <div className="grid grid-cols-2 gap-2 text-sm">
@@ -329,10 +435,20 @@ export default function Configuracoes() {
                       </div>
                     </div>
                     <div className="flex gap-2 pt-1 border-t">
-                      <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px]" onClick={() => handleEditOwner(owner)}>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="flex-1 gap-2 min-h-[44px]"
+                        onClick={() => handleEditOwner(owner)}
+                      >
                         <Edit className="h-4 w-4" /> Editar
                       </Button>
-                      <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive" onClick={() => deleteOwnerM.mutate(owner.id)}>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive"
+                        onClick={() => deleteOwnerM.mutate(owner.id)}
+                      >
                         <Trash2 className="h-4 w-4" /> Excluir
                       </Button>
                     </div>
@@ -355,10 +471,13 @@ export default function Configuracoes() {
             <p className="text-sm text-muted-foreground">
               {programs.length} programa(s) cadastrado(s)
             </p>
-            <Dialog open={isProgramDialogOpen} onOpenChange={(open) => {
-              if (!open) resetProgramDialog();
-              else setIsProgramDialogOpen(true);
-            }}>
+            <Dialog
+              open={isProgramDialogOpen}
+              onOpenChange={(open) => {
+                if (!open) resetProgramDialog();
+                else setIsProgramDialogOpen(true);
+              }}
+            >
               <DialogTrigger asChild>
                 <Button className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto">
                   <Plus className="h-4 w-4" />
@@ -372,12 +491,25 @@ export default function Configuracoes() {
                 <div className="grid gap-4 py-4">
                   <div className="space-y-2">
                     <Label htmlFor="programName">Nome do Programa</Label>
-                    <Input id="programName" value={newProgram.name} onChange={(e) => { setNewProgram({ ...newProgram, name: e.target.value }); setProgramError(""); }} placeholder="Ex: LATAM Pass" />
+                    <Input
+                      id="programName"
+                      value={newProgram.name}
+                      onChange={(e) => {
+                        setNewProgram({ ...newProgram, name: e.target.value });
+                        setProgramError("");
+                      }}
+                      placeholder="Ex: LATAM Pass"
+                    />
                     {programError && <p className="text-xs text-destructive">{programError}</p>}
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="programType">Tipo</Label>
-                    <Select value={newProgram.type} onValueChange={(value) => setNewProgram({ ...newProgram, type: value as Program["type"] })}>
+                    <Select
+                      value={newProgram.type}
+                      onValueChange={(value) =>
+                        setNewProgram({ ...newProgram, type: value as Program["type"] })
+                      }
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione o tipo" />
                       </SelectTrigger>
@@ -392,7 +524,12 @@ export default function Configuracoes() {
                     <Label htmlFor="programCycle">Controle de Passageiros</Label>
                     <Select
                       value={newProgram.passengerCycleType}
-                      onValueChange={(value) => setNewProgram({ ...newProgram, passengerCycleType: value as "none" | "anual" | "dias" })}
+                      onValueChange={(value) =>
+                        setNewProgram({
+                          ...newProgram,
+                          passengerCycleType: value as "none" | "anual" | "dias",
+                        })
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione o controle" />
@@ -413,7 +550,9 @@ export default function Configuracoes() {
                         type="number"
                         min="1"
                         value={newProgram.maxPassengers}
-                        onChange={(e) => setNewProgram({ ...newProgram, maxPassengers: e.target.value })}
+                        onChange={(e) =>
+                          setNewProgram({ ...newProgram, maxPassengers: e.target.value })
+                        }
                         placeholder="Ex: 5"
                       />
                     </div>
@@ -427,15 +566,22 @@ export default function Configuracoes() {
                         type="number"
                         min="1"
                         value={newProgram.passengerCycleDays}
-                        onChange={(e) => setNewProgram({ ...newProgram, passengerCycleDays: e.target.value })}
+                        onChange={(e) =>
+                          setNewProgram({ ...newProgram, passengerCycleDays: e.target.value })
+                        }
                         placeholder="Ex: 365"
                       />
                     </div>
                   )}
                 </div>
                 <div className="flex justify-end gap-2">
-                  <Button variant="outline" onClick={resetProgramDialog}>Cancelar</Button>
-                  <Button onClick={handleSaveProgram} className="bg-gradient-primary hover:opacity-90">
+                  <Button variant="outline" onClick={resetProgramDialog}>
+                    Cancelar
+                  </Button>
+                  <Button
+                    onClick={handleSaveProgram}
+                    className="bg-gradient-primary hover:opacity-90"
+                  >
                     {editingProgram ? "Salvar Alterações" : "Cadastrar"}
                   </Button>
                 </div>
@@ -452,54 +598,64 @@ export default function Configuracoes() {
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="hidden md:table-cell">Programa</TableHead>
-                    <TableHead className="hidden md:table-cell">Tipo</TableHead>
-                    <TableHead className="hidden md:table-cell">Controle</TableHead>
-                    <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {programs.map((program) => (
-                    <TableRow key={program.id}>
-                      <TableCell className="hidden md:table-cell font-medium">
-                        <div className="flex items-center gap-2">
-                          <Building2 className="h-4 w-4 text-primary" />
-                          {program.name}
-                        </div>
-                      </TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        <Badge variant={program.type === "pontos" ? "secondary" : "default"}>
-                          {program.type === "pontos" ? "Pontos" : "Milhas"}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        {program.passengerCycleType ? (
-                          <Badge variant="outline">
-                            {program.passengerCycleType === "anual"
-                              ? `Anual — ${program.maxPassengers ?? "?"} pax/ano`
-                              : `${program.maxPassengers ?? "?"} pax/${program.passengerCycleDays ?? "?"}d`}
-                          </Badge>
-                        ) : (
-                          <span className="text-muted-foreground text-sm">—</span>
-                        )}
-                      </TableCell>
-                      <TableCell className="hidden md:table-cell text-right">
-                        <div className="flex justify-end gap-2">
-                          <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => handleEditProgram(program)}>
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive" onClick={() => deleteProgramM.mutate(program.id)}>
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </TableCell>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="hidden md:table-cell">Programa</TableHead>
+                      <TableHead className="hidden md:table-cell">Tipo</TableHead>
+                      <TableHead className="hidden md:table-cell">Controle</TableHead>
+                      <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {programs.map((program) => (
+                      <TableRow key={program.id}>
+                        <TableCell className="hidden md:table-cell font-medium">
+                          <div className="flex items-center gap-2">
+                            <Building2 className="h-4 w-4 text-primary" />
+                            {program.name}
+                          </div>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          <Badge variant={program.type === "pontos" ? "secondary" : "default"}>
+                            {program.type === "pontos" ? "Pontos" : "Milhas"}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          {program.passengerCycleType ? (
+                            <Badge variant="outline">
+                              {program.passengerCycleType === "anual"
+                                ? `Anual — ${program.maxPassengers ?? "?"} pax/ano`
+                                : `${program.maxPassengers ?? "?"} pax/${program.passengerCycleDays ?? "?"}d`}
+                            </Badge>
+                          ) : (
+                            <span className="text-muted-foreground text-sm">—</span>
+                          )}
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell text-right">
+                          <div className="flex justify-end gap-2">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="px-3 min-h-[44px] min-w-[44px]"
+                              onClick={() => handleEditProgram(program)}
+                            >
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive"
+                              onClick={() => deleteProgramM.mutate(program.id)}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </div>
               {/* Mobile card list - Programas */}
               <div className="md:hidden space-y-3 mt-4">
@@ -507,7 +663,10 @@ export default function Configuracoes() {
                   <div key={program.id} className="border rounded-lg p-4 space-y-3">
                     <div className="flex items-center justify-between">
                       <p className="font-semibold text-base truncate">{program.name}</p>
-                      <Badge variant={program.type === "pontos" ? "secondary" : "default"} className="shrink-0 ml-2">
+                      <Badge
+                        variant={program.type === "pontos" ? "secondary" : "default"}
+                        className="shrink-0 ml-2"
+                      >
                         {program.type === "pontos" ? "Pontos" : "Milhas"}
                       </Badge>
                     </div>
@@ -515,21 +674,29 @@ export default function Configuracoes() {
                       <div>
                         <span className="text-muted-foreground text-xs">Controle</span>
                         <p className="truncate">
-                          {program.passengerCycleType ? (
-                            program.passengerCycleType === "anual"
+                          {program.passengerCycleType
+                            ? program.passengerCycleType === "anual"
                               ? `Anual — ${program.maxPassengers ?? "?"} pax/ano`
                               : `${program.maxPassengers ?? "?"} pax/${program.passengerCycleDays ?? "?"}d`
-                          ) : (
-                            "—"
-                          )}
+                            : "—"}
                         </p>
                       </div>
                     </div>
                     <div className="flex gap-2 pt-1 border-t">
-                      <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px]" onClick={() => handleEditProgram(program)}>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="flex-1 gap-2 min-h-[44px]"
+                        onClick={() => handleEditProgram(program)}
+                      >
                         <Edit className="h-4 w-4" /> Editar
                       </Button>
-                      <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive" onClick={() => deleteProgramM.mutate(program.id)}>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive"
+                        onClick={() => deleteProgramM.mutate(program.id)}
+                      >
                         <Trash2 className="h-4 w-4" /> Excluir
                       </Button>
                     </div>
@@ -552,30 +719,66 @@ export default function Configuracoes() {
             <p className="text-sm text-muted-foreground">
               {milhasTypes.length} tipo(s) de operação cadastrado(s)
             </p>
-            <Dialog open={isOrigemTypeDialogOpen && newOrigemType.accountType === "milhas"} onOpenChange={(open) => {
-              if (!open) resetOrigemTypeDialog();
-              else { setNewOrigemType(prev => ({ ...prev, accountType: "milhas" })); setIsOrigemTypeDialogOpen(true); }
-            }}>
+            <Dialog
+              open={isOrigemTypeDialogOpen && newOrigemType.accountType === "milhas"}
+              onOpenChange={(open) => {
+                if (!open) resetOrigemTypeDialog();
+                else {
+                  setNewOrigemType((prev) => ({ ...prev, accountType: "milhas" }));
+                  setIsOrigemTypeDialogOpen(true);
+                }
+              }}
+            >
               <DialogTrigger asChild>
-                <Button className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto" onClick={() => setNewOrigemType({ name: "", accountType: "milhas", color: "#10b981", hasRecurrence: false })}>
+                <Button
+                  className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto"
+                  onClick={() =>
+                    setNewOrigemType({
+                      name: "",
+                      accountType: "milhas",
+                      color: "#10b981",
+                      hasRecurrence: false,
+                    })
+                  }
+                >
                   <Plus className="h-4 w-4" />
                   Nova Operação
                 </Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                  <DialogTitle>{editingOrigemType ? "Editar Operação" : "Nova Operação"}</DialogTitle>
+                  <DialogTitle>
+                    {editingOrigemType ? "Editar Operação" : "Nova Operação"}
+                  </DialogTitle>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="space-y-2">
                     <Label htmlFor="otNameMilhas">Nome</Label>
-                    <Input id="otNameMilhas" value={newOrigemType.name} onChange={(e) => { setNewOrigemType({ ...newOrigemType, name: e.target.value }); setOrigemTypeError(""); }} placeholder="Ex: Compra Direta" />
-                    {origemTypeError && <p className="text-xs text-destructive">{origemTypeError}</p>}
+                    <Input
+                      id="otNameMilhas"
+                      value={newOrigemType.name}
+                      onChange={(e) => {
+                        setNewOrigemType({ ...newOrigemType, name: e.target.value });
+                        setOrigemTypeError("");
+                      }}
+                      placeholder="Ex: Compra Direta"
+                    />
+                    {origemTypeError && (
+                      <p className="text-xs text-destructive">{origemTypeError}</p>
+                    )}
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="otColorMilhas">Cor</Label>
                     <div className="flex gap-2 items-center">
-                      <Input id="otColorMilhas" type="color" value={newOrigemType.color} onChange={(e) => setNewOrigemType({ ...newOrigemType, color: e.target.value })} className="w-12 h-10 p-1" />
+                      <Input
+                        id="otColorMilhas"
+                        type="color"
+                        value={newOrigemType.color}
+                        onChange={(e) =>
+                          setNewOrigemType({ ...newOrigemType, color: e.target.value })
+                        }
+                        className="w-12 h-10 p-1"
+                      />
                       <span className="text-sm text-muted-foreground">{newOrigemType.color}</span>
                     </div>
                   </div>
@@ -583,7 +786,9 @@ export default function Configuracoes() {
                     <Label htmlFor="otRecurrenceMilhas">Recorrência</Label>
                     <Select
                       value={newOrigemType.hasRecurrence ? "sim" : "nao"}
-                      onValueChange={(value) => setNewOrigemType({ ...newOrigemType, hasRecurrence: value === "sim" })}
+                      onValueChange={(value) =>
+                        setNewOrigemType({ ...newOrigemType, hasRecurrence: value === "sim" })
+                      }
                     >
                       <SelectTrigger id="otRecurrenceMilhas">
                         <SelectValue placeholder="Selecione" />
@@ -596,8 +801,13 @@ export default function Configuracoes() {
                   </div>
                 </div>
                 <div className="flex justify-end gap-2">
-                  <Button variant="outline" onClick={resetOrigemTypeDialog}>Cancelar</Button>
-                  <Button onClick={handleSaveOrigemType} className="bg-gradient-primary hover:opacity-90">
+                  <Button variant="outline" onClick={resetOrigemTypeDialog}>
+                    Cancelar
+                  </Button>
+                  <Button
+                    onClick={handleSaveOrigemType}
+                    className="bg-gradient-primary hover:opacity-90"
+                  >
                     {editingOrigemType ? "Salvar Alterações" : "Cadastrar"}
                   </Button>
                 </div>
@@ -614,44 +824,67 @@ export default function Configuracoes() {
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="hidden md:table-cell">Nome</TableHead>
-                    <TableHead className="hidden md:table-cell">Cor</TableHead>
-                    <TableHead className="hidden md:table-cell">Recorrência</TableHead>
-                    <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {milhasTypes.map((ot) => (
-                    <TableRow key={ot.id}>
-                      <TableCell className="hidden md:table-cell font-medium">{ot.name}</TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        <div className="flex items-center gap-2">
-                          <div className="w-4 h-4 rounded-full border" style={{ backgroundColor: ot.color }} />
-                          <span className="text-xs font-mono">{ot.color}</span>
-                        </div>
-                      </TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        <Badge variant={parseOrigemTypeDescription(ot.description).hasRecurrence ? "default" : "secondary"}>
-                          {parseOrigemTypeDescription(ot.description).hasRecurrence ? "Mensal" : "Avulsa"}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="hidden md:table-cell text-right">
-                        <div className="flex justify-end gap-2">
-                          <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => handleEditOrigemType(ot)}>
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive" onClick={() => deleteOrigemTypeM.mutate(ot.id)}>
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </TableCell>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="hidden md:table-cell">Nome</TableHead>
+                      <TableHead className="hidden md:table-cell">Cor</TableHead>
+                      <TableHead className="hidden md:table-cell">Recorrência</TableHead>
+                      <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {milhasTypes.map((ot) => (
+                      <TableRow key={ot.id}>
+                        <TableCell className="hidden md:table-cell font-medium">
+                          {ot.name}
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          <div className="flex items-center gap-2">
+                            <div
+                              className="w-4 h-4 rounded-full border"
+                              style={{ backgroundColor: ot.color }}
+                            />
+                            <span className="text-xs font-mono">{ot.color}</span>
+                          </div>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          <Badge
+                            variant={
+                              parseOrigemTypeDescription(ot.description).hasRecurrence
+                                ? "default"
+                                : "secondary"
+                            }
+                          >
+                            {parseOrigemTypeDescription(ot.description).hasRecurrence
+                              ? "Mensal"
+                              : "Avulsa"}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell text-right">
+                          <div className="flex justify-end gap-2">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="px-3 min-h-[44px] min-w-[44px]"
+                              onClick={() => handleEditOrigemType(ot)}
+                            >
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive"
+                              onClick={() => deleteOrigemTypeM.mutate(ot.id)}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </div>
               {/* Mobile card list - Tipo de Operação */}
               <div className="md:hidden space-y-3 mt-4">
@@ -660,18 +893,40 @@ export default function Configuracoes() {
                     <div className="flex items-center justify-between">
                       <p className="font-semibold text-base truncate">{ot.name}</p>
                       <div className="flex items-center gap-2 shrink-0 ml-2">
-                        <div className="w-4 h-4 rounded-full border" style={{ backgroundColor: ot.color }} />
+                        <div
+                          className="w-4 h-4 rounded-full border"
+                          style={{ backgroundColor: ot.color }}
+                        />
                         <span className="text-xs font-mono text-muted-foreground">{ot.color}</span>
                       </div>
                     </div>
-                    <Badge variant={parseOrigemTypeDescription(ot.description).hasRecurrence ? "default" : "secondary"} className="w-fit">
-                      {parseOrigemTypeDescription(ot.description).hasRecurrence ? "Recorrente mensal" : "Avulsa"}
+                    <Badge
+                      variant={
+                        parseOrigemTypeDescription(ot.description).hasRecurrence
+                          ? "default"
+                          : "secondary"
+                      }
+                      className="w-fit"
+                    >
+                      {parseOrigemTypeDescription(ot.description).hasRecurrence
+                        ? "Recorrente mensal"
+                        : "Avulsa"}
                     </Badge>
                     <div className="flex gap-2 pt-1 border-t">
-                      <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px]" onClick={() => handleEditOrigemType(ot)}>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="flex-1 gap-2 min-h-[44px]"
+                        onClick={() => handleEditOrigemType(ot)}
+                      >
                         <Edit className="h-4 w-4" /> Editar
                       </Button>
-                      <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive" onClick={() => deleteOrigemTypeM.mutate(ot.id)}>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive"
+                        onClick={() => deleteOrigemTypeM.mutate(ot.id)}
+                      >
                         <Trash2 className="h-4 w-4" /> Excluir
                       </Button>
                     </div>
@@ -706,7 +961,11 @@ export default function Configuracoes() {
                   <RotateCcw className="h-4 w-4" />
                   Limpar Cache
                 </Button>
-                <Button variant="destructive" className="gap-2" onClick={() => setShowClearConfirm(true)}>
+                <Button
+                  variant="destructive"
+                  className="gap-2"
+                  onClick={() => setShowClearConfirm(true)}
+                >
                   <Trash2 className="h-4 w-4" />
                   Limpar Conta
                 </Button>
@@ -727,11 +986,15 @@ export default function Configuracoes() {
                   Tem certeza que deseja limpar todos os dados da sua conta?
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Esta ação irá remover permanentemente todas as contas, entradas, vendas, clientes, donos, programas e tipos de operação. O tipo "Transferência" será preservado. Esta operação não pode ser desfeita.
+                  Esta ação irá remover permanentemente todas as contas, entradas, vendas, clientes,
+                  donos, programas e tipos de operação. O tipo "Transferência" será preservado. Esta
+                  operação não pode ser desfeita.
                 </p>
               </div>
               <div className="flex justify-end gap-2">
-                <Button variant="outline" onClick={() => setShowClearConfirm(false)}>Cancelar</Button>
+                <Button variant="outline" onClick={() => setShowClearConfirm(false)}>
+                  Cancelar
+                </Button>
                 <Button
                   variant="destructive"
                   onClick={() => {

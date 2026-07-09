@@ -22,7 +22,7 @@ export function generateRecurringEntries(
   while (cursor < end) {
     cursor = new Date(cursor.getTime() + intervalDays * 24 * 60 * 60 * 1000);
     if (cursor > end) break;
-    const dateStr = cursor.toISOString().split('T')[0];
+    const dateStr = cursor.toISOString().split("T")[0];
     future.push({
       id: crypto.randomUUID(),
       accountId: entry.accountId,
@@ -38,7 +38,7 @@ export function generateRecurringEntries(
       cartAmount: entry.cartAmount,
       cartCost: entry.cartCost,
       date: dateStr,
-      entryStatus: 'aguardando',
+      entryStatus: "aguardando",
       parentEntryId: entry.id,
       recurrenceInterval: intervalDays,
       recurrenceEnd: endDate,
@@ -51,12 +51,22 @@ export function useClearAccountDataMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async () => {
-      const tables = ["sales", "entries", "accounts", "clients", "owners", "programs", "origem_types"];
+      const tables = [
+        "sales",
+        "entries",
+        "accounts",
+        "clients",
+        "owners",
+        "programs",
+        "origem_types",
+      ];
       for (const table of tables) {
         const { error } = await supabase.from(table).delete().not("id", "is", null);
         if (error) throw error;
       }
     },
-    onSuccess: () => { queryClient.invalidateQueries(); },
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
   });
 }

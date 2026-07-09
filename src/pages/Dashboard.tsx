@@ -35,34 +35,37 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<"milhas" | "pontos">("milhas");
   const [selectedOwner, setSelectedOwner] = useState<string | null>(null);
 
-  const milhasAccounts = useMemo(() => accounts.filter(a => a.type === "milhas"), [accounts]);
-  const pontosAccounts = useMemo(() => accounts.filter(a => a.type === "pontos"), [accounts]);
+  const milhasAccounts = useMemo(() => accounts.filter((a) => a.type === "milhas"), [accounts]);
+  const pontosAccounts = useMemo(() => accounts.filter((a) => a.type === "pontos"), [accounts]);
 
   const milhasSales = useMemo(
-    () => sales.filter(s => {
-      if (!s.accountId) return false;
-      const acct = accounts.find(a => a.id === s.accountId);
-      return acct?.type === "milhas";
-    }),
-    [sales, accounts]
+    () =>
+      sales.filter((s) => {
+        if (!s.accountId) return false;
+        const acct = accounts.find((a) => a.id === s.accountId);
+        return acct?.type === "milhas";
+      }),
+    [sales, accounts],
   );
 
   const pontosSales = useMemo(() => [], []);
 
   const milhasEntries = useMemo(
-    () => entries.filter(e => {
-      const acct = accounts.find(a => a.id === e.accountId);
-      return acct?.type === "milhas";
-    }),
-    [entries, accounts]
+    () =>
+      entries.filter((e) => {
+        const acct = accounts.find((a) => a.id === e.accountId);
+        return acct?.type === "milhas";
+      }),
+    [entries, accounts],
   );
 
   const pontosEntries = useMemo(
-    () => entries.filter(e => {
-      const acct = accounts.find(a => a.id === e.accountId);
-      return acct?.type === "pontos";
-    }),
-    [entries, accounts]
+    () =>
+      entries.filter((e) => {
+        const acct = accounts.find((a) => a.id === e.accountId);
+        return acct?.type === "pontos";
+      }),
+    [entries, accounts],
   );
 
   const currentAccounts = activeTab === "milhas" ? milhasAccounts : pontosAccounts;
@@ -71,109 +74,191 @@ export default function Dashboard() {
   const unitLabel = activeTab === "milhas" ? "Milhas" : "Pontos";
 
   const filteredAccounts = useMemo(
-    () => !selectedOwner ? currentAccounts : currentAccounts.filter(a => a.ownerId === selectedOwner),
-    [currentAccounts, selectedOwner]
+    () =>
+      !selectedOwner ? currentAccounts : currentAccounts.filter((a) => a.ownerId === selectedOwner),
+    [currentAccounts, selectedOwner],
   );
 
   const filteredSales = useMemo(
-    () => !selectedOwner ? currentSales : currentSales.filter(s => {
-      const acct = accounts.find(a => a.id === s.accountId);
-      return acct?.ownerId === selectedOwner;
-    }),
-    [currentSales, selectedOwner, accounts]
+    () =>
+      !selectedOwner
+        ? currentSales
+        : currentSales.filter((s) => {
+            const acct = accounts.find((a) => a.id === s.accountId);
+            return acct?.ownerId === selectedOwner;
+          }),
+    [currentSales, selectedOwner, accounts],
   );
 
   const filteredEntries = useMemo(
-    () => !selectedOwner ? currentEntries : currentEntries.filter(e => {
-      const acct = accounts.find(a => a.id === e.accountId);
-      return acct?.ownerId === selectedOwner;
-    }),
-    [currentEntries, selectedOwner, accounts]
+    () =>
+      !selectedOwner
+        ? currentEntries
+        : currentEntries.filter((e) => {
+            const acct = accounts.find((a) => a.id === e.accountId);
+            return acct?.ownerId === selectedOwner;
+          }),
+    [currentEntries, selectedOwner, accounts],
   );
 
   const currentMetrics = useMemo(
-    () => computeDashboardMetrics(filteredAccounts, filteredSales, filteredEntries, owners, MAX_CPF_PER_OWNER),
-    [filteredAccounts, filteredSales, filteredEntries, owners]
+    () =>
+      computeDashboardMetrics(
+        filteredAccounts,
+        filteredSales,
+        filteredEntries,
+        owners,
+        MAX_CPF_PER_OWNER,
+      ),
+    [filteredAccounts, filteredSales, filteredEntries, owners],
   );
 
   const filteredMilhasAccounts = useMemo(
-    () => !selectedOwner ? milhasAccounts : milhasAccounts.filter(a => a.ownerId === selectedOwner),
-    [milhasAccounts, selectedOwner]
+    () =>
+      !selectedOwner ? milhasAccounts : milhasAccounts.filter((a) => a.ownerId === selectedOwner),
+    [milhasAccounts, selectedOwner],
   );
 
   const filteredMilhasSales = useMemo(
-    () => !selectedOwner ? milhasSales : milhasSales.filter(s => {
-      const acct = accounts.find(a => a.id === s.accountId);
-      return acct?.ownerId === selectedOwner;
-    }),
-    [milhasSales, selectedOwner, accounts]
+    () =>
+      !selectedOwner
+        ? milhasSales
+        : milhasSales.filter((s) => {
+            const acct = accounts.find((a) => a.id === s.accountId);
+            return acct?.ownerId === selectedOwner;
+          }),
+    [milhasSales, selectedOwner, accounts],
   );
 
   const filteredMilhasEntries = useMemo(
-    () => !selectedOwner ? milhasEntries : milhasEntries.filter(e => {
-      const acct = accounts.find(a => a.id === e.accountId);
-      return acct?.ownerId === selectedOwner;
-    }),
-    [milhasEntries, selectedOwner, accounts]
+    () =>
+      !selectedOwner
+        ? milhasEntries
+        : milhasEntries.filter((e) => {
+            const acct = accounts.find((a) => a.id === e.accountId);
+            return acct?.ownerId === selectedOwner;
+          }),
+    [milhasEntries, selectedOwner, accounts],
   );
 
   const financialMetrics = useMemo(
-    () => computeDashboardMetrics(filteredMilhasAccounts, filteredMilhasSales, filteredMilhasEntries, owners, MAX_CPF_PER_OWNER),
-    [filteredMilhasAccounts, filteredMilhasSales, filteredMilhasEntries, owners]
+    () =>
+      computeDashboardMetrics(
+        filteredMilhasAccounts,
+        filteredMilhasSales,
+        filteredMilhasEntries,
+        owners,
+        MAX_CPF_PER_OWNER,
+      ),
+    [filteredMilhasAccounts, filteredMilhasSales, filteredMilhasEntries, owners],
   );
 
   const ownerData = useMemo(() => {
-    return owners.map(owner => {
-      const ownerAccounts = filteredAccounts.filter(a => a.ownerId === owner.id);
-      const ownerAccountIds = ownerAccounts.map(a => a.id);
-      const totalMiles = ownerAccounts.reduce((sum, a) => sum + a.balance, 0);
-      const totalInvested = ownerAccounts.reduce((sum, a) => sum + (a.totalInvested ?? 0), 0);
-      const programIds = [...new Set(ownerAccounts.map(a => a.programId))];
-      const programNames = programIds.map(id => programs.find(p => p.id === id)?.name ?? id);
-      const ownerSales = filteredSales.filter(s => s.status !== "cancelado" && ownerAccountIds.includes(s.accountId ?? ""));
-      const usedCpfs = new Set(ownerSales.flatMap(s => s.passengers.map(p => p.cpf)));
-      const avgCost = totalMiles > 0 ? totalInvested / totalMiles : 0;
-      return { owner: owner.name, programs: programNames, totalMiles, totalInvested, avgCost, cpfCount: usedCpfs.size, maxCpf: MAX_CPF_PER_OWNER };
-    }).filter(o => o.totalMiles > 0 || o.totalInvested > 0);
+    return owners
+      .map((owner) => {
+        const ownerAccounts = filteredAccounts.filter((a) => a.ownerId === owner.id);
+        const ownerAccountIds = ownerAccounts.map((a) => a.id);
+        const totalMiles = ownerAccounts.reduce((sum, a) => sum + a.balance, 0);
+        const totalInvested = ownerAccounts.reduce((sum, a) => sum + (a.totalInvested ?? 0), 0);
+        const programIds = [...new Set(ownerAccounts.map((a) => a.programId))];
+        const programNames = programIds.map((id) => programs.find((p) => p.id === id)?.name ?? id);
+        const ownerSales = filteredSales.filter(
+          (s) => s.status !== "cancelado" && ownerAccountIds.includes(s.accountId ?? ""),
+        );
+        const usedCpfs = new Set(ownerSales.flatMap((s) => s.passengers.map((p) => p.cpf)));
+        const avgCost = totalMiles > 0 ? totalInvested / totalMiles : 0;
+        return {
+          owner: owner.name,
+          programs: programNames,
+          totalMiles,
+          totalInvested,
+          avgCost,
+          cpfCount: usedCpfs.size,
+          maxCpf: MAX_CPF_PER_OWNER,
+        };
+      })
+      .filter((o) => o.totalMiles > 0 || o.totalInvested > 0);
   }, [owners, filteredAccounts, programs, filteredSales]);
 
   const recentSales = useMemo(() => {
     return [...filteredSales]
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
       .slice(0, 6)
-      .map(s => ({
-        id: s.id, owner: s.ownerName, client: s.clientName, program: s.program,
-        miles: s.milesUsed, value: s.saleValue,
-        status: s.status === "concluido" ? "Concluído" : s.status === "pago" ? "Pago" : s.status === "cancelado" ? "Cancelado" : "Pendente",
-        statusColor: s.status === "concluido" ? "success" : s.status === "pago" ? "secondary" : s.status === "cancelado" ? "destructive" : "outline" as const,
+      .map((s) => ({
+        id: s.id,
+        owner: s.ownerName,
+        client: s.clientName,
+        program: s.program,
+        miles: s.milesUsed,
+        value: s.saleValue,
+        status:
+          s.status === "concluido"
+            ? "Concluído"
+            : s.status === "pago"
+              ? "Pago"
+              : s.status === "cancelado"
+                ? "Cancelado"
+                : "Pendente",
+        statusColor:
+          s.status === "concluido"
+            ? "success"
+            : s.status === "pago"
+              ? "secondary"
+              : s.status === "cancelado"
+                ? "destructive"
+                : ("outline" as const),
       }));
   }, [filteredSales]);
 
   const programData = useMemo(() => {
     const programMap = new Map<string, number>();
-    filteredAccounts.forEach(a => {
-      const progName = programs.find(p => p.id === a.programId)?.name ?? "Desconhecido";
+    filteredAccounts.forEach((a) => {
+      const progName = programs.find((p) => p.id === a.programId)?.name ?? "Desconhecido";
       programMap.set(progName, (programMap.get(progName) ?? 0) + a.balance);
     });
-    return Array.from(programMap.entries()).map(([name, value]) => ({ name, value, color: "hsl(230 65% 50%)" }));
+    return Array.from(programMap.entries()).map(([name, value]) => ({
+      name,
+      value,
+      color: "hsl(230 65% 50%)",
+    }));
   }, [filteredAccounts, programs]);
 
   const monthlySales = useMemo(() => {
     const monthMap = new Map<string, { vendas: number; lucro: number }>();
-    const monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
-    filteredSales.filter(s => s.status !== "cancelado").forEach(s => {
-      const d = new Date(s.date);
-      const key = `${d.getFullYear()}-${String(d.getMonth()).padStart(2, "0")}`;
-      const current = monthMap.get(key) ?? { vendas: 0, lucro: 0 };
-      current.vendas += s.saleValue;
-      current.lucro += s.profit;
-      monthMap.set(key, current);
-    });
+    const monthNames = [
+      "Jan",
+      "Fev",
+      "Mar",
+      "Abr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Set",
+      "Out",
+      "Nov",
+      "Dez",
+    ];
+    filteredSales
+      .filter((s) => s.status !== "cancelado")
+      .forEach((s) => {
+        const d = new Date(s.date);
+        const key = `${d.getFullYear()}-${String(d.getMonth()).padStart(2, "0")}`;
+        const current = monthMap.get(key) ?? { vendas: 0, lucro: 0 };
+        current.vendas += s.saleValue;
+        current.lucro += s.profit;
+        monthMap.set(key, current);
+      });
     return Array.from(monthMap.entries())
-      .sort(([a], [b]) => a.localeCompare(b)).slice(-12)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .slice(-12)
       .map(([key, data]) => {
         const [yearStr, monthStr] = key.split("-");
-        return { month: `${monthNames[parseInt(monthStr)]}/${yearStr.slice(2)}`, vendas: data.vendas, lucro: data.lucro };
+        return {
+          month: `${monthNames[parseInt(monthStr)]}/${yearStr.slice(2)}`,
+          vendas: data.vendas,
+          lucro: data.lucro,
+        };
       });
   }, [filteredSales]);
 
@@ -181,22 +266,24 @@ export default function Dashboard() {
     return [...filteredEntries]
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
       .slice(0, 6)
-      .map(e => ({
+      .map((e) => ({
         id: e.id,
         amount: e.amount,
-        accountName: accounts.find(a => a.id === e.accountId)?.name ?? "",
+        accountName: accounts.find((a) => a.id === e.accountId)?.name ?? "",
       }));
   }, [filteredEntries, accounts]);
 
   const recentTransfers = useMemo(() => {
-    const transferOrigemIds = new Set(origemTypes.filter(ot => isTransferencia(ot)).map(ot => ot.id));
+    const transferOrigemIds = new Set(
+      origemTypes.filter((ot) => isTransferencia(ot)).map((ot) => ot.id),
+    );
     return [...filteredEntries]
-      .filter(e => e.sourceAccountId && transferOrigemIds.has(e.origemTypeId))
+      .filter((e) => e.sourceAccountId && transferOrigemIds.has(e.origemTypeId))
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
       .slice(0, 8)
-      .map(e => {
-        const srcAccount = accounts.find(a => a.id === e.sourceAccountId);
-        const dstAccount = accounts.find(a => a.id === e.accountId);
+      .map((e) => {
+        const srcAccount = accounts.find((a) => a.id === e.sourceAccountId);
+        const dstAccount = accounts.find((a) => a.id === e.accountId);
         return {
           id: e.id,
           date: e.date,
@@ -266,7 +353,7 @@ export default function Dashboard() {
             >
               Todos
             </Button>
-            {owners.map(o => (
+            {owners.map((o) => (
               <Button
                 key={o.id}
                 variant={selectedOwner === o.id ? "default" : "outline"}
@@ -280,18 +367,28 @@ export default function Dashboard() {
         </div>
 
         {/* Entradas pendentes do Clube */}
-        {entries.filter(e => e.entryStatus === 'aguardando').length > 0 && (
-          <div className="rounded-lg border border-amber-400/30 bg-amber-50 dark:bg-amber-950/20 p-3 sm:p-4 flex items-start gap-3 animate-appear" onClick={() => window.location.href = '/entradas'}>
+        {entries.filter((e) => e.entryStatus === "aguardando").length > 0 && (
+          <div
+            className="rounded-lg border border-amber-400/30 bg-amber-50 dark:bg-amber-950/20 p-3 sm:p-4 flex items-start gap-3 animate-appear"
+            onClick={() => (window.location.href = "/entradas")}
+          >
             <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-amber-800 dark:text-amber-300">
-                {entries.filter(e => e.entryStatus === 'aguardando').length} entrada(s) pendente(s) de confirmação
+                {entries.filter((e) => e.entryStatus === "aguardando").length} entrada(s)
+                pendente(s) de confirmação
               </p>
               <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
-                Clube de {activeTab === 'milhas' ? 'Milhas' : 'Pontos'} — confirme em Entradas para atualizar o saldo
+                Clube de {activeTab === "milhas" ? "Milhas" : "Pontos"} — confirme em Entradas para
+                atualizar o saldo
               </p>
             </div>
-            <Button variant="ghost" size="sm" className="shrink-0 text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/30" asChild>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="shrink-0 text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/30"
+              asChild
+            >
               <a href="/entradas">Ver →</a>
             </Button>
           </div>
@@ -308,11 +405,26 @@ export default function Dashboard() {
             <div className="absolute inset-0 bg-grid-subtle [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_70%)]" />
             <div className="hidden sm:block absolute inset-0 overflow-hidden pointer-events-none">
               <div className="absolute w-2 h-2 rounded-full bg-primary/30 top-[15%] left-[10%] animate-drift" />
-              <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/40 top-[25%] right-[20%] animate-drift-slow" style={{ animationDelay: "-2s" }} />
-              <div className="absolute w-1 h-1 rounded-full bg-teal/30 top-[60%] left-[30%] animate-drift" style={{ animationDelay: "-3s" }} />
-              <div className="absolute w-2.5 h-2.5 rounded-full bg-primary/20 bottom-[20%] right-[15%] animate-drift-slow" style={{ animationDelay: "-1s" }} />
-              <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/25 top-[70%] right-[40%] animate-drift" style={{ animationDelay: "-4s" }} />
-              <div className="absolute w-1 h-1 rounded-full bg-white/20 top-[40%] left-[60%] animate-drift-slow" style={{ animationDelay: "-5s" }} />
+              <div
+                className="absolute w-1.5 h-1.5 rounded-full bg-gold/40 top-[25%] right-[20%] animate-drift-slow"
+                style={{ animationDelay: "-2s" }}
+              />
+              <div
+                className="absolute w-1 h-1 rounded-full bg-teal/30 top-[60%] left-[30%] animate-drift"
+                style={{ animationDelay: "-3s" }}
+              />
+              <div
+                className="absolute w-2.5 h-2.5 rounded-full bg-primary/20 bottom-[20%] right-[15%] animate-drift-slow"
+                style={{ animationDelay: "-1s" }}
+              />
+              <div
+                className="absolute w-1.5 h-1.5 rounded-full bg-gold/25 top-[70%] right-[40%] animate-drift"
+                style={{ animationDelay: "-4s" }}
+              />
+              <div
+                className="absolute w-1 h-1 rounded-full bg-white/20 top-[40%] left-[60%] animate-drift-slow"
+                style={{ animationDelay: "-5s" }}
+              />
             </div>
             <div className="hidden sm:block absolute top-0 right-1/4 w-72 h-72 bg-primary/[0.06] rounded-full blur-3xl" />
             <div className="hidden sm:block absolute bottom-0 left-1/3 w-96 h-96 bg-gold/[0.05] rounded-full blur-3xl" />
@@ -327,7 +439,9 @@ export default function Dashboard() {
                   <span className="relative rounded-full bg-success h-2 w-2" />
                 </span>
                 <span className="text-xs tracking-wider text-muted-foreground uppercase font-medium">
-                  {selectedOwner ? owners.find(o => o.id === selectedOwner)?.name ?? "Sistema" : "Sistema Operacional"}
+                  {selectedOwner
+                    ? (owners.find((o) => o.id === selectedOwner)?.name ?? "Sistema")
+                    : "Sistema Operacional"}
                 </span>
                 <span className="h-3 w-px bg-border" />
                 <span className="text-xs text-muted-foreground">
@@ -335,11 +449,7 @@ export default function Dashboard() {
                 </span>
               </div>
 
-              <AltitudeBar
-                value={currentMetrics.totalMiles}
-                goal={500000}
-                className="mb-5"
-              />
+              <AltitudeBar value={currentMetrics.totalMiles} goal={500000} className="mb-5" />
 
               <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
                 <div className="flex-1">
@@ -417,31 +527,93 @@ export default function Dashboard() {
 
           {/* METRIC CARDS */}
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 animate-appear animate-delay-200">
-            <MetricCard title="Total Investido" value={financialMetrics.totalInvested} subtitle="Capital aplicado" icon={Wallet} variant="gold" prefix="R$" trend={{ value: Math.round(financialMetrics.revenueChange), isPositive: financialMetrics.revenueChange >= 0 }} />
-            <MetricCard title="Faturamento Mensal" value={financialMetrics.monthlyRevenue} subtitle="Receita do mês" icon={DollarSign} variant="success" prefix="R$" />
-            <MetricCard title="Lucro Mensal" value={financialMetrics.monthlyProfit} subtitle="Ganho líquido" icon={TrendingUp} variant="teal" prefix="R$" />
-            <MetricCard title="Margem de Lucro" value={`${financialMetrics.avgProfitMargin.toFixed(1)}%`} subtitle="Sobre receita total" icon={Target} variant="default" />
+            <MetricCard
+              title="Total Investido"
+              value={financialMetrics.totalInvested}
+              subtitle="Capital aplicado"
+              icon={Wallet}
+              variant="gold"
+              prefix="R$"
+              trend={{
+                value: Math.round(financialMetrics.revenueChange),
+                isPositive: financialMetrics.revenueChange >= 0,
+              }}
+            />
+            <MetricCard
+              title="Faturamento Mensal"
+              value={financialMetrics.monthlyRevenue}
+              subtitle="Receita do mês"
+              icon={DollarSign}
+              variant="success"
+              prefix="R$"
+            />
+            <MetricCard
+              title="Lucro Mensal"
+              value={financialMetrics.monthlyProfit}
+              subtitle="Ganho líquido"
+              icon={TrendingUp}
+              variant="teal"
+              prefix="R$"
+            />
+            <MetricCard
+              title="Margem de Lucro"
+              value={`${financialMetrics.avgProfitMargin.toFixed(1)}%`}
+              subtitle="Sobre receita total"
+              icon={Target}
+              variant="default"
+            />
           </div>
 
           {/* FLOW MAP */}
           <div className="animate-appear animate-delay-400">
-            <FlowMap totalMiles={currentMetrics.totalMiles} activeAccounts={currentMetrics.activeAccounts} totalSoldMiles={currentMetrics.totalSoldMiles} totalRevenue={financialMetrics.totalRevenue} ownersCount={selectedOwner ? 1 : owners.length} unitLabel="Milhas" />
+            <FlowMap
+              totalMiles={currentMetrics.totalMiles}
+              activeAccounts={currentMetrics.activeAccounts}
+              totalSoldMiles={currentMetrics.totalSoldMiles}
+              totalRevenue={financialMetrics.totalRevenue}
+              ownersCount={selectedOwner ? 1 : owners.length}
+              unitLabel="Milhas"
+            />
           </div>
 
           {/* CHARTS */}
           <div className="animate-appear animate-delay-600">
-            <DashboardCharts programData={programData} monthlySales={monthlySales} unitLabel="Milhas" />
+            <DashboardCharts
+              programData={programData}
+              monthlySales={monthlySales}
+              unitLabel="Milhas"
+            />
           </div>
 
           {/* SECONDARY METRICS */}
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 animate-appear animate-delay-800">
-            <MetricCard title="Contas Ativas" value={currentMetrics.activeAccounts} subtitle="Contas operacionais" icon={CreditCard} variant="teal" />
-            <MetricCard title="Vendas Pendentes" value={currentMetrics.pendingSales} subtitle="Aguardando processamento" icon={Target} variant="default" />
-            <MetricCard title="Alertas CPF" value={currentMetrics.cpfAlerts} subtitle="Próximo ao limite" icon={AlertTriangle} variant="warning" />
+            <MetricCard
+              title="Contas Ativas"
+              value={currentMetrics.activeAccounts}
+              subtitle="Contas operacionais"
+              icon={CreditCard}
+              variant="teal"
+            />
+            <MetricCard
+              title="Vendas Pendentes"
+              value={currentMetrics.pendingSales}
+              subtitle="Aguardando processamento"
+              icon={Target}
+              variant="default"
+            />
+            <MetricCard
+              title="Alertas CPF"
+              value={currentMetrics.cpfAlerts}
+              subtitle="Próximo ao limite"
+              icon={AlertTriangle}
+              variant="warning"
+            />
           </div>
 
           {/* OWNER + SALES */}
-          <div className={`grid gap-4 ${selectedOwner ? "md:grid-cols-1" : "sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2"} animate-appear animate-delay-1000`}>
+          <div
+            className={`grid gap-4 ${selectedOwner ? "md:grid-cols-1" : "sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2"} animate-appear animate-delay-1000`}
+          >
             {!selectedOwner && (
               <Card className="overflow-hidden">
                 <CardHeader className="pb-3">
@@ -453,20 +625,55 @@ export default function Dashboard() {
                 <CardContent>
                   <div className="space-y-1">
                     {ownerData.length === 0 ? (
-                      <EmptyState icon={Users} title="Nenhum dono com estoque" description="Crie uma conta e registre entradas — em poucos minutos você vê o estoque crescer." />
+                      <EmptyState
+                        icon={Users}
+                        title="Nenhum dono com estoque"
+                        description="Crie uma conta e registre entradas — em poucos minutos você vê o estoque crescer."
+                      />
                     ) : (
                       ownerData.map((owner) => (
-                        <div key={owner.owner} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">
+                        <div
+                          key={owner.owner}
+                          className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50"
+                        >
                           <div className="space-y-0.5">
-                            <h3 className="font-semibold text-sm text-foreground font-display">{owner.owner}</h3>
-                            <p className="text-xs text-muted-foreground font-body">{owner.programs.join(", ")} • <span className="font-semibold">{owner.totalMiles.toLocaleString("pt-BR")} milhas</span></p>
+                            <h3 className="font-semibold text-sm text-foreground font-display">
+                              {owner.owner}
+                            </h3>
+                            <p className="text-xs text-muted-foreground font-body">
+                              {owner.programs.join(", ")} •{" "}
+                              <span className="font-semibold">
+                                {owner.totalMiles.toLocaleString("pt-BR")} milhas
+                              </span>
+                            </p>
                           </div>
                           <div className="text-right space-y-0.5">
-                            <p className="text-sm font-semibold text-foreground">R$ {owner.totalInvested.toLocaleString("pt-BR")}</p>
-                            <p className="text-xs text-muted-foreground">R$ {owner.avgCost.toFixed(4)}/milha</p>
+                            <p className="text-sm font-semibold text-foreground">
+                              R$ {owner.totalInvested.toLocaleString("pt-BR")}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              R$ {owner.avgCost.toFixed(4)}/milha
+                            </p>
                             <div className="flex items-center gap-2 justify-end">
-                              <span className="text-xs text-muted-foreground">CPFs: {owner.cpfCount}/{owner.maxCpf}</span>
-                              <Badge variant={owner.cpfCount >= 20 ? "destructive" : owner.cpfCount >= 18 ? "secondary" : "outline"} className="text-xs px-1.5 py-0">{owner.cpfCount >= 20 ? "Crítico" : owner.cpfCount >= 18 ? "Atenção" : "OK"}</Badge>
+                              <span className="text-xs text-muted-foreground">
+                                CPFs: {owner.cpfCount}/{owner.maxCpf}
+                              </span>
+                              <Badge
+                                variant={
+                                  owner.cpfCount >= 20
+                                    ? "destructive"
+                                    : owner.cpfCount >= 18
+                                      ? "secondary"
+                                      : "outline"
+                                }
+                                className="text-xs px-1.5 py-0"
+                              >
+                                {owner.cpfCount >= 20
+                                  ? "Crítico"
+                                  : owner.cpfCount >= 18
+                                    ? "Atenção"
+                                    : "OK"}
+                              </Badge>
                             </div>
                           </div>
                         </div>
@@ -487,17 +694,35 @@ export default function Dashboard() {
               <CardContent>
                 <div className="space-y-1">
                   {recentSales.length === 0 ? (
-                    <EmptyState icon={TrendingUp} title="Nenhuma venda registrada" description="Vender milhas é o próximo passo natural. Crie sua primeira venda na aba Vendas." />
+                    <EmptyState
+                      icon={TrendingUp}
+                      title="Nenhuma venda registrada"
+                      description="Vender milhas é o próximo passo natural. Crie sua primeira venda na aba Vendas."
+                    />
                   ) : (
                     recentSales.map((sale) => (
-                      <div key={sale.id} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">
+                      <div
+                        key={sale.id}
+                        className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50"
+                      >
                         <div className="space-y-0.5 min-w-0">
-                          <h4 className="font-semibold text-sm text-foreground font-display truncate">{sale.client}</h4>
-                          <p className="text-xs text-muted-foreground font-body truncate">{sale.owner} • {sale.program} • <span className="font-semibold">{sale.miles.toLocaleString("pt-BR")} milhas</span></p>
+                          <h4 className="font-semibold text-sm text-foreground font-display truncate">
+                            {sale.client}
+                          </h4>
+                          <p className="text-xs text-muted-foreground font-body truncate">
+                            {sale.owner} • {sale.program} •{" "}
+                            <span className="font-semibold">
+                              {sale.miles.toLocaleString("pt-BR")} milhas
+                            </span>
+                          </p>
                         </div>
                         <div className="text-right space-y-0.5 shrink-0 ml-3">
-                          <p className="text-sm font-semibold text-foreground">R$ {sale.value.toLocaleString("pt-BR")}</p>
-                          <Badge variant={sale.statusColor} className="text-xs px-1.5 py-0">{sale.status}</Badge>
+                          <p className="text-sm font-semibold text-foreground">
+                            R$ {sale.value.toLocaleString("pt-BR")}
+                          </p>
+                          <Badge variant={sale.statusColor} className="text-xs px-1.5 py-0">
+                            {sale.status}
+                          </Badge>
                         </div>
                       </div>
                     ))
@@ -519,11 +744,26 @@ export default function Dashboard() {
             <div className="absolute inset-0 bg-grid-subtle [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_70%)]" />
             <div className="hidden sm:block absolute inset-0 overflow-hidden pointer-events-none">
               <div className="absolute w-2 h-2 rounded-full bg-teal/40 top-[15%] left-[10%] animate-drift" />
-              <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/30 top-[25%] right-[20%] animate-drift-slow" style={{ animationDelay: "-2s" }} />
-              <div className="absolute w-1 h-1 rounded-full bg-teal/40 top-[60%] left-[30%] animate-drift" style={{ animationDelay: "-3s" }} />
-              <div className="absolute w-2.5 h-2.5 rounded-full bg-teal/30 bottom-[20%] right-[15%] animate-drift-slow" style={{ animationDelay: "-1s" }} />
-              <div className="absolute w-1.5 h-1.5 rounded-full bg-gold/20 top-[70%] right-[40%] animate-drift" style={{ animationDelay: "-4s" }} />
-              <div className="absolute w-1 h-1 rounded-full bg-white/10 top-[40%] left-[60%] animate-drift-slow" style={{ animationDelay: "-5s" }} />
+              <div
+                className="absolute w-1.5 h-1.5 rounded-full bg-gold/30 top-[25%] right-[20%] animate-drift-slow"
+                style={{ animationDelay: "-2s" }}
+              />
+              <div
+                className="absolute w-1 h-1 rounded-full bg-teal/40 top-[60%] left-[30%] animate-drift"
+                style={{ animationDelay: "-3s" }}
+              />
+              <div
+                className="absolute w-2.5 h-2.5 rounded-full bg-teal/30 bottom-[20%] right-[15%] animate-drift-slow"
+                style={{ animationDelay: "-1s" }}
+              />
+              <div
+                className="absolute w-1.5 h-1.5 rounded-full bg-gold/20 top-[70%] right-[40%] animate-drift"
+                style={{ animationDelay: "-4s" }}
+              />
+              <div
+                className="absolute w-1 h-1 rounded-full bg-white/10 top-[40%] left-[60%] animate-drift-slow"
+                style={{ animationDelay: "-5s" }}
+              />
             </div>
             <div className="hidden sm:block absolute top-0 right-1/4 w-72 h-72 bg-teal/[0.10] rounded-full blur-3xl" />
             <div className="hidden sm:block absolute bottom-0 left-1/3 w-96 h-96 bg-gold/[0.04] rounded-full blur-3xl" />
@@ -538,7 +778,9 @@ export default function Dashboard() {
                   <span className="relative rounded-full bg-success h-2 w-2" />
                 </span>
                 <span className="text-xs tracking-wider text-muted-foreground uppercase font-medium">
-                  {selectedOwner ? owners.find(o => o.id === selectedOwner)?.name ?? "Sistema" : "Investimento em Pontos"}
+                  {selectedOwner
+                    ? (owners.find((o) => o.id === selectedOwner)?.name ?? "Sistema")
+                    : "Investimento em Pontos"}
                 </span>
                 <span className="h-3 w-px bg-border" />
                 <span className="text-xs text-muted-foreground">
@@ -602,16 +844,29 @@ export default function Dashboard() {
 
           {/* CHARTS — só pizza */}
           <div className="animate-appear animate-delay-600">
-            <DashboardCharts programData={programData} monthlySales={monthlySales} unitLabel="Pontos" hideBarChart />
+            <DashboardCharts
+              programData={programData}
+              monthlySales={monthlySales}
+              unitLabel="Pontos"
+              hideBarChart
+            />
           </div>
 
           {/* SECONDARY METRICS */}
           <div className="animate-appear animate-delay-800">
-            <MetricCard title="Contas Ativas (Pontos)" value={currentMetrics.activeAccounts} subtitle="Contas de pontos operacionais" icon={CreditCard} variant="teal" />
+            <MetricCard
+              title="Contas Ativas (Pontos)"
+              value={currentMetrics.activeAccounts}
+              subtitle="Contas de pontos operacionais"
+              icon={CreditCard}
+              variant="teal"
+            />
           </div>
 
           {/* OWNER + TRANSFERS */}
-          <div className={`grid gap-4 ${selectedOwner ? "md:grid-cols-1" : "sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2"} animate-appear animate-delay-1000`}>
+          <div
+            className={`grid gap-4 ${selectedOwner ? "md:grid-cols-1" : "sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2"} animate-appear animate-delay-1000`}
+          >
             {!selectedOwner && (
               <Card className="overflow-hidden">
                 <CardHeader className="pb-3">
@@ -623,17 +878,35 @@ export default function Dashboard() {
                 <CardContent>
                   <div className="space-y-1">
                     {ownerData.length === 0 ? (
-                      <EmptyState icon={Users} title="Nenhum dono com pontos" description="Crie uma conta de pontos e registre transferências para acompanhar seus investimentos." />
+                      <EmptyState
+                        icon={Users}
+                        title="Nenhum dono com pontos"
+                        description="Crie uma conta de pontos e registre transferências para acompanhar seus investimentos."
+                      />
                     ) : (
                       ownerData.map((owner) => (
-                        <div key={owner.owner} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">
+                        <div
+                          key={owner.owner}
+                          className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50"
+                        >
                           <div className="space-y-0.5">
-                            <h3 className="font-semibold text-sm text-foreground font-display">{owner.owner}</h3>
-                            <p className="text-xs text-muted-foreground font-body">{owner.programs.join(", ")} • <span className="font-semibold">{owner.totalMiles.toLocaleString("pt-BR")} pontos</span></p>
+                            <h3 className="font-semibold text-sm text-foreground font-display">
+                              {owner.owner}
+                            </h3>
+                            <p className="text-xs text-muted-foreground font-body">
+                              {owner.programs.join(", ")} •{" "}
+                              <span className="font-semibold">
+                                {owner.totalMiles.toLocaleString("pt-BR")} pontos
+                              </span>
+                            </p>
                           </div>
                           <div className="text-right space-y-0.5">
-                            <p className="text-sm font-semibold text-foreground">R$ {owner.totalInvested.toLocaleString("pt-BR")}</p>
-                            <p className="text-xs text-muted-foreground">R$ {owner.avgCost.toFixed(4)}/ponto</p>
+                            <p className="text-sm font-semibold text-foreground">
+                              R$ {owner.totalInvested.toLocaleString("pt-BR")}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              R$ {owner.avgCost.toFixed(4)}/ponto
+                            </p>
                           </div>
                         </div>
                       ))
@@ -653,17 +926,33 @@ export default function Dashboard() {
               <CardContent>
                 <div className="space-y-1">
                   {recentTransfers.length === 0 ? (
-                    <EmptyState icon={TrendingUp} title="Nenhuma transferência" description="Transfira pontos entre contas na opção Transferir em Entradas e veja o histórico aqui." />
+                    <EmptyState
+                      icon={TrendingUp}
+                      title="Nenhuma transferência"
+                      description="Transfira pontos entre contas na opção Transferir em Entradas e veja o histórico aqui."
+                    />
                   ) : (
                     recentTransfers.map((t) => (
-                      <div key={t.id} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">
+                      <div
+                        key={t.id}
+                        className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50"
+                      >
                         <div className="space-y-0.5 min-w-0">
-                          <h4 className="font-semibold text-sm text-foreground font-display truncate">{t.sourceAccountName}</h4>
-                          <p className="text-xs text-muted-foreground font-body">{new Date(t.date).toLocaleDateString("pt-BR")} • {t.destAccountName} {t.bonusPercent ? `• +${t.bonusPercent}% bônus` : ""}</p>
+                          <h4 className="font-semibold text-sm text-foreground font-display truncate">
+                            {t.sourceAccountName}
+                          </h4>
+                          <p className="text-xs text-muted-foreground font-body">
+                            {new Date(t.date).toLocaleDateString("pt-BR")} • {t.destAccountName}{" "}
+                            {t.bonusPercent ? `• +${t.bonusPercent}% bônus` : ""}
+                          </p>
                         </div>
                         <div className="text-right space-y-0.5 shrink-0 ml-3">
-                          <p className="text-sm font-semibold text-foreground">{t.pointsDebited.toLocaleString("pt-BR")} pts</p>
-                          <p className="text-xs text-success">→ {t.milesReceived.toLocaleString("pt-BR")} milhas</p>
+                          <p className="text-sm font-semibold text-foreground">
+                            {t.pointsDebited.toLocaleString("pt-BR")} pts
+                          </p>
+                          <p className="text-xs text-success">
+                            → {t.milesReceived.toLocaleString("pt-BR")} milhas
+                          </p>
                         </div>
                       </div>
                     ))

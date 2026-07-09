@@ -25,7 +25,11 @@ export function useAddOwnerMutation() {
   return useMutation({
     mutationFn: async (owner: Owner) => {
       const { error } = await supabase.from("owners").insert({
-        id: owner.id, user_id: user!.id, name: owner.name, cpf: owner.cpf, phone: owner.phone,
+        id: owner.id,
+        user_id: user!.id,
+        name: owner.name,
+        cpf: owner.cpf,
+        phone: owner.phone,
       });
       if (error) throw error;
     },

@@ -25,10 +25,17 @@ export function useAddAccountMutation() {
   return useMutation({
     mutationFn: async (account: Account) => {
       const { error } = await supabase.from("accounts").insert({
-        id: account.id, user_id: user!.id, owner_id: account.ownerId, program_id: account.programId,
-        name: account.name, type: account.type, balance: account.balance,
-        average_cost_per_mile: account.averageCostPerMile, total_invested: account.totalInvested,
-        status: account.status, created_at: account.createdAt,
+        id: account.id,
+        user_id: user!.id,
+        owner_id: account.ownerId,
+        program_id: account.programId,
+        name: account.name,
+        type: account.type,
+        balance: account.balance,
+        average_cost_per_mile: account.averageCostPerMile,
+        total_invested: account.totalInvested,
+        status: account.status,
+        created_at: account.createdAt,
       });
       if (error) throw error;
     },
@@ -46,7 +53,8 @@ export function useUpdateAccountMutation() {
       if (data.programId !== undefined) updateData.program_id = data.programId;
       if (data.type !== undefined) updateData.type = data.type;
       if (data.balance !== undefined) updateData.balance = data.balance;
-      if (data.averageCostPerMile !== undefined) updateData.average_cost_per_mile = data.averageCostPerMile;
+      if (data.averageCostPerMile !== undefined)
+        updateData.average_cost_per_mile = data.averageCostPerMile;
       if (data.totalInvested !== undefined) updateData.total_invested = data.totalInvested;
       if (data.status !== undefined) updateData.status = data.status;
       const { error } = await supabase.from("accounts").update(updateData).eq("id", id);

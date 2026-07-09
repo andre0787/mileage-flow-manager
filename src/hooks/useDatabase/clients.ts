@@ -25,8 +25,14 @@ export function useAddClientMutation() {
   return useMutation({
     mutationFn: async (client: Client) => {
       const { error } = await supabase.from("clients").insert({
-        id: client.id, user_id: user!.id, name: client.name, cpf: client.cpf, email: client.email,
-        phone: client.phone, telegram: client.telegram, total_purchases: client.totalPurchases,
+        id: client.id,
+        user_id: user!.id,
+        name: client.name,
+        cpf: client.cpf,
+        email: client.email,
+        phone: client.phone,
+        telegram: client.telegram,
+        total_purchases: client.totalPurchases,
         usage_history: client.usageHistory,
       });
       if (error) throw error;

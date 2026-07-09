@@ -1,12 +1,12 @@
-import { TrendingUp, TrendingDown, DollarSign, Target } from "lucide-react"
-import { MetricCard } from "@/components/MetricCard"
+import { TrendingUp, TrendingDown, DollarSign, Target } from "lucide-react";
+import { MetricCard } from "@/components/MetricCard";
 
 interface EntrySummaryProps {
-  type: "pontos" | "milhas"
-  totalAmount: number
-  totalAmountPaid: number
-  totalMilesGenerated: number
-  averageCostPerMile: number
+  type: "pontos" | "milhas";
+  totalAmount: number;
+  totalAmountPaid: number;
+  totalMilesGenerated: number;
+  averageCostPerMile: number;
 }
 
 export function EntrySummary({
@@ -16,7 +16,7 @@ export function EntrySummary({
   totalMilesGenerated,
   averageCostPerMile,
 }: EntrySummaryProps) {
-  const label = type === "pontos" ? "Pontos" : "Milhas"
+  const label = type === "pontos" ? "Pontos" : "Milhas";
 
   return (
     <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 animate-appear animate-delay-200">
@@ -49,5 +49,5 @@ export function EntrySummary({
         variant="teal"
       />
     </div>
-  )
+  );
 }

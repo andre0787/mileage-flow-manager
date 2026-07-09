@@ -1,52 +1,68 @@
-import { useState, useMemo } from "react"
-import { Plus, Search, Calculator } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { SkeletonMetricCard, SkeletonTable } from "@/components/SkeletonLoader"
-import { useDebounce } from "@/hooks/useDebounce"
-import { useHaptic } from "@/hooks/useHaptic"
-import { useData } from "@/contexts/DataContext"
-import { useAddSaleMutation, useUpdateSaleMutation, useCancelSaleMutation, useAddClientMutation } from "@/hooks/useDatabase"
-import { calcProfit, calcProfitMargin } from "@/lib/metrics"
-import { SaleMetrics } from "@/components/SaleMetrics"
-import { SaleForm, type SaleFormData } from "@/components/SaleForm"
-import { SaleTable } from "@/components/SaleTable"
-import { SaleSimulator, type StockItem } from "@/components/SaleSimulator"
-import confetti from "canvas-confetti"
+import { useState, useMemo } from "react";
+import { Plus, Search, Calculator } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { SkeletonMetricCard, SkeletonTable } from "@/components/SkeletonLoader";
+import { useDebounce } from "@/hooks/useDebounce";
+import { useHaptic } from "@/hooks/useHaptic";
+import { useData } from "@/contexts/DataContext";
+import {
+  useAddSaleMutation,
+  useUpdateSaleMutation,
+  useCancelSaleMutation,
+  useAddClientMutation,
+} from "@/hooks/useDatabase";
+import { calcProfit, calcProfitMargin } from "@/lib/metrics";
+import { SaleMetrics } from "@/components/SaleMetrics";
+import { SaleForm, type SaleFormData } from "@/components/SaleForm";
+import { SaleTable } from "@/components/SaleTable";
+import { SaleSimulator, type StockItem } from "@/components/SaleSimulator";
+import confetti from "canvas-confetti";
 
 export default function Vendas() {
-  const { clients, accounts, owners, programs, sales, isLoading } = useData()
-  const [searchTerm, setSearchTerm] = useState("")
-  const debouncedSearch = useDebounce(searchTerm, 300)
-  const [statusFilter, setStatusFilter] = useState<string>("todos")
-  const [simulatorOpen, setSimulatorOpen] = useState(false)
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
+  const { clients, accounts, owners, programs, sales, isLoading } = useData();
+  const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearch = useDebounce(searchTerm, 300);
+  const [statusFilter, setStatusFilter] = useState<string>("todos");
+  const [simulatorOpen, setSimulatorOpen] = useState(false);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
-  const addSaleM = useAddSaleMutation()
-  const updateSaleM = useUpdateSaleMutation()
-  const cancelSaleM = useCancelSaleMutation()
-  const addClientM = useAddClientMutation()
-  const haptic = useHaptic()
+  const addSaleM = useAddSaleMutation();
+  const updateSaleM = useUpdateSaleMutation();
+  const cancelSaleM = useCancelSaleMutation();
+  const addClientM = useAddClientMutation();
+  const haptic = useHaptic();
 
   // Stock info compartilhado com o Simulador
-  const stockInfo: StockItem[] = useMemo(() =>
-    accounts.filter(a => a.type === "milhas" && a.status === "ativa").map(a => ({
-      accountId: a.id,
-      ownerName: owners.find(o => o.id === a.ownerId)?.name ?? "",
-      accountName: a.name,
-      averageCostPerMile: a.averageCostPerMile ?? 0,
-    })), [accounts, owners])
+  const stockInfo: StockItem[] = useMemo(
+    () =>
+      accounts
+        .filter((a) => a.type === "milhas" && a.status === "ativa")
+        .map((a) => ({
+          accountId: a.id,
+          ownerName: owners.find((o) => o.id === a.ownerId)?.name ?? "",
+          accountName: a.name,
+          averageCostPerMile: a.averageCostPerMile ?? 0,
+        })),
+    [accounts, owners],
+  );
 
   // Handlers
   const handleCreateSale = (data: SaleFormData) => {
-    const milesUsed = parseFloat(data.milesUsed)
-    const saleValue = parseFloat(data.saleValue)
-    const additionalCost = parseFloat(data.additionalCost || "0")
+    const milesUsed = parseFloat(data.milesUsed);
+    const saleValue = parseFloat(data.saleValue);
+    const additionalCost = parseFloat(data.additionalCost || "0");
     // costPerMille vem preenchido pelo SaleForm a partir do estoque selecionado
-    const costPerMile = data.costPerMile ?? 0
-    const profit = calcProfit(saleValue, milesUsed, costPerMile, additionalCost)
-    const profitMargin = calcProfitMargin(profit, saleValue)
+    const costPerMile = data.costPerMile ?? 0;
+    const profit = calcProfit(saleValue, milesUsed, costPerMile, additionalCost);
+    const profitMargin = calcProfitMargin(profit, saleValue);
 
     addSaleM.mutate(
       {
@@ -67,30 +83,42 @@ export default function Vendas() {
         profitMargin,
         status: "pendente" as const,
         ticketLocator: data.ticketLocator,
-        passengers: data.passengers.filter(p => p.name.trim()),
+        passengers: data.passengers.filter((p) => p.name.trim()),
         date: new Date().toISOString().split("T")[0],
       },
       {
         onSuccess: () => {
-          haptic.success()
+          haptic.success();
           if (saleValue >= 200) {
-            confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 }, colors: ["#6366f1", "#f59e0b", "#10b981"] })
+            confetti({
+              particleCount: 60,
+              spread: 70,
+              origin: { y: 0.6 },
+              colors: ["#6366f1", "#f59e0b", "#10b981"],
+            });
           }
         },
       },
-    )
-    setIsCreateDialogOpen(false)
-  }
+    );
+    setIsCreateDialogOpen(false);
+  };
 
   const handleCancelSale = (saleId: string) => {
-    cancelSaleM.mutate(saleId)
-  }
+    cancelSaleM.mutate(saleId);
+  };
 
   const handleStatusChange = (saleId: string, status: "pendente" | "pago" | "concluido") => {
-    updateSaleM.mutate({ id: saleId, status })
-  }
+    updateSaleM.mutate({ id: saleId, status });
+  };
 
-  const handleCreateClient = (data: { id: string; name: string; cpf: string; email: string; phone: string; telegram: string }) => {
+  const handleCreateClient = (data: {
+    id: string;
+    name: string;
+    cpf: string;
+    email: string;
+    phone: string;
+    telegram: string;
+  }) => {
     addClientM.mutate({
       id: data.id,
       name: data.name.trim(),
@@ -100,19 +128,23 @@ export default function Vendas() {
       telegram: data.telegram,
       totalPurchases: 0,
       usageHistory: [],
-    })
-  }
+    });
+  };
 
   // Filtros
   const filteredSales = useMemo(() => {
-    return sales.filter(s => {
-      if (statusFilter !== "todos" && s.status !== statusFilter) return false
-      if (!debouncedSearch) return true
-      const q = debouncedSearch.toLowerCase()
-      return s.clientName.toLowerCase().includes(q) || s.ownerName.toLowerCase().includes(q) ||
-        s.program.toLowerCase().includes(q) || s.ticketLocator.toLowerCase().includes(q)
-    })
-  }, [sales, statusFilter, debouncedSearch])
+    return sales.filter((s) => {
+      if (statusFilter !== "todos" && s.status !== statusFilter) return false;
+      if (!debouncedSearch) return true;
+      const q = debouncedSearch.toLowerCase();
+      return (
+        s.clientName.toLowerCase().includes(q) ||
+        s.ownerName.toLowerCase().includes(q) ||
+        s.program.toLowerCase().includes(q) ||
+        s.ticketLocator.toLowerCase().includes(q)
+      );
+    });
+  }, [sales, statusFilter, debouncedSearch]);
 
   if (isLoading) {
     return (
@@ -125,14 +157,17 @@ export default function Vendas() {
           <div className="h-10 w-32 bg-muted rounded-lg animate-pulse" />
         </div>
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
-          <SkeletonMetricCard /><SkeletonMetricCard /><SkeletonMetricCard /><SkeletonMetricCard />
+          <SkeletonMetricCard />
+          <SkeletonMetricCard />
+          <SkeletonMetricCard />
+          <SkeletonMetricCard />
         </div>
         <div className="rounded-xl border border-border p-6 space-y-4">
           <div className="h-6 w-40 bg-muted rounded animate-pulse" />
           <SkeletonTable rows={4} cols={5} />
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -141,15 +176,24 @@ export default function Vendas() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Vendas de Milhas</h1>
-          <p className="text-sm text-muted-foreground">Gerencie as vendas de milhas e controle de estoque por dono</p>
+          <p className="text-sm text-muted-foreground">
+            Gerencie as vendas de milhas e controle de estoque por dono
+          </p>
         </div>
         <div className="flex flex-wrap gap-2 w-full sm:w-auto">
           <div className="relative flex-1 sm:flex-none min-w-0">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-            <Input className="pl-9 w-full sm:w-56" placeholder="Buscar venda..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+            <Input
+              className="pl-9 w-full sm:w-56"
+              placeholder="Buscar venda..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
           <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-32"><SelectValue /></SelectTrigger>
+            <SelectTrigger className="w-32">
+              <SelectValue />
+            </SelectTrigger>
             <SelectContent>
               <SelectItem value="todos">Todos</SelectItem>
               <SelectItem value="pendente">Pendente</SelectItem>
@@ -159,11 +203,20 @@ export default function Vendas() {
             </SelectContent>
           </Select>
           <div className="flex gap-2 w-full sm:w-auto">
-            <Button variant="outline" className="flex-1 sm:flex-none gap-2" onClick={() => setSimulatorOpen(true)}>
-              <Calculator className="h-4 w-4" />Simular
+            <Button
+              variant="outline"
+              className="flex-1 sm:flex-none gap-2"
+              onClick={() => setSimulatorOpen(true)}
+            >
+              <Calculator className="h-4 w-4" />
+              Simular
             </Button>
-            <Button className="flex-1 sm:flex-none gap-2 bg-gradient-primary hover:opacity-90" onClick={() => setIsCreateDialogOpen(true)}>
-              <Plus className="h-4 w-4" />Nova Venda
+            <Button
+              className="flex-1 sm:flex-none gap-2 bg-gradient-primary hover:opacity-90"
+              onClick={() => setIsCreateDialogOpen(true)}
+            >
+              <Plus className="h-4 w-4" />
+              Nova Venda
             </Button>
           </div>
         </div>
@@ -193,11 +246,7 @@ export default function Vendas() {
       />
 
       {/* Simulador */}
-      <SaleSimulator
-        open={simulatorOpen}
-        onOpenChange={setSimulatorOpen}
-        stockInfo={stockInfo}
-      />
+      <SaleSimulator open={simulatorOpen} onOpenChange={setSimulatorOpen} stockInfo={stockInfo} />
     </div>
-  )
+  );
 }

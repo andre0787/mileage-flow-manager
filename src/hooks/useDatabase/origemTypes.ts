@@ -25,7 +25,11 @@ export function useAddOrigemTypeMutation() {
   return useMutation({
     mutationFn: async (ot: OrigemType) => {
       const data: Record<string, unknown> = {
-        id: ot.id, user_id: user!.id, name: ot.name, account_type: ot.accountType, color: ot.color,
+        id: ot.id,
+        user_id: user!.id,
+        name: ot.name,
+        account_type: ot.accountType,
+        color: ot.color,
       };
       // ponytail: description column added by migration; only include if defined so it works pre-migration
       if (ot.description !== undefined) data.description = ot.description;
