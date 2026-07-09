@@ -54,8 +54,8 @@ await expect(page.locator('text="R$ 1.000"').first()).toBeVisible()
 | Criar — amount | `#amount` |
 | Criar — amountPaid | `#amountPaid` |
 | Criar — conversion | `#conversion` |
-| Editar — amount | `#editAmount` |
-| Editar — amountPaid | `#editAmountPaid` |
+| Editar — amount | `#amount` (mesmo ID) |
+| Editar — amountPaid | `#amountPaid` (mesmo ID) |
 
 ### Criação de dados de teste via API
 

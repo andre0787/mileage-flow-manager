@@ -29,9 +29,13 @@
 
 ---
 
+## ✅ Fix — PR #60
+
+- [x] entradas.spec.ts: `#editAmount` → `#amount` (IDs são os mesmos create/edit)
+- [x] docs/TESTING.md atualizado
+
 ## 📌 Backlog Futuro
 
-- [ ] Corrigir entradas.spec.ts (`#editAmount` selector não existe)
 - [ ] Exportação PDF dos relatórios
 - [ ] Notificações push para confirmação de entradas
 - [ ] Modo offline com sincronização

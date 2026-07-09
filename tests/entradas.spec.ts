@@ -120,8 +120,8 @@ test.describe("Edição de Entradas", () => {
     // ═══════════════════════════════════════
     // 5. Alterar valores e salvar
     // ═══════════════════════════════════════
-    await page.fill("#editAmount", "75000");
-    await page.fill("#editAmountPaid", "5000.00");
+    await page.fill("#amount", "75000");
+    await page.fill("#amountPaid", "5000.00");
     await page.waitForTimeout(500);
 
     // Salva
