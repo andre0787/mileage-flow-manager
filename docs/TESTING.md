@@ -5,9 +5,13 @@
 - **Playwright** — testes E2E
 - Config: `playwright.config.ts` (viewport 1280x900, webServer com `npm run dev`)
 
-## Comando
+## Comandos
 
 ```bash
+# Testes unitários
+npm test
+
+# Testes E2E
 npx playwright test --reporter=list --workers=1
 ```
 
@@ -23,9 +27,10 @@ npx playwright test --reporter=list --workers=1
 Executar **antes de todo push em `main`**:
 
 1. `npm run build` — build sem erros
-2. `npx playwright test --reporter=list --workers=1` — todos os testes
-3. Verificar zero overflow horizontal em todos os viewports
-4. Screenshots automáticos em `tests/screenshots/`
+2. `npm test` — testes unitários (vitest)
+3. `npx playwright test --reporter=list --workers=1` — testes E2E
+4. Verificar zero overflow horizontal em todos os viewports
+5. Screenshots automáticos em `tests/screenshots/`
 
 **Qualquer falha → blocker. Não deployar sem bateria verde.**
 
