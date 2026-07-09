@@ -43,7 +43,20 @@
 
 ## 📌 Backlog Futuro
 
-- [ ] ~~Exportação PDF dos relatórios~~ (Council: não fazer agora)
+### Sprint #5 (Próxima)
 - [ ] Notificações push para confirmação de entradas
-- [ ] ~~Modo offline com sincronização~~ (Council: não fazer agora)
+- [ ] Melhorar empty states com CTAs
+- [ ] Adicionar paginação em listas longas
+
+### Sprint #6 (Futura)
+- [ ] Modo offline com sincronização
+- [ ] Exportação PDF dos relatórios
+- [ ] Busca global
+
+### Sprint #7 (Futura)
 - [ ] Multi-idioma (i18n)
+- [ ] Dark mode toggle
+- [ ] Atalhos de teclado
+
+### Referência
+- [x] Mapa de Experiências do Usuário — `docs/MAPA-EXPERIENCIAS-USUARIO.md`

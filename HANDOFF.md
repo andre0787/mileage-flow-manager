@@ -1,13 +1,12 @@
-# HANDOFF — PR #61 merged — Code splitting recharts
+# HANDOFF — Mapa de Experiências criado
 
-## Status: ✅ PR #61 merged — Deploy automático Vercel
+## Status: ✅ Documento de mapeamento completo
 
 ### Último trabalho: 2026-07-09
 
-- PR #61 merged: code splitting recharts via lazy loading
-- Bundle principal: 1MB → 637kB (-38.6%)
-- Relatório: `docs/reports/PR61-2026-07-09-code-splitting-recharts.html`
-- Council: code splitting recomendado (melhor custo-benefício)
+- Criado `docs/MAPA-EXPERIENCIAS-USUARIO.md` (43 fluxos mapeados)
+- Atualizado `docs/AGENDA.md` com sprints #5, #6, #7
+- PR #61 merged: code splitting recharts (-38.6% bundle)
 
 ### Branch atual
 
@@ -20,5 +19,6 @@
 
 ### Próximos passos
 
-1. Verificar se deploy foi para produção
-2. Avaliar próximo item do backlog: Notificações push ou i18n
+1. Iniciar Sprint #5: Notificações push
+2. Melhorar empty states com CTAs
+3. Adicionar paginação em listas longas
