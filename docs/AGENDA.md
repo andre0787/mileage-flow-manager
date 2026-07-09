@@ -34,10 +34,16 @@
 - [x] entradas.spec.ts: `#editAmount` → `#amount` (IDs são os mesmos create/edit)
 - [x] docs/TESTING.md atualizado
 
+## ✅ Feature — PR #61
+
+- [x] Code splitting recharts via lazy loading
+- [x] Bundle principal: 1MB → 637kB (-38.6%)
+- [x] Chunk separado para recharts (~398kB)
+- [x] Skeleton loader para UX
+
 ## 📌 Backlog Futuro
 
-- [ ] Exportação PDF dos relatórios
+- [ ] ~~Exportação PDF dos relatórios~~ (Council: não fazer agora)
 - [ ] Notificações push para confirmação de entradas
-- [ ] Modo offline com sincronização
+- [ ] ~~Modo offline com sincronização~~ (Council: não fazer agora)
 - [ ] Multi-idioma (i18n)
-- [ ] Code splitting (recharts 163kB — lazy load)

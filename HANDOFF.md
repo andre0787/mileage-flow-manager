@@ -1,23 +1,25 @@
-# HANDOFF — Fix entradas.spec.ts
+# HANDOFF — PR #61 code splitting recharts
 
-## Status: ✅ Fix aplicado — Teste entradas passa
+## Status: ✅ PR #61 criado — Aguardando review/merge
 
 ### Último trabalho: 2026-07-09
 
-- Corrigido selector `#editAmount` → `#amount` (IDs são os mesmos create/edit)
-- Atualizado docs/TESTING.md com IDs corretos
-- Teste entradas.spec.ts agora passa em ~14s
+- PR #61: code splitting recharts via lazy loading
+- Bundle principal: 1MB → 637kB (-38.6%)
+- Relatório: `docs/reports/PR61-2026-07-09-code-splitting-recharts.html`
+- Council: code splitting recomendado sobre notificações e i18n
 
 ### Branch atual
 
-`main` — produção limpa (fix local, não criou PR ainda)
+`feat/code-splitting-recharts` — PR aberto para develop
 
 ### Status dos testes
 
 - ✅ 33/33 unitários (vitest)
-- ✅ 8/8 E2E (entradas agora passa!)
+- ✅ 8/8 E2E
 
 ### Próximos passos
 
-1. Criar PR para o fix (se necessário)
-2. Definir Sprint #5
+1. Merge PR #61 em develop
+2. Verificar se deploy foi para produção
+3. Avaliar próximo item do backlog
