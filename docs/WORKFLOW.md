@@ -40,6 +40,7 @@ Cada advisor produz análise independente → peer review anônimo → chairman 
 6. **requesting-code-review** — entre tarefas, bloqueia se critical
 7. **finishing-a-development-branch** — testes verdes, merge/PR
 8. **relatório** — `/report` gera HTML com antes/depois, benefícios e consumo de tokens em `docs/reports/`
+9. **handoff** — Atualizar `HANDOFF.md` com progresso, PRs e próximos passos
 
 ## Gatilhos
 
