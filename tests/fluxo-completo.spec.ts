@@ -95,6 +95,11 @@ test("Fluxo completo de experiência", async ({ page }) => {
     }, { url: SUPABASE_URL, anonKey: SUPABASE_ANON_KEY });
     pass("Dados de teste criados");
 
+    // Wait for data to settle, then reload to force React Query refetch
+    await page.waitForTimeout(2000);
+    await page.reload({ waitUntil: "networkidle" });
+    await page.waitForTimeout(3000);
+
     // ═══ 3. ENTRADA PONTOS (COMPRA DIRETA) ═══
     await page.goto("/entradas", { waitUntil: "domcontentloaded" });
     await page.waitForTimeout(500);
@@ -278,8 +283,8 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await vCmb.nth(3).click();
     await page.waitForTimeout(200);
     await page.getByRole("option", { name: /maria/i }).click();
-    await page.fill("#miles", "10000");
-    await page.fill("#pricePerMile", "0.25");
+    await page.fill('input[placeholder="Ex: 50000"]', "10000");
+    await page.fill('input[placeholder="Ex: 0.03"]', "0.25");
     await page.getByRole("button", { name: /registrar/i }).click();
     await page.waitForTimeout(1500);
     pass("Venda de 10.000 milhas registrada");
