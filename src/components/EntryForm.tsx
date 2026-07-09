@@ -135,7 +135,7 @@ export function EntryForm({
       color: newOT.color,
       hasRecurrence: newOT.hasRecurrence,
     })
-    if (id) set({ origemTypeId: id })
+    if (id) set({ origemTypeId: id, isClube: newOT.hasRecurrence })
     setNewOT({ name: "", color: "#10b981", hasRecurrence: false })
     setOtErrors({})
     setIsOrigemTypeOpen(false)

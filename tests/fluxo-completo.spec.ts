@@ -51,59 +51,45 @@ test("Fluxo completo de experiência", async ({ page }) => {
       const uid = session.user.id;
       const h = { "Content-Type": "application/json", apikey: anonKey, Authorization: `Bearer ${token}` };
 
+      // Helper: POST with timeout, ignores 409 (already exists)
+      const safePost = async (table: string, body: Record<string, unknown>) => {
+        const ctrl = new AbortController();
+        const tid = setTimeout(() => ctrl.abort(), 8000);
+        try {
+          const res = await fetch(`${url}/rest/v1/${table}`, { method: "POST", headers: h, body: JSON.stringify(body), signal: ctrl.signal });
+          if (res.status === 409) return;
+          if (!res.ok) console.error(`${table} failed:`, res.status);
+        } catch (e) {
+          console.error(`${table} timeout/err:`,
+            e instanceof Error ? e.message : String(e));
+        } finally {
+          clearTimeout(tid);
+        }
+      };
+
       const ownerId = crypto.randomUUID();
-      await fetch(`${url}/rest/v1/owners`, {
-        method: "POST", headers: h,
-        body: JSON.stringify({ id: ownerId, user_id: uid, name: "João Dono" }),
-      });
+      await safePost("owners", { id: ownerId, user_id: uid, name: "João Dono" });
 
       const progSmiles = crypto.randomUUID();
-      await fetch(`${url}/rest/v1/programs`, {
-        method: "POST", headers: h,
-        body: JSON.stringify({ id: progSmiles, user_id: uid, name: "Smiles", type: "pontos" }),
-      });
+      await safePost("programs", { id: progSmiles, user_id: uid, name: "Smiles", type: "pontos" });
 
       const proLatam = crypto.randomUUID();
-      await fetch(`${url}/rest/v1/programs`, {
-        method: "POST", headers: h,
-        body: JSON.stringify({ id: proLatam, user_id: uid, name: "Latam Pass", type: "milhas" }),
-      });
+      await safePost("programs", { id: proLatam, user_id: uid, name: "Latam Pass", type: "milhas" });
 
       const otCompra = crypto.randomUUID();
-      await fetch(`${url}/rest/v1/origem_types`, {
-        method: "POST", headers: h,
-        body: JSON.stringify({ id: otCompra, user_id: uid, name: "Compra Direta", account_type: "pontos", color: "#10b981", description: '{"hasRecurrence":false}' }),
-      });
+      await safePost("origem_types", { id: otCompra, user_id: uid, name: "Compra Direta", account_type: "pontos", color: "#10b981", description: '{"hasRecurrence":false}' });
 
       const otClube = crypto.randomUUID();
-      await fetch(`${url}/rest/v1/origem_types`, {
-        method: "POST", headers: h,
-        body: JSON.stringify({ id: otClube, user_id: uid, name: "Clube Fidelidade", account_type: "pontos", color: "#f59e0b", description: '{"hasRecurrence":true}' }),
-      });
+      await safePost("origem_types", { id: otClube, user_id: uid, name: "Clube Fidelidade", account_type: "pontos", color: "#f59e0b", description: '{"hasRecurrence":true}' });
 
       const otTransfer = crypto.randomUUID();
-      await fetch(`${url}/rest/v1/origem_types`, {
-        method: "POST", headers: h,
-        body: JSON.stringify({ id: otTransfer, user_id: uid, name: "Transferência", account_type: "milhas", color: "#6366f1", description: '{"hasRecurrence":false}' }),
-      });
+      await safePost("origem_types", { id: otTransfer, user_id: uid, name: "Transferência", account_type: "milhas", color: "#6366f1", description: '{"hasRecurrence":false}' });
 
       const accSmiles = crypto.randomUUID();
-      await fetch(`${url}/rest/v1/accounts`, {
-        method: "POST", headers: h,
-        body: JSON.stringify({
-          id: accSmiles, user_id: uid, owner_id: ownerId, program_id: progSmiles,
-          name: "Smiles", type: "pontos", balance: 0, total_invested: 0, average_cost_per_mile: 0, status: "ativa",
-        }),
-      });
+      await safePost("accounts", { id: accSmiles, user_id: uid, owner_id: ownerId, program_id: progSmiles, name: "Smiles", type: "pontos", balance: 0, total_invested: 0, average_cost_per_mile: 0, status: "ativa" });
 
       const accLatam = crypto.randomUUID();
-      await fetch(`${url}/rest/v1/accounts`, {
-        method: "POST", headers: h,
-        body: JSON.stringify({
-          id: accLatam, user_id: uid, owner_id: ownerId, program_id: proLatam,
-          name: "Latam Pass", type: "milhas", balance: 0, total_invested: 0, average_cost_per_mile: 0, status: "ativa",
-        }),
-      });
+      await safePost("accounts", { id: accLatam, user_id: uid, owner_id: ownerId, program_id: proLatam, name: "Latam Pass", type: "milhas", balance: 0, total_invested: 0, average_cost_per_mile: 0, status: "ativa" });
 
       return { uid, ownerId, accSmiles, accLatam, otCompra, otClube, otTransfer };
     }, { url: SUPABASE_URL, anonKey: SUPABASE_ANON_KEY });
