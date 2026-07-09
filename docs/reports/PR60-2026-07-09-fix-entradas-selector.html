@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relatório — PR #60: Fix entradas.spec.ts selector</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; }
+  h1 { border-bottom: 2px solid #5B72C4; padding-bottom: .5rem; }
+  .stat { display: inline-block; background: #f0f4ff; padding: .25rem .75rem; border-radius: 6px; font-size: .875rem; }
+  .benefits li { margin: .5rem 0; }
+  pre { background: #f5f5f5; padding: 1rem; border-radius: 6px; overflow-x: auto; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: .75rem; font-weight: 600; }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-blue { background: #cce5ff; color: #004085; }
+</style>
+</head>
+<body>
+<h1>📋 Relatório: Fix entradas.spec.ts selector</h1>
+
+<p>
+  <span class="badge badge-green">PR #60</span>
+  <span class="badge badge-blue">fix</span>
+  <span class="badge badge-blue">2026-07-09</span>
+</p>
+
+<p class="stat">📁 4 arquivos · ➕ 18 linhas · ➖ 15 linhas</p>
+<p class="stat" style="margin-left: .5rem;">⚡ ~44 tokens</p>
+
+<h2>Antes</h2>
+<p>O teste <code>entradas.spec.ts</code> tentava usar seletores <code>#editAmount</code> e <code>#editAmountPaid</code> que não existem no componente <code>EntryForm</code>. Os IDs são os mesmos para create e edit (<code>#amount</code> e <code>#amountPaid</code>). Isso fazia o teste E2E falhar.</p>
+
+<h2>Depois</h2>
+<p>Seletores corrigidos para <code>#amount</code> e <code>#amountPaid</code>. Documentação em <code>TESTING.md</code> atualizada para refletir que create/edit usam os mesmos IDs. Teste agora passa em ~14s.</p>
+
+<h2>Benefícios</h2>
+<ul class="benefits">
+  <li>✅ Teste E2E <code>entradas.spec.ts</code> agora passa (8/8 testes verdes)</li>
+  <li>✅ Documentação corrigida — evita confusão futura</li>
+  <li>✅ Bateria de testes completa sem falhas</li>
+  <li>✅ Zero bugs de seletores em testes de edição</li>
+</ul>
+
+<h2>Detalhes</h2>
+<pre>
+ tests/entradas.spec.ts | 4 ++--
+ docs/TESTING.md        | 4 ++--
+ docs/AGENDA.md         | 6 +++++-
+ HANDOFF.md             | 19 +++++++++----------
+ 4 files changed, 18 insertions(+), 15 deletions(-)
+</pre>
+
+<h2>Arquivos Alterados</h2>
+<ul>
+  <li><code>tests/entradas.spec.ts</code> — Seletores corrigidos</li>
+  <li><code>docs/TESTING.md</code> — Tabela de IDs atualizada</li>
+  <li><code>docs/AGENDA.md</code> — Item marcado como concluído</li>
+  <li><code>HANDOFF.md</code> — Contexto de sessão atualizado</li>
+</ul>
+
+</body>
+</html>
