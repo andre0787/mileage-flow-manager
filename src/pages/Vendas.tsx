@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Plus, Search, Calculator } from "lucide-react";
+import { Plus, Search, Calculator, Download } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,6 +25,7 @@ import { SaleForm, type SaleFormData } from "@/components/SaleForm";
 import { SaleTable } from "@/components/SaleTable";
 import { SaleSimulator, type StockItem } from "@/components/SaleSimulator";
 import confetti from "canvas-confetti";
+import { toast } from "sonner";
 
 export default function Vendas() {
   const { clients, accounts, owners, programs, sales, isLoading } = useData();
@@ -131,6 +132,55 @@ export default function Vendas() {
     });
   };
 
+  // Export CSV
+  const downloadCSV = (data: Record<string, string | number>[], filename: string) => {
+    if (data.length === 0) {
+      toast.info("Nenhum dado para exportar");
+      return;
+    }
+    const headers = Object.keys(data[0]);
+    const csvRows = [
+      headers.join(","),
+      ...data.map((row) =>
+        headers
+          .map((h) => {
+            const val = String(row[h] ?? "");
+            return val.includes(",") || val.includes('"') || val.includes("\n")
+              ? `"${val.replace(/"/g, '""')}"`
+              : val;
+          })
+          .join(","),
+      ),
+    ];
+    const BOM = "\uFEFF";
+    const blob = new Blob([BOM + csvRows], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    toast.success(`${filename} baixado com sucesso`);
+  };
+
+  const exportSalesReport = () => {
+    const data = filteredSales.map((s) => ({
+      Data: new Date(s.date).toLocaleDateString("pt-BR"),
+      Cliente: s.clientName,
+      Dono: s.ownerName,
+      Programa: s.program,
+      "Milhas": s.milesUsed,
+      "Valor Venda (R$)": s.saleValue,
+      "Custo/Milha (R$)": s.costPerMile?.toFixed(4) ?? "",
+      "Lucro (R$)": s.profit?.toFixed(2) ?? "",
+      "Margem": s.profitMargin ? `${(s.profitMargin * 100).toFixed(1)}%` : "",
+      Status: s.status,
+    }));
+    downloadCSV(data, `vendas-${new Date().toISOString().split("T")[0]}.csv`);
+  };
+
   // Filtros
   const filteredSales = useMemo(() => {
     return sales.filter((s) => {
@@ -203,6 +253,14 @@ export default function Vendas() {
             </SelectContent>
           </Select>
           <div className="flex gap-2 w-full sm:w-auto">
+            <Button
+              variant="outline"
+              className="flex-1 sm:flex-none gap-2"
+              onClick={exportSalesReport}
+            >
+              <Download className="h-4 w-4" />
+              Exportar
+            </Button>
             <Button
               variant="outline"
               className="flex-1 sm:flex-none gap-2"
