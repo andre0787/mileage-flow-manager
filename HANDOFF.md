@@ -1,42 +1,39 @@
-# HANDOFF — Sprint #3 Fechada, Sprint #4 Pronta
+# HANDOFF — Sprint #4 Em Andamento
 
-## Status: Sprint #3 ✅ Completa e mergeada em main
+## Status: Sprint #4 🔄 PR #55 aberta
 
-### Último trabalho: PR #54 merged
+### Último trabalho: CSV export + fixes
 
-- PR #54 (`develop` → `main`) merged em 2026-07-09
-- Issues #6–#16 fechadas
-- 21 branches merged deletadas (chore/*, docs/*, feat/*, fix/*, refactor/*)
+PR #55 (`develop` → `main`) aberta.
 
 ### Branch atual
 
-`main` — produção limpa, sem branches pendentes
+`develop` — PR #55 pendente
 
-### Estado do códigobase
+### Entregues nesta sprint
 
-| Arquivo | Linhas | Status |
-|---------|--------|--------|
-| `src/pages/Entradas.tsx` | 432 | ✅ Refatorado |
-| `src/pages/Vendas.tsx` | 252 | ✅ Refatorado |
-| `src/pages/Configuracoes.tsx` | 139 | ✅ Refatorado |
-| `src/hooks/useDatabase.ts` | 5 (barrel) | ✅ Split em 10 módulos |
-| `src/components/EntryForm.tsx` | ~600 | ✅ Extraído |
-| `src/components/EntryTable.tsx` | ~280 | ✅ Extraído |
-| `src/components/EntrySummary.tsx` | ~40 | ✅ Extraído |
-| `src/components/SaleForm.tsx` | ~650 | ✅ Extraído |
-| `src/components/SaleTable.tsx` | ~350 | ✅ Extraído |
-| `src/components/SaleMetrics.tsx` | ~60 | ✅ Extraído |
-| `src/components/SaleSimulator.tsx` | ~170 | ✅ Extraído |
+| Tarefa | Status |
+|--------|--------|
+| CSV export em Vendas.tsx | ✅ Feito |
+| Playwright retries | ✅ Feito |
+| Bug sync origem-tipo | ✅ Identificado |
+
+### Status dos testes
+
+- ✅ 33/33 testes unitários (vitest)
+- ✅ 4/4 E2E tests (carrinho, clube, debug, relatorio)
+- ⚠️ 2 tests com issues pré-existentes:
+  - `fluxo-completo`: Supabase API 409 (dados duplicados)
+  - `origem-tipo`: bug de sincronização (recorrência não ativava ao criar tipo)
+
+### Pendências
+
+- [ ] Merge PR #55
+- [ ] Corrigir teste origem-tipo (bug real: `isClube` não setado ao criar tipo)
+- [ ] Investigar fluxo-completo 409
 
 ### Configurações importantes
 
+- `playwright.config.ts`: `retries: 1`, `testMatch: "*.spec.ts"`
 - `tsconfig.app.json`: `strictNullChecks: true`
-- `vite.config.ts`: vitest com `globals`, `passWithNoTests`, `tests/**/*.test.ts`
 - `.prettierrc`: semi, singleQuote: false, trailingComma: all, printWidth: 100
-- `tests/helpers.ts`: constantes e utilitários compartilhados
-- `src/lib/utils.ts`: formatCurrency, formatNumber, formatPercent
-
-### Próximos passos
-
-1. Definir Sprint #4 (novas features ou melhorias)
-2. Criar branch `develop` a partir de `main` para próximo ciclo
