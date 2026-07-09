@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useAuth } from "@/contexts/AuthContext";
+import { useData } from "@/contexts/DataContext";
 import { cn } from "@/lib/utils";
 
 import {
@@ -43,8 +44,10 @@ export function AppSidebar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { signOut } = useAuth();
+  const { entries } = useData();
   const currentPath = location.pathname;
   const collapsed = state === "collapsed";
+  const pendingCount = entries.filter(e => e.entryStatus === 'aguardando').length;
 
   const isActive = (path: string) => currentPath === path;
 
@@ -103,6 +106,11 @@ export function AppSidebar() {
                         />
                         {!collapsed && (
                           <span className="text-sm font-medium font-body">{item.title}</span>
+                        )}
+                        {!collapsed && item.title === "Entradas" && pendingCount > 0 && (
+                          <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-500 px-1.5 text-[10px] font-bold text-white">
+                            {pendingCount}
+                          </span>
                         )}
                       </NavLink>
                     </SidebarMenuButton>

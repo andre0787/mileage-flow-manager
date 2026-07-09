@@ -1,5 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { LayoutDashboard, TrendingUp, TrendingDown, Users, User, Settings } from "lucide-react";
+import { useData } from "@/contexts/DataContext";
 import { cn } from "@/lib/utils";
 
 interface TabItem {
@@ -19,6 +20,8 @@ const tabs: TabItem[] = [
 
 export function BottomTabBar() {
   const location = useLocation();
+  const { entries } = useData();
+  const pendingCount = entries.filter(e => e.entryStatus === 'aguardando').length;
 
   return (
     <nav className="fixed bottom-0 inset-x-0 z-40 bg-background/80 backdrop-blur-lg border-t flex items-center justify-around md:hidden safe-area-bottom">
@@ -36,9 +39,16 @@ export function BottomTabBar() {
             {isActive && (
               <span className="absolute -top-px left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary rounded-full" />
             )}
-            <tab.icon
-              className={cn("h-5 w-5 transition-transform duration-200", isActive && "scale-110")}
-            />
+            <div className="relative">
+              <tab.icon
+                className={cn("h-5 w-5 transition-transform duration-200", isActive && "scale-110")}
+              />
+              {tab.title === "Entradas" && pendingCount > 0 && (
+                <span className="absolute -top-1 -right-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-amber-500 px-1 text-[9px] font-bold text-white">
+                  {pendingCount}
+                </span>
+              )}
+            </div>
             <span
               className={cn(
                 "text-xs font-medium leading-tight font-display",
