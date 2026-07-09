@@ -4,62 +4,57 @@
 > fica pesada e precisamos começar uma sessão nova sem perder precisão.
 >
 > **Lido obrigatoriamente no início de cada sessão.**
-> **Atualizado antes de `/new` ou quando a sessão atinge ~12+ turns significativos.**
+> **Atualizado antes de `/new`, quando a sessão atinge ~12+ turns, ou
+> sempre que criar/merger um PR.**
 
 ---
 
-## Goal
+## Goal (Sprint #3)
 
-Extrair 4 componentes de `src/pages/Vendas.tsx` (1117 → 203 linhas, -82%) seguindo padrão do #6 (Entradas). Substituir cálculos inline por `calcProfit`/`calcProfitMargin`/`calcROI` de `src/lib/metrics.ts`.
+Iniciar strictNullChecks, testes unitários, lint, centralização de formatação e refatoração de Configuracoes.tsx.
 
 ## Progress
 
-### Done
-- [x] **#7 — Vendas.tsx extração completa**: 1.117 → 203 linhas
-- [x] **SaleMetrics.tsx** (27 linhas) — 4 MetricCards com calcProfitMargin
-- [x] **SaleSimulator.tsx** (107 linhas) — FormDrawer com calcProfit/calcProfitMargin/calcROI
-- [x] **SaleTable.tsx** (152 linhas) — tabela desktop + cards mobile + AlertDialog cancelamento
-- [x] **SaleForm.tsx** (332 linhas) — formulário completo + criação de cliente + preview lucro + passageiros + validação de ciclo
-- [x] **DRY implementado**: `calcProfit`/`calcProfitMargin` substituem cálculos inline no preview do form, no submit, e no simulador
-- [x] **Relatório HTML**: `docs/reports/2026-07-08-vendas-extract-components.html`
-- [x] **Build 0 erros** (`npx tsc --noEmit`)
-- [x] **PR #42** criado: `refactor/vendas-extract-components` → `develop`
+### Done (Sprint #2 — COMPLETA ✅)
+- [x] **#6 — Entradas.tsx**: 1276 → 333 linhas ✅
+- [x] **#7 — Vendas.tsx**: 1117 → 203 linhas ✅
+- [x] **#8 — useDatabase.ts**: 822 → 10 módulos por entidade ✅
+- [x] **PR #41/#42/#44** mergeados em develop e main
+- [x] **PR #43/#45** releases em produção
+- [x] Docs atualizados (AGENTS.md, CONVENTIONS.md, WORKFLOW.md) ✅
 
 ### In Progress
-- [ ] **#6 — Entradas.tsx**: JÁ CONCLUÍDO (sessão anterior) — 1276 → 333 linhas, EntryForm/EntryTable/EntrySummary
-- [ ] **#8 — useDatabase.ts (822 linhas, 40 funções)**: quebrar em módulos por entidade
+- Nada — sprint #2 limpa
+
+### Pending (Sprint #3)
 - [ ] **#9 — strictNullChecks**: ativar gradualmente e corrigir erros
 - [ ] **#10 — Testes unitários**: vitest para src/lib/metrics.ts
-- [ ] **#11 — Lint errors**: corrigir catch vazio + let→const
-- [ ] **#12 — Centralizar formatação**: formatCurrency, formatNumber, formatPercent
+- [ ] **#11 — Lint errors**: corrigir catch vazio (types/index.ts:116) + let→const
+- [ ] **#12 — Centralizar formatação**: formatCurrency, formatNumber, formatPercent em src/lib/utils.ts
+- [ ] **#13 — Helpers de teste**: centralizar criação de dados via REST API em tests/helpers.ts
+- [ ] **#14 — Incluir vitest na bateria pré-deploy**
+- [ ] **#15 — Adicionar Prettier** + .prettierrc + script format
+- [ ] **#16 — Configuracoes.tsx (751 linhas)**: extrair OwnerSection, ProgramSection, OrigemTypeSection, AccountSection
 
 ### Blocked
 - Nada bloqueado
 
 ## Key Decisions
 
-- **Padrão #6 seguido à risca**: componentes em `src/components/` com props tipadas, página como orquestrador puro
-- **SaleForm gerencia `costPerMile` internamente**: preenche no submit a partir do `averageCostPerMile` da conta selecionada, evitando duplicação de lógica de derivação de estoque
-- **`calcProfit`/`calcProfitMargin` reusados em 3 lugares**: preview do form, submit handler, simulador — mesmo import, mesmo cálculo
-- **Simulador autocontido**: estado `inputs` interno ao componente, reseta no fechamento via `onOpenChange`
-- **Estado de cancelamento no SaleTable**: `cancelConfirmId` gerenciado localmente, evita prop drilling de estado de diálogo
-- **Ponytail ativo**: sem abstrações desnecessárias, componentes diretos, sem interface com uma implementação
+- **Padrão de extração**: página vira orquestrador puro, componentes em `src/components/` com props tipadas
+- **Módulos useDatabase/**: cada entidade em arquivo próprio, barrel em index.ts, useDatabase.ts como barrel compatível
+- **DRY com metrics.ts**: cálculos financeiros centralizados em `src/lib/metrics.ts`
+- **Ponytail ativo**: sem abstrações desnecessárias, sem código especulativo
 
-## Next Steps
+## Next Steps (próxima sessão)
 
-1. Merge PR #42 → develop
-2. Iniciar **#8 — useDatabase.ts**: quebrar em módulos por entidade (useOwners, useAccounts, etc.)
-3. Depois: #9 strictNullChecks → #10 testes → #11 lint → #12 formatação
-4. Cada item em branch separada, PR para develop, merge, report HTML
-5. Usar `/skill:handoff --save` antes de qualquer `/new`
+1. Verificar se há algo pendente de merge, depois começar **#9 — strictNullChecks**
+2. Cada item em branch separada: `chore/strict-null-checks`, `chore/vitest-metrics`, etc.
+3. PR para develop → merge → main → relatório HTML + handoff
 
 ## Critical Context
 
-- **Branch atual:** `refactor/vendas-extract-components` (não mergeada ainda)
-- **PR #42** (aberto): `refactor/vendas-extract-components` → `develop`
-- **Último commit:** `refactor: extract SaleForm, SaleTable, SaleMetrics, SaleSimulator from Vendas.tsx`
-- **Arquivos criados:** SaleForm.tsx, SaleTable.tsx, SaleMetrics.tsx, SaleSimulator.tsx, docs/reports/2026-07-08-vendas-extract-components.html, docs/superpowers/plans/2026-07-08-vendas-extract-components.md
-- **Arquivos modificados:** Vendas.tsx (1117→203 linhas)
-- **Funções de metrics.ts disponíveis**: `calcProfit(saleValue, milesUsed, costPerMile, additionalCost=0)`, `calcProfitMargin(profit, saleValue)`, `calcROI(profit, totalInvested)`
-- **Tipo Sale de @/types**: `{id, accountId?, accountName, ownerName, program, clientId, clientName, milesUsed, saleValue, pricePerMile?, costPerMile, additionalCost?, additionalCostDesc?, profit, profitMargin, status, ticketLocator, passengers[], date}`
-- **Componentes extraídos seguem props padrão EntryForm/EntryTable**: dados + callbacks (`onSubmit`, `onOpenChange`, `onCreateClient`)
+- **Branch atual:** `main`
+- **PRs abertos:** nenhum
+- **Última release**: PR #45 (useDatabase split → produção)
+- **Config pi**: `~/.pi/agent/models.json` (zen-free, nara), default: zen-free/deepseek-v4-flash-free
