@@ -1,46 +1,40 @@
-import { useState } from "react";
-import { Plus, RefreshCcw } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { FormDrawer } from "@/components/FormDrawer";
-import { isTransferencia } from "@/lib/utils";
-import { parseOrigemTypeDescription } from "@/lib/origemTypes";
-import type { Account, OrigemType, Program, Owner } from "@/types";
+import { useState } from "react"
+import { Plus, RefreshCcw } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { FormDrawer } from "@/components/FormDrawer"
+import { isTransferencia } from "@/lib/utils"
+import { parseOrigemTypeDescription } from "@/lib/origemTypes"
+import type { Account, OrigemType, Program, Owner } from "@/types"
 
 export interface EntryFormData {
-  accountId: string;
-  origemTypeId: string;
-  amount: string;
-  amountPaid: string;
-  conversionRate: string;
-  sourceAccountId: string;
-  bonusPercent: string;
-  cartAmount: string;
-  cartCost: string;
-  isClube: boolean;
-  clubeMeses: string;
+  accountId: string
+  origemTypeId: string
+  amount: string
+  amountPaid: string
+  conversionRate: string
+  sourceAccountId: string
+  bonusPercent: string
+  cartAmount: string
+  cartCost: string
+  isClube: boolean
+  clubeMeses: string
 }
 
 interface EntryFormProps {
-  mode: "create" | "edit";
-  initialData?: Partial<EntryFormData>;
-  onSubmit: (data: EntryFormData) => void;
-  onCancel: () => void;
-  accounts: Account[];
-  origemTypes: OrigemType[];
-  programs: Program[];
-  owners: Owner[];
-  activeTab: "pontos" | "milhas";
+  mode: "create" | "edit"
+  initialData?: Partial<EntryFormData>
+  onSubmit: (data: EntryFormData) => void
+  onCancel: () => void
+  accounts: Account[]
+  origemTypes: OrigemType[]
+  programs: Program[]
+  owners: Owner[]
+  activeTab: "pontos" | "milhas"
   /** Cria um tipo de origem no banco e retorna o ID (só mode=create) */
-  onCreateOrigemType?: (data: { name: string; color: string; hasRecurrence: boolean }) => string;
+  onCreateOrigemType?: (data: { name: string; color: string; hasRecurrence: boolean }) => string
 }
 
 const emptyForm: EntryFormData = {
@@ -55,7 +49,7 @@ const emptyForm: EntryFormData = {
   cartCost: "",
   isClube: false,
   clubeMeses: "",
-};
+}
 
 export function EntryForm({
   mode,
@@ -69,50 +63,50 @@ export function EntryForm({
   activeTab,
   onCreateOrigemType,
 }: EntryFormProps) {
-  const [form, setForm] = useState<EntryFormData>({ ...emptyForm, ...initialData });
-  const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
-  const [isOrigemTypeOpen, setIsOrigemTypeOpen] = useState(false);
-  const [newOT, setNewOT] = useState({ name: "", color: "#10b981", hasRecurrence: false });
-  const [otErrors, setOtErrors] = useState<Partial<Record<string, string>>>({});
+  const [form, setForm] = useState<EntryFormData>({ ...emptyForm, ...initialData })
+  const [errors, setErrors] = useState<Partial<Record<string, string>>>({})
+  const [isOrigemTypeOpen, setIsOrigemTypeOpen] = useState(false)
+  const [newOT, setNewOT] = useState({ name: "", color: "#10b981", hasRecurrence: false })
+  const [otErrors, setOtErrors] = useState<Partial<Record<string, string>>>({})
 
-  const set = (patch: Partial<EntryFormData>) => setForm((prev) => ({ ...prev, ...patch }));
-  const clearErr = (field: string) => setErrors((prev) => ({ ...prev, [field]: "" }));
+  const set = (patch: Partial<EntryFormData>) => setForm((prev) => ({ ...prev, ...patch }))
+  const clearErr = (field: string) => setErrors((prev) => ({ ...prev, [field]: "" }))
 
-  const selectedAccount = accounts.find((a) => a.id === form.accountId);
-  const selectedOrigemType = origemTypes.find((ot) => ot.id === form.origemTypeId);
-  const isTransfer = selectedOrigemType ? isTransferencia(selectedOrigemType) : false;
-  const availableAccounts = accounts.filter((a) => a.type === activeTab && a.status === "ativa");
-  const currentOrigemTypes = origemTypes.filter((ot) => ot.accountType === activeTab);
+  const selectedAccount = accounts.find((a) => a.id === form.accountId)
+  const selectedOrigemType = origemTypes.find((ot) => ot.id === form.origemTypeId)
+  const isTransfer = selectedOrigemType ? isTransferencia(selectedOrigemType) : false
+  const availableAccounts = accounts.filter((a) => a.type === activeTab && a.status === "ativa")
+  const currentOrigemTypes = origemTypes.filter((ot) => ot.accountType === activeTab)
   const sourceAccounts = accounts.filter(
-    (a) => a.type === "pontos" && a.status === "ativa" && a.ownerId === selectedAccount?.ownerId,
-  );
-  const selectedSourceAccount = accounts.find((a) => a.id === form.sourceAccountId);
+    (a) => a.type === "pontos" && a.status === "ativa" && a.ownerId === selectedAccount?.ownerId
+  )
+  const selectedSourceAccount = accounts.find((a) => a.id === form.sourceAccountId)
   const sourceAvgCostPerPoint =
     selectedSourceAccount && selectedSourceAccount.balance > 0
       ? (selectedSourceAccount.totalInvested ?? 0) / selectedSourceAccount.balance
-      : 0;
+      : 0
   const effectiveMiles =
     isTransfer && form.amount
       ? (parseFloat(form.amount) + parseFloat(form.cartAmount || "0")) *
         (1 + parseFloat(form.bonusPercent || "0") / 100)
-      : parseFloat(form.amount || "0");
+      : parseFloat(form.amount || "0")
 
-  const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id;
-  const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id;
+  const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id
+  const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id
 
   const validate = (): boolean => {
-    const errs: typeof errors = {};
-    if (!form.accountId) errs.accountId = "Selecione uma conta";
-    if (!form.origemTypeId) errs.origemTypeId = "Selecione o tipo de origem";
-    if (!form.amount || parseFloat(form.amount) <= 0) errs.amount = "Informe a quantidade";
+    const errs: typeof errors = {}
+    if (!form.accountId) errs.accountId = "Selecione uma conta"
+    if (!form.origemTypeId) errs.origemTypeId = "Selecione o tipo de origem"
+    if (!form.amount || parseFloat(form.amount) <= 0) errs.amount = "Informe a quantidade"
     if (!isTransfer && (!form.amountPaid || parseFloat(form.amountPaid) <= 0))
-      errs.amountPaid = "Informe o valor pago";
-    if (isTransfer && !form.sourceAccountId) errs.sourceAccountId = "Selecione a conta de origem";
+      errs.amountPaid = "Informe o valor pago"
+    if (isTransfer && !form.sourceAccountId) errs.sourceAccountId = "Selecione a conta de origem"
     if (isTransfer && form.sourceAccountId && form.accountId) {
-      const src = accounts.find((a) => a.id === form.sourceAccountId);
-      const dst = accounts.find((a) => a.id === form.accountId);
+      const src = accounts.find((a) => a.id === form.sourceAccountId)
+      const dst = accounts.find((a) => a.id === form.accountId)
       if (src && dst && src.ownerId !== dst.ownerId)
-        errs.sourceAccountId = "Conta de origem deve pertencer ao mesmo dono";
+        errs.sourceAccountId = "Conta de origem deve pertencer ao mesmo dono"
     }
     if (
       isTransfer &&
@@ -120,32 +114,32 @@ export function EntryForm({
       selectedSourceAccount &&
       parseFloat(form.amount) > selectedSourceAccount.balance
     )
-      errs.amount = "Saldo insuficiente na conta de origem";
-    setErrors(errs);
-    return Object.keys(errs).length === 0;
-  };
+      errs.amount = "Saldo insuficiente na conta de origem"
+    setErrors(errs)
+    return Object.keys(errs).length === 0
+  }
 
   const handleSubmit = () => {
-    if (!validate()) return;
-    onSubmit(form);
-  };
+    if (!validate()) return
+    onSubmit(form)
+  }
 
   const handleCreateOrigemType = () => {
-    const errs: typeof otErrors = {};
-    if (!newOT.name.trim()) errs.name = "Nome é obrigatório";
-    setOtErrors(errs);
-    if (Object.keys(errs).length > 0) return;
+    const errs: typeof otErrors = {}
+    if (!newOT.name.trim()) errs.name = "Nome é obrigatório"
+    setOtErrors(errs)
+    if (Object.keys(errs).length > 0) return
 
     const id = onCreateOrigemType?.({
       name: newOT.name.trim(),
       color: newOT.color,
       hasRecurrence: newOT.hasRecurrence,
-    });
-    if (id) set({ origemTypeId: id });
-    setNewOT({ name: "", color: "#10b981", hasRecurrence: false });
-    setOtErrors({});
-    setIsOrigemTypeOpen(false);
-  };
+    })
+    if (id) set({ origemTypeId: id })
+    setNewOT({ name: "", color: "#10b981", hasRecurrence: false })
+    setOtErrors({})
+    setIsOrigemTypeOpen(false)
+  }
 
   return (
     <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto">
@@ -155,8 +149,8 @@ export function EntryForm({
         <Select
           value={form.accountId}
           onValueChange={(value) => {
-            set({ accountId: value });
-            clearErr("accountId");
+            set({ accountId: value })
+            clearErr("accountId")
           }}
         >
           <SelectTrigger>
@@ -181,10 +175,10 @@ export function EntryForm({
             <Select
               value={form.origemTypeId}
               onValueChange={(value) => {
-                const ot = origemTypes.find((o) => o.id === value);
-                const desc = ot ? parseOrigemTypeDescription(ot.description) : {};
-                set({ origemTypeId: value, isClube: !!desc.hasRecurrence });
-                clearErr("origemTypeId");
+                const ot = origemTypes.find((o) => o.id === value)
+                const desc = ot ? parseOrigemTypeDescription(ot.description) : { hasRecurrence: false }
+                set({ origemTypeId: value, isClube: desc.hasRecurrence })
+                clearErr("origemTypeId")
               }}
             >
               <SelectTrigger>
@@ -193,17 +187,10 @@ export function EntryForm({
               <SelectContent>
                 {currentOrigemTypes.map((item) => (
                   <SelectItem key={item.id} value={item.id}>
-                    {"color" in item ? (
-                      <div className="flex items-center gap-2">
-                        <div
-                          className="w-3 h-3 rounded-full"
-                          style={{ backgroundColor: (item as OrigemType).color }}
-                        />
-                        {item.name}
-                      </div>
-                    ) : (
-                      item.name
-                    )}
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+                      {item.name}
+                    </div>
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -211,19 +198,14 @@ export function EntryForm({
           </div>
           {mode === "create" && onCreateOrigemType && (
             <>
-              <Button
-                variant="outline"
-                size="icon"
-                className="shrink-0"
-                onClick={() => setIsOrigemTypeOpen(true)}
-              >
+              <Button variant="outline" size="icon" className="shrink-0" onClick={() => setIsOrigemTypeOpen(true)}>
                 <Plus className="h-4 w-4" />
               </Button>
               <FormDrawer
                 open={isOrigemTypeOpen}
                 onOpenChange={(open) => {
-                  setIsOrigemTypeOpen(open);
-                  if (!open) setOtErrors({});
+                  setIsOrigemTypeOpen(open)
+                  if (!open) setOtErrors({})
                 }}
                 title="Novo Tipo de Origem"
               >
@@ -233,8 +215,8 @@ export function EntryForm({
                     <Input
                       value={newOT.name}
                       onChange={(e) => {
-                        setNewOT((p) => ({ ...p, name: e.target.value }));
-                        setOtErrors((p) => ({ ...p, name: "" }));
+                        setNewOT((p) => ({ ...p, name: e.target.value }))
+                        setOtErrors((p) => ({ ...p, name: "" }))
                       }}
                       placeholder="Ex: Cashback"
                     />
@@ -243,10 +225,7 @@ export function EntryForm({
                   <div className="space-y-2">
                     <Label>Cor</Label>
                     <div className="flex items-center gap-2">
-                      <div
-                        className="w-8 h-8 rounded-full border"
-                        style={{ backgroundColor: newOT.color }}
-                      />
+                      <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: newOT.color }} />
                       <Input
                         type="color"
                         value={newOT.color}
@@ -260,9 +239,7 @@ export function EntryForm({
                       <input
                         type="checkbox"
                         checked={newOT.hasRecurrence}
-                        onChange={(e) =>
-                          setNewOT((p) => ({ ...p, hasRecurrence: e.target.checked }))
-                        }
+                        onChange={(e) => setNewOT((p) => ({ ...p, hasRecurrence: e.target.checked }))}
                         className="h-4 w-4 rounded border-border accent-primary"
                       />
                       Habilitar recorrência mensal
@@ -270,19 +247,10 @@ export function EntryForm({
                   </div>
                 </div>
                 <div className="flex justify-end gap-2 mt-4">
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      setIsOrigemTypeOpen(false);
-                      setOtErrors({});
-                    }}
-                  >
+                  <Button variant="outline" onClick={() => { setIsOrigemTypeOpen(false); setOtErrors({}) }}>
                     Cancelar
                   </Button>
-                  <Button
-                    onClick={handleCreateOrigemType}
-                    className="bg-gradient-primary hover:opacity-90"
-                  >
+                  <Button onClick={handleCreateOrigemType} className="bg-gradient-primary hover:opacity-90">
                     Cadastrar
                   </Button>
                 </div>
@@ -304,35 +272,26 @@ export function EntryForm({
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="amount">
-            {isTransfer
-              ? "Pontos Transferidos"
-              : activeTab === "pontos"
-                ? "Pontos Adquiridos"
-                : "Milhas Adquiridas"}
+            {isTransfer ? "Pontos Transferidos" : activeTab === "pontos" ? "Pontos Adquiridos" : "Milhas Adquiridas"}
           </Label>
           <Input
             id="amount"
             type="number"
             value={form.amount}
             onChange={(e) => {
-              const val = e.target.value;
+              const val = e.target.value
               if (isTransfer && val && sourceAvgCostPerPoint > 0) {
-                set({
-                  amount: val,
-                  amountPaid: (parseFloat(val) * sourceAvgCostPerPoint).toFixed(2),
-                });
+                set({ amount: val, amountPaid: (parseFloat(val) * sourceAvgCostPerPoint).toFixed(2) })
               } else {
-                set({ amount: val });
+                set({ amount: val })
               }
-              clearErr("amount");
+              clearErr("amount")
             }}
             placeholder="Ex: 100000"
           />
           {errors.amount && <p className="text-xs text-destructive">{errors.amount}</p>}
           {isTransfer && selectedSourceAccount && (
-            <p
-              className={`text-xs ${parseFloat(form.amount || "0") > selectedSourceAccount.balance ? "text-destructive" : "text-muted-foreground"}`}
-            >
+            <p className={`text-xs ${parseFloat(form.amount || "0") > selectedSourceAccount.balance ? "text-destructive" : "text-muted-foreground"}`}>
               Saldo disponível: {selectedSourceAccount.balance.toLocaleString("pt-BR")} pontos
             </p>
           )}
@@ -346,17 +305,15 @@ export function EntryForm({
             value={form.amountPaid}
             disabled={isTransfer}
             onChange={(e) => {
-              set({ amountPaid: e.target.value });
-              clearErr("amountPaid");
+              set({ amountPaid: e.target.value })
+              clearErr("amountPaid")
             }}
             placeholder="Ex: 450.00"
           />
           {errors.amountPaid && <p className="text-xs text-destructive">{errors.amountPaid}</p>}
           {isTransfer && selectedSourceAccount && form.amount && sourceAvgCostPerPoint > 0 && (
             <p className="text-xs text-muted-foreground">
-              Custo de aquisição: {parseFloat(form.amount).toLocaleString("pt-BR")} pts × R${" "}
-              {sourceAvgCostPerPoint.toFixed(4)} = R${" "}
-              {(parseFloat(form.amount) * sourceAvgCostPerPoint).toFixed(2)}
+              Custo de aquisição: {parseFloat(form.amount).toLocaleString("pt-BR")} pts × R$ {sourceAvgCostPerPoint.toFixed(4)} = R$ {(parseFloat(form.amount) * sourceAvgCostPerPoint).toFixed(2)}
             </p>
           )}
         </div>
@@ -370,8 +327,8 @@ export function EntryForm({
             <Select
               value={form.sourceAccountId}
               onValueChange={(value) => {
-                set({ sourceAccountId: value, amount: "", amountPaid: "" });
-                clearErr("sourceAccountId");
+                set({ sourceAccountId: value, amount: "", amountPaid: "" })
+                clearErr("sourceAccountId")
               }}
             >
               <SelectTrigger>
@@ -385,13 +342,9 @@ export function EntryForm({
                 ))}
               </SelectContent>
             </Select>
-            {errors.sourceAccountId && (
-              <p className="text-xs text-destructive">{errors.sourceAccountId}</p>
-            )}
+            {errors.sourceAccountId && <p className="text-xs text-destructive">{errors.sourceAccountId}</p>}
             {selectedSourceAccount && (
-              <p className="text-xs text-muted-foreground">
-                Programa: {programName(selectedSourceAccount.programId)}
-              </p>
+              <p className="text-xs text-muted-foreground">Programa: {programName(selectedSourceAccount.programId)}</p>
             )}
           </div>
           <div className="space-y-2">
@@ -407,8 +360,7 @@ export function EntryForm({
             />
             {form.bonusPercent && parseFloat(form.bonusPercent) > 0 && form.amount && (
               <p className="text-xs text-success">
-                Milhas recebidas: {effectiveMiles.toLocaleString("pt-BR")} (
-                {parseFloat(form.amount).toLocaleString("pt-BR")} + {form.bonusPercent}%)
+                Milhas recebidas: {effectiveMiles.toLocaleString("pt-BR")} ({parseFloat(form.amount).toLocaleString("pt-BR")} + {form.bonusPercent}%)
               </p>
             )}
           </div>
@@ -418,40 +370,23 @@ export function EntryForm({
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-gold" />
               <Label className="font-semibold text-sm cursor-pointer">
-                Compra no Carrinho{" "}
-                <span className="text-muted-foreground font-normal">(opcional)</span>
+                Compra no Carrinho <span className="text-muted-foreground font-normal">(opcional)</span>
               </Label>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1">
                 <Label className="text-xs">Pontos Extras</Label>
-                <Input
-                  type="number"
-                  value={form.cartAmount}
-                  onChange={(e) => set({ cartAmount: e.target.value })}
-                  placeholder="Ex: 10000"
-                />
+                <Input type="number" value={form.cartAmount} onChange={(e) => set({ cartAmount: e.target.value })} placeholder="Ex: 10000" />
               </div>
               <div className="space-y-1">
                 <Label className="text-xs">Valor Total (R$)</Label>
-                <Input
-                  type="number"
-                  step="0.01"
-                  value={form.cartCost}
-                  onChange={(e) => set({ cartCost: e.target.value })}
-                  placeholder="Ex: 200.00"
-                />
+                <Input type="number" step="0.01" value={form.cartCost} onChange={(e) => set({ cartCost: e.target.value })} placeholder="Ex: 200.00" />
               </div>
             </div>
             {form.cartAmount && parseFloat(form.cartAmount) > 0 && (
               <p className="text-xs text-muted-foreground">
-                +{parseFloat(form.cartAmount).toLocaleString("pt-BR")} pts ×{" "}
-                {parseFloat(form.bonusPercent || "0").toFixed(0)}% bônus ={" "}
-                {(
-                  parseFloat(form.cartAmount) *
-                  (1 + parseFloat(form.bonusPercent || "0") / 100)
-                ).toLocaleString("pt-BR", { maximumFractionDigits: 0 })}{" "}
-                milhas geradas
+                +{parseFloat(form.cartAmount).toLocaleString("pt-BR")} pts × {parseFloat(form.bonusPercent || "0").toFixed(0)}% bônus ={" "}
+                {(parseFloat(form.cartAmount) * (1 + parseFloat(form.bonusPercent || "0") / 100)).toLocaleString("pt-BR", { maximumFractionDigits: 0 })} milhas geradas
               </p>
             )}
           </div>
@@ -469,7 +404,7 @@ export function EntryForm({
           </div>
           <div className="space-y-3">
             <p className="text-xs text-amber-600 dark:text-amber-400">
-              Recorrência ativada pelo tipo de origem{mode === "create" ? " selecionado" : ""}
+              Recorrência ativada pelo tipo de origem{ mode === "create" ? " selecionado" : "" }
             </p>
             <div className="space-y-2">
               <Label className="text-xs">Quantidade de meses</Label>
@@ -483,17 +418,11 @@ export function EntryForm({
               />
               {form.clubeMeses && parseInt(form.clubeMeses) > 0 && (
                 <p className="text-xs text-amber-600 dark:text-amber-400">
-                  ⏳{" "}
-                  {new Date(
-                    new Date().getTime() + parseInt(form.clubeMeses) * 30 * 24 * 60 * 60 * 1000,
-                  ).toLocaleDateString("pt-BR")}{" "}
-                  — serão geradas {form.clubeMeses} entrada(s) futura(s) com status "Aguardando"
+                  ⏳ {new Date(new Date().getTime() + parseInt(form.clubeMeses) * 30 * 24 * 60 * 60 * 1000).toLocaleDateString("pt-BR")} — serão geradas {form.clubeMeses} entrada(s) futura(s) com status "Aguardando"
                 </p>
               )}
               {mode === "edit" && (
-                <p className="text-xs text-amber-600 dark:text-amber-400">
-                  ⏳ Altere com cuidado — novas entradas futuras serão geradas
-                </p>
+                <p className="text-xs text-amber-600 dark:text-amber-400">⏳ Altere com cuidado — novas entradas futuras serão geradas</p>
               )}
             </div>
           </div>
@@ -523,36 +452,17 @@ export function EntryForm({
             <div>
               <span className="text-muted-foreground">Custo por milhar:</span>
               <p className="font-semibold">
-                R${" "}
-                {(
-                  (parseFloat(form.amountPaid) /
-                    (isTransfer && effectiveMiles > 0 ? effectiveMiles : parseFloat(form.amount))) *
-                  1000
-                ).toFixed(2)}
+                R$ {((parseFloat(form.amountPaid) / (isTransfer && effectiveMiles > 0 ? effectiveMiles : parseFloat(form.amount))) * 1000).toFixed(2)}
               </p>
             </div>
             {isTransfer && (
               <div>
                 <span className="text-muted-foreground">Milhas recebidas:</span>
-                <p className="font-semibold text-success">
-                  {effectiveMiles.toLocaleString("pt-BR")}
-                </p>
+                <p className="font-semibold text-success">{effectiveMiles.toLocaleString("pt-BR")}</p>
                 {parseFloat(form.cartAmount || "0") > 0 && (
                   <div className="mt-1 space-y-0.5 text-[10px] text-muted-foreground border-t border-success/20 pt-1">
-                    <p>
-                      Da transferência:{" "}
-                      {(
-                        parseFloat(form.amount) *
-                        (1 + parseFloat(form.bonusPercent || "0") / 100)
-                      ).toLocaleString("pt-BR", { maximumFractionDigits: 0 })}
-                    </p>
-                    <p>
-                      Do carrinho:{" "}
-                      {(
-                        parseFloat(form.cartAmount) *
-                        (1 + parseFloat(form.bonusPercent || "0") / 100)
-                      ).toLocaleString("pt-BR", { maximumFractionDigits: 0 })}
-                    </p>
+                    <p>Da transferência: {(parseFloat(form.amount) * (1 + parseFloat(form.bonusPercent || "0") / 100)).toLocaleString("pt-BR", { maximumFractionDigits: 0 })}</p>
+                    <p>Do carrinho: {(parseFloat(form.cartAmount) * (1 + parseFloat(form.bonusPercent || "0") / 100)).toLocaleString("pt-BR", { maximumFractionDigits: 0 })}</p>
                   </div>
                 )}
               </div>
@@ -560,24 +470,13 @@ export function EntryForm({
             {activeTab === "pontos" && (
               <div>
                 <span className="text-muted-foreground">Milhas geradas:</span>
-                <p className="font-semibold">
-                  {(
-                    parseFloat(form.amount) * parseFloat(form.conversionRate || "1")
-                  ).toLocaleString("pt-BR")}
-                </p>
+                <p className="font-semibold">{(parseFloat(form.amount) * parseFloat(form.conversionRate || "1")).toLocaleString("pt-BR")}</p>
               </div>
             )}
             <div>
               <span className="text-muted-foreground">Custo por milha:</span>
               <p className="font-semibold">
-                R${" "}
-                {(
-                  parseFloat(form.amountPaid) /
-                  (isTransfer
-                    ? effectiveMiles
-                    : parseFloat(form.amount) *
-                      (activeTab === "milhas" ? 1 : parseFloat(form.conversionRate || "1")))
-                ).toFixed(4)}
+                R$ {(parseFloat(form.amountPaid) / (isTransfer ? effectiveMiles : parseFloat(form.amount) * (activeTab === "milhas" ? 1 : parseFloat(form.conversionRate || "1")))).toFixed(4)}
               </p>
             </div>
           </div>
@@ -594,5 +493,5 @@ export function EntryForm({
         </Button>
       </div>
     </div>
-  );
+  )
 }

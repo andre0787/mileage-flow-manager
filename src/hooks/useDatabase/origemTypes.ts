@@ -1,9 +1,13 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
+import type { Database } from "@/lib/supabase-types";
 import { useAuth } from "@/contexts/AuthContext";
 import type { OrigemType } from "@/types";
 import { useUserId } from "./shared";
 import { mapOrigemType } from "./mappers";
+
+type OrigemTypeInsert = Database["public"]["Tables"]["origem_types"]["Insert"];
+type OrigemTypeUpdate = Database["public"]["Tables"]["origem_types"]["Update"];
 
 export function useOrigemTypesQuery() {
   const userId = useUserId();
@@ -24,12 +28,8 @@ export function useAddOrigemTypeMutation() {
   const { user } = useAuth();
   return useMutation({
     mutationFn: async (ot: OrigemType) => {
-      const data: Record<string, unknown> = {
-        id: ot.id,
-        user_id: user!.id,
-        name: ot.name,
-        account_type: ot.accountType,
-        color: ot.color,
+      const data: OrigemTypeInsert = {
+        id: ot.id, user_id: user!.id, name: ot.name, account_type: ot.accountType, color: ot.color,
       };
       // ponytail: description column added by migration; only include if defined so it works pre-migration
       if (ot.description !== undefined) data.description = ot.description;
@@ -44,7 +44,7 @@ export function useUpdateOrigemTypeMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, ...data }: Partial<OrigemType> & { id: string }) => {
-      const updateData: Record<string, unknown> = {};
+      const updateData: OrigemTypeUpdate = {};
       if (data.name !== undefined) updateData.name = data.name;
       if (data.accountType !== undefined) updateData.account_type = data.accountType;
       if (data.color !== undefined) updateData.color = data.color;

@@ -1,9 +1,12 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
+import type { Database } from "@/lib/supabase-types";
 import { useAuth } from "@/contexts/AuthContext";
 import type { Account } from "@/types";
 import { useUserId } from "./shared";
 import { mapAccount } from "./mappers";
+
+type AccountUpdate = Database["public"]["Tables"]["accounts"]["Update"];
 
 export function useAccountsQuery() {
   const userId = useUserId();
@@ -47,7 +50,7 @@ export function useUpdateAccountMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, ...data }: Partial<Account> & { id: string }) => {
-      const updateData: Record<string, unknown> = {};
+      const updateData: AccountUpdate = {};
       if (data.name !== undefined) updateData.name = data.name;
       if (data.ownerId !== undefined) updateData.owner_id = data.ownerId;
       if (data.programId !== undefined) updateData.program_id = data.programId;

@@ -2,30 +2,22 @@ import { createContext, useContext, useEffect, useRef, type ReactNode } from "re
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
-import {
-  useOwnersQuery,
-  useProgramsQuery,
-  useOrigemTypesQuery,
-  useAccountsQuery,
-  useEntriesQuery,
-  useClientsQuery,
-  useSalesQuery,
-} from "@/hooks/useDatabase";
+import { useOwnersQuery, useProgramsQuery, useOrigemTypesQuery, useAccountsQuery, useEntriesQuery, useClientsQuery, useSalesQuery } from "@/hooks/useDatabase";
 import { useClearAccountDataMutation } from "@/hooks/useDatabase";
 import { isTransferencia } from "@/lib/utils";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
 
 interface DataContextType {
-  owners: Owner[];
-  programs: Program[];
-  origemTypes: OrigemType[];
-  accounts: Account[];
-  entries: PointEntry[];
-  sales: Sale[];
-  clients: Client[];
-  isLoading: boolean;
-  clearCache: () => void;
-  clearAccountData: () => void;
+  owners: Owner[]
+  programs: Program[]
+  origemTypes: OrigemType[]
+  accounts: Account[]
+  entries: PointEntry[]
+  sales: Sale[]
+  clients: Client[]
+  isLoading: boolean
+  clearCache: () => void
+  clearAccountData: () => void
 }
 
 const DataContext = createContext<DataContextType | null>(null);
@@ -42,14 +34,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const clientsQ = useClientsQuery();
   const salesQ = useSalesQuery();
 
-  const isLoading =
-    ownersQ.isPending ||
-    programsQ.isPending ||
-    origemTypesQ.isPending ||
-    accountsQ.isPending ||
-    entriesQ.isPending ||
-    clientsQ.isPending ||
-    salesQ.isPending;
+  const isLoading = ownersQ.isPending || programsQ.isPending || origemTypesQ.isPending || accountsQ.isPending || entriesQ.isPending || clientsQ.isPending || salesQ.isPending;
 
   const owners = ownersQ.data ?? [];
   const programs = programsQ.data ?? [];
@@ -66,31 +51,24 @@ export function DataProvider({ children }: { children: ReactNode }) {
     const hasBuiltin = origemTypes.some((ot) => isTransferencia(ot));
     if (!hasBuiltin) {
       creatingTransferencia.current = true;
-      supabase
-        .from("origem_types")
-        .insert({
-          id: crypto.randomUUID(),
-          user_id: user.id,
-          name: "Transferência",
-          account_type: "milhas",
-          color: "#8b5cf6",
-        })
-        .then(() => {
-          queryClient.invalidateQueries({ queryKey: ["origem_types"] });
-        })
-        .finally(() => {
-          creatingTransferencia.current = false;
-        });
+      supabase.from("origem_types").insert({
+        id: crypto.randomUUID(),
+        user_id: user.id,
+        name: "Transferência",
+        account_type: "milhas",
+        color: "#8b5cf6",
+      } as any).then(() => {
+        queryClient.invalidateQueries({ queryKey: ["origem_types"] });
+        creatingTransferencia.current = false;
+      });
     }
   }, [user, origemTypes]);
 
   const clearAccountM = useClearAccountDataMutation();
 
   const clearCache = () => {
-    const keys = Object.keys(localStorage).filter(
-      (k) => k.startsWith("mc-") || k === "mc-migrated",
-    );
-    keys.forEach((k) => localStorage.removeItem(k));
+    const keys = Object.keys(localStorage).filter(k => k.startsWith("mc-") || k === "mc-migrated");
+    keys.forEach(k => localStorage.removeItem(k));
     queryClient.clear();
     window.location.reload();
   };
@@ -105,20 +83,11 @@ export function DataProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <DataContext.Provider
-      value={{
-        owners,
-        programs,
-        origemTypes,
-        accounts,
-        entries,
-        sales,
-        clients,
-        isLoading,
-        clearCache,
-        clearAccountData,
-      }}
-    >
+    <DataContext.Provider value={{
+      owners, programs, origemTypes, accounts, entries, sales, clients,
+      isLoading,
+      clearCache, clearAccountData,
+    }}>
       {children}
     </DataContext.Provider>
   );
