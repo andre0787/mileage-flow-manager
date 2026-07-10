@@ -2,7 +2,8 @@
 
 ## Status: ✅ Sessão completa — 2026-07-10
 
-### Último trabalho: Bugfix "Limpar Cache" (2 fixes encadeados)
+### Último trabalho: PR #74 mergeado em produção
+### Trabalho atual: aumentar workers do Playwright no CI (branch `perf/playwright-workers-ci`)
 
 ---
 
@@ -58,7 +59,7 @@
 
 ## Branch atual
 
-`main` — produção limpa (sem branch ativa)
+`perf/playwright-workers-ci` — ajuste de performance do E2E em andamento
 
 ## Build & Test
 
@@ -94,6 +95,10 @@
 - `docs/TESTING.md` — atualizado
 - `docs/AGENDA.md` — bugfix registrado
 - `docs/reports/2026-07-10-bugfix-limpar-cache-errorboundary.html` — relatório
+- `docs/council/2026-07-10-playwright-workers-ci-veredito.md` — decisão do paralelismo
+- `docs/superpowers/specs/2026-07-10-playwright-workers-ci-design.md` — spec
+- `docs/superpowers/plans/2026-07-10-playwright-workers-ci-plan.md` — plano
+- `docs/reports/PR75-2026-07-10-playwright-workers-ci.html` — relatório
 - `HANDOFF.md` — este arquivo (atualizado)
 
 ---
