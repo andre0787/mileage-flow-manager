@@ -2,7 +2,7 @@
 
 ## Status: 🔄 Sessão em andamento
 
-### Último trabalho: AlertDialog em exclusões de config
+### Último trabalho: PR #66 criado + relatório HTML
 
 ---
 
@@ -20,11 +20,15 @@
 - OrigemTypeSection: AlertDialog antes de excluir ✅
 - Build limpo (648kB)
 
+### 3. PR #66 Criado
+- Branch: `feature/confirmacoes-exclusao` → `main`
+- Relatório: `docs/reports/PR66-2026-07-10-confirmacoes-exclusao.html`
+
 ---
 
 ## Branch atual
 
-`feature/confirmacoes-exclusao` — aguardando PR
+`feature/confirmacoes-exclusao` — PR #66 criado, aguardando merge
 
 ## Arquivos modificados nesta sessão
 
@@ -37,6 +41,7 @@
 ### Docs
 - `docs/AGENDA.md` — Sprint #6 organizada com 4 itens
 - `docs/council/2026-07-10-tratamento-erro-confirmacoes-debug-log-veredito.md` — council verdict
+- `docs/reports/PR66-2026-07-10-confirmacoes-exclusao.html` — relatório HTML
 
 ---
 
