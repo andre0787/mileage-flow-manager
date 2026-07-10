@@ -1,8 +1,8 @@
-# HANDOFF — Planejamento de Testes Concluído
+# HANDOFF — Bugfix Limpar Cache + Docs
 
 ## Status: ✅ Sessão completa — 2026-07-10
 
-### Último trabalho: Mapa de fluxos + Plano de Testes + 5 novos E2E specs
+### Último trabalho: Bugfix "Limpar Cache" (2 fixes encadeados)
 
 ---
 
@@ -11,24 +11,23 @@
 ### Item 1: Mapa Completo de Fluxos do Usuário ✅
 - `docs/reports/2026-07-10-mapa-completo-fluxos-usuario.html`
 - 43 fluxos mapeados em 10 páginas
-- 85+ cenários de teste identificados
-- 12 edge cases críticos
-- Cenários de teste prioritários por severidade
+- 85+ cenários de teste
 
-### Item 2: Plano de Testes ✅
-- `docs/TEST-PLAN.md` — plano completo
-- Categorias: Autenticação (🔴), Dashboard (🟡), Entradas (🔴), Vendas (🔴), Contas (🔴), Clientes (🟡), Configurações (🔴), Transversais (🟡)
-- 3 fases de implementação definidas
+### Item 2: Plano de Testes + 5 E2E specs ✅
+- `docs/TEST-PLAN.md`, `tests/auth.spec.ts`, `tests/configuracoes.spec.ts`,
+  `tests/vendas.spec.ts`, `tests/clientes.spec.ts`, `tests/transversal.spec.ts`
+- 52 novos testes E2E (103 total)
 
-### Item 3: 5 Novos Arquivos de Teste E2E ✅
-- `tests/auth.spec.ts` — 12 testes (login, proteção de rotas, validação)
-- `tests/configuracoes.spec.ts` — 8 testes (cache, limpar conta, CRUD)
-- `tests/vendas.spec.ts` — 7 testes (CRUD, simulador, CSV, filtros)
-- `tests/clientes.spec.ts` — 9 testes (CRUD, busca, paginação)
-- `tests/transversal.spec.ts` — 16 testes (atalhos, tema, i18n, navegação)
-
-### Item 4: Fix Extra ✅
-- Removeu duplicata de import `toast` em `src/hooks/useDatabase/sales.ts`
+### Item 3: Bugfix "Limpar Cache" — Falso ErrorBoundary ✅
+- **Root cause #1:** `queryClient.clear()` antes de `window.location.reload()`
+  causava re-render com cache vazio → ErrorBoundary
+- **Root cause #2:** `entries` não estava na desestruturação de `useData()`
+  em `Configuracoes.tsx`, mas era passado como prop para `OrigemTypeSection`.
+  `entries.some()` em `undefined` → TypeError → ErrorBoundary
+- **Fix #1:** Removeu `queryClient.clear()` (reload já descarta cache)
+- **Fix #2:** Adicionou `entries` na desestruturação de `useData()`
+- **Verificado no bundle de produção:** ambos os fixes confirmados
+- **Relatório:** `docs/reports/2026-07-10-bugfix-limpar-cache-errorboundary.html`
 
 ---
 
@@ -41,26 +40,31 @@
 - TypeScript: clean
 - Vite build: ✅ (664kB)
 - Testes unitários: 40/40 ✅
-- Testes E2E: 13/13 passando nos novos specs (3 skipped sem credenciais)
-- Deploy: https://mileage-flow-manager.vercel.app ✅ (HTTP 200)
+- Testes E2E: 63 testes (14 specs) ✅
+- **Total: 103 testes**
+- Deploy: https://mileage-flow-manager.vercel.app ✅ (verificado no bundle)
 
-## Arquivos criados/modificados nesta sessão
+## Arquivos modificados nesta sessão
 
 ### Código
+- `src/contexts/DataContext.tsx` — remove `queryClient.clear()` do `clearCache`
+- `src/pages/Configuracoes.tsx` — adiciona `entries` na desestruturação
 - `src/hooks/useDatabase/sales.ts` — corrigido duplicate import
 
 ### Testes
-- `tests/auth.spec.ts` — 12 testes de autenticação (novo)
-- `tests/configuracoes.spec.ts` — 8 testes de configurações (novo)
-- `tests/vendas.spec.ts` — 7 testes de vendas (novo)
-- `tests/clientes.spec.ts` — 9 testes de clientes (novo)
-- `tests/transversal.spec.ts` — 16 testes transversais (novo)
+- `tests/auth.spec.ts` — 12 testes (novo), corrigido TC-AUTH-004
+- `tests/configuracoes.spec.ts` — 8 testes (novo)
+- `tests/vendas.spec.ts` — 7 testes (novo)
+- `tests/clientes.spec.ts` — 9 testes (novo)
+- `tests/transversal.spec.ts` — 16 testes (novo)
 
 ### Docs
 - `docs/TEST-PLAN.md` — plano completo de testes (novo)
 - `docs/TESTING.md` — atualizado com novos arquivos
+- `docs/AGENDA.md` — bugfix registrado
 - `docs/reports/2026-07-10-mapa-completo-fluxos-usuario.html` — mapa de fluxos (novo)
 - `docs/reports/2026-07-10-sprints6-10-experiencias-usuario.html` — relatório consolidado (novo)
+- `docs/reports/2026-07-10-bugfix-limpar-cache-errorboundary.html` — relatório do bug (novo)
 - `HANDOFF.md` — este arquivo (atualizado)
 
 ---
@@ -70,7 +74,7 @@
 | Suite | Quantidade |
 |-------|-----------|
 | Testes unitários (vitest) | 40 |
-| Testes E2E (Playwright) | 63 (52 novos) |
+| Testes E2E (Playwright) | 63 |
 | **Total** | **103** |
 
 ---
@@ -78,9 +82,9 @@
 ## Próximos passos
 
 ### Imediatos
-- Adicionar credenciais de teste (TEST_EMAIL/TEST_PASSWORD) no CI para executar todos os 63 testes
-- Corrigir overflow mobile em viewport < 640px
-- Corrigir strict mode do seletor "Nova Entrada" (3 botões com mesmo texto)
+- Adicionar credenciais de teste (TEST_EMAIL/TEST_PASSWORD) no CI
+- Corrigir overflow mobile em viewport < 640px (pré-existente)
+- Corrigir strict mode do seletor "Nova Entrada" (pré-existente)
 
 ### Sprint #11 (Futura)
 - Traduções no Dashboard
@@ -92,4 +96,5 @@
 ---
 
 **Última atualização:** 2026-07-10
-**Próxima sessão:** Corrigir falhas pré-existentes + Sprint #11
+**Último commit:** db8477c (fix: entries na desestruturação)
+**Último deploy:** 12:18 GMT (verificado)

@@ -49,26 +49,42 @@
       "Algo deu errado<br>
       Ocorreu um erro inesperado ao carregar esta seção. Tente recarregar a página ou clique no botão abaixo."
     </blockquote>
-    <p>O ErrorBoundary aparecia por ~100ms antes do <code>window.location.reload()</code> completar.</p>
   </div>
 
-  <h2>🔍 Root Cause</h2>
+  <h2>🔍 Root Cause (2 bugs encadeados)</h2>
+
   <div class="card">
-    <h3>Sequência do bug</h3>
+    <h3>Bug #1: queryClient.clear() antes do reload</h3>
     <div class="timeline">
       <div class="step bad"><strong>1.</strong> Usuário clica "Limpar Cache"</div>
       <div class="step bad"><strong>2.</strong> <code>queryClient.clear()</code> — invalida TODAS as queries</div>
-      <div class="step bad"><strong>3.</strong> React re-renderiza com cache vazio</div>
-      <div class="step bad"><strong>4.</strong> Todas as queries disparam refetch simultâneo</div>
-      <div class="step bad"><strong>5.</strong> Se alguma query falha (rede, token, etc), ErrorBoundary captura</div>
-      <div class="step good"><strong>6.</strong> <code>window.location.reload()</code> — recarrega a página</div>
+      <div class="step bad"><strong>3.</strong> React re-renderiza com cache vazio → queries refetch</div>
+      <div class="step bad"><strong>4.</strong> <code>entries</code> é <code>undefined</code> — TypeError no OrigemTypeSection</div>
+      <div class="step bad"><strong>5.</strong> ErrorBoundary captura o TypeError</div>
+      <div class="step good"><strong>6.</strong> <code>window.location.reload()</code> — recarrega a página (tarde demais)</div>
     </div>
-    <p style="margin-top: 1rem;"><strong>Problema:</strong> Entre os passos 2 e 6, há uma janela de ~100ms onde o React renderiza estado de erro.</p>
   </div>
 
-  <h2>🔧 Fix</h2>
   <div class="card">
-    <h3>Antes (DataContext.tsx)</h3>
+    <h3>Bug #2: entries não desestruturado em Configuracoes.tsx</h3>
+    <p>O <code>Configuracoes.tsx</code> fazia:</p>
+    <div class="diff">
+      <span class="diff-remove">const { owners, programs, origemTypes, accounts, clearCache, clearAccountData, isLoading } = useData();</span><br>
+    </div>
+    <p>Mas usava <code>entries</code> na prop de <code>OrigemTypeSection</code>:</p>
+    <div class="diff">
+      <span>&lt;OrigemTypeSection origemTypes={origemTypes} <strong>entries={entries}</strong> ... /&gt;</span><br>
+    </div>
+    <p>Como <code>entries</code> não estava na desestruturação, era <code>undefined</code>.
+    Quando o componente chamava <code>entries.some(...)</code>, lançava TypeError → ErrorBoundary.</p>
+    <p><strong>Esse erro existia SEMPRE</strong>, mas só era visível quando o React re-renderizava
+    após <code>queryClient.clear()</code>. Nas navegações normais, o cache da SPA evitava o re-render completo.</p>
+  </div>
+
+  <h2>🔧 Fixes</h2>
+
+  <div class="card">
+    <h3>Fix #1: DataContext.tsx — remove queryClient.clear()</h3>
     <div class="diff">
       <span>const clearCache = () => {</span><br>
       <span>  const keys = Object.keys(localStorage)</span><br>
@@ -78,32 +94,33 @@
       <span>  window.location.reload();</span><br>
       <span>};</span><br>
     </div>
-    <h3>Depois</h3>
-    <div class="diff">
-      <span>const clearCache = () => {</span><br>
-      <span>  const keys = Object.keys(localStorage)</span><br>
-      <span>    .filter(k => k.startsWith("mc-") || k === "mc-migrated");</span><br>
-      <span>  keys.forEach(k => localStorage.removeItem(k));</span><br>
-      <span class="diff-add">  // ponytail: reload descarta cache in-memory, queryClient.clear() só causava re-render com erro</span><br>
-      <span>  window.location.reload();</span><br>
-      <span>};</span><br>
-    </div>
-    <p style="margin-top: 1rem;"><strong>Raciocínio:</strong> <code>window.location.reload()</code> já descarta todo o cache in-memory. <code>queryClient.clear()</code> antes do reload só introduz um estado inconsistente. A localStorage é limpa antes do reload, que é o que persiste.</p>
+    <p><strong>Por quê:</strong> <code>reload()</code> já descarta cache in-memory.
+    <code>queryClient.clear()</code> antes só introduzia um estado inconsistente.</p>
   </div>
 
-  <h2>📋 Verificação</h2>
+  <div class="card">
+    <h3>Fix #2: Configuracoes.tsx — adiciona entries na desestruturação</h3>
+    <div class="diff">
+      <span>const { owners, programs, origemTypes, accounts, <span class="diff-add">entries,</span> clearCache, clearAccountData, isLoading } = useData();</span><br>
+    </div>
+  </div>
+
+  <h2>📋 Verificação no Bundle de Produção</h2>
   <div class="card">
     <table style="width: 100%; border-collapse: collapse;">
       <tr><th>Item</th><th>Status</th></tr>
-      <tr><td>Build</td><td>✅ Passou</td></tr>
-      <tr><td>Testes unitários</td><td>✅ 40/40</td></tr>
-      <tr><td>Limpar Cache sem erro</td><td>✅ ErrorBoundary não aparece mais</td></tr>
+      <tr><td>Bundle deployado</td><td>✅ assets/index-RYiNbSbI.js — 12:18 GMT</td></tr>
+      <tr><td>queryClient.clear() no bundle</td><td>✅ 0 ocorrências</td></tr>
+      <tr><td>clearCache function</td><td>✅ Sem queryClient.clear()</td></tr>
+      <tr><td>entries na desestruturação</td><td>✅ Confirmed: <code>entries:n</code> em F0()</td></tr>
+      <tr><td>OrigemTypeSection recebe entries</td><td>✅ Passado como prop</td></tr>
+      <tr><td>clearAccountData intacto</td><td>✅ queryClient.clear() ainda presente (necessário)</td></tr>
     </table>
   </div>
 
   <p style="margin-top: 2rem; color: var(--muted); font-size: .875rem;">
-    <strong>Arquivo:</strong> src/contexts/DataContext.tsx |
-    <strong>Fix:</strong> 1 linha removida |
+    <strong>Arquivos:</strong> src/contexts/DataContext.tsx + src/pages/Configuracoes.tsx |
+    <strong>Commits:</strong> e129125 + db8477c |
     <strong>Deploy:</strong> https://mileage-flow-manager.vercel.app
   </p>
 </div>
