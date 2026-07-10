@@ -18,7 +18,7 @@ test.describe("Transferência com Compra no Carrinho", () => {
     await page.fill("#password", TEST_PASSWORD);
     await page.click("button[type='submit']");
 
-    await page.waitForURL("/", { timeout: 30_000 });
+    await page.waitForFunction(() => location.pathname === "/", { timeout: 30_000 });
     await page.waitForTimeout(1_000);
 
     // ═══════════════════════════════════════

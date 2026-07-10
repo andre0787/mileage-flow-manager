@@ -16,7 +16,7 @@ test("filtros refletem nos resumos e tabelas", async ({ page }) => {
   await page.fill("#email", email);
   await page.fill("#password", PASSWORD);
   await page.click("button[type='submit']");
-  await page.waitForURL(/dashboard|\//, { timeout: 30_000 });
+  await page.waitForFunction(() => location.pathname === "/", { timeout: 30_000 });
   await page.waitForTimeout(1_500);
 
   // 2. Seed dados completos (incluindo venda)

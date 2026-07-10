@@ -20,7 +20,7 @@ test.describe("Edição de Entradas", () => {
     await page.click("button[type='submit']");
 
     // Aguarda dashboard
-    await page.waitForURL("/", { timeout: 30_000 });
+    await page.waitForFunction(() => location.pathname === "/", { timeout: 30_000 });
     await page.waitForTimeout(1_000);
 
     // ═══════════════════════════════════════

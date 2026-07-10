@@ -125,6 +125,8 @@
 - [ ] Configurar secrets VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID no GitHub Actions
 - [x] Abrir PR do hotfix CI/workflows (Node 22): https://github.com/andre0787/mileage-flow-manager/pull/74
 - [ ] Validar Actions verdes
+- [x] Root cause E2E: waits de login SPA trocados para `waitForFunction` (sem esperar `load`)
+- [x] Testes locais verificados: `debug.spec.ts`, `entradas.spec.ts`, `origem-tipo.spec.ts`
 
 ## Próximos passos
 

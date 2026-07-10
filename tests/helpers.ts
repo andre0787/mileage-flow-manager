@@ -46,7 +46,7 @@ export async function registerUser(page: Page) {
   await page.fill("#email", email);
   await page.fill("#password", password);
   await page.click("button[type='submit']");
-  await page.waitForURL("/", { timeout: 30_000 });
+  await page.waitForFunction(() => location.pathname === "/", { timeout: 30_000 });
   await page.waitForTimeout(1_000);
   return { email, password };
 }

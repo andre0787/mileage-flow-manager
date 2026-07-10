@@ -81,7 +81,7 @@ async function registrarUsuario(page: Page, email: string) {
   await page.fill("#email", email);
   await page.fill("#password", TEST_PASSWORD);
   await page.click("button[type='submit']");
-  await page.waitForURL("/", { timeout: 30_000 });
+  await page.waitForFunction(() => location.pathname === "/", { timeout: 30_000 });
   await page.waitForTimeout(1_500);
 }
 
