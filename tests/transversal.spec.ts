@@ -119,7 +119,7 @@ test.describe("Tema (Dark Mode)", () => {
     await page.fill("#email", email);
     await page.fill("#password", password);
     await page.click("button[type='submit']");
-    await page.waitForURL("/", { timeout: 30_000 });
+    await page.waitForFunction(() => location.pathname === "/", { timeout: 30_000 });
     await page.waitForLoadState("networkidle");
   });
 
@@ -171,7 +171,7 @@ test.describe("Idioma (i18n)", () => {
     await page.fill("#email", email);
     await page.fill("#password", password);
     await page.click("button[type='submit']");
-    await page.waitForURL("/", { timeout: 30_000 });
+    await page.waitForFunction(() => location.pathname === "/", { timeout: 30_000 });
     await page.waitForLoadState("networkidle");
   });
 
@@ -214,7 +214,7 @@ test.describe("Navegação", () => {
     await page.fill("#email", email);
     await page.fill("#password", password);
     await page.click("button[type='submit']");
-    await page.waitForURL("/", { timeout: 30_000 });
+    await page.waitForFunction(() => location.pathname === "/", { timeout: 30_000 });
     await page.waitForLoadState("networkidle");
   });
 

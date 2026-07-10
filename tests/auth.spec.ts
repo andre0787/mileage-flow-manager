@@ -39,8 +39,8 @@ test.describe("Autenticação", () => {
     await page.fill("#password", password);
     await page.click("button[type='submit']");
 
-    // Aguarda redirecionamento para dashboard
-    await page.waitForURL("/", { timeout: 30_000 });
+    // Aguarda redirecionamento para dashboard (SPA)
+    await page.waitForFunction(() => location.pathname === "/", { timeout: 30_000 });
     await page.waitForLoadState("networkidle");
   });
 

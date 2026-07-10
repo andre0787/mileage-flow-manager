@@ -18,7 +18,7 @@ test("check entradas page error with auth", async ({ page }) => {
   await page.fill("#password", TEST_PASSWORD);
   await page.click("button[type='submit']");
 
-  await page.waitForURL("/", { timeout: 30_000 });
+  await page.waitForFunction(() => location.pathname === "/", { timeout: 30_000 });
   await page.waitForTimeout(1_000);
 
   // Now go to entradas

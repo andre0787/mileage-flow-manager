@@ -35,7 +35,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.fill("#email", email);
     await page.fill("#password", PASSWORD);
     await page.click("button[type='submit']");
-    await page.waitForURL("**/", { timeout: 30000 });
+    await page.waitForFunction(() => location.pathname === "/", { timeout: 30000 });
     // Wait for React to render fully
     await page.waitForFunction(() => document.title.includes("MilesControl"), { timeout: 15000 });
     await page.waitForTimeout(500);
@@ -314,12 +314,12 @@ test("Fluxo completo de experiência", async ({ page }) => {
     const logoutBtn = page.getByRole("button", { name: /sair|logout/i });
     if (await logoutBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
       await logoutBtn.click();
-      await page.waitForURL("/login", { timeout: 10000 });
+      await page.waitForFunction(() => location.pathname === "/login", { timeout: 10000 });
       pass("Logout OK");
       await page.fill("#email", email);
       await page.fill("#password", PASSWORD);
       await page.click("button[type='submit']");
-      await page.waitForURL("**/", { timeout: 30000 });
+      await page.waitForFunction(() => location.pathname === "/", { timeout: 30000 });
       await page.waitForFunction(() => document.title.includes("MilesControl"), { timeout: 15000 });
       await page.waitForTimeout(500);
       pass("Re-login OK");

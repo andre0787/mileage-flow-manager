@@ -116,11 +116,17 @@
 - [x] `test:e2e` e `test:e2e:ui` no package.json
 - [x] `develop` removido (89 commits atrás)
 - [x] AGENTS.md, GIT-WORKFLOW.md, WORKFLOW.md atualizados
-- [x] PR #72 criado: https://github.com/andre0787/mileage-flow-manager/pull/72
+- [x] PR #73 criado/mergeado: https://github.com/andre0787/mileage-flow-manager/pull/73
 - [x] Relatório: `docs/reports/PR72-2026-07-10-sprint-a-automacao-fundacao.html`
+- [x] Hotfix CI/E2E: fallback público em `src/lib/supabase.ts` para URL/anon key
+- [x] Relatório do hotfix: `docs/reports/PR74-2026-07-10-ci-node22-hotfix.html`
 
 ### Pendente pós-PR
 - [ ] Configurar secrets VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID no GitHub Actions
+- [x] Abrir PR do hotfix CI/workflows (Node 22): https://github.com/andre0787/mileage-flow-manager/pull/74
+- [ ] Validar Actions verdes
+- [x] Root cause E2E: waits de login SPA trocados para `waitForFunction` (sem esperar `load`)
+- [x] Testes locais verificados: `debug.spec.ts`, `entradas.spec.ts`, `origem-tipo.spec.ts`
 
 ## Próximos passos
 
@@ -139,5 +145,5 @@
 ---
 
 **Última atualização:** 2026-07-10 (2ª sessão)
-**Último trabalho:** Council → Superpowers: Plano de Automação em 3 Sprints
+**Último trabalho:** Hotfix CI Node 22 em andamento na branch `hotfix/ci-node22`
 **Último deploy:** verificado após PR #71

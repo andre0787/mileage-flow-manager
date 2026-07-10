@@ -16,7 +16,7 @@ test("Tipos de origem marcam recorrência corretamente", async ({ page }) => {
   await page.fill("#email", email);
   await page.fill("#password", TEST_PASSWORD);
   await page.click("button[type='submit']");
-  await page.waitForURL(/dashboard|\//, { timeout: 30000 });
+  await page.waitForFunction(() => location.pathname === "/", { timeout: 30000 });
   await page.waitForTimeout(1000);
 
   // 2. Entradas
