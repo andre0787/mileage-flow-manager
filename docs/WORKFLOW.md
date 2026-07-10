@@ -7,8 +7,8 @@
 | Skill | Localização | Função |
 |-------|-------------|--------|
 | `council-to-superpowers` | `.opencode/skills/`, `.pi/skills/` | Workflow combinado (única skill visível) |
-| `llm-council` | `~/.config/opencode/skills/` | Conselho de 5 advisors (escondido, usado internamente) |
-| `superpowers` (14 skills) | Pacote pi | Execução disciplinada (escondidas, lidas manualmente) |
+| `llm-council` | `~/.config/opencode/skills/` | Conselho de 5 advisors (usado internamente pelo council) |
+| `ponytail` | `~/.config/opencode/skills/`, pacote pi | Modo lazy (stdlib/nativo primeiro) |
 | `caveman` | `~/.config/opencode/skills/` | Modo compacto de tokens |
 
 ## Fluxo Completo
@@ -34,13 +34,12 @@ Cada advisor produz análise independente → peer review anônimo → chairman 
 
 1. **brainstorming** — explora requisitos, propõe 2-3 abordagens, salva spec em `docs/superpowers/specs/`
 2. **writing-plans** — quebra em tarefas de 2-5min, salva em `docs/superpowers/plans/`
-3. **using-git-worktrees** — branch isolada com setup
-4. **test-driven-development** — RED → GREEN → REFACTOR
-5. **subagent-driven-development** — subagent por tarefa com dois estágios de review
-6. **requesting-code-review** — entre tarefas, bloqueia se critical
-7. **finishing-a-development-branch** — testes verdes, commitar TUDO, merge/PR
-8. **relatório** — `/report` gera HTML com antes/depois, benefícios e consumo de tokens em `docs/reports/`
-9. **handoff** — Atualizar `HANDOFF.md` com progresso, PRs e próximos passos
+3. **branch isolada** — `git checkout -b <prefixo>/<nome>`
+4. **implementação** — TDD quando aplicável (RED → GREEN → REFACTOR)
+5. **code review** — entre tarefas, bloqueia se critical
+6. **PR** — testes verdes, commitar TUDO, PR para `main`
+7. **relatório** — `/report` gera HTML com antes/depois, benefícios e consumo de tokens em `docs/reports/`
+8. **handoff** — Atualizar `HANDOFF.md` com progresso, PRs e próximos passos
 
 ## Gatilhos
 
@@ -97,7 +96,7 @@ Antes de criar qualquer PR, executar este checklist:
 - [ ] `git status` mostra zero arquivos pendentes?
 - [ ] Nenhum código morto (exports não importados, funções não chamadas)?
 - [ ] `npm run build` passa sem erros?
-- [ ] `npm test` passa (35/35)?
+- [ ] `npm test` passa (40/40)?
 
 ## Regra de Limpeza
 

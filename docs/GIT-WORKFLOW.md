@@ -26,24 +26,22 @@ Regras:
 ```
 main ─────────────────── produção (Vercel)
   ↑
-develop ──────────────── desenvolvimento
-  ↑
 feat/*, fix/*, chore/*, refactor/*, ...
 ```
 
-- Toda branch → PR para `develop`
-- `develop` → merge em `main` (após bateria de testes)
-- `main` → deploy automático Vercel
+- Toda branch → PR para `main`
+- `main` → deploy manual via `vercel --prod`
 - `hotfix/*` → PR direto para `main` (com bateria obrigatória)
+- ⚠️ `develop` existe no remoto mas está 89 commits atrás — não usar mais
 
 ## Regra de Sprint
 
 **Cada item da sprint gera uma branch nova.** Nunca acumular múltiplos
 itens na mesma branch. Sequência:
 
-1. Criar branch a partir de `develop`
+1. Criar branch a partir de `main`
 2. Implementar o item
-3. PR → `develop` → merge
+3. PR → `main` → merge
 4. Só então criar a próxima branch para o próximo item
 
 Isso garante que cada PR seja pequeno, focado, e reversível independentemente.
@@ -65,6 +63,6 @@ test: adiciona teste de cancelamento de venda
 
 - **URL**: https://mileage-flow-manager.vercel.app
 - **Framework**: Vite
-- **Automático**: push para `main` → Vercel
 - **Manual**: `vercel --prod`
+- **⚠️ Não automático** — sem CI/CD configurado ainda
 - **Bateria obrigatória** antes de qualquer deploy: ver `TESTING.md`

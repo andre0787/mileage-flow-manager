@@ -11,28 +11,51 @@ src/
 │   ├── AnimatedNumber.tsx
 │   ├── AppSidebar.tsx
 │   ├── BottomTabBar.tsx
+│   ├── DeleteConfirmDialog.tsx   # AlertDialog reutilizável p/ exclusões
 │   ├── DeleteEntryDialog.tsx
 │   ├── EmptyState.tsx
 │   ├── ErrorBoundary.tsx
 │   ├── FlowMap.tsx
 │   ├── FormDrawer.tsx
+│   ├── GlobalSearch.tsx          # Busca global no header
+│   ├── KeyboardShortcutsHelp.tsx # Modal de atalhos (atalho ?)
+│   ├── LanguageSelector.tsx      # Seletor pt-BR / en
 │   ├── MetricCard.tsx
-│   ├── OfflineBanner.tsx     # Banner "Sem conexão" (Sprint #6)
+│   ├── OfflineBanner.tsx     # Banner "Sem conexão"
 │   ├── ProtectedRoute.tsx
 │   └── SkeletonLoader.tsx
 ├── contexts/
 │   ├── AuthContext.tsx       # Auth + sessão
-│   ├── DataContext.tsx       # Dados + isLoading + clearCache
-│   └── OnlineContext.tsx     # Estado da conexão (Sprint #6)
+│   ├── DataContext.tsx       # Dados + isLoading + clearCache + clearAccountData
+│   ├── I18nContext.tsx       # Internacionalização (Sprint #10)
+│   └── OnlineContext.tsx     # Estado da conexão
 ├── hooks/
-│   ├── useDatabase.ts       # Todas queries + mutations React Query
+│   ├── useDatabase/         # Queries + mutations por entidade (split)
+│   │   ├── index.ts
+│   │   ├── accounts.ts
+│   │   ├── clients.ts
+│   │   ├── entries.ts
+│   │   ├── mappers.ts
+│   │   ├── origemTypes.ts
+│   │   ├── owners.ts
+│   │   ├── programs.ts
+│   │   ├── sales.ts
+│   │   └── shared.ts
+│   ├── useDatabase.ts       # Barrel re-export do useDatabase/
 │   ├── useDebounce.ts       # 300ms
 │   ├── useHaptic.ts         # Vibração mobile
-│   └── useOnlineStatus.ts   # Hook de detecção offline (Sprint #6)
+│   ├── useKeyboardShortcuts.ts  # Atalhos: g,e,v,c,p,s,r,? (Sprint #7)
+│   └── useOnlineStatus.ts   # Hook de detecção offline
 ├── lib/
+│   ├── accounts.ts          # Lógica de domínio de contas
+│   ├── dates.ts             # Formatação de datas
+│   ├── i18n.ts              # Traduções pt-BR/en (Sprint #10)
+│   ├── logger.ts            # Debug log estruturado (Sprint #6)
 │   ├── metrics.ts           # Cálculos de domínio (funções puras)
-│   ├── utils.ts             # formatCPF + isTransferencia + helpers
-│   └── supabase.ts          # Cliente Supabase
+│   ├── origemTypes.ts       # Lógica de tipos de origem
+│   ├── supabase.ts          # Cliente Supabase
+│   ├── supabase-types.ts    # Tipos gerados do Supabase
+│   └── utils.ts             # formatCPF + isTransferencia + helpers
 ├── pages/
 │   ├── Dashboard.tsx        # Abas Milhas/Pontos
 │   ├── Entradas.tsx         # Entradas + Transferências

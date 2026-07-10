@@ -46,11 +46,19 @@
 - **-101 linhas** (DRY com helper compartilhado)
 - **Zero dependência externa — CI roda sem secrets**
 
+### Item 6: Varredura + Correção de 8 docs .md ✅
+- Varredura completa de 48 arquivos .md:
+  - 29 órfãos (sem referências cruzadas)
+  - 9 gaps de automação (sem CI, sem pre-push hook, sem scripts E2E)
+  - 5 promessas quebradas (hooks que não existem, workflow desatualizado)
+- **8 arquivos corrigidos:** AGENTS, WORKFLOW, ARCHITECTURE, GIT-WORKFLOW, CONVENTIONS, STACK, TESTING, MAP
+- Relatório HTML: `docs/reports/2026-07-10-varredura-arquivos-md.html`
+
 ---
 
 ## Branch atual
 
-`main` — produção limpa (PR #71 merged)
+`main` — produção limpa (sem branch ativa)
 
 ## Build & Test
 
@@ -115,5 +123,5 @@
 ---
 
 **Última atualização:** 2026-07-10
-**Último commit:** 3d89612 (registerUser helper)
+**Último commit:** (varredura + correção de 8 docs .md)
 **Último deploy:** verificado após PR #71

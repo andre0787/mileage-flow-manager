@@ -26,6 +26,13 @@ npx playwright test --reporter=list --workers=1
 | `tests/vendas.spec.ts` | CRUD vendas, simulador, CSV, filtros (7 testes) |
 | `tests/clientes.spec.ts` | CRUD clientes, busca, paginação (9 testes) |
 | `tests/transversal.spec.ts` | Atalhos teclado, tema, i18n, navegação (16 testes) |
+| `tests/smoke.spec.ts` | Tela preta, páginas públicas, dashboard autenticado |
+| `tests/clube.spec.ts` | Clube de milhas (criação de conta + entradas) |
+| `tests/carrinho.spec.ts` | Fluxo de carrinho de transferências |
+| `tests/fluxo-completo.spec.ts` | Fluxo end-to-end completo |
+| `tests/origem-tipo.spec.ts` | CRUD tipos de origem |
+| `tests/relatorio.spec.ts` | Geração de relatórios |
+| `tests/debug.spec.ts` | Debug helpers |
 
 ## Bateria Obrigatória (pré-deploy)
 
@@ -71,10 +78,16 @@ const token = await page.evaluate(() =>
 // Usar token para chamar Supabase REST API
 ```
 
+### `registerUser(page)` (helpers.ts)
+
+Função que registra um novo usuário via fluxo "Cadastre-se" e aguarda o dashboard.
+Cria email dinâmico (`e2e_{timestamp}_{random}@teste.com`), senha fixa `Test@123456`.
+Usada em 6 arquivos de teste, eliminou dependência de `TEST_EMAIL`/`TEST_PASSWORD`.
+
 Helpers em `tests/helpers.ts` com retry embutido.
 
 ### Estratégia
 
-1. Registrar usuário via UI (fluxo de login)
+1. Registrar usuário via UI (fluxo de Cadastre-se) — use `registerUser(page)`
 2. Criar dados de teste via fetch direto ao Supabase REST API (com token da sessão)
 3. Testar UI

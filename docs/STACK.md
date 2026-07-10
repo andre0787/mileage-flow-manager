@@ -55,7 +55,9 @@ vercel --prod                         # Deploy manual
 ## Agente (pi / opencode)
 
 - **Harness**: pi (delega runtime para opencode)
-- **Config**: `~/.config/opencode/opencode.jsonc`
-- **Plugins**: superpowers, ponytail, caveman
-- **Skills**: council-to-superpowers, planning-with-files, ponytail, caveman, frontend-design, webapp-testing
+- **Config**: `~/.config/opencode/opencode.json`
+- **Packages**: ponytail, superpowers
+- **Plugins**: caveman
+- **Skills (pi)**: council-to-superpowers, handoff, ponytail, planning-with-files
+- **Skills (opencode)**: council-to-superpowers, ponytail, frontend-design, caveman, cavecrew
 - **Tema TUI**: mileage-dark

@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Varredura de Arquivos .md — MilesControl</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; background: #fafafa; }
+  h1, h2, h3 { color: #1a1a2e; }
+  h1 { border-bottom: 3px solid #5B72C4; padding-bottom: .5rem; }
+  h2 { border-bottom: 1px solid #ddd; padding-bottom: .3rem; margin-top: 2rem; }
+  table { border-collapse: collapse; width: 100%; font-size: .875rem; margin: 1rem 0; }
+  th, td { padding: .4rem .6rem; text-align: left; border-bottom: 1px solid #eee; }
+  th { background: #f0f4ff; font-weight: 600; position: sticky; top: 0; }
+  tr:hover { background: #f8f9ff; }
+  .ok { color: #0a0; font-weight: 600; }
+  .warn { color: #c90; font-weight: 600; }
+  .fail { color: #c00; font-weight: 600; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: .7rem; font-weight: 600; }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-yellow { background: #fff3cd; color: #856404; }
+  .badge-red { background: #f8d7da; color: #721c24; }
+  .badge-gray { background: #e2e3e5; color: #383d41; }
+  .summary-box { background: #f8f9fa; border: 1px solid #ddd; border-radius: 8px; padding: 1rem 1.5rem; margin: 1.5rem 0; }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0; }
+  .summary-card { background: white; border: 1px solid #eee; border-radius: 8px; padding: 1rem; text-align: center; }
+  .summary-card .num { font-size: 2rem; font-weight: 700; }
+  .summary-card .label { font-size: .8rem; color: #666; }
+  .detail-list { list-style: none; padding: 0; }
+  .detail-list li { padding: .3rem .5rem; margin: .2rem 0; border-left: 3px solid #5B72C4; background: #f8f9ff; }
+  .detail-list li.orphan { border-color: #c00; background: #fff5f5; }
+  .detail-list li.ok { border-color: #0a0; background: #f0fff0; }
+  .detail-list li.warn { border-color: #c90; background: #fffbe6; }
+  code { background: #eee; padding: 1px 4px; border-radius: 3px; font-size: .8em; }
+  .toc { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 1rem 2rem; margin: 1rem 0; }
+  .toc a { color: #5B72C4; text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .toc li { margin: .3rem 0; }
+  .interaction-table td:first-child { font-weight: 500; }
+  .section-toggle { cursor: pointer; user-select: none; }
+  .section-toggle:hover { opacity: .7; }
+</style>
+</head>
+<body>
+
+<h1>🔬 Varredura Completa de Arquivos .md</h1>
+<p>MilesControl — 2026-07-10</p>
+
+<div class="toc">
+<h3>Índice</h3>
+<ol>
+  <li><a href="#summary">Resumo Executivo</a></li>
+  <li><a href="#categorias">Categorias de Arquivos</a></li>
+  <li><a href="#interaction">Matriz de Interação entre Arquivos</a></li>
+  <li><a href="#orphans">Arquivos Órfãos</a></li>
+  <li><a href="#automation">Gaps de Automação</a></li>
+  <li><a href="#harness">Skill Activation &amp; Harness Integration</a></li>
+  <li><a href="#hierarchy">Hierarquia de Ativação (Workflow)</a></li>
+  <li><a href="#recommendations">Recomendações</a></li>
+</ol>
+</div>
+
+<h2 id="summary">📊 Resumo Executivo</h2>
+
+<div class="summary-box">
+<div class="summary-grid">
+  <div class="summary-card">
+    <div class="num" style="color: #5B72C4;">48</div>
+    <div class="label">Total de arquivos .md</div>
+  </div>
+  <div class="summary-card">
+    <div class="num" style="color: #0a0;">19</div>
+    <div class="label">Com referências cruzadas</div>
+  </div>
+  <div class="summary-card">
+    <div class="num" style="color: #c00;">29</div>
+    <div class="label">Órfãos (0 referências)</div>
+  </div>
+  <div class="summary-card">
+    <div class="num" style="color: #c00;">9</div>
+    <div class="label">Gaps de automação</div>
+  </div>
+  <div class="summary-card">
+    <div class="num" style="color: #c90;">5</div>
+    <div class="label">Promessas quebradas em docs</div>
+  </div>
+  <div class="summary-card">
+    <div class="num" style="color: #0a0;">8</div>
+    <div class="label">Skills/prompts ativos</div>
+  </div>
+</div>
+</div>
+
+<h2 id="categorias">📁 Categorias</h2>
+
+<table>
+<tr><th>Categoria</th><th>Total</th><th>Referenciados</th><th>Órfãos</th><th>Descrição</th></tr>
+<tr>
+  <td><strong>Raiz</strong></td>
+  <td>5</td>
+  <td>3</td>
+  <td class="fail">2</td>
+  <td>AGENTS, HANDOFF, MEMORY, CHANGELOG, README</td>
+</tr>
+<tr>
+  <td><strong>docs/ (núcleo)</strong></td>
+  <td>15</td>
+  <td>12</td>
+  <td class="fail">3</td>
+  <td>STACK, ARCHITECTURE, CONVENTIONS, WORKFLOW, etc.</td>
+</tr>
+<tr>
+  <td><strong>docs/council/</strong></td>
+  <td>7</td>
+  <td class="fail">2</td>
+  <td class="fail">5</td>
+  <td>Vereditos do LLM Council</td>
+</tr>
+<tr>
+  <td><strong>docs/superpowers/plans/</strong></td>
+  <td>5</td>
+  <td class="fail">0</td>
+  <td class="fail">5</td>
+  <td>Planos de implementação</td>
+</tr>
+<tr>
+  <td><strong>docs/superpowers/specs/</strong></td>
+  <td>14</td>
+  <td class="warn">3</td>
+  <td class="fail">11</td>
+  <td>Design specs (histórico)</td>
+</tr>
+<tr>
+  <td><strong>Skills/Prompts</strong></td>
+  <td>8</td>
+  <td>8</td>
+  <td class="ok">0</td>
+  <td>.pi/skills, .opencode/skills, .pi/prompts</td>
+</tr>
+<tr>
+  <td><strong>Testes</strong></td>
+  <td>1</td>
+  <td class="fail">0</td>
+  <td class="fail">1</td>
+  <td>tests/fluxo-relatorio.md</td>
+</tr>
+</table>
+
+<h2 id="interaction">🔗 Matriz de Interação</h2>
+
+<p>Cada arquivo abaixo é listado com quantos outros arquivos .md o referenciam
+e quantos arquivos em <code>src/</code> o mencionam.</p>
+
+<table>
+<tr><th>Rank</th><th>Arquivo</th><th>R (outros .md)</th><th>S (src/)</th><th>Status</th></tr>
+
+<tr><td>1</td><td>HANDOFF.md</td><td>6</td><td>0</td><td class="ok">✅</td></tr>
+<tr><td>2</td><td>WORKFLOW.md</td><td>7</td><td>0</td><td class="ok">✅</td></tr>
+<tr><td>2</td><td>TESTING.md</td><td>7</td><td>0</td><td class="ok">✅</td></tr>
+<tr><td>3</td><td>CONVENTIONS.md</td><td>6</td><td>0</td><td class="ok">✅</td></tr>
+<tr><td>4</td><td>AGENDA.md</td><td>5</td><td>0</td><td class="ok">✅</td></tr>
+<tr><td>5</td><td>ARCHITECTURE.md</td><td>4</td><td>0</td><td class="ok">✅</td></tr>
+<tr><td>6</td><td>AGENTS.md</td><td>1</td><td>0</td><td class="ok">✅</td></tr>
+<tr><td>6</td><td>MAP.md</td><td>1</td><td>0</td><td class="ok">✅</td></tr>
+<tr><td>6</td><td>STACK.md</td><td>2</td><td>0</td><td class="ok">✅</td></tr>
+<tr><td>6</td><td>UI-GUIDE.md</td><td>2</td><td>0</td><td class="ok">✅</td></tr>
+<tr><td>6</td><td>GIT-WORKFLOW.md</td><td>2</td><td>0</td><td class="ok">✅</td></tr>
+<tr><td>6</td><td>MAPA-EXPERIENCIAS-USUARIO.md</td><td>2</td><td>0</td><td class="ok">✅</td></tr>
+<tr><td>6</td><td>TEST-PLAN.md</td><td>2</td><td>0</td><td class="ok">✅</td></tr>
+<tr><td>7</td><td>MEMORY.md</td><td>2</td><td>0</td><td class="ok">✅</td></tr>
+<tr><td>8</td><td>CHANGELOG.md</td><td>0</td><td>0</td><td class="fail">🔴</td></tr>
+<tr><td>8</td><td>README.md</td><td>0</td><td>0</td><td class="fail">🔴</td></tr>
+</table>
+
+<h2 id="orphans">👻 Arquivos Órfãos (29)</h2>
+
+<p>Nenhum outro arquivo .md ou src/ referencia estes arquivos. Eles existem
+no repositório mas não fazem parte de nenhum fluxo ativo.</p>
+
+<h3 class="section-toggle">🔴 Raiz (2)</h3>
+<ul>
+  <li><code>CHANGELOG.md</code> — changelog histórico, sem link em nenhum doc</li>
+  <li><code>README.md</code> — landing page do repositório</li>
+</ul>
+
+<h3 class="section-toggle">🔴 docs/ (3)</h3>
+<ul>
+  <li><code>docs/SPRINT5-QUICKSTART.md</code> — guia rápido da Sprint #5 (junho), referenciado apenas por si mesmo</li>
+  <li><code>docs/mobile-ios-notes.md</code> — notas específicas de iOS, não referenciado</li>
+  <li><code>docs/progress.md</code> — artefato do planning-with-files, obsoleto</li>
+  <li><code>docs/task_plan.md</code> — artefato do planning-with-files, obsoleto</li>
+</ul>
+
+<h3 class="section-toggle">🔴 docs/council/ (5)</h3>
+<ul>
+  <li><code>2026-07-09-busca-global-veredito.md</code></li>
+  <li><code>2026-07-09-notificacoes-push-veredito.md</code></li>
+  <li><code>2026-07-09-pdf-export-relatorios-veredito.md</code></li>
+  <li><code>2026-07-09-priorizacao-backlog-veredito.md</code></li>
+  <li><code>2026-07-10-novas-convencoes-code-review-veredito.md</code></li>
+</ul>
+
+<h3 class="section-toggle">🔴 docs/superpowers/plans/ (5)</h3>
+<ul>
+  <li><code>2026-06-30-dashboard-milhas-pontos.md</code></li>
+  <li><code>2026-07-08-entradas-refactor.md</code></li>
+  <li><code>2026-07-08-vendas-extract-components.md</code></li>
+  <li><code>2026-07-09-modo-offline-plan.md</code></li>
+  <li><code>code-splitting-recharts.md</code></li>
+</ul>
+
+<h3 class="section-toggle">🔴 docs/superpowers/specs/ (11)</h3>
+<ul>
+  <li><code>2026-05-28-milescontrol-redesign-visual.md</code></li>
+  <li><code>2026-06-19-configuracoes-relacionamentos-design.md</code></li>
+  <li><code>2026-06-19-criacao-conta-design.md</code></li>
+  <li><code>2026-06-20-vendas-milhas-inline-client-design.md</code></li>
+  <li><code>2026-06-21-transferencia-tipo-nativo-design.md</code></li>
+  <li><code>2026-06-21-transferencias-estoque-ciclo-passageiros-design.md</code></li>
+  <li><code>2026-06-22-supabase-backend-design.md</code></li>
+  <li><code>2026-06-23-mobile-responsiveness-design.md</code></li>
+  <li><code>2026-06-28-deletion-with-confirmation-design.md</code></li>
+  <li><code>2026-06-30-dashboard-milhas-pontos-design.md</code></li>
+  <li><code>2026-07-08-vendas-extract-components-design.md</code></li>
+  <li><code>separacao-contas-pontos-milhas.md</code></li>
+</ul>
+
+<h3 class="section-toggle">🔴 Outros (1)</h3>
+<ul>
+  <li><code>tests/fluxo-relatorio.md</code> — relatório de fluxo de testes, solto</li>
+</ul>
+
+<h2 id="automation">⚙️ Gaps de Automação</h2>
+
+<table>
+<tr><th>#</th><th>O que a doc promete</th><th>Onde</th><th>Realidade</th><th>Severidade</th></tr>
+<tr>
+  <td>1</td>
+  <td>"Hook de pre-push bloqueia se esquecer" (relatório HTML)</td>
+  <td>AGENTS.md regra #7</td>
+  <td class="fail">Nenhum pre-push hook existe no repositório</td>
+  <td><span class="badge badge-red">alta</span></td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>"Bateria pré-deploy: build + testes E2E"</td>
+  <td>AGENTS.md regra #4</td>
+  <td class="fail">Nenhum CI/CD configurado. Deploy manual via <code>vercel --prod</code></td>
+  <td><span class="badge badge-red">alta</span></td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>Fluxo: branch → PR → develop → main</td>
+  <td>docs/GIT-WORKFLOW.md</td>
+  <td class="fail">develop está 89 commits atrás de main. Na prática toda branch PR direto pra main</td>
+  <td><span class="badge badge-yellow">média</span></td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>"Testes E2E" no package scripts — não tem script de teste E2E</td>
+  <td>package.json scripts</td>
+  <td class="warn">Só <code>npm test</code> (vitest unitário). <code>test:e2e</code> não existe</td>
+  <td><span class="badge badge-yellow">média</span></td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>Handoff skill: "adicione em .opencode/settings.json para OpenCode"</td>
+  <td>AGENTS.md, handoff/SKILL.md</td>
+  <td class="warn">.opencode/settings.json não existe</td>
+  <td><span class="badge badge-yellow">média</span></td>
+</tr>
+<tr>
+  <td>6</td>
+  <td>Handoff skill: "adicione em .claude/settings.local.json para Claude Code"</td>
+  <td>AGENTS.md</td>
+  <td class="warn">.claude/ não existe</td>
+  <td><span class="badge badge-yellow">média</span></td>
+</tr>
+<tr>
+  <td>7</td>
+  <td>Relatório HTML obrigatório antes de PR</td>
+  <td>AGENTS.md regra #7</td>
+  <td class="warn">Nenhum hook ou ferramenta automática verifica. Só disciplina manual</td>
+  <td><span class="badge badge-yellow">média</span></td>
+</tr>
+<tr>
+  <td>8</td>
+  <td>Limpeza obrigatória antes de PR/merge</td>
+  <td>AGENTS.md regra #9, CONVENTIONS.md</td>
+  <td class="warn">Sem verificação automatizada</td>
+  <td><span class="badge badge-yellow">média</span></td>
+</tr>
+<tr>
+  <td>9</td>
+  <td>Council verdicts salvos em docs/council/</td>
+  <td>council-to-superpowers SKILL.md</td>
+  <td class="warn">5/7 council verdicts não linkados por nenhum outro arquivo</td>
+  <td><span class="badge badge-green">baixa</span></td>
+</tr>
+</table>
+
+<h2 id="harness">🤖 Integração com Harnesses (pi, OpenCode, Claude Code)</h2>
+
+<h3>pi (harness principal)</h3>
+<table>
+<tr><th>Item</th><th>Status</th></tr>
+<tr><td>Projeto carrega skills de <code>.pi/skills/</code> (council-to-superpowers, handoff)</td><td class="ok">✅</td></tr>
+<tr><td>Projeto carrega skills globais <code>~/.config/opencode/skills/</code> (ponytail, caveman, etc.)</td><td class="ok">✅ configurado em .pi/settings.json</td></tr>
+<tr><td>Ponytail mode ativo via pacote NPM</td><td class="ok">✅ em ~/.pi/agent/settings.json</td></tr>
+<tr><td>Superpowers package instalado</td><td class="ok">✅</td></tr>
+<tr><td>Prompt templates em <code>.pi/prompts/</code> (deploy, report, sprint, migration)</td><td class="ok">✅ 4 templates</td></tr>
+<tr><td>Sessões salvas em <code>.pi/sessions/</code></td><td class="ok">✅</td></tr>
+<tr><td>Config de compactação (reserveTokens, keepRecentTokens)</td><td class="ok">✅</td></tr>
+<tr><td>Tema personalizado: mileage-dark</td><td class="ok">✅</td></tr>
+<tr><td>Console extensions</td><td class="warn">⚠️ nenhuma</td></tr>
+<tr><td>Agentes subordinados (subagent tool)</td><td class="warn">⚠️ cavecrew no opencode, não no pi</td></tr>
+</table>
+
+<h3>OpenCode (harness secundário)</h3>
+<table>
+<tr><th>Item</th><th>Status</th></tr>
+<tr><td>Skills instaladas globalmente (caveman, ponytail, council-to-superpowers, etc.)</td><td class="ok">✅</td></tr>
+<tr><td>Projeto .opencode/skills/ (3 skills: council-to-superpowers, ponytail, frontend-design)</td><td class="ok">✅</td></tr>
+<tr><td>.opencode/settings.json (handoff integration)</td><td class="fail">🔴 não existe</td></tr>
+<tr><td>Plugin caveman carregado</td><td class="ok">✅ em opencode.json</td></tr>
+</table>
+
+<h3>Claude Code (harness terciário — cross-harness)</h3>
+<table>
+<tr><th>Item</th><th>Status</th></tr>
+<tr><td>.claude/settings.local.json</td><td class="fail">🔴 não existe — referido em AGENTS.md</td></tr>
+</table>
+
+<h3>Cadeia de Ativação de Skills</h3>
+<pre>
+┌─────────────────────────────────────────────────────┐
+│               COUNCIL-TO-SUPERPOWERS                 │
+│  (acionado por: "criar", "adicionar", "refatorar")   │
+└─────────────┬────────────────────┬───────────────────┘
+              │                    │
+              ▼                    ▼
+    ┌─────────────────┐   ┌───────────────────┐
+    │  AGENTS.md      │   │  LLM Council      │
+    │  → STACK.md     │   │  → 5 advisors     │
+    │  → ARCHITECTURE │   │  → peer review    │
+    │  → CONVENTIONS  │   │  → chairman       │
+    │  → WORKFLOW.md  │   │  → docs/council/  │
+    │  → UI-GUIDE.md  │   │    (veredito)     │
+    │  → AGENDA.md    │   └────────┬──────────┘
+    │  → GIT-WORKFLOW │            │
+    │  → TESTING.md   │            ▼
+    └─────────────────┘   ┌───────────────────┐
+                          │  SUPERPOWERS      │
+                          │  → brainstorming  │
+                          │  → writing-plans  │
+                          │  → git-worktrees  │
+                          │  → TDD            │
+                          │  → code-review    │
+                          │  → docs/reports/  │
+                          └───────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│                  HANDOFF skill                       │
+│  (início de sessão: lê HANDOFF.md)                  │
+│  (antes de /new: salva HANDOFF.md)                  │
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│                  PONYTAIL mode                       │
+│  (ativo permanentemente no projeto: full)            │
+│  Governa COMO construir, não O QUE construir         │
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│          PI PROMPTS (acionados manualmente)          │
+│  /deploy → checklist pré-deploy                     │
+│  /sprint → lê AGENDA.md → exibe sprint board        │
+│  /report → gera relatório HTML em docs/reports/     │
+│  /migration → gera SQL para Supabase                │
+└─────────────────────────────────────────────────────┘
+</pre>
+
+<h2 id="hierarchy">📐 Hierarquia de Ativação Atual</h2>
+
+<table>
+<tr><th>Nível</th><th>Arquivo</th><th>Quem ativa</th><th>Como</th></tr>
+<tr>
+  <td>1</td>
+  <td><code>AGENTS.md</code></td>
+  <td>council-to-superpowers skill</td>
+  <td>Skill lê AGENTS.md manualmente (regra 15-22)</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>HANDOFF.md</code></td>
+  <td>handoff skill + AGENTS.md regra #8</td>
+  <td>Início de sessão / antes de /new</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>docs/AGENDA.md</code></td>
+  <td>AGENTS.md (início de sessão) + /sprint prompt</td>
+  <td>Leitura manual + prompt template</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>docs/WORKFLOW.md</code></td>
+  <td>AGENTS.md (início de sessão) + council skill</td>
+  <td>Leitura manual</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>docs/ARCHITECTURE.md</code></td>
+  <td>AGENTS.md (início de sessão)</td>
+  <td>Leitura manual</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>docs/CONVENTIONS.md</code></td>
+  <td>AGENTS.md (início de sessão)</td>
+  <td>Leitura manual</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>docs/STACK.md</code></td>
+  <td>AGENTS.md (sumário executivo)</td>
+  <td>Consulta sob demanda</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>docs/UI-GUIDE.md</code></td>
+  <td>AGENTS.md (sumário executivo)</td>
+  <td>Consulta sob demanda</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>docs/GIT-WORKFLOW.md</code></td>
+  <td>AGENTS.md + WORKFLOW.md</td>
+  <td>Consulta sob demanda</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>docs/TESTING.md</code></td>
+  <td>AGENTS.md + GIT-WORKFLOW.md</td>
+  <td>Pré-deploy / PR</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>docs/MAP.md</code></td>
+  <td>AGENTS.md (último item)</td>
+  <td>Consulta sob demanda</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>docs/council/*</code></td>
+  <td>council-to-superpowers skill (Fase 1)</td>
+  <td>Salvo após cada council, maioria não relido</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>docs/superpowers/specs/*</code></td>
+  <td>Superpowers skill (brainstorming)</td>
+  <td>Salvo, maioria não relido</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>docs/superpowers/plans/*</code></td>
+  <td>Superpowers skill (writing-plans)</td>
+  <td>Salvo, nenhum relido ativamente</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>docs/reports/*.html</code></td>
+  <td>AGENTS.md regra #7 + /report prompt</td>
+  <td>Gerado antes de cada PR</td>
+</tr>
+</table>
+
+<h2>🔄 Fluxo Real de Trabalho vs. Documentado</h2>
+
+<table>
+<tr><th>Etapa</th><th>Documentado</th><th>Realidade</th></tr>
+<tr>
+  <td>Criar branch</td>
+  <td>Branch de develop</td>
+  <td class="warn">Branch de main (develop 89 commits behind)</td>
+</tr>
+<tr>
+  <td>PR destino</td>
+  <td>develop</td>
+  <td class="warn">main (direto)</td>
+</tr>
+<tr>
+  <td>CI test</td>
+  <td>"Bateria pré-deploy"</td>
+  <td class="fail">Manual (npm run build + npx playwright test)</td>
+</tr>
+<tr>
+  <td>Pre-push hook</td>
+  <td>Bloqueia se relatório faltar</td>
+  <td class="fail">Inexistente</td>
+</tr>
+<tr>
+  <td>Deploy</td>
+  <td>Automático via push</td>
+  <td class="fail">Manual via vercel --prod</td>
+</tr>
+<tr>
+  <td>Relatório HTML</td>
+  <td>/report prompt template</td>
+  <td class="ok">Manual, mas seguido consistentemente</td>
+</tr>
+<tr>
+  <td>Handoff</td>
+  <td>Skill automática</td>
+  <td class="ok">Seguido (início/fim de sessão)</td>
+</tr>
+<tr>
+  <td>Council workflow</td>
+  <td>Obrigatório pra features</td>
+  <td class="warn">Bugfixes pulam (ok), mas docs não linkados</td>
+</tr>
+</table>
+
+<h2 id="recommendations">💡 Recomendações</h2>
+
+<h3>Prioridade Alta — Automação quebrada</h3>
+<ol>
+  <li><strong>Criar GitHub Actions workflow:</strong> CI com build + testes E2E em cada PR. Substitui a "bateria manual"</li>
+  <li><strong>Criar pre-push hook:</strong> Verifica se relatório HTML existe em <code>docs/reports/</code> antes de permitir push (cumpre a promessa de AGENTS.md regra #7)</li>
+  <li><strong>Adicionar script <code>test:e2e</code> ao package.json:</strong> <code>"test:e2e": "playwright test"</code></li>
+  <li><strong>Sincronizar develop com main:</strong> 89 commits de diferença — ou matar develop de vez (só usar main + branches)</li>
+</ol>
+
+<h3>Prioridade Média — Arquivos órfãos</h3>
+<ol>
+  <li><strong>docs/council/ (5 órfãos):</strong> Adicionar links nos AGENTS.md ou AGENDA.md para cada veredito relevante</li>
+  <li><strong>docs/superpowers/specs/ (11 órfãos):</strong> Mover para <code>docs/archive/</code> ou adicionar referências no MAP.md</li>
+  <li><strong>docs/superpowers/plans/ (5 órfãos):</strong> Mesmo — ou arquivar</li>
+  <li><strong>CHANGELOG.md:</strong> Adicionar link no README.md ou AGENTS.md</li>
+  <li><strong>README.md:</strong> Ou referenciar de AGENTS.md ou mover para docs/</li>
+  <li><strong>SPRINT5-QUICKSTART.md, mobile-ios-notes.md:</strong> Arquivar se não mais relevantes</li>
+  <li><strong>task_plan.md, progress.md:</strong> Artefatos do planning-with-files — limpar</li>
+</ol>
+
+<h3>Prioridade Baixa — Cross-harness</h3>
+<ol>
+  <li>Criar <code>.opencode/settings.json</code> com referência ao handoff skill</li>
+  <li>Criar <code>.claude/settings.local.json</code> com referência ao handoff skill</li>
+  <li>Adicionar CI/CD com GitHub Actions (testes automáticos em cada PR)</li>
+</ol>
+
+<h2>📊 Cobertura de Skills x Arquivos</h2>
+
+<table>
+<tr><th>Skill</th><th>Arquivos que deveria ler/acionar</th><th>Lê de fato?</th></tr>
+<tr><td>council-to-superpowers</td><td>AGENTS.md, docs/STACK.md, docs/ARCHITECTURE.md, docs/CONVENTIONS.md, docs/UI-GUIDE.md, docs/WORKFLOW.md, docs/AGENDA.md, docs/GIT-WORKFLOW.md, docs/TESTING.md, docs/MAP.md</td><td class="ok">✅ Lê AGENTS.md, que referencia os demais</td></tr>
+<tr><td>handoff</td><td>HANDOFF.md</td><td class="ok">✅</td></tr>
+<tr><td>ponytail</td><td>(governa estilo de código, não lê .md específicos)</td><td class="ok">✅</td></tr>
+<tr><td>/sprint prompt</td><td>docs/AGENDA.md</td><td class="ok">✅</td></tr>
+<tr><td>/report prompt</td><td>(gera docs/reports/*.html)</td><td class="ok">✅</td></tr>
+<tr><td>/deploy prompt</td><td>(checklist, não lê .md)</td><td class="ok">✅</td></tr>
+</table>
+
+<hr>
+<h2>📝 Correções Aplicadas (2026-07-10)</h2>
+
+<table>
+<tr><th>Arquivo</th><th>O que estava errado</th><th>Correção</th></tr>
+<tr>
+  <td>AGENTS.md</td>
+  <td>Regra #7: "Hook de pre-push bloqueia" — hook não existe</td>
+  <td>Alterado para "⚠️ Nenhum hook automático ainda — manual"</td>
+</tr>
+<tr>
+  <td>docs/WORKFLOW.md</td>
+  <td>"npm test passa (35/35)?" desatualizado; skills obsoletas (subagent, git-worktrees)</td>
+  <td>40/40; Fase 2 simplificada</td>
+</tr>
+<tr>
+  <td>docs/ARCHITECTURE.md</td>
+  <td>Faltando 8+ novos arquivos (DeleteConfirmDialog, GlobalSearch, KeyboardShortcutsHelp, LanguageSelector, I18nContext, useKeyboardShortcuts, useDatabase/ split, logger, i18n, etc.)</td>
+  <td>Árvore completa atualizada</td>
+</tr>
+<tr>
+  <td>docs/GIT-WORKFLOW.md</td>
+  <td>Referenciava develop (89 commits atrás), deploy automático (não é)</td>
+  <td>Fluxo: branch → main; deploy manual; develop deprecated</td>
+</tr>
+<tr>
+  <td>docs/CONVENTIONS.md</td>
+  <td>useDatabase.ts (split), origin/develop no comando diff</td>
+  <td>useDatabase/ diretório; origin/main</td>
+</tr>
+<tr>
+  <td>docs/STACK.md</td>
+  <td>opencode.jsonc (não existe), skills desatualizadas</td>
+  <td>opencode.json; lista atualizada</td>
+</tr>
+<tr>
+  <td>docs/TESTING.md</td>
+  <td>Faltando 6 arquivos de teste antigos + registerUser()</td>
+  <td>Tabela completa (15 arquivos); seção registerUser</td>
+</tr>
+<tr>
+  <td>docs/MAP.md</td>
+  <td>Faltando TEST-PLAN.md, MAPA-EXPERIENCIAS-USUARIO.md</td>
+  <td>Adicionados + docs históricos arquivados</td>
+</tr>
+</table>
+
+<p style="color: #888; font-size: .8rem; text-align: center;">
+Relatório gerado em 2026-07-10 · Varredura automatizada de 48 arquivos .md ·
+8 arquivos corrigidos · MilesControl
+</p>
+
+</body>
+</html>

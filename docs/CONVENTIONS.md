@@ -15,7 +15,7 @@
 ## Organização de Código
 
 - **Business logic** → `src/lib/*.ts` (funções puras, sem React/Supabase)
-- **Queries/mutations** → `src/hooks/useDatabase.ts`
+- **Queries/mutations** → `src/hooks/useDatabase/` (split por entidade)
 - **Componentes de UI** → `src/components/`
 - **Páginas** → `src/pages/`
 - **Ponto único de alteração**: cada regra de negócio em 1 arquivo apenas
@@ -45,11 +45,13 @@
 ```tsx
 // ✅ Correto
 import { MetricCard } from "@/components/MetricCard"
-import { useDatabase } from "@/hooks/useDatabase"
+import { useAddOwnerMutation } from "@/hooks/useDatabase"
+import { useData } from "@/contexts/DataContext"
 import { formatCPF } from "@/lib/utils"
 
 // ❌ Evitar
 import { MetricCard } from "../../components/MetricCard"
+import { useDatabase } from "@/hooks/useDatabase" // barrel ok, mas prefira o hook específico
 ```
 
 ## HANDOFF.md — Atualização Obrigatória Pós-PR
@@ -68,7 +70,7 @@ Isso garante continuidade entre sessões sem perda de contexto.
 Passo final obrigatório do workflow (ver `WORKFLOW.md` etapa 8).
 
 Use `/report` (template em `.pi/prompts/report.md`) que:
-1. Obtém o diff: `git diff $(git merge-base HEAD origin/develop)..HEAD`
+1. Obtém o diff: `git diff $(git merge-base HEAD origin/main)..HEAD`
 2. Extrai antes/depois, benefícios e estimativa de tokens
 3. Gera HTML em `docs/reports/<data>-<nome>.html`
 4. Versiona o relatório junto com o código
