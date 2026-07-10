@@ -119,6 +119,33 @@ Regra: **zero arquivos uncommitted** ao sair. Isso inclui:
 
 **Exceção:** apenas arquivos em `.gitignore` (node_modules, .env, test-results/).
 
+## Hierarquia de Providers — OBRIGATÓRIO
+
+**Toda componente que usa um Context DEVE estar dentro do Provider correspondente.**
+
+Antes de adicionar `useData()`, `useAuth()`, ou qualquer hook de contexto em um componente, verifique a árvore de providers no `App.tsx`.
+
+```tsx
+// ❌ ERRADO: BottomTabBar usa useData() mas está FORA de DataProvider
+<DataProvider>
+  <main>{children}</main>
+</DataProvider>
+<BottomTabBar />  // ❌ crash: useData() sem DataProvider
+
+// ✅ CORRETO: BottomTabBar está DENTRO de DataProvider
+<DataProvider>
+  <main>{children}</main>
+  <BottomTabBar />  // ✅ funciona
+</DataProvider>
+```
+
+**Regra:** Se um componente precisa de dados do contexto, ele DEVE estar na sub-árvore do Provider.
+
+**Checklist antes de PR:**
+- [ ] Todo componente que usa `useData()` está dentro de `DataProvider`?
+- [ ] Todo componente que usa `useAuth()` está dentro de `AuthProvider`?
+- [ ] A hierarquia de providers está correta no `App.tsx`?
+
 ## Invariantes Financeiras — OBRIGATÓRIO
 
 Toda operação que altera saldo de conta DEVE ter uma inversão espelhada testada.

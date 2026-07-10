@@ -78,6 +78,11 @@ Antes de criar qualquer PR, executar este checklist:
 - [ ] Nenhum `.push()` / `.splice()` muta array de `useState`?
 - [ ] Dados de props/contexto são tratados como imutáveis?
 
+### 2.5. Hierarquia de Providers
+- [ ] Todo componente que usa `useData()` está dentro de `DataProvider`?
+- [ ] Todo componente que usa `useAuth()` está dentro de `AuthProvider`?
+- [ ] Nenhum componente está renderizado FORA do seu Provider?
+
 ### 3. Promessas de UI
 - [ ] Mensagens de UI são cumpridas pelo código?
 - [ ] Loading states são consistentes com operações reais?

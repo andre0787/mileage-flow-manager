@@ -1,6 +1,6 @@
 # HANDOFF — Sprint #6 Completa + Code Review + Novas Convenções
 
-## Status: ✅ Code Review + Council + Hotfix completo
+## Status: ✅ Code Review + Council + Hotfix completo (tela preta resolvida)
 
 ### Último trabalho: 2026-07-10
 
@@ -17,6 +17,10 @@
 - **Fix:** Force reload on version change (previne SW cache stale)
 - **Fix:** Supabase client não crasha se env vars faltam
 - **Fix:** Remove SkeletonHero import (deletado mas importado no Dashboard)
+- **Fix:** ROOT CAUSE — DataProvider movido acima de AppSidebar/BottomTabBar
+  - AppSidebar e BottomTabBar usavam useData() mas estavam FORA do DataProvider
+  - Causava crash silencioso → tela preta
+- **Docs:** Hierarquia de Providers adicionada ao CONVENTIONS.md e WORKFLOW.md
 - **Test:** Smoke tests para prevenir tela preta futuramente
 
 ### Mudanças no PR #65
