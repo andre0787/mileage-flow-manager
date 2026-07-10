@@ -108,19 +108,27 @@
 
 ---
 
-## Próximos passos
+## Sprint A — ✅ CONCLUÍDA
 
-### Sprint A (🔴 Prioridade Máxima) — Fundação de Automação
-- [ ] CI workflow (`.github/workflows/ci.yml`) — build + tests em todo PR
-- [ ] Deploy workflow (`.github/workflows/deploy.yml`) — auto-deploy Vercel
-- [ ] `test:e2e` script no package.json
-- [ ] Matar `develop` (89 commits atrás de main) + atualizar docs
+### Feito
+- [x] `.github/workflows/ci.yml` — CI pipeline (build + lint + 40 unit + 67 E2E)
+- [x] `.github/workflows/deploy.yml` — Deploy automático Vercel no merge
+- [x] `test:e2e` e `test:e2e:ui` no package.json
+- [x] `develop` removido (89 commits atrás)
+- [x] AGENTS.md, GIT-WORKFLOW.md, WORKFLOW.md atualizados
+- [x] PR #72 criado: https://github.com/andre0787/mileage-flow-manager/pull/72
+- [x] Relatório: `docs/reports/PR72-2026-07-10-sprint-a-automacao-fundacao.html`
+
+### Pendente pós-PR
+- [ ] Configurar secrets VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID no GitHub Actions
+
+## Próximos passos
 
 ### Sprint B (🟡 Alta) — Limpeza & Confiabilidade
 - [ ] Arquivar 29 órfãos em `docs/archive/`
 - [ ] Cross-harness config (`.opencode/settings.json`, `.claude/settings.local.json`)
 - [ ] Script `scripts/verify-docs.mjs` — varredura automatizada
-- [ ] Atualizar docs núcleo (AGENTS, WORKFLOW, CONVENTIONS, MAP)
+- [ ] Atualizar docs núcleo (CONVENTIONS, MAP)
 
 ### Sprint C (🟢 Média) — Polimento & Prevenção
 - [ ] Varredura automática no CI (semanal + manual)
