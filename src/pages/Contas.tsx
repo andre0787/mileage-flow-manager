@@ -4,11 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "@/components/EmptyState";
+import { Pagination } from "@/components/Pagination";
 import { SkeletonMetricCard } from "@/components/SkeletonLoader";
 import { useData } from "@/contexts/DataContext";
 import { useUpdateAccountMutation, useDeleteAccountMutation } from "@/hooks/useDatabase";
 import AccountDialog from "@/components/AccountDialog";
 import type { Account } from "@/types";
+
+const ITEMS_PER_PAGE = 20
 
 export default function Contas() {
   const { accounts, owners, programs, isLoading } = useData();
@@ -18,9 +21,13 @@ export default function Contas() {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [editAccount, setEditAccount] = useState<Account | undefined>(undefined);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filteredAccounts =
     filterType === "todas" ? accounts : accounts.filter((a) => a.type === filterType);
+
+  const totalPages = Math.ceil(filteredAccounts.length / ITEMS_PER_PAGE);
+  const paginatedAccounts = filteredAccounts.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id;
   const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id;
@@ -118,7 +125,7 @@ export default function Contas() {
         />
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filteredAccounts.map((account) => (
+          {paginatedAccounts.map((account) => (
             <Card
               key={account.id}
               className="shadow-card hover:shadow-elegant hover:-translate-y-0.5 transition-all duration-200"
@@ -212,6 +219,15 @@ export default function Contas() {
               </CardContent>
             </Card>
           ))}
+        </div>
+      )}
+
+      {filteredAccounts.length > ITEMS_PER_PAGE && (
+        <div className="mt-6 flex flex-col items-center gap-2">
+          <span className="text-xs text-muted-foreground">
+            Mostrando {(currentPage - 1) * ITEMS_PER_PAGE + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, filteredAccounts.length)} de {filteredAccounts.length}
+          </span>
+          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
         </div>
       )}
 

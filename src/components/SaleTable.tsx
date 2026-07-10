@@ -18,6 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Pagination } from "@/components/Pagination";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -38,8 +39,13 @@ interface SaleTableProps {
   onCreateClick?: () => void;
 }
 
+const ITEMS_PER_PAGE = 20
+
 export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick }: SaleTableProps) {
   const [cancelConfirmId, setCancelConfirmId] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1)
+  const totalPages = Math.ceil(sales.length / ITEMS_PER_PAGE)
+  const paginatedSales = sales.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
 
   if (sales.length === 0) {
     return (
@@ -91,7 +97,7 @@ export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick }: Sa
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {sales.map((sale) => (
+                {paginatedSales.map((sale) => (
                   <TableRow
                     key={sale.id}
                     className={sale.status === "cancelado" ? "opacity-50" : ""}
@@ -167,7 +173,7 @@ export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick }: Sa
 
           {/* Mobile card list */}
           <div className="md:hidden space-y-3">
-            {sales.map((sale) => (
+            {paginatedSales.map((sale) => (
               <div
                 key={sale.id}
                 className={`border rounded-lg p-4 space-y-3 ${sale.status === "cancelado" ? "opacity-50" : ""}`}
@@ -273,6 +279,15 @@ export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick }: Sa
           </div>
         </CardContent>
       </Card>
+
+      {sales.length > ITEMS_PER_PAGE && (
+        <div className="mt-4 flex flex-col items-center gap-2">
+          <span className="text-xs text-muted-foreground">
+            Mostrando {(currentPage - 1) * ITEMS_PER_PAGE + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, sales.length)} de {sales.length}
+          </span>
+          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+        </div>
+      )}
 
       <AlertDialog
         open={!!cancelConfirmId}

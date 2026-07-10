@@ -1,10 +1,14 @@
+import { useState } from "react"
 import { Package, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { EmptyState } from "@/components/EmptyState"
 import { DeleteEntryDialog } from "@/components/DeleteEntryDialog"
+import { Pagination } from "@/components/Pagination"
 import type { PointEntry, Account, OrigemType, Program, Owner } from "@/types"
+
+const ITEMS_PER_PAGE = 20
 
 interface EntryTableProps {
   type: "pontos" | "milhas"
@@ -27,7 +31,11 @@ export function EntryTable({
   owners,
   onEdit,
   onConfirm,
+  onCreateClick,
 }: EntryTableProps) {
+  const [currentPage, setCurrentPage] = useState(1)
+  const totalPages = Math.ceil(entries.length / ITEMS_PER_PAGE)
+  const paginatedEntries = entries.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
   const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id
   const origemTypeName = (id: string) => {
     const ot = origemTypes.find((ot) => ot.id === id)
@@ -171,7 +179,7 @@ export function EntryTable({
                 </TableCell>
               </TableRow>
             ) : (
-              entries.map((entry) => (
+              paginatedEntries.map((entry) => (
                 <TableRow key={entry.id}>
                   <TableCell className="hidden md:table-cell">{new Date(entry.date).toLocaleDateString("pt-BR")}</TableCell>
                   <TableCell className="hidden md:table-cell">
@@ -211,9 +219,18 @@ export function EntryTable({
             action={onCreateClick ? { label: "Nova Entrada", onClick: onCreateClick } : undefined}
           />
         ) : (
-          entries.map(renderMobileCard)
+          paginatedEntries.map(renderMobileCard)
         )}
       </div>
+
+      {entries.length > ITEMS_PER_PAGE && (
+        <div className="mt-4 flex flex-col items-center gap-2">
+          <span className="text-xs text-muted-foreground">
+            Mostrando {(currentPage - 1) * ITEMS_PER_PAGE + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, entries.length)} de {entries.length}
+          </span>
+          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+        </div>
+      )}
     </>
   )
 }

@@ -24,6 +24,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { EmptyState } from "@/components/EmptyState";
+import { Pagination } from "@/components/Pagination";
 import { SkeletonMetricCard, SkeletonTable } from "@/components/SkeletonLoader";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
@@ -33,6 +34,8 @@ import {
   useDeleteClientMutation,
 } from "@/hooks/useDatabase";
 import { formatCPF } from "@/lib/utils";
+
+const ITEMS_PER_PAGE = 20
 
 export default function Clientes() {
   const { clients, sales, isLoading } = useData();
@@ -61,6 +64,7 @@ export default function Clientes() {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1)
   const debouncedSearch = useDebounce(searchTerm, 300);
   const [deleteBlocked, setDeleteBlocked] = useState<{
     open: boolean;
@@ -78,6 +82,9 @@ export default function Clientes() {
         (client.email && client.email.toLowerCase().includes(q)),
     );
   }, [clients, debouncedSearch]);
+
+  const totalPages = Math.ceil(filteredClients.length / ITEMS_PER_PAGE);
+  const paginatedClients = filteredClients.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   const handleCreateClient = () => {
     if (newClient.name) {
@@ -489,7 +496,7 @@ export default function Clientes() {
 
           {/* Mobile card list */}
           <div className="md:hidden space-y-3 mt-4">
-            {filteredClients.map((client) => (
+            {paginatedClients.map((client) => (
               <div key={client.id} className="border rounded-lg p-4 space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -541,6 +548,15 @@ export default function Clientes() {
               </div>
             ))}
           </div>
+
+          {filteredClients.length > ITEMS_PER_PAGE && (
+            <div className="mt-4 flex flex-col items-center gap-2">
+              <span className="text-xs text-muted-foreground">
+                Mostrando {(currentPage - 1) * ITEMS_PER_PAGE + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, filteredClients.length)} de {filteredClients.length}
+              </span>
+              <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+            </div>
+          )}
 
           {filteredClients.length === 0 && (
             <div className="py-8">
