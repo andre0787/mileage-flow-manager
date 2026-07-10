@@ -156,31 +156,33 @@
 
 ---
 
-## 🎯 Sprint #10 — i18n (Em andamento)
+## 🎯 Sprint #10 — i18n ✅
 
 **Objetivo:** Suporte a múltiplos idiomas
-**PR:** #70 (em aberto)
+**PR:** #70
 
 ---
 
 ### Item 1: Sistema de Internacionalização ✅
 
-- [x] `src/lib/i18n.ts` com traduções pt-BR e en-US
+- [x] `src/lib/i18n.ts` com 100+ chaves de tradução
 - [x] `src/contexts/I18nContext.tsx` com React context
 - [x] `src/components/LanguageSelector.tsx` com toggle
-- [x] Integração no App.tsx com I18nProvider
+- [x] Suporte a pt-BR (padrão) e en-US
+- [x] Persistência no localStorage
 
-### Item 2: Aplicar Traduções nas Páginas (Pendente)
+### Item 2: Aplicar Traduções no Login ✅
 
-- [ ] Dashboard
-- [ ] Configurações
-- [ ] Login
+- [x] Mensagens de erro mapeadas para chaves
+- [x] Labels e textos traduzidos
 
 ---
 
 ## 📌 Backlog Futuro
 
 ### Sprint #11 (Futura)
+- [ ] Traduções no Dashboard
+- [ ] Traduções na Configurações
 - [ ] Analytics de uso
 - [ ] Melhorias de performance
 - [ ] PWA offline avançado
@@ -198,7 +200,7 @@
 | Testes unitários | 40/40 ✅ |
 | Testes E2E | 8/8 ✅ |
 | Deploy | Automático (Vercel) |
-| Último PR | #69 (ux improvements) |
+| Último PR | #70 (i18n) |
 
 ---
 
