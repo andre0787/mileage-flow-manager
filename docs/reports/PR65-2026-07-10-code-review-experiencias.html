@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório — Code Review & Experiências Mapeadas</title>
+<style>
+  :root {
+    --primary: #5B72C4;
+    --success: #22A68F;
+    --warning: #CE9E1D;
+    --danger: #DC3545;
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --muted: #6c757d;
+    --border: #e9ecef;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+  h1 { font-size: 1.8rem; border-bottom: 3px solid var(--primary); padding-bottom: .5rem; margin-bottom: 1.5rem; }
+  h2 { font-size: 1.3rem; color: var(--primary); margin: 2rem 0 1rem; padding-left: .5rem; border-left: 4px solid var(--primary); }
+  h3 { font-size: 1.1rem; margin: 1.5rem 0 .5rem; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: .75rem; font-weight: 600; }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-yellow { background: #fff3cd; color: #856404; }
+  .badge-red { background: #f8d7da; color: #721c24; }
+  .badge-blue { background: #cce5ff; color: #004085; }
+  .stat-row { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1rem 0; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .75rem 1.25rem; flex: 1; min-width: 120px; text-align: center; }
+  .stat .num { font-size: 1.5rem; font-weight: 700; }
+  .stat .label { font-size: .8rem; color: var(--muted); }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin: 1rem 0; }
+  .card-title { font-weight: 600; margin-bottom: .5rem; }
+  .issue { border-left: 4px solid var(--warning); padding-left: 1rem; margin: 1rem 0; }
+  .issue.critical { border-color: var(--danger); }
+  .issue.fixed { border-color: var(--success); }
+  .issue .title { font-weight: 600; display: flex; align-items: center; gap: .5rem; }
+  .issue .file { font-family: monospace; font-size: .85rem; color: var(--muted); }
+  .issue .desc { margin: .5rem 0; }
+  .issue .fix { background: #d4edda; padding: .5rem .75rem; border-radius: 4px; font-size: .9rem; margin-top: .5rem; }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+  .timeline-item { position: relative; margin-bottom: 1.5rem; }
+  .timeline-item::before { content: ''; position: absolute; left: -1.5rem; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--primary); }
+  .timeline-item.success::before { background: var(--success); }
+  .timeline-item.warning::before { background: var(--warning); }
+  .timeline-item.danger::before { background: var(--danger); }
+  code { background: #f1f3f5; padding: 2px 6px; border-radius: 4px; font-size: .9em; }
+  pre { background: #f1f3f5; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: .85rem; margin: .5rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+  th, td { padding: .5rem .75rem; border: 1px solid var(--border); text-align: left; }
+  th { background: #f1f3f5; font-weight: 600; }
+  .convention { background: #e7f3ff; border: 1px solid #b3d7ff; border-radius: 6px; padding: 1rem; margin: .5rem 0; }
+  .convention strong { color: #0066cc; }
+  .footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .85rem; text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>📋 Code Review & Experiências Mapeadas</h1>
+<p style="color:var(--muted)">MilesControl — 10 de Julho de 2026 | PR #65 + Hotfix</p>
+
+<div class="stat-row">
+  <div class="stat"><div class="num" style="color:var(--danger)">8</div><div class="label">Bugs Corrigidos</div></div>
+  <div class="stat"><div class="num" style="color:var(--warning)">5</div><div class="label">Gaps Encontrados</div></div>
+  <div class="stat"><div class="num" style="color:var(--success)">5</div><div class="label">Novas Convenções</div></div>
+  <div class="stat"><div class="num" style="color:var(--primary)">40/40</div><div class="label">Testes Passando</div></div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2>🔴 Bugs Corrigidos</h2>
+<!-- ═══════════════════════════════════════════ -->
+
+<div class="issue critical fixed">
+  <div class="title"><span class="badge badge-red">CRÍTICO</span> Tela Preta — Root Cause</div>
+  <div class="file">src/App.tsx</div>
+  <div class="desc">
+    <strong>Problema:</strong> <code>AppSidebar</code> e <code>BottomTabBar</code> usavam <code>useData()</code> mas estavam <strong>FORA</strong> do <code>DataProvider</code>. Resultado: crash silencioso → tela preta após login.
+  </div>
+  <div class="desc">
+    <strong>Causa raiz:</strong> Hierarquia de providers incorreta no <code>AppLayout</code>. O <code>DataProvider</code> começou DENTRO do conteúdo, mas os componentes de navegação estavam do lado de fora.
+  </div>
+  <div class="fix">
+    <strong>Fix:</strong> <code>DataProvider</code> movido para envolver toda a árvore de componentes.
+  </div>
+</div>
+
+<div class="issue critical fixed">
+  <div class="title"><span class="badge badge-red">CRÍTICO</span> Transfer Reversal — Custo Proporcional</div>
+  <div class="file">src/hooks/useDatabase/entries.ts</div>
+  <div class="desc">
+    <strong>Problema:</strong> Ao reverter/editar uma transferência, o código restaurava <code>entry.amountPaid</code> na conta origem. Mas em transferências, a origem teve debitado custo <strong>proporcional</strong>, não o total pago. Isso distorcia o investimento da conta.
+  </div>
+  <div class="fix">
+    <strong>Fix:</strong> Agora calcula <code>calcProportionalCost()</code> antes de reverter, tanto em <code>useUpdateEntryMutation</code> quanto em <code>useDeleteEntryMutation</code>.
+  </div>
+</div>
+
+<div class="issue fixed">
+  <div class="title"><span class="badge badge-yellow">MÉDIO</span> .sort() Mutava Arrays Memoizados</div>
+  <div class="file">src/pages/Relatorios.tsx</div>
+  <div class="desc">
+    <strong>Problema:</strong> <code>ownerReports.sort()</code> mutava o array original do <code>useMemo</code>. Pode causar re-renders perdidos ou comportamento imprevisível.
+  </div>
+  <div class="fix">
+    <strong>Fix:</strong> Alterado para <code>[...ownerReports].sort()</code> — cria cópia antes de ordenar.
+  </div>
+</div>
+
+<div class="issue fixed">
+  <div class="title"><span class="badge badge-yellow">MÉDIO</span> clearAccountData Não Preservava Transferência</div>
+  <div class="file">src/hooks/useDatabase/shared.ts</div>
+  <div class="desc">
+    <strong>Problema:</strong> UI dizia "O tipo Transferência será preservado", mas o código deletava TUDO incluindo <code>origem_types</code>.
+  </div>
+  <div class="fix">
+    <strong>Fix:</strong> Após deletar todos os <code>origem_types</code>, o código agora re-insere o tipo built-in "Transferência".
+  </div>
+</div>
+
+<div class="issue fixed">
+  <div class="title"><span class="badge badge-yellow">MÉDIO</span> window.location.href em vez de navigate</div>
+  <div class="file">src/pages/Dashboard.tsx</div>
+  <div class="desc">
+    <strong>Problema:</strong> <code>window.location.href = '/entradas'</code> causava reload completo da página em vez de navegação client-side.
+  </div>
+  <div class="fix">
+    <strong>Fix:</strong> Substituído por <code>useNavigate()</code> do React Router.
+  </div>
+</div>
+
+<div class="issue fixed">
+  <div class="title"><span class="badge badge-yellow">MÉDIO</span> Import Morto de SkeletonHero</div>
+  <div class="file">src/pages/Dashboard.tsx</div>
+  <div class="desc">
+    <strong>Problema:</strong> <code>SkeletonHero</code> foi deletado na PR #65 mas o import continuava no Dashboard. Causava runtime error → tela preta.
+  </div>
+  <div class="fix">
+    <strong>Fix:</strong> Import removido.
+  </div>
+</div>
+
+<div class="issue fixed">
+  <div class="title"><span class="badge badge-blue">BAIXO</span> Supabase Client Crashava sem Env Vars</div>
+  <div class="file">src/lib/supabase.ts</div>
+  <div class="desc">
+    <strong>Problema:</strong> <code>throw new Error()</code> se <code>VITE_SUPABASE_URL</code> ou <code>VITE_SUPABASE_ANON_KEY</code> faltassem. Causava crash no import.
+  </div>
+  <div class="fix">
+    <strong>Fix:</strong> Agora cria client com placeholder e loga erro em vez de.throw.
+  </div>
+</div>
+
+<div class="issue fixed">
+  <div class="title"><span class="badge badge-blue">BAIXO</span> main.tsx Sem Error Handling</div>
+  <div class="file">src/main.tsx</div>
+  <div class="desc">
+    <strong>Problema:</strong> Se o render do root falhasse, nada era mostrado — só tela preta.
+  </div>
+  <div class="fix">
+    <strong>Fix:</strong> Adicionado try/catch com fallback visual que mostra erro e botão para limpar cache.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2>🟡 Gaps Encontrados</h2>
+<!-- ═══════════════════════════════════════════ -->
+
+<div class="issue">
+  <div class="title"><span class="badge badge-yellow">GAP</span> downloadCSV Duplicado</div>
+  <div class="file">src/pages/Vendas.tsx + Relatorios.tsx</div>
+  <div class="desc">Função idêntica (~25 linhas) copy-pasteada em duas páginas.</div>
+  <div class="fix"><strong>Fix:</strong> Extraída para <code>src/lib/utils.ts</code> e importada nas duas páginas.</div>
+</div>
+
+<div class="issue">
+  <div class="title"><span class="badge badge-yellow">GAP</span> staleTime Redundante em 7 Hooks</div>
+  <div class="file">src/hooks/useDatabase/*.ts</div>
+  <div class="desc">Cada query repetia <code>staleTime: 30 * 1000</code>, mas o QueryClient global já definia o mesmo valor.</div>
+  <div class="fix"><strong>Fix:</strong> Removido de todos os 7 hooks (herda do global).</div>
+</div>
+
+<div class="issue">
+  <div class="title"><span class="badge badge-yellow">GAP</span> SkeletonHero Exportado Mas Nunca Usado</div>
+  <div class="file">src/components/SkeletonLoader.tsx</div>
+  <div class="desc">Componente exportado mas não importado em nenhum lugar.</div>
+  <div class="fix"><strong>Fix:</strong> Deletado.</div>
+</div>
+
+<div class="issue">
+  <div class="title"><span class="badge badge-yellow">GAP</span> 3 Exports Mortos em metrics.ts</div>
+  <div class="file">src/lib/metrics.ts</div>
+  <div class="desc"><code>filterActiveSales</code>, <code>filterSalesByMonth</code>, <code>calcRevenueChange</code> eram exported mas só usados internamente.</div>
+  <div class="fix"><strong>Fix:</strong> Mantidos exported (usados em testes), mas documentado que são internos.</div>
+</div>
+
+<div class="issue">
+  <div class="title"><span class="badge badge-yellow">GAP</span> 2 Sistemas de Serialização Confusos</div>
+  <div class="file">src/types/index.ts + src/lib/origemTypes.ts</div>
+  <div class="desc"><code>serializeDescription</code> (entries) vs <code>serializeOrigemTypeDescription</code> (origem types) — nomes confusos.</div>
+  <div class="fix"><strong>Fix:</strong> Comments clarificadores adicionados em ambos.</div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2>📚 Novas Convenções Adicionadas</h2>
+<!-- ═══════════════════════════════════════════ -->
+
+<div class="convention">
+  <strong>1. Hierarquia de Providers — OBRIGATÓRIO</strong><br>
+  Toda componente que usa um Context DEVE estar dentro do Provider correspondente.<br>
+  <em>Previne: tela preta por crash de contexto.</em>
+</div>
+
+<div class="convention">
+  <strong>2. Invariantes Financeiras — OBRIGATÓRIO</strong><br>
+  Toda operação que altera saldo DEVE ter uma inversão espelhada testada.<br>
+  <em>Previne: distorção de investimento em transfers/reversals.</em>
+</div>
+
+<div class="convention">
+  <strong>3. Imutabilidade de Estado — OBRIGATÓRIO</strong><br>
+  Nunca mutar arrays ou objetos que vêm de <code>useMemo</code> ou <code>useState</code>.<br>
+  <em>Previne: comportamento imprevisível em re-renders.</em>
+</div>
+
+<div class="convention">
+  <strong>4. Promessas de UI — OBRIGATÓRIO</strong><br>
+  Se a UI mostra uma mensagem ao usuário, o código DEVE cumprir a promessa.<br>
+  <em>Previne: UI enganosa (diz X, faz Y).</em>
+</div>
+
+<div class="convention">
+  <strong>5. Config Global — NÃO DUPLICAR</strong><br>
+  Configurações definidas no QueryClient global não devem ser repetidas em queries individuais.<br>
+  <em>Previne: config duplicada e inconsistente.</em>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2>🔍 Checklist Pré-PR (Novo)</h2>
+<!-- ═══════════════════════════════════════════ -->
+
+<div class="card">
+<table>
+  <tr><th>Seção</th><th>Itens</th></tr>
+  <tr>
+    <td><strong>1. Integridade Financeira</strong></td>
+    <td>Toda mutation tem inversão? Reversals usam custo proporcional? Testes passam?</td>
+  </tr>
+  <tr>
+    <td><strong>2. Imutabilidade</strong></td>
+    <td>Nenhum .sort() muta array de useMemo? Dados de props são imutáveis?</td>
+  </tr>
+  <tr>
+    <td><strong>2.5. Hierarquia de Providers</strong></td>
+    <td>Todo useData() está dentro de DataProvider? Todo useAuth() está dentro de AuthProvider?</td>
+  </tr>
+  <tr>
+    <td><strong>3. Promessas de UI</strong></td>
+    <td>Mensagens de UI são cumpridas? Loading states consistentes? Erros tratados?</td>
+  </tr>
+  <tr>
+    <td><strong>4. Config & DRY</strong></td>
+    <td>Sem config duplicada? Utilitários em lib/? Sem as any sem justificativa?</td>
+  </tr>
+  <tr>
+    <td><strong>5. Limpeza</strong></td>
+    <td>git status limpo? Sem código morto? Build passa? Testes passam?</td>
+  </tr>
+</table>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2>📊 Timeline da Sessão</h2>
+<!-- ═══════════════════════════════════════════ -->
+
+<div class="timeline">
+  <div class="timeline-item success">
+    <strong>15:40</strong> — Code review iniciado. Scan de 47 arquivos, ~12.9k linhas.
+  </div>
+  <div class="timeline-item success">
+    <strong>15:50</strong> — Phase 1: Quick wins (dead code, redundância). 4 issues.
+  </div>
+  <div class="timeline-item success">
+    <strong>15:55</strong> — Phase 2: downloadCSV extraído. DRY enforced.
+  </div>
+  <div class="timeline-item success">
+    <strong>16:00</strong> — Phase 3: Bugs de integridade corrigidos (3 bugs críticos).
+  </div>
+  <div class="timeline-item success">
+    <strong>16:05</strong> — Phase 4: Bugs de UX corrigidos.
+  </div>
+  <div class="timeline-item success">
+    <strong>16:10</strong> — Phase 5: Consolidação e comments.
+  </div>
+  <div class="timeline-item success">
+    <strong>16:15</strong> — Build + 40/40 testes passando.
+  </div>
+  <div class="timeline-item">
+    <strong>16:20</strong> — PR #65 criada e merged.
+  </div>
+  <div class="timeline-item">
+    <strong>16:30</strong> — Council rodado. 5 advisors, 4 novas convenções definidas.
+  </div>
+  <div class="timeline-item warning">
+    <strong>16:45</strong> — Tela preta reportada em produção.
+  </div>
+  <div class="timeline-item warning">
+    <strong>17:00</strong> — Debug: SkeletonHero import morto encontrado e corrigido.
+  </div>
+  <div class="timeline-item warning">
+    <strong>17:15</strong> — Tela preta persiste. SW cache investigado.
+  </div>
+  <div class="timeline-item danger">
+    <strong>17:30</strong> — Deploy manual forçado via <code>vercel --prod</code>.
+  </div>
+  <div class="timeline-item danger">
+    <strong>17:45</strong> — Tela preta persiste. Error handler global adicionado.
+  </div>
+  <div class="timeline-item danger">
+    <strong>18:00</strong> — Erro identificado: <code>useData must be used within DataProvider</code>.
+  </div>
+  <div class="timeline-item success">
+    <strong>18:05</strong> — ROOT CAUSE: DataProvider movido acima de AppSidebar/BottomTabBar.
+  </div>
+  <div class="timeline-item success">
+    <strong>18:15</strong> — Deploy final. App funcionando. ✅
+  </div>
+  <div class="timeline-item success">
+    <strong>18:25</strong> — Docs atualizadas. Sessão finalizada.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2>💡 Lições Aprendidas</h2>
+<!-- ═══════════════════════════════════════════ -->
+
+<div class="card">
+  <div class="card-title">1. Ao deletar um export, sempre grep em todos os imports</div>
+  <pre>grep -rn "NomeDoExport" src/ --include="*.tsx" --include="*.ts"</pre>
+</div>
+
+<div class="card">
+  <div class="card-title">2. Hierarquia de providers é invisível mas crítica</div>
+  <p>Componentes que usam Context precisam estar na sub-árvore do Provider. Uma linha fora = crash silencioso.</p>
+</div>
+
+<div class="card">
+  <div class="card-title">3. Deploy automático pode falhar silenciosamente</div>
+  <p>Vercel às vezes não aciona build no push. Ter <code>vercel --prod</code> como fallback é essencial.</p>
+</div>
+
+<div class="card">
+  <div class="card-title">4. Error handler global salva vidas</div>
+  <p><code>window.onerror</code> com fallback visual Transforma tela preta em mensagem acionável.</p>
+</div>
+
+<div class="card">
+  <div class="card-title">5. Service Worker é敦 para debug</div>
+  <p>SW cacheando versão antiga = impossível ver mudanças. Version check no localStorage é a solução mais simples.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2>📁 Arquivos Modificados</h2>
+<!-- ═══════════════════════════════════════════ -->
+
+<table>
+  <tr><th>Arquivo</th><th>Mudança</th></tr>
+  <tr><td><code>src/App.tsx</code></td><td>DataProvider movido para envolver AppSidebar/BottomTabBar</td></tr>
+  <tr><td><code>src/main.tsx</code></td><td>Version check + error handling + APP_VERSION 1.0.3</td></tr>
+  <tr><td><code>src/lib/utils.ts</code></td><td>+downloadCSV(), mantido formatCPF</td></tr>
+  <tr><td><code>src/lib/metrics.ts</code></td><td>Comments nas 3 funções internas</td></tr>
+  <tr><td><code>src/lib/origemTypes.ts</code></td><td>Comment clarificador</td></tr>
+  <tr><td><code>src/lib/supabase.ts</code></td><td>Client não crasha sem env vars</td></tr>
+  <tr><td><code>src/types/index.ts</code></td><td>Comment clarificador</td></tr>
+  <tr><td><code>src/contexts/DataContext.tsx</code></td><td>as any restaurado com comment</td></tr>
+  <tr><td><code>src/components/SkeletonLoader.tsx</code></td><td>SkeletonHero removido</td></tr>
+  <tr><td><code>src/hooks/useDatabase/*.ts</code> (7)</td><td>staleTime removido</td></tr>
+  <tr><td><code>src/hooks/useDatabase/entries.ts</code></td><td>Fix transfer reversal</td></tr>
+  <tr><td><code>src/hooks/useDatabase/shared.ts</code></td><td>clearAccountData preserva Transferência</td></tr>
+  <tr><td><code>src/pages/Dashboard.tsx</code></td><td>useNavigate(), remove SkeletonHero import</td></tr>
+  <tr><td><code>src/pages/Vendas.tsx</code></td><td>downloadCSV importado de utils</td></tr>
+  <tr><td><code>src/pages/Relatorios.tsx</code></td><td>downloadCSV importado, fix .sort()</td></tr>
+  <tr><td><code>docs/CONVENTIONS.md</code></td><td>5 novas seções de convenções</td></tr>
+  <tr><td><code>docs/WORKFLOW.md</code></td><td>Checklist pré-PR obrigatório</td></tr>
+  <tr><td><code>tests/unit/invariants.test.ts</code></td><td>5 testes de integridade financeira</td></tr>
+  <tr><td><code>tests/smoke.spec.ts</code></td><td>Smoke tests anti-tela-preta</td></tr>
+</table>
+
+<div class="footer">
+  <p>MilesControl — Relatório gerado em 10/07/2026</p>
+  <p>Sessão: Code Review + Council + Hotfix | 10 commits | 40/40 testes | Deploy produção ✅</p>
+</div>
+
+</div>
+</body>
+</html>
