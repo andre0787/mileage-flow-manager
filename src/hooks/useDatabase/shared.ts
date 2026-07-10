@@ -1,5 +1,6 @@
 import { useAuth } from "@/contexts/AuthContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import type { PointEntry } from "@/types";
 
@@ -81,5 +82,6 @@ export function useClearAccountDataMutation() {
     onSuccess: () => {
       queryClient.invalidateQueries();
     },
+    onError: () => toast.error("Erro ao limpar dados da conta"),
   });
 }

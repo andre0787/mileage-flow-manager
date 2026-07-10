@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import type { Database } from "@/lib/supabase-types";
 import { useAuth } from "@/contexts/AuthContext";
@@ -36,6 +37,7 @@ export function useAddOrigemTypeMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["origem_types"] }),
+    onError: () => toast.error("Erro ao criar tipo de operação"),
   });
 }
 
@@ -52,6 +54,7 @@ export function useUpdateOrigemTypeMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["origem_types"] }),
+    onError: () => toast.error("Erro ao atualizar tipo de operação"),
   });
 }
 
@@ -63,5 +66,6 @@ export function useDeleteOrigemTypeMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["origem_types"] }),
+    onError: () => toast.error("Erro ao excluir tipo de operação"),
   });
 }
