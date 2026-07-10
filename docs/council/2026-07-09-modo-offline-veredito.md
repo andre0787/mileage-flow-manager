@@ -1,119 +1,66 @@
-# Council Verdict: Modo Offline com Sincronização
+# Council Verdict — Modo Offline com Sincronização
 
 **Data:** 2026-07-09
-**Pergunta:** Devemos implementar modo offline com sincronização no MilesControl?
+**Sprint:** #6 — Item 1 (Backlog)
+**Pergunta:** Devemos implementar modo offline com sincronização automática no MilesControl?
 
 ## Contexto
 
-- App é um sistema de gestão de milhas/pontos para usuários individuais
-- Atualmente 100% online (Supabase + React Query)
-- Usuários podem perder dados se estiverem sem internet
-- Backlog lista "Modo offline com sincronização" como feature prioritária
-- Stack: React + Vite + Supabase + Tailwind + shadcn/ui
+- MilesControl: app React + Vite + Supabase para gestão de milhas/pontos
+- Dados: entradas, vendas, clientes, contas — carregados via React Query + Supabase
+- Stack: React, Vite, Supabase (PostgreSQL + Auth), Tailwind, shadcn/ui
+- Deploy: Vercel (auto-deploy)
+- Problema: sem conexão = app inutilizável
 
----
-
-## Fase 1: Respostas dos Advisors
+## Advisor Responses
 
 ### The Contrarian
-
-Modo offline é uma das features mais complexas de implementar corretamente. Você precisa de: service workers, cache strategies, conflict resolution, sync queues, retry logic, optimistic updates. Cada um desses é um buraco negro de complexidade. E qual é o caso de uso real? Usuários de gestão de milhas não estão em avião sem internet - eles estão em casa, no escritório, com WiFi. Se o problema é "dados não salvam", a solução é melhorar a UX de erro, não criar um sistema offline completo. Isso vai consumir 3-4 semanas de dev e introduzir bugs que você nunca viu.
+Modo offline com Supabase é um pesadelo não documentado. O Supabase client não tem suporte nativo a offline — você precisa de: 1) Service Worker para cachear assets, 2) IndexedDB para dados, 3) Fila de mutações para sync, 4) Conflict resolution (last-write-wins? merge?). Isso não é "modo offline", é um database replicado. Cada uma dessas peças é um projeto de 1-2 semanas. O usuário real do MilesControl (agente de viagem) está sempre online — escritório, celular, Wi-Fi. Quando ele estaria offline? Avião? Então ele não precisa de dados em tempo real. Não façam isso.
 
 ### The First Principles Thinker
-
-O que você realmente está resolvendo? Se é "usuário perde dados quando internet cai", a solução mais simples é: 1) detectar quando offline, 2) mostrar aviso, 3) retry automático quando voltar. Isso é 2 dias de trabalho, não 4 semanas. Se é "usuário quer usar app sem internet", aí sim precisa de offline completo - mas isso é um PWA com service worker, sync complexo, e conflitos. Qual é o caso de uso específico? Se é o primeiro, faça a solução simples. Se é o segundo,avalie se vale a pena para este público.
+Qual é o problema real? "App não funciona sem internet." Mas quantas vezes o usuário está sem internet? Se é 1% do tempo, a solução não é reconstruir o app — é mostrar uma mensagem amigável: "Sem conexão. Os dados são sincronizados quando voltar online." Solução: 1) Cache de leitura no localStorage (já temos React Query), 2) Mensagem offline amigável, 3) Retry automático quando voltar. Isso resolve 95% do caso de uso com 5% do esforço. O resto (offline completo com mutações) é YAGNI até ter dados que proveam necessidade.
 
 ### The Expansionist
-
-Modo offline é um diferencial competitivo enorme. Nenhum app de gestão de milhas oferece isso. Se você implementar bem, pode atrair usuários que viajam frequentemente (justamente o público de milhas). Além disso, offline first é o futuro - PWAs estão ganhando terreno. O investimento agora pode posicionar o app como referência no mercado. Pense nisso não como "feature" mas como "plataforma".
+Modo offline é o que separa um app amador de um app profissional. Agentes de viagem trabalham em trânsito, aeroportos,Hotels. Offline não é edge case — é cenário real. E com Supabase + Realtime, já temos a infra para sync. O Supabase Local Storage (experimental) ou o PowerSync podem resolver isso. Não reinventem a roda. Usem uma lib existente. E offline habilita: 1) PWA installable, 2) Notificações push, 3) Background sync. É uma plataforma, não uma feature.
 
 ### The Outsider
-
-Não entendo por que um app de gestão de pontos precisaria de offline. Se é para registrar gastos, o usuário pode anotar no bloco de notas e digitar depois. Se é para consultar saldo, ele pode verificar no app do programa de fidelidade. A não ser que esteja viajando sem internet e queira registrar algo, não vejo necessidade. E se estiver viajando, provavelmente tem roaming ou WiFi no hotel.
+Eu nunca usei um app de milhagem offline. Mas já usei apps de viagem offline (maps, boarding passes). O que importa: ver os dados que já tenho, não criar dados novos. Se eu estiver no avião, quero ver minhas milhas, não cadastrar uma venda. A venda eu faço quando voltar. Então: offline = leitura. Online = escrita + sync. Isso simplifica 10x a implementação. Não precisam de fila de mutações — bloqueiam a escrita offline e sincronizam quando voltar.
 
 ### The Executor
+Tecnicamente, o caminho mais curto:
+1. Service Worker (Workbox) para cachear assets e API responses
+2. React Query staleTime + cacheTime já mantém dados em memória
+3. IndexedDB (via Dexie.js) para persistir dados entre sessões
+4. Hook `useOnlineStatus()` que detecta conexão
+5. Quando offline: desabilita botões de criação/edição, mostra banner
+6. Quando volta online: refetch automático via React Query
 
-Implementar offline completo leva 4-6 semanas: service worker setup, cache strategy, sync queue, conflict resolution, retry logic, UI states, testes. É um projeto dentro do projeto. Antes de fazer isso, pergunte: quantos usuários você tem? Se são 100, não vale a pena. Se são 10.000+, talvez. Priorize features que afetam todos os usuários agora (i18n, code splitting) vs features que afetam 1% dos usuários (offline).
+Isso é 80% do valor com 20% do esforço. Mutação offline (criar/editar offline e sync depois) é outro projeto — façam isso só se dados provarem necessidade.
 
----
-
-## Fase 2: Peer Reviews (Anonimizados)
-
-### Review A (Response C - Expansionist)
-
-**Mais forte:** Expansionist vê oportunidade de mercado e posicionamento. O argumento de "diferencial competitivo" é válido em mercados saturados.
-
-**Maior cego:** Assume que há demanda sem validação. Não menciona que offline é uma das features mais complexas de implementar corretamente (conflict resolution é um problema NP-hard).
-
-**Todos missaram:** Nenhum mencionou que Supabase já tem suporte a sync via realtime - pode ser mais simples que construir do zero.
-
-### Review B (Response A - Contrarian)
-
-**Mais forte:** Contrarian identifica a complexidade real e o custo de manutenção. Isso é crucial para decisões de arquitetura.
-
-**Maior cego:** Assume que todos os usuários têm internet estável. Em muitos locais do Brasil, internet é intermitente.
-
-**Todos missaram:** Nenhum mencionou que pode haver soluções SaaS (Firebase, AWS Amplify) que resolvem offline sem construir do zero.
-
-### Review C (Response B - First Principles)
-
-**Mais forte:** First Principles questiona o caso de uso real. Isso é o council deveria fazer primeiro.
-
-**Maior cego:** Assume que "retry automático" resolve. Mas se o usuário estiver offline por horas, ele quer ver os dados locally, não esperar.
-
-**Todos missaram:** Nenhum mencionou que PWA com service worker já é uma solução padrão para isso.
-
-### Review D (Response D - Outsider)
-
-**Mais forte:** Outsider traz perspectiva fresh - questiona se o público-alvo realmente precisa disso.
-
-**Maior cego:** Não entende o domínio. Usuários de milhas viajam frequentemente e podem estar em locais sem internet.
-
-**Todos missaram:** Nenhum mencionou que offline pode ser um feature flag (só para users premium) ou que pode ser implementado incrementalmente.
-
-### Review E (Response E - Executor)
-
-**Mais forte:** Executor foca no custo de implementação e priorização. Isso é prático e útil.
-
-**Maior cego:** Assume que 4-6 semanas é suficiente. Conflict resolution pode levar muito mais tempo para ficar confiável.
-
-**Todos missaram:** Nenhum mencionou que pode começar com "offline read-only" (ver dados sem internet) antes de "offline full" (criar/editar sem internet).
-
----
-
-## Síntese do Chairman
+## Chairman Synthesis
 
 ### Onde o Council Concorda
+- Offline completo (mutações offline + sync) é complexo demais para 1 sprint
+- A maioria dos usuários está online 95%+ do tempo
+- Solução de leitura (cache + mensagem amigável) resolve o caso real
 
-1. **Complexidade alta** - Todos concordam que offline completo é complexo
-2. **Há casos de uso válidos** - Usuários viajam, internet pode falhar
-3. **Priorização necessária** - Features core (i18n, code splitting) são mais urgentes
+### Onde o Council Clasha
+- **Escopo:** Contrarian quer nada; Expansionist quer PWA completa; First Principles e Executor querem solução minimal; Outsider quer leitura-only
+- **Tecnologia:** Supabase não tem suporte offline nativo — libs externas (PowerSync, LocalSync) são experimentais
 
-### Onde o Council Discorda
+### A Recomendação
+**Faça o mínimo que resolve o problema real:**
+1. Service Worker para cache de assets (Workbox, 1 dia)
+2. Hook `useOnlineStatus()` com banner "Sem conexão"
+3. Desabilitar botões de criação/edição quando offline
+4. React Query já mantém cache em memória
+5. Refetch automático quando voltar online
 
-1. **Abordagem:** Solução simples (retry) vs completa (PWA offline)
-2. **Público-alvo:** Todos os usuários vs apenas viajantes
-3. **Timing:** Agora vs depois de validar demanda
+**Não faça:** IndexedDB, fila de mutações, conflict resolution, sync offline. São projetos separados que precisam de validação com dados reais.
 
-### Blind Spots que o Council Capturou
-
-1. **Soluções existentes:** Supabase realtime, Firebase, AWS Amplify
-2. **Implementação incremental:** Offline read-only antes de full
-3. **Feature flag:** Restringir a users premium
-4. **Validação:** Perguntar aos usuários se precisam
-
-### Recomendação
-
-**Não implementar offline completo agora.** A complexidade é muito alta para o estágio atual do projeto. Priorize features que afetam todos os usuários (i18n, code splitting).
-
-**Alternativa melhor:** Implementar "detecção de offline + aviso + retry automático" (2-3 dias). Isso resolve 80% dos casos de uso sem a complexidade de um sistema offline completo.
-
-### A Coisa que Deve Ser Feita Primeiro
-
-**Validar demanda:** Antes de construir offline, perguntar para 20-30 usuários ativos se eles já perderam dados por falta de internet. Se 30%+ disserem sim, então considerar implementar. Caso contrário, foque em i18n ou code splitting.
+### A Coisa que Você Deve Fazer Primeiro
+Service Worker com Workbox para cachear assets estáticos e API responses do Supabase. Isso sozinho melhora a experiência offline em 80%.
 
 ---
 
-## Veredito Final: **NÃO FAÇA AGORA**
-
-Razão: Modo offline completo é uma feature de alta complexidade que consome 4-6 semanas de desenvolvimento. O app está em estágio inicial e precisa primeiro de features que afetam todos os usuários. Implementar "detecção de offline + retry" (solução simples) pode ser feito agora. Offline completo deve ser reconsiderado quando houver demanda validada e mais recursos.
+**Veredito:** ✅ **Faça** — Solução minimal (cache + banner + botões desabilitados). 2-3 dias. Não faça mutações offline.
