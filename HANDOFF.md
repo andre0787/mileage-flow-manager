@@ -1,6 +1,6 @@
 # HANDOFF — Sprint #6 Completa + Code Review + Novas Convenções
 
-## Status: ✅ Code Review + Council completo
+## Status: ✅ Code Review + Council + Hotfix completo
 
 ### Último trabalho: 2026-07-10
 
@@ -9,6 +9,12 @@
 - **Novas convenções** adicionadas ao CONVENTIONS.md
 - **Checklist pré-PR** adicionado ao WORKFLOW.md
 - **Testes de invariantes** criados (5 novos testes)
+
+### Hotfix (após PR #65)
+
+- **Fix:** Tela preta — adicionado ErrorBoundary no root (main.tsx)
+- **Fix:** Restaurado `as any` com comment ponytail (Supabase Insert type mismatch)
+- **Test:** Smoke tests para prevenir tela preta futuramente
 
 ### Mudanças no PR #65
 
