@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import { AppSidebar } from "@/components/AppSidebar";
 import { BottomTabBar } from "@/components/BottomTabBar";
 import { GlobalSearch } from "@/components/GlobalSearch";
+import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { OnlineProvider } from "@/contexts/OnlineContext";
@@ -160,7 +161,8 @@ const AppLayout = () => {
               <div className="ml-4">
                 <h2 className="text-base font-semibold text-foreground font-display">MilesControl</h2>
               </div>
-              <div className="ml-auto">
+              <div className="ml-auto flex items-center gap-2">
+                <KeyboardShortcutsHelp />
                 <GlobalSearch />
               </div>
             </header>
