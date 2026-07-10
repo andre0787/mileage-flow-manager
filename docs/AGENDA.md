@@ -171,16 +171,16 @@
 
 ---
 
-### Item 4: Mensagens de Erro Amigáveis no Login (Pendente)
+### Item 4: Mensagens de Erro Amigáveis no Login ✅
 
 **Prioridade:** 🟢 Baixa
 **Estimativa:** 30min
 **Arquivos impactados:** `src/pages/Login.tsx`
 
 **Critérios de Aceite:**
-- [ ] Mapear erros Supabase para mensagens amigáveis
-- [ ] "Credenciais inválidas" ao invés de mensagem técnica
-- [ ] Log da mensagem técnica original para debug
+- [x] Mapear erros Supabase para mensagens amigáveis
+- [x] "Credenciais inválidas" ao invés de mensagem técnica
+- [x] Log da mensagem técnica original para debug
 
 **Notas:**
 - Gap de UX identificado pelo Outsider no council

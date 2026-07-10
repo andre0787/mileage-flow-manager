@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Relatório — Confirmações de Exclusão</title>
+<title>Relatório — Sprint #6: Confirmações + Error Handling</title>
 <style>
   body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; }
   h1 { border-bottom: 2px solid #5B72C4; padding-bottom: .5rem; }
@@ -15,43 +15,68 @@
 </style>
 </head>
 <body>
-<h1>📋 Relatório: Confirmações de Exclusão</h1>
-<p class="stat">📁 +7 arquivos · ➕ 392 linhas · ➖ 64 linhas</p>
-<p class="stat" style="margin-left: .5rem;">⚡ ~596 tokens</p>
+<h1>📋 Relatório: Sprint #6 — Confirmações + Error Handling</h1>
+<p class="stat">📁 +14 arquivos · ➕ 526 linhas · ➖ 79 linhas</p>
+<p class="stat" style="margin-left: .5rem;">⚡ ~807 tokens</p>
 <p><span class="badge badge-green">PR #66</span> <span class="badge badge-blue">Feature</span></p>
 
 <h2>Antes</h2>
-<p>OwnerSection, ProgramSection e OrigemTypeSection excluíam registros sem confirmação. Botão de "Excluir" executava a operação diretamente, sem AlertDialog. Risco de exclusão acidental de dados de configuração.</p>
+<p>OwnerSection, ProgramSection e OrigemTypeSection excluíam registros sem confirmação. Mutations falhavam silenciosamente sem feedback ao usuário. Erros do Supabase apareciam em mensagens técnicas no Login. Zero logging persistente para debug.</p>
 
 <h2>Depois</h2>
-<p>Componente reutilizável <code>DeleteConfirmDialog</code> adicionado. Todos os 3 componentes agora usam AlertDialog antes de excluir. Mensagem claras com nome do item sendo excluído. Botão de confirmação em vermelho (destructive).</p>
+<p>Componente reutilizável <code>DeleteConfirmDialog</code> em 3 componentes. Toast.error em todas as mutations. Mensagens amigáveis em pt-BR no Login. Debug log estruturado com <code>logError()</code> e <code>logDestructiveOp()</code>.</p>
 
 <h2>Benefícios</h2>
 <ul class="benefits">
   <li>✅ Prevenção de exclusão acidental em configurações</li>
+  <li>✅ Feedback visual quando mutations falham</li>
+  <li>✅ Mensagens de erro amigáveis para usuários finais</li>
+  <li>✅ Debug log para diagnosticar erros futuros</li>
   <li>✅ Componente reutilizável para futuras exclusões</li>
   <li>✅ Padrão consistente com DeleteEntryDialog existente</li>
-  <li>✅ UX mais segura para operações destrutivas</li>
-  <li>✅ Council verdict documentado para referência futura</li>
 </ul>
 
 <h2>Detalhes</h2>
 <pre>
-HANDOFF.md                                         |  97 +++++--------
-docs/AGENDA.md                                     |  94 ++++++++++++
-...tamento-erro-confirmacoes-debug-log-veredito.md | 161 +++++++++++++++++++++
 src/components/DeleteConfirmDialog.tsx             |  52 +++++++
-src/components/OrigemTypeSection.tsx               |  17 ++-
 src/components/OwnerSection.tsx                    |  18 ++-
 src/components/ProgramSection.tsx                  |  17 ++-
-7 files changed, 392 insertions(+), 64 deletions(-)
+src/components/OrigemTypeSection.tsx               |  17 ++-
+src/hooks/useDatabase/accounts.ts                  |  12 ++-
+src/hooks/useDatabase/clients.ts                   |  12 ++-
+src/hooks/useDatabase/entries.ts                   |  18 ++-
+src/hooks/useDatabase/origemTypes.ts               |  12 ++-
+src/hooks/useDatabase/owners.ts                    |  12 ++-
+src/hooks/useDatabase/programs.ts                  |  12 ++-
+src/hooks/useDatabase/sales.ts                     |  16 ++-
+src/hooks/useDatabase/shared.ts                    |  10 ++-
+src/lib/logger.ts                                  |  76 ++++++++++++
+src/pages/Login.tsx                                |  19 ++-
+docs/AGENDA.md                                     |  24 ++-
+docs/council/...                                   | 161 +++++++++++++++++++++
+docs/reports/PR66-...                              |  57 ++++++++
+HANDOFF.md                                         |  68 +++++-----
+14 files changed, 526 insertions(+), 79 deletions(-)
 </pre>
 
-<h2>Sprint #6 — Itens Pendentes</h2>
-<ul>
-  <li>⬜ Toast feedback em mutations (1-2h)</li>
-  <li>⬜ Debug log estruturado (3-4h)</li>
-  <li>⬜ Mensagens de erro amigáveis no Login (30min)</li>
-</ul>
+<h2>Sprint #6 — Resumo</h2>
+<table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+  <tr style="border-bottom: 1px solid #ddd;">
+    <td style="padding: 8px;"><strong>Item 1:</strong> AlertDialog em exclusões</td>
+    <td style="padding: 8px; color: green;">✅ Completo</td>
+  </tr>
+  <tr style="border-bottom: 1px solid #ddd;">
+    <td style="padding: 8px;"><strong>Item 2:</strong> Toast feedback mutations</td>
+    <td style="padding: 8px; color: green;">✅ Completo</td>
+  </tr>
+  <tr style="border-bottom: 1px solid #ddd;">
+    <td style="padding: 8px;"><strong>Item 3:</strong> Debug log estruturado</td>
+    <td style="padding: 8px; color: green;">✅ Completo</td>
+  </tr>
+  <tr>
+    <td style="padding: 8px;"><strong>Item 4:</strong> Erros amigáveis no Login</td>
+    <td style="padding: 8px; color: green;">✅ Completo</td>
+  </tr>
+</table>
 </body>
 </html>
