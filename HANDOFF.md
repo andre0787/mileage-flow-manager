@@ -1,6 +1,6 @@
 # HANDOFF — Sprint #5 Completa
 
-## Status: ✅ Sprint #5 finalizada — Pronta para PR
+## Status: ✅ Sprint #5 finalizada — PR #62 criado
 
 ### Último trabalho: 2026-07-09
 
