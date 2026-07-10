@@ -132,10 +132,10 @@ Listas com muitos itens devem ter paginação para melhorar performance e UX.
 
 ## 📌 Backlog Futuro
 
-### Sprint #6 (Futura)
+### Sprint #6 (Em andamento)
+- [x] Busca global — PR #63
 - [ ] Modo offline com sincronização
-- [ ] Exportação PDF dos relatórios
-- [ ] Busca global
+- [ ] ~~Exportação PDF dos relatórios~~ (descartado pelo council)
 
 ### Sprint #7 (Futura)
 - [ ] Multi-idioma (i18n)
@@ -151,13 +151,13 @@ Listas com muitos itens devem ter paginação para melhorar performance e UX.
 
 | Métrica | Valor |
 |---------|-------|
-| Bundle size | 637kB (era 1MB) |
+| Bundle size | 645kB |
 | Testes unitários | 33/33 ✅ |
 | Testes E2E | 8/8 ✅ |
 | Deploy | Automático (Vercel) |
-| Último PR | #61 (code splitting) |
+| Último PR | #63 (busca global) |
 
 ---
 
 **Última atualização:** 2026-07-09
-**Próxima revisão:** Início da Sprint #5
+**Próxima revisão:** Sprint #6
