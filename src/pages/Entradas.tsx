@@ -309,6 +309,10 @@ export default function Entradas() {
                   setIsEditDialogOpen(true);
                 }}
                 onConfirm={(entry) => confirmEntryM.mutate(entry)}
+                onCreateClick={() => {
+                  setTransferInitialData(undefined);
+                  setIsCreateDialogOpen(true);
+                }}
               />
             </CardContent>
           </Card>
@@ -342,6 +346,10 @@ export default function Entradas() {
                   setIsEditDialogOpen(true);
                 }}
                 onConfirm={(entry) => confirmEntryM.mutate(entry)}
+                onCreateClick={() => {
+                  setTransferInitialData(undefined);
+                  setIsCreateDialogOpen(true);
+                }}
               />
             </CardContent>
           </Card>

@@ -288,6 +288,7 @@ export default function Vendas() {
         sales={filteredSales}
         onCancel={handleCancelSale}
         onStatusChange={handleStatusChange}
+        onCreateClick={() => setIsCreateDialogOpen(true)}
       />
 
       {/* Formulário de criação */}

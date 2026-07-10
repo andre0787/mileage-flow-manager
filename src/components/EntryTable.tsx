@@ -15,6 +15,7 @@ interface EntryTableProps {
   owners: Owner[]
   onEdit: (entry: PointEntry) => void
   onConfirm: (entry: PointEntry) => void
+  onCreateClick?: () => void
 }
 
 export function EntryTable({
@@ -165,6 +166,7 @@ export function EntryTable({
                     icon={Package}
                     title={`Nenhuma entrada de ${type === "pontos" ? "pontos" : "milhas"}`}
                     description={`Registre sua primeira aquisição de ${type === "pontos" ? "pontos" : "milhas"} ou use a busca para filtrar.`}
+                    action={onCreateClick ? { label: "Nova Entrada", onClick: onCreateClick } : undefined}
                   />
                 </TableCell>
               </TableRow>
@@ -206,6 +208,7 @@ export function EntryTable({
             icon={Package}
             title={`Nenhuma entrada de ${type === "pontos" ? "pontos" : "milhas"}`}
             description={`Registre sua primeira aquisição de ${type === "pontos" ? "pontos" : "milhas"} ou use a busca para filtrar.`}
+            action={onCreateClick ? { label: "Nova Entrada", onClick: onCreateClick } : undefined}
           />
         ) : (
           entries.map(renderMobileCard)

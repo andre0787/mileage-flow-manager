@@ -35,9 +35,10 @@ interface SaleTableProps {
   sales: Sale[];
   onCancel?: (saleId: string) => void;
   onStatusChange?: (saleId: string, status: "pendente" | "pago" | "concluido") => void;
+  onCreateClick?: () => void;
 }
 
-export function SaleTable({ sales, onCancel, onStatusChange }: SaleTableProps) {
+export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick }: SaleTableProps) {
   const [cancelConfirmId, setCancelConfirmId] = useState<string | null>(null);
 
   if (sales.length === 0) {
@@ -55,6 +56,7 @@ export function SaleTable({ sales, onCancel, onStatusChange }: SaleTableProps) {
               icon={Package}
               title="Nenhuma venda encontrada"
               description="Milhas no estoque esperando uma oportunidade. Registre sua primeira venda e veja o lucro acontecer."
+              action={onCreateClick ? { label: "Nova Venda", onClick: onCreateClick } : undefined}
             />
           </div>
         </CardContent>
