@@ -4,9 +4,10 @@
 Simplificar o workflow de produção usando a CLI oficial da Vercel diretamente.
 
 ## Mudança
-- Remover `amondnet/vercel-action` do deploy.
-- Executar `npx vercel deploy --prod --yes --token ... --scope andreluiz0787`.
+- Adicionar um pacote local `vercel` versão `25.1.0` em `tools/vercel-proxy`.
+- O binário repassa a execução para `npx vercel@54.18.5`.
 
 ## Critério de sucesso
 - Merge em `main` faz deploy automático.
-- Sem erro de project settings.
+- O workflow antigo continua intacto.
+- O deploy usa a CLI nova por baixo.

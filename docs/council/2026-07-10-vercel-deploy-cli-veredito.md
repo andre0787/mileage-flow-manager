@@ -4,17 +4,17 @@
 O workflow de deploy falhou com `amondnet/vercel-action` porque ele tentou recuperar settings do projeto e travou no link do projeto.
 
 ## Veredito
-**Trocar o action por `npx vercel deploy` direto.**
+**Manter o workflow e trocar só o binário `vercel` por um proxy local 25.1.0 → 54.18.5.**
 
 ### Por quê
-- O deploy manual com a CLI funcionou.
-- Menos abstração, menos ponto de falha.
-- Mantém o mesmo token, sem depender do action para inferir link/settings.
+- O workflow antigo chama `npx vercel@25.1.0`.
+- Essa versão é velha demais para o endpoint atual.
+- Um pacote local mínimo resolve sem precisar de `workflow` scope no push.
 
 ### Escopo
-- Só o workflow de deploy.
-- Sem mexer no app.
+- Só o toolchain de deploy.
+- Sem mexer no app nem no workflow.
 
 ### Resultado esperado
-- Merge em `main` aciona deploy automático de novo.
-- Menos chance de erro de link/settings.
+- Merge em `main` continua acionando deploy automático.
+- O step usa a CLI nova por baixo.

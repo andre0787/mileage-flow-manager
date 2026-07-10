@@ -1,0 +1,8 @@
+{
+  "name": "vercel",
+  "version": "25.1.0",
+  "type": "module",
+  "bin": {
+    "vercel": "index.js"
+  }
+}

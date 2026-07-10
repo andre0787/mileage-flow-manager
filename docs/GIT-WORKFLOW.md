@@ -63,6 +63,5 @@ test: adiciona teste de cancelamento de venda
 - **URL**: https://mileage-flow-manager.vercel.app
 - **Framework**: Vite
 - **Automático**: deploy via CI no merge para `main` (`.github/workflows/deploy.yml`)
-  - usa `npx vercel deploy --prod --yes --token ... --scope andreluiz0787`
 - **CI obrigatório**: build + unit + E2E em todo PR (`.github/workflows/ci.yml`)
 - **Manual**: `vercel --prod` (fallback)

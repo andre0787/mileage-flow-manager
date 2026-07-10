@@ -3,8 +3,8 @@
 ## Status: ✅ Sessão completa — 2026-07-10
 
 ### Último trabalho: PR #75 mergeado em produção
-### Resultado: CI verde; deploy manual funcionou; workflow de deploy falhou
-### Trabalho atual: corrigir workflow de deploy da Vercel (branch `fix/vercel-deploy-cli`)
+### Resultado: CI verde; deploy manual funcionou; workflow antigo quebrou na CLI velha
+### Trabalho atual: proxy local da Vercel CLI (branch `fix/vercel-deploy-cli`)
 
 ---
 
@@ -60,7 +60,7 @@
 
 ## Branch atual
 
-`fix/vercel-deploy-cli` — hotfix do deploy Vercel em andamento
+`fix/vercel-deploy-cli` — proxy local da CLI Vercel em andamento
 
 ## Build & Test
 
