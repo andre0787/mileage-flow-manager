@@ -15,7 +15,7 @@ import ProgramSection from "@/components/ProgramSection";
 import OrigemTypeSection from "@/components/OrigemTypeSection";
 
 export default function Configuracoes() {
-  const { owners, programs, origemTypes, accounts, clearCache, clearAccountData, isLoading } = useData();
+  const { owners, programs, origemTypes, accounts, entries, clearCache, clearAccountData, isLoading } = useData();
 
   const addOwnerM = useAddOwnerMutation();
   const updateOwnerM = useUpdateOwnerMutation();
