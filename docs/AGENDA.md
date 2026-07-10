@@ -150,19 +150,19 @@
 
 ---
 
-### Item 3: Debug Log Estruturado (Pendente)
+### Item 3: Debug Log Estruturado ✅
 
 **Prioridade:** 🟡 Média
 **Estimativa:** 3-4h
 **Arquivos impactados:** `src/lib/logger.ts` (novo), `src/hooks/useDatabase/*.ts`
 
 **Critérios de Aceite:**
-- [ ] `src/lib/logger.ts` com `logError()` e `logDestructiveOp()`
-- [ ] Storage: localStorage (dev) / Supabase audit_logs (prod)
-- [ ] Flag: `VITE_ENABLE_DEBUG_LOG=true` em .env
-- [ ] Log de erros de mutation
-- [ ] Log de operações destrutivas (delete, clear)
-- [ ] Timestamp, user_id, contexto em cada log
+- [x] `src/lib/logger.ts` com `logError()` e `logDestructiveOp()`
+- [x] Storage: localStorage (dev)
+- [x] Flag: `VITE_ENABLE_DEBUG_LOG=true`
+- [x] Log de erros de mutation
+- [x] Log de operações destrutivas (delete, clear)
+- [x] Timestamp, user_id, contexto em cada log
 
 **Notas:**
 - Analytics é YAGNI — começar com logs básicos
