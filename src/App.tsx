@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { AppSidebar } from "@/components/AppSidebar";
 import { BottomTabBar } from "@/components/BottomTabBar";
+import { GlobalSearch } from "@/components/GlobalSearch";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { DataProvider } from "@/contexts/DataContext";
@@ -146,20 +147,23 @@ const AppLayout = () => {
       <div className="min-h-screen flex w-full">
         <AppSidebar />
         <div className="flex-1 flex flex-col min-w-0">
-          <header className="h-14 flex items-center border-b bg-background/80 backdrop-blur-sm px-6 sticky top-0 z-30 safe-area-top">
-            <SidebarTrigger />
-            <div className="ml-4">
-              <h2 className="text-base font-semibold text-foreground font-display">MilesControl</h2>
-            </div>
-          </header>
-          <main
-            className="flex-1 p-4 md:p-6 pb-20 md:pb-6 bg-background safe-area-bottom overflow-x-hidden"
-            style={{ overscrollBehavior: "contain" }}
-          >
-            <DataProvider>
+          <DataProvider>
+            <header className="h-14 flex items-center border-b bg-background/80 backdrop-blur-sm px-6 sticky top-0 z-30 safe-area-top">
+              <SidebarTrigger />
+              <div className="ml-4">
+                <h2 className="text-base font-semibold text-foreground font-display">MilesControl</h2>
+              </div>
+              <div className="ml-auto">
+                <GlobalSearch />
+              </div>
+            </header>
+            <main
+              className="flex-1 p-4 md:p-6 pb-20 md:pb-6 bg-background safe-area-bottom overflow-x-hidden"
+              style={{ overscrollBehavior: "contain" }}
+            >
               <AnimatedRoutes />
-            </DataProvider>
-          </main>
+            </main>
+          </DataProvider>
           <BottomTabBar />
         </div>
       </div>
