@@ -48,157 +48,123 @@
 
 ---
 
-## 🎯 Sprint #5 — Notificações + UX
+## 🎯 Sprint #5 — Notificações + UX ✅
 
 **Objetivo:** Melhorar engajamento com notificações e UX básica
-**Estimativa:** 1-2 semanas
-**Dependências:** Nenhuma
 
 ---
 
 ### Item 1: Badge de Entradas Pendentes ✅
 
-**Prioridade:** 🔴 Alta
-**Estimativa:** 1-2 dias
-**Arquivos impactados:** `src/components/AppSidebar.tsx`, `src/components/BottomTabBar.tsx`
-
-**Critérios de Aceite:**
-- [x] Badge amber no sidebar ao lado de "Entradas" (desktop)
-- [x] Badge amber sobre ícone no bottom tab bar (mobile)
-- [x] Contagem de entradas com `entryStatus === 'aguardando'`
-- [x] Badge só aparece quando há pendências > 0
-- [x] Visível em todas as páginas (não só Dashboard)
-
-**Notas:**
-- Push notifications adiadas (badge resolve 90% do caso)
-- **Council:** `docs/council/2026-07-09-notificacoes-push-veredito.md`
-
----
+- [x] Badge amber no sidebar e bottom tab bar
+- [x] Contagem de entradas pendentes
+- [x] Visível em todas as páginas
 
 ### Item 2: Empty States com CTAs ✅
 
-**Prioridade:** 🟡 Média
-**Estimativa:** 1-2 dias
-
-**Critérios de Aceite:**
-- [x] Empty state em Entradas: botão "Nova Entrada"
-- [x] Empty state em Vendas: botão "Nova Venda"
-- [x] Empty state em Clientes: já existia com CTA
-- [x] Empty state em Contas: já existia com CTA
-- [x] Empty states seguem design system
-
----
+- [x] Empty states em todas as páginas com botão de ação
 
 ### Item 3: Paginação em Listas ✅
 
-**Prioridade:** 🟡 Média
-**Estimativa:** 2-3 dias
-
-**Critérios de Aceite:**
 - [x] Componente Pagination reutilizável
-- [x] Paginação em Entradas, Vendas, Clientes, Contas (20 itens/página)
-- [x] Indicador: "Mostrando 1-20 de X"
-- [x] Só aparece quando há > 20 itens
+- [x] Paginação em Entradas, Vendas, Clientes, Contas
 
 ---
 
-## 🎯 Sprint #6 — Confirmações + Error Handling
+## 🎯 Sprint #6 — Confirmações + Error Handling ✅
 
-**Objetivo:** Tornar o app mais seguro e resiliente com confirmações em operações destrutivas e tratamento de erro estruturado
-**Estimativa:** 1 semana
-**Dependências:** Sprint #5 completa
+**Objetivo:** Tornar o app mais seguro e resiliente
 **Council:** `docs/council/2026-07-10-tratamento-erro-confirmacoes-debug-log-veredito.md`
+**PR:** #66
 
 ---
 
 ### Item 1: AlertDialog em Exclusões de Config ✅
 
-**Prioridade:** 🔴 Alta
-**Estimativa:** 2-3h
-**Arquivos impactados:** `src/components/OwnerSection.tsx`, `src/components/ProgramSection.tsx`, `src/components/OrigemTypeSection.tsx`, `src/components/DeleteConfirmDialog.tsx` (novo)
-
-**Critérios de Aceite:**
-- [x] Componente reutilizável `DeleteConfirmDialog` criado
-- [x] OwnerSection: AlertDialog antes de excluir dono
-- [x] ProgramSection: AlertDialog antes de excluir programa
-- [x] OrigemTypeSection: AlertDialog antes de excluir tipo de operação
-- [x] Mensagens claras com nome do item sendo excluído
-- [x] Botão de confirmação em vermelho (destructive)
-- [x] Build limpo sem erros TypeScript
-
-**Notas:**
-- Padrão copiado do DeleteEntryDialog existente
-- Componente genérico para reuso futuro
-- **Council:** prioridade #1 identificada por todos os 5 advisors
-
----
+- [x] Componente reutilizável `DeleteConfirmDialog`
+- [x] OwnerSection: AlertDialog antes de excluir
+- [x] ProgramSection: AlertDialog antes de excluir
+- [x] OrigemTypeSection: AlertDialog antes de excluir
 
 ### Item 2: Toast Feedback em Mutations ✅
 
-**Prioridade:** 🟡 Média
-**Estimativa:** 1-2h
-**Arquivos impactados:** `src/hooks/useDatabase/*.ts`
-
-**Critérios de Aceite:**
-- [x] onError com `toast.error()` em mutations que falham
-- [x] Mensagens amigáveis (não técnicas do Supabase)
-- [x] Usar Sonner (padrão do projeto)
-
-**Notas:**
-- TanStack Query já suporta onError/onSuccess
-- Gap identificado: mutations falham silenciosamente
-
----
+- [x] Toast.error em todas as mutations
+- [x] Mensagens amigáveis em pt-BR
 
 ### Item 3: Debug Log Estruturado ✅
 
-**Prioridade:** 🟡 Média
-**Estimativa:** 3-4h
-**Arquivos impactados:** `src/lib/logger.ts` (novo), `src/hooks/useDatabase/*.ts`
-
-**Critérios de Aceite:**
 - [x] `src/lib/logger.ts` com `logError()` e `logDestructiveOp()`
 - [x] Storage: localStorage (dev)
 - [x] Flag: `VITE_ENABLE_DEBUG_LOG=true`
-- [x] Log de erros de mutation
-- [x] Log de operações destrutivas (delete, clear)
-- [x] Timestamp, user_id, contexto em cada log
-
-**Notas:**
-- Analytics é YAGNI — começar com logs básicos
-- Toggle por variável de ambiente
-- Sobrevive a refresh (localStorage)
-
----
 
 ### Item 4: Mensagens de Erro Amigáveis no Login ✅
 
-**Prioridade:** 🟢 Baixa
-**Estimativa:** 30min
-**Arquivos impactados:** `src/pages/Login.tsx`
+- [x] Mapeamento de erros Supabase para pt-BR
+- [x] Log da mensagem técnica original
 
-**Critérios de Aceite:**
-- [x] Mapear erros Supabase para mensagens amigáveis
-- [x] "Credenciais inválidas" ao invés de mensagem técnica
-- [x] Log da mensagem técnica original para debug
+---
 
-**Notas:**
-- Gap de UX identificado pelo Outsider no council
-- Usuário final não deve ver erros técnicos
+## 🎯 Sprint #7 — Atalhos de Teclado ✅
+
+**Objetivo:** Navegação rápida para usuários avançados
+**PR:** #67
+
+---
+
+### Item 1: Atalhos de Navegação ✅
+
+- [x] Hook `useKeyboardShortcuts` com 7 atalhos
+- [x] g, e, v, c, p, s, r para navegação
+- [x] Ignora inputs e combinações de teclas
+
+### Item 2: Dark Mode Toggle ✅
+
+- [x] Já implementado (ThemeToggle no sidebar)
+
+---
+
+## 🎯 Sprint #8 — Proteção contra Exclusão em Cascata ✅
+
+**Objetivo:** Alinhar frontend com restrições do database
+**PR:** #68
+
+---
+
+### Item 1: Verificação de Relacionamentos ✅
+
+- [x] OwnerSection: aviso sobre cascade delete
+- [x] ProgramSection: bloqueio se houver contas
+- [x] OrigemTypeSection: bloqueio se houver entradas
+
+---
+
+## 🎯 Sprint #9 — UX Improvements (Em andamento)
+
+**Objetivo:** Melhorar experiência do usuário com recursos de produtividade
+**PR:** #69 (em aberto)
+
+---
+
+### Item 1: Modal de Ajuda para Atalhos ✅
+
+- [x] Componente `KeyboardShortcutsHelp`
+- [x] Lista de todos os atalhos disponíveis
+- [x] Atalho '?' abre o modal
+- [x] Adicionado no header
+
+### Item 2: Toast de Sucesso em Operações (Pendente)
+
+- [ ] Toast.success em operações destrutivas (delete, clear)
+- [ ] Feedback visual positivo para o usuário
 
 ---
 
 ## 📌 Backlog Futuro
 
-### Sprint #7 (Em andamento)
+### Sprint #10 (Futura)
 - [ ] Multi-idioma (i18n)
-- [x] Dark mode toggle — já implementado (ThemeToggle no sidebar)
-- [ ] Atalhos de teclado
-
-### Sprint #8 (Futura)
-- [ ] Verificar cascata de exclusão Owner → Contas
-- [ ] Verificar cascata de exclusão Program → Entradas
 - [ ] Analytics de uso (se volume justificar)
+- [ ] Melhorias de performance
 
 ### Referência
 - [x] Mapa de Experiências do Usuário — `docs/MAPA-EXPERIENCIAS-USUARIO.md`
@@ -209,13 +175,13 @@
 
 | Métrica | Valor |
 |---------|-------|
-| Bundle size | 648kB |
-| Testes unitários | 35/35 ✅ |
+| Bundle size | 658kB |
+| Testes unitários | 40/40 ✅ |
 | Testes E2E | 8/8 ✅ |
 | Deploy | Automático (Vercel) |
-| Último PR | #65 (code review) + hotfix |
+| Último PR | #68 (cascade protection) |
 
 ---
 
 **Última atualização:** 2026-07-10
-**Próxima revisão:** Sprint #7
+**Próxima revisão:** Sprint #10

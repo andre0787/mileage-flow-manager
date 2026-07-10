@@ -1,58 +1,59 @@
-# HANDOFF — Sprint #8 Completa
+# HANDOFF — Sprint #9 Em Andamento
 
-## Status: ✅ Sessão completa — 2026-07-10
+## Status: 🔄 Sessão em andamento
 
-### Último trabalho: PR #68 merged to main
+### Último trabalho: Modal de ajuda para atalhos implementado
 
 ---
 
 ## Resumo da Sessão
 
-### Sprint #8 — Proteção contra Exclusão em Cascata
+### Sprint #9 — UX Improvements
 
-**Problema identificado no Council:**
-- Owner/Program/OrigemType deletavam sem verificar relacionamentos
-- Database tinha restrições de cascade/restrict que não eram tratadas no frontend
+**Item 1: Modal de Ajuda para Atalhos ✅**
+- Componente `KeyboardShortcutsHelp` com Dialog
+- Lista de todos os atalhos disponíveis
+- Atalho '?' abre o modal
+- Adicionado no header ao lado do GlobalSearch
 
-**Solução implementada:**
-- OwnerSection: aviso quando dono possui contas vinculada(s)
-- ProgramSection: bloqueio se houver contas vinculadas
-- OrigemTypeSection: bloqueio se houver entradas vinculadas
+**Item 2: Toast de Sucesso em Operações (Pendente)**
+- Toast.success em operações destrutivas
+- Feedback visual positivo para o usuário
 
 ---
 
 ## Branch atual
 
-`main` — produção limpa
+`feature/sprint9-performance` — aguardando PR
 
 ## Build & Test
 
 - TypeScript: clean
-- Vite build: ✅ (656kB)
+- Vite build: ✅ (658kB)
 - Testes: 40/40 ✅
-- Deploy: https://mileage-flow-manager.vercel.app ✅
 
 ## Arquivos modificados nesta sessão
 
 ### Código
-- `src/components/OwnerSection.tsx` — aviso de cascade
-- `src/components/ProgramSection.tsx` — bloqueio de exclusão
-- `src/components/OrigemTypeSection.tsx` — bloqueio de exclusão
-- `src/pages/Configuracoes.tsx` — passa props para componentes
+- `src/components/KeyboardShortcutsHelp.tsx` — modal de ajuda (novo)
+- `src/App.tsx` — integração no header
 
 ### Docs
-- `docs/AGENDA.md` — Sprint #8 completa
+- `docs/AGENDA.md` — Sprint #9 organizada
 
 ---
 
 ## Próximos passos
 
-### Sprint #9 (Futura)
+### Sprint #9 — Itens Pendentes
+1. **Item 2:** Toast de sucesso em operações
+
+### Sprint #10 (Futura)
 - Multi-idioma (i18n)
-- Analytics de uso (se volume justificar)
+- Analytics de uso
 - Melhorias de performance
 
 ---
 
 **Última atualização:** 2026-07-10
-**Próxima sessão:** Sprint #9
+**Próxima sessão:** Continuar Sprint #9
