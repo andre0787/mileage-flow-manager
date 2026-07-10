@@ -27,7 +27,16 @@
 - **Fix #1:** Removeu `queryClient.clear()` (reload já descarta cache)
 - **Fix #2:** Adicionou `entries` na desestruturação de `useData()`
 - **Verificado no bundle de produção:** ambos os fixes confirmados
-- **Relatório:** `docs/reports/2026-07-10-bugfix-limpar-cache-errorboundary.html`
+
+### Item 4: Bugfix Overflow Mobile + Selectors ✅
+- **Overflow Dashboard:** header `px-6` → `px-4 md:px-6` (App.tsx)
+  + GlobalSearch `w-48` → `w-32` em mobile (GlobalSearch.tsx)
+- **Root cause:** header right section (LangSelector + KbdShortcuts + Search)
+  somava 280px em viewport 393px, mas espaço disponível era ~211px
+- **Nova Entrada selector:** `.first()` em 5 selectores
+  (clube, fluxo-completo, origem-tipo)
+- **Nova Venda selector:** `.first()` no fluxo-completo
+- **4 pre-existing failures corrigidos:** responsivo, clube, fluxo-completo, origem-tipo
 
 ---
 
@@ -40,9 +49,9 @@
 - TypeScript: clean
 - Vite build: ✅ (664kB)
 - Testes unitários: 40/40 ✅
-- Testes E2E: 63 testes (14 specs) ✅
-- **Total: 103 testes**
-- Deploy: https://mileage-flow-manager.vercel.app ✅ (verificado no bundle)
+- **Testes E2E: 67 de 67** (4 pre-existing failures corrigidos) ✅
+- **Total: 107 testes**
+- Deploy: https://mileage-flow-manager.vercel.app ✅
 
 ## Arquivos modificados nesta sessão
 
@@ -50,6 +59,8 @@
 - `src/contexts/DataContext.tsx` — remove `queryClient.clear()` do `clearCache`
 - `src/pages/Configuracoes.tsx` — adiciona `entries` na desestruturação
 - `src/hooks/useDatabase/sales.ts` — corrigido duplicate import
+- `src/App.tsx` — header `px-6` → `px-4 md:px-6` (overflow mobile)
+- `src/components/GlobalSearch.tsx` — `w-48` → `w-32` em mobile (overflow mobile)
 
 ### Testes
 - `tests/auth.spec.ts` — 12 testes (novo), corrigido TC-AUTH-004
@@ -57,14 +68,15 @@
 - `tests/vendas.spec.ts` — 7 testes (novo)
 - `tests/clientes.spec.ts` — 9 testes (novo)
 - `tests/transversal.spec.ts` — 16 testes (novo)
+- `tests/clube.spec.ts` — `.first()` no Nova Entrada
+- `tests/fluxo-completo.spec.ts` — `.first()` em 3 selectores (Nova Entrada x2, Nova Venda)
+- `tests/origem-tipo.spec.ts` — `.first()` em 2 selectores (Nova Entrada)
 
 ### Docs
-- `docs/TEST-PLAN.md` — plano completo de testes (novo)
-- `docs/TESTING.md` — atualizado com novos arquivos
+- `docs/TEST-PLAN.md` — plano completo de testes
+- `docs/TESTING.md` — atualizado
 - `docs/AGENDA.md` — bugfix registrado
-- `docs/reports/2026-07-10-mapa-completo-fluxos-usuario.html` — mapa de fluxos (novo)
-- `docs/reports/2026-07-10-sprints6-10-experiencias-usuario.html` — relatório consolidado (novo)
-- `docs/reports/2026-07-10-bugfix-limpar-cache-errorboundary.html` — relatório do bug (novo)
+- `docs/reports/2026-07-10-bugfix-limpar-cache-errorboundary.html` — relatório
 - `HANDOFF.md` — este arquivo (atualizado)
 
 ---
@@ -82,12 +94,10 @@
 ## Próximos passos
 
 ### Imediatos
-- Adicionar credenciais de teste (TEST_EMAIL/TEST_PASSWORD) no CI
-- Corrigir overflow mobile em viewport < 640px (pré-existente)
-- Corrigir strict mode do seletor "Nova Entrada" (pré-existente)
+- Adicionar TEST_EMAIL/TEST_PASSWORD no CI (GitHub Actions secrets)
 
 ### Sprint #11 (Futura)
-- Traduções no Dashboard
+- Traduções no Dashboard (`useI18n()`)
 - Traduções na Configurações
 - Analytics de uso
 - Melhorias de performance
@@ -96,5 +106,5 @@
 ---
 
 **Última atualização:** 2026-07-10
-**Último commit:** db8477c (fix: entries na desestruturação)
-**Último deploy:** 12:18 GMT (verificado)
+**Último commit:** (atual)
+**Último deploy:** (verificado após fixes)

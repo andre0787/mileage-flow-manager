@@ -178,11 +178,20 @@
 
 ---
 
-## ✅ Bugfix — Limpar Cache (2026-07-10)
+## ✅ Bugfix — Limpar Cache ErrorBoundary (2026-07-10)
 
 - [x] `DataContext.tsx`: remove `queryClient.clear()` antes de `window.location.reload()`
-- [x] Causa: `queryClient.clear()` invalidava cache → React re-renderizava com queries falhando → ErrorBoundary
-- [x] Fix: reload descarta cache in-memory, `queryClient.clear()` é desnecessário
+- [x] `Configuracoes.tsx`: adiciona `entries` na desestruturação de `useData()`
+- [x] **Dois bugs encadeados:** queryClient.clear() causava re-render, mas o verdadeiro erro era `entries` undefined → TypeError
+
+## ✅ Bugfix — Overflow Mobile + Selectors (2026-07-10)
+
+- [x] **Overflow Dashboard (433px em 393px):** header `px-6` → `px-4 md:px-6`; GlobalSearch `w-48` → `w-32` em mobile
+  - Root cause: header right section (LanguageSelector + KeyboardShortcutsHelp + GlobalSearch) somava 280px, espaço disponível ~211px
+- [x] **Nova Entrada selector:** `.first()` em 5 selectores (3 arquivos: clube, fluxo-completo, origem-tipo)
+- [x] **Nova Venda selector:** `.first()` no fluxo-completo
+- [x] Tests: 4 pre-existing failures corrigidos (responsivo, clube, fluxo-completo, origem-tipo)
+- [x] Deploy: https://mileage-flow-manager.vercel.app
 
 ---
 
@@ -194,9 +203,9 @@
 - [ ] Analytics de uso
 - [ ] Melhorias de performance
 - [ ] PWA offline avançado
-- [ ] Adicionar TEST_EMAIL/TEST_PASSWORD no CI
-- [ ] Corrigir overflow mobile (< 640px)
-- [ ] Corrigir strict mode seletor "Nova Entrada" (3 botões)
+- [ ] Adicionar TEST_EMAIL/TEST_PASSWORD no CI (env vars no GitHub Actions)
+- [ ] Corrigir strict mode seletor "Nova Entrada" (3 botões) ✅
+- [ ] Corrigir overflow mobile (< 640px) ✅
 
 ### Referência
 - [x] Mapa de Experiências do Usuário — `docs/MAPA-EXPERIENCIAS-USUARIO.md`

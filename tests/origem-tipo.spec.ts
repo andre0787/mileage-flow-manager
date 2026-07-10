@@ -24,7 +24,7 @@ test("Tipos de origem marcam recorrência corretamente", async ({ page }) => {
   await page.waitForTimeout(3000);
 
   // 3. Abre Nova Entrada
-  await page.getByRole("button", { name: "Nova Entrada" }).click();
+  await page.getByRole("button", { name: "Nova Entrada" }).first().click();
   await page.waitForTimeout(1000);
 
   // 4. Plus button ao lado do Tipo de Origem
@@ -51,7 +51,7 @@ test("Tipos de origem marcam recorrência corretamente", async ({ page }) => {
   // 8. Fecha e reabre o formulário para garantir que o tipo novo ficou disponível na aba Pontos
   await page.keyboard.press('Escape');
   await page.waitForTimeout(300);
-  await page.getByRole("button", { name: "Nova Entrada" }).click();
+  await page.getByRole("button", { name: "Nova Entrada" }).first().click();
   await page.waitForTimeout(700);
 
   const origemCombobox = page.locator("button[role='combobox']").nth(1);

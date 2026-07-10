@@ -107,7 +107,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.getByRole("tab", { name: /pontos/i }).click();
     await page.waitForTimeout(200);
 
-    await page.getByRole("button", { name: "Nova Entrada" }).click();
+    await page.getByRole("button", { name: "Nova Entrada" }).first().click();
     await page.waitForTimeout(300);
 
     let cmb = page.locator("[role=combobox]");
@@ -128,7 +128,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
     pass("50.000 visível na tabela");
 
     // ═══ 4. ENTRADA CLUBE ═══
-    await page.getByRole("button", { name: "Nova Entrada" }).click();
+    await page.getByRole("button", { name: "Nova Entrada" }).first().click();
     await page.waitForTimeout(300);
 
     cmb = page.locator("[role=combobox]");
@@ -203,7 +203,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.getByRole("tab", { name: /milhas/i }).click();
     await page.waitForTimeout(500);
 
-    await page.getByRole("button", { name: /nova entrada/i }).click();
+    await page.getByRole("button", { name: /nova entrada/i }).first().click();
     await page.waitForTimeout(300);
 
     // Milhas tab: only "Latam Pass" account and "Transferência" origem type are available
@@ -270,7 +270,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
 
     await page.goto("/vendas", { waitUntil: "domcontentloaded" });
     await page.waitForTimeout(1000);
-    await page.getByRole("button", { name: /nova venda/i }).click();
+    await page.getByRole("button", { name: /nova venda/i }).first().click();
     await page.waitForTimeout(300);
     // Dialog combos: nth(1)=Dono, nth(2)=Conta, nth(3)=Cliente
     const vCmb = page.locator("[role=combobox]");

@@ -79,7 +79,7 @@ test.describe("Clube de Milhas", () => {
     await page.waitForTimeout(500);
 
     // Abrir dialog de nova entrada
-    await page.locator("button:has-text('Nova Entrada')").click();
+    await page.locator("button:has-text('Nova Entrada')").first().click();
     await page.waitForTimeout(500);
 
     // Preencher formulário — selecionar conta

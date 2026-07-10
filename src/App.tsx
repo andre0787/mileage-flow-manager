@@ -158,7 +158,7 @@ const AppLayout = () => {
         <AppSidebar />
         <div className="flex-1 flex flex-col min-w-0">
           <OfflineBanner />
-            <header className="h-14 flex items-center border-b bg-background/80 backdrop-blur-sm px-6 sticky top-0 z-30 safe-area-top">
+            <header className="h-14 flex items-center border-b bg-background/80 backdrop-blur-sm px-4 md:px-6 sticky top-0 z-30 safe-area-top">
               <SidebarTrigger />
               <div className="ml-4">
                 <h2 className="text-base font-semibold text-foreground font-display">MilesControl</h2>
