@@ -31,6 +31,7 @@
       <li>CI e deploy sobem para <code>node-version: 22</code></li>
       <li><code>npm install -g npm@11</code> antes do <code>npm ci</code></li>
       <li>Testes E2E trocam <code>waitForURL</code> por <code>waitForFunction</code> no fluxo SPA</li>
+      <li><code>src/lib/supabase.ts</code> ganha fallback público para URL/anon key</li>
       <li>Ambiente do Actions fica alinhado com o local</li>
     </ul>
   </div>
@@ -43,6 +44,7 @@
       <li>Mantém a mudança pequena e direta</li>
       <li>Padroniza npm 11 no runner para bater com o lockfile</li>
       <li>Evita timeout falso em navegação SPA pós-login</li>
+      <li>Evita falha global do app por env Supabase ausente no Actions</li>
     </ul>
   </div>
 

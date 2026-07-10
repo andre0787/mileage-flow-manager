@@ -1,15 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "./supabase-types";
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || "https://ohyplfpcwxzakujjfwdf.supabase.co";
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || "sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs";
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error("[supabase] Missing VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY");
+if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
+  console.warn("[supabase] Using fallback public Supabase env");
 }
 
-// ponytail: create client even if env vars missing — will fail at runtime with clear error
-export const supabase = createClient<Database>(
-  supabaseUrl || "https://placeholder.supabase.co",
-  supabaseAnonKey || "placeholder-key",
-);
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
