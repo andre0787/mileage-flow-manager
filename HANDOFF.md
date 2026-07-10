@@ -2,7 +2,7 @@
 
 ## Status: ✅ Sessão completa — 2026-07-10
 
-### Último trabalho: PR #74 mergeado em produção
+### Último trabalho: PR #75 aberto para acelerar E2E no CI
 ### Trabalho atual: aumentar workers do Playwright no CI (branch `perf/playwright-workers-ci`)
 
 ---
@@ -99,6 +99,7 @@
 - `docs/superpowers/specs/2026-07-10-playwright-workers-ci-design.md` — spec
 - `docs/superpowers/plans/2026-07-10-playwright-workers-ci-plan.md` — plano
 - `docs/reports/PR75-2026-07-10-playwright-workers-ci.html` — relatório
+- `PR #75` — https://github.com/andre0787/mileage-flow-manager/pull/75
 - `HANDOFF.md` — este arquivo (atualizado)
 
 ---
