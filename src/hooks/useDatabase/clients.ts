@@ -75,6 +75,7 @@ export function useDeleteClientMutation() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["clients"] });
       queryClient.invalidateQueries({ queryKey: ["sales"] });
+      toast.success("Cliente excluído com sucesso");
     },
     onError: () => toast.error("Erro ao excluir cliente"),
   });

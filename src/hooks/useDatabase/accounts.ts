@@ -82,6 +82,7 @@ export function useDeleteAccountMutation() {
       queryClient.invalidateQueries({ queryKey: ["entries"] });
       queryClient.invalidateQueries({ queryKey: ["sales"] });
       logDestructiveOp("delete", "account");
+      toast.success("Conta excluída com sucesso");
     },
     onError: (err) => {
       logError("deleteAccount", err);

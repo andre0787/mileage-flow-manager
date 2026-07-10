@@ -374,6 +374,7 @@ export function useDeleteEntryMutation() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["entries"] });
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      toast.success("Entrada excluída com sucesso");
     },
     onError: (err) => {
       logError("deleteEntry", err);

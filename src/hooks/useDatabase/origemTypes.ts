@@ -65,7 +65,10 @@ export function useDeleteOrigemTypeMutation() {
       const { error } = await supabase.from("origem_types").delete().eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["origem_types"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["origem_types"] });
+      toast.success("Tipo de operação excluído com sucesso");
+    },
     onError: () => toast.error("Erro ao excluir tipo de operação"),
   });
 }

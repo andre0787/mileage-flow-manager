@@ -206,6 +206,7 @@ export function useDeleteSaleMutation() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sales"] });
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      toast.success("Venda excluída com sucesso");
     },
     onError: () => toast.error("Erro ao excluir venda"),
   });
