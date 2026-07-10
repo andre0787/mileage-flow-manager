@@ -102,12 +102,104 @@
 
 ---
 
+## 🎯 Sprint #6 — Confirmações + Error Handling
+
+**Objetivo:** Tornar o app mais seguro e resiliente com confirmações em operações destrutivas e tratamento de erro estruturado
+**Estimativa:** 1 semana
+**Dependências:** Sprint #5 completa
+**Council:** `docs/council/2026-07-10-tratamento-erro-confirmacoes-debug-log-veredito.md`
+
+---
+
+### Item 1: AlertDialog em Exclusões de Config ✅
+
+**Prioridade:** 🔴 Alta
+**Estimativa:** 2-3h
+**Arquivos impactados:** `src/components/OwnerSection.tsx`, `src/components/ProgramSection.tsx`, `src/components/OrigemTypeSection.tsx`, `src/components/DeleteConfirmDialog.tsx` (novo)
+
+**Critérios de Aceite:**
+- [x] Componente reutilizável `DeleteConfirmDialog` criado
+- [x] OwnerSection: AlertDialog antes de excluir dono
+- [x] ProgramSection: AlertDialog antes de excluir programa
+- [x] OrigemTypeSection: AlertDialog antes de excluir tipo de operação
+- [x] Mensagens claras com nome do item sendo excluído
+- [x] Botão de confirmação em vermelho (destructive)
+- [x] Build limpo sem erros TypeScript
+
+**Notas:**
+- Padrão copiado do DeleteEntryDialog existente
+- Componente genérico para reuso futuro
+- **Council:** prioridade #1 identificada por todos os 5 advisors
+
+---
+
+### Item 2: Toast Feedback em Mutations (Pendente)
+
+**Prioridade:** 🟡 Média
+**Estimativa:** 1-2h
+**Arquivos impactados:** `src/hooks/useDatabase/*.ts`
+
+**Critérios de Aceite:**
+- [ ] onError com `toast.error()` em mutations que falham
+- [ ] Mensagens amigáveis (não técnicas do Supabase)
+- [ ] onSuccess para operações destrutivas (delete, clear)
+- [ ] Usar Sonner (padrão do projeto)
+
+**Notas:**
+- TanStack Query já suporta onError/onSuccess
+- Gap identificado: mutations falham silenciosamente
+
+---
+
+### Item 3: Debug Log Estruturado (Pendente)
+
+**Prioridade:** 🟡 Média
+**Estimativa:** 3-4h
+**Arquivos impactados:** `src/lib/logger.ts` (novo), `src/hooks/useDatabase/*.ts`
+
+**Critérios de Aceite:**
+- [ ] `src/lib/logger.ts` com `logError()` e `logDestructiveOp()`
+- [ ] Storage: localStorage (dev) / Supabase audit_logs (prod)
+- [ ] Flag: `VITE_ENABLE_DEBUG_LOG=true` em .env
+- [ ] Log de erros de mutation
+- [ ] Log de operações destrutivas (delete, clear)
+- [ ] Timestamp, user_id, contexto em cada log
+
+**Notas:**
+- Analytics é YAGNI — começar com logs básicos
+- Toggle por variável de ambiente
+- Sobrevive a refresh (localStorage)
+
+---
+
+### Item 4: Mensagens de Erro Amigáveis no Login (Pendente)
+
+**Prioridade:** 🟢 Baixa
+**Estimativa:** 30min
+**Arquivos impactados:** `src/pages/Login.tsx`
+
+**Critérios de Aceite:**
+- [ ] Mapear erros Supabase para mensagens amigáveis
+- [ ] "Credenciais inválidas" ao invés de mensagem técnica
+- [ ] Log da mensagem técnica original para debug
+
+**Notas:**
+- Gap de UX identificado pelo Outsider no council
+- Usuário final não deve ver erros técnicos
+
+---
+
 ## 📌 Backlog Futuro
 
 ### Sprint #7 (Futura)
 - [ ] Multi-idioma (i18n)
 - [ ] Dark mode toggle
 - [ ] Atalhos de teclado
+
+### Sprint #8 (Futura)
+- [ ] Verificar cascata de exclusão Owner → Contas
+- [ ] Verificar cascata de exclusão Program → Entradas
+- [ ] Analytics de uso (se volume justificar)
 
 ### Referência
 - [x] Mapa de Experiências do Usuário — `docs/MAPA-EXPERIENCIAS-USUARIO.md`
@@ -118,7 +210,7 @@
 
 | Métrica | Valor |
 |---------|-------|
-| Bundle size | 646kB |
+| Bundle size | 648kB |
 | Testes unitários | 35/35 ✅ |
 | Testes E2E | 8/8 ✅ |
 | Deploy | Automático (Vercel) |

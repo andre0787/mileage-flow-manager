@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { DeleteConfirmDialog } from "@/components/DeleteConfirmDialog";
 import type { Program } from "@/types";
 
 interface ProgramSectionProps {
@@ -164,7 +165,13 @@ export default function ProgramSection({ programs, onAdd, onUpdate, onDelete }: 
                     <TableCell className="hidden md:table-cell text-right">
                       <div className="flex justify-end gap-2">
                         <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => handleEdit(program)}><Edit className="h-4 w-4" /></Button>
-                        <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive" onClick={() => onDelete(program.id)}><Trash2 className="h-4 w-4" /></Button>
+                        <DeleteConfirmDialog
+                          trigger={<Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive"><Trash2 className="h-4 w-4" /></Button>}
+                          title="Excluir programa?"
+                          description={`Tem certeza que deseja excluir o programa "${program.name}"? Esta ação não pode ser desfeita.`}
+                          confirmLabel="Excluir programa"
+                          onConfirm={() => onDelete(program.id)}
+                        />
                       </div>
                     </TableCell>
                   </TableRow>
@@ -188,7 +195,13 @@ export default function ProgramSection({ programs, onAdd, onUpdate, onDelete }: 
                 </div>
                 <div className="flex gap-2 pt-1 border-t">
                   <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px]" onClick={() => handleEdit(program)}><Edit className="h-4 w-4" /> Editar</Button>
-                  <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive" onClick={() => onDelete(program.id)}><Trash2 className="h-4 w-4" /> Excluir</Button>
+                  <DeleteConfirmDialog
+                    trigger={<Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive"><Trash2 className="h-4 w-4" /> Excluir</Button>}
+                    title="Excluir programa?"
+                    description={`Tem certeza que deseja excluir o programa "${program.name}"? Esta ação não pode ser desfeita.`}
+                    confirmLabel="Excluir programa"
+                    onConfirm={() => onDelete(program.id)}
+                  />
                 </div>
               </div>
             ))}
