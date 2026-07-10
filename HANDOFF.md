@@ -1,36 +1,30 @@
-# HANDOFF — Sprint #6 Completa + Merge
+# HANDOFF — Sprint #7 Completa
 
 ## Status: ✅ Sessão completa — 2026-07-10
 
-### Último trabalho: PR #66 merged to main
+### Último trabalho: PR #67 merged to main
 
 ---
 
 ## Resumo da Sessão
 
-### 1. Council — Tratamento de Erro + Confirmações + Debug Log
-- 5 advisors analisaram gaps de UX e error handling
-- 3 camadas de implementação recomendadas
-- **Council:** `docs/council/2026-07-10-tratamento-erro-confirmacoes-debug-log-veredito.md`
+### Sprint #7 — Atalhos de Teclado
 
-### 2. Sprint #6 — Todos os Itens Completos + Merged
+**Item implementado:**
+- `src/hooks/useKeyboardShortcuts.ts` — hook para atalhos de teclado
 
-**Item 1: AlertDialog em Exclusões ✅**
-- Componente reutilizável `DeleteConfirmDialog` criado
-- OwnerSection, ProgramSection, OrigemTypeSection: AlertDialog antes de excluir
+**Atalhos:**
+- `g` → Dashboard
+- `e` → Entradas
+- `v` → Vendas
+- `c` → Clientes
+- `p` → Perfil
+- `s` → Configurações
+- `r` → Relatórios
 
-**Item 2: Toast Feedback em Mutations ✅**
-- Toast.error em todas as mutations (8 arquivos)
-- Mensagens amigáveis em pt-BR
-
-**Item 3: Debug Log Estruturado ✅**
-- `src/lib/logger.ts` com `logError()` e `logDestructiveOp()`
-- Storage: localStorage (dev)
-- Flag: `VITE_ENABLE_DEBUG_LOG=true`
-
-**Item 4: Mensagens de Erro Amigáveis no Login ✅**
-- Mapeamento de erros Supabase para pt-BR
-- Log da mensagem técnica original para debug
+**Notas:**
+- Dark mode já estava implementado (ThemeToggle no sidebar)
+- Atalhos ignoram inputs e combinações Ctrl/Alt/Meta
 
 ---
 
@@ -48,36 +42,18 @@
 ## Arquivos modificados nesta sessão
 
 ### Código
-- `src/components/DeleteConfirmDialog.tsx` — componente reutilizável (novo)
-- `src/components/OwnerSection.tsx` — AlertDialog para exclusão
-- `src/components/ProgramSection.tsx` — AlertDialog para exclusão
-- `src/components/OrigemTypeSection.tsx` — AlertDialog para exclusão
-- `src/hooks/useDatabase/accounts.ts` — toast feedback + logger
-- `src/hooks/useDatabase/clients.ts` — toast feedback
-- `src/hooks/useDatabase/entries.ts` — toast feedback + logger
-- `src/hooks/useDatabase/origemTypes.ts` — toast feedback
-- `src/hooks/useDatabase/owners.ts` — toast feedback
-- `src/hooks/useDatabase/programs.ts` — toast feedback
-- `src/hooks/useDatabase/sales.ts` — toast feedback
-- `src/hooks/useDatabase/shared.ts` — toast feedback + logger
-- `src/lib/logger.ts` — debug log estruturado (novo)
-- `src/pages/Login.tsx` — mensagens de erro amigáveis
+- `src/hooks/useKeyboardShortcuts.ts` — hook de atalhos (novo)
+- `src/App.tsx` — integração do hook
 
 ### Docs
-- `docs/AGENDA.md` — Sprint #6 completa
-- `docs/council/2026-07-10-tratamento-erro-confirmacoes-debug-log-veredito.md` — council verdict
-- `docs/reports/PR66-2026-07-10-confirmacoes-exclusao.html` — relatório HTML
+- `docs/AGENDA.md` — Sprint #7 completa
 
 ---
 
 ## Próximos passos
 
-### Sprint #7 (Futura)
-- Multi-idioma (i18n)
-- Dark mode toggle
-- Atalhos de teclado
-
 ### Sprint #8 (Futura)
+- Multi-idioma (i18n)
 - Verificar cascata de exclusão Owner → Contas
 - Verificar cascata de exclusão Program → Entradas
 - Analytics de uso (se volume justificar)
@@ -85,4 +61,4 @@
 ---
 
 **Última atualização:** 2026-07-10
-**Próxima sessão:** Sprint #7
+**Próxima sessão:** Sprint #8
