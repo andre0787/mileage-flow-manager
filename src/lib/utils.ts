@@ -28,3 +28,32 @@ export function formatNumber(value: number, digits = 0): string {
 export function formatPercent(value: number): string {
   return `${value.toFixed(1)}%`;
 }
+
+/** Exporta dados como CSV e dispara download */
+export function downloadCSV(data: Record<string, string | number>[], filename: string) {
+  if (data.length === 0) return;
+  const headers = Object.keys(data[0]);
+  const csvRows = [
+    headers.join(","),
+    ...data.map((row) =>
+      headers
+        .map((h) => {
+          const val = String(row[h] ?? "");
+          return val.includes(",") || val.includes('"') || val.includes("\n")
+            ? `"${val.replace(/"/g, '""')}"`
+            : val;
+        })
+        .join(","),
+    ),
+  ].join("\n");
+  const BOM = "\uFEFF";
+  const blob = new Blob([BOM + csvRows], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}

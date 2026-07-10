@@ -1,30 +1,33 @@
-# HANDOFF — Sprint #6 Completa
+# HANDOFF — Sprint #6 Completa + Code Review
 
-## Status: ✅ Sprint #6 merged (PR #63 + #64)
+## Status: ✅ Code Review complete (14 issues fixed)
 
-### Último trabalho: 2026-07-09
+### Último trabalho: 2026-07-10
 
-- **PR #63 merged**: Busca global (dropdown no header, Cmd+K)
-- **PR #64 merged**: Modo offline minimal (SW + banner + botões desabilitados)
-  - Service Worker via Workbox (vite-plugin-pwa)
-  - Hook useOnlineStatus() + OnlineContext
-  - OfflineBanner quando sem conexão
-  - Botões de ação desabilitados offline
-  - Testes: 35/35 ✅
-  - Bundle: 646kB
-- **Commit `73a59f6`**: Council verdicts, plans, changelog e deps commitados
+- **Code Review geral** do projeto — 15 issues encontrados, 14 corrigidos
+- **Bugs de integridade corrigidos:**
+  - Transfer reversal restaurava `amountPaid` em vez de custo proporcional
+  - `.sort()` mutava arrays memoizados em Relatorios
+  - `clearAccountData` não preservava tipo Transferência
+- **Bugs de UX corrigidos:**
+  - `window.location.href` → `useNavigate()` no Dashboard
+  - `as any` removido do DataContext
+  - `pontosSales` marcada com comment intencional
+- **Cleanup:**
+  - `downloadCSV` extraído de 2 páginas para `lib/utils.ts`
+  - `staleTime` redundante removido de 7 hooks
+  - `SkeletonHero` (não usado) deletado
+  - Comments clarificadores em funções de serialização
 
 ### Branch atual
 
 `main` — produção limpa
 
-### Sprint #6 — Resumo
+### Build & Test
 
-| Item | Status | PR |
-|------|--------|-----|
-| Busca global | ✅ | #63 |
-| Modo offline minimal | ✅ | #64 |
-| Exportação PDF | ❌ Descartado (council) | — |
+- TypeScript: clean
+- Vite build: ✅ (646kB)
+- Testes: 35/35 ✅
 
 ### Próximos passos
 

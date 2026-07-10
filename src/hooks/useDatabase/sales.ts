@@ -20,7 +20,6 @@ export function useSalesQuery() {
       return (data ?? []).map(mapSale);
     },
     enabled: !!userId,
-    staleTime: 30 * 1000,
   });
 }
 

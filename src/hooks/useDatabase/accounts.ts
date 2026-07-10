@@ -18,7 +18,6 @@ export function useAccountsQuery() {
       return (data ?? []).map(mapAccount);
     },
     enabled: !!userId,
-    staleTime: 30 * 1000,
   });
 }
 

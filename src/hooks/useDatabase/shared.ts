@@ -49,6 +49,7 @@ export function generateRecurringEntries(
 
 export function useClearAccountDataMutation() {
   const queryClient = useQueryClient();
+  const { user } = useAuth();
   return useMutation({
     mutationFn: async () => {
       const tables = [
@@ -63,6 +64,18 @@ export function useClearAccountDataMutation() {
       for (const table of tables) {
         const { error } = await supabase.from(table).delete().not("id", "is", null);
         if (error) throw error;
+      }
+
+      // Re-insert built-in Transferência type (preserved across reset)
+      if (user) {
+        const { error: insErr } = await supabase.from("origem_types").insert({
+          id: crypto.randomUUID(),
+          user_id: user.id,
+          name: "Transferência",
+          account_type: "milhas",
+          color: "#8b5cf6",
+        } as any);
+        if (insErr) console.error("[clearAccountData] failed to re-insert Transferência:", insErr);
       }
     },
     onSuccess: () => {

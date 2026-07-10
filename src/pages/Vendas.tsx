@@ -20,6 +20,7 @@ import {
   useAddClientMutation,
 } from "@/hooks/useDatabase";
 import { calcProfit, calcProfitMargin } from "@/lib/metrics";
+import { downloadCSV } from "@/lib/utils";
 import { SaleMetrics } from "@/components/SaleMetrics";
 import { SaleForm, type SaleFormData } from "@/components/SaleForm";
 import { SaleTable } from "@/components/SaleTable";
@@ -132,39 +133,6 @@ export default function Vendas() {
     });
   };
 
-  // Export CSV
-  const downloadCSV = (data: Record<string, string | number>[], filename: string) => {
-    if (data.length === 0) {
-      toast.info("Nenhum dado para exportar");
-      return;
-    }
-    const headers = Object.keys(data[0]);
-    const csvRows = [
-      headers.join(","),
-      ...data.map((row) =>
-        headers
-          .map((h) => {
-            const val = String(row[h] ?? "");
-            return val.includes(",") || val.includes('"') || val.includes("\n")
-              ? `"${val.replace(/"/g, '""')}"`
-              : val;
-          })
-          .join(","),
-      ),
-    ];
-    const BOM = "\uFEFF";
-    const blob = new Blob([BOM + csvRows], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-    toast.success(`${filename} baixado com sucesso`);
-  };
-
   const exportSalesReport = () => {
     const data = filteredSales.map((s) => ({
       Data: new Date(s.date).toLocaleDateString("pt-BR"),
@@ -179,6 +147,7 @@ export default function Vendas() {
       Status: s.status,
     }));
     downloadCSV(data, `vendas-${new Date().toISOString().split("T")[0]}.csv`);
+    toast.success(`vendas-${new Date().toISOString().split("T")[0]}.csv baixado com sucesso`);
   };
 
   // Filtros
