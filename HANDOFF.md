@@ -3,6 +3,7 @@
 ## Status: ✅ Sessão completa — 2026-07-10
 
 ### Último trabalho: PR #75 mergeado em produção
+### Resultado: CI verde; deploy falhou por `vercel-token` ausente
 ### Trabalho atual: aumentar workers do Playwright no CI (branch `perf/playwright-workers-ci`)
 
 ---
@@ -59,7 +60,7 @@
 
 ## Branch atual
 
-`main` — produção atualizada com PR #75
+`main` — produção atualizada com PR #75 (deploy pendente por secrets)
 
 ## Build & Test
 
