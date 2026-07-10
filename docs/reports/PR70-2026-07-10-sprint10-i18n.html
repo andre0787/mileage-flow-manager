@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relatório — Sprint #10: i18n</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; }
+  h1 { border-bottom: 2px solid #5B72C4; padding-bottom: .5rem; }
+  .stat { display: inline-block; background: #f0f4ff; padding: .25rem .75rem; border-radius: 6px; font-size: .875rem; }
+  .benefits li { margin: .5rem 0; }
+  pre { background: #f5f5f5; padding: 1rem; border-radius: 6px; overflow-x: auto; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: .75rem; font-weight: 600; }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-blue { background: #cce5ff; color: #004085; }
+</style>
+</head>
+<body>
+<h1>📋 Relatório: Sprint #10 — i18n</h1>
+<p class="stat">📁 +7 arquivos · ➕ 324 linhas · ➖ 50 linhas</p>
+<p class="stat" style="margin-left: .5rem;">⚡ ~501 tokens</p>
+<p><span class="badge badge-green">PR #70</span> <span class="badge badge-blue">Feature</span></p>
+
+<h2>Antes</h2>
+<p>Interface 100% em português (pt-BR). Sem possibilidade de alternar idioma. Mensagens de erro hardcoded.</p>
+
+<h2>Depois</h2>
+<p>Sistema de i18n com 100+ chaves de tradução. Toggle de idioma no header. Suporte a pt-BR e en-US. Login com traduções aplicadas.</p>
+
+<h2>Benefícios</h2>
+<ul class="benefits">
+  <li>✅ Suporte a múltiplos idiomas (pt-BR, en-US)</li>
+  <li>✅ Toggle de idioma acessível no header</li>
+  <li>✅ Persistência da preferência no localStorage</li>
+  <li>✅ Arquitetura extensível para novos idiomas</li>
+  <li>✅ Login com mensagens de erro traduzidas</li>
+</ul>
+
+<h2>Idiomas Suportados</h2>
+<pre>
+🇧🇷 pt-BR — Português (padrão)
+🇺🇸 en-US — English
+</pre>
+
+<h2>Detalhes</h2>
+<pre>
+src/lib/i18n.ts                     | 188 ++++++++++++++++++++++++++++++++++++
+src/contexts/I18nContext.tsx        |  33 +++++++
+src/components/LanguageSelector.tsx |  30 ++++++
+src/App.tsx                         |   5 +
+src/pages/Login.tsx                 |  18 ++--
+docs/AGENDA.md                      |  45 ++++++---
+HANDOFF.md                          |  55 +++++------
+7 files changed, 324 insertions(+), 50 deletions(-)
+</pre>
+
+<h2>Sprint #10 — Status</h2>
+<table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+  <tr style="border-bottom: 1px solid #ddd;">
+    <td style="padding: 8px;"><strong>Sistema de Internacionalização</strong></td>
+    <td style="padding: 8px; color: green;">✅ Completo</td>
+  </tr>
+  <tr>
+    <td style="padding: 8px;"><strong>Aplicar Traduções no Login</strong></td>
+    <td style="padding: 8px; color: green;">✅ Completo</td>
+  </tr>
+</table>
+
+<p style="margin-top: 1rem; color: #666; font-size: 0.875rem;">
+  <strong>Nota:</strong> Traduções no Dashboard e Configurações serão implementadas em sprints futuras.
+</p>
+</body>
+</html>
