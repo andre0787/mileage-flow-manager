@@ -152,10 +152,10 @@
 - [x] Atalho '?' abre o modal
 - [x] Adicionado no header
 
-### Item 2: Toast de Sucesso em Operações (Pendente)
+### Item 2: Toast de Sucesso em Operações ✅
 
-- [ ] Toast.success em operações destrutivas (delete, clear)
-- [ ] Feedback visual positivo para o usuário
+- [x] Toast.success em operações destrutivas (delete, clear)
+- [x] Feedback visual positivo para o usuário
 
 ---
 
