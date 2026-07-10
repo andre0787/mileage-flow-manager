@@ -122,7 +122,7 @@
 | Testes unitários | 35/35 ✅ |
 | Testes E2E | 8/8 ✅ |
 | Deploy | Automático (Vercel) |
-| Último PR | #65 (code review) |
+| Último PR | #65 (code review) + hotfix |
 
 ---
 

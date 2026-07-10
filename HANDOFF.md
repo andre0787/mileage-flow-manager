@@ -1,60 +1,83 @@
-# HANDOFF — Sprint #6 Completa + Code Review + Novas Convenções
+# HANDOFF — Sprint #6 Completa + Code Review + Hotfix
 
-## Status: ✅ Code Review + Council + Hotfix completo (tela preta resolvida)
+## Status: ✅ Sessão completa — 2026-07-10
 
-### Último trabalho: 2026-07-10
+### Último trabalho: Hotfix tela preta resolvido
 
-- **Code Review geral** do projeto — 15 issues encontrados, 14 corrigidos
-- **Council** rodado para definir novas convenções
-- **Novas convenções** adicionadas ao CONVENTIONS.md
-- **Checklist pré-PR** adicionado ao WORKFLOW.md
-- **Testes de invariantes** criados (5 novos testes)
+---
 
-### Hotfix (após PR #65)
+## Resumo da Sessão
 
-- **Fix:** Tela preta — adicionado ErrorBoundary no root (main.tsx)
-- **Fix:** Restaurado `as any` com comment ponytail (Supabase Insert type mismatch)
-- **Fix:** Force reload on version change (previne SW cache stale)
-- **Fix:** Supabase client não crasha se env vars faltam
-- **Fix:** Remove SkeletonHero import (deletado mas importado no Dashboard)
-- **Fix:** ROOT CAUSE — DataProvider movido acima de AppSidebar/BottomTabBar
-  - AppSidebar e BottomTabBar usavam useData() mas estavam FORA do DataProvider
-  - Causava crash silencioso → tela preta
-- **Docs:** Hierarquia de Providers adicionada ao CONVENTIONS.md e WORKFLOW.md
-- **Test:** Smoke tests para prevenir tela preta futuramente
+### 1. Code Review Geral (PR #65)
+- 15 issues encontrados (6 bugs, 5 gaps, 4 cleanup)
+- 14 issues corrigidos
+- Branch: `chore/code-review-cleanup` → merged to `main`
 
-### Mudanças no PR #65
+### 2. Council — Novas Convenções
+- 5 advisors analisaram os issues
+- 4 novas convenções adicionadas ao CONVENTIONS.md:
+  - Hierarquia de Providers
+  - Invariantes Financeiras
+  - Imutabilidade de Estado
+  - Promessas de UI
+  - Config Global
+- Checklist pré-PR obrigatório no WORKFLOW.md
 
-**Código:**
-- Fix: transfer reversal usa custo proporcional
-- Fix: .sort() não muta arrays memoizados
-- Fix: clearAccountData preserva Transferência
-- Fix: useNavigate() no Dashboard
-- Fix: removed as any do DataContext
-- Refactor: downloadCSV extraído para lib/utils.ts
-- Chore: staleTime redundante removido de 7 hooks
-- Chore: SkeletonHero deletado
+### 3. Hotfix Tela Preta (3 commits)
+- **Root cause:** `AppSidebar` e `BottomTabBar` usavam `useData()` mas estavam **FORA** do `DataProvider`
+- **Fix:** `DataProvider` movido para envolver toda a árvore
+- **Docs:** Hierarquia de Providers documentada para prevenir recorrência
 
-**Documentação:**
-- CONVENTIONS.md: 4 novas seções (Invariantes Financeiras, Imutabilidade, Promessas de UI, Config Global)
-- WORKFLOW.md: Checklist pré-PR obrigatório (5 seções)
-- Council verdict: docs/council/2026-07-10-novas-convencoes-code-review-veredito.md
+---
 
-**Testes:**
-- tests/unit/invariants.test.ts: 5 testes de integridade financeira
-- Total: 40/40 ✅
+## Branch atual
 
-### Branch atual
+`main` — produção limpa
 
-`chore/code-review-cleanup` → PR #65 para `main`
-
-### Build & Test
+## Build & Test
 
 - TypeScript: clean
-- Vite build: ✅ (646kB)
+- Vite build: ✅ (647kB)
 - Testes: 40/40 ✅
+- Deploy: https://mileage-flow-manager.vercel.app ✅
 
-### Próximos passos
+## Arquivos modificados nesta sessão
 
-1. Merge PR #65
-2. Sprint #7: Multi-idioma (i18n), Dark mode toggle, Atalhos de teclado
+### Código
+- `src/App.tsx` — DataProvider movido acima de SidebarProvider
+- `src/main.tsx` — version check, APP_VERSION 1.0.3
+- `src/lib/utils.ts` — +downloadCSV()
+- `src/lib/metrics.ts` — comments nas funções internas
+- `src/lib/origemTypes.ts` — comment clarificador
+- `src/types/index.ts` — comment clarificador
+- `src/contexts/DataContext.tsx` — as any restaurado com comment
+- `src/components/SkeletonLoader.tsx` — SkeletonHero removido
+- `src/hooks/useDatabase/*.ts` (7) — staleTime removido
+- `src/hooks/useDatabase/entries.ts` — fix transfer reversal
+- `src/hooks/useDatabase/shared.ts` — clearAccountData preserva Transferência
+- `src/pages/Dashboard.tsx` — useNavigate(), remove SkeletonHero import
+- `src/pages/Vendas.tsx` — downloadCSV importado de utils
+- `src/pages/Relatorios.tsx` — downloadCSV importado, fix .sort()
+
+### Testes
+- `tests/unit/invariants.test.ts` — 5 testes de integridade financeira
+- `tests/smoke.spec.ts` — smoke tests anti-tela-preta
+
+### Docs
+- `docs/CONVENTIONS.md` — 5 novas seções
+- `docs/WORKFLOW.md` — checklist pré-PR
+- `docs/AGENDA.md` — PR #65 documentado
+- `docs/council/2026-07-10-novas-convencoes-code-review-veredito.md`
+
+---
+
+## Próximos passos
+
+1. Sprint #7: Multi-idioma (i18n), Dark mode toggle, Atalhos de teclado
+2. Considerar: teste E2E para hierarquia de providers
+3. Considerar: ESLint rule para detectar useData/useAuth fora de provider
+
+---
+
+**Última atualização:** 2026-07-10 01:25
+**Próxima sessão:** Sprint #7
