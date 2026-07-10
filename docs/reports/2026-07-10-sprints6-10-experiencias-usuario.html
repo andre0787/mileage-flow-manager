@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório — Experiências do Usuário (Sprints #6-#10)</title>
+<style>
+  :root {
+    --primary: #5B72C4;
+    --success: #22A68F;
+    --warning: #CE9E1D;
+    --danger: #DC3545;
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --muted: #6c757d;
+    --border: #e9ecef;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+  h1 { font-size: 1.8rem; border-bottom: 3px solid var(--primary); padding-bottom: .5rem; margin-bottom: 1.5rem; }
+  h2 { font-size: 1.3rem; color: var(--primary); margin: 2rem 0 1rem; padding-left: .5rem; border-left: 4px solid var(--primary); }
+  h3 { font-size: 1.1rem; margin: 1.5rem 0 .5rem; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: .75rem; font-weight: 600; }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-yellow { background: #fff3cd; color: #856404; }
+  .badge-blue { background: #cce5ff; color: #004085; }
+  .stat-row { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1rem 0; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .75rem 1.25rem; flex: 1; min-width: 120px; text-align: center; }
+  .stat .num { font-size: 1.5rem; font-weight: 700; }
+  .stat .label { font-size: .8rem; color: var(--muted); }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin: 1rem 0; }
+  .card-title { font-weight: 600; margin-bottom: .5rem; }
+  .experience { border-left: 4px solid var(--success); padding-left: 1rem; margin: 1rem 0; }
+  .experience .title { font-weight: 600; display: flex; align-items: center; gap: .5rem; }
+  .experience .desc { margin: .5rem 0; }
+  .experience .before { background: #f8d7da; padding: .5rem .75rem; border-radius: 4px; font-size: .9rem; margin-top: .5rem; }
+  .experience .after { background: #d4edda; padding: .5rem .75rem; border-radius: 4px; font-size: .9rem; margin-top: .5rem; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+  th, td { padding: .75rem; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: var(--bg); font-weight: 600; }
+  code { background: #f1f3f5; padding: 2px 6px; border-radius: 4px; font-size: .9em; }
+  .shortcut { display: inline-block; background: #f1f3f5; border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-family: monospace; font-size: .85rem; margin: 2px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>📋 Relatório: Experiências do Usuário (Sprints #6-#10)</h1>
+  
+  <div class="stat-row">
+    <div class="stat">
+      <div class="num">5</div>
+      <div class="label">Sprints</div>
+    </div>
+    <div class="stat">
+      <div class="num">5</div>
+      <div class="label">PRs Merged</div>
+    </div>
+    <div class="stat">
+      <div class="num">15+</div>
+      <div class="label">Melhorias de UX</div>
+    </div>
+    <div class="stat">
+      <div class="num">664kB</div>
+      <div class="label">Bundle Size</div>
+    </div>
+  </div>
+
+  <h2>🔒 Sprint #6 — Confirmações + Error Handling</h2>
+  <p><span class="badge badge-green">PR #66</span> Tornar o app mais seguro e resiliente</p>
+  
+  <div class="experience">
+    <div class="title">✅ AlertDialog em Exclusões de Configuração</div>
+    <div class="desc">Exclusões agora pedem confirmação antes de executar</div>
+    <div class="before"><strong>Antes:</strong> Botão "Excluir" executava direto, sem aviso. Risco de exclusão acidental.</div>
+    <div class="after"><strong>Depois:</strong> AlertDialog com nome do item sendo excluído. Botão de confirmação em vermelho.</div>
+  </div>
+  
+  <div class="experience">
+    <div class="title">✅ Toast Feedback em Mutations</div>
+    <div class="desc">Feedback visual quando operações falham ou funcionam</div>
+    <div class="before"><strong>Antes:</strong> Mutations falhavam silenciosamente. Usuário não sabia se funcionou.</div>
+    <div class="after"><strong>Depois:</strong> Toast.error para falhas, Toast.success para sucesso. Mensagens amigáveis em pt-BR.</div>
+  </div>
+  
+  <div class="experience">
+    <div class="title">✅ Debug Log Estruturado</div>
+    <div class="desc">Sistema de logging para diagnosticar erros</div>
+    <div class="after"><strong>Implementado:</strong> <code>src/lib/logger.ts</code> com <code>logError()</code> e <code>logDestructiveOp()</code>. Persiste no localStorage.</div>
+  </div>
+  
+  <div class="experience">
+    <div class="title">✅ Mensagens de Erro Amigáveis no Login</div>
+    <div class="desc">Erros do Supabase traduzidos para português</div>
+    <div class="before"><strong>Antes:</strong> Mensagens técnicas como "Invalid login credentials".</div>
+    <div class="after"><strong>Depois:</strong> "Credenciais inválidas", "Email já cadastrado", etc.</div>
+  </div>
+
+  <h2>⌨️ Sprint #7 — Atalhos de Teclado</h2>
+  <p><span class="badge badge-green">PR #67</span> Navegação rápida para usuários avançados</p>
+  
+  <div class="experience">
+    <div class="title">✅ Navegação por Teclado</div>
+    <div class="desc">Atalhos para navegar entre páginas sem usar o mouse</div>
+    <div class="after"><strong>Atalhos disponíveis:</strong></div>
+    <div style="margin-top: .5rem;">
+      <span class="shortcut">G</span> Dashboard
+      <span class="shortcut">E</span> Entradas
+      <span class="shortcut">V</span> Vendas
+      <span class="shortcut">C</span> Clientes
+      <span class="shortcut">P</span> Perfil
+      <span class="shortcut">S</span> Configurações
+      <span class="shortcut">R</span> Relatórios
+    </div>
+  </div>
+
+  <h2>🛡️ Sprint #8 — Proteção contra Exclusão em Cascata</h2>
+  <p><span class="badge badge-green">PR #68</span> Alinhar frontend com restrições do database</p>
+  
+  <div class="experience">
+    <div class="title">✅ Verificação de Relacionamentos</div>
+    <div class="desc">Sistema previne exclusão de dados vinculados</div>
+    <div class="after"><strong>Comportamento:</strong></div>
+    <ul style="margin-top: .5rem; padding-left: 1.5rem;">
+      <li><strong>Owner:</strong> Aviso quando possui contas vinculadas (cascade delete)</li>
+      <li><strong>Program:</strong> Botão desabilitado se houver contas (restrict)</li>
+      <li><strong>OrigemType:</strong> Botão desabilitado se houver entradas (restrict)</li>
+    </ul>
+  </div>
+
+  <h2>🎯 Sprint #9 — UX Improvements</h2>
+  <p><span class="badge badge-green">PR #69</span> Melhorar experiência do usuário</p>
+  
+  <div class="experience">
+    <div class="title">✅ Modal de Ajuda para Atalhos</div>
+    <div class="desc">Usuários podem descobrir atalhos sem documentação externa</div>
+    <div class="after"><strong>Implementado:</strong> Modal acessível por <span class="shortcut">?</span> ou clicando no ícone de teclado no header.</div>
+  </div>
+  
+  <div class="experience">
+    <div class="title">✅ Toast de Sucesso em Operações</div>
+    <div class="desc">Feedback positivo após conclusão de operações destrutivas</div>
+    <div class="after"><strong>Mensagens:</strong> "Conta excluída com sucesso", "Cliente excluído com sucesso", etc.</div>
+  </div>
+
+  <h2>🌍 Sprint #10 — i18n (Internacionalização)</h2>
+  <p><span class="badge badge-green">PR #70</span> Suporte a múltiplos idiomas</p>
+  
+  <div class="experience">
+    <div class="title">✅ Sistema de Internacionalização</div>
+    <div class="desc">Interface traduzível para múltiplos idiomas</div>
+    <div class="after"><strong>Idiomas suportados:</strong> 🇧🇷 Português (padrão), 🇺🇸 English</div>
+  </div>
+  
+  <div class="experience">
+    <div class="title">✅ Toggle de Idioma</div>
+    <div class="desc">Usuários podem alternar idioma facilmente</div>
+    <div class="after"><strong>Implementado:</strong> Bandeira no header que alterna entre pt-BR e en-US.</div>
+  </div>
+  
+  <div class="experience">
+    <div class="title">✅ Login com Traduções</div>
+    <div class="desc">Mensagens de erro traduzidas</div>
+    <div class="after"><strong>Exemplos:</strong> "Credenciais inválidas", "Email já cadastrado", "Senha deve ter pelo menos 6 caracteres"</div>
+  </div>
+
+  <h2>📊 Resumo das Melhorias</h2>
+  <table>
+    <tr>
+      <th>Categoria</th>
+      <th>Antes</th>
+      <th>Depois</th>
+    </tr>
+    <tr>
+      <td><strong>Segurança</strong></td>
+      <td>Exclusões sem confirmação</td>
+      <td>AlertDialog em todas as exclusões</td>
+    </tr>
+    <tr>
+      <td><strong>Feedback</strong></td>
+      <td>Operações silenciosas</td>
+      <td>Toast.error e Toast.success</td>
+    </tr>
+    <tr>
+      <td><strong>Navegação</strong></td>
+      <td>Apenas mouse</td>
+      <td>Atalhos de teclado (7 atalhos)</td>
+    </tr>
+    <tr>
+      <td><strong>Integridade</strong></td>
+      <td>Exclusões indesejadas</td>
+      <td>Verificação de relacionamentos</td>
+    </tr>
+    <tr>
+      <td><strong>Acessibilidade</strong></td>
+      <td>Atalhos ocultos</td>
+      <td>Modal de ajuda acessível</td>
+    </tr>
+    <tr>
+      <td><strong>Internacionalização</strong></td>
+      <td>Apenas pt-BR</td>
+      <td>Suporte a pt-BR e en-US</td>
+    </tr>
+    <tr>
+      <td><strong>Debug</strong></td>
+      <td>Sem logging</td>
+      <td>Debug log estruturado</td>
+    </tr>
+  </table>
+
+  <h2>🔗 Links dos Relatórios</h2>
+  <ul>
+    <li><a href="PR66-2026-07-10-confirmacoes-exclusao.html">PR #66 — Confirmações + Error Handling</a></li>
+    <li><a href="PR67-2026-07-10-sprint7-atalhos.html">PR #67 — Atalhos de Teclado</a></li>
+    <li><a href="PR68-2026-07-10-sprint8-cascade.html">PR #68 — Proteção contra Exclusão em Cascata</a></li>
+    <li><a href="PR69-2026-07-10-sprint9-ux.html">PR #69 — UX Improvements</a></li>
+    <li><a href="PR70-2026-07-10-sprint10-i18n.html">PR #70 — i18n</a></li>
+  </ul>
+
+  <p style="margin-top: 2rem; color: var(--muted); font-size: .875rem;">
+    <strong>Gerado em:</strong> 2026-07-10 | <strong>Sprints:</strong> #6-#10 | <strong>PRs:</strong> #66-#70
+  </p>
+</div>
+</body>
+</html>
