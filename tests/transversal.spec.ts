@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { registerUser } from "./helpers";
 
 /**
  * Testes Transversais — MilesControl
@@ -7,22 +8,8 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Atalhos de Teclado", () => {
   test.beforeEach(async ({ page }) => {
-    // Login antes de cada teste
-    const email = process.env.TEST_EMAIL;
-    const password = process.env.TEST_PASSWORD;
-
-    if (!email || !password) {
-      test.skip();
-      return;
-    }
-
-    await page.goto("/login");
-    await page.waitForSelector("#email", { timeout: 10_000 });
-    await page.fill("#email", email);
-    await page.fill("#password", password);
-    await page.click("button[type='submit']");
-    await page.waitForURL("/", { timeout: 30_000 });
-    await page.waitForLoadState("networkidle");
+    // Registra e loga antes de cada teste
+    await registerUser(page);
   });
 
   test("TC-TRANS-001: Atalho G navega para Dashboard", async ({ page }) => {

@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { registerUser } from "./helpers";
 
 /**
  * Smoke tests — previnem tela preta e erros de render.
@@ -30,24 +31,8 @@ test.describe("Smoke Tests — Tela Preta", () => {
   });
 
   test("Dashboard não mostra tela preta após login", async ({ page }) => {
-    // Este teste precisa de auth — skip se não houver credenciais
-    const email = process.env.TEST_EMAIL;
-    const password = process.env.TEST_PASSWORD;
-
-    if (!email || !password) {
-      test.skip();
-      return;
-    }
-
-    await page.goto("/login");
-    await page.waitForSelector("#email", { timeout: 10_000 });
-
-    await page.fill("#email", email);
-    await page.fill("#password", password);
-    await page.click("button[type='submit']");
-
-    await page.waitForURL("/", { timeout: 30_000 });
-    await page.waitForLoadState("networkidle");
+    // Registra e loga antes do teste
+    await registerUser(page);
     await page.waitForTimeout(2_000);
 
     // Verifica que o root tem filhos
