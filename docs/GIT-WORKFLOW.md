@@ -30,9 +30,8 @@ feat/*, fix/*, chore/*, refactor/*, ...
 ```
 
 - Toda branch → PR para `main`
-- `main` → deploy manual via `vercel --prod`
-- `hotfix/*` → PR direto para `main` (com bateria obrigatória)
-- ⚠️ `develop` existe no remoto mas está 89 commits atrás — não usar mais
+- `main` → deploy automático via CI (`.github/workflows/deploy.yml`)
+- `hotfix/*` → PR direto para `main` (CI obrigatório)
 
 ## Regra de Sprint
 
@@ -63,6 +62,6 @@ test: adiciona teste de cancelamento de venda
 
 - **URL**: https://mileage-flow-manager.vercel.app
 - **Framework**: Vite
-- **Manual**: `vercel --prod`
-- **⚠️ Não automático** — sem CI/CD configurado ainda
-- **Bateria obrigatória** antes de qualquer deploy: ver `TESTING.md`
+- **Automático**: deploy via CI no merge para `main` (`.github/workflows/deploy.yml`)
+- **CI obrigatório**: build + unit + E2E em todo PR (`.github/workflows/ci.yml`)
+- **Manual**: `vercel --prod` (fallback)
