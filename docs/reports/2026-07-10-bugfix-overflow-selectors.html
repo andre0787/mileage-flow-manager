@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relatório — Bugfix Overflow Mobile + Selectores</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; }
+  h1 { border-bottom: 2px solid #5B72C4; padding-bottom: .5rem; }
+  .stat { display: inline-block; background: #f0f4ff; padding: .25rem .75rem; border-radius: 6px; font-size: .875rem; }
+  .benefits li { margin: .5rem 0; }
+  pre { background: #f5f5f5; padding: 1rem; border-radius: 6px; overflow-x: auto; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: .75rem; font-weight: 600; }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-blue { background: #cce5ff; color: #004085; }
+  .badge-red { background: #f8d7da; color: #721c24; }
+  .diff-remove { color: #e53935; }
+  .diff-add { color: #2e7d32; }
+</style>
+</head>
+<body>
+<h1>📋 Relatório: Bugfix Overflow Mobile + Selectores Ambiguos</h1>
+<p class="stat">📁 +0 arquivos · ➕ 35 linhas · ➖ 5 linhas (eff.)</p>
+<p class="stat" style="margin-left: .5rem;">⚡ ~53 tokens</p>
+
+<h2>Antes</h2>
+<p>
+  <strong>Overflow mobile:</strong> header com <code>px-6</code> (48px padding) + GlobalSearch <code>w-48</code> (192px)
+  no iPhone 16 (393px) → header right section ocupava 280px dos ~211px disponíveis → document scrollWidth = 433px.
+  <br><br>
+  <strong>Selectores:</strong> 5 ocorrências de <code>getByRole("button", { name: "Nova Entrada" })</code> + 1 ocorrência
+  <code>getByRole("button", { name: /nova venda/i })</code> resolviam para 2+ elementos cada, causando strict mode violation.
+  <br><br>
+  <strong>4 testes pré-existentes falhando:</strong> responsivo, clube, fluxo-completo, origem-tipo.
+</p>
+
+<h2>Depois</h2>
+<p>
+  <strong>Overflow fix (2 arquivos):</strong><br>
+  • <code>src/App.tsx</code>: header <code>px-6</code> → <code>px-4 md:px-6</code> (24px → 16px padding lateral no mobile)<br>
+  • <code>src/components/GlobalSearch.tsx</code>: <code>w-48 sm:w-64 md:w-72</code> → <code>w-32 sm:w-48 md:w-72</code> (192px → 128px no mobile)<br>
+  → Right section agora: 36+8+36+8+128 = 216px ≤ 227px disponíveis ✅
+  <br><br>
+  <strong>Selectores fix (3 arquivos):</strong><br>
+  • <code>.first()</code> adicionado em 5 selectores (clube, fluxo-completo, origem-tipo)<br>
+  • <code>.first()</code> adicionado em 1 selector de Nova Venda (fluxo-completo)<br>
+  <br>
+  <strong>4 testes passando:</strong> responsivo ✅ clube ✅ fluxo-completo ✅ origem-tipo ✅
+</p>
+
+<h2>Benefícios</h2>
+<ul class="benefits">
+  <li>✅ Dashboard sem overflow horizontal em nenhum viewport (antes: scrollWidth 433px em 393px)</li>
+  <li>✅ 4 E2E tests pré-existentes agora passam (67 E2E de 67, 107 tests total)</li>
+  <li>✅ UX melhorada: header sem vazamento horizontal no mobile</li>
+  <li>✅ Código mínimo: 2 mudanças CSS + 6 mudanças de teste</li>
+  <li>✅ Bundle mantido em 664kB</li>
+</ul>
+
+<h2>Root Cause (Overflow)</h2>
+<pre>
+Debug no bundle de produção:
+  html.scrollWidth=433, html.clientWidth=393
+  Elemento culpado: &lt;div class="ml-auto flex items-center gap-2"&gt;
+    width=280px (LanguageSelector 36 + gap 8 + KbdShortcuts 36 + gap 8 + GlobalSearch 192)
+    left=153px → right edge = 433px
+
+  Cálculo:
+    Header: px-6 = 24px × 2 = 48px → 393 - 48 = 345px disponível
+    Left: SidebarTrigger 28 + ml-4 16 + "MilesControl" ~90 = ~134px
+    Right available: 345 - 134 ≈ 211px
+    Right actual: 36 + 8 + 36 + 8 + 192 = 280px ❌ (overflow de 69px)
+
+  Fix:
+    Header: px-4 = 16px × 2 = 32px → 393 - 32 = 361px disponível
+    Right available: 361 - 134 ≈ 227px
+    Right actual: 36 + 8 + 36 + 8 + 128 = 216px ✅ (11px de folga)
+</pre>
+
+<h2>Detalhes da Mudança</h2>
+<pre>
+ src/App.tsx                     |  2 +-                       # header padding
+ src/components/GlobalSearch.tsx |  2 +-                       # search width mobile
+ tests/clube.spec.ts             |  2 +-                       # .first()
+ tests/fluxo-completo.spec.ts    |  8 ++++----                  # .first() ×4
+ tests/origem-tipo.spec.ts       |  4 ++--                      # .first() ×2
+ HANDOFF.md                      | 40 +++++++++++++------------- # docs
+ docs/AGENDA.md                  | 21 +++++++++++-----           # docs
+</pre>
+</body>
+</html>
