@@ -133,17 +133,16 @@
 
 ---
 
-### Item 2: Toast Feedback em Mutations (Pendente)
+### Item 2: Toast Feedback em Mutations ✅
 
 **Prioridade:** 🟡 Média
 **Estimativa:** 1-2h
 **Arquivos impactados:** `src/hooks/useDatabase/*.ts`
 
 **Critérios de Aceite:**
-- [ ] onError com `toast.error()` em mutations que falham
-- [ ] Mensagens amigáveis (não técnicas do Supabase)
-- [ ] onSuccess para operações destrutivas (delete, clear)
-- [ ] Usar Sonner (padrão do projeto)
+- [x] onError com `toast.error()` em mutations que falham
+- [x] Mensagens amigáveis (não técnicas do Supabase)
+- [x] Usar Sonner (padrão do projeto)
 
 **Notas:**
 - TanStack Query já suporta onError/onSuccess

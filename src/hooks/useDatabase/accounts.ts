@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import type { Database } from "@/lib/supabase-types";
 import { useAuth } from "@/contexts/AuthContext";
+import { logError, logDestructiveOp } from "@/lib/logger";
 import type { Account } from "@/types";
 import { useUserId } from "./shared";
 import { mapAccount } from "./mappers";
@@ -80,7 +81,11 @@ export function useDeleteAccountMutation() {
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
       queryClient.invalidateQueries({ queryKey: ["entries"] });
       queryClient.invalidateQueries({ queryKey: ["sales"] });
+      logDestructiveOp("delete", "account");
     },
-    onError: () => toast.error("Erro ao excluir conta"),
+    onError: (err) => {
+      logError("deleteAccount", err);
+      toast.error("Erro ao excluir conta");
+    },
   });
 }

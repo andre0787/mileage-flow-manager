@@ -4,6 +4,7 @@ import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
 import { calcProportionalCost } from "@/lib/metrics";
 import { calcAccountUpdate } from "@/lib/accounts";
+import { logError, logDestructiveOp } from "@/lib/logger";
 import type { PointEntry } from "@/types";
 import { parseDescription, serializeDescription } from "@/types";
 import { useUserId, generateRecurringEntries } from "./shared";
@@ -180,6 +181,7 @@ export function useConfirmEntryMutation() {
     },
     onError: (err) => {
       console.error("[confirmEntry]", err);
+      logError("confirmEntry", err);
       toast.error("Erro ao confirmar entrada");
     },
   });
@@ -372,6 +374,10 @@ export function useDeleteEntryMutation() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["entries"] });
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
+    },
+    onError: (err) => {
+      logError("deleteEntry", err);
+      toast.error("Erro ao excluir entrada");
     },
   });
 }

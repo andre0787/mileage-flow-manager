@@ -2,6 +2,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
+import { logError, logDestructiveOp } from "@/lib/logger";
 import type { PointEntry } from "@/types";
 
 export function useUserId(): string | null {
@@ -81,7 +82,11 @@ export function useClearAccountDataMutation() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries();
+      logDestructiveOp("clear", "account_data");
     },
-    onError: () => toast.error("Erro ao limpar dados da conta"),
+    onError: (err) => {
+      logError("clearAccountData", err);
+      toast.error("Erro ao limpar dados da conta");
+    },
   });
 }
