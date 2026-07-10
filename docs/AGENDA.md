@@ -193,17 +193,25 @@
 - [x] Tests: 4 pre-existing failures corrigidos (responsivo, clube, fluxo-completo, origem-tipo)
 - [x] Deploy: https://mileage-flow-manager.vercel.app
 
+## ✅ Bugfix — registerUser Helper (PR #71, 2026-07-10)
+
+- [x] Cria `registerUser(page)` em `tests/helpers.ts` — registro inline via Cadastre-se
+- [x] 6 arquivos refatorados: auth, clientes, configuracoes, vendas, transversal, smoke
+- [x] **47 testes que pulavam sem TEST_EMAIL agora rodam sempre**
+- [x] **-101 linhas** (DRY)
+- [x] **Zero dependência externa** — CI roda sem secrets
+
 ---
 
 ## 📌 Backlog Futuro
 
-### Sprint #11 (Futura)
-- [ ] Traduções no Dashboard
+### Sprint #11
+- [ ] Traduções no Dashboard (`useI18n()`)
 - [ ] Traduções na Configurações
 - [ ] Analytics de uso
 - [ ] Melhorias de performance
 - [ ] PWA offline avançado
-- [ ] Adicionar TEST_EMAIL/TEST_PASSWORD no CI (env vars no GitHub Actions)
+- [ ] Adicionar TEST_EMAIL/TEST_PASSWORD no CI (env vars no GitHub Actions) ✅ resolvido via registerUser
 - [ ] Corrigir strict mode seletor "Nova Entrada" (3 botões) ✅
 - [ ] Corrigir overflow mobile (< 640px) ✅
 

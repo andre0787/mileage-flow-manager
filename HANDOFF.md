@@ -38,19 +38,28 @@
 - **Nova Venda selector:** `.first()` no fluxo-completo
 - **4 pre-existing failures corrigidos:** responsivo, clube, fluxo-completo, origem-tipo
 
+### Item 5: registerUser Helper — Fim da dependência de env vars ✅
+- **PR #71** | branch: `fix/register-user-ci`
+- Cria `registerUser(page)` em `tests/helpers.ts` — registro inline via Cadastre-se
+- 6 arquivos refatorados (auth, clientes, configuracoes, vendas, transversal, smoke)
+- **47 testes que pulavam sem TEST_EMAIL agora rodam sempre**
+- **-101 linhas** (DRY com helper compartilhado)
+- **Zero dependência externa — CI roda sem secrets**
+
 ---
 
 ## Branch atual
 
-`main` — produção limpa
+`main` — produção limpa (PR #71 merged)
 
 ## Build & Test
 
 - TypeScript: clean
 - Vite build: ✅ (664kB)
 - Testes unitários: 40/40 ✅
-- **Testes E2E: 67 de 67** (4 pre-existing failures corrigidos) ✅
+- **Testes E2E: 67 de 67** ✅
 - **Total: 107 testes**
+- **Nenhum teste pula — todos rodam sem env vars** 🎉
 - Deploy: https://mileage-flow-manager.vercel.app ✅
 
 ## Arquivos modificados nesta sessão
@@ -94,9 +103,9 @@
 ## Próximos passos
 
 ### Imediatos
-- Adicionar TEST_EMAIL/TEST_PASSWORD no CI (GitHub Actions secrets)
+- ~~TEST_EMAIL/TEST_PASSWORD no CI~~ ✅ resolvido — registerUser helper
 
-### Sprint #11 (Futura)
+### Sprint #11
 - Traduções no Dashboard (`useI18n()`)
 - Traduções na Configurações
 - Analytics de uso
@@ -106,5 +115,5 @@
 ---
 
 **Última atualização:** 2026-07-10
-**Último commit:** (atual)
-**Último deploy:** (verificado após fixes)
+**Último commit:** 3d89612 (registerUser helper)
+**Último deploy:** verificado após PR #71
