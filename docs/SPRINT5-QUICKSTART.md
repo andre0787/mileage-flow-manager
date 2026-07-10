@@ -1,6 +1,6 @@
 # 🚀 Sprint #5 — Quick Start Guide
 
-> Guia rápido para iniciar a Sprint #5 em nova sessão.
+> ⚠️ **OBSOLETO** — Sprint #5 e #6 já foram concluídas. Consulte `docs/AGENDA.md` para Sprint #7.
 
 ---
 

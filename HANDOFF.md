@@ -12,6 +12,7 @@
   - Botões de ação desabilitados offline
   - Testes: 35/35 ✅
   - Bundle: 646kB
+- **Commit `73a59f6`**: Council verdicts, plans, changelog e deps commitados
 
 ### Branch atual
 

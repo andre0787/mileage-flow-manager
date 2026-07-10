@@ -13,6 +13,8 @@ Sistema de gerenciamento de milhas e pontos para controle de aquisição, transf
 - **Relatórios** - Visualização consolidada de dados com exportação CSV (donos e programas)
 - **Perfil** - Edição de nome, email e senha
 - **Simulador de Venda** - Cálculo rápido de lucro, margem e ROI sem criar registro
+- **Busca Global** - Pesquisa em todas as entidades via dropdown no header (Cmd/Ctrl+K)
+- **Modo Offline** - Service Worker com cache de assets, aviso quando sem conexão
 
 ## Stack
 
@@ -21,6 +23,7 @@ Sistema de gerenciamento de milhas e pontos para controle de aquisição, transf
 - React Router v6 + TanStack React Query
 - Recharts (gráficos)
 - Supabase (PostgreSQL, Auth, RLS)
+- Vite Plugin PWA + Workbox (offline)
 - Playwright (testes E2E)
 - Vercel (deploy)
 
@@ -39,6 +42,6 @@ Produção: https://mileage-flow-manager.vercel.app
 
 ## Git Workflow
 
-- `main` — produção
+- `main` — produção (deploy automático Vercel)
 - `develop` — desenvolvimento
-- `fix/*` — correções com PR para `develop`
+- `feat/*`, `fix/*` — branches com PR para `develop`

@@ -20,6 +20,7 @@
 
 ## Stack & Setup
 
+### Stack atualizada
 | Tecnologia | Versão | Uso |
 |-----------|--------|-----|
 | React 18 + TypeScript | ^18 | UI |
@@ -32,6 +33,8 @@
 | react-hook-form + zod | — | Formulários |
 | Supabase | — | Backend (Auth + PostgreSQL + RLS) |
 | canvas-confetti | ^1 | Confete |
+| vite-plugin-pwa | ^1.3 | PWA + Service Worker |
+| workbox-build | ^7.4 | Cache offline |
 | Playwright | ^1 | E2E |
 
 ### Comandos
@@ -164,20 +167,6 @@ feat/*, fix/*, chore/*, refactor/*, ...
 - `main` → deploy automático Vercel
 - `hotfix/*` → PR direto para `main`
 
-### Commits em main (produção)
-```
-71dbee2 fix: light mode moderno (fundo 92%, cards 96%, sem branco puro)
-852212c feat: redesign visual completo (Instrument Serif + AltitudeBar + Pontos teal + graficos tema)
-2d80fc3 fix: remove docs especulativas e linha duplicada (ponytail-review)
-5bf678a docs: bateria obrigatoria de testes pre-deploy documentada em AGENTS.md
-c947ef9 fix: botao Nova Venda nao vaza mais no mobile (flex-wrap)
-b136908 feat: upgrade visual (design tokens + bento cards + glass effect)
-c84db8f feat: esqueci minha senha (fluxo completo)
-916a0cb feat(ux): sprint completo — loading, empty states, confetti, haptic e view transitions
-dd6a414 refactor: centraliza deducao de total invested em vendas + extrai DeleteEntryDialog
-31383d8 docs: atualiza AGENTS.md e README com novas features
-```
-
 ---
 
 ## UX Sprint — Histórico
@@ -253,18 +242,20 @@ Commit `1bc6258`.
 **Proteção futura**: Sempre verificar imports manualmente mesmo com `tsc` zerado, ou ativar
 `noUnusedLocals: true` e `strict: true` no tsconfig.
 
-## 📚 Commits em main (produção)
+## 📚 Commits recentes (produção)
 
 ```
+73a59f6 docs: finaliza Sprint #6 — council verdicts, plans, deps e changelog
+5cb19c5 docs: atualiza HANDOFF e AGENDA com Sprint #6 completa
+8e9575a docs: relatório modo offline
+08cc837 feat: modo offline minimal (SW + banner + botões desabilitados)
+22de6b3 docs: atualiza HANDOFF e AGENDA com PR #63
+a7dbc95 docs: relatório busca global
 71dbee2 fix: light mode moderno (fundo 92%, cards 96%, sem branco puro)
-852212c feat: redesign visual completo (Instrument Serif + AltitudeBar + Pontos teal + graficos tema)
-2d80fc3 fix: remove docs especulativas e linha duplicada (ponytail-review)
-1bc6258 fix: importa EmptyState em Dashboard e Vendas (runtime error)
-fe5e09c docs: atualiza MEMORY.md com historico completo e convencoes do projeto
-916a0cb feat(ux): sprint completo — loading, empty states, confetti, haptic e view transitions
-dd6a414 refactor: centraliza deducao de total invested em vendas + extrai DeleteEntryDialog
-31383d8 docs: atualiza AGENTS.md e README com novas features
+852212c feat: redesign visual completo
 ```
+
+**Último PR:** #64 (modo offline)
 
 ---
 
@@ -294,7 +285,9 @@ alert-dialog, badge, button, card, dialog, drawer, input, label, progress, selec
 - **Todo `origem_type`** deve ter `description` com `hasRecurrence: true` ou `hasRecurrence: false` (nunca `undefined`).
 - **Cálculo de `recurrenceEnd` e `recurrenceInterval`**: centralizado em `buildMonthlyRecurrence()` em `src/lib/origemTypes.ts`.
 - **Helpers**: `serializeOrigemTypeDescription`, `parseOrigemTypeDescription`, `buildMonthlyRecurrence` — todas em `src/lib/origemTypes.ts`.
-- **UI**: Configurações tem select `s tem select `<Select>` "Avulsa" / "Recorrente mensal" ao criar/editar tipo.\n- **Backfill**: migration `20260705010000` preenche `hasRecurrence` em tipos existentes.\n- **Testes**: `tests/origem-tipo.spec.ts` cobre criação recorrente + avulsa + persistência.\n\n## Regras de Negócio\n\n### Vendas"}]
+- **UI**: Configurações tem select `<Select>` "Avulsa" / "Recorrente mensal" ao criar/editar tipo.
+- **Backfill**: migration `20260705010000` preenche `hasRecurrence` em tipos existentes.
+- **Testes**: `tests/origem-tipo.spec.ts` cobre criação recorrente + avulsa + persistência.}]
 - Status: `pendente` → `pago` → `concluído` | `cancelado`
 - **Cancelamento**: restaura saldo e `totalInvested` da conta, excluído de métricas financeiras
 - **Proportional cost**: ao criar venda, deduz `totalInvested` proporcionalmente via `calcProportionalCost` + `calcAccountUpdate`

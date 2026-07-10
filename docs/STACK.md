@@ -42,6 +42,8 @@ vercel --prod                         # Deploy manual
 - `react-hook-form` + `zod` — formulários + validação
 - `canvas-confetti` — confetes
 - `lucide-react` — ícones
+- `vite-plugin-pwa` — PWA + Service Worker
+- `workbox-build` + `workbox-window` — cache offline
 
 ## Dependências de Dev
 
@@ -52,11 +54,8 @@ vercel --prod                         # Deploy manual
 
 ## Agente (pi / opencode)
 
-- **Harness**: pi 0.80.3 (delega runtime para opencode)
-- **Modelo**: deepseek-v4-flash-free
+- **Harness**: pi (delega runtime para opencode)
 - **Config**: `~/.config/opencode/opencode.jsonc`
 - **Plugins**: superpowers, ponytail, caveman
-- **MCPs**: context7, sequential-thinking, playwright, filesystem, github, supabase
-- **Pacotes pi**: ponytail, superpowers
-- **Skills**: 112 skills carregadas (Anthropic, design, planning, ponytail, superpowers, caveman, llm-council)
+- **Skills**: council-to-superpowers, planning-with-files, ponytail, caveman, frontend-design, webapp-testing
 - **Tema TUI**: mileage-dark

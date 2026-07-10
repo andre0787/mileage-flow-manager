@@ -5,19 +5,23 @@ Todas as mudanças notáveis neste projeto são documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/),
 e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
-## [Sprint #6] - Em andamento
-
-### Adicionado
-- Modo offline com sincronização (em desenvolvimento)
-
-## [Sprint #5] - 2026-07-09
+## [Sprint #6] - 2026-07-09
 
 ### Adicionado
 - Busca global com dropdown seccionado no header (PR #63)
 - Atalho Cmd/Ctrl+K para busca global
+- Modo offline minimal: Service Worker (Workbox), hook useOnlineStatus, OfflineBanner, botões desabilitados (PR #64)
+- vite-plugin-pwa + workbox-build para cache offline
+
+### Descartado
+- Exportação PDF dos relatórios (decisão do council)
+
+## [Sprint #5] - 2026-07-09
+
+### Adicionado
+- Badge de entradas pendentes no sidebar e bottom tab bar
 - Paginação (20 itens/página) em todas as listas
 - CTAs nos empty states de Entradas e Vendas
-- Badge de entradas pendentes no sidebar e bottom tab bar
 - Mapa de experiências do usuário
 
 ### Corrigido

@@ -17,15 +17,18 @@ src/
 │   ├── FlowMap.tsx
 │   ├── FormDrawer.tsx
 │   ├── MetricCard.tsx
+│   ├── OfflineBanner.tsx     # Banner "Sem conexão" (Sprint #6)
 │   ├── ProtectedRoute.tsx
 │   └── SkeletonLoader.tsx
 ├── contexts/
 │   ├── AuthContext.tsx       # Auth + sessão
-│   └── DataContext.tsx       # Dados + isLoading + clearCache
+│   ├── DataContext.tsx       # Dados + isLoading + clearCache
+│   └── OnlineContext.tsx     # Estado da conexão (Sprint #6)
 ├── hooks/
 │   ├── useDatabase.ts       # Todas queries + mutations React Query
 │   ├── useDebounce.ts       # 300ms
-│   └── useHaptic.ts         # Vibração mobile
+│   ├── useHaptic.ts         # Vibração mobile
+│   └── useOnlineStatus.ts   # Hook de detecção offline (Sprint #6)
 ├── lib/
 │   ├── metrics.ts           # Cálculos de domínio (funções puras)
 │   ├── utils.ts             # formatCPF + isTransferencia + helpers
@@ -89,3 +92,10 @@ Tabelas: `profiles`, `owners`, `programs`, `origem_types`, `accounts`, `entries`
 
 - **RLS**: todas as tabelas filtram por `user_id = auth.uid()`
 - **Auth**: email/senha, sem confirmação de email
+
+## PWA / Offline (Sprint #6)
+
+- **Service Worker**: Workbox via `vite-plugin-pwa` (cache de assets + API)
+- **OnlineContext**: estado da conexão (`isOnline`)
+- **OfflineBanner**: aviso quando sem internet
+- **Botões desabilitados**: criação/edição bloqueada offline
