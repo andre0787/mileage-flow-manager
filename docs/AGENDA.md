@@ -275,6 +275,11 @@
 ### Item 4: HANDOFF.md Automatizado
 - [ ] Template + script de preenchimento automático
 
+### Item 5: Paralelismo no E2E do CI
+- [ ] Subir Playwright para 2 workers apenas no GitHub Actions
+- [ ] Medir tempo do job antes/depois
+- [ ] Se flake aparecer, avaliar sharding
+
 ---
 
 ## 📌 Backlog Futuro

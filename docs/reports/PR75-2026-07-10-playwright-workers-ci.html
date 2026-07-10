@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PR #75 — Playwright Workers no CI</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:820px;margin:0 auto;padding:32px;line-height:1.5;color:#111;background:#fafafa}
+    h1,h2{margin:1.2rem 0 .6rem}
+    code,pre{background:#111;color:#eee;padding:.1rem .35rem;border-radius:6px}
+    .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin:14px 0}
+    .muted{color:#6b7280;font-size:.95rem}
+  </style>
+</head>
+<body>
+  <h1>PR #75 — Playwright Workers no CI</h1>
+  <p class="muted">Branch: <code>perf/playwright-workers-ci</code> · Data: 2026-07-10</p>
+
+  <div class="card">
+    <h2>Antes</h2>
+    <ul>
+      <li>Playwright no Actions rodando com <code>1 worker</code></li>
+      <li>Suite E2E estável, mas lenta</li>
+      <li>Sem paralelismo extra no job de CI</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Depois</h2>
+    <ul>
+      <li><code>workers: 2</code> quando <code>CI=true</code></li>
+      <li>Execução local continua sem forcing de paralelismo</li>
+      <li>Próximo passo, se precisar, é sharding</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Validação</h2>
+    <ul>
+      <li>Subset local com <code>--workers=2</code></li>
+      <li><code>29 passed</code> em <code>59.0s</code></li>
+      <li>Sem flake novo no recorte testado</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Benefício esperado</h2>
+    <p>Ganhar tempo no job E2E sem mexer na arquitetura dos testes.</p>
+  </div>
+
+  <p class="muted">Relatório obrigatório antes do PR.</p>
+</body>
+</html>
