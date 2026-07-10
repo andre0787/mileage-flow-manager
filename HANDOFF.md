@@ -1,30 +1,23 @@
-# HANDOFF — Sprint #7 Completa
+# HANDOFF — Sprint #8 Completa
 
 ## Status: ✅ Sessão completa — 2026-07-10
 
-### Último trabalho: PR #67 merged to main
+### Último trabalho: PR #68 merged to main
 
 ---
 
 ## Resumo da Sessão
 
-### Sprint #7 — Atalhos de Teclado
+### Sprint #8 — Proteção contra Exclusão em Cascata
 
-**Item implementado:**
-- `src/hooks/useKeyboardShortcuts.ts` — hook para atalhos de teclado
+**Problema identificado no Council:**
+- Owner/Program/OrigemType deletavam sem verificar relacionamentos
+- Database tinha restrições de cascade/restrict que não eram tratadas no frontend
 
-**Atalhos:**
-- `g` → Dashboard
-- `e` → Entradas
-- `v` → Vendas
-- `c` → Clientes
-- `p` → Perfil
-- `s` → Configurações
-- `r` → Relatórios
-
-**Notas:**
-- Dark mode já estava implementado (ThemeToggle no sidebar)
-- Atalhos ignoram inputs e combinações Ctrl/Alt/Meta
+**Solução implementada:**
+- OwnerSection: aviso quando dono possui contas vinculada(s)
+- ProgramSection: bloqueio se houver contas vinculadas
+- OrigemTypeSection: bloqueio se houver entradas vinculadas
 
 ---
 
@@ -35,30 +28,31 @@
 ## Build & Test
 
 - TypeScript: clean
-- Vite build: ✅ (649kB)
+- Vite build: ✅ (656kB)
 - Testes: 40/40 ✅
 - Deploy: https://mileage-flow-manager.vercel.app ✅
 
 ## Arquivos modificados nesta sessão
 
 ### Código
-- `src/hooks/useKeyboardShortcuts.ts` — hook de atalhos (novo)
-- `src/App.tsx` — integração do hook
+- `src/components/OwnerSection.tsx` — aviso de cascade
+- `src/components/ProgramSection.tsx` — bloqueio de exclusão
+- `src/components/OrigemTypeSection.tsx` — bloqueio de exclusão
+- `src/pages/Configuracoes.tsx` — passa props para componentes
 
 ### Docs
-- `docs/AGENDA.md` — Sprint #7 completa
+- `docs/AGENDA.md` — Sprint #8 completa
 
 ---
 
 ## Próximos passos
 
-### Sprint #8 (Futura)
+### Sprint #9 (Futura)
 - Multi-idioma (i18n)
-- Verificar cascata de exclusão Owner → Contas
-- Verificar cascata de exclusão Program → Entradas
 - Analytics de uso (se volume justificar)
+- Melhorias de performance
 
 ---
 
 **Última atualização:** 2026-07-10
-**Próxima sessão:** Sprint #8
+**Próxima sessão:** Sprint #9
