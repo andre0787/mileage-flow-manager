@@ -132,10 +132,10 @@ Listas com muitos itens devem ter paginação para melhorar performance e UX.
 
 ## 📌 Backlog Futuro
 
-### Sprint #6 (Em andamento)
+### Sprint #6 (Completa)
 - [x] Busca global — PR #63
-- [ ] Modo offline com sincronização
-- [ ] ~~Exportação PDF dos relatórios~~ (descartado pelo council)
+- [x] Modo offline minimal — PR #64
+- [x] ~~Exportação PDF dos relatórios~~ (descartado pelo council)
 
 ### Sprint #7 (Futura)
 - [ ] Multi-idioma (i18n)
@@ -155,7 +155,7 @@ Listas com muitos itens devem ter paginação para melhorar performance e UX.
 | Testes unitários | 33/33 ✅ |
 | Testes E2E | 8/8 ✅ |
 | Deploy | Automático (Vercel) |
-| Último PR | #63 (busca global) |
+| Último PR | #64 (modo offline) |
 
 ---
 
