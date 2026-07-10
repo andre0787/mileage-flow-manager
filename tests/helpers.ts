@@ -34,6 +34,23 @@ const post = (table, body) =>
   });
 `;
 
+/** Registra um novo usuário via fluxo de cadastro (Cadastre-se) e aguarda dashboard */
+export async function registerUser(page: Page) {
+  const email = `e2e_${Date.now()}_${Math.random().toString(36).slice(2, 6)}@teste.com`;
+  const password = "Test@123456";
+  await page.goto("/login");
+  await page.waitForSelector("text=Cadastre-se", { timeout: 10_000 });
+  await page.click("text=Cadastre-se");
+  await page.waitForSelector("#name", { timeout: 5_000 });
+  await page.fill("#name", "Usuário Teste E2E");
+  await page.fill("#email", email);
+  await page.fill("#password", password);
+  await page.click("button[type='submit']");
+  await page.waitForURL("/", { timeout: 30_000 });
+  await page.waitForTimeout(1_000);
+  return { email, password };
+}
+
 /** Busca o token de acesso atual do localStorage */
 export function getAccessToken(page: Page): Promise<string | null> {
   return page.evaluate(() => {

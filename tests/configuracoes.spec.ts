@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { API_SETUP } from "./helpers";
+import { API_SETUP, registerUser } from "./helpers";
 
 /**
  * Testes de Configurações — MilesControl
@@ -8,22 +8,8 @@ import { API_SETUP } from "./helpers";
 
 test.describe("Configurações", () => {
   test.beforeEach(async ({ page }) => {
-    // Login antes de cada teste
-    const email = process.env.TEST_EMAIL;
-    const password = process.env.TEST_PASSWORD;
-
-    if (!email || !password) {
-      test.skip();
-      return;
-    }
-
-    await page.goto("/login");
-    await page.waitForSelector("#email", { timeout: 10_000 });
-    await page.fill("#email", email);
-    await page.fill("#password", password);
-    await page.click("button[type='submit']");
-    await page.waitForURL("/", { timeout: 30_000 });
-    await page.waitForLoadState("networkidle");
+    // Registra e loga antes de cada teste
+    await registerUser(page);
   });
 
   test("TC-CONF-001: Página de configurações carrega", async ({ page }) => {

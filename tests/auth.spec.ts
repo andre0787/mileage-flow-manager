@@ -1,9 +1,21 @@
 import { test, expect } from "@playwright/test";
+import { registerUser } from "./helpers";
 
 /**
  * Testes de Autenticação — MilesControl
  * Cobertura: Login, Cadastro, Recuperação de Senha, Proteção de Rotas
  */
+
+let testEmail: string;
+let testPassword = "Test@123456";
+
+test.beforeAll(async ({ browser }) => {
+  // Cria um usuário de teste para TC-AUTH-002/003
+  const page = await browser.newPage();
+  const creds = await registerUser(page);
+  testEmail = creds.email;
+  await page.close();
+});
 
 test.describe("Autenticação", () => {
   test("TC-AUTH-001: Página de login carrega corretamente", async ({ page }) => {
@@ -17,13 +29,8 @@ test.describe("Autenticação", () => {
   });
 
   test("TC-AUTH-002: Login com credenciais válidas", async ({ page }) => {
-    const email = process.env.TEST_EMAIL;
-    const password = process.env.TEST_PASSWORD;
-
-    if (!email || !password) {
-      test.skip();
-      return;
-    }
+    const email = testEmail;
+    const password = testPassword;
 
     await page.goto("/login");
     await page.waitForSelector("#email", { timeout: 10_000 });
@@ -35,18 +42,10 @@ test.describe("Autenticação", () => {
     // Aguarda redirecionamento para dashboard
     await page.waitForURL("/", { timeout: 30_000 });
     await page.waitForLoadState("networkidle");
-
-    // Verifica que está no dashboard
-    expect(page.url()).toBe("/");
   });
 
   test("TC-AUTH-003: Login com senha errada mostra erro inline", async ({ page }) => {
-    const email = process.env.TEST_EMAIL;
-
-    if (!email) {
-      test.skip();
-      return;
-    }
+    const email = testEmail;
 
     await page.goto("/login");
     await page.waitForSelector("#email", { timeout: 10_000 });
