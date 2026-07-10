@@ -51,13 +51,14 @@ export function DataProvider({ children }: { children: ReactNode }) {
     const hasBuiltin = origemTypes.some((ot) => isTransferencia(ot));
     if (!hasBuiltin) {
       creatingTransferencia.current = true;
+      // ponytail: Supabase Insert type expects optional fields, cast needed for runtime safety
       supabase.from("origem_types").insert({
         id: crypto.randomUUID(),
         user_id: user.id,
         name: "Transferência",
         account_type: "milhas",
         color: "#8b5cf6",
-      }).then(() => {
+      } as any).then(() => {
         queryClient.invalidateQueries({ queryKey: ["origem_types"] });
         creatingTransferencia.current = false;
       });
