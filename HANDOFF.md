@@ -123,7 +123,8 @@
 
 ### Pendente pós-PR
 - [ ] Configurar secrets VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID no GitHub Actions
-- [ ] Abrir PR do hotfix CI/workflows (Node 22) e validar Actions verdes
+- [x] Abrir PR do hotfix CI/workflows (Node 22): https://github.com/andre0787/mileage-flow-manager/pull/74
+- [ ] Validar Actions verdes
 
 ## Próximos passos
 
