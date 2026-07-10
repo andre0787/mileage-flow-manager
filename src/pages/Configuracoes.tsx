@@ -81,6 +81,7 @@ export default function Configuracoes() {
         <TabsContent value="programs" className="animate-appear animate-delay-200">
           <ProgramSection
             programs={programs}
+            accounts={accounts}
             onAdd={(data) => addProgramM.mutate(data)}
             onUpdate={(data) => updateProgramM.mutate(data)}
             onDelete={(id) => deleteProgramM.mutate(id)}
@@ -90,6 +91,7 @@ export default function Configuracoes() {
         <TabsContent value="origem-milhas" className="animate-appear animate-delay-200">
           <OrigemTypeSection
             origemTypes={origemTypes}
+            entries={entries}
             onAdd={(data) => addOrigemTypeM.mutate(data)}
             onUpdate={(data) => updateOrigemTypeM.mutate(data)}
             onDelete={(id) => deleteOrigemTypeM.mutate(id)}

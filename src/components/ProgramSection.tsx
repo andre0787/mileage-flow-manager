@@ -9,16 +9,17 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { DeleteConfirmDialog } from "@/components/DeleteConfirmDialog";
-import type { Program } from "@/types";
+import type { Program, Account } from "@/types";
 
 interface ProgramSectionProps {
   programs: Program[]
+  accounts: Account[]
   onAdd: (data: { id: string; name: string; type: Program["type"]; maxPassengers?: number; passengerCycleType?: "anual" | "dias"; passengerCycleDays?: number }) => void
   onUpdate: (data: { id: string; name: string; type: Program["type"]; maxPassengers?: number; passengerCycleType?: "anual" | "dias"; passengerCycleDays?: number }) => void
   onDelete: (id: string) => void
 }
 
-export default function ProgramSection({ programs, onAdd, onUpdate, onDelete }: ProgramSectionProps) {
+export default function ProgramSection({ programs, accounts, onAdd, onUpdate, onDelete }: ProgramSectionProps) {
   const [form, setForm] = useState({ name: "", type: "milhas" as Program["type"], maxPassengers: "", passengerCycleType: "none" as "none" | "anual" | "dias", passengerCycleDays: "" });
   const [editing, setEditing] = useState<Program | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -166,9 +167,9 @@ export default function ProgramSection({ programs, onAdd, onUpdate, onDelete }: 
                       <div className="flex justify-end gap-2">
                         <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => handleEdit(program)}><Edit className="h-4 w-4" /></Button>
                         <DeleteConfirmDialog
-                          trigger={<Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive"><Trash2 className="h-4 w-4" /></Button>}
+                          trigger={<Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive" disabled={accounts.some(a => a.programId === program.id)}><Trash2 className="h-4 w-4" /></Button>}
                           title="Excluir programa?"
-                          description={`Tem certeza que deseja excluir o programa "${program.name}"? Esta ação não pode ser desfeita.`}
+                          description={accounts.some(a => a.programId === program.id) ? `Não é possível excluir o programa "${program.name}" pois existem contas vinculadas. Remova as contas primeiro.` : `Tem certeza que deseja excluir o programa "${program.name}"? Esta ação não pode ser desfeita.`}
                           confirmLabel="Excluir programa"
                           onConfirm={() => onDelete(program.id)}
                         />
@@ -196,9 +197,9 @@ export default function ProgramSection({ programs, onAdd, onUpdate, onDelete }: 
                 <div className="flex gap-2 pt-1 border-t">
                   <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px]" onClick={() => handleEdit(program)}><Edit className="h-4 w-4" /> Editar</Button>
                   <DeleteConfirmDialog
-                    trigger={<Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive"><Trash2 className="h-4 w-4" /> Excluir</Button>}
+                    trigger={<Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive" disabled={accounts.some(a => a.programId === program.id)}><Trash2 className="h-4 w-4" /> Excluir</Button>}
                     title="Excluir programa?"
-                    description={`Tem certeza que deseja excluir o programa "${program.name}"? Esta ação não pode ser desfeita.`}
+                    description={accounts.some(a => a.programId === program.id) ? `Não é possível excluir o programa "${program.name}" pois existem contas vinculadas. Remova as contas primeiro.` : `Tem certeza que deseja excluir o programa "${program.name}"? Esta ação não pode ser desfeita.`}
                     confirmLabel="Excluir programa"
                     onConfirm={() => onDelete(program.id)}
                   />
