@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+import { useI18n } from "@/contexts/I18nContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,13 +9,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Plane, Loader2, ArrowRight } from "lucide-react";
 import { logError } from "@/lib/logger";
 
-function mapAuthError(errMsg: string): string {
-  if (errMsg.includes("Invalid login credentials")) return "Credenciais inválidas";
-  if (errMsg.includes("User already registered")) return "Este email já está cadastrado";
-  if (errMsg.includes("Password should be at least")) return "A senha deve ter pelo menos 6 caracteres";
-  if (errMsg.includes("Unable to validate email address")) return "Email inválido";
-  if (errMsg.includes("Email not confirmed")) return "Email não confirmado. Verifique sua caixa de entrada";
-  return "Erro ao autenticar. Tente novamente";
+function mapAuthError(errMsg: string, t: (key: string) => string): string {
+  if (errMsg.includes("Invalid login credentials")) return t("auth.invalidCredentials");
+  if (errMsg.includes("User already registered")) return t("auth.emailAlreadyRegistered");
+  if (errMsg.includes("Password should be at least")) return t("auth.passwordTooShort");
+  if (errMsg.includes("Unable to validate email address")) return t("auth.invalidEmail");
+  if (errMsg.includes("Email not confirmed")) return t("auth.emailNotConfirmed");
+  return t("auth.authError");
 }
 
 type Mode = "login" | "register";
@@ -22,6 +23,7 @@ type Mode = "login" | "register";
 export default function Login() {
   const navigate = useNavigate();
   const { signIn, signUp } = useAuth();
+  const { t } = useI18n();
 
   const [mode, setMode] = useState<Mode>("login");
   const [email, setEmail] = useState("");
@@ -41,7 +43,7 @@ export default function Login() {
     setLoading(false);
     if (errMsg) {
       logError(`auth_${mode}`, errMsg);
-      setError(mapAuthError(errMsg));
+      setError(mapAuthError(errMsg, t));
     } else {
       navigate("/");
     }
