@@ -138,33 +138,52 @@
 
 ---
 
-## 🎯 Sprint #9 — UX Improvements (Em andamento)
+## 🎯 Sprint #9 — UX Improvements ✅
 
-**Objetivo:** Melhorar experiência do usuário com recursos de produtividade
-**PR:** #69 (em aberto)
+**Objetivo:** Melhorar experiência do usuário
+**PR:** #69
 
 ---
 
 ### Item 1: Modal de Ajuda para Atalhos ✅
 
 - [x] Componente `KeyboardShortcutsHelp`
-- [x] Lista de todos os atalhos disponíveis
 - [x] Atalho '?' abre o modal
-- [x] Adicionado no header
 
 ### Item 2: Toast de Sucesso em Operações ✅
 
-- [x] Toast.success em operações destrutivas (delete, clear)
-- [x] Feedback visual positivo para o usuário
+- [x] Toast.success em operações destrutivas
+
+---
+
+## 🎯 Sprint #10 — i18n (Em andamento)
+
+**Objetivo:** Suporte a múltiplos idiomas
+**PR:** #70 (em aberto)
+
+---
+
+### Item 1: Sistema de Internacionalização ✅
+
+- [x] `src/lib/i18n.ts` com traduções pt-BR e en-US
+- [x] `src/contexts/I18nContext.tsx` com React context
+- [x] `src/components/LanguageSelector.tsx` com toggle
+- [x] Integração no App.tsx com I18nProvider
+
+### Item 2: Aplicar Traduções nas Páginas (Pendente)
+
+- [ ] Dashboard
+- [ ] Configurações
+- [ ] Login
 
 ---
 
 ## 📌 Backlog Futuro
 
-### Sprint #10 (Futura)
-- [ ] Multi-idioma (i18n)
-- [ ] Analytics de uso (se volume justificar)
+### Sprint #11 (Futura)
+- [ ] Analytics de uso
 - [ ] Melhorias de performance
+- [ ] PWA offline avançado
 
 ### Referência
 - [x] Mapa de Experiências do Usuário — `docs/MAPA-EXPERIENCIAS-USUARIO.md`
@@ -175,13 +194,13 @@
 
 | Métrica | Valor |
 |---------|-------|
-| Bundle size | 658kB |
+| Bundle size | 664kB |
 | Testes unitários | 40/40 ✅ |
 | Testes E2E | 8/8 ✅ |
 | Deploy | Automático (Vercel) |
-| Último PR | #68 (cascade protection) |
+| Último PR | #69 (ux improvements) |
 
 ---
 
 **Última atualização:** 2026-07-10
-**Próxima revisão:** Sprint #10
+**Próxima revisão:** Sprint #11

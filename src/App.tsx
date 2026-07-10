@@ -8,11 +8,13 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { BottomTabBar } from "@/components/BottomTabBar";
 import { GlobalSearch } from "@/components/GlobalSearch";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
+import { LanguageSelector } from "@/components/LanguageSelector";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { OnlineProvider } from "@/contexts/OnlineContext";
 import { OfflineBanner } from "@/components/OfflineBanner";
 import { DataProvider } from "@/contexts/DataContext";
+import { I18nProvider } from "@/contexts/I18nContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import Login from "./pages/Login";
@@ -162,6 +164,7 @@ const AppLayout = () => {
                 <h2 className="text-base font-semibold text-foreground font-display">MilesControl</h2>
               </div>
               <div className="ml-auto flex items-center gap-2">
+                <LanguageSelector />
                 <KeyboardShortcutsHelp />
                 <GlobalSearch />
               </div>
@@ -185,6 +188,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <I18nProvider>
         <TooltipProvider>
           <Sonner />
           <BrowserRouter>
@@ -203,6 +207,7 @@ const App = () => (
             </Routes>
           </BrowserRouter>
         </TooltipProvider>
+        </I18nProvider>
       </ThemeProvider>
     </AuthProvider>
   </QueryClientProvider>
