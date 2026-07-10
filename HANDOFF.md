@@ -118,7 +118,7 @@
 - [x] AGENTS.md, GIT-WORKFLOW.md, WORKFLOW.md atualizados
 - [x] PR #73 criado/mergeado: https://github.com/andre0787/mileage-flow-manager/pull/73
 - [x] Relatório: `docs/reports/PR72-2026-07-10-sprint-a-automacao-fundacao.html`
-- [ ] Hotfix CI/workflows: subir Node 22 nos workflows para destravar `npm ci` no Actions
+- [ ] Hotfix CI/workflows: subir Node 22 + npm 11 nos workflows para destravar `npm ci` no Actions
 - [x] Relatório do hotfix: `docs/reports/PR74-2026-07-10-ci-node22-hotfix.html`
 
 ### Pendente pós-PR
