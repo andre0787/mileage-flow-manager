@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import type { Database } from "@/lib/supabase-types";
 import type { Owner } from "@/types";
@@ -33,6 +34,7 @@ export function useAddOwnerMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["owners"] }),
+    onError: () => toast.error("Erro ao criar dono"),
   });
 }
 
@@ -44,6 +46,7 @@ export function useUpdateOwnerMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["owners"] }),
+    onError: () => toast.error("Erro ao atualizar dono"),
   });
 }
 
@@ -55,5 +58,6 @@ export function useDeleteOwnerMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["owners"] }),
+    onError: () => toast.error("Erro ao excluir dono"),
   });
 }

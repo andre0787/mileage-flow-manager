@@ -6,6 +6,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plane, Loader2, ArrowRight } from "lucide-react";
+import { logError } from "@/lib/logger";
+
+function mapAuthError(errMsg: string): string {
+  if (errMsg.includes("Invalid login credentials")) return "Credenciais inválidas";
+  if (errMsg.includes("User already registered")) return "Este email já está cadastrado";
+  if (errMsg.includes("Password should be at least")) return "A senha deve ter pelo menos 6 caracteres";
+  if (errMsg.includes("Unable to validate email address")) return "Email inválido";
+  if (errMsg.includes("Email not confirmed")) return "Email não confirmado. Verifique sua caixa de entrada";
+  return "Erro ao autenticar. Tente novamente";
+}
 
 type Mode = "login" | "register";
 
@@ -30,7 +40,8 @@ export default function Login() {
 
     setLoading(false);
     if (errMsg) {
-      setError(errMsg);
+      logError(`auth_${mode}`, errMsg);
+      setError(mapAuthError(errMsg));
     } else {
       navigate("/");
     }

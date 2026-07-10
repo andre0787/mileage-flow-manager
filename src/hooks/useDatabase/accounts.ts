@@ -1,7 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import type { Database } from "@/lib/supabase-types";
 import { useAuth } from "@/contexts/AuthContext";
+import { logError, logDestructiveOp } from "@/lib/logger";
 import type { Account } from "@/types";
 import { useUserId } from "./shared";
 import { mapAccount } from "./mappers";
@@ -42,6 +44,7 @@ export function useAddAccountMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["accounts"] }),
+    onError: () => toast.error("Erro ao criar conta"),
   });
 }
 
@@ -63,6 +66,7 @@ export function useUpdateAccountMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["accounts"] }),
+    onError: () => toast.error("Erro ao atualizar conta"),
   });
 }
 
@@ -77,6 +81,11 @@ export function useDeleteAccountMutation() {
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
       queryClient.invalidateQueries({ queryKey: ["entries"] });
       queryClient.invalidateQueries({ queryKey: ["sales"] });
+      logDestructiveOp("delete", "account");
+    },
+    onError: (err) => {
+      logError("deleteAccount", err);
+      toast.error("Erro ao excluir conta");
     },
   });
 }

@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import type { Database } from "@/lib/supabase-types";
 import { useAuth } from "@/contexts/AuthContext";
@@ -55,6 +56,7 @@ export function useAddProgramMutation() {
       queryClient.invalidateQueries({ queryKey: ["programs"] });
       queryClient.invalidateQueries({ queryKey: ["origem_types"] });
     },
+    onError: () => toast.error("Erro ao criar programa"),
   });
 }
 
@@ -74,6 +76,7 @@ export function useUpdateProgramMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["programs"] }),
+    onError: () => toast.error("Erro ao atualizar programa"),
   });
 }
 
@@ -85,5 +88,6 @@ export function useDeleteProgramMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["programs"] }),
+    onError: () => toast.error("Erro ao excluir programa"),
   });
 }
