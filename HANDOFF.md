@@ -16,6 +16,7 @@
 - **Fix:** Restaurado `as any` com comment ponytail (Supabase Insert type mismatch)
 - **Fix:** Force reload on version change (previne SW cache stale)
 - **Fix:** Supabase client não crasha se env vars faltam
+- **Fix:** Remove SkeletonHero import (deletado mas importado no Dashboard)
 - **Test:** Smoke tests para prevenir tela preta futuramente
 
 ### Mudanças no PR #65
