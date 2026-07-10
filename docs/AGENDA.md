@@ -37,6 +37,17 @@
 
 ---
 
+## ✅ Code Review — PR #65
+
+- [x] Audit geral: 15 issues encontrados (6 bugs, 5 gaps, 4 cleanup)
+- [x] Bugs de integridade: transfer reversal, sort mutável, clearAccountData
+- [x] Bugs de UX: navigate, as any, pontosSales placeholder
+- [x] Cleanup: downloadCSV duplicado, staleTime redundante, SkeletonHero morto
+- [x] Novas convenções: Invariantes Financeiras, Imutabilidade, Promessas de UI, Config Global
+- [x] Checklist pré-PR adicionado ao WORKFLOW.md
+
+---
+
 ## 🎯 Sprint #5 — Notificações + UX
 
 **Objetivo:** Melhorar engajamento com notificações e UX básica
@@ -111,9 +122,9 @@
 | Testes unitários | 35/35 ✅ |
 | Testes E2E | 8/8 ✅ |
 | Deploy | Automático (Vercel) |
-| Último PR | #64 (modo offline) |
+| Último PR | #65 (code review) |
 
 ---
 
-**Última atualização:** 2026-07-09
-**Próxima revisão:** Sprint #6
+**Última atualização:** 2026-07-10
+**Próxima revisão:** Sprint #7

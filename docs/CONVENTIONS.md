@@ -119,6 +119,79 @@ Regra: **zero arquivos uncommitted** ao sair. Isso inclui:
 
 **Exceção:** apenas arquivos em `.gitignore` (node_modules, .env, test-results/).
 
+## Invariantes Financeiras — OBRIGATÓRIO
+
+Toda operação que altera saldo de conta DEVE ter uma inversão espelhada testada.
+
+**Regra:** Se `A` debitou X de uma conta, deletar `A` deve creditar X de volta.
+
+```typescript
+// ❌ ERRADO: reversal usa valor errado
+await supabase.from("accounts").update({
+  balance: balance + entry.amount,
+  total_invested: total_invested + entry.amountPaid, // ← ERRADO para transferências
+});
+
+// ✅ CORRETO: reversal computa custo proporcional
+const proportionalCost = calcProportionalCost(entry.amount, balance, totalInvested);
+await supabase.from("accounts").update({
+  balance: balance + entry.amount,
+  total_invested: total_invested + proportionalCost,
+});
+```
+
+**Arquivo de referência:** `src/lib/metrics.ts` — `calcProportionalCost()`
+**Testes:** `tests/unit/invariants.test.ts`
+
+## Imutabilidade de Estado — OBRIGATÓRIO
+
+Nunca mutar arrays ou objetos que vêm de `useMemo` ou `useState`.
+
+```typescript
+// ❌ ERRADO: .sort() muta o array original
+{ownerReports.sort((a, b) => b.roi - a.roi)[0]}
+
+// ✅ CORRETO: cria cópia antes de ordenar
+{[...ownerReports].sort((a, b) => b.roi - a.roi)[0]}
+```
+
+**Por que:** React compara referências. Mutar um array memoizado pode causar re-renders perdidos ou comportamento imprevisível.
+
+## Promessas de UI — OBRIGATÓRIO
+
+Se a UI mostra uma mensagem ao usuário, o código DEVE cumprir a promessa.
+
+```tsx
+// ❌ ERRADO: UI diz "Transferência será preservada" mas código deleta tudo
+<p>O tipo "Transferência" será preservado.</p>
+// ...mas clearAccountData deleta origem_types inteiro
+
+// ✅ CORRETO: código preserva o que a UI promete
+await supabase.from("origem_types").delete().not("id", "is", null);
+await supabase.from("origem_types").insert({ name: "Transferência", ... }); // re-insere
+```
+
+**Checklist:** Antes de merge, verificar se alguma mensagem de UI promete algo que o código não entrega.
+
+## Config Global — NÃO DUPLICAR
+
+Configurações definidas no `QueryClient` global (`App.tsx`) NÃO devem ser repetidas em queries individuais.
+
+```typescript
+// ❌ ERRADO: repete o que já está no QueryClient global
+useQuery({
+  queryKey: ["entries"],
+  staleTime: 30 * 1000, // ← já está no App.tsx
+});
+
+// ✅ CORRETO: herda do global
+useQuery({
+  queryKey: ["entries"],
+});
+```
+
+**Exceção:** se uma query precisa de staleTime DIFERENTE do global, aí sim pode override.
+
 ## Observações Gerais
 
 - Não adicionar dependências sem necessidade
