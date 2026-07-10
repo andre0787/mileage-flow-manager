@@ -13,6 +13,7 @@ import { OnlineProvider } from "@/contexts/OnlineContext";
 import { OfflineBanner } from "@/components/OfflineBanner";
 import { DataProvider } from "@/contexts/DataContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
@@ -144,6 +145,8 @@ const AnimatedRoutes = () => {
 };
 
 const AppLayout = () => {
+  useKeyboardShortcuts();
+
   return (
     <OnlineProvider>
     <DataProvider>

@@ -190,9 +190,9 @@
 
 ## 📌 Backlog Futuro
 
-### Sprint #7 (Futura)
+### Sprint #7 (Em andamento)
 - [ ] Multi-idioma (i18n)
-- [ ] Dark mode toggle
+- [x] Dark mode toggle — já implementado (ThemeToggle no sidebar)
 - [ ] Atalhos de teclado
 
 ### Sprint #8 (Futura)
