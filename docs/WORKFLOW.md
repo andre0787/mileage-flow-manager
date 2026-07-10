@@ -38,7 +38,7 @@ Cada advisor produz análise independente → peer review anônimo → chairman 
 4. **test-driven-development** — RED → GREEN → REFACTOR
 5. **subagent-driven-development** — subagent por tarefa com dois estágios de review
 6. **requesting-code-review** — entre tarefas, bloqueia se critical
-7. **finishing-a-development-branch** — testes verdes, merge/PR
+7. **finishing-a-development-branch** — testes verdes, commitar TUDO, merge/PR
 8. **relatório** — `/report` gera HTML com antes/depois, benefícios e consumo de tokens em `docs/reports/`
 9. **handoff** — Atualizar `HANDOFF.md` com progresso, PRs e próximos passos
 
@@ -63,3 +63,12 @@ Features triviais podem usar Superpowers direto sem council ("let's build X" →
 | Planning | Plano | `docs/superpowers/plans/` |
 | Execução | Código + testes | `src/` + `tests/` |
 | Relatório | HTML before/after | `docs/reports/<PR>-<data>-<nome>.html` |
+
+## Regra de Limpeza
+
+**Antes de merge/PR, TODOS os arquivos devem estar commitados.**
+
+Inclui: código, docs, council verdicts, plans, specs, package.json/lock, relatórios.
+Verificar com `git status` — zero arquivos pendentes exceto `.gitignore`.
+
+Ver `CONVENTIONS.md` → "Limpeza Pós-Sessão" para checklist completo.

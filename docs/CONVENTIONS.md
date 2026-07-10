@@ -98,6 +98,27 @@ antes. "Já que estou aqui" gera diff imprevisível e quebra revisão.
 Exceção: correções óbvias que impedem o código de funcionar (import faltando,
 typo em variável, erro de sintaxe).
 
+## Limpeza Pós-Sessão — OBRIGATÓRIA
+
+**Antes de finalizar qualquer sessão ou subir PR, verifique `git status`.**
+
+Regra: **zero arquivos uncommitted** ao sair. Isso inclui:
+- Código fonte (`src/`)
+- Documentação (`docs/`, `*.md` raiz)
+- Dependências (`package.json`, `package-lock.json`)
+- Relatórios (`docs/reports/`)
+- Council verdicts (`docs/council/`)
+- Plans & specs (`docs/superpowers/`)
+
+**Checklist de saída:**
+1. `git status` — verificar arquivos pendentes
+2. `git add .` — stage tudo que foi criado/modificado
+3. `git commit` — commitar com mensagem descritiva
+4. `git push` — subir para o repositório
+5. Atualizar `HANDOFF.md` com estado atual
+
+**Exceção:** apenas arquivos em `.gitignore` (node_modules, .env, test-results/).
+
 ## Observações Gerais
 
 - Não adicionar dependências sem necessidade
