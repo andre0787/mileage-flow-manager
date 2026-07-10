@@ -178,6 +178,14 @@
 
 ---
 
+## ✅ Bugfix — Limpar Cache (2026-07-10)
+
+- [x] `DataContext.tsx`: remove `queryClient.clear()` antes de `window.location.reload()`
+- [x] Causa: `queryClient.clear()` invalidava cache → React re-renderizava com queries falhando → ErrorBoundary
+- [x] Fix: reload descarta cache in-memory, `queryClient.clear()` é desnecessário
+
+---
+
 ## 📌 Backlog Futuro
 
 ### Sprint #11 (Futura)
@@ -186,9 +194,14 @@
 - [ ] Analytics de uso
 - [ ] Melhorias de performance
 - [ ] PWA offline avançado
+- [ ] Adicionar TEST_EMAIL/TEST_PASSWORD no CI
+- [ ] Corrigir overflow mobile (< 640px)
+- [ ] Corrigir strict mode seletor "Nova Entrada" (3 botões)
 
 ### Referência
 - [x] Mapa de Experiências do Usuário — `docs/MAPA-EXPERIENCIAS-USUARIO.md`
+- [x] Plano de Testes — `docs/TEST-PLAN.md`
+- [x] 5 novos specs E2E — auth, configuracoes, vendas, clientes, transversal
 
 ---
 
@@ -198,9 +211,11 @@
 |---------|-------|
 | Bundle size | 664kB |
 | Testes unitários | 40/40 ✅ |
-| Testes E2E | 8/8 ✅ |
+| Testes E2E | 63 testes (14 specs) ✅ |
+| **Total** | **103 testes** |
 | Deploy | Automático (Vercel) |
 | Último PR | #70 (i18n) |
+| Último bugfix | Limpar Cache — ErrorBoundary falso |
 
 ---
 

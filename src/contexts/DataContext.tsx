@@ -70,7 +70,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const clearCache = () => {
     const keys = Object.keys(localStorage).filter(k => k.startsWith("mc-") || k === "mc-migrated");
     keys.forEach(k => localStorage.removeItem(k));
-    queryClient.clear();
+    // ponytail: reload descarta cache in-memory, queryClient.clear() só causava re-render com erro
     window.location.reload();
   };
 
