@@ -64,6 +64,36 @@ Features triviais podem usar Superpowers direto sem council ("let's build X" →
 | Execução | Código + testes | `src/` + `tests/` |
 | Relatório | HTML before/after | `docs/reports/<PR>-<data>-<nome>.html` |
 
+## Checklist Pré-PR — OBRIGATÓRIO
+
+Antes de criar qualquer PR, executar este checklist:
+
+### 1. Integridade Financeira
+- [ ] Toda mutation que altera saldo tem inversão espelhada?
+- [ ] Reversals usam custo proporcional (não amountPaid) para transferências?
+- [ ] `tests/unit/invariants.test.ts` passa?
+
+### 2. Imutabilidade
+- [ ] Nenhum `.sort()` muta array de `useMemo`?
+- [ ] Nenhum `.push()` / `.splice()` muta array de `useState`?
+- [ ] Dados de props/contexto são tratados como imutáveis?
+
+### 3. Promessas de UI
+- [ ] Mensagens de UI são cumpridas pelo código?
+- [ ] Loading states são consistentes com operações reais?
+- [ ] Erros são tratados e mostrados ao usuário?
+
+### 4. Config & DRY
+- [ ] Não há config duplicada (staleTime, etc.)?
+- [ ] Funções utilitárias estão em `lib/` (não inline em componentes)?
+- [ ] Imports não têm `as any` sem justificativa?
+
+### 5. Limpeza
+- [ ] `git status` mostra zero arquivos pendentes?
+- [ ] Nenhum código morto (exports não importados, funções não chamadas)?
+- [ ] `npm run build` passa sem erros?
+- [ ] `npm test` passa (35/35)?
+
 ## Regra de Limpeza
 
 **Antes de merge/PR, TODOS os arquivos devem estar commitados.**

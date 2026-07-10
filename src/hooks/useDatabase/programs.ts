@@ -18,7 +18,6 @@ export function useProgramsQuery() {
       return (data ?? []).map(mapProgram);
     },
     enabled: !!userId,
-    staleTime: 30 * 1000,
   });
 }
 

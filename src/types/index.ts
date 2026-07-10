@@ -80,7 +80,7 @@ export interface PointEntry {
   description?: string;
 }
 
-/** Serializa cart e clube fields para description como JSON */
+/** Serializa cart e clube fields para description como JSON (entries). Distinto de serializeOrigemTypeDescription em lib/origemTypes.ts. */
 export function serializeDescription(opts: {
   cartAmount?: number;
   cartCost?: number;

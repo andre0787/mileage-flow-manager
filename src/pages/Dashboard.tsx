@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Wallet,
   TrendingUp,
@@ -31,6 +32,7 @@ import type { Account, Sale, PointEntry } from "@/types";
 const MAX_CPF_PER_OWNER = 22;
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const { owners, accounts, programs, sales, entries, origemTypes, isLoading } = useData();
   const [activeTab, setActiveTab] = useState<"milhas" | "pontos">("milhas");
   const [selectedOwner, setSelectedOwner] = useState<string | null>(null);
@@ -47,6 +49,7 @@ export default function Dashboard() {
     [sales, accounts]
   );
 
+  // ponytail: pontos sales not implemented yet — no sales tracking for points accounts
   const pontosSales = useMemo(() => [], []);
 
   const milhasEntries = useMemo(
@@ -281,7 +284,7 @@ export default function Dashboard() {
 
         {/* Entradas pendentes do Clube */}
         {entries.filter(e => e.entryStatus === 'aguardando').length > 0 && (
-          <div className="rounded-lg border border-amber-400/30 bg-amber-50 dark:bg-amber-950/20 p-3 sm:p-4 flex items-start gap-3 animate-appear" onClick={() => window.location.href = '/entradas'}>
+          <div className="rounded-lg border border-amber-400/30 bg-amber-50 dark:bg-amber-950/20 p-3 sm:p-4 flex items-start gap-3 animate-appear" onClick={() => navigate('/entradas')}>
             <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-amber-800 dark:text-amber-300">

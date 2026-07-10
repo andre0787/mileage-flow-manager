@@ -18,7 +18,6 @@ export function useEntriesQuery() {
       return (data ?? []).map(mapEntry);
     },
     enabled: !!userId,
-    staleTime: 30 * 1000,
   });
 }
 
@@ -223,11 +222,15 @@ export function useUpdateEntryMutation() {
             .eq("id", oldEntry.sourceAccountId)
             .single();
           if (reverseSrc.data) {
+            // Revert source: restore points and proportional cost (not full amountPaid)
+            const srcBalance = Number(reverseSrc.data.balance);
+            const srcInvested = Number(reverseSrc.data.total_invested ?? 0);
+            const proportionalCost = calcProportionalCost(oldEntry.amount, srcBalance, srcInvested);
             const update = calcAccountUpdate(
-              Number(reverseSrc.data.balance),
-              Number(reverseSrc.data.total_invested ?? 0),
+              srcBalance,
+              srcInvested,
               oldEntry.amount,
-              oldEntry.amountPaid,
+              proportionalCost,
             );
             await supabase.from("accounts").update(update).eq("id", oldEntry.sourceAccountId);
           }
@@ -349,11 +352,15 @@ export function useDeleteEntryMutation() {
             .eq("id", entry.sourceAccountId)
             .single();
           if (source) {
+            // Restore source: points + proportional cost (not full amountPaid)
+            const srcBalance = Number(source.balance);
+            const srcInvested = Number(source.total_invested ?? 0);
+            const proportionalCost = calcProportionalCost(entry.amount, srcBalance, srcInvested);
             const update = calcAccountUpdate(
-              Number(source.balance),
-              Number(source.total_invested ?? 0),
+              srcBalance,
+              srcInvested,
               entry.amount,
-              entry.amountPaid,
+              proportionalCost,
             );
             await supabase.from("accounts").update(update).eq("id", entry.sourceAccountId);
           }

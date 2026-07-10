@@ -57,7 +57,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
         name: "Transferência",
         account_type: "milhas",
         color: "#8b5cf6",
-      } as any).then(() => {
+      }).then(() => {
         queryClient.invalidateQueries({ queryKey: ["origem_types"] });
         creatingTransferencia.current = false;
       });

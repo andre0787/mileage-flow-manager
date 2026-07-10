@@ -18,7 +18,6 @@ export function useClientsQuery() {
       return (data ?? []).map(mapClient);
     },
     enabled: !!userId,
-    staleTime: 30 * 1000,
   });
 }
 

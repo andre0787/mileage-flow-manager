@@ -1,32 +1,47 @@
-# HANDOFF — Sprint #6 Completa
+# HANDOFF — Sprint #6 Completa + Code Review + Novas Convenções
 
-## Status: ✅ Sprint #6 merged (PR #63 + #64)
+## Status: ✅ Code Review + Council completo
 
-### Último trabalho: 2026-07-09
+### Último trabalho: 2026-07-10
 
-- **PR #63 merged**: Busca global (dropdown no header, Cmd+K)
-- **PR #64 merged**: Modo offline minimal (SW + banner + botões desabilitados)
-  - Service Worker via Workbox (vite-plugin-pwa)
-  - Hook useOnlineStatus() + OnlineContext
-  - OfflineBanner quando sem conexão
-  - Botões de ação desabilitados offline
-  - Testes: 35/35 ✅
-  - Bundle: 646kB
-- **Commit `73a59f6`**: Council verdicts, plans, changelog e deps commitados
+- **Code Review geral** do projeto — 15 issues encontrados, 14 corrigidos
+- **Council** rodado para definir novas convenções
+- **Novas convenções** adicionadas ao CONVENTIONS.md
+- **Checklist pré-PR** adicionado ao WORKFLOW.md
+- **Testes de invariantes** criados (5 novos testes)
+
+### Mudanças no PR #65
+
+**Código:**
+- Fix: transfer reversal usa custo proporcional
+- Fix: .sort() não muta arrays memoizados
+- Fix: clearAccountData preserva Transferência
+- Fix: useNavigate() no Dashboard
+- Fix: removed as any do DataContext
+- Refactor: downloadCSV extraído para lib/utils.ts
+- Chore: staleTime redundante removido de 7 hooks
+- Chore: SkeletonHero deletado
+
+**Documentação:**
+- CONVENTIONS.md: 4 novas seções (Invariantes Financeiras, Imutabilidade, Promessas de UI, Config Global)
+- WORKFLOW.md: Checklist pré-PR obrigatório (5 seções)
+- Council verdict: docs/council/2026-07-10-novas-convencoes-code-review-veredito.md
+
+**Testes:**
+- tests/unit/invariants.test.ts: 5 testes de integridade financeira
+- Total: 40/40 ✅
 
 ### Branch atual
 
-`main` — produção limpa
+`chore/code-review-cleanup` → PR #65 para `main`
 
-### Sprint #6 — Resumo
+### Build & Test
 
-| Item | Status | PR |
-|------|--------|-----|
-| Busca global | ✅ | #63 |
-| Modo offline minimal | ✅ | #64 |
-| Exportação PDF | ❌ Descartado (council) | — |
+- TypeScript: clean
+- Vite build: ✅ (646kB)
+- Testes: 40/40 ✅
 
 ### Próximos passos
 
-1. Sprint #7: Multi-idioma (i18n), Dark mode toggle, Atalhos de teclado
-2. Melhorias incrementais: testes E2E, UX
+1. Merge PR #65
+2. Sprint #7: Multi-idioma (i18n), Dark mode toggle, Atalhos de teclado

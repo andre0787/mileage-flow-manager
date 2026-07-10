@@ -18,7 +18,6 @@ export function useOwnersQuery() {
       return (data ?? []).map(mapOwner);
     },
     enabled: !!userId,
-    staleTime: 30 * 1000,
   });
 }
 

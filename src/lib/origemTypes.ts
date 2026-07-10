@@ -1,3 +1,4 @@
+/** Serializa metadata de origem type (distinto do serializeDescription em types/index.ts que é para entries) */
 export function serializeOrigemTypeDescription(hasRecurrence: boolean): string {
   return JSON.stringify({ hasRecurrence });
 }

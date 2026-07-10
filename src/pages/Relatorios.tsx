@@ -29,6 +29,7 @@ import {
 import { useData } from "@/contexts/DataContext";
 import { toast } from "sonner";
 import { calcProfitMargin, calcROI, calcWeightedAverageCost } from "@/lib/metrics";
+import { downloadCSV } from "@/lib/utils";
 import { PERIOD_OPTIONS } from "@/lib/dates";
 
 interface OwnerReport {
@@ -142,40 +143,6 @@ export default function Relatorios() {
 
   const periods = PERIOD_OPTIONS;
 
-  const downloadCSV = (data: Record<string, string | number>[], filename: string) => {
-    if (data.length === 0) {
-      toast.info("Nenhum dado para exportar");
-      return;
-    }
-    const headers = Object.keys(data[0]);
-    const csvRows = [
-      headers.join(","),
-      ...data.map((row) =>
-        headers
-          .map((h) => {
-            const val = String(row[h] ?? "");
-            if (val.includes(",") || val.includes('"') || val.includes("\n")) {
-              return `"${val.replace(/"/g, '""')}"`;
-            }
-            return val;
-          })
-          .join(","),
-      ),
-    ].join("\n");
-
-    const BOM = "\uFEFF";
-    const blob = new Blob([BOM + csvRows], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-    toast.success(`${filename} baixado com sucesso`);
-  };
-
   const exportOwnerReport = () => {
     const data = filteredOwnerReports.map((r) => ({
       Dono: r.ownerName,
@@ -188,6 +155,7 @@ export default function Relatorios() {
       ROI: `${r.roi.toFixed(1)}%`,
     }));
     downloadCSV(data, `relatorio-donos-${selectedPeriod}-dias.csv`);
+    toast.success(`relatorio-donos-${selectedPeriod}-dias.csv baixado com sucesso`);
   };
 
   const exportProgramReport = () => {
@@ -200,6 +168,7 @@ export default function Relatorios() {
       Lucro: r.profit,
     }));
     downloadCSV(data, `relatorio-programas-${selectedPeriod}-dias.csv`);
+    toast.success(`relatorio-programas-${selectedPeriod}-dias.csv baixado com sucesso`);
   };
 
   const metrics = useMemo(
@@ -609,8 +578,8 @@ export default function Relatorios() {
                 <Award className="h-4 w-4 text-success" /> Melhor Performance
               </h4>
               <p className="text-sm">
-                {ownerReports.sort((a, b) => b.roi - a.roi)[0]?.ownerName} apresenta o melhor ROI (
-                {ownerReports.sort((a, b) => b.roi - a.roi)[0]?.roi.toFixed(1)}%)
+                {[...ownerReports].sort((a, b) => b.roi - a.roi)[0]?.ownerName} apresenta o melhor ROI (
+                {[...ownerReports].sort((a, b) => b.roi - a.roi)[0]?.roi.toFixed(1)}%)
               </p>
             </div>
 
@@ -619,7 +588,7 @@ export default function Relatorios() {
                 <AlertTriangle className="h-4 w-4 text-warning" /> Atenção
               </h4>
               <p className="text-sm">
-                Programa {programReports.sort((a, b) => a.profit - b.profit)[0]?.program}
+                Programa {[...programReports].sort((a, b) => a.profit - b.profit)[0]?.program}
                 com menor lucratividade. Considere revisar estratégia de preços.
               </p>
             </div>

@@ -19,7 +19,6 @@ export function useOrigemTypesQuery() {
       return (data ?? []).map(mapOrigemType);
     },
     enabled: !!userId,
-    staleTime: 30 * 1000,
   });
 }
 
