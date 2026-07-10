@@ -1,8 +1,8 @@
-# HANDOFF — Sprint #6 Completa
+# HANDOFF — Sprint #6 Completa + Merge
 
-## Status: ✅ Sessão completa
+## Status: ✅ Sessão completa — 2026-07-10
 
-### Último trabalho: Sprint #6 — Todos os 4 itens implementados
+### Último trabalho: PR #66 merged to main
 
 ---
 
@@ -13,23 +13,20 @@
 - 3 camadas de implementação recomendadas
 - **Council:** `docs/council/2026-07-10-tratamento-erro-confirmacoes-debug-log-veredito.md`
 
-### 2. Sprint #6 — Todos os Itens Completos
+### 2. Sprint #6 — Todos os Itens Completos + Merged
 
 **Item 1: AlertDialog em Exclusões ✅**
 - Componente reutilizável `DeleteConfirmDialog` criado
-- OwnerSection: AlertDialog antes de excluir ✅
-- ProgramSection: AlertDialog antes de excluir ✅
-- OrigemTypeSection: AlertDialog antes de excluir ✅
+- OwnerSection, ProgramSection, OrigemTypeSection: AlertDialog antes de excluir
 
 **Item 2: Toast Feedback em Mutations ✅**
-- Toast.error em todas as mutations (accounts, clients, entries, origemTypes, owners, programs, sales, shared)
+- Toast.error em todas as mutations (8 arquivos)
 - Mensagens amigáveis em pt-BR
 
 **Item 3: Debug Log Estruturado ✅**
 - `src/lib/logger.ts` com `logError()` e `logDestructiveOp()`
 - Storage: localStorage (dev)
 - Flag: `VITE_ENABLE_DEBUG_LOG=true`
-- Integrado em mutations destrutivas
 
 **Item 4: Mensagens de Erro Amigáveis no Login ✅**
 - Mapeamento de erros Supabase para pt-BR
@@ -39,7 +36,14 @@
 
 ## Branch atual
 
-`feature/confirmacoes-exclusao` — PR #66 criado, aguardando merge
+`main` — produção limpa
+
+## Build & Test
+
+- TypeScript: clean
+- Vite build: ✅ (649kB)
+- Testes: 40/40 ✅
+- Deploy: https://mileage-flow-manager.vercel.app ✅
 
 ## Arquivos modificados nesta sessão
 
@@ -60,17 +64,9 @@
 - `src/pages/Login.tsx` — mensagens de erro amigáveis
 
 ### Docs
-- `docs/AGENDA.md` — Sprint #6 organizada e completa
+- `docs/AGENDA.md` — Sprint #6 completa
 - `docs/council/2026-07-10-tratamento-erro-confirmacoes-debug-log-veredito.md` — council verdict
 - `docs/reports/PR66-2026-07-10-confirmacoes-exclusao.html` — relatório HTML
-
----
-
-## Build & Test
-
-- TypeScript: clean
-- Vite build: ✅ (649kB)
-- Testes: 35/35 ✅
 
 ---
 
