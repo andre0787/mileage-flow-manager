@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Package, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useOnlineStatus } from "@/contexts/OnlineContext"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { EmptyState } from "@/components/EmptyState"
@@ -33,6 +34,7 @@ export function EntryTable({
   onConfirm,
   onCreateClick,
 }: EntryTableProps) {
+  const { isOnline } = useOnlineStatus()
   const [currentPage, setCurrentPage] = useState(1)
   const totalPages = Math.ceil(entries.length / ITEMS_PER_PAGE)
   const paginatedEntries = entries.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
@@ -81,12 +83,12 @@ export function EntryTable({
   const renderActions = (entry: PointEntry) => (
     <div className="flex gap-2 justify-end">
       {entry.entryStatus === "aguardando" && (
-        <Button size="sm" variant="outline" className="px-3 min-h-[44px] gap-1 border-blue-300 dark:border-blue-700" onClick={() => onConfirm(entry)}>
+        <Button size="sm" variant="outline" className="px-3 min-h-[44px] gap-1 border-blue-300 dark:border-blue-700" onClick={() => onConfirm(entry)} disabled={!isOnline} title={!isOnline ? "Requer conexão" : undefined}>
           <CheckCircle2 className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
           Confirmar
         </Button>
       )}
-      <Button size="sm" variant="outline" className="px-3 min-h-[44px]" onClick={() => onEdit(entry)}>
+      <Button size="sm" variant="outline" className="px-3 min-h-[44px]" onClick={() => onEdit(entry)} disabled={!isOnline} title={!isOnline ? "Requer conexão" : undefined}>
         Editar
       </Button>
       <DeleteEntryDialog entry={entry} />

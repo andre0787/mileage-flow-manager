@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Package, TrendingDown, Users } from "lucide-react";
+import { useOnlineStatus } from "@/contexts/OnlineContext";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -42,6 +43,7 @@ interface SaleTableProps {
 const ITEMS_PER_PAGE = 20
 
 export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick }: SaleTableProps) {
+  const { isOnline } = useOnlineStatus();
   const [cancelConfirmId, setCancelConfirmId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1)
   const totalPages = Math.ceil(sales.length / ITEMS_PER_PAGE)
@@ -134,8 +136,9 @@ export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick }: Sa
                           onValueChange={(v) =>
                             onStatusChange?.(sale.id, v as "pendente" | "pago" | "concluido")
                           }
+                          disabled={!isOnline}
                         >
-                          <SelectTrigger className="w-28">
+                          <SelectTrigger className="w-28" title={!isOnline ? "Requer conexão" : undefined}>
                             <span
                               className={`h-2 w-2 rounded-full ${sale.status === "pendente" ? "bg-warning" : sale.status === "pago" ? "bg-primary" : "bg-success"}`}
                             />
@@ -159,6 +162,8 @@ export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick }: Sa
                             size="sm"
                             className="text-destructive hover:text-destructive h-6 text-xs"
                             onClick={() => setCancelConfirmId(sale.id)}
+                            disabled={!isOnline}
+                            title={!isOnline ? "Requer conexão" : undefined}
                           >
                             Cancelar
                           </Button>

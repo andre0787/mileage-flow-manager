@@ -9,6 +9,8 @@ import { BottomTabBar } from "@/components/BottomTabBar";
 import { GlobalSearch } from "@/components/GlobalSearch";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { OnlineProvider } from "@/contexts/OnlineContext";
+import { OfflineBanner } from "@/components/OfflineBanner";
 import { DataProvider } from "@/contexts/DataContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Login from "./pages/Login";
@@ -143,10 +145,12 @@ const AnimatedRoutes = () => {
 
 const AppLayout = () => {
   return (
+    <OnlineProvider>
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
         <AppSidebar />
         <div className="flex-1 flex flex-col min-w-0">
+          <OfflineBanner />
           <DataProvider>
             <header className="h-14 flex items-center border-b bg-background/80 backdrop-blur-sm px-6 sticky top-0 z-30 safe-area-top">
               <SidebarTrigger />
@@ -168,6 +172,7 @@ const AppLayout = () => {
         </div>
       </div>
     </SidebarProvider>
+    </OnlineProvider>
   );
 };
 
