@@ -3,8 +3,8 @@
 ## Status: ✅ Sessão completa — 2026-07-10
 
 ### Último trabalho: PR #75 mergeado em produção
-### Resultado: CI verde; deploy falhou por `vercel-token` ausente
-### Trabalho atual: aumentar workers do Playwright no CI (branch `perf/playwright-workers-ci`)
+### Resultado: CI verde; deploy manual funcionou; workflow de deploy falhou
+### Trabalho atual: corrigir workflow de deploy da Vercel (branch `fix/vercel-deploy-cli`)
 
 ---
 
@@ -60,7 +60,7 @@
 
 ## Branch atual
 
-`main` — produção atualizada com PR #75 (deploy pendente por secrets)
+`fix/vercel-deploy-cli` — hotfix do deploy Vercel em andamento
 
 ## Build & Test
 
@@ -100,6 +100,10 @@
 - `docs/superpowers/specs/2026-07-10-playwright-workers-ci-design.md` — spec
 - `docs/superpowers/plans/2026-07-10-playwright-workers-ci-plan.md` — plano
 - `docs/reports/PR75-2026-07-10-playwright-workers-ci.html` — relatório
+- `docs/council/2026-07-10-vercel-deploy-cli-veredito.md` — decisão do deploy
+- `docs/superpowers/specs/2026-07-10-vercel-deploy-cli-design.md` — spec
+- `docs/superpowers/plans/2026-07-10-vercel-deploy-cli-plan.md` — plano
+- `docs/reports/PR76-2026-07-10-vercel-deploy-cli.html` — relatório
 - `PR #75` — https://github.com/andre0787/mileage-flow-manager/pull/75
 - `HANDOFF.md` — este arquivo (atualizado)
 
