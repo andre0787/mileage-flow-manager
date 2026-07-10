@@ -123,7 +123,7 @@ export default function OwnerSection({ owners, accounts, onAdd, onUpdate, onDele
                         <DeleteConfirmDialog
                           trigger={<Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive"><Trash2 className="h-4 w-4" /></Button>}
                           title="Excluir dono?"
-                          description={`Tem certeza que deseja excluir o dono "${owner.name}"? Esta ação não pode ser desfeita e removerá permanentemente o registro.`}
+                          description={`Tem certeza que deseja excluir o dono "${owner.name}"? ${accounts.filter(a => a.ownerId === owner.id).length > 0 ? `ATENÇÃO: Este dono possui ${accounts.filter(a => a.ownerId === owner.id).length} conta(s) vinculada(s) que também serão excluídas.` : "Esta ação não pode ser desfeita."}`}
                           confirmLabel="Excluir dono"
                           onConfirm={() => { onDelete(owner.id); setDeletingOwner(null); }}
                         />
@@ -153,7 +153,7 @@ export default function OwnerSection({ owners, accounts, onAdd, onUpdate, onDele
                   <DeleteConfirmDialog
                     trigger={<Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive"><Trash2 className="h-4 w-4" /> Excluir</Button>}
                     title="Excluir dono?"
-                    description={`Tem certeza que deseja excluir o dono "${owner.name}"? Esta ação não pode ser desfeita e removerá permanentemente o registro.`}
+                    description={`Tem certeza que deseja excluir o dono "${owner.name}"? ${accounts.filter(a => a.ownerId === owner.id).length > 0 ? `ATENÇÃO: Este dono possui ${accounts.filter(a => a.ownerId === owner.id).length} conta(s) vinculada(s) que também serão excluídas.` : "Esta ação não pode ser desfeita."}`}
                     confirmLabel="Excluir dono"
                     onConfirm={() => onDelete(owner.id)}
                   />
