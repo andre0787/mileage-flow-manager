@@ -45,38 +45,30 @@
 
 ---
 
-### Item 1: Notificações Push para Confirmação de Entradas
+### Item 1: Badge de Entradas Pendentes + Notificações Push
 
 **Prioridade:** 🔴 Alta
-**Estimativa:** 3-5 dias
-**Arquivos impactados:** `src/hooks/useDatabase.ts`, `src/pages/Entradas.tsx`, `src/components/`
+**Estimativa:** 1-2 dias (badge) + 3-5 dias (push, futuro)
+**Arquivos impactados:** `src/components/AppSidebar.tsx`, `src/components/BottomTabBar.tsx`
 
 **Descrição:**
-Quando uma entrada é criada mas não confirmada, o usuário deve receber uma notificação push no navegador para lembrar de confirmar.
+Exibir badge de contagem de entradas pendentes de confirmação no sidebar e bottom tab bar, visível em todas as páginas.
 
 **Critérios de Aceite:**
-- [ ] Service worker registrado para push notifications
-- [ ] Usuário pode ativar/desativar notificações nas configurações
-- [ ] Notificação enviada quando entrada fica pendente por > 24h
-- [ ] Notificação aparece mesmo com app em background
-- [ ] Click na notificação redireciona para página de entradas
-- [ ] Tratamento de permissão negada (mostrar aviso)
-- [ ] Funciona em Chrome, Firefox, Safari (desktop)
-- [ ] Testes unitários para lógica de notificação
-- [ ] Teste E2E para fluxo de ativação
+- [x] Badge amber no sidebar ao lado de "Entradas" (desktop)
+- [x] Badge amber sobre ícone no bottom tab bar (mobile)
+- [x] Contagem de entradas com `entryStatus === 'aguardando'`
+- [x] Badge só aparece quando há pendências > 0
+- [x] Visível em todas as páginas (não só Dashboard)
+- [ ] Push notifications (decidido adiar — badge resolve 90% do caso)
 
-**Abordagem Técnica:**
-1. Registrar service worker em `public/sw.js`
-2. Criar hook `useNotifications.ts` para gerenciar permissão
-3. Adicionar toggle em Configurações
-4. Criar lógica de verificação de entradas pendentes
-5. Usar Push API + Notification API
-
-**Riscos:**
-- Usuários podem negar permissão (mitigação: explicar benefício)
-- Safari tem limitações com push (mitigação: fallback para in-app)
+**Notas:**
+- Alerta no Dashboard já existia (amber banner)
+- Council decidiu: badge visual primeiro, push notification apenas se necessário após dados reais
+- Push notifications ficam no backlog para Sprint #6 se necessário
 
 **Referência:** `docs/MAPA-EXPERIENCIAS-USUARIO.md` → Fluxo 34 (Notificações)
+**Council:** `docs/council/2026-07-09-notificacoes-push-veredito.md`
 
 ---
 
@@ -84,19 +76,19 @@ Quando uma entrada é criada mas não confirmada, o usuário deve receber uma no
 
 **Prioridade:** 🟡 Média
 **Estimativa:** 1-2 dias
-**Arquivos impactados:** `src/pages/Entradas.tsx`, `src/pages/Vendas.tsx`, `src/pages/Clientes.tsx`, `src/pages/Contas.tsx`
+**Arquivos impactados:** `src/components/EntryTable.tsx`, `src/components/SaleTable.tsx`, `src/pages/Entradas.tsx`, `src/pages/Vendas.tsx`
 
 **Descrição:**
 Quando não há dados para exibir, mostrar estado vazio com Call-to-Action (CTA) para criar o primeiro item.
 
 **Critérios de Aceite:**
-- [ ] Empty state em Entradas: "Nenhuma entrada encontrada" + botão "Criar primeira entrada"
-- [ ] Empty state em Vendas: "Nenhuma venda encontrada" + botão "Registrar primeira venda"
-- [ ] Empty state em Clientes: "Nenhum cliente cadastrado" + botão "Adicionar cliente"
-- [ ] Empty state em Contas: "Nenhuma conta criada" + botão "Criar conta"
-- [ ] Empty states seguem design system (ícone + título + descrição + botão)
-- [ ] Botão funciona e abre modal/drawer correto
-- [ ] Testes E2E para cada empty state
+- [x] Empty state em Entradas: botão "Nova Entrada" (desktop + mobile)
+- [x] Empty state em Vendas: botão "Nova Venda"
+- [x] Empty state em Clientes: já existia com CTA
+- [x] Empty state em Contas: já existia com CTA
+- [x] Empty states seguem design system (ícone + título + descrição + botão)
+- [x] Botão funciona e abre modal/drawer correto
+- [ ] Testes E2E para cada empty state (adiado — fluxo manual verificado)
 
 **Abordagem Técnica:**
 1. Criar componente `EmptyState.tsx` reutilizável
@@ -112,21 +104,21 @@ Quando não há dados para exibir, mostrar estado vazio com Call-to-Action (CTA)
 
 **Prioridade:** 🟡 Média
 **Estimativa:** 2-3 dias
-**Arquivos impactados:** `src/pages/Entradas.tsx`, `src/pages/Vendas.tsx`, `src/pages/Clientes.tsx`, `src/pages/Contas.tsx`
+**Arquivos impactados:** `src/components/Pagination.tsx`, `src/components/EntryTable.tsx`, `src/components/SaleTable.tsx`, `src/pages/Clientes.tsx`, `src/pages/Contas.tsx`
 
 **Descrição:**
 Listas com muitos itens devem ter paginação para melhorar performance e UX.
 
 **Critérios de Aceite:**
-- [ ] Paginação em Entradas (20 itens por página)
-- [ ] Paginação em Vendas (20 itens por página)
-- [ ] Paginação em Clientes (20 itens por página)
-- [ ] Paginação em Contas (20 itens por página)
-- [ ] Botões: Anterior, Próximo, números de página
-- [ ] Indicador: "Mostrando 1-20 de 45 entradas"
-- [ ] Paginação no lado do cliente (dados já carregados)
-- [ ] Funciona com filtros aplicados
-- [ ] Testes E2E para navegação entre páginas
+- [x] Componente Pagination reutilizável
+- [x] Paginação em Entradas (20 itens/página, desktop + mobile)
+- [x] Paginação em Vendas (20 itens/página, desktop + mobile)
+- [x] Paginação em Clientes (20 itens/página)
+- [x] Paginação em Contas (20 itens/página)
+- [x] Indicador: "Mostrando 1-20 de X"
+- [x] Paginação no lado do cliente (slice de dados já carregados)
+- [x] Só aparece quando há > 20 itens
+- [ ] Testes E2E para navegação entre páginas (adiado)
 
 **Abordagem Técnica:**
 1. Criar componente `Pagination.tsx` reutilizável

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relatório — Sprint #5: UX (Badge, Empty States, Paginação)</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; }
+  h1 { border-bottom: 2px solid #5B72C4; padding-bottom: .5rem; }
+  h2 { color: #333; margin-top: 1.5rem; }
+  .stat { display: inline-block; background: #f0f4ff; padding: .25rem .75rem; border-radius: 6px; font-size: .875rem; margin-right: .5rem; }
+  .benefits li { margin: .5rem 0; line-height: 1.5; }
+  pre { background: #f5f5f5; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: .85rem; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: .75rem; font-weight: 600; }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-blue { background: #cce5ff; color: #004085; }
+  .badge-amber { background: #fff3cd; color: #856404; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+  th, td { padding: .5rem; border: 1px solid #ddd; text-align: left; font-size: .875rem; }
+  th { background: #f8f9fa; }
+  .section { margin: 1.5rem 0; padding: 1rem; background: #fafbfc; border-radius: 8px; border: 1px solid #e1e4e8; }
+</style>
+</head>
+<body>
+<h1>📋 Relatório: Sprint #5 — UX</h1>
+<p><span class="stat">📁 9 arquivos</span> <span class="stat">➕ 171 linhas</span> <span class="stat">➖ 10 linhas</span> <span class="stat">⚡ ~241 tokens</span></p>
+<p><span class="badge badge-green">PR #62</span> <span class="badge badge-blue">2026-07-09</span></p>
+
+<h2>Contexto</h2>
+<p>Sprint #5 focou em melhorias de UX: visibilidade de entradas pendentes, CTAs em estados vazios e paginação em listas longas. O council decidiu priorizar badge visual sobre push notifications (opt-in baixo, alta complexidade).</p>
+
+<div class="section">
+<h2>1. Badge de Entradas Pendentes</h2>
+<table>
+<tr><th>Aspecto</th><th>Antes</th><th>Depois</th></tr>
+<tr><td>Visibilidade</td><td>Só no Dashboard (alerta amber)</td><td>Sidebar + BottomTabBar (todas as páginas)</td></tr>
+<tr><td>Desktop</td><td>—</td><td>Badge amber com contagem ao lado de "Entradas"</td></tr>
+<tr><td>Mobile</td><td>—</td><td>Badge amber sobre ícone no bottom tab</td></tr>
+<tr><td>Fonte de dados</td><td>Filtro inline no Dashboard</td><td>Shared via <code>useData()</code></td></tr>
+</table>
+<p><strong>Arquivos:</strong> <code>AppSidebar.tsx</code>, <code>BottomTabBar.tsx</code></p>
+</div>
+
+<div class="section">
+<h2>2. Empty States com CTAs</h2>
+<table>
+<tr><th>Página</th><th>Antes</th><th>Depois</th></tr>
+<tr><td>Entradas</td><td>EmptyState sem botão</td><td>EmptyState + botão "Nova Entrada"</td></tr>
+<tr><td>Vendas</td><td>EmptyState sem botão</td><td>EmptyState + botão "Nova Venda"</td></tr>
+<tr><td>Clientes</td><td>Já tinha CTA ✅</td><td>—</td></tr>
+<tr><td>Contas</td><td>Já tinha CTA ✅</td><td>—</td></tr>
+</table>
+<p><strong>Arquivos:</strong> <code>EntryTable.tsx</code>, <code>SaleTable.tsx</code>, <code>Entradas.tsx</code>, <code>Vendas.tsx</code></p>
+</div>
+
+<div class="section">
+<h2>3. Paginação (20 itens/página)</h2>
+<table>
+<tr><th>Componente</th><th>Itens paginados</th><th>Indicador</th></tr>
+<tr><td>EntryTable</td><td>Desktop table + Mobile cards</td><td>"Mostrando 1–20 de X"</td></tr>
+<tr><td>SaleTable</td><td>Desktop table + Mobile cards</td><td>"Mostrando 1–20 de X"</td></tr>
+<tr><td>Clientes</td><td>Desktop table + Mobile cards</td><td>"Mostrando 1–20 de X"</td></tr>
+<tr><td>Contas</td><td>Grid de cards</td><td>"Mostrando 1–20 de X"</td></tr>
+</table>
+<p><strong>Componente novo:</strong> <code>Pagination.tsx</code> — reutilizável, navegação por páginas com ellipsis</p>
+<p><strong>Arquivos:</strong> <code>Pagination.tsx</code>, <code>EntryTable.tsx</code>, <code>SaleTable.tsx</code>, <code>Clientes.tsx</code>, <code>Contas.tsx</code></p>
+</div>
+
+<h2>Benefícios</h2>
+<ul class="benefits">
+  <li>✅ <strong>Visibilidade:</strong> Entradas pendentes visíveis em todas as páginas (não só Dashboard)</li>
+  <li>✅ <strong>Conversão:</strong> CTAs em empty states guiam usuário para ação (criar entrada/venda)</li>
+  <li>✅ <strong>Performance:</strong> Listas paginadas evitam renderizar centenas de itens de uma vez</li>
+  <li>✅ <strong>UX mobile:</strong> Badge no bottom tab bar funciona em telas pequenas</li>
+  <li>✅ <strong>Manutenibilidade:</strong> Pagination.tsx reutilizável, props opcionais não quebram uso existente</li>
+  <li>✅ <strong>Zero dependências:</strong> Tudo implementado com Tailwind + componentes existentes</li>
+</ul>
+
+<h2>Decisões de Design</h2>
+<ul>
+  <li><strong>Badge amber:</strong> Cor de alerta, sem ser intrusivo — consistente com o Dashboard existente</li>
+  <li><strong>20 itens/página:</strong> Balance entre visibilidade e performance — ajustável via constante</li>
+  <li><strong>Paginação client-side:</strong> Dados já carregados via React Query — sem requests extras</li>
+  <li><strong>Push notifications adiadas:</strong> Council decidiu que badge resolve 90% do caso de uso</li>
+</ul>
+
+<h2>Detalhes Técnicos</h2>
+<pre>
+Commit bcbcf46: feat: adiciona badge de entradas pendentes no sidebar e bottom tab bar
+Commit 5f08053: feat: adiciona CTAs nos empty states de Entradas e Vendas
+Commit af2090a: feat: adiciona paginação (20 itens/página) em todas as listas
+
+Testes: 33/33 unitários ✅
+Bundle: 641kB (estável)
+</pre>
+
+<h2>Próximos Passos</h2>
+<ul>
+  <li>Push notifications (se necessário após dados reais de uso do badge)</li>
+  <li>Testes E2E para paginação e empty states</li>
+  <li>Sprint #6: Modo offline, exportação PDF, busca global</li>
+</ul>
+
+</body>
+</html>
