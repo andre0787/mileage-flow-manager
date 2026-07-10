@@ -17,7 +17,7 @@
 ## ✅ Bugfix — PR #58
 
 - [x] #56 — origem-tipo: isClube setado ao criar tipo com recorrência
-- [x] #57 — fluxo-completo: safePost() com timeout, ignora 409
+- [ ] #57 — fluxo-completo: safePost() com timeout, ignora 409
 
 ## ✅ Fix — PR #59
 
@@ -35,8 +35,6 @@
 - [x] Chunk separado para recharts (~398kB)
 - [x] Skeleton loader para UX
 
----
-
 ## ✅ Code Review — PR #65
 
 - [x] Audit geral: 15 issues encontrados (6 bugs, 5 gaps, 4 cleanup)
@@ -46,13 +44,9 @@
 - [x] Novas convenções: Invariantes Financeiras, Imutabilidade, Promessas de UI, Config Global
 - [x] Checklist pré-PR adicionado ao WORKFLOW.md
 
----
-
 ## 🎯 Sprint #5 — Notificações + UX ✅
 
 **Objetivo:** Melhorar engajamento com notificações e UX básica
-
----
 
 ### Item 1: Badge de Entradas Pendentes ✅
 
@@ -69,15 +63,13 @@
 - [x] Componente Pagination reutilizável
 - [x] Paginação em Entradas, Vendas, Clientes, Contas
 
----
-
 ## 🎯 Sprint #6 — Confirmações + Error Handling ✅
 
 **Objetivo:** Tornar o app mais seguro e resiliente
-**Council:** `docs/council/2026-07-10-tratamento-erro-confirmacoes-debug-log-veredito.md`
-**PR:** #66
 
----
+**Council:** `docs/council/2026-07-10-tratamento-erro-confirmacoes-debug-log-veredito.md`
+
+**PR:** #66
 
 ### Item 1: AlertDialog em Exclusões de Config ✅
 
@@ -102,14 +94,11 @@
 - [x] Mapeamento de erros Supabase para pt-BR
 - [x] Log da mensagem técnica original
 
----
-
 ## 🎯 Sprint #7 — Atalhos de Teclado ✅
 
 **Objetivo:** Navegação rápida para usuários avançados
-**PR:** #67
 
----
+**PR:** #67
 
 ### Item 1: Atalhos de Navegação ✅
 
@@ -121,14 +110,11 @@
 
 - [x] Já implementado (ThemeToggle no sidebar)
 
----
-
 ## 🎯 Sprint #8 — Proteção contra Exclusão em Cascata ✅
 
 **Objetivo:** Alinhar frontend com restrições do database
-**PR:** #68
 
----
+**PR:** #68
 
 ### Item 1: Verificação de Relacionamentos ✅
 
@@ -136,14 +122,11 @@
 - [x] ProgramSection: bloqueio se houver contas
 - [x] OrigemTypeSection: bloqueio se houver entradas
 
----
-
 ## 🎯 Sprint #9 — UX Improvements ✅
 
 **Objetivo:** Melhorar experiência do usuário
-**PR:** #69
 
----
+**PR:** #69
 
 ### Item 1: Modal de Ajuda para Atalhos ✅
 
@@ -154,14 +137,11 @@
 
 - [x] Toast.success em operações destrutivas
 
----
-
 ## 🎯 Sprint #10 — i18n ✅
 
 **Objetivo:** Suporte a múltiplos idiomas
-**PR:** #70
 
----
+**PR:** #70
 
 ### Item 1: Sistema de Internacionalização ✅
 
@@ -187,7 +167,7 @@
 ## ✅ Bugfix — Overflow Mobile + Selectors (2026-07-10)
 
 - [x] **Overflow Dashboard (433px em 393px):** header `px-6` → `px-4 md:px-6`; GlobalSearch `w-48` → `w-32` em mobile
-  - Root cause: header right section (LanguageSelector + KeyboardShortcutsHelp + GlobalSearch) somava 280px, espaço disponível ~211px
+  - Root cause: header right side (LanguageSelector + KeyboardShortcutsHelp + GlobalSearch) somava 280px, espaço disponível ~211px
 - [x] **Nova Entrada selector:** `.first()` em 5 selectores (3 arquivos: clube, fluxo-completo, origem-tipo)
 - [x] **Nova Venda selector:** `.first()` no fluxo-completo
 - [x] Tests: 4 pre-existing failures corrigidos (responsivo, clube, fluxo-completo, origem-tipo)
@@ -206,25 +186,32 @@
 ## 🎯 Sprint A — Fundação de Automação 🔴 Prioridade Máxima
 
 **Objetivo:** CI/CD rodando, deploy automático, scripts básicos.
+
 **Council:** `docs/council/2026-07-10-plano-automacao-sprints-veredito.md`
+
 **Spec:** `docs/superpowers/specs/2026-07-10-automacao-sprints-design.md`
+
 **Plano:** `docs/superpowers/plans/2026-07-10-automacao-sprints-plan.md`
 
 ### Item 1: CI Workflow 🔴
+
 - [ ] Criar `.github/workflows/ci.yml` — build + unit + E2E em todo PR
 - [ ] Cache npm + playwright
 - [ ] Upload de relatório como artifact
 
 ### Item 2: Deploy Workflow 🔴
+
 - [ ] Criar `.github/workflows/deploy.yml` — auto-deploy no merge para main
 - [ ] Configurar secrets VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID
 
 ### Item 3: Scripts package.json
+
 - [ ] Adicionar `"test:e2e": "playwright test"`
 - [ ] Adicionar `"test:e2e:ui": "playwright test --ui"`
 
 ### Item 4: Git Flow Simplificado
-- [ ] `git branch -D develop` (local + remoto)
+
+- [ ] `git branch -d develop` (local + remoto)
 - [ ] Atualizar `docs/GIT-WORKFLOW.md` — fluxo: branch → PR → main
 - [ ] Atualizar `docs/WORKFLOW.md` — checklists com CI
 
@@ -235,6 +222,7 @@
 **Objetivo:** Arquivar ruído, configurar cross-harness, verificação automatizada.
 
 ### Item 1: Arquivar 29 Órfãos
+
 - [ ] Mover specs antigas → `docs/archive/` (exceto spec atual)
 - [ ] Mover plans antigos → `docs/archive/` (exceto plan atual)
 - [ ] Mover 5 council verdicts sem link → `docs/archive/`
@@ -242,17 +230,20 @@
 - [ ] Atualizar `docs/MAP.md` — refletir arquivamento
 
 ### Item 2: Cross-Harness Config
+
 - [ ] Criar `.opencode/settings.json` (referência ao handoff skill)
 - [ ] Criar `.claude/settings.local.json` (referência ao handoff skill)
 
 ### Item 3: Script de Verificação
+
 - [ ] Criar `scripts/verify-docs.mjs` — varredura automatizada de .md
 - [ ] Identifica órfãos, promessas quebradas, gaps
 
 ### Item 4: Atualizar Docs Núcleo
+
 - [ ] `AGENTS.md` — regras refletindo CI/CD real
 - [ ] `docs/CONVENTIONS.md` — convenção de CI/CD
-- [ ] `docs/WORKFLOW.md` — checklist com CI
+- [ ] `docs/WORKFLOW.md` — checklists com CI
 
 ---
 
@@ -261,21 +252,26 @@
 **Objetivo:** Prevenção ativa, dashboard de qualidade, docs vivos.
 
 ### Item 1: Varredura Automática no CI
+
 - [ ] Workflow semanal + manual dispatch
 - [ ] Cria issue automática se detectar novos órfãos
 
 ### Item 2: Dashboard de Qualidade
+
 - [ ] Script que gera `QUALITY.md` com status de CI, testes, docs
 - [ ] Tendências vs scan anterior
 
 ### Item 3: Relatório HTML Automático
+
 - [ ] Workflow dispatch que gera relatório em `docs/reports/`
 - [ ] Cria PR automático com o relatório
 
 ### Item 4: HANDOFF.md Automatizado
+
 - [ ] Template + script de preenchimento automático
 
 ### Item 5: Paralelismo no E2E do CI
+
 - [ ] Subir Playwright para 2 workers apenas no GitHub Actions
 - [ ] Medir tempo do job antes/depois
 - [ ] Se flake aparecer, avaliar sharding
@@ -285,6 +281,7 @@
 ## 📌 Backlog Futuro
 
 ### Sprint #11
+
 - [ ] Traduções no Dashboard (`useI18n()`)
 - [ ] Traduções na Configurações
 - [ ] Analytics de uso
@@ -292,12 +289,20 @@
 - [ ] PWA offline avançado
 
 ### Referência
+
 - [x] Mapa de Experiências do Usuário — `docs/MAPA-EXPERIENCIAS-USUARIO.md`
 - [x] Plano de Testes — `docs/TEST-PLAN.md`
 - [x] 5 novos specs E2E — auth, configuracoes, vendas, clientes, transversal
 
 ---
 
+
+## 🐞 Bugs e Melhorias identificados via avaliação humana (prioridade)
+
+- [ ] #77 – BUG: Registro de entrada só salva após limpar cache
+- [ ] #78 – BUG: Tipos de origem não aparecem na edição/exclusão
+- [ ] #79 – BUG: Seleção de conta de pontos vazia na transferência
+- [ ] #80 – FEATURE: Recorrência, distribuição de valores e edição de data nas entradas
 ## 📊 Status da Produção
 
 | Métrica | Valor |

@@ -55,6 +55,14 @@
   - 5 promessas quebradas (hooks que não existem, workflow desatualizado)
 - **8 arquivos corrigidos:** AGENTS, WORKFLOW, ARCHITECTURE, GIT-WORKFLOW, CONVENTIONS, STACK, TESTING, MAP
 - Relatório HTML: `docs/reports/2026-07-10-varredura-arquivos-md.html`
+### Item 7: Avaliação de bugs e melhorias (human review) ✅
+
+- Avaliado arquivo `docs/AVALIAR_ITENS_BUG_E_MELHORIA_HUMANO.md`
+- Criadas issues no GitHub:
+  - #77 – BUG: Registro de entrada só salva após limpar cache
+  - #78 – BUG: Tipos de origem não aparecem na edição/exclusão
+  - #79 – BUG: Seleção de conta de pontos vazia na transferência
+  - #80 – FEATURE: Recorrência, distribuição de valores e edição de data nas entradas
 
 ---
 
