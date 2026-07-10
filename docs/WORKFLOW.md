@@ -92,11 +92,15 @@ Antes de criar qualquer PR, executar este checklist:
 - [ ] Funções utilitárias estão em `lib/` (não inline em componentes)?
 - [ ] Imports não têm `as any` sem justificativa?
 
-### 5. Limpeza
+### 5. CI/CD
+- [ ] GitHub Actions CI verde no PR?
+- [ ] `npm run build` passa?
+- [ ] `npm test` passa (40/40)?
+- [ ] `npm run test:e2e` passa (67/67)?
+
+### 6. Limpeza
 - [ ] `git status` mostra zero arquivos pendentes?
 - [ ] Nenhum código morto (exports não importados, funções não chamadas)?
-- [ ] `npm run build` passa sem erros?
-- [ ] `npm test` passa (40/40)?
 
 ## Regra de Limpeza
 

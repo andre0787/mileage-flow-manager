@@ -103,25 +103,33 @@
 | Suite | Quantidade |
 |-------|-----------|
 | Testes unitários (vitest) | 40 |
-| Testes E2E (Playwright) | 63 |
-| **Total** | **103** |
+| Testes E2E (Playwright) | 67 |
+| **Total** | **107** |
 
 ---
 
 ## Próximos passos
 
-### Imediatos
-- ~~TEST_EMAIL/TEST_PASSWORD no CI~~ ✅ resolvido — registerUser helper
+### Sprint A (🔴 Prioridade Máxima) — Fundação de Automação
+- [ ] CI workflow (`.github/workflows/ci.yml`) — build + tests em todo PR
+- [ ] Deploy workflow (`.github/workflows/deploy.yml`) — auto-deploy Vercel
+- [ ] `test:e2e` script no package.json
+- [ ] Matar `develop` (89 commits atrás de main) + atualizar docs
 
-### Sprint #11
-- Traduções no Dashboard (`useI18n()`)
-- Traduções na Configurações
-- Analytics de uso
-- Melhorias de performance
-- PWA offline avançado
+### Sprint B (🟡 Alta) — Limpeza & Confiabilidade
+- [ ] Arquivar 29 órfãos em `docs/archive/`
+- [ ] Cross-harness config (`.opencode/settings.json`, `.claude/settings.local.json`)
+- [ ] Script `scripts/verify-docs.mjs` — varredura automatizada
+- [ ] Atualizar docs núcleo (AGENTS, WORKFLOW, CONVENTIONS, MAP)
+
+### Sprint C (🟢 Média) — Polimento & Prevenção
+- [ ] Varredura automática no CI (semanal + manual)
+- [ ] Dashboard de qualidade (`QUALITY.md`)
+- [ ] Relatório HTML automático
+- [ ] HANDOFF.md automatizado
 
 ---
 
-**Última atualização:** 2026-07-10
-**Último commit:** (varredura + correção de 8 docs .md)
+**Última atualização:** 2026-07-10 (2ª sessão)
+**Último trabalho:** Council → Superpowers: Plano de Automação em 3 Sprints
 **Último deploy:** verificado após PR #71
