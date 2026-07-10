@@ -2,7 +2,7 @@
 
 ## Status: ✅ Sessão completa — 2026-07-10
 
-### Último trabalho: PR #75 aberto para acelerar E2E no CI
+### Último trabalho: PR #75 mergeado em produção
 ### Trabalho atual: aumentar workers do Playwright no CI (branch `perf/playwright-workers-ci`)
 
 ---
@@ -59,7 +59,7 @@
 
 ## Branch atual
 
-`perf/playwright-workers-ci` — ajuste de performance do E2E em andamento
+`main` — produção atualizada com PR #75
 
 ## Build & Test
 
