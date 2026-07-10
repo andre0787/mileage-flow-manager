@@ -1,65 +1,62 @@
-# HANDOFF — Sprint #9 Completa
+# HANDOFF — Sprint #10 Em Andamento
 
-## Status: ✅ Sessão completa — 2026-07-10
+## Status: 🔄 Sessão em andamento
 
-### Último trabalho: Sprint #9 — Todos os itens implementados
+### Último trabalho: Sistema de i18n implementado
 
 ---
 
 ## Resumo da Sessão
 
-### Sprint #9 — UX Improvements
+### Sprint #10 — i18n
 
-**Item 1: Modal de Ajuda para Atalhos ✅**
-- Componente `KeyboardShortcutsHelp` com Dialog
-- Lista de todos os atalhos disponíveis
-- Atalho '?' abre o modal
-- Adicionado no header ao lado do GlobalSearch
+**Item 1: Sistema de Internacionalização ✅**
+- `src/lib/i18n.ts` com traduções pt-BR e en-US
+- `src/contexts/I18nContext.tsx` com React context
+- `src/components/LanguageSelector.tsx` com toggle
+- Integração no App.tsx com I18nProvider
 
-**Item 2: Toast de Sucesso em Operações ✅**
-- Toast.success em delete de accounts, clients, entries, origemTypes, owners, programs, sales
-- Toast.success em clearAccountData
-- Mensagens amigáveis em pt-BR
+**Item 2: Aplicar Traduções nas Páginas (Pendente)**
+- Dashboard
+- Configurações
+- Login
 
 ---
 
 ## Branch atual
 
-`feature/sprint9-performance` — aguardando PR
+`feature/sprint10-i18n` — aguardando PR
 
 ## Build & Test
 
 - TypeScript: clean
-- Vite build: ✅ (658kB)
+- Vite build: ✅ (664kB)
 - Testes: 40/40 ✅
 
 ## Arquivos modificados nesta sessão
 
 ### Código
-- `src/components/KeyboardShortcutsHelp.tsx` — modal de ajuda (novo)
-- `src/App.tsx` — integração no header
-- `src/hooks/useDatabase/accounts.ts` — toast.success
-- `src/hooks/useDatabase/clients.ts` — toast.success
-- `src/hooks/useDatabase/entries.ts` — toast.success
-- `src/hooks/useDatabase/origemTypes.ts` — toast.success
-- `src/hooks/useDatabase/owners.ts` — toast.success
-- `src/hooks/useDatabase/programs.ts` — toast.success
-- `src/hooks/useDatabase/sales.ts` — toast.success
-- `src/hooks/useDatabase/shared.ts` — toast.success
+- `src/lib/i18n.ts` — traduções (novo)
+- `src/contexts/I18nContext.tsx` — context (novo)
+- `src/components/LanguageSelector.tsx` — componente (novo)
+- `src/App.tsx` — integração
 
 ### Docs
-- `docs/AGENDA.md` — Sprint #9 completa
+- `docs/AGENDA.md` — Sprint #10 organizada
 
 ---
 
 ## Próximos passos
 
-### Sprint #10 (Futura)
-- Multi-idioma (i18n)
+### Sprint #10 — Itens Pendentes
+1. **Item 2:** Aplicar traduções nas páginas
+
+### Sprint #11 (Futura)
 - Analytics de uso
 - Melhorias de performance
+- PWA offline avançado
 
 ---
 
 **Última atualização:** 2026-07-10
-**Próxima sessão:** Sprint #10
+**Próxima sessão:** Continuar Sprint #10
