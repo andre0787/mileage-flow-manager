@@ -21,6 +21,11 @@ npx playwright test --reporter=list --workers=1
 |---------|-------|
 | `tests/entradas.spec.ts` | CRUD de entradas (criar → editar → excluir) |
 | `tests/responsivo.spec.ts` | 11 páginas × 4 viewports + redimensionamento |
+| `tests/auth.spec.ts` | Login, validação, proteção de rotas (12 testes) |
+| `tests/configuracoes.spec.ts` | Limpar cache/conta, CRUD donos/programas (8 testes) |
+| `tests/vendas.spec.ts` | CRUD vendas, simulador, CSV, filtros (7 testes) |
+| `tests/clientes.spec.ts` | CRUD clientes, busca, paginação (9 testes) |
+| `tests/transversal.spec.ts` | Atalhos teclado, tema, i18n, navegação (16 testes) |
 
 ## Bateria Obrigatória (pré-deploy)
 
