@@ -57,7 +57,10 @@ export function useDeleteOwnerMutation() {
       const { error } = await supabase.from("owners").delete().eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["owners"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["owners"] });
+      toast.success("Dono excluído com sucesso");
+    },
     onError: () => toast.error("Erro ao excluir dono"),
   });
 }

@@ -87,7 +87,10 @@ export function useDeleteProgramMutation() {
       const { error } = await supabase.from("programs").delete().eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["programs"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["programs"] });
+      toast.success("Programa excluído com sucesso");
+    },
     onError: () => toast.error("Erro ao excluir programa"),
   });
 }

@@ -83,6 +83,7 @@ export function useClearAccountDataMutation() {
     onSuccess: () => {
       queryClient.invalidateQueries();
       logDestructiveOp("clear", "account_data");
+      toast.success("Dados da conta limpos com sucesso");
     },
     onError: (err) => {
       logError("clearAccountData", err);
