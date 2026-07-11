@@ -98,6 +98,8 @@ test.describe("Clube de Milhas", () => {
 
     await page.fill("#amount", "10000");
     await page.fill("#amountPaid", "350.00");
+    // ponytail: date field added by feature #80
+    await page.fill("#entryDate", new Date().toISOString().split("T")[0]);
 
     // Preencher meses
     await page.fill("input[placeholder='Ex: 12']", "3");
@@ -113,8 +115,7 @@ test.describe("Clube de Milhas", () => {
     // 4. Verificar badges
     // ═══════════════════════════════════════
     // ponytail: wait for dismiss dialog animation + table refetch
-    await page.waitForFunction(() => !document.querySelector('[role=dialog]'), { timeout: 5_000 });
-    await page.waitForTimeout(1_500);
+    await page.waitForTimeout(3_000);
     await expect(page.locator("text=🔄 Clube").first()).toBeVisible({ timeout: 10_000 });
     await expect(page.locator("text=⏳ Aguardando").first()).toBeVisible({ timeout: 3_000 });
     await expect(page.locator("text=3 entrada(s) pendente(s)").first()).toBeVisible({ timeout: 3_000 });

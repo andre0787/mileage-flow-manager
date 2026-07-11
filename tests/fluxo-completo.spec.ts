@@ -119,6 +119,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
 
     await page.fill("#amount", "50000");
     await page.fill("#amountPaid", "2500");
+    await page.fill("#entryDate", new Date().toISOString().split("T")[0]);
     await page.waitForTimeout(300);
     await page.getByRole("button", { name: /registrar/i }).click();
     await page.waitForFunction(() => !document.querySelector('[role=dialog]'), { timeout: 10_000 });
@@ -146,6 +147,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.fill('input[placeholder="Ex: 12"]', "3");
     await page.fill("#amount", "10000");
     await page.fill("#amountPaid", "800");
+    await page.fill("#entryDate", new Date().toISOString().split("T")[0]);
 
     await page.getByRole("button", { name: /registrar/i }).click();
     await page.waitForTimeout(1500);
