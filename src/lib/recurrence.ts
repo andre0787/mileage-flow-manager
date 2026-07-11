@@ -13,7 +13,8 @@ export function calculateRecurrence(form: Pick<
   | 'date'
   | 'isClube'
   | 'clubeMeses'
->): { recurrenceInterval?: number; recurrenceEnd?: string } {
+  | 'recurrenceValueMode'
+>): { recurrenceInterval?: number; recurrenceEnd?: string; recurrenceValueMode?: 'split' | 'repeat' } {
   // If recurrence not enabled, fallback to clube (legacy) behavior
   if (!form.isRecurrent) {
     return buildMonthlyRecurrence(form.isClube, form.clubeMeses);
@@ -38,5 +39,6 @@ export function calculateRecurrence(form: Pick<
   return {
     recurrenceInterval: interval,
     recurrenceEnd: endDate.toISOString().split('T')[0],
+    recurrenceValueMode: form.recurrenceValueMode,
   };
 }

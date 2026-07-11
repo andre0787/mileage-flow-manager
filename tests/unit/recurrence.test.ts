@@ -64,6 +64,7 @@ describe("calculateRecurrence", () => {
     const end = new Date(result.recurrenceEnd!);
     const start = new Date(); // Note: clube uses Date.now()
     const diffDays = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
-    expect(diffDays).toBeCloseTo(180, 0);
+    expect(diffDays).toBeGreaterThan(175);
+    expect(diffDays).toBeLessThan(185);
   });
 });

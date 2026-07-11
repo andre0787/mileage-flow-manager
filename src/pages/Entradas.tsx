@@ -20,6 +20,7 @@ import { isTransferencia } from "@/lib/utils";
 import { calculateRecurrence } from "@/lib/recurrence";
 import { calcMilesGenerated, calcCostPerThousand, calcCostPerMile } from "@/lib/metrics";
 import { buildMonthlyRecurrence, serializeOrigemTypeDescription } from "@/lib/origemTypes";
+import { toast } from "sonner";
 import {
   useAddEntryMutation,
   useUpdateEntryMutation,
@@ -90,13 +91,15 @@ export default function Entradas() {
 
   const handleCreateEntry = (form: EntryFormData) => {
     const c = computeFromForm(form);
+    const isSplit = form.isRecurrent && form.recurrenceValueMode === 'split' && form.recurrenceCount > 1;
+    const divisor = isSplit ? form.recurrenceCount : 1;
     addEntryM.mutate(
       {
         id: crypto.randomUUID(),
         accountId: form.accountId,
         origemTypeId: form.origemTypeId,
-        amount: c.amount,
-        amountPaid: c.totalPaid,
+        amount: c.amount / divisor,
+        amountPaid: c.totalPaid / divisor,
         costPerThousand: c.costPerThousand,
         conversionRate: c.isTransfer
           ? 1 + parseFloat(form.bonusPercent || "0") / 100
@@ -116,6 +119,7 @@ export default function Entradas() {
           date: form.date,
           isClube: form.isClube,
           clubeMeses: form.clubeMeses,
+          recurrenceValueMode: form.recurrenceValueMode,
         }),
         date: form.date,
       },
@@ -129,6 +133,7 @@ export default function Entradas() {
             colors: ["#6366f1", "#10b981", "#f59e0b"],
           });
         },
+        onError: () => toast.error("Erro ao salvar entrada. Verifique os dados e tente novamente."),
       },
     );
     setIsCreateDialogOpen(false);
@@ -190,14 +195,14 @@ export default function Entradas() {
     setIsEditDialogOpen(false);
   };
 
-  const handleCreateOrigemType = (data: {
+  const handleCreateOrigemType = async (data: {
     name: string;
     color: string;
     hasRecurrence: boolean;
   }) => {
     const id = crypto.randomUUID();
     const desc = serializeOrigemTypeDescription(data.hasRecurrence);
-    addOrigemTypeM.mutate({
+    await addOrigemTypeM.mutateAsync({
       id,
       name: data.name,
       accountType: activeTab,

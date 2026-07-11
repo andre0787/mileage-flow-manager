@@ -28,6 +28,7 @@ export interface EntryFormData {
   recurrenceType: 'monthly' | 'quarterly' | 'semiannual' | 'annual'
   recurrenceCount: number // >=1
   startDate: string // YYYY-MM-DD
+  recurrenceValueMode: 'split' | 'repeat'
 }
 
 const emptyForm: EntryFormData = {
@@ -47,6 +48,7 @@ const emptyForm: EntryFormData = {
   recurrenceType: "monthly",
   recurrenceCount: 1,
   startDate: "",
+  recurrenceValueMode: 'split',
 }
 
 interface EntryFormProps {
@@ -60,7 +62,7 @@ interface EntryFormProps {
   owners: Owner[]
   activeTab: "pontos" | "milhas"
   /** Cria um tipo de origem no banco e retorna o ID (só mode=create) */
-  onCreateOrigemType?: (data: { name: string; color: string; hasRecurrence: boolean }) => string
+  onCreateOrigemType?: (data: { name: string; color: string; hasRecurrence: boolean }) => Promise<string | undefined>
 }
 
 export function EntryForm({
@@ -79,6 +81,7 @@ export function EntryForm({
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({})
   const [isOrigemTypeOpen, setIsOrigemTypeOpen] = useState(false)
   const [newOT, setNewOT] = useState({ name: "", color: "#10b981", hasRecurrence: false })
+  const [isCreatingOrigemType, setIsCreatingOrigemType] = useState(false)
   const [otErrors, setOtErrors] = useState<Partial<Record<string, string>>>({})
 
   const set = (patch: Partial<EntryFormData>) => setForm((prev) => ({ ...prev, ...patch }))
@@ -88,7 +91,7 @@ export function EntryForm({
   const selectedOrigemType = origemTypes.find((ot) => ot.id === form.origemTypeId)
   const isTransfer = selectedOrigemType ? isTransferencia(selectedOrigemType) : false
   const availableAccounts = accounts.filter((a) => a.type === activeTab && a.status === "ativa")
-  const currentOrigemTypes = origemTypes.filter((ot) => ot.accountType === activeTab)
+  const currentOrigemTypes = origemTypes.filter((ot) => ot.accountType === activeTab && !isTransferencia(ot))
   const sourceAccounts = accounts.filter(
     (a) => a.type === "pontos" && a.status === "ativa" && (!selectedAccount || a.ownerId === selectedAccount.ownerId)
   )
@@ -141,21 +144,26 @@ export function EntryForm({
     onSubmit(form)
   }
 
-  const handleCreateOrigemType = () => {
+  const handleCreateOrigemType = async () => {
     const errs: typeof otErrors = {}
     if (!newOT.name.trim()) errs.name = "Nome é obrigatório"
     setOtErrors(errs)
     if (Object.keys(errs).length > 0) return
 
-    const id = onCreateOrigemType?.({
-      name: newOT.name.trim(),
-      color: newOT.color,
-      hasRecurrence: newOT.hasRecurrence,
-    })
-    if (id) set({ origemTypeId: id, isClube: newOT.hasRecurrence })
-    setNewOT({ name: "", color: "#10b981", hasRecurrence: false })
-    setOtErrors({})
-    setIsOrigemTypeOpen(false)
+    setIsCreatingOrigemType(true)
+    try {
+      const id = await onCreateOrigemType?.({
+        name: newOT.name.trim(),
+        color: newOT.color,
+        hasRecurrence: newOT.hasRecurrence,
+      })
+      if (id) set({ origemTypeId: id, isClube: newOT.hasRecurrence })
+      setNewOT({ name: "", color: "#10b981", hasRecurrence: false })
+      setOtErrors({})
+      setIsOrigemTypeOpen(false)
+    } finally {
+      setIsCreatingOrigemType(false)
+    }
   }
 
   // Helper to format date to YYYY-MM-DD
@@ -271,8 +279,8 @@ export function EntryForm({
                   <Button variant="outline" onClick={() => { setIsOrigemTypeOpen(false); setOtErrors({}) }}>
                     Cancelar
                   </Button>
-                  <Button onClick={handleCreateOrigemType} className="bg-gradient-primary hover:opacity-90">
-                    Cadastrar
+                  <Button onClick={handleCreateOrigemType} disabled={isCreatingOrigemType} className="bg-gradient-primary hover:opacity-90">
+                    {isCreatingOrigemType ? "Salvando..." : "Cadastrar"}
                   </Button>
                 </div>
               </FormDrawer>
@@ -417,6 +425,33 @@ export function EntryForm({
               </div>
             </div>
 
+            {/* Modo de repetição */}
+            <div className="space-y-2">
+              <Label>Modo de repetição</Label>
+              <div className="flex gap-4">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="recurrenceValueMode"
+                    checked={form.recurrenceValueMode === 'split'}
+                    onChange={() => set({ recurrenceValueMode: 'split' })}
+                    className="h-4 w-4 accent-primary"
+                  />
+                  <span className="text-sm">Parcelado (valor / parcelas)</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="recurrenceValueMode"
+                    checked={form.recurrenceValueMode === 'repeat'}
+                    onChange={() => set({ recurrenceValueMode: 'repeat' })}
+                    className="h-4 w-4 accent-primary"
+                  />
+                  <span className="text-sm">Repetido (mesmo valor em cada)</span>
+                </label>
+              </div>
+            </div>
+
             {/* Summary */}
             <div className="border-t pt-4">
               <div className="text-sm text-muted-foreground">
@@ -440,23 +475,45 @@ export function EntryForm({
                   <span>Início:</span>
                   <span>{form.startDate}</span>
                 </div>
-                <div className="flex justify-between mt-1">
-                  <span>Valor por parcela:</span>
-                  <span>
-                    R$ {(
-                      parseFloat(form.amountPaid) / form.recurrenceCount
-                    ).toFixed(2)}
-                  </span>
-                </div>
-                {isTransfer && (
-                  <div className="flex justify-between mt-1">
-                    <span>Quantidade por parcela:</span>
-                    <span>
-                      {(parseFloat(form.amount) / form.recurrenceCount).toLocaleString("pt-BR", {
-                        maximumFractionDigits: 0,
-                      })}
-                    </span>
-                  </div>
+                {form.recurrenceValueMode === 'split' && (
+                  <>
+                    <div className="flex justify-between mt-1">
+                      <span>Valor por parcela:</span>
+                      <span>
+                        R$ {(
+                          parseFloat(form.amountPaid) / form.recurrenceCount
+                        ).toFixed(2)}
+                      </span>
+                    </div>
+                    {isTransfer && (
+                      <div className="flex justify-between mt-1">
+                        <span>Quantidade por parcela:</span>
+                        <span>
+                          {(parseFloat(form.amount) / form.recurrenceCount).toLocaleString("pt-BR", {
+                            maximumFractionDigits: 0,
+                          })}
+                        </span>
+                      </div>
+                    )}
+                  </>
+                )}
+                {form.recurrenceValueMode === 'repeat' && (
+                  <>
+                    <div className="flex justify-between mt-1">
+                      <span>Valor por parcela:</span>
+                      <span>R$ {parseFloat(form.amountPaid).toFixed(2)}</span>
+                    </div>
+                    {isTransfer && (
+                      <div className="flex justify-between mt-1">
+                        <span>Quantidade por parcela:</span>
+                        <span>
+                          {parseFloat(form.amount).toLocaleString("pt-BR", {
+                            maximumFractionDigits: 0,
+                          })}
+                        </span>
+                      </div>
+                    )}
+                  </>
                 )}
             </div>
           </div>

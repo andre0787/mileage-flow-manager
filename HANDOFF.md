@@ -228,12 +228,13 @@ Branch `feature/avaliar-itens-bug-e-melhoria` — deletada após merge
 - [ ] Relatório HTML automático
 - [ ] HANDOFF.md automatizado
 
-### Bugs pendentes (não resolvidos)
-- [ ] #77 – BUG: Registro de entrada só salva após limpar cache
-- [ ] #78 – BUG: Tipos de origem não aparecem na edição/exclusão
+### Bugs resolvidos nesta sessão (PR #85)
+- [x] #77 – BUG: Registro de entrada só salva após limpar cache (onError + toast)
+- [x] #78 – BUG: Tipos de origem não aparecem na edição/exclusão (race condition corrigida)
+- [x] #79 – BUG: Seleção de conta de pontos vazia na transferência (já corrigido em PR #84)
 
 ---
 
-**Última atualização:** 2026-07-10 (3ª sessão)
-**Último trabalho:** Implementação da feature #80: recorrência, distribuição de valores e edição de data nas entradas
-**Último deploy:** verificado após PR #76
+**Última atualização:** 2026-07-11 (4ª sessão)
+**Último trabalho:** Fix bugs #77 (save silencioso) e #78 (race condition tipos origem)
+**Último PR:** [#85](https://github.com/andre0787/mileage-flow-manager/pull/85) — aguardando merge

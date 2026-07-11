@@ -51,6 +51,7 @@ export function useAddEntryMutation() {
             parentEntryId: entry.parentEntryId,
             recurrenceInterval: entry.recurrenceInterval,
             recurrenceEnd: entry.recurrenceEnd,
+            recurrenceValueMode: entry.recurrenceValueMode,
           }) ?? null,
         date: entry.date,
       });
@@ -85,6 +86,7 @@ export function useAddEntryMutation() {
                 parentEntryId: fe.parentEntryId,
                 recurrenceInterval: fe.recurrenceInterval,
                 recurrenceEnd: fe.recurrenceEnd,
+                recurrenceValueMode: entry.recurrenceValueMode,
               }) ?? null,
             date: fe.date!,
           });
@@ -132,6 +134,10 @@ export function useAddEntryMutation() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["entries"] });
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
+    },
+    onError: (err) => {
+      logError("addEntry", err);
+      toast.error("Erro ao salvar entrada");
     },
   });
 }

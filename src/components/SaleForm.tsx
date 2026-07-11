@@ -50,7 +50,7 @@ interface SaleFormProps {
   clients: Client[];
   sales: Sale[];
   onSubmit: (data: SaleFormData) => void;
-  onCreateClient: (data: NewClientData & { id: string }) => void;
+  onCreateClient: (data: NewClientData & { id: string }) => Promise<void>;
 }
 
 const emptyPassenger = () => ({
@@ -165,13 +165,13 @@ export function SaleForm({
     setForm(emptyForm);
   };
 
-  const handleCreateClient = () => {
+  const handleCreateClient = async () => {
     if (!newClient.name.trim()) {
       setClientErrors({ name: "Nome é obrigatório" });
       return;
     }
     const id = crypto.randomUUID();
-    onCreateClient({ id, ...newClient });
+    await onCreateClient({ id, ...newClient });
     update({ clientId: id, clientName: newClient.name.trim() });
     setNewClient({ name: "", cpf: "", email: "", phone: "", telegram: "" });
     setClientErrors({});

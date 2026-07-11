@@ -76,6 +76,8 @@ export interface PointEntry {
   recurrenceInterval?: number;
   /** Data final da recorrência */
   recurrenceEnd?: string;
+  /** Modo de distribuição dos valores nas recorrências: split (divide) ou repeat (repete) */
+  recurrenceValueMode?: 'split' | 'repeat';
   date: string;
   description?: string;
 }
@@ -88,6 +90,7 @@ export function serializeDescription(opts: {
   parentEntryId?: string;
   recurrenceInterval?: number;
   recurrenceEnd?: string;
+  recurrenceValueMode?: 'split' | 'repeat';
 }): string | undefined {
   const obj: Record<string, unknown> = {};
   if (opts.cartAmount && opts.cartAmount > 0) {
@@ -98,6 +101,7 @@ export function serializeDescription(opts: {
   if (opts.parentEntryId) obj.parentEntryId = opts.parentEntryId;
   if (opts.recurrenceInterval) obj.recurrenceInterval = opts.recurrenceInterval;
   if (opts.recurrenceEnd) obj.recurrenceEnd = opts.recurrenceEnd;
+  if (opts.recurrenceValueMode) obj.recurrenceValueMode = opts.recurrenceValueMode;
   return Object.keys(obj).length > 0 ? JSON.stringify(obj) : undefined;
 }
 
@@ -109,6 +113,7 @@ export function parseDescription(description?: string | null): {
   parentEntryId?: string;
   recurrenceInterval?: number;
   recurrenceEnd?: string;
+  recurrenceValueMode?: 'split' | 'repeat';
 } {
   if (!description) return {};
   try {
