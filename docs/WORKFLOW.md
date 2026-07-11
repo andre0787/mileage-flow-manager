@@ -61,7 +61,11 @@ Features triviais podem usar Superpowers direto sem council ("let's build X" →
 | Brainstorm | Spec | `docs/superpowers/specs/` |
 | Planning | Plano | `docs/superpowers/plans/` |
 | Execução | Código + testes | `src/` + `tests/` |
-| Relatório | HTML before/after | `docs/reports/<PR>-<data>-<nome>.html` |
+| Relatório | HTML before/after | `docs/reports/<prefix>-<data>-<nome>.html` |
+
+> **Nomenclatura de reports:** `<prefix>-YYYY-MM-DD-<nome>.html`.
+> Prefixos válidos: `PR<num>`, `Sprint<letra>`, `auto`.
+> Exemplos: `PR89-2026-07-11-sprint-11.html`, `SprintC-2026-07-11-polimento-prevencao.html`, `auto-2026-07-11-qualidade.html`.
 
 ## Checklist Pré-PR — OBRIGATÓRIO
 

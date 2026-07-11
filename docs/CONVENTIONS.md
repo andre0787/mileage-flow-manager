@@ -22,6 +22,8 @@
 
 ## DRY & Modularidade
 
+- **Nunca construir em monolito.** Componente que acumula layout + estado + fetch + formatação é flag de refatoração. Extrair em submódulos (`ui/`, `hooks/`, `lib/`).
+- **Sempre reutilizável, nunca duplicado.** Se um pattern serve 2+ lugares, extrair. Se só existe em 1 lugar, esperar o 2º uso (YAGNI).
 - Nunca duplicar cálculo de lucro, margem, saldo, custo médio — cada um em ponto único em `lib/`
 - Todo mapper snake_case → camelCase centralizado em `lib/utils.ts` ou no próprio módulo de domínio
 - Preferir criar módulo novo a duplicar lógica existente
