@@ -20,7 +20,9 @@
     "report": "node scripts/generate-report.mjs",
     "pre-pr": "node scripts/pre-pr-check.mjs",
     "handoff": "node scripts/update-handoff.mjs --write",
-    "think": "node scripts/think.mjs"
+    "think": "node scripts/think.mjs",
+    "feedback:check": "node scripts/check-feedback.mjs",
+    "feedback:review": "npx supabase db query --linked \"SELECT * FROM feedback ORDER BY created_at DESC;\""
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

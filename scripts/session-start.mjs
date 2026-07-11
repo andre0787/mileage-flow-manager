@@ -27,6 +27,14 @@ const commit = (() => { try { return execSync("git log -1 --format='%h — %s'",
 const prs = (() => { try { const o = execSync("gh pr list --state open --json number,title 2>/dev/null", { cwd: ROOT, encoding: "utf8", timeout: 5000 }); const l = JSON.parse(o); return l.length ? l.map(p => `#${p.number}`).join(", ") : "nenhum"; } catch { return "?"; } })();
 const status = (() => { try { const o = execSync("git status --short", { cwd: ROOT, encoding: "utf8", timeout: 3000 }).trim(); return o || "limpo"; } catch { return "?"; } })();
 
+// Feedback de usuários pendentes — executa 1x
+const feedbackOutput = (() => {
+  try { return execSync("node scripts/check-feedback.mjs", { cwd: ROOT, encoding: "utf8", timeout: 15000 }).trim(); }
+  catch { return "📬 Feedback: ?"; }
+})();
+const feedback = feedbackOutput.split("\n")[0];
+const feedbackItems = feedbackOutput.split("\n").slice(1).join("\n");
+
 // Extrai seções compactas da agenda
 function sec(txt, start, end) {
   if (!txt) return "";
@@ -100,7 +108,10 @@ console.log([
   "  session-end p/ finalizar (npm run session:end)",
   "  registrar bugs ao encontrar",
   "  IDEIAS.md lido no início de sessão",
+  "  feedback: npm run feedback:check",
   "",
   inProgress ? "▶️  HANDOFF indica algo em andamento — continua." : "",
   ideiasPendentes.includes("⬜") ? "💡 IDEIAS.md tem pendentes — perguntar ao usuário." : "",
+  feedbackItems ? `\n## 📬 Feedback de usuários\n${feedbackItems}` : "",
+  feedback,
 ].filter(l => l !== "").join("\n"));
