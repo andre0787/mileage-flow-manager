@@ -458,11 +458,11 @@ export function EntryForm({
                     </span>
                   </div>
                 )}
-              </div>
             </div>
           </div>
         </div>
-      }
+      )}
+    </div>
 
       {/* Seção Transferência */}
       {isTransfer && (
@@ -635,7 +635,7 @@ export function EntryForm({
         </Button>
         <Button onClick={handleSubmit} className="bg-gradient-primary hover:opacity-90">
           {mode === "create" ? "Registrar Entrada" : "Salvar Alterações"}
-        }
+        </Button>
       </div>
     </div>
   )

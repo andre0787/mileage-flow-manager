@@ -1,10 +1,10 @@
 # HANDOFF — Bugfix Limpar Cache + Docs
 
-## Status: ⏳ Sessão em andamento — 2026-07-10
+## Status: 🔄 Sessão pausada — 2026-07-10
 
 ### Último trabalho: PR #76 mergeado em produção
 ### Resultado: CI verde; deploy de produção verde com proxy Vercel
-### Trabalho atual: Implementando feature #80 (recorrência, distribuição de valores e edição de data) na branch `feature/avaliar-itens-bug-e-melhoria`
+### Trabalho atual: Feature #80 implementada (recorrência, distribuição de valores e edição de data) - aguardando review e merge do PR #84
 
 ---
 
@@ -66,12 +66,13 @@
 - Trabalho iniciado: branch `feature/avaliar-itens-bug-e-melhoria` criada, correção do bug #79 aplicada (fonte: src/components/EntryForm.tsx)
 - Trabalho concluído: feature #80 implementada (recorrência, distribuição de valores e edição de data nas entradas) - commit 396b255
 - Relatório gerado: docs/reports/84-2026-07-10-recorrencia-data-edicao.html
+- PR #84 aberto para review e merge
 
 ---
 
 ## Branch atual
 
-`feature/avaliar-itens-bug-e-melhoria` — implementação da feature #80 (recorrência, distribuição de valores e edição de data)
+`feature/avaliar-itens-bug-e-melhoria` — feature #80 implementada, aguardando review e merge do PR #84
 
 `main` — produção atualizada com o hotfix do deploy
 
@@ -169,8 +170,9 @@
 ## Próximos passos
 
 ### Concluir feature #80
-- [ ] Abrir PR para `main` com a implementação da feature #80
-- [ ] Atualizar documentação de uso se necessário
+- [ ] Revisar e aprovar PR #84
+- [ ] Merge PR #84 para main
+- [ ] Atualizar documentação de uso se necessário após merge
 
 ### Sprint B (🟡 Alta) — Limpeza & Confiabilidade
 - [ ] Arquivar 29 órfãos em `docs/archive/`

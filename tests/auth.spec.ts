@@ -7,7 +7,7 @@ import { registerUser } from "./helpers";
  */
 
 let testEmail: string;
-let testPassword = "Test@123456";
+const testPassword = "Test@123456";
 
 test.beforeAll(async ({ browser }) => {
   // Cria um usuário de teste para TC-AUTH-002/003
