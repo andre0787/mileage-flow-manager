@@ -4,7 +4,7 @@
 ---
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `4dd9fb7` — chore: rename auto-report artifact to qualidade
+- **Último commit:** `22e92cc` — docs: modos de registro de bugs
 - **Remote:** origin (https://github.com/andre0787/mileage-flow-manager.git)
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -28,8 +28,26 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 | **Sprint C** — Polimento & Prevenção | ✅ Deployado (PR #92) |
 | **auto-report rename** | ✅ Deployado (PR #93) |
 
-### Docs atualizados
-- `WORKFLOW.md` — seção de nomenclatura de PRs adicionada
-- `CONVENTIONS.md` — tabela com padrão de PR naming
+### O que foi feito nesta sessão
+
+#### 🛠️ Manutenção
+- [x] Recuperação de objetos git corrompidos (3 blobs vazios pós-queda)
+- [x] Commit de mudanças staged + ajustes finais Sprint C
+- [x] Escopo `workflow` adicionado ao token do gh (device OAuth)
+
+#### 📦 PRs mergeados
+- [x] **#92** — Sprint B + C (Limpeza & Confiabilidade + Polimento & Prevenção)
+- [x] **#93** — Rename auto-report artifact to qualidade
+
+#### 📁 Estrutura de relatórios
+- [x] 16 relatórios renomeados para padrão `<prefixo>-YYYY-MM-DD-<nome>.html`
+- [x] Organizados em pastas por dia: `docs/reports/<data>/`
+
+#### 📝 Docs atualizados
+- [x] `AGENTS.md` — regra #7 (nomenclatura reports), #10 (registro de bugs)
+- [x] `CONVENTIONS.md` — PR naming, estrutura de reports, registro de bugs
+- [x] `WORKFLOW.md` — nomenclatura de PRs + reports com pastas
+- [x] `.pi/prompts/report.md` — template atualizado com pastas
+- [x] `AGENDA.md` — seção 🐞 Bugs Encontrados adicionada
 
 **Próximo:** Backlog Futuro (Sprint #11) — traduções, analytics, PWA
