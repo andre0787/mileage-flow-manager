@@ -97,12 +97,14 @@ test.describe("Recorrência", () => {
     await page.fill("#entryDate", new Date().toISOString().split("T")[0]);
 
     // Habilitar recorrência manual
-    await page.getByRole('checkbox', { name: /Habilitar recorrência/i }).check({ force: true });
+    await page.locator('input[type="checkbox"]').first().check({ force: true });
     await page.waitForTimeout(300);
 
     // Configurar recorrência: 3 parcelas, data de início
-    await page.locator('input[type="number"]').fill('3');
-    await page.fill('input[type="date"]:not(#entryDate)', new Date().toISOString().split('T')[0]);
+    const parcelasInput = page.getByText('Quantidade de parcelas').locator('..').locator('input[type="number"]');
+    await parcelasInput.fill('3');
+    const inicioInput = page.getByText('Data de início').locator('..').locator('input[type="date"]');
+    await inicioInput.fill(new Date().toISOString().split('T')[0]);
 
     // Registrar
     await page.locator("button:has-text('Registrar Entrada')").click();
