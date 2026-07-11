@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Dúvidas gerais
+    url: https://github.com/andre0787/mileage-flow-manager/discussions
+    about: Use Discussions para perguntas e conversas.

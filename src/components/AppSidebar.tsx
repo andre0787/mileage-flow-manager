@@ -11,8 +11,10 @@ import {
   Plane,
   LogOut,
   User,
+  Bug,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { FeedbackDialog } from "./FeedbackDialog";
 import { useAuth } from "@/contexts/AuthContext";
 import { useData } from "@/contexts/DataContext";
 import { cn } from "@/lib/utils";
@@ -168,6 +170,16 @@ export function AppSidebar() {
                     )}
                   </NavLink>
                 </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <FeedbackDialog>
+                  <SidebarMenuButton asChild>
+                    <button className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50">
+                      <Bug className="w-4 h-4 shrink-0" />
+                      {!collapsed && <span className="text-sm font-medium font-body">Reportar problema</span>}
+                    </button>
+                  </SidebarMenuButton>
+                </FeedbackDialog>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>

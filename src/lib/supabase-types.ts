@@ -301,6 +301,36 @@ export interface Database {
         }
         Relationships: []
       }
+      feedback: {
+        Row: {
+          id: string
+          user_id: string | null
+          type: "bug" | "suggestion"
+          message: string
+          email: string | null
+          status: "new" | "read" | "triaged" | "done"
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          type: "bug" | "suggestion"
+          message: string
+          email?: string | null
+          status?: "new" | "read" | "triaged" | "done"
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          type?: "bug" | "suggestion"
+          message?: string
+          email?: string | null
+          status?: "new" | "read" | "triaged" | "done"
+          created_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: Record<string, never>
     Functions: Record<string, never>
