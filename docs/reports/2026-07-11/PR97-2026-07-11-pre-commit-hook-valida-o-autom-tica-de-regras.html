@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PR97 — Pre-commit hook + validação automática de regras</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+h2{font-size:1rem;margin-top:1.5rem}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+.badge.pr{background:#dbeafe;color:#1e40af}
+.badge.auto{background:#fef3c7;color:#92400e}
+.badge.fix{background:#fee2e2;color:#991b1b}
+.badge.feat{background:#dcfce7;color:#166534}
+.badge.docs{background:#ede9fe;color:#5b21b6}
+.badge.chore{background:#f3f4f6;color:#374151}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+td,th{border:1px solid #ddd;padding:4px 8px;text-align:left}
+th{background:#f3f4f6}
+tr.add{background:#f0fdf4}
+tr.del{background:#fef2f2}
+.meta{font-size:.8rem;color:#666;margin:.5rem 0}
+.diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+.diff .add{color:#4ade80}
+.diff .del{color:#f87171}
+</style></head><body>
+<h1>📋 Pre-commit hook + validação automática de regras</h1>
+<p class="meta">2026-07-11 18:11 &middot; chore/pre-commit-hook &middot; dfc7e92 — docs: regra #13 — validação automática + docs sync</p>
+<p><span class="badge pr">PR #97</span> <span class="badge auto">PR97</span></p>
+
+<h2>🎯 Benefícios</h2>
+<ul><li>Zero chance de commit direto na main (hook bloqueia)</li><li>Toda regra nova terá script de validação automática</li><li>Docs sincronizados com os novos artefatos</li><li>Regra #13 documentada em AGENTS.md + CONVENTIONS.md</li></ul>
+
+<h2>📊 Métricas</h2>
+<table>
+<tr><th>Métrica</th><th>Valor</th></tr>
+<tr><td>Arquivos alterados</td><td>9</td></tr>
+<tr><td>Adições</td><td>235</td></tr>
+<tr><td>Remoções</td><td>14</td></tr>
+<tr><td>Tokens estimados</td><td>~253</td></tr>
+</table>
+
+<h2>📁 Arquivos</h2>
+<table><tr><th>Status</th><th>Arquivo</th></tr>
+<tr><td>A</td><td>.githooks/pre-commit</td></tr>
+<tr><td>M</td><td>AGENTS.md</td></tr>
+<tr><td>M</td><td>docs/CONVENTIONS.md</td></tr>
+<tr><td>M</td><td>docs/GIT-WORKFLOW.md</td></tr>
+<tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>M</td><td>docs/WORKFLOW.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-11/PR97-2026-07-11-pre-commit-hook-contra-commits-na-main.html</td></tr>
+<tr><td>M</td><td>package.json</td></tr>
+<tr><td>M</td><td>scripts/session-start.mjs</td></tr>
+</table>
+
+<h2>🔍 Diff</h2>
+<div class="diff">
+diff --git a/.githooks/pre-commit b/.githooks/pre-commit
+new file mode 100755
+index 0000000..c5fbeba
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/.githooks/pre-commit</span>
+@@ -0,0 +1,28 @@
+<span class="add">+#!/bin/sh</span>
+<span class="add">+# .githooks/pre-commit — Bloqueia commit direto na main/master</span>
+<span class="add">+#</span>
+<span class="add">+# Regra #4 do AGENTS.md: "🔥 Branch obrigatória — NUNCA direto na main"</span>
+<span class="add">+#</span>
+<span class="add">+# Instalação (já automática via session:start):</span>
+<span class="add">+#   git config core.hooksPath .githooks</span>
+<span class="add">+</span>
+<span class="add">+BRANCH=$(git rev-parse --abbrev-ref HEAD 2&gt;/dev/null)</span>
+<span class="add">+</span>
+<span class="add">+if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then</span>
+<span class="add">+  cat &lt;&lt;'EOF'</span>
+<span class="add">+╔══════════════════════════════════════════════════════════════╗</span>
+<span class="add">+║  🚫 BLOQUEADO: commit direto na main/master                ║</span>
+<span class="add">+║                                                             ║</span>
+<span class="add">+║  Regra #4 do AGENTS.md:                                     ║</span>
+<span class="add">+║  "🔥 Branch obrigatória — NUNCA direto na main"             ║</span>
+<span class="add">+║                                                             ║</span>
+<span class="add">+║  Crie uma branch primeiro:                                  ║</span>
+<span class="add">+║    git checkout -b feat/meu-feature                          ║</span>
+<span class="add">+║    git add . &amp;&amp; git commit -m "mensagem"                     ║</span>
+<span class="add">+║                                                             ║</span>
+<span class="add">+║  Depois abra um PR:                                         ║</span>
+<span class="add">+║    gh pr create --title "..." --body "..."                  ║</span>
+<span class="add">+╚══════════════════════════════════════════════════════════════╝</span>
+<span class="add">+EOF</span>
+<span class="add">+  exit 1</span>
+<span class="add">+fi</span>
+diff --git a/AGENTS.md b/AGENTS.md
+index 320398c..40dea52 100644
+<span class="del">--- a/AGENTS.md</span>
+<span class="add">+++ b/AGENTS.md</span>
+@@ -22,7 +22,7 @@
+ 1. **Workflow obrigatório**: toda feature passa pelo `council-to-superpowers` — veja `docs/WORKFLOW.md`
+ 2. **Grid máximo 2 colunas**: `grid-cols-1 sm:grid-cols-2` — veja `docs/UI-GUIDE.md`
+ 3. **DRY**: regra de negócio em ponto único em `src/lib/` — veja `docs/CONVENTIONS.md`
+<span class="del">-4. **🔥 Branch obrigatória — NUNCA direto na main**: toda alteração de código DEVE ser feita em branch (`feat/`, `fix/`, `docs/`, `chore/`). `main` só recebe via PR mergeado. Nem commit, nem push, nem revert direto. — veja `docs/GIT-WORKFLOW.md`</span>
+<span class="add">+4. **🔥 Branch obrigatória — NUNCA direto na main**: toda alteração de código DEVE ser feita em branch (`feat/`, `fix/`, `docs/`, `chore/`). `main` só recebe via PR mergeado. Nem commit, nem push, nem revert direto. A proteção é automatizada pelo pre-commit hook (`.githooks/pre-commit`). — veja `docs/GIT-WORKFLOW.md`</span>
+ 5. **CI/CD obrigatório**: CI roda build + testes em todo PR (`.github/workflows/ci.yml`). Deploy automático no merge (`.github/workflows/deploy.yml`). — veja `docs/GIT-WORKFLOW.md`
+ 6. **Ponytail mode**: stdlib/nativo primeiro, sem abstrações especulativas
+ 7. **Interface**: português (pt-BR)
+@@ -31,6 +31,7 @@
+ 10. **🧹 Limpeza obrigatória antes de PR/merge**: verifique `git status` — ZERO arquivos uncommitted. Inclui código, docs, council verdicts, plans, specs, package.json/lock, relatórios. Veja `docs/CONVENTIONS.md` → "Limpeza Pós-Sessão".
+ 11. **🐞 Registro de bugs obrigatório**: todo bug encontrado durante desenvolvimento DEVE ser registrado em `docs/AGENDA.md` → "🐞 Bugs Encontrados". Veja `docs/CONVENTIONS.md` → "Registro de Bugs".
+ 12. **💭 Ideias externas**: use `npm run think "ideia"` para capturar pensamentos fora do projeto. Se for urgente, `--immediate`. Se for bug, `--bug`.
+<span class="add">+13. **🔬 Toda regra imutável DEVE ter validação automática**: ao definir uma nova regra imutável neste arquivo, crie **imediatamente** um script de verificação que impeça sua violação (ex: git hook, script npm, CI check). Sem o script, a regra não está completa. — veja `docs/CONVENTIONS.md` → "Validação Automática de Regras"</span>
+ 
+ ## Começando — ⚡ AUTO-INICIALIZAÇÃO
+ 
+diff --git a/docs/CONVENTIONS.md b/docs/CONVENTIONS.md
+index 981efbc..f90835c 100644
+<span class="del">--- a/docs/CONVENTIONS.md</span>
+<span class="add">+++ b/docs/CONVENTIONS.md</span>
+@@ -161,6 +161,30 @@ antes. "Já que estou aqui" gera diff imprevisível e quebra revisão.
+ Exceção: correções óbvias que impedem o código de funcionar (import faltando,
+ typo em variável, erro de sintaxe).
+ 
+<span class="add">+## 🔬 Validação Automática de Regras — OBRIGATÓRIA</span>
+<span class="add">+</span>
+<span class="add">+**Toda regra imutável em `AGENTS.md` DEVE ter um script de validação**</span>
+<span class="add">+que impeça sua violação de forma automatizada.</span>
+<span class="add">+</span>
+<span class="add">+### Exemplos no projeto</span>
+<span class="add">+</span>
+<span class="add">+| Regra | Validação | Localização |</span>
+<span class="add">+|-------|-----------|-------------|</span>
+<span class="add">+| #4 — NUNCA commitar na main | Pre-commit hook | `.githooks/pre-commit` |</span>
+<span class="add">+| #10 — Zero arquivos uncommitted | `npm run pre-pr` + `session:end` | `scripts/pre-pr-check.mjs` |</span>
+<span class="add">+</span>
+<span class="add">+### Como criar uma nova validação</span>
+<span class="add">+</span>
+<span class="add">+1. Identifique o ponto de violação (commitar, pushar, PR, deploy)</span>
+<span class="add">+2. Escolha o mecanismo mais simples:</span>
+<span class="add">+   - **Git hook** (`pre-commit`, `pre-push`) para ações locais</span>
+<span class="add">+   - **Script npm** para verificações sob demanda</span>
+<span class="add">+   - **CI check** para validação em PR</span>
+<span class="add">+3. Registre na tabela acima</span>
+<span class="add">+4. Se for hook, garanta que ele é instalado via `session:start`</span>
+<span class="add">+</span>
+<span class="add">+**Sem validação automática, a regra não está completa.**</span>
+<span class="add">+</span>
+ ## Limpeza Pós-Sessão — OBRIGATÓRIA
+ 
+ **Antes de finalizar qualquer sessão ou subir PR, verifique `git status`.**
+diff --git a/docs/GIT-WORKFLOW.md b/docs/GIT-WORKFLOW.md
+index 1bc4afb..997949d 100644
+<span class="del">--- a/docs/GIT-WORKFLOW.md</span>
+<span class="add">+++ b/docs/GIT-WORKFLOW.md</span>
+@@ -4,10 +4,28 @@
+ 
+ **NUNCA commitar/pushar direto na `main`.** Toda alteração de código DEVE
+ ser feita em uma branch feature/fix/docs/chore. `main` só recebe alterações
+<span class="del">-via PR mergeado. Isso inclui reverts. Sempre:</span>
+<span class="add">+via PR mergeado. Isso inclui reverts.</span>
+</div>
+
+<p class="meta">Gerado por scripts/generate-report.mjs</p>
+</body></html>
