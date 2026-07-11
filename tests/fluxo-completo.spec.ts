@@ -121,10 +121,11 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.fill("#amountPaid", "2500");
     await page.waitForTimeout(300);
     await page.getByRole("button", { name: /registrar/i }).click();
-    await page.waitForTimeout(1500);
+    await page.waitForFunction(() => !document.querySelector('[role=dialog]'), { timeout: 10_000 });
+    await page.waitForTimeout(1_000);
     pass("Entrada 1: 50.000 pontos registrada");
 
-    await expect(page.locator("text=50.000").first()).toBeVisible({ timeout: 5000 });
+    await expect(page.locator("text=50.000").first()).toBeVisible({ timeout: 10_000 });
     pass("50.000 visível na tabela");
 
     // ═══ 4. ENTRADA CLUBE ═══
