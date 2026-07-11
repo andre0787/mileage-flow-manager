@@ -99,7 +99,11 @@ Antes de criar qualquer PR, executar este checklist:
 - [ ] `npm run test:e2e` passa (54/54)?
 - [ ] Pipeline único: build → unit → Playwright → E2E
 
-### 6. Limpeza
+### 6. Verificação de Docs
+- [ ] `node scripts/verify-docs.mjs` passa sem broken links?
+- [ ] Relatório HTML gerado em `docs/reports/<PR>-<data>-<nome>.html`?
+
+### 7. Limpeza
 - [ ] `git status` mostra zero arquivos pendentes?
 - [ ] Nenhum código morto (exports não importados, funções não chamadas)?
 

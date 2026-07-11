@@ -30,15 +30,16 @@
 | `MEMORY.md` | Contexto de sessões anteriores | Histórico de decisões, sprints, post-mortems |
 | `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning) |
 
-## Docs Históricos (não mais ativos)
+## Docs Arquivados
 
-| Arquivo | Status |
-|---------|--------|
-| `docs/superpowers/specs/` | 📦 Arquivado — specs de features já implementadas |
-| `docs/superpowers/plans/` | 📦 Arquivado — planos de features já implementadas |
-| `docs/SPRINT5-QUICKSTART.md` | 📦 Arquivado — Sprint #5 concluída |
-| `docs/progress.md` | 📦 Arquivado — planning-with-files obsoleto |
-| `docs/task_plan.md` | 📦 Arquivado — planning-with-files obsoleto |
+Artefatos de sprints/features concluídos foram movidos para `docs/archive/`:
+
+| Diretório | Conteúdo |
+|-----------|----------|
+| `docs/archive/specs/` | 19 specs de features já implementadas |
+| `docs/archive/plans/` | 9 planos de features já implementadas |
+| `docs/archive/council/` | 10 vereditos de decisões concluídas |
+| `docs/archive/` raiz | 5 artefatos obsoletos (SPRINT5-QUICKSTART, mobile-ios-notes, progress.md, task_plan.md, AVALIAR_ITENS_BUG_E_MELHORIA_HUMANO.md) |
 
 ## Regra de Ouro
 

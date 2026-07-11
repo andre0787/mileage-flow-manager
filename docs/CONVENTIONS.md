@@ -221,6 +221,43 @@ useQuery({
 
 **Exceção:** se uma query precisa de staleTime DIFERENTE do global, aí sim pode override.
 
+## CI/CD & Verificação
+
+### Pipeline (`.github/workflows/ci.yml`)
+
+Sequência obrigatória em todo PR:
+1. **Build** — `npm run build` (Vite)
+2. **Unit tests** — `npm test` (Vitest, 45 testes)
+3. **E2E tests** — `npm run test:e2e` (Playwright, 54 testes)
+4. **Upload report** — `playwright-report/` como artifact
+
+### Deploy (`.github/workflows/deploy.yml`)
+
+- Gatilho: merge na `main`
+- Deploy automático via Vercel
+
+### Verificação de Docs
+
+Antes de todo PR que altera docs:
+```bash
+node scripts/verify-docs.mjs
+```
+O script verifica:
+- Links internos quebrados
+- Arquivos órfãos (sem referência)
+- Promessas de UI inconsistentes
+
+Use `--strict` para exit code 1 se houver issues.
+
+### Cross-Harness
+
+O projeto é compatível com 3 harnesses:
+- **pi** (harness principal) — skills em `.pi/skills/`
+- **Claude Code** — config em `.claude/settings.local.json`
+- **OpenCode** — config em `.opencode/settings.json`
+
+Todas as skills seguem o Agent Skills standard.
+
 ## Observações Gerais
 
 - Não adicionar dependências sem necessidade
