@@ -40,7 +40,7 @@
 | Testes E2E | 54/54 ✅ |
 | CI/CD | ✅ |
 | Deploy | ✅ Automático Vercel |
-| Último PR | #88 (pendente — Formulários Dedicados) |
+| Último PR | #89 (#88 — Formulários Dedicados) 🔄 draft |
 
 ---
 
