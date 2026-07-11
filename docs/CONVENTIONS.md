@@ -71,12 +71,24 @@ Isso garante continuidade entre sessões sem perda de contexto.
 ## Relatório Pós-Implementação — OBRIGATÓRIO
 
 **Toda tarefa (feature ou manutenção) DEVE gerar um relatório HTML antes do PR.**
-Passo final obrigatório do workflow (ver `WORKFLOW.md` etapa 8).
 
-Use `/report` (template em `.pi/prompts/report.md`) que:
+### Automático (recomendado)
+
+```bash
+npm run report "Descrição da tarefa" --write
+```
+
+Gera `docs/reports/<data>/<prefixo>-<data>-<nome>.html` automaticamente com:
+- Diff, arquivos alterados, adições/remoções
+- Estimativa de tokens
+- Badges por tipo (PR/auto/fix/feat/docs/chore)
+
+### Manual (fallback)
+
+Use `/report` (template em `.pi/prompts/report.md`) quando precisar de texto narrativo:
 1. Obtém o diff: `git diff $(git merge-base HEAD origin/main)..HEAD`
 2. Extrai antes/depois, benefícios e estimativa de tokens
-3. Gera HTML em `docs/reports/<data>-<nome>.html`
+3. Gera HTML em `docs/reports/<data>/<prefixo>-<data>-<nome>.html`
 4. Versiona o relatório junto com o código
 
 ### O que o relatório deve conter:
@@ -152,12 +164,23 @@ Regra: **zero arquivos uncommitted** ao sair. Isso inclui:
 - Council verdicts (`docs/council/`)
 - Plans & specs (`docs/superpowers/`)
 
+### Automático (recomendado)
+
+```bash
+npm run session:end "tipo: descrição"
+```
+
+Faz tudo em 1 comando: add → commit → update-handoff → push.
+
+### Manual (fallback)
+
 **Checklist de saída:**
 1. `git status` — verificar arquivos pendentes
 2. `git add .` — stage tudo que foi criado/modificado
 3. `git commit` — commitar com mensagem descritiva
-4. `git push` — subir para o repositório
-5. Atualizar `HANDOFF.md` com estado atual
+4. `npm run handoff` — atualiza HANDOFF.md
+5. `git add HANDOFF.md && git commit -m "docs: update HANDOFF"`
+6. `git push` — subir para o repositório
 
 **Exceção:** apenas arquivos em `.gitignore` (node_modules, .env, test-results/).
 

@@ -53,6 +53,45 @@ A skill `council-to-superpowers` dispara automaticamente em:
 
 Features triviais podem usar Superpowers direto sem council ("let's build X" → brainstorming). O council decide se pula ou não a fase 2.
 
+## Scripts de Workflow
+
+Workflow acelerado via npm scripts — reduzem consumo de tokens automatizando repetições:
+
+| Script | Função | Quando usar |
+|--------|--------|-------------|
+| `npm run session:start` | Extrai resumo comprimido dos docs de início de sessão | **Início de toda sessão** (substitui leitura de 5 docs) |
+| `npm run pre-pr` | Valida: git status, build, testes, verify-docs, console.log | **Antes de criar PR** (checklist automatizado) |
+| `npm run report` | Gera relatório HTML automático do diff | **Antes do PR** (substitui /report manual) |
+| `npm run session:end` | add + commit + handoff + push em 1 comando | **Final da sessão** (substitui 5 passos manuais) |
+| `npm run handoff` | Atualiza HANDOFF.md com estado atual do git | Pós-PR ou pós-merge |
+
+### Fluxo compacto com scripts
+
+```
+INÍCIO:   npm run session:start   → resumo (~500 tokens)
+MEIO:     (desenvolvimento normal)
+ANTES PR: npm run pre-pr           → valida tudo
+          npm run report "descrição" --write  → relatório HTML
+FIM:      npm run session:end "msg" → commit + handoff + push
+```
+
+### Detalhamento dos scripts
+
+| Script | O que faz | Saída |
+|--------|-----------|-------|
+| `scripts/session-start.mjs` | Lê HANDOFF + AGENDA, extrai branch/commit/PRs/sprint/bugs | Resumo ~400 tokens no console |
+| `scripts/generate-report.mjs` | Obtém diff, calcula métricas, gera HTML estilizado | `docs/reports/<data>/<prefixo>-<data>-<nome>.html` |
+| `scripts/pre-pr-check.mjs` | Roda git status, build, tests, verify-docs | ✅/❌ por verificação |
+| `scripts/session-end.mjs` | git add . + commit + update-handoff + push | Confirmação no console |
+| `scripts/update-handoff.mjs` | Atualiza métricas, branch, último commit | HANDOFF.md atualizado |
+
+### Por quê?
+
+- **Reduz tokens:** setup de sessão cai de ~5-8k (lendo 5 docs) para ~500 (lendo resumo)
+- **Reduz erros:** checklist pré-PR automatizado não esquece etapa
+- **Reduz repetição:** finalização em 1 comando vs 5 passos manuais
+- **Preserva qualidade:** scripts não pulam verificações, só automatizam
+
 ## Outputs
 
 | Fase | Artefato | Localização |

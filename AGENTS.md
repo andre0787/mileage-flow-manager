@@ -34,11 +34,12 @@
 
 Ordem obrigatória no início de cada sessão:
 
-1. **Ler `HANDOFF.md`** — restaura contexto de sessões anteriores
-2. **Ler `docs/AGENDA.md`** — sprint board
-3. **Ler `docs/WORKFLOW.md`** — processo obrigatório
-4. **Ler `docs/ARCHITECTURE.md`** — estrutura do projeto
-5. **Ler `docs/CONVENTIONS.md`** — padrões de código
+1. **Rodar `npm run session:start`** — extrai resumo comprimido de HANDOFF + AGENDA + regras ativas (~400 tokens)
+2. **Ler `HANDOFF.md`** — contexto completo da sessão anterior
+3. **Ler `docs/AGENDA.md`** — sprint board
+4. **Ler `docs/WORKFLOW.md`** (seção Scripts de Workflow) — processos e atalhos
+5. **Ler `docs/ARCHITECTURE.md`** — estrutura do projeto
+6. **Ler `docs/CONVENTIONS.md`** — padrões de código
 
 Para contexto histórico de sessões anteriores, veja também `MEMORY.md`.
 
