@@ -16,7 +16,8 @@
 
 ## Consumidas
 
-<!-- Ideias já implementadas, com referência ao PR -->
+- [x] 2026-07-11: botão de entrada sinalizar apenas atrasadas ao invés de pendentes — PR #94
+
 
 ---
 
