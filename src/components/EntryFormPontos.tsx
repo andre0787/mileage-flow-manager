@@ -5,30 +5,19 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { FormDrawer } from "@/components/FormDrawer"
-import { isTransferencia } from "@/lib/utils"
 import { parseOrigemTypeDescription } from "@/lib/origemTypes"
-import type { Account, OrigemType, Program, Owner } from "@/types"
-import { parseDescription } from "@/types/index"
+import type { Account, OrigemType, Program, Owner, EntryFormData } from "@/types"
 
-export interface EntryFormData {
-  accountId: string
-  origemTypeId: string
-  amount: string
-  amountPaid: string
-  conversionRate: string
-  sourceAccountId: string
-  bonusPercent: string
-  cartAmount: string
-  cartCost: string
-  isClube: boolean
-  clubeMeses: string
-  // New fields for recurrence feature
-  date: string // YYYY-MM-DD
-  isRecurrent: boolean
-  recurrenceType: 'monthly' | 'quarterly' | 'semiannual' | 'annual'
-  recurrenceCount: number // >=1
-  startDate: string // YYYY-MM-DD
-  recurrenceValueMode: 'split' | 'repeat'
+interface EntryFormPontosProps {
+  mode: "create" | "edit"
+  initialData?: Partial<EntryFormData>
+  onSubmit: (data: EntryFormData) => void
+  onCancel: () => void
+  accounts: Account[]
+  origemTypes: OrigemType[]
+  programs: Program[]
+  owners: Owner[]
+  onCreateOrigemType?: (data: { name: string; color: string; hasRecurrence: boolean }) => Promise<string | undefined>
 }
 
 const emptyForm: EntryFormData = {
@@ -48,24 +37,10 @@ const emptyForm: EntryFormData = {
   recurrenceType: "monthly",
   recurrenceCount: 1,
   startDate: "",
-  recurrenceValueMode: 'split',
+  recurrenceValueMode: "split",
 }
 
-interface EntryFormProps {
-  mode: "create" | "edit"
-  initialData?: Partial<EntryFormData>
-  onSubmit: (data: EntryFormData) => void
-  onCancel: () => void
-  accounts: Account[]
-  origemTypes: OrigemType[]
-  programs: Program[]
-  owners: Owner[]
-  activeTab: "pontos" | "milhas"
-  /** Cria um tipo de origem no banco e retorna o ID (só mode=create) */
-  onCreateOrigemType?: (data: { name: string; color: string; hasRecurrence: boolean }) => Promise<string | undefined>
-}
-
-export function EntryForm({
+export function EntryFormPontos({
   mode,
   initialData,
   onSubmit,
@@ -74,9 +49,8 @@ export function EntryForm({
   origemTypes,
   programs,
   owners,
-  activeTab,
   onCreateOrigemType,
-}: EntryFormProps) {
+}: EntryFormPontosProps) {
   const [form, setForm] = useState<EntryFormData>({ ...emptyForm, ...initialData })
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({})
   const [isOrigemTypeOpen, setIsOrigemTypeOpen] = useState(false)
@@ -88,23 +62,8 @@ export function EntryForm({
   const clearErr = (field: string) => setErrors((prev) => ({ ...prev, [field]: "" }))
 
   const selectedAccount = accounts.find((a) => a.id === form.accountId)
-  const selectedOrigemType = origemTypes.find((ot) => ot.id === form.origemTypeId)
-  const isTransfer = selectedOrigemType ? isTransferencia(selectedOrigemType) : false
-  const availableAccounts = accounts.filter((a) => a.type === activeTab && a.status === "ativa")
-  const currentOrigemTypes = origemTypes.filter((ot) => ot.accountType === activeTab && !isTransferencia(ot))
-  const sourceAccounts = accounts.filter(
-    (a) => a.type === "pontos" && a.status === "ativa" && (!selectedAccount || a.ownerId === selectedAccount.ownerId)
-  )
-  const selectedSourceAccount = accounts.find((a) => a.id === form.sourceAccountId)
-  const sourceAvgCostPerPoint =
-    selectedSourceAccount && selectedSourceAccount.balance > 0
-      ? (selectedSourceAccount.totalInvested ?? 0) / selectedSourceAccount.balance
-      : 0
-  const effectiveMiles =
-    isTransfer && form.amount
-      ? (parseFloat(form.amount) + parseFloat(form.cartAmount || "0")) *
-        (1 + parseFloat(form.bonusPercent || "0") / 100)
-      : parseFloat(form.amount || "0")
+  const availableAccounts = accounts.filter((a) => a.type === "pontos" && a.status === "ativa")
+  const currentOrigemTypes = origemTypes.filter((ot) => ot.accountType === "pontos")
 
   const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id
   const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id
@@ -114,27 +73,12 @@ export function EntryForm({
     if (!form.accountId) errs.accountId = "Selecione uma conta"
     if (!form.origemTypeId) errs.origemTypeId = "Selecione o tipo de origem"
     if (!form.amount || parseFloat(form.amount) <= 0) errs.amount = "Informe a quantidade"
-    if (!isTransfer && (!form.amountPaid || parseFloat(form.amountPaid) <= 0))
-      errs.amountPaid = "Informe o valor pago"
+    if (!form.amountPaid || parseFloat(form.amountPaid) <= 0) errs.amountPaid = "Informe o valor pago"
     if (!form.date) errs.date = "Selecione a data"
     if (form.isRecurrent) {
       if (form.recurrenceCount < 1) errs.recurrenceCount = "Quantidade de parcelas deve ser >= 1"
       if (!form.startDate) errs.startDate = "Selecione a data de início"
     }
-    if (isTransfer && !form.sourceAccountId) errs.sourceAccountId = "Selecione a conta de origem"
-    if (isTransfer && form.sourceAccountId && form.accountId) {
-      const src = accounts.find((a) => a.id === form.sourceAccountId)
-      const dst = accounts.find((a) => a.id === form.accountId)
-      if (src && dst && src.ownerId !== dst.ownerId)
-        errs.sourceAccountId = "Conta de origem deve pertencer ao mesmo dono"
-    }
-    if (
-      isTransfer &&
-      form.sourceAccountId &&
-      selectedSourceAccount &&
-      parseFloat(form.amount) > selectedSourceAccount.balance
-    )
-      errs.amount = "Saldo insuficiente na conta de origem"
     setErrors(errs)
     return Object.keys(errs).length === 0
   }
@@ -165,10 +109,6 @@ export function EntryForm({
       setIsCreatingOrigemType(false)
     }
   }
-
-  // Helper to format date to YYYY-MM-DD
-  const formatDate = (date: Date): string =>
-    date.toISOString().split("T")[0]
 
   return (
     <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto">
@@ -315,39 +255,26 @@ export function EntryForm({
       {/* Quantidade + Valor Pago */}
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="amount">
-            {isTransfer ? "Pontos Transferidos" : activeTab === "pontos" ? "Pontos Adquiridos" : "Milhas Adquiridas"}
-          </Label>
+          <Label htmlFor="amount">Pontos Adquiridos</Label>
           <Input
             id="amount"
             type="number"
             value={form.amount}
             onChange={(e) => {
-              const val = e.target.value
-              if (isTransfer && val && sourceAvgCostPerPoint > 0) {
-                set({ amount: val, amountPaid: (parseFloat(val) * sourceAvgCostPerPoint).toFixed(2) })
-              } else {
-                set({ amount: val })
-              }
+              set({ amount: e.target.value })
               clearErr("amount")
             }}
             placeholder="Ex: 100000"
           />
           {errors.amount && <p className="text-xs text-destructive">{errors.amount}</p>}
-          {isTransfer && selectedSourceAccount && (
-            <p className={`text-xs ${parseFloat(form.amount || "0") > selectedSourceAccount.balance ? "text-destructive" : "text-muted-foreground"}`}>
-              Saldo disponível: {selectedSourceAccount.balance.toLocaleString("pt-BR")} pontos
-            </p>
-          )}
         </div>
         <div className="space-y-2">
-          <Label htmlFor="amountPaid">{isTransfer ? "Custo (calculado)" : "Valor Pago (R$)"}</Label>
+          <Label htmlFor="amountPaid">Valor Pago (R$)</Label>
           <Input
             id="amountPaid"
             type="number"
             step="0.01"
             value={form.amountPaid}
-            disabled={isTransfer}
             onChange={(e) => {
               set({ amountPaid: e.target.value })
               clearErr("amountPaid")
@@ -355,11 +282,6 @@ export function EntryForm({
             placeholder="Ex: 450.00"
           />
           {errors.amountPaid && <p className="text-xs text-destructive">{errors.amountPaid}</p>}
-          {isTransfer && selectedSourceAccount && form.amount && sourceAvgCostPerPoint > 0 && (
-            <p className="text-xs text-muted-foreground">
-              Custo de aquisição: {parseFloat(form.amount).toLocaleString("pt-BR")} pts × R$ {sourceAvgCostPerPoint.toFixed(4)} = R$ {(parseFloat(form.amount) * sourceAvgCostPerPoint).toFixed(2)}
-            </p>
-          )}
         </div>
       </div>
 
@@ -372,7 +294,6 @@ export function EntryForm({
             onChange={(e) => {
               set({ isRecurrent: e.target.checked })
               if (!e.target.checked) {
-                // When disabling recurrence, reset to single occurrence
                 set({ recurrenceCount: 1, startDate: form.date })
               }
             }}
@@ -387,7 +308,7 @@ export function EntryForm({
                 <Label>Tipo de recorrência</Label>
                 <Select
                   value={form.recurrenceType}
-                  onValueChange={(value) => set({ recurrenceType: value })}
+                  onValueChange={(value) => set({ recurrenceType: value as EntryFormData["recurrenceType"] })}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione" />
@@ -405,7 +326,7 @@ export function EntryForm({
                 <Input
                   type="number"
                   min="1"
-                  value={form.recurrenceCount}
+                  value={String(form.recurrenceCount)}
                   onChange={(e) => {
                     const val = Math.max(1, parseInt(e.target.value) || 1)
                     set({ recurrenceCount: val })
@@ -418,14 +339,10 @@ export function EntryForm({
                 <Input
                   type="date"
                   value={form.startDate}
-                  onChange={(e) => {
-                    set({ startDate: e.target.value })
-                  }}
+                  onChange={(e) => set({ startDate: e.target.value })}
                 />
               </div>
             </div>
-
-            {/* Modo de repetição */}
             <div className="space-y-2">
               <Label>Modo de repetição</Label>
               <div className="flex gap-4">
@@ -433,8 +350,8 @@ export function EntryForm({
                   <input
                     type="radio"
                     name="recurrenceValueMode"
-                    checked={form.recurrenceValueMode === 'split'}
-                    onChange={() => set({ recurrenceValueMode: 'split' })}
+                    checked={form.recurrenceValueMode === "split"}
+                    onChange={() => set({ recurrenceValueMode: "split" })}
                     className="h-4 w-4 accent-primary"
                   />
                   <span className="text-sm">Parcelado (valor / parcelas)</span>
@@ -443,16 +360,14 @@ export function EntryForm({
                   <input
                     type="radio"
                     name="recurrenceValueMode"
-                    checked={form.recurrenceValueMode === 'repeat'}
-                    onChange={() => set({ recurrenceValueMode: 'repeat' })}
+                    checked={form.recurrenceValueMode === "repeat"}
+                    onChange={() => set({ recurrenceValueMode: "repeat" })}
                     className="h-4 w-4 accent-primary"
                   />
                   <span className="text-sm">Repetido (mesmo valor em cada)</span>
                 </label>
               </div>
             </div>
-
-            {/* Summary */}
             <div className="border-t pt-4">
               <div className="text-sm text-muted-foreground">
                 <div className="flex justify-between">
@@ -475,127 +390,29 @@ export function EntryForm({
                   <span>Início:</span>
                   <span>{form.startDate}</span>
                 </div>
-                {form.recurrenceValueMode === 'split' && (
-                  <>
-                    <div className="flex justify-between mt-1">
-                      <span>Valor por parcela:</span>
-                      <span>
-                        R$ {(
-                          parseFloat(form.amountPaid) / form.recurrenceCount
-                        ).toFixed(2)}
-                      </span>
-                    </div>
-                    {isTransfer && (
-                      <div className="flex justify-between mt-1">
-                        <span>Quantidade por parcela:</span>
-                        <span>
-                          {(parseFloat(form.amount) / form.recurrenceCount).toLocaleString("pt-BR", {
-                            maximumFractionDigits: 0,
-                          })}
-                        </span>
-                      </div>
-                    )}
-                  </>
+                {form.recurrenceValueMode === "split" && (
+                  <div className="flex justify-between mt-1">
+                    <span>Valor por parcela:</span>
+                    <span>
+                      R$ {(
+                        parseFloat(form.amountPaid) / form.recurrenceCount
+                      ).toFixed(2)}
+                    </span>
+                  </div>
                 )}
-                {form.recurrenceValueMode === 'repeat' && (
-                  <>
-                    <div className="flex justify-between mt-1">
-                      <span>Valor por parcela:</span>
-                      <span>R$ {parseFloat(form.amountPaid).toFixed(2)}</span>
-                    </div>
-                    {isTransfer && (
-                      <div className="flex justify-between mt-1">
-                        <span>Quantidade por parcela:</span>
-                        <span>
-                          {parseFloat(form.amount).toLocaleString("pt-BR", {
-                            maximumFractionDigits: 0,
-                          })}
-                        </span>
-                      </div>
-                    )}
-                  </>
+                {form.recurrenceValueMode === "repeat" && (
+                  <div className="flex justify-between mt-1">
+                    <span>Valor por parcela:</span>
+                    <span>R$ {parseFloat(form.amountPaid).toFixed(2)}</span>
+                  </div>
                 )}
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-
-      {/* Seção Transferência */}
-      {isTransfer && (
-        <>
-          <div className="space-y-2">
-            <Label htmlFor="sourceAccount">Conta de Pontos Origem</Label>
-            <Select
-              value={form.sourceAccountId}
-              onValueChange={(value) => {
-                set({ sourceAccountId: value, amount: "", amountPaid: "" })
-                clearErr("sourceAccountId")
-              }}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione a conta de pontos" />
-              </SelectTrigger>
-              <SelectContent>
-                {sourceAccounts.map((acc) => (
-                  <SelectItem key={acc.id} value={acc.id}>
-                    {acc.name} ({acc.balance.toLocaleString("pt-BR")} pts)
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {errors.sourceAccountId && <p className="text-xs text-destructive">{errors.sourceAccountId}</p>}
-            {selectedSourceAccount && (
-              <p className="text-xs text-muted-foreground">Programa: {programName(selectedSourceAccount.programId)}</p>
-            )}
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="bonus">Bonificação (%)</Label>
-            <Input
-              id="bonus"
-              type="number"
-              step="0.1"
-              min="0"
-              value={form.bonusPercent}
-              onChange={(e) => set({ bonusPercent: e.target.value })}
-              placeholder="Ex: 30"
-            />
-            {form.bonusPercent && parseFloat(form.bonusPercent) > 0 && form.amount && (
-              <p className="text-xs text-success">
-                Milhas recebidas: {effectiveMiles.toLocaleString("pt-BR")} ({parseFloat(form.amount).toLocaleString("pt-BR")} + {form.bonusPercent}%)
-              </p>
-            )}
-          </div>
-
-          {/* Compra no Carrinho */}
-          <div className="border border-dashed border-primary/20 rounded-lg p-3 space-y-3">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-gold" />
-              <Label className="font-semibold text-sm cursor-pointer">
-                Compra no Carrinho <span className="text-muted-foreground font-normal">(opcional)</span>
-              </Label>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-1">
-                <Label className="text-xs">Pontos Extras</Label>
-                <Input type="number" value={form.cartAmount} onChange={(e) => set({ cartAmount: e.target.value })} placeholder="Ex: 10000" />
-              </div>
-              <div className="space-y-1">
-                <Label className="text-xs">Valor Total (R$)</Label>
-                <Input type="number" step="0.01" value={form.cartCost} onChange={(e) => set({ cartCost: e.target.value })} placeholder="Ex: 200.00" />
               </div>
             </div>
-            {form.cartAmount && parseFloat(form.cartAmount) > 0 && (
-              <p className="text-xs text-muted-foreground">
-                +{parseFloat(form.cartAmount).toLocaleString("pt-BR")} pts × {parseFloat(form.bonusPercent || "0").toFixed(0)}% bônus ={" "}
-                {(parseFloat(form.cartAmount) * (1 + parseFloat(form.bonusPercent || "0") / 100)).toLocaleString("pt-BR", { maximumFractionDigits: 0 })} milhas geradas
-              </p>
-            )}
           </div>
-        </>
-      )}
+        )}
+      </div>
 
-      {/* Clube (mantido para compatibilidade, mas pode ser ocultado se recurrencia ativa) */}
+      {/* Clube */}
       {!form.isRecurrent && form.isClube && (
         <div className="border border-dashed border-amber-400/40 rounded-lg p-3 space-y-3">
           <div className="flex items-center gap-2">
@@ -631,54 +448,40 @@ export function EntryForm({
         </div>
       )}
 
-      {/* Taxa de Conversão (só Pontos) */}
-      {activeTab === "pontos" && (
-        <div className="space-y-2">
-          <Label htmlFor="conversion">Taxa de Conversão (Pontos → Milhas)</Label>
-          <Input
-            id="conversion"
-            type="number"
-            step="0.01"
-            value={form.conversionRate}
-            onChange={(e) => set({ conversionRate: e.target.value })}
-            placeholder="Ex: 1.0"
-          />
-        </div>
-      )}
+      {/* Taxa de Conversão */}
+      <div className="space-y-2">
+        <Label htmlFor="conversion">Taxa de Conversão (Pontos → Milhas)</Label>
+        <Input
+          id="conversion"
+          type="number"
+          step="0.01"
+          value={form.conversionRate}
+          onChange={(e) => set({ conversionRate: e.target.value })}
+          placeholder="Ex: 1.0"
+        />
+      </div>
 
       {/* Cálculos Automáticos */}
-      {form.amount && form.amountPaid && (activeTab === "milhas" || form.conversionRate) && (
+      {form.amount && form.amountPaid && (
         <div className="p-4 bg-gradient-success/10 border border-success/20 rounded-lg space-y-2 animate-slide-up">
           <h4 className="font-semibold text-sm">Cálculos Automáticos:</h4>
           <div className="grid grid-cols-2 gap-4 text-xs">
             <div>
               <span className="text-muted-foreground">Custo por milhar:</span>
               <p className="font-semibold">
-                R$ {((parseFloat(form.amountPaid) / (isTransfer && effectiveMiles > 0 ? effectiveMiles : parseFloat(form.amount))) * 1000).toFixed(2)}
+                R$ {((parseFloat(form.amountPaid) / parseFloat(form.amount)) * 1000).toFixed(2)}
               </p>
             </div>
-            {isTransfer && (
-              <div>
-                <span className="text-muted-foreground">Milhas recebidas:</span>
-                <p className="font-semibold text-success">{effectiveMiles.toLocaleString("pt-BR")}</p>
-                {parseFloat(form.cartAmount || "0") > 0 && (
-                  <div className="mt-1 space-y-0.5 text-[10px] text-muted-foreground border-t border-success/20 pt-1">
-                    <p>Da transferência: {(parseFloat(form.amount) * (1 + parseFloat(form.bonusPercent || "0") / 100)).toLocaleString("pt-BR", { maximumFractionDigits: 0 })}</p>
-                    <p>Do carrinho: {(parseFloat(form.cartAmount) * (1 + parseFloat(form.bonusPercent || "0") / 100)).toLocaleString("pt-BR", { maximumFractionDigits: 0 })}</p>
-                  </div>
-                )}
-              </div>
-            )}
-            {activeTab === "pontos" && (
-              <div>
-                <span className="text-muted-foreground">Milhas geradas:</span>
-                <p className="font-semibold">{ (parseFloat(form.amount) * parseFloat(form.conversionRate || "1")).toLocaleString("pt-BR") }</p>
-              </div>
-            )}
+            <div>
+              <span className="text-muted-foreground">Milhas geradas:</span>
+              <p className="font-semibold">
+                {(parseFloat(form.amount) * parseFloat(form.conversionRate || "1")).toLocaleString("pt-BR")}
+              </p>
+            </div>
             <div>
               <span className="text-muted-foreground">Custo por milha:</span>
               <p className="font-semibold">
-                R$ {(parseFloat(form.amountPaid) / (isTransfer ? effectiveMiles : parseFloat(form.amount) * (activeTab === "milhas" ? 1 : parseFloat(form.conversionRate || "1")))).toFixed(4)}
+                R$ {(parseFloat(form.amountPaid) / (parseFloat(form.amount) * parseFloat(form.conversionRate || "1"))).toFixed(4)}
               </p>
             </div>
           </div>
