@@ -277,13 +277,14 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.waitForTimeout(300);
     // Dialog combos: nth(1)=Dono, nth(2)=Conta, nth(3)=Cliente
     const vCmb = page.locator("[role=combobox]");
-    await vCmb.nth(1).click();
+    // ponytail: nth(0)=Dono, nth(1)=Conta, nth(2)=Cliente (shifted due to no external combobox)
+    await vCmb.nth(0).click();
     await page.waitForTimeout(200);
     await page.getByRole("option", { name: /joão/i }).click();
-    await vCmb.nth(2).click();
+    await vCmb.nth(1).click();
     await page.waitForTimeout(200);
     await page.getByRole("option", { name: /latam/i }).first().click();
-    await vCmb.nth(3).click();
+    await vCmb.nth(2).click();
     await page.waitForTimeout(200);
     await page.getByRole("option", { name: /maria/i }).click();
     await page.fill('input[placeholder="Ex: 50000"]', "10000");
