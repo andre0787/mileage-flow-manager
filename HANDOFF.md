@@ -90,3 +90,11 @@ session:start → HANDOFF in progress? → IDEIAS.md pendentes? → pergunta
 - `CLAUDE.md` — criado com instruções compatíveis
 
 **Próximo:** Backlog Futuro — traduções, analytics, PWA
+
+### Sessão 2026-07-11 (pós PR #95)
+- PR #95 mergeado: badge/banner entradas só atrasadas (histórico corrigido)
+- `generate-report.mjs`: suporte a `--benefits` + seção 🎯 Benefícios
+- Regra #8 AGENTS.md: relatório DEVE incluir benefícios
+- Sprint C Item 5 fechado: workers:2 = 37% mais rápido (7.5→4.8 min)
+- Report format padronizado: `docs/reports/<data>/<prefixo>-YYYY-MM-DD-<nome>.html`
+- Nenhum PR aberto, zero pendências
