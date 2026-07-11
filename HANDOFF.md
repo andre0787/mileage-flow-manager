@@ -4,7 +4,7 @@
 ---
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `22e92cc` — docs: modos de registro de bugs
+- **Último commit:** `da98039` — feat: scripts de workflow
 - **Remote:** origin (https://github.com/andre0787/mileage-flow-manager.git)
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -14,7 +14,8 @@ Nenhum PR aberto.
 | Total testes | 99+ |
 | Docs issues | 0 |
 | Branch | main |
-| PRs mergeados | #92 (Sprint B+C), #93 (auto-report rename) |
+| PRs mergeados | #92, #93 |
+| Scripts de workflow | 4 novos |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
@@ -49,5 +50,19 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 - [x] `WORKFLOW.md` — nomenclatura de PRs + reports com pastas
 - [x] `.pi/prompts/report.md` — template atualizado com pastas
 - [x] `AGENDA.md` — seção 🐞 Bugs Encontrados adicionada
+
+### Scripts de Workflow (novos)
+
+| Script | npm | Função |
+|--------|-----|--------|
+| `scripts/session-start.mjs` | `npm run session:start` | Resumo ~300 tokens pro início de sessão |
+| `scripts/generate-report.mjs` | `npm run report` | Relatório HTML automático do diff |
+| `scripts/pre-pr-check.mjs` | `npm run pre-pr` | Valida tudo antes do PR (build, tests, docs) |
+| `scripts/session-end.mjs` | `npm run session:end` | add + commit + handoff + push em 1 comando |
+
+### Docs atualizados
+- `WORKFLOW.md` — seção Scripts de Workflow adicionada
+- `AGENTS.md` — "Começando" agora recomenda `npm run session:start`
+- `CONVENTIONS.md` — relatório e limpeza com scripts automáticos
 
 **Próximo:** Backlog Futuro (Sprint #11) — traduções, analytics, PWA
