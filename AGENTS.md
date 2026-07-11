@@ -22,14 +22,15 @@
 1. **Workflow obrigatório**: toda feature passa pelo `council-to-superpowers` — veja `docs/WORKFLOW.md`
 2. **Grid máximo 2 colunas**: `grid-cols-1 sm:grid-cols-2` — veja `docs/UI-GUIDE.md`
 3. **DRY**: regra de negócio em ponto único em `src/lib/` — veja `docs/CONVENTIONS.md`
-4. **CI/CD obrigatório**: CI roda build + testes em todo PR (`.github/workflows/ci.yml`). Deploy automático no merge (`.github/workflows/deploy.yml`). — veja `docs/GIT-WORKFLOW.md`
-5. **Ponytail mode**: stdlib/nativo primeiro, sem abstrações especulativas
-6. **Interface**: português (pt-BR)
-7. **🔴 Relatório HTML obrigatório antes do PR**: toda branch que altera código OU docs DEVE gerar relatório em `docs/reports/<prefixo>-YYYY-MM-DD-<nome>.html` antes do PR. Prefixos: `PR<num>`, `Sprint<letra>`, `auto`, `fix`, `feat`, `docs`, `chore`. Template: `/report`. Execute `node scripts/verify-docs.mjs` para verificar integridade dos docs antes do PR.
-8. **📋 HANDOFF.md obrigatório no início da sessão**: leia `HANDOFF.md` antes de qualquer trabalho. Atualize antes de `/new`, quando a sessão atingir ~12+ turns, **ou sempre que criar/merger um PR**. O estado da sessão anterior é restaurado via este arquivo.
-9. **🧹 Limpeza obrigatória antes de PR/merge**: verifique `git status` — ZERO arquivos uncommitted. Inclui código, docs, council verdicts, plans, specs, package.json/lock, relatórios. Veja `docs/CONVENTIONS.md` → "Limpeza Pós-Sessão".
-10. **🐞 Registro de bugs obrigatório**: todo bug encontrado durante desenvolvimento DEVE ser registrado em `docs/AGENDA.md` → "🐞 Bugs Encontrados". Veja `docs/CONVENTIONS.md` → "Registro de Bugs".
-11. **💭 Ideias externas**: use `npm run think "ideia"` para capturar pensamentos fora do projeto. Se for urgente, `--immediate`. Se for bug, `--bug`.
+4. **🔥 Branch obrigatória — NUNCA direto na main**: toda alteração de código DEVE ser feita em branch (`feat/`, `fix/`, `docs/`, `chore/`). `main` só recebe via PR mergeado. Nem commit, nem push, nem revert direto. — veja `docs/GIT-WORKFLOW.md`
+5. **CI/CD obrigatório**: CI roda build + testes em todo PR (`.github/workflows/ci.yml`). Deploy automático no merge (`.github/workflows/deploy.yml`). — veja `docs/GIT-WORKFLOW.md`
+6. **Ponytail mode**: stdlib/nativo primeiro, sem abstrações especulativas
+7. **Interface**: português (pt-BR)
+8. **🔴 Relatório HTML obrigatório antes do PR**: toda branch que altera código OU docs DEVE gerar relatório em `docs/reports/<prefixo>-YYYY-MM-DD-<nome>.html` antes do PR. Prefixos: `PR<num>`, `Sprint<letra>`, `auto`, `fix`, `feat`, `docs`, `chore`. Template: `/report`. Execute `node scripts/verify-docs.mjs` para verificar integridade dos docs antes do PR.
+9. **📋 HANDOFF.md obrigatório no início da sessão**: leia `HANDOFF.md` antes de qualquer trabalho. Atualize antes de `/new`, quando a sessão atingir ~12+ turns, **ou sempre que criar/merger um PR**. O estado da sessão anterior é restaurado via este arquivo.
+10. **🧹 Limpeza obrigatória antes de PR/merge**: verifique `git status` — ZERO arquivos uncommitted. Inclui código, docs, council verdicts, plans, specs, package.json/lock, relatórios. Veja `docs/CONVENTIONS.md` → "Limpeza Pós-Sessão".
+11. **🐞 Registro de bugs obrigatório**: todo bug encontrado durante desenvolvimento DEVE ser registrado em `docs/AGENDA.md` → "🐞 Bugs Encontrados". Veja `docs/CONVENTIONS.md` → "Registro de Bugs".
+12. **💭 Ideias externas**: use `npm run think "ideia"` para capturar pensamentos fora do projeto. Se for urgente, `--immediate`. Se for bug, `--bug`.
 
 ## Começando — ⚡ AUTO-INICIALIZAÇÃO
 

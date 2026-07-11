@@ -28,15 +28,16 @@ Após o resumo, leia `HANDOFF.md` para contexto completo.
 
 ## Regras
 
-1. Workflow obrigatório: council-to-superpowers para features (veja `docs/WORKFLOW.md`)
-2. Grid máximo 2 colunas: `grid-cols-1 sm:grid-cols-2`
-3. DRY: regra de negócio em ponto único em `src/lib/`
-4. CI/CD obrigatório em todo PR
-5. Interface: português (pt-BR)
-6. Relatório HTML antes do PR: `npm run report "descrição" --write`
-7. HANDOFF.md no início + após PR/merge
-8. git status ZERO antes de PR/merge
-9. Registrar bugs encontrados em `docs/AGENDA.md` → 🐞 Bugs Encontrados
+1. 🔥 **NUNCA direto na main** — toda alteração em branch, main só via PR
+2. Workflow obrigatório: council-to-superpowers para features (veja `docs/WORKFLOW.md`)
+3. Grid máximo 2 colunas: `grid-cols-1 sm:grid-cols-2`
+4. DRY: regra de negócio em ponto único em `src/lib/`
+5. CI/CD obrigatório em todo PR
+6. Interface: português (pt-BR)
+7. Relatório HTML antes do PR: `npm run report "descrição" --write`
+8. HANDOFF.md no início + após PR/merge
+9. git status ZERO antes de PR/merge
+10. Registrar bugs encontrados em `docs/AGENDA.md` → 🐞 Bugs Encontrados
 
 ## Scripts de Workflow
 

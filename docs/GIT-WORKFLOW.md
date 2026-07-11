@@ -1,5 +1,24 @@
 # 🌿 Git Workflow — MilesControl
 
+## 🔥 Regra de Ouro
+
+**NUNCA commitar/pushar direto na `main`.** Toda alteração de código DEVE
+ser feita em uma branch feature/fix/docs/chore. `main` só recebe alterações
+via PR mergeado. Isso inclui reverts. Sempre:
+
+```
+1. Criar branch a partir de main
+2. Desenvolver
+3. npm run pre-pr (validação)
+4. npm run report "desc" --write (relatório)
+5. git push origin <branch>
+6. Criar PR
+7. CI roda automaticamente
+8. Merge → deploy
+```
+
+**Exceções:** NENHUMA. Nem correção rápida, nem revert, nem hotfix.
+
 ## Nomenclatura de Branches
 
 Usar prefixos padronizados em inglês, **kebab-case**:
