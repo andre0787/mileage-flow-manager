@@ -98,3 +98,6 @@ session:start → HANDOFF in progress? → IDEIAS.md pendentes? → pergunta
 - Sprint C Item 5 fechado: workers:2 = 37% mais rápido (7.5→4.8 min)
 - Report format padronizado: `docs/reports/<data>/<prefixo>-YYYY-MM-DD-<nome>.html`
 - Nenhum PR aberto, zero pendências
+- CI removido de push:main (redundante — ja rodou no PR)
+- gh auth com escopo workflow
+- Deploy nao compete mais com CI
