@@ -24,7 +24,7 @@ jobs:
       - name: Create report HTML
         run: |
           DATE=$(date +%Y-%m-%d)
-          cat > docs/reports/auto-$DATE-relatorio.html << 'EOF'
+          cat > docs/reports/auto-$DATE-qualidade.html << 'EOF'
           <!DOCTYPE html>
           <html lang="pt-BR">
           <head><meta charset="UTF-8"><title>Relatório Automático</title>
