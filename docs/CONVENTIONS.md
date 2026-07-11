@@ -104,6 +104,21 @@ docs/reports/2026-07-10/fix-2026-07-10-overflow-selectors.html
 docs/reports/2026-07-10/docs-2026-07-10-mapa-completo-fluxos-usuario.html
 ```
 
+## 🐞 Registro de Bugs
+
+**Todo bug encontrado durante desenvolvimento DEVE ser registrado na AGENDA.md**
+na seção `🐞 Bugs Encontrados`, mesmo que corrigido na hora.
+
+### Como registrar:
+- **Bug do GitHub Issues:** usar o número da issue como identificador
+- **Bug descoberto durante dev:** descrever brevemente + severidade (`alta`/`média`/`baixa`)
+- Adicionar na tabela de corrigidos se já foi resolvido, ou em abertos se ficou pendente
+
+### Por quê?
+- Cria rastro histórico do que já quebrou
+- Ajuda a validar backlog (se um bug aparece várias vezes, merece atenção)
+- Evita regressão do mesmo bug em PR futuro
+
 ## Escopo Estrito
 
 **Nunca modifique nada além do que foi pedido.** Se um arquivo precisar de

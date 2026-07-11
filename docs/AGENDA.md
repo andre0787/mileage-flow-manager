@@ -291,16 +291,32 @@
 
 ---
 
-## ✅ Corrigido (PR #85, 2026-07-11)
+## 🐞 Bugs Encontrados
 
-- [x] #77 – BUG: Registro de entrada só salva após limpar cache
-- [x] #78 – BUG: Tipos de origem não aparecem na edição/exclusão
-- [x] #79 – BUG: Seleção de conta de pontos vazia na transferência
-- [x] #80 – FEATURE: Recorrência, distribuição de valores e edição de data nas entradas
+> Bugs descobertos durante desenvolvimento. Serve como insumo para validação do backlog futuro.
+> Todo bug encontrado é registrado aqui antes ou depois de corrigido.
 
-## ✅ Corrigido (PR #87, 2026-07-11)
+### Abertos
+_Nenhum bug aberto no momento._
 
-- [x] #86 – FEATURE: Editar Vendas
+### Corrigidos
+
+| Data | # | Descrição | Severidade | PR |
+|------|---|-----------|------------|----|
+| 2026-07-11 | #80 | Recorrência, distribuição de valores e edição de data | feature | #85 |
+| 2026-07-11 | #79 | Seleção de conta de pontos vazia na transferência | alta | #85 |
+| 2026-07-11 | #78 | Tipos de origem não aparecem na edição/exclusão | alta | #85 |
+| 2026-07-11 | #77 | Registro de entrada só salva após limpar cache | alta | #85 |
+| 2026-07-10 | — | queryClient.clear() causa TypeError: entries undefined | média | avulso |
+| 2026-07-10 | — | Overflow Dashboard em 393px (433px > 393px) | baixa | avulso |
+| 2026-07-10 | — | Entrada selector sem .first() no fluxo-completo | média | avulso |
+| 2026-07-10 | — | Venda selector sem .first() no fluxo-completo | média | avulso |
+| 2026-07-09 | #57 | fluxo-completo: safePost() timeout, ignora 409 | baixa | #58 |
+| 2026-07-09 | #56 | origem-tipo: isClube setado ao criar tipo com recorrência | média | #58 |
+
+> **Severidade:** `alta` = impede uso · `média` = afeta funcionalidade · `baixa` = cosmético/edge case · `feature` = melhoria solicitada
+
+---
 
 ## 📊 Status da Produção
 
