@@ -183,37 +183,31 @@
 
 ---
 
-## 🎯 Sprint A — Fundação de Automação 🔴 Prioridade Máxima
+## ✅ Sprint A — Fundação de Automação (completa)
 
 **Objetivo:** CI/CD rodando, deploy automático, scripts básicos.
 
-**Council:** `docs/council/2026-07-10-plano-automacao-sprints-veredito.md`
+### Item 1: CI Workflow ✅
 
-**Spec:** `docs/superpowers/specs/2026-07-10-automacao-sprints-design.md`
+- [x] `.github/workflows/ci.yml` — build + unit + E2E em todo PR
+- [x] Cache npm + playwright
+- [x] Upload de relatório como artifact
 
-**Plano:** `docs/superpowers/plans/2026-07-10-automacao-sprints-plan.md`
+### Item 2: Deploy Workflow ✅
 
-### Item 1: CI Workflow 🔴
+- [x] `.github/workflows/deploy.yml` — auto-deploy no merge para main
+- [x] Secrets VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID configurados
 
-- [ ] Criar `.github/workflows/ci.yml` — build + unit + E2E em todo PR
-- [ ] Cache npm + playwright
-- [ ] Upload de relatório como artifact
+### Item 3: Scripts package.json ✅
 
-### Item 2: Deploy Workflow 🔴
+- [x] `"test:e2e": "playwright test"`
+- [x] `"test:e2e:ui": "playwright test --ui"`
 
-- [ ] Criar `.github/workflows/deploy.yml` — auto-deploy no merge para main
-- [ ] Configurar secrets VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID
+### Item 4: Git Flow Simplificado ✅
 
-### Item 3: Scripts package.json
-
-- [ ] Adicionar `"test:e2e": "playwright test"`
-- [ ] Adicionar `"test:e2e:ui": "playwright test --ui"`
-
-### Item 4: Git Flow Simplificado
-
-- [ ] `git branch -d develop` (local + remoto)
-- [ ] Atualizar `docs/GIT-WORKFLOW.md` — fluxo: branch → PR → main
-- [ ] Atualizar `docs/WORKFLOW.md` — checklists com CI
+- [x] `git branch -d develop` (local + remoto)
+- [x] `docs/GIT-WORKFLOW.md` atualizado — fluxo: branch → PR → main
+- [x] `docs/WORKFLOW.md` — checklists com CI
 
 ---
 
@@ -231,8 +225,8 @@
 
 ### Item 2: Cross-Harness Config
 
-- [ ] Criar `.opencode/settings.json` (referência ao handoff skill)
-- [ ] Criar `.claude/settings.local.json` (referência ao handoff skill)
+- [ ] Criar `.opencode/settings.json` (referência ao handoff skill) — *depende do caminho do skill confirmado*
+- [ ] Criar `.claude/settings.local.json` (referência ao handoff skill) — *depende do caminho do skill confirmado*
 
 ### Item 3: Script de Verificação
 
@@ -296,26 +290,27 @@
 
 ---
 
+## ✅ Corrigido (PR #85, 2026-07-11)
 
-## 🐞 Bugs e Melhorias identificados via avaliação humana (prioridade)
+- [x] #77 – BUG: Registro de entrada só salva após limpar cache
+- [x] #78 – BUG: Tipos de origem não aparecem na edição/exclusão
+- [x] #79 – BUG: Seleção de conta de pontos vazia na transferência
+- [x] #80 – FEATURE: Recorrência, distribuição de valores e edição de data nas entradas
+- [x] #86 – FEATURE: Editar Vendas (aberta, aguardando implementação)
 
-- [ ] #77 – BUG: Registro de entrada só salva após limpar cache
-- [ ] #78 – BUG: Tipos de origem não aparecem na edição/exclusão
-- [ ] #79 – BUG: Seleção de conta de pontos vazia na transferência
-- [ ] #80 – FEATURE: Recorrência, distribuição de valores e edição de data nas entradas
 ## 📊 Status da Produção
 
 | Métrica | Valor |
 |---------|-------|
 | Bundle size | 664kB |
-| Testes unitários | 40/40 ✅ |
-| Testes E2E | 67/67 ✅ |
-| **Total** | **107 testes** |
-| CI/CD | ❌ (pendente Sprint A) |
-| Deploy | Manual (pendente Sprint A) |
-| Último PR | #71 (registerUser helper) |
+| Testes unitários | 45/45 ✅ |
+| Testes E2E | 54/54 ✅ |
+| **Total** | **99 testes** |
+| CI/CD | ✅ (build + unit + E2E em todo PR) |
+| Deploy | ✅ Automático via Vercel no merge |
+| Último PR | #85 (fix bugs #77, #78 + feat split/repeat) |
 
 ---
 
-**Última atualização:** 2026-07-10
-**Próxima revisão:** Sprint A
+**Última atualização:** 2026-07-11
+**Próxima revisão:** Sprint B
