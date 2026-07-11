@@ -51,6 +51,8 @@ interface SaleFormProps {
   sales: Sale[];
   onSubmit: (data: SaleFormData) => void;
   onCreateClient: (data: NewClientData & { id: string }) => Promise<void>;
+  mode?: "create" | "edit";
+  initialData?: SaleFormData;
 }
 
 const emptyPassenger = () => ({
@@ -86,8 +88,10 @@ export function SaleForm({
   sales,
   onSubmit,
   onCreateClient,
+  mode = "create",
+  initialData,
 }: SaleFormProps) {
-  const [form, setForm] = useState<SaleFormData>(emptyForm);
+  const [form, setForm] = useState<SaleFormData>({ ...emptyForm, ...initialData });
   const [isClientDialogOpen, setIsClientDialogOpen] = useState(false);
   const [newClient, setNewClient] = useState<NewClientData>({
     name: "",
@@ -200,7 +204,7 @@ export function SaleForm({
           if (!open) setForm(emptyForm);
           onOpenChange(open);
         }}
-        title="Registrar Nova Venda"
+        title={mode === "edit" ? "Editar Venda" : "Registrar Nova Venda"}
       >
         <div className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto">
           {/* Owner + Account */}
@@ -561,7 +565,7 @@ export function SaleForm({
             className="bg-gradient-primary hover:opacity-90"
             disabled={!canSubmit || !!passengerLimitExceeded}
           >
-            Registrar Venda
+            {mode === "edit" ? "Atualizar Venda" : "Registrar Venda"}
           </Button>
         </div>
       </FormDrawer>
