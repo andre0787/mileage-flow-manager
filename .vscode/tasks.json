@@ -81,30 +81,6 @@
         "panel": "dedicated"
       },
       "detail": "npm run think \"ideia\" — salva em IDEIAS.md"
-    },
-    {
-      "label": "🧪 Testes Unitários",
-      "type": "npm",
-      "script": "test",
-      "problemMatcher": [],
-      "group": "test",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "detail": "npm test — 45 testes unitários"
-    },
-    {
-      "label": "🏗️ Build",
-      "type": "npm",
-      "script": "build",
-      "problemMatcher": ["$esbuild"],
-      "group": "build",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "detail": "npm run build — build de produção"
     }
   ]
 }
