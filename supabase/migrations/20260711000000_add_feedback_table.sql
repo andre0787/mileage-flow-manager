@@ -10,11 +10,14 @@ CREATE TABLE IF NOT EXISTS feedback (
 
 ALTER TABLE feedback ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Usuários autenticados podem inserir feedback"
+-- Permite inserção de qualquer usuário (logado ou não)
+-- Anônimos podem reportar bugs sem criar conta
+CREATE POLICY "Qualquer um pode inserir feedback"
   ON feedback FOR INSERT
-  TO authenticated
-  WITH CHECK (auth.uid() = user_id);
+  TO anon, authenticated
+  WITH CHECK (true);
 
+-- Usuários logados veem seus próprios feedbacks
 CREATE POLICY "Usuários podem ver seus próprios feedbacks"
   ON feedback FOR SELECT
   TO authenticated
