@@ -95,8 +95,9 @@ Antes de criar qualquer PR, executar este checklist:
 ### 5. CI/CD
 - [ ] GitHub Actions CI verde no PR?
 - [ ] `npm run build` passa?
-- [ ] `npm test` passa (40/40)?
-- [ ] `npm run test:e2e` passa (67/67)?
+- [ ] `npm test` passa (45/45)?
+- [ ] `npm run test:e2e` passa (54/54)?
+- [ ] Pipeline único: build → unit → Playwright → E2E
 
 ### 6. Limpeza
 - [ ] `git status` mostra zero arquivos pendentes?
@@ -110,3 +111,45 @@ Inclui: código, docs, council verdicts, plans, specs, package.json/lock, relat�
 Verificar com `git status` — zero arquivos pendentes exceto `.gitignore`.
 
 Ver `CONVENTIONS.md` → "Limpeza Pós-Sessão" para checklist completo.
+
+---
+
+## 🔧 CI/CD — Convenções
+
+### Pipeline (`.github/workflows/ci.yml`)
+
+Sequência obrigatória:
+1. **Lint** — ESLint
+2. **Build** — `npm run build` (Vite)
+3. **Unit tests** — `npm test` (Vitest, 45 testes)
+4. **Playwright install** — `npx playwright install chromium --with-deps`
+5. **E2E tests** — `npm run test:e2e` (Playwright, 54 testes, 1 worker no CI)
+6. **Upload report** — `playwright-report/` como artifact
+
+### Concorrência
+
+Para evitar execução duplicada (push + pull_request no mesmo commit):
+```yaml
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+```
+
+### Deploy (`.github/workflows/deploy.yml`)
+
+- Gatilho: merge na `main`
+- Usa Vercel CLI com secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`
+- Produção: https://mileage-flow-manager.vercel.app
+
+### Workers
+
+- CI usa **1 worker** no Playwright (evita flakiness por recursos compartilhados)
+- Local pode usar `--workers=4` ou `--ui`
+- Para aumentar workers no CI, testar com sharding primeiro
+
+### Manutenção
+
+- **Dependências**: `npm update` + CI verde em PR separado
+- **Node**: manter compat com Node 22+ (GitHub Actions usa Node 24 por padrão)
+- **Playwright browsers**: atualizar via `npx playwright install --with-deps`
+- **Relatório de falha**: sempre baixar artifact `playwright-report/` e abrir `index.html`
