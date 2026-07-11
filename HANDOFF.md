@@ -4,7 +4,7 @@
 ---
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `da98039` — feat: scripts de workflow
+- **Último commit:** `4412d48` — feat: fluxo de início com 2 gatilhos
 - **Remote:** origin (https://github.com/andre0787/mileage-flow-manager.git)
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -15,7 +15,7 @@ Nenhum PR aberto.
 | Docs issues | 0 |
 | Branch | main |
 | PRs mergeados | #92, #93 |
-| Scripts de workflow | 4 novos |
+| Scripts de workflow | 6 |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
@@ -60,9 +60,33 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 | `scripts/pre-pr-check.mjs` | `npm run pre-pr` | Valida tudo antes do PR (build, tests, docs) |
 | `scripts/session-end.mjs` | `npm run session:end` | add + commit + handoff + push em 1 comando |
 
-### Docs atualizados
-- `WORKFLOW.md` — seção Scripts de Workflow adicionada
-- `AGENTS.md` — "Começando" agora recomenda `npm run session:start`
-- `CONVENTIONS.md` — relatório e limpeza com scripts automáticos
+### Fluxo de Início (2 gatilhos)
 
-**Próximo:** Backlog Futuro (Sprint #11) — traduções, analytics, PWA
+```
+session:start → HANDOFF in progress? → IDEIAS.md pendentes? → pergunta
+```
+
+### Scripts de Workflow (6)
+
+| Script | npm | Função |
+|--------|-----|--------|
+| `scripts/session-start.mjs` | `npm run session:start` | Resumo ~300 tokens + checa HANDOFF + IDEIAS.md |
+| `scripts/generate-report.mjs` | `npm run report` | Relatório HTML automático do diff |
+| `scripts/pre-pr-check.mjs` | `npm run pre-pr` | Valida build, tests, docs antes do PR |
+| `scripts/session-end.mjs` | `npm run session:end` | add + commit + handoff + push em 1 comando |
+| `scripts/update-handoff.mjs` | `npm run handoff` | Atualiza HANDOFF.md |
+| `scripts/think.mjs` | `npm run think` | Captura ideia em IDEIAS.md + docs/thoughts/ |
+
+### Novos arquivos
+- `CLAUDE.md` — instruções pro Claude Code
+- `docs/IDEIAS.md` — caixa de entrada de ideias humanas
+- `docs/thoughts/` — registro permanente de cada ideia
+
+### Docs atualizados
+- `AGENTS.md` — fluxo de 2 gatilhos no início + regra #11 (ideias)
+- `CONVENTIONS.md` — seção Caixa de Entrada de Ideias
+- `WORKFLOW.md` — Scripts de Workflow + Fluxo think
+- `MAP.md` — referência a IDEIAS.md
+- `CLAUDE.md` — criado com instruções compatíveis
+
+**Próximo:** Backlog Futuro — traduções, analytics, PWA
