@@ -28,6 +28,7 @@ export interface EntryFormData {
   recurrenceType: 'monthly' | 'quarterly' | 'semiannual' | 'annual'
   recurrenceCount: number // >=1
   startDate: string // YYYY-MM-DD
+  recurrenceValueMode: 'split' | 'repeat'
 }
 
 const emptyForm: EntryFormData = {
@@ -47,6 +48,7 @@ const emptyForm: EntryFormData = {
   recurrenceType: "monthly",
   recurrenceCount: 1,
   startDate: "",
+  recurrenceValueMode: 'split',
 }
 
 interface EntryFormProps {
@@ -423,6 +425,33 @@ export function EntryForm({
               </div>
             </div>
 
+            {/* Modo de repetição */}
+            <div className="space-y-2">
+              <Label>Modo de repetição</Label>
+              <div className="flex gap-4">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="recurrenceValueMode"
+                    checked={form.recurrenceValueMode === 'split'}
+                    onChange={() => set({ recurrenceValueMode: 'split' })}
+                    className="h-4 w-4 accent-primary"
+                  />
+                  <span className="text-sm">Parcelado (valor / parcelas)</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="recurrenceValueMode"
+                    checked={form.recurrenceValueMode === 'repeat'}
+                    onChange={() => set({ recurrenceValueMode: 'repeat' })}
+                    className="h-4 w-4 accent-primary"
+                  />
+                  <span className="text-sm">Repetido (mesmo valor em cada)</span>
+                </label>
+              </div>
+            </div>
+
             {/* Summary */}
             <div className="border-t pt-4">
               <div className="text-sm text-muted-foreground">
@@ -446,23 +475,45 @@ export function EntryForm({
                   <span>Início:</span>
                   <span>{form.startDate}</span>
                 </div>
-                <div className="flex justify-between mt-1">
-                  <span>Valor por parcela:</span>
-                  <span>
-                    R$ {(
-                      parseFloat(form.amountPaid) / form.recurrenceCount
-                    ).toFixed(2)}
-                  </span>
-                </div>
-                {isTransfer && (
-                  <div className="flex justify-between mt-1">
-                    <span>Quantidade por parcela:</span>
-                    <span>
-                      {(parseFloat(form.amount) / form.recurrenceCount).toLocaleString("pt-BR", {
-                        maximumFractionDigits: 0,
-                      })}
-                    </span>
-                  </div>
+                {form.recurrenceValueMode === 'split' && (
+                  <>
+                    <div className="flex justify-between mt-1">
+                      <span>Valor por parcela:</span>
+                      <span>
+                        R$ {(
+                          parseFloat(form.amountPaid) / form.recurrenceCount
+                        ).toFixed(2)}
+                      </span>
+                    </div>
+                    {isTransfer && (
+                      <div className="flex justify-between mt-1">
+                        <span>Quantidade por parcela:</span>
+                        <span>
+                          {(parseFloat(form.amount) / form.recurrenceCount).toLocaleString("pt-BR", {
+                            maximumFractionDigits: 0,
+                          })}
+                        </span>
+                      </div>
+                    )}
+                  </>
+                )}
+                {form.recurrenceValueMode === 'repeat' && (
+                  <>
+                    <div className="flex justify-between mt-1">
+                      <span>Valor por parcela:</span>
+                      <span>R$ {parseFloat(form.amountPaid).toFixed(2)}</span>
+                    </div>
+                    {isTransfer && (
+                      <div className="flex justify-between mt-1">
+                        <span>Quantidade por parcela:</span>
+                        <span>
+                          {parseFloat(form.amount).toLocaleString("pt-BR", {
+                            maximumFractionDigits: 0,
+                          })}
+                        </span>
+                      </div>
+                    )}
+                  </>
                 )}
             </div>
           </div>

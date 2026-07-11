@@ -91,13 +91,15 @@ export default function Entradas() {
 
   const handleCreateEntry = (form: EntryFormData) => {
     const c = computeFromForm(form);
+    const isSplit = form.isRecurrent && form.recurrenceValueMode === 'split' && form.recurrenceCount > 1;
+    const divisor = isSplit ? form.recurrenceCount : 1;
     addEntryM.mutate(
       {
         id: crypto.randomUUID(),
         accountId: form.accountId,
         origemTypeId: form.origemTypeId,
-        amount: c.amount,
-        amountPaid: c.totalPaid,
+        amount: c.amount / divisor,
+        amountPaid: c.totalPaid / divisor,
         costPerThousand: c.costPerThousand,
         conversionRate: c.isTransfer
           ? 1 + parseFloat(form.bonusPercent || "0") / 100
@@ -117,6 +119,7 @@ export default function Entradas() {
           date: form.date,
           isClube: form.isClube,
           clubeMeses: form.clubeMeses,
+          recurrenceValueMode: form.recurrenceValueMode,
         }),
         date: form.date,
       },
