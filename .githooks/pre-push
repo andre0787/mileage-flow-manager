@@ -19,7 +19,7 @@ while read local_ref local_sha remote_ref remote_sha; do
   esac
 
   # Verifica se existe ao menos um relatório .html em docs/reports/
-  reports=$(ls docs/reports/*.html 2>/dev/null | head -5)
+  reports=$(find docs/reports/ -name '*.html' 2>/dev/null | head -5)
   if [ -z "$reports" ]; then
     echo ""
     echo "⚠️  NENHUM RELATÓRIO HTML encontrado em docs/reports/"
