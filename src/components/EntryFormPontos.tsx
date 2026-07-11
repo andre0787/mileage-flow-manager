@@ -1,11 +1,11 @@
 import { useState } from "react"
-import { Plus, RefreshCcw } from "lucide-react"
+import { Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { FormDrawer } from "@/components/FormDrawer"
-import { parseOrigemTypeDescription } from "@/lib/origemTypes"
+import { isTransferencia } from "@/lib/utils"
 import type { Account, OrigemType, Program, Owner, EntryFormData } from "@/types"
 
 interface EntryFormPontosProps {
@@ -17,7 +17,7 @@ interface EntryFormPontosProps {
   origemTypes: OrigemType[]
   programs: Program[]
   owners: Owner[]
-  onCreateOrigemType?: (data: { name: string; color: string; hasRecurrence: boolean }) => Promise<string | undefined>
+  onCreateOrigemType?: (data: { name: string; color: string }) => Promise<string | undefined>
 }
 
 const emptyForm: EntryFormData = {
@@ -30,8 +30,6 @@ const emptyForm: EntryFormData = {
   bonusPercent: "",
   cartAmount: "",
   cartCost: "",
-  isClube: false,
-  clubeMeses: "",
   date: "",
   isRecurrent: false,
   recurrenceType: "monthly",
@@ -54,7 +52,7 @@ export function EntryFormPontos({
   const [form, setForm] = useState<EntryFormData>({ ...emptyForm, ...initialData })
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({})
   const [isOrigemTypeOpen, setIsOrigemTypeOpen] = useState(false)
-  const [newOT, setNewOT] = useState({ name: "", color: "#10b981", hasRecurrence: false })
+  const [newOT, setNewOT] = useState({ name: "", color: "#10b981" })
   const [isCreatingOrigemType, setIsCreatingOrigemType] = useState(false)
   const [otErrors, setOtErrors] = useState<Partial<Record<string, string>>>({})
 
@@ -63,7 +61,7 @@ export function EntryFormPontos({
 
   const selectedAccount = accounts.find((a) => a.id === form.accountId)
   const availableAccounts = accounts.filter((a) => a.type === "pontos" && a.status === "ativa")
-  const currentOrigemTypes = origemTypes.filter((ot) => ot.accountType === "pontos")
+  const currentOrigemTypes = origemTypes.filter((ot) => ot.accountType === "pontos" && !isTransferencia(ot))
 
   const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id
   const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id
@@ -101,7 +99,7 @@ export function EntryFormPontos({
         color: newOT.color,
         hasRecurrence: newOT.hasRecurrence,
       })
-      if (id) set({ origemTypeId: id, isClube: newOT.hasRecurrence })
+      if (id) set({ origemTypeId: id })
       setNewOT({ name: "", color: "#10b981", hasRecurrence: false })
       setOtErrors({})
       setIsOrigemTypeOpen(false)
@@ -144,9 +142,7 @@ export function EntryFormPontos({
             <Select
               value={form.origemTypeId}
               onValueChange={(value) => {
-                const ot = origemTypes.find((o) => o.id === value)
-                const desc = ot ? parseOrigemTypeDescription(ot.description) : { hasRecurrence: false }
-                set({ origemTypeId: value, isClube: desc.hasRecurrence })
+                set({ origemTypeId: value })
                 clearErr("origemTypeId")
               }}
             >
@@ -203,17 +199,7 @@ export function EntryFormPontos({
                       />
                     </div>
                   </div>
-                  <div className="border-t pt-3 space-y-3">
-                    <Label className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <input
-                        type="checkbox"
-                        checked={newOT.hasRecurrence}
-                        onChange={(e) => setNewOT((p) => ({ ...p, hasRecurrence: e.target.checked }))}
-                        className="h-4 w-4 rounded border-border accent-primary"
-                      />
-                      Habilitar recorrência mensal
-                    </Label>
-                  </div>
+
                 </div>
                 <div className="flex justify-end gap-2 mt-4">
                   <Button variant="outline" onClick={() => { setIsOrigemTypeOpen(false); setOtErrors({}) }}>
@@ -411,42 +397,6 @@ export function EntryFormPontos({
           </div>
         )}
       </div>
-
-      {/* Clube */}
-      {!form.isRecurrent && form.isClube && (
-        <div className="border border-dashed border-amber-400/40 rounded-lg p-3 space-y-3">
-          <div className="flex items-center gap-2">
-            <RefreshCcw className="h-4 w-4 text-amber-500" />
-            <Label className="font-semibold text-sm cursor-pointer">
-              Recorrência <span className="text-muted-foreground font-normal">(Clube)</span>
-            </Label>
-          </div>
-          <div className="space-y-3">
-            <p className="text-xs text-amber-600 dark:text-amber-400">
-              Recorrência ativada pelo tipo de origem{ mode === "create" ? " selecionado" : "" }
-            </p>
-            <div className="space-y-2">
-              <Label className="text-xs">Quantidade de meses</Label>
-              <Input
-                type="number"
-                min="1"
-                max="120"
-                value={form.clubeMeses}
-                onChange={(e) => set({ clubeMeses: e.target.value })}
-                placeholder="Ex: 12"
-              />
-              {form.clubeMeses && parseInt(form.clubeMeses) > 0 && (
-                <p className="text-xs text-amber-600 dark:text-amber-400">
-                  ⏳ {new Date(new Date().getTime() + parseInt(form.clubeMeses) * 30 * 24 * 60 * 60 * 1000).toLocaleDateString("pt-BR")} — serão geradas {form.clubeMeses} entrada(s) futura(s) com status "Aguardando"
-                </p>
-              )}
-              {mode === "edit" && (
-                <p className="text-xs text-amber-600 dark:text-amber-400">⏳ Altere com cuidado — novas entradas futuras serão geradas</p>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Taxa de Conversão */}
       <div className="space-y-2">

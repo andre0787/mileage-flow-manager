@@ -8,8 +8,6 @@ export interface EntryFormData {
   bonusPercent: string
   cartAmount: string
   cartCost: string
-  isClube: boolean
-  clubeMeses: string
   date: string
   isRecurrent: boolean
   recurrenceType: 'monthly' | 'quarterly' | 'semiannual' | 'annual'

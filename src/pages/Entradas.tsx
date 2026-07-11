@@ -19,7 +19,7 @@ import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
 import { calculateRecurrence } from "@/lib/recurrence";
 import { calcMilesGenerated, calcCostPerThousand, calcCostPerMile } from "@/lib/metrics";
-import { buildMonthlyRecurrence, serializeOrigemTypeDescription } from "@/lib/origemTypes";
+import { serializeOrigemTypeDescription } from "@/lib/origemTypes";
 import { toast } from "sonner";
 import {
   useAddEntryMutation,
@@ -147,11 +147,10 @@ export default function Entradas() {
       const startDate = new Date(form.date);
       const endDate = new Date(startDate.getTime() + interval * 24 * 60 * 60 * 1000 * form.recurrenceCount);
       recurrenceEnd = endDate.toISOString().split('T')[0];
-    } else {
-      // Fallback to existing clube recurrence (for backward compatibility)
-      const clubeRec = buildMonthlyRecurrence(form.isClube, form.clubeMeses);
-      recurrenceInterval = clubeRec.recurrenceInterval;
-      recurrenceEnd = clubeRec.recurrenceEnd;
+    } else if (editingEntry?.recurrenceInterval) {
+      // Preserve existing recurrence from clube entries (backward compat)
+      recurrenceInterval = editingEntry.recurrenceInterval;
+      recurrenceEnd = editingEntry.recurrenceEnd;
     }
     
     const recurrenceFields: Record<string, number | string | undefined> = {};
@@ -191,10 +190,9 @@ export default function Entradas() {
   const handleCreateOrigemType = async (data: {
     name: string;
     color: string;
-    hasRecurrence: boolean;
   }) => {
     const id = crypto.randomUUID();
-    const desc = serializeOrigemTypeDescription(data.hasRecurrence);
+    const desc = serializeOrigemTypeDescription(false);
     await addOrigemTypeM.mutateAsync({
       id,
       name: data.name,
