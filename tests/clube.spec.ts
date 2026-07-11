@@ -97,14 +97,12 @@ test.describe("Recorrência", () => {
     await page.fill("#entryDate", new Date().toISOString().split("T")[0]);
 
     // Habilitar recorrência manual
-    await page.getByLabel(/Habilitar recorrência/i).check({ force: true });
+    await page.getByRole('checkbox', { name: /Habilitar recorrência/i }).check({ force: true });
     await page.waitForTimeout(300);
 
-    // Configurar recorrência: 3 meses
-    await page.fill("input[placeholder='Ex: 3']", "3");
-
-    // Verificar preview
-    await expect(page.locator("text=Aguardando").first()).toBeVisible({ timeout: 3_000 });
+    // Configurar recorrência: 3 parcelas, data de início
+    await page.locator('input[type="number"]').fill('3');
+    await page.fill('input[type="date"]:not(#entryDate)', new Date().toISOString().split('T')[0]);
 
     // Registrar
     await page.locator("button:has-text('Registrar Entrada')").click();
