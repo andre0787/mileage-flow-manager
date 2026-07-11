@@ -1,74 +1,59 @@
 # HANDOFF — Milage Flow Manager
 
-> ⏰ Última atualização: 2026-07-11 — Sessão Pós-PR #85
+⏰ Última atualização: 2026-07-11 — Pós-Implementação #86
 
 ---
 
-## 🧭 Estado Atual
+## Estado Atual
 
-### 🔴 Branch atual
-- `main` (PR #85 mergeado, branch `fix/bugs-77-78` deletada)
+### Branch atual
+- `feat/edit-sales-86` (PR #87 aberto)
 
-### 🎯 O que foi feito nesta sessão
+### O que foi feito nesta sessão
 
-| O quê | Status |
+| O que | Status |
 |-------|--------|
-| #77 — Erro silencioso (onError + toast) | ✅ mergeado |
-| #78 — Race condition tipo origem | ✅ mergeado |
-| Filtro "Transferência" do dropdown | ✅ mergeado |
-| Prevenção de duplo clique | ✅ mergeado |
-| Race condition cliente (mutateAsync) | ✅ mergeado |
-| Modo Split/Repeat na recorrência | ✅ mergeado |
-| Teste flaky de timezone corrigido | ✅ mergeado |
-| **PR #85** | ✅ **MERGEADO** |
-| Issues #77, #78 fechadas | ✅ |
-| Issue #86 — Editar Vendas (criada) | ✅ aberta |
-| AGENDA.md atualizada | ✅ |
+| #86 — SaleForm: mode="edit" + initialData | ✅ |
+| #86 — SaleTable: botao Editar por linha | ✅ |
+| #86 — Vendas.tsx: editingSale + handleUpdateSale | ✅ |
+| **PR #87** | **CRIADO** (base: main) |
+| Relatorio HTML | `docs/reports/PR86-2026-07-11-feat-edit-sales.html` |
 
-### 📋 Próximas pendências
+### Proximas pendencias
 
-#### Sprint B — Limpeza & Confiabilidade 🟡
-- [ ] Arquivar 29 docs órfãos em `docs/archive/`
+#### Sprint B — Limpeza & Confiabilidade
+- [ ] Arquivar 29 docs orfaos em `docs/archive/`
 - [ ] Config cross-harness (`.opencode/`, `.claude/`)
 - [ ] Script `scripts/verify-docs.mjs`
-- [ ] Atualizar docs núcleo (AGENTS.md, CONVENTIONS.md, WORKFLOW.md)
+- [ ] Atualizar docs nucleo (AGENTS.md, CONVENTIONS.md, WORKFLOW.md)
 
-#### Sprint C — Polimento & Prevenção 🟢
-- [ ] Varredura automática no CI
+#### Sprint C — Polimento & Prevencao
+- [ ] Varredura automatica no CI
 - [ ] Dashboard de qualidade
-- [ ] Relatório HTML automático
+- [ ] Relatorio HTML automatico
 - [ ] HANDOFF.md automatizado
 
-#### Issues abertas
-- [ ] #86 — FEATURE: Editar Vendas
+### Metricas
 
-### 📊 Métricas
-
-| Métrica | Valor |
+| Metrica | Valor |
 |---------|-------|
-| Testes unitários | 45/45 ✅ |
-| Testes E2E | 54/54 ✅ |
-| CI/CD | ✅ |
-| Deploy | ✅ Automático Vercel |
-| Último PR | #85 |
-| Último deploy | Vercel (main) |
+| Testes unitarios | 45/45 |
+| Testes E2E | 54/54 |
+| CI/CD | |
+| Deploy | Automatico Vercel |
+| Ultimo PR | #87 (#86 — Editar Vendas) |
 
 ---
 
-## 🧠 Contexto técnico
+## Contexto tecnico
 
-### Recorrência Split/Repeat
-Dois modos implementados no formulário de entrada:
-- **Parcelado**: `amount / recurrenceCount` antes de `mutate()`, em `handleCreateEntry`
-- **Repetido**: valor cheio em cada parcela (comportamento original)
-- `recurrenceValueMode` serializado na description e propagado em `calculateRecurrence`
+### Editar Vendas (#86)
+- SaleForm aceita `mode="create" | "edit"` e `initialData` opcional
+- `key={editingSale?.id}` forca remount correto entre edicoes
+- `handleUpdateSale` recalcula profit/margin via calcProfit/calcProfitMargin
+- Botao Editar aparece apenas em vendas nao-canceladas
+- `useUpdateSaleMutation` ja existente (atualiza registro sem ajustar saldo da conta)
+- **ponytail:** ajuste de saldo da conta na edicao nao implementado (cancel + recreate se precisar alterar finances)
 
-### Bugs corrigidos
-- **#77**: `onError` adicionado em 3 mutations (entries.ts, Entradas.tsx, Vendas.tsx)
-- **#78**: `mutateAsync` em vez de `mutate` para criar tipo origem inline
-- **Race condition cliente**: `handleCreateClient` async com `mutateAsync`
-
-### Limpeza pós-sessão
-- PR #85 mergeado, branch deletada
-- Issues #77, #78 fechadas
-- AGENDA.md atualizado com estado real
+### Limpeza pos-sessao
+- PR #87 criado, branch `feat/edit-sales-86` com codigo + relatorio
