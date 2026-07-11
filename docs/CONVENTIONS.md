@@ -97,11 +97,11 @@ O relatório DEVE seguir o padrão: `<prefixo>-YYYY-MM-DD-<nome>.html`
 
 ### Exemplos reais:
 ```
-docs/reports/PR58-2026-07-09-bugfix-testes.html
-docs/reports/PR55-2026-07-09-sprint4-csv-export.html
-docs/reports/SprintC-2026-07-11-polimento-prevencao.html
-docs/reports/fix-2026-07-10-overflow-selectors.html
-docs/reports/docs-2026-07-10-mapa-completo-fluxos-usuario.html
+docs/reports/2026-07-09/PR58-2026-07-09-bugfix-testes.html
+docs/reports/2026-07-09/PR55-2026-07-09-sprint4-csv-export.html
+docs/reports/2026-07-11/SprintC-2026-07-11-polimento-prevencao.html
+docs/reports/2026-07-10/fix-2026-07-10-overflow-selectors.html
+docs/reports/2026-07-10/docs-2026-07-10-mapa-completo-fluxos-usuario.html
 ```
 
 ## Escopo Estrito
@@ -121,7 +121,7 @@ Regra: **zero arquivos uncommitted** ao sair. Isso inclui:
 - Código fonte (`src/`)
 - Documentação (`docs/`, `*.md` raiz)
 - Dependências (`package.json`, `package-lock.json`)
-- Relatórios (`docs/reports/`)
+- Relatórios (`docs/reports/<data>/`)
 - Council verdicts (`docs/council/`)
 - Plans & specs (`docs/superpowers/`)
 
