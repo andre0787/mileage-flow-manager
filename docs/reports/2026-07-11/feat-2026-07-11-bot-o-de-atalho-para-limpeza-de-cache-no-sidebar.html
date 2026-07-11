@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>feat — Botão de atalho para limpeza de cache no sidebar</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+h2{font-size:1rem;margin-top:1.5rem}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+.badge.pr{background:#dbeafe;color:#1e40af}
+.badge.auto{background:#fef3c7;color:#92400e}
+.badge.fix{background:#fee2e2;color:#991b1b}
+.badge.feat{background:#dcfce7;color:#166534}
+.badge.docs{background:#ede9fe;color:#5b21b6}
+.badge.chore{background:#f3f4f6;color:#374151}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+td,th{border:1px solid #ddd;padding:4px 8px;text-align:left}
+th{background:#f3f4f6}
+tr.add{background:#f0fdf4}
+tr.del{background:#fef2f2}
+.meta{font-size:.8rem;color:#666;margin:.5rem 0}
+.diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+.diff .add{color:#4ade80}
+.diff .del{color:#f87171}
+</style></head><body>
+<h1>📋 Botão de atalho para limpeza de cache no sidebar</h1>
+<p class="meta">2026-07-11 18:29 &middot; feat/atalho-limpar-cache &middot; 53f2504 — feat: atalho Limpar Cache no sidebar (acesso rápido)</p>
+<p><span class="badge auto">auto</span> <span class="badge feat">feat</span></p>
+
+<h2>🎯 Benefícios</h2>
+<ul><li>Acesso rápido ao limpar cache sem precisar navegar até Configurações &gt; Preferências</li><li>Reusa clearCache() existente do DataContext — zero duplicação</li><li>window.confirm() nativo — sem dependências</li><li>Ícone consistente com o resto do sidebar</li><li>Tooltip via atributo title para sidebar colapsado</li></ul>
+
+<h2>📊 Métricas</h2>
+<table>
+<tr><th>Métrica</th><th>Valor</th></tr>
+<tr><td>Arquivos alterados</td><td>1</td></tr>
+<tr><td>Adições</td><td>19</td></tr>
+<tr><td>Remoções</td><td>2</td></tr>
+<tr><td>Tokens estimados</td><td>~33</td></tr>
+</table>
+
+<h2>📁 Arquivos</h2>
+<table><tr><th>Status</th><th>Arquivo</th></tr>
+<tr><td>M</td><td>src/components/AppSidebar.tsx</td></tr>
+</table>
+
+<h2>🔍 Diff</h2>
+<div class="diff">
+diff --git a/src/components/AppSidebar.tsx b/src/components/AppSidebar.tsx
+index 99ef549..f65c635 100644
+<span class="del">--- a/src/components/AppSidebar.tsx</span>
+<span class="add">+++ b/src/components/AppSidebar.tsx</span>
+@@ -12,6 +12,7 @@ import {
+   LogOut,
+   User,
+   Bug,
+<span class="add">+  RotateCcw,</span>
+ } from "lucide-react";
+ import { ThemeToggle } from "./ThemeToggle";
+ import { FeedbackDialog } from "./FeedbackDialog";
+@@ -46,7 +47,7 @@ export function AppSidebar() {
+   const location = useLocation();
+   const navigate = useNavigate();
+   const { signOut } = useAuth();
+<span class="del">-  const { entries } = useData();</span>
+<span class="add">+  const { entries, clearCache } = useData();</span>
+   const currentPath = location.pathname;
+   const collapsed = state === "collapsed";
+   const today = new Date().toISOString().split('T')[0];
+@@ -171,6 +172,22 @@ export function AppSidebar() {
+                   &lt;/NavLink&gt;
+                 &lt;/SidebarMenuButton&gt;
+               &lt;/SidebarMenuItem&gt;
+<span class="add">+              &lt;SidebarMenuItem&gt;</span>
+<span class="add">+                &lt;SidebarMenuButton asChild&gt;</span>
+<span class="add">+                  &lt;button</span>
+<span class="add">+                    onClick={() =&gt; {</span>
+<span class="add">+                      if (window.confirm("Limpar cache? Dados serão recarregados do servidor.")) {</span>
+<span class="add">+                        clearCache();</span>
+<span class="add">+                      }</span>
+<span class="add">+                    }}</span>
+<span class="add">+                    className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50"</span>
+<span class="add">+                    title="Limpar cache local e recarregar dados"</span>
+<span class="add">+                  &gt;</span>
+<span class="add">+                    &lt;RotateCcw className="w-4 h-4 shrink-0" /&gt;</span>
+<span class="add">+                    {!collapsed &amp;&amp; &lt;span className="text-sm font-medium font-body"&gt;Limpar Cache&lt;/span&gt;}</span>
+<span class="add">+                  &lt;/button&gt;</span>
+<span class="add">+                &lt;/SidebarMenuButton&gt;</span>
+<span class="add">+              &lt;/SidebarMenuItem&gt;</span>
+               &lt;SidebarMenuItem&gt;
+                 &lt;FeedbackDialog&gt;
+                   &lt;SidebarMenuButton asChild&gt;
+</div>
+
+<p class="meta">Gerado por scripts/generate-report.mjs</p>
+</body></html>
