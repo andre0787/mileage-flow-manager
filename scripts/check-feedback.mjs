@@ -11,7 +11,8 @@
 
 import { execSync } from "child_process";
 import { readFileSync, writeFileSync } from "fs";
-import { git, ROOT } from "../lib.mjs";
+import { git, ROOT } from "./lib.mjs";
+import { resolve } from "path";
 
 const AGENDA = resolve(ROOT, "docs/AGENDA.md");
 
