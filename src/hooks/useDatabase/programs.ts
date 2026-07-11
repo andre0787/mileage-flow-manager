@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import type { Database } from "@/lib/supabase-types";
 import { useAuth } from "@/contexts/AuthContext";
+import { logError, logDestructiveOp } from "@/lib/logger";
 import type { Program } from "@/types";
 import { useUserId } from "./shared";
 import { mapProgram } from "./mappers";
@@ -56,7 +57,10 @@ export function useAddProgramMutation() {
       queryClient.invalidateQueries({ queryKey: ["programs"] });
       queryClient.invalidateQueries({ queryKey: ["origem_types"] });
     },
-    onError: () => toast.error("Erro ao criar programa"),
+    onError: (err) => {
+      logError("addProgram", err);
+      toast.error("Erro ao criar programa");
+    },
   });
 }
 
@@ -76,7 +80,10 @@ export function useUpdateProgramMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["programs"] }),
-    onError: () => toast.error("Erro ao atualizar programa"),
+    onError: (err) => {
+      logError("updateProgram", err);
+      toast.error("Erro ao atualizar programa");
+    },
   });
 }
 
@@ -89,8 +96,12 @@ export function useDeleteProgramMutation() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["programs"] });
+      logDestructiveOp("delete", "program");
       toast.success("Programa excluído com sucesso");
     },
-    onError: () => toast.error("Erro ao excluir programa"),
+    onError: (err) => {
+      logError("deleteProgram", err);
+      toast.error("Erro ao excluir programa");
+    },
   });
 }

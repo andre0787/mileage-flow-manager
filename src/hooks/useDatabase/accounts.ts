@@ -44,7 +44,10 @@ export function useAddAccountMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["accounts"] }),
-    onError: () => toast.error("Erro ao criar conta"),
+    onError: (err) => {
+      logError("addAccount", err);
+      toast.error("Erro ao criar conta");
+    },
   });
 }
 
@@ -66,7 +69,10 @@ export function useUpdateAccountMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["accounts"] }),
-    onError: () => toast.error("Erro ao atualizar conta"),
+    onError: (err) => {
+      logError("updateAccount", err);
+      toast.error("Erro ao atualizar conta");
+    },
   });
 }
 

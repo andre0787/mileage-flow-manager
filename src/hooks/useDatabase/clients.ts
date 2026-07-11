@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import type { Database } from "@/lib/supabase-types";
 import { useAuth } from "@/contexts/AuthContext";
+import { logError, logDestructiveOp } from "@/lib/logger";
 import type { Client } from "@/types";
 import { useUserId } from "./shared";
 import { mapClient } from "./mappers";
@@ -41,7 +42,10 @@ export function useAddClientMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["clients"] }),
-    onError: () => toast.error("Erro ao criar cliente"),
+    onError: (err) => {
+      logError("addClient", err);
+      toast.error("Erro ao criar cliente");
+    },
   });
 }
 
@@ -61,7 +65,10 @@ export function useUpdateClientMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["clients"] }),
-    onError: () => toast.error("Erro ao atualizar cliente"),
+    onError: (err) => {
+      logError("updateClient", err);
+      toast.error("Erro ao atualizar cliente");
+    },
   });
 }
 
@@ -75,8 +82,12 @@ export function useDeleteClientMutation() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["clients"] });
       queryClient.invalidateQueries({ queryKey: ["sales"] });
+      logDestructiveOp("delete", "client");
       toast.success("Cliente excluído com sucesso");
     },
-    onError: () => toast.error("Erro ao excluir cliente"),
+    onError: (err) => {
+      logError("deleteClient", err);
+      toast.error("Erro ao excluir cliente");
+    },
   });
 }

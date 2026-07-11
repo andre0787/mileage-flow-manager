@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import type { Database } from "@/lib/supabase-types";
 import { useAuth } from "@/contexts/AuthContext";
+import { logError, logDestructiveOp } from "@/lib/logger";
 import type { OrigemType } from "@/types";
 import { useUserId } from "./shared";
 import { mapOrigemType } from "./mappers";
@@ -37,7 +38,10 @@ export function useAddOrigemTypeMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["origem_types"] }),
-    onError: () => toast.error("Erro ao criar tipo de operação"),
+    onError: (err) => {
+      logError("addOrigemType", err);
+      toast.error("Erro ao criar tipo de operação");
+    },
   });
 }
 
@@ -54,7 +58,10 @@ export function useUpdateOrigemTypeMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["origem_types"] }),
-    onError: () => toast.error("Erro ao atualizar tipo de operação"),
+    onError: (err) => {
+      logError("updateOrigemType", err);
+      toast.error("Erro ao atualizar tipo de operação");
+    },
   });
 }
 
@@ -67,8 +74,12 @@ export function useDeleteOrigemTypeMutation() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["origem_types"] });
+      logDestructiveOp("delete", "origem_type");
       toast.success("Tipo de operação excluído com sucesso");
     },
-    onError: () => toast.error("Erro ao excluir tipo de operação"),
+    onError: (err) => {
+      logError("deleteOrigemType", err);
+      toast.error("Erro ao excluir tipo de operação");
+    },
   });
 }

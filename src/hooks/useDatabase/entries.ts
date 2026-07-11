@@ -316,6 +316,10 @@ export function useUpdateEntryMutation() {
       queryClient.invalidateQueries({ queryKey: ["entries"] });
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
     },
+    onError: (err) => {
+      logError("updateEntry", err);
+      toast.error("Erro ao atualizar entrada");
+    },
   });
 }
 
