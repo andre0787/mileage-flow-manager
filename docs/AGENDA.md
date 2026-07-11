@@ -296,7 +296,10 @@
 - [x] #78 – BUG: Tipos de origem não aparecem na edição/exclusão
 - [x] #79 – BUG: Seleção de conta de pontos vazia na transferência
 - [x] #80 – FEATURE: Recorrência, distribuição de valores e edição de data nas entradas
-- [x] #86 – FEATURE: Editar Vendas (aberta, aguardando implementação)
+
+## ✅ Corrigido (PR #87, 2026-07-11)
+
+- [x] #86 – FEATURE: Editar Vendas
 
 ## 📊 Status da Produção
 
@@ -308,9 +311,55 @@
 | **Total** | **99 testes** |
 | CI/CD | ✅ (build + unit + E2E em todo PR) |
 | Deploy | ✅ Automático via Vercel no merge |
-| Último PR | #85 (fix bugs #77, #78 + feat split/repeat) |
+| Último PR | #87 (#86 — Editar Vendas) |
+
+---
+
+## 🎯 Sprint #11 — Formulários Dedicados 🟡 Próxima Sessão
+
+**Objetivo:** Separar o `EntryForm` monolítico em 3 formulários dedicados, cada um com apenas os campos necessários.
+
+**Council:** ❌ (pode ir direto para Superpowers por ser refatoração bem definida)
+
+**Issue:** #88
+
+### Item 1: TransferForm (novo)
+
+- [ ] Criar `src/components/TransferForm.tsx`
+- [ ] Conta origem (pontos) + conta destino (milhas) + data + pontos transferidos
+- [ ] Custo calculado automaticamente (exibido, não editável)
+- [ ] Bonificação (%)
+- [ ] Compra no carrinho (pontos extras + valor total)
+- [ ] **Sem** tipo de origem, **sem** recorrência, **sem** clube
+
+### Item 2: EntryFormPontos (refatorado de EntryForm)
+
+- [ ] Criar `src/components/EntryFormPontos.tsx`
+- [ ] Tipo de origem, recorrência/clube
+- [ ] **Sem** campos de transferência (sourceAccountId, bonusPercent, cartAmount, cartCost)
+
+### Item 3: EntryFormMilhas (refatorado de EntryForm)
+
+- [ ] Criar `src/components/EntryFormMilhas.tsx`
+- [ ] Tipo de origem, recorrência/clube
+- [ ] **Sem** campos de transferência
+
+### Item 4: Atualizar Entradas.tsx
+
+- [ ] Botão "Transferir" → abre `TransferForm` diretamente (sem presets)
+- [ ] Aba Pontos → `EntryFormPontos`
+- [ ] Aba Milhas → `EntryFormMilhas`
+- [ ] Remover `transferInitialData` e `handleOpenTransfer`
+
+### DRY — Compartilhado
+
+- `lib/metrics.ts` — `calcMilesGenerated()`, `calcCostPerThousand()`, `calcCostPerMile()` (já existem)
+- `lib/recurrence.ts` — `calculateRecurrence()`
+- `hooks/useDatabase/entries.ts` — mutations (já existem)
+- Tipos (`types/index.ts`)
+- `FormDrawer`
 
 ---
 
 **Última atualização:** 2026-07-11
-**Próxima revisão:** Sprint B
+**Próxima revisão:** Sprint #11
