@@ -114,7 +114,7 @@ export default function Vendas() {
     updateSaleM.mutate({ id: saleId, status });
   };
 
-  const handleCreateClient = (data: {
+  const handleCreateClient = async (data: {
     id: string;
     name: string;
     cpf: string;
@@ -122,7 +122,7 @@ export default function Vendas() {
     phone: string;
     telegram: string;
   }) => {
-    addClientM.mutate({
+    await addClientM.mutateAsync({
       id: data.id,
       name: data.name.trim(),
       cpf: data.cpf,

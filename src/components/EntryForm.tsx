@@ -79,6 +79,7 @@ export function EntryForm({
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({})
   const [isOrigemTypeOpen, setIsOrigemTypeOpen] = useState(false)
   const [newOT, setNewOT] = useState({ name: "", color: "#10b981", hasRecurrence: false })
+  const [isCreatingOrigemType, setIsCreatingOrigemType] = useState(false)
   const [otErrors, setOtErrors] = useState<Partial<Record<string, string>>>({})
 
   const set = (patch: Partial<EntryFormData>) => setForm((prev) => ({ ...prev, ...patch }))
@@ -88,7 +89,7 @@ export function EntryForm({
   const selectedOrigemType = origemTypes.find((ot) => ot.id === form.origemTypeId)
   const isTransfer = selectedOrigemType ? isTransferencia(selectedOrigemType) : false
   const availableAccounts = accounts.filter((a) => a.type === activeTab && a.status === "ativa")
-  const currentOrigemTypes = origemTypes.filter((ot) => ot.accountType === activeTab)
+  const currentOrigemTypes = origemTypes.filter((ot) => ot.accountType === activeTab && !isTransferencia(ot))
   const sourceAccounts = accounts.filter(
     (a) => a.type === "pontos" && a.status === "ativa" && (!selectedAccount || a.ownerId === selectedAccount.ownerId)
   )
@@ -147,15 +148,20 @@ export function EntryForm({
     setOtErrors(errs)
     if (Object.keys(errs).length > 0) return
 
-    const id = await onCreateOrigemType?.({
-      name: newOT.name.trim(),
-      color: newOT.color,
-      hasRecurrence: newOT.hasRecurrence,
-    })
-    if (id) set({ origemTypeId: id, isClube: newOT.hasRecurrence })
-    setNewOT({ name: "", color: "#10b981", hasRecurrence: false })
-    setOtErrors({})
-    setIsOrigemTypeOpen(false)
+    setIsCreatingOrigemType(true)
+    try {
+      const id = await onCreateOrigemType?.({
+        name: newOT.name.trim(),
+        color: newOT.color,
+        hasRecurrence: newOT.hasRecurrence,
+      })
+      if (id) set({ origemTypeId: id, isClube: newOT.hasRecurrence })
+      setNewOT({ name: "", color: "#10b981", hasRecurrence: false })
+      setOtErrors({})
+      setIsOrigemTypeOpen(false)
+    } finally {
+      setIsCreatingOrigemType(false)
+    }
   }
 
   // Helper to format date to YYYY-MM-DD
@@ -271,8 +277,8 @@ export function EntryForm({
                   <Button variant="outline" onClick={() => { setIsOrigemTypeOpen(false); setOtErrors({}) }}>
                     Cancelar
                   </Button>
-                  <Button onClick={handleCreateOrigemType} className="bg-gradient-primary hover:opacity-90">
-                    Cadastrar
+                  <Button onClick={handleCreateOrigemType} disabled={isCreatingOrigemType} className="bg-gradient-primary hover:opacity-90">
+                    {isCreatingOrigemType ? "Salvando..." : "Cadastrar"}
                   </Button>
                 </div>
               </FormDrawer>
