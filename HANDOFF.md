@@ -27,6 +27,22 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 |------|--------|
 | 1. Varredura automática no CI | ✅ `docs-health.yml` (semanal + dispatch) |
 | 2. Dashboard de qualidade | ✅ `scripts/quality-report.mjs` → QUALITY.md |
+| 3. Relatório HTML automático | ✅ `auto-report.yml` (dispatch + PR) |
+| 4. HANDOFF.md automatizado | ✅ `scripts/update-handoff.mjs` |
+| 5. Paralelismo E2E no CI | ✅ `workers: 2` + docs atualizados |
+
+**PR:** #92 — aguardando CI terminar
+
+**Próximo:** Backlog Futuro (Sprint #11) — traduções pendentes, analytics, PWA
+
+### Sprint C 🟢 — Polimento & Prevenção
+
+**Status:** ✅ Completa
+
+| Item | Status |
+|------|--------|
+| 1. Varredura automática no CI | ✅ `docs-health.yml` (semanal + dispatch) |
+| 2. Dashboard de qualidade | ✅ `scripts/quality-report.mjs` → QUALITY.md |
 | 3. Relatório HTML automático | ✅ `.github/workflows/auto-report.yml` |
 | 4. HANDOFF.md automatizado | ✅ `scripts/update-handoff.mjs` |
 | 5. Paralelismo E2E no CI | ✅ `workers: 2` + docs atualizados |
