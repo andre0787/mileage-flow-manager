@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relatório – Implementação de recorrência, edição de data e distribuição de valores (issue #80)</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; }
+  h1 { border-bottom: 2px solid #5B72C4; padding-bottom: .5rem; }
+  .stat { display: inline-block; background: #f0f4ff; padding: .25rem .75rem; border-radius: 6px; font-size: .875rem; }
+  .benefits li { margin: .5rem 0; }
+  pre { background: #f5f5f5; padding: 1rem; border-radius: 6px; overflow-x: auto; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: .75rem; font-weight: 600; }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-blue { background: #cce5ff; color: #004085; }
+</style>
+</head>
+<body>
+<h1>📋 Relatório: Implementação de recorrência, edição de data e distribuição de valores (issue #80)</h1>
+<p class="stat">📁 +12 arquivos · ➕ 702 linhas · ➖ 22 linhas</p>
+<p class="stat" style="margin-left: .5rem;">⚡ ~965 tokens</p>
+
+<h2>Antes</h2>
+<p>Não havia campo de data na criação/edição de entradas (usava data atual); não havia controle de recorrência; valores não podiam ser distribuídos em parcelas; somente lançamento único.</p>
+
+<h2>Depois</h2>
+<p>Adicionado campo de data (input type=date); componente Reutilizável RecurrenceControls (toggle, tipo, quantidade, data de início); lógica de criação/atualização que calcula intervalo e data de fim, gera múltiplas entradas com valores divididos; edição pré‑preenche a data existente.</p>
+
+<h2>Benefícios</h2>
+<ul class="benefits">
+  <li>✅ Usuário pode lançar entradas recorrentes configuráveis (mensal, trimestral, semestral, anual).</li>
+  <li>✅ Valores e quantidades são distribuídos automaticamente entre as parcelas.</li>
+  <li>✅ Edição de data preserva a intenção do lançamento (não reseta para hoje).</li>
+  <li>✅ Código reaproveitado via função pure calculateRecurrence, facilitando manutenção.</li>
+  <li>✅ Testes unitários cobrem cenários de recorrência e fallback para comportamento legado.</li>
+</ul>
+
+<h2>Detalhes</h2>
+<pre>
+12 files changed, 702 insertions(+), 22 deletions(-)
+</pre>
+</body>
+</html>
