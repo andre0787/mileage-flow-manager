@@ -47,8 +47,7 @@ export function AppSidebar() {
   const { entries } = useData();
   const currentPath = location.pathname;
   const collapsed = state === "collapsed";
-  const today = new Date().toISOString().split('T')[0];
-  const overdueCount = entries.filter(e => e.entryStatus === 'aguardando' && e.date < today).length;
+  const pendingCount = entries.filter(e => e.entryStatus === 'aguardando').length;
 
   const isActive = (path: string) => currentPath === path;
 
@@ -108,9 +107,9 @@ export function AppSidebar() {
                         {!collapsed && (
                           <span className="text-sm font-medium font-body">{item.title}</span>
                         )}
-                        {!collapsed && item.title === "Entradas" && overdueCount > 0 && (
+                        {!collapsed && item.title === "Entradas" && pendingCount > 0 && (
                           <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-500 px-1.5 text-[10px] font-bold text-white">
-                            {overdueCount}
+                            {pendingCount}
                           </span>
                         )}
                       </NavLink>

@@ -21,8 +21,7 @@ const tabs: TabItem[] = [
 export function BottomTabBar() {
   const location = useLocation();
   const { entries } = useData();
-  const today = new Date().toISOString().split('T')[0];
-  const overdueCount = entries.filter(e => e.entryStatus === 'aguardando' && e.date < today).length;
+  const pendingCount = entries.filter(e => e.entryStatus === 'aguardando').length;
 
   return (
     <nav className="fixed bottom-0 inset-x-0 z-40 bg-background/80 backdrop-blur-lg border-t flex items-center justify-around md:hidden safe-area-bottom">
@@ -44,9 +43,9 @@ export function BottomTabBar() {
               <tab.icon
                 className={cn("h-5 w-5 transition-transform duration-200", isActive && "scale-110")}
               />
-              {tab.title === "Entradas" && overdueCount > 0 && (
+              {tab.title === "Entradas" && pendingCount > 0 && (
                 <span className="absolute -top-1 -right-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-amber-500 px-1 text-[9px] font-bold text-white">
-                  {overdueCount}
+                  {pendingCount}
                 </span>
               )}
             </div>

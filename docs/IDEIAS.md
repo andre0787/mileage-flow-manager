@@ -9,7 +9,6 @@
 ## Pendentes
 
 <!-- Ideias adicionadas via npm run think aparecem aqui -->
-- [ ] 2026-07-11: botão de entrada sinalizar apenas atrasadas ao invés de pendentes
 
 ## Em Andamento
 

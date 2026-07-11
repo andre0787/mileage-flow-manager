@@ -230,10 +230,9 @@ export default function Entradas() {
     () => entriesFiltered.filter((e) => e.entryStatus !== "aguardando"),
     [entriesFiltered],
   );
-  const today = new Date().toISOString().split("T")[0];
-  const overdueEntries = useMemo(
-    () => entriesByTab.filter((e) => e.entryStatus === "aguardando" && e.date < today),
-    [entriesByTab, today],
+  const pendingEntries = useMemo(
+    () => entriesByTab.filter((e) => e.entryStatus === "aguardando"),
+    [entriesByTab],
   );
   const totalAmount = confirmedEntries.reduce((s, e) => s + e.amount, 0);
   const totalAmountPaid = confirmedEntries.reduce((s, e) => s + e.amountPaid, 0);
@@ -281,17 +280,17 @@ export default function Entradas() {
         </div>
       </div>
 
-      {/* Banner atrasadas */}
-      {overdueEntries.length > 0 && (
-        <div className="rounded-lg border border-red-400/30 bg-red-50 dark:bg-red-950/20 p-3 sm:p-4 flex items-start gap-3">
-          <AlertTriangle className="h-5 w-5 text-red-600 shrink-0 mt-0.5" />
+      {/* Banner pendências */}
+      {pendingEntries.length > 0 && (
+        <div className="rounded-lg border border-amber-400/30 bg-amber-50 dark:bg-amber-950/20 p-3 sm:p-4 flex items-start gap-3">
+          <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-red-800 dark:text-red-300">
-              {overdueEntries.length} entrada(s) atrasada(s) — confirmação vencida
+            <p className="text-sm font-medium text-amber-800 dark:text-amber-300">
+              {pendingEntries.length} entrada(s) pendente(s) de confirmação
             </p>
-            <p className="text-xs text-red-700 dark:text-red-400 mt-0.5">
-              Estas entradas já passaram da data e seguem sem confirmação.
-              Confirme abaixo para atualizar o saldo da conta.
+            <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
+              Entradas geradas pelo Clube de {activeTab === "milhas" ? "Milhas" : "Pontos"}{" "}
+              aguardando confirmação. Confirme abaixo para atualizar o saldo da conta.
             </p>
           </div>
         </div>
