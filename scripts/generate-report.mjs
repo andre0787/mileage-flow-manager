@@ -185,12 +185,12 @@ if (SHOULD_WRITE) {
   const date = new Date().toISOString().slice(0, 10);
   const safeName = TASK.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
   const prefix = pr ? `PR${pr.number}` : PREFIX;
-  const dir = resolve(ROOT, "docs/reports");
+  const dir = resolve(ROOT, `docs/reports/${date}`);
   const filepath = resolve(dir, `${prefix}-${date}-${safeName}.html`);
 
   if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
   writeFileSync(filepath, html);
-  console.log(`✅ Relatório salvo: docs/reports/${prefix}-${date}-${safeName}.html`);
+  console.log(`✅ Relatório salvo: docs/reports/${date}/${prefix}-${date}-${safeName}.html`);
 } else {
   console.log(html);
 }
