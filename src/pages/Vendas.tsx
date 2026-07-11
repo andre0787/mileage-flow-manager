@@ -100,6 +100,7 @@ export default function Vendas() {
             });
           }
         },
+        onError: () => toast.error("Erro ao criar venda. Verifique os dados e tente novamente."),
       },
     );
     setIsCreateDialogOpen(false);

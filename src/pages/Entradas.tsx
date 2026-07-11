@@ -20,6 +20,7 @@ import { isTransferencia } from "@/lib/utils";
 import { calculateRecurrence } from "@/lib/recurrence";
 import { calcMilesGenerated, calcCostPerThousand, calcCostPerMile } from "@/lib/metrics";
 import { buildMonthlyRecurrence, serializeOrigemTypeDescription } from "@/lib/origemTypes";
+import { toast } from "sonner";
 import {
   useAddEntryMutation,
   useUpdateEntryMutation,
@@ -129,6 +130,7 @@ export default function Entradas() {
             colors: ["#6366f1", "#10b981", "#f59e0b"],
           });
         },
+        onError: () => toast.error("Erro ao salvar entrada. Verifique os dados e tente novamente."),
       },
     );
     setIsCreateDialogOpen(false);
@@ -190,14 +192,14 @@ export default function Entradas() {
     setIsEditDialogOpen(false);
   };
 
-  const handleCreateOrigemType = (data: {
+  const handleCreateOrigemType = async (data: {
     name: string;
     color: string;
     hasRecurrence: boolean;
   }) => {
     const id = crypto.randomUUID();
     const desc = serializeOrigemTypeDescription(data.hasRecurrence);
-    addOrigemTypeM.mutate({
+    await addOrigemTypeM.mutateAsync({
       id,
       name: data.name,
       accountType: activeTab,

@@ -133,6 +133,10 @@ export function useAddEntryMutation() {
       queryClient.invalidateQueries({ queryKey: ["entries"] });
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
     },
+    onError: (err) => {
+      logError("addEntry", err);
+      toast.error("Erro ao salvar entrada");
+    },
   });
 }
 

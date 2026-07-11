@@ -60,7 +60,7 @@ interface EntryFormProps {
   owners: Owner[]
   activeTab: "pontos" | "milhas"
   /** Cria um tipo de origem no banco e retorna o ID (só mode=create) */
-  onCreateOrigemType?: (data: { name: string; color: string; hasRecurrence: boolean }) => string
+  onCreateOrigemType?: (data: { name: string; color: string; hasRecurrence: boolean }) => Promise<string | undefined>
 }
 
 export function EntryForm({
@@ -141,13 +141,13 @@ export function EntryForm({
     onSubmit(form)
   }
 
-  const handleCreateOrigemType = () => {
+  const handleCreateOrigemType = async () => {
     const errs: typeof otErrors = {}
     if (!newOT.name.trim()) errs.name = "Nome é obrigatório"
     setOtErrors(errs)
     if (Object.keys(errs).length > 0) return
 
-    const id = onCreateOrigemType?.({
+    const id = await onCreateOrigemType?.({
       name: newOT.name.trim(),
       color: newOT.color,
       hasRecurrence: newOT.hasRecurrence,
