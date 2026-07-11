@@ -114,6 +114,18 @@ na seção `🐞 Bugs Encontrados`, mesmo que corrigido na hora.
 - **Bug descoberto durante dev:** descrever brevemente + severidade (`alta`/`média`/`baixa`)
 - Adicionar na tabela de corrigidos se já foi resolvido, ou em abertos se ficou pendente
 
+### Modos de registro:
+
+1. **Manual:** usuário diz "registra bug: ..." e o agente adiciona na tabela
+2. **Automático:** o agente registra bugs automaticamente quando:
+   - Encontra um bug durante code review ou análise de PR
+   - Identifica um bug durante desenvolvimento de feature
+   - Testes falham revelando bug legítimo (não flaky)
+   - Um bug é corrigido no mesmo PR — registra como corrigido
+
+> O agente sempre pergunta antes de registrar algo que não seja claramente um bug.
+> Dúvida = não registra.
+
 ### Por quê?
 - Cria rastro histórico do que já quebrou
 - Ajuda a validar backlog (se um bug aparece várias vezes, merece atenção)
