@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import type { Database } from "@/lib/supabase-types";
 import { useAuth } from "@/contexts/AuthContext";
+import { logError, logDestructiveOp } from "@/lib/logger";
 import { calcProportionalCost } from "@/lib/metrics";
 import { calcAccountUpdate } from "@/lib/accounts";
 import type { Sale } from "@/types";
@@ -81,7 +82,10 @@ export function useAddSaleMutation() {
       queryClient.invalidateQueries({ queryKey: ["sales"] });
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
     },
-    onError: () => toast.error("Erro ao criar venda"),
+    onError: (err) => {
+      logError("addSale", err);
+      toast.error("Erro ao criar venda");
+    },
   });
 }
 
@@ -113,7 +117,10 @@ export function useUpdateSaleMutation() {
       if (error) throw error;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["sales"] }),
-    onError: () => toast.error("Erro ao atualizar venda"),
+    onError: (err) => {
+      logError("updateSale", err);
+      toast.error("Erro ao atualizar venda");
+    },
   });
 }
 
@@ -156,8 +163,12 @@ export function useCancelSaleMutation() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sales"] });
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      logDestructiveOp("cancel", "sale");
     },
-    onError: () => toast.error("Erro ao cancelar venda"),
+    onError: (err) => {
+      logError("cancelSale", err);
+      toast.error("Erro ao cancelar venda");
+    },
   });
 }
 
@@ -205,8 +216,12 @@ export function useDeleteSaleMutation() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sales"] });
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      logDestructiveOp("delete", "sale");
       toast.success("Venda excluída com sucesso");
     },
-    onError: () => toast.error("Erro ao excluir venda"),
+    onError: (err) => {
+      logError("deleteSale", err);
+      toast.error("Erro ao excluir venda");
+    },
   });
 }
