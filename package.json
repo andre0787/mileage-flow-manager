@@ -19,7 +19,8 @@
     "session:end": "node scripts/session-end.mjs",
     "report": "node scripts/generate-report.mjs",
     "pre-pr": "node scripts/pre-pr-check.mjs",
-    "handoff": "node scripts/update-handoff.mjs --write"
+    "handoff": "node scripts/update-handoff.mjs --write",
+    "think": "node scripts/think.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

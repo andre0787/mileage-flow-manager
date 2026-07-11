@@ -92,6 +92,26 @@ FIM:      npm run session:end "msg" → commit + handoff + push
 - **Reduz repetição:** finalização em 1 comando vs 5 passos manuais
 - **Preserva qualidade:** scripts não pulam verificações, só automatizam
 
+## Ideias Externas — Fluxo `think`
+
+Para capturar ideias que surgem fora do contexto do projeto (ex: "pensei em algo"):
+
+| Comando | O que faz |
+|---------|-----------|
+| `npm run think "ideia"` | Registra no backlog (`📌 Backlog Futuro`) + salva em `docs/thoughts/` |
+| `npm run think "ideia" --immediate` | Registra + sugere council-to-superpowers imediato |
+| `npm run think "bug: descrição" --bug` | Registra como bug aberto em `🐞 Bugs Encontrados` |
+
+### Fluxo completo de uma ideia externa
+
+```
+1. Você: "pensei em adicionar X"
+2. Agente: npm run think "adicionar X"
+3. Ideia registrada em docs/thoughts/<data>-<slug>.md + AGENDA.md backlog
+4. Opcional: --immediate aciona council-to-superpowers
+5. Opcional: branch → PR → CI → main → deploy
+```
+
 ## Outputs
 
 | Fase | Artefato | Localização |
