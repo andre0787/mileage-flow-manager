@@ -8,6 +8,7 @@ import { FormDrawer } from "@/components/FormDrawer"
 import { isTransferencia } from "@/lib/utils"
 import { parseOrigemTypeDescription } from "@/lib/origemTypes"
 import type { Account, OrigemType, Program, Owner } from "@/types"
+import { parseDescription } from "@/types/index"
 
 export interface EntryFormData {
   accountId: string
@@ -21,20 +22,12 @@ export interface EntryFormData {
   cartCost: string
   isClube: boolean
   clubeMeses: string
-}
-
-interface EntryFormProps {
-  mode: "create" | "edit"
-  initialData?: Partial<EntryFormData>
-  onSubmit: (data: EntryFormData) => void
-  onCancel: () => void
-  accounts: Account[]
-  origemTypes: OrigemType[]
-  programs: Program[]
-  owners: Owner[]
-  activeTab: "pontos" | "milhas"
-  /** Cria um tipo de origem no banco e retorna o ID (só mode=create) */
-  onCreateOrigemType?: (data: { name: string; color: string; hasRecurrence: boolean }) => string
+  // New fields for recurrence feature
+  date: string // YYYY-MM-DD
+  isRecurrent: boolean
+  recurrenceType: 'monthly' | 'quarterly' | 'semiannual' | 'annual'
+  recurrenceCount: number // >=1
+  startDate: string // YYYY-MM-DD
 }
 
 const emptyForm: EntryFormData = {
@@ -49,6 +42,25 @@ const emptyForm: EntryFormData = {
   cartCost: "",
   isClube: false,
   clubeMeses: "",
+  date: "",
+  isRecurrent: false,
+  recurrenceType: "monthly",
+  recurrenceCount: 1,
+  startDate: "",
+}
+
+interface EntryFormProps {
+  mode: "create" | "edit"
+  initialData?: Partial<EntryFormData>
+  onSubmit: (data: EntryFormData) => void
+  onCancel: () => void
+  accounts: Account[]
+  origemTypes: OrigemType[]
+  programs: Program[]
+  owners: Owner[]
+  activeTab: "pontos" | "milhas"
+  /** Cria um tipo de origem no banco e retorna o ID (só mode=create) */
+  onCreateOrigemType?: (data: { name: string; color: string; hasRecurrence: boolean }) => string
 }
 
 export function EntryForm({
@@ -101,6 +113,11 @@ export function EntryForm({
     if (!form.amount || parseFloat(form.amount) <= 0) errs.amount = "Informe a quantidade"
     if (!isTransfer && (!form.amountPaid || parseFloat(form.amountPaid) <= 0))
       errs.amountPaid = "Informe o valor pago"
+    if (!form.date) errs.date = "Selecione a data"
+    if (form.isRecurrent) {
+      if (form.recurrenceCount < 1) errs.recurrenceCount = "Quantidade de parcelas deve ser >= 1"
+      if (!form.startDate) errs.startDate = "Selecione a data de início"
+    }
     if (isTransfer && !form.sourceAccountId) errs.sourceAccountId = "Selecione a conta de origem"
     if (isTransfer && form.sourceAccountId && form.accountId) {
       const src = accounts.find((a) => a.id === form.sourceAccountId)
@@ -140,6 +157,10 @@ export function EntryForm({
     setOtErrors({})
     setIsOrigemTypeOpen(false)
   }
+
+  // Helper to format date to YYYY-MM-DD
+  const formatDate = (date: Date): string =>
+    date.toISOString().split("T")[0]
 
   return (
     <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto">
@@ -268,6 +289,21 @@ export function EntryForm({
         </div>
       )}
 
+      {/* Data */}
+      <div className="space-y-2">
+        <Label htmlFor="entryDate">Data</Label>
+        <Input
+          id="entryDate"
+          type="date"
+          value={form.date}
+          onChange={(e) => {
+            set({ date: e.target.value })
+            clearErr("date")
+          }}
+        />
+        {errors.date && <p className="text-xs text-destructive">{errors.date}</p>}
+      </div>
+
       {/* Quantidade + Valor Pago */}
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
@@ -318,6 +354,115 @@ export function EntryForm({
           )}
         </div>
       </div>
+
+      {/* Recorrência */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={form.isRecurrent}
+            onChange={(e) => {
+              set({ isRecurrent: e.target.checked })
+              if (!e.target.checked) {
+                // When disabling recurrence, reset to single occurrence
+                set({ recurrenceCount: 1, startDate: form.date })
+              }
+            }}
+            className="h-4 w-4 rounded border-border accent-primary"
+          />
+          <Label className="text-sm font-medium">Habilitar recorrência</Label>
+        </div>
+        {form.isRecurrent && (
+          <div className="mt-4 space-y-4">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label>Tipo de recorrência</Label>
+                <Select
+                  value={form.recurrenceType}
+                  onValueChange={(value) => set({ recurrenceType: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="monthly">Mensal (30 dias)</SelectItem>
+                    <SelectItem value="quarterly">Trimestral (90 dias)</SelectItem>
+                    <SelectItem value="semiannual">Semestral (180 dias)</SelectItem>
+                    <SelectItem value="annual">Anual (365 dias)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label>Quantidade de parcelas</Label>
+                <Input
+                  type="number"
+                  min="1"
+                  value={form.recurrenceCount}
+                  onChange={(e) => {
+                    const val = Math.max(1, parseInt(e.target.value) || 1)
+                    set({ recurrenceCount: val })
+                  }}
+                  className="w-20"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Data de início</Label>
+                <Input
+                  type="date"
+                  value={form.startDate}
+                  onChange={(e) => {
+                    set({ startDate: e.target.value })
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Summary */}
+            <div className="border-t pt-4">
+              <div className="text-sm text-muted-foreground">
+                <div className="flex justify-between">
+                  <span>Tipo:</span>
+                  <span>
+                    {form.recurrenceType === "monthly"
+                      ? "Mensal"
+                      : form.recurrenceType === "quarterly"
+                        ? "Trimestral"
+                        : form.recurrenceType === "semiannual"
+                          ? "Semestral"
+                          : "Anual"}
+                  </span>
+                </div>
+                <div className="flex justify-between mt-1">
+                  <span>Parcelas:</span>
+                  <span>{form.recurrenceCount}</span>
+                </div>
+                <div className="flex justify-between mt-1">
+                  <span>Início:</span>
+                  <span>{form.startDate}</span>
+                </div>
+                <div className="flex justify-between mt-1">
+                  <span>Valor por parcela:</span>
+                  <span>
+                    R$ {(
+                      parseFloat(form.amountPaid) / form.recurrenceCount
+                    ).toFixed(2)}
+                  </span>
+                </div>
+                {isTransfer && (
+                  <div className="flex justify-between mt-1">
+                    <span>Quantidade por parcela:</span>
+                    <span>
+                      {(parseFloat(form.amount) / form.recurrenceCount).toLocaleString("pt-BR", {
+                        maximumFractionDigits: 0,
+                      })}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      }
 
       {/* Seção Transferência */}
       {isTransfer && (
@@ -393,8 +538,8 @@ export function EntryForm({
         </>
       )}
 
-      {/* Clube */}
-      {form.isClube && (
+      {/* Clube (mantido para compatibilidade, mas pode ser ocultado se recurrencia ativa) */}
+      {!form.isRecurrent && form.isClube && (
         <div className="border border-dashed border-amber-400/40 rounded-lg p-3 space-y-3">
           <div className="flex items-center gap-2">
             <RefreshCcw className="h-4 w-4 text-amber-500" />
@@ -470,7 +615,7 @@ export function EntryForm({
             {activeTab === "pontos" && (
               <div>
                 <span className="text-muted-foreground">Milhas geradas:</span>
-                <p className="font-semibold">{(parseFloat(form.amount) * parseFloat(form.conversionRate || "1")).toLocaleString("pt-BR")}</p>
+                <p className="font-semibold">{ (parseFloat(form.amount) * parseFloat(form.conversionRate || "1")).toLocaleString("pt-BR") }</p>
               </div>
             )}
             <div>
@@ -490,7 +635,7 @@ export function EntryForm({
         </Button>
         <Button onClick={handleSubmit} className="bg-gradient-primary hover:opacity-90">
           {mode === "create" ? "Registrar Entrada" : "Salvar Alterações"}
-        </Button>
+        }
       </div>
     </div>
   )

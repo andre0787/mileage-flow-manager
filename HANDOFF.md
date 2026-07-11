@@ -63,6 +63,7 @@
   - #78 – BUG: Tipos de origem não aparecem na edição/exclusão
   - #79 – BUG: Seleção de conta de pontos vazia na transferência
   - #80 – FEATURE: Recorrência, distribuição de valores e edição de data nas entradas
+- Trabalho iniciado: branch `feature/avaliar-itens-bug-e-melhoria` criada, correção do bug #79 aplicada (fonte: src/components/EntryForm.tsx)
 
 ---
 
