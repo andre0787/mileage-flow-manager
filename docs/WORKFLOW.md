@@ -147,9 +147,9 @@ concurrency:
 
 ### Workers
 
-- CI usa **1 worker** no Playwright (evita flakiness por recursos compartilhados)
-- Local pode usar `--workers=4` ou `--ui`
-- Para aumentar workers no CI, testar com sharding primeiro
+- CI usa **2 workers** no Playwright (via `playwright.config.ts`)
+- Local usa workers ilimitados (padrão Playwright)
+- Se flakiness aparecer, testar sharding (`--shard=x/y`)
 
 ### Manutenção
 

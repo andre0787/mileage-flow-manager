@@ -245,30 +245,31 @@
 
 **Objetivo:** Prevenção ativa, dashboard de qualidade, docs vivos.
 
-### Item 1: Varredura Automática no CI
+### Item 1: Varredura Automática no CI 🟢
 
-- [ ] Workflow semanal + manual dispatch
-- [ ] Cria issue automática se detectar novos órfãos
+- [x] Workflow semanal + manual dispatch (`.github/workflows/docs-health.yml`)
+- [x] Cria issue automática se detectar novos órfãos
 
-### Item 2: Dashboard de Qualidade
+### Item 2: Dashboard de Qualidade 🟢
 
-- [ ] Script que gera `QUALITY.md` com status de CI, testes, docs
-- [ ] Tendências vs scan anterior
+- [x] Script `scripts/quality-report.mjs` que gera `QUALITY.md`
+- [x] Métricas: pipeline, testes, bundle, docs
 
-### Item 3: Relatório HTML Automático
+### Item 3: Relatório HTML Automático 🟢
 
-- [ ] Workflow dispatch que gera relatório em `docs/reports/`
-- [ ] Cria PR automático com o relatório
+- [x] Workflow dispatch `.github/workflows/auto-report.yml`
+- [x] Gera relatório em `docs/reports/` + cria PR automático
 
-### Item 4: HANDOFF.md Automatizado
+### Item 4: HANDOFF.md Automatizado 🟢
 
-- [ ] Template + script de preenchimento automático
+- [x] Script `scripts/update-handoff.mjs`
+- [x] Preserva notas manuais, atualiza branch/commits/métricas
 
-### Item 5: Paralelismo no E2E do CI
+### Item 5: Paralelismo no E2E do CI 🟢
 
-- [ ] Subir Playwright para 2 workers apenas no GitHub Actions
-- [ ] Medir tempo do job antes/depois
-- [ ] Se flake aparecer, avaliar sharding
+- [x] `workers: 2` já configurado no `playwright.config.ts`
+- [x] `docs/WORKFLOW.md` atualizado (2 workers no CI)
+- [ ] Medir tempo do job antes/depois (pendente — precisa de 2 runs de CI)
 
 ---
 
