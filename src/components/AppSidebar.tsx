@@ -12,6 +12,7 @@ import {
   LogOut,
   User,
   Bug,
+  RotateCcw,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { FeedbackDialog } from "./FeedbackDialog";
@@ -46,7 +47,7 @@ export function AppSidebar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { signOut } = useAuth();
-  const { entries } = useData();
+  const { entries, clearCache } = useData();
   const currentPath = location.pathname;
   const collapsed = state === "collapsed";
   const today = new Date().toISOString().split('T')[0];
@@ -169,6 +170,22 @@ export function AppSidebar() {
                       <span className="text-sm font-medium font-body">Configurações</span>
                     )}
                   </NavLink>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <button
+                    onClick={() => {
+                      if (window.confirm("Limpar cache? Dados serão recarregados do servidor.")) {
+                        clearCache();
+                      }
+                    }}
+                    className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                    title="Limpar cache local e recarregar dados"
+                  >
+                    <RotateCcw className="w-4 h-4 shrink-0" />
+                    {!collapsed && <span className="text-sm font-medium font-body">Limpar Cache</span>}
+                  </button>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
