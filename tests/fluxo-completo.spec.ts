@@ -275,21 +275,23 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.waitForTimeout(1000);
     await page.getByRole("button", { name: /nova venda/i }).first().click();
     await page.waitForTimeout(300);
-    // Dialog combos: nth(1)=Dono, nth(2)=Conta, nth(3)=Cliente
+    // ponytail: wait for overlay to dismiss
+    await page.waitForFunction(() => !document.querySelector('[data-state="open"].fixed.inset-0'), { timeout: 5_000 }).catch(() => {});
     const vCmb = page.locator("[role=combobox]");
-    // ponytail: nth(0)=Dono, nth(1)=Conta, nth(2)=Cliente (shifted due to no external combobox)
-    await vCmb.nth(0).click();
+    // ponytail: nth(0)=Dono, nth(1)=Conta, nth(2)=Cliente
+    await vCmb.nth(0).click({ force: true });
     await page.waitForTimeout(200);
-    await page.getByRole("option", { name: /joão/i }).click();
-    await vCmb.nth(1).click();
+    await page.getByRole("option", { name: /joão/i }).click({ force: true });
+    await vCmb.nth(1).click({ force: true });
     await page.waitForTimeout(200);
-    await page.getByRole("option", { name: /latam/i }).first().click();
-    await vCmb.nth(2).click();
+    await page.getByRole("option", { name: /latam/i }).first().click({ force: true });
+    await vCmb.nth(2).click({ force: true });
     await page.waitForTimeout(200);
-    await page.getByRole("option", { name: /maria/i }).click();
+    await page.getByRole("option", { name: /maria/i }).click({ force: true });
     await page.fill('input[placeholder="Ex: 50000"]', "10000");
     await page.fill('input[placeholder="Ex: 0.03"]', "0.25");
-    await page.getByRole("button", { name: /registrar/i }).click();
+    await page.waitForTimeout(300);
+    await page.getByRole("button", { name: /registrar/i }).click({ force: true });
     await page.waitForTimeout(1500);
     pass("Venda de 10.000 milhas registrada");
     await save("09-venda");

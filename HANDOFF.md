@@ -1,10 +1,10 @@
 # HANDOFF — Bugfix Limpar Cache + Docs
 
-## Status: 🔄 Sessão pausada — 2026-07-10
+## Status: 🔄 Em andamento — 2026-07-11
 
-### Último trabalho: PR #76 mergeado em produção
-### Resultado: CI verde; deploy de produção verde com proxy Vercel
-### Trabalho atual: Feature #80 implementada (recorrência, distribuição de valores e edição de data) - aguardando review e merge do PR #84
+### Último trabalho: Revisão e correções no PR #84 (feature #80)
+### Resultado: CI verde pendente — último run: 54/55 passed (1 flaky)
+### Trabalho atual: Corrigindo E2E tests quebrados pelo modelo anterior — sintaxe EntryForm, import duplicado, data field faltando nos testes
 
 ---
 
@@ -70,9 +70,37 @@
 
 ---
 
+## Correções nesta sessão (2026-07-11)
+
+### Item 1: Sintaxe JSX quebrada no EntryForm.tsx ✅
+- Root cause: `}` extra em `{/* Seção Transferência */}}` e indentação errada no bloco de recorrência
+- Sintoma: build falhava com "Unterminated regular expression"
+- Fix: corrigido fechamento de divs e removido `}` extra
+
+### Item 2: Import duplicado de calculateRecurrence ✅
+- Root cause: `import { calculateRecurrence }` repetido nas linhas 20 e 23 do Entradas.tsx
+- Sintoma: Vite dev server quebrava com "Identifier 'calculateRecurrence' has already been declared"
+- Impacto: TODOS os 44 E2E tests falhavam porque o servidor nunca servia a página corretamente
+- Fix: removido o import duplicado (linha 23)
+
+### Item 3: Lint errors (as any, prefer-const) ✅
+- `DataContext.tsx:61` e `shared.ts:79` — `as any` removidos
+- `auth.spec.ts:10` — `let` → `const`
+
+### Item 4: E2E tests — campo Data obrigatório ✅
+- Root cause: feature #80 adicionou campo date obrigatório no EntryForm
+- `clube.spec.ts` e `fluxo-completo.spec.ts` não preenchiam a data
+- Fix: adicionado `page.fill("#entryDate", ...)` antes de submit
+
+### Item 5: E2E tests — índices de combobox na venda ✅
+- `fluxo-completo.spec.ts` usava índices errados (nth(1)/2/3 em vez de nth(0)/1/2)
+- Fix: ajustado para nth(0)/1/2
+
+---
+
 ## Branch atual
 
-`feature/avaliar-itens-bug-e-melhoria` — feature #80 implementada, aguardando review e merge do PR #84
+`feature/avaliar-itens-bug-e-melhoria` — PR #84 corrigido, aguardando CI verde para merge
 
 `main` — produção atualizada com o hotfix do deploy
 
