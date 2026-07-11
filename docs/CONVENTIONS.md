@@ -85,14 +85,23 @@ Use `/report` (template em `.pi/prompts/report.md`) que:
 - **Consumo de tokens**: estimado a partir do diff (~¾ token por linha)
 - **Badges**: tipo da branch, PR, ambiente, data
 
-### Nomenclatura — OBRIGATÓRIO: número da PR
+### Nomenclatura — OBRIGATÓRIO
 
-O relatório DEVE começar com o número da PR: `docs/reports/<PR>-<data>-<nome>.html`
+O relatório DEVE seguir o padrão: `<prefixo>-YYYY-MM-DD-<nome>.html`
+
+**Prefixos válidos:** `PR<num>`, `Sprint<letra>`, `auto`, `fix`, `feat`, `docs`, `chore`
+- `PR<num>` — relatório vinculado a um PR específico (preferencial)
+- `Sprint<letra>` — relatório de sprint completo
+- `fix/feat/docs/chore` — relatórios avulsos sem PR dedicado
+- `auto` — relatórios gerados por workflow automático
 
 ### Exemplos reais:
 ```
 docs/reports/PR58-2026-07-09-bugfix-testes.html
 docs/reports/PR55-2026-07-09-sprint4-csv-export.html
+docs/reports/SprintC-2026-07-11-polimento-prevencao.html
+docs/reports/fix-2026-07-10-overflow-selectors.html
+docs/reports/docs-2026-07-10-mapa-completo-fluxos-usuario.html
 ```
 
 ## Escopo Estrito

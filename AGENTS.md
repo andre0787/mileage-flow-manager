@@ -25,7 +25,7 @@
 4. **CI/CD obrigatório**: CI roda build + testes em todo PR (`.github/workflows/ci.yml`). Deploy automático no merge (`.github/workflows/deploy.yml`). — veja `docs/GIT-WORKFLOW.md`
 5. **Ponytail mode**: stdlib/nativo primeiro, sem abstrações especulativas
 6. **Interface**: português (pt-BR)
-7. **🔴 Relatório HTML obrigatório antes do PR**: toda branch que altera código OU docs DEVE gerar `docs/reports/<PR>-<data>-<nome>.html` antes do PR. Template: `/report`. Execute `node scripts/verify-docs.mjs` para verificar integridade dos docs antes do PR.
+7. **🔴 Relatório HTML obrigatório antes do PR**: toda branch que altera código OU docs DEVE gerar relatório em `docs/reports/<prefixo>-YYYY-MM-DD-<nome>.html` antes do PR. Prefixos: `PR<num>`, `Sprint<letra>`, `auto`, `fix`, `feat`, `docs`, `chore`. Template: `/report`. Execute `node scripts/verify-docs.mjs` para verificar integridade dos docs antes do PR.
 8. **📋 HANDOFF.md obrigatório no início da sessão**: leia `HANDOFF.md` antes de qualquer trabalho. Atualize antes de `/new`, quando a sessão atingir ~12+ turns, **ou sempre que criar/merger um PR**. O estado da sessão anterior é restaurado via este arquivo.
 9. **🧹 Limpeza obrigatória antes de PR/merge**: verifique `git status` — ZERO arquivos uncommitted. Inclui código, docs, council verdicts, plans, specs, package.json/lock, relatórios. Veja `docs/CONVENTIONS.md` → "Limpeza Pós-Sessão".
 
