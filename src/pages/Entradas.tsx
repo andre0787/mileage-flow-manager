@@ -16,6 +16,7 @@ import { SkeletonPage } from "@/components/SkeletonLoader";
 import { useHaptic } from "@/hooks/useHaptic";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
+import { isTransferencia } from "@/lib/utils";
 import { calculateRecurrence } from "@/lib/recurrence";
 import { calcMilesGenerated, calcCostPerThousand, calcCostPerMile } from "@/lib/metrics";
 import { buildMonthlyRecurrence, serializeOrigemTypeDescription } from "@/lib/origemTypes";
