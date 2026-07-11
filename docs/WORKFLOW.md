@@ -67,6 +67,39 @@ Features triviais podem usar Superpowers direto sem council ("let's build X" →
 > Prefixos válidos: `PR<num>`, `Sprint<letra>`, `auto`.
 > Exemplos: `PR89-2026-07-11-sprint-11.html`, `SprintC-2026-07-11-polimento-prevencao.html`, `auto-2026-07-11-qualidade.html`.
 
+## Nomenclatura de PRs — OBRIGATÓRIO
+
+O título do PR (que vira nome do workflow no GitHub Actions) DEVE seguir o padrão:
+
+```
+<Sprint|fix|feat|chore|docs> <scope> — <descrição>
+```
+
+### Regras:
+- **1º elemento:** identificador do sprint (`Sprint B`, `Sprint C`) ou tipo de mudança (`fix`, `feat`, `chore`, `docs`)
+- **2º elemento (opcional):** escopo curto entre parênteses ou após travessão
+- **Separador:** ` — ` (espaço + travessão + espaço)
+- **Descrição:** português, capitalizada, max 80 chars
+
+### Exemplos:
+```
+Sprint B + C — Limpeza & Confiabilidade + Polimento & Prevenção
+Sprint #11 — Formulários Dedicados
+fix: bugs #77 (entrada save) e #78 (race condition tipos origem)
+feat: editar vendas (#86)
+chore: debug infra — launch.json, DEBUG.md, logInfo/logWarn
+```
+
+### Por quê?
+- O GitHub Actions usa o título do PR como nome do workflow run
+- Nomes padronizados facilitam identificar o que cada run contém
+- O squash merge usa o título como mensagem do commit na `main`
+
+### Commits Squash
+Ao mergear com squash, usar o mesmo padrão:
+- PR único → título do PR como mensagem
+- PR com múltiplas features → `<tipo>: <descrição>`
+
 ## Checklist Pré-PR — OBRIGATÓRIO
 
 Antes de criar qualquer PR, executar este checklist:

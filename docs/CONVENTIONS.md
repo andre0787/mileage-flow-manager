@@ -9,8 +9,10 @@
 | Hooks | `camelCase.ts` | `useDebounce.ts` |
 | Tipos | `index.ts` | `types/index.ts` |
 | Import path | `@/` → `src/` | `@/components/MetricCard` |
+| PR / Workflow | `Sprint <letra> — <descrição>` | `Sprint C — Polimento & Prevenção` |
 
 **Interface:** português (pt-BR)
+**PR naming:** `<Sprint|fix|feat|chore|docs> <scope> — <descrição>` em português (ver `WORKFLOW.md`)
 
 ## Organização de Código
 
