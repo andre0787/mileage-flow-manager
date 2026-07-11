@@ -1,0 +1,110 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🚀 Iniciar Sessão",
+      "type": "npm",
+      "script": "session:start",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "detail": "npm run session:start — restaura contexto, verifica HANDOFF e IDEIAS"
+    },
+    {
+      "label": "📋 Pré-PR Check",
+      "type": "npm",
+      "script": "pre-pr",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "detail": "npm run pre-pr — build + testes + regras + docs antes do PR"
+    },
+    {
+      "label": "📬 Feedbacks Pendentes",
+      "type": "npm",
+      "script": "feedback:check",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "detail": "npm run feedback:check — consulta feedbacks de usuários no Supabase"
+    },
+    {
+      "label": "📝 Gerar Relatório",
+      "type": "npm",
+      "script": "report",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "detail": "npm run report — relatório HTML do diff atual"
+    },
+    {
+      "label": "🔧 Instalar Git Hooks",
+      "type": "npm",
+      "script": "hooks:install",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "never",
+        "panel": "dedicated"
+      },
+      "detail": "npm run hooks:install — ativa .githooks (bloqueio de main)"
+    },
+    {
+      "label": "🏁 Finalizar Sessão",
+      "type": "npm",
+      "script": "session:end",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "detail": "npm run session:end — commit + handoff + push"
+    },
+    {
+      "label": "💭 Capturar Ideia",
+      "type": "npm",
+      "script": "think",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "detail": "npm run think \"ideia\" — salva em IDEIAS.md"
+    },
+    {
+      "label": "🧪 Testes Unitários",
+      "type": "npm",
+      "script": "test",
+      "problemMatcher": [],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "detail": "npm test — 45 testes unitários"
+    },
+    {
+      "label": "🏗️ Build",
+      "type": "npm",
+      "script": "build",
+      "problemMatcher": ["$esbuild"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "detail": "npm run build — build de produção"
+    }
+  ]
+}

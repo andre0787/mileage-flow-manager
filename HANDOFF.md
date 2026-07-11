@@ -4,7 +4,7 @@
 ---
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `fa9b291` — feat: canal de feedback — templates issue + formulário interno (#96)
+- **Último commit:** `29ee2fe` — feat: botão de atalho Limpar Cache no sidebar — acesso rápido (#98)
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -99,4 +99,5 @@ session:start → HANDOFF in progress? → IDEIAS.md pendentes? → pergunta
 - CI removido de push:main (redundante — ja rodou no PR)
 - gh auth com escopo workflow
 - Deploy nao compete mais com CI
+
 
