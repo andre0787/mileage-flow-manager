@@ -5,9 +5,13 @@
  *
  * Uso:
  *   node scripts/generate-report.mjs                          # preview no console
- *   node scripts/generate-report.mjs "Nome da tarefa"          # gera HTML
- *   node scripts/generate-report.mjs "Nome" --prefix PR99     # prefixo custom
+ *   node scripts/generate-report.mjs "Nome"                   # gera HTML
  *   node scripts/generate-report.mjs "Nome" --write           # salva em docs/reports/<data>/
+ *   node scripts/generate-report.mjs "Nome" --prefix PR99     # prefixo custom
+ *   node scripts/generate-report.mjs "Nome" --benefits "linha1
+linha2"  # beneficios
+ *   node scripts/generate-report.mjs "Nome" --prefix PR95 --benefits "Menos alertas
+UX mais limpo" --write
  *
  * ponytail: template string + execSync, zero deps
  */
@@ -26,6 +30,17 @@ const PREFIX = (() => {
   return idx !== -1 ? process.argv[idx + 1] || "auto" : "auto";
 })();
 const SHOULD_WRITE = process.argv.includes("--write");
+const BENEFITS = (() => {
+  const idx = process.argv.indexOf("--benefits");
+  if (idx === -1) return "";
+  // Pega args ate o proximo --flag
+  const parts = [];
+  for (let i = idx + 1; i < process.argv.length; i++) {
+    if (process.argv[i].startsWith("--")) break;
+    parts.push(process.argv[i]);
+  }
+  return parts.join("\n");
+})();
 
 function git(cmd) {
   try {
@@ -85,7 +100,7 @@ function estimateTokens(diff) {
 
 // ── Gera HTML ─────────────────────────────────────────────────────────
 
-function generateHTML(task, diff, changedFiles, branch, commit, pr, metrics) {
+function generateHTML(task, diff, changedFiles, branch, commit, pr, metrics, benefits) {
   const now = new Date();
   const date = now.toISOString().slice(0, 10);
   const time = now.toTimeString().slice(0, 5);
@@ -138,6 +153,11 @@ function generateHTML(task, diff, changedFiles, branch, commit, pr, metrics) {
     `<p class="meta">${date} ${time} &middot; ${branch} &middot; ${commit}</p>`,
     `<p>${prHtml} <span class="badge ${prefix.startsWith("fix") ? "fix" : prefix.startsWith("feat") ? "feat" : prefix.startsWith("docs") ? "docs" : prefix.startsWith("chore") ? "chore" : "auto"}">${prefix}</span></p>`,
     ``,
+    benefits ? [
+    `<h2>🎯 Benefícios</h2>`,
+    `<ul>${benefits.split("\n").filter(l => l.trim()).map(l => `<li>${escapeHTML(l.replace(/^[\s*-]+/, ""))}</li>`).join("")}</ul>`,
+    ``,
+    ].join("\n") : "",
     `<h2>📊 Métricas</h2>`,
     `<table>`,
     `<tr><th>Métrica</th><th>Valor</th></tr>`,
@@ -179,7 +199,7 @@ const commit = getCommit();
 const pr = getPR();
 const metrics = estimateTokens(diff);
 
-const html = generateHTML(TASK, diff, changedFiles, branch, commit, pr, metrics);
+const html = generateHTML(TASK, diff, changedFiles, branch, commit, pr, metrics, BENEFITS);
 
 if (SHOULD_WRITE) {
   const date = new Date().toISOString().slice(0, 10);

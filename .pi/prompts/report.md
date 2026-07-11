@@ -69,4 +69,6 @@ Calcular a partir do diff:
    - Crie a pasta do dia: `docs/reports/$(date +%F)/`
    - Prefixos: `PR<num>`, `Sprint<letra>`, `auto`, `fix`, `feat`, `docs`, `chore`
    - Exemplo: `docs/reports/2026-07-11/PR95-2026-07-11-badge-e-banner-atrasadas.html`
-4. Informe o usuário do caminho do arquivo
+4. **Benefícios obrigatórios**: o relatório DEVE incluir seção de benefícios
+   (`🎯 Benefícios`). Use `--benefits "linha1\nlinha2"` no script.
+5. Informe o usuário do caminho do arquivo
