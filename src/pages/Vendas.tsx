@@ -35,6 +35,8 @@ export default function Vendas() {
   const [statusFilter, setStatusFilter] = useState<string>("todos");
   const [simulatorOpen, setSimulatorOpen] = useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingSale, setEditingSale] = useState<Sale | null>(null);
 
   const addSaleM = useAddSaleMutation();
   const updateSaleM = useUpdateSaleMutation();
@@ -104,6 +106,46 @@ export default function Vendas() {
       },
     );
     setIsCreateDialogOpen(false);
+  };
+
+  const handleUpdateSale = (data: SaleFormData) => {
+    if (!editingSale) return;
+    const milesUsed = parseFloat(data.milesUsed);
+    const saleValue = parseFloat(data.saleValue);
+    const additionalCost = parseFloat(data.additionalCost || "0");
+    const costPerMile = data.costPerMile ?? 0;
+    const profit = calcProfit(saleValue, milesUsed, costPerMile, additionalCost);
+    const profitMargin = calcProfitMargin(profit, saleValue);
+
+    updateSaleM.mutate(
+      {
+        id: editingSale.id,
+        accountId: data.accountId,
+        accountName: data.accountName,
+        ownerName: data.ownerName,
+        program: data.program,
+        clientId: data.clientId,
+        clientName: data.clientName,
+        milesUsed,
+        saleValue,
+        pricePerMile: parseFloat(data.pricePerMile) || undefined,
+        additionalCost: additionalCost || undefined,
+        additionalCostDesc: data.additionalCostDesc.trim() || undefined,
+        costPerMile,
+        profit,
+        profitMargin,
+        ticketLocator: data.ticketLocator,
+        passengers: data.passengers.filter((p) => p.name.trim()),
+        date: editingSale.date,
+      },
+      {
+        onSuccess: () => haptic.success(),
+        onError: () =>
+          toast.error("Erro ao atualizar venda. Verifique os dados e tente novamente."),
+      },
+    );
+    setEditingSale(null);
+    setIsEditDialogOpen(false);
   };
 
   const handleCancelSale = (saleId: string) => {
@@ -259,6 +301,10 @@ export default function Vendas() {
         onCancel={handleCancelSale}
         onStatusChange={handleStatusChange}
         onCreateClick={() => setIsCreateDialogOpen(true)}
+        onEdit={(sale) => {
+          setEditingSale(sale);
+          setIsEditDialogOpen(true);
+        }}
       />
 
       {/* Formulário de criação */}
@@ -272,6 +318,44 @@ export default function Vendas() {
         sales={sales}
         onSubmit={handleCreateSale}
         onCreateClient={handleCreateClient}
+      />
+
+      {/* Formulário de edição */}
+      <SaleForm
+        key={editingSale?.id ?? 'edit'}
+        mode="edit"
+        open={isEditDialogOpen}
+        onOpenChange={(open) => {
+          if (!open) setEditingSale(null);
+          setIsEditDialogOpen(open);
+        }}
+        accounts={accounts}
+        owners={owners}
+        programs={programs}
+        clients={clients}
+        sales={sales}
+        onSubmit={handleUpdateSale}
+        onCreateClient={handleCreateClient}
+        initialData={
+          editingSale
+            ? {
+                ownerName: editingSale.ownerName,
+                accountId: editingSale.accountId ?? "",
+                accountName: editingSale.accountName,
+                program: editingSale.program,
+                clientId: editingSale.clientId,
+                clientName: editingSale.clientName,
+                milesUsed: editingSale.milesUsed.toString(),
+                pricePerMile: editingSale.pricePerMile?.toString() ?? "",
+                saleValue: editingSale.saleValue.toString(),
+                additionalCost: editingSale.additionalCost?.toString() ?? "",
+                additionalCostDesc: editingSale.additionalCostDesc ?? "",
+                ticketLocator: editingSale.ticketLocator,
+                passengers: editingSale.passengers,
+                costPerMile: editingSale.costPerMile,
+              }
+            : undefined
+        }
       />
 
       {/* Simulador */}

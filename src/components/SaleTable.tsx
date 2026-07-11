@@ -38,11 +38,12 @@ interface SaleTableProps {
   onCancel?: (saleId: string) => void;
   onStatusChange?: (saleId: string, status: "pendente" | "pago" | "concluido") => void;
   onCreateClick?: () => void;
+  onEdit?: (sale: Sale) => void;
 }
 
 const ITEMS_PER_PAGE = 20
 
-export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick }: SaleTableProps) {
+export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick, onEdit }: SaleTableProps) {
   const { isOnline } = useOnlineStatus();
   const [cancelConfirmId, setCancelConfirmId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1)
@@ -157,16 +158,28 @@ export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick }: Sa
                         <Users className="h-3 w-3 text-muted-foreground" />
                         <span className="text-xs">{sale.passengers.length} pax</span>
                         {sale.status !== "cancelado" && (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-destructive hover:text-destructive h-6 text-xs"
-                            onClick={() => setCancelConfirmId(sale.id)}
-                            disabled={!isOnline}
-                            title={!isOnline ? "Requer conexão" : undefined}
-                          >
-                            Cancelar
-                          </Button>
+                          <>
+                            {onEdit && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="h-6 text-xs"
+                                onClick={() => onEdit(sale)}
+                              >
+                                Editar
+                              </Button>
+                            )}
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="text-destructive hover:text-destructive h-6 text-xs"
+                              onClick={() => setCancelConfirmId(sale.id)}
+                              disabled={!isOnline}
+                              title={!isOnline ? "Requer conexão" : undefined}
+                            >
+                              Cancelar
+                            </Button>
+                          </>
                         )}
                       </div>
                     </TableCell>
@@ -249,6 +262,16 @@ export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick }: Sa
                 </div>
                 {sale.status !== "cancelado" && (
                   <div className="flex items-center gap-2 pt-1 border-t">
+                    {onEdit && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-9 px-3 min-h-[44px]"
+                        onClick={() => onEdit(sale)}
+                      >
+                        Editar
+                      </Button>
+                    )}
                     <Button
                       variant="ghost"
                       size="sm"
