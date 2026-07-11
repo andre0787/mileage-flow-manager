@@ -65,8 +65,8 @@ Calcular a partir do diff:
 </html>
 ```
 
-3. Salve o HTML em `docs/reports/<data>/<prefixo>-<data>-<nome-da-tarefa>.html`
-   - Crie a pasta do dia: `docs/reports/$(date +%F)/`
+3. Salve o HTML em `docs/reports/<prefixo>-YYYY-MM-DD-<nome-da-tarefa>.html`
+   - Formato flat — sem subdiretórios
    - Prefixos: `PR<num>`, `Sprint<letra>`, `auto`, `fix`, `feat`, `docs`, `chore`
-   - Exemplo: `docs/reports/2026-07-11/PR89-2026-07-11-sprint-11.html`
+   - Exemplo: `docs/reports/PR89-2026-07-11-sprint-11.html`
 4. Informe o usuário do caminho do arquivo
