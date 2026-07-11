@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { LayoutDashboard, TrendingUp, TrendingDown, Users, User, Settings } from "lucide-react";
+import { LayoutDashboard, TrendingUp, TrendingDown, Users, User, Settings, Bug } from "lucide-react";
 import { useData } from "@/contexts/DataContext";
 import { cn } from "@/lib/utils";
 
@@ -7,6 +7,7 @@ interface TabItem {
   title: string;
   url: string;
   icon: React.ComponentType<{ className?: string }>;
+  external?: boolean;
 }
 
 const tabs: TabItem[] = [
@@ -16,6 +17,7 @@ const tabs: TabItem[] = [
   { title: "Clientes", url: "/clientes", icon: Users },
   { title: "Perfil", url: "/perfil", icon: User },
   { title: "Ajustes", url: "/configuracoes", icon: Settings },
+  { title: "Reportar", url: "https://github.com/andre0787/mileage-flow-manager/issues/new/choose", icon: Bug, external: true },
 ];
 
 export function BottomTabBar() {
@@ -27,16 +29,13 @@ export function BottomTabBar() {
   return (
     <nav className="fixed bottom-0 inset-x-0 z-40 bg-background/80 backdrop-blur-lg border-t flex items-center justify-around md:hidden safe-area-bottom">
       {tabs.map((tab) => {
-        const isActive = location.pathname === tab.url;
-        return (
-          <NavLink
-            key={tab.url}
-            to={tab.url}
-            className={cn(
-              "flex flex-col items-center justify-center gap-0.5 min-w-[48px] min-h-[44px] px-3 py-1 rounded-lg transition-all duration-200 relative",
-              isActive ? "text-primary" : "text-muted-foreground hover:text-foreground",
-            )}
-          >
+        const isActive = !tab.external && location.pathname === tab.url;
+        const className = cn(
+          "flex flex-col items-center justify-center gap-0.5 min-w-[48px] min-h-[44px] px-3 py-1 rounded-lg transition-all duration-200 relative",
+          isActive ? "text-primary" : "text-muted-foreground hover:text-foreground",
+        );
+        const inner = (
+          <>
             {isActive && (
               <span className="absolute -top-px left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary rounded-full" />
             )}
@@ -58,6 +57,18 @@ export function BottomTabBar() {
             >
               {tab.title}
             </span>
+          </>
+        );
+        if (tab.external) {
+          return (
+            <a key={tab.url} href={tab.url} target="_blank" rel="noopener noreferrer" className={className}>
+              {inner}
+            </a>
+          );
+        }
+        return (
+          <NavLink key={tab.url} to={tab.url} className={className}>
+            {inner}
           </NavLink>
         );
       })}
