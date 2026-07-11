@@ -4,18 +4,16 @@
 ---
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `4412d48` — feat: fluxo de início com 2 gatilhos
-- **Remote:** origin (https://github.com/andre0787/mileage-flow-manager.git)
+- **Último commit:** `fa9b291` — feat: canal de feedback — templates issue + formulário interno (#96)
+- **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 99+ |
-| Docs issues | 0 |
+| Total testes | 108 |
+| Docs issues | 1 |
 | Branch | main |
-| PRs mergeados | #92, #93 |
-| Scripts de workflow | 6 |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
@@ -101,3 +99,4 @@ session:start → HANDOFF in progress? → IDEIAS.md pendentes? → pergunta
 - CI removido de push:main (redundante — ja rodou no PR)
 - gh auth com escopo workflow
 - Deploy nao compete mais com CI
+
