@@ -1,0 +1,28 @@
+#!/bin/sh
+# .githooks/pre-commit — Bloqueia commit direto na main/master
+#
+# Regra #4 do AGENTS.md: "🔥 Branch obrigatória — NUNCA direto na main"
+#
+# Instalação (já automática via session:start):
+#   git config core.hooksPath .githooks
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+
+if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
+  cat <<'EOF'
+╔══════════════════════════════════════════════════════════════╗
+║  🚫 BLOQUEADO: commit direto na main/master                ║
+║                                                             ║
+║  Regra #4 do AGENTS.md:                                     ║
+║  "🔥 Branch obrigatória — NUNCA direto na main"             ║
+║                                                             ║
+║  Crie uma branch primeiro:                                  ║
+║    git checkout -b feat/meu-feature                          ║
+║    git add . && git commit -m "mensagem"                     ║
+║                                                             ║
+║  Depois abra um PR:                                         ║
+║    gh pr create --title "..." --body "..."                  ║
+╚══════════════════════════════════════════════════════════════╝
+EOF
+  exit 1
+fi

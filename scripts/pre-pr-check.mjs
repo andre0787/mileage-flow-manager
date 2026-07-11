@@ -1,122 +1,100 @@
 #!/usr/bin/env node
 
 /**
- * pre-pr-check.mjs — Valida tudo antes do PR.
+ * pre-pr-check.mjs — Orquestrador de validação pré-PR.
+ *
+ * Chama cada rule-*.mjs em scripts/rules/ + build + testes + docs.
  *
  * Uso:
- *   node scripts/pre-pr-check.mjs          # roda todas as verificações
- *   node scripts/pre-pr-check.mjs --strict # exit code 1 se falhar
+ *   node scripts/pre-pr-check.mjs          # roda tudo
+ *   node scripts/pre-pr-check.mjs --strict # exit 1 se falhar
+ *   node scripts/pre-pr-check.mjs --list   # lista regras
  *
- * Verifica:
- *   1. git status limpo
- *   2. npm run build
- *   3. npm test (unit)
- *   4. verify-docs (se existir)
- *   5. console.log esquecido
- *
- * ponytail: execSync + grep, zero deps
+ * ponytail: execSync em loop, zero deps
  */
 
 import { execSync } from "child_process";
-import { existsSync } from "fs";
+import { existsSync, readdirSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
-const STRICT = process.argv.includes("--strict");
+const RULES_DIR = resolve(ROOT, "scripts/rules");
 
-let errors = [];
-let warnings = [];
-let passed = 0;
+let errors = 0;
 
-function ok(msg) {
-  console.log(`  ✅ ${msg}`);
-  passed++;
-}
-
-function err(msg) {
-  console.log(`  ❌ ${msg}`);
-  errors.push(msg);
-}
-
-function warn(msg) {
-  console.log(`  ⚠️  ${msg}`);
-  warnings.push(msg);
-}
-
-function run(cmd, label) {
-  try {
-    const out = execSync(cmd, { cwd: ROOT, encoding: "utf8", timeout: 60_000 });
-    ok(label);
-    return out.trim();
-  } catch (e) {
-    err(`${label}: ${e.stderr?.slice(0, 200) || e.message}`);
-    return null;
-  }
-}
+function ok(label) { console.log(`  ✅ ${label}`); }
+function fail(label) { console.log(`  ❌ ${label}`); errors++; }
 
 console.log("\n🔍 PRE-PR CHECK\n");
 
-// 1. Git status
-console.log("── Git ──");
-try {
-  const status = execSync("git status --short", { cwd: ROOT, encoding: "utf8", timeout: 5_000 }).trim();
-  if (status) {
-    warn("Arquivos não commitados:");
-    status.split("\n").forEach(l => console.log(`     ${l}`));
-  } else {
-    ok("git status limpo");
-  }
-} catch {
-  warn("git status falhou");
+// ── Lista ────────────────────────────────────────────────────────────
+if (process.argv.includes("--list")) {
+  const files = readdirSync(RULES_DIR).filter(f => f.endsWith(".mjs")).sort();
+  console.log("Regras disponíveis:");
+  files.forEach(f => console.log(`  scripts/rules/${f}`));
+  process.exit(0);
 }
 
-// 2. console.log esquecido
+// ── Regras ───────────────────────────────────────────────────────────
+console.log("── Regras ──");
+const ruleFiles = readdirSync(RULES_DIR).filter(f => f.endsWith(".mjs")).sort();
+
+for (const file of ruleFiles) {
+  const rulePath = resolve(RULES_DIR, file);
+  try {
+    const out = execSync(`node "${rulePath}"`, { cwd: ROOT, encoding: "utf8", timeout: 15000 });
+    if (out) process.stdout.write(out + "\n");
+  } catch (e) {
+    if (e.stdout) process.stdout.write(e.stdout + "\n");
+    if (e.stderr) process.stderr.write(e.stderr + "\n");
+  }
+}
+
+// ── console.log esquecido ───────────────────────────────────────────
 console.log("\n── Sanity ──");
 try {
   const logCheck = execSync(
     `git diff HEAD -- ":(exclude)src/lib/logger.ts" | grep "console\\." || true`,
-    { cwd: ROOT, encoding: "utf8", timeout: 5_000 }
+    { cwd: ROOT, encoding: "utf8", timeout: 5000 }
   ).trim();
   if (logCheck) {
-    warn("console.log encontrado no diff (exceto logger.ts)");
+    console.log("  ⚠️  console.log encontrado no diff (exceto logger.ts)");
   } else {
     ok("sem console.log no diff");
   }
-} catch {
-  warn("verificação de console.log falhou");
-}
+} catch { console.log("  ⚠️  verificação de console.log falhou"); }
 
-// 3. Build
+// ── Build ────────────────────────────────────────────────────────────
 console.log("\n── Build ──");
-run("npm run build 2>&1", "build");
+try {
+  execSync("npm run build 2>&1", { cwd: ROOT, encoding: "utf8", timeout: 60000 });
+  ok("build");
+} catch (e) { fail(`build: ${e.stderr?.slice(0, 200) || e.message}`); }
 
-// 4. Unit tests (rápido: só roda se build passou)
+// ── Testes ───────────────────────────────────────────────────────────
 console.log("\n── Testes ──");
-run("npm test 2>&1", "test (unit)");
+try {
+  execSync("npm test 2>&1", { cwd: ROOT, encoding: "utf8", timeout: 60000 });
+  ok("test (unit)");
+} catch (e) { fail(`test: ${e.stderr?.slice(0, 200) || e.message}`); }
 
-// 5. Verify docs
+// ── Docs ─────────────────────────────────────────────────────────────
 console.log("\n── Docs ──");
 const verifyScript = resolve(ROOT, "scripts/verify-docs.mjs");
 if (existsSync(verifyScript)) {
-  run(`node ${verifyScript}`, "verify-docs");
+  try {
+    execSync(`node "${verifyScript}"`, { cwd: ROOT, encoding: "utf8", timeout: 30000 });
+    ok("verify-docs");
+  } catch (e) { fail(`verify-docs: ${e.stderr?.slice(0, 200) || e.message}`); }
 } else {
-  warn("verify-docs.mjs não encontrado, pulando");
+  console.log("  ⚠️  verify-docs.mjs não encontrado, pulando");
 }
 
 // ── Resumo ───────────────────────────────────────────────────────────
-
 console.log("\n═══════════════════════════════════");
-console.log(`  ✅ ${passed} passed`);
-if (warnings.length) console.log(`  ⚠️  ${warnings.length} warnings`);
-if (errors.length) console.log(`  ❌ ${errors.length} errors`);
+console.log(`  ${errors > 0 ? `❌ ${errors} errors` : "✅ 0 errors"}`);
 console.log("═══════════════════════════════════\n");
 
-if (errors.length > 0) {
-  console.log("Corrija os erros antes do PR:");
-  errors.forEach(e => console.log(`  - ${e}`));
-  if (STRICT) process.exit(1);
-} else {
-  console.log("✅ Tudo ok! Pode criar o PR.");
-}
+if (errors > 0 && process.argv.includes("--strict")) process.exit(1);

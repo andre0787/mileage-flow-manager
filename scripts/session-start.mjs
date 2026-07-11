@@ -22,6 +22,9 @@ const read = p => has(p) ? readFileSync(resolve(ROOT, p), "utf8") : null;
 const handoff = read("HANDOFF.md");
 const agenda = read("docs/AGENDA.md");
 
+// Garante que o pre-commit hook está ativo
+(() => { try { execSync("git config core.hooksPath .githooks", { cwd: ROOT, encoding: "utf8", timeout: 3000 }); } catch {} })();
+
 const branch = (() => { try { return execSync("git rev-parse --abbrev-ref HEAD", { cwd: ROOT, encoding: "utf8", timeout: 3000 }).trim(); } catch { return "?"; } })();
 const commit = (() => { try { return execSync("git log -1 --format='%h — %s'", { cwd: ROOT, encoding: "utf8", timeout: 3000 }).trim(); } catch { return "?"; } })();
 const prs = (() => { try { const o = execSync("gh pr list --state open --json number,title 2>/dev/null", { cwd: ROOT, encoding: "utf8", timeout: 5000 }); const l = JSON.parse(o); return l.length ? l.map(p => `#${p.number}`).join(", ") : "nenhum"; } catch { return "?"; } })();
@@ -109,6 +112,7 @@ console.log([
   "  registrar bugs ao encontrar",
   "  IDEIAS.md lido no início de sessão",
   "  feedback: npm run feedback:check",
+  "  🚫 pre-commit bloqueia main (git hook)",
   "",
   inProgress ? "▶️  HANDOFF indica algo em andamento — continua." : "",
   ideiasPendentes.includes("⬜") ? "💡 IDEIAS.md tem pendentes — perguntar ao usuário." : "",

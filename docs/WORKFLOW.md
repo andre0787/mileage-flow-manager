@@ -35,7 +35,8 @@ Cada advisor produz análise independente → peer review anônimo → chairman 
 1. **brainstorming** — explora requisitos, propõe 2-3 abordagens, salva spec em `docs/superpowers/specs/`
 2. **writing-plans** — quebra em tarefas de 2-5min, salva em `docs/superpowers/plans/`
 3. **branch isolada** — `git checkout -b <prefixo>/<nome>`
-4. **implementação** — TDD quando aplicável (RED → GREEN → REFACTOR)
+4. **pre-commit hook ativo** — `git config core.hooksPath .githooks` (automático via `session:start`)
+5. **implementação** — TDD quando aplicável (RED → GREEN → REFACTOR)
 5. **code review** — entre tarefas, bloqueia se critical
 6. **PR** — testes verdes, commitar TUDO, PR para `main`
 7. **relatório** — `/report` gera HTML com antes/depois, benefícios e consumo de tokens em `docs/reports/`
