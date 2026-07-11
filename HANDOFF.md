@@ -20,6 +20,7 @@
 | #88 — Entradas.tsx atualizado: botão Transferir abre TransferForm | ✅ |
 | #88 — Entradas.tsx: abas usam EntryFormPontos/Milhas, edit usa form correto | ✅ |
 | #88 — EntryFormData movido para types/index.ts | ✅ |
+| #90 — Conceito "Clube" removido dos formulários | ✅ |
 | Relatório HTML | `docs/reports/PR88-2026-07-11-feat-dedicated-forms.html` |
 | Branch criada | `feat/dedicated-forms-88` |
 
@@ -40,7 +41,7 @@
 | Testes E2E | 54/54 ✅ |
 | CI/CD | ✅ |
 | Deploy | ✅ Automático Vercel |
-| Último PR | #89 (#88 — Formulários Dedicados) ✅ CI verde, pronto para merge |
+| Último PR | #89 (#88 — Formulários Dedicados + #90 Remover Clube) ✅ CI rodando |
 
 ---
 
@@ -52,17 +53,20 @@
 - `TransferForm` (~120 linhas): origem (pontos) → destino (milhas), data, bônus, carrinho
   - Sem tipo de origem, sem recorrência, sem clube
   - `amountPaid` calculado automaticamente do custo médio da conta origem
-- `EntryFormPontos` (~200 linhas): tipo de origem, recorrência/clube, taxa de conversão
-  - Sem campos de transferência (sourceAccountId, bonusPercent, cartAmount, cartCost)
-- `EntryFormMilhas` (~190 linhas): mesmo que Pontos, sem taxa de conversão
+- `EntryFormPontos` (~200 linhas): tipo de origem, recorrência (manual), taxa de conversão
+  - Sem campos de transferência
+- `EntryFormMilhas` (~190 linhas): tipo de origem, recorrência (manual)
+  - Sem campos de transferência, sem taxa de conversão
 - `Entradas.tsx` atualizado:
   - Botão Transferir abre TransferForm diretamente (sem presets)
   - Aba Pontos → EntryFormPontos, Aba Milhas → EntryFormMilhas
   - Edit usa form correto: TransferForm se sourceAccountId, senão EntryFormPontos/Milhas
   - `transferInitialData` e `handleOpenTransfer` removidos
-- `EntryFormData` movido para `types/index.ts`
+- `EntryFormData` movido para `types/index.ts` (isClube/clubeMeses removidos)
+- #90 — Conceito "Clube" removido: recorrência sempre manual via checkbox
+- `buildMonthlyRecurrence` substituído por fallback em `editingEntry.recurrenceInterval`
 - `recurrence.ts` importa de `@/types`
-- **Net: -621 linhas**
+- **Net: -747 linhas**
 
 ### Como iniciar Sprint B
 1. Ler este HANDOFF.md
