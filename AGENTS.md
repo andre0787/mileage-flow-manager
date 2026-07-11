@@ -22,7 +22,7 @@
 1. **Workflow obrigatório**: toda feature passa pelo `council-to-superpowers` — veja `docs/WORKFLOW.md`
 2. **Grid máximo 2 colunas**: `grid-cols-1 sm:grid-cols-2` — veja `docs/UI-GUIDE.md`
 3. **DRY**: regra de negócio em ponto único em `src/lib/` — veja `docs/CONVENTIONS.md`
-4. **🔥 Branch obrigatória — NUNCA direto na main**: toda alteração de código DEVE ser feita em branch (`feat/`, `fix/`, `docs/`, `chore/`). `main` só recebe via PR mergeado. Nem commit, nem push, nem revert direto. — veja `docs/GIT-WORKFLOW.md`
+4. **🔥 Branch obrigatória — NUNCA direto na main**: toda alteração de código DEVE ser feita em branch (`feat/`, `fix/`, `docs/`, `chore/`). `main` só recebe via PR mergeado. Nem commit, nem push, nem revert direto. A proteção é automatizada pelo pre-commit hook (`.githooks/pre-commit`). — veja `docs/GIT-WORKFLOW.md`
 5. **CI/CD obrigatório**: CI roda build + testes em todo PR (`.github/workflows/ci.yml`). Deploy automático no merge (`.github/workflows/deploy.yml`). — veja `docs/GIT-WORKFLOW.md`
 6. **Ponytail mode**: stdlib/nativo primeiro, sem abstrações especulativas
 7. **Interface**: português (pt-BR)
@@ -31,6 +31,7 @@
 10. **🧹 Limpeza obrigatória antes de PR/merge**: verifique `git status` — ZERO arquivos uncommitted. Inclui código, docs, council verdicts, plans, specs, package.json/lock, relatórios. Veja `docs/CONVENTIONS.md` → "Limpeza Pós-Sessão".
 11. **🐞 Registro de bugs obrigatório**: todo bug encontrado durante desenvolvimento DEVE ser registrado em `docs/AGENDA.md` → "🐞 Bugs Encontrados". Veja `docs/CONVENTIONS.md` → "Registro de Bugs".
 12. **💭 Ideias externas**: use `npm run think "ideia"` para capturar pensamentos fora do projeto. Se for urgente, `--immediate`. Se for bug, `--bug`.
+13. **🔬 Toda regra imutável DEVE ter validação automática**: ao definir uma nova regra imutável neste arquivo, crie **imediatamente** um script de verificação que impeça sua violação (ex: git hook, script npm, CI check). Sem o script, a regra não está completa. — veja `docs/CONVENTIONS.md` → "Validação Automática de Regras"
 
 ## Começando — ⚡ AUTO-INICIALIZAÇÃO
 

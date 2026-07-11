@@ -4,10 +4,28 @@
 
 **NUNCA commitar/pushar direto na `main`.** Toda alteração de código DEVE
 ser feita em uma branch feature/fix/docs/chore. `main` só recebe alterações
-via PR mergeado. Isso inclui reverts. Sempre:
+via PR mergeado. Isso inclui reverts.
+
+### Proteção Automática
+
+Um **pre-commit hook** (`.githooks/pre-commit`) bloqueia commits na `main`:
+
+```bash
+# Ativar (automático via npm run session:start):
+git config core.hooksPath .githooks
+npm run hooks:install  # alternativa manual
+```
+
+Se tentar commitar na main:
+```
+🚫 BLOQUEADO: commit direto na main/master
+Crie uma branch primeiro!
+```
+
+### Fluxo Correto
 
 ```
-1. Criar branch a partir de main
+1. git checkout -b feat/minha-feature
 2. Desenvolver
 3. npm run pre-pr (validação)
 4. npm run report "desc" --write (relatório)

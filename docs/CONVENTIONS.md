@@ -161,6 +161,30 @@ antes. "Já que estou aqui" gera diff imprevisível e quebra revisão.
 Exceção: correções óbvias que impedem o código de funcionar (import faltando,
 typo em variável, erro de sintaxe).
 
+## 🔬 Validação Automática de Regras — OBRIGATÓRIA
+
+**Toda regra imutável em `AGENTS.md` DEVE ter um script de validação**
+que impeça sua violação de forma automatizada.
+
+### Exemplos no projeto
+
+| Regra | Validação | Localização |
+|-------|-----------|-------------|
+| #4 — NUNCA commitar na main | Pre-commit hook | `.githooks/pre-commit` |
+| #10 — Zero arquivos uncommitted | `npm run pre-pr` + `session:end` | `scripts/pre-pr-check.mjs` |
+
+### Como criar uma nova validação
+
+1. Identifique o ponto de violação (commitar, pushar, PR, deploy)
+2. Escolha o mecanismo mais simples:
+   - **Git hook** (`pre-commit`, `pre-push`) para ações locais
+   - **Script npm** para verificações sob demanda
+   - **CI check** para validação em PR
+3. Registre na tabela acima
+4. Se for hook, garanta que ele é instalado via `session:start`
+
+**Sem validação automática, a regra não está completa.**
+
 ## Limpeza Pós-Sessão — OBRIGATÓRIA
 
 **Antes de finalizar qualquer sessão ou subir PR, verifique `git status`.**
