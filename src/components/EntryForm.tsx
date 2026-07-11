@@ -78,7 +78,7 @@ export function EntryForm({
   const availableAccounts = accounts.filter((a) => a.type === activeTab && a.status === "ativa")
   const currentOrigemTypes = origemTypes.filter((ot) => ot.accountType === activeTab)
   const sourceAccounts = accounts.filter(
-    (a) => a.type === "pontos" && a.status === "ativa" && a.ownerId === selectedAccount?.ownerId
+    (a) => a.type === "pontos" && a.status === "ativa" && (!selectedAccount || a.ownerId === selectedAccount.ownerId)
   )
   const selectedSourceAccount = accounts.find((a) => a.id === form.sourceAccountId)
   const sourceAvgCostPerPoint =
