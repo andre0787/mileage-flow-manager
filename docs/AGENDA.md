@@ -278,8 +278,8 @@
 > Feedbacks reportados via formulário no app. Revisar no início da sessão.
 > Alimentam o backlog futuro e correções de bugs.
 
-- [ ] 🐛 teste — 2026-07-11
-- [ ] 🐛 teste2 — 2026-07-11
+- [ ] 🐛 `#0dd222ba` teste — 2026-07-11
+- [ ] 🐛 `#c8060b81` teste2 — 2026-07-11
 
 
 ## 📌 Backlog Futuro

@@ -20,7 +20,7 @@ const AGENDA = resolve(ROOT, "docs/AGENDA.md");
 
 try {
   const raw = execSync(
-    `npx supabase db query --linked --output-format json "SELECT type, message, email, created_at FROM feedback WHERE status = 'new' ORDER BY created_at;" 2>/dev/null`,
+    `npx supabase db query --linked --output-format json "SELECT id, type, message, email, created_at FROM feedback WHERE status = 'new' ORDER BY created_at;" 2>/dev/null`,
     { cwd: ROOT, encoding: "utf8", timeout: 15000 },
   );
 
@@ -44,7 +44,8 @@ try {
     const icon = r.type === "bug" ? "🐛" : "💡";
     const email = r.email ? ` (${r.email})` : "";
     const date = r.created_at ? r.created_at.slice(0, 10) : "";
-    return `- [ ] ${icon} ${r.message}${email} — ${date}`;
+    const shortId = r.id ? r.id.slice(0, 8) : "";
+    return `- [ ] ${icon} \`#${shortId}\` ${r.message}${email} — ${date}`;
   }).join("\n");
 
   const section = `## 📬 Feedback de Usuários\n\n> Feedbacks reportados via formulário no app. Revisar no início da sessão.\n> Alimentam o backlog futuro e correções de bugs.\n\n${items}\n\n`;
@@ -68,9 +69,10 @@ try {
   // Print to console
   console.log(`📬 Feedback: ${count} pendente(s)`);
   for (const r of rows) {
+    const shortId = r.id ? r.id.slice(0, 8) : "";
     const icon = r.type === "bug" ? "🐛" : "💡";
     const email = r.email ? ` (${r.email})` : "";
-    console.log(`  ${icon} ${r.message}${email}`);
+    console.log(`  ${icon} [#${shortId}] ${r.message}${email}`);
   }
   console.log("  → npm run feedback:review  p/ detalhes");
 } catch (e) {
