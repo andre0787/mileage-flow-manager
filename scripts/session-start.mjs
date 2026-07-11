@@ -58,10 +58,21 @@ const bugsOpen = (bugsSec || "")
   .join("\n");
 const bugs = bugsOpen || "(nenhum)";
 
+// Ideias pendentes (docs/IDEIAS.md)
+const ideias = read("docs/IDEIAS.md");
+const ideiasPendentes = (ideias || "")
+  .split("\n")
+  .filter(l => l.trim().startsWith("- [ ]"))
+  .map(l => "  " + l.replace("- [ ]", "⬜").trim())
+  .join("\n") || "(vazio)";
+
 // Sessão atual compacta
 const sprintAtual = hasPendentes
   ? (sectionAtual.includes("⬜") ? sectionAtual.slice(0, sectionAtual.indexOf("\n## ") < 0 ? 200 : sectionAtual.indexOf("\n## ")) : "Backlog tem itens pendentes")
   : "(todas sprints concluídas)";
+
+// Handoff: algo em andamento?
+const inProgress = (handoff || "").includes("### In Progress") && !(handoff || "").includes("-(nenhum)");
 
 console.log([
   `branch: ${branch}`,
@@ -69,11 +80,13 @@ console.log([
   `files:  ${status.split("\n").length - 1} pendente(s)`,
   `PRs:    ${prs}`,
   "",
-  `## 🎯 Sprint atual: ${!hasPendentes ? "todas concluídas" : "há pendentes"}`,
-  backlogItems.includes("⬜") ? "" : "",
+  `## 🎯 Sprint: ${!hasPendentes ? "todas concluídas" : "há pendentes"}`,
   "",
   "## 📌 Backlog futuro",
   backlogItems,
+  "",
+  "## 💭 Ideias pendentes (IDEIAS.md)",
+  ideiasPendentes,
   "",
   "## 🐞 Bugs abertos",
   bugs,
@@ -86,4 +99,8 @@ console.log([
   "  pre-pr check antes do PR (npm run pre-pr)",
   "  session-end p/ finalizar (npm run session:end)",
   "  registrar bugs ao encontrar",
+  "  IDEIAS.md lido no início de sessão",
+  "",
+  inProgress ? "▶️  HANDOFF indica algo em andamento — continua." : "",
+  ideiasPendentes.includes("⬜") ? "💡 IDEIAS.md tem pendentes — perguntar ao usuário." : "",
 ].filter(l => l !== "").join("\n"));

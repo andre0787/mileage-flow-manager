@@ -116,6 +116,15 @@ docs/reports/2026-07-10/fix-2026-07-10-overflow-selectors.html
 docs/reports/2026-07-10/docs-2026-07-10-mapa-completo-fluxos-usuario.html
 ```
 
+## 💭 Caixa de Entrada de Ideias
+
+**`docs/IDEIAS.md`** é a caixa de entrada para ideias humanas.
+O agente lê este arquivo no início de toda sessão e pergunta ao usuário
+se quer consumir alguma ideia pendente.
+
+**Como adicionar:** `npm run think "descrição"`
+**Como consumir:** mover de `Pendentes` → `Em Andamento` → `Consumidas`
+
 ## 🐞 Registro de Bugs
 
 **Todo bug encontrado durante desenvolvimento DEVE ser registrado na AGENDA.md**

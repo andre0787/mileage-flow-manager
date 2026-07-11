@@ -94,23 +94,37 @@ FIM:      npm run session:end "msg" → commit + handoff + push
 
 ## Ideias Externas — Fluxo `think`
 
-Para capturar ideias que surgem fora do contexto do projeto (ex: "pensei em algo"):
+### Caixa de Entrada: `docs/IDEIAS.md`
+
+Toda ideia externa é registrada em `docs/IDEIAS.md` na seção **Pendentes**.
+O agente lê este arquivo **no início de toda sessão** e pergunta ao usuário
+se quer consumir alguma ideia.
+
+### Comandos
 
 | Comando | O que faz |
 |---------|-----------|
-| `npm run think "ideia"` | Registra no backlog (`📌 Backlog Futuro`) + salva em `docs/thoughts/` |
+| `npm run think "ideia"` | Adiciona em `IDEIAS.md → Pendentes` + salva em `docs/thoughts/` |
 | `npm run think "ideia" --immediate` | Registra + sugere council-to-superpowers imediato |
-| `npm run think "bug: descrição" --bug` | Registra como bug aberto em `🐞 Bugs Encontrados` |
+| `npm run think "bug: descrição" --bug` | Registra como bug aberto em AGENDA.md + IDEIAS.md |
 
 ### Fluxo completo de uma ideia externa
 
 ```
-1. Você: "pensei em adicionar X"
-2. Agente: npm run think "adicionar X"
-3. Ideia registrada em docs/thoughts/<data>-<slug>.md + AGENDA.md backlog
-4. Opcional: --immediate aciona council-to-superpowers
-5. Opcional: branch → PR → CI → main → deploy
+1. Você tem uma ideia (ex: "adicionar export CSV")
+2. npm run think "adicionar export CSV"
+3. Ideia vai para IDEIAS.md → Pendentes
+4. Na PRÓXIMA sessão, agente pergunta: "Ideia pendente: export CSV. Quer fazer?"
+5. Se sim: council → branch → PR → CI → main → deploy
+6. Se não: permanece em Pendentes
 ```
+
+### Consumo manual
+
+Quando for executar uma ideia:
+1. Mover de `Pendentes` para `Em Andamento` em `IDEIAS.md`
+2. Executar o fluxo normal (branch → PR → ...)
+3. No final, mover para `Consumidas` com referência ao PR
 
 ## Outputs
 

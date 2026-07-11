@@ -28,6 +28,7 @@
 |---------|-----------|--------------|
 | `STACK.md` (seção Agente) | Quando precisar de ferramentas do agente | pi, opencode, MCPs, plugins, skills |
 | `MEMORY.md` | Contexto de sessões anteriores | Histórico de decisões, sprints, post-mortems |
+| `docs/IDEIAS.md` | Caixa de entrada de ideias | Ideias humanas pendentes, lidas no início da sessão |
 | `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning) |
 
 ## Docs Arquivados

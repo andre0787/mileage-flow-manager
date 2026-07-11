@@ -43,19 +43,36 @@ O `AGENTS.md` é carregado como instrução de projeto por todos os harnesses su
 (pi, OpenCode, Claude Code). Ao ler "execute X automaticamente no início", o LLM
 interpreta como uma ordem direta e executa.
 
+### Fluxo de decisão (2 gatilhos)
+
+```
+npm run session:start
+  │
+  ├─ HANDOFF.md tem "In Progress"?
+  │   ├─ SIM  → continua de onde parou
+  │   └─ NÃO  →
+  │
+  ├─ docs/IDEIAS.md tem pendentes?
+  │   ├─ SIM  → pergunta ao usuário qual consumir
+  │   └─ NÃO  →
+  │
+  └─ pergunta "o que vamos fazer hoje?"
+```
+
 ### Ordem exata
 
 ```
 1. npm run session:start           ← execução automática (GATILHO)
-2. read HANDOFF.md                 ← contexto completo
-3. read docs/AGENDA.md             ← sprint board
-4. read docs/WORKFLOW.md           ← processos + scripts
-5. read docs/ARCHITECTURE.md       ← estrutura
-6. read docs/CONVENTIONS.md        ← padrões
+2. Verifica HANDOFF + IDEIAS.md    ← decisão do que fazer
+3. read docs/AGENDA.md             ← sprint board (se for trabalhar em sprint)
+4. read docs/WORKFLOW.md           ← processos + scripts (se for feature)
+5. read docs/ARCHITECTURE.md       ← estrutura (se for código)
+6. read docs/CONVENTIONS.md        ← padrões (se for código)
 ```
 
-> Após `session:start`, o agente tem o resumo em ~300 tokens e decide
-> se precisa ler os docs completos baseado na tarefa do usuário.
+> Após `session:start`, o agente tem o resumo em ~300 tokens com branch, commit,
+> backlog, bugs, **ideias pendentes**, e uma dica do que fazer.
+> Ele pergunta ao usuário antes de iniciar qualquer trabalho.
 
 Para contexto histórico de sessões anteriores, veja também `MEMORY.md`.
 
