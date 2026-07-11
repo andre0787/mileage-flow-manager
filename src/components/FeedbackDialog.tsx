@@ -32,17 +32,18 @@ export function FeedbackDialog({ children }: FeedbackDialogProps) {
     e.preventDefault();
     if (!message.trim()) return;
     setSending(true);
-    try {
-      await supabase.from("feedback").insert({
-        user_id: user?.id ?? null,
-        type,
-        message: message.trim(),
-        email: email.trim() || null,
-      });
+    const { error } = await supabase.from("feedback").insert({
+      user_id: user?.id ?? null,
+      type,
+      message: message.trim(),
+      email: email.trim() || null,
+    });
+    if (error) {
+      console.error("Feedback error:", error);
+    } else {
       setSent(true);
-    } finally {
-      setSending(false);
     }
+    setSending(false);
   };
 
   const handleClose = () => {
