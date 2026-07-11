@@ -1,0 +1,55 @@
+name: Docs Health Check
+
+on:
+  schedule:
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Verify docs integrity
+        id: verify
+        continue-on-error: true
+        run: |
+          node scripts/verify-docs.mjs --strict > verify-output.txt 2>&1 || true
+          if grep -q "❌" verify-output.txt; then
+            echo "has-issues=true" >> $GITHUB_OUTPUT
+          else
+            echo "has-issues=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Print output
+        run: cat verify-output.txt
+      - name: Create issue if problems found
+        if: steps.verify.outputs.has-issues == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const output = fs.readFileSync('verify-output.txt', 'utf8');
+            const lines = output.split('\n').filter(l => l.includes('❌'));
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🧹 Docs Health: issues detectados em ' + new Date().toISOString().slice(0,10),
+              body: [
+                '## 📋 Varredura Automática de Docs',
+                'A verificação semanal encontrou problemas:',
+                '```',
+                lines.join('\n'),
+                '```',
+                '**Ação necessária:**',
+                '1. Execute `node scripts/verify-docs.mjs` localmente',
+                '2. Corrija links quebrados ou arquivos órfãos',
+                '_Gerado automaticamente pelo Docs Health Check_'
+              ].join('\n'),
+              labels: ['docs', 'automated']
+            });

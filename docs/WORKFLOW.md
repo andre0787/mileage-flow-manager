@@ -61,7 +61,11 @@ Features triviais podem usar Superpowers direto sem council ("let's build X" →
 | Brainstorm | Spec | `docs/superpowers/specs/` |
 | Planning | Plano | `docs/superpowers/plans/` |
 | Execução | Código + testes | `src/` + `tests/` |
-| Relatório | HTML before/after | `docs/reports/<PR>-<data>-<nome>.html` |
+| Relatório | HTML before/after | `docs/reports/<prefix>-<data>-<nome>.html` |
+
+> **Nomenclatura de reports:** `<prefix>-YYYY-MM-DD-<nome>.html`.
+> Prefixos válidos: `PR<num>`, `Sprint<letra>`, `auto`.
+> Exemplos: `PR89-2026-07-11-sprint-11.html`, `SprintC-2026-07-11-polimento-prevencao.html`, `auto-2026-07-11-qualidade.html`.
 
 ## Checklist Pré-PR — OBRIGATÓRIO
 
@@ -92,7 +96,9 @@ Antes de criar qualquer PR, executar este checklist:
 - [ ] Funções utilitárias estão em `lib/` (não inline em componentes)?
 - [ ] Imports não têm `as any` sem justificativa?
 
-### 5. CI/CD
+### 5. Código & Debug
+- [ ] Nenhum `console.log` esquecido? (`git diff HEAD -- ":(exclude)src/lib/logger.ts" | grep "console\."`)
+- [ ] `VITE_ENABLE_DEBUG_LOG` só true em dev (não no `.env` versionado)?
 - [ ] GitHub Actions CI verde no PR?
 - [ ] `npm run build` passa?
 - [ ] `npm test` passa (45/45)?
@@ -147,9 +153,9 @@ concurrency:
 
 ### Workers
 
-- CI usa **1 worker** no Playwright (evita flakiness por recursos compartilhados)
-- Local pode usar `--workers=4` ou `--ui`
-- Para aumentar workers no CI, testar com sharding primeiro
+- CI usa **2 workers** no Playwright (via `playwright.config.ts`)
+- Local usa workers ilimitados (padrão Playwright)
+- Se flakiness aparecer, testar sharding (`--shard=x/y`)
 
 ### Manutenção
 

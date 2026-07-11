@@ -211,33 +211,33 @@
 
 ---
 
-## 🎯 Sprint B — Limpeza & Confiabilidade 🟡 Alta Prioridade
+## 🎯 Sprint B — Limpeza & Confiabilidade ✅
 
 **Objetivo:** Arquivar ruído, configurar cross-harness, verificação automatizada.
 
-### Item 1: Arquivar 29 Órfãos
+### Item 1: Arquivar 29 Órfãos ✅
 
-- [ ] Mover specs antigas → `docs/archive/` (exceto spec atual)
-- [ ] Mover plans antigos → `docs/archive/` (exceto plan atual)
-- [ ] Mover 5 council verdicts sem link → `docs/archive/`
-- [ ] Mover artifacts obsoletos (SPRINT5-QUICKSTART, mobile-ios-notes, progress.md, task_plan.md, fluxo-relatorio.md)
-- [ ] Atualizar `docs/MAP.md` — refletir arquivamento
+- [x] Mover specs antigas → `docs/archive/` (exceto spec atual)
+- [x] Mover plans antigos → `docs/archive/` (exceto plan atual)
+- [x] Mover 5 council verdicts sem link → `docs/archive/`
+- [x] Mover artifacts obsoletos (SPRINT5-QUICKSTART, mobile-ios-notes, progress.md, task_plan.md, fluxo-relatorio.md)
+- [x] Atualizar `docs/MAP.md` — refletir arquivamento
 
-### Item 2: Cross-Harness Config
+### Item 2: Cross-Harness Config ✅
 
-- [ ] Criar `.opencode/settings.json` (referência ao handoff skill) — *depende do caminho do skill confirmado*
-- [ ] Criar `.claude/settings.local.json` (referência ao handoff skill) — *depende do caminho do skill confirmado*
+- [x] Criar `.opencode/settings.json` (referência ao handoff skill)
+- [x] Criar `.claude/settings.local.json` (referência ao handoff skill)
 
-### Item 3: Script de Verificação
+### Item 3: Script de Verificação ✅
 
-- [ ] Criar `scripts/verify-docs.mjs` — varredura automatizada de .md
-- [ ] Identifica órfãos, promessas quebradas, gaps
+- [x] Criar `scripts/verify-docs.mjs` — varredura automatizada de .md
+- [x] Identifica órfãos, promessas quebradas, gaps
 
-### Item 4: Atualizar Docs Núcleo
+### Item 4: Atualizar Docs Núcleo ✅
 
-- [ ] `AGENTS.md` — regras refletindo CI/CD real
-- [ ] `docs/CONVENTIONS.md` — convenção de CI/CD
-- [ ] `docs/WORKFLOW.md` — checklists com CI
+- [x] `AGENTS.md` — regras refletindo CI/CD real
+- [x] `docs/CONVENTIONS.md` — convenção de CI/CD
+- [x] `docs/WORKFLOW.md` — checklists com CI
 
 ---
 
@@ -245,30 +245,31 @@
 
 **Objetivo:** Prevenção ativa, dashboard de qualidade, docs vivos.
 
-### Item 1: Varredura Automática no CI
+### Item 1: Varredura Automática no CI 🟢
 
-- [ ] Workflow semanal + manual dispatch
-- [ ] Cria issue automática se detectar novos órfãos
+- [x] Workflow semanal + manual dispatch (`.github/workflows/docs-health.yml`)
+- [x] Cria issue automática se detectar novos órfãos
 
-### Item 2: Dashboard de Qualidade
+### Item 2: Dashboard de Qualidade 🟢
 
-- [ ] Script que gera `QUALITY.md` com status de CI, testes, docs
-- [ ] Tendências vs scan anterior
+- [x] Script `scripts/quality-report.mjs` que gera `QUALITY.md`
+- [x] Métricas: pipeline, testes, bundle, docs
 
-### Item 3: Relatório HTML Automático
+### Item 3: Relatório HTML Automático 🟢
 
-- [ ] Workflow dispatch que gera relatório em `docs/reports/`
-- [ ] Cria PR automático com o relatório
+- [x] Workflow dispatch `.github/workflows/auto-report.yml`
+- [x] Gera relatório em `docs/reports/` + cria PR automático
 
-### Item 4: HANDOFF.md Automatizado
+### Item 4: HANDOFF.md Automatizado 🟢
 
-- [ ] Template + script de preenchimento automático
+- [x] Script `scripts/update-handoff.mjs`
+- [x] Preserva notas manuais, atualiza branch/commits/métricas
 
-### Item 5: Paralelismo no E2E do CI
+### Item 5: Paralelismo no E2E do CI 🟢
 
-- [ ] Subir Playwright para 2 workers apenas no GitHub Actions
-- [ ] Medir tempo do job antes/depois
-- [ ] Se flake aparecer, avaliar sharding
+- [x] `workers: 2` já configurado no `playwright.config.ts`
+- [x] `docs/WORKFLOW.md` atualizado (2 workers no CI)
+- [ ] Medir tempo do job antes/depois (pendente — precisa de 2 runs de CI)
 
 ---
 

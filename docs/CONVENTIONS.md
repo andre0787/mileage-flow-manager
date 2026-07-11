@@ -22,6 +22,8 @@
 
 ## DRY & Modularidade
 
+- **Nunca construir em monolito.** Componente que acumula layout + estado + fetch + formatação é flag de refatoração. Extrair em submódulos (`ui/`, `hooks/`, `lib/`).
+- **Sempre reutilizável, nunca duplicado.** Se um pattern serve 2+ lugares, extrair. Se só existe em 1 lugar, esperar o 2º uso (YAGNI).
 - Nunca duplicar cálculo de lucro, margem, saldo, custo médio — cada um em ponto único em `lib/`
 - Todo mapper snake_case → camelCase centralizado em `lib/utils.ts` ou no próprio módulo de domínio
 - Preferir criar módulo novo a duplicar lógica existente
@@ -257,6 +259,19 @@ O projeto é compatível com 3 harnesses:
 - **OpenCode** — config em `.opencode/settings.json`
 
 Todas as skills seguem o Agent Skills standard.
+
+## Debug
+
+Ver `docs/DEBUG.md` para guia completo.
+
+### Convenções
+
+- **Logger:** usar `logInfo()`/`logWarn()`/`logError()`/`logDestructiveOp()` de `@/lib/logger`
+- **Ativação:** `VITE_ENABLE_DEBUG_LOG=true` no `.env.local`
+- **Persistência:** logs ficam no localStorage (`mc_debug_logs`), últimos 100
+- **Breakpoints:** `.vscode/launch.json` configurado — F5 com Vite rodando
+- **Testes:** F5 com arquivo de teste aberto
+- **Console.log:** só em dev, remover antes do PR (CRLF)
 
 ## Observações Gerais
 
