@@ -1,3 +1,21 @@
+export interface EntryFormData {
+  accountId: string
+  origemTypeId: string
+  amount: string
+  amountPaid: string
+  conversionRate: string
+  sourceAccountId: string
+  bonusPercent: string
+  cartAmount: string
+  cartCost: string
+  date: string
+  isRecurrent: boolean
+  recurrenceType: 'monthly' | 'quarterly' | 'semiannual' | 'annual'
+  recurrenceCount: number
+  startDate: string
+  recurrenceValueMode: 'split' | 'repeat'
+}
+
 export interface Client {
   id: string;
   name: string;

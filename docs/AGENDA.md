@@ -315,49 +315,45 @@
 
 ---
 
-## 🎯 Sprint #11 — Formulários Dedicados 🟡 Próxima Sessão
+## ✅ Sprint #11 — Formulários Dedicados ✅ Completa
 
-**Objetivo:** Separar o `EntryForm` monolítico em 3 formulários dedicados, cada um com apenas os campos necessários.
+**Objetivo:** Separar o `EntryForm` monolítico em 3 formulários dedicados.
 
-**Council:** ❌ (pode ir direto para Superpowers por ser refatoração bem definida)
+**PR:** #88 (pendente)
 
-**Issue:** #88
+### Item 1: TransferForm ✅
 
-### Item 1: TransferForm (novo)
+- [x] Criar `src/components/TransferForm.tsx`
+- [x] Conta origem (pontos) + conta destino (milhas) + data + pontos transferidos
+- [x] Custo calculado automaticamente (exibido, não editável)
+- [x] Bonificação (%)
+- [x] Compra no carrinho (pontos extras + valor total)
+- [x] **Sem** tipo de origem, **sem** recorrência, **sem** clube
 
-- [ ] Criar `src/components/TransferForm.tsx`
-- [ ] Conta origem (pontos) + conta destino (milhas) + data + pontos transferidos
-- [ ] Custo calculado automaticamente (exibido, não editável)
-- [ ] Bonificação (%)
-- [ ] Compra no carrinho (pontos extras + valor total)
-- [ ] **Sem** tipo de origem, **sem** recorrência, **sem** clube
+### Item 2: EntryFormPontos ✅
 
-### Item 2: EntryFormPontos (refatorado de EntryForm)
+- [x] Criar `src/components/EntryFormPontos.tsx`
+- [x] Tipo de origem, recorrência/clube
+- [x] **Sem** campos de transferência (sourceAccountId, bonusPercent, cartAmount, cartCost)
 
-- [ ] Criar `src/components/EntryFormPontos.tsx`
-- [ ] Tipo de origem, recorrência/clube
-- [ ] **Sem** campos de transferência (sourceAccountId, bonusPercent, cartAmount, cartCost)
+### Item 3: EntryFormMilhas ✅
 
-### Item 3: EntryFormMilhas (refatorado de EntryForm)
+- [x] Criar `src/components/EntryFormMilhas.tsx`
+- [x] Tipo de origem, recorrência/clube
+- [x] **Sem** campos de transferência
 
-- [ ] Criar `src/components/EntryFormMilhas.tsx`
-- [ ] Tipo de origem, recorrência/clube
-- [ ] **Sem** campos de transferência
+### Item 4: Atualizar Entradas.tsx ✅
 
-### Item 4: Atualizar Entradas.tsx
+- [x] Botão "Transferir" → abre `TransferForm` diretamente (sem presets)
+- [x] Aba Pontos → `EntryFormPontos`
+- [x] Aba Milhas → `EntryFormMilhas`
+- [x] Remover `transferInitialData` e `handleOpenTransfer`
+- [x] Edit usa form correto: TransferForm se transferência, senão EntryFormPontos/Milhas
 
-- [ ] Botão "Transferir" → abre `TransferForm` diretamente (sem presets)
-- [ ] Aba Pontos → `EntryFormPontos`
-- [ ] Aba Milhas → `EntryFormMilhas`
-- [ ] Remover `transferInitialData` e `handleOpenTransfer`
+### Extra ✅
 
-### DRY — Compartilhado
-
-- `lib/metrics.ts` — `calcMilesGenerated()`, `calcCostPerThousand()`, `calcCostPerMile()` (já existem)
-- `lib/recurrence.ts` — `calculateRecurrence()`
-- `hooks/useDatabase/entries.ts` — mutations (já existem)
-- Tipos (`types/index.ts`)
-- `FormDrawer`
+- [x] EntryForm monolítico deletado (-621 linhas líquidas)
+- [x] EntryFormData movido para `types/index.ts` (compartilhado)
 
 ---
 

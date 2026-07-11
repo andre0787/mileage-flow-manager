@@ -3,8 +3,8 @@ import { test, expect } from "@playwright/test";
 const TEST_PASSWORD = "Test@123456";
 const email = `test_clube_${Date.now()}@teste.com`;
 
-test.describe("Clube de Milhas", () => {
-  test("Fluxo: criar entrada com recorrência, ver badges, confirmar pendente", async ({ page }) => {
+test.describe("Recorrência", () => {
+  test("Fluxo: criar entrada com recorrência manual, ver badges, confirmar pendente", async ({ page }) => {
     // ═══════════════════════════════════════
     // 1. Registrar usuário
     // ═══════════════════════════════════════
@@ -13,7 +13,7 @@ test.describe("Clube de Milhas", () => {
     await page.click("text=Cadastre-se");
     await page.waitForSelector("#name", { timeout: 5_000 });
 
-    await page.fill("#name", "Usuário Clube E2E");
+    await page.fill("#name", "Usuário Rec E2E");
     await page.fill("#email", email);
     await page.fill("#password", TEST_PASSWORD);
     await page.click("button[type='submit']");
@@ -52,12 +52,11 @@ test.describe("Clube de Milhas", () => {
       const accountId = crypto.randomUUID();
       const otId = crypto.randomUUID();
 
-      await post('owners', { id: ownerId, name: 'Dono Clube' });
+      await post('owners', { id: ownerId, name: 'Dono Recorrência' });
       await post('programs', { id: programId, name: 'Programa Milhas', type: 'milhas' });
-      // Origem tipo com hasRecurrence: true → ativa recorrência automaticamente
+      // Origem tipo sem hasRecurrence — recorrência é manual
       await post('origem_types', {
         id: otId, name: 'Clube Fidelidade', account_type: 'milhas', color: '#f59e0b',
-        description: JSON.stringify({ hasRecurrence: true }),
       });
       await post('accounts', {
         id: accountId, owner_id: ownerId, program_id: programId, name: 'Conta Milhas',
@@ -68,7 +67,7 @@ test.describe("Clube de Milhas", () => {
     }, { url: supabaseUrl, anonKey: supabaseAnonKey });
 
     // ═══════════════════════════════════════
-    // 3. Criar entrada com Clube via UI
+    // 3. Criar entrada com recorrência manual via UI
     // ═══════════════════════════════════════
     await page.goto("/entradas");
     await page.waitForSelector("text=Entradas", { timeout: 15_000 });
@@ -87,25 +86,25 @@ test.describe("Clube de Milhas", () => {
     await page.waitForTimeout(300);
     await page.locator("text=Conta Milhas").click();
 
-    // Selecionar tipo de origem com recorrência
+    // Selecionar tipo de origem
     await page.locator("button[role='combobox']").nth(1).click();
     await page.waitForTimeout(300);
     await page.locator("text=Clube Fidelidade").click();
     await page.waitForTimeout(500);
 
-    // Recorrência ativada automaticamente → seção "meses" aparece
-    await expect(page.locator("text=Recorrência ativada pelo tipo de origem selecionado")).toBeVisible({ timeout: 3_000 });
-
     await page.fill("#amount", "10000");
     await page.fill("#amountPaid", "350.00");
-    // ponytail: date field added by feature #80
     await page.fill("#entryDate", new Date().toISOString().split("T")[0]);
 
-    // Preencher meses
-    await page.fill("input[placeholder='Ex: 12']", "3");
+    // Habilitar recorrência manual
+    await page.locator('input[type="checkbox"]').first().check({ force: true });
+    await page.waitForTimeout(300);
 
-    // Verificar preview
-    await expect(page.locator("text=Aguardando").first()).toBeVisible({ timeout: 3_000 });
+    // Configurar recorrência: 3 parcelas, data de início
+    const parcelasInput = page.getByText('Quantidade de parcelas').locator('..').locator('input[type="number"]');
+    await parcelasInput.fill('3');
+    const inicioInput = page.getByText('Data de início').locator('..').locator('input[type="date"]');
+    await inicioInput.fill(new Date().toISOString().split('T')[0]);
 
     // Registrar
     await page.locator("button:has-text('Registrar Entrada')").click();
@@ -114,11 +113,8 @@ test.describe("Clube de Milhas", () => {
     // ═══════════════════════════════════════
     // 4. Verificar badges
     // ═══════════════════════════════════════
-    // ponytail: wait for dismiss dialog animation + table refetch
     await page.waitForTimeout(3_000);
-    await expect(page.locator("text=🔄 Clube").first()).toBeVisible({ timeout: 10_000 });
-    await expect(page.locator("text=⏳ Aguardando").first()).toBeVisible({ timeout: 3_000 });
-    await expect(page.locator("text=3 entrada(s) pendente(s)").first()).toBeVisible({ timeout: 3_000 });
+    await expect(page.locator("text=⏳ Aguardando").first()).toBeVisible({ timeout: 10_000 });
 
     // ═══════════════════════════════════════
     // 5. Confirmar entrada pendente

@@ -1,61 +1,33 @@
 # HANDOFF — Milage Flow Manager
 
-> ⏰ Última atualização: 2026-07-11 — Pós-Sessão #86 / Preparação #88
+> ⏰ Última atualização: 2026-07-11 — Sprint #11 (Formulários Dedicados)
 
 ---
 
 ## 🧭 Estado Atual
 
 ### 🔴 Branch atual
-- `main` (PR #87 mergeado via `feat/edit-sales-86`)
+- `feat/dedicated-forms-88` (PR #88 pendente)
 
-### ✅ O que foi feito nesta sessão
+### ✅ O que foi feito nesta sessão (Sprint #11)
 
 | O quê | Status |
 |-------|--------|
-| #86 — Editar Vendas (implementação) | ✅ mergeado (PR #87) |
-| #86 — SaleForm: mode="edit" + initialData | ✅ |
-| #86 — SaleTable: botão Editar por linha | ✅ |
-| #86 — Vendas.tsx: editingSale + handleUpdateSale | ✅ |
-| #88 — Issue criada (Formulários Dedicados) | ✅ aberta |
-| Relatório HTML | `docs/reports/PR86-2026-07-11-feat-edit-sales.html` |
-| AGENDA.md — Sprint #11 adicionada | ✅ |
+| #88 — TransferForm criado | ✅ |
+| #88 — EntryFormPontos criado (sem campos de transferência) | ✅ |
+| #88 — EntryFormMilhas criado (sem transferência, sem conversão) | ✅ |
+| #88 — EntryForm monolítico deletado (-621 linhas líquidas) | ✅ |
+| #88 — Entradas.tsx atualizado: botão Transferir abre TransferForm | ✅ |
+| #88 — Entradas.tsx: abas usam EntryFormPontos/Milhas, edit usa form correto | ✅ |
+| #88 — EntryFormData movido para types/index.ts | ✅ |
+| #90 — Conceito "Clube" removido dos formulários | ✅ |
+| Relatório HTML | `docs/reports/PR88-2026-07-11-feat-dedicated-forms.html` |
+| Branch criada | `feat/dedicated-forms-88` |
 
-### 📋 Próxima Sessão — Sprint #11: Formulários Dedicados
+### 📋 Próxima Sessão — Sprint B 🟡
 
-**Issue:** #88
+**Objetivo:** Limpeza & Confiabilidade
 
-**Objetivo:** Separar `EntryForm` monolítico em 3 formulários dedicados.
-
-#### TransferForm (novo)
-- Conta origem (pontos) → Conta destino (milhas) + data + pontos transferidos + custo calculado
-- Bonificação (%) + Compra no carrinho (pontos extras + valor total)
-- ❌ Sem tipo de origem (sempre "Transferência")
-- ❌ Sem recorrência
-- ❌ Sem clube
-
-#### EntryFormPontos (refatorado de EntryForm)
-- Tipo de origem, recorrência/clube
-- ❌ Sem campos de transferência
-
-#### EntryFormMilhas (refatorado de EntryForm)
-- Tipo de origem, recorrência/clube
-- ❌ Sem campos de transferência
-
-#### Entradas.tsx
-- Botão "Transferir" → abre `TransferForm` diretamente (sem presets)
-- Aba Pontos → `EntryFormPontos`
-- Aba Milhas → `EntryFormMilhas`
-- Remover `transferInitialData` e `handleOpenTransfer`
-
-#### DRY — Compartilhado
-- `lib/metrics.ts` — cálculos (já existem)
-- `lib/recurrence.ts` — calculateRecurrence()
-- `hooks/useDatabase/entries.ts` — mutations
-- `FormDrawer` — container
-- Tipos (`types/index.ts`)
-
-#### Sprint B 🟡
 - [ ] Arquivar 29 docs órfãos em `docs/archive/`
 - [ ] Config cross-harness (`.opencode/`, `.claude/`)
 - [ ] Script `scripts/verify-docs.mjs`
@@ -69,30 +41,34 @@
 | Testes E2E | 54/54 ✅ |
 | CI/CD | ✅ |
 | Deploy | ✅ Automático Vercel |
-| Último PR | #87 (#86 — Editar Vendas) |
+| Último PR | #89 (#88 — Formulários Dedicados + #90 Remover Clube) ✅ CI rodando |
 
 ---
 
 ## 🧠 Contexto Técnico
 
-### Editar Vendas (#86) — IMPLEMENTADO
-- `SaleForm` aceita `mode="create" | "edit"` e `initialData` opcional
-- `key={editingSale?.id}` força remount correto entre edições
-- `handleUpdateSale` recalcula profit/margin via `calcProfit`/`calcProfitMargin`
-- Botão Editar aparece apenas em vendas não-canceladas
-- **ponytail:** ajuste de saldo de conta na edição não implementado (cancel + recreate se finances)
+### Sprint #11 — Formulários Dedicados (IMPLEMENTADO ✅)
 
-### #88 — Formulários Dedicados (PLANEJADO)
-- `EntryForm` atual tem 650+ linhas com lógica condicional de transferência
-- `TransferForm` será componente novo (~150 linhas)
-- `EntryFormPontos` + `EntryFormMilhas` extraídos do `EntryForm` atual (~300 linhas cada)
-- Lógica de domínio permanece em `lib/` (ponto único)
-- Mutations intactas em `hooks/useDatabase/entries.ts`
-- Ver `docs/AGENDA.md` → Sprint #11
+- `EntryForm` monolítico (699 linhas) removido
+- `TransferForm` (~120 linhas): origem (pontos) → destino (milhas), data, bônus, carrinho
+  - Sem tipo de origem, sem recorrência, sem clube
+  - `amountPaid` calculado automaticamente do custo médio da conta origem
+- `EntryFormPontos` (~200 linhas): tipo de origem, recorrência (manual), taxa de conversão
+  - Sem campos de transferência
+- `EntryFormMilhas` (~190 linhas): tipo de origem, recorrência (manual)
+  - Sem campos de transferência, sem taxa de conversão
+- `Entradas.tsx` atualizado:
+  - Botão Transferir abre TransferForm diretamente (sem presets)
+  - Aba Pontos → EntryFormPontos, Aba Milhas → EntryFormMilhas
+  - Edit usa form correto: TransferForm se sourceAccountId, senão EntryFormPontos/Milhas
+  - `transferInitialData` e `handleOpenTransfer` removidos
+- `EntryFormData` movido para `types/index.ts` (isClube/clubeMeses removidos)
+- #90 — Conceito "Clube" removido: recorrência sempre manual via checkbox
+- `buildMonthlyRecurrence` substituído por fallback em `editingEntry.recurrenceInterval`
+- `recurrence.ts` importa de `@/types`
+- **Net: -747 linhas**
 
-### Como iniciar a Sprint #11
+### Como iniciar Sprint B
 1. Ler este HANDOFF.md
-2. Ler `docs/AGENDA.md` → Sprint #11
-3. Ler `docs/ARCHITECTURE.md` + `docs/CONVENTIONS.md`
-4. Issue #88: https://github.com/andre0787/mileage-flow-manager/issues/88
-5. Criar branch: `git checkout -b feat/dedicated-forms-88`
+2. Ler `docs/AGENDA.md` → Sprint B
+3. Branch: `feat/dedicated-forms-88` (precisa PR → merge primeiro)

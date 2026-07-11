@@ -1,4 +1,4 @@
-import type { EntryFormData } from '@/components/EntryForm';
+import type { EntryFormData } from '@/types';
 import { buildMonthlyRecurrence } from '@/lib/origemTypes';
 
 /**

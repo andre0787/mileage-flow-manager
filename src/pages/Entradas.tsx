@@ -19,7 +19,7 @@ import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
 import { calculateRecurrence } from "@/lib/recurrence";
 import { calcMilesGenerated, calcCostPerThousand, calcCostPerMile } from "@/lib/metrics";
-import { buildMonthlyRecurrence, serializeOrigemTypeDescription } from "@/lib/origemTypes";
+import { serializeOrigemTypeDescription } from "@/lib/origemTypes";
 import { toast } from "sonner";
 import {
   useAddEntryMutation,
@@ -29,8 +29,10 @@ import {
 } from "@/hooks/useDatabase";
 import { EntrySummary } from "@/components/EntrySummary";
 import { EntryTable } from "@/components/EntryTable";
-import { EntryForm } from "@/components/EntryForm";
-import type { EntryFormData } from "@/components/EntryForm";
+import { TransferForm } from "@/components/TransferForm";
+import { EntryFormPontos } from "@/components/EntryFormPontos";
+import { EntryFormMilhas } from "@/components/EntryFormMilhas";
+import type { EntryFormData } from "@/types";
 import confetti from "canvas-confetti";
 import type { PointEntry } from "@/types";
 
@@ -48,16 +50,7 @@ export default function Entradas() {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editingEntry, setEditingEntry] = useState<PointEntry | null>(null);
-  const [transferInitialData, setTransferInitialData] = useState<
-    Partial<EntryFormData> | undefined
-  >(undefined);
-
-  const handleOpenTransfer = () => {
-    const transferId = origemTypes.find((ot) => isTransferencia(ot))?.id ?? "";
-    setActiveTab("milhas");
-    setTransferInitialData({ origemTypeId: transferId });
-    setIsCreateDialogOpen(true);
-  };
+  const [isTransferDialogOpen, setIsTransferDialogOpen] = useState(false);
 
   const computeFromForm = (form: EntryFormData) => {
     const ot = origemTypes.find((ot) => ot.id === form.origemTypeId);
@@ -154,11 +147,10 @@ export default function Entradas() {
       const startDate = new Date(form.date);
       const endDate = new Date(startDate.getTime() + interval * 24 * 60 * 60 * 1000 * form.recurrenceCount);
       recurrenceEnd = endDate.toISOString().split('T')[0];
-    } else {
-      // Fallback to existing clube recurrence (for backward compatibility)
-      const clubeRec = buildMonthlyRecurrence(form.isClube, form.clubeMeses);
-      recurrenceInterval = clubeRec.recurrenceInterval;
-      recurrenceEnd = clubeRec.recurrenceEnd;
+    } else if (editingEntry?.recurrenceInterval) {
+      // Preserve existing recurrence from clube entries (backward compat)
+      recurrenceInterval = editingEntry.recurrenceInterval;
+      recurrenceEnd = editingEntry.recurrenceEnd;
     }
     
     const recurrenceFields: Record<string, number | string | undefined> = {};
@@ -198,10 +190,9 @@ export default function Entradas() {
   const handleCreateOrigemType = async (data: {
     name: string;
     color: string;
-    hasRecurrence: boolean;
   }) => {
     const id = crypto.randomUUID();
-    const desc = serializeOrigemTypeDescription(data.hasRecurrence);
+    const desc = serializeOrigemTypeDescription(false);
     await addOrigemTypeM.mutateAsync({
       id,
       name: data.name,
@@ -272,7 +263,7 @@ export default function Entradas() {
             />
           </div>
           <Button
-            onClick={handleOpenTransfer}
+            onClick={() => setIsTransferDialogOpen(true)}
             className="gap-2 bg-gradient-primary hover:opacity-90 shrink-0"
           >
             <ArrowLeftRight className="h-4 w-4" />
@@ -281,10 +272,7 @@ export default function Entradas() {
           <Button
             variant="outline"
             className="gap-2 shrink-0"
-            onClick={() => {
-              setTransferInitialData(undefined);
-              setIsCreateDialogOpen(true);
-            }}
+            onClick={() => setIsCreateDialogOpen(true)}
           >
             <Plus className="h-4 w-4" />
             Nova Entrada
@@ -396,32 +384,51 @@ export default function Entradas() {
         </TabsContent>
       </Tabs>
 
-      {/* Create Dialog */}
+      {/* Create Dialog — Pontos/Milhas */}
       <FormDrawer
         open={isCreateDialogOpen}
-        onOpenChange={(open) => {
-          if (!open) {
-            setTransferInitialData(undefined);
-            setIsCreateDialogOpen(false);
-          }
-          setIsCreateDialogOpen(open);
-        }}
+        onOpenChange={(open) => setIsCreateDialogOpen(open)}
         title={`Registrar Nova Entrada - ${activeTab === "pontos" ? "Pontos" : "Milhas"}`}
       >
-        <EntryForm
+        {activeTab === "pontos" ? (
+          <EntryFormPontos
+            mode="create"
+            accounts={accounts}
+            origemTypes={origemTypes}
+            programs={programs}
+            owners={owners}
+            onCreateOrigemType={handleCreateOrigemType}
+            onSubmit={handleCreateEntry}
+            onCancel={() => setIsCreateDialogOpen(false)}
+          />
+        ) : (
+          <EntryFormMilhas
+            mode="create"
+            accounts={accounts}
+            origemTypes={origemTypes}
+            programs={programs}
+            owners={owners}
+            onCreateOrigemType={handleCreateOrigemType}
+            onSubmit={handleCreateEntry}
+            onCancel={() => setIsCreateDialogOpen(false)}
+          />
+        )}
+      </FormDrawer>
+
+      {/* Transfer Dialog */}
+      <FormDrawer
+        open={isTransferDialogOpen}
+        onOpenChange={(open) => setIsTransferDialogOpen(open)}
+        title="Registrar Transferência"
+      >
+        <TransferForm
           mode="create"
-          initialData={transferInitialData}
           accounts={accounts}
           origemTypes={origemTypes}
           programs={programs}
           owners={owners}
-          activeTab={activeTab}
-          onCreateOrigemType={handleCreateOrigemType}
           onSubmit={handleCreateEntry}
-          onCancel={() => {
-            setTransferInitialData(undefined);
-            setIsCreateDialogOpen(false);
-          }}
+          onCancel={() => setIsTransferDialogOpen(false)}
         />
       </FormDrawer>
 
@@ -429,15 +436,37 @@ export default function Entradas() {
       <FormDrawer
         open={isEditDialogOpen}
         onOpenChange={(open) => {
-          if (!open) {
-            setEditingEntry(null);
-          }
+          if (!open) setEditingEntry(null);
           setIsEditDialogOpen(open);
         }}
         title={`Editar Entrada - ${activeTab === "pontos" ? "Pontos" : "Milhas"}`}
       >
-        {editingEntry && (
-          <EntryForm
+        {editingEntry && editingEntry.sourceAccountId ? (
+          <TransferForm
+            mode="edit"
+            initialData={{
+              accountId: editingEntry.accountId,
+              origemTypeId: editingEntry.origemTypeId,
+              sourceAccountId: editingEntry.sourceAccountId ?? "",
+              amount: String(editingEntry.amount),
+              amountPaid: String(editingEntry.amountPaid),
+              bonusPercent: editingEntry.bonusPercent ? String(editingEntry.bonusPercent) : "",
+              cartAmount: editingEntry.cartAmount ? String(editingEntry.cartAmount) : "",
+              cartCost: editingEntry.cartCost ? String(editingEntry.cartCost) : "",
+              date: editingEntry.date,
+            }}
+            accounts={accounts}
+            origemTypes={origemTypes}
+            programs={programs}
+            owners={owners}
+            onSubmit={handleUpdateEntry}
+            onCancel={() => {
+              setEditingEntry(null);
+              setIsEditDialogOpen(false);
+            }}
+          />
+        ) : editingEntry && activeTab === "pontos" ? (
+          <EntryFormPontos
             mode="edit"
             initialData={{
               accountId: editingEntry.accountId,
@@ -447,10 +476,6 @@ export default function Entradas() {
               conversionRate: editingEntry.conversionRate
                 ? String(editingEntry.conversionRate)
                 : "",
-              sourceAccountId: editingEntry.sourceAccountId ?? "",
-              bonusPercent: editingEntry.bonusPercent ? String(editingEntry.bonusPercent) : "",
-              cartAmount: editingEntry.cartAmount ? String(editingEntry.cartAmount) : "",
-              cartCost: editingEntry.cartCost ? String(editingEntry.cartCost) : "",
               isClube: !!(editingEntry.recurrenceInterval && editingEntry.recurrenceEnd),
               clubeMeses: editingEntry.recurrenceEnd
                 ? String(
@@ -467,14 +492,46 @@ export default function Entradas() {
             origemTypes={origemTypes}
             programs={programs}
             owners={owners}
-            activeTab={activeTab}
             onSubmit={handleUpdateEntry}
             onCancel={() => {
               setEditingEntry(null);
               setIsEditDialogOpen(false);
             }}
           />
-        )}
+        ) : editingEntry ? (
+          <EntryFormMilhas
+            mode="edit"
+            initialData={{
+              accountId: editingEntry.accountId,
+              origemTypeId: editingEntry.origemTypeId,
+              amount: String(editingEntry.amount),
+              amountPaid: String(editingEntry.amountPaid),
+              conversionRate: editingEntry.conversionRate
+                ? String(editingEntry.conversionRate)
+                : "",
+              isClube: !!(editingEntry.recurrenceInterval && editingEntry.recurrenceEnd),
+              clubeMeses: editingEntry.recurrenceEnd
+                ? String(
+                    Math.ceil(
+                      (new Date(editingEntry.recurrenceEnd).getTime() -
+                        new Date(editingEntry.date).getTime()) /
+                        (30 * 24 * 60 * 60 * 1000),
+                    ),
+                  )
+                : "",
+              date: editingEntry.date,
+            }}
+            accounts={accounts}
+            origemTypes={origemTypes}
+            programs={programs}
+            owners={owners}
+            onSubmit={handleUpdateEntry}
+            onCancel={() => {
+              setEditingEntry(null);
+              setIsEditDialogOpen(false);
+            }}
+          />
+        ) : null}
       </FormDrawer>
     </div>
   );
