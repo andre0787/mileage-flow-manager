@@ -30,16 +30,31 @@
 9. **🧹 Limpeza obrigatória antes de PR/merge**: verifique `git status` — ZERO arquivos uncommitted. Inclui código, docs, council verdicts, plans, specs, package.json/lock, relatórios. Veja `docs/CONVENTIONS.md` → "Limpeza Pós-Sessão".
 10. **🐞 Registro de bugs obrigatório**: todo bug encontrado durante desenvolvimento DEVE ser registrado em `docs/AGENDA.md` → "🐞 Bugs Encontrados". Veja `docs/CONVENTIONS.md` → "Registro de Bugs".
 
-## Começando
+## Começando — ⚡ AUTO-INICIALIZAÇÃO
 
-Ordem obrigatória no início de cada sessão:
+**Regra:** ao iniciar uma nova sessão, o agente DEVE executar `npm run session:start`
+**antes de qualquer outra ação** (antes de ler arquivos, antes de responder ao usuário,
+antes de qualquer tool call). Este é o gatilho automático do workflow.
 
-1. **Rodar `npm run session:start`** — extrai resumo comprimido de HANDOFF + AGENDA + regras ativas (~400 tokens)
-2. **Ler `HANDOFF.md`** — contexto completo da sessão anterior
-3. **Ler `docs/AGENDA.md`** — sprint board
-4. **Ler `docs/WORKFLOW.md`** (seção Scripts de Workflow) — processos e atalhos
-5. **Ler `docs/ARCHITECTURE.md`** — estrutura do projeto
-6. **Ler `docs/CONVENTIONS.md`** — padrões de código
+### Por que isso funciona
+
+O `AGENTS.md` é carregado como instrução de projeto por todos os harnesses suportados
+(pi, OpenCode, Claude Code). Ao ler "execute X automaticamente no início", o LLM
+interpreta como uma ordem direta e executa.
+
+### Ordem exata
+
+```
+1. npm run session:start           ← execução automática (GATILHO)
+2. read HANDOFF.md                 ← contexto completo
+3. read docs/AGENDA.md             ← sprint board
+4. read docs/WORKFLOW.md           ← processos + scripts
+5. read docs/ARCHITECTURE.md       ← estrutura
+6. read docs/CONVENTIONS.md        ← padrões
+```
+
+> Após `session:start`, o agente tem o resumo em ~300 tokens e decide
+> se precisa ler os docs completos baseado na tarefa do usuário.
 
 Para contexto histórico de sessões anteriores, veja também `MEMORY.md`.
 
