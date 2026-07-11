@@ -92,7 +92,9 @@ Antes de criar qualquer PR, executar este checklist:
 - [ ] Funções utilitárias estão em `lib/` (não inline em componentes)?
 - [ ] Imports não têm `as any` sem justificativa?
 
-### 5. CI/CD
+### 5. Código & Debug
+- [ ] Nenhum `console.log` esquecido? (`git diff HEAD -- ":(exclude)src/lib/logger.ts" | grep "console\."`)
+- [ ] `VITE_ENABLE_DEBUG_LOG` só true em dev (não no `.env` versionado)?
 - [ ] GitHub Actions CI verde no PR?
 - [ ] `npm run build` passa?
 - [ ] `npm test` passa (45/45)?

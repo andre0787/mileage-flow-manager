@@ -258,6 +258,19 @@ O projeto é compatível com 3 harnesses:
 
 Todas as skills seguem o Agent Skills standard.
 
+## Debug
+
+Ver `docs/DEBUG.md` para guia completo.
+
+### Convenções
+
+- **Logger:** usar `logInfo()`/`logWarn()`/`logError()`/`logDestructiveOp()` de `@/lib/logger`
+- **Ativação:** `VITE_ENABLE_DEBUG_LOG=true` no `.env.local`
+- **Persistência:** logs ficam no localStorage (`mc_debug_logs`), últimos 100
+- **Breakpoints:** `.vscode/launch.json` configurado — F5 com Vite rodando
+- **Testes:** F5 com arquivo de teste aberto
+- **Console.log:** só em dev, remover antes do PR (CRLF)
+
 ## Observações Gerais
 
 - Não adicionar dependências sem necessidade

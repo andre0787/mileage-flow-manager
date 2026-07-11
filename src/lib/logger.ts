@@ -8,7 +8,7 @@ const ENABLE_DEBUG_LOG = import.meta.env.VITE_ENABLE_DEBUG_LOG === "true";
 interface LogEntry {
   timestamp: string;
   userId?: string;
-  type: "error" | "destructive_op" | "info";
+  type: "error" | "destructive_op" | "info" | "warn";
   context: string;
   details?: Record<string, unknown>;
   error?: string;
@@ -41,6 +41,32 @@ function persist(entry: LogEntry): void {
   } catch {
     // localStorage cheio ou indisponível — ignorar
   }
+}
+
+/**
+ * Logga informação genérica (fetch, transição, etc.)
+ */
+export function logInfo(context: string, details?: Record<string, unknown>): void {
+  persist({
+    timestamp: new Date().toISOString(),
+    userId: getUserId() ?? undefined,
+    type: "info",
+    context,
+    details,
+  });
+}
+
+/**
+ * Logga aviso (estado inesperado não crítico)
+ */
+export function logWarn(context: string, details?: Record<string, unknown>): void {
+  persist({
+    timestamp: new Date().toISOString(),
+    userId: getUserId() ?? undefined,
+    type: "warn",
+    context,
+    details,
+  });
 }
 
 /**

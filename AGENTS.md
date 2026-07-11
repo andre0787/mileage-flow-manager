@@ -15,6 +15,7 @@
 | Git & deploy | `docs/GIT-WORKFLOW.md` |
 | Testes | `docs/TESTING.md` |
 | Mapa completo | `docs/MAP.md` |
+| Debug | `docs/DEBUG.md` |
 
 ## Regras Imutáveis
 
