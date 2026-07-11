@@ -76,7 +76,7 @@ export function useClearAccountDataMutation() {
           name: "Transferência",
           account_type: "milhas",
           color: "#8b5cf6",
-        } as any);
+        });
         if (insErr) console.error("[clearAccountData] failed to re-insert Transferência:", insErr);
       }
     },

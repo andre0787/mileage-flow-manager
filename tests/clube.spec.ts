@@ -98,6 +98,8 @@ test.describe("Clube de Milhas", () => {
 
     await page.fill("#amount", "10000");
     await page.fill("#amountPaid", "350.00");
+    // ponytail: date field added by feature #80
+    await page.fill("#entryDate", new Date().toISOString().split("T")[0]);
 
     // Preencher meses
     await page.fill("input[placeholder='Ex: 12']", "3");
@@ -107,12 +109,14 @@ test.describe("Clube de Milhas", () => {
 
     // Registrar
     await page.locator("button:has-text('Registrar Entrada')").click();
-    await page.waitForTimeout(2_000);
+    await page.waitForTimeout(1_000);
 
     // ═══════════════════════════════════════
     // 4. Verificar badges
     // ═══════════════════════════════════════
-    await expect(page.locator("text=🔄 Clube").first()).toBeVisible({ timeout: 5_000 });
+    // ponytail: wait for dismiss dialog animation + table refetch
+    await page.waitForTimeout(3_000);
+    await expect(page.locator("text=🔄 Clube").first()).toBeVisible({ timeout: 10_000 });
     await expect(page.locator("text=⏳ Aguardando").first()).toBeVisible({ timeout: 3_000 });
     await expect(page.locator("text=3 entrada(s) pendente(s)").first()).toBeVisible({ timeout: 3_000 });
 

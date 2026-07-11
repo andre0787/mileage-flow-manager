@@ -17,6 +17,7 @@ import { useHaptic } from "@/hooks/useHaptic";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
+import { calculateRecurrence } from "@/lib/recurrence";
 import { calcMilesGenerated, calcCostPerThousand, calcCostPerMile } from "@/lib/metrics";
 import { buildMonthlyRecurrence, serializeOrigemTypeDescription } from "@/lib/origemTypes";
 import {
@@ -108,8 +109,15 @@ export default function Entradas() {
         bonusPercent: c.isTransfer ? parseFloat(form.bonusPercent || "0") : undefined,
         cartAmount: c.isTransfer && c.cartAmount > 0 ? c.cartAmount : undefined,
         cartCost: c.isTransfer && c.cartCost > 0 ? c.cartCost : undefined,
-        ...buildMonthlyRecurrence(form.isClube, form.clubeMeses),
-        date: new Date().toISOString().split("T")[0],
+        ...calculateRecurrence({
+          isRecurrent: form.isRecurrent,
+          recurrenceCount: form.recurrenceCount,
+          recurrenceType: form.recurrenceType,
+          date: form.date,
+          isClube: form.isClube,
+          clubeMeses: form.clubeMeses,
+        }),
+        date: form.date,
       },
       {
         onSuccess: () => {
@@ -129,6 +137,32 @@ export default function Entradas() {
   const handleUpdateEntry = (form: EntryFormData) => {
     if (!editingEntry) return;
     const c = computeFromForm(form);
+    
+    // Determine recurrence settings
+    let recurrenceInterval: number | undefined;
+    let recurrenceEnd: string | undefined;
+    if (form.isRecurrent && form.recurrenceCount > 1) {
+      const type = form.recurrenceType as 'monthly' | 'quarterly' | 'semiannual' | 'annual';
+      const intervalMap = { monthly: 30, quarterly: 90, semiannual: 180, annual: 365 };
+      const interval = intervalMap[type];
+      recurrenceInterval = interval;
+      const startDate = new Date(form.date);
+      const endDate = new Date(startDate.getTime() + interval * 24 * 60 * 60 * 1000 * form.recurrenceCount);
+      recurrenceEnd = endDate.toISOString().split('T')[0];
+    } else {
+      // Fallback to existing clube recurrence (for backward compatibility)
+      const clubeRec = buildMonthlyRecurrence(form.isClube, form.clubeMeses);
+      recurrenceInterval = clubeRec.recurrenceInterval;
+      recurrenceEnd = clubeRec.recurrenceEnd;
+    }
+    
+    const recurrenceFields: Record<string, number | string | undefined> = {};
+    if (recurrenceInterval !== undefined) recurrenceFields.recurrenceInterval = recurrenceInterval;
+    if (recurrenceEnd !== undefined) recurrenceFields.recurrenceEnd = recurrenceEnd;
+    
+    const ot = origemTypes.find((ot) => ot.id === form.origemTypeId);
+    const isTransfer = ot ? isTransferencia(ot) : false;
+    
     updateEntryM.mutate({
       oldEntry: editingEntry,
       updates: {
@@ -148,7 +182,8 @@ export default function Entradas() {
         bonusPercent: c.isTransfer ? parseFloat(form.bonusPercent || "0") : undefined,
         cartAmount: c.isTransfer && c.cartAmount > 0 ? c.cartAmount : undefined,
         cartCost: c.isTransfer && c.cartCost > 0 ? c.cartCost : undefined,
-        ...buildMonthlyRecurrence(form.isClube, form.clubeMeses),
+        date: form.date,
+        ...recurrenceFields,
       },
     });
     setEditingEntry(null);
@@ -421,6 +456,7 @@ export default function Entradas() {
                     ),
                   )
                 : "",
+              date: editingEntry.date,
             }}
             accounts={accounts}
             origemTypes={origemTypes}
