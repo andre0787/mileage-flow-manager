@@ -181,6 +181,10 @@ que impeça sua violação de forma automatizada.
 |-------|-----------|-------------|
 | #4 — NUNCA commitar na main | Pre-commit hook | `.githooks/pre-commit` |
 | #10 — Zero arquivos uncommitted | `npm run pre-pr` + `session:end` | `scripts/pre-pr-check.mjs` |
+| #14 — Sem arquivos órfãos em `src/` | `rule-14-orphan-files.mjs` | `scripts/rules/rule-14-orphan-files.mjs` |
+| #15 — Sem duplicatas > 75% em componentes | `rule-15-duplicate-code.mjs` | `scripts/rules/rule-15-duplicate-code.mjs` |
+| #16 — Scripts têm atalho npm | `rule-16-orphan-scripts.mjs` | `scripts/rules/rule-16-orphan-scripts.mjs` |
+| verify-docs — Docs refs código inexistentes | `verify-docs.mjs` (check #4) | `scripts/verify-docs.mjs` |
 
 ### Como criar uma nova validação
 
@@ -348,11 +352,18 @@ Antes de todo PR que altera docs:
 node scripts/verify-docs.mjs
 ```
 O script verifica:
-- Links internos quebrados
-- Arquivos órfãos (sem referência)
-- Promessas de UI inconsistentes
+1. Links internos quebrados
+2. Arquivos órfãos (sem referência)
+3. Promessas de UI inconsistentes
+4. **Referências a arquivos de código que não existem** (`.ts`/`.tsx`/`.mjs`)
 
 Use `--strict` para exit code 1 se houver issues.
+
+```bash
+# Atalhos npm
+npm run verify-docs        # scan completo
+npm run verify-docs:strict # exit 1 se achar issues
+```
 
 ### Cross-Harness
 
@@ -375,6 +386,59 @@ Ver `docs/DEBUG.md` para guia completo.
 - **Breakpoints:** `.vscode/launch.json` configurado — F5 com Vite rodando
 - **Testes:** F5 com arquivo de teste aberto
 - **Console.log:** só em dev, remover antes do PR (CRLF)
+
+## Arquivos Órfãos — REGRA #14
+
+**Nenhum arquivo `.ts`/`.tsx` em `src/` pode ficar sem ser importado por ninguém.**
+
+```bash
+# Verificação manual
+node scripts/rules/rule-14-orphan-files.mjs
+```
+
+### Exceções
+- `src/main.tsx` — entry point do Vite
+- `src/vite-env.d.ts` — tipagens do Vite
+- Arquivos `.d.ts` — type declarations
+
+### Por quê?
+- Arquivos não importados são código morto disfarçado
+- Testes em `src/` (fora de `tests/`) não são executados pelo vitest
+- A regra #14 flagou `RecurrenceControls.tsx` como órfão durante a auditoria
+
+## Código Duplicado — REGRA #15
+
+**Componentes em `src/components/` (exceto `ui/`) não podem ter similaridade Dice > 75%.**
+
+```bash
+# Verificação manual
+node scripts/rules/rule-15-duplicate-code.mjs
+```
+
+### Como funciona
+- Compara linhas (trimmed, não vazias) de cada par de `.tsx`
+- Usa coeficiente Dice: `2 × |intersecção| / (|A| + |B|)`
+- Ignora arquivos < 20 linhas e pares com tamanho muito discrepante (< 0.5× ou > 2×)
+
+### Por quê?
+- A auditoria encontrou `EntryFormMilhas.tsx` (433 linhas) ≈ `EntryFormPontos.tsx` (452 linhas) com ~90% de similaridade
+- Código duplicado dobra custo de manutenção (bug fix em 2 lugares)
+
+## Scripts Órfãos — REGRA #16
+
+**Todo script em `scripts/` DEVE ter um atalho npm correspondente em `package.json`.**
+
+```bash
+# Verificação manual
+node scripts/rules/rule-16-orphan-scripts.mjs
+```
+
+### Exceções
+- `scripts/lib.mjs` — módulo utilitário compartilhado, não é script executável
+
+### Por quê?
+- Scripts sem atalho npm são invisíveis para devs (`npm run <tab>` não mostra)
+- A auditoria encontrou `quality-report.mjs` sem atalho
 
 ## Observações Gerais
 
