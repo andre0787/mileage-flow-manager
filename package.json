@@ -20,6 +20,8 @@
     "report": "node scripts/generate-report.mjs",
     "report:help": "node scripts/generate-report.mjs --help",
     "report:rename": "node scripts/generate-report.mjs --rename",
+    "quality": "node scripts/quality-report.mjs",
+    "quality:write": "node scripts/quality-report.mjs --write",
     "pre-pr": "node scripts/pre-pr-check.mjs",
     "handoff": "node scripts/update-handoff.mjs --write",
     "think": "node scripts/think.mjs",

@@ -44,8 +44,7 @@ src/
 │   ├── useDatabase.ts       # Barrel re-export do useDatabase/
 │   ├── useDebounce.ts       # 300ms
 │   ├── useHaptic.ts         # Vibração mobile
-│   ├── useKeyboardShortcuts.ts  # Atalhos: g,e,v,c,p,s,r,? (Sprint #7)
-│   └── useOnlineStatus.ts   # Hook de detecção offline
+│   └── useKeyboardShortcuts.ts  # Atalhos: g,e,v,c,p,s,r,? (Sprint #7)
 ├── lib/
 │   ├── accounts.ts          # Lógica de domínio de contas
 │   ├── dates.ts             # Formatação de datas
