@@ -282,6 +282,20 @@
 - [ ] 🐛 `#c8060b81` teste2 — 2026-07-11
 
 
+---
+
+## ✅ Sessão 2026-07-12 — Relatório enriquecido + Evidências
+
+- [x] **PR #103** — Relatório HTML enriquecido + auto-geração no pre-pr
+- [x] **PR #104** — Evidências visuais + rename automático no relatório
+- [x] **PR #105** — Seção antes/depois padrão no relatório
+
+> **11 seções no relatório.** Renome automático `auto-*.html` → `PR<num>-*.html`.
+> Evidências sempre presentes. Acentos tratados.
+> Auto-geração condicional no `npm run pre-pr`.
+
+---
+
 ## 📌 Backlog Futuro
 
 ### Sprint #11
