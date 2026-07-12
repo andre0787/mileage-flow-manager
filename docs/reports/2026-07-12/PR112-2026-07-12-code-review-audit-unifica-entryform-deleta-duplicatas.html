@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PR112 — Code review audit — unifica EntryForm, deleta duplicatas</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 Code review audit — unifica EntryForm, deleta duplicatas</h1>
+  <p class="meta">2026-07-12 14:34 &middot; chore/review-code-audit-ponytail &middot; 825ba2f — chore: code review audit — unifica EntryForm, deleta duplicatas, simplifica</p>
+  <p><span class="badge pr">PR #112</span> <span class="badge auto">PR112</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">6</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+51</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-572</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~562</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🖼️ Renderização verificada em desktop e mobile?</li>
+      <li>📦 Biblioteca testada com casos de borda?</li>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Manutenção simplificada: EntryForm em 1 arquivo só; Testes não-duplicados; Repositório -977 linhas</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Remoção de 885 linhas de código duplicado entre EntryFormMilhas/Pontos; Deleção de teste duplicado ignorado pelo vitest; Adição de scripts npm perdidos (quality)</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 572 remoções — 749 linhas tocadas</td>
+        <td>✨ 51 adições — 6 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/ARCHITECTURE.md, package.json<br><span style="color:#666;font-weight:600"></span> src/components/EntryFormPontos.tsx src/components/EntryForm.tsx<br><span style="color:#991b1b;font-weight:600">➖</span> src/components/EntryFormMilhas.tsx, src/lib/recurrence.test.ts<br><em>+1 arquivo(s)</em></td>
+      </tr>
+      <tr>
+        <td><strong>📷 Screenshot</strong></td>
+        <td colspan="2"><img src="net: -977 linhas, -2 arquivos; Testes: 45/45; TypeScript: limpo; Build: OK" alt="Evidência visual" style="max-width:100%;border:1px solid #ddd;border-radius:4px"></td>
+      </tr>
+      
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>6</td></tr>
+    <tr><td>Adições</td><td>+51</td></tr>
+    <tr><td>Remoções</td><td>-572</td></tr>
+    <tr><td>Tokens estimados</td><td>~562</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:7">+38 add</div>
+        <div class="del" style="flex:76">-429 del</div>
+        <div class="overhead" style="flex:17">~95 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+38</td><td>7%</td></tr>
+      <tr><td>Remoções</td><td>-429</td><td>76%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~95</td><td>17%</td></tr>
+      <tr><th>Total</th><th>~562</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>docs/ARCHITECTURE.md</td></tr>
+<tr><td>M</td><td>package.json</td></tr>
+<tr><td>R089</td><td>src/components/EntryFormPontos.tsx src/components/EntryForm.tsx</td></tr>
+<tr><td>D</td><td>src/components/EntryFormMilhas.tsx</td></tr>
+<tr><td>D</td><td>src/lib/recurrence.test.ts</td></tr>
+<tr><td>M</td><td>src/pages/Entradas.tsx</td></tr>
+  </table>
+
+  
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/docs/ARCHITECTURE.md b/docs/ARCHITECTURE.md
+index b000741..7d23b09 100644
+<span class="del">--- a/docs/ARCHITECTURE.md</span>
+<span class="add">+++ b/docs/ARCHITECTURE.md</span>
+@@ -44,8 +44,7 @@ src/
+ │   ├── useDatabase.ts       # Barrel re-export do useDatabase/
+ │   ├── useDebounce.ts       # 300ms
+ │   ├── useHaptic.ts         # Vibração mobile
+<span class="del">-│   ├── useKeyboardShortcuts.ts  # Atalhos: g,e,v,c,p,s,r,? (Sprint #7)</span>
+<span class="del">-│   └── useOnlineStatus.ts   # Hook de detecção offline</span>
+<span class="add">+│   └── useKeyboardShortcuts.ts  # Atalhos: g,e,v,c,p,s,r,? (Sprint #7)</span>
+ ├── lib/
+ │   ├── accounts.ts          # Lógica de domínio de contas
+ │   ├── dates.ts             # Formatação de datas
+diff --git a/package.json b/package.json
+index 7adf7e4..6f7568c 100644
+<span class="del">--- a/package.json</span>
+<span class="add">+++ b/package.json</span>
+@@ -20,6 +20,8 @@
+     "report": "node scripts/generate-report.mjs",
+     "report:help": "node scripts/generate-report.mjs --help",
+     "report:rename": "node scripts/generate-report.mjs --rename",
+<span class="add">+    "quality": "node scripts/quality-report.mjs",</span>
+<span class="add">+    "quality:write": "node scripts/quality-report.mjs --write",</span>
+     "pre-pr": "node scripts/pre-pr-check.mjs",
+     "handoff": "node scripts/update-handoff.mjs --write",
+     "think": "node scripts/think.mjs",
+diff --git a/src/components/EntryFormPontos.tsx b/src/components/EntryForm.tsx
+similarity index 89%
+rename from src/components/EntryFormPontos.tsx
+rename to src/components/EntryForm.tsx
+index 8724489..d6cfe70 100644
+<span class="del">--- a/src/components/EntryFormPontos.tsx</span>
+<span class="add">+++ b/src/components/EntryForm.tsx</span>
+@@ -8,7 +8,8 @@ import { FormDrawer } from "@/components/FormDrawer"
+ import { isTransferencia } from "@/lib/utils"
+ import type { Account, OrigemType, Program, Owner, EntryFormData } from "@/types"
+ 
+<span class="del">-interface EntryFormPontosProps {</span>
+<span class="add">+interface EntryFormProps {</span>
+<span class="add">+  type: "milhas" | "pontos"</span>
+   mode: "create" | "edit"
+   initialData?: Partial&lt;EntryFormData&gt;
+   onSubmit: (data: EntryFormData) =&gt; void
+@@ -38,7 +39,8 @@ const emptyForm: EntryFormData = {
+   recurrenceValueMode: "split",
+ }
+ 
+<span class="del">-export function EntryFormPontos({</span>
+<span class="add">+export function EntryForm({</span>
+<span class="add">+  type,</span>
+   mode,
+   initialData,
+   onSubmit,
+@@ -48,7 +50,7 @@ export function EntryFormPontos({
+   programs,
+   owners,
+   onCreateOrigemType,
+<span class="del">-}: EntryFormPontosProps) {</span>
+<span class="add">+}: EntryFormProps) {</span>
+   const [form, setForm] = useState&lt;EntryFormData&gt;({ ...emptyForm, ...initialData })
+   const [errors, setErrors] = useState&lt;Partial&lt;Record&lt;string, string&gt;&gt;&gt;({})
+   const [isOrigemTypeOpen, setIsOrigemTypeOpen] = useState(false)
+@@ -60,12 +62,14 @@ export function EntryFormPontos({
+   const clearErr = (field: string) =&gt; setErrors((prev) =&gt; ({ ...prev, [field]: "" }))
+ 
+   const selectedAccount = accounts.find((a) =&gt; a.id === form.accountId)
+<span class="del">-  const availableAccounts = accounts.filter((a) =&gt; a.type === "pontos" &amp;&amp; a.status === "ativa")</span>
+<span class="del">-  const currentOrigemTypes = origemTypes.filter((ot) =&gt; ot.accountType === "pontos" &amp;&amp; !isTransferencia(ot))</span>
+<span class="add">+  const availableAccounts = accounts.filter((a) =&gt; a.type === type &amp;&amp; a.status === "ativa")</span>
+<span class="add">+  const currentOrigemTypes = origemTypes.filter((ot) =&gt; ot.accountType === type &amp;&amp; !isTransferencia(ot))</span>
+ 
+   const ownerName = (id: string) =&gt; owners.find((o) =&gt; o.id === id)?.name ?? id
+   const programName = (id: string) =&gt; programs.find((p) =&gt; p.id === id)?.name ?? id
+ 
+<span class="add">+  const label = type === "milhas" ? "Milhas" : "Pontos"</span>
+<span class="add">+</span>
+   const validate = (): boolean =&gt; {
+     const errs: typeof errors = {}
+     if (!form.accountId) errs.accountId = "Selecione uma conta"
+@@ -108,6 +112,10 @@ export function EntryFormPontos({
+     }
+   }
+ 
+<span class="add">+  const milesGenerated = parseFloat(form.amount) * parseFloat(form.conversionRate || "1")</span>
+<span class="add">+  const costPerMile = parseFloat(form.amountPaid) / (milesGenerated || 1)</span>
+<span class="add">+  const costPerThousand = (parseFloat(form.amountPaid) / parseFloat(form.amount)) * 1000</span>
+<span class="add">+</span>
+   return (
+     &lt;div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto"&gt;
+       {/* Conta */}
+@@ -183,7 +191,7 @@ export function EntryFormPontos({
+                         setNewOT((p) =&gt; ({ ...p, name: e.target.value }))
+                         setOtErrors((p) =&gt; ({ ...p, name: "" }))
+                       }}
+<span class="del">-                      placeholder="Ex: Cashback"</span>
+<span class="add">+                      placeholder={`Ex: ${type === "milhas" ? "Compra Direta" : "Cashback"}`}</span>
+                     /&gt;
+                     {otErrors.name &amp;&amp; &lt;p className="text-xs text-destructive"&gt;{otErrors.name}&lt;/p&gt;}
+                   &lt;/div&gt;
+@@ -241,7 +249,7 @@ export function EntryFormPontos({
+       {/* Quantidade + Valor Pago */}
+       &lt;div className="grid grid-cols-2 gap-4"&gt;
+         &lt;div className="space-y-2"&gt;
+<span class="del">-          &lt;Label htmlFor="amount"&gt;Pontos Adquiridos&lt;/Label&gt;</span>
+<span class="add">+          &lt;Label htmlFor="amount"&gt;{label} Adquiridos&lt;/Label&gt;</span>
+           &lt;Input
+             id="amount"
+             type="number"
+@@ -380,9 +388,7 @@ export function EntryFormPontos({
+                   &lt;div className="flex justify-between mt-1"&gt;
+                     &lt;span&gt;Valor por parcela:&lt;/span&gt;
+                     &lt;span&gt;
+<span class="del">-                      R$ {(</span>
+<span class="del">-                        parseFloat(form.amountPaid) / form.recurrenceCount</span>
+<span class="del">-                      ).toFixed(2)}</span>
+<span class="add">+                      R$ {(parseFloat(form.amountPaid) / form.recurrenceCount).toFixed(2)}</span>
+                     &lt;/span&gt;
+                   &lt;/div&gt;
+                 )}
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>
