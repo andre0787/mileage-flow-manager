@@ -83,6 +83,7 @@ Nenhum PR aberto.
 - Valida seções obrigatórias: Benefícios, Checklist, **Evidências**, Consumo de Tokens, Métricas, Breakdown
 
 ### 📋 Próximos passos
+- [ ] **Limpar Conta** também limpar cache automaticamente (AppSidebar/Configuracoes)
 - [ ] Revisar feedbacks de usuários (2 pendentes — "teste" e "teste2")
 - [ ] Backlog: traduções, analytics, performance, PWA
 

@@ -78,7 +78,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
     clearAccountM.mutate(undefined, {
       onSuccess: () => {
         queryClient.clear();
-        window.location.reload();
+        clearCache(); // também limpa localStorage (mc-debug-logs, etc)
       },
     });
   };
