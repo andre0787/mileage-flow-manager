@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PR111 — Regra #8 relatório obrigatório nunca pular</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 Regra #8 relatório obrigatório nunca pular</h1>
+  <p class="meta">2026-07-12 14:03 &middot; chore/regra-relatorio-nunca-pular &middot; 8bf0f24 — chore: reforca regra #8 - relatorio obrigatorio nunca pular</p>
+  <p><span class="badge pr">PR #111</span> <span class="badge auto">PR111</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">4</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+34</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-15</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~70</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Zero PRs sem relatório</li>
+<li>Workflow quebra se faltar</li>
+<li>Regra explícita em 4 lugares (AGENTS, CONVENTIONS, rule-08, pre-pr)</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Disciplina de qualidade — toda mudança documentada. Elimina PRs sem relatório.</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>Relatório era 'obrigatório' mas workflow não impedia de pular</td>
+        <td>pre-pr-check.mjs FALHA se relatório não existir, rule-08 valida até sem PR</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> AGENTS.md, docs/CONVENTIONS.md, scripts/pre-pr-check.mjs, scripts/rules/rule-08-report.mjs</td>
+      </tr>
+      <tr>
+        <td><strong>📷 Screenshot</strong></td>
+        <td colspan="2"><img src="https://placehold.co/750x300/e2e8f0/1e293b?text=Relatório+agora+é+NUNCA+OPCIONAL&amp;font=inter" alt="Evidência visual" style="max-width:100%;border:1px solid #ddd;border-radius:4px"></td>
+      </tr>
+      
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>4</td></tr>
+    <tr><td>Adições</td><td>+34</td></tr>
+    <tr><td>Remoções</td><td>-15</td></tr>
+    <tr><td>Tokens estimados</td><td>~70</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:37">+26 add</div>
+        <div class="del" style="flex:16">-11 del</div>
+        <div class="overhead" style="flex:47">~33 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+26</td><td>37%</td></tr>
+      <tr><td>Remoções</td><td>-11</td><td>16%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~33</td><td>47%</td></tr>
+      <tr><th>Total</th><th>~70</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>AGENTS.md</td></tr>
+<tr><td>M</td><td>docs/CONVENTIONS.md</td></tr>
+<tr><td>M</td><td>scripts/pre-pr-check.mjs</td></tr>
+<tr><td>M</td><td>scripts/rules/rule-08-report.mjs</td></tr>
+  </table>
+
+  <h2>📋 Detalhamento por Item</h2>
+    <table>
+      <tr>
+        <th style="width:18%">Item</th>
+        <th style="width:22%">Correção Efetuada</th>
+        <th style="width:20%">Benefício</th>
+        <th style="width:22%">Impacto no Negócio</th>
+        <th style="width:18%">Custo Token</th>
+      </tr>
+      <tr>
+        <td><strong>pre-pr falha</strong></td>
+        <td>process.exit(1) se relatório não gerar</td>
+        <td>Zero falsos positivos</td>
+        <td>Disciplina real</td>
+        <td><code>~80</code></td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/AGENTS.md b/AGENTS.md
+index c433893..cec64b3 100644
+<span class="del">--- a/AGENTS.md</span>
+<span class="add">+++ b/AGENTS.md</span>
+@@ -26,7 +26,7 @@
+ 5. **CI/CD obrigatório**: CI roda build + testes em todo PR (`.github/workflows/ci.yml`). Deploy automático no merge (`.github/workflows/deploy.yml`). — veja `docs/GIT-WORKFLOW.md`
+ 6. **Ponytail mode**: stdlib/nativo primeiro, sem abstrações especulativas
+ 7. **Interface**: português (pt-BR)
+<span class="del">-8. **🔴 Relatório HTML obrigatório antes do PR**: toda branch que altera código OU docs DEVE gerar relatório em `docs/reports/&lt;data&gt;/&lt;prefixo&gt;-YYYY-MM-DD-&lt;nome&gt;.html` antes do PR. Prefixos: `PR&lt;num&gt;`, `Sprint&lt;letra&gt;`, `auto`, `fix`, `feat`, `docs`, `chore`. Template: `/report`. O relatório DEVE incluir seções: **🏷️ Nível de Risco**, **✅ Checklist de Revisão**, **🎯 Benefícios**, **🏢 Impacto no Negócio**, **⚡ Consumo de Tokens**, **📋 Detalhamento por Item**. Use `--benefits`, `--impact` e `--rows` no script. O relatório é **gerado automaticamente** pelo `npm run pre-pr` (primeiro passo da validação). A nomenclatura DEVE conter o número do PR: `PR&lt;num&gt;-YYYY-MM-DD-&lt;nome&gt;.html`. Execute `node scripts/verify-docs.mjs` para verificar integridade dos docs antes do PR.</span>
+<span class="add">+8. **🔴 Relatório HTML obrigatório antes do PR — NUNCA PULAR**: toda branch que altera código OU docs (qualquer tamanho, 1 linha que seja) DEVE gerar relatório em `docs/reports/&lt;data&gt;/&lt;prefixo&gt;-YYYY-MM-DD-&lt;nome&gt;.html` antes do PR. Prefixos: `PR&lt;num&gt;`, `Sprint&lt;letra&gt;`, `auto`, `fix`, `feat`, `docs`, `chore`. Template: `/report`. O relatório DEVE incluir seções: **🏷️ Nível de Risco**, **✅ Checklist de Revisão**, **🎯 Benefícios**, **🏢 Impacto no Negócio**, **📸 Evidências**, **⚡ Consumo de Tokens**, **📋 Detalhamento por Item**. Use `--benefits`, `--impact`, `--evidence`, `--before`, `--after` e `--rows` no script. O relatório é **gerado automaticamente** pelo `npm run pre-pr` (que FALHA se não conseguir gerar). A nomenclatura DEVE conter o número do PR: `PR&lt;num&gt;-YYYY-MM-DD-&lt;nome&gt;.html`. Se o `pre-pr` não gerar, gere manualmente com `npm run report "descrição" --benefits "..." --impact "..." --write`. Execute `node scripts/verify-docs.mjs` para verificar integridade dos docs antes do PR.</span>
+ 9. **📋 HANDOFF.md obrigatório no início da sessão**: leia `HANDOFF.md` antes de qualquer trabalho. Atualize antes de `/new`, quando a sessão atingir ~12+ turns, **ou sempre que criar/merger um PR**. O estado da sessão anterior é restaurado via este arquivo.
+ 10. **🧹 Limpeza obrigatória antes de PR/merge**: verifique `git status` — ZERO arquivos uncommitted. Inclui código, docs, council verdicts, plans, specs, package.json/lock, relatórios. Veja `docs/CONVENTIONS.md` → "Limpeza Pós-Sessão".
+ 11. **🐞 Registro de bugs obrigatório**: todo bug encontrado durante desenvolvimento DEVE ser registrado em `docs/AGENDA.md` → "🐞 Bugs Encontrados". Veja `docs/CONVENTIONS.md` → "Registro de Bugs".
+diff --git a/docs/CONVENTIONS.md b/docs/CONVENTIONS.md
+index f90835c..cb3f027 100644
+<span class="del">--- a/docs/CONVENTIONS.md</span>
+<span class="add">+++ b/docs/CONVENTIONS.md</span>
+@@ -68,20 +68,29 @@ import { useDatabase } from "@/hooks/useDatabase" // barrel ok, mas prefira o ho
+ 
+ Isso garante continuidade entre sessões sem perda de contexto.
+ 
+<span class="del">-## Relatório Pós-Implementação — OBRIGATÓRIO</span>
+<span class="add">+## Relatório Pós-Implementação — OBRIGATÓRIO (NUNCA PULAR)</span>
+ 
+<span class="del">-**Toda tarefa (feature ou manutenção) DEVE gerar um relatório HTML antes do PR.**</span>
+<span class="add">+**🔥 REGRA ABSOLUTA: NUNCA pular o relatório HTML, independente do tamanho da mudança.**</span>
+ 
+<span class="del">-### Automático (recomendado)</span>
+<span class="add">+1 linha, 1 arquivo, 1 caractere — sempre gera o relatório. O `pre-pr-check.mjs` falha se não encontrar relatório.</span>
+<span class="add">+</span>
+<span class="add">+**Toda tarefa (feature, fix, docs, chore, refactor — QUALQUER alteração de código ou docs) DEVE gerar um relatório HTML antes do PR.**</span>
+<span class="add">+</span>
+<span class="add">+### Automático (recomendado — executa como parte do workflow)</span>
+<span class="add">+</span>
+<span class="add">+```bash</span>
+<span class="add">+npm run pre-pr</span>
+<span class="add">+```</span>
+ 
+<span class="add">+Gera automaticamente se não existir:</span>
+ ```bash
+ npm run report "Descrição da tarefa" --write
+ ```
+ 
+<span class="del">-Gera `docs/reports/&lt;data&gt;/&lt;prefixo&gt;-&lt;data&gt;-&lt;nome&gt;.html` automaticamente com:</span>
+<span class="del">-- Diff, arquivos alterados, adições/remoções</span>
+<span class="del">-- Estimativa de tokens</span>
+<span class="del">-- Badges por tipo (PR/auto/fix/feat/docs/chore)</span>
+<span class="add">+Ou manualmente com evidências:</span>
+<span class="add">+```bash</span>
+<span class="add">+npm run report "Feature X" --evidence "https://...imagem.png" --before "..." --after "..." --write</span>
+<span class="add">+```</span>
+ 
+ ### Manual (fallback)
+ 
+diff --git a/scripts/pre-pr-check.mjs b/scripts/pre-pr-check.mjs
+index 2465101..ec13411 100644
+<span class="del">--- a/scripts/pre-pr-check.mjs</span>
+<span class="add">+++ b/scripts/pre-pr-check.mjs</span>
+@@ -96,8 +96,9 @@ if (!process.argv.includes("--no-report")) {
+       }
+     }
+   } catch (e) {
+<span class="del">-    console.log(`  ⚠️  relatório automático falhou: ${e.message.slice(0, 100)}`);</span>
+<span class="add">+    console.log(`  ❌ relatório automático FALHOU: ${e.message.slice(0, 100)}`);</span>
+     console.log("     Dica: gere manualmente com: npm run report \"descrição\" --benefits \"...\" --impact \"...\" --write");
+<span class="add">+    process.exit(1);</span>
+   }
+ }
+ 
+diff --git a/scripts/rules/rule-08-report.mjs b/scripts/rules/rule-08-report.mjs
+index 993ac77..bbc9288 100644
+<span class="del">--- a/scripts/rules/rule-08-report.mjs</span>
+<span class="add">+++ b/scripts/rules/rule-08-report.mjs</span>
+@@ -18,9 +18,18 @@ import { resolve } from "path";
+ 
+ const { branch, prNum, today } = repoInfo();
+ 
+<span class="del">-// Se não tem PR, não é possível validar relatório</span>
+<span class="add">+// Se não tem PR, não é possível validar relatório com prefixo PR</span>
+<span class="add">+// Mas ainda verifica se existe algum relatório na data</span>
+ if (!prNum) {
+<span class="del">-  warn("branch sem PR — não é possível verificar relatório (regra #8)");</span>
+<span class="add">+  warn("branch sem PR — verificando relatório genérico");</span>
+<span class="add">+  const anyReport = git(`ls docs/reports/${today}/*.html 2&gt;/dev/null || true`);</span>
+<span class="add">+  if (!anyReport || !anyReport.trim()) {</span>
+<span class="add">+    err(`nenhum relatório encontrado em docs/reports/${today}/ (regra #8)`);</span>
+<span class="add">+    err("  Toda alteração DEVE ter relatório HTML antes do PR");</span>
+<span class="add">+    err("  Dica: npm run report \"descrição\" --write");</span>
+<span class="add">+    process.exit(1);</span>
+<span class="add">+  }</span>
+<span class="add">+  ok(`relatório encontrado: docs/reports/${today}/ (regra #8)`);</span>
+   process.exit(0);
+ }
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>
