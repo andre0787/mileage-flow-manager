@@ -390,29 +390,17 @@ export default function Entradas() {
         onOpenChange={(open) => setIsCreateDialogOpen(open)}
         title={`Registrar Nova Entrada - ${activeTab === "pontos" ? "Pontos" : "Milhas"}`}
       >
-        {activeTab === "pontos" ? (
-          <EntryFormPontos
-            mode="create"
-            accounts={accounts}
-            origemTypes={origemTypes}
-            programs={programs}
-            owners={owners}
-            onCreateOrigemType={handleCreateOrigemType}
-            onSubmit={handleCreateEntry}
-            onCancel={() => setIsCreateDialogOpen(false)}
-          />
-        ) : (
-          <EntryFormMilhas
-            mode="create"
-            accounts={accounts}
-            origemTypes={origemTypes}
-            programs={programs}
-            owners={owners}
-            onCreateOrigemType={handleCreateOrigemType}
-            onSubmit={handleCreateEntry}
-            onCancel={() => setIsCreateDialogOpen(false)}
-          />
-        )}
+        <EntryForm
+          type={activeTab === "pontos" ? "pontos" : "milhas"}
+          mode="create"
+          accounts={accounts}
+          origemTypes={origemTypes}
+          programs={programs}
+          owners={owners}
+          onCreateOrigemType={handleCreateOrigemType}
+          onSubmit={handleCreateEntry}
+          onCancel={() => setIsCreateDialogOpen(false)}
+        />
       </FormDrawer>
 
       {/* Transfer Dialog */}
