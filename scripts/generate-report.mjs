@@ -245,20 +245,39 @@ function generateHTML(task, diff, changedFiles, branch, commit, pr, metrics, ben
        <br>`
     : "";
 
-  // ── Evidence section ──
-  const hasBeforeAfter = beforeText || afterText;
-  const evidenceHtml = `<h2>📸 Evidências</h2>
+  // ── Evidence section (sempre incluída) ──
+  const defaultBefore = beforeText || `🧹 ${metrics.deletions} remoções — ${metrics.tokens > 0 ? `${metrics.lines} linhas tocadas` : "sem alterações"}`;
+  const defaultAfter = afterText || `✨ ${metrics.additions} adições — ${fileList.length} arquivo(s) alterado(s)`;
+  const evidenceHtml = `<h2>📸 Evidências — Antes & Depois</h2>
     <table>
-      <tr><th style="width:25%">Item</th><th>Detalhe</th></tr>
-      <tr><td><strong>Estado Anterior</strong></td><td>${escapeHTML(beforeText || "Não documentado — ver diff abaixo")}</td></tr>
-      <tr><td><strong>Estado Atual</strong></td><td>${escapeHTML(afterText || "Ver diff abaixo")}</td></tr>
-      <tr><td><strong>Arquivos</strong></td><td>${Object.entries(changedFiles.split("\n").filter(l => l.trim()).slice(0, 3).reduce((acc, l) => {
-        const [s, ...p] = l.trim().split(/\s+/);
-        if (!acc[s]) acc[s] = [];
-        acc[s].push(p.join(" "));
-        return acc;
-      }, {})).map(([s, files]) => `${s}: ${files.join(", ")}`).join("; ")}${changedFiles.split("\n").filter(l => l.trim()).length > 3 ? ` (+${changedFiles.split("\n").filter(l => l.trim()).length - 3} outros)` : ""}</td></tr>
-      ${evidenceUrl ? `<tr><td><strong>Screenshot</strong></td><td><a href="${escapeHTML(evidenceUrl)}" target="_blank">📷 Ver imagem</a></td></tr>` : ""}
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>${escapeHTML(defaultBefore)}</td>
+        <td>${escapeHTML(defaultAfter)}</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2">${(() => {
+          const files = changedFiles.split("\n").filter(l => l.trim());
+          const groups = {};
+          files.slice(0, 5).forEach(l => {
+            const [s, ...p] = l.trim().split(/\s+/);
+            const path = p.join(" ");
+            if (!groups[s]) groups[s] = [];
+            groups[s].push(path);
+          });
+          return Object.entries(groups).map(([s, paths]) => `<span style="color:${s === 'M' ? '#92400e' : s === 'A' ? '#166534' : s === 'D' ? '#991b1b' : '#666'};font-weight:600">${s === 'M' ? '✏️' : s === 'A' ? '➕' : s === 'D' ? '➖' : ''}</span> ${paths.join(', ')}`).join('<br>') + (files.length > 5 ? `<br><em>+${files.length - 5} arquivo(s)</em>` : '');
+        })()}</td>
+      </tr>
+      ${evidenceUrl ? `<tr>
+        <td><strong>📷 Screenshot</strong></td>
+        <td colspan="2"><a href="${escapeHTML(evidenceUrl)}" target="_blank">${escapeHTML(evidenceUrl)}</a></td>
+      </tr>` : ""}
+      ${!beforeText && !afterText ? `<tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>` : ""}
     </table>
     <br>`;
 
