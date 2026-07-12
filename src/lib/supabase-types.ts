@@ -308,6 +308,7 @@ export interface Database {
           type: "bug" | "suggestion"
           message: string
           email: string | null
+          logs: string | null
           status: "new" | "read" | "triaged" | "done"
           created_at: string
         }
@@ -317,6 +318,7 @@ export interface Database {
           type: "bug" | "suggestion"
           message: string
           email?: string | null
+          logs?: string | null
           status?: "new" | "read" | "triaged" | "done"
           created_at?: string
         }
@@ -326,6 +328,7 @@ export interface Database {
           type?: "bug" | "suggestion"
           message?: string
           email?: string | null
+          logs?: string | null
           status?: "new" | "read" | "triaged" | "done"
           created_at?: string
         }

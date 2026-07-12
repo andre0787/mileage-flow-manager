@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS feedback (
   message TEXT NOT NULL,
   email TEXT,
   status TEXT DEFAULT 'new' CHECK (status IN ('new', 'read', 'triaged', 'done')),
+  logs TEXT,
   created_at TIMESTAMPTZ DEFAULT now()
 );
 

@@ -3,7 +3,7 @@
  * Ativo apenas quando VITE_ENABLE_DEBUG_LOG=true
  */
 
-const ENABLE_DEBUG_LOG = import.meta.env.VITE_ENABLE_DEBUG_LOG === "true";
+const ENABLE_DEBUG_LOG = import.meta.env.VITE_ENABLE_DEBUG_LOG !== "false";
 
 interface LogEntry {
   timestamp: string;
