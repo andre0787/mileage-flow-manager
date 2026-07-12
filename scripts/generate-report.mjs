@@ -7,11 +7,11 @@
  *   node scripts/generate-report.mjs                          # preview no console
  *   node scripts/generate-report.mjs "Nome"                   # gera HTML
  *   node scripts/generate-report.mjs "Nome" --write           # salva em docs/reports/<data>/
- *   node scripts/generate-report.mjs "Nome" --prefix PR99     # prefixo custom
- *   node scripts/generate-report.mjs "Nome" --benefits "linha1
-linha2"  # beneficios
- *   node scripts/generate-report.mjs "Nome" --prefix PR95 --benefits "Menos alertas
-UX mais limpo" --write
+ *   node scripts/generate-report.mjs "Nome" --prefix PR99     # prefixo custom (se nao houver PR)
+ *   node scripts/generate-report.mjs "Nome" --benefits "linha1"  # beneficios
+ *   node scripts/generate-report.mjs "Nome" --impact "Reduz suporte em 30%"  # impacto negocios
+ *   node scripts/generate-report.mjs "Nome" --rows "Item|Fix|Beneficio|Impacto|~200"  # tabela detalhada
+ *   node scripts/generate-report.mjs "Nome" --benefits "A" --impact "B" --rows "I|F|B|I|T" --write
  *
  * ponytail: template string + execSync, zero deps
  */
@@ -30,16 +30,34 @@ const PREFIX = (() => {
   return idx !== -1 ? process.argv[idx + 1] || "auto" : "auto";
 })();
 const SHOULD_WRITE = process.argv.includes("--write");
-const BENEFITS = (() => {
-  const idx = process.argv.indexOf("--benefits");
+
+function collectArgs(flag) {
+  const idx = process.argv.indexOf(flag);
   if (idx === -1) return "";
-  // Pega args ate o proximo --flag
   const parts = [];
   for (let i = idx + 1; i < process.argv.length; i++) {
     if (process.argv[i].startsWith("--")) break;
     parts.push(process.argv[i]);
   }
   return parts.join("\n");
+}
+
+const BENEFITS = collectArgs("--benefits");
+const BUSINESS_IMPACT = collectArgs("--impact");
+
+// Rows da tabela: pipe-separated: item|correcao|beneficio|impacto_negocio|custo_token
+const TABLE_ROWS = (() => {
+  const idx = process.argv.indexOf("--rows");
+  if (idx === -1) return [];
+  const rows = [];
+  for (let i = idx + 1; i < process.argv.length; i++) {
+    if (process.argv[i].startsWith("--")) break;
+    const parts = process.argv[i].split("|").map(s => s.trim());
+    if (parts.length >= 5) {
+      rows.push({ item: parts[0], fix: parts[1], benefit: parts[2], impact: parts[3], tokens: parts[4] });
+    }
+  }
+  return rows;
 })();
 
 function git(cmd) {
@@ -93,14 +111,20 @@ function estimateTokens(diff) {
   const lines = diff.split("\n").length;
   const additions = (diff.match(/^\+/gm) || []).length;
   const deletions = (diff.match(/^-/gm) || []).length;
-  // ~0.75 token por linha (média empírica)
-  const tokens = Math.round(lines * 0.75);
-  return { lines, additions, deletions, tokens };
+  const totalTokens = Math.round(lines * 0.75);
+  const addTokens = Math.round(additions * 0.75);
+  const delTokens = Math.round(deletions * 0.75);
+  const overheadTokens = totalTokens - addTokens - delTokens;
+  return { lines, additions, deletions, tokens: totalTokens, addTokens, delTokens, overheadTokens };
 }
 
 // ── Gera HTML ─────────────────────────────────────────────────────────
 
-function generateHTML(task, diff, changedFiles, branch, commit, pr, metrics, benefits) {
+function escapeHTML(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function generateHTML(task, diff, changedFiles, branch, commit, pr, metrics, benefits, businessImpact, tableRows) {
   const now = new Date();
   const date = now.toISOString().slice(0, 10);
   const time = now.toTimeString().slice(0, 5);
@@ -111,7 +135,7 @@ function generateHTML(task, diff, changedFiles, branch, commit, pr, metrics, ben
   const filesTable = changedFiles
     .split("\n")
     .filter(l => l.trim())
-    .slice(0, 30) // max 30 files to keep it compact
+    .slice(0, 30)
     .map(l => {
       const [status, ...pathParts] = l.trim().split(/\s+/);
       const path = pathParts.join(" ");
@@ -123,71 +147,209 @@ function generateHTML(task, diff, changedFiles, branch, commit, pr, metrics, ben
     ? `<span class="badge pr">PR #${pr.number}</span>`
     : `<span class="badge auto">auto</span>`;
 
-  return [
-    `<!DOCTYPE html>`,
-    `<html lang="pt-BR"><head>`,
-    `<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">`,
-    `<title>${prefix} — ${task}</title>`,
-    `<style>`,
-    `body{font-family:system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}`,
-    `h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}`,
-    `h2{font-size:1rem;margin-top:1.5rem}`,
-    `.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}`,
-    `.badge.pr{background:#dbeafe;color:#1e40af}`,
-    `.badge.auto{background:#fef3c7;color:#92400e}`,
-    `.badge.fix{background:#fee2e2;color:#991b1b}`,
-    `.badge.feat{background:#dcfce7;color:#166534}`,
-    `.badge.docs{background:#ede9fe;color:#5b21b6}`,
-    `.badge.chore{background:#f3f4f6;color:#374151}`,
-    `table{width:100%;border-collapse:collapse;font-size:.85rem}`,
-    `td,th{border:1px solid #ddd;padding:4px 8px;text-align:left}`,
-    `th{background:#f3f4f6}`,
-    `tr.add{background:#f0fdf4}`,
-    `tr.del{background:#fef2f2}`,
-    `.meta{font-size:.8rem;color:#666;margin:.5rem 0}`,
-    `.diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}`,
-    `.diff .add{color:#4ade80}`,
-    `.diff .del{color:#f87171}`,
-    `</style></head><body>`,
-    `<h1>📋 ${task}</h1>`,
-    `<p class="meta">${date} ${time} &middot; ${branch} &middot; ${commit}</p>`,
-    `<p>${prHtml} <span class="badge ${prefix.startsWith("fix") ? "fix" : prefix.startsWith("feat") ? "feat" : prefix.startsWith("docs") ? "docs" : prefix.startsWith("chore") ? "chore" : "auto"}">${prefix}</span></p>`,
-    ``,
-    benefits ? [
-    `<h2>🎯 Benefícios</h2>`,
-    `<ul>${benefits.split("\n").filter(l => l.trim()).map(l => `<li>${escapeHTML(l.replace(/^[\s*-]+/, ""))}</li>`).join("")}</ul>`,
-    ``,
-    ].join("\n") : "",
-    `<h2>📊 Métricas</h2>`,
-    `<table>`,
-    `<tr><th>Métrica</th><th>Valor</th></tr>`,
-    `<tr><td>Arquivos alterados</td><td>${changedFiles.split("\n").filter(l => l.trim()).length}</td></tr>`,
-    `<tr><td>Adições</td><td>${metrics.additions}</td></tr>`,
-    `<tr><td>Remoções</td><td>${metrics.deletions}</td></tr>`,
-    `<tr><td>Tokens estimados</td><td>~${metrics.tokens}</td></tr>`,
-    `</table>`,
-    ``,
-    `<h2>📁 Arquivos</h2>`,
-    `<table><tr><th>Status</th><th>Arquivo</th></tr>`,
-    filesTable,
-    `</table>`,
-    ``,
-    `<h2>🔍 Diff</h2>`,
-    `<div class="diff">`,
-    diff.split("\n").slice(0, 100).map(l => {
+  // Badge de prefixo
+  const prefixType = prefix.startsWith("fix") ? "fix"
+    : prefix.startsWith("feat") ? "feat"
+    : prefix.startsWith("docs") ? "docs"
+    : prefix.startsWith("chore") ? "chore"
+    : "auto";
+  const prefixBadge = `<span class="badge ${prefixType}">${prefix}</span>`;
+
+  // ── Nível de Risco (auto-detectado dos arquivos) ──────────────
+  const fileList = changedFiles.split("\n").filter(l => l.trim());
+  const filePaths = fileList.map(l => l.replace(/^\S+\s+/, ""));
+  const hasMigration = filePaths.some(p => p.includes("migration") || p.includes("supabase/migrations"));
+  const hasSchema = filePaths.some(p => p.includes("supabase-types") || p.includes("schema"));
+  const hasCoreLib = filePaths.some(p => p.startsWith("src/lib/") && !p.includes("logger"));
+  const hasHook = filePaths.some(p => p.startsWith("src/hooks/"));
+  const hasComponent = filePaths.some(p => p.startsWith("src/components/"));
+  const hasPage = filePaths.some(p => p.startsWith("src/pages/"));
+  const hasOnlyDocs = filePaths.every(p => p.startsWith("docs/") || p.startsWith("scripts/") || p.startsWith(".pi/") || p.includes(".md"));
+  const hasCI = filePaths.some(p => p.startsWith(".github/"));
+
+  let riskLevel, riskColor, riskBg;
+  if (hasMigration || hasSchema) {
+    riskLevel = "Alto"; riskColor = "#991b1b"; riskBg = "#fee2e2";
+  } else if (hasCoreLib || hasHook || hasCI) {
+    riskLevel = "Médio"; riskColor = "#92400e"; riskBg = "#fef3c7";
+  } else if (hasOnlyDocs) {
+    riskLevel = "Baixo"; riskColor = "#166534"; riskBg = "#dcfce7";
+  } else {
+    riskLevel = "Médio"; riskColor = "#92400e"; riskBg = "#fef3c7";
+  }
+  const riskBadge = `<span class="badge" style="background:${riskBg};color:${riskColor}">${riskLevel} Risco</span>`;
+
+  // ── Checklist automático ───────────────────────────────────────
+  const checks = [];
+  if (hasMigration || hasSchema) checks.push("🔷 Migração de banco aplicada?");
+  if (hasComponent || hasPage) checks.push("🖼️ Renderização verificada em desktop e mobile?");
+  if (hasHook) checks.push("🔌 Hooks testados em tela real?");
+  if (hasCoreLib) checks.push("📦 Biblioteca testada com casos de borda?");
+  if (filePaths.some(p => p.includes("FeedbackDialog") || p.includes("feedback"))) checks.push("📬 Feedback flow testado (anon + auth)?");
+  if (filePaths.some(p => p.includes("logger"))) checks.push("📝 Logger testado (VITE_ENABLE_DEBUG_LOG)?");
+  if (hasCI) checks.push("🤖 CI workflow válido? (sintaxe YAML)");
+  if (filePaths.some(p => p.endsWith(".test.") || p.endsWith(".spec."))) checks.push("🧪 Testes existentes passam?");
+  if (!filePaths.some(p => p.endsWith(".test.") || p.endsWith(".spec."))) checks.push("🧪 Testes manuais realizados?");
+  checks.push("📋 Regras de validação passam? (npm run pre-pr)");
+
+  const checklistHtml = `<h2>✅ Checklist de Revisão</h2>
+    <ul>\n${checks.map(c => `      <li>${c}</li>`).join("\n")}\n    </ul>`;
+
+  // Token bar
+  const pctAdd = metrics.tokens > 0 ? Math.round(metrics.addTokens / metrics.tokens * 100) : 0;
+  const pctDel = metrics.tokens > 0 ? Math.round(metrics.delTokens / metrics.tokens * 100) : 0;
+  const pctOver = metrics.tokens > 0 ? 100 - pctAdd - pctDel : 100;
+  const tokenBar = metrics.tokens > 0
+    ? `<div class="token-bar">
+        <div class="add" style="flex:${pctAdd}">+${metrics.addTokens} add</div>
+        <div class="del" style="flex:${pctDel}">-${metrics.delTokens} del</div>
+        <div class="overhead" style="flex:${pctOver}">~${metrics.overheadTokens} ctx</div>
+       </div>`
+    : "";
+
+  // Impact section
+  const impactHtml = businessImpact
+    ? `<h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">${escapeHTML(businessImpact).replace(/\n/g, "<br>")}</div>
+       <br>`
+    : "";
+
+  // Token breakdown
+  const tokenDetail = `<h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+${metrics.addTokens}</td><td>${pctAdd}%</td></tr>
+      <tr><td>Remoções</td><td>-${metrics.delTokens}</td><td>${pctDel}%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~${metrics.overheadTokens}</td><td>${pctOver}%</td></tr>
+      <tr><th>Total</th><th>~${metrics.tokens}</th><th>100%</th></tr>
+    </table>`;
+
+  // Final detailed table
+  const tableRowsHtml = tableRows.length > 0
+    ? `<h2>📋 Detalhamento por Item</h2>
+    <table>
+      <tr>
+        <th style="width:18%">Item</th>
+        <th style="width:22%">Correção Efetuada</th>
+        <th style="width:20%">Benefício</th>
+        <th style="width:22%">Impacto no Negócio</th>
+        <th style="width:18%">Custo Token</th>
+      </tr>
+      ${tableRows.map(r => `<tr>
+        <td><strong>${escapeHTML(r.item)}</strong></td>
+        <td>${escapeHTML(r.fix)}</td>
+        <td>${escapeHTML(r.benefit)}</td>
+        <td>${escapeHTML(r.impact)}</td>
+        <td><code>${escapeHTML(r.tokens)}</code></td>
+      </tr>`).join("\n")}
+    </table>
+    <br>`
+    : "";
+
+  return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>${prefix} — ${escapeHTML(task)}</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 ${escapeHTML(task)}</h1>
+  <p class="meta">${date} ${time} &middot; ${branch} &middot; ${commit}</p>
+  <p>${prHtml} ${prefixBadge} ${riskBadge}</p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">${fileList.length}</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+${metrics.additions}</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-${metrics.deletions}</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~${metrics.tokens}</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  ${checklistHtml}
+
+  ${benefits ? `<h2>🎯 Benefícios</h2>
+    <ul>
+      ${benefits.split("\n").filter(l => l.trim()).map(l => `<li>${escapeHTML(l.replace(/^[\s*-]+/, ""))}</li>`).join("\n")}
+    </ul>
+    ` : ""}
+
+  ${impactHtml}
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>${fileList.length}</td></tr>
+    <tr><td>Adições</td><td>+${metrics.additions}</td></tr>
+    <tr><td>Remoções</td><td>-${metrics.deletions}</td></tr>
+    <tr><td>Tokens estimados</td><td>~${metrics.tokens}</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  ${tokenBar}
+  ${tokenDetail}
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    ${filesTable}
+  </table>
+
+  ${tableRowsHtml}
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    ${diff.split("\n").slice(0, 120).map(l => {
       if (l.startsWith("+")) return `<span class="add">${escapeHTML(l)}</span>`;
       if (l.startsWith("-")) return `<span class="del">${escapeHTML(l)}</span>`;
       return escapeHTML(l);
-    }).join("\n"),
-    `</div>`,
-    ``,
-    `<p class="meta">Gerado por scripts/generate-report.mjs</p>`,
-    `</body></html>`,
-  ].join("\n");
+    }).join("\n")}
+  </div>
 
-  function escapeHTML(s) {
-    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>`;
 }
 
 // ── Main ─────────────────────────────────────────────────────────────
@@ -199,7 +361,7 @@ const commit = getCommit();
 const pr = getPR();
 const metrics = estimateTokens(diff);
 
-const html = generateHTML(TASK, diff, changedFiles, branch, commit, pr, metrics, BENEFITS);
+const html = generateHTML(TASK, diff, changedFiles, branch, commit, pr, metrics, BENEFITS, BUSINESS_IMPACT, TABLE_ROWS);
 
 if (SHOULD_WRITE) {
   const date = new Date().toISOString().slice(0, 10);
