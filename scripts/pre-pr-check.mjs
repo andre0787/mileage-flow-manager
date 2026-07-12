@@ -42,9 +42,32 @@ if (!process.argv.includes("--no-report")) {
       { cwd: ROOT, encoding: "utf8", timeout: 3000 }
     ).trim();
 
+    // Verifica PR aberto pra branch
+    let prNum = null;
+    try {
+      const prJson = execSync(
+        `gh pr list --head "${branch}" --json number 2>/dev/null || true`,
+        { cwd: ROOT, encoding: "utf8", timeout: 5000 }
+      ).trim();
+      const prs = JSON.parse(prJson || '[]');
+      if (prs.length > 0) prNum = prs[0].number;
+    } catch {}
+
     if (existing) {
       console.log(`  ⏭️  relatório já existe para hoje, pulando auto-geração`);
-      console.log(`     ${existing.split("\n").pop()}`);
+      // Renomeia se necessário (ex: auto-*.html → PR<num>-*.html)
+      if (prNum) {
+        const existingFiles = existing.split("\n");
+        for (const file of existingFiles) {
+          const filename = file.split("/").pop() || "";
+          if (filename.startsWith("PR")) continue;
+          const correctName = filename.replace(/^[^-]+/, `PR${prNum}`);
+          if (correctName !== filename) {
+            execSync(`mv "${file}" "${file.replace(filename, correctName)}"`, { cwd: ROOT, timeout: 3000 });
+            console.log(`  🔄 renomeado: ${filename} → ${correctName}`);
+          }
+        }
+      }
     } else {
       const taskName = branch.replace(/^(feat\/|fix\/|chore\/|docs\/)/, "").replace(/[-_/]/g, " ");
       const cmd = `node scripts/generate-report.mjs "${taskName}"`
@@ -54,6 +77,23 @@ if (!process.argv.includes("--no-report")) {
 
       const out = execSync(cmd, { cwd: ROOT, encoding: "utf8", timeout: 15000 }).trim();
       if (out) console.log(`  ${out}`);
+
+      // Renomeia se PR existe (auto-*.html → PR<num>-*.html)
+      if (prNum) {
+        const allFiles = execSync(
+          `ls docs/reports/${today}/*.html 2>/dev/null || true`,
+          { cwd: ROOT, encoding: "utf8", timeout: 3000 }
+        ).trim().split("\n").filter(Boolean);
+        for (const file of allFiles) {
+          const filename = file.split("/").pop() || "";
+          if (filename.startsWith(`PR${prNum}`)) continue;
+          const correctName = filename.replace(/^[^-]+/, `PR${prNum}`);
+          if (correctName !== filename) {
+            execSync(`mv "${file}" "${file.replace(filename, correctName)}"`, { cwd: ROOT, timeout: 3000 });
+            console.log(`  🔄 renomeado: ${filename} → ${correctName}`);
+          }
+        }
+      }
     }
   } catch (e) {
     console.log(`  ⚠️  relatório automático falhou: ${e.message.slice(0, 100)}`);
