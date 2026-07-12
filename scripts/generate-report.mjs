@@ -7,7 +7,8 @@
  *   node scripts/generate-report.mjs                          # preview no console
  *   node scripts/generate-report.mjs "Nome"                   # gera HTML
  *   node scripts/generate-report.mjs "Nome" --write           # salva em docs/reports/<data>/
- *   node scripts/generate-report.mjs "Nome" --prefix PR99     # prefixo custom (se nao houver PR)
+ *   node scripts/generate-report.mjs "Nome" --prefix PR99      # prefixo custom (se nao houver PR)
+ *   node scripts/generate-report.mjs "Nome" --evidence URL    # imagem inline no relatorio
  *   node scripts/generate-report.mjs "Nome" --benefits "linha1"  # beneficios
  *   node scripts/generate-report.mjs "Nome" --impact "Reduz suporte em 30%"  # impacto negocios
  *   node scripts/generate-report.mjs "Nome" --rows "Item|Fix|Beneficio|Impacto|~200"  # tabela detalhada
@@ -35,7 +36,7 @@ Flags:
   --benefits <texto>   Benefícios da mudança
   --impact <texto>     Impacto no negócio
   --rows <linha>       Tabela: item|correção|benefício|impacto|token (múltiplo)
-  --evidence <URL>     URL de screenshot como evidência visual
+  --evidence <URL>     URL de imagem (screenshot/foto) — renderizada inline no relatório
   --before <texto>     Descrição do estado anterior
   --after <texto>      Descrição do estado atual
   --rename PR<num>     Renomeia relatórios para prefixo PR<num>
@@ -272,9 +273,9 @@ function generateHTML(task, diff, changedFiles, branch, commit, pr, metrics, ben
       </tr>
       ${evidenceUrl ? `<tr>
         <td><strong>📷 Screenshot</strong></td>
-        <td colspan="2"><a href="${escapeHTML(evidenceUrl)}" target="_blank">${escapeHTML(evidenceUrl)}</a></td>
+        <td colspan="2"><img src="${escapeHTML(evidenceUrl)}" alt="Evidência visual" style="max-width:100%;border:1px solid #ddd;border-radius:4px"></td>
       </tr>` : ""}
-      ${!beforeText && !afterText ? `<tr>
+      ${!beforeText && !afterText && !evidenceUrl ? `<tr>
         <td><strong>💡 Dica</strong></td>
         <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
       </tr>` : ""}
