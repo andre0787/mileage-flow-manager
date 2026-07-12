@@ -1,74 +1,71 @@
 # Relatório de Implementação
 
 > Template acionado via `/report` ao finalizar uma feature/manutenção.
-> Gera relatório HTML com antes/depois, benefícios e consumo de tokens.
+> Gera relatório HTML completo via `scripts/generate-report.mjs`.
 
 ## Instruções
 
-1. Obtenha o diff da branch: `git diff $(git merge-base HEAD origin/develop)..HEAD`
-2. Analise o diff para extrair:
+1. Obtenha o diff da branch: `git diff $(git merge-base HEAD origin/main)..HEAD`
+2. Execute o script de relatório com os parâmetros adequados
 
-### Before & After (3 linhas no máximo cada)
-- **Antes**: o que existia, o que motivou a mudança
-- **Depois**: o que foi implementado, como ficou
+### Parâmetros do script
 
-### Benefícios
-Listar em tópicos o que melhorou: menos código, mais performance, menos bugs,
-UX melhorado, etc.
-
-### Consumo de Tokens (estimativa)
-Calcular a partir do diff:
-- `git diff --stat` → arquivos alterados, inserções, deleções
-- Estimar tokens: `~ (additions + deletions) * 4 / 3` (média ~¾ token por linha de diff)
-- Se houver medição real do session manager, usar esse valor
-
-### Formato de saída
-
-```html
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<title>Relatório — [nome da tarefa]</title>
-<style>
-  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; }
-  h1 { border-bottom: 2px solid #5B72C4; padding-bottom: .5rem; }
-  .stat { display: inline-block; background: #f0f4ff; padding: .25rem .75rem; border-radius: 6px; font-size: .875rem; }
-  .benefits li { margin: .5rem 0; }
-  pre { background: #f5f5f5; padding: 1rem; border-radius: 6px; overflow-x: auto; }
-  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: .75rem; font-weight: 600; }
-  .badge-green { background: #d4edda; color: #155724; }
-  .badge-blue { background: #cce5ff; color: #004085; }
-</style>
-</head>
-<body>
-<h1>📋 Relatório: [nome da tarefa]</h1>
-<p class="stat">📁 +N arquivos · ➕ N linhas · ➖ N linhas</p>
-<p class="stat" style="margin-left: .5rem;">⚡ ~N tokens</p>
-
-<h2>Antes</h2>
-<p>...</p>
-
-<h2>Depois</h2>
-<p>...</p>
-
-<h2>Benefícios</h2>
-<ul class="benefits">
-  <li>✅ ...</li>
-</ul>
-
-<h2>Detalhes</h2>
-<pre>
-[trecho relevante do diff stat]
-</pre>
-</body>
-</html>
+```bash
+node scripts/generate-report.mjs "Descrição" --benefits "Benefício 1
+Benefício 2" --impact "Impacto no negócio" --rows "Item|O que foi feito|Benefício|Impacto negócio|~200 tokens" --write
 ```
 
-3. Salve o HTML em `docs/reports/<data>/<prefixo>-YYYY-MM-DD-<nome-da-tarefa>.html`
-   - Crie a pasta do dia: `docs/reports/$(date +%F)/`
-   - Prefixos: `PR<num>`, `Sprint<letra>`, `auto`, `fix`, `feat`, `docs`, `chore`
-   - Exemplo: `docs/reports/2026-07-11/PR95-2026-07-11-badge-e-banner-atrasadas.html`
-4. **Benefícios obrigatórios**: o relatório DEVE incluir seção de benefícios
-   (`🎯 Benefícios`). Use `--benefits "linha1\nlinha2"` no script.
-5. Informe o usuário do caminho do arquivo
+| Flag | Obrigatório | Descrição |
+|------|-------------|-----------|
+| `--benefits` | Sim | Benefícios da mudança (lista, um por linha) |
+| `--impact` | Sim | Impacto no negócio (parágrafo curto) |
+| `--rows` | Opcional | Tabela detalhada: `item\|correção\|benefício\|impacto\|token` |
+| `--write` | Sim | Salva em `docs/reports/<data>/` |
+| `--prefix` | Opcional | Prefixo se não houver PR (fix/feat/docs/chore) |
+
+> **Auto-geração:** `npm run pre-pr` já gera o relatório automaticamente.
+> Para pular: `npm run pre-pr -- --no-report`
+
+### Seções do relatório
+
+O HTML gerado inclui:
+
+1. **🏷️ Nível de Risco** — auto-detectado (Baixo/Médio/Alto) pelos arquivos tocados
+2. **📊 Card de Status** — arquivos, adições, remoções, tokens
+3. **✅ Checklist de Revisão** — itens de verificação gerados por padrão de arquivo
+4. **🎯 Benefícios** — impacto direto da mudança (ex: economia de tokens, UX mais limpo)
+5. **🏢 Impacto no Negócio** — valor de negócio (ex: suporte mais rápido, menos bugs em prod)
+6. **📊 Métricas** — arquivos, adições, remoções
+7. **⚡ Consumo de Tokens** — breakdown visual (barra + tabela com add/del/overhead)
+8. **📁 Arquivos** — lista de arquivos alterados
+9. **📋 Detalhamento por Item** — tabela com item, correção, benefício, impacto, custo token
+10. **🔍 Diff** — diff completo com syntax highlighting
+
+### Nomenclatura
+
+```
+docs/reports/<data>/<prefixo>-YYYY-MM-DD-<nome>.html
+```
+
+- Prefixo padrão: `PR<numero>` (se branch tem PR aberto)
+- Prefixo alternativo: `fix`, `feat`, `docs`, `chore`, `auto` (via `--prefix`)
+- Nome: kebab-case, sem acentos
+- **Obrigatório:** o nome do arquivo DEVE conter o número do PR quando houver
+
+Exemplos:
+```
+docs/reports/2026-07-12/PR102-2026-07-12-debug-logs-no-feedback.html
+docs/reports/2026-07-12/fix-2026-07-12-overflow-tabela.html
+docs/reports/2026-07-12/feat-2026-07-12-relatorio-enriquecido.html
+```
+
+### Exemplo completo
+
+```bash
+node scripts/generate-report.mjs "Corrigir overflow na tabela de vendas" \
+  --benefits "Layout não quebra mais em mobile
+Remove 120 linhas de CSS obsoleto" \
+  --impact "Reduz chamados de suporte por layout quebrado em dispositivos móveis" \
+  --rows "Overflow table|Adicionado overflow-x:auto|Tabela scrollável|Menos suporte mobile|~150" \
+  --write
+```

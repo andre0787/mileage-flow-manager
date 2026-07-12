@@ -29,6 +29,38 @@ function fail(label) { console.log(`  ❌ ${label}`); errors++; }
 
 console.log("\n🔍 PRE-PR CHECK\n");
 
+// ── Relatório Automático ────────────────────────────────────────────
+if (!process.argv.includes("--no-report")) {
+  console.log("── Relatório ──");
+  try {
+    const today = new Date().toISOString().slice(0, 10);
+    const branch = execSync("git rev-parse --abbrev-ref HEAD", { cwd: ROOT, encoding: "utf8", timeout: 3000 }).trim();
+
+    // Verifica se já existe relatório para o PR de hoje
+    const existing = execSync(
+      `ls docs/reports/${today}/PR*-*.html 2>/dev/null || true`,
+      { cwd: ROOT, encoding: "utf8", timeout: 3000 }
+    ).trim();
+
+    if (existing) {
+      console.log(`  ⏭️  relatório já existe para hoje, pulando auto-geração`);
+      console.log(`     ${existing.split("\n").pop()}`);
+    } else {
+      const taskName = branch.replace(/^(feat\/|fix\/|chore\/|docs\/)/, "").replace(/[-_/]/g, " ");
+      const cmd = `node scripts/generate-report.mjs "${taskName}"`
+        + ` --benefits "Auto-gerado pelo pre-pr-check"`
+        + ` --impact "Relatório gerado automaticamente como parte do workflow de validação pré-PR"`
+        + ` --write 2>&1`;
+
+      const out = execSync(cmd, { cwd: ROOT, encoding: "utf8", timeout: 15000 }).trim();
+      if (out) console.log(`  ${out}`);
+    }
+  } catch (e) {
+    console.log(`  ⚠️  relatório automático falhou: ${e.message.slice(0, 100)}`);
+    console.log("     Dica: gere manualmente com: npm run report \"descrição\" --benefits \"...\" --impact \"...\" --write");
+  }
+}
+
 // ── Lista ────────────────────────────────────────────────────────────
 if (process.argv.includes("--list")) {
   const files = readdirSync(RULES_DIR).filter(f => f.endsWith(".mjs")).sort();

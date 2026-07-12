@@ -61,7 +61,7 @@ Workflow acelerado via npm scripts — reduzem consumo de tokens automatizando r
 | Script | Função | Quando usar |
 |--------|--------|-------------|
 | `npm run session:start` | Extrai resumo comprimido dos docs de início de sessão | **Início de toda sessão** (substitui leitura de 5 docs) |
-| `npm run pre-pr` | Valida: git status, build, testes, verify-docs, console.log | **Antes de criar PR** (checklist automatizado) |
+| `npm run pre-pr` | Gera relatório automático (se não existir) + valida: git status, build, testes, verify-docs, console.log | **Antes de criar PR** (checklist automatizado) |
 | `npm run report` | Gera relatório HTML automático do diff | **Antes do PR** (substitui /report manual) |
 | `npm run session:end` | add + commit + handoff + push em 1 comando | **Final da sessão** (substitui 5 passos manuais) |
 | `npm run handoff` | Atualiza HANDOFF.md com estado atual do git | Pós-PR ou pós-merge |
@@ -135,7 +135,7 @@ Quando for executar uma ideia:
 | Brainstorm | Spec | `docs/superpowers/specs/` |
 | Planning | Plano | `docs/superpowers/plans/` |
 | Execução | Código + testes | `src/` + `tests/` |
-| Relatório | HTML before/after | `docs/reports/<data>/<prefix>-<data>-<nome>.html` |
+| Relatório | HTML completo: risco, checklist, benefícios, impacto negócio, breakdown tokens, tabela detalhada | `docs/reports/<data>/<prefix>-<data>-<nome>.html` |
 
 > **Estrutura:** `docs/reports/<data>/<prefixo>-YYYY-MM-DD-<nome>.html`
 > Cada dia em sua pasta: `docs/reports/2026-07-11/`
