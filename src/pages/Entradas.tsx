@@ -30,8 +30,7 @@ import {
 import { EntrySummary } from "@/components/EntrySummary";
 import { EntryTable } from "@/components/EntryTable";
 import { TransferForm } from "@/components/TransferForm";
-import { EntryFormPontos } from "@/components/EntryFormPontos";
-import { EntryFormMilhas } from "@/components/EntryFormMilhas";
+import { EntryForm } from "@/components/EntryForm";
 import type { EntryFormData } from "@/types";
 import confetti from "canvas-confetti";
 import type { PointEntry } from "@/types";
@@ -391,29 +390,17 @@ export default function Entradas() {
         onOpenChange={(open) => setIsCreateDialogOpen(open)}
         title={`Registrar Nova Entrada - ${activeTab === "pontos" ? "Pontos" : "Milhas"}`}
       >
-        {activeTab === "pontos" ? (
-          <EntryFormPontos
-            mode="create"
-            accounts={accounts}
-            origemTypes={origemTypes}
-            programs={programs}
-            owners={owners}
-            onCreateOrigemType={handleCreateOrigemType}
-            onSubmit={handleCreateEntry}
-            onCancel={() => setIsCreateDialogOpen(false)}
-          />
-        ) : (
-          <EntryFormMilhas
-            mode="create"
-            accounts={accounts}
-            origemTypes={origemTypes}
-            programs={programs}
-            owners={owners}
-            onCreateOrigemType={handleCreateOrigemType}
-            onSubmit={handleCreateEntry}
-            onCancel={() => setIsCreateDialogOpen(false)}
-          />
-        )}
+        <EntryForm
+          type={activeTab === "pontos" ? "pontos" : "milhas"}
+          mode="create"
+          accounts={accounts}
+          origemTypes={origemTypes}
+          programs={programs}
+          owners={owners}
+          onCreateOrigemType={handleCreateOrigemType}
+          onSubmit={handleCreateEntry}
+          onCancel={() => setIsCreateDialogOpen(false)}
+        />
       </FormDrawer>
 
       {/* Transfer Dialog */}
@@ -466,41 +453,9 @@ export default function Entradas() {
               setIsEditDialogOpen(false);
             }}
           />
-        ) : editingEntry && activeTab === "pontos" ? (
-          <EntryFormPontos
-            mode="edit"
-            initialData={{
-              accountId: editingEntry.accountId,
-              origemTypeId: editingEntry.origemTypeId,
-              amount: String(editingEntry.amount),
-              amountPaid: String(editingEntry.amountPaid),
-              conversionRate: editingEntry.conversionRate
-                ? String(editingEntry.conversionRate)
-                : "",
-              isClube: !!(editingEntry.recurrenceInterval && editingEntry.recurrenceEnd),
-              clubeMeses: editingEntry.recurrenceEnd
-                ? String(
-                    Math.ceil(
-                      (new Date(editingEntry.recurrenceEnd).getTime() -
-                        new Date(editingEntry.date).getTime()) /
-                        (30 * 24 * 60 * 60 * 1000),
-                    ),
-                  )
-                : "",
-              date: editingEntry.date,
-            }}
-            accounts={accounts}
-            origemTypes={origemTypes}
-            programs={programs}
-            owners={owners}
-            onSubmit={handleUpdateEntry}
-            onCancel={() => {
-              setEditingEntry(null);
-              setIsEditDialogOpen(false);
-            }}
-          />
         ) : editingEntry ? (
-          <EntryFormMilhas
+          <EntryForm
+            type={activeTab === "pontos" ? "pontos" : "milhas"}
             mode="edit"
             initialData={{
               accountId: editingEntry.accountId,

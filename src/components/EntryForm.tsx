@@ -8,7 +8,8 @@ import { FormDrawer } from "@/components/FormDrawer"
 import { isTransferencia } from "@/lib/utils"
 import type { Account, OrigemType, Program, Owner, EntryFormData } from "@/types"
 
-interface EntryFormMilhasProps {
+interface EntryFormProps {
+  type: "milhas" | "pontos"
   mode: "create" | "edit"
   initialData?: Partial<EntryFormData>
   onSubmit: (data: EntryFormData) => void
@@ -38,7 +39,8 @@ const emptyForm: EntryFormData = {
   recurrenceValueMode: "split",
 }
 
-export function EntryFormMilhas({
+export function EntryForm({
+  type,
   mode,
   initialData,
   onSubmit,
@@ -48,7 +50,7 @@ export function EntryFormMilhas({
   programs,
   owners,
   onCreateOrigemType,
-}: EntryFormMilhasProps) {
+}: EntryFormProps) {
   const [form, setForm] = useState<EntryFormData>({ ...emptyForm, ...initialData })
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({})
   const [isOrigemTypeOpen, setIsOrigemTypeOpen] = useState(false)
@@ -60,11 +62,13 @@ export function EntryFormMilhas({
   const clearErr = (field: string) => setErrors((prev) => ({ ...prev, [field]: "" }))
 
   const selectedAccount = accounts.find((a) => a.id === form.accountId)
-  const availableAccounts = accounts.filter((a) => a.type === "milhas" && a.status === "ativa")
-  const currentOrigemTypes = origemTypes.filter((ot) => ot.accountType === "milhas" && !isTransferencia(ot))
+  const availableAccounts = accounts.filter((a) => a.type === type && a.status === "ativa")
+  const currentOrigemTypes = origemTypes.filter((ot) => ot.accountType === type && !isTransferencia(ot))
 
   const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id
   const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id
+
+  const label = type === "milhas" ? "Milhas" : "Pontos"
 
   const validate = (): boolean => {
     const errs: typeof errors = {}
@@ -107,6 +111,10 @@ export function EntryFormMilhas({
       setIsCreatingOrigemType(false)
     }
   }
+
+  const milesGenerated = parseFloat(form.amount) * parseFloat(form.conversionRate || "1")
+  const costPerMile = parseFloat(form.amountPaid) / (milesGenerated || 1)
+  const costPerThousand = (parseFloat(form.amountPaid) / parseFloat(form.amount)) * 1000
 
   return (
     <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto">
@@ -183,7 +191,7 @@ export function EntryFormMilhas({
                         setNewOT((p) => ({ ...p, name: e.target.value }))
                         setOtErrors((p) => ({ ...p, name: "" }))
                       }}
-                      placeholder="Ex: Compra Direta"
+                      placeholder={`Ex: ${type === "milhas" ? "Compra Direta" : "Cashback"}`}
                     />
                     {otErrors.name && <p className="text-xs text-destructive">{otErrors.name}</p>}
                   </div>
@@ -241,7 +249,7 @@ export function EntryFormMilhas({
       {/* Quantidade + Valor Pago */}
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="amount">Milhas Adquiridas</Label>
+          <Label htmlFor="amount">{label} Adquiridos</Label>
           <Input
             id="amount"
             type="number"
@@ -380,9 +388,7 @@ export function EntryFormMilhas({
                   <div className="flex justify-between mt-1">
                     <span>Valor por parcela:</span>
                     <span>
-                      R$ {(
-                        parseFloat(form.amountPaid) / form.recurrenceCount
-                      ).toFixed(2)}
+                      R$ {(parseFloat(form.amountPaid) / form.recurrenceCount).toFixed(2)}
                     </span>
                   </div>
                 )}
@@ -398,22 +404,39 @@ export function EntryFormMilhas({
         )}
       </div>
 
+      {/* Taxa de Conversão (só para Pontos) */}
+      {type === "pontos" && (
+        <div className="space-y-2">
+          <Label htmlFor="conversion">Taxa de Conversão (Pontos → Milhas)</Label>
+          <Input
+            id="conversion"
+            type="number"
+            step="0.01"
+            value={form.conversionRate}
+            onChange={(e) => set({ conversionRate: e.target.value })}
+            placeholder="Ex: 1.0"
+          />
+        </div>
+      )}
+
       {/* Cálculos Automáticos */}
       {form.amount && form.amountPaid && (
         <div className="p-4 bg-gradient-success/10 border border-success/20 rounded-lg space-y-2 animate-slide-up">
           <h4 className="font-semibold text-sm">Cálculos Automáticos:</h4>
-          <div className="grid grid-cols-2 gap-4 text-xs">
+          <div className={type === "pontos" ? "grid grid-cols-3 gap-4 text-xs" : "grid grid-cols-2 gap-4 text-xs"}>
             <div>
               <span className="text-muted-foreground">Custo por milhar:</span>
-              <p className="font-semibold">
-                R$ {((parseFloat(form.amountPaid) / parseFloat(form.amount)) * 1000).toFixed(2)}
-              </p>
+              <p className="font-semibold">R$ {costPerThousand.toFixed(2)}</p>
             </div>
+            {type === "pontos" && (
+              <div>
+                <span className="text-muted-foreground">Milhas geradas:</span>
+                <p className="font-semibold">{milesGenerated.toLocaleString("pt-BR")}</p>
+              </div>
+            )}
             <div>
               <span className="text-muted-foreground">Custo por milha:</span>
-              <p className="font-semibold">
-                R$ {(parseFloat(form.amountPaid) / parseFloat(form.amount)).toFixed(4)}
-              </p>
+              <p className="font-semibold">R$ {costPerMile.toFixed(4)}</p>
             </div>
           </div>
         </div>
