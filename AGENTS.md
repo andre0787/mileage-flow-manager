@@ -32,6 +32,9 @@
 11. **🐞 Registro de bugs obrigatório**: todo bug encontrado durante desenvolvimento DEVE ser registrado em `docs/AGENDA.md` → "🐞 Bugs Encontrados". Veja `docs/CONVENTIONS.md` → "Registro de Bugs".
 12. **💭 Ideias externas**: use `npm run think "ideia"` para capturar pensamentos fora do projeto. Se for urgente, `--immediate`. Se for bug, `--bug`.
 13. **🔬 Toda regra imutável DEVE ter validação automática**: ao definir uma nova regra imutável neste arquivo, crie **imediatamente** um script de verificação que impeça sua violação (ex: git hook, script npm, CI check). Sem o script, a regra não está completa. — veja `docs/CONVENTIONS.md` → "Validação Automática de Regras"
+14. **📁 Sem arquivos órfãos em `src/`**: todo arquivo `.ts`/`.tsx` em `src/` DEVE ser importado por pelo menos 1 outro arquivo. Exceções: entry points (`main.tsx`, `vite-env.d.ts`). A validação roda no `pre-pr` via `scripts/rules/rule-14-orphan-files.mjs`. — veja `docs/CONVENTIONS.md` → "Arquivos Órfãos"
+15. **🔄 Sem duplicatas de código > 75%**: componentes `.tsx` em `src/components/` (exceto `ui/`) não podem ter similaridade Dice > 75%. A validação roda no `pre-pr` via `scripts/rules/rule-15-duplicate-code.mjs`. — veja `docs/CONVENTIONS.md` → "Código Duplicado"
+16. **📜 Scripts têm atalho npm**: todo `.mjs`/`.js` em `scripts/` (exceto `lib.mjs`) DEVE ter um script npm correspondente em `package.json`. A validação roda no `pre-pr` via `scripts/rules/rule-16-orphan-scripts.mjs`. — veja `docs/CONVENTIONS.md` → "Scripts Órfãos"
 
 ## Começando — ⚡ AUTO-INICIALIZAÇÃO
 

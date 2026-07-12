@@ -7,6 +7,7 @@
  *   1. Links internos quebrados (arquivos .md referenciados que não existem)
  *   2. Órfãos (arquivos .md que ninguém referencia)
  *   3. Promessas quebradas (UI diz X, código pode não cumprir)
+ *   4. Referências a arquivos de código que não existem (.ts/.tsx/.mjs)
  *
  * Uso:
  *   node scripts/verify-docs.mjs             # scan completo
@@ -200,6 +201,55 @@ if (!quick) {
   }
 }
 
+// ── 4. Check code file references ────────────────────────────────────
+
+if (!quick) {
+  console.log("📁 Verificando referências a arquivos de código...\n");
+
+  /** Extract backtick-wrapped paths that look like source files */
+  const codeFileRe = /`([^`]+(?:\.[jt]sx?|\.mjs))`/g;
+
+  for (const { path: filePath, rel: fileRel } of allFiles) {
+    const content = readFileSync(filePath, "utf-8");
+    let m;
+    while ((m = codeFileRe.exec(content)) !== null) {
+      const ref = m[1];
+      // Skip URLs, node_modules, glob patterns, archive/
+      if (ref.startsWith("http") || ref.startsWith("node_modules/")) continue;
+      if (ref.includes("*") || ref.includes("?")) continue; // glob pattern
+      if (fileRel.startsWith("docs/archive/")) continue; // historical docs
+
+      // Try to resolve the path
+      let fullPath;
+      if (ref.startsWith("/")) {
+        // Absolute path from repo root
+        fullPath = join(ROOT, ref);
+      } else if (ref.startsWith("./")) {
+        // Relative to the doc file
+        const dir = fileRel.split("/").slice(0, -1).join("/");
+        fullPath = resolve(ROOT, dir, ref);
+      } else if (ref.startsWith("src/") || ref.startsWith("scripts/") || ref.startsWith("tests/") || ref.startsWith("docs/")) {
+        // Path from repo root
+        fullPath = join(ROOT, ref);
+      } else {
+        // Could be a bare filename or ambiguous — skip
+        continue;
+      }
+
+      if (!existsSync(fullPath)) {
+        const lineNum = content.slice(0, m.index).split("\n").length;
+        issues.push({
+          type: "broken-code-ref",
+          file: fileRel,
+          line: lineNum,
+          target: ref,
+          text: ref,
+        });
+      }
+    }
+  }
+}
+
 // ── Report ──────────────────────────────────────────────────────────
 
 console.log("═══════════════════════════════════════════");
@@ -214,7 +264,8 @@ console.log(`Total arquivos .md: ${allFiles.length}`);
 console.log(`Total issues:       ${issues.length}\n`);
 console.log("Por tipo:");
 for (const [type, count] of Object.entries(byType)) {
-  console.log(`  ${" ".repeat(12 - type.length)}${type}: ${count}`);
+  const pad = Math.max(2, 14 - type.length);
+  console.log(`  ${" ".repeat(pad)}${type}: ${count}`);
 }
 console.log("");
 
@@ -233,6 +284,9 @@ if (issues.length === 0) {
         break;
       case "ui-promise":
         console.log(`  💬 ${loc} → possível promessa não verificada: "${iss.text}"`);
+        break;
+      case "broken-code-ref":
+        console.log(`  📁 ${loc} → ref. arquivo inexistente: "${iss.target}"`);
         break;
     }
   }
