@@ -19,6 +19,7 @@ Nenhum PR aberto.
 | **#103** | Relatório HTML enriquecido + auto-geração no pre-pr | ✅ mergeado + deploy |
 | **#104** | Evidências visuais + rename automático no relatório | ✅ mergeado + deploy |
 | **#105** | Seção antes/depois padrão na seção de evidências | ✅ mergeado + deploy |
+| **#107** | Screenshot inline (<img>) no relatório | ✅ mergeado + deploy |
 
 ### PRs mergeados (sessões anteriores)
 
