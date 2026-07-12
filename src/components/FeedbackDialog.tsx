@@ -32,11 +32,20 @@ export function FeedbackDialog({ children }: FeedbackDialogProps) {
     e.preventDefault();
     if (!message.trim()) return;
     setSending(true);
+
+    // Captura logs de debug do localStorage
+    let logs: string | null = null;
+    try {
+      const raw = localStorage.getItem("mc_debug_logs");
+      if (raw) logs = raw;
+    } catch {/* localStorage pode falhar em alguns contextos */}
+
     const { error } = await supabase.from("feedback").insert({
       user_id: user?.id ?? null,
       type,
       message: message.trim(),
       email: email.trim() || null,
+      logs,
     });
     if (error) {
       console.error("Feedback error:", error);

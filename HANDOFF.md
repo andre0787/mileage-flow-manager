@@ -1,102 +1,80 @@
 # HANDOFF — MilesControl
 > ⏰ Última atualização: 2026-07-11
-> Anterior: 2026-07-11
 ---
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `fa9b291` — feat: canal de feedback — templates issue + formulário interno (#96)
+- **Último commit:** `7191a43` — feat: integra logger em todas as mutations do useDatabase (#101)
 - **Remote:** origin/main
+- **Deploy Vercel:** Bloqueado até ~2026-07-12 (100 deploys/dia free esgotado)
+- **Logger:** sempre ativo (padrão alterado para `true`)
+
 ### 📋 PRs Abertos
 Nenhum PR aberto.
-### 📊 Métricas (estimativa local)
-| Métrica | Valor |
-|---------|-------|
-| Total testes | 108 |
-| Docs issues | 1 |
-| Branch | main |
 
 ---
-_Atualizado automaticamente por `scripts/update-handoff.mjs`_
-## 🧠 Notas da Sessão Atual
 
-### Sprint B + C — Deployado ✅
+## 📦 PRs mergeados (sessões anteriores)
 
-| Sprint | Status |
-|--------|--------|
-| **Sprint B** — Limpeza & Confiabilidade | ✅ Deployado (PR #92) |
-| **Sprint C** — Polimento & Prevenção | ✅ Deployado (PR #92) |
-| **auto-report rename** | ✅ Deployado (PR #93) |
+| PR | Descrição |
+|----|-----------|
+| **#92** | Sprint B + C (Limpeza & Confiabilidade + Polimento & Prevenção) |
+| **#93** | Rename auto-report artifact to qualidade |
+| **#95** | Badge/banner entradas só atrasadas |
+| **#96** | Canal de Feedback (GitHub Issues + Formulário interno + Supabase) |
+| **#97** | Pre-commit hook + validação automática de regras |
+| **#98** | Botão de atalho Limpar Cache no sidebar |
+| **#100** | Tasks VS Code para scripts do workflow |
+| **#101** | Logger integrado em todas as mutations do useDatabase |
 
-### O que foi feito nesta sessão
+---
 
-#### 🛠️ Manutenção
-- [x] Recuperação de objetos git corrompidos (3 blobs vazios pós-queda)
-- [x] Commit de mudanças staged + ajustes finais Sprint C
-- [x] Escopo `workflow` adicionado ao token do gh (device OAuth)
+## 🧠 Sessão 2026-07-11 (features + validação)
 
-#### 📦 PRs mergeados
-- [x] **#92** — Sprint B + C (Limpeza & Confiabilidade + Polimento & Prevenção)
-- [x] **#93** — Rename auto-report artifact to qualidade
+### 🐞 Logger integrado
+- `clients.ts`, `origemTypes.ts`, `owners.ts`, `programs.ts`, `sales.ts`: +logError + logDestructiveOp
+- `accounts.ts`, `entries.ts`: complementar nas mutations faltantes
+- **15+ mutations** agora registram erros estruturados
+- Logger **sempre ativo** por padrão (desliga com `VITE_ENABLE_DEBUG_LOG=false`)
+- Ativar debug: `console.table(JSON.parse(localStorage.getItem('mc_debug_logs')))`
 
-#### 📁 Estrutura de relatórios
-- [x] 16 relatórios renomeados para padrão `<prefixo>-YYYY-MM-DD-<nome>.html`
-- [x] Organizados em pastas por dia: `docs/reports/<data>/`
+### 🛡️ Validação automática de regras (PR #97)
+- `scripts/lib.mjs` + `scripts/rules/rule-*.mjs` + `.githooks/pre-commit`
+- 6 regras com validação automática (grid, branch, pt-BR, report, clean, validations)
 
-#### 📝 Docs atualizados
-- [x] `AGENTS.md` — regra #7 (nomenclatura reports), #10 (registro de bugs)
-- [x] `CONVENTIONS.md` — PR naming, estrutura de reports, registro de bugs
-- [x] `WORKFLOW.md` — nomenclatura de PRs + reports com pastas
-- [x] `.pi/prompts/report.md` — template atualizado com pastas
-- [x] `AGENDA.md` — seção 🐞 Bugs Encontrados adicionada
+### 🚀 Features novas
+- **Feedback**: `FeedbackDialog.tsx`, tabela `feedback` no Supabase, RLS ajustada
+- **Pre-commit hook**: bloqueia commits na main
+- **Limpar Cache**: atalho no sidebar (`RotateCcw`)
+- **Tasks VS Code**: `Ctrl+Shift+B` p/ Iniciar Sessão + 6 tasks no task runner
 
-### Scripts de Workflow (novos)
+### ⚠️ Deploy bloqueado
+Vercel free (100 deploys/dia) esgotado. Deploy automático roda quando resetar.
 
-| Script | npm | Função |
-|--------|-----|--------|
-| `scripts/session-start.mjs` | `npm run session:start` | Resumo ~300 tokens pro início de sessão |
-| `scripts/generate-report.mjs` | `npm run report` | Relatório HTML automático do diff |
-| `scripts/pre-pr-check.mjs` | `npm run pre-pr` | Valida tudo antes do PR (build, tests, docs) |
-| `scripts/session-end.mjs` | `npm run session:end` | add + commit + handoff + push em 1 comando |
+### 📋 Próximos passos
+- [ ] Revisar feedbacks de usuários (2 pendentes)
+- [ ] Monitorar deploy automático da Vercel
+- [ ] Backlog: traduções, analytics, performance, PWA
 
-### Fluxo de Início (2 gatilhos)
+---
+
+### 📁 Estrutura de scripts
 
 ```
-session:start → HANDOFF in progress? → IDEIAS.md pendentes? → pergunta
+scripts/
+├── lib.mjs                 ← utilitários compartilhados
+├── check-feedback.mjs      ← consulta feedback de usuários
+├── pre-pr-check.mjs        ← orquestrador (rules + build + test + docs)
+├── rules/
+│   ├── rule-02-grid.mjs
+│   ├── rule-04-branch.mjs
+│   ├── rule-07-ptbr.mjs
+│   ├── rule-08-report.mjs
+│   ├── rule-10-clean.mjs
+│   └── rule-13-validations.mjs
+├── generate-report.mjs
+├── session-start.mjs
+├── session-end.mjs
+├── think.mjs
+└── verify-docs.mjs
+.githooks/pre-commit          ← bloqueia main
 ```
-
-### Scripts de Workflow (6)
-
-| Script | npm | Função |
-|--------|-----|--------|
-| `scripts/session-start.mjs` | `npm run session:start` | Resumo ~300 tokens + checa HANDOFF + IDEIAS.md |
-| `scripts/generate-report.mjs` | `npm run report` | Relatório HTML automático do diff |
-| `scripts/pre-pr-check.mjs` | `npm run pre-pr` | Valida build, tests, docs antes do PR |
-| `scripts/session-end.mjs` | `npm run session:end` | add + commit + handoff + push em 1 comando |
-| `scripts/update-handoff.mjs` | `npm run handoff` | Atualiza HANDOFF.md |
-| `scripts/think.mjs` | `npm run think` | Captura ideia em IDEIAS.md + docs/thoughts/ |
-
-### Novos arquivos
-- `CLAUDE.md` — instruções pro Claude Code
-- `docs/IDEIAS.md` — caixa de entrada de ideias humanas
-- `docs/thoughts/` — registro permanente de cada ideia
-
-### Docs atualizados
-- `AGENTS.md` — fluxo de 2 gatilhos no início + regra #11 (ideias)
-- `CONVENTIONS.md` — seção Caixa de Entrada de Ideias
-- `WORKFLOW.md` — Scripts de Workflow + Fluxo think
-- `MAP.md` — referência a IDEIAS.md
-- `CLAUDE.md` — criado com instruções compatíveis
-
-**Próximo:** Backlog Futuro — traduções, analytics, PWA
-
-### Sessão 2026-07-11 (pós PR #95)
-- PR #95 mergeado: badge/banner entradas só atrasadas (histórico corrigido)
-- `generate-report.mjs`: suporte a `--benefits` + seção 🎯 Benefícios
-- Regra #8 AGENTS.md: relatório DEVE incluir benefícios
-- Sprint C Item 5 fechado: workers:2 = 37% mais rápido (7.5→4.8 min)
-- Report format padronizado: `docs/reports/<data>/<prefixo>-YYYY-MM-DD-<nome>.html`
-- Nenhum PR aberto, zero pendências
-- CI removido de push:main (redundante — ja rodou no PR)
-- gh auth com escopo workflow
-- Deploy nao compete mais com CI
-
