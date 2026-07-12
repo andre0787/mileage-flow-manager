@@ -68,20 +68,29 @@ import { useDatabase } from "@/hooks/useDatabase" // barrel ok, mas prefira o ho
 
 Isso garante continuidade entre sessões sem perda de contexto.
 
-## Relatório Pós-Implementação — OBRIGATÓRIO
+## Relatório Pós-Implementação — OBRIGATÓRIO (NUNCA PULAR)
 
-**Toda tarefa (feature ou manutenção) DEVE gerar um relatório HTML antes do PR.**
+**🔥 REGRA ABSOLUTA: NUNCA pular o relatório HTML, independente do tamanho da mudança.**
 
-### Automático (recomendado)
+1 linha, 1 arquivo, 1 caractere — sempre gera o relatório. O `pre-pr-check.mjs` falha se não encontrar relatório.
 
+**Toda tarefa (feature, fix, docs, chore, refactor — QUALQUER alteração de código ou docs) DEVE gerar um relatório HTML antes do PR.**
+
+### Automático (recomendado — executa como parte do workflow)
+
+```bash
+npm run pre-pr
+```
+
+Gera automaticamente se não existir:
 ```bash
 npm run report "Descrição da tarefa" --write
 ```
 
-Gera `docs/reports/<data>/<prefixo>-<data>-<nome>.html` automaticamente com:
-- Diff, arquivos alterados, adições/remoções
-- Estimativa de tokens
-- Badges por tipo (PR/auto/fix/feat/docs/chore)
+Ou manualmente com evidências:
+```bash
+npm run report "Feature X" --evidence "https://...imagem.png" --before "..." --after "..." --write
+```
 
 ### Manual (fallback)
 

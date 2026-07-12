@@ -96,8 +96,9 @@ if (!process.argv.includes("--no-report")) {
       }
     }
   } catch (e) {
-    console.log(`  ⚠️  relatório automático falhou: ${e.message.slice(0, 100)}`);
+    console.log(`  ❌ relatório automático FALHOU: ${e.message.slice(0, 100)}`);
     console.log("     Dica: gere manualmente com: npm run report \"descrição\" --benefits \"...\" --impact \"...\" --write");
+    process.exit(1);
   }
 }
 

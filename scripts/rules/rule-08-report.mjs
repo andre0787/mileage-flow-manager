@@ -18,9 +18,18 @@ import { resolve } from "path";
 
 const { branch, prNum, today } = repoInfo();
 
-// Se não tem PR, não é possível validar relatório
+// Se não tem PR, não é possível validar relatório com prefixo PR
+// Mas ainda verifica se existe algum relatório na data
 if (!prNum) {
-  warn("branch sem PR — não é possível verificar relatório (regra #8)");
+  warn("branch sem PR — verificando relatório genérico");
+  const anyReport = git(`ls docs/reports/${today}/*.html 2>/dev/null || true`);
+  if (!anyReport || !anyReport.trim()) {
+    err(`nenhum relatório encontrado em docs/reports/${today}/ (regra #8)`);
+    err("  Toda alteração DEVE ter relatório HTML antes do PR");
+    err("  Dica: npm run report \"descrição\" --write");
+    process.exit(1);
+  }
+  ok(`relatório encontrado: docs/reports/${today}/ (regra #8)`);
   process.exit(0);
 }
 
