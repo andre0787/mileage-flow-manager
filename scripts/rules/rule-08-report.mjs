@@ -55,6 +55,7 @@ if (reportFile) {
   const requiredSections = [
     { name: "🎯 Benefícios", marker: "Benefícios" },
     { name: "✅ Checklist de Revisão", marker: "Checklist de Revisão" },
+    { name: "📸 Evidências", marker: "Evidências" },
     { name: "⚡ Consumo de Tokens", marker: "Consumo de Tokens" },
     { name: "📊 Métricas", marker: "Métricas" },
     { name: "Breakdown", marker: "Breakdown" },

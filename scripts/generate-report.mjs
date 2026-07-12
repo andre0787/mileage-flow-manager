@@ -17,12 +17,40 @@
  */
 
 import { execSync } from "child_process";
-import { readFileSync, existsSync, mkdirSync, writeFileSync } from "fs";
+import { readFileSync, existsSync, mkdirSync, writeFileSync, readdirSync, renameSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
+
+// ── Help ───────────────────────────────────────────────────────────────
+if (process.argv.includes("--help") || process.argv.includes("-h")) {
+  console.log(`
+Uso: node scripts/generate-report.mjs [descrição] [flags]
+
+Flags:
+  --write              Salva em docs/reports/<data>/
+  --prefix <prefixo>   Prefixo (PR<num>, fix, feat, docs, chore, auto)
+  --benefits <texto>   Benefícios da mudança
+  --impact <texto>     Impacto no negócio
+  --rows <linha>       Tabela: item|correção|benefício|impacto|token (múltiplo)
+  --evidence <URL>     URL de screenshot como evidência visual
+  --before <texto>     Descrição do estado anterior
+  --after <texto>      Descrição do estado atual
+  --rename PR<num>     Renomeia relatórios para prefixo PR<num>
+  --date YYYY-MM-DD    Data para --rename (padrão: hoje)
+  --help, -h           Mostra esta ajuda
+
+Exemplos:
+  npm run report "Corrigir overflow" --write
+  npm run report "Feature X" --benefits "A" --impact "B" --rows "I|F|B|I|T" --write
+  npm run report --rename PR103
+  npm run report --rename 104 --date 2026-07-11
+  npm run report:rename PR103
+`);
+  process.exit(0);
+}
 
 const TASK = process.argv[2] || "auto";
 const PREFIX = (() => {
@@ -44,6 +72,9 @@ function collectArgs(flag) {
 
 const BENEFITS = collectArgs("--benefits");
 const BUSINESS_IMPACT = collectArgs("--impact");
+const EVIDENCE_URL = collectArgs("--evidence");
+const BEFORE_TEXT = collectArgs("--before");
+const AFTER_TEXT = collectArgs("--after");
 
 // Rows da tabela: pipe-separated: item|correcao|beneficio|impacto_negocio|custo_token
 const TABLE_ROWS = (() => {
@@ -124,11 +155,11 @@ function escapeHTML(s) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-function generateHTML(task, diff, changedFiles, branch, commit, pr, metrics, benefits, businessImpact, tableRows) {
+function generateHTML(task, diff, changedFiles, branch, commit, pr, metrics, benefits, businessImpact, tableRows, evidenceUrl, beforeText, afterText) {
   const now = new Date();
   const date = now.toISOString().slice(0, 10);
   const time = now.toTimeString().slice(0, 5);
-  const safeName = task.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  const safeName = task.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
   const prefix = pr ? `PR${pr.number}` : PREFIX;
   const filename = `${prefix}-${date}-${safeName}.html`;
 
@@ -213,6 +244,23 @@ function generateHTML(task, diff, changedFiles, branch, commit, pr, metrics, ben
        <div class="impact-box">${escapeHTML(businessImpact).replace(/\n/g, "<br>")}</div>
        <br>`
     : "";
+
+  // ── Evidence section ──
+  const hasBeforeAfter = beforeText || afterText;
+  const evidenceHtml = `<h2>📸 Evidências</h2>
+    <table>
+      <tr><th style="width:25%">Item</th><th>Detalhe</th></tr>
+      <tr><td><strong>Estado Anterior</strong></td><td>${escapeHTML(beforeText || "Não documentado — ver diff abaixo")}</td></tr>
+      <tr><td><strong>Estado Atual</strong></td><td>${escapeHTML(afterText || "Ver diff abaixo")}</td></tr>
+      <tr><td><strong>Arquivos</strong></td><td>${Object.entries(changedFiles.split("\n").filter(l => l.trim()).slice(0, 3).reduce((acc, l) => {
+        const [s, ...p] = l.trim().split(/\s+/);
+        if (!acc[s]) acc[s] = [];
+        acc[s].push(p.join(" "));
+        return acc;
+      }, {})).map(([s, files]) => `${s}: ${files.join(", ")}`).join("; ")}${changedFiles.split("\n").filter(l => l.trim()).length > 3 ? ` (+${changedFiles.split("\n").filter(l => l.trim()).length - 3} outros)` : ""}</td></tr>
+      ${evidenceUrl ? `<tr><td><strong>Screenshot</strong></td><td><a href="${escapeHTML(evidenceUrl)}" target="_blank">📷 Ver imagem</a></td></tr>` : ""}
+    </table>
+    <br>`;
 
   // Token breakdown
   const tokenDetail = `<h3>Breakdown</h3>
@@ -317,6 +365,8 @@ function generateHTML(task, diff, changedFiles, branch, commit, pr, metrics, ben
 
   ${impactHtml}
 
+  ${evidenceHtml}
+
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
@@ -352,6 +402,42 @@ function generateHTML(task, diff, changedFiles, branch, commit, pr, metrics, ben
 </html>`;
 }
 
+// ── Rename mode ──────────────────────────────────────────────────────
+// node scripts/generate-report.mjs --rename PR<num> [--date YYYY-MM-DD]
+const RENAME_TARGET = (() => {
+  const idx = process.argv.indexOf("--rename");
+  return idx !== -1 ? process.argv[idx + 1] || null : null;
+})();
+const RENAME_DATE = (() => {
+  const idx = process.argv.indexOf("--date");
+  return idx !== -1 ? process.argv[idx + 1] || null : null;
+})();
+
+if (RENAME_TARGET) {
+  const renameDate = RENAME_DATE || new Date().toISOString().slice(0, 10);
+  const renamePrefix = RENAME_TARGET.startsWith("PR") ? RENAME_TARGET : `PR${RENAME_TARGET}`;
+  const dir = resolve(ROOT, `docs/reports/${renameDate}`);
+
+  if (!existsSync(dir)) {
+    console.log(`⚠️  Nenhum relatório encontrado em docs/reports/${renameDate}/`);
+    process.exit(1);
+  }
+
+  const files = readdirSync(dir).filter(f => f.endsWith(".html"));
+  let renamed = 0;
+  for (const file of files) {
+    if (file.startsWith(renamePrefix)) continue; // já ok
+    const newName = file.replace(/^[^-]+/, renamePrefix);
+    if (newName === file) continue;
+    renameSync(resolve(dir, file), resolve(dir, newName));
+    console.log(`  🔄 ${file} → ${newName}`);
+    renamed++;
+  }
+  if (renamed === 0) console.log(`  ✅ Todos os relatórios já com prefixo ${renamePrefix}`);
+  else console.log(`  ✅ ${renamed} relatório(s) renomeado(s)`);
+  process.exit(0);
+}
+
 // ── Main ─────────────────────────────────────────────────────────────
 
 const diff = getDiff();
@@ -361,11 +447,11 @@ const commit = getCommit();
 const pr = getPR();
 const metrics = estimateTokens(diff);
 
-const html = generateHTML(TASK, diff, changedFiles, branch, commit, pr, metrics, BENEFITS, BUSINESS_IMPACT, TABLE_ROWS);
+const html = generateHTML(TASK, diff, changedFiles, branch, commit, pr, metrics, BENEFITS, BUSINESS_IMPACT, TABLE_ROWS, EVIDENCE_URL, BEFORE_TEXT, AFTER_TEXT);
 
 if (SHOULD_WRITE) {
   const date = new Date().toISOString().slice(0, 10);
-  const safeName = TASK.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  const safeName = TASK.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
   const prefix = pr ? `PR${pr.number}` : PREFIX;
   const dir = resolve(ROOT, `docs/reports/${date}`);
   const filepath = resolve(dir, `${prefix}-${date}-${safeName}.html`);
