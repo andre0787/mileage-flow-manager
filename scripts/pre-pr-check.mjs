@@ -36,13 +36,10 @@ if (!process.argv.includes("--no-report")) {
     const today = new Date().toISOString().slice(0, 10);
     const branch = execSync("git rev-parse --abbrev-ref HEAD", { cwd: ROOT, encoding: "utf8", timeout: 3000 }).trim();
 
-    // Verifica se já existe relatório para o PR de hoje
-    const existing = execSync(
-      `ls docs/reports/${today}/PR*-*.html 2>/dev/null || true`,
-      { cwd: ROOT, encoding: "utf8", timeout: 3000 }
-    ).trim();
+    // Gera relatório SEMPRE — cada branch/PR tem seu próprio relatório
+    // (não pula se já existe de outro PR, pois cada um precisa do seu)
 
-    // Verifica PR aberto pra branch
+    // Verifica PR aberto pra branch (para nomear relatório corretamente)
     let prNum = null;
     try {
       const prJson = execSync(
@@ -53,48 +50,19 @@ if (!process.argv.includes("--no-report")) {
       if (prs.length > 0) prNum = prs[0].number;
     } catch {}
 
-    if (existing) {
-      console.log(`  ⏭️  relatório já existe para hoje, pulando auto-geração`);
-      // Renomeia se necessário (ex: auto-*.html → PR<num>-*.html)
-      if (prNum) {
-        const existingFiles = existing.split("\n");
-        for (const file of existingFiles) {
-          const filename = file.split("/").pop() || "";
-          if (filename.startsWith("PR")) continue;
-          const correctName = filename.replace(/^[^-]+/, `PR${prNum}`);
-          if (correctName !== filename) {
-            execSync(`mv "${file}" "${file.replace(filename, correctName)}"`, { cwd: ROOT, timeout: 3000 });
-            console.log(`  🔄 renomeado: ${filename} → ${correctName}`);
-          }
-        }
-      }
-    } else {
-      const taskName = branch.replace(/^(feat\/|fix\/|chore\/|docs\/)/, "").replace(/[-_/]/g, " ");
-      const cmd = `node scripts/generate-report.mjs "${taskName}"`
-        + ` --benefits "Auto-gerado pelo pre-pr-check"`
-        + ` --impact "Relatório gerado automaticamente como parte do workflow de validação pré-PR"`
-        + ` --write 2>&1`;
+    const prefix = prNum ? `PR${prNum}` : branch.replace(/^[a-z]+\//, "");
+    const taskName = branch.replace(/^(feat\/|fix\/|chore\/|docs\/)/, "").replace(/[-_/]/g, " ");
+    const cmd = `node scripts/generate-report.mjs "${taskName}"`
+      + ` --prefix "${prefix}"`
+      + ` --benefits "Auto-gerado pelo pre-pr-check"`
+      + ` --impact "Relatório gerado automaticamente como parte do workflow de validação pré-PR"`
+      + ` --write 2>&1`;
 
-      const out = execSync(cmd, { cwd: ROOT, encoding: "utf8", timeout: 15000 }).trim();
-      if (out) console.log(`  ${out}`);
+    const out = execSync(cmd, { cwd: ROOT, encoding: "utf8", timeout: 15000 }).trim();
+    if (out) console.log(`  ${out}`);
 
-      // Renomeia se PR existe (auto-*.html → PR<num>-*.html)
-      if (prNum) {
-        const allFiles = execSync(
-          `ls docs/reports/${today}/*.html 2>/dev/null || true`,
-          { cwd: ROOT, encoding: "utf8", timeout: 3000 }
-        ).trim().split("\n").filter(Boolean);
-        for (const file of allFiles) {
-          const filename = file.split("/").pop() || "";
-          if (filename.startsWith(`PR${prNum}`)) continue;
-          const correctName = filename.replace(/^[^-]+/, `PR${prNum}`);
-          if (correctName !== filename) {
-            execSync(`mv "${file}" "${file.replace(filename, correctName)}"`, { cwd: ROOT, timeout: 3000 });
-            console.log(`  🔄 renomeado: ${filename} → ${correctName}`);
-          }
-        }
-      }
-    }
+    // Staging o relatório gerado para não quebrar a regra #10
+    execSync(`git add docs/reports/${today}/ 2>/dev/null || true`, { cwd: ROOT, timeout: 3000 });
   } catch (e) {
     console.log(`  ❌ relatório automático FALHOU: ${e.message.slice(0, 100)}`);
     console.log("     Dica: gere manualmente com: npm run report \"descrição\" --benefits \"...\" --impact \"...\" --write");
