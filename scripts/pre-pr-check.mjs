@@ -36,8 +36,14 @@ if (!process.argv.includes("--no-report")) {
     const today = new Date().toISOString().slice(0, 10);
     const branch = execSync("git rev-parse --abbrev-ref HEAD", { cwd: ROOT, encoding: "utf8", timeout: 3000 }).trim();
 
-    // Gera relatório SEMPRE — cada branch/PR tem seu próprio relatório
-    // (não pula se já existe de outro PR, pois cada um precisa do seu)
+    // Se apenas docs/reports/ foi alterado, pula relatório (ex: rename de relatórios)
+    const diffOnlyReports = execSync(
+      `git diff --name-only HEAD 2>/dev/null || true`,
+      { cwd: ROOT, encoding: "utf8", timeout: 3000 }
+    ).trim().split("\n").filter(Boolean).every(f => f.startsWith("docs/reports/"));
+    if (diffOnlyReports) {
+      console.log("  ⏭️  apenas docs/reports/ alterados, pulando geração (evita ciclo de rename)");
+    } else {
 
     // Verifica PR aberto pra branch (para nomear relatório corretamente)
     let prNum = null;
@@ -63,6 +69,7 @@ if (!process.argv.includes("--no-report")) {
 
     // Staging o relatório gerado para não quebrar a regra #10
     execSync(`git add docs/reports/${today}/ 2>/dev/null || true`, { cwd: ROOT, timeout: 3000 });
+    }
   } catch (e) {
     console.log(`  ❌ relatório automático FALHOU: ${e.message.slice(0, 100)}`);
     console.log("     Dica: gere manualmente com: npm run report \"descrição\" --benefits \"...\" --impact \"...\" --write");
