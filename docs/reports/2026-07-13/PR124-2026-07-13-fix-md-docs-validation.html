@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 fix md docs validation</h1>
-  <p class="meta">2026-07-13 10:05 &middot; docs/fix-md-docs-validation &middot; 68fe620 — docs: fix documentacao — broken links, orphans, MAP.md, CLAUDE.md redirect, MEMORY compression, rule-17 validation</p>
+  <p class="meta">2026-07-13 10:15 &middot; docs/fix-md-docs-validation &middot; 9615ca4 — chore: move HANDOFF.md MEMORY.md to docs/, update all refs</p>
   <p><span class="badge pr">PR #124</span> <span class="badge auto">PR124</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">15</div>
+      <div style="font-size:1.5rem;font-weight:700">27</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+557</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+949</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-570</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-692</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1013</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1514</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -80,12 +80,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 570 remoções — 1351 linhas tocadas</td>
-        <td>✨ 557 adições — 15 arquivo(s) alterado(s)</td>
+        <td>🧹 692 remoções — 2018 linhas tocadas</td>
+        <td>✨ 949 adições — 27 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> CLAUDE.md, HANDOFF.md, MEMORY.md, docs/AGENDA.md, docs/CONVENTIONS.md<br><em>+10 arquivo(s)</em></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .pi/prompts/sprint.md, .pi/skills/handoff/SKILL.md, AGENTS.md, CHANGELOG.md, CLAUDE.md<br><em>+22 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,33 +98,37 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>15</td></tr>
-    <tr><td>Adições</td><td>+557</td></tr>
-    <tr><td>Remoções</td><td>-570</td></tr>
-    <tr><td>Tokens estimados</td><td>~1013</td></tr>
+    <tr><td>Arquivos alterados</td><td>27</td></tr>
+    <tr><td>Adições</td><td>+949</td></tr>
+    <tr><td>Remoções</td><td>-692</td></tr>
+    <tr><td>Tokens estimados</td><td>~1514</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:41">+418 add</div>
-        <div class="del" style="flex:42">-428 del</div>
-        <div class="overhead" style="flex:17">~167 ctx</div>
+        <div class="add" style="flex:47">+712 add</div>
+        <div class="del" style="flex:34">-519 del</div>
+        <div class="overhead" style="flex:19">~283 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+418</td><td>41%</td></tr>
-      <tr><td>Remoções</td><td>-428</td><td>42%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~167</td><td>17%</td></tr>
-      <tr><th>Total</th><th>~1013</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+712</td><td>47%</td></tr>
+      <tr><td>Remoções</td><td>-519</td><td>34%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~283</td><td>19%</td></tr>
+      <tr><th>Total</th><th>~1514</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-    <tr><td>M</td><td>CLAUDE.md</td></tr>
-<tr><td>M</td><td>HANDOFF.md</td></tr>
-<tr><td>M</td><td>MEMORY.md</td></tr>
+    <tr><td>M</td><td>.pi/prompts/sprint.md</td></tr>
+<tr><td>M</td><td>.pi/skills/handoff/SKILL.md</td></tr>
+<tr><td>M</td><td>AGENTS.md</td></tr>
+<tr><td>M</td><td>CHANGELOG.md</td></tr>
+<tr><td>M</td><td>CLAUDE.md</td></tr>
+<tr><td>D</td><td>HANDOFF.md</td></tr>
+<tr><td>D</td><td>MEMORY.md</td></tr>
 <tr><td>M</td><td>docs/AGENDA.md</td></tr>
 <tr><td>M</td><td>docs/CONVENTIONS.md</td></tr>
 <tr><td>M</td><td>docs/MAP.md</td></tr>
@@ -134,135 +138,143 @@
 <tr><td>M</td><td>docs/archive/plans/code-splitting-recharts.md</td></tr>
 <tr><td>M</td><td>docs/archive/specs/2026-07-08-vendas-extract-components-design.md</td></tr>
 <tr><td>M</td><td>docs/archive/specs/2026-07-09-modo-offline-design.md</td></tr>
+<tr><td>M</td><td>docs/council/2026-07-10-plano-automacao-sprints-veredito.md</td></tr>
+<tr><td>A</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/memory.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-13/PR124-2026-07-13-fix-md-docs-validation.html</td></tr>
 <tr><td>A</td><td>docs/reports/2026-07-13/fix-md-docs-validation-2026-07-13-fix-md-docs-validation.html</td></tr>
 <tr><td>A</td><td>docs/reports/2026-07-13/main-2026-07-13-main.html</td></tr>
 <tr><td>A</td><td>scripts/rules/rule-17-new-docs-valid.mjs</td></tr>
+<tr><td>M</td><td>scripts/session-end.mjs</td></tr>
+<tr><td>M</td><td>scripts/session-start.mjs</td></tr>
+<tr><td>M</td><td>scripts/update-handoff.mjs</td></tr>
+<tr><td>M</td><td>scripts/verify-docs.mjs</td></tr>
   </table>
 
   
 
   <h2>🔍 Diff</h2>
   <div class="diff">
-    diff --git a/CLAUDE.md b/CLAUDE.md
+    diff --git a/.pi/prompts/sprint.md b/.pi/prompts/sprint.md
+index 23c2432..9584a2f 100644
+<span class="del">--- a/.pi/prompts/sprint.md</span>
+<span class="add">+++ b/.pi/prompts/sprint.md</span>
+@@ -17,8 +17,8 @@ Lê e exibe o AGENDA.md da sprint atual.
+ 
+ ## Por sessão
+ 
+<span class="del">-- [ ] Ler `HANDOFF.md` no início</span>
+<span class="del">-- [ ] Se sessão &gt; 12 turns, atualizar `HANDOFF.md` e considerar `/new`</span>
+<span class="add">+- [ ] Ler `docs/handoff.md` no início</span>
+<span class="add">+- [ ] Se sessão &gt; 12 turns, atualizar `docs/handoff.md` e considerar `/new`</span>
+ 
+ ## Checklist por item
+ 
+@@ -27,5 +27,5 @@ Antes de criar o PR, executar:
+ - [ ] Relatório HTML gerado em `docs/reports/` via `/report`
+ - [ ] PR criado para `develop`
+ - [ ] PR mergeado para `develop`
+<span class="del">-- [ ] Atualizar `HANDOFF.md` com progresso</span>
+<span class="add">+- [ ] Atualizar `docs/handoff.md` com progresso</span>
+ - [ ] Só então iniciar próximo item
+diff --git a/.pi/skills/handoff/SKILL.md b/.pi/skills/handoff/SKILL.md
+index 80700b1..8e85c68 100644
+<span class="del">--- a/.pi/skills/handoff/SKILL.md</span>
+<span class="add">+++ b/.pi/skills/handoff/SKILL.md</span>
+@@ -1,13 +1,13 @@
+ ---
+ name: handoff
+<span class="del">-description: Gerencia o arquivo HANDOFF.md para preservar contexto entre sessões. Use no início de cada sessão para restaurar contexto, e antes de /new para salvar o estado atual sem perder precisão.</span>
+<span class="add">+description: Gerencia o arquivo docs/handoff.md para preservar contexto entre sessões. Use no início de cada sessão para restaurar contexto, e antes de /new para salvar o estado atual sem perder precisão.</span>
+ ---
+ 
+ # Handoff — Passagem entre Sessões
+ 
+ ## Formato
+ 
+<span class="del">-O arquivo `HANDOFF.md` na raiz do projeto segue a mesma estrutura do</span>
+<span class="add">+O arquivo `docs/handoff.md` segue a mesma estrutura do</span>
+ compaction summary do pi: Goal, Progress, Key Decisions, Next Steps,
+ Critical Context.
+ 
+@@ -19,7 +19,7 @@ Critical Context.
+ /skill:handoff
+ ```
+ 
+<span class="del">-Lê `HANDOFF.md` e restaura o contexto da sessão anterior.</span>
+<span class="add">+Lê `docs/handoff.md` e restaura o contexto da sessão anterior.</span>
+ Use **sempre** no início de cada sessão, antes de qualquer trabalho.
+ 
+ ### Salvar handoff (antes de /new)
+@@ -31,7 +31,7 @@ Use **sempre** no início de cada sessão, antes de qualquer trabalho.
+ 1. **Verificar `git status`** — garantir ZERO arquivos uncommitted (exceto .gitignore)
+ 2. Se houver arquivos pendentes → `git add .` + `git commit` antes de prosseguir
+ 3. Analisa o estado atual da conversa
+<span class="del">-4. Atualiza `HANDOFF.md` com:</span>
+<span class="add">+4. Atualiza `docs/handoff.md` com:</span>
+    - Goal atual
+    - Progress (Done, In Progress, Blocked)
+    - Key Decisions tomadas
+@@ -60,7 +60,7 @@ Faz --save e já executa `/new` (ou instrui o usuário a fazer).
+ 2. Executar `git branch --show-current` para saber a branch atual
+ 3. Executar `git log --oneline -1` para último commit
+ 4. Revisar o Progress da conversa atual
+<span class="del">-5. Consolidar em `HANDOFF.md` no formato estruturado</span>
+<span class="add">+5. Consolidar em `docs/handoff.md` no formato estruturado</span>
+ 6. Informar que o handoff foi salvo e sugerir `/new`
+ 
+ ## Integração com outras ferramentas
+diff --git a/AGENTS.md b/AGENTS.md
+index 47d3fe5..a42bce4 100644
+<span class="del">--- a/AGENTS.md</span>
+<span class="add">+++ b/AGENTS.md</span>
+@@ -27,7 +27,7 @@
+ 6. **Ponytail mode**: stdlib/nativo primeiro, sem abstrações especulativas
+ 7. **Interface**: português (pt-BR)
+ 8. **🔴 Relatório HTML obrigatório antes do PR — NUNCA PULAR**: toda branch que altera código OU docs (qualquer tamanho, 1 linha que seja) DEVE gerar relatório em `docs/reports/&lt;data&gt;/&lt;prefixo&gt;-YYYY-MM-DD-&lt;nome&gt;.html` antes do PR. Prefixos: `PR&lt;num&gt;`, `Sprint&lt;letra&gt;`, `auto`, `fix`, `feat`, `docs`, `chore`. Template: `/report`. O relatório DEVE incluir seções: **🏷️ Nível de Risco**, **✅ Checklist de Revisão**, **🎯 Benefícios**, **🏢 Impacto no Negócio**, **📸 Evidências**, **⚡ Consumo de Tokens**, **📋 Detalhamento por Item**. Use `--benefits`, `--impact`, `--evidence`, `--before`, `--after` e `--rows` no script. O relatório é **gerado automaticamente** pelo `npm run pre-pr` (que FALHA se não conseguir gerar). A nomenclatura DEVE conter o número do PR: `PR&lt;num&gt;-YYYY-MM-DD-&lt;nome&gt;.html`. Se o `pre-pr` não gerar, gere manualmente com `npm run report "descrição" --benefits "..." --impact "..." --write`. Execute `node scripts/verify-docs.mjs` para verificar integridade dos docs antes do PR.
+<span class="del">-9. **📋 HANDOFF.md obrigatório no início da sessão**: leia `HANDOFF.md` antes de qualquer trabalho. Atualize antes de `/new`, quando a sessão atingir ~12+ turns, **ou sempre que criar/merger um PR**. O estado da sessão anterior é restaurado via este arquivo.</span>
+<span class="add">+9. **📋 HANDOFF.md obrigatório no início da sessão**: leia `docs/handoff.md` antes de qualquer trabalho. Atualize antes de `/new`, quando a sessão atingir ~12+ turns, **ou sempre que criar/merger um PR**. O estado da sessão anterior é restaurado via este arquivo.</span>
+ 10. **🧹 Limpeza obrigatória antes de PR/merge**: verifique `git status` — ZERO arquivos uncommitted. Inclui código, docs, council verdicts, plans, specs, package.json/lock, relatórios. Veja `docs/CONVENTIONS.md` → "Limpeza Pós-Sessão".
+ 11. **🐞 Registro de bugs obrigatório**: todo bug encontrado durante desenvolvimento DEVE ser registrado em `docs/AGENDA.md` → "🐞 Bugs Encontrados". Veja `docs/CONVENTIONS.md` → "Registro de Bugs".
+ 12. **💭 Ideias externas**: use `npm run think "ideia"` para capturar pensamentos fora do projeto. Se for urgente, `--immediate`. Se for bug, `--bug`.
+@@ -53,7 +53,7 @@ interpreta como uma ordem direta e executa.
+ ```
+ npm run session:start
+   │
+<span class="del">-  ├─ HANDOFF.md tem "In Progress"?</span>
+<span class="add">+  ├─ docs/handoff.md tem "In Progress"?</span>
+   │   ├─ SIM  → continua de onde parou
+   │   └─ NÃO  →
+   │
+@@ -79,7 +79,7 @@ npm run session:start
+ &gt; backlog, bugs, **ideias pendentes**, e uma dica do que fazer.
+ &gt; Ele pergunta ao usuário antes de iniciar qualquer trabalho.
+ 
+<span class="del">-Para contexto histórico de sessões anteriores, veja também `MEMORY.md`.</span>
+<span class="add">+Para contexto histórico de sessões anteriores, veja também `docs/memory.md`.</span>
+ 
+ ## Compatibilidade Cross-Harness
+ 
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index d182836..51c1c59 100644
+<span class="del">--- a/CHANGELOG.md</span>
+<span class="add">+++ b/CHANGELOG.md</span>
+@@ -62,7 +62,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
+ ### Adicionado
+ - Extração de EntryForm, EntryTable, EntrySummary de Entradas.tsx (1276→333 linhas)
+ - Extração de SaleForm, SaleTable, SaleMetrics, SaleSimulator de Vendas.tsx
+<span class="del">-- Sistema de handoff entre sessões (HANDOFF.md + skill + regra)</span>
+<span class="add">+- Sistema de handoff entre sessões (docs/handoff.md + skill + regra)</span>
+ - Auditoria técnica completa do codebase
+ - Relatórios HTML retroativos
+ - 3 camadas de enforce para relatório obrigatório + hook pre-push
+diff --git a/CLAUDE.md b/CLAUDE.md
 index 29ec74b..8151ed0 100644
 <span class="del">--- a/CLAUDE.md</span>
 <span class="add">+++ b/CLAUDE.md</span>
 @@ -1,53 +1,14 @@
  # MilesControl — Instruções para Claude Code
  
-<span class="del">-&gt; Projeto de gestão de milhas/pontos (milhagem). Consulte `docs/` para detalhes.</span>
-<span class="add">+&gt; **Fonte única:** `AGENTS.md` (lido por pi, Claude Code e OpenCode).</span>
-<span class="add">+&gt; Este arquivo é um redirecionamento — veja `AGENTS.md` para instruções completas.</span>
- 
-<span class="del">-## Sumário Executivo</span>
-<span class="del">-</span>
-<span class="del">-| O quê | Onde |</span>
-<span class="del">-|-------|------|</span>
-<span class="del">-| Stack &amp; comandos | `docs/STACK.md` |</span>
-<span class="del">-| Arquitetura &amp; pastas | `docs/ARCHITECTURE.md` |</span>
-<span class="del">-| Convenções de código | `docs/CONVENTIONS.md` |</span>
-<span class="del">-| Workflow obrigatório | `docs/WORKFLOW.md` |</span>
-<span class="del">-| Sprint &amp; tarefas | `docs/AGENDA.md` |</span>
-<span class="del">-| Git &amp; deploy | `docs/GIT-WORKFLOW.md` |</span>
-<span class="del">-| Testes | `docs/TESTING.md` |</span>
-<span class="del">-| Mapa completo | `docs/MAP.md` |</span>
-<span class="del">-</span>
-<span class="del">-## ⚡ Início de Sessão — AUTO</span>
-<span class="del">-</span>
-<span class="del">-Execute automaticamente no início de cada sessão:</span>
-<span class="add">+## ⚡ Início de Sessão (obrigatório)</span>
- 
- ```bash
- npm run session:start
- ```
- 
-<span class="del">-Isso gera um resumo ~300 tokens com branch, commit, sprint, backlog e regras ativas.</span>
-<span class="del">-Após o resumo, leia `HANDOFF.md` para contexto completo.</span>
-<span class="del">-</span>
-<span class="del">-## Regras</span>
-<span class="add">+## Docs Principais</span>
- 
-<span class="del">-1. 🔥 **NUNCA direto na main** — toda alteração em branch, main só via PR</span>
-<span class="del">-2. Workflow obrigatório: council-to-superpowers para features (veja `docs/WORKFLOW.md`)</span>
-<span class="del">-3. Grid máximo 2 colunas: `grid-cols-1 sm:grid-cols-2`</span>
-<span class="del">-4. DRY: regra de negócio em ponto único em `src/lib/`</span>
-<span class="del">-5. CI/CD obrigatório em todo PR</span>
-<span class="del">-6. Interface: português (pt-BR)</span>
-<span class="del">-7. Relatório HTML antes do PR: `npm run report "descrição" --write`</span>
-<span class="del">-8. HANDOFF.md no início + após PR/merge</span>
-<span class="del">-9. git status ZERO antes de PR/merge</span>
-<span class="del">-10. Registrar bugs encontrados em `docs/AGENDA.md` → 🐞 Bugs Encontrados</span>
-<span class="del">-</span>
-<span class="del">-## Scripts de Workflow</span>
-<span class="del">-</span>
-<span class="del">-```bash</span>
-<span class="del">-npm run session:start   # resumo inicial (~300 tokens)</span>
-<span class="del">-npm run report "x" --write  # relatório HTML automático</span>
-<span class="del">-npm run pre-pr          # valida build, tests, docs antes do PR</span>
-<span class="del">-npm run session:end "msg"   # add + commit + handoff + push</span>
-<span class="del">-npm run handoff         # atualiza HANDOFF.md</span>
-<span class="del">-npm run think "ideia"   # captura ideia externa no backlog</span>
-<span class="del">-npm run think "ideia" --immediate  # ideia + council imediato</span>
-<span class="del">-npm run think "bug: x" --bug       # registra bug</span>
-<span class="del">-```</span>
-<span class="add">+Ver `docs/MAP.md` para o mapa completo. Tabela resumo em `AGENTS.md`.</span>
-diff --git a/HANDOFF.md b/HANDOFF.md
-index d642c56..f555b65 100644
-<span class="del">--- a/HANDOFF.md</span>
-<span class="add">+++ b/HANDOFF.md</span>
-@@ -1,33 +1,24 @@
-<span class="del">-# HANDOFF — MilesControl</span>
-<span class="del">-&gt; ⏰ Última atualização: 2026-07-13</span>
-<span class="del">-&gt; Anterior: 2026-07-13</span>
-<span class="add">+# Handoff</span>
-<span class="add">+</span>
- ---
- ## 🧭 Estado Atual
-<span class="del">-- **Branch:** `main`</span>
-<span class="add">+- **Branch:** `docs/fix-md-docs-validation`</span>
- - **Último commit:** `de7575f` — chore: rename relatório PR118 com prefixo correto (#119)
- - **Remote:** origin/main
- ### 📋 PRs Abertos
- Nenhum PR aberto.
-<span class="del">-### 📊 Métricas (estimativa local)</span>
-<span class="del">-| Métrica | Valor |</span>
-<span class="del">-|---------|-------|</span>
-<span class="del">-| Total testes | 108 |</span>
-<span class="del">-| Docs issues | 1 |</span>
-<span class="del">-| Branch | main |</span>
-<span class="add">+### 🎯 Foco Atual</span>
-<span class="add">+docs: fix documentação — broken links, órfãos, MAP.md, CLAUDE.md redirect, MEMORY.md compressão, script validação novos .md</span>
- 
-<span class="add">+### 🚧 Em Andamento</span>
-<span class="add">+_(nenhum — todas as alterações estão neste commit)_</span>
-<span class="add">+### 🐞 Bugs Abertos</span>
-<span class="add">+_(nenhum)_</span>
-<span class="add">+### 💭 Ideias Pendentes</span>
-<span class="add">+- _(ver docs/IDEIAS.md)_</span>
-<span class="add">+### ▶️ Próximos Passos</span>
-<span class="add">+_(nenhum — sessão concluída, commit pendente)_</span>
-<span class="add">+### 📦 Últimos Commits no Branch</span>
-<span class="add">+_(primeiro commit da branch)_</span>
- ---
- _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-<span class="del">-## 🧠 Notas da Sessão Atual</span>
-<span class="del">-(Adicione notas manuais abaixo desta linha)</span>
-<span class="del">-### 🔜 Próxima Sessão</span>
-<span class="del">-</span>
-<span class="del">-**Missão:** Rodar **todas as habilidades ponytail** no repositório:</span>
-<span class="del">-- `ponytail-audit` — auditoria geral de over-engineering em todo código</span>
-<span class="del">-- `ponytail-review` — revisão focada em complexidade desnecessária</span>
-<span class="del">-- `ponytail-debt` — colher todos os `ponytail:` comments e virar débito técnico rastreável</span>
-<span class="del">-- `ponytail-gain` — medir impacto das simplificações</span>
-<span class="del">-</span>
-<span class="del">-**Objetivo:** Identificar e corrigir deficiências, enxugar código, pagar débitos técnicos.</span>
-<span class="del">-</span>
-<span class="del">-</span>
-<span class="del">-</span>
-diff --git a/MEMORY.md b/MEMORY.md
-index af24880..395378d 100644
-<span class="del">--- a/MEMORY.md</span>
-<span class="add">+++ b/MEMORY.md</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
