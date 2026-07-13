@@ -224,11 +224,7 @@ Antes de criar qualquer PR, executar este checklist:
 ## Regra de Limpeza
 
 **Antes de merge/PR, TODOS os arquivos devem estar commitados.**
-
-Inclui: código, docs, council verdicts, plans, specs, package.json/lock, relatórios.
-Verificar com `git status` — zero arquivos pendentes exceto `.gitignore`.
-
-Ver `CONVENTIONS.md` → "Limpeza Pós-Sessão" para checklist completo.
+Ver `AGENTS.md` (regras #8-10) e `CONVENTIONS.md` → "Limpeza Pós-Sessão".
 
 ---
 

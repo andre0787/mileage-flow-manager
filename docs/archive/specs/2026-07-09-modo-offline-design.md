@@ -78,5 +78,5 @@ Modo offline minimal com 3 componentes:
 
 ## Referência
 
-- Council: `docs/council/2026-07-09-modo-offline-veredito.md`
+- Council: `docs/archive/council/2026-07-09-modo-offline-veredito.md`
 - Workbox: https://developer.chrome.com/docs/workbox/

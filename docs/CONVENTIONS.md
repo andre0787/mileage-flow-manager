@@ -185,6 +185,7 @@ que impeça sua violação de forma automatizada.
 | #15 — Sem duplicatas > 75% em componentes | `rule-15-duplicate-code.mjs` | `scripts/rules/rule-15-duplicate-code.mjs` |
 | #16 — Scripts têm atalho npm | `rule-16-orphan-scripts.mjs` | `scripts/rules/rule-16-orphan-scripts.mjs` |
 | verify-docs — Docs refs código inexistentes | `verify-docs.mjs` (check #4) | `scripts/verify-docs.mjs` |
+| #17 — Novos .md válidos (órfãos, links, MAP.md) | `rule-17-new-docs-valid.mjs` (auto no pre-pr) | `scripts/rules/rule-17-new-docs-valid.mjs` |
 
 ### Como criar uma nova validação
 
@@ -439,6 +440,27 @@ node scripts/rules/rule-16-orphan-scripts.mjs
 ### Por quê?
 - Scripts sem atalho npm são invisíveis para devs (`npm run <tab>` não mostra)
 - A auditoria encontrou `quality-report.mjs` sem atalho
+
+## Novos .md Válidos — REGRA #17
+
+**Todo novo arquivo `.md` adicionado ao projeto DEVE ser validado automaticamente.**
+
+```bash
+# A validação roda automaticamente no pre-pr
+node scripts/rules/rule-17-new-docs-valid.mjs
+```
+
+### O que o script verifica:
+1. **MAP.md:** se o arquivo está em `docs/` (exceto archive/ e reports/), precisa estar listado em `docs/MAP.md`
+2. **Órfão:** precisa ser referenciado por pelo menos 1 outro `.md` no projeto
+3. **Links:** links internos dentro do arquivo precisam apontar para arquivos que existem
+
+### Ignorados
+- `node_modules/`, `docs/reports/`, `docs/archive/`, `.opencode/`, `.pi/`
+
+### Por quê?
+- Impede que novos arquivos MD caiam nos mesmos problemas que encontramos (órfãos sem referência, links quebrados, docs invisíveis)
+- A validação é automática no pre-pr, sem esforço manual
 
 ## Observações Gerais
 

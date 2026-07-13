@@ -1,7 +1,7 @@
 # Plano: Code Splitting para Recharts
 
 **Data:** 2026-07-09
-**Spec:** `docs/superpowers/specs/code-splitting-recharts.md`
+**Spec:** `docs/archive/specs/code-splitting-recharts.md`
 **Estimativa:** 2-3 horas
 
 ## Tarefas
