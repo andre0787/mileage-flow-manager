@@ -1,10 +1,10 @@
 # HANDOFF — MilesControl
 > ⏰ Última atualização: 2026-07-13
-> Anterior: 2026-07-12
+> Anterior: 2026-07-13
 ---
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `a69d777` — chore: corrige AGENDA.md e deleta RecurrenceControls.tsx (código morto) (#114)
+- **Último commit:** `c12eb8c` — chore: ponytail audit — deleta ~60 linhas de código morto (#115)
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -28,3 +28,4 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 - `ponytail-gain` — medir impacto das simplificações
 
 **Objetivo:** Identificar e corrigir deficiências, enxugar código, pagar débitos técnicos.
+
