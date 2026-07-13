@@ -129,12 +129,11 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
 
   const handleCreateOwner = () => {
     if (!newOwnerName.trim()) return;
-    addOwnerM.mutate({
-      id: crypto.randomUUID(),
-      name: newOwnerName.trim(),
-      cpf: newOwnerCpf,
-      phone: newOwnerPhone,
-    });
+    const id = crypto.randomUUID();
+    addOwnerM.mutate(
+      { id, name: newOwnerName.trim(), cpf: newOwnerCpf, phone: newOwnerPhone },
+      { onSuccess: () => setOwnerId(id) },
+    );
     setNewOwnerName("");
     setNewOwnerCpf("");
     setNewOwnerPhone("");
@@ -143,11 +142,11 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
 
   const handleCreateProgram = () => {
     if (!newProgramName.trim()) return;
-    addProgramM.mutate({
-      id: crypto.randomUUID(),
-      name: newProgramName.trim(),
-      type: newProgramType,
-    });
+    const id = crypto.randomUUID();
+    addProgramM.mutate(
+      { id, name: newProgramName.trim(), type: newProgramType },
+      { onSuccess: () => setProgramId(id) },
+    );
     setNewProgramName("");
     setNewProgramType("milhas");
     setProgramDialogOpen(false);
