@@ -14,7 +14,7 @@
  */
 
 import { execSync } from "child_process";
-import { existsSync, readdirSync } from "fs";
+import { existsSync, readdirSync, renameSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -37,12 +37,44 @@ if (!process.argv.includes("--no-report")) {
     const branch = execSync("git rev-parse --abbrev-ref HEAD", { cwd: ROOT, encoding: "utf8", timeout: 3000 }).trim();
 
     // Se apenas docs/reports/ foi alterado, pula relatório (ex: rename de relatórios)
+    // MAS se houver PR aberto, renomeia os reports com prefixo correto
     const diffOnlyReports = execSync(
       `git diff --name-only HEAD 2>/dev/null || true`,
       { cwd: ROOT, encoding: "utf8", timeout: 3000 }
     ).trim().split("\n").filter(Boolean).every(f => f.startsWith("docs/reports/"));
+
     if (diffOnlyReports) {
-      console.log("  ⏭️  apenas docs/reports/ alterados, pulando geração (evita ciclo de rename)");
+      // Tenta detectar PR e renomear relatórios se necessário
+      let prNum = null;
+      try {
+        const prJson = execSync(
+          `gh pr list --head "${branch}" --json number 2>/dev/null || true`,
+          { cwd: ROOT, encoding: "utf8", timeout: 5000 }
+        ).trim();
+        const prs = JSON.parse(prJson || '[]');
+        if (prs.length > 0) prNum = prs[0].number;
+      } catch {}
+
+      if (prNum) {
+        const prefix = `PR${prNum}`;
+        const reportsDir = resolve(ROOT, `docs/reports/${today}`);
+        if (existsSync(reportsDir)) {
+          const reportFiles = readdirSync(reportsDir).filter(f => f.endsWith(".html") && !f.startsWith(prefix));
+          for (const file of reportFiles) {
+            const newName = file.replace(/^[^-]+/, prefix);
+            if (newName === file) continue;
+            renameSync(resolve(reportsDir, file), resolve(reportsDir, newName));
+            console.log(`  🔄 ${file} → ${newName}`);
+          }
+          if (reportFiles.length > 0) {
+            console.log(`  ✅ ${reportFiles.length} relatório(s) renomeado(s) para ${prefix}`);
+            execSync(`git add docs/reports/${today}/ 2>/dev/null || true`, { cwd: ROOT, timeout: 3000 });
+          }
+        }
+        console.log("  ⏭️  apenas docs/reports/ alterados");
+      } else {
+        console.log("  ⏭️  apenas docs/reports/ alterados, pulando geração (evita ciclo de rename)");
+      }
     } else {
 
     // Verifica PR aberto pra branch (para nomear relatório corretamente)
