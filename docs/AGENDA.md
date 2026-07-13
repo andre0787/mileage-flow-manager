@@ -282,8 +282,6 @@
 - [ ] 🐛 `#c8060b81` teste2 — 2026-07-11
 
 
----
-
 ## ✅ Sessão 2026-07-12 — Relatório enriquecido + Evidências
 
 - [x] **PR #103** — Relatório HTML enriquecido + auto-geração no pre-pr

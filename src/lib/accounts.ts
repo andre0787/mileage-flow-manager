@@ -3,7 +3,7 @@
  * Funções PURAS para calcular novo estado após operações.
  * Toda mutation que altera saldo deve usar estas funções.
  */
-import { calcAverageCostPerMile, calcProportionalCost } from "./metrics";
+import { calcAverageCostPerMile } from "./metrics";
 
 export interface AccountBalanceState {
   balance: number;
@@ -30,52 +30,5 @@ export function calcAccountUpdate(
   };
 }
 
-/**
- * Adiciona saldo e investimento a uma conta (ex: entrada de milhas).
- */
-export function addToAccount(
-  currentBalance: number,
-  currentTotalInvested: number,
-  amountToAdd: number,
-  amountToInvest: number,
-): AccountBalanceState {
-  return calcAccountUpdate(currentBalance, currentTotalInvested, amountToAdd, amountToInvest);
-}
-
-/**
- * Remove saldo e investimento proporcional de uma conta (ex: venda).
- * O investimento proporcional é calculado com base no custo médio atual.
- */
-export function deductFromAccount(
-  currentBalance: number,
-  currentTotalInvested: number,
-  amountToRemove: number,
-  currentAverageCost?: number,
-): AccountBalanceState {
-  const proportionalInvested = currentAverageCost
-    ? currentAverageCost * amountToRemove
-    : calcProportionalCost(amountToRemove, currentBalance, currentTotalInvested);
-  return calcAccountUpdate(
-    currentBalance,
-    currentTotalInvested,
-    -amountToRemove,
-    -proportionalInvested,
-  );
-}
-
-/**
- * Reverte uma dedução anterior, restaurando saldo e investimento.
- */
-export function restoreToAccount(
-  currentBalance: number,
-  currentTotalInvested: number,
-  amountToRestore: number,
-  investedToRestore: number,
-): AccountBalanceState {
-  return calcAccountUpdate(
-    currentBalance,
-    currentTotalInvested,
-    amountToRestore,
-    investedToRestore,
-  );
-}
+// addToAccount, deductFromAccount, restoreToAccount removidos — sem chamadores,
+// são wrappers simples sobre calcAccountUpdate.

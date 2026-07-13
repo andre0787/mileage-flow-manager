@@ -44,32 +44,6 @@ function persist(entry: LogEntry): void {
 }
 
 /**
- * Logga informação genérica (fetch, transição, etc.)
- */
-export function logInfo(context: string, details?: Record<string, unknown>): void {
-  persist({
-    timestamp: new Date().toISOString(),
-    userId: getUserId() ?? undefined,
-    type: "info",
-    context,
-    details,
-  });
-}
-
-/**
- * Logga aviso (estado inesperado não crítico)
- */
-export function logWarn(context: string, details?: Record<string, unknown>): void {
-  persist({
-    timestamp: new Date().toISOString(),
-    userId: getUserId() ?? undefined,
-    type: "warn",
-    context,
-    details,
-  });
-}
-
-/**
  * Logga erro de mutation ou operação
  */
 export function logError(context: string, error: unknown): void {
@@ -100,20 +74,4 @@ export function logDestructiveOp(
   });
 }
 
-/**
- * Recupera logs (para debug)
- */
-export function getLogs(): LogEntry[] {
-  try {
-    return JSON.parse(localStorage.getItem("mc_debug_logs") || "[]");
-  } catch {
-    return [];
-  }
-}
-
-/**
- * Limpa logs
- */
-export function clearLogs(): void {
-  localStorage.removeItem("mc_debug_logs");
-}
+// getLogs/clearLogs removidos — sem chamadores externos
