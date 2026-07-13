@@ -1,0 +1,61 @@
+name: Normalize PR Report
+
+on:
+  pull_request:
+    types: [opened]
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 2
+
+      - name: Normalize report prefix to PR number
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUM="${{ github.event.pull_request.number }}"
+          TODAY=$(date +%F)
+          REPORTS_DIR="docs/reports/$TODAY"
+
+          if [ ! -d "$REPORTS_DIR" ]; then
+            echo "ℹ️  Nenhum relatório em docs/reports/$TODAY/"
+            exit 0
+          fi
+
+          CHANGED=0
+          for file in "$REPORTS_DIR"/*.html; do
+            [ -f "$file" ] || continue
+            BASENAME=$(basename "$file")
+            # Pula se já tem prefixo PR<num>
+            if echo "$BASENAME" | grep -qE "^PR[0-9]+-"; then
+              continue
+            fi
+            # Renomeia prefixo da branch para PR<num>
+            NEW_NAME=$(echo "$BASENAME" | sed "s/^[^-]*/PR${PR_NUM}/")
+            if [ "$BASENAME" != "$NEW_NAME" ]; then
+              mv "$file" "$REPORTS_DIR/$NEW_NAME"
+              echo "  🔄 $BASENAME → $NEW_NAME"
+              git add "$REPORTS_DIR/$NEW_NAME"
+              git rm --cached "$file" 2>/dev/null || rm -f "$file"
+              CHANGED=1
+            fi
+          done
+
+          if [ "$CHANGED" -eq 1 ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "chore: normalize report prefix to PR${PR_NUM} [skip ci]"
+            git push origin "${{ github.head_ref }}"
+            echo "✅ Relatório(s) renomeado(s) para PR${PR_NUM} e commitado na branch"
+          else
+            echo "✅ Nenhum relatório para renomear"
+          fi
