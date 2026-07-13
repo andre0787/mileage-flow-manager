@@ -120,6 +120,7 @@ for (const file of ruleFiles) {
     const out = execSync(`node "${rulePath}"`, { cwd: ROOT, encoding: "utf8", timeout: 15000 });
     if (out) process.stdout.write(out + "\n");
   } catch (e) {
+    errors++;
     if (e.stdout) process.stdout.write(e.stdout + "\n");
     if (e.stderr) process.stderr.write(e.stderr + "\n");
   }
