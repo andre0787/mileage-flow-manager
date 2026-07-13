@@ -59,9 +59,10 @@ if (!process.argv.includes("--no-report")) {
         const prefix = `PR${prNum}`;
         const reportsDir = resolve(ROOT, `docs/reports/${today}`);
         if (existsSync(reportsDir)) {
-          const reportFiles = readdirSync(reportsDir).filter(f => f.endsWith(".html") && !f.startsWith(prefix));
+          const reportFiles = readdirSync(reportsDir).filter(f => f.endsWith(".html") && !/^PR\d+-/.test(f));
           for (const file of reportFiles) {
-            const newName = file.replace(/^[^-]+/, prefix);
+            // Substitui o prefixo original (até a data YYYY-MM-DD) pelo prefixo PR<num>
+            const newName = file.replace(/^(.+?)-(\d{4}-\d{2}-\d{2})/, `${prefix}-$2`);
             if (newName === file) continue;
             renameSync(resolve(reportsDir, file), resolve(reportsDir, newName));
             console.log(`  🔄 ${file} → ${newName}`);

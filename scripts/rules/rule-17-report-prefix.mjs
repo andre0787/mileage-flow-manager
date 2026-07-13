@@ -45,11 +45,12 @@ if (!existsSync(dir)) {
 }
 
 const files = readdirSync(dir).filter(f => f.endsWith(".html"));
-const wrong = files.filter(f => !f.startsWith(prefix));
+// Só considera errado se o prefixo atual NÃO é PR<num> (ex: fix-, feat-, docs-, chore-, auto-)
+const wrong = files.filter(f => !/^PR\d+-/.test(f));
 
 if (wrong.length > 0) {
   for (const f of wrong) {
-    errors.push(`    ❌ ${f} — deveria ser ${f.replace(/^[^-]+/, prefix)}`);
+    errors.push(`    ❌ ${f} — deveria ser ${f.replace(/^(.+?)-(\d{4}-\d{2}-\d{2})/, `${prefix}-$2`)}`);
   }
 }
 

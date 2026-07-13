@@ -55,7 +55,8 @@ if (!existsSync(dir)) {
   process.exit(0);
 }
 
-const files = readdirSync(dir).filter(f => f.endsWith(".html") && !f.startsWith(prefix));
+// Só renomeia arquivos que NÃO têm prefixo PR<num> (ex: fix-..., feat-..., docs-..., chore-..., auto-...)
+const files = readdirSync(dir).filter(f => f.endsWith(".html") && !/^PR\d+-/.test(f));
 if (files.length === 0) {
   console.log(`✅ Todos os relatórios já com prefixo ${prefix}`);
   process.exit(0);
@@ -63,7 +64,9 @@ if (files.length === 0) {
 
 // ── Renomeia ────────────────────────────────────────────────────────
 for (const file of files) {
-  const newName = file.replace(/^[^-]+/, prefix);
+  // Substitui o prefixo original (até a data YYYY-MM-DD) pelo prefixo PR<num>
+  // Ex: auto-rename-report-after-pr-2026-07-13-nome.html → PR127-2026-07-13-nome.html
+  const newName = file.replace(/^(.+?)-(\d{4}-\d{2}-\d{2})/, `${prefix}-$2`);
   if (newName === file) continue;
   renameSync(resolve(dir, file), resolve(dir, newName));
   console.log(`  🔄 ${file} → ${newName}`);
