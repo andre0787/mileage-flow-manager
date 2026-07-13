@@ -6,18 +6,21 @@ on:
     paths:
       - "docs/reports/**"
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   normalize:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Renomeia relatórios sem prefixo PR<num>
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
-          # Extrai número do PR do commit message: "descrição (#123)"
           PR_NUM=$(echo "${{ github.event.head_commit.message }}" | grep -oP '#\K\d+' | tail -1)
           if [ -z "$PR_NUM" ]; then
             echo "Nenhum PR detectado no commit message"
@@ -35,15 +38,12 @@ jobs:
           for file in "$REPORTS_DIR"/*.html; do
             [ -f "$file" ] || continue
             BASENAME=$(basename "$file")
-            # Pula se já tem prefixo PR<num>
             if echo "$BASENAME" | grep -q "^PR${PR_NUM}-"; then
               continue
             fi
-            # Pula se for de outro PR (PR<NUM> com num diferente)
             if echo "$BASENAME" | grep -qE "^PR[0-9]+-"; then
               continue
             fi
-            # Renomeia: substitui prefixo atual por PR<num>
             NEW_NAME=$(echo "$BASENAME" | sed "s/^[^-]*-/PR${PR_NUM}-/")
             if [ "$BASENAME" != "$NEW_NAME" ]; then
               git mv "$file" "$REPORTS_DIR/$NEW_NAME"
@@ -53,12 +53,20 @@ jobs:
           done
 
           if [ "$CHANGED" -eq 1 ]; then
+            BRANCH="chore/normalize-report-pr${PR_NUM}"
+            git checkout -b "$BRANCH"
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add -A
             git commit -m "chore: normalize report prefix to PR${PR_NUM}"
-            git push
-            echo "✅ Relatórios normalizados para PR${PR_NUM}"
+            git push origin "$BRANCH"
+            gh pr create \
+              --title "chore: normalize report prefix to PR${PR_NUM}" \
+              --body "Renomeação automática de relatório com prefixo correto." \
+              --head "$BRANCH" \
+              --base main \
+              --label docs
+            echo "✅ PR criado: normalize report prefix to PR${PR_NUM}"
           else
             echo "Nenhum relatório para normalizar"
           fi
