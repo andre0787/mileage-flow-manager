@@ -1,10 +1,17 @@
 #!/bin/sh
-# .githooks/pre-commit — Bloqueia commit direto na main/master
+# .githooks/pre-commit — Bloqueia commit na main + roda regras de validação
 #
-# Regra #4 do AGENTS.md: "🔥 Branch obrigatória — NUNCA direto na main"
+# Regras:
+#   #4  — "🔥 Branch obrigatória — NUNCA direto na main"
+#   #14 — Sem arquivos órfãos em src/
+#   #15 — Sem duplicatas > 75% em componentes
+#   #16 — Scripts têm atalho npm
+#   verify-docs — docs refs a código inexistente
 #
 # Instalação (já automática via session:start):
 #   git config core.hooksPath .githooks
+
+# ── 1. Bloqueia commit na main/master ────────────────────────────────
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
 
@@ -26,3 +33,34 @@ if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
 EOF
   exit 1
 fi
+
+# ── 2. Só roda validações se houver arquivos staged relevantes ──────
+
+STAGED_FILES=$(git diff --cached --name-only -- 'src/' 'scripts/' '*.md' 2>/dev/null)
+if [ -z "$STAGED_FILES" ]; then
+  exit 0
+fi
+
+# ── 3. Roda pre-pr (regras #14, #15, #16 + verify-docs) ────────────
+
+echo "🔍 Executando validações automáticas (pre-pr)..."
+
+# Silencia output se tudo OK, mostra só se falhar
+NPM_OUTPUT=$(node scripts/pre-pr-check.mjs --strict 2>&1)
+NPM_EXIT=$?
+
+if [ $NPM_EXIT -ne 0 ]; then
+  echo "$NPM_OUTPUT"
+  cat <<'EOF'
+╔══════════════════════════════════════════════════════════════╗
+║  🚫 BLOQUEADO: validações automáticas falharam              ║
+║                                                             ║
+║  Corrija os problemas acima antes de commitar.              ║
+║  Para pular (não recomendado):                              ║
+║    git commit --no-verify                                   ║
+╚══════════════════════════════════════════════════════════════╝
+EOF
+  exit 1
+fi
+
+echo "✅ Validações OK"

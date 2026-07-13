@@ -385,10 +385,10 @@ _Nenhum bug aberto no momento._
 ### Item 4: Atualizar Entradas.tsx ✅
 
 - [x] Botão "Transferir" → abre `TransferForm` diretamente (sem presets)
-- [x] Aba Pontos → `EntryFormPontos`
-- [x] Aba Milhas → `EntryFormMilhas`
+- [x] Aba Pontos → `EntryForm type="pontos"`
+- [x] Aba Milhas → `EntryForm type="milhas"`
 - [x] Remover `transferInitialData` e `handleOpenTransfer`
-- [x] Edit usa form correto: TransferForm se transferência, senão EntryFormPontos/Milhas
+- [x] Edit usa form correto: TransferForm se transferência, senão `EntryForm` com type apropriado
 
 ### Extra ✅
 
