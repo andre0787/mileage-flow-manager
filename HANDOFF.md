@@ -3,17 +3,17 @@
 > Anterior: 2026-07-13
 ---
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `de7575f` — chore: rename relatório PR118 com prefixo correto (#119)
-- **Remote:** origin/main
+- **Branch:** `chore/session-end-13-07`
+- **Último commit:** `8579ec6` — Merge pull request #128 from andre0787/feat/auto-normalize-report-on-pr-open
+- **Remote:** no remote
 ### 📋 PRs Abertos
-Nenhum PR aberto.
+- #124 — docs: fix MD docs — broken links, orphans, MAP.md, CLAUDE.md redirect, MEMORY compression, validation script
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
 | Total testes | 108 |
 | Docs issues | 1 |
-| Branch | main |
+| Branch | chore/session-end-13-07 |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
@@ -28,6 +28,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 - `ponytail-gain` — medir impacto das simplificações
 
 **Objetivo:** Identificar e corrigir deficiências, enxugar código, pagar débitos técnicos.
+
 
 
 
