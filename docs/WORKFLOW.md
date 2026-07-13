@@ -40,7 +40,7 @@ Cada advisor produz análise independente → peer review anônimo → chairman 
 5. **code review** — entre tarefas, bloqueia se critical
 6. **PR** — testes verdes, commitar TUDO, PR para `main`
 7. **relatório** — `/report` gera HTML com antes/depois, benefícios e consumo de tokens em `docs/reports/`
-8. **handoff** — Atualizar `HANDOFF.md` com progresso, PRs e próximos passos
+8. **handoff** — Atualizar `docs/handoff.md` com progresso, PRs e próximos passos
 
 ## Gatilhos
 
@@ -64,7 +64,7 @@ Workflow acelerado via npm scripts — reduzem consumo de tokens automatizando r
 | `npm run pre-pr` | Gera relatório automático (se não existir) + valida: git status, build, testes, verify-docs, console.log | **Antes de criar PR** (checklist automatizado) |
 | `npm run report` | Gera relatório HTML automático do diff | **Antes do PR** (substitui /report manual) |
 | `npm run session:end` | add + commit + handoff + push em 1 comando | **Final da sessão** (substitui 5 passos manuais) |
-| `npm run handoff` | Atualiza HANDOFF.md com estado atual do git | Pós-PR ou pós-merge |
+| `npm run handoff` | Atualiza docs/handoff.md com estado atual do git | Pós-PR ou pós-merge |
 
 ### Fluxo compacto com scripts
 
@@ -84,7 +84,7 @@ FIM:      npm run session:end "msg" → commit + handoff + push
 | `scripts/generate-report.mjs` | Obtém diff, calcula métricas, gera HTML estilizado | `docs/reports/<data>/<prefixo>-<data>-<nome>.html` |
 | `scripts/pre-pr-check.mjs` | Roda git status, build, tests, verify-docs | ✅/❌ por verificação |
 | `scripts/session-end.mjs` | git add . + commit + update-handoff + push | Confirmação no console |
-| `scripts/update-handoff.mjs` | Atualiza métricas, branch, último commit | HANDOFF.md atualizado |
+| `scripts/update-handoff.mjs` | Atualiza métricas, branch, último commit | docs/handoff.md atualizado |
 
 ### Por quê?
 
@@ -224,11 +224,7 @@ Antes de criar qualquer PR, executar este checklist:
 ## Regra de Limpeza
 
 **Antes de merge/PR, TODOS os arquivos devem estar commitados.**
-
-Inclui: código, docs, council verdicts, plans, specs, package.json/lock, relatórios.
-Verificar com `git status` — zero arquivos pendentes exceto `.gitignore`.
-
-Ver `CONVENTIONS.md` → "Limpeza Pós-Sessão" para checklist completo.
+Ver `AGENTS.md` (regras #8-10) e `CONVENTIONS.md` → "Limpeza Pós-Sessão".
 
 ---
 

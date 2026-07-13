@@ -1,7 +1,7 @@
 # Implementation Plan — Modo Offline Minimal
 
 **Data:** 2026-07-09
-**Spec:** `docs/superpowers/specs/2026-07-09-modo-offline-design.md`
+**Spec:** `docs/archive/specs/2026-07-09-modo-offline-design.md`
 **Estimativa:** 2-3 dias
 
 ## Fases

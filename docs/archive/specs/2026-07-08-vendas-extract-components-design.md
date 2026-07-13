@@ -162,7 +162,7 @@ Cálculos inline atuais no Vendas.tsx que viram chamadas a metrics.ts:
 
 ## Referências
 
-- Spec #6: `docs/superpowers/specs/2026-07-08-entradas-refactor-design.md`
+- Spec #6: `docs/archive/specs/2026-07-08-entradas-refactor-design.md`
 - Componentes extraídos #6: `EntryForm.tsx`, `EntryTable.tsx`, `EntrySummary.tsx`
 - `src/lib/metrics.ts`: `calcProfit`, `calcProfitMargin`, `calcROI`
 - `src/components/MetricCard.tsx`: componente de card reutilizável

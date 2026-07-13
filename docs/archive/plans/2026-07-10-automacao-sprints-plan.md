@@ -1,6 +1,6 @@
 # Plano: Automação & Organização em 3 Sprints
 
-**Baseado no spec:** docs/superpowers/specs/2026-07-10-automacao-sprints-design.md
+**Baseado no spec:** docs/archive/specs/2026-07-10-automacao-sprints-design.md
 **Council Veredito:** docs/council/2026-07-10-plano-automacao-sprints-veredito.md
 
 ---
@@ -82,10 +82,10 @@
 - Manter no lugar: `2026-07-10-plano-automacao-sprints-veredito.md` + o que tiver link ativo
 
 #### B4. Limpar artifacts obsoletos — 5min
-- [ ] `git mv docs/SPRINT5-QUICKSTART.md docs/archive/`
-- [ ] `git mv docs/mobile-ios-notes.md docs/archive/`
-- [ ] `git mv docs/progress.md docs/archive/` (planning-with-files)
-- [ ] `git mv docs/task_plan.md docs/archive/` (planning-with-files)
+- [ ] `git mv docs/archive/SPRINT5-QUICKSTART.md docs/archive/`
+- [ ] `git mv docs/archive/mobile-ios-notes.md docs/archive/`
+- [ ] `git mv docs/archive/progress.md docs/archive/` (planning-with-files)
+- [ ] `git mv docs/archive/task_plan.md docs/archive/` (planning-with-files)
 - [ ] `git mv tests/fluxo-relatorio.md docs/archive/`
 
 #### B5. Cross-harness config — 10min

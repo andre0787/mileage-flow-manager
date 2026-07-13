@@ -54,7 +54,7 @@ interpreta como uma ordem direta e executa.
 ```
 npm run session:start
   │
-  ├─ HANDOFF.md tem "In Progress"?
+  ├─ docs/handoff.md tem "In Progress"?
   │   ├─ SIM  → continua de onde parou
   │   └─ NÃO  →
   │
@@ -80,7 +80,7 @@ npm run session:start
 > backlog, bugs, **ideias pendentes**, e uma dica do que fazer.
 > Ele pergunta ao usuário antes de iniciar qualquer trabalho.
 
-Para contexto histórico de sessões anteriores, veja também `MEMORY.md`.
+Para contexto histórico de sessões anteriores, veja também `docs/memory.md`.
 
 ## Compatibilidade Cross-Harness
 

@@ -26,14 +26,14 @@ export default defineConfig(({ mode }) => ({
     componentTagger(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'robots.txt'],
+      includeAssets: ['favicon.ico', 'icon.svg', 'robots.txt'],
       manifest: {
         name: 'MilesControl',
         short_name: 'MilesControl',
-        description: 'Gestão de milhas e pontos',
+        description: 'Gestão de milhas aéreas e pontos',
         theme_color: '#5B72C4',
         icons: [
-          { src: '/favicon.ico', sizes: '64x64', type: 'image/x-icon' },
+          { src: '/icon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any monochrome' },
         ],
       },
       workbox: {

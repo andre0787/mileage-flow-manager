@@ -17,8 +17,8 @@ Lê e exibe o AGENDA.md da sprint atual.
 
 ## Por sessão
 
-- [ ] Ler `HANDOFF.md` no início
-- [ ] Se sessão > 12 turns, atualizar `HANDOFF.md` e considerar `/new`
+- [ ] Ler `docs/handoff.md` no início
+- [ ] Se sessão > 12 turns, atualizar `docs/handoff.md` e considerar `/new`
 
 ## Checklist por item
 
@@ -27,5 +27,5 @@ Antes de criar o PR, executar:
 - [ ] Relatório HTML gerado em `docs/reports/` via `/report`
 - [ ] PR criado para `develop`
 - [ ] PR mergeado para `develop`
-- [ ] Atualizar `HANDOFF.md` com progresso
+- [ ] Atualizar `docs/handoff.md` com progresso
 - [ ] Só então iniciar próximo item

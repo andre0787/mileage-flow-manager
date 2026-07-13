@@ -260,7 +260,7 @@
 - [x] Workflow dispatch `.github/workflows/auto-report.yml`
 - [x] Gera relatório em `docs/reports/` + cria PR automático
 
-### Item 4: HANDOFF.md Automatizado 🟢
+### Item 4: HANDOFF Automatizado 🟢
 
 - [x] Script `scripts/update-handoff.mjs`
 - [x] Preserva notas manuais, atualiza branch/commits/métricas
@@ -280,6 +280,7 @@
 
 - [ ] 🐛 `#0dd222ba` teste — 2026-07-11
 - [ ] 🐛 `#c8060b81` teste2 — 2026-07-11
+- [ ] 🐛 `#63e7372c` Aqui no app, ao clicar no botão chamado reportar que fica no rodapé entra em uma tela de erro no GitHub, mas o mesmo botão na sidebar a esquerda habilita esse formulário funcionando — 2026-07-13
 
 
 ## ✅ Sessão 2026-07-12 — Relatório enriquecido + Evidências
@@ -368,17 +369,11 @@ _Nenhum bug aberto no momento._
 - [x] Compra no carrinho (pontos extras + valor total)
 - [x] **Sem** tipo de origem, **sem** recorrência, **sem** clube
 
-### Item 2: EntryFormPontos ✅
+### Item 2: EntryForm (unificado) ✅
 
-- [x] Criar `src/components/EntryFormPontos.tsx`
+- [x] Criar `src/components/EntryForm.tsx` (fundiu EntryFormPontos + EntryFormMilhas)
 - [x] Tipo de origem, recorrência/clube
 - [x] **Sem** campos de transferência (sourceAccountId, bonusPercent, cartAmount, cartCost)
-
-### Item 3: EntryFormMilhas ✅
-
-- [x] Criar `src/components/EntryFormMilhas.tsx`
-- [x] Tipo de origem, recorrência/clube
-- [x] **Sem** campos de transferência
 
 ### Item 4: Atualizar Entradas.tsx ✅
 
