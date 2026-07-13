@@ -5,7 +5,7 @@
  *
  * Uso:
  *   node scripts/update-handoff.mjs              # preview
- *   node scripts/update-handoff.mjs --write      # atualiza HANDOFF.md
+ *   node scripts/update-handoff.mjs --write      # atualiza docs/handoff.md
  *
  * Depende de: git, node 22+
  * ponytail: template string + execSync, sem template engine
@@ -16,7 +16,7 @@ import { readFileSync, writeFileSync, existsSync } from "fs";
 import { resolve, join } from "path";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const HANDOFF_PATH = join(ROOT, "HANDOFF.md");
+const HANDOFF_PATH = join(ROOT, "docs/handoff.md");
 
 function git(cmd) {
   try {
@@ -130,12 +130,12 @@ function writeHandoff() {
       // Replace only the auto section, preserve notes
       const newAuto = result.replace(/\n## 🧠 Notas da Sessão Atual[\s\S]*$/, "");
       writeFileSync(HANDOFF_PATH, newAuto + "\n" + notesMatch[0] + "\n");
-      console.log("✅ HANDOFF.md atualizado (notas preservadas)");
+      console.log("✅ docs/handoff.md atualizado (notas preservadas)");
       return;
     }
   }
   writeFileSync(HANDOFF_PATH, result);
-  console.log("✅ HANDOFF.md atualizado");
+  console.log("✅ docs/handoff.md atualizado");
 }
 
 if (process.argv.includes("--write")) {

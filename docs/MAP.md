@@ -22,14 +22,14 @@
 | `TESTING.md` | Antes de rodar testes | Playwright, bateria obrigatória, helpers |
 | `TEST-PLAN.md` | Planejamento de testes | 32 casos organizados em 3 fases, prioridades |
 | `MAPA-EXPERIENCIAS-USUARIO.md` | Contexto UX | 43 fluxos de usuário, 85+ cenários de teste, edge cases |
-| `HANDOFF.md` | Início/fim de sessão | Contexto entre sessões, branch atual, PRs, próximos passos |
+| `docs/handoff.md` | Início/fim de sessão | Contexto entre sessões, branch atual, PRs, próximos passos |
 
 ## Docs do Ecossistema
 
 | Arquivo | Quando ler | O que contém |
 |---------|-----------|--------------|
 | `STACK.md` (seção Agente) | Quando precisar de ferramentas do agente | pi, opencode, MCPs, plugins, skills |
-| `MEMORY.md` | Contexto de sessões anteriores | Histórico de decisões, sprints, post-mortems |
+| `docs/memory.md` | Contexto de sessões anteriores | Histórico de decisões, sprints, post-mortems |
 | `docs/IDEIAS.md` | Caixa de entrada de ideias | Ideias humanas pendentes, lidas no início da sessão |
 | `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning) |
 | `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council |

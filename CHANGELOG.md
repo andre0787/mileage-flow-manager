@@ -62,7 +62,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ### Adicionado
 - Extração de EntryForm, EntryTable, EntrySummary de Entradas.tsx (1276→333 linhas)
 - Extração de SaleForm, SaleTable, SaleMetrics, SaleSimulator de Vendas.tsx
-- Sistema de handoff entre sessões (HANDOFF.md + skill + regra)
+- Sistema de handoff entre sessões (docs/handoff.md + skill + regra)
 - Auditoria técnica completa do codebase
 - Relatórios HTML retroativos
 - 3 camadas de enforce para relatório obrigatório + hook pre-push

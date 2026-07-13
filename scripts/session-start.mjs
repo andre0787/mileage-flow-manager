@@ -19,7 +19,7 @@ const ROOT = resolve(__dirname, "..");
 const has = p => existsSync(resolve(ROOT, p));
 const read = p => has(p) ? readFileSync(resolve(ROOT, p), "utf8") : null;
 
-const handoff = read("HANDOFF.md");
+const handoff = read("docs/handoff.md");
 const agenda = read("docs/AGENDA.md");
 
 // Garante que o pre-commit hook está ativo

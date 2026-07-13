@@ -41,8 +41,8 @@ if (DRY_RUN) {
   dry(`git add .`);
   dry(`git commit -m "${MSG}"`);
   dry(`node scripts/update-handoff.mjs --write`);
-  dry(`git add HANDOFF.md`);
-  dry(`git commit -m "docs: update HANDOFF"`);
+  dry(`git add docs/handoff.md`);
+  dry(`git commit -m "docs: update handoff"`);
   dry(`git push origin HEAD`);
   console.log("\nPara executar: node scripts/session-end.mjs \"sua mensagem\"\n");
   process.exit(0);
@@ -54,9 +54,9 @@ if (!status) {
   console.log("✅ Nada a commitar.");
   try {
     run("node scripts/update-handoff.mjs --write");
-    run("git add HANDOFF.md");
+    run("git add docs/handoff.md");
     try {
-      run('git commit -m "docs: update HANDOFF"');
+      run('git commit -m "docs: update handoff"');
       run("git push origin HEAD");
       console.log("\n✅ HANDOFF atualizado e push feito.");
     } catch {
@@ -77,9 +77,9 @@ console.log(`📝 Commit: "${MSG}"`);
 run(`git commit -m "${MSG}"`);
 
 // 4. Update handoff
-console.log("📋 Atualizando HANDOFF...");
+console.log("📋 Atualizando handoff...");
 run("node scripts/update-handoff.mjs --write");
-run("git add HANDOFF.md");
+run("git add docs/handoff.md");
 try {
   run('git commit -m "docs: update HANDOFF"');
 } catch {

@@ -58,9 +58,9 @@ import { MetricCard } from "../../components/MetricCard"
 import { useDatabase } from "@/hooks/useDatabase" // barrel ok, mas prefira o hook específico
 ```
 
-## HANDOFF.md — Atualização Obrigatória Pós-PR
+## Handoff — Atualização Obrigatória Pós-PR
 
-**Sempre que subir um PR (criar ou mergear), atualize o `HANDOFF.md`** com:
+**Sempre que subir um PR (criar ou mergear), atualize o `docs/handoff.md`** com:
 - Progresso atualizado (Done / In Progress / Pending)
 - PRs criados/mergeados
 - Branch atual
@@ -225,8 +225,8 @@ Faz tudo em 1 comando: add → commit → update-handoff → push.
 1. `git status` — verificar arquivos pendentes
 2. `git add .` — stage tudo que foi criado/modificado
 3. `git commit` — commitar com mensagem descritiva
-4. `npm run handoff` — atualiza HANDOFF.md
-5. `git add HANDOFF.md && git commit -m "docs: update HANDOFF"`
+4. `npm run handoff` — atualiza docs/handoff.md
+5. `git add docs/handoff.md && git commit -m "docs: update handoff"`
 6. `git push` — subir para o repositório
 
 **Exceção:** apenas arquivos em `.gitignore` (node_modules, .env, test-results/).

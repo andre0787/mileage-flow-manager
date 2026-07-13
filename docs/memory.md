@@ -22,7 +22,7 @@
 **Commit**: `e2a40a8` → merged em `916a0cb`
 - `canvas-confetti` em criação entrada + venda ≥ R$200 ✅
 - `useHaptic` (4 padrões: light/medium/heavy/success) ✅
-- View Transitions API: fade 200ms/350ms ✅ | `MEMORY.md` criado ✅
+- View Transitions API: fade 200ms/350ms ✅ | `docs/memory.md` criado ✅
 
 ### Post-mortem — Runtime Error no Deploy
 **Sintoma**: Dashboard e Vendas quebravam: "EmptyState is not defined".

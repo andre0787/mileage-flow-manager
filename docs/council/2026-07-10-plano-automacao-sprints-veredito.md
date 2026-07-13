@@ -37,7 +37,7 @@ Com base na varredura completa de 48 arquivos .md do projeto MilesControl, qual 
 ## Blind Spots Caught
 
 1. Ninguém questionou qual harness é usado de fato (Outsider)
-2. Ninguém mencionou HANDOFF.md — CI/CD muda o fluxo de handoff
+2. Ninguém mencionou docs/handoff.md — CI/CD muda o fluxo de handoff
 3. Ninguém considerou custo de manter CI/CD — usar continue-on-error em fases não-críticas
 
 ## The Recommendation
@@ -75,4 +75,4 @@ Passo 1 (hoje): matar develop. Passo 2 (hoje): test:e2e no package.json. Passo 3
 
 - **Response mais forte:** B (First Principles) — identificou o problema real (custo de onboard) em vez dos sintomas (falta de CI)
 - **Maior blind spot:** D (Outsider) — o ponto sobre qual harness é usado de fato passou batido por todos os outros
-- **O que todos perderam:** HANDOFF.md — CI/CD muda o workflow de handoff. Ninguém considerou onde entram os council verdicts no pipeline automatizado
+- **O que todos perderam:** docs/handoff.md — CI/CD muda o workflow de handoff. Ninguém considerou onde entram os council verdicts no pipeline automatizado

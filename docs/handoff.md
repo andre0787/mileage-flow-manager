@@ -6,9 +6,9 @@
 - **Último commit:** `de7575f` — chore: rename relatório PR118 com prefixo correto (#119)
 - **Remote:** origin/main
 ### 📋 PRs Abertos
-Nenhum PR aberto.
+- **PR #124** — docs/fix-md-docs-validation (docs: fix MD docs — broken links, orphans, validation script)
 ### 🎯 Foco Atual
-docs: fix documentação — broken links, órfãos, MAP.md, CLAUDE.md redirect, MEMORY.md compressão, script validação novos .md
+Sessão concluída. Aguardando merge do PR #124.
 
 ### 🚧 Em Andamento
 _(nenhum — todas as alterações estão neste commit)_

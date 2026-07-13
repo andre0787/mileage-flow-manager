@@ -260,7 +260,7 @@
 - [x] Workflow dispatch `.github/workflows/auto-report.yml`
 - [x] Gera relatório em `docs/reports/` + cria PR automático
 
-### Item 4: HANDOFF.md Automatizado 🟢
+### Item 4: HANDOFF Automatizado 🟢
 
 - [x] Script `scripts/update-handoff.mjs`
 - [x] Preserva notas manuais, atualiza branch/commits/métricas
