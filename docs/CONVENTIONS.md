@@ -462,6 +462,28 @@ node scripts/rules/rule-17-new-docs-valid.mjs
 - Impede que novos arquivos MD caiam nos mesmos problemas que encontramos (órfãos sem referência, links quebrados, docs invisíveis)
 - A validação é automática no pre-pr, sem esforço manual
 
+## Arquivos Duplicados Raiz/Docs — REGRA #18
+
+**Um arquivo `.md` NÃO pode existir simultaneamente na raiz do projeto e em `docs/`.**
+
+```bash
+# Verificação manual
+node scripts/rules/rule-18-no-duplicate-root-docs.mjs
+```
+
+### Por quê?
+- Merges conflitantes podem recriar um arquivo na raiz enquanto a versão em `docs/` permanece
+- Exemplo real: `HANDOFF.md` na raiz e `docs/handoff.md` com conteúdos diferentes após merge
+- Ferramentas do projeto lêem de `docs/handoff.md` mas AGENTS.md referia `HANDOFF.md` → inconsistência
+
+### Como a validação funciona
+1. Lista todos os `.md` na raiz (exceto ocultos)
+2. Compara com `.md` em `docs/` por nome (case-insensitive)
+3. Se encontrar correspondência, falha com lista de duplicatas
+
+### Exceções
+- Nenhuma. Se o arquivo precisa estar em `docs/`, não deve estar na raiz.
+
 ## Observações Gerais
 
 - Não adicionar dependências sem necessidade

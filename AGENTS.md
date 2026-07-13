@@ -27,7 +27,7 @@
 6. **Ponytail mode**: stdlib/nativo primeiro, sem abstrações especulativas
 7. **Interface**: português (pt-BR)
 8. **🔴 Relatório HTML obrigatório antes do PR — NUNCA PULAR**: toda branch que altera código OU docs (qualquer tamanho, 1 linha que seja) DEVE gerar relatório em `docs/reports/<data>/<prefixo>-YYYY-MM-DD-<nome>.html` antes do PR. Prefixos: `PR<num>`, `Sprint<letra>`, `auto`, `fix`, `feat`, `docs`, `chore`. Template: `/report`. O relatório DEVE incluir seções: **🏷️ Nível de Risco**, **✅ Checklist de Revisão**, **🎯 Benefícios**, **🏢 Impacto no Negócio**, **📸 Evidências**, **⚡ Consumo de Tokens**, **📋 Detalhamento por Item**. Use `--benefits`, `--impact`, `--evidence`, `--before`, `--after` e `--rows` no script. O relatório é **gerado automaticamente** pelo `npm run pre-pr` (que FALHA se não conseguir gerar). A nomenclatura DEVE conter o número do PR: `PR<num>-YYYY-MM-DD-<nome>.html`. Se o `pre-pr` não gerar, gere manualmente com `npm run report "descrição" --benefits "..." --impact "..." --write`. Execute `node scripts/verify-docs.mjs` para verificar integridade dos docs antes do PR. **Imediatamente após criar o PR**, execute `npm run post-pr` para renomear o relatório com o prefixo `PR<num>` correto — ele commita e pusha a renomeação automaticamente. A validação roda via `scripts/rules/rule-17-report-prefix.mjs`.
-9. **📋 HANDOFF.md obrigatório no início da sessão**: leia `HANDOFF.md` antes de qualquer trabalho. Atualize antes de `/new`, quando a sessão atingir ~12+ turns, **ou sempre que criar/merger um PR**. O estado da sessão anterior é restaurado via este arquivo.
+9. **📋 docs/handoff.md obrigatório no início da sessão**: leia `docs/handoff.md` antes de qualquer trabalho. Atualize antes de `/new`, quando a sessão atingir ~12+ turns, **ou sempre que criar/merger um PR**. O estado da sessão anterior é restaurado via este arquivo.
 10. **🧹 Limpeza obrigatória antes de PR/merge**: verifique `git status` — ZERO arquivos uncommitted. Inclui código, docs, council verdicts, plans, specs, package.json/lock, relatórios. Veja `docs/CONVENTIONS.md` → "Limpeza Pós-Sessão".
 11. **🐞 Registro de bugs obrigatório**: todo bug encontrado durante desenvolvimento DEVE ser registrado em `docs/AGENDA.md` → "🐞 Bugs Encontrados". Veja `docs/CONVENTIONS.md` → "Registro de Bugs".
 12. **💭 Ideias externas**: use `npm run think "ideia"` para capturar pensamentos fora do projeto. Se for urgente, `--immediate`. Se for bug, `--bug`.
@@ -36,6 +36,7 @@
 15. **🔄 Sem duplicatas de código > 75%**: componentes `.tsx` em `src/components/` (exceto `ui/`) não podem ter similaridade Dice > 75%. A validação roda no `pre-pr` via `scripts/rules/rule-15-duplicate-code.mjs`. — veja `docs/CONVENTIONS.md` → "Código Duplicado"
 16. **📜 Scripts têm atalho npm**: todo `.mjs`/`.js` em `scripts/` (exceto `lib.mjs`) DEVE ter um script npm correspondente em `package.json`. A validação roda no `pre-pr` via `scripts/rules/rule-16-orphan-scripts.mjs`. — veja `docs/CONVENTIONS.md` → "Scripts Órfãos"
 17. **📋 Prefixo PR<num> obrigatório em relatórios**: se há PR aberto para a branch, todo relatório em `docs/reports/<data>/` DEVE ter prefixo `PR<num>`. A validação roda no `pre-pr` via `scripts/rules/rule-17-report-prefix.mjs`. Para corrigir: `npm run post-pr`. — veja `docs/CONVENTIONS.md` → "Relatórios HTML"
+18. **📁 Sem arquivos duplicados entre raiz e docs/**: um arquivo `.md` NÃO pode existir simultaneamente na raiz do projeto e dentro de `docs/` (mesmo nome, case-insensitive). Isso previne confusão de merge. A validação roda no `pre-pr` via `scripts/rules/rule-18-no-duplicate-root-docs.mjs`. — veja `docs/CONVENTIONS.md` → "Arquivos Duplicados"
 
 ## Começando — ⚡ AUTO-INICIALIZAÇÃO
 
@@ -69,7 +70,7 @@ npm run session:start
 
 ```
 1. npm run session:start           ← execução automática (GATILHO)
-2. Verifica HANDOFF + IDEIAS.md    ← decisão do que fazer
+2. Verifica docs/handoff.md + IDEIAS.md    ← decisão do que fazer
 3. read docs/AGENDA.md             ← sprint board (se for trabalhar em sprint)
 4. read docs/WORKFLOW.md           ← processos + scripts (se for feature)
 5. read docs/ARCHITECTURE.md       ← estrutura (se for código)
@@ -80,7 +81,7 @@ npm run session:start
 > backlog, bugs, **ideias pendentes**, e uma dica do que fazer.
 > Ele pergunta ao usuário antes de iniciar qualquer trabalho.
 
-Para contexto histórico de sessões anteriores, veja também `docs/memory.md`.
+Para contexto histórico de sessões anteriores, veja também `docs/handoff.md` e `docs/memory.md`.
 
 ## Compatibilidade Cross-Harness
 
