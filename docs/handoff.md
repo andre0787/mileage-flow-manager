@@ -43,7 +43,10 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 - Fix: adicionado `FeedbackDialog` no BottomTabBar
 - Arquivo: `BottomTabBar.tsx`
 
-**Pendente:** Criar PR, gerar relatório, executar `npm run post-pr`.
+**Status:** PR #131 criado e relatório renomeado com prefixo PR131.
+- Branch: `fix/user-reported-bugs`
+- PR: https://github.com/andre0787/mileage-flow-manager/pull/131
+- Relatório: `docs/reports/2026-07-14/PR131-2026-07-14-user-reported-bugs.html`
 
 
 
