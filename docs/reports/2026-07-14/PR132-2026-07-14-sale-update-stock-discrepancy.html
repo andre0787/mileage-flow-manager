@@ -36,7 +36,7 @@
 </head>
 <body>
   <h1>📋 sale update stock discrepancy</h1>
-  <p class="meta">2026-07-14 17:16 &middot; fix/sale-update-stock-discrepancy &middot; 35483b1 — chore: normalize report prefix to PR132</p>
+  <p class="meta">2026-07-14 17:57 &middot; fix/sale-update-stock-discrepancy &middot; 0a85016 — docs: atualiza handoff com PR #132</p>
   <p><span class="badge pr">PR #132</span> <span class="badge auto">PR132</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
@@ -46,15 +46,15 @@
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+606</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+739</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-65</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-69</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~592</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~697</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -81,8 +81,8 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 65 remoções — 789 linhas tocadas</td>
-        <td>✨ 606 adições — 8 arquivo(s) alterado(s)</td>
+        <td>🧹 69 remoções — 929 linhas tocadas</td>
+        <td>✨ 739 adições — 8 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
@@ -100,24 +100,24 @@
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
     <tr><td>Arquivos alterados</td><td>8</td></tr>
-    <tr><td>Adições</td><td>+606</td></tr>
-    <tr><td>Remoções</td><td>-65</td></tr>
-    <tr><td>Tokens estimados</td><td>~592</td></tr>
+    <tr><td>Adições</td><td>+739</td></tr>
+    <tr><td>Remoções</td><td>-69</td></tr>
+    <tr><td>Tokens estimados</td><td>~697</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:77">+455 add</div>
-        <div class="del" style="flex:8">-49 del</div>
-        <div class="overhead" style="flex:15">~88 ctx</div>
+        <div class="add" style="flex:79">+554 add</div>
+        <div class="del" style="flex:7">-52 del</div>
+        <div class="overhead" style="flex:14">~91 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+455</td><td>77%</td></tr>
-      <tr><td>Remoções</td><td>-49</td><td>8%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~88</td><td>15%</td></tr>
-      <tr><th>Total</th><th>~592</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+554</td><td>79%</td></tr>
+      <tr><td>Remoções</td><td>-52</td><td>7%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~91</td><td>14%</td></tr>
+      <tr><th>Total</th><th>~697</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
@@ -151,23 +151,36 @@ index badf1f7..ca6fbc7 100644
  &gt; **Severidade:** `alta` = impede uso · `média` = afeta funcionalidade · `baixa` = cosmético/edge case · `feature` = melhoria solicitada
  
 diff --git a/docs/handoff.md b/docs/handoff.md
-index 3122529..acdfc62 100644
+index 3122529..54f32cb 100644
 <span class="del">--- a/docs/handoff.md</span>
 <span class="add">+++ b/docs/handoff.md</span>
-@@ -1,10 +1,10 @@
+@@ -1,49 +1,52 @@
  # HANDOFF — MilesControl
 <span class="del">-&gt; ⏰ Última atualização: 2026-07-13</span>
 <span class="add">+&gt; ⏰ Última atualização: 2026-07-14</span>
  &gt; Anterior: 2026-07-13
  ---
  ## 🧭 Estado Atual
- - **Branch:** `main`
+<span class="del">-- **Branch:** `main`</span>
 <span class="del">-- **Último commit:** `af67af5` — Merge PR #130: feat: rule #18 — no duplicate .md between root and docs/</span>
-<span class="add">+- **Último commit:** `506de15` — fix: corrige cache invalidation, input visibility e report button (#131)</span>
- - **Remote:** origin/main
+<span class="del">-- **Remote:** origin/main</span>
+<span class="add">+- **Branch:** `fix/sale-update-stock-discrepancy`</span>
+<span class="add">+- **Último commit:** `35483b1` — fix: corrige discrepância de saldo ao editar vendas e entradas (PR #132)</span>
+<span class="add">+- **Remote:** origin/fix/sale-update-stock-discrepancy</span>
  ### 📋 PRs Abertos
- Nenhum PR aberto.
-@@ -19,31 +19,32 @@ Nenhum PR aberto.
+<span class="del">-Nenhum PR aberto.</span>
+<span class="add">+| PR | Branch | Status |</span>
+<span class="add">+|----|--------|--------|</span>
+<span class="add">+| #132 | `fix/sale-update-stock-discrepancy` | 📋 Aberto |</span>
+ ### 📊 Métricas (estimativa local)
+ | Métrica | Valor |
+ |---------|-------|
+ | Total testes | 108 |
+ | Docs issues | 0 |
+<span class="del">-| Branch | main |</span>
+<span class="add">+| Branch | fix/sale-update-stock-discrepancy |</span>
+ 
+ ---
  _Atualizado automaticamente por `scripts/update-handoff.mjs`_
  ## 🧠 Notas da Sessão Atual
  (Adicione notas manuais abaixo desta linha)
@@ -244,19 +257,6 @@ index 0000000..172272c
 <span class="add">+    th{background:#f3f4f6;font-weight:600}</span>
 <span class="add">+    tr.add{background:#f0fdf4}</span>
 <span class="add">+    tr.del{background:#fef2f2}</span>
-<span class="add">+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}</span>
-<span class="add">+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}</span>
-<span class="add">+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}</span>
-<span class="add">+    .token-bar .add{background:#dcfce7;color:#166534}</span>
-<span class="add">+    .token-bar .del{background:#fee2e2;color:#991b1b}</span>
-<span class="add">+    .token-bar .overhead{background:#f3f4f6;color:#374151}</span>
-<span class="add">+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}</span>
-<span class="add">+    .diff .add{color:#4ade80}</span>
-<span class="add">+    .diff .del{color:#f87171}</span>
-<span class="add">+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}</span>
-<span class="add">+    .center{text-align:center}</span>
-<span class="add">+  &lt;/style&gt;</span>
-<span class="add">+&lt;/head&gt;</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>

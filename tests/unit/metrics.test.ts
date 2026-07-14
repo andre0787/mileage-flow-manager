@@ -191,7 +191,9 @@ describe("computeDashboardMetrics", () => {
   const metrics = computeDashboardMetrics(accounts, sales, entries, owners, 22);
 
   it("calcula totalMiles corretamente", () => {
-    expect(metrics.totalMiles).toBe(17000);
+    // totalMiles = entradas confirmadas - vendas não canceladas
+    // (5000+3000) - (2000+1000+1000) = 8000 - 4000 = 4000
+    expect(metrics.totalMiles).toBe(4000);
   });
 
   it("calcula totalInvested corretamente", () => {
@@ -221,8 +223,8 @@ describe("computeDashboardMetrics", () => {
   });
 
   it("calcula avgCostPerMile", () => {
-    // 1900/17000 = 0.1117...
-    expect(metrics.avgCostPerMile).toBeCloseTo(0.1117, 2);
+    // 1900/4000 = 0.475
+    expect(metrics.avgCostPerMile).toBeCloseTo(0.475, 2);
   });
 
   it("define revenueChange como número", () => {
