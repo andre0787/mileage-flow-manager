@@ -26,6 +26,7 @@ const UNVERIFIABLE = new Set([
   3,  // DRY — requer AST analysis
   6,  // Ponytail mode — estilo de desenvolvimento
   12, // Ideias externas — muito vago
+  20, // Validado por rule-19-stock-validation.mjs (AGENTS.md)
 ]);
 
 // Lê AGENTS.md e extrai linhas que definem regras numeradas: "#N. **Título**"
