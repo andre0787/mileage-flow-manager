@@ -19,34 +19,31 @@ Nenhum PR aberto.
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🧠 Notas da Sessão Atual
 (Adicione notas manuais abaixo desta linha)
+### 🎯 Sessão Concluída — 2026-07-14
+
+**Missão:** Tratar erros reportados por usuários.
+
+### ✅ Resultado
+
+**PR #131** — https://github.com/andre0787/mileage-flow-manager/pull/131
+- Branch: `fix/user-reported-bugs`
+- CI: ✅ verde (52 passed, 0 failed)
+- Relatório: `docs/reports/2026-07-14/PR131-2026-07-14-user-reported-bugs.html`
+
+### Bugs Corrigidos (7)
+
+| Bug | Fix |
+|-----|-----|
+| Cache invalidation (4 bugs) | `refetchType: 'all'` em 33 invalidateQueries |
+| Dashboard saldo | Consequência do cache — corrigido junto |
+| Input fora de viewport mobile | `max-h-[60/70vh]` → `max-h-[60/70dvh]` nos formulários |
+| Botão reportar footer | `FeedbackDialog` adicionado ao BottomTabBar |
+
+**Pendente:** Mergear PR #131 na main.
+
 ### 🔜 Próxima Sessão
 
-**Missão:** Criar PR com as correções de bugs reportados por usuários.
-
-### ✅ Correções Aplicadas (branch `fix/user-reported-bugs`)
-
-**Cache invalidation (4 bugs):**
-- Root cause: `invalidateQueries` com `refetchType: 'active'` (default) não refetchava queries no TanStack Query v5
-- Fix: `refetchType: 'all'` em 33 chamadas em 8 arquivos
-- Arquivos: `entries.ts`, `accounts.ts`, `programs.ts`, `origemTypes.ts`, `owners.ts`, `clients.ts`, `sales.ts`, `shared.ts`, `DataContext.tsx`
-
-**Dashboard saldo incorreto:**
-- Consequência do cache invalidation — corrigido junto
-
-**Input fora de visibilidade (mobile):**
-- Root cause: `max-h-[60/70vh] overflow-y-auto` dentro de FormDrawer (que já tem scroll) criava nested scroll
-- Fix: removido `max-h` dos formulários
-- Arquivos: `EntryForm.tsx`, `TransferForm.tsx`, `SaleForm.tsx`
-
-**Botão reportar footer:**
-- Root cause: PR #118 removeu link quebrado mas não adicionou substituto
-- Fix: adicionado `FeedbackDialog` no BottomTabBar
-- Arquivo: `BottomTabBar.tsx`
-
-**Status:** PR #131 criado e relatório renomeado com prefixo PR131.
-- Branch: `fix/user-reported-bugs`
-- PR: https://github.com/andre0787/mileage-flow-manager/pull/131
-- Relatório: `docs/reports/2026-07-14/PR131-2026-07-14-user-reported-bugs.html`
+Mergear PR #131 → main e acompanhar deploy.
 
 
 
