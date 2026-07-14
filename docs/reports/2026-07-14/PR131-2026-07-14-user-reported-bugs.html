@@ -36,7 +36,7 @@
 </head>
 <body>
   <h1>📋 user reported bugs</h1>
-  <p class="meta">2026-07-14 13:42 &middot; fix/user-reported-bugs &middot; f7b9fb0 — chore: normalize report prefix to PR131</p>
+  <p class="meta">2026-07-14 13:55 &middot; fix/user-reported-bugs &middot; 1fdc808 — chore: update handoff with PR131 status</p>
   <p><span class="badge pr">PR #131</span> <span class="badge auto">PR131</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
@@ -46,7 +46,7 @@
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+240</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+378</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
@@ -54,7 +54,7 @@
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~443</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~547</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -82,8 +82,8 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 85 remoções — 591 linhas tocadas</td>
-        <td>✨ 240 adições — 15 arquivo(s) alterado(s)</td>
+        <td>🧹 85 remoções — 729 linhas tocadas</td>
+        <td>✨ 378 adições — 15 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
@@ -101,24 +101,24 @@
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
     <tr><td>Arquivos alterados</td><td>15</td></tr>
-    <tr><td>Adições</td><td>+240</td></tr>
+    <tr><td>Adições</td><td>+378</td></tr>
     <tr><td>Remoções</td><td>-85</td></tr>
-    <tr><td>Tokens estimados</td><td>~443</td></tr>
+    <tr><td>Tokens estimados</td><td>~547</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:41">+180 add</div>
-        <div class="del" style="flex:14">-64 del</div>
-        <div class="overhead" style="flex:45">~199 ctx</div>
+        <div class="add" style="flex:52">+284 add</div>
+        <div class="del" style="flex:12">-64 del</div>
+        <div class="overhead" style="flex:36">~199 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+180</td><td>41%</td></tr>
-      <tr><td>Remoções</td><td>-64</td><td>14%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~199</td><td>45%</td></tr>
-      <tr><th>Total</th><th>~443</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+284</td><td>52%</td></tr>
+      <tr><td>Remoções</td><td>-64</td><td>12%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~199</td><td>36%</td></tr>
+      <tr><th>Total</th><th>~547</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
@@ -169,7 +169,7 @@ index 708c112..88ad182 100644
  
  ## ✅ Sessão 2026-07-12 — Relatório enriquecido + Evidências
 diff --git a/docs/handoff.md b/docs/handoff.md
-index 3799345..5c09db0 100644
+index 3799345..995a87a 100644
 <span class="del">--- a/docs/handoff.md</span>
 <span class="add">+++ b/docs/handoff.md</span>
 @@ -3,17 +3,17 @@
@@ -196,7 +196,7 @@ index 3799345..5c09db0 100644
  
  ---
  _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-@@ -21,13 +21,30 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
+@@ -21,13 +21,33 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
  (Adicione notas manuais abaixo desta linha)
  ### 🔜 Próxima Sessão
  
@@ -227,7 +227,10 @@ index 3799345..5c09db0 100644
 <span class="add">+- Fix: adicionado `FeedbackDialog` no BottomTabBar</span>
 <span class="add">+- Arquivo: `BottomTabBar.tsx`</span>
 <span class="add">+</span>
-<span class="add">+**Pendente:** Criar PR, gerar relatório, executar `npm run post-pr`.</span>
+<span class="add">+**Status:** PR #131 criado e relatório renomeado com prefixo PR131.</span>
+<span class="add">+- Branch: `fix/user-reported-bugs`</span>
+<span class="add">+- PR: https://github.com/andre0787/mileage-flow-manager/pull/131</span>
+<span class="add">+- Relatório: `docs/reports/2026-07-14/PR131-2026-07-14-user-reported-bugs.html`</span>
  
 <span class="del">-**Objetivo:** Identificar e corrigir deficiências, enxugar código, pagar débitos técnicos.</span>
  
@@ -235,16 +238,16 @@ index 3799345..5c09db0 100644
  
 diff --git a/docs/reports/2026-07-14/PR131-2026-07-14-user-reported-bugs.html b/docs/reports/2026-07-14/PR131-2026-07-14-user-reported-bugs.html
 new file mode 100644
-index 0000000..5651e3a
+index 0000000..41d0a6e
 <span class="del">--- /dev/null</span>
 <span class="add">+++ b/docs/reports/2026-07-14/PR131-2026-07-14-user-reported-bugs.html</span>
-@@ -0,0 +1,137 @@
+@@ -0,0 +1,272 @@
 <span class="add">+&lt;!DOCTYPE html&gt;</span>
 <span class="add">+&lt;html lang="pt-BR"&gt;</span>
 <span class="add">+&lt;head&gt;</span>
 <span class="add">+  &lt;meta charset="UTF-8"&gt;</span>
 <span class="add">+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;</span>
-<span class="add">+  &lt;title&gt;user-reported-bugs — user reported bugs&lt;/title&gt;</span>
+<span class="add">+  &lt;title&gt;PR131 — user reported bugs&lt;/title&gt;</span>
 <span class="add">+  &lt;style&gt;</span>
 <span class="add">+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}</span>
 <span class="add">+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}</span>
@@ -262,9 +265,6 @@ index 0000000..5651e3a
 <span class="add">+    th{background:#f3f4f6;font-weight:600}</span>
 <span class="add">+    tr.add{background:#f0fdf4}</span>
 <span class="add">+    tr.del{background:#fef2f2}</span>
-<span class="add">+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}</span>
-<span class="add">+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}</span>
-<span class="add">+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
