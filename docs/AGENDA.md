@@ -341,6 +341,8 @@ _Nenhum bug aberto no momento._
 | 2026-07-10 | — | Venda selector sem .first() no fluxo-completo | média | avulso |
 | 2026-07-09 | #57 | fluxo-completo: safePost() timeout, ignora 409 | baixa | #58 |
 | 2026-07-09 | #56 | origem-tipo: isClube setado ao criar tipo com recorrência | média | #58 |
+| 2026-07-14 | — | Editar venda não ajusta saldo da conta (useUpdateSaleMutation) | alta | — |
+| 2026-07-14 | — | Editar entrada com outras ops entre uso reverte e perde saldo (useUpdateEntryMutation reversão pura) | alta | — |
 
 > **Severidade:** `alta` = impede uso · `média` = afeta funcionalidade · `baixa` = cosmético/edge case · `feature` = melhoria solicitada
 

@@ -130,6 +130,7 @@ interface MetricEntry {
   date: string;
   amount: number;
   entryStatus?: string;
+  milesGenerated?: number;
 }
 
 interface MetricOwner {
@@ -154,7 +155,13 @@ export function filterSalesByMonth<T extends { date: string }>(
   });
 }
 
-/** Calcula todas as métricas do Dashboard (função pura, sem React) */
+/** Calcula todas as métricas do Dashboard (função pura, sem React)
+ *
+ * totalMiles é calculado a partir das entradas e vendas (fontes da verdade),
+ * NÃO de accounts.balance (campo denormalizado).
+ * Isso garante que dashboard e abas de registro consumam da mesma origem,
+ * mesmo se accounts.balance estiver corrompido por mutações antigas.
+ */
 export function computeDashboardMetrics(
   accts: MetricAccount[],
   sls: MetricSale[],
@@ -164,7 +171,15 @@ export function computeDashboardMetrics(
 ): DashboardMetrics {
   const confirmedEntries = entrs.filter((e) => e.entryStatus !== "aguardando");
   const activeSales = filterActiveSales(sls);
-  const totalMiles = accts.reduce((sum, a) => sum + a.balance, 0);
+
+  // ─── Fonte da verdade: entradas - vendas ───
+  // ponytail: transferências movem entre contas mas não afetam o total geral
+  const totalMilesFromEntries = confirmedEntries.reduce((sum, e) => sum + (e.milesGenerated ?? e.amount), 0);
+  const totalMilesFromSales = activeSales.reduce((sum, s) => sum + s.milesUsed, 0);
+  const totalMiles = totalMilesFromEntries - totalMilesFromSales;
+
+  // Keep totalInvested from accounts (no per-sale proportional cost stored)
+  // ponytail: if this diverges, a full reconcile from entries/sales is needed
   const totalInvested = accts.reduce((sum, a) => sum + (a.totalInvested ?? 0), 0);
   const activeAccounts = accts.filter((a) => a.status === "ativa").length;
   const pendingSales = activeSales.filter((s) => s.status === "pendente").length;

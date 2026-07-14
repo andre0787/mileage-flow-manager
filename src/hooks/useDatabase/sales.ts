@@ -93,6 +93,15 @@ export function useUpdateSaleMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, ...data }: Partial<Sale> & { id: string }) => {
+      // 1. Fetch current sale from DB for old values
+      const { data: oldSale, error: fetchError } = await supabase
+        .from("sales")
+        .select("*")
+        .eq("id", id)
+        .single();
+      if (fetchError || !oldSale) throw fetchError ?? new Error("Venda não encontrada");
+
+      // 2. Build update data
       const updateData: SaleUpdate = {};
       if (data.accountId !== undefined) updateData.account_id = data.accountId;
       if (data.accountName !== undefined) updateData.account_name = data.accountName;
@@ -113,10 +122,67 @@ export function useUpdateSaleMutation() {
       if (data.ticketLocator !== undefined) updateData.ticket_locator = data.ticketLocator;
       if (data.passengers !== undefined) updateData.passengers = data.passengers;
       if (data.date !== undefined) updateData.date = data.date;
+
+      // 3. Compute old vs new
+      const oldMiles = Number(oldSale.miles_used);
+      const newMiles = data.milesUsed ?? oldMiles;
+      const oldAccountId = oldSale.account_id;
+      const newAccountId = data.accountId ?? oldAccountId;
+      const oldWasCanceled = oldSale.status === "cancelado";
+      const newIsCanceled = (data.status ?? oldSale.status) === "cancelado";
+
+      // 4. Reverse old impact on account (add back miles + cost)
+      //    Skip if old sale was canceled (already reversed)
+      if (oldAccountId && oldMiles > 0 && !oldWasCanceled) {
+        const { data: acc } = await supabase
+          .from("accounts")
+          .select("balance, total_invested, average_cost_per_mile")
+          .eq("id", oldAccountId)
+          .single();
+        if (acc) {
+          const avgCost = Number(acc.average_cost_per_mile ?? 0);
+          const costToRestore = avgCost > 0
+            ? avgCost * oldMiles
+            : Number(oldSale.cost_per_mile) * oldMiles;
+          const update = calcAccountUpdate(
+            Number(acc.balance), Number(acc.total_invested ?? 0),
+            oldMiles, costToRestore,
+          );
+          await supabase.from("accounts").update(update).eq("id", oldAccountId);
+        }
+      }
+
+      // 5. Update sale record
       const { error } = await supabase.from("sales").update(updateData).eq("id", id);
       if (error) throw error;
+
+      // 6. Apply new impact on account (deduct miles + cost)
+      if (newAccountId && newMiles > 0 && !newIsCanceled) {
+        const { data: acc } = await supabase
+          .from("accounts")
+          .select("balance, total_invested, average_cost_per_mile")
+          .eq("id", newAccountId)
+          .single();
+        if (acc) {
+          const currentBalance = Number(acc.balance);
+          const currentInvested = Number(acc.total_invested ?? 0);
+          const currentAvgCost = Number(acc.average_cost_per_mile ?? 0);
+          const proportionalInvested =
+            currentAvgCost > 0
+              ? currentAvgCost * newMiles
+              : calcProportionalCost(newMiles, currentBalance, currentInvested);
+          const update = calcAccountUpdate(
+            currentBalance, currentInvested,
+            -newMiles, -proportionalInvested,
+          );
+          await supabase.from("accounts").update(update).eq("id", newAccountId);
+        }
+      }
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+    },
     onError: (err) => {
       logError("updateSale", err);
       toast.error("Erro ao atualizar venda");
