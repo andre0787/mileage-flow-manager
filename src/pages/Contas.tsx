@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Plus, CreditCard, Eye, EyeOff, Edit, Trash2, Filter, Building2, RefreshCw } from "lucide-react";
+import { useMemo, useState } from "react";
+import { Plus, CreditCard, Eye, EyeOff, Edit, Trash2, Filter, Building2, RefreshCw, AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -14,7 +14,7 @@ import type { Account } from "@/types";
 const ITEMS_PER_PAGE = 20
 
 export default function Contas() {
-  const { accounts, owners, programs, isLoading } = useData();
+  const { accounts, owners, programs, entries, sales, isLoading } = useData();
   const updateAccountM = useUpdateAccountMutation();
   const deleteAccountM = useDeleteAccountMutation();
   const recalcAccountM = useRecalcAccountMutation();
@@ -32,6 +32,20 @@ export default function Contas() {
 
   const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id;
   const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id;
+
+  // Fonte da verdade: saldo calculado de entradas confirmadas - vendas ativas
+  // ponytail: mesma lógica do dashboard, evita mostrar saldo corrompido
+  const computedBalances = useMemo(() => {
+    const map = new Map<string, number>();
+    for (const a of accounts) {
+      const accEntries = entries.filter(e => e.accountId === a.id && e.entryStatus !== "aguardando");
+      const accSales = sales.filter(s => s.accountId === a.id && s.status !== "cancelado");
+      const entriesSum = accEntries.reduce((s, e) => s + (e.milesGenerated ?? e.amount), 0);
+      const salesSum = accSales.reduce((s, sl) => s + sl.milesUsed, 0);
+      map.set(a.id, Math.max(0, entriesSum - salesSum));
+    }
+    return map;
+  }, [accounts, entries, sales]);
 
   const toggleAccountStatus = (id: string) => {
     const account = accounts.find((a) => a.id === id);
@@ -176,7 +190,7 @@ export default function Contas() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-muted-foreground">Saldo:</span>
-                    <span className="font-semibold">{account.balance.toLocaleString("pt-BR")}</span>
+                    <span className="font-semibold">{(computedBalances.get(account.id) ?? account.balance).toLocaleString("pt-BR")}</span>
                   </div>
                   {account.averageCostPerMile != null && (
                     <div className="flex items-center justify-between">
@@ -192,6 +206,15 @@ export default function Contas() {
                       <span className="font-semibold text-success">
                         R$ {account.totalInvested.toLocaleString("pt-BR")}
                       </span>
+                    </div>
+                  )}
+                  {computedBalances.get(account.id) !== account.balance && (
+                    <div className="flex items-center justify-between text-xs text-amber-600">
+                      <span className="flex items-center gap-1">
+                        <AlertTriangle className="h-3 w-3" />
+                        Saldo registrado:
+                      </span>
+                      <span>{account.balance.toLocaleString("pt-BR")}</span>
                     </div>
                   )}
                   <div className="flex items-center justify-between">
@@ -278,7 +301,7 @@ export default function Contas() {
               <p className="text-2xl font-bold text-foreground">
                 {accounts
                   .filter((a) => a.type === "pontos")
-                  .reduce((s, a) => s + a.balance, 0)
+                  .reduce((s, a) => s + (computedBalances.get(a.id) ?? a.balance), 0)
                   .toLocaleString("pt-BR")}
               </p>
               <p className="text-sm text-muted-foreground">Total Pontos</p>
@@ -287,7 +310,7 @@ export default function Contas() {
               <p className="text-2xl font-bold text-success">
                 {accounts
                   .filter((a) => a.type === "milhas")
-                  .reduce((s, a) => s + a.balance, 0)
+                  .reduce((s, a) => s + (computedBalances.get(a.id) ?? a.balance), 0)
                   .toLocaleString("pt-BR")}
               </p>
               <p className="text-sm text-muted-foreground">Total Milhas</p>
