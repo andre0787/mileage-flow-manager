@@ -278,15 +278,15 @@
 > Feedbacks reportados via formulário no app. Revisar no início da sessão.
 > Alimentam o backlog futuro e correções de bugs.
 
-- [x] 🐛 `#0dd222ba` teste (falso, ignorar) — 2026-07-11
-- [x] 🐛 `#c8060b81` teste2 (falso, ignorar) — 2026-07-11
-- [x] 🐛 `#63e7372c` Reportar no rodapé → FeedbackDialog adicionado ao BottomTabBar — 2026-07-13
-- [x] 🐛 `#5fb31e12` Cache invalidation — `refetchType: 'all'` em todos os hooks — 2026-07-14
-- [x] 🐛 `#8eb6b7f2` Input fora de visibilidade — removido `max-h-[60vh]` do EntryForm/TransferForm/SaleForm — 2026-07-14
-- [x] 🐛 `#988925d6` Cache invalidation — mesmo fix de `#5fb31e12` — 2026-07-14
-- [x] 🐛 `#791fbc14` Saldo Dashboard — consequência do cache invalidation, corrigido junto — 2026-07-14
-- [x] 🐛 `#58c7817d` Cache invalidation (programas/origem_types) — mesmo fix — 2026-07-14
-- [x] 🐛 `#c62b77c6` Cache invalidation (edições) — mesmo fix — 2026-07-14
+- [ ] 🐛 `#0dd222ba` teste — 2026-07-11
+- [ ] 🐛 `#c8060b81` teste2 — 2026-07-11
+- [ ] 🐛 `#63e7372c` Aqui no app, ao clicar no botão chamado reportar que fica no rodapé entra em uma tela de erro no GitHub, mas o mesmo botão na sidebar a esquerda habilita esse formulário funcionando — 2026-07-13
+- [ ] 🐛 `#5fb31e12` Ao registrar uma entrada, o app não carrega a operação de forma automática no estoque, é necessário limpar o cachê para refletir — 2026-07-14
+- [ ] 🐛 `#8eb6b7f2` Ao criar um novo programa ou inserir um valor no formulário de entrada, a caixa de input com os dados do usuário acaba ficando fora da visibilidade do usuário, vale investigar e isso ocorre com outros campos livre para preenchimento manual — 2026-07-14
+- [ ] 🐛 `#988925d6` Qualquer cadastro não reflete na hora, sempre é necessário limpar o cachê para refletir o registro no estoque e isso acontece para tudo — 2026-07-14
+- [ ] 🐛 `#791fbc14` O saldo do gero principal do Dashboard não reflete o saldo real do estoque — 2026-07-14
+- [ ] 🐛 `#58c7817d` Ao cadastrar um programa ou tipo de origem(operação) o app não o carrega o sozinho o que seria interessante, mas o problema é que pra refletir só funciona quando pimp o cachê, vale analisar — 2026-07-14
+- [ ] 🐛 `#c62b77c6` Nenhuma edição reflete automaticamente, sempre é necessário limpar o cache para funcionar, experiência ruim — 2026-07-14
 
 
 ## ✅ Sessão 2026-07-12 — Relatório enriquecido + Evidências

@@ -27,6 +27,7 @@ export function useOrigemTypesQuery() {
 export function useAddOrigemTypeMutation() {
   const queryClient = useQueryClient();
   const { user } = useAuth();
+  const userId = user?.id ?? null;
   return useMutation({
     mutationFn: async (ot: OrigemType) => {
       const data: OrigemTypeInsert = {
@@ -37,7 +38,17 @@ export function useAddOrigemTypeMutation() {
       const { error } = await supabase.from("origem_types").insert(data);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: 'all' }),
+    onSuccess: (_data, variables) => {
+      // ponytail: optimistic cache update so dropdown shows new type instantly
+      if (userId) {
+        queryClient.setQueryData<OrigemType[]>(["origem_types", userId], (old) => {
+          if (!old) return [variables];
+          if (old.some((o) => o.id === variables.id)) return old;
+          return [...old, variables];
+        });
+      }
+      queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: 'all' });
+    },
     onError: (err) => {
       logError("addOrigemType", err);
       toast.error("Erro ao criar tipo de operação");

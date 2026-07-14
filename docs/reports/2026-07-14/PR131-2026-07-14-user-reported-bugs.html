@@ -36,7 +36,7 @@
 </head>
 <body>
   <h1>📋 user reported bugs</h1>
-  <p class="meta">2026-07-14 14:07 &middot; fix/user-reported-bugs &middot; 98b6eb5 — fix: usa dvh em vez de remover max-h dos formularios</p>
+  <p class="meta">2026-07-14 14:30 &middot; fix/user-reported-bugs &middot; 2aa3164 — chore: session end</p>
   <p><span class="badge pr">PR #131</span> <span class="badge auto">PR131</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
@@ -46,7 +46,7 @@
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+379</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+376</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
@@ -54,7 +54,7 @@
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~554</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~551</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -82,8 +82,8 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 86 remoções — 738 linhas tocadas</td>
-        <td>✨ 379 adições — 15 arquivo(s) alterado(s)</td>
+        <td>🧹 86 remoções — 735 linhas tocadas</td>
+        <td>✨ 376 adições — 15 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
@@ -101,24 +101,24 @@
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
     <tr><td>Arquivos alterados</td><td>15</td></tr>
-    <tr><td>Adições</td><td>+379</td></tr>
+    <tr><td>Adições</td><td>+376</td></tr>
     <tr><td>Remoções</td><td>-86</td></tr>
-    <tr><td>Tokens estimados</td><td>~554</td></tr>
+    <tr><td>Tokens estimados</td><td>~551</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:51">+284 add</div>
+        <div class="add" style="flex:51">+282 add</div>
         <div class="del" style="flex:12">-65 del</div>
-        <div class="overhead" style="flex:37">~205 ctx</div>
+        <div class="overhead" style="flex:37">~204 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+284</td><td>51%</td></tr>
+      <tr><td>Adições</td><td>+282</td><td>51%</td></tr>
       <tr><td>Remoções</td><td>-65</td><td>12%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~205</td><td>37%</td></tr>
-      <tr><th>Total</th><th>~554</th><th>100%</th></tr>
+      <tr><td>Contexto (overhead)</td><td>~204</td><td>37%</td></tr>
+      <tr><th>Total</th><th>~551</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
@@ -169,10 +169,10 @@ index 708c112..88ad182 100644
  
  ## ✅ Sessão 2026-07-12 — Relatório enriquecido + Evidências
 diff --git a/docs/handoff.md b/docs/handoff.md
-index 3799345..995a87a 100644
+index 3799345..3122529 100644
 <span class="del">--- a/docs/handoff.md</span>
 <span class="add">+++ b/docs/handoff.md</span>
-@@ -3,17 +3,17 @@
+@@ -3,31 +3,48 @@
  &gt; Anterior: 2026-07-13
  ---
  ## 🧭 Estado Atual
@@ -196,8 +196,30 @@ index 3799345..995a87a 100644
  
  ---
  _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-@@ -21,13 +21,33 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
+ ## 🧠 Notas da Sessão Atual
  (Adicione notas manuais abaixo desta linha)
+<span class="add">+### 🎯 Sessão Concluída — 2026-07-14</span>
+<span class="add">+</span>
+<span class="add">+**Missão:** Tratar erros reportados por usuários.</span>
+<span class="add">+</span>
+<span class="add">+### ✅ Resultado</span>
+<span class="add">+</span>
+<span class="add">+**PR #131** — https://github.com/andre0787/mileage-flow-manager/pull/131</span>
+<span class="add">+- Branch: `fix/user-reported-bugs`</span>
+<span class="add">+- CI: ✅ verde (52 passed, 0 failed)</span>
+<span class="add">+- Relatório: `docs/reports/2026-07-14/PR131-2026-07-14-user-reported-bugs.html`</span>
+<span class="add">+</span>
+<span class="add">+### Bugs Corrigidos (7)</span>
+<span class="add">+</span>
+<span class="add">+| Bug | Fix |</span>
+<span class="add">+|-----|-----|</span>
+<span class="add">+| Cache invalidation (4 bugs) | `refetchType: 'all'` em 33 invalidateQueries |</span>
+<span class="add">+| Dashboard saldo | Consequência do cache — corrigido junto |</span>
+<span class="add">+| Input fora de viewport mobile | `max-h-[60/70vh]` → `max-h-[60/70dvh]` nos formulários |</span>
+<span class="add">+| Botão reportar footer | `FeedbackDialog` adicionado ao BottomTabBar |</span>
+<span class="add">+</span>
+<span class="add">+**Pendente:** Mergear PR #131 na main.</span>
+<span class="add">+</span>
  ### 🔜 Próxima Sessão
  
 <span class="del">-**Missão:** Rodar **todas as habilidades ponytail** no repositório:</span>
@@ -205,32 +227,7 @@ index 3799345..995a87a 100644
 <span class="del">-- `ponytail-review` — revisão focada em complexidade desnecessária</span>
 <span class="del">-- `ponytail-debt` — colher todos os `ponytail:` comments e virar débito técnico rastreável</span>
 <span class="del">-- `ponytail-gain` — medir impacto das simplificações</span>
-<span class="add">+**Missão:** Criar PR com as correções de bugs reportados por usuários.</span>
-<span class="add">+</span>
-<span class="add">+### ✅ Correções Aplicadas (branch `fix/user-reported-bugs`)</span>
-<span class="add">+</span>
-<span class="add">+**Cache invalidation (4 bugs):**</span>
-<span class="add">+- Root cause: `invalidateQueries` com `refetchType: 'active'` (default) não refetchava queries no TanStack Query v5</span>
-<span class="add">+- Fix: `refetchType: 'all'` em 33 chamadas em 8 arquivos</span>
-<span class="add">+- Arquivos: `entries.ts`, `accounts.ts`, `programs.ts`, `origemTypes.ts`, `owners.ts`, `clients.ts`, `sales.ts`, `shared.ts`, `DataContext.tsx`</span>
-<span class="add">+</span>
-<span class="add">+**Dashboard saldo incorreto:**</span>
-<span class="add">+- Consequência do cache invalidation — corrigido junto</span>
-<span class="add">+</span>
-<span class="add">+**Input fora de visibilidade (mobile):**</span>
-<span class="add">+- Root cause: `max-h-[60/70vh] overflow-y-auto` dentro de FormDrawer (que já tem scroll) criava nested scroll</span>
-<span class="add">+- Fix: removido `max-h` dos formulários</span>
-<span class="add">+- Arquivos: `EntryForm.tsx`, `TransferForm.tsx`, `SaleForm.tsx`</span>
-<span class="add">+</span>
-<span class="add">+**Botão reportar footer:**</span>
-<span class="add">+- Root cause: PR #118 removeu link quebrado mas não adicionou substituto</span>
-<span class="add">+- Fix: adicionado `FeedbackDialog` no BottomTabBar</span>
-<span class="add">+- Arquivo: `BottomTabBar.tsx`</span>
-<span class="add">+</span>
-<span class="add">+**Status:** PR #131 criado e relatório renomeado com prefixo PR131.</span>
-<span class="add">+- Branch: `fix/user-reported-bugs`</span>
-<span class="add">+- PR: https://github.com/andre0787/mileage-flow-manager/pull/131</span>
-<span class="add">+- Relatório: `docs/reports/2026-07-14/PR131-2026-07-14-user-reported-bugs.html`</span>
+<span class="add">+Mergear PR #131 → main e acompanhar deploy.</span>
  
 <span class="del">-**Objetivo:** Identificar e corrigir deficiências, enxugar código, pagar débitos técnicos.</span>
  
@@ -238,7 +235,7 @@ index 3799345..995a87a 100644
  
 diff --git a/docs/reports/2026-07-14/PR131-2026-07-14-user-reported-bugs.html b/docs/reports/2026-07-14/PR131-2026-07-14-user-reported-bugs.html
 new file mode 100644
-index 0000000..e401a49
+index 0000000..115fda4
 <span class="del">--- /dev/null</span>
 <span class="add">+++ b/docs/reports/2026-07-14/PR131-2026-07-14-user-reported-bugs.html</span>
 @@ -0,0 +1,272 @@
@@ -265,6 +262,9 @@ index 0000000..e401a49
 <span class="add">+    th{background:#f3f4f6;font-weight:600}</span>
 <span class="add">+    tr.add{background:#f0fdf4}</span>
 <span class="add">+    tr.del{background:#fef2f2}</span>
+<span class="add">+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}</span>
+<span class="add">+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}</span>
+<span class="add">+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
