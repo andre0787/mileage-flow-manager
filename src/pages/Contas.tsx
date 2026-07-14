@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, CreditCard, Eye, EyeOff, Edit, Trash2, Filter, Building2 } from "lucide-react";
+import { Plus, CreditCard, Eye, EyeOff, Edit, Trash2, Filter, Building2, RefreshCw } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -7,7 +7,7 @@ import { EmptyState } from "@/components/EmptyState";
 import { Pagination } from "@/components/Pagination";
 import { SkeletonMetricCard } from "@/components/SkeletonLoader";
 import { useData } from "@/contexts/DataContext";
-import { useUpdateAccountMutation, useDeleteAccountMutation } from "@/hooks/useDatabase";
+import { useUpdateAccountMutation, useDeleteAccountMutation, useRecalcAccountMutation } from "@/hooks/useDatabase";
 import AccountDialog from "@/components/AccountDialog";
 import type { Account } from "@/types";
 
@@ -17,6 +17,7 @@ export default function Contas() {
   const { accounts, owners, programs, isLoading } = useData();
   const updateAccountM = useUpdateAccountMutation();
   const deleteAccountM = useDeleteAccountMutation();
+  const recalcAccountM = useRecalcAccountMutation();
   const [filterType, setFilterType] = useState<"todas" | "pontos" | "milhas">("todas");
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [editAccount, setEditAccount] = useState<Account | undefined>(undefined);
@@ -68,13 +69,25 @@ export default function Contas() {
           </p>
         </div>
 
-        <Button
-          className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto"
-          onClick={() => setIsCreateDialogOpen(true)}
-        >
-          <Plus className="h-4 w-4" />
-          Nova Conta
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-2"
+            onClick={() => accounts.forEach(a => recalcAccountM.mutate(a.id))}
+            disabled={recalcAccountM.isPending}
+          >
+            <RefreshCw className={"h-4 w-4 " + (recalcAccountM.isPending ? "animate-spin" : "")} />
+            Recalcular tudo
+          </Button>
+          <Button
+            className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto"
+            onClick={() => setIsCreateDialogOpen(true)}
+          >
+            <Plus className="h-4 w-4" />
+            Nova Conta
+          </Button>
+        </div>
       </div>
 
       <AccountDialog
@@ -206,6 +219,16 @@ export default function Contas() {
                     }}
                   >
                     <Edit className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="px-3 min-h-[44px] min-w-[44px]"
+                    onClick={() => recalcAccountM.mutate(account.id)}
+                    disabled={recalcAccountM.isPending}
+                    title="Recalcular saldo (entradas - vendas)"
+                  >
+                    <RefreshCw className={"h-4 w-4 " + (recalcAccountM.isPending ? "animate-spin" : "")} />
                   </Button>
                   <Button
                     size="sm"
