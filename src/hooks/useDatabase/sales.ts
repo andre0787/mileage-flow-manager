@@ -79,8 +79,8 @@ export function useAddSaleMutation() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["sales"] });
-      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
     },
     onError: (err) => {
       logError("addSale", err);
@@ -116,7 +116,7 @@ export function useUpdateSaleMutation() {
       const { error } = await supabase.from("sales").update(updateData).eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["sales"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' }),
     onError: (err) => {
       logError("updateSale", err);
       toast.error("Erro ao atualizar venda");
@@ -161,8 +161,8 @@ export function useCancelSaleMutation() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["sales"] });
-      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
       logDestructiveOp("cancel", "sale");
     },
     onError: (err) => {
@@ -214,8 +214,8 @@ export function useDeleteSaleMutation() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["sales"] });
-      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
       logDestructiveOp("delete", "sale");
       toast.success("Venda excluída com sucesso");
     },

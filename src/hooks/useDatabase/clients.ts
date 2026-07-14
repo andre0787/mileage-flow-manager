@@ -41,7 +41,7 @@ export function useAddClientMutation() {
       });
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["clients"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["clients"], refetchType: 'all' }),
     onError: (err) => {
       logError("addClient", err);
       toast.error("Erro ao criar cliente");
@@ -64,7 +64,7 @@ export function useUpdateClientMutation() {
       const { error } = await supabase.from("clients").update(updateData).eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["clients"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["clients"], refetchType: 'all' }),
     onError: (err) => {
       logError("updateClient", err);
       toast.error("Erro ao atualizar cliente");
@@ -80,8 +80,8 @@ export function useDeleteClientMutation() {
       if (error) throw error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["clients"] });
-      queryClient.invalidateQueries({ queryKey: ["sales"] });
+      queryClient.invalidateQueries({ queryKey: ["clients"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
       logDestructiveOp("delete", "client");
       toast.success("Cliente excluído com sucesso");
     },

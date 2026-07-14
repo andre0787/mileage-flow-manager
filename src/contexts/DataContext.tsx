@@ -59,7 +59,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
         account_type: "milhas",
         color: "#8b5cf6",
       }).then(() => {
-        queryClient.invalidateQueries({ queryKey: ["origem_types"] });
+        queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: 'all' });
         creatingTransferencia.current = false;
       });
     }

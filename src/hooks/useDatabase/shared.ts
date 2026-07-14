@@ -81,7 +81,7 @@ export function useClearAccountDataMutation() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries();
+      queryClient.invalidateQueries({ refetchType: 'all' });
       logDestructiveOp("clear", "account_data");
       toast.success("Dados da conta limpos com sucesso");
     },

@@ -3,31 +3,48 @@
 > Anterior: 2026-07-13
 ---
 ## 🧭 Estado Atual
-- **Branch:** `chore/session-end-13-07`
-- **Último commit:** `8579ec6` — Merge pull request #128 from andre0787/feat/auto-normalize-report-on-pr-open
-- **Remote:** no remote
+- **Branch:** `main`
+- **Último commit:** `af67af5` — Merge PR #130: feat: rule #18 — no duplicate .md between root and docs/
+- **Remote:** origin/main
 ### 📋 PRs Abertos
-- #124 — docs: fix MD docs — broken links, orphans, MAP.md, CLAUDE.md redirect, MEMORY compression, validation script
+Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
 | Total testes | 108 |
-| Docs issues | 1 |
-| Branch | chore/session-end-13-07 |
+| Docs issues | 0 |
+| Branch | main |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🧠 Notas da Sessão Atual
 (Adicione notas manuais abaixo desta linha)
+### 🎯 Sessão Concluída — 2026-07-14
+
+**Missão:** Tratar erros reportados por usuários.
+
+### ✅ Resultado
+
+**PR #131** — https://github.com/andre0787/mileage-flow-manager/pull/131
+- Branch: `fix/user-reported-bugs`
+- CI: ✅ verde (52 passed, 0 failed)
+- Relatório: `docs/reports/2026-07-14/PR131-2026-07-14-user-reported-bugs.html`
+
+### Bugs Corrigidos (7)
+
+| Bug | Fix |
+|-----|-----|
+| Cache invalidation (4 bugs) | `refetchType: 'all'` em 33 invalidateQueries |
+| Dashboard saldo | Consequência do cache — corrigido junto |
+| Input fora de viewport mobile | `max-h-[60/70vh]` → `max-h-[60/70dvh]` nos formulários |
+| Botão reportar footer | `FeedbackDialog` adicionado ao BottomTabBar |
+
+**Pendente:** Mergear PR #131 na main.
+
 ### 🔜 Próxima Sessão
 
-**Missão:** Rodar **todas as habilidades ponytail** no repositório:
-- `ponytail-audit` — auditoria geral de over-engineering em todo código
-- `ponytail-review` — revisão focada em complexidade desnecessária
-- `ponytail-debt` — colher todos os `ponytail:` comments e virar débito técnico rastreável
-- `ponytail-gain` — medir impacto das simplificações
+Mergear PR #131 → main e acompanhar deploy.
 
-**Objetivo:** Identificar e corrigir deficiências, enxugar código, pagar débitos técnicos.
 
 
 

@@ -37,6 +37,8 @@
 16. **📜 Scripts têm atalho npm**: todo `.mjs`/`.js` em `scripts/` (exceto `lib.mjs`) DEVE ter um script npm correspondente em `package.json`. A validação roda no `pre-pr` via `scripts/rules/rule-16-orphan-scripts.mjs`. — veja `docs/CONVENTIONS.md` → "Scripts Órfãos"
 17. **📋 Prefixo PR<num> obrigatório em relatórios**: se há PR aberto para a branch, todo relatório em `docs/reports/<data>/` DEVE ter prefixo `PR<num>`. A validação roda no `pre-pr` via `scripts/rules/rule-17-report-prefix.mjs`. Para corrigir: `npm run post-pr`. — veja `docs/CONVENTIONS.md` → "Relatórios HTML"
 18. **📁 Sem arquivos duplicados entre raiz e docs/**: um arquivo `.md` NÃO pode existir simultaneamente na raiz do projeto e dentro de `docs/` (mesmo nome, case-insensitive). Isso previne confusão de merge. A validação roda no `pre-pr` via `scripts/rules/rule-18-no-duplicate-root-docs.mjs`. — veja `docs/CONVENTIONS.md` → "Arquivos Duplicados"
+19. **📦 Consistência de estoque**: toda chamada `invalidateQueries` DEVE usar `refetchType: 'all'` para garantir que o estoque reflete corretamente em todos os lugares. Toda mutation que altera saldo de conta DEVE usar `calcAccountUpdate`. A validação roda no `pre-pr` via `scripts/rules/rule-19-stock-validation.mjs`. — veja `docs/CONVENTIONS.md` → "Estoque"
+20. **🔄 Atualização otimista de cache para tipos de origem**: ao criar um novo tipo de origem, a mutation DEVE fazer `setQueryData` otimista para que o dropdown apareça instantaneamente. A validação roda no `pre-pr` via `scripts/rules/rule-19-stock-validation.mjs`. — veja `docs/CONVENTIONS.md` → "Tipos de Origem"
 
 ## Começando — ⚡ AUTO-INICIALIZAÇÃO
 

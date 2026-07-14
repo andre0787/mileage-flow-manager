@@ -484,6 +484,64 @@ node scripts/rules/rule-18-no-duplicate-root-docs.mjs
 ### Exceções
 - Nenhuma. Se o arquivo precisa estar em `docs/`, não deve estar na raiz.
 
+## Estoques e Cache (Regras #19 e #20)
+
+### Consistência de Estoque
+
+**Toda chamada `invalidateQueries` DEVE usar `refetchType: 'all'`.**
+
+TanStack Query v5 usa `refetchType: 'active'` como padrão, que só refetcha
+queries com observers ativos. Combinado com `staleTime: 30s` e
+`refetchOnWindowFocus: false`, isso impede que o estoque reflita em tempo
+real. `refetchType: 'all'` força refetch independentemente do estado da query.
+
+```ts
+// ✅ Correto
+queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+
+// ❌ Incorreto (pode não refetch)
+queryClient.invalidateQueries({ queryKey: ["accounts"] });
+```
+
+### Mutações de Saldo
+
+Toda mutation que altera saldo de conta DEVE:
+1. Usar `calcAccountUpdate` de `src/lib/accounts.ts` para calcular novo estado
+2. Invalidar a query de `accounts` no `onSuccess`
+3. Invalidar a query da entidade relacionada (entries, sales, etc.)
+
+### Tipos de Origem com Atualização Otimista
+
+Ao criar um novo tipo de origem DURANTE o registro de entrada, a mutation
+DEVE fazer `setQueryData` otimista para que o dropdown apareça
+i**instantaneamente**, sem esperar o refetch:
+
+```ts
+// ✅ Correto — adiciona ao cache + invalida
+queryClient.setQueryData<OrigemType[]>(["origem_types", userId], (old) => {
+  if (!old) return [variables];
+  if (old.some((o) => o.id === variables.id)) return old;
+  return [...old, variables];
+});
+queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: 'all' });
+```
+
+### Validação Automática
+
+A regra #19 (estoque) é validada estaticamente no `pre-pr` via
+`scripts/rules/rule-19-stock-validation.mjs`, que verifica:
+- Todas as chamadas `invalidateQueries` têm `refetchType: 'all'`
+- Mutações de saldo invalidam `accounts`
+- `calcAccountUpdate` é usado corretamente
+
+### Script de Validação Runtime
+
+`npm run validate-stock <user_id>` conecta direto no Supabase e compara:
+- Saldo esperado (entradas - vendas - transferências)
+- Saldo real (accounts.balance)
+- Reporta discrepâncias
+- Aceita `--fix` para corrigir automaticamente
+
 ## Observações Gerais
 
 - Não adicionar dependências sem necessidade

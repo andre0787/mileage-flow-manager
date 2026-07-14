@@ -54,8 +54,8 @@ export function useAddProgramMutation() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["programs"] });
-      queryClient.invalidateQueries({ queryKey: ["origem_types"] });
+      queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: 'all' });
     },
     onError: (err) => {
       logError("addProgram", err);
@@ -79,7 +79,7 @@ export function useUpdateProgramMutation() {
       const { error } = await supabase.from("programs").update(updateData).eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["programs"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: 'all' }),
     onError: (err) => {
       logError("updateProgram", err);
       toast.error("Erro ao atualizar programa");
@@ -95,7 +95,7 @@ export function useDeleteProgramMutation() {
       if (error) throw error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["programs"] });
+      queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: 'all' });
       logDestructiveOp("delete", "program");
       toast.success("Programa excluído com sucesso");
     },
