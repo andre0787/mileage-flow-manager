@@ -3,17 +3,19 @@
 > Anterior: 2026-07-13
 ---
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `506de15` — fix: corrige cache invalidation, input visibility e report button (#131)
-- **Remote:** origin/main
+- **Branch:** `fix/sale-update-stock-discrepancy`
+- **Último commit:** `35483b1` — fix: corrige discrepância de saldo ao editar vendas e entradas (PR #132)
+- **Remote:** origin/fix/sale-update-stock-discrepancy
 ### 📋 PRs Abertos
-Nenhum PR aberto.
+| PR | Branch | Status |
+|----|--------|--------|
+| #132 | `fix/sale-update-stock-discrepancy` | 📋 Aberto |
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
 | Total testes | 108 |
 | Docs issues | 0 |
-| Branch | main |
+| Branch | fix/sale-update-stock-discrepancy |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
