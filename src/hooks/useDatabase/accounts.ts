@@ -96,3 +96,77 @@ export function useDeleteAccountMutation() {
     },
   });
 }
+
+/**
+ * Recalcula o saldo de uma conta a partir das entradas e vendas (fonte da verdade).
+ * Corrige discrepâncias causadas por mutações antigas que não ajustavam o saldo.
+ */
+export function useRecalcAccountMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (accountId: string) => {
+      // Busca entradas da conta
+      const { data: entries, error: entriesErr } = await supabase
+        .from("entries")
+        .select("miles_generated, amount, amount_paid, description")
+        .eq("account_id", accountId);
+      if (entriesErr) throw entriesErr;
+
+      // Filtra confirmadas (entryStatus está no description JSON)
+      // ponytail: parse inline em vez de importar de types/
+      const confirmedEntries = (entries ?? []).filter(e => {
+        if (!e.description) return true;
+        try {
+          const desc = JSON.parse(e.description);
+          return desc.entryStatus !== "aguardando";
+        } catch { return true; }
+      });
+
+      // Busca vendas não canceladas da conta
+      const { data: sales, error: salesErr } = await supabase
+        .from("sales")
+        .select("miles_used")
+        .eq("account_id", accountId)
+        .neq("status", "cancelado");
+      if (salesErr) throw salesErr;
+
+      // Calcula saldo correto
+      const entriesSum = confirmedEntries
+        .reduce((s, e) => s + Number(e.miles_generated ?? e.amount), 0);
+      const salesSum = (sales ?? [])
+        .reduce((s, sa) => s + Number(sa.miles_used), 0);
+      const newBalance = Math.max(0, entriesSum - salesSum);
+
+      // Recalcula totalInvested das entradas
+      const investedSum = confirmedEntries
+        .reduce((s, e) => s + Number(e.amount_paid ?? 0), 0);
+
+      // Aproxima custo proporcional das vendas
+      const entryAvgCost = entriesSum > 0 ? investedSum / entriesSum : 0;
+      const investedDeduction = entryAvgCost * salesSum;
+      const newInvested = Math.max(0, investedSum - investedDeduction);
+      const newAvgCost = newBalance > 0 ? newInvested / newBalance : 0;
+
+      // Atualiza a conta
+      const { error: updateErr } = await supabase
+        .from("accounts")
+        .update({
+          balance: newBalance,
+          total_invested: newInvested,
+          average_cost_per_mile: newAvgCost,
+        })
+        .eq("id", accountId);
+      if (updateErr) throw updateErr;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
+      toast.success("Saldo recalculado com sucesso");
+    },
+    onError: (err) => {
+      logError("recalcAccount", err);
+      toast.error("Erro ao recalcular saldo");
+    },
+  });
+}
