@@ -1,55 +1,55 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-07-14
+> ⏰ Última atualização: 2026-07-14 (final)
 > Anterior: 2026-07-13
+
 ---
+
 ## 🧭 Estado Atual
-- **Branch:** `fix/sale-update-stock-discrepancy`
-- **Último commit:** `35483b1` — fix: corrige discrepância de saldo ao editar vendas e entradas (PR #132)
-- **Remote:** origin/fix/sale-update-stock-discrepancy
+
+- **Branch:** `main`
+- **Último commit:** `0b07ed7` — Merge PR #133 (feat/recalc-account-balance)
+- **Remote:** origin/main
+
 ### 📋 PRs Abertos
-| PR | Branch | Status |
-|----|--------|--------|
-| #132 | `fix/sale-update-stock-discrepancy` | 📋 Aberto |
-### 📊 Métricas (estimativa local)
+
+Nenhum — todos mergeados ✅
+
+### 📊 Métricas
+
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 108 |
-| Docs issues | 0 |
-| Branch | fix/sale-update-stock-discrepancy |
+| Testes | 45/45 passando |
+| Build | OK |
+| Branch | main |
 
 ---
-_Atualizado automaticamente por `scripts/update-handoff.mjs`_
-## 🧠 Notas da Sessão Atual
-(Adicione notas manuais abaixo desta linha)
-### 🎯 Sessão Concluída — 2026-07-14 (Parte 2)
 
-**Missão:** Corrigir dashboard não refletir saldo real do estoque.
+## ✅ Sessão Encerrada — 2026-07-14
 
-### ✅ Resultado
+### O que foi feito
 
-Branch: `fix/sale-update-stock-discrepancy` (ainda sem PR)
+| PR | O quê | Status |
+|----|-------|--------|
+| #132 | Correção: `useUpdateSaleMutation` + `useUpdateEntryMutation` (delta) + dashboard `totalMiles` de entradas-vendas | ✅ Mergeado + Deploy OK |
+| #133 | Botão "Recalcular" por conta + "Recalcular tudo" na página Contas | ✅ Mergeado + Deploy em progresso |
 
 ### Bugs Corrigidos (3)
 
-| Bug | Severidade | Fix |
-|-----|-----------|-----|
-| Editar venda não ajusta saldo da conta | **alta** | `useUpdateSaleMutation` reescrita: busca venda antiga, reverte impacto, atualiza, reaplica. Invalida `accounts` no onSuccess. |
-| Editar entrada com outras ops entre uso perde saldo | **alta** | `useUpdateEntryMutation` migrada de reverse+reapply para delta approach (evita clamping a 0). |
-| Dashboard usava accounts.balance (denormalizado) e divergia do estoque | **alta** | `computeDashboardMetrics` calcula totalMiles de entradas confirmadas - vendas ativas, mesma origem das abas. |
+1. **Editar venda não ajusta saldo** — `useUpdateSaleMutation` reescrita (fetch old → revert → apply new)
+2. **Editar entrada com ops intermediárias perde saldo** — migrado de reverse+reapply para delta (`deltaMiles = newMiles - oldMiles`)
+3. **Dashboard usava `accounts.balance` denormalizado** — `computeDashboardMetrics` calcula de entradas - vendas
 
-### Regra de Validação Reforçada
-- `rule-19-stock-validation.mjs` agora verifica que **toda mutation exportada** (useAddSale, useUpdateSale, etc.) chama `calcAccountUpdate` se atualizar accounts.
-- Inclui check 3b: split por bloco `export function` + verificação individual.
+### Regras Criadas / Reforçadas
 
-### Pendente
-- Mergear PR #132 → main e acompanhar deploy.
-- Dados existentes do `andreluiz0787@gmail.com` podem estar corrompidos — rodar `validate-stock.mjs --fix` com service key ou recálculo manual via UI.
+- **Rule 19.3b**: mutation-by-mutation check — toda `useXMutation` deve conter `calcAccountUpdate(`
+- **Rule 19**: `invalidateQueries` deve usar `refetchType: 'all'`
+
+### Dados Existentes
+
+- Service key coletada ✅
+- `--fix` não necessário — contas individuais OK (discrepância global em dados de teste E2E, não corrupção real)
+- App com `--fix` via UI: botão "Recalcular" + "Recalcular tudo" em Contas
 
 ### 🔜 Próxima Sessão
-Mergear PR #132 → main e acompanhar deploy.
 
-
-
-
-
-
+Voltar para `feat/recalc-account-balance` ou outra feature. Verificar deploy do PR #133.
