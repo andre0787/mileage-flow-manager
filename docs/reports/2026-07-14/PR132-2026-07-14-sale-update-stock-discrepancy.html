@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 sale update stock discrepancy</h1>
-  <p class="meta">2026-07-14 17:57 &middot; fix/sale-update-stock-discrepancy &middot; 0a85016 — docs: atualiza handoff com PR #132</p>
+  <p class="meta">2026-07-14 17:58 &middot; fix/sale-update-stock-discrepancy &middot; 4154084 — docs: relatorio complementar - dashboard totalMiles de entradas-vendas</p>
   <p><span class="badge pr">PR #132</span> <span class="badge auto">PR132</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">8</div>
+      <div style="font-size:1.5rem;font-weight:700">11</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+739</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+1031</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-69</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-77</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~697</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~955</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -62,6 +62,7 @@
   <h2>✅ Checklist de Revisão</h2>
     <ul>
       <li>🔌 Hooks testados em tela real?</li>
+      <li>📦 Biblioteca testada com casos de borda?</li>
       <li>🧪 Testes manuais realizados?</li>
       <li>📋 Regras de validação passam? (npm run pre-pr)</li>
     </ul>
@@ -81,12 +82,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 69 remoções — 929 linhas tocadas</td>
-        <td>✨ 739 adições — 8 arquivo(s) alterado(s)</td>
+        <td>🧹 77 remoções — 1273 linhas tocadas</td>
+        <td>✨ 1031 adições — 11 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/AGENDA.md, docs/handoff.md<br><span style="color:#166534;font-weight:600">➕</span> docs/reports/2026-07-14/PR132-2026-07-14-corrige-discrepancia-de-saldo-ao-editar-vendas-e-entradas-validacao-automatica.html, docs/reports/2026-07-14/PR132-2026-07-14-main.html, docs/reports/2026-07-14/PR132-2026-07-14-sale-update-stock-discrepancy.html<br><em>+3 arquivo(s)</em></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/AGENDA.md, docs/handoff.md<br><span style="color:#166534;font-weight:600">➕</span> docs/reports/2026-07-14/PR132-2026-07-14-corrige-discrepancia-de-saldo-ao-editar-vendas-e-entradas-validacao-automatica.html, docs/reports/2026-07-14/PR132-2026-07-14-dashboard-totalmiles-calculado-de-entradas-vendas-fonte-da-verdade.html, docs/reports/2026-07-14/PR132-2026-07-14-main.html<br><em>+6 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -99,25 +100,25 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>8</td></tr>
-    <tr><td>Adições</td><td>+739</td></tr>
-    <tr><td>Remoções</td><td>-69</td></tr>
-    <tr><td>Tokens estimados</td><td>~697</td></tr>
+    <tr><td>Arquivos alterados</td><td>11</td></tr>
+    <tr><td>Adições</td><td>+1031</td></tr>
+    <tr><td>Remoções</td><td>-77</td></tr>
+    <tr><td>Tokens estimados</td><td>~955</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:79">+554 add</div>
-        <div class="del" style="flex:7">-52 del</div>
-        <div class="overhead" style="flex:14">~91 ctx</div>
+        <div class="add" style="flex:81">+773 add</div>
+        <div class="del" style="flex:6">-58 del</div>
+        <div class="overhead" style="flex:13">~124 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+554</td><td>79%</td></tr>
-      <tr><td>Remoções</td><td>-52</td><td>7%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~91</td><td>14%</td></tr>
-      <tr><th>Total</th><th>~697</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+773</td><td>81%</td></tr>
+      <tr><td>Remoções</td><td>-58</td><td>6%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~124</td><td>13%</td></tr>
+      <tr><th>Total</th><th>~955</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
@@ -126,11 +127,14 @@
     <tr><td>M</td><td>docs/AGENDA.md</td></tr>
 <tr><td>M</td><td>docs/handoff.md</td></tr>
 <tr><td>A</td><td>docs/reports/2026-07-14/PR132-2026-07-14-corrige-discrepancia-de-saldo-ao-editar-vendas-e-entradas-validacao-automatica.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-14/PR132-2026-07-14-dashboard-totalmiles-calculado-de-entradas-vendas-fonte-da-verdade.html</td></tr>
 <tr><td>A</td><td>docs/reports/2026-07-14/PR132-2026-07-14-main.html</td></tr>
 <tr><td>A</td><td>docs/reports/2026-07-14/PR132-2026-07-14-sale-update-stock-discrepancy.html</td></tr>
 <tr><td>M</td><td>scripts/rules/rule-19-stock-validation.mjs</td></tr>
 <tr><td>M</td><td>src/hooks/useDatabase/entries.ts</td></tr>
 <tr><td>M</td><td>src/hooks/useDatabase/sales.ts</td></tr>
+<tr><td>M</td><td>src/lib/metrics.ts</td></tr>
+<tr><td>M</td><td>tests/unit/metrics.test.ts</td></tr>
   </table>
 
   

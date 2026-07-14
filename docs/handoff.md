@@ -29,23 +29,24 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
 Branch: `fix/sale-update-stock-discrepancy` (ainda sem PR)
 
-### Bugs Corrigidos (2)
+### Bugs Corrigidos (3)
 
 | Bug | Severidade | Fix |
 |-----|-----------|-----|
 | Editar venda não ajusta saldo da conta | **alta** | `useUpdateSaleMutation` reescrita: busca venda antiga, reverte impacto, atualiza, reaplica. Invalida `accounts` no onSuccess. |
 | Editar entrada com outras ops entre uso perde saldo | **alta** | `useUpdateEntryMutation` migrada de reverse+reapply para delta approach (evita clamping a 0). |
+| Dashboard usava accounts.balance (denormalizado) e divergia do estoque | **alta** | `computeDashboardMetrics` calcula totalMiles de entradas confirmadas - vendas ativas, mesma origem das abas. |
 
 ### Regra de Validação Reforçada
 - `rule-19-stock-validation.mjs` agora verifica que **toda mutation exportada** (useAddSale, useUpdateSale, etc.) chama `calcAccountUpdate` se atualizar accounts.
 - Inclui check 3b: split por bloco `export function` + verificação individual.
 
 ### Pendente
-- Fazer PR da branch `fix/sale-update-stock-discrepancy` → main.
+- Mergear PR #132 → main e acompanhar deploy.
 - Dados existentes do `andreluiz0787@gmail.com` podem estar corrompidos — rodar `validate-stock.mjs --fix` com service key ou recálculo manual via UI.
 
 ### 🔜 Próxima Sessão
-Criar PR com as correções, mergear e acompanhar deploy.
+Mergear PR #132 → main e acompanhar deploy.
 
 
 
