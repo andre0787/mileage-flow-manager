@@ -3,17 +3,17 @@
 > Anterior: 2026-07-13
 ---
 ## 🧭 Estado Atual
-- **Branch:** `chore/session-end-13-07`
-- **Último commit:** `8579ec6` — Merge pull request #128 from andre0787/feat/auto-normalize-report-on-pr-open
-- **Remote:** no remote
+- **Branch:** `main`
+- **Último commit:** `af67af5` — Merge PR #130: feat: rule #18 — no duplicate .md between root and docs/
+- **Remote:** origin/main
 ### 📋 PRs Abertos
-- #124 — docs: fix MD docs — broken links, orphans, MAP.md, CLAUDE.md redirect, MEMORY compression, validation script
+Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
 | Total testes | 108 |
-| Docs issues | 1 |
-| Branch | chore/session-end-13-07 |
+| Docs issues | 0 |
+| Branch | main |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
@@ -21,13 +21,30 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 (Adicione notas manuais abaixo desta linha)
 ### 🔜 Próxima Sessão
 
-**Missão:** Rodar **todas as habilidades ponytail** no repositório:
-- `ponytail-audit` — auditoria geral de over-engineering em todo código
-- `ponytail-review` — revisão focada em complexidade desnecessária
-- `ponytail-debt` — colher todos os `ponytail:` comments e virar débito técnico rastreável
-- `ponytail-gain` — medir impacto das simplificações
+**Missão:** Criar PR com as correções de bugs reportados por usuários.
 
-**Objetivo:** Identificar e corrigir deficiências, enxugar código, pagar débitos técnicos.
+### ✅ Correções Aplicadas (branch `fix/user-reported-bugs`)
+
+**Cache invalidation (4 bugs):**
+- Root cause: `invalidateQueries` com `refetchType: 'active'` (default) não refetchava queries no TanStack Query v5
+- Fix: `refetchType: 'all'` em 33 chamadas em 8 arquivos
+- Arquivos: `entries.ts`, `accounts.ts`, `programs.ts`, `origemTypes.ts`, `owners.ts`, `clients.ts`, `sales.ts`, `shared.ts`, `DataContext.tsx`
+
+**Dashboard saldo incorreto:**
+- Consequência do cache invalidation — corrigido junto
+
+**Input fora de visibilidade (mobile):**
+- Root cause: `max-h-[60/70vh] overflow-y-auto` dentro de FormDrawer (que já tem scroll) criava nested scroll
+- Fix: removido `max-h` dos formulários
+- Arquivos: `EntryForm.tsx`, `TransferForm.tsx`, `SaleForm.tsx`
+
+**Botão reportar footer:**
+- Root cause: PR #118 removeu link quebrado mas não adicionou substituto
+- Fix: adicionado `FeedbackDialog` no BottomTabBar
+- Arquivo: `BottomTabBar.tsx`
+
+**Pendente:** Criar PR, gerar relatório, executar `npm run post-pr`.
+
 
 
 

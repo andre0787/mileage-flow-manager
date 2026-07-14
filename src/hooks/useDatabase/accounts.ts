@@ -43,7 +43,7 @@ export function useAddAccountMutation() {
       });
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["accounts"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
     onError: (err) => {
       logError("addAccount", err);
       toast.error("Erro ao criar conta");
@@ -68,7 +68,7 @@ export function useUpdateAccountMutation() {
       const { error } = await supabase.from("accounts").update(updateData).eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["accounts"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
     onError: (err) => {
       logError("updateAccount", err);
       toast.error("Erro ao atualizar conta");
@@ -84,9 +84,9 @@ export function useDeleteAccountMutation() {
       if (error) throw error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["accounts"] });
-      queryClient.invalidateQueries({ queryKey: ["entries"] });
-      queryClient.invalidateQueries({ queryKey: ["sales"] });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
       logDestructiveOp("delete", "account");
       toast.success("Conta excluída com sucesso");
     },

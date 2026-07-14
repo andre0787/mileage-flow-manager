@@ -117,7 +117,7 @@ export function EntryForm({
   const costPerThousand = (parseFloat(form.amountPaid) / parseFloat(form.amount)) * 1000
 
   return (
-    <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto">
+    <div className="grid gap-4 py-4">
       {/* Conta */}
       <div className="space-y-2">
         <Label htmlFor="entryAccount">Conta</Label>

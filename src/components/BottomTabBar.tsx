@@ -1,11 +1,12 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { LayoutDashboard, CreditCard, TrendingUp, TrendingDown, Settings, RotateCcw } from "lucide-react";
+import { LayoutDashboard, CreditCard, TrendingUp, TrendingDown, Settings, Bug } from "lucide-react";
 import { useData } from "@/contexts/DataContext";
+import { FeedbackDialog } from "./FeedbackDialog";
 import { cn } from "@/lib/utils";
 
 export function BottomTabBar() {
   const location = useLocation();
-  const { entries, clearCache } = useData();
+  const { entries } = useData();
   const today = new Date().toISOString().split('T')[0];
   const overdueCount = entries.filter(e => e.entryStatus === 'aguardando' && e.date < today).length;
 
@@ -70,21 +71,15 @@ export function BottomTabBar() {
         </span>
       </NavLink>
 
-      {/* Limpar Cache */}
-      <button
-        onClick={() => {
-          if (window.confirm("Limpar cache? Dados serão recarregados do servidor.")) {
-            clearCache();
-          }
-        }}
-        className={btnClass(false)}
-        title="Limpar cache local e recarregar dados"
-      >
-        <RotateCcw className="h-5 w-5" />
-        <span className="text-xs font-medium leading-tight font-display">
-          Cache
-        </span>
-      </button>
+      {/* Reportar problema */}
+      <FeedbackDialog>
+        <button className={btnClass(false)} title="Reportar problema ou sugerir melhoria">
+          <Bug className="h-5 w-5" />
+          <span className="text-xs font-medium leading-tight font-display">
+            Reportar
+          </span>
+        </button>
+      </FeedbackDialog>
     </nav>
   );
 }

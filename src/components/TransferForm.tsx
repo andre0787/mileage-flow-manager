@@ -108,7 +108,7 @@ export function TransferForm({
   }
 
   return (
-    <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto">
+    <div className="grid gap-4 py-4">
       {/* Conta de Origem (Pontos) */}
       <div className="space-y-2">
         <Label htmlFor="transferSource">Conta de Origem (Pontos)</Label>

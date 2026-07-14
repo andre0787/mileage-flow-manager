@@ -37,7 +37,7 @@ export function useAddOrigemTypeMutation() {
       const { error } = await supabase.from("origem_types").insert(data);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["origem_types"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: 'all' }),
     onError: (err) => {
       logError("addOrigemType", err);
       toast.error("Erro ao criar tipo de operação");
@@ -57,7 +57,7 @@ export function useUpdateOrigemTypeMutation() {
       const { error } = await supabase.from("origem_types").update(updateData).eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["origem_types"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: 'all' }),
     onError: (err) => {
       logError("updateOrigemType", err);
       toast.error("Erro ao atualizar tipo de operação");
@@ -73,7 +73,7 @@ export function useDeleteOrigemTypeMutation() {
       if (error) throw error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["origem_types"] });
+      queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: 'all' });
       logDestructiveOp("delete", "origem_type");
       toast.success("Tipo de operação excluído com sucesso");
     },

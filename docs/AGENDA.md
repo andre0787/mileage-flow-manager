@@ -278,9 +278,15 @@
 > Feedbacks reportados via formulário no app. Revisar no início da sessão.
 > Alimentam o backlog futuro e correções de bugs.
 
-- [ ] 🐛 `#0dd222ba` teste — 2026-07-11
-- [ ] 🐛 `#c8060b81` teste2 — 2026-07-11
-- [ ] 🐛 `#63e7372c` Aqui no app, ao clicar no botão chamado reportar que fica no rodapé entra em uma tela de erro no GitHub, mas o mesmo botão na sidebar a esquerda habilita esse formulário funcionando — 2026-07-13
+- [x] 🐛 `#0dd222ba` teste (falso, ignorar) — 2026-07-11
+- [x] 🐛 `#c8060b81` teste2 (falso, ignorar) — 2026-07-11
+- [x] 🐛 `#63e7372c` Reportar no rodapé → FeedbackDialog adicionado ao BottomTabBar — 2026-07-13
+- [x] 🐛 `#5fb31e12` Cache invalidation — `refetchType: 'all'` em todos os hooks — 2026-07-14
+- [x] 🐛 `#8eb6b7f2` Input fora de visibilidade — removido `max-h-[60vh]` do EntryForm/TransferForm/SaleForm — 2026-07-14
+- [x] 🐛 `#988925d6` Cache invalidation — mesmo fix de `#5fb31e12` — 2026-07-14
+- [x] 🐛 `#791fbc14` Saldo Dashboard — consequência do cache invalidation, corrigido junto — 2026-07-14
+- [x] 🐛 `#58c7817d` Cache invalidation (programas/origem_types) — mesmo fix — 2026-07-14
+- [x] 🐛 `#c62b77c6` Cache invalidation (edições) — mesmo fix — 2026-07-14
 
 
 ## ✅ Sessão 2026-07-12 — Relatório enriquecido + Evidências
