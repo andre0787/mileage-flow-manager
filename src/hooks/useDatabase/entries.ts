@@ -208,46 +208,58 @@ export function useUpdateEntryMutation() {
       const { error: delErr } = await supabase.from("entries").delete().eq("id", oldEntry.id);
       if (delErr) throw delErr;
 
+      const merged: PointEntry = { ...oldEntry, ...updates };
+
       if (!isAguardando) {
-        const reverseDest = await supabase
-          .from("accounts")
-          .select("balance, total_invested")
-          .eq("id", oldEntry.accountId)
-          .single();
-        if (reverseDest.data) {
-          const amountToRemove = oldEntry.milesGenerated ?? oldEntry.amount;
-          const update = calcAccountUpdate(
-            Number(reverseDest.data.balance),
-            Number(reverseDest.data.total_invested ?? 0),
-            -amountToRemove,
-            -oldEntry.amountPaid,
-          );
-          await supabase.from("accounts").update(update).eq("id", oldEntry.accountId);
+        const newIsAguardando = merged.entryStatus === "aguardando";
+        const oldMilesAdded = oldEntry.milesGenerated ?? oldEntry.amount;
+        const newMilesAdded = merged.milesGenerated ?? merged.amount;
+
+        // ─── Delta approach: net change for confirmed→confirmed
+        //     Reverse old (confirmed→aguardando) or delta (confirmed→confirmed)
+        const applyDelta = !newIsAguardando;
+        const deltaMiles = applyDelta
+          ? newMilesAdded - oldMilesAdded
+          : -oldMilesAdded; // reverse all
+        const deltaInvested = applyDelta
+          ? merged.amountPaid - oldEntry.amountPaid
+          : -oldEntry.amountPaid;
+
+        if (deltaMiles !== 0 || deltaInvested !== 0) {
+          const { data: dest } = await supabase
+            .from("accounts")
+            .select("balance, total_invested")
+            .eq("id", oldEntry.accountId)
+            .single();
+          if (dest) {
+            const update = calcAccountUpdate(
+              Number(dest.balance),
+              Number(dest.total_invested ?? 0),
+              deltaMiles,
+              deltaInvested,
+            );
+            await supabase.from("accounts").update(update).eq("id", oldEntry.accountId);
+          }
         }
 
+        // Old source: reverse (add back points) — always if there was one
         if (oldEntry.sourceAccountId) {
-          const reverseSrc = await supabase
+          const { data: src } = await supabase
             .from("accounts")
             .select("balance, total_invested")
             .eq("id", oldEntry.sourceAccountId)
             .single();
-          if (reverseSrc.data) {
-            // Revert source: restore points and proportional cost (not full amountPaid)
-            const srcBalance = Number(reverseSrc.data.balance);
-            const srcInvested = Number(reverseSrc.data.total_invested ?? 0);
-            const proportionalCost = calcProportionalCost(oldEntry.amount, srcBalance, srcInvested);
+          if (src) {
+            const oldProp = calcProportionalCost(oldEntry.amount, Number(src.balance), Number(src.total_invested ?? 0));
             const update = calcAccountUpdate(
-              srcBalance,
-              srcInvested,
-              oldEntry.amount,
-              proportionalCost,
+              Number(src.balance), Number(src.total_invested ?? 0),
+              oldEntry.amount, oldProp,
             );
             await supabase.from("accounts").update(update).eq("id", oldEntry.sourceAccountId);
           }
         }
       }
 
-      const merged: PointEntry = { ...oldEntry, ...updates };
       const { error: insErr } = await supabase.from("entries").insert({
         id: merged.id,
         user_id: (await supabase.auth.getUser()).data.user!.id,
@@ -276,6 +288,7 @@ export function useUpdateEntryMutation() {
 
       if (merged.entryStatus === "aguardando") return;
 
+      // New source: deduct points
       if (merged.sourceAccountId) {
         const srcRes = await supabase
           .from("accounts")
@@ -296,20 +309,23 @@ export function useUpdateEntryMutation() {
         }
       }
 
-      const destRes = await supabase
-        .from("accounts")
-        .select("balance, total_invested")
-        .eq("id", merged.accountId)
-        .single();
-      if (destRes.data) {
-        const amountToAdd = merged.milesGenerated ?? merged.amount;
-        const destUpdate = calcAccountUpdate(
-          Number(destRes.data.balance),
-          Number(destRes.data.total_invested ?? 0),
-          amountToAdd,
-          merged.amountPaid,
-        );
-        await supabase.from("accounts").update(destUpdate).eq("id", merged.accountId);
+      // New dest: only apply if old was aguardando (no delta applied above)
+      if (isAguardando) {
+        const destRes = await supabase
+          .from("accounts")
+          .select("balance, total_invested")
+          .eq("id", merged.accountId)
+          .single();
+        if (destRes.data) {
+          const amountToAdd = merged.milesGenerated ?? merged.amount;
+          const destUpdate = calcAccountUpdate(
+            Number(destRes.data.balance),
+            Number(destRes.data.total_invested ?? 0),
+            amountToAdd,
+            merged.amountPaid,
+          );
+          await supabase.from("accounts").update(destUpdate).eq("id", merged.accountId);
+        }
       }
     },
     onSuccess: () => {

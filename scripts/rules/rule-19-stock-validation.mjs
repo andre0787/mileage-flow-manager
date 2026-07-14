@@ -139,6 +139,34 @@ for (const file of calcfiles) {
   }
 }
 
+// Check 3b: toda mutation exportada (que afeta saldo) DEVE chamar calcAccountUpdate
+console.log("\n─── Regra #19.3b: toda mutation de saldo usa calcAccountUpdate ───\n");
+
+const expectedCalls = {
+  "hooks/useDatabase/entries.ts": ["useAddEntryMutation", "useUpdateEntryMutation", "useDeleteEntryMutation", "useConfirmEntryMutation"],
+  "hooks/useDatabase/sales.ts": ["useAddSaleMutation", "useUpdateSaleMutation", "useCancelSaleMutation", "useDeleteSaleMutation"],
+};
+
+for (const [file, muts] of Object.entries(expectedCalls)) {
+  const content = readFile(file);
+  if (!content) continue;
+
+  // Split by "\nexport function " to get each mutation block
+  const blocks = content.split(/\nexport function /);
+
+  for (const mut of muts) {
+    const block = blocks.find(b => b.startsWith(mut + "("));
+    if (!block) continue; // mutation not found, skip
+
+    const usesCalc = block.includes("calcAccountUpdate(");
+    const updatesAccounts = block.includes('supabase.from("accounts").update(');
+
+    if (updatesAccounts && !usesCalc) {
+      errors.push(`${file} — ${mut} atualiza accounts sem calcAccountUpdate`);
+    }
+  }
+}
+
 if (calcfiles.every((f) => {
   const c = readFile(f);
   return c && c.includes("calcAccountUpdate(");
