@@ -1,13 +1,13 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-07-14 (final)
-> Anterior: 2026-07-14 (início)
+> ⏰ Última atualização: 2026-07-15
+> Anterior: 2026-07-14 (final)
 
 ---
 
 ## 🧭 Estado Atual
 
 - **Branch:** `main`
-- **Último commit:** `fae1c7e` — Merge PR #137
+- **Último commit:** Merge PR #138 — refino de design
 - **Remote:** origin/main
 
 ### 📋 PRs Abertos
@@ -20,29 +20,26 @@ Nenhum — todos mergeados ✅
 |---------|-------|
 | Testes | 45/45 passando |
 | Build | OK |
-| Branch | main |
+| Deploy | 🔄 rodando |
 
 ---
 
-## ✅ Sessão Encerrada — 2026-07-14
+## ✅ Sessão Concluída — 2026-07-15
 
 ### O que foi feito
 
 | PR | O quê | Status |
 |----|-------|--------|
-| #137 | Corrige alertas de segurança Supabase (search_path + revoke EXECUTE) | ✅ Merge + Deploy |
+| #138 | Refino de design — sparklines, tabelas premium, sidebar agrupada e números tabulares | ✅ Merge + Deploy 🔄 |
 
-### Correções de Segurança (4 warnings resolvidos)
+### Mudanças do PR #138
 
-1. `function_search_path_mutable` — `set_updated_at` ganhou `set search_path = ''`
-2. `anon_security_definer_function_executable` — REVOKE EXECUTE de PUBLIC em `handle_new_user` e `set_updated_at`
-3. `authenticated_security_definer_function_executable` — mesmo REVOKE (resolvido junto)
-4. `auth_leaked_password_protection` — ativado manualmente no dashboard ✅
-
-### Regra #20 adicionada à UNVERIFIABLE
-
-A validação é feita pelo rule-19-stock-validation.mjs conforme AGENTS.md.
+1. **Sidebar agrupada** — navegação em seções semânticas (Operação, Pessoas, Controle) + indicador ativo com borda lateral
+2. **Sparklines** — mini área charts nos MetricCards (Dashboard) via Recharts
+3. **Números tabulares** — `tabular-nums` em todo financeiro
+4. **Tabelas premium** — striped rows, sticky headers, uppercase tracking-wider
+5. **Novo componente** `Sparkline.tsx` + função `computeMetricHistory()` em `src/lib/metrics.ts`
 
 ### 🔜 Próxima Sessão
 
-Nova feature ou melhoria. Sugestões: continuar com vendas, melhorar relatórios, novas origens.
+Nova feature ou melhoria. Sugestões: continuar com vendas, melhorar relatórios, novas origens, ou tratar feedbacks de usuários (9 pendentes).
