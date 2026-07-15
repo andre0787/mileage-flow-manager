@@ -73,13 +73,9 @@ const ideiasPendentes = (ideias || "")
 const snapshotMatch = (handoff || "").match(/## 🏗️ Projeto[\s\S]*?(?=\n---|$)/);
 const snapshot = snapshotMatch ? snapshotMatch[0].trim() : "(snapshot não encontrado)";
 
-// Extrai bugs do handoff (seção ### 🐞 Bugs)
-const bugsMatch = (handoff || "").match(/### 🐞 Bugs[\s\S]*?(?=\n---|$)/);
-const bugs = bugsMatch ? bugsMatch[0].trim() : "### 🐞 Bugs Abertos\n- nenhum";
-
-// Extrai sessão atual do handoff
+// Extrai sessão atual do handoff para detectar algo em andamento
 const sessaoAtual = (handoff || "").match(/## 🎯 Sessão Atual[\s\S]*?(?=\n---|$)/);
-const inProgress = sessaoAtual !== null && (handoff || "").includes("**Objetivo:**");
+const inProgress = sessaoAtual !== null && (handoff || "").includes("**Objetivo:**") && !(handoff || "").includes("descrição concisa");
 
 console.log([
   `branch: ${branch}`,
@@ -88,8 +84,6 @@ console.log([
   `PRs:    ${prs}`,
   "",
   snapshot,
-  "",
-  bugs,
   "",
   "## 💭 Ideias pendentes (IDEIAS.md)",
   ideiasPendentes,
