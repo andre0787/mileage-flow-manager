@@ -2,6 +2,25 @@
 
 **Toda feature ou modificação neste projeto DEVE passar por este workflow.**
 
+## Início de Sessão — Lazy Loading
+
+Cada sessão começa com `npm run session:start`, que:
+1. Exibe snapshot do projeto (stack, regras críticas, workflow)
+2. Mostra bugs abertos e ideias pendentes
+3. **Pergunta a categoria da tarefa** (feature, bugfix, docs, refactor, chore)
+
+**Após definir a categoria, carregue APENAS os docs permitidos:**
+
+| Categoria | Docs |
+|-----------|------|
+| feature | `WORKFLOW.md` + `CONVENTIONS.md` (seções relevantes) |
+| bugfix | `DEBUG.md` + `CONVENTIONS.md` (seção bugs) |
+| docs | (só AGENTS.md) |
+| refactor | `CONVENTIONS.md` + `ARCHITECTURE.md` |
+| chore | (só AGENTS.md) |
+
+> ⚠️ **REGRA DOURADA:** Não pré-carregue docs fora da categoria.
+
 ## Skills Envolvidas
 
 | Skill | Localização | Função |
