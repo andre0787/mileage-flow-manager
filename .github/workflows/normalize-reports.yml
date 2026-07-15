@@ -55,7 +55,12 @@ jobs:
             if echo "$BASENAME" | grep -qE "^PR[0-9]+-"; then
               continue
             fi
-            NEW_NAME=$(echo "$BASENAME" | sed "s/^[^-]*-/PR${PR_NUM}-/")
+            # Usa o mesmo padrão do post-pr.mjs: substitui tudo até a data pelo prefixo PR<num>
+            NEW_NAME=$(echo "$BASENAME" | sed "s/^.\(.*-\([0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]\)\)/PR${PR_NUM}-\2/" 2>/dev/null)
+            # Fallback: só substitui o primeiro segmento (ex: "feat-" → "PR{num}-")
+            if [ -z "$NEW_NAME" ] || [ "$NEW_NAME" = "$BASENAME" ]; then
+              NEW_NAME=$(echo "$BASENAME" | sed "s/^[^-]*-/PR${PR_NUM}-/")
+            fi
             if [ "$BASENAME" != "$NEW_NAME" ]; then
               git mv "$file" "$REPORTS_DIR/$NEW_NAME"
               echo "Renomeado: $BASENAME → $NEW_NAME"
