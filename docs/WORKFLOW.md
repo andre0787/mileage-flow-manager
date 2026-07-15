@@ -84,6 +84,8 @@ Workflow acelerado via npm scripts — reduzem consumo de tokens automatizando r
 | `npm run report` | Gera relatório HTML automático do diff | **Antes do PR** (substitui /report manual) |
 | `npm run session:end` | add + commit + handoff + push em 1 comando | **Final da sessão** (substitui 5 passos manuais) |
 | `npm run handoff` | Atualiza docs/handoff.md com estado atual do git | Pós-PR ou pós-merge |
+| `npm run health:deploy` | Verifica se o último deploy da main passou | Após merge/deploy ou debug de produção |
+| `npm run retro` | Gera retrospectiva automática do período | Fim de sprint ou bloco de PRs |
 
 ### Fluxo compacto com scripts
 
@@ -92,6 +94,8 @@ INÍCIO:   npm run session:start   → resumo (~500 tokens)
 MEIO:     (desenvolvimento normal)
 ANTES PR: npm run pre-pr           → valida tudo
           npm run report "descrição" --write  → relatório HTML
+PÓS-MERGE: npm run health:deploy    → confirma produção
+RETRO:    npm run retro --write      → métricas do ciclo
 FIM:      npm run session:end "msg" → commit + handoff + push
 ```
 
@@ -104,6 +108,8 @@ FIM:      npm run session:end "msg" → commit + handoff + push
 | `scripts/pre-pr-check.mjs` | Roda git status, build, tests, verify-docs | ✅/❌ por verificação |
 | `scripts/session-end.mjs` | git add . + commit + update-handoff + push | Confirmação no console |
 | `scripts/update-handoff.mjs` | Atualiza métricas, branch, último commit | docs/handoff.md atualizado |
+| `scripts/check-deploy.mjs` | Consulta último workflow de deploy na main | ✅/❌ status do deploy |
+| `scripts/retro.mjs` | Coleta PRs, CI, deploys, feedbacks e commits | Markdown de retrospectiva |
 
 ### Por quê?
 

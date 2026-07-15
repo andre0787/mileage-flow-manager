@@ -36,7 +36,10 @@
     "handoff:snapshot": "node scripts/handoff-snapshot.mjs --write",
     "migrate:bugs": "node scripts/migrate-bugs.mjs",
     "migrate:bugs:apply": "node scripts/migrate-bugs.mjs --apply",
-    "hooks:install": "git config core.hooksPath .githooks && echo \"✅ hooksPath configurado para .githooks\""
+    "hooks:install": "git config core.hooksPath .githooks && echo \"✅ hooksPath configurado para .githooks\"",
+    "health:deploy": "node scripts/check-deploy.mjs",
+    "retro": "node scripts/retro.mjs",
+    "retro:write": "node scripts/retro.mjs --write"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
