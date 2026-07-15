@@ -26,6 +26,7 @@ export function useProgramsQuery() {
 export function useAddProgramMutation() {
   const queryClient = useQueryClient();
   const { user } = useAuth();
+  const userId = user?.id ?? null;
   return useMutation({
     mutationFn: async (program: Program) => {
       const { error } = await supabase.from("programs").insert({
@@ -53,7 +54,15 @@ export function useAddProgramMutation() {
         if (otError) throw otError;
       }
     },
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
+      // ponytail: optimistic cache update so dropdown shows new program instantly
+      if (userId) {
+        queryClient.setQueryData<Program[]>(["programs", userId], (old) => {
+          if (!old) return [variables];
+          if (old.some((p) => p.id === variables.id)) return old;
+          return [...old, variables];
+        });
+      }
       queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: 'all' });
       queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: 'all' });
     },

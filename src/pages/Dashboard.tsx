@@ -18,6 +18,7 @@ import { AltitudeBar } from "@/components/AltitudeBar";
 import { DashboardCharts } from "@/components/DashboardCharts";
 import { FlowMap } from "@/components/FlowMap";
 import { AnimatedNumber } from "@/components/AnimatedNumber";
+import { BalanceReconcileBanner } from "@/components/BalanceReconcileBanner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -354,6 +355,11 @@ export default function Dashboard() {
                 className="mb-5"
               />
 
+              <BalanceReconcileBanner
+                computedTotal={currentMetrics.totalMiles}
+                accounts={milhasAccounts}
+              />
+
               <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
                 <div className="flex-1">
                   <div className="flex items-baseline gap-2 sm:gap-3">
@@ -564,6 +570,11 @@ export default function Dashboard() {
                 goal={300000}
                 className="mb-5"
                 color="linear-gradient(90deg, hsl(var(--teal)), hsl(var(--gold)))"
+              />
+
+              <BalanceReconcileBanner
+                computedTotal={currentMetrics.totalMiles}
+                accounts={pontosAccounts}
               />
 
               <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
