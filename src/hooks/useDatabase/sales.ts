@@ -84,6 +84,8 @@ export function useAddSaleMutation() {
     },
     onError: (err) => {
       logError("addSale", err);
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
       toast.error("Erro ao criar venda");
     },
   });
@@ -185,6 +187,8 @@ export function useUpdateSaleMutation() {
     },
     onError: (err) => {
       logError("updateSale", err);
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
       toast.error("Erro ao atualizar venda");
     },
   });
@@ -233,6 +237,8 @@ export function useCancelSaleMutation() {
     },
     onError: (err) => {
       logError("cancelSale", err);
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
       toast.error("Erro ao cancelar venda");
     },
   });
@@ -287,6 +293,8 @@ export function useDeleteSaleMutation() {
     },
     onError: (err) => {
       logError("deleteSale", err);
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
       toast.error("Erro ao excluir venda");
     },
   });

@@ -137,6 +137,8 @@ export function useAddEntryMutation() {
     },
     onError: (err) => {
       logError("addEntry", err);
+      // ponytail: mesmo com erro parcial (ex: saldo da conta), invalida cache pra entrada aparecer
+      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
       toast.error("Erro ao salvar entrada");
     },
   });
@@ -188,6 +190,7 @@ export function useConfirmEntryMutation() {
     onError: (err) => {
       console.error("[confirmEntry]", err);
       logError("confirmEntry", err);
+      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
       toast.error("Erro ao confirmar entrada");
     },
   });
@@ -334,6 +337,8 @@ export function useUpdateEntryMutation() {
     },
     onError: (err) => {
       logError("updateEntry", err);
+      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
       toast.error("Erro ao atualizar entrada");
     },
   });
@@ -404,6 +409,8 @@ export function useDeleteEntryMutation() {
     },
     onError: (err) => {
       logError("deleteEntry", err);
+      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
       toast.error("Erro ao excluir entrada");
     },
   });
