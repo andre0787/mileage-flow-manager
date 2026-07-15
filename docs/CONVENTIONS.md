@@ -186,6 +186,10 @@ que impeça sua violação de forma automatizada.
 | #16 — Scripts têm atalho npm | `rule-16-orphan-scripts.mjs` | `scripts/rules/rule-16-orphan-scripts.mjs` |
 | verify-docs — Docs refs código inexistentes | `verify-docs.mjs` (check #4) | `scripts/verify-docs.mjs` |
 | #17 — Novos .md válidos (órfãos, links, MAP.md) | `rule-17-new-docs-valid.mjs` (auto no pre-pr) | `scripts/rules/rule-17-new-docs-valid.mjs` |
+| #22 — PR naming convention | `rule-22-pr-naming.mjs` (auto no pre-pr) | `scripts/rules/rule-22-pr-naming.mjs` |
+| Deploy health | `check-deploy.mjs` | `scripts/check-deploy.mjs` |
+| Retrospectiva | `retro.mjs` | `scripts/retro.mjs` |
+| CI Process | `CI-PROCESS.md` | `docs/CI-PROCESS.md` |
 
 ### Como criar uma nova validação
 

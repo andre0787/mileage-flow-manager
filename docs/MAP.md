@@ -23,6 +23,7 @@
 | `TEST-PLAN.md` | Planejamento de testes | 32 casos organizados em 3 fases, prioridades |
 | `MAPA-EXPERIENCIAS-USUARIO.md` | Contexto UX | 43 fluxos de usuário, 85+ cenários de teste, edge cases |
 | `docs/handoff.md` | Início/fim de sessão | Contexto entre sessões, branch atual, PRs, próximos passos |
+| `docs/CI-PROCESS.md` | Melhoria contínua | Ciclo de melhoria: coletar → priorizar → executar → revisar → retrospectiva |
 
 ## Docs do Ecossistema
 
@@ -37,6 +38,9 @@
 | `docs/reports/` | Relatórios HTML | Relatórios obrigatórios antes de cada PR |
 | `.githooks/` | Git hooks | Pre-commit que bloqueia commits na main |
 | `scripts/check-feedback.mjs` | Verificação de feedback | Consulta feedbacks de usuários no Supabase |
+| `scripts/check-deploy.mjs` | Saúde do deploy | Verifica status do último deploy via GitHub API |
+| `scripts/retro.mjs` | Retrospectiva | Gera relatório de retrospectiva do período |
+| `scripts/rules/rule-22-pr-naming.mjs` | Validação de PR | Valida nomenclatura de PRs no pre-pr |
 | `CLAUDE.md` | Cross-harness (Claude Code) | Instruções resumidas para Claude Code |
 | `QUALITY.md` | Qualidade do código | Métricas e padrões de qualidade |
 
