@@ -542,6 +542,33 @@ A regra #19 (estoque) é validada estaticamente no `pre-pr` via
 - Reporta discrepâncias
 - Aceita `--fix` para corrigir automaticamente
 
+## Gerenciamento de Contexto — Regras #02, #03, #20
+
+### #02 — Lazy Loading por Categoria
+
+O AGENTS.md define categorias de tarefa (feature, bugfix, docs, refactor, chore).
+O agente DEVE carregar APENAS os docs permitidos para a categoria escolhida.
+
+**Violação:** carregar doc não permitido para a categoria.
+**Valida:** `rule-02-category-loading.mjs`
+
+### #03 — Handoff Completeness
+
+O handoff.md DEVE ter todos os campos obrigatórios:
+- Projeto, Estado Atual, Branch, Bugs Abertos
+- Sessão Atual, Categoria, Docs carregados, Última Sessão
+
+**Violação:** seção ausente.
+**Valida:** `rule-03-handoff-completeness.mjs`
+
+### #20 — AGENDA.md Arquivado
+
+AGENDA.md foi arquivado em `docs/archive/AGENDA-2026.md`.
+Nenhum script deve referenciá-lo.
+
+**Violação:** script referencia AGENDA.md.
+**Valida:** `rule-20-no-agenda-load.mjs`
+
 ## Observações Gerais
 
 - Não adicionar dependências sem necessidade

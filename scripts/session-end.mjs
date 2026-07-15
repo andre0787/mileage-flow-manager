@@ -40,6 +40,7 @@ if (DRY_RUN) {
   console.log("🔍 Modo dry-run — nenhuma ação executada\n");
   dry(`git add .`);
   dry(`git commit -m "${MSG}"`);
+  dry(`node scripts/handoff-snapshot.mjs --write`);
   dry(`node scripts/update-handoff.mjs --write`);
   dry(`git add docs/handoff.md`);
   dry(`git commit -m "docs: update handoff"`);
@@ -53,6 +54,7 @@ const status = run("git status --short");
 if (!status) {
   console.log("✅ Nada a commitar.");
   try {
+    run("node scripts/handoff-snapshot.mjs --write");
     run("node scripts/update-handoff.mjs --write");
     run("git add docs/handoff.md");
     try {
@@ -76,8 +78,9 @@ run("git add .");
 console.log(`📝 Commit: "${MSG}"`);
 run(`git commit -m "${MSG}"`);
 
-// 4. Update handoff
+// 4. Update handoff — snapshot + estado
 console.log("📋 Atualizando handoff...");
+run("node scripts/handoff-snapshot.mjs --write");
 run("node scripts/update-handoff.mjs --write");
 run("git add docs/handoff.md");
 try {
