@@ -78,7 +78,7 @@ export function EntryForm({
     if (!form.amountPaid || parseFloat(form.amountPaid) <= 0) errs.amountPaid = "Informe o valor pago"
     if (!form.date) errs.date = "Selecione a data"
     if (form.isRecurrent) {
-      if (form.recurrenceCount < 1) errs.recurrenceCount = "Quantidade de parcelas deve ser >= 1"
+      if (form.recurrenceCount < 2) errs.recurrenceCount = "Mínimo de 2 parcelas para gerar recorrência"
       if (!form.startDate) errs.startDate = "Selecione a data de início"
     }
     setErrors(errs)
@@ -286,7 +286,10 @@ export function EntryForm({
             type="checkbox"
             checked={form.isRecurrent}
             onChange={(e) => {
-              set({ isRecurrent: e.target.checked })
+              set({
+                isRecurrent: e.target.checked,
+                startDate: e.target.checked && !form.startDate ? new Date().toISOString().split('T')[0] : form.startDate,
+              })
               if (!e.target.checked) {
                 set({ recurrenceCount: 1, startDate: form.date })
               }
@@ -319,22 +322,28 @@ export function EntryForm({
                 <Label>Quantidade de parcelas</Label>
                 <Input
                   type="number"
-                  min="1"
+                  min="2"
                   value={String(form.recurrenceCount)}
                   onChange={(e) => {
-                    const val = Math.max(1, parseInt(e.target.value) || 1)
+                    const val = Math.max(2, parseInt(e.target.value) || 1)
                     set({ recurrenceCount: val })
+                    clearErr('recurrenceCount')
                   }}
                   className="w-20"
                 />
+                {errors.recurrenceCount && <p className="text-xs text-destructive">{errors.recurrenceCount}</p>}
               </div>
               <div className="space-y-2">
                 <Label>Data de início</Label>
                 <Input
                   type="date"
                   value={form.startDate}
-                  onChange={(e) => set({ startDate: e.target.value })}
+                  onChange={(e) => {
+                    set({ startDate: e.target.value })
+                    clearErr('startDate')
+                  }}
                 />
+                {errors.startDate && <p className="text-xs text-destructive">{errors.startDate}</p>}
               </div>
             </div>
             <div className="space-y-2">

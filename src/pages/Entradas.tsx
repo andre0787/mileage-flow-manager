@@ -13,6 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FormDrawer } from "@/components/FormDrawer";
 import { SkeletonPage } from "@/components/SkeletonLoader";
+import { BalanceReconcileBanner } from "@/components/BalanceReconcileBanner";
 import { useHaptic } from "@/hooks/useHaptic";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
@@ -234,6 +235,11 @@ export default function Entradas() {
     () => entriesByTab.filter((e) => e.entryStatus === "aguardando" && e.date < today),
     [entriesByTab, today],
   );
+  // ponytail: saldo calculado para o banner de reconciliação
+  const entriesTotalBalance = confirmedEntries.reduce((s, e) => s + (e.milesGenerated ?? e.amount), 0);
+  const accountsTotalBalance = accounts
+    .filter((a) => a.type === activeTab)
+    .reduce((s, a) => s + a.balance, 0);
   const totalAmount = confirmedEntries.reduce((s, e) => s + e.amount, 0);
   const totalAmountPaid = confirmedEntries.reduce((s, e) => s + e.amountPaid, 0);
   const totalMilesGenerated = confirmedEntries.reduce(
@@ -280,21 +286,27 @@ export default function Entradas() {
         </div>
       </div>
 
-      {/* Banner atrasadas */}
-      {overdueEntries.length > 0 && (
-        <div className="rounded-lg border border-red-400/30 bg-red-50 dark:bg-red-950/20 p-3 sm:p-4 flex items-start gap-3">
-          <AlertTriangle className="h-5 w-5 text-red-600 shrink-0 mt-0.5" />
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-red-800 dark:text-red-300">
-              {overdueEntries.length} entrada(s) atrasada(s) — confirmação vencida
-            </p>
-            <p className="text-xs text-red-700 dark:text-red-400 mt-0.5">
-              Estas entradas já passaram da data e seguem sem confirmação.
-              Confirme abaixo para atualizar o saldo da conta.
-            </p>
+      {/* Banners */}
+      <div className="space-y-3">
+        <BalanceReconcileBanner
+          computedTotal={entriesTotalBalance}
+          accounts={accounts.filter((a) => a.type === activeTab)}
+        />
+        {overdueEntries.length > 0 && (
+          <div className="rounded-lg border border-red-400/30 bg-red-50 dark:bg-red-950/20 p-3 sm:p-4 flex items-start gap-3">
+            <AlertTriangle className="h-5 w-5 text-red-600 shrink-0 mt-0.5" />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-red-800 dark:text-red-300">
+                {overdueEntries.length} entrada(s) atrasada(s) — confirmação vencida
+              </p>
+              <p className="text-xs text-red-700 dark:text-red-400 mt-0.5">
+                Estas entradas já passaram da data e seguem sem confirmação.
+                Confirme abaixo para atualizar o saldo da conta.
+              </p>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as "pontos" | "milhas")}>
