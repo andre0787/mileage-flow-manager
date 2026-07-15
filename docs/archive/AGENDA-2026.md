@@ -307,24 +307,6 @@ _Nenhum feedback pendente._
 
 ---
 
-## 📌 Backlog Futuro
-
-### Sprint #11
-
-- [ ] Traduções no Dashboard (`useI18n()`)
-- [ ] Traduções na Configurações
-- [ ] Analytics de uso
-- [ ] Melhorias de performance
-- [ ] PWA offline avançado
-
-### Referência
-
-- [x] Mapa de Experiências do Usuário — `docs/MAPA-EXPERIENCIAS-USUARIO.md`
-- [x] Plano de Testes — `docs/TEST-PLAN.md`
-- [x] 5 novos specs E2E — auth, configuracoes, vendas, clientes, transversal
-
----
-
 ## 🐞 Bugs Encontrados
 
 > Bugs descobertos durante desenvolvimento. Serve como insumo para validação do backlog futuro.

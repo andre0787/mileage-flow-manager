@@ -946,25 +946,6 @@
 
 ---
 
-## 📋 Próximos Passos
-
-### Sprint #5 (Sugerida)
-1. **Notificações push** — Alertar sobre entrada pendente
-2. **Melhorar empty states** — Adicionar CTAs
-3. **Adicionar paginação** — Listas longas
-
-### Sprint #6 (Futura)
-1. **Modo offline** — PWA com service worker
-2. **Exportação PDF** — Relatórios profissionais
-3. **Busca global** — Pesquisa unificada
-
-### Sprint #7 (Futura)
-1. **Multi-idioma** — i18n
-2. **Dark mode** — Toggle de tema
-3. **Atalhos de teclado** — Produtividade
-
----
-
 ## 📚 Referências
 
 - **Arquitetura:** `docs/ARCHITECTURE.md`
