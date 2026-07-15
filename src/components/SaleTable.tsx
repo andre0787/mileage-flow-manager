@@ -85,16 +85,16 @@ export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick, onEd
         <CardContent>
           {/* Desktop table */}
           <div className="overflow-x-auto hidden md:block">
-            <Table>
+                <Table striped>
               <TableHeader>
                 <TableRow>
                   <TableHead>Data</TableHead>
                   <TableHead>Dono/Programa</TableHead>
                   <TableHead>Cliente</TableHead>
-                  <TableHead>Milhas</TableHead>
-                  <TableHead>Valor</TableHead>
-                  <TableHead>Lucro</TableHead>
-                  <TableHead>Margem</TableHead>
+                  <TableHead className="text-right tabular-nums">Milhas</TableHead>
+                  <TableHead className="text-right tabular-nums">Valor</TableHead>
+                  <TableHead className="text-right tabular-nums">Lucro</TableHead>
+                  <TableHead className="text-right tabular-nums">Margem</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Ações</TableHead>
                 </TableRow>
@@ -114,18 +114,18 @@ export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick, onEd
                       <p className="font-medium">{sale.clientName}</p>
                       <p className="text-xs text-muted-foreground">{sale.ticketLocator}</p>
                     </TableCell>
-                    <TableCell>{sale.milesUsed.toLocaleString("pt-BR")}</TableCell>
-                    <TableCell>
+                    <TableCell className="text-right tabular-nums">{sale.milesUsed.toLocaleString("pt-BR")}</TableCell>
+                    <TableCell className="text-right tabular-nums">
                       {"R$ "}
                       {sale.saleValue.toLocaleString("pt-BR")}
                     </TableCell>
                     <TableCell
-                      className={`font-semibold ${sale.profit < 0 ? "text-destructive" : "text-success"}`}
+                      className={`text-right tabular-nums font-semibold ${sale.profit < 0 ? "text-destructive" : "text-success"}`}
                     >
                       {"R$ "}
                       {sale.profit.toLocaleString("pt-BR")}
                     </TableCell>
-                    <TableCell>{sale.profitMargin.toFixed(1)}%</TableCell>
+                    <TableCell className="text-right tabular-nums">{sale.profitMargin.toFixed(1)}%</TableCell>
                     <TableCell>
                       {sale.status === "cancelado" ? (
                         <Badge variant="outline" className="text-destructive border-destructive">

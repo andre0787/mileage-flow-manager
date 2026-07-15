@@ -236,3 +236,58 @@ export function computeDashboardMetrics(
     revenueChange,
   };
 }
+
+// ─── Séries Temporais para Sparklines ───
+
+export interface MetricHistory {
+  /** Valores mensais de milhas/pontos em estoque (últimos N meses) */
+  milesStock: number[];
+  /** Valores mensais de receita (últimos N meses) */
+  revenue: number[];
+  /** Valores mensais de lucro (últimos N meses) */
+  profit: number[];
+  /** Valores mensais de milhas/pontos entradas (últimos N meses) */
+  milesIn: number[];
+}
+
+/**
+ * Calcula séries temporais mensais para sparklines nos MetricCards.
+ * Retorna arrays de N meses (padrão 6), do mais antigo para o mais recente.
+ */
+export function computeMetricHistory(
+  sls: MetricSale[],
+  entrs: MetricEntry[],
+  months = 6,
+): MetricHistory {
+  const now = new Date();
+  const result: MetricHistory = { milesStock: [], revenue: [], profit: [], milesIn: [] };
+
+  for (let i = months - 1; i >= 0; i--) {
+    const monthDate = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const month = monthDate.getMonth();
+    const year = monthDate.getFullYear();
+
+    const monthSales = sls.filter((s) => {
+      const d = new Date(s.date);
+      return d.getMonth() === month && d.getFullYear() === year && s.status !== "cancelado";
+    });
+
+    const monthEntries = entrs.filter((e) => {
+      if (e.entryStatus === "aguardando") return false;
+      const d = new Date(e.date);
+      return d.getMonth() === month && d.getFullYear() === year;
+    });
+
+    const monthMilesIn = monthEntries.reduce((sum, e) => sum + (e.milesGenerated ?? e.amount), 0);
+    const monthMilesOut = monthSales.reduce((sum, s) => sum + s.milesUsed, 0);
+    const monthRevenue = monthSales.reduce((sum, s) => sum + s.saleValue, 0);
+    const monthProfit = monthSales.reduce((sum, s) => sum + s.profit, 0);
+
+    result.milesIn.push(monthMilesIn);
+    result.revenue.push(monthRevenue);
+    result.profit.push(monthProfit);
+    result.milesStock.push(monthMilesIn - monthMilesOut);
+  }
+
+  return result;
+}
