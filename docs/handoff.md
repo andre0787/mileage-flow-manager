@@ -1,48 +1,48 @@
 # HANDOFF — MilesControl
 > ⏰ Última atualização: 2026-07-15
-> Anterior: 2026-07-14 (final)
+
+---
+
+## 🏗️ Projeto (Snapshot Automático)
+
+> ⏰ Snapshot atualizado em: 2026-07-15
+
+**Stack:** React + Vite + Supabase + Tailwind | pt-BR
+**Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
+**Regras críticas:** branch obrigatória, pre-pr c/ relatório, git status ZERO, lazy loading por categoria
+**Workflow:** session:start → categoria → carregar docs → council (se feature) → build → pre-pr → PR
+
+### 🐞 Bugs Abertos
+- nenhum | [ver todos → GitHub Issues](https://github.com/andreluiz0787/mileage-flow-manager/issues)
 
 ---
 
 ## 🧭 Estado Atual
 
-- **Branch:** `main`
-- **Último commit:** Merge PR #140 — correções de feedbacks
+- **Branch:** `feat/context-optimization`
+- **Último commit:** `cdc75f7 — docs: AGENTS.md reescrito como hub compacto (~3KB)`
 - **Remote:** origin/main
-
-### 📋 PRs Abertos
-
-Nenhum — todos mergeados ✅
-
-### 📊 Métricas
-
-| Métrica | Valor |
-|---------|-------|
-| Testes | 45/45 passando |
-| Build | OK |
-| Deploy | ✅ |
+- **PRs Abertos:** nenhum
 
 ---
 
-## ✅ Sessão Concluída — 2026-07-15
+## 🎯 Sessão Atual
 
-### O que foi feito
+- **Categoria:** [feature | bugfix | docs | refactor | chore]
+- **Docs carregados:** [lista dos docs carregados nesta sessão]
+- **Objetivo:** [descrição concisa do que será feito]
 
-| PR | O quê | Status |
-|----|-------|--------|
-| #138 | Refino de design — sparklines, tabelas premium, sidebar agrupada e números tabulares | ✅ Merge + Deploy |
-| #139 | Handoff update | ✅ Merge |
-| #140 | Correções de feedbacks — cache otimista, input visibility, reconciliação de saldo | ✅ Merge + Deploy |
+---
 
-### Mudanças do PR #140
+## ✅ Última Sessão Concluída
 
-1. **Cache otimista para programas** — `setQueryData` em `useAddProgramMutation` (feedback #58c7817d)
-2. **Input visibility mobile** — Dialog responsivo no mobile + `max-h-[70dvh]` nos forms (feedback #8eb6b7f2)
-3. **Reconciliação de saldo** — `BalanceReconcileBanner` no Dashboard (feedback #791fbc14)
-4. **Infraestrutura de feedback** — `npm run feedback:resolve`, regra #21, `check-feedback.mjs` aprimorado
+- **Data:** 2026-07-15
+- **PRs mergeados:** #138, #139, #140
+- **Conquistas:** Correções de feedbacks, reconciliação de saldo, cache otimista
+- **Pendências:** Nenhuma
 
-### 📬 Feedbacks: 0 pendentes (9 resolvidos)
+---
 
-### 🔜 Próxima Sessão
+## 📋 Notas
 
-Nova feature ou melhoria.
+[notas livres, observações, decisões]
