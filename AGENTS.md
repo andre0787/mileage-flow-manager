@@ -39,6 +39,7 @@
 18. **📁 Sem arquivos duplicados entre raiz e docs/**: um arquivo `.md` NÃO pode existir simultaneamente na raiz do projeto e dentro de `docs/` (mesmo nome, case-insensitive). Isso previne confusão de merge. A validação roda no `pre-pr` via `scripts/rules/rule-18-no-duplicate-root-docs.mjs`. — veja `docs/CONVENTIONS.md` → "Arquivos Duplicados"
 19. **📦 Consistência de estoque**: toda chamada `invalidateQueries` DEVE usar `refetchType: 'all'` para garantir que o estoque reflete corretamente em todos os lugares. Toda mutation que altera saldo de conta DEVE usar `calcAccountUpdate`. A validação roda no `pre-pr` via `scripts/rules/rule-19-stock-validation.mjs`. — veja `docs/CONVENTIONS.md` → "Estoque"
 20. **🔄 Atualização otimista de cache para tipos de origem**: ao criar um novo tipo de origem, a mutation DEVE fazer `setQueryData` otimista para que o dropdown apareça instantaneamente. A validação roda no `pre-pr` via `scripts/rules/rule-19-stock-validation.mjs`. — veja `docs/CONVENTIONS.md` → "Tipos de Origem"
+21. **📬 Feedback de usuários revisado**: toda sessão deve revisar feedbacks pendentes. Feedbacks com mais de 7 sem resolução geram warning no `pre-pr`. Use `npm run feedback:resolve <id> "nota"` para marcar como resolvido. A validação roda no `pre-pr` via `scripts/rules/rule-21-feedback-review.mjs`. — veja `docs/CONVENTIONS.md` → "Feedback de Usuários"
 
 ## Começando — ⚡ AUTO-INICIALIZAÇÃO
 
