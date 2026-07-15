@@ -33,6 +33,9 @@
     "validate-stock": "node scripts/validate-stock.mjs",
     "verify-docs": "node scripts/verify-docs.mjs",
     "verify-docs:strict": "node scripts/verify-docs.mjs --strict",
+    "handoff:snapshot": "node scripts/handoff-snapshot.mjs --write",
+    "migrate:bugs": "node scripts/migrate-bugs.mjs",
+    "migrate:bugs:apply": "node scripts/migrate-bugs.mjs --apply",
     "hooks:install": "git config core.hooksPath .githooks && echo \"✅ hooksPath configurado para .githooks\""
   },
   "dependencies": {
