@@ -46,6 +46,7 @@ export function useAddAccountMutation() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
     onError: (err) => {
       logError("addAccount", err);
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
       toast.error("Erro ao criar conta");
     },
   });
@@ -71,6 +72,7 @@ export function useUpdateAccountMutation() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
     onError: (err) => {
       logError("updateAccount", err);
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
       toast.error("Erro ao atualizar conta");
     },
   });
@@ -92,6 +94,9 @@ export function useDeleteAccountMutation() {
     },
     onError: (err) => {
       logError("deleteAccount", err);
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
       toast.error("Erro ao excluir conta");
     },
   });
@@ -166,6 +171,9 @@ export function useRecalcAccountMutation() {
     },
     onError: (err) => {
       logError("recalcAccount", err);
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
       toast.error("Erro ao recalcular saldo");
     },
   });
