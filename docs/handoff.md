@@ -7,7 +7,7 @@
 ## 🧭 Estado Atual
 
 - **Branch:** `main`
-- **Último commit:** Merge PR #138 — refino de design
+- **Último commit:** Merge PR #140 — correções de feedbacks
 - **Remote:** origin/main
 
 ### 📋 PRs Abertos
@@ -20,7 +20,7 @@ Nenhum — todos mergeados ✅
 |---------|-------|
 | Testes | 45/45 passando |
 | Build | OK |
-| Deploy | 🔄 rodando |
+| Deploy | ✅ |
 
 ---
 
@@ -30,16 +30,19 @@ Nenhum — todos mergeados ✅
 
 | PR | O quê | Status |
 |----|-------|--------|
-| #138 | Refino de design — sparklines, tabelas premium, sidebar agrupada e números tabulares | ✅ Merge + Deploy 🔄 |
+| #138 | Refino de design — sparklines, tabelas premium, sidebar agrupada e números tabulares | ✅ Merge + Deploy |
+| #139 | Handoff update | ✅ Merge |
+| #140 | Correções de feedbacks — cache otimista, input visibility, reconciliação de saldo | ✅ Merge + Deploy |
 
-### Mudanças do PR #138
+### Mudanças do PR #140
 
-1. **Sidebar agrupada** — navegação em seções semânticas (Operação, Pessoas, Controle) + indicador ativo com borda lateral
-2. **Sparklines** — mini área charts nos MetricCards (Dashboard) via Recharts
-3. **Números tabulares** — `tabular-nums` em todo financeiro
-4. **Tabelas premium** — striped rows, sticky headers, uppercase tracking-wider
-5. **Novo componente** `Sparkline.tsx` + função `computeMetricHistory()` em `src/lib/metrics.ts`
+1. **Cache otimista para programas** — `setQueryData` em `useAddProgramMutation` (feedback #58c7817d)
+2. **Input visibility mobile** — Dialog responsivo no mobile + `max-h-[70dvh]` nos forms (feedback #8eb6b7f2)
+3. **Reconciliação de saldo** — `BalanceReconcileBanner` no Dashboard (feedback #791fbc14)
+4. **Infraestrutura de feedback** — `npm run feedback:resolve`, regra #21, `check-feedback.mjs` aprimorado
+
+### 📬 Feedbacks: 0 pendentes (9 resolvidos)
 
 ### 🔜 Próxima Sessão
 
-Nova feature ou melhoria. Sugestões: continuar com vendas, melhorar relatórios, novas origens, ou tratar feedbacks de usuários (9 pendentes).
+Nova feature ou melhoria.
