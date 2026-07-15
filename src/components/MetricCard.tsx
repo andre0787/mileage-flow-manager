@@ -2,6 +2,7 @@ import { LucideIcon } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { AnimatedNumber } from "./AnimatedNumber";
+import { Sparkline } from "./Sparkline";
 
 interface MetricCardProps {
   title: string;
@@ -14,28 +15,35 @@ interface MetricCardProps {
   };
   variant?: "default" | "success" | "warning" | "gold" | "teal";
   prefix?: string;
+  /** Dados numéricos mensais para sparkline (mínimo 2 pontos) */
+  sparklineData?: number[];
 }
 
 const variantStyles = {
   default: {
     iconBg: "bg-primary/10",
     iconColor: "text-primary",
+    sparklineColor: "hsl(var(--primary))",
   },
   success: {
     iconBg: "bg-success/10",
     iconColor: "text-success",
+    sparklineColor: "hsl(var(--success))",
   },
   warning: {
     iconBg: "bg-warning/10",
     iconColor: "text-warning",
+    sparklineColor: "hsl(var(--warning))",
   },
   gold: {
     iconBg: "bg-gold/10",
     iconColor: "text-gold",
+    sparklineColor: "hsl(var(--gold))",
   },
   teal: {
     iconBg: "bg-teal/10",
     iconColor: "text-teal",
+    sparklineColor: "hsl(var(--teal))",
   },
 };
 
@@ -47,6 +55,7 @@ export function MetricCard({
   trend,
   variant = "default",
   prefix,
+  sparklineData,
 }: MetricCardProps) {
   const vs = variantStyles[variant];
   const numericValue = typeof value === "number" ? value : undefined;
@@ -99,7 +108,7 @@ export function MetricCard({
           </div>
         </div>
 
-        <div className="text-2xl font-bold text-foreground tracking-tight">
+        <div className="text-2xl font-bold text-foreground tracking-tight tabular-nums">
           {prefix && <span className="text-muted-foreground text-lg mr-0.5">{prefix}</span>}
           {numericValue !== undefined ? <AnimatedNumber value={numericValue} /> : value}
         </div>
@@ -120,6 +129,11 @@ export function MetricCard({
             </span>
             <span className="text-xs text-muted-foreground">vs. mês anterior</span>
           </div>
+        )}
+
+        {/* Sparkline */}
+        {sparklineData && sparklineData.length >= 2 && (
+          <Sparkline data={sparklineData} color={vs.sparklineColor} />
         )}
       </CardContent>
     </Card>

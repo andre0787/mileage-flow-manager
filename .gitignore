@@ -34,6 +34,9 @@ dist-ssr
 # Brainstorming mockups
 .superpowers/
 
+# ZCode harness artifacts (sessions, plans)
+.zcode/
+
 # Vercel
 .vercel/
 

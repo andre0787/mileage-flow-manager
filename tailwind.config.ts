@@ -17,11 +17,14 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-				body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-				displayAlt: ['"Plus Jakarta Sans"', 'sans-serif'],
-				mono: ['"JetBrains Mono"', 'monospace'],
-			},
+					display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+					body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+					displayAlt: ['"Plus Jakarta Sans"', 'sans-serif'],
+					mono: ['"JetBrains Mono"', 'monospace'],
+				},
+				fontVariantNumeric: {
+					tabular: 'tabular-nums',
+				},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',

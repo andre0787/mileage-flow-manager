@@ -49,7 +49,11 @@ export function EntryTable({
 
   const desktopColumns = isPontos
     ? ["Data", "Conta", "Origem", "Pontos", "Valor Pago", "Taxa Conv.", "Milhas", "Custo/Milha", "Ações"]
-    : ["Data", "Conta", "Origem", "Milhas Geradas", "Valor Pago", "Custo/Milha", "Ações"]
+    : ["Data", "Conta", "Origem", "Milhas Geradas", "Valor Pago", "Custo/Milha", "Ações"] as const
+
+  const numericCols = isPontos
+    ? ["Pontos", "Valor Pago", "Taxa Conv.", "Milhas", "Custo/Milha"]
+    : ["Milhas Geradas", "Valor Pago", "Custo/Milha"]
 
   const renderBadges = (entry: PointEntry) => (
     <div className="flex items-center gap-1.5 flex-wrap">
@@ -158,11 +162,11 @@ export function EntryTable({
   return (
     <>
       <div className="overflow-x-auto">
-        <Table>
+        <Table striped>
           <TableHeader>
             <TableRow>
-              {desktopColumns.map((col) => (
-                <TableHead key={col} className={col === "Ações" ? "text-right" : "hidden md:table-cell"}>
+                  {desktopColumns.map((col) => (
+                  <TableHead key={col} className={`${col === "Ações" ? "text-right" : numericCols.includes(col) ? "text-right tabular-nums" : ""} hidden md:table-cell`}>
                   {col}
                 </TableHead>
               ))}
@@ -191,18 +195,18 @@ export function EntryTable({
                   <TableCell className="hidden md:table-cell">{renderBadges(entry)}</TableCell>
                   {isPontos ? (
                     <>
-                      <TableCell className="hidden md:table-cell">{entry.amount.toLocaleString("pt-BR")}</TableCell>
-                      <TableCell className="hidden md:table-cell">R$ {entry.amountPaid.toLocaleString("pt-BR")}</TableCell>
-                      <TableCell className="hidden md:table-cell">{entry.conversionRate ?? "-"}</TableCell>
-                      <TableCell className="hidden md:table-cell font-semibold text-success">{(entry.milesGenerated ?? entry.amount).toLocaleString("pt-BR")}</TableCell>
+                      <TableCell className="hidden md:table-cell text-right tabular-nums">{entry.amount.toLocaleString("pt-BR")}</TableCell>
+                      <TableCell className="hidden md:table-cell text-right tabular-nums">R$ {entry.amountPaid.toLocaleString("pt-BR")}</TableCell>
+                      <TableCell className="hidden md:table-cell text-right tabular-nums">{entry.conversionRate ?? "-"}</TableCell>
+                      <TableCell className="hidden md:table-cell text-right tabular-nums font-semibold text-success">{(entry.milesGenerated ?? entry.amount).toLocaleString("pt-BR")}</TableCell>
                     </>
                   ) : (
                     <>
-                      <TableCell className="hidden md:table-cell">{(entry.milesGenerated ?? entry.amount).toLocaleString("pt-BR")}</TableCell>
-                      <TableCell className="hidden md:table-cell">R$ {entry.amountPaid.toLocaleString("pt-BR")}</TableCell>
+                      <TableCell className="hidden md:table-cell text-right tabular-nums">{(entry.milesGenerated ?? entry.amount).toLocaleString("pt-BR")}</TableCell>
+                      <TableCell className="hidden md:table-cell text-right tabular-nums">R$ {entry.amountPaid.toLocaleString("pt-BR")}</TableCell>
                     </>
                   )}
-                  <TableCell className="hidden md:table-cell">R$ {(entry.costPerMile ?? 0).toFixed(4)}</TableCell>
+                  <TableCell className="hidden md:table-cell text-right tabular-nums">R$ {(entry.costPerMile ?? 0).toFixed(4)}</TableCell>
                   <TableCell className="hidden md:table-cell text-right">{renderActions(entry)}</TableCell>
                 </TableRow>
               ))

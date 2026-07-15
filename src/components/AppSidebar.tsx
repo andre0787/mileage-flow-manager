@@ -32,14 +32,35 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-const menuItems = [
-  { title: "Dashboard", url: "/", icon: LayoutDashboard },
-  { title: "Contas", url: "/contas", icon: CreditCard },
-  { title: "Clientes", url: "/clientes", icon: Users },
-  { title: "Entradas", url: "/entradas", icon: TrendingUp },
-  { title: "Vendas", url: "/vendas", icon: TrendingDown },
-  { title: "Controle CPF", url: "/cpf", icon: Shield },
-  { title: "Relatórios", url: "/relatorios", icon: BarChart3 },
+interface NavItem {
+  title: string;
+  url: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+const menuGroups: { label: string; items: NavItem[] }[] = [
+  {
+    label: "Operação",
+    items: [
+      { title: "Dashboard", url: "/", icon: LayoutDashboard },
+      { title: "Contas", url: "/contas", icon: CreditCard },
+      { title: "Entradas", url: "/entradas", icon: TrendingUp },
+      { title: "Vendas", url: "/vendas", icon: TrendingDown },
+    ],
+  },
+  {
+    label: "Pessoas",
+    items: [
+      { title: "Clientes", url: "/clientes", icon: Users },
+    ],
+  },
+  {
+    label: "Controle",
+    items: [
+      { title: "Controle CPF", url: "/cpf", icon: Shield },
+      { title: "Relatórios", url: "/relatorios", icon: BarChart3 },
+    ],
+  },
 ];
 
 export function AppSidebar() {
@@ -76,53 +97,55 @@ export function AppSidebar() {
             </div>
           </div>
 
-          {/* Navigation Menu */}
-          <SidebarGroup>
-            <SidebarGroupLabel
-              className={cn(
-                "text-xs font-semibold text-muted-foreground tracking-wider uppercase",
-                collapsed && "sr-only",
-              )}
-            >
-              Navegação
-            </SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {menuItems.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <NavLink
-                        to={item.url}
-                        end
-                        className={cn(
-                          "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200",
-                          "relative group",
-                          isActive(item.url)
-                            ? "bg-primary text-primary-foreground font-medium shadow-sm"
-                            : "text-muted-foreground hover:text-foreground hover:bg-accent/50",
-                        )}
-                      >
-                        <item.icon
+          {/* Navigation Menu — agrupado semanticamente */}
+          {menuGroups.map((group) => (
+            <SidebarGroup key={group.label}>
+              <SidebarGroupLabel
+                className={cn(
+                  "text-xs font-semibold text-muted-foreground tracking-wider uppercase",
+                  collapsed && "sr-only",
+                )}
+              >
+                {group.label}
+              </SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {group.items.map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild>
+                        <NavLink
+                          to={item.url}
+                          end
                           className={cn(
-                            "w-4 h-4 shrink-0 transition-transform duration-200",
-                            !isActive(item.url) && "group-hover:scale-110",
+                            "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200",
+                            "relative group",
+                            isActive(item.url)
+                              ? "bg-primary/[0.08] text-primary font-semibold border-l-2 border-primary pl-[10px]"
+                              : "text-muted-foreground hover:text-foreground hover:bg-accent/50 border-l-2 border-transparent",
                           )}
-                        />
-                        {!collapsed && (
-                          <span className="text-sm font-medium font-body">{item.title}</span>
-                        )}
-                        {!collapsed && item.title === "Entradas" && overdueCount > 0 && (
-                          <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-500 px-1.5 text-[10px] font-bold text-white">
-                            {overdueCount}
-                          </span>
-                        )}
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+                        >
+                          <item.icon
+                            className={cn(
+                              "w-4 h-4 shrink-0 transition-transform duration-200",
+                              !isActive(item.url) && "group-hover:scale-110",
+                            )}
+                          />
+                          {!collapsed && (
+                            <span className="text-sm font-medium font-body">{item.title}</span>
+                          )}
+                          {!collapsed && item.title === "Entradas" && overdueCount > 0 && (
+                            <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-500 px-1.5 text-[10px] font-bold text-white">
+                              {overdueCount}
+                            </span>
+                          )}
+                        </NavLink>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          ))}
 
           {/* Bottom Actions */}
           <div className="mt-auto p-4 border-t border-sidebar-border">
@@ -144,9 +167,9 @@ export function AppSidebar() {
                     to="/perfil"
                     className={cn(
                       "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200",
-                      "text-muted-foreground hover:text-foreground hover:bg-accent/50",
-                      isActive("/perfil") &&
-                        "bg-primary text-primary-foreground font-medium shadow-sm",
+                      isActive("/perfil")
+                        ? "bg-primary/[0.08] text-primary font-semibold border-l-2 border-primary pl-[10px]"
+                        : "text-muted-foreground hover:text-foreground hover:bg-accent/50 border-l-2 border-transparent",
                     )}
                   >
                     <User className="w-4 h-4 shrink-0" />
@@ -160,9 +183,9 @@ export function AppSidebar() {
                     to="/configuracoes"
                     className={cn(
                       "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200",
-                      "text-muted-foreground hover:text-foreground hover:bg-accent/50",
-                      isActive("/configuracoes") &&
-                        "bg-primary text-primary-foreground font-medium shadow-sm",
+                      isActive("/configuracoes")
+                        ? "bg-primary/[0.08] text-primary font-semibold border-l-2 border-primary pl-[10px]"
+                        : "text-muted-foreground hover:text-foreground hover:bg-accent/50 border-l-2 border-transparent",
                     )}
                   >
                     <Settings className="w-4 h-4 shrink-0" />
@@ -180,7 +203,7 @@ export function AppSidebar() {
                         clearCache();
                       }
                     }}
-                    className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                    className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50 border-l-2 border-transparent"
                     title="Limpar cache local e recarregar dados"
                   >
                     <RotateCcw className="w-4 h-4 shrink-0" />
@@ -191,7 +214,7 @@ export function AppSidebar() {
               <SidebarMenuItem>
                 <FeedbackDialog>
                   <SidebarMenuButton asChild>
-                    <button className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50">
+                    <button className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50 border-l-2 border-transparent">
                       <Bug className="w-4 h-4 shrink-0" />
                       {!collapsed && <span className="text-sm font-medium font-body">Reportar problema</span>}
                     </button>
@@ -205,7 +228,7 @@ export function AppSidebar() {
                       await signOut();
                       navigate("/login");
                     }}
-                    className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                    className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50 border-l-2 border-transparent"
                   >
                     <LogOut className="w-4 h-4 shrink-0" />
                     {!collapsed && <span className="text-sm font-medium font-body">Sair</span>}

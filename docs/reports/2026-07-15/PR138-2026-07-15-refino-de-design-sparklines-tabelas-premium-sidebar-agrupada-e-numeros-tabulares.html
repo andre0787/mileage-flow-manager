@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>auto — Refino de design — sparklines, tabelas premium, sidebar agrupada e números tabulares</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 Refino de design — sparklines, tabelas premium, sidebar agrupada e números tabulares</h1>
+  <p class="meta">2026-07-15 09:01 &middot; feat/design-refine-sparklines-tables-sidebar &middot; 043e49c — feat: refino de design — sparklines, números tabulares, tabelas premium e sidebar calma</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">auto</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">12</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+456</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-131</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~725</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🖼️ Renderização verificada em desktop e mobile?</li>
+      <li>📦 Biblioteca testada com casos de borda?</li>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Sparklines nos MetricCards mostram tendência mensal sem poluir a UI; Tabelas com striped rows + sticky headers + números tabulares melhoram legibilidade; Sidebar agrupada semanticamente reduz carga cognitiva na navegação; Headers uppercase tracking-wider padronizam tabelas; Tabular-nums em todo financeiro alinham dígitos consistentemente</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">UX mais profissional retém usuários no app; Leitura mais rápida de dados financeiros reduz erros de interpretação; Interface mais polida transmite confiabilidade para o usuário final; Navegação agrupada acelera acesso às seções mais usadas (Operação)</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 131 remoções — 966 linhas tocadas</td>
+        <td>✨ 456 adições — 12 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .gitignore, src/components/AppSidebar.tsx, src/components/EntryTable.tsx, src/components/MetricCard.tsx<br><span style="color:#166534;font-weight:600">➕</span> docs/reports/2026-07-15/design-refine-sparklines-tables-sidebar-2026-07-15-design-refine-sparklines-tables-sidebar.html<br><em>+7 arquivo(s)</em></td>
+      </tr>
+      
+      <tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>12</td></tr>
+    <tr><td>Adições</td><td>+456</td></tr>
+    <tr><td>Remoções</td><td>-131</td></tr>
+    <tr><td>Tokens estimados</td><td>~725</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:47">+342 add</div>
+        <div class="del" style="flex:14">-98 del</div>
+        <div class="overhead" style="flex:39">~285 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+342</td><td>47%</td></tr>
+      <tr><td>Remoções</td><td>-98</td><td>14%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~285</td><td>39%</td></tr>
+      <tr><th>Total</th><th>~725</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>.gitignore</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-15/design-refine-sparklines-tables-sidebar-2026-07-15-design-refine-sparklines-tables-sidebar.html</td></tr>
+<tr><td>M</td><td>src/components/AppSidebar.tsx</td></tr>
+<tr><td>M</td><td>src/components/EntryTable.tsx</td></tr>
+<tr><td>M</td><td>src/components/MetricCard.tsx</td></tr>
+<tr><td>M</td><td>src/components/SaleTable.tsx</td></tr>
+<tr><td>A</td><td>src/components/Sparkline.tsx</td></tr>
+<tr><td>M</td><td>src/components/ui/table.tsx</td></tr>
+<tr><td>M</td><td>src/index.css</td></tr>
+<tr><td>M</td><td>src/lib/metrics.ts</td></tr>
+<tr><td>M</td><td>src/pages/Dashboard.tsx</td></tr>
+<tr><td>M</td><td>tailwind.config.ts</td></tr>
+  </table>
+
+  
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/.gitignore b/.gitignore
+index 23e7ce7..ca2ac1c 100644
+<span class="del">--- a/.gitignore</span>
+<span class="add">+++ b/.gitignore</span>
+@@ -34,6 +34,9 @@ dist-ssr
+ # Brainstorming mockups
+ .superpowers/
+ 
+<span class="add">+# ZCode harness artifacts (sessions, plans)</span>
+<span class="add">+.zcode/</span>
+<span class="add">+</span>
+ # Vercel
+ .vercel/
+ 
+diff --git a/docs/reports/2026-07-15/design-refine-sparklines-tables-sidebar-2026-07-15-design-refine-sparklines-tables-sidebar.html b/docs/reports/2026-07-15/design-refine-sparklines-tables-sidebar-2026-07-15-design-refine-sparklines-tables-sidebar.html
+new file mode 100644
+index 0000000..6f2f5f7
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/reports/2026-07-15/design-refine-sparklines-tables-sidebar-2026-07-15-design-refine-sparklines-tables-sidebar.html</span>
+@@ -0,0 +1,137 @@
+<span class="add">+&lt;!DOCTYPE html&gt;</span>
+<span class="add">+&lt;html lang="pt-BR"&gt;</span>
+<span class="add">+&lt;head&gt;</span>
+<span class="add">+  &lt;meta charset="UTF-8"&gt;</span>
+<span class="add">+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;</span>
+<span class="add">+  &lt;title&gt;design-refine-sparklines-tables-sidebar — design refine sparklines tables sidebar&lt;/title&gt;</span>
+<span class="add">+  &lt;style&gt;</span>
+<span class="add">+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}</span>
+<span class="add">+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}</span>
+<span class="add">+    h2{font-size:1rem;margin-top:1.5rem;color:#333}</span>
+<span class="add">+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}</span>
+<span class="add">+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}</span>
+<span class="add">+    .badge.pr{background:#dbeafe;color:#1e40af}</span>
+<span class="add">+    .badge.auto{background:#fef3c7;color:#92400e}</span>
+<span class="add">+    .badge.fix{background:#fee2e2;color:#991b1b}</span>
+<span class="add">+    .badge.feat{background:#dcfce7;color:#166534}</span>
+<span class="add">+    .badge.docs{background:#ede9fe;color:#5b21b6}</span>
+<span class="add">+    .badge.chore{background:#f3f4f6;color:#374151}</span>
+<span class="add">+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}</span>
+<span class="add">+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}</span>
+<span class="add">+    th{background:#f3f4f6;font-weight:600}</span>
+<span class="add">+    tr.add{background:#f0fdf4}</span>
+<span class="add">+    tr.del{background:#fef2f2}</span>
+<span class="add">+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}</span>
+<span class="add">+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}</span>
+<span class="add">+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}</span>
+<span class="add">+    .token-bar .add{background:#dcfce7;color:#166534}</span>
+<span class="add">+    .token-bar .del{background:#fee2e2;color:#991b1b}</span>
+<span class="add">+    .token-bar .overhead{background:#f3f4f6;color:#374151}</span>
+<span class="add">+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}</span>
+<span class="add">+    .diff .add{color:#4ade80}</span>
+<span class="add">+    .diff .del{color:#f87171}</span>
+<span class="add">+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}</span>
+<span class="add">+    .center{text-align:center}</span>
+<span class="add">+  &lt;/style&gt;</span>
+<span class="add">+&lt;/head&gt;</span>
+<span class="add">+&lt;body&gt;</span>
+<span class="add">+  &lt;h1&gt;📋 design refine sparklines tables sidebar&lt;/h1&gt;</span>
+<span class="add">+  &lt;p class="meta"&gt;2026-07-15 08:41 &amp;middot; feat/design-refine-sparklines-tables-sidebar &amp;middot; 63b0775 — chore: atualiza handoff — sessão encerrada&lt;/p&gt;</span>
+<span class="add">+  &lt;p&gt;&lt;span class="badge auto"&gt;auto&lt;/span&gt; &lt;span class="badge auto"&gt;design-refine-sparklines-tables-sidebar&lt;/span&gt; &lt;span class="badge" style="background:#dcfce7;color:#166534"&gt;Baixo Risco&lt;/span&gt;&lt;/p&gt;</span>
+<span class="add">+</span>
+<span class="add">+  &lt;!-- Status cards --&gt;</span>
+<span class="add">+  &lt;div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0"&gt;</span>
+<span class="add">+    &lt;div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
+<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700"&gt;0&lt;/div&gt;</span>
+<span class="add">+      &lt;div style="font-size:.7rem;color:#666"&gt;Arquivos&lt;/div&gt;</span>
+<span class="add">+    &lt;/div&gt;</span>
+<span class="add">+    &lt;div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
+<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700;color:#166534"&gt;+0&lt;/div&gt;</span>
+<span class="add">+      &lt;div style="font-size:.7rem;color:#666"&gt;Adições&lt;/div&gt;</span>
+<span class="add">+    &lt;/div&gt;</span>
+<span class="add">+    &lt;div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
+<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700;color:#991b1b"&gt;-0&lt;/div&gt;</span>
+<span class="add">+      &lt;div style="font-size:.7rem;color:#666"&gt;Remoções&lt;/div&gt;</span>
+<span class="add">+    &lt;/div&gt;</span>
+<span class="add">+    &lt;div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
+<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700;color:#854d0e"&gt;~1&lt;/div&gt;</span>
+<span class="add">+      &lt;div style="font-size:.7rem;color:#666"&gt;Tokens&lt;/div&gt;</span>
+<span class="add">+    &lt;/div&gt;</span>
+<span class="add">+  &lt;/div&gt;</span>
+<span class="add">+</span>
+<span class="add">+  &lt;h2&gt;✅ Checklist de Revisão&lt;/h2&gt;</span>
+<span class="add">+    &lt;ul&gt;</span>
+<span class="add">+      &lt;li&gt;🧪 Testes manuais realizados?&lt;/li&gt;</span>
+<span class="add">+      &lt;li&gt;📋 Regras de validação passam? (npm run pre-pr)&lt;/li&gt;</span>
+<span class="add">+    &lt;/ul&gt;</span>
+<span class="add">+</span>
+<span class="add">+  &lt;h2&gt;🎯 Benefícios&lt;/h2&gt;</span>
+<span class="add">+    &lt;ul&gt;</span>
+<span class="add">+      &lt;li&gt;Auto-gerado pelo pre-pr-check&lt;/li&gt;</span>
+<span class="add">+    &lt;/ul&gt;</span>
+<span class="add">+    </span>
+<span class="add">+</span>
+<span class="add">+  &lt;h2&gt;🏢 Impacto no Negócio&lt;/h2&gt;</span>
+<span class="add">+       &lt;div class="impact-box"&gt;Relatório gerado automaticamente como parte do workflow de validação pré-PR&lt;/div&gt;</span>
+<span class="add">+       &lt;br&gt;</span>
+<span class="add">+</span>
+<span class="add">+  &lt;h2&gt;📸 Evidências — Antes &amp; Depois&lt;/h2&gt;</span>
+<span class="add">+    &lt;table&gt;</span>
+<span class="add">+      &lt;tr&gt;&lt;th style="width:15%"&gt;Item&lt;/th&gt;&lt;th style="width:42%"&gt;Antes&lt;/th&gt;&lt;th style="width:43%"&gt;Depois&lt;/th&gt;&lt;/tr&gt;</span>
+<span class="add">+      &lt;tr&gt;</span>
+<span class="add">+        &lt;td&gt;&lt;strong&gt;Código&lt;/strong&gt;&lt;/td&gt;</span>
+<span class="add">+        &lt;td&gt;🧹 0 remoções — 1 linhas tocadas&lt;/td&gt;</span>
+<span class="add">+        &lt;td&gt;✨ 0 adições — 0 arquivo(s) alterado(s)&lt;/td&gt;</span>
+<span class="add">+      &lt;/tr&gt;</span>
+<span class="add">+      &lt;tr&gt;</span>
+<span class="add">+        &lt;td&gt;&lt;strong&gt;Arquivos&lt;/strong&gt;&lt;/td&gt;</span>
+<span class="add">+        &lt;td colspan="2"&gt;&lt;/td&gt;</span>
+<span class="add">+      &lt;/tr&gt;</span>
+<span class="add">+      </span>
+<span class="add">+      &lt;tr&gt;</span>
+<span class="add">+        &lt;td&gt;&lt;strong&gt;💡 Dica&lt;/strong&gt;&lt;/td&gt;</span>
+<span class="add">+        &lt;td colspan="2"&gt;Use &lt;code&gt;--before "descrição"&lt;/code&gt; e &lt;code&gt;--after "descrição"&lt;/code&gt; para texto customizado, ou &lt;code&gt;--evidence URL&lt;/code&gt; pra screenshot&lt;/td&gt;</span>
+<span class="add">+      &lt;/tr&gt;</span>
+<span class="add">+    &lt;/table&gt;</span>
+<span class="add">+    &lt;br&gt;</span>
+<span class="add">+</span>
+<span class="add">+  &lt;h2&gt;📊 Métricas&lt;/h2&gt;</span>
+<span class="add">+  &lt;table&gt;</span>
+<span class="add">+    &lt;tr&gt;&lt;th&gt;Métrica&lt;/th&gt;&lt;th&gt;Valor&lt;/th&gt;&lt;/tr&gt;</span>
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>

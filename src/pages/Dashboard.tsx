@@ -26,7 +26,7 @@ import { EmptyState } from "@/components/EmptyState";
 import { SkeletonMetricCard, SkeletonTable } from "@/components/SkeletonLoader";
 import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
-import { computeDashboardMetrics } from "@/lib/metrics";
+import { computeDashboardMetrics, computeMetricHistory } from "@/lib/metrics";
 import type { Account, Sale, PointEntry } from "@/types";
 
 const MAX_CPF_PER_OWNER = 22;
@@ -123,6 +123,16 @@ export default function Dashboard() {
   const financialMetrics = useMemo(
     () => computeDashboardMetrics(filteredMilhasAccounts, filteredMilhasSales, filteredMilhasEntries, owners, MAX_CPF_PER_OWNER),
     [filteredMilhasAccounts, filteredMilhasSales, filteredMilhasEntries, owners]
+  );
+
+  const metricHistory = useMemo(
+    () => computeMetricHistory(filteredSales, filteredEntries, 6),
+    [filteredSales, filteredEntries]
+  );
+
+  const financialHistory = useMemo(
+    () => computeMetricHistory(filteredMilhasSales, filteredMilhasEntries, 6),
+    [filteredMilhasSales, filteredMilhasEntries]
   );
 
   const ownerData = useMemo(() => {
@@ -347,7 +357,7 @@ export default function Dashboard() {
               <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
                 <div className="flex-1">
                   <div className="flex items-baseline gap-2 sm:gap-3">
-                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display text-foreground tracking-tight leading-none">
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display text-foreground tracking-tight leading-none tabular-nums">
                       <AnimatedNumber value={currentMetrics.totalMiles} />
                     </h1>
                     <span className="text-xs sm:text-sm font-medium text-muted-foreground tracking-wider uppercase font-display">
@@ -361,7 +371,7 @@ export default function Dashboard() {
                         <ArrowUpRight className="w-3 h-3 text-success shrink-0" />
                         <span className="truncate">Entradas no mês</span>
                       </div>
-                      <p className="text-xs sm:text-sm font-bold text-success">
+                      <p className="text-xs sm:text-sm font-bold text-success tabular-nums">
                         +<AnimatedNumber value={currentMetrics.monthlyMilesIn} />
                       </p>
                     </div>
@@ -370,7 +380,7 @@ export default function Dashboard() {
                         <ArrowDownRight className="w-3 h-3 text-gold shrink-0" />
                         <span className="truncate">Milhas vendidas</span>
                       </div>
-                      <p className="text-xs sm:text-sm font-bold text-gold">
+                      <p className="text-xs sm:text-sm font-bold text-gold tabular-nums">
                         <AnimatedNumber value={currentMetrics.totalSoldMiles} />
                       </p>
                     </div>
@@ -379,7 +389,7 @@ export default function Dashboard() {
                         <DollarSign className="w-3 h-3 text-teal shrink-0" />
                         <span className="truncate">Custo médio/milha</span>
                       </div>
-                      <p className="text-xs sm:text-sm font-bold text-teal">
+                      <p className="text-xs sm:text-sm font-bold text-teal tabular-nums">
                         R$ {currentMetrics.avgCostPerMile.toFixed(3)}
                       </p>
                     </div>
@@ -388,7 +398,7 @@ export default function Dashboard() {
                         <TrendingUp className="w-3 h-3 text-primary shrink-0" />
                         <span className="truncate">Contas ativas</span>
                       </div>
-                      <p className="text-xs sm:text-sm font-bold text-primary">
+                      <p className="text-xs sm:text-sm font-bold text-primary tabular-nums">
                         {currentMetrics.activeAccounts}
                       </p>
                     </div>
@@ -397,7 +407,7 @@ export default function Dashboard() {
                         <Target className="w-3 h-3 text-success shrink-0" />
                         <span className="truncate">Margem Média</span>
                       </div>
-                      <p className="text-xs sm:text-sm font-bold text-success">
+                      <p className="text-xs sm:text-sm font-bold text-success tabular-nums">
                         {financialMetrics.avgProfitMargin.toFixed(1)}%
                       </p>
                     </div>
@@ -406,7 +416,7 @@ export default function Dashboard() {
                         <DollarSign className="w-3 h-3 text-gold shrink-0" />
                         <span className="truncate">Receita Total</span>
                       </div>
-                      <p className="text-xs sm:text-sm font-bold text-gold">
+                      <p className="text-xs sm:text-sm font-bold text-gold tabular-nums">
                         R$ <AnimatedNumber value={financialMetrics.totalRevenue} />
                       </p>
                     </div>
@@ -420,10 +430,10 @@ export default function Dashboard() {
 
           {/* METRIC CARDS */}
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 animate-appear animate-delay-200">
-            <MetricCard title="Total Investido" value={financialMetrics.totalInvested} subtitle="Capital aplicado" icon={Wallet} variant="gold" prefix="R$" trend={{ value: Math.round(financialMetrics.revenueChange), isPositive: financialMetrics.revenueChange >= 0 }} />
-            <MetricCard title="Faturamento Mensal" value={financialMetrics.monthlyRevenue} subtitle="Receita do mês" icon={DollarSign} variant="success" prefix="R$" />
-            <MetricCard title="Lucro Mensal" value={financialMetrics.monthlyProfit} subtitle="Ganho líquido" icon={TrendingUp} variant="teal" prefix="R$" />
-            <MetricCard title="Margem de Lucro" value={`${financialMetrics.avgProfitMargin.toFixed(1)}%`} subtitle="Sobre receita total" icon={Target} variant="default" />
+            <MetricCard title="Total Investido" value={financialMetrics.totalInvested} subtitle="Capital aplicado" icon={Wallet} variant="gold" prefix="R$" trend={{ value: Math.round(financialMetrics.revenueChange), isPositive: financialMetrics.revenueChange >= 0 }} sparklineData={financialHistory.revenue} />
+            <MetricCard title="Faturamento Mensal" value={financialMetrics.monthlyRevenue} subtitle="Receita do mês" icon={DollarSign} variant="success" prefix="R$" sparklineData={financialHistory.revenue} />
+            <MetricCard title="Lucro Mensal" value={financialMetrics.monthlyProfit} subtitle="Ganho líquido" icon={TrendingUp} variant="teal" prefix="R$" sparklineData={financialHistory.profit} />
+            <MetricCard title="Margem de Lucro" value={`${financialMetrics.avgProfitMargin.toFixed(1)}%`} subtitle="Sobre receita total" icon={Target} variant="default" sparklineData={financialHistory.profit} />
           </div>
 
           {/* FLOW MAP */}
@@ -438,7 +448,7 @@ export default function Dashboard() {
 
           {/* SECONDARY METRICS */}
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 animate-appear animate-delay-800">
-            <MetricCard title="Contas Ativas" value={currentMetrics.activeAccounts} subtitle="Contas operacionais" icon={CreditCard} variant="teal" />
+            <MetricCard title="Contas Ativas" value={currentMetrics.activeAccounts} subtitle="Contas operacionais" icon={CreditCard} variant="teal" sparklineData={metricHistory.milesIn} />
             <MetricCard title="Vendas Pendentes" value={currentMetrics.pendingSales} subtitle="Aguardando processamento" icon={Target} variant="default" />
             <MetricCard title="Alertas CPF" value={currentMetrics.cpfAlerts} subtitle="Próximo ao limite" icon={AlertTriangle} variant="warning" />
           </div>
@@ -465,8 +475,8 @@ export default function Dashboard() {
                             <p className="text-xs text-muted-foreground font-body">{owner.programs.join(", ")} • <span className="font-semibold">{owner.totalMiles.toLocaleString("pt-BR")} milhas</span></p>
                           </div>
                           <div className="text-right space-y-0.5">
-                            <p className="text-sm font-semibold text-foreground">R$ {owner.totalInvested.toLocaleString("pt-BR")}</p>
-                            <p className="text-xs text-muted-foreground">R$ {owner.avgCost.toFixed(4)}/milha</p>
+                            <p className="text-sm font-semibold text-foreground tabular-nums">R$ {owner.totalInvested.toLocaleString("pt-BR")}</p>
+                            <p className="text-xs text-muted-foreground tabular-nums">R$ {owner.avgCost.toFixed(4)}/milha</p>
                             <div className="flex items-center gap-2 justify-end">
                               <span className="text-xs text-muted-foreground">CPFs: {owner.cpfCount}/{owner.maxCpf}</span>
                               <Badge variant={owner.cpfCount >= 20 ? "destructive" : owner.cpfCount >= 18 ? "secondary" : "outline"} className="text-xs px-1.5 py-0">{owner.cpfCount >= 20 ? "Crítico" : owner.cpfCount >= 18 ? "Atenção" : "OK"}</Badge>
@@ -496,10 +506,10 @@ export default function Dashboard() {
                       <div key={sale.id} className="flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-muted/50">
                         <div className="space-y-0.5 min-w-0">
                           <h4 className="font-semibold text-sm text-foreground font-display truncate">{sale.client}</h4>
-                          <p className="text-xs text-muted-foreground font-body truncate">{sale.owner} • {sale.program} • <span className="font-semibold">{sale.miles.toLocaleString("pt-BR")} milhas</span></p>
+                          <p className="text-xs text-muted-foreground font-body truncate">{sale.owner} • {sale.program} • <span className="font-semibold tabular-nums">{sale.miles.toLocaleString("pt-BR")} milhas</span></p>
                         </div>
                         <div className="text-right space-y-0.5 shrink-0 ml-3">
-                          <p className="text-sm font-semibold text-foreground">R$ {sale.value.toLocaleString("pt-BR")}</p>
+                          <p className="text-sm font-semibold text-foreground tabular-nums">R$ {sale.value.toLocaleString("pt-BR")}</p>
                           <Badge variant={sale.statusColor} className="text-xs px-1.5 py-0">{sale.status}</Badge>
                         </div>
                       </div>
@@ -559,7 +569,7 @@ export default function Dashboard() {
               <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
                 <div className="flex-1">
                   <div className="flex items-baseline gap-2 sm:gap-3">
-                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display text-foreground tracking-tight leading-none">
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display text-foreground tracking-tight leading-none tabular-nums">
                       <AnimatedNumber value={currentMetrics.totalMiles} />
                     </h1>
                     <span className="text-xs sm:text-sm font-medium text-muted-foreground tracking-wider uppercase font-display">
@@ -573,7 +583,7 @@ export default function Dashboard() {
                         <Wallet className="w-3 h-3 text-teal shrink-0" />
                         <span className="truncate">Total Investido</span>
                       </div>
-                      <p className="text-xs sm:text-sm font-bold text-teal">
+                      <p className="text-xs sm:text-sm font-bold text-teal tabular-nums">
                         R$ <AnimatedNumber value={currentMetrics.totalInvested} />
                       </p>
                     </div>
@@ -582,7 +592,7 @@ export default function Dashboard() {
                         <DollarSign className="w-3 h-3 text-teal shrink-0" />
                         <span className="truncate">Custo médio/ponto</span>
                       </div>
-                      <p className="text-xs sm:text-sm font-bold text-teal">
+                      <p className="text-xs sm:text-sm font-bold text-teal tabular-nums">
                         R$ {currentMetrics.avgCostPerMile.toFixed(3)}
                       </p>
                     </div>
@@ -591,7 +601,7 @@ export default function Dashboard() {
                         <TrendingUp className="w-3 h-3 text-primary shrink-0" />
                         <span className="truncate">Contas ativas</span>
                       </div>
-                      <p className="text-xs sm:text-sm font-bold text-primary">
+                      <p className="text-xs sm:text-sm font-bold text-primary tabular-nums">
                         {currentMetrics.activeAccounts}
                       </p>
                     </div>
@@ -635,8 +645,8 @@ export default function Dashboard() {
                             <p className="text-xs text-muted-foreground font-body">{owner.programs.join(", ")} • <span className="font-semibold">{owner.totalMiles.toLocaleString("pt-BR")} pontos</span></p>
                           </div>
                           <div className="text-right space-y-0.5">
-                            <p className="text-sm font-semibold text-foreground">R$ {owner.totalInvested.toLocaleString("pt-BR")}</p>
-                            <p className="text-xs text-muted-foreground">R$ {owner.avgCost.toFixed(4)}/ponto</p>
+                            <p className="text-sm font-semibold text-foreground tabular-nums">R$ {owner.totalInvested.toLocaleString("pt-BR")}</p>
+                            <p className="text-xs text-muted-foreground tabular-nums">R$ {owner.avgCost.toFixed(4)}/ponto</p>
                           </div>
                         </div>
                       ))
@@ -665,8 +675,8 @@ export default function Dashboard() {
                           <p className="text-xs text-muted-foreground font-body">{new Date(t.date).toLocaleDateString("pt-BR")} • {t.destAccountName} {t.bonusPercent ? `• +${t.bonusPercent}% bônus` : ""}</p>
                         </div>
                         <div className="text-right space-y-0.5 shrink-0 ml-3">
-                          <p className="text-sm font-semibold text-foreground">{t.pointsDebited.toLocaleString("pt-BR")} pts</p>
-                          <p className="text-xs text-success">→ {t.milesReceived.toLocaleString("pt-BR")} milhas</p>
+                          <p className="text-sm font-semibold text-foreground tabular-nums">{t.pointsDebited.toLocaleString("pt-BR")} pts</p>
+                          <p className="text-xs text-success tabular-nums">→ {t.milesReceived.toLocaleString("pt-BR")} milhas</p>
                         </div>
                       </div>
                     ))

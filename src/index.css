@@ -345,4 +345,9 @@
   .ease-smooth {
     transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
+
+  /* ── Tabular numbers (financeiro) ── */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
 }
