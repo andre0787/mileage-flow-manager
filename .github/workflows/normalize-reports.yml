@@ -16,14 +16,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Detecta PR number
+        id: pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SHA="${{ github.sha }}"
+          PR_NUM=$(echo "${{ github.event.head_commit.message }}" | grep -oP '#\K\d+' | tail -1)
+          if [ -z "$PR_NUM" ]; then
+            PR_NUM=$(gh pr list --search "SHA:${SHA}" --state merged --json number -q '.[0].number' 2>/dev/null || echo "")
+          fi
+          echo "num=${PR_NUM:-}" >> $GITHUB_OUTPUT
+
       - name: Renomeia relatórios sem prefixo PR<num>
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set -e
-          PR_NUM=$(echo "${{ github.event.head_commit.message }}" | grep -oP '#\K\d+' | tail -1)
+          PR_NUM="${{ steps.pr.outputs.num }}"
           if [ -z "$PR_NUM" ]; then
-            echo "Nenhum PR detectado no commit message"
+            echo "Nenhum PR detectado"
             exit 0
           fi
 
