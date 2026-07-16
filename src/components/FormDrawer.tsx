@@ -27,13 +27,13 @@ export function FormDrawer({ open, onOpenChange, title, description, children }:
 
   if (isMobile) {
     return (
-      <Drawer open={open} onOpenChange={onOpenChange}>
-        <DrawerContent className="max-h-[90dvh]">
-          <DrawerHeader className="text-left">
+      <Drawer open={open} onOpenChange={onOpenChange} repositionInputs={false}>
+        <DrawerContent className="top-0 mt-0 h-[100svh] max-h-[100dvh] rounded-t-none">
+          <DrawerHeader className="shrink-0 text-left">
             <DrawerTitle>{title}</DrawerTitle>
             {description && <DrawerDescription>{description}</DrawerDescription>}
           </DrawerHeader>
-          <div className="px-4 pb-safe overflow-y-auto">{children}</div>
+          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-safe">{children}</div>
         </DrawerContent>
       </Drawer>
     );

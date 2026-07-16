@@ -184,7 +184,7 @@
   select,
   textarea,
   button {
-    scroll-margin-bottom: 40dvh;
+    scroll-margin-bottom: 6rem;
   }
 
   /* View Transitions API — navegação fluida entre páginas */
