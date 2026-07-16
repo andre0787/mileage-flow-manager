@@ -27,6 +27,7 @@
 5. **Sem arquivos órfãos** em `src/` (exceto entry points). Valida: `rule-14`.
 6. **Sem duplicatas > 75%** em componentes. Valida: `rule-15`.
 7. **Todo script em `scripts/` tem atalho npm**. Valida: `rule-16`.
+8. **Skills do workflow existem em `.pi/skills/`** — sem symlink quebrado ou skill faltando. Valida: `rule-23`.
 
 ## 🎯 Sistema de Categorias (LAZY LOADING)
 
