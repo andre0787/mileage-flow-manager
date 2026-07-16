@@ -49,7 +49,7 @@ _Atualizado manualmente após PR #148_
 ## ✅ Última Sessão
 **Data:** 2026-07-16
 **Tarefa:** Estabilizar formulários no iPhone durante preenchimento.
-**Resultado:** PR #148 aberto com correção central em FormDrawer/drawer, remoção de scroll duplo e teste mobile.
+**Resultado:** PR #148 com CI ✅. Correções: FormDrawer full-screen, DialogContent com overflow-y-auto, scroll duplo removido, scroll-margin-bottom reduzido, regressão Playwright mobile adicionada.
 
 ## 📌 Próxima Sessão
 ### Próximos Passos
