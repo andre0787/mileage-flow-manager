@@ -32,9 +32,9 @@
 | `STACK.md` (seção Agente) | Quando precisar de ferramentas do agente | pi, opencode, MCPs, plugins, skills |
 | `docs/memory.md` | Contexto de sessões anteriores | Histórico de decisões, sprints, post-mortems |
 | `docs/IDEIAS.md` | Caixa de entrada de ideias | Ideias humanas pendentes, lidas no início da sessão |
-| `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning) |
-| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council |
-| `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação |
+| `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atual: `2026-07-16-ios-form-stability-veredito.md` |
+| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atual: `2026-07-16-ios-form-stability-design.md` |
+| `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atual: `2026-07-16-ios-form-stability.md` |
 | `docs/reports/` | Relatórios HTML | Relatórios obrigatórios antes de cada PR |
 | `.githooks/` | Git hooks | Pre-commit que bloqueia commits na main |
 | `scripts/check-feedback.mjs` | Verificação de feedback | Consulta feedbacks de usuários no Supabase |

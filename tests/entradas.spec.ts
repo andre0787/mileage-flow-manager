@@ -112,16 +112,21 @@ test.describe("Edição de Entradas", () => {
     // 4. Clicar em Editar
     // ═══════════════════════════════════════
     await page.locator("button:has-text('Editar')").first().click();
+    await page.setViewportSize({ width: 375, height: 667 });
     await page.waitForTimeout(1_000);
 
     // Verifica que o drawer de edição abriu
+    const drawer = page.locator("[role='dialog']").first();
     await expect(page.locator("text=Editar Entrada")).toBeVisible({ timeout: 3_000 });
+    await expect(drawer).toBeVisible();
 
     // ═══════════════════════════════════════
     // 5. Alterar valores e salvar
     // ═══════════════════════════════════════
     await page.fill("#amount", "75000");
+    await page.locator("#amountPaid").scrollIntoViewIfNeeded();
     await page.fill("#amountPaid", "5000.00");
+    await expect(drawer).toBeInViewport();
     await page.waitForTimeout(500);
 
     // Salva
@@ -130,6 +135,7 @@ test.describe("Edição de Entradas", () => {
 
     // Verifica valores atualizados
     await expect(page.locator("text=75.000").first()).toBeVisible({ timeout: 5_000 });
+    await page.setViewportSize({ width: 1280, height: 900 });
 
     // ═══════════════════════════════════════
     // 6. Excluir entrada

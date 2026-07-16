@@ -206,7 +206,7 @@ export function SaleForm({
         }}
         title={mode === "edit" ? "Editar Venda" : "Registrar Nova Venda"}
       >
-        <div className="grid gap-4 py-4 max-h-[70dvh] overflow-y-auto">
+        <div className="grid gap-4 py-4">
           {/* Owner + Account */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
