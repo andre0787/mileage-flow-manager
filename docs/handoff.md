@@ -1,11 +1,11 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-07-15
+> ⏰ Última atualização: 2026-07-16
 > Anterior: 2026-07-15
 ---
 
 ## 🏗️ Projeto
 
-> ⏰ Snapshot atualizado em: 2026-07-15
+> ⏰ Snapshot atualizado em: 2026-07-16
 
 ### 🏗️ Projeto
 
@@ -16,48 +16,49 @@
 
 ### 🐞 Bugs Abertos
 
-- nenhum | [ver todos → Issues](https://github.com/andreluiz0787/mileage-flow-manager/issues)
+- PR #148 corrige feedback pendente sobre formulários instáveis no iPhone.
 
 ### 📋 Commits Recentes
 
 ```
-96d22d9 feat: valida workflow e melhoria contínua
-3586e43 feat: valida workflow e melhoria contínua
-aa23aee fix: normalize-reports sed alinhado com post-pr.mjs (preserva data)
+5c646ab chore: normalize report prefix to PR148
+97809de fix: estabiliza formularios no ios
+05b7e28 docs: plano estabilidade formularios ios
 ```
 
 ## 🧭 Estado Atual
-- **Branch:** `main` / sessão final em `chore/handoff-final-pr146`
-- **Último commit:** `96d22d9` — feat: valida workflow e melhoria contínua
-- **Remote:** origin/main
+- **Branch:** `feat/ios-form-stability`
+- **Último commit:** `5c646ab` — chore: normalize report prefix to PR148
+- **Remote:** origin/feat/ios-form-stability
 ### 📋 PRs Abertos
-Nenhum PR aberto.
+- #148 — fix: estabiliza formulários no iPhone
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
 | Total testes | 112 |
 | Docs issues | 1 |
-| Branch | main |
+| Branch | feat/ios-form-stability |
 
 ---
-_Atualizado automaticamente por `scripts/update-handoff.mjs`_
+_Atualizado manualmente após PR #148_
+
 ## 🎯 Sessão Atual
-**Categoria:** refactor
-**Docs carregados:** CONVENTIONS.md, WORKFLOW.md, ARCHITECTURE.md
+**Categoria:** feature
+**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 
 ## ✅ Última Sessão
-**Data:** 2026-07-15
-**Tarefa:** Avaliar workflow, automatizar validações faltantes e criar melhoria contínua
-**Resultado:** PR #146 mergeado e deployado com sucesso em produção
+**Data:** 2026-07-16
+**Tarefa:** Estabilizar formulários no iPhone durante preenchimento.
+**Resultado:** PR #148 aberto com correção central em FormDrawer/drawer, remoção de scroll duplo e teste mobile.
 
 ## 📌 Próxima Sessão
 ### Próximos Passos
-1. Nenhum item pendente crítico.
-2. Futuro opcional: meta-validador para validar os próprios validators.
+1. Aguardar CI do PR #148.
+2. Após merge, verificar deploy com `npm run health:deploy`.
 
 ## 🧠 Notas da Sessão Atual
-- Council executado: workflow validation gaps identificados.
-- Implementados e deployados: rule-22, check-deploy, retro, CI-PROCESS.md.
-- Atalhos npm adicionados: health:deploy, retro, retro:write.
-- `npm run pre-pr`: ✅ 0 errors.
-- `npm run health:deploy`: ✅ último deploy bem-sucedido em 2026-07-15 18:49:22.
+- Council salvo em `docs/council/2026-07-16-ios-form-stability-veredito.md`.
+- Spec salva em `docs/superpowers/specs/2026-07-16-ios-form-stability-design.md`.
+- Plano salvo em `docs/superpowers/plans/2026-07-16-ios-form-stability.md`.
+- `npm run test:e2e -- tests/entradas.spec.ts`: ✅ passou.
+- `npm run pre-pr`: ✅ 0 errors antes do PR.

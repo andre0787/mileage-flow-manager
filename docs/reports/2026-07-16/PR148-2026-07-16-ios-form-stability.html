@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>ios-form-stability — ios form stability</title>
+  <title>PR148 — ios form stability</title>
   <style>
     body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
     h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
@@ -36,31 +36,32 @@
 </head>
 <body>
   <h1>📋 ios form stability</h1>
-  <p class="meta">2026-07-16 00:52 &middot; feat/ios-form-stability &middot; 05b7e28 — docs: plano estabilidade formularios ios</p>
-  <p><span class="badge auto">auto</span> <span class="badge auto">ios-form-stability</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+  <p class="meta">2026-07-16 00:54 &middot; feat/ios-form-stability &middot; 5c646ab — chore: normalize report prefix to PR148</p>
+  <p><span class="badge pr">PR #148</span> <span class="badge auto">PR148</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">5</div>
+      <div style="font-size:1.5rem;font-weight:700">12</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+581</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+606</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-8</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-25</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~461</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~560</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
 
   <h2>✅ Checklist de Revisão</h2>
     <ul>
+      <li>🖼️ Renderização verificada em desktop e mobile?</li>
       <li>🧪 Testes manuais realizados?</li>
       <li>📋 Regras de validação passam? (npm run pre-pr)</li>
     </ul>
@@ -80,12 +81,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 8 remoções — 615 linhas tocadas</td>
-        <td>✨ 581 adições — 5 arquivo(s) alterado(s)</td>
+        <td>🧹 25 remoções — 747 linhas tocadas</td>
+        <td>✨ 606 adições — 12 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/MAP.md<br><span style="color:#166534;font-weight:600">➕</span> docs/council/2026-07-16-ios-form-stability-veredito.md, docs/reports/2026-07-16/ios-form-stability-2026-07-16-ios-form-stability.html, docs/superpowers/plans/2026-07-16-ios-form-stability.md, docs/superpowers/specs/2026-07-16-ios-form-stability-design.md</td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/MAP.md<br><span style="color:#166534;font-weight:600">➕</span> docs/council/2026-07-16-ios-form-stability-veredito.md, docs/reports/2026-07-16/PR148-2026-07-16-ios-form-stability.html, docs/superpowers/plans/2026-07-16-ios-form-stability.md, docs/superpowers/specs/2026-07-16-ios-form-stability-design.md<br><em>+7 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,25 +99,25 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>5</td></tr>
-    <tr><td>Adições</td><td>+581</td></tr>
-    <tr><td>Remoções</td><td>-8</td></tr>
-    <tr><td>Tokens estimados</td><td>~461</td></tr>
+    <tr><td>Arquivos alterados</td><td>12</td></tr>
+    <tr><td>Adições</td><td>+606</td></tr>
+    <tr><td>Remoções</td><td>-25</td></tr>
+    <tr><td>Tokens estimados</td><td>~560</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:95">+436 add</div>
-        <div class="del" style="flex:1">-6 del</div>
-        <div class="overhead" style="flex:4">~19 ctx</div>
+        <div class="add" style="flex:81">+455 add</div>
+        <div class="del" style="flex:3">-19 del</div>
+        <div class="overhead" style="flex:16">~86 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+436</td><td>95%</td></tr>
-      <tr><td>Remoções</td><td>-6</td><td>1%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~19</td><td>4%</td></tr>
-      <tr><th>Total</th><th>~461</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+455</td><td>81%</td></tr>
+      <tr><td>Remoções</td><td>-19</td><td>3%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~86</td><td>16%</td></tr>
+      <tr><th>Total</th><th>~560</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
@@ -124,9 +125,16 @@
     <tr><th>Status</th><th>Arquivo</th></tr>
     <tr><td>M</td><td>docs/MAP.md</td></tr>
 <tr><td>A</td><td>docs/council/2026-07-16-ios-form-stability-veredito.md</td></tr>
-<tr><td>A</td><td>docs/reports/2026-07-16/ios-form-stability-2026-07-16-ios-form-stability.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-16/PR148-2026-07-16-ios-form-stability.html</td></tr>
 <tr><td>A</td><td>docs/superpowers/plans/2026-07-16-ios-form-stability.md</td></tr>
 <tr><td>A</td><td>docs/superpowers/specs/2026-07-16-ios-form-stability-design.md</td></tr>
+<tr><td>M</td><td>src/components/EntryForm.tsx</td></tr>
+<tr><td>M</td><td>src/components/FormDrawer.tsx</td></tr>
+<tr><td>M</td><td>src/components/SaleForm.tsx</td></tr>
+<tr><td>M</td><td>src/components/TransferForm.tsx</td></tr>
+<tr><td>M</td><td>src/components/ui/drawer.tsx</td></tr>
+<tr><td>M</td><td>src/index.css</td></tr>
+<tr><td>M</td><td>tests/entradas.spec.ts</td></tr>
   </table>
 
   
@@ -199,12 +207,12 @@ index 0000000..8b4c908
 <span class="add">+- Migrar frontend.</span>
 <span class="add">+- Trocar Vaul globalmente por outra lib.</span>
 <span class="add">+- Criar detecção customizada pesada de teclado/VisualViewport antes de tentar o ajuste CSS/layout.</span>
-diff --git a/docs/reports/2026-07-16/ios-form-stability-2026-07-16-ios-form-stability.html b/docs/reports/2026-07-16/ios-form-stability-2026-07-16-ios-form-stability.html
+diff --git a/docs/reports/2026-07-16/PR148-2026-07-16-ios-form-stability.html b/docs/reports/2026-07-16/PR148-2026-07-16-ios-form-stability.html
 new file mode 100644
-index 0000000..7e44f60
+index 0000000..358527d
 <span class="del">--- /dev/null</span>
-<span class="add">+++ b/docs/reports/2026-07-16/ios-form-stability-2026-07-16-ios-form-stability.html</span>
-@@ -0,0 +1,258 @@
+<span class="add">+++ b/docs/reports/2026-07-16/PR148-2026-07-16-ios-form-stability.html</span>
+@@ -0,0 +1,260 @@
 <span class="add">+&lt;!DOCTYPE html&gt;</span>
 <span class="add">+&lt;html lang="pt-BR"&gt;</span>
 <span class="add">+&lt;head&gt;</span>
@@ -243,13 +251,13 @@ index 0000000..7e44f60
 <span class="add">+&lt;/head&gt;</span>
 <span class="add">+&lt;body&gt;</span>
 <span class="add">+  &lt;h1&gt;📋 ios form stability&lt;/h1&gt;</span>
-<span class="add">+  &lt;p class="meta"&gt;2026-07-16 00:46 &amp;middot; feat/ios-form-stability &amp;middot; 4d0f786 — docs: design estabilidade formularios ios&lt;/p&gt;</span>
+<span class="add">+  &lt;p class="meta"&gt;2026-07-16 00:52 &amp;middot; feat/ios-form-stability &amp;middot; 05b7e28 — docs: plano estabilidade formularios ios&lt;/p&gt;</span>
 <span class="add">+  &lt;p&gt;&lt;span class="badge auto"&gt;auto&lt;/span&gt; &lt;span class="badge auto"&gt;ios-form-stability&lt;/span&gt; &lt;span class="badge" style="background:#dcfce7;color:#166534"&gt;Baixo Risco&lt;/span&gt;&lt;/p&gt;</span>
 <span class="add">+</span>
 <span class="add">+  &lt;!-- Status cards --&gt;</span>
 <span class="add">+  &lt;div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0"&gt;</span>
 <span class="add">+    &lt;div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
-<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700"&gt;3&lt;/div&gt;</span>
+<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700"&gt;5&lt;/div&gt;</span>
 <span class="add">+      &lt;div style="font-size:.7rem;color:#666"&gt;Arquivos&lt;/div&gt;</span>
 <span class="add">+    &lt;/div&gt;</span>
 <span class="add">+    &lt;div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
