@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>skill-orphans-fix — skill orphans fix</title>
+  <title>PR149 — skill orphans fix</title>
   <style>
     body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
     h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 skill orphans fix</h1>
-  <p class="meta">2026-07-16 01:36 &middot; chore/skill-orphans-fix &middot; 9a4e3bd — docs: encerra sessao ios-form-stability</p>
-  <p><span class="badge auto">auto</span> <span class="badge auto">skill-orphans-fix</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+  <p class="meta">2026-07-16 01:37 &middot; chore/skill-orphans-fix &middot; e2d8779 — chore: normalize report prefix to PR149</p>
+  <p><span class="badge pr">PR #149</span> <span class="badge auto">PR149</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">0</div>
+      <div style="font-size:1.5rem;font-weight:700">17</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+285</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-18</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~296</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -80,12 +80,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 0 remoções — 1 linhas tocadas</td>
-        <td>✨ 0 adições — 0 arquivo(s) alterado(s)</td>
+        <td>🧹 18 remoções — 394 linhas tocadas</td>
+        <td>✨ 285 adições — 17 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"></td>
+        <td colspan="2"><span style="color:#166534;font-weight:600">➕</span> .pi/skills/brainstorming, .pi/skills/dispatching-parallel-agents, .pi/skills/executing-plans, .pi/skills/finishing-a-development-branch, .pi/skills/llm-council/SKILL.md<br><em>+12 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,38 +98,173 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>0</td></tr>
-    <tr><td>Adições</td><td>+0</td></tr>
-    <tr><td>Remoções</td><td>-0</td></tr>
-    <tr><td>Tokens estimados</td><td>~1</td></tr>
+    <tr><td>Arquivos alterados</td><td>17</td></tr>
+    <tr><td>Adições</td><td>+285</td></tr>
+    <tr><td>Remoções</td><td>-18</td></tr>
+    <tr><td>Tokens estimados</td><td>~296</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:72">+214 add</div>
+        <div class="del" style="flex:5">-14 del</div>
+        <div class="overhead" style="flex:23">~68 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+214</td><td>72%</td></tr>
+      <tr><td>Remoções</td><td>-14</td><td>5%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~68</td><td>23%</td></tr>
+      <tr><th>Total</th><th>~296</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-    
+    <tr><td>A</td><td>.pi/skills/brainstorming</td></tr>
+<tr><td>A</td><td>.pi/skills/dispatching-parallel-agents</td></tr>
+<tr><td>A</td><td>.pi/skills/executing-plans</td></tr>
+<tr><td>A</td><td>.pi/skills/finishing-a-development-branch</td></tr>
+<tr><td>A</td><td>.pi/skills/llm-council/SKILL.md</td></tr>
+<tr><td>A</td><td>.pi/skills/receiving-code-review</td></tr>
+<tr><td>A</td><td>.pi/skills/requesting-code-review</td></tr>
+<tr><td>A</td><td>.pi/skills/subagent-driven-development</td></tr>
+<tr><td>A</td><td>.pi/skills/systematic-debugging</td></tr>
+<tr><td>A</td><td>.pi/skills/test-driven-development</td></tr>
+<tr><td>A</td><td>.pi/skills/using-git-worktrees</td></tr>
+<tr><td>A</td><td>.pi/skills/verification-before-completion</td></tr>
+<tr><td>A</td><td>.pi/skills/writing-plans</td></tr>
+<tr><td>M</td><td>AGENTS.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-16/PR149-2026-07-16-skill-orphans-fix.html</td></tr>
+<tr><td>M</td><td>package.json</td></tr>
+<tr><td>A</td><td>scripts/rules/rule-23-skill-orphans.mjs</td></tr>
   </table>
 
   
 
   <h2>🔍 Diff</h2>
   <div class="diff">
-    
+    diff --git a/.pi/skills/brainstorming b/.pi/skills/brainstorming
+new file mode 120000
+index 0000000..04238d0
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/.pi/skills/brainstorming</span>
+@@ -0,0 +1 @@
+<span class="add">+/home/andreluiz0787/.pi/agent/git/github.com/obra/superpowers/skills/brainstorming</span>
+\ No newline at end of file
+diff --git a/.pi/skills/dispatching-parallel-agents b/.pi/skills/dispatching-parallel-agents
+new file mode 120000
+index 0000000..30100fe
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/.pi/skills/dispatching-parallel-agents</span>
+@@ -0,0 +1 @@
+<span class="add">+/home/andreluiz0787/.pi/agent/git/github.com/obra/superpowers/skills/dispatching-parallel-agents</span>
+\ No newline at end of file
+diff --git a/.pi/skills/executing-plans b/.pi/skills/executing-plans
+new file mode 120000
+index 0000000..0fcf17f
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/.pi/skills/executing-plans</span>
+@@ -0,0 +1 @@
+<span class="add">+/home/andreluiz0787/.pi/agent/git/github.com/obra/superpowers/skills/executing-plans</span>
+\ No newline at end of file
+diff --git a/.pi/skills/finishing-a-development-branch b/.pi/skills/finishing-a-development-branch
+new file mode 120000
+index 0000000..b7aad9d
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/.pi/skills/finishing-a-development-branch</span>
+@@ -0,0 +1 @@
+<span class="add">+/home/andreluiz0787/.pi/agent/git/github.com/obra/superpowers/skills/finishing-a-development-branch</span>
+\ No newline at end of file
+diff --git a/.pi/skills/llm-council/SKILL.md b/.pi/skills/llm-council/SKILL.md
+new file mode 100644
+index 0000000..365e7ba
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/.pi/skills/llm-council/SKILL.md</span>
+@@ -0,0 +1,46 @@
+<span class="add">+---</span>
+<span class="add">+name: llm-council</span>
+<span class="add">+description: &gt;</span>
+<span class="add">+  LLM Council protocol: 5 advisors (Contrarian, First Principles, Expansionist, Outsider, Executor)</span>
+<span class="add">+  analyze a request from different angles, then peer review and chairman synthesis.</span>
+<span class="add">+  Used internally by council-to-superpowers workflow.</span>
+<span class="add">+---</span>
+<span class="add">+</span>
+<span class="add">+# LLM Council Protocol</span>
+<span class="add">+</span>
+<span class="add">+5 advisors analisam a solicitação de ângulos diferentes, seguidos de peer review anônimo e síntese do chairman.</span>
+<span class="add">+</span>
+<span class="add">+## Advisors</span>
+<span class="add">+</span>
+<span class="add">+1. **The Contrarian** — busca o que vai falhar, pontos cegos, riscos ignorados</span>
+<span class="add">+2. **First Principles Thinker** — questiona premissas, volta aos fundamentos</span>
+<span class="add">+3. **The Expansionist** — enxerga oportunidades, escala, efeitos colaterais positivos</span>
+<span class="add">+4. **The Outsider** — olho fresco, sem viés de domínio, pergunta o "óbvio"</span>
+<span class="add">+5. **The Executor** — foca no "como fazer", viabilidade, esforço, riscos de implementação</span>
+<span class="add">+</span>
+<span class="add">+## Formato</span>
+<span class="add">+</span>
+<span class="add">+Cada advisor produz:</span>
+<span class="add">+```markdown</span>
+<span class="add">+### Advisor: &lt;nome&gt;</span>
+<span class="add">+**Análise:** &lt;2-3 parágrafos&gt;</span>
+<span class="add">+**Veredito:** &lt;Faça / Não faça / Reformule&gt;</span>
+<span class="add">+```</span>
+<span class="add">+</span>
+<span class="add">+## Peer Review</span>
+<span class="add">+</span>
+<span class="add">+Cada advisor recebe as análises dos outros 4 anonimamente e pode:</span>
+<span class="add">+- Reforçar pontos concordantes</span>
+<span class="add">+- Questionar premissas</span>
+<span class="add">+- Ajustar seu veredito</span>
+<span class="add">+</span>
+<span class="add">+## Chairman Synthesis</span>
+<span class="add">+</span>
+<span class="add">+O chairman (Executor) sintetiza:</span>
+<span class="add">+```markdown</span>
+<span class="add">+## Síntese do Chairman</span>
+<span class="add">+</span>
+<span class="add">+**Consenso:** &lt;resumo&gt;</span>
+<span class="add">+**Veredito Final:** &lt;Faça / Não faça / Reformule&gt;</span>
+<span class="add">+**Próximos Passos:** &lt;se Faça, encaminha para Superpowers&gt;</span>
+<span class="add">+```</span>
+diff --git a/.pi/skills/receiving-code-review b/.pi/skills/receiving-code-review
+new file mode 120000
+index 0000000..9c3af15
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/.pi/skills/receiving-code-review</span>
+@@ -0,0 +1 @@
+<span class="add">+/home/andreluiz0787/.pi/agent/git/github.com/obra/superpowers/skills/receiving-code-review</span>
+\ No newline at end of file
+diff --git a/.pi/skills/requesting-code-review b/.pi/skills/requesting-code-review
+new file mode 120000
+index 0000000..3f2a17e
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/.pi/skills/requesting-code-review</span>
+@@ -0,0 +1 @@
+<span class="add">+/home/andreluiz0787/.pi/agent/git/github.com/obra/superpowers/skills/requesting-code-review</span>
+\ No newline at end of file
+diff --git a/.pi/skills/subagent-driven-development b/.pi/skills/subagent-driven-development
+new file mode 120000
+index 0000000..ea0fcdd
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/.pi/skills/subagent-driven-development</span>
+@@ -0,0 +1 @@
+<span class="add">+/home/andreluiz0787/.pi/agent/git/github.com/obra/superpowers/skills/subagent-driven-development</span>
+\ No newline at end of file
+diff --git a/.pi/skills/systematic-debugging b/.pi/skills/systematic-debugging
+new file mode 120000
+index 0000000..f49310f
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/.pi/skills/systematic-debugging</span>
+@@ -0,0 +1 @@
+<span class="add">+/home/andreluiz0787/.pi/agent/git/github.com/obra/superpowers/skills/systematic-debugging</span>
+\ No newline at end of file
+diff --git a/.pi/skills/test-driven-development b/.pi/skills/test-driven-development
+new file mode 120000
+index 0000000..700f48f
+<span class="del">--- /dev/null</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
