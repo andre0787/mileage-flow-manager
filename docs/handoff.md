@@ -1,13 +1,9 @@
 # HANDOFF — MilesControl
 > ⏰ Última atualização: 2026-07-16
-> Anterior: 2026-07-15
+> Anterior: 2026-07-16
 ---
 
 ## 🏗️ Projeto
-
-> ⏰ Snapshot atualizado em: 2026-07-16
-
-### 🏗️ Projeto
 
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
@@ -18,47 +14,32 @@
 
 - PR #148 corrige feedback pendente sobre formulários instáveis no iPhone.
 
-### 📋 Commits Recentes
-
-```
-5c646ab chore: normalize report prefix to PR148
-97809de fix: estabiliza formularios no ios
-05b7e28 docs: plano estabilidade formularios ios
-```
-
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** PR #148 mergeado e deployado
-- **Remote:** origin/main
+- **Branch:** `chore/skill-orphans-fix`
+- **Último commit:** `e2d8779` — chore: normalize report prefix to PR149
+- **Remote:** origin/chore/skill-orphans-fix
 ### 📋 PRs Abertos
-Nenhum PR aberto.
+- #149 — chore: fix skill orphans — symlinks para Superpowers + rule-23 + llm-council skill
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
 | Total testes | 112 |
 | Docs issues | 1 |
-| Branch | main |
-
----
-_Sessão encerrada em 2026-07-16_
+| Branch | chore/skill-orphans-fix |
 
 ## 🎯 Sessão Atual
-**Categoria:** feature
-**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
+**Categoria:** chore
+**Docs carregados:** (apenas AGENTS.md)
 
 ## ✅ Última Sessão
 **Data:** 2026-07-16
-**Tarefa:** Estabilizar formulários no iPhone durante preenchimento.
-**Resultado:** PR #148 com CI ✅. Correções: FormDrawer full-screen, DialogContent com overflow-y-auto, scroll duplo removido, scroll-margin-bottom reduzido, regressão Playwright mobile adicionada.
+**Tarefa:** Fix skill orphans — symlinks para Superpowers + rule-23 + llm-council skill
+**Resultado:** PR #149 criado com CI pendente.
 
 ## 📌 Próxima Sessão
 ### Próximos Passos
-1. Aguardar CI do PR #148.
+1. Aguardar CI do PR #149.
 2. Após merge, verificar deploy com `npm run health:deploy`.
 
-## 🧠 Notas da Sessão Atual
-- Council salvo em `docs/council/2026-07-16-ios-form-stability-veredito.md`.
-- Spec salva em `docs/superpowers/specs/2026-07-16-ios-form-stability-design.md`.
-- Plano salvo em `docs/superpowers/plans/2026-07-16-ios-form-stability.md`.
-- `npm run test:e2e -- tests/entradas.spec.ts`: ✅ passou.
-- `npm run pre-pr`: ✅ 0 errors antes do PR.
+---
+_Atualizado automaticamente por `scripts/update-handoff.mjs`_
