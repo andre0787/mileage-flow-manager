@@ -27,20 +27,20 @@
 ```
 
 ## 🧭 Estado Atual
-- **Branch:** `feat/ios-form-stability`
-- **Último commit:** `5c646ab` — chore: normalize report prefix to PR148
-- **Remote:** origin/feat/ios-form-stability
+- **Branch:** `main`
+- **Último commit:** PR #148 mergeado e deployado
+- **Remote:** origin/main
 ### 📋 PRs Abertos
-- #148 — fix: estabiliza formulários no iPhone
+Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
 | Total testes | 112 |
 | Docs issues | 1 |
-| Branch | feat/ios-form-stability |
+| Branch | main |
 
 ---
-_Atualizado manualmente após PR #148_
+_Sessão encerrada em 2026-07-16_
 
 ## 🎯 Sessão Atual
 **Categoria:** feature
