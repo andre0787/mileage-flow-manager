@@ -43,7 +43,9 @@ export function useAddAccountMutation() {
       });
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+    },
     onError: (err) => {
       logError("addAccount", err);
       queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
@@ -69,7 +71,9 @@ export function useUpdateAccountMutation() {
       const { error } = await supabase.from("accounts").update(updateData).eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+    },
     onError: (err) => {
       logError("updateAccount", err);
       queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
@@ -85,10 +89,12 @@ export function useDeleteAccountMutation() {
       const { error } = await supabase.from("accounts").delete().eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' }),
+      ]);
       logDestructiveOp("delete", "account");
       toast.success("Conta excluída com sucesso");
     },
@@ -163,10 +169,12 @@ export function useRecalcAccountMutation() {
         .eq("id", accountId);
       if (updateErr) throw updateErr;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' }),
+      ]);
       toast.success("Saldo recalculado com sucesso");
     },
     onError: (err) => {

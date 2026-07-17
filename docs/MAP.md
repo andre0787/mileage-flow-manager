@@ -32,7 +32,7 @@
 | `STACK.md` (seção Agente) | Quando precisar de ferramentas do agente | pi, opencode, MCPs, plugins, skills |
 | `docs/memory.md` | Contexto de sessões anteriores | Histórico de decisões, sprints, post-mortems |
 | `docs/IDEIAS.md` | Caixa de entrada de ideias | Ideias humanas pendentes, lidas no início da sessão |
-| `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atual: `2026-07-16-ios-form-stability-veredito.md` |
+| `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md` |
 | `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atual: `2026-07-16-ios-form-stability-design.md` |
 | `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atual: `2026-07-16-ios-form-stability.md` |
 | `docs/reports/` | Relatórios HTML | Relatórios obrigatórios antes de cada PR |

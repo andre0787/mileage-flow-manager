@@ -54,7 +54,7 @@ export function useAddProgramMutation() {
         if (otError) throw otError;
       }
     },
-    onSuccess: (_data, variables) => {
+    onSuccess: async (_data, variables) => {
       // ponytail: optimistic cache update so dropdown shows new program instantly
       if (userId) {
         queryClient.setQueryData<Program[]>(["programs", userId], (old) => {
@@ -63,8 +63,10 @@ export function useAddProgramMutation() {
           return [...old, variables];
         });
       }
-      queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: 'all' });
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: 'all' }),
+      ]);
     },
     onError: (err) => {
       logError("addProgram", err);
@@ -88,7 +90,9 @@ export function useUpdateProgramMutation() {
       const { error } = await supabase.from("programs").update(updateData).eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: 'all' }),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: 'all' });
+    },
     onError: (err) => {
       logError("updateProgram", err);
       toast.error("Erro ao atualizar programa");
@@ -103,8 +107,8 @@ export function useDeleteProgramMutation() {
       const { error } = await supabase.from("programs").delete().eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: 'all' });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: 'all' });
       logDestructiveOp("delete", "program");
       toast.success("Programa excluído com sucesso");
     },

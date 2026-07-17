@@ -210,28 +210,22 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.getByRole("tab", { name: /milhas/i }).click();
     await page.waitForTimeout(500);
 
-    await page.getByRole("button", { name: /nova entrada/i }).first().click();
+    await page.getByRole("button", { name: /transferir/i }).click();
     await page.waitForTimeout(300);
 
-    // Milhas tab: only "Latam Pass" account and "Transferência" origem type are available
+    // TransferForm: source points first, destination miles second.
     const mCmb = page.locator("[role=combobox]");
     await mCmb.nth(0).click();
     await page.waitForTimeout(300);
-    await page.getByRole("option", { name: /latam/i }).click();
+    await page.getByRole("option", { name: /smiles/i }).click();
     await mCmb.nth(1).click();
     await page.waitForTimeout(300);
-    await page.getByRole("option", { name: /transferência/i }).click();
-    await page.waitForTimeout(300);
+    await page.getByRole("option", { name: /latam/i }).click();
 
-    // Select source account (Smiles) BEFORE amount (source onChange clears amount)
-    await mCmb.nth(2).click();
-    await page.waitForTimeout(300);
-    await page.getByRole("option", { name: /smiles/i }).click();
+    await page.fill("#transferDate", new Date().toISOString().split("T")[0]);
+    await page.fill("#transferAmount", "20000");
 
-    await page.fill("#amount", "20000");
-    // amountPaid is auto-calculated (disabled input for transfers)
-
-    const bonus = page.locator('#bonus');
+    const bonus = page.locator('#transferBonus');
     if (await bonus.isVisible()) await bonus.fill("50");
 
     await page.getByRole("button", { name: /registrar/i }).click();

@@ -1,9 +1,13 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-07-16
+> ⏰ Última atualização: 2026-07-17
 > Anterior: 2026-07-16
 ---
 
 ## 🏗️ Projeto
+
+> ⏰ Snapshot atualizado em: 2026-07-17
+
+### 🏗️ Projeto
 
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
@@ -12,33 +16,46 @@
 
 ### 🐞 Bugs Abertos
 
-- PR #148 corrige feedback pendente sobre formulários instáveis no iPhone.
+- nenhum | [ver todos → Issues](https://github.com/andreluiz0787/mileage-flow-manager/issues)
+
+### 📋 Commits Recentes
+
+```
+7309bd3 test: ajusta fluxo de transferência E2E
+70107da docs: atualiza handoff da correção de recorrência
+d5afb51 fix: ativa recorrencia pelo tipo de origem
+```
 
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** PR #149 mergeado e deployado
-- **Remote:** origin/main
+- **Branch:** `fix/auto-refresh-after-mutations`
+- **Último commit:** `7309bd3` — test: ajusta fluxo de transferência E2E
+- **Remote:** origin/fix/auto-refresh-after-mutations
 ### 📋 PRs Abertos
-Nenhum PR aberto.
+- #150 — fix: aguarda atualização do cache após mutations
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 112 |
+| Total testes | 113 |
 | Docs issues | 1 |
-| Branch | main |
+| Branch | fix/auto-refresh-after-mutations |
 
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Docs carregados:** (apenas AGENTS.md)
+**Categoria:** bugfix
+**Docs carregados:** `docs/DEBUG.md`, `docs/CONVENTIONS.md`
 
 ## ✅ Última Sessão
-**Data:** 2026-07-16
-**Tarefa:** Fix skill orphans — symlinks para Superpowers + rule-23 + llm-council skill
-**Resultado:** PR #149 mergeado e deployado com CI ✅.
+**Data:** 2026-07-17
+**Tarefa:** corrigir cache e ativar recorrência pelo tipo de origem
+**Resultado:** PR #150 atualizado; recorrência automática validada no E2E.
 
 ## 📌 Próxima Sessão
-### Próximos Passos
-1. Aguardar feedback do usuário para próxima tarefa.
+1. Verificar CI/PR #150 e fazer merge quando aprovado.
+2. Investigar separadamente o fechamento da página no fluxo E2E após criar cliente, se necessário.
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
+## 🧠 Notas da Sessão Atual
+- Correção: callbacks `onSuccess` das mutations aguardam `invalidateQueries` com `refetchType: 'all'`.
+- Validações: 50 unit tests, build, lint com 9 warnings preexistentes, pre-pr com 0 erros.
+- E2E específico: recorrência automática e transferência passaram após atualizar o teste; o fluxo ainda fecha a página após criar cliente, sem relação com recorrência.
+- PR: https://github.com/andre0787/mileage-flow-manager/pull/150

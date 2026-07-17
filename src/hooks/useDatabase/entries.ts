@@ -131,9 +131,11 @@ export function useAddEntryMutation() {
         await supabase.from("accounts").update(update).eq("id", entry.accountId);
       }
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
+      ]);
     },
     onError: (err) => {
       logError("addEntry", err);
@@ -183,9 +185,11 @@ export function useConfirmEntryMutation() {
         if (updAccErr) throw updAccErr;
       }
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
+      ]);
     },
     onError: (err) => {
       console.error("[confirmEntry]", err);
@@ -331,9 +335,11 @@ export function useUpdateEntryMutation() {
         }
       }
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
+      ]);
     },
     onError: (err) => {
       logError("updateEntry", err);
@@ -402,9 +408,11 @@ export function useDeleteEntryMutation() {
         }
       }
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
+      ]);
       toast.success("Entrada excluída com sucesso");
     },
     onError: (err) => {
