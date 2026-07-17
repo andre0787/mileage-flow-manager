@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { FormDrawer } from "@/components/FormDrawer"
 import { isTransferencia } from "@/lib/utils"
+import { parseOrigemTypeDescription } from "@/lib/origemTypes"
 import type { Account, OrigemType, Program, Owner, EntryFormData } from "@/types"
 
 interface EntryFormProps {
@@ -64,6 +65,10 @@ export function EntryForm({
   const selectedAccount = accounts.find((a) => a.id === form.accountId)
   const availableAccounts = accounts.filter((a) => a.type === type && a.status === "ativa")
   const currentOrigemTypes = origemTypes.filter((ot) => ot.accountType === type && !isTransferencia(ot))
+  const selectedOrigemType = origemTypes.find((ot) => ot.id === form.origemTypeId)
+  const selectedOrigemTypeHasRecurrence = selectedOrigemType
+    ? parseOrigemTypeDescription(selectedOrigemType.description).hasRecurrence
+    : false
 
   const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id
   const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id
@@ -150,7 +155,18 @@ export function EntryForm({
             <Select
               value={form.origemTypeId}
               onValueChange={(value) => {
-                set({ origemTypeId: value })
+                const selected = origemTypes.find((ot) => ot.id === value)
+                const hasRecurrence = selected
+                  ? parseOrigemTypeDescription(selected.description).hasRecurrence
+                  : false
+                set({
+                  origemTypeId: value,
+                  isRecurrent: hasRecurrence,
+                  recurrenceCount: hasRecurrence ? Math.max(form.recurrenceCount, 2) : 1,
+                  startDate: hasRecurrence
+                    ? form.startDate || form.date || new Date().toISOString().split("T")[0]
+                    : form.date,
+                })
                 clearErr("origemTypeId")
               }}
             >
@@ -281,6 +297,11 @@ export function EntryForm({
 
       {/* Recorrência */}
       <div className="space-y-4">
+        {selectedOrigemTypeHasRecurrence && (
+          <p className="text-sm text-primary">
+            Recorrência ativada pelo tipo de origem selecionado
+          </p>
+        )}
         <div className="flex items-center gap-2">
           <input
             type="checkbox"
@@ -323,6 +344,7 @@ export function EntryForm({
                 <Input
                   type="number"
                   min="2"
+                  placeholder="Ex: 12"
                   value={String(form.recurrenceCount)}
                   onChange={(e) => {
                     const val = Math.max(2, parseInt(e.target.value) || 1)
