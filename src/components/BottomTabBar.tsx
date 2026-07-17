@@ -1,9 +1,15 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { LayoutDashboard, CreditCard, TrendingUp, TrendingDown, Settings, Bug } from "lucide-react";
+import { LayoutDashboard, CreditCard, TrendingUp, TrendingDown, Settings } from "lucide-react";
 import { useData } from "@/contexts/DataContext";
-import { FeedbackDialog } from "./FeedbackDialog";
 import { cn } from "@/lib/utils";
 
+/**
+ * Bar de navegação inferior (mobile only).
+ *
+ * 5 itens primários (alvos de toque confortáveis em 375px).
+ * "Reportar problema" foi movido para a sidebar/header — ação secundária
+ * não deve competir por espaço na nav principal.
+ */
 export function BottomTabBar() {
   const location = useLocation();
   const { entries } = useData();
@@ -13,17 +19,17 @@ export function BottomTabBar() {
   const isActive = (path: string) => location.pathname === path;
   const btnClass = (active: boolean) =>
     cn(
-      "flex flex-col items-center justify-center gap-0.5 min-w-[48px] min-h-[44px] px-3 py-1 rounded-lg transition-all duration-200 relative",
+      "flex flex-col items-center justify-center gap-0.5 flex-1 min-h-[52px] py-1.5 rounded-lg transition-all duration-200 relative",
       active ? "text-primary" : "text-muted-foreground hover:text-foreground",
     );
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 z-40 bg-background/80 backdrop-blur-lg border-t flex items-center justify-around md:hidden safe-area-bottom">
+    <nav className="fixed bottom-0 inset-x-0 z-40 bg-background/80 backdrop-blur-lg border-t flex items-stretch justify-around md:hidden safe-area-bottom">
       {/* Dashboard */}
-      <NavLink to="/" className={btnClass(isActive("/"))}>
+      <NavLink to="/" className={btnClass(isActive("/"))} end>
         {isActive("/") && <span className="absolute -top-px left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary rounded-full" />}
         <LayoutDashboard className={cn("h-5 w-5 transition-transform", isActive("/") && "scale-110")} />
-        <span className={cn("text-xs font-medium leading-tight font-display", isActive("/") && "font-semibold")}>
+        <span className={cn("text-[10px] font-medium leading-tight font-display", isActive("/") && "font-semibold")}>
           Dashboard
         </span>
       </NavLink>
@@ -32,7 +38,7 @@ export function BottomTabBar() {
       <NavLink to="/contas" className={btnClass(isActive("/contas"))}>
         {isActive("/contas") && <span className="absolute -top-px left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary rounded-full" />}
         <CreditCard className={cn("h-5 w-5 transition-transform", isActive("/contas") && "scale-110")} />
-        <span className={cn("text-xs font-medium leading-tight font-display", isActive("/contas") && "font-semibold")}>
+        <span className={cn("text-[10px] font-medium leading-tight font-display", isActive("/contas") && "font-semibold")}>
           Contas
         </span>
       </NavLink>
@@ -48,7 +54,7 @@ export function BottomTabBar() {
             </span>
           )}
         </div>
-        <span className={cn("text-xs font-medium leading-tight font-display", isActive("/entradas") && "font-semibold")}>
+        <span className={cn("text-[10px] font-medium leading-tight font-display", isActive("/entradas") && "font-semibold")}>
           Entradas
         </span>
       </NavLink>
@@ -57,7 +63,7 @@ export function BottomTabBar() {
       <NavLink to="/vendas" className={btnClass(isActive("/vendas"))}>
         {isActive("/vendas") && <span className="absolute -top-px left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary rounded-full" />}
         <TrendingDown className={cn("h-5 w-5 transition-transform", isActive("/vendas") && "scale-110")} />
-        <span className={cn("text-xs font-medium leading-tight font-display", isActive("/vendas") && "font-semibold")}>
+        <span className={cn("text-[10px] font-medium leading-tight font-display", isActive("/vendas") && "font-semibold")}>
           Vendas
         </span>
       </NavLink>
@@ -66,20 +72,10 @@ export function BottomTabBar() {
       <NavLink to="/configuracoes" className={btnClass(isActive("/configuracoes"))}>
         {isActive("/configuracoes") && <span className="absolute -top-px left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary rounded-full" />}
         <Settings className={cn("h-5 w-5 transition-transform", isActive("/configuracoes") && "scale-110")} />
-        <span className={cn("text-xs font-medium leading-tight font-display", isActive("/configuracoes") && "font-semibold")}>
+        <span className={cn("text-[10px] font-medium leading-tight font-display", isActive("/configuracoes") && "font-semibold")}>
           Ajustes
         </span>
       </NavLink>
-
-      {/* Reportar problema */}
-      <FeedbackDialog>
-        <button className={btnClass(false)} title="Reportar problema ou sugerir melhoria">
-          <Bug className="h-5 w-5" />
-          <span className="text-xs font-medium leading-tight font-display">
-            Reportar
-          </span>
-        </button>
-      </FeedbackDialog>
     </nav>
   );
 }

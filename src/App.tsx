@@ -147,6 +147,41 @@ const AnimatedRoutes = () => {
   );
 };
 
+const PAGE_TITLES: Record<string, string> = {
+  "/": "Dashboard",
+  "/contas": "Contas",
+  "/clientes": "Clientes",
+  "/entradas": "Entradas",
+  "/vendas": "Vendas",
+  "/cpf": "Controle CPF",
+  "/relatorios": "Relatórios",
+  "/configuracoes": "Configurações",
+  "/perfil": "Perfil",
+};
+
+const PageHeader = () => {
+  const location = useLocation();
+  const pageTitle = PAGE_TITLES[location.pathname];
+
+  return (
+    <header className="h-14 flex items-center border-b bg-background/80 backdrop-blur-sm px-4 md:px-6 sticky top-0 z-30 safe-area-top">
+      <SidebarTrigger />
+      <div className="ml-4 flex items-center gap-2">
+        <h2 className="text-base font-semibold text-foreground font-display">
+          {pageTitle || "MilesControl"}
+        </h2>
+      </div>
+      <div className="ml-auto flex items-center gap-2">
+        <LanguageSelector />
+        <div className="hidden md:block">
+          <KeyboardShortcutsHelp />
+        </div>
+        <GlobalSearch />
+      </div>
+    </header>
+  );
+};
+
 const AppLayout = () => {
   useKeyboardShortcuts();
 
@@ -158,17 +193,7 @@ const AppLayout = () => {
         <AppSidebar />
         <div className="flex-1 flex flex-col min-w-0">
           <OfflineBanner />
-            <header className="h-14 flex items-center border-b bg-background/80 backdrop-blur-sm px-4 md:px-6 sticky top-0 z-30 safe-area-top">
-              <SidebarTrigger />
-              <div className="ml-4">
-                <h2 className="text-base font-semibold text-foreground font-display">MilesControl</h2>
-              </div>
-              <div className="ml-auto flex items-center gap-2">
-                <LanguageSelector />
-                <KeyboardShortcutsHelp />
-                <GlobalSearch />
-              </div>
-            </header>
+          <PageHeader />
             <main
               className="flex-1 p-4 md:p-6 pb-20 md:pb-6 bg-background safe-area-bottom overflow-x-hidden"
               style={{ overscrollBehavior: "contain" }}
