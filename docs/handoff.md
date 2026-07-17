@@ -21,16 +21,17 @@
 ### 📋 Commits Recentes
 
 ```
+d5afb51 fix: ativa recorrencia pelo tipo de origem
+ef4326e docs: atualiza handoff pós PR150
 61f1a99 chore: normalize report prefix to PR150
-75e94cd docs: referencia veredito de atualização do cache
-ce0971b fix: aguarda atualização do cache após mutations
 ```
+
 ## 🧭 Estado Atual
 - **Branch:** `fix/auto-refresh-after-mutations`
-- **Último commit:** `61f1a99` — chore: normalize report prefix to PR150
+- **Último commit:** `d5afb51` — fix: ativa recorrencia pelo tipo de origem
 - **Remote:** origin/fix/auto-refresh-after-mutations
 ### 📋 PRs Abertos
-- #150 — fix cache — aguarda atualização após mutations
+- #150 — fix: aguarda atualização do cache após mutations
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
@@ -44,17 +45,17 @@ ce0971b fix: aguarda atualização do cache após mutations
 
 ## ✅ Última Sessão
 **Data:** 2026-07-17
-**Tarefa:** corrigir atualização automática do cache após mutations
-**Resultado:** PR #150 criado; CI pendente.
+**Tarefa:** corrigir cache e ativar recorrência pelo tipo de origem
+**Resultado:** PR #150 atualizado; recorrência automática validada no E2E.
 
 ## 📌 Próxima Sessão
 1. Verificar CI/PR #150 e fazer merge quando aprovado.
-2. Investigar separadamente a falha E2E de recorrência, se necessário.
+2. Se necessário, corrigir o cenário E2E posterior que procura transferência no formulário errado.
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🧠 Notas da Sessão Atual
 - Correção: callbacks `onSuccess` das mutations aguardam `invalidateQueries` com `refetchType: 'all'`.
-- Validações: 50 unit tests, build, lint sem erros, pre-pr com 0 erros.
-- E2E: 51 passaram, 3 flaky e 1 falhou em cenário de recorrência não relacionado ao diff.
+- Validações: 50 unit tests, build, lint com 9 warnings preexistentes, pre-pr com 0 erros.
+- E2E específico: recorrência automática passou; o fluxo continuou até falhar no seletor de transferência desatualizado.
 - PR: https://github.com/andre0787/mileage-flow-manager/pull/150
