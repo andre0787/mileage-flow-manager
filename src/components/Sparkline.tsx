@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useId, useMemo } from "react";
 import {
   ResponsiveContainer,
   AreaChart,
@@ -15,12 +15,17 @@ interface SparklineProps {
 /**
  * Mini area chart sem eixos/grid/tooltip — embutido em MetricCards.
  * Usa Recharts (já instalado) com mínimo de overhead.
+ *
+ * Nota: o id do gradient usa useId() do React para evitar colisões
+ * quando múltiplos sparklines da mesma cor coexistem na página, e para
+ * evitar caracteres inválidos (parênteses de hsl()) em ids de SVG.
  */
 export function Sparkline({
   data,
   color = "hsl(var(--primary))",
   className,
 }: SparklineProps) {
+  const gradientId = useId();
   const chartData = useMemo(
     () => data.map((value, index) => ({ index, value })),
     [data],
@@ -30,14 +35,14 @@ export function Sparkline({
 
   return (
     <div
-      className={cn("absolute bottom-0 left-0 right-0 h-10 opacity-30 pointer-events-none", className)}
+      className={cn("absolute bottom-0 left-0 right-0 h-10 opacity-25 pointer-events-none", className)}
       aria-hidden="true"
     >
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={chartData} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
           <defs>
-            <linearGradient id={`spark-${color}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={color} stopOpacity={0.4} />
+            <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={color} stopOpacity={0.35} />
               <stop offset="100%" stopColor={color} stopOpacity={0} />
             </linearGradient>
           </defs>
@@ -46,7 +51,7 @@ export function Sparkline({
             dataKey="value"
             stroke={color}
             strokeWidth={1.5}
-            fill={`url(#spark-${color})`}
+            fill={`url(#${gradientId})`}
             isAnimationActive={false}
           />
         </AreaChart>
