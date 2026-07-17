@@ -36,31 +36,32 @@
 </head>
 <body>
   <h1>📋 auto refresh after mutations</h1>
-  <p class="meta">2026-07-17 21:37 &middot; fix/auto-refresh-after-mutations &middot; ae52334 — docs: update handoff after PR #149 deploy</p>
-  <p><span class="badge auto">auto</span> <span class="badge auto">auto-refresh-after-mutations</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+  <p class="meta">2026-07-17 21:38 &middot; fix/auto-refresh-after-mutations &middot; ce0971b — fix: aguarda atualização do cache após mutations</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">auto-refresh-after-mutations</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">0</div>
+      <div style="font-size:1.5rem;font-weight:700">11</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+333</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-67</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~464</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
 
   <h2>✅ Checklist de Revisão</h2>
     <ul>
+      <li>🔌 Hooks testados em tela real?</li>
       <li>🧪 Testes manuais realizados?</li>
       <li>📋 Regras de validação passam? (npm run pre-pr)</li>
     </ul>
@@ -80,12 +81,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 0 remoções — 1 linhas tocadas</td>
-        <td>✨ 0 adições — 0 arquivo(s) alterado(s)</td>
+        <td>🧹 67 remoções — 618 linhas tocadas</td>
+        <td>✨ 333 adições — 11 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"></td>
+        <td colspan="2"><span style="color:#166534;font-weight:600">➕</span> docs/council/2026-07-16-auto-refresh-after-mutations-veredito.md, docs/reports/2026-07-17/auto-refresh-after-mutations-2026-07-17-auto-refresh-after-mutations.html<br><span style="color:#92400e;font-weight:600">✏️</span> src/hooks/useDatabase/accounts.ts, src/hooks/useDatabase/clients.ts, src/hooks/useDatabase/entries.ts<br><em>+6 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,38 +99,167 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>0</td></tr>
-    <tr><td>Adições</td><td>+0</td></tr>
-    <tr><td>Remoções</td><td>-0</td></tr>
-    <tr><td>Tokens estimados</td><td>~1</td></tr>
+    <tr><td>Arquivos alterados</td><td>11</td></tr>
+    <tr><td>Adições</td><td>+333</td></tr>
+    <tr><td>Remoções</td><td>-67</td></tr>
+    <tr><td>Tokens estimados</td><td>~464</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:54">+250 add</div>
+        <div class="del" style="flex:11">-50 del</div>
+        <div class="overhead" style="flex:35">~164 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+250</td><td>54%</td></tr>
+      <tr><td>Remoções</td><td>-50</td><td>11%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~164</td><td>35%</td></tr>
+      <tr><th>Total</th><th>~464</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-    
+    <tr><td>A</td><td>docs/council/2026-07-16-auto-refresh-after-mutations-veredito.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-17/auto-refresh-after-mutations-2026-07-17-auto-refresh-after-mutations.html</td></tr>
+<tr><td>M</td><td>src/hooks/useDatabase/accounts.ts</td></tr>
+<tr><td>M</td><td>src/hooks/useDatabase/clients.ts</td></tr>
+<tr><td>M</td><td>src/hooks/useDatabase/entries.ts</td></tr>
+<tr><td>M</td><td>src/hooks/useDatabase/origemTypes.ts</td></tr>
+<tr><td>M</td><td>src/hooks/useDatabase/owners.ts</td></tr>
+<tr><td>M</td><td>src/hooks/useDatabase/programs.ts</td></tr>
+<tr><td>M</td><td>src/hooks/useDatabase/sales.ts</td></tr>
+<tr><td>M</td><td>src/hooks/useDatabase/shared.ts</td></tr>
+<tr><td>A</td><td>tests/unit/cache-invalidation.test.ts</td></tr>
   </table>
 
   
 
   <h2>🔍 Diff</h2>
   <div class="diff">
-    
+    diff --git a/docs/council/2026-07-16-auto-refresh-after-mutations-veredito.md b/docs/council/2026-07-16-auto-refresh-after-mutations-veredito.md
+new file mode 100644
+index 0000000..85145c5
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/council/2026-07-16-auto-refresh-after-mutations-veredito.md</span>
+@@ -0,0 +1,61 @@
+<span class="add">+# Veredito do Council — atualização automática após inclusões</span>
+<span class="add">+</span>
+<span class="add">+## Solicitação</span>
+<span class="add">+</span>
+<span class="add">+Corrigir o problema transversal em que novos registros só aparecem após recalcular tudo ou limpar o cache, avaliando o código inteiro e seguindo o fluxo completo até implementação.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: Contrarian</span>
+<span class="add">+**Análise:** O sintoma pode não ser apenas falta de invalidação: `refetchType: 'active'`, chaves inconsistentes, filtros por usuário e atualizações locais incompletas também podem deixar telas divergentes. Corrigir somente o formulário relatado tende a repetir o defeito em entradas, vendas, programas, tipos de origem e dashboard.</span>
+<span class="add">+</span>
+<span class="add">+A correção precisa começar por um inventário de todas as mutations e de todos os consumidores das queries afetadas. Também deve evitar invalidar consultas com chaves genéricas quando a chave real contém `userId`, e deve preservar as invariantes de saldo.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Faça, mas trate como problema de fluxo de dados, não como ajuste visual isolado.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: First Principles</span>
+<span class="add">+**Análise:** A fonte de verdade é o Supabase; o cache do TanStack Query é uma cópia. Depois de uma mutação confirmada, toda consulta derivada ou diretamente afetada precisa ser atualizada ou invalidada de forma que refaça a leitura, inclusive quando não está montada naquele instante. O comportamento esperado é: mutation bem-sucedida → cache coerente → telas renderizam sem ação manual.</span>
+<span class="add">+</span>
+<span class="add">+A solução mínima é centralizar/revisar a invalidação nos callbacks de sucesso, usando as chaves efetivamente declaradas e `refetchType: 'all'`, conforme a regra de estoque do projeto. Não é necessário criar um novo mecanismo global se os hooks já concentram o acesso a dados.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Faça com invalidação correta e cobertura de regressão.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: Expansionist</span>
+<span class="add">+**Análise:** Uma auditoria transversal pode resolver de uma vez os feedbacks históricos: entradas, vendas, contas, programas, tipos de origem, clientes e dashboard. Além da query primária, saldos e métricas derivadas precisam ser atualizados para que o usuário não veja uma lista nova com saldo antigo.</span>
+<span class="add">+</span>
+<span class="add">+A atualização otimista só deve ser usada onde já existe requisito de resposta instantânea, como tipo de origem criado dentro do formulário. Para o restante, refetch após confirmação é mais simples e confiável que duplicar regras de cálculo no cliente.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Faça, cobrindo todas as mutations e seus consumidores, sem ampliar para uma refatoração geral.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: Outsider</span>
+<span class="add">+**Análise:** Para o usuário, “salvar” significa que a tela atual muda imediatamente. O botão de limpar cache não deve fazer parte do fluxo normal. A investigação deve procurar também mutations sem `onSuccess`, callbacks que invalidam somente uma entidade, `invalidateQueries` sem `refetchType: 'all'` e nomes de query que não coincidem.</span>
+<span class="add">+</span>
+<span class="add">+O teste de aceitação mais valioso é inserir/editar/excluir em cada entidade e verificar que a lista, os dropdowns, os saldos e o dashboard se atualizam sem reload, recálculo ou limpeza manual.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Reformule a implementação como matriz mutation → queries afetadas → tela consumidora.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: Executor</span>
+<span class="add">+**Análise:** O caminho viável é: levantar hooks de `src/hooks/useDatabase`, mapear `useQuery`/`queryKey`, localizar todos os `invalidateQueries` e `setQueryData`, reproduzir a lacuna, corrigir no ponto compartilhado mais baixo possível, adicionar testes estáticos/unitários para impedir regressão e executar build, testes e `pre-pr`.</span>
+<span class="add">+</span>
+<span class="add">+Não adicionar dependência nem criar abstração até provar que as chamadas atuais não podem ser corrigidas. Se houver uma regra imutável nova, ela precisa de script; aqui a regra #19 já existe e deve ser satisfeita.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Faça com a menor alteração que cubra todas as rotas.</span>
+<span class="add">+</span>
+<span class="add">+## Peer Review</span>
+<span class="add">+</span>
+<span class="add">+- **Contrarian sobre os demais:** concorda que `refetchType: 'all'` é necessário, mas alerta que isso não corrige uma chave de query errada; o inventário deve verificar os dois lados.</span>
+<span class="add">+- **First Principles sobre os demais:** reforça que `onSuccess` é o momento correto para refletir apenas dados persistidos; callbacks de `onSettled` podem mascarar falhas.</span>
+<span class="add">+- **Expansionist sobre os demais:** aceita limitar o escopo aos fluxos existentes, desde que métricas derivadas e dashboard estejam na matriz de impacto.</span>
+<span class="add">+- **Outsider sobre os demais:** pede um teste que modele a ação do usuário sem depender de “limpar cache”, pois testes apenas de chamada do hook não garantem a experiência.</span>
+<span class="add">+- **Executor sobre os demais:** confirma que a correção deve ser feita primeiro nas mutations compartilhadas; só alterar componentes se eles realmente omitirem a consulta correta.</span>
+<span class="add">+</span>
+<span class="add">+## Síntese do Chairman</span>
+<span class="add">+</span>
+<span class="add">+**Consenso:** O defeito é sistêmico: após mutations, o cache não é invalidado/refetchado de maneira completa e consistente. A causa provável inclui chamadas sem `refetchType: 'all'`, invalidação de entidades relacionadas ausente e possíveis divergências de chaves. A auditoria deve mapear mutations, query keys e telas antes de editar.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito Final:** Faça.</span>
+<span class="add">+</span>
+<span class="add">+**Próximos Passos:**</span>
+<span class="add">+1. Inventariar hooks, queries, mutations e consumidores.</span>
+<span class="add">+2. Corrigir a invalidação no menor ponto compartilhado, incluindo contas e entidades derivadas.</span>
+<span class="add">+3. Garantir atualização otimista apenas onde já é necessária.</span>
+<span class="add">+4. Criar o menor teste de regressão possível.</span>
+<span class="add">+5. Rodar build, testes, `npm run pre-pr`, criar PR e finalizar a sessão com handoff limpo.</span>
+diff --git a/docs/reports/2026-07-17/auto-refresh-after-mutations-2026-07-17-auto-refresh-after-mutations.html b/docs/reports/2026-07-17/auto-refresh-after-mutations-2026-07-17-auto-refresh-after-mutations.html
+new file mode 100644
+index 0000000..64e1233
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/reports/2026-07-17/auto-refresh-after-mutations-2026-07-17-auto-refresh-after-mutations.html</span>
+@@ -0,0 +1,137 @@
+<span class="add">+&lt;!DOCTYPE html&gt;</span>
+<span class="add">+&lt;html lang="pt-BR"&gt;</span>
+<span class="add">+&lt;head&gt;</span>
+<span class="add">+  &lt;meta charset="UTF-8"&gt;</span>
+<span class="add">+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;</span>
+<span class="add">+  &lt;title&gt;auto-refresh-after-mutations — auto refresh after mutations&lt;/title&gt;</span>
+<span class="add">+  &lt;style&gt;</span>
+<span class="add">+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}</span>
+<span class="add">+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}</span>
+<span class="add">+    h2{font-size:1rem;margin-top:1.5rem;color:#333}</span>
+<span class="add">+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}</span>
+<span class="add">+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}</span>
+<span class="add">+    .badge.pr{background:#dbeafe;color:#1e40af}</span>
+<span class="add">+    .badge.auto{background:#fef3c7;color:#92400e}</span>
+<span class="add">+    .badge.fix{background:#fee2e2;color:#991b1b}</span>
+<span class="add">+    .badge.feat{background:#dcfce7;color:#166534}</span>
+<span class="add">+    .badge.docs{background:#ede9fe;color:#5b21b6}</span>
+<span class="add">+    .badge.chore{background:#f3f4f6;color:#374151}</span>
+<span class="add">+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}</span>
+<span class="add">+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}</span>
+<span class="add">+    th{background:#f3f4f6;font-weight:600}</span>
+<span class="add">+    tr.add{background:#f0fdf4}</span>
+<span class="add">+    tr.del{background:#fef2f2}</span>
+<span class="add">+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}</span>
+<span class="add">+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}</span>
+<span class="add">+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}</span>
+<span class="add">+    .token-bar .add{background:#dcfce7;color:#166534}</span>
+<span class="add">+    .token-bar .del{background:#fee2e2;color:#991b1b}</span>
+<span class="add">+    .token-bar .overhead{background:#f3f4f6;color:#374151}</span>
+<span class="add">+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}</span>
+<span class="add">+    .diff .add{color:#4ade80}</span>
+<span class="add">+    .diff .del{color:#f87171}</span>
+<span class="add">+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}</span>
+<span class="add">+    .center{text-align:center}</span>
+<span class="add">+  &lt;/style&gt;</span>
+<span class="add">+&lt;/head&gt;</span>
+<span class="add">+&lt;body&gt;</span>
+<span class="add">+  &lt;h1&gt;📋 auto refresh after mutations&lt;/h1&gt;</span>
+<span class="add">+  &lt;p class="meta"&gt;2026-07-17 21:37 &amp;middot; fix/auto-refresh-after-mutations &amp;middot; ae52334 — docs: update handoff after PR #149 deploy&lt;/p&gt;</span>
+<span class="add">+  &lt;p&gt;&lt;span class="badge auto"&gt;auto&lt;/span&gt; &lt;span class="badge auto"&gt;auto-refresh-after-mutations&lt;/span&gt; &lt;span class="badge" style="background:#dcfce7;color:#166534"&gt;Baixo Risco&lt;/span&gt;&lt;/p&gt;</span>
+<span class="add">+</span>
+<span class="add">+  &lt;!-- Status cards --&gt;</span>
+<span class="add">+  &lt;div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0"&gt;</span>
+<span class="add">+    &lt;div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
+<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700"&gt;0&lt;/div&gt;</span>
+<span class="add">+      &lt;div style="font-size:.7rem;color:#666"&gt;Arquivos&lt;/div&gt;</span>
+<span class="add">+    &lt;/div&gt;</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
