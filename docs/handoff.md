@@ -21,14 +21,14 @@
 ### 📋 Commits Recentes
 
 ```
+7309bd3 test: ajusta fluxo de transferência E2E
+70107da docs: atualiza handoff da correção de recorrência
 d5afb51 fix: ativa recorrencia pelo tipo de origem
-ef4326e docs: atualiza handoff pós PR150
-61f1a99 chore: normalize report prefix to PR150
 ```
 
 ## 🧭 Estado Atual
 - **Branch:** `fix/auto-refresh-after-mutations`
-- **Último commit:** `d5afb51` — fix: ativa recorrencia pelo tipo de origem
+- **Último commit:** `7309bd3` — test: ajusta fluxo de transferência E2E
 - **Remote:** origin/fix/auto-refresh-after-mutations
 ### 📋 PRs Abertos
 - #150 — fix: aguarda atualização do cache após mutations
@@ -50,12 +50,12 @@ ef4326e docs: atualiza handoff pós PR150
 
 ## 📌 Próxima Sessão
 1. Verificar CI/PR #150 e fazer merge quando aprovado.
-2. Se necessário, corrigir o cenário E2E posterior que procura transferência no formulário errado.
+2. Investigar separadamente o fechamento da página no fluxo E2E após criar cliente, se necessário.
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🧠 Notas da Sessão Atual
 - Correção: callbacks `onSuccess` das mutations aguardam `invalidateQueries` com `refetchType: 'all'`.
 - Validações: 50 unit tests, build, lint com 9 warnings preexistentes, pre-pr com 0 erros.
-- E2E específico: recorrência automática passou; o fluxo continuou até falhar no seletor de transferência desatualizado.
+- E2E específico: recorrência automática e transferência passaram após atualizar o teste; o fluxo ainda fecha a página após criar cliente, sem relação com recorrência.
 - PR: https://github.com/andre0787/mileage-flow-manager/pull/150
