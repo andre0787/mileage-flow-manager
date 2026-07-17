@@ -80,8 +80,8 @@ export function useClearAccountDataMutation() {
         if (insErr) console.error("[clearAccountData] failed to re-insert Transferência:", insErr);
       }
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ refetchType: 'all' });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ refetchType: 'all' });
       logDestructiveOp("clear", "account_data");
       toast.success("Dados da conta limpos com sucesso");
     },

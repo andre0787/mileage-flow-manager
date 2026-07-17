@@ -34,7 +34,9 @@ export function useAddOwnerMutation() {
       const { error } = await supabase.from("owners").insert(row);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["owners"], refetchType: 'all' }),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["owners"], refetchType: 'all' });
+    },
     onError: (err) => {
       logError("addOwner", err);
       toast.error("Erro ao criar dono");
@@ -49,7 +51,9 @@ export function useUpdateOwnerMutation() {
       const { error } = await supabase.from("owners").update(data).eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["owners"], refetchType: 'all' }),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["owners"], refetchType: 'all' });
+    },
     onError: (err) => {
       logError("updateOwner", err);
       toast.error("Erro ao atualizar dono");
@@ -64,8 +68,8 @@ export function useDeleteOwnerMutation() {
       const { error } = await supabase.from("owners").delete().eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["owners"], refetchType: 'all' });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["owners"], refetchType: 'all' });
       logDestructiveOp("delete", "owner");
       toast.success("Dono excluído com sucesso");
     },

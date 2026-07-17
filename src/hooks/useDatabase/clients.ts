@@ -41,7 +41,9 @@ export function useAddClientMutation() {
       });
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["clients"], refetchType: 'all' }),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["clients"], refetchType: 'all' });
+    },
     onError: (err) => {
       logError("addClient", err);
       toast.error("Erro ao criar cliente");
@@ -64,7 +66,9 @@ export function useUpdateClientMutation() {
       const { error } = await supabase.from("clients").update(updateData).eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["clients"], refetchType: 'all' }),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["clients"], refetchType: 'all' });
+    },
     onError: (err) => {
       logError("updateClient", err);
       toast.error("Erro ao atualizar cliente");
@@ -79,9 +83,11 @@ export function useDeleteClientMutation() {
       const { error } = await supabase.from("clients").delete().eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["clients"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["clients"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' }),
+      ]);
       logDestructiveOp("delete", "client");
       toast.success("Cliente excluído com sucesso");
     },
