@@ -93,13 +93,8 @@ async function main() {
     ideiasPendentes.includes("⬜") ? "💡 IDEIAS.md tem pendentes — perguntar ao usuário." : "",
   ].filter(l => l !== "").join("\n"));
 
-  // ─── Continuação: só atualiza estado ───
-  if (inProgress) {
-    atualizarEstado(branch, commit);
-    return;
-  }
-
   // ─── Modo --set-category (não-interativo, pra testes) ───
+  // Vem antes de inProgress porque --set-category é explícito (sobrescreve)
   if (setCatIdx >= 0) {
     const cat = (process.argv[setCatIdx + 1] || "").toLowerCase();
     const obj = process.argv[setCatIdx + 2] || "";
@@ -115,6 +110,12 @@ async function main() {
     }
     escreverSessao(cat, obj, branch, commit);
     console.log(`✅ Sessão iniciada: ${cat} — ${obj}`);
+    return;
+  }
+
+  // ─── Continuação: só atualiza estado ───
+  if (inProgress) {
+    atualizarEstado(branch, commit);
     return;
   }
 
