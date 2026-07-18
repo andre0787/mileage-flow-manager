@@ -39,7 +39,7 @@ Pré-requisito de tudo o que segue. Sem P0, qualquer protocolo de agente é só 
 
 | Card | Título | Estado |
 |------|--------|--------|
-| [P1-13](P1-13-typecheck-script.md) | `npm run typecheck` no package.json + CI | pending |
+| [P1-13](P1-13-typecheck-script.md) | `npm run typecheck` no package.json + CI | verified ✅ |
 | [P1-14](P1-14-check-fast-pr-nightly.md) | Separar `check:fast` / `check:pr` / `check:nightly` | pending |
 | [P1-15](P1-15-fixtures-negativas-regras.md) | Testes de regras com fixtures negativas/positivas | pending |
 | [P1-16](P1-16-ast-regras-alto-risco.md) | AST onde o risco compensa (saldo, queries, RLS) | pending |

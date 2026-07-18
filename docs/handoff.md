@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `chore/p1-13-typecheck`
-- **Último commit:** `1b7fdc5 — docs+fix: workflow-manifest + session:start persiste categoria (P0-01 + P0-02)`
+- **Último commit:** `922de0d` — chore: typecheck estrito e corrige handoff
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -21,18 +21,14 @@ Nenhum PR aberto.
 | Docs issues | 1 |
 | Branch | chore/p1-13-typecheck |
 
-
+---
+_Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
 **Objetivo:** Corrigir typecheck e validar o handoff
 **Branch:** `chore/p1-13-typecheck`
 **Último commit:** 1b7fdc5 — docs+fix: workflow-manifest + session:start persiste categoria (P0-01 + P0-02)
 **Docs carregados:** AGENTS.md
-
-
----
-_Atualizado automaticamente por `scripts/update-handoff.mjs`_
-
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
@@ -43,3 +39,4 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - MAP.md registra docs/tasks/ (rule-17).
 - Post-pr feito: relatório renomeado para prefixo PR152.
 - Branch: `chore/llm-small-model-workflow-audit` — contém só alterações em docs.
+
