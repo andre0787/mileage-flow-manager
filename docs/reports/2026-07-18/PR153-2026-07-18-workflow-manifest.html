@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>workflow-manifest — workflow manifest</title>
+  <title>PR153 — workflow manifest</title>
   <style>
     body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
     h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 workflow manifest</h1>
-  <p class="meta">2026-07-18 21:59 &middot; docs/workflow-manifest &middot; 3887544 — docs: roadmap em task-cards para workflow de modelo LLM menor</p>
-  <p><span class="badge auto">auto</span> <span class="badge auto">workflow-manifest</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+  <p class="meta">2026-07-18 22:00 &middot; docs/workflow-manifest &middot; 74bab08 — chore: normalize report prefix to PR153</p>
+  <p><span class="badge pr">PR #153</span> <span class="badge auto">PR153</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">0</div>
+      <div style="font-size:1.5rem;font-weight:700">7</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+603</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-12</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~499</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -80,12 +80,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 0 remoções — 1 linhas tocadas</td>
-        <td>✨ 0 adições — 0 arquivo(s) alterado(s)</td>
+        <td>🧹 12 remoções — 665 linhas tocadas</td>
+        <td>✨ 603 adições — 7 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> AGENTS.md, README.md, docs/MAP.md, docs/WORKFLOW.md<br><span style="color:#166534;font-weight:600">➕</span> docs/WORKFLOW-MANIFEST.md<br><em>+2 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,38 +98,163 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>0</td></tr>
-    <tr><td>Adições</td><td>+0</td></tr>
-    <tr><td>Remoções</td><td>-0</td></tr>
-    <tr><td>Tokens estimados</td><td>~1</td></tr>
+    <tr><td>Arquivos alterados</td><td>7</td></tr>
+    <tr><td>Adições</td><td>+603</td></tr>
+    <tr><td>Remoções</td><td>-12</td></tr>
+    <tr><td>Tokens estimados</td><td>~499</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:91">+452 add</div>
+        <div class="del" style="flex:2">-9 del</div>
+        <div class="overhead" style="flex:7">~38 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+452</td><td>91%</td></tr>
+      <tr><td>Remoções</td><td>-9</td><td>2%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~38</td><td>7%</td></tr>
+      <tr><th>Total</th><th>~499</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-    
+    <tr><td>M</td><td>AGENTS.md</td></tr>
+<tr><td>M</td><td>README.md</td></tr>
+<tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>A</td><td>docs/WORKFLOW-MANIFEST.md</td></tr>
+<tr><td>M</td><td>docs/WORKFLOW.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-18/PR153-2026-07-18-docs-workflow-manifest-documento-canonico-de-workflow-p0-01.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-18/PR153-2026-07-18-workflow-manifest.html</td></tr>
   </table>
 
   
 
   <h2>🔍 Diff</h2>
   <div class="diff">
-    
+    diff --git a/AGENTS.md b/AGENTS.md
+index dc78148..8f71341 100644
+<span class="del">--- a/AGENTS.md</span>
+<span class="add">+++ b/AGENTS.md</span>
+@@ -3,6 +3,10 @@
+ &gt; Projeto de gestão de milhas/pontos (milhagem). Leia o **hub abaixo** primeiro,
+ &gt; depois carregue docs específicos conforme a categoria da tarefa.
+ 
+<span class="add">+&gt; 📜 **Workflow canônico:** [`docs/WORKFLOW-MANIFEST.md`](docs/WORKFLOW-MANIFEST.md)</span>
+<span class="add">+&gt; Categorias, estados, comandos obrigatórios, alvo de PR e política de bypass.</span>
+<span class="add">+&gt; **Autoritativo** sobre definições conflitantes.</span>
+<span class="add">+</span>
+ ## ⚡ Mapa de Conhecimento
+ 
+ | Doc | Conteúdo | Tamanho |
+diff --git a/README.md b/README.md
+index 5ba0a0c..af610ae 100644
+<span class="del">--- a/README.md</span>
+<span class="add">+++ b/README.md</span>
+@@ -42,6 +42,9 @@ Produção: https://mileage-flow-manager.vercel.app
+ 
+ ## Git Workflow
+ 
+<span class="del">-- `main` — produção (deploy automático Vercel)</span>
+<span class="del">-- `develop` — desenvolvimento</span>
+<span class="del">-- `feat/*`, `fix/*` — branches com PR para `develop`</span>
+<span class="add">+&gt; 📜 **Workflow canônico:** [`docs/WORKFLOW-MANIFEST.md`](docs/WORKFLOW-MANIFEST.md)  </span>
+<span class="add">+&gt; Categorias, estados, comandos obrigatórios, alvo de PR e política de bypass.</span>
+<span class="add">+</span>
+<span class="add">+- `main` — produção (deploy automático Vercel), alvo de todo PR</span>
+<span class="add">+- `feat/*`, `fix/*`, `docs/*`, `chore/*` — branches de trabalho com PR para `main`</span>
+<span class="add">+- Não há branch `develop` — o fluxo é direto para `main`</span>
+diff --git a/docs/MAP.md b/docs/MAP.md
+index a5dfc2a..f28bb15 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -16,7 +16,8 @@
+ 
+ | Arquivo | Quando ler | O que contém |
+ |---------|-----------|--------------|
+<span class="del">-| `WORKFLOW.md` | Antes de iniciar qualquer feature | Workflow council-to-superpowers + LLM Council |</span>
+<span class="add">+| `WORKFLOW-MANIFEST.md` | **Sempre primeiro** | Fonte canônica: categorias, estados, comandos obrigatórios, alvo de PR, política de bypass |</span>
+<span class="add">+| `WORKFLOW.md` | Antes de iniciar qualquer feature | Workflow council-to-superpowers + LLM Council (detalhamento do manifesto) |</span>
+ | `AGENDA.md` | Início de toda sessão | Sprint atual, tarefas em andamento, próximas, backlog |
+ | `GIT-WORKFLOW.md` | Antes de commitar/criar PR | Branches, commits, PR, deploy |
+ | `TESTING.md` | Antes de rodar testes | Playwright, bateria obrigatória, helpers |
+@@ -78,4 +79,7 @@ Artefatos de sprints/features concluídos foram movidos para `docs/archive/`:
+ 
+ ## Regra de Ouro
+ 
+<span class="del">-**Sempre leia `AGENDA.md` + `WORKFLOW.md` + `ARCHITECTURE.md` + `CONVENTIONS.md` antes de começar qualquer tarefa.**</span>
+<span class="add">+**Sempre leia `WORKFLOW-MANIFEST.md` + `AGENDA.md` + `WORKFLOW.md` + `ARCHITECTURE.md` + `CONVENTIONS.md` antes de começar qualquer tarefa.**</span>
+<span class="add">+</span>
+<span class="add">+## Navegação Rápida</span>
+<span class="add">+- [`WORKFLOW-MANIFEST.md`](WORKFLOW-MANIFEST.md) — **Workflow canônico** (categorias, estados, comandos, alvo de PR, bypass)</span>
+diff --git a/docs/WORKFLOW-MANIFEST.md b/docs/WORKFLOW-MANIFEST.md
+new file mode 100644
+index 0000000..d53156b
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/WORKFLOW-MANIFEST.md</span>
+@@ -0,0 +1,183 @@
+<span class="add">+# 📜 Workflow Manifest — MilesControl</span>
+<span class="add">+</span>
+<span class="add">+&gt; **Fonte única e canônica** para o workflow do projeto.</span>
+<span class="add">+&gt; Todo outro documento que define workflow DEVE referenciar este manifesto.</span>
+<span class="add">+&gt; Definições conflitantes em outros docs são **não autoritativas** até serem atualizadas.</span>
+<span class="add">+</span>
+<span class="add">+---</span>
+<span class="add">+</span>
+<span class="add">+## 1. Categorias de Trabalho</span>
+<span class="add">+</span>
+<span class="add">+| Categoria | Quando usar | Docs autorizados | Workflow |</span>
+<span class="add">+|-----------|-------------|------------------|----------|</span>
+<span class="add">+| **feature** | Nova funcionalidade ou modificação significativa | `WORKFLOW.md` + `CONVENTIONS.md` | council → build → pre-pr → PR |</span>
+<span class="add">+| **bugfix** | Correção de bug | `DEBUG.md` + `CONVENTIONS.md` (seção bugs) | triagem → fix → pre-pr → PR |</span>
+<span class="add">+| **docs** | Documentação (exceto código) | `AGENTS.md` | editar → pre-pr → PR |</span>
+<span class="add">+| **refactor** | Mudança estrutural sem mudar comportamento | `CONVENTIONS.md` + `ARCHITECTURE.md` | spec → build → pre-pr → PR |</span>
+<span class="add">+| **chore** | Tarefa de manutenção/infra | `AGENTS.md` | executar → pre-pr → PR |</span>
+<span class="add">+</span>
+<span class="add">+&gt; Se a categoria não estiver na tabela, pergunte ao usuário.</span>
+<span class="add">+</span>
+<span class="add">+---</span>
+<span class="add">+</span>
+<span class="add">+## 2. Estados de Task Card</span>
+<span class="add">+</span>
+<span class="add">+Cada card em `docs/tasks/` segue este ciclo de estados:</span>
+<span class="add">+</span>
+<span class="add">+```</span>
+<span class="add">+pending → planned → implementing → verified → review → done</span>
+<span class="add">+     ↘ blocked ↗</span>
+<span class="add">+```</span>
+<span class="add">+</span>
+<span class="add">+| Estado | Definição |</span>
+<span class="add">+|--------|-----------|</span>
+<span class="add">+| **pending** | Card registrado, não iniciado |</span>
+<span class="add">+| **planned** | Branch criada, plano definido |</span>
+<span class="add">+| **implementing** | Código sendo escrito |</span>
+<span class="add">+| **verified** | Testes passando localmente, pre-pr ok |</span>
+<span class="add">+| **review** | PR aberto, aguardando review/CI |</span>
+<span class="add">+| **done** | Mergeado na `main` |</span>
+<span class="add">+| **blocked** | Aguardando dependência externa (dependeDe) |</span>
+<span class="add">+</span>
+<span class="add">+Um card blocked pode retornar a **pending** ou **planned** quando a dependência for resolvida.</span>
+<span class="add">+</span>
+<span class="add">+---</span>
+<span class="add">+</span>
+<span class="add">+## 3. Comandos Obrigatórios</span>
+<span class="add">+</span>
+<span class="add">+Todo ciclo de trabalho DEVE usar estes comandos na ordem:</span>
+<span class="add">+</span>
+<span class="add">+| Passo | Comando | Obrigatório | Quando |</span>
+<span class="add">+|-------|---------|-------------|--------|</span>
+<span class="add">+| 1 | `npm run session:start` | ✅ Sempre | Início de toda sessão |</span>
+<span class="add">+| 2 | Carregar docs da categoria | ✅ Sempre | Após definir categoria |</span>
+<span class="add">+| 3 | `npm run pre-pr` | ✅ Antes de todo PR | Gera relatório + valida |</span>
+<span class="add">+| 4 | `npm run report "&lt;desc&gt;" --write` | ✅ Antes de todo PR | Relatório HTML detalhado |</span>
+<span class="add">+| 5 | `npm run session:end "&lt;msg&gt;"` | ✅ Final da sessão | Commit + handoff + push |</span>
+<span class="add">+</span>
+<span class="add">+### Comandos auxiliares</span>
+<span class="add">+</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>

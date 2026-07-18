@@ -17,7 +17,7 @@ Pré-requisito de tudo o que segue. Sem P0, qualquer protocolo de agente é só 
 
 | Card | Título | Estado |
 |------|--------|--------|
-| [P0-01](P0-01-manifesto-workflow.md) | Manifesto único de workflow | pending |
+| [P0-01](P0-01-manifesto-workflow.md) | Manifesto único de workflow | done ✅ |
 | [P0-02](P0-02-session-start-persiste-categoria.md) | `session:start` persiste categoria/objetivo/branch | pending |
 | [P0-03](P0-03-ci-check-strict.md) | CI executa `npm run check` em modo estrito | pending |
 | [P0-04](P0-04-remove-continue-on-error.md) | Remover `continue-on-error` de checks críticos | pending |

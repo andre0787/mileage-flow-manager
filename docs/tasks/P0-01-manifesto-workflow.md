@@ -6,7 +6,7 @@
 | `categoria` | docs |
 | `onda` | P0 |
 | `baseBranch` | main |
-| `estado` | pending |
+| `estado` | done |
 | `origem` | veredito 2026-07-17, item #1 |
 | `dependeDe` | [] |
 
@@ -30,11 +30,11 @@ autoritativo (ver veredito: Advisor The Outsider e The Contrarian).
 - `README.md` (apontar p/ o manifesto)
 
 ## Critérios de aceite
-- [ ] `WORKFLOW-MANIFEST.md` contém: categorias, estados, comandos obrigatórios,
-      alvo de PR (`main`), artefatos por estado e política de bypass (`--no-verify`).
-- [ ] Demais docs referenciam o manifesto como fonte única; não há definições
+- [x] `WORKFLOW-MANIFEST.md` contém: categorias, estados, comandos obrigatórios,
+      alvo de PR (`main`), artefatos por estado e política de bypass.
+- [x] Demais docs referenciam o manifesto como fonte única; não há definições
       conflitantes de alvo de PR nem de comandos obrigatórios.
-- [ ] `npm run verify-docs` passa (sem links quebrados).
+- [x] `npm run verify-docs` passa (sem links quebrados novos).
 
 ## Riscos / Invariantes
 - Não quebrar links internos existentes.
