@@ -39,3 +39,5 @@ receber merges sem que o CI estrito seja required (veredito: Revisão B).
 ## Evidência de pronto
 - JSON da proteção da branch + trecho do GIT-WORKFLOW.
 - API retorna configuração ativa: required_status_checks (`build-and-test`), required_pull_request_reviews (1), enforce_admins habilitado.
+- Repositório tornado público (necessário para GitHub Free).
+- Deploy em produção verificado após PR #164.
