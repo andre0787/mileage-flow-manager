@@ -17,7 +17,7 @@
 | Arquivo | Quando ler | O que contém |
 |---------|-----------|--------------|
 | `WORKFLOW-MANIFEST.md` | **Sempre primeiro** | Fonte canônica: categorias, estados, comandos obrigatórios, alvo de PR, política de bypass |
-| `WORKFLOW.md` | Antes de iniciar qualquer feature | Workflow council-to-superpowers + LLM Council (detalhamento do manifesto) |
+| `WORKFLOW.md` | Antes de iniciar qualquer feature | Workflow council-to-superpowers + LLM Council + **navegação Serena-First** (detalhamento do manifesto) |
 | `AGENDA.md` | Início de toda sessão | Sprint atual, tarefas em andamento, próximas, backlog |
 | `GIT-WORKFLOW.md` | Antes de commitar/criar PR | Branches, commits, PR, deploy |
 | `TESTING.md` | Antes de rodar testes | Playwright, bateria obrigatória, helpers |
@@ -51,7 +51,7 @@
 
 | Arquivo | Quando ler | O que contém |
 |---------|-----------|--------------|
-| `STACK.md` (seção Agente) | Quando precisar de ferramentas do agente | pi, opencode, MCPs, plugins, skills |
+| `STACK.md` (seção Agente) | Quando precisar de ferramentas do agente | pi, opencode, MCPs, plugins, skills, subagentes |
 | `docs/memory.md` | Contexto de sessões anteriores | Histórico de decisões, sprints, post-mortems |
 | `docs/IDEIAS.md` | Caixa de entrada de ideias | Ideias humanas pendentes, lidas no início da sessão |
 | `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md` |
@@ -59,6 +59,9 @@
 | `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atual: `2026-07-16-ios-form-stability.md` |
 | `docs/reports/` | Relatórios HTML | Relatórios obrigatórios antes de cada PR |
 | `.githooks/` | Git hooks | Pre-commit que bloqueia commits na main |
+| `.pi/skills/subagent-driven-development/SKILL.md` | Execução delegada com subagentes | Plano → subagente por tarefa → task review → final review |
+| `.pi/skills/dispatching-parallel-agents/SKILL.md` | Investigação paralela | 1 subagente por domínio de problema independente |
+| `.pi/skills/using-git-worktrees/SKILL.md` | Worktrees isolados | Branches separadas para trabalho concorrente sem conflito |
 | `scripts/check-feedback.mjs` | Verificação de feedback | Consulta feedbacks de usuários no Supabase |
 | `scripts/check-deploy.mjs` | Saúde do deploy | Verifica status do último deploy via GitHub API |
 | `scripts/retro.mjs` | Retrospectiva | Gera relatório de retrospectiva do período |

@@ -14,12 +14,12 @@
 | `docs/STACK.md` | Stack técnica (React, Vite, Supabase, Tailwind) | 2KB |
 | `docs/ARCHITECTURE.md` | Estrutura de pastas e arquitetura | 4.8KB |
 | `docs/CONVENTIONS.md` | Regras detalhadas, padrões de código, DRY, UI | 20KB |
-| `docs/WORKFLOW.md` | Processos, scripts, fluxo completo | 11KB |
+| `docs/WORKFLOW.md` | Processos, scripts, fluxo completo + subagentes | 12.5KB |
 | `docs/UI-GUIDE.md` | Design system, grid, cores, componentes | 3.9KB |
 | `docs/DEBUG.md` | Debug, troubleshooting, logs | 2.1KB |
 | `docs/GIT-WORKFLOW.md` | Git, branch, PR, deploy | 3.1KB |
 | `docs/TESTING.md` | Estratégia de testes | 3.2KB |
-| `docs/MAP.md` | Mapa completo do projeto | 3.3KB |
+| `docs/MAP.md` | Mapa completo do projeto + skills de subagentes | 5.6KB |
 | `docs/CONTEXT-MANAGEMENT.md` | Estratégia de lazy loading | novo |
 
 ## 🔥 Regras Essenciais (7)
@@ -31,7 +31,7 @@
 5. **Sem arquivos órfãos** em `src/` (exceto entry points). Valida: `rule-14`.
 6. **Sem duplicatas > 75%** em componentes. Valida: `rule-15`.
 7. **Todo script em `scripts/` tem atalho npm**. Valida: `rule-16`.
-8. **Skills do workflow existem em `.pi/skills/`** — sem symlink quebrado ou skill faltando. Valida: `rule-23`.
+8. **Skills do workflow e subagentes existem em `.pi/skills/`** — sem symlink quebrado ou skill faltando. Skills de subagente (`subagent-driven-development`, `dispatching-parallel-agents`) estão disponíveis para execução paralela e delegada. Valida: `rule-23`.
 
 ## 🎯 Sistema de Categorias (LAZY LOADING)
 
@@ -53,9 +53,10 @@ pergunte ao usuário. **Não leia docs "preventivamente".**
 1. `npm run session:start` — carrega handoff.md + pergunta categoria
 2. Carregar docs da categoria (tabela acima)
 3. Se **feature**: executar council-to-superpowers
-4. Build / editar código
-5. `npm run pre-pr` (relatório automático + validações)
-6. Criar PR → `npm run post-pr` (renomeia relatório)
+4. **Navegação Serena-First** — antes de ler arquivos-fonte, use `serena_get_symbols_overview` ou `serena_find_symbol`. Só use `read` quando a navegação simbólica não bastar.
+5. Build / editar código
+6. `npm run pre-pr` (relatório automático + validações)
+7. Criar PR → `npm run post-pr` (renomeia relatório)
 
 ## 🐞 Registro de Bugs
 

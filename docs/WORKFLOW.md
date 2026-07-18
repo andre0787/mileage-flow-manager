@@ -26,7 +26,26 @@ Cada sessão começa com `npm run session:start`, que:
 
 > ⚠️ **REGRA DOURADA:** Não pré-carregue docs fora da categoria.
 
-## Skills Envolvidas
+## Navegação Serena-First (Economia de Tokens)
+
+Para modelos de médio/baixo porte, **tokens economizados = tokens disponíveis para raciocínio**.
+Sempre que precisar inspecionar código-fonte, siga esta ordem:
+
+### Hierarquia de Navegação
+
+| Passo | Ferramenta | Quando | Custo token |
+|-------|-----------|--------|-------------|
+| 1º | `serena_get_symbols_overview` | Antes de ler qualquer arquivo-fonte | ~200-400 |
+| 2º | `serena_find_symbol` | Para localizar uma função/classe/método específico | ~100 |
+| 3º | `serena_find_referencing_symbols` | Antes de renomear ou mudar comportamento público | ~150 |
+| 4º | `serena_find_declaration` / `serena_find_implementations` | Para navegar entre definição e implementação | ~100 |
+| 5º | `read` (só o trecho) | Quando Serena não cobre (configs, docs, non-code) | variável |
+
+### Regras
+
+- **Serena-first, read-last**: só leia o arquivo inteiro quando a navegação simbólica não for suficiente
+- **Navegue antes de grep**: prefira `serena_search_for_pattern` com path filter sobre `grep`/`rg` para buscas textuais
+- **Evite `read` preventivo**: não leia um arquivo inteiro 
 
 | Skill | Localização | Função |
 |-------|-------------|--------|
@@ -34,6 +53,9 @@ Cada sessão começa com `npm run session:start`, que:
 | `llm-council` | `~/.config/opencode/skills/` | Conselho de 5 advisors (usado internamente pelo council) |
 | `ponytail` | `~/.config/opencode/skills/`, pacote pi | Modo lazy (stdlib/nativo primeiro) |
 | `caveman` | `~/.config/opencode/skills/` | Modo compacto de tokens |
+| `subagent-driven-development` | `.pi/skills/` | Executa planos delegando tarefas a subagentes fresh + review por tarefa |
+| `dispatching-parallel-agents` | `.pi/skills/` | Investiga falhas independentes em paralelo (1 subagente por domínio) |
+| `using-git-worktrees` | `.pi/skills/` | Isola branches em worktrees para trabalho concorrente sem conflito |
 
 ## Fluxo Completo
 
@@ -77,6 +99,35 @@ A skill `council-to-superpowers` dispara automaticamente em:
 ## Exceção
 
 Features triviais podem usar Superpowers direto sem council ("let's build X" → brainstorming). O council decide se pula ou não a fase 2.
+
+## Subagentes (pi-subagents)
+
+O projeto usa `pi-subagents` para executar trabalho delegado com contexto isolado.
+Disponível via ferramenta `subagent` no Pi.
+
+### Modos de Execução
+
+| Modo | Quando usar | Descrição |
+|------|-------------|-----------|
+| **Single** | Tarefa única e autossuficiente | Um subagente executa uma tarefa com contexto fresh |
+| **Chain** | Pipeline sequencial de passos | Cada passo recebe o resultado do anterior (`{previous}`) |
+| **Parallel** | Tarefas independentes simultâneas | Múltiplos subagentes executam em paralelo com `concurrency` limitada |
+| **Async** | Trabalho em background | Subagente roda em segundo plano, resultados via `subagent_wait` |
+| **Forked** | Branch de contexto | Subagente herda contexto do pai mas opera independentemente |
+
+### Skills de Subagente
+
+- **`subagent-driven-development`**: executa plano delegando 1 subagente fresh por tarefa + task review + final review. Ideal quando há um plano de implementação com tarefas majoritariamente independentes.
+- **`dispatching-parallel-agents`**: dispatch de 1 subagente por domínio de problema independente. Ideal para investigar múltiplas falhas não relacionadas simultaneamente.
+- **`using-git-worktrees`**: cria worktrees isoladas para que subagentes paralelos não interfiram no estado do git.
+
+### Boas Práticas
+
+- **Contexto fresh** por subagente — nunca herdar contexto da sessão pai
+- **1 subagente por domínio** — agrupar falhas relacionadas, separar as independentes
+- **Review pós-tarefa** — task reviewer verifica spec compliance + qualidade
+- **toolBudget** — configurar limite de tool calls para evitar loops
+- **turnBudget** — configurar limite de turnos para tarefas com escopo definido
 
 ## Scripts de Workflow
 

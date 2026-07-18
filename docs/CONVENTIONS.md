@@ -22,6 +22,19 @@
 - **Páginas** → `src/pages/`
 - **Ponto único de alteração**: cada regra de negócio em 1 arquivo apenas
 
+## Navegação de Código — Serena-First
+
+Antes de ler qualquer arquivo-fonte, use a navegação simbólica do Serena:
+
+1. **`serena_get_symbols_overview`** — outline do arquivo (substitui `read` completo)
+2. **`serena_find_symbol`** — localizar função/classe específica
+3. **`serena_find_referencing_symbols`** — ver todos os callers antes de alterar comportamento
+4. **`read`** — só quando a navegação simbólica não for suficiente
+
+> **Regra de ouro:** se você sabe o nome do símbolo que precisa tocar, não leia o arquivo
+> inteiro. A navegação simbólica custa 5-10× menos tokens e entrega exatamente
+> o que você precisa.
+
 ## DRY & Modularidade
 
 - **Nunca construir em monolito.** Componente que acumula layout + estado + fetch + formatação é flag de refatoração. Extrair em submódulos (`ui/`, `hooks/`, `lib/`).
