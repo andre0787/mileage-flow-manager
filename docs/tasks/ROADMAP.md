@@ -1,6 +1,7 @@
 # Roadmap — Workflow para modelos LLM menores
 
 **Origem:** `docs/council/2026-07-17-llm-menor-workflow-veredito.md`
+**Execução P0:** `docs/council/2026-07-18-finalizar-p0-roadmap-veredito.md`
 **Estratégia:** reformular em ondas (P0 → P1 → P2). Não instalar framework amplo;
 entregar cada item como PR pequeno com gate executável.
 
@@ -20,10 +21,10 @@ Pré-requisito de tudo o que segue. Sem P0, qualquer protocolo de agente é só 
 | [P0-01](P0-01-manifesto-workflow.md) | Manifesto único de workflow | done ✅ |
 | [P0-02](P0-02-session-start-persiste-categoria.md) | `session:start` persiste categoria/objetivo/branch | done ✅ |
 | [P0-03](P0-03-ci-check-strict.md) | CI executa `npm run check` em modo estrito | done ✅ |
-| [P0-04](P0-04-remove-continue-on-error.md) | Remover `continue-on-error` de checks críticos | pending |
+| [P0-04](P0-04-remove-continue-on-error.md) | Remover `continue-on-error` de checks críticos | done ✅ |
 | [P0-05](P0-05-pre-pr-diff-vazio.md) | `pre-pr`: detectar diff vazio corretamente | done ✅ |
-| [P0-06](P0-06-branch-protection-main.md) | Required status checks + proteção de `main` | pending |
-| [P0-07](P0-07-resolve-drift-docs.md) | Resolver drift atual (handoff, README, links, AGENDA) | pending |
+| [P0-06](P0-06-branch-protection-main.md) | Required status checks + proteção de `main` | blocked ⛔ (GitHub private/free) |
+| [P0-07](P0-07-resolve-drift-docs.md) | Resolver drift atual (handoff, README, links, AGENDA) | done ✅ |
 | [P0-08](P0-08-format-baseline.md) | Estabelecer baseline de formatação | done ✅ |
 
 ### 🔵 P1-A — Contrato que um modelo menor consegue seguir

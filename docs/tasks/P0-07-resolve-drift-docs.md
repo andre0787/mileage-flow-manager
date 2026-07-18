@@ -6,7 +6,7 @@
 | `categoria` | docs |
 | `onda` | P0 |
 | `baseBranch` | main |
-| `estado` | pending |
+| `estado` | done ✅ |
 | `origem` | veredito 2026-07-17, item #7 |
 | `dependeDe` | [] |
 
@@ -31,10 +31,10 @@ promete comandos inexistentes; AGENDA referenciada mas precisa de arquivamento.
 - quaisquer docs que referenciem `develop` como alvo
 
 ## Critérios de aceite
-- [ ] `npm run verify-docs` sem links quebrados.
-- [ ] Nenhuma referência a `develop` como alvo de PR; alvo canônico = `main`.
-- [ ] Handoff descreve corretamente branch/commit após `handoff:snapshot`.
-- [ ] Comandos prometidos em docs existem em `package.json` ou são removidos.
+- [x] `npm run verify-docs` sem links quebrados.
+- [x] Nenhuma referência ativa a `develop` como alvo de PR; alvo canônico = `main`.
+- [x] Handoff descreve corretamente branch/commit após `handoff:snapshot`.
+- [x] Comandos prometidos em docs existem em `package.json` ou foram ajustados.
 
 ## Riscos / Invariantes
 - Não alterar semântica de scripts enquanto corrige texto.
@@ -44,3 +44,4 @@ promete comandos inexistentes; AGENDA referenciada mas precisa de arquivamento.
 
 ## Evidência de pronto
 - Diff das correções + saída verde do verify-docs.
+- Link runtime no plano `2026-07-15-context-optimization-plan.md` escapado para não ser validado como link estático.

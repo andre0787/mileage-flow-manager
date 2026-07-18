@@ -8,6 +8,33 @@ via PR mergeado. Isso inclui reverts.
 
 ### Proteção Automática
 
+A proteção remota desejada está versionada em `.github/branch-protection-main.json`.
+
+Checks required em `main`:
+- `build-and-test` (`.github/workflows/ci.yml`): `npm run check` + Playwright E2E.
+
+Política:
+- PR obrigatório para `main`.
+- 1 review obrigatório.
+- branch atualizada com `main` antes do merge (`strict: true`).
+- force-push e deleção de `main` desabilitados.
+- admin também segue a regra (`enforce_admins: true`).
+
+Aplicação/verificação via GitHub API:
+
+```bash
+# aplicar quando o recurso estiver disponível no GitHub (repo público ou GitHub Pro/Team)
+gh api \
+  --method PUT \
+  repos/andre0787/mileage-flow-manager/branches/main/protection \
+  --input .github/branch-protection-main.json
+
+# verificar
+gh api repos/andre0787/mileage-flow-manager/branches/main/protection
+```
+
+> Estado verificado em 2026-07-18: o GitHub retornou `403` para branch protection/rulesets porque o repo está privado em plano sem o recurso. O gate local/CI está pronto; a proteção remota depende de habilitar o recurso no GitHub.
+
 Um **pre-commit hook** (`.githooks/pre-commit`) bloqueia commits na `main`:
 
 ```bash
