@@ -80,14 +80,14 @@ export function useAddSaleMutation() {
     },
     onSuccess: async () => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' }),
-        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: "all" }),
+        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" }),
       ]);
     },
     onError: (err) => {
       logError("addSale", err);
-      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: "all" });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" });
       toast.error("Erro ao criar venda");
     },
   });
@@ -145,12 +145,13 @@ export function useUpdateSaleMutation() {
           .single();
         if (acc) {
           const avgCost = Number(acc.average_cost_per_mile ?? 0);
-          const costToRestore = avgCost > 0
-            ? avgCost * oldMiles
-            : Number(oldSale.cost_per_mile) * oldMiles;
+          const costToRestore =
+            avgCost > 0 ? avgCost * oldMiles : Number(oldSale.cost_per_mile) * oldMiles;
           const update = calcAccountUpdate(
-            Number(acc.balance), Number(acc.total_invested ?? 0),
-            oldMiles, costToRestore,
+            Number(acc.balance),
+            Number(acc.total_invested ?? 0),
+            oldMiles,
+            costToRestore,
           );
           await supabase.from("accounts").update(update).eq("id", oldAccountId);
         }
@@ -176,8 +177,10 @@ export function useUpdateSaleMutation() {
               ? currentAvgCost * newMiles
               : calcProportionalCost(newMiles, currentBalance, currentInvested);
           const update = calcAccountUpdate(
-            currentBalance, currentInvested,
-            -newMiles, -proportionalInvested,
+            currentBalance,
+            currentInvested,
+            -newMiles,
+            -proportionalInvested,
           );
           await supabase.from("accounts").update(update).eq("id", newAccountId);
         }
@@ -185,14 +188,14 @@ export function useUpdateSaleMutation() {
     },
     onSuccess: async () => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' }),
-        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: "all" }),
+        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" }),
       ]);
     },
     onError: (err) => {
       logError("updateSale", err);
-      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: "all" });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" });
       toast.error("Erro ao atualizar venda");
     },
   });
@@ -236,15 +239,15 @@ export function useCancelSaleMutation() {
     },
     onSuccess: async () => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' }),
-        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: "all" }),
+        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" }),
       ]);
       logDestructiveOp("cancel", "sale");
     },
     onError: (err) => {
       logError("cancelSale", err);
-      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: "all" });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" });
       toast.error("Erro ao cancelar venda");
     },
   });
@@ -293,16 +296,16 @@ export function useDeleteSaleMutation() {
     },
     onSuccess: async () => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' }),
-        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: "all" }),
+        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" }),
       ]);
       logDestructiveOp("delete", "sale");
       toast.success("Venda excluída com sucesso");
     },
     onError: (err) => {
       logError("deleteSale", err);
-      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: "all" });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" });
       toast.error("Erro ao excluir venda");
     },
   });

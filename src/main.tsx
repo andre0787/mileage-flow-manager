@@ -13,7 +13,8 @@ localStorage.setItem("mc-app-version", APP_VERSION);
 
 const root = document.getElementById("root");
 if (!root) {
-  document.body.innerHTML = '<div style="padding:2rem;text-align:center"><h1>Erro: element #root não encontrado</h1></div>';
+  document.body.innerHTML =
+    '<div style="padding:2rem;text-align:center"><h1>Erro: element #root não encontrado</h1></div>';
 } else {
   try {
     createRoot(root).render(<App />);

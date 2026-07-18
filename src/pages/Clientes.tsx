@@ -35,7 +35,7 @@ import {
 } from "@/hooks/useDatabase";
 import { formatCPF } from "@/lib/utils";
 
-const ITEMS_PER_PAGE = 20
+const ITEMS_PER_PAGE = 20;
 
 export default function Clientes() {
   const { clients, sales, isLoading } = useData();
@@ -64,7 +64,7 @@ export default function Clientes() {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(1);
   const debouncedSearch = useDebounce(searchTerm, 300);
   const [deleteBlocked, setDeleteBlocked] = useState<{
     open: boolean;
@@ -84,7 +84,10 @@ export default function Clientes() {
   }, [clients, debouncedSearch]);
 
   const totalPages = Math.ceil(filteredClients.length / ITEMS_PER_PAGE);
-  const paginatedClients = filteredClients.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+  const paginatedClients = filteredClients.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE,
+  );
 
   const handleCreateClient = () => {
     if (newClient.name) {
@@ -552,9 +555,15 @@ export default function Clientes() {
           {filteredClients.length > ITEMS_PER_PAGE && (
             <div className="mt-4 flex flex-col items-center gap-2">
               <span className="text-xs text-muted-foreground">
-                Mostrando {(currentPage - 1) * ITEMS_PER_PAGE + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, filteredClients.length)} de {filteredClients.length}
+                Mostrando {(currentPage - 1) * ITEMS_PER_PAGE + 1}–
+                {Math.min(currentPage * ITEMS_PER_PAGE, filteredClients.length)} de{" "}
+                {filteredClients.length}
               </span>
-              <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
             </div>
           )}
 

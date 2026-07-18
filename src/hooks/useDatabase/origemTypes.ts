@@ -31,7 +31,11 @@ export function useAddOrigemTypeMutation() {
   return useMutation({
     mutationFn: async (ot: OrigemType) => {
       const data: OrigemTypeInsert = {
-        id: ot.id, user_id: user!.id, name: ot.name, account_type: ot.accountType, color: ot.color,
+        id: ot.id,
+        user_id: user!.id,
+        name: ot.name,
+        account_type: ot.accountType,
+        color: ot.color,
       };
       // ponytail: description column added by migration; only include if defined so it works pre-migration
       if (ot.description !== undefined) data.description = ot.description;
@@ -47,7 +51,7 @@ export function useAddOrigemTypeMutation() {
           return [...old, variables];
         });
       }
-      await queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: 'all' });
+      await queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: "all" });
     },
     onError: (err) => {
       logError("addOrigemType", err);
@@ -69,7 +73,7 @@ export function useUpdateOrigemTypeMutation() {
       if (error) throw error;
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: 'all' });
+      await queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: "all" });
     },
     onError: (err) => {
       logError("updateOrigemType", err);
@@ -86,7 +90,7 @@ export function useDeleteOrigemTypeMutation() {
       if (error) throw error;
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: 'all' });
+      await queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: "all" });
       logDestructiveOp("delete", "origem_type");
       toast.success("Tipo de operação excluído com sucesso");
     },

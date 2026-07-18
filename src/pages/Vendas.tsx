@@ -183,11 +183,11 @@ export default function Vendas() {
       Cliente: s.clientName,
       Dono: s.ownerName,
       Programa: s.program,
-      "Milhas": s.milesUsed,
+      Milhas: s.milesUsed,
       "Valor Venda (R$)": s.saleValue,
       "Custo/Milha (R$)": s.costPerMile?.toFixed(4) ?? "",
       "Lucro (R$)": s.profit?.toFixed(2) ?? "",
-      "Margem": s.profitMargin ? `${(s.profitMargin * 100).toFixed(1)}%` : "",
+      Margem: s.profitMargin ? `${(s.profitMargin * 100).toFixed(1)}%` : "",
       Status: s.status,
     }));
     downloadCSV(data, `vendas-${new Date().toISOString().split("T")[0]}.csv`);
@@ -323,7 +323,7 @@ export default function Vendas() {
 
       {/* Formulário de edição */}
       <SaleForm
-        key={editingSale?.id ?? 'edit'}
+        key={editingSale?.id ?? "edit"}
         mode="edit"
         open={isEditDialogOpen}
         onOpenChange={(open) => {

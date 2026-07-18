@@ -8,7 +8,7 @@
 | `baseBranch` | main |
 | `estado` | pending |
 | `origem` | veredito 2026-07-17, item #3 |
-| `dependeDe` | [P1-13] |
+| `dependeDe` | [P1-13, P0-08] |
 
 ## Objetivo
 CI executar `npm run check` (ou equivalente) em modo estrito: typecheck, lint

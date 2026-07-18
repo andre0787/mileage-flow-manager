@@ -1,9 +1,5 @@
 import { useId, useMemo } from "react";
-import {
-  ResponsiveContainer,
-  AreaChart,
-  Area,
-} from "recharts";
+import { ResponsiveContainer, AreaChart, Area } from "recharts";
 import { cn } from "@/lib/utils";
 
 interface SparklineProps {
@@ -20,22 +16,18 @@ interface SparklineProps {
  * quando múltiplos sparklines da mesma cor coexistem na página, e para
  * evitar caracteres inválidos (parênteses de hsl()) em ids de SVG.
  */
-export function Sparkline({
-  data,
-  color = "hsl(var(--primary))",
-  className,
-}: SparklineProps) {
+export function Sparkline({ data, color = "hsl(var(--primary))", className }: SparklineProps) {
   const gradientId = useId();
-  const chartData = useMemo(
-    () => data.map((value, index) => ({ index, value })),
-    [data],
-  );
+  const chartData = useMemo(() => data.map((value, index) => ({ index, value })), [data]);
 
   if (data.length < 2) return null;
 
   return (
     <div
-      className={cn("absolute bottom-0 left-0 right-0 h-10 opacity-25 pointer-events-none", className)}
+      className={cn(
+        "absolute bottom-0 left-0 right-0 h-10 opacity-25 pointer-events-none",
+        className,
+      )}
       aria-hidden="true"
     >
       <ResponsiveContainer width="100%" height="100%">

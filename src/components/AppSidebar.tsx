@@ -50,9 +50,7 @@ const menuGroups: { label: string; items: NavItem[] }[] = [
   },
   {
     label: "Pessoas",
-    items: [
-      { title: "Clientes", url: "/clientes", icon: Users },
-    ],
+    items: [{ title: "Clientes", url: "/clientes", icon: Users }],
   },
   {
     label: "Controle",
@@ -71,8 +69,10 @@ export function AppSidebar() {
   const { entries, clearCache } = useData();
   const currentPath = location.pathname;
   const collapsed = state === "collapsed";
-  const today = new Date().toISOString().split('T')[0];
-  const overdueCount = entries.filter(e => e.entryStatus === 'aguardando' && e.date < today).length;
+  const today = new Date().toISOString().split("T")[0];
+  const overdueCount = entries.filter(
+    (e) => e.entryStatus === "aguardando" && e.date < today,
+  ).length;
 
   const isActive = (path: string) => currentPath === path;
 
@@ -207,7 +207,9 @@ export function AppSidebar() {
                     title="Limpar cache local e recarregar dados"
                   >
                     <RotateCcw className="w-4 h-4 shrink-0" />
-                    {!collapsed && <span className="text-sm font-medium font-body">Limpar Cache</span>}
+                    {!collapsed && (
+                      <span className="text-sm font-medium font-body">Limpar Cache</span>
+                    )}
                   </button>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -216,7 +218,9 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <button className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50 border-l-2 border-transparent">
                       <Bug className="w-4 h-4 shrink-0" />
-                      {!collapsed && <span className="text-sm font-medium font-body">Reportar problema</span>}
+                      {!collapsed && (
+                        <span className="text-sm font-medium font-body">Reportar problema</span>
+                      )}
                     </button>
                   </SidebarMenuButton>
                 </FeedbackDialog>

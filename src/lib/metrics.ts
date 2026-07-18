@@ -174,7 +174,10 @@ export function computeDashboardMetrics(
 
   // ─── Fonte da verdade: entradas - vendas ───
   // ponytail: transferências movem entre contas mas não afetam o total geral
-  const totalMilesFromEntries = confirmedEntries.reduce((sum, e) => sum + (e.milesGenerated ?? e.amount), 0);
+  const totalMilesFromEntries = confirmedEntries.reduce(
+    (sum, e) => sum + (e.milesGenerated ?? e.amount),
+    0,
+  );
   const totalMilesFromSales = activeSales.reduce((sum, s) => sum + s.milesUsed, 0);
   const totalMiles = totalMilesFromEntries - totalMilesFromSales;
 

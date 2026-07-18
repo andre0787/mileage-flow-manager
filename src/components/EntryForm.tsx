@@ -1,25 +1,35 @@
-import { useState } from "react"
-import { Plus } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { FormDrawer } from "@/components/FormDrawer"
-import { isTransferencia } from "@/lib/utils"
-import { parseOrigemTypeDescription } from "@/lib/origemTypes"
-import type { Account, OrigemType, Program, Owner, EntryFormData } from "@/types"
+import { useState } from "react";
+import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { FormDrawer } from "@/components/FormDrawer";
+import { isTransferencia } from "@/lib/utils";
+import { parseOrigemTypeDescription } from "@/lib/origemTypes";
+import type { Account, OrigemType, Program, Owner, EntryFormData } from "@/types";
 
 interface EntryFormProps {
-  type: "milhas" | "pontos"
-  mode: "create" | "edit"
-  initialData?: Partial<EntryFormData>
-  onSubmit: (data: EntryFormData) => void
-  onCancel: () => void
-  accounts: Account[]
-  origemTypes: OrigemType[]
-  programs: Program[]
-  owners: Owner[]
-  onCreateOrigemType?: (data: { name: string; color: string; hasRecurrence: boolean }) => Promise<string | undefined>
+  type: "milhas" | "pontos";
+  mode: "create" | "edit";
+  initialData?: Partial<EntryFormData>;
+  onSubmit: (data: EntryFormData) => void;
+  onCancel: () => void;
+  accounts: Account[];
+  origemTypes: OrigemType[];
+  programs: Program[];
+  owners: Owner[];
+  onCreateOrigemType?: (data: {
+    name: string;
+    color: string;
+    hasRecurrence: boolean;
+  }) => Promise<string | undefined>;
 }
 
 const emptyForm: EntryFormData = {
@@ -40,7 +50,7 @@ const emptyForm: EntryFormData = {
   recurrenceCount: 1,
   startDate: "",
   recurrenceValueMode: "split",
-}
+};
 
 export function EntryForm({
   type,
@@ -54,74 +64,78 @@ export function EntryForm({
   owners,
   onCreateOrigemType,
 }: EntryFormProps) {
-  const [form, setForm] = useState<EntryFormData>({ ...emptyForm, ...initialData })
-  const [errors, setErrors] = useState<Partial<Record<string, string>>>({})
-  const [isOrigemTypeOpen, setIsOrigemTypeOpen] = useState(false)
-  const [newOT, setNewOT] = useState({ name: "", color: "#10b981", hasRecurrence: false })
-  const [isCreatingOrigemType, setIsCreatingOrigemType] = useState(false)
-  const [otErrors, setOtErrors] = useState<Partial<Record<string, string>>>({})
+  const [form, setForm] = useState<EntryFormData>({ ...emptyForm, ...initialData });
+  const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
+  const [isOrigemTypeOpen, setIsOrigemTypeOpen] = useState(false);
+  const [newOT, setNewOT] = useState({ name: "", color: "#10b981", hasRecurrence: false });
+  const [isCreatingOrigemType, setIsCreatingOrigemType] = useState(false);
+  const [otErrors, setOtErrors] = useState<Partial<Record<string, string>>>({});
 
-  const set = (patch: Partial<EntryFormData>) => setForm((prev) => ({ ...prev, ...patch }))
-  const clearErr = (field: string) => setErrors((prev) => ({ ...prev, [field]: "" }))
+  const set = (patch: Partial<EntryFormData>) => setForm((prev) => ({ ...prev, ...patch }));
+  const clearErr = (field: string) => setErrors((prev) => ({ ...prev, [field]: "" }));
 
-  const selectedAccount = accounts.find((a) => a.id === form.accountId)
-  const availableAccounts = accounts.filter((a) => a.type === type && a.status === "ativa")
-  const currentOrigemTypes = origemTypes.filter((ot) => ot.accountType === type && !isTransferencia(ot))
-  const selectedOrigemType = origemTypes.find((ot) => ot.id === form.origemTypeId)
+  const selectedAccount = accounts.find((a) => a.id === form.accountId);
+  const availableAccounts = accounts.filter((a) => a.type === type && a.status === "ativa");
+  const currentOrigemTypes = origemTypes.filter(
+    (ot) => ot.accountType === type && !isTransferencia(ot),
+  );
+  const selectedOrigemType = origemTypes.find((ot) => ot.id === form.origemTypeId);
   const selectedOrigemTypeHasRecurrence = selectedOrigemType
     ? parseOrigemTypeDescription(selectedOrigemType.description).hasRecurrence
-    : false
+    : false;
 
-  const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id
-  const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id
+  const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id;
+  const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id;
 
-  const label = type === "milhas" ? "Milhas" : "Pontos"
+  const label = type === "milhas" ? "Milhas" : "Pontos";
 
   const validate = (): boolean => {
-    const errs: typeof errors = {}
-    if (!form.accountId) errs.accountId = "Selecione uma conta"
-    if (!form.origemTypeId) errs.origemTypeId = "Selecione o tipo de origem"
-    if (!form.amount || parseFloat(form.amount) <= 0) errs.amount = "Informe a quantidade"
-    if (!form.amountPaid || parseFloat(form.amountPaid) <= 0) errs.amountPaid = "Informe o valor pago"
-    if (!form.date) errs.date = "Selecione a data"
+    const errs: typeof errors = {};
+    if (!form.accountId) errs.accountId = "Selecione uma conta";
+    if (!form.origemTypeId) errs.origemTypeId = "Selecione o tipo de origem";
+    if (!form.amount || parseFloat(form.amount) <= 0) errs.amount = "Informe a quantidade";
+    if (!form.amountPaid || parseFloat(form.amountPaid) <= 0)
+      errs.amountPaid = "Informe o valor pago";
+    if (!form.date) errs.date = "Selecione a data";
     if (form.isRecurrent) {
-      if (form.recurrenceCount < 2) errs.recurrenceCount = "Mínimo de 2 parcelas para gerar recorrência"
-      if (!form.startDate) errs.startDate = "Selecione a data de início"
+      if (form.recurrenceCount < 2)
+        errs.recurrenceCount = "Mínimo de 2 parcelas para gerar recorrência";
+      if (!form.startDate) errs.startDate = "Selecione a data de início";
     }
-    setErrors(errs)
-    return Object.keys(errs).length === 0
-  }
+    setErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
 
   const handleSubmit = () => {
-    if (!validate()) return
-    onSubmit(form)
-  }
+    if (!validate()) return;
+    onSubmit(form);
+  };
 
   const handleCreateOrigemType = async () => {
-    const errs: typeof otErrors = {}
-    if (!newOT.name.trim()) errs.name = "Nome é obrigatório"
-    setOtErrors(errs)
-    if (Object.keys(errs).length > 0) return
+    const errs: typeof otErrors = {};
+    if (!newOT.name.trim()) errs.name = "Nome é obrigatório";
+    setOtErrors(errs);
+    if (Object.keys(errs).length > 0) return;
 
-    setIsCreatingOrigemType(true)
+    setIsCreatingOrigemType(true);
     try {
       const id = await onCreateOrigemType?.({
         name: newOT.name.trim(),
         color: newOT.color,
         hasRecurrence: newOT.hasRecurrence,
-      })
-      if (id) set({ origemTypeId: id })
-      setNewOT({ name: "", color: "#10b981", hasRecurrence: false })
-      setOtErrors({})
-      setIsOrigemTypeOpen(false)
+      });
+      if (id) set({ origemTypeId: id });
+      setNewOT({ name: "", color: "#10b981", hasRecurrence: false });
+      setOtErrors({});
+      setIsOrigemTypeOpen(false);
     } finally {
-      setIsCreatingOrigemType(false)
+      setIsCreatingOrigemType(false);
     }
-  }
+  };
 
-  const milesGenerated = parseFloat(form.amount) * parseFloat(form.conversionRate || "1")
-  const costPerMile = parseFloat(form.amountPaid) / (milesGenerated || 1)
-  const costPerThousand = (parseFloat(form.amountPaid) / parseFloat(form.amount)) * 1000
+  const milesGenerated = parseFloat(form.amount) * parseFloat(form.conversionRate || "1");
+  const costPerMile = parseFloat(form.amountPaid) / (milesGenerated || 1);
+  const costPerThousand = (parseFloat(form.amountPaid) / parseFloat(form.amount)) * 1000;
 
   return (
     <div className="grid gap-4 py-4">
@@ -131,8 +145,8 @@ export function EntryForm({
         <Select
           value={form.accountId}
           onValueChange={(value) => {
-            set({ accountId: value })
-            clearErr("accountId")
+            set({ accountId: value });
+            clearErr("accountId");
           }}
         >
           <SelectTrigger>
@@ -157,10 +171,10 @@ export function EntryForm({
             <Select
               value={form.origemTypeId}
               onValueChange={(value) => {
-                const selected = origemTypes.find((ot) => ot.id === value)
+                const selected = origemTypes.find((ot) => ot.id === value);
                 const hasRecurrence = selected
                   ? parseOrigemTypeDescription(selected.description).hasRecurrence
-                  : false
+                  : false;
                 set({
                   origemTypeId: value,
                   isRecurrent: hasRecurrence,
@@ -168,8 +182,8 @@ export function EntryForm({
                   startDate: hasRecurrence
                     ? form.startDate || form.date || new Date().toISOString().split("T")[0]
                     : form.date,
-                })
-                clearErr("origemTypeId")
+                });
+                clearErr("origemTypeId");
               }}
             >
               <SelectTrigger>
@@ -179,7 +193,10 @@ export function EntryForm({
                 {currentOrigemTypes.map((item) => (
                   <SelectItem key={item.id} value={item.id}>
                     <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+                      <div
+                        className="w-3 h-3 rounded-full"
+                        style={{ backgroundColor: item.color }}
+                      />
                       {item.name}
                     </div>
                   </SelectItem>
@@ -189,14 +206,19 @@ export function EntryForm({
           </div>
           {mode === "create" && onCreateOrigemType && (
             <>
-              <Button variant="outline" size="icon" className="shrink-0" onClick={() => setIsOrigemTypeOpen(true)}>
+              <Button
+                variant="outline"
+                size="icon"
+                className="shrink-0"
+                onClick={() => setIsOrigemTypeOpen(true)}
+              >
                 <Plus className="h-4 w-4" />
               </Button>
               <FormDrawer
                 open={isOrigemTypeOpen}
                 onOpenChange={(open) => {
-                  setIsOrigemTypeOpen(open)
-                  if (!open) setOtErrors({})
+                  setIsOrigemTypeOpen(open);
+                  if (!open) setOtErrors({});
                 }}
                 title="Novo Tipo de Origem"
               >
@@ -206,8 +228,8 @@ export function EntryForm({
                     <Input
                       value={newOT.name}
                       onChange={(e) => {
-                        setNewOT((p) => ({ ...p, name: e.target.value }))
-                        setOtErrors((p) => ({ ...p, name: "" }))
+                        setNewOT((p) => ({ ...p, name: e.target.value }));
+                        setOtErrors((p) => ({ ...p, name: "" }));
                       }}
                       placeholder={`Ex: ${type === "milhas" ? "Compra Direta" : "Cashback"}`}
                     />
@@ -216,7 +238,10 @@ export function EntryForm({
                   <div className="space-y-2">
                     <Label>Cor</Label>
                     <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: newOT.color }} />
+                      <div
+                        className="w-8 h-8 rounded-full border"
+                        style={{ backgroundColor: newOT.color }}
+                      />
                       <Input
                         type="color"
                         value={newOT.color}
@@ -225,13 +250,22 @@ export function EntryForm({
                       />
                     </div>
                   </div>
-
                 </div>
                 <div className="flex justify-end gap-2 mt-4">
-                  <Button variant="outline" onClick={() => { setIsOrigemTypeOpen(false); setOtErrors({}) }}>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setIsOrigemTypeOpen(false);
+                      setOtErrors({});
+                    }}
+                  >
                     Cancelar
                   </Button>
-                  <Button onClick={handleCreateOrigemType} disabled={isCreatingOrigemType} className="bg-gradient-primary hover:opacity-90">
+                  <Button
+                    onClick={handleCreateOrigemType}
+                    disabled={isCreatingOrigemType}
+                    className="bg-gradient-primary hover:opacity-90"
+                  >
                     {isCreatingOrigemType ? "Salvando..." : "Cadastrar"}
                   </Button>
                 </div>
@@ -257,8 +291,8 @@ export function EntryForm({
           type="date"
           value={form.date}
           onChange={(e) => {
-            set({ date: e.target.value })
-            clearErr("date")
+            set({ date: e.target.value });
+            clearErr("date");
           }}
         />
         {errors.date && <p className="text-xs text-destructive">{errors.date}</p>}
@@ -273,8 +307,8 @@ export function EntryForm({
             type="number"
             value={form.amount}
             onChange={(e) => {
-              set({ amount: e.target.value })
-              clearErr("amount")
+              set({ amount: e.target.value });
+              clearErr("amount");
             }}
             placeholder="Ex: 100000"
           />
@@ -288,8 +322,8 @@ export function EntryForm({
             step="0.01"
             value={form.amountPaid}
             onChange={(e) => {
-              set({ amountPaid: e.target.value })
-              clearErr("amountPaid")
+              set({ amountPaid: e.target.value });
+              clearErr("amountPaid");
             }}
             placeholder="Ex: 450.00"
           />
@@ -311,10 +345,13 @@ export function EntryForm({
             onChange={(e) => {
               set({
                 isRecurrent: e.target.checked,
-                startDate: e.target.checked && !form.startDate ? new Date().toISOString().split('T')[0] : form.startDate,
-              })
+                startDate:
+                  e.target.checked && !form.startDate
+                    ? new Date().toISOString().split("T")[0]
+                    : form.startDate,
+              });
               if (!e.target.checked) {
-                set({ recurrenceCount: 1, startDate: form.date })
+                set({ recurrenceCount: 1, startDate: form.date });
               }
             }}
             className="h-4 w-4 rounded border-border accent-primary"
@@ -328,7 +365,9 @@ export function EntryForm({
                 <Label>Tipo de recorrência</Label>
                 <Select
                   value={form.recurrenceType}
-                  onValueChange={(value) => set({ recurrenceType: value as EntryFormData["recurrenceType"] })}
+                  onValueChange={(value) =>
+                    set({ recurrenceType: value as EntryFormData["recurrenceType"] })
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione" />
@@ -349,13 +388,15 @@ export function EntryForm({
                   placeholder="Ex: 12"
                   value={String(form.recurrenceCount)}
                   onChange={(e) => {
-                    const val = Math.max(2, parseInt(e.target.value) || 1)
-                    set({ recurrenceCount: val })
-                    clearErr('recurrenceCount')
+                    const val = Math.max(2, parseInt(e.target.value) || 1);
+                    set({ recurrenceCount: val });
+                    clearErr("recurrenceCount");
                   }}
                   className="w-20"
                 />
-                {errors.recurrenceCount && <p className="text-xs text-destructive">{errors.recurrenceCount}</p>}
+                {errors.recurrenceCount && (
+                  <p className="text-xs text-destructive">{errors.recurrenceCount}</p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label>Data de início</Label>
@@ -363,8 +404,8 @@ export function EntryForm({
                   type="date"
                   value={form.startDate}
                   onChange={(e) => {
-                    set({ startDate: e.target.value })
-                    clearErr('startDate')
+                    set({ startDate: e.target.value });
+                    clearErr("startDate");
                   }}
                 />
                 {errors.startDate && <p className="text-xs text-destructive">{errors.startDate}</p>}
@@ -456,7 +497,13 @@ export function EntryForm({
       {form.amount && form.amountPaid && (
         <div className="p-4 bg-gradient-success/10 border border-success/20 rounded-lg space-y-2 animate-slide-up">
           <h4 className="font-semibold text-sm">Cálculos Automáticos:</h4>
-          <div className={type === "pontos" ? "grid grid-cols-3 gap-4 text-xs" : "grid grid-cols-2 gap-4 text-xs"}>
+          <div
+            className={
+              type === "pontos"
+                ? "grid grid-cols-3 gap-4 text-xs"
+                : "grid grid-cols-2 gap-4 text-xs"
+            }
+          >
             <div>
               <span className="text-muted-foreground">Custo por milhar:</span>
               <p className="font-semibold">R$ {costPerThousand.toFixed(2)}</p>
@@ -485,5 +532,5 @@ export function EntryForm({
         </Button>
       </div>
     </div>
-  )
+  );
 }

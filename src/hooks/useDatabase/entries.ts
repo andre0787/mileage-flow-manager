@@ -133,14 +133,14 @@ export function useAddEntryMutation() {
     },
     onSuccess: async () => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' }),
-        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: "all" }),
+        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" }),
       ]);
     },
     onError: (err) => {
       logError("addEntry", err);
       // ponytail: mesmo com erro parcial (ex: saldo da conta), invalida cache pra entrada aparecer
-      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: "all" });
       toast.error("Erro ao salvar entrada");
     },
   });
@@ -187,14 +187,14 @@ export function useConfirmEntryMutation() {
     },
     onSuccess: async () => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' }),
-        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: "all" }),
+        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" }),
       ]);
     },
     onError: (err) => {
       console.error("[confirmEntry]", err);
       logError("confirmEntry", err);
-      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: "all" });
       toast.error("Erro ao confirmar entrada");
     },
   });
@@ -225,9 +225,7 @@ export function useUpdateEntryMutation() {
         // ─── Delta approach: net change for confirmed→confirmed
         //     Reverse old (confirmed→aguardando) or delta (confirmed→confirmed)
         const applyDelta = !newIsAguardando;
-        const deltaMiles = applyDelta
-          ? newMilesAdded - oldMilesAdded
-          : -oldMilesAdded; // reverse all
+        const deltaMiles = applyDelta ? newMilesAdded - oldMilesAdded : -oldMilesAdded; // reverse all
         const deltaInvested = applyDelta
           ? merged.amountPaid - oldEntry.amountPaid
           : -oldEntry.amountPaid;
@@ -257,10 +255,16 @@ export function useUpdateEntryMutation() {
             .eq("id", oldEntry.sourceAccountId)
             .single();
           if (src) {
-            const oldProp = calcProportionalCost(oldEntry.amount, Number(src.balance), Number(src.total_invested ?? 0));
+            const oldProp = calcProportionalCost(
+              oldEntry.amount,
+              Number(src.balance),
+              Number(src.total_invested ?? 0),
+            );
             const update = calcAccountUpdate(
-              Number(src.balance), Number(src.total_invested ?? 0),
-              oldEntry.amount, oldProp,
+              Number(src.balance),
+              Number(src.total_invested ?? 0),
+              oldEntry.amount,
+              oldProp,
             );
             await supabase.from("accounts").update(update).eq("id", oldEntry.sourceAccountId);
           }
@@ -337,14 +341,14 @@ export function useUpdateEntryMutation() {
     },
     onSuccess: async () => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' }),
-        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: "all" }),
+        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" }),
       ]);
     },
     onError: (err) => {
       logError("updateEntry", err);
-      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: "all" });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" });
       toast.error("Erro ao atualizar entrada");
     },
   });
@@ -410,15 +414,15 @@ export function useDeleteEntryMutation() {
     },
     onSuccess: async () => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' }),
-        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: "all" }),
+        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" }),
       ]);
       toast.success("Entrada excluída com sucesso");
     },
     onError: (err) => {
       logError("deleteEntry", err);
-      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: "all" });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" });
       toast.error("Erro ao excluir entrada");
     },
   });

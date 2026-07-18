@@ -29,13 +29,17 @@ export function useAddOwnerMutation() {
   return useMutation({
     mutationFn: async (owner: Owner) => {
       const row: OwnerInsert = {
-        id: owner.id, user_id: user!.id, name: owner.name, cpf: owner.cpf, phone: owner.phone,
+        id: owner.id,
+        user_id: user!.id,
+        name: owner.name,
+        cpf: owner.cpf,
+        phone: owner.phone,
       };
       const { error } = await supabase.from("owners").insert(row);
       if (error) throw error;
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["owners"], refetchType: 'all' });
+      await queryClient.invalidateQueries({ queryKey: ["owners"], refetchType: "all" });
     },
     onError: (err) => {
       logError("addOwner", err);
@@ -52,7 +56,7 @@ export function useUpdateOwnerMutation() {
       if (error) throw error;
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["owners"], refetchType: 'all' });
+      await queryClient.invalidateQueries({ queryKey: ["owners"], refetchType: "all" });
     },
     onError: (err) => {
       logError("updateOwner", err);
@@ -69,7 +73,7 @@ export function useDeleteOwnerMutation() {
       if (error) throw error;
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["owners"], refetchType: 'all' });
+      await queryClient.invalidateQueries({ queryKey: ["owners"], refetchType: "all" });
       logDestructiveOp("delete", "owner");
       toast.success("Dono excluído com sucesso");
     },

@@ -1,21 +1,21 @@
 export interface EntryFormData {
-  accountId: string
-  origemTypeId: string
-  amount: string
-  amountPaid: string
-  conversionRate: string
-  sourceAccountId: string
-  bonusPercent: string
-  cartAmount: string
-  cartCost: string
-  date: string
-  isClube: boolean
-  clubeMeses: string
-  isRecurrent: boolean
-  recurrenceType: 'monthly' | 'quarterly' | 'semiannual' | 'annual'
-  recurrenceCount: number
-  startDate: string
-  recurrenceValueMode: 'split' | 'repeat'
+  accountId: string;
+  origemTypeId: string;
+  amount: string;
+  amountPaid: string;
+  conversionRate: string;
+  sourceAccountId: string;
+  bonusPercent: string;
+  cartAmount: string;
+  cartCost: string;
+  date: string;
+  isClube: boolean;
+  clubeMeses: string;
+  isRecurrent: boolean;
+  recurrenceType: "monthly" | "quarterly" | "semiannual" | "annual";
+  recurrenceCount: number;
+  startDate: string;
+  recurrenceValueMode: "split" | "repeat";
 }
 
 export interface Client {
@@ -97,7 +97,7 @@ export interface PointEntry {
   /** Data final da recorrência */
   recurrenceEnd?: string;
   /** Modo de distribuição dos valores nas recorrências: split (divide) ou repeat (repete) */
-  recurrenceValueMode?: 'split' | 'repeat';
+  recurrenceValueMode?: "split" | "repeat";
   date: string;
   description?: string;
 }
@@ -110,7 +110,7 @@ export function serializeDescription(opts: {
   parentEntryId?: string;
   recurrenceInterval?: number;
   recurrenceEnd?: string;
-  recurrenceValueMode?: 'split' | 'repeat';
+  recurrenceValueMode?: "split" | "repeat";
 }): string | undefined {
   const obj: Record<string, unknown> = {};
   if (opts.cartAmount && opts.cartAmount > 0) {
@@ -133,7 +133,7 @@ export function parseDescription(description?: string | null): {
   parentEntryId?: string;
   recurrenceInterval?: number;
   recurrenceEnd?: string;
-  recurrenceValueMode?: 'split' | 'repeat';
+  recurrenceValueMode?: "split" | "repeat";
 } {
   if (!description) return {};
   try {

@@ -4,21 +4,40 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { DeleteConfirmDialog } from "@/components/DeleteConfirmDialog";
 import { formatCPF } from "@/lib/utils";
 import type { Owner, Account } from "@/types";
 
 interface OwnerSectionProps {
-  owners: Owner[]
-  accounts: Account[]
-  onAdd: (data: { id: string; name: string; cpf: string; phone: string }) => void
-  onUpdate: (data: { id: string; name: string; cpf: string; phone: string }) => void
-  onDelete: (id: string) => void
+  owners: Owner[];
+  accounts: Account[];
+  onAdd: (data: { id: string; name: string; cpf: string; phone: string }) => void;
+  onUpdate: (data: { id: string; name: string; cpf: string; phone: string }) => void;
+  onDelete: (id: string) => void;
 }
 
-export default function OwnerSection({ owners, accounts, onAdd, onUpdate, onDelete }: OwnerSectionProps) {
+export default function OwnerSection({
+  owners,
+  accounts,
+  onAdd,
+  onUpdate,
+  onDelete,
+}: OwnerSectionProps) {
   const [newOwner, setNewOwner] = useState({ name: "", cpf: "", phone: "" });
   const [editingOwner, setEditingOwner] = useState<Owner | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -55,7 +74,13 @@ export default function OwnerSection({ owners, accounts, onAdd, onUpdate, onDele
     <div className="space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <p className="text-sm text-muted-foreground">{owners.length} dono(s) cadastrado(s)</p>
-        <Dialog open={isDialogOpen} onOpenChange={(open) => { if (!open) resetDialog(); else setIsDialogOpen(true); }}>
+        <Dialog
+          open={isDialogOpen}
+          onOpenChange={(open) => {
+            if (!open) resetDialog();
+            else setIsDialogOpen(true);
+          }}
+        >
           <DialogTrigger asChild>
             <Button className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto">
               <Plus className="h-4 w-4" /> Novo Dono
@@ -68,21 +93,44 @@ export default function OwnerSection({ owners, accounts, onAdd, onUpdate, onDele
             <div className="grid gap-4 py-4">
               <div className="space-y-2">
                 <Label htmlFor="ownerName">Nome Completo</Label>
-                <Input id="ownerName" value={newOwner.name} onChange={(e) => { setNewOwner({ ...newOwner, name: e.target.value }); setError(""); }} placeholder="Nome do dono" />
+                <Input
+                  id="ownerName"
+                  value={newOwner.name}
+                  onChange={(e) => {
+                    setNewOwner({ ...newOwner, name: e.target.value });
+                    setError("");
+                  }}
+                  placeholder="Nome do dono"
+                />
                 {error && <p className="text-xs text-destructive">{error}</p>}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="ownerCpf">CPF</Label>
-                <Input id="ownerCpf" value={newOwner.cpf} onChange={(e) => setNewOwner({ ...newOwner, cpf: formatCPF(e.target.value) })} placeholder="000.000.000-00" maxLength={14} />
+                <Input
+                  id="ownerCpf"
+                  value={newOwner.cpf}
+                  onChange={(e) => setNewOwner({ ...newOwner, cpf: formatCPF(e.target.value) })}
+                  placeholder="000.000.000-00"
+                  maxLength={14}
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="ownerPhone">Telefone</Label>
-                <Input id="ownerPhone" value={newOwner.phone} onChange={(e) => setNewOwner({ ...newOwner, phone: e.target.value })} placeholder="(11) 99999-9999" />
+                <Input
+                  id="ownerPhone"
+                  value={newOwner.phone}
+                  onChange={(e) => setNewOwner({ ...newOwner, phone: e.target.value })}
+                  placeholder="(11) 99999-9999"
+                />
               </div>
             </div>
             <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={resetDialog}>Cancelar</Button>
-              <Button onClick={handleSave} className="bg-gradient-primary hover:opacity-90">{editingOwner ? "Salvar Alterações" : "Cadastrar"}</Button>
+              <Button variant="outline" onClick={resetDialog}>
+                Cancelar
+              </Button>
+              <Button onClick={handleSave} className="bg-gradient-primary hover:opacity-90">
+                {editingOwner ? "Salvar Alterações" : "Cadastrar"}
+              </Button>
             </div>
           </DialogContent>
         </Dialog>
@@ -114,18 +162,36 @@ export default function OwnerSection({ owners, accounts, onAdd, onUpdate, onDele
                     <TableCell className="hidden md:table-cell">{owner.phone}</TableCell>
                     <TableCell className="hidden md:table-cell">
                       <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
-                        {accounts.filter(a => a.ownerId === owner.id).length}
+                        {accounts.filter((a) => a.ownerId === owner.id).length}
                       </span>
                     </TableCell>
                     <TableCell className="hidden md:table-cell text-right">
                       <div className="flex justify-end gap-2">
-                        <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => handleEdit(owner)}><Edit className="h-4 w-4" /></Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="px-3 min-h-[44px] min-w-[44px]"
+                          onClick={() => handleEdit(owner)}
+                        >
+                          <Edit className="h-4 w-4" />
+                        </Button>
                         <DeleteConfirmDialog
-                          trigger={<Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive"><Trash2 className="h-4 w-4" /></Button>}
+                          trigger={
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          }
                           title="Excluir dono?"
-                          description={`Tem certeza que deseja excluir o dono "${owner.name}"? ${accounts.filter(a => a.ownerId === owner.id).length > 0 ? `ATENÇÃO: Este dono possui ${accounts.filter(a => a.ownerId === owner.id).length} conta(s) vinculada(s) que também serão excluídas.` : "Esta ação não pode ser desfeita."}`}
+                          description={`Tem certeza que deseja excluir o dono "${owner.name}"? ${accounts.filter((a) => a.ownerId === owner.id).length > 0 ? `ATENÇÃO: Este dono possui ${accounts.filter((a) => a.ownerId === owner.id).length} conta(s) vinculada(s) que também serão excluídas.` : "Esta ação não pode ser desfeita."}`}
                           confirmLabel="Excluir dono"
-                          onConfirm={() => { onDelete(owner.id); setDeletingOwner(null); }}
+                          onConfirm={() => {
+                            onDelete(owner.id);
+                            setDeletingOwner(null);
+                          }}
                         />
                       </div>
                     </TableCell>
@@ -141,19 +207,40 @@ export default function OwnerSection({ owners, accounts, onAdd, onUpdate, onDele
                 <div className="flex items-center justify-between">
                   <p className="font-semibold text-base truncate">{owner.name}</p>
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary shrink-0 ml-2">
-                    {accounts.filter(a => a.ownerId === owner.id).length} conta(s)
+                    {accounts.filter((a) => a.ownerId === owner.id).length} conta(s)
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-sm">
-                  <div><span className="text-muted-foreground text-xs">CPF</span><p className="font-mono truncate">{owner.cpf || "—"}</p></div>
-                  <div><span className="text-muted-foreground text-xs">Telefone</span><p className="truncate">{owner.phone || "—"}</p></div>
+                  <div>
+                    <span className="text-muted-foreground text-xs">CPF</span>
+                    <p className="font-mono truncate">{owner.cpf || "—"}</p>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground text-xs">Telefone</span>
+                    <p className="truncate">{owner.phone || "—"}</p>
+                  </div>
                 </div>
                 <div className="flex gap-2 pt-1 border-t">
-                  <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px]" onClick={() => handleEdit(owner)}><Edit className="h-4 w-4" /> Editar</Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="flex-1 gap-2 min-h-[44px]"
+                    onClick={() => handleEdit(owner)}
+                  >
+                    <Edit className="h-4 w-4" /> Editar
+                  </Button>
                   <DeleteConfirmDialog
-                    trigger={<Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive"><Trash2 className="h-4 w-4" /> Excluir</Button>}
+                    trigger={
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive"
+                      >
+                        <Trash2 className="h-4 w-4" /> Excluir
+                      </Button>
+                    }
                     title="Excluir dono?"
-                    description={`Tem certeza que deseja excluir o dono "${owner.name}"? ${accounts.filter(a => a.ownerId === owner.id).length > 0 ? `ATENÇÃO: Este dono possui ${accounts.filter(a => a.ownerId === owner.id).length} conta(s) vinculada(s) que também serão excluídas.` : "Esta ação não pode ser desfeita."}`}
+                    description={`Tem certeza que deseja excluir o dono "${owner.name}"? ${accounts.filter((a) => a.ownerId === owner.id).length > 0 ? `ATENÇÃO: Este dono possui ${accounts.filter((a) => a.ownerId === owner.id).length} conta(s) vinculada(s) que também serão excluídas.` : "Esta ação não pode ser desfeita."}`}
                     confirmLabel="Excluir dono"
                     onConfirm={() => onDelete(owner.id)}
                   />

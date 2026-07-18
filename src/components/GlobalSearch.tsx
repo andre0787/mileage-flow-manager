@@ -42,8 +42,12 @@ export function GlobalSearch() {
 
     entries.forEach((e) => {
       const account = accounts.find((a) => a.id === e.accountId);
-      const origem = origemTypes.find((ot) => ot.id === e.origemTypeId)?.name ?? programs.find((p) => p.id === e.origemTypeId)?.name ?? "";
-      const text = `${account?.name ?? ""} ${origem} ${new Date(e.date).toLocaleDateString("pt-BR")}`.toLowerCase();
+      const origem =
+        origemTypes.find((ot) => ot.id === e.origemTypeId)?.name ??
+        programs.find((p) => p.id === e.origemTypeId)?.name ??
+        "";
+      const text =
+        `${account?.name ?? ""} ${origem} ${new Date(e.date).toLocaleDateString("pt-BR")}`.toLowerCase();
       if (text.includes(q)) {
         items.push({
           type: "entrada",
@@ -56,7 +60,8 @@ export function GlobalSearch() {
     });
 
     sales.forEach((s) => {
-      const text = `${s.clientName} ${s.ownerName} ${s.program} ${s.ticketLocator ?? ""}`.toLowerCase();
+      const text =
+        `${s.clientName} ${s.ownerName} ${s.program} ${s.ticketLocator ?? ""}`.toLowerCase();
       if (text.includes(q)) {
         items.push({
           type: "venda",
@@ -160,7 +165,10 @@ export function GlobalSearch() {
         {query && (
           <button
             className="absolute right-3 top-1/2 -translate-y-1/2 sm:hidden text-muted-foreground"
-            onClick={() => { setQuery(""); inputRef.current?.focus(); }}
+            onClick={() => {
+              setQuery("");
+              inputRef.current?.focus();
+            }}
           >
             <X className="h-4 w-4" />
           </button>
@@ -190,7 +198,9 @@ export function GlobalSearch() {
                       >
                         <Icon className="h-4 w-4 text-muted-foreground shrink-0" />
                         <div className="min-w-0 flex-1">
-                          <p className="text-sm font-medium text-foreground truncate">{item.title}</p>
+                          <p className="text-sm font-medium text-foreground truncate">
+                            {item.title}
+                          </p>
                           <p className="text-xs text-muted-foreground truncate">{item.subtitle}</p>
                         </div>
                       </button>

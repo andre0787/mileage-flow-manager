@@ -18,10 +18,7 @@ interface BalanceReconcileBannerProps {
  * ponytail: só aparece se houver discrepância > 1, com botão pra recalcular.
  */
 export function BalanceReconcileBanner({ computedTotal, accounts }: BalanceReconcileBannerProps) {
-  const accountsTotal = useMemo(
-    () => accounts.reduce((s, a) => s + a.balance, 0),
-    [accounts],
-  );
+  const accountsTotal = useMemo(() => accounts.reduce((s, a) => s + a.balance, 0), [accounts]);
 
   const diff = Math.abs(computedTotal - accountsTotal);
 
@@ -31,15 +28,20 @@ export function BalanceReconcileBanner({ computedTotal, accounts }: BalanceRecon
     <div className="flex items-start gap-3 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-sm">
       <AlertTriangle className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" />
       <div className="flex-1 min-w-0">
-        <p className="font-medium text-amber-600 dark:text-amber-400">
-          Discrepância detectada
-        </p>
+        <p className="font-medium text-amber-600 dark:text-amber-400">Discrepância detectada</p>
         <p className="text-muted-foreground mt-0.5">
-          Saldo calculado: <span className="tabular-nums font-semibold">{computedTotal.toLocaleString("pt-BR")}</span>
+          Saldo calculado:{" "}
+          <span className="tabular-nums font-semibold">
+            {computedTotal.toLocaleString("pt-BR")}
+          </span>
           {" · "}
-          Saldo das contas: <span className="tabular-nums font-semibold">{accountsTotal.toLocaleString("pt-BR")}</span>
+          Saldo das contas:{" "}
+          <span className="tabular-nums font-semibold">
+            {accountsTotal.toLocaleString("pt-BR")}
+          </span>
           {" · "}
-          Diferença: <span className="tabular-nums font-semibold">{diff.toLocaleString("pt-BR")}</span> milhas
+          Diferença:{" "}
+          <span className="tabular-nums font-semibold">{diff.toLocaleString("pt-BR")}</span> milhas
         </p>
         <p className="text-muted-foreground/70 text-xs mt-1">
           Pode ser devido a dados históricos anteriores às correções de saldo.
@@ -52,7 +54,7 @@ export function BalanceReconcileBanner({ computedTotal, accounts }: BalanceRecon
 
 function RecalcButton({ accounts }: { accounts: Account[] }) {
   const { mutate, isPending } = useRecalcAccountMutation();
-  const accountIds = useMemo(() => accounts.map(a => a.id), [accounts]);
+  const accountIds = useMemo(() => accounts.map((a) => a.id), [accounts]);
 
   if (accountIds.length === 0) return null;
 

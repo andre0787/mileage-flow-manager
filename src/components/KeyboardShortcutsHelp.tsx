@@ -50,7 +50,12 @@ export function KeyboardShortcutsHelp() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-9 w-9 rounded-lg" title="Atalhos de teclado (?)">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-9 w-9 rounded-lg"
+          title="Atalhos de teclado (?)"
+        >
           <Keyboard className="h-4 w-4" />
           <span className="sr-only">Atalhos de teclado</span>
         </Button>

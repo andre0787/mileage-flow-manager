@@ -28,6 +28,12 @@ dist-ssr
 # Environment
 .env
 
+# TypeScript build info
+*.tsbuildinfo
+
+# Serena agent cache
+.serena/
+
 # Playwright MCP debug artifacts
 .playwright-mcp/
 

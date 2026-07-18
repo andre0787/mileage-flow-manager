@@ -5,25 +5,69 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { DeleteConfirmDialog } from "@/components/DeleteConfirmDialog";
 import { parseOrigemTypeDescription, serializeOrigemTypeDescription } from "@/lib/origemTypes";
 import { isTransferencia } from "@/lib/utils";
 import type { OrigemType, PointEntry } from "@/types";
 
 interface OrigemTypeSectionProps {
-  origemTypes: OrigemType[]
-  entries: PointEntry[]
-  onAdd: (data: { id: string; name: string; accountType: OrigemType["accountType"]; color: string; description: string | undefined }) => void
-  onUpdate: (data: { id: string; name: string; accountType: OrigemType["accountType"]; color: string; description: string | undefined }) => void
-  onDelete: (id: string) => void
+  origemTypes: OrigemType[];
+  entries: PointEntry[];
+  onAdd: (data: {
+    id: string;
+    name: string;
+    accountType: OrigemType["accountType"];
+    color: string;
+    description: string | undefined;
+  }) => void;
+  onUpdate: (data: {
+    id: string;
+    name: string;
+    accountType: OrigemType["accountType"];
+    color: string;
+    description: string | undefined;
+  }) => void;
+  onDelete: (id: string) => void;
 }
 
-export default function OrigemTypeSection({ origemTypes, entries, onAdd, onUpdate, onDelete }: OrigemTypeSectionProps) {
-  const milhasTypes = origemTypes.filter(ot => ot.accountType === "milhas" && !isTransferencia(ot));
-  const [form, setForm] = useState({ name: "", accountType: "milhas" as OrigemType["accountType"], color: "#10b981", hasRecurrence: false });
+export default function OrigemTypeSection({
+  origemTypes,
+  entries,
+  onAdd,
+  onUpdate,
+  onDelete,
+}: OrigemTypeSectionProps) {
+  const milhasTypes = origemTypes.filter(
+    (ot) => ot.accountType === "milhas" && !isTransferencia(ot),
+  );
+  const [form, setForm] = useState({
+    name: "",
+    accountType: "milhas" as OrigemType["accountType"],
+    color: "#10b981",
+    hasRecurrence: false,
+  });
   const [editing, setEditing] = useState<OrigemType | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [error, setError] = useState("");
@@ -36,9 +80,17 @@ export default function OrigemTypeSection({ origemTypes, entries, onAdd, onUpdat
   };
 
   const handleSave = () => {
-    if (!form.name) { setError("Nome é obrigatório"); return; }
+    if (!form.name) {
+      setError("Nome é obrigatório");
+      return;
+    }
     const description = serializeOrigemTypeDescription(form.hasRecurrence);
-    const payload = { name: form.name, accountType: form.accountType, color: form.color, description };
+    const payload = {
+      name: form.name,
+      accountType: form.accountType,
+      color: form.color,
+      description,
+    };
     if (editing) {
       onUpdate({ id: editing.id, ...payload });
     } else {
@@ -61,10 +113,26 @@ export default function OrigemTypeSection({ origemTypes, entries, onAdd, onUpdat
   return (
     <div className="space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <p className="text-sm text-muted-foreground">{milhasTypes.length} tipo(s) de operação cadastrado(s)</p>
-        <Dialog open={isDialogOpen} onOpenChange={(open) => { if (!open) resetDialog(); else { setForm(f => ({ ...f, accountType: "milhas" })); setIsDialogOpen(true); } }}>
+        <p className="text-sm text-muted-foreground">
+          {milhasTypes.length} tipo(s) de operação cadastrado(s)
+        </p>
+        <Dialog
+          open={isDialogOpen}
+          onOpenChange={(open) => {
+            if (!open) resetDialog();
+            else {
+              setForm((f) => ({ ...f, accountType: "milhas" }));
+              setIsDialogOpen(true);
+            }
+          }}
+        >
           <DialogTrigger asChild>
-            <Button className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto" onClick={() => setForm({ name: "", accountType: "milhas", color: "#10b981", hasRecurrence: false })}>
+            <Button
+              className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto"
+              onClick={() =>
+                setForm({ name: "", accountType: "milhas", color: "#10b981", hasRecurrence: false })
+              }
+            >
               <Plus className="h-4 w-4" /> Nova Operação
             </Button>
           </DialogTrigger>
@@ -75,20 +143,39 @@ export default function OrigemTypeSection({ origemTypes, entries, onAdd, onUpdat
             <div className="grid gap-4 py-4">
               <div className="space-y-2">
                 <Label htmlFor="otName">Nome</Label>
-                <Input id="otName" value={form.name} onChange={(e) => { setForm({ ...form, name: e.target.value }); setError(""); }} placeholder="Ex: Compra Direta" />
+                <Input
+                  id="otName"
+                  value={form.name}
+                  onChange={(e) => {
+                    setForm({ ...form, name: e.target.value });
+                    setError("");
+                  }}
+                  placeholder="Ex: Compra Direta"
+                />
                 {error && <p className="text-xs text-destructive">{error}</p>}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="otColor">Cor</Label>
                 <div className="flex gap-2 items-center">
-                  <Input id="otColor" type="color" value={form.color} onChange={(e) => setForm({ ...form, color: e.target.value })} className="w-12 h-10 p-1" />
+                  <Input
+                    id="otColor"
+                    type="color"
+                    value={form.color}
+                    onChange={(e) => setForm({ ...form, color: e.target.value })}
+                    className="w-12 h-10 p-1"
+                  />
                   <span className="text-sm text-muted-foreground">{form.color}</span>
                 </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="otRecurrence">Recorrência</Label>
-                <Select value={form.hasRecurrence ? "sim" : "nao"} onValueChange={(value) => setForm({ ...form, hasRecurrence: value === "sim" })}>
-                  <SelectTrigger id="otRecurrence"><SelectValue placeholder="Selecione" /></SelectTrigger>
+                <Select
+                  value={form.hasRecurrence ? "sim" : "nao"}
+                  onValueChange={(value) => setForm({ ...form, hasRecurrence: value === "sim" })}
+                >
+                  <SelectTrigger id="otRecurrence">
+                    <SelectValue placeholder="Selecione" />
+                  </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="nao">Não recorrente</SelectItem>
                     <SelectItem value="sim">Recorrente mensal</SelectItem>
@@ -97,8 +184,12 @@ export default function OrigemTypeSection({ origemTypes, entries, onAdd, onUpdat
               </div>
             </div>
             <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={resetDialog}>Cancelar</Button>
-              <Button onClick={handleSave} className="bg-gradient-primary hover:opacity-90">{editing ? "Salvar Alterações" : "Cadastrar"}</Button>
+              <Button variant="outline" onClick={resetDialog}>
+                Cancelar
+              </Button>
+              <Button onClick={handleSave} className="bg-gradient-primary hover:opacity-90">
+                {editing ? "Salvar Alterações" : "Cadastrar"}
+              </Button>
             </div>
           </DialogContent>
         </Dialog>
@@ -127,22 +218,53 @@ export default function OrigemTypeSection({ origemTypes, entries, onAdd, onUpdat
                     <TableCell className="hidden md:table-cell font-medium">{ot.name}</TableCell>
                     <TableCell className="hidden md:table-cell">
                       <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 rounded-full border" style={{ backgroundColor: ot.color }} />
+                        <div
+                          className="w-4 h-4 rounded-full border"
+                          style={{ backgroundColor: ot.color }}
+                        />
                         <span className="text-xs font-mono">{ot.color}</span>
                       </div>
                     </TableCell>
                     <TableCell className="hidden md:table-cell">
-                      <Badge variant={parseOrigemTypeDescription(ot.description).hasRecurrence ? "default" : "secondary"}>
-                        {parseOrigemTypeDescription(ot.description).hasRecurrence ? "Mensal" : "Avulsa"}
+                      <Badge
+                        variant={
+                          parseOrigemTypeDescription(ot.description).hasRecurrence
+                            ? "default"
+                            : "secondary"
+                        }
+                      >
+                        {parseOrigemTypeDescription(ot.description).hasRecurrence
+                          ? "Mensal"
+                          : "Avulsa"}
                       </Badge>
                     </TableCell>
                     <TableCell className="hidden md:table-cell text-right">
                       <div className="flex justify-end gap-2">
-                        <Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px]" onClick={() => handleEdit(ot)}><Edit className="h-4 w-4" /></Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="px-3 min-h-[44px] min-w-[44px]"
+                          onClick={() => handleEdit(ot)}
+                        >
+                          <Edit className="h-4 w-4" />
+                        </Button>
                         <DeleteConfirmDialog
-                          trigger={<Button size="sm" variant="outline" className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive" disabled={entries.some(e => e.origemTypeId === ot.id)}><Trash2 className="h-4 w-4" /></Button>}
+                          trigger={
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive"
+                              disabled={entries.some((e) => e.origemTypeId === ot.id)}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          }
                           title="Excluir tipo de operação?"
-                          description={entries.some(e => e.origemTypeId === ot.id) ? `Não é possível excluir o tipo "${ot.name}" pois existem entradas vinculadas. Remova as entradas primeiro.` : `Tem certeza que deseja excluir o tipo "${ot.name}"? Esta ação não pode ser desfeita e removerá permanentemente o registro.`}
+                          description={
+                            entries.some((e) => e.origemTypeId === ot.id)
+                              ? `Não é possível excluir o tipo "${ot.name}" pois existem entradas vinculadas. Remova as entradas primeiro.`
+                              : `Tem certeza que deseja excluir o tipo "${ot.name}"? Esta ação não pode ser desfeita e removerá permanentemente o registro.`
+                          }
                           confirmLabel="Excluir tipo"
                           onConfirm={() => onDelete(ot.id)}
                         />
@@ -160,19 +282,51 @@ export default function OrigemTypeSection({ origemTypes, entries, onAdd, onUpdat
                 <div className="flex items-center justify-between">
                   <p className="font-semibold text-base truncate">{ot.name}</p>
                   <div className="flex items-center gap-2 shrink-0 ml-2">
-                    <div className="w-4 h-4 rounded-full border" style={{ backgroundColor: ot.color }} />
+                    <div
+                      className="w-4 h-4 rounded-full border"
+                      style={{ backgroundColor: ot.color }}
+                    />
                     <span className="text-xs font-mono text-muted-foreground">{ot.color}</span>
                   </div>
                 </div>
-                <Badge variant={parseOrigemTypeDescription(ot.description).hasRecurrence ? "default" : "secondary"} className="w-fit">
-                  {parseOrigemTypeDescription(ot.description).hasRecurrence ? "Recorrente mensal" : "Avulsa"}
+                <Badge
+                  variant={
+                    parseOrigemTypeDescription(ot.description).hasRecurrence
+                      ? "default"
+                      : "secondary"
+                  }
+                  className="w-fit"
+                >
+                  {parseOrigemTypeDescription(ot.description).hasRecurrence
+                    ? "Recorrente mensal"
+                    : "Avulsa"}
                 </Badge>
                 <div className="flex gap-2 pt-1 border-t">
-                  <Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px]" onClick={() => handleEdit(ot)}><Edit className="h-4 w-4" /> Editar</Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="flex-1 gap-2 min-h-[44px]"
+                    onClick={() => handleEdit(ot)}
+                  >
+                    <Edit className="h-4 w-4" /> Editar
+                  </Button>
                   <DeleteConfirmDialog
-                    trigger={<Button size="sm" variant="outline" className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive" disabled={entries.some(e => e.origemTypeId === ot.id)}><Trash2 className="h-4 w-4" /> Excluir</Button>}
+                    trigger={
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="flex-1 gap-2 min-h-[44px] text-destructive hover:text-destructive"
+                        disabled={entries.some((e) => e.origemTypeId === ot.id)}
+                      >
+                        <Trash2 className="h-4 w-4" /> Excluir
+                      </Button>
+                    }
                     title="Excluir tipo de operação?"
-                    description={entries.some(e => e.origemTypeId === ot.id) ? `Não é possível excluir o tipo "${ot.name}" pois existem entradas vinculadas. Remova as entradas primeiro.` : `Tem certeza que deseja excluir o tipo "${ot.name}"? Esta ação não pode ser desfeita e removerá permanentemente o registro.`}
+                    description={
+                      entries.some((e) => e.origemTypeId === ot.id)
+                        ? `Não é possível excluir o tipo "${ot.name}" pois existem entradas vinculadas. Remova as entradas primeiro.`
+                        : `Tem certeza que deseja excluir o tipo "${ot.name}"? Esta ação não pode ser desfeita e removerá permanentemente o registro.`
+                    }
                     confirmLabel="Excluir tipo"
                     onConfirm={() => onDelete(ot.id)}
                   />
