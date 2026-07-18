@@ -25,12 +25,14 @@ c74a961 chore: session end
 ```
 
 ## 🧭 Estado Atual
-- **Branch:** `chore/llm-small-model-workflow-audit`
-- **Último commit:** `c74a961` — chore: session end
-- **Remote:** origin/chore/llm-small-model-workflow-audit
+- **Branch:** `docs/workflow-manifest`
+- **Último commit:** `d215d74` — docs: mark P0-01 as done no roadmap + task card
+- **Remote:** origin/docs/workflow-manifest
 
 ### 📋 PRs Abertos
-- #152 — docs: roadmap em task-cards para workflow de modelo LLM menor
+- #153 — docs: workflow-manifest — documento canônico de workflow (P0-01)
+  - Status: open, aguardando review/merge
+  - [Abrir PR](https://github.com/andre0787/mileage-flow-manager/pull/153)
 
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
@@ -43,6 +45,17 @@ c74a961 chore: session end
 **Categoria:** docs
 **Docs carregados:** AGENTS.md (docs categoria, sem pré-carregamento)
 
+## 🏁 P0-01 — Manifesto único de workflow ✅
+**Status:** PR #153 aberto, aguardando merge
+
+### Entregues:
+- `docs/WORKFLOW-MANIFEST.md` — manifesto canônico com categorias, estados, comandos, alvo de PR, artefatos, bypass
+- `docs/WORKFLOW.md` — header apontando para manifesto
+- `AGENTS.md` — referência ao manifesto
+- `README.md` — alvo de PR corrigido: `develop` → `main`
+- `docs/MAP.md` — manifesto como primeira leitura
+- `docs/tasks/ROADMAP.md` — P0-01 marcado como done
+
 ## ✅ Última Sessão
 **Data:** 2026-07-18
 **Tarefa:** aplicar veredito LLM Council 2026-07-17 em roadmap + 22 task-cards + registrar no MAP.md
@@ -54,8 +67,8 @@ c74a961 chore: session end
 - Relatório normalizado: `docs/reports/2026-07-17/PR152-2026-07-17-llm-small-model-workflow-audit.html`
 
 ## 📌 Próxima Sessão
-1. Aguardar review/merge do PR #152.
-2. Iniciar execução dos cards P0 (P0-01 → P0-07) — um PR pequeno por card, sem instalar framework amplo.
+1. Aguardar review/merge do PR #153.
+2. **Próximo card:** P0-02 — `session:start` persiste categoria/objetivo/branch
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
