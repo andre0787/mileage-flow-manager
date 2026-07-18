@@ -1,0 +1,42 @@
+name: Auto Merge
+
+on:
+  check_suite:
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    if: >
+      github.event.check_suite.conclusion == 'success' &&
+      github.event.check_suite.head_branch != 'main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Find open PR for branch
+        id: pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="${{ github.event.check_suite.head_branch }}"
+          PR_NUM=$(gh pr list --repo "${{ github.repository }}" --head "$BRANCH" --state open --json number -q '.[0].number' 2>/dev/null || echo "")
+          echo "num=${PR_NUM:-}" >> $GITHUB_OUTPUT
+          echo "branch=${BRANCH}" >> $GITHUB_OUTPUT
+
+      - name: Merge PR
+        if: steps.pr.outputs.num != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUM="${{ steps.pr.outputs.num }}"
+          BRANCH="${{ steps.pr.outputs.branch }}"
+          echo "🔀 Merging PR #${PR_NUM} (branch: ${BRANCH})"
+          gh pr merge "$PR_NUM" \
+            --repo "${{ github.repository }}" \
+            --merge \
+            --delete-branch \
+            --admin
+          echo "✅ PR #${PR_NUM} merged and branch deleted"
