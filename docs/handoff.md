@@ -9,17 +9,17 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `fix/p0-05-pre-pr-diff-vazio`
-- **Último commit:** `f2e1285` — fix: remove explicit any de catch block nos testes de pre-pr para passar no ESLint
+- **Branch:** `chore/auto-merge-on-ci-green`
+- **Último commit:** `19db4b6` — chore: normalize report prefix to PR161
 - **Remote:** no remote
 ### 📋 PRs Abertos
-- #160 — fix: pre-pr valida diff vazio e data do relatorio (P0-05)
+- #161 — chore: auto-merge de PRs quando CI passa verde
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
 | Total testes | 128 |
 | Docs issues | 1 |
-| Branch | fix/p0-05-pre-pr-diff-vazio |
+| Branch | chore/auto-merge-on-ci-green |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
@@ -38,6 +38,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Navegação Serena-First adicionada: WORKFLOW.md (hierarquia), CONVENTIONS.md (seção), AGENTS.md (passo no workflow mínimo)
 - MAP.md atualizado para refletir Serena-First no workflow
 - Relatório gerado: `docs/reports/2026-07-18/subagent-docs-2026-07-18-subagent-docs.html`
+
 
 
 
