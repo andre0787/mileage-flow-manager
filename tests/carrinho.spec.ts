@@ -118,7 +118,7 @@ test.describe("Transferência com Compra no Carrinho", () => {
     await page.locator("button:has-text('Salvar Alterações')").click({ force: true });
     await page.waitForTimeout(2_000);
 
-    await expect(page.getByRole('heading', { name: 'Entradas', exact: true })).toBeVisible({ timeout: 5_000 });
+    await expect(page.getByRole('heading', { level: 1, name: 'Entradas', exact: true })).toBeVisible({ timeout: 5_000 });
 
     // ═══════════════════════════════════════
     // 5. Excluir

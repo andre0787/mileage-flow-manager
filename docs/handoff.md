@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `chore/p1-13-typecheck`
-- **Último commit:** `a7edcf9 — docs: atualiza estado do P1-13 e relatório`
+- **Último commit:** `bd0a0ad — docs: atualiza handoff final`
 - **Remote:** origin/chore/p1-13-typecheck
 ### 📋 PRs Abertos
 - #154 — chore: Typecheck estrito e handoff consistente
@@ -24,11 +24,11 @@ Consulte as GitHub Issues para a lista atual.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** Encerrar sessão após PR #154
+**Categoria:** bugfix
+**Objetivo:** Corrigir seletor E2E do fluxo de carrinho
 **Branch:** `chore/p1-13-typecheck`
-**Último commit:** a7edcf9 — docs: atualiza estado do P1-13 e relatório
-**Docs carregados:** AGENTS.md
+**Último commit:** bd0a0ad — docs: atualiza handoff final
+**Docs carregados:** DEBUG.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
