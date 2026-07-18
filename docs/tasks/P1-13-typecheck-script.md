@@ -6,7 +6,7 @@
 | `categoria` | chore |
 | `onda` | P1-B |
 | `baseBranch` | main |
-| `estado` | verified |
+| `estado` | review |
 | `origem` | veredito 2026-07-17, item #13 |
 | `dependeDe` | [] |
 

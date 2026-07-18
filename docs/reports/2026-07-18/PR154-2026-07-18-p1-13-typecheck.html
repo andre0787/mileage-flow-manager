@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>p1-13-typecheck — p1 13 typecheck</title>
+  <title>PR154 — p1 13 typecheck</title>
   <style>
     body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
     h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 p1 13 typecheck</h1>
-  <p class="meta">2026-07-18 00:59 &middot; chore/p1-13-typecheck &middot; 922de0d — chore: typecheck estrito e corrige handoff</p>
-  <p><span class="badge auto">auto</span> <span class="badge auto">p1-13-typecheck</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
+  <p class="meta">2026-07-18 01:07 &middot; chore/p1-13-typecheck &middot; cb318c6 — chore: normalize report prefix to PR154</p>
+  <p><span class="badge pr">PR #154</span> <span class="badge auto">PR154</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">13</div>
+      <div style="font-size:1.5rem;font-weight:700">16</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+237</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+642</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-72</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-81</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~392</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~719</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -82,12 +82,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 72 remoções — 523 linhas tocadas</td>
-        <td>✨ 237 adições — 13 arquivo(s) alterado(s)</td>
+        <td>🧹 81 remoções — 959 linhas tocadas</td>
+        <td>✨ 642 adições — 16 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .github/workflows/ci.yml, docs/handoff.md, package.json, scripts/pre-pr-check.mjs<br><span style="color:#166534;font-weight:600">➕</span> docs/reports/2026-07-18/p1-13-typecheck-2026-07-18-p1-13-typecheck.html<br><em>+8 arquivo(s)</em></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .github/workflows/ci.yml, docs/handoff.md, docs/tasks/P1-13-typecheck-script.md<br><span style="color:#166534;font-weight:600">➕</span> docs/reports/2026-07-18/PR154-2026-07-18-p1-13-typecheck-estrito-e-correcoes-de-handoff.html, docs/reports/2026-07-18/PR154-2026-07-18-p1-13-typecheck.html<br><em>+11 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -100,25 +100,25 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>13</td></tr>
-    <tr><td>Adições</td><td>+237</td></tr>
-    <tr><td>Remoções</td><td>-72</td></tr>
-    <tr><td>Tokens estimados</td><td>~392</td></tr>
+    <tr><td>Arquivos alterados</td><td>16</td></tr>
+    <tr><td>Adições</td><td>+642</td></tr>
+    <tr><td>Remoções</td><td>-81</td></tr>
+    <tr><td>Tokens estimados</td><td>~719</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:45">+178 add</div>
-        <div class="del" style="flex:14">-54 del</div>
-        <div class="overhead" style="flex:41">~160 ctx</div>
+        <div class="add" style="flex:67">+482 add</div>
+        <div class="del" style="flex:8">-61 del</div>
+        <div class="overhead" style="flex:25">~176 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+178</td><td>45%</td></tr>
-      <tr><td>Remoções</td><td>-54</td><td>14%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~160</td><td>41%</td></tr>
-      <tr><th>Total</th><th>~392</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+482</td><td>67%</td></tr>
+      <tr><td>Remoções</td><td>-61</td><td>8%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~176</td><td>25%</td></tr>
+      <tr><th>Total</th><th>~719</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
@@ -126,7 +126,10 @@
     <tr><th>Status</th><th>Arquivo</th></tr>
     <tr><td>M</td><td>.github/workflows/ci.yml</td></tr>
 <tr><td>M</td><td>docs/handoff.md</td></tr>
-<tr><td>A</td><td>docs/reports/2026-07-18/p1-13-typecheck-2026-07-18-p1-13-typecheck.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-18/PR154-2026-07-18-p1-13-typecheck-estrito-e-correcoes-de-handoff.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-18/PR154-2026-07-18-p1-13-typecheck.html</td></tr>
+<tr><td>M</td><td>docs/tasks/P1-13-typecheck-script.md</td></tr>
+<tr><td>M</td><td>docs/tasks/ROADMAP.md</td></tr>
 <tr><td>M</td><td>package.json</td></tr>
 <tr><td>M</td><td>scripts/pre-pr-check.mjs</td></tr>
 <tr><td>M</td><td>scripts/rules/rule-02-category-loading.mjs</td></tr>
@@ -158,10 +161,10 @@ index 99d6ab9..adb258a 100644
          run: npm run build
  
 diff --git a/docs/handoff.md b/docs/handoff.md
-index 65ee703..9f76ede 100644
+index 65ee703..3f62658 100644
 <span class="del">--- a/docs/handoff.md</span>
 <span class="add">+++ b/docs/handoff.md</span>
-@@ -1,68 +1,42 @@
+@@ -1,71 +1,42 @@
  # HANDOFF — MilesControl
  &gt; ⏰ Última atualização: 2026-07-18
 <span class="del">-&gt; Anterior: 2026-07-17</span>
@@ -197,7 +200,7 @@ index 65ee703..9f76ede 100644
 <span class="del">-- **Remote:** origin/docs/workflow-manifest</span>
 <span class="del">-</span>
 <span class="add">+- **Branch:** `chore/p1-13-typecheck`</span>
-<span class="add">+- **Último commit:** `1b7fdc5 — docs+fix: workflow-manifest + session:start persiste categoria (P0-01 + P0-02)`</span>
+<span class="add">+- **Último commit:** `922de0d` — chore: typecheck estrito e corrige handoff</span>
 <span class="add">+- **Remote:** no remote</span>
  ### 📋 PRs Abertos
 <span class="del">-- #153 — docs: workflow-manifest — documento canônico de workflow (P0-01)</span>
@@ -212,21 +215,14 @@ index 65ee703..9f76ede 100644
 <span class="add">+| Total testes | 124 |</span>
  | Docs issues | 1 |
 <span class="del">-| Branch | chore/llm-small-model-workflow-audit |</span>
-<span class="add">+| Branch | chore/p1-13-typecheck |</span>
- 
+<span class="del">-</span>
 <span class="del">-## 🏁 P0-01 + P0-02 ✅</span>
 <span class="del">-**Status:** PR #153 aberto, aguardando merge</span>
- 
+<span class="del">-</span>
 <span class="del">-### Entregues P0-01:</span>
 <span class="del">-- `docs/WORKFLOW-MANIFEST.md` — manifesto canônico</span>
 <span class="del">-- `docs/WORKFLOW.md`, `AGENTS.md`, `README.md`, `docs/MAP.md` — referenciam manifesto</span>
-<span class="add">+## 🎯 Sessão Atual</span>
-<span class="add">+**Categoria:** chore</span>
-<span class="add">+**Objetivo:** Corrigir typecheck e validar o handoff</span>
-<span class="add">+**Branch:** `chore/p1-13-typecheck`</span>
-<span class="add">+**Último commit:** 1b7fdc5 — docs+fix: workflow-manifest + session:start persiste categoria (P0-01 + P0-02)</span>
-<span class="add">+**Docs carregados:** AGENTS.md</span>
- 
+<span class="del">-</span>
 <span class="del">-### Entregues P0-02:</span>
 <span class="del">-- `scripts/session-start.mjs` — agora persiste categoria/objetivo/branch no handoff</span>
 <span class="del">-  - Modo interativo: pergunta categoria + objetivo</span>
@@ -238,10 +234,17 @@ index 65ee703..9f76ede 100644
 <span class="del">-## 📌 Próxima Sessão</span>
 <span class="del">-1. Aguardar review/merge do PR #153.</span>
 <span class="del">-2. **Próximo card:** P0-03 — CI executa `npm run check` em modo estrito</span>
+<span class="add">+| Branch | chore/p1-13-typecheck |</span>
  
  ---
  _Atualizado automaticamente por `scripts/update-handoff.mjs`_
- 
+<span class="del">-</span>
+<span class="add">+## 🎯 Sessão Atual</span>
+<span class="add">+**Categoria:** chore</span>
+<span class="add">+**Objetivo:** Corrigir typecheck e validar o handoff</span>
+<span class="add">+**Branch:** `chore/p1-13-typecheck`</span>
+<span class="add">+**Último commit:** 1b7fdc5 — docs+fix: workflow-manifest + session:start persiste categoria (P0-01 + P0-02)</span>
+<span class="add">+**Docs carregados:** AGENTS.md</span>
 <span class="add">+## ✅ Última Sessão</span>
 <span class="add">+Estado atualizado automaticamente.</span>
 <span class="add">+## 📌 Próxima Sessão</span>
@@ -249,20 +252,20 @@ index 65ee703..9f76ede 100644
  ## 🧠 Notas da Sessão Atual
  - Council 2026-07-17-llm-menor-workflow escolhido: reformular trabalho em ondas pequenas em vez de instalar framework de agente.
  - 22 task-cards entregues em `docs/tasks/` (ROADMAP.md + _TEMPLATE.md + 22 cards).
-diff --git a/docs/reports/2026-07-18/p1-13-typecheck-2026-07-18-p1-13-typecheck.html b/docs/reports/2026-07-18/p1-13-typecheck-2026-07-18-p1-13-typecheck.html
+ - MAP.md registra docs/tasks/ (rule-17).
+ - Post-pr feito: relatório renomeado para prefixo PR152.
+ - Branch: `chore/llm-small-model-workflow-audit` — contém só alterações em docs.
+<span class="add">+</span>
+diff --git a/docs/reports/2026-07-18/PR154-2026-07-18-p1-13-typecheck-estrito-e-correcoes-de-handoff.html b/docs/reports/2026-07-18/PR154-2026-07-18-p1-13-typecheck-estrito-e-correcoes-de-handoff.html
 new file mode 100644
-index 0000000..edca571
+index 0000000..5b5c1ce
 <span class="del">--- /dev/null</span>
-<span class="add">+++ b/docs/reports/2026-07-18/p1-13-typecheck-2026-07-18-p1-13-typecheck.html</span>
-@@ -0,0 +1,137 @@
+<span class="add">+++ b/docs/reports/2026-07-18/PR154-2026-07-18-p1-13-typecheck-estrito-e-correcoes-de-handoff.html</span>
+@@ -0,0 +1,266 @@
 <span class="add">+&lt;!DOCTYPE html&gt;</span>
 <span class="add">+&lt;html lang="pt-BR"&gt;</span>
 <span class="add">+&lt;head&gt;</span>
 <span class="add">+  &lt;meta charset="UTF-8"&gt;</span>
-<span class="add">+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;</span>
-<span class="add">+  &lt;title&gt;p1-13-typecheck — p1 13 typecheck&lt;/title&gt;</span>
-<span class="add">+  &lt;style&gt;</span>
-<span class="add">+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
