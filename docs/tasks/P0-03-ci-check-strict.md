@@ -6,7 +6,7 @@
 | `categoria` | chore |
 | `onda` | P0 |
 | `baseBranch` | main |
-| `estado` | pending |
+| `estado` | review |
 | `origem` | veredito 2026-07-17, item #3 |
 | `dependeDe` | [P1-13, P0-08] |
 
@@ -27,9 +27,9 @@ quebrar tipos/formato e ainda receber CI verde.
 - `package.json` (atalho `check`, se necessário)
 
 ## Critérios de aceite
-- [ ] Existe `npm run check` encadeando typecheck + lint + format:check + unit + rules + build.
-- [ ] CI roda `npm run check` em modo estrito (sem `continue-on-error` nos críticos).
-- [ ] Um diff que introduz erro de tipo ou formato faz o CI falhar.
+- [x] Existe `npm run check` encadeando typecheck + lint + format:check + unit + verify-docs + build.
+- [x] CI roda `npm run check` em modo estrito (sem `continue-on-error` nos críticos).
+- [ ] Um diff que introduz erro de tipo ou formato faz o CI falhar (verificar após merge).
 
 ## Riscos / Invariantes
 - Não introduzir flakiness novo; isolar passos que já são determinísticos.
