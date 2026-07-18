@@ -1,20 +1,26 @@
-import { useState, useMemo } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { isTransferencia } from "@/lib/utils"
-import type { Account, OrigemType, Program, Owner, EntryFormData } from "@/types"
+import { useState, useMemo } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { isTransferencia } from "@/lib/utils";
+import type { Account, OrigemType, Program, Owner, EntryFormData } from "@/types";
 
 interface TransferFormProps {
-  mode: "create" | "edit"
-  initialData?: Partial<EntryFormData>
-  onSubmit: (data: EntryFormData) => void
-  onCancel: () => void
-  accounts: Account[]
-  origemTypes: OrigemType[]
-  programs: Program[]
-  owners: Owner[]
+  mode: "create" | "edit";
+  initialData?: Partial<EntryFormData>;
+  onSubmit: (data: EntryFormData) => void;
+  onCancel: () => void;
+  accounts: Account[];
+  origemTypes: OrigemType[];
+  programs: Program[];
+  owners: Owner[];
 }
 
 const defaultForm = {
@@ -27,7 +33,7 @@ const defaultForm = {
   cartAmount: "",
   cartCost: "",
   date: "",
-}
+};
 
 export function TransferForm({
   mode,
@@ -39,51 +45,55 @@ export function TransferForm({
   programs,
   owners,
 }: TransferFormProps) {
-  const transferType = useMemo(() => origemTypes.find(isTransferencia), [origemTypes])
+  const transferType = useMemo(() => origemTypes.find(isTransferencia), [origemTypes]);
 
-  const [form, setForm] = useState({ ...defaultForm, origemTypeId: transferType?.id ?? "", ...initialData })
-  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [form, setForm] = useState({
+    ...defaultForm,
+    origemTypeId: transferType?.id ?? "",
+    ...initialData,
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const set = (patch: Record<string, string>) => setForm((prev) => ({ ...prev, ...patch }))
-  const clearErr = (field: string) => setErrors((prev) => ({ ...prev, [field]: "" }))
+  const set = (patch: Record<string, string>) => setForm((prev) => ({ ...prev, ...patch }));
+  const clearErr = (field: string) => setErrors((prev) => ({ ...prev, [field]: "" }));
 
-  const sourceAccount = accounts.find((a) => a.id === form.sourceAccountId)
-  const sourceAccounts = accounts.filter((a) => a.type === "pontos" && a.status === "ativa")
+  const sourceAccount = accounts.find((a) => a.id === form.sourceAccountId);
+  const sourceAccounts = accounts.filter((a) => a.type === "pontos" && a.status === "ativa");
   const destAccounts = accounts.filter(
     (a) =>
       a.type === "milhas" &&
       a.status === "ativa" &&
-      (!form.sourceAccountId || a.ownerId === sourceAccount?.ownerId)
-  )
+      (!form.sourceAccountId || a.ownerId === sourceAccount?.ownerId),
+  );
 
   const avgCostPerPoint =
     sourceAccount && sourceAccount.balance > 0
       ? (sourceAccount.totalInvested ?? 0) / sourceAccount.balance
-      : 0
+      : 0;
 
-  const amountNum = parseFloat(form.amount || "0")
-  const cartAmountNum = parseFloat(form.cartAmount || "0")
-  const bonusNum = parseFloat(form.bonusPercent || "0")
-  const effectiveMiles = (amountNum + cartAmountNum) * (1 + bonusNum / 100)
-  const calculatedCost = amountNum * avgCostPerPoint
+  const amountNum = parseFloat(form.amount || "0");
+  const cartAmountNum = parseFloat(form.cartAmount || "0");
+  const bonusNum = parseFloat(form.bonusPercent || "0");
+  const effectiveMiles = (amountNum + cartAmountNum) * (1 + bonusNum / 100);
+  const calculatedCost = amountNum * avgCostPerPoint;
 
-  const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id
-  const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id
+  const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id;
+  const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id;
 
   const validate = (): boolean => {
-    const errs: Record<string, string> = {}
-    if (!form.accountId) errs.accountId = "Selecione a conta de destino"
-    if (!form.sourceAccountId) errs.sourceAccountId = "Selecione a conta de origem"
-    if (!form.amount || amountNum <= 0) errs.amount = "Informe a quantidade"
+    const errs: Record<string, string> = {};
+    if (!form.accountId) errs.accountId = "Selecione a conta de destino";
+    if (!form.sourceAccountId) errs.sourceAccountId = "Selecione a conta de origem";
+    if (!form.amount || amountNum <= 0) errs.amount = "Informe a quantidade";
     if (sourceAccount && form.amount && amountNum > sourceAccount.balance)
-      errs.amount = "Saldo insuficiente na conta de origem"
-    if (!form.date) errs.date = "Selecione a data"
-    setErrors(errs)
-    return Object.keys(errs).length === 0
-  }
+      errs.amount = "Saldo insuficiente na conta de origem";
+    if (!form.date) errs.date = "Selecione a data";
+    setErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
 
   const handleSubmit = () => {
-    if (!validate()) return
+    if (!validate()) return;
     // Fill in defaults for EntryFormData fields not used by TransferForm
     onSubmit({
       ...form,
@@ -96,15 +106,16 @@ export function TransferForm({
       recurrenceCount: 1,
       startDate: "",
       recurrenceValueMode: "split",
-    })
-  }
+    });
+  };
 
   if (!transferType) {
     return (
       <div className="p-4 text-sm text-destructive">
-        Tipo de origem "Transferência" não encontrado. Crie um tipo de origem com nome "Transferência" e tipo "milhas" nas Configurações.
+        Tipo de origem "Transferência" não encontrado. Crie um tipo de origem com nome
+        "Transferência" e tipo "milhas" nas Configurações.
       </div>
-    )
+    );
   }
 
   return (
@@ -115,8 +126,8 @@ export function TransferForm({
         <Select
           value={form.sourceAccountId}
           onValueChange={(value) => {
-            set({ sourceAccountId: value, amount: "", amountPaid: "" })
-            clearErr("sourceAccountId")
+            set({ sourceAccountId: value, amount: "", amountPaid: "" });
+            clearErr("sourceAccountId");
           }}
         >
           <SelectTrigger id="transferSource">
@@ -130,10 +141,13 @@ export function TransferForm({
             ))}
           </SelectContent>
         </Select>
-        {errors.sourceAccountId && <p className="text-xs text-destructive">{errors.sourceAccountId}</p>}
+        {errors.sourceAccountId && (
+          <p className="text-xs text-destructive">{errors.sourceAccountId}</p>
+        )}
         {sourceAccount && (
           <p className="text-xs text-muted-foreground">
-            Programa: {programName(sourceAccount.programId)} | Custo médio: R$ {avgCostPerPoint.toFixed(4)}/pt
+            Programa: {programName(sourceAccount.programId)} | Custo médio: R${" "}
+            {avgCostPerPoint.toFixed(4)}/pt
           </p>
         )}
       </div>
@@ -144,8 +158,8 @@ export function TransferForm({
         <Select
           value={form.accountId}
           onValueChange={(value) => {
-            set({ accountId: value })
-            clearErr("accountId")
+            set({ accountId: value });
+            clearErr("accountId");
           }}
         >
           <SelectTrigger id="transferDest">
@@ -175,8 +189,8 @@ export function TransferForm({
           type="date"
           value={form.date}
           onChange={(e) => {
-            set({ date: e.target.value })
-            clearErr("date")
+            set({ date: e.target.value });
+            clearErr("date");
           }}
         />
         {errors.date && <p className="text-xs text-destructive">{errors.date}</p>}
@@ -191,18 +205,19 @@ export function TransferForm({
             type="number"
             value={form.amount}
             onChange={(e) => {
-              const val = e.target.value
-              const paid = val && avgCostPerPoint > 0
-                ? (parseFloat(val) * avgCostPerPoint).toFixed(2)
-                : ""
-              set({ amount: val, amountPaid: paid })
-              clearErr("amount")
+              const val = e.target.value;
+              const paid =
+                val && avgCostPerPoint > 0 ? (parseFloat(val) * avgCostPerPoint).toFixed(2) : "";
+              set({ amount: val, amountPaid: paid });
+              clearErr("amount");
             }}
             placeholder="Ex: 100000"
           />
           {errors.amount && <p className="text-xs text-destructive">{errors.amount}</p>}
           {sourceAccount && (
-            <p className={`text-xs ${amountNum > sourceAccount.balance ? "text-destructive" : "text-muted-foreground"}`}>
+            <p
+              className={`text-xs ${amountNum > sourceAccount.balance ? "text-destructive" : "text-muted-foreground"}`}
+            >
               Saldo disponível: {sourceAccount.balance.toLocaleString("pt-BR")} pontos
             </p>
           )}
@@ -219,7 +234,8 @@ export function TransferForm({
           />
           {sourceAccount && form.amount && avgCostPerPoint > 0 && (
             <p className="text-xs text-muted-foreground">
-              {amountNum.toLocaleString("pt-BR")} pts × R$ {avgCostPerPoint.toFixed(4)} = R$ {calculatedCost.toFixed(2)}
+              {amountNum.toLocaleString("pt-BR")} pts × R$ {avgCostPerPoint.toFixed(4)} = R${" "}
+              {calculatedCost.toFixed(2)}
             </p>
           )}
         </div>
@@ -239,7 +255,8 @@ export function TransferForm({
         />
         {bonusNum > 0 && amountNum > 0 && (
           <p className="text-xs text-success">
-            Milhas recebidas: {effectiveMiles.toLocaleString("pt-BR")} ({amountNum.toLocaleString("pt-BR")} + {bonusNum}%)
+            Milhas recebidas: {effectiveMiles.toLocaleString("pt-BR")} (
+            {amountNum.toLocaleString("pt-BR")} + {bonusNum}%)
           </p>
         )}
       </div>
@@ -276,7 +293,10 @@ export function TransferForm({
         {cartAmountNum > 0 && (
           <p className="text-xs text-muted-foreground">
             +{cartAmountNum.toLocaleString("pt-BR")} pts × {bonusNum}% bônus ={" "}
-            {(cartAmountNum * (1 + bonusNum / 100)).toLocaleString("pt-BR", { maximumFractionDigits: 0 })} milhas geradas
+            {(cartAmountNum * (1 + bonusNum / 100)).toLocaleString("pt-BR", {
+              maximumFractionDigits: 0,
+            })}{" "}
+            milhas geradas
           </p>
         )}
       </div>
@@ -289,7 +309,11 @@ export function TransferForm({
             <div>
               <span className="text-muted-foreground">Custo por milhar:</span>
               <p className="font-semibold">
-                R$ {((calculatedCost / (effectiveMiles > 0 ? effectiveMiles : amountNum)) * 1000).toFixed(2)}
+                R${" "}
+                {(
+                  (calculatedCost / (effectiveMiles > 0 ? effectiveMiles : amountNum)) *
+                  1000
+                ).toFixed(2)}
               </p>
             </div>
             <div>
@@ -297,8 +321,18 @@ export function TransferForm({
               <p className="font-semibold text-success">{effectiveMiles.toLocaleString("pt-BR")}</p>
               {cartAmountNum > 0 && (
                 <div className="mt-1 space-y-0.5 text-[10px] text-muted-foreground border-t border-success/20 pt-1">
-                  <p>Da transferência: {(amountNum * (1 + bonusNum / 100)).toLocaleString("pt-BR", { maximumFractionDigits: 0 })}</p>
-                  <p>Do carrinho: {(cartAmountNum * (1 + bonusNum / 100)).toLocaleString("pt-BR", { maximumFractionDigits: 0 })}</p>
+                  <p>
+                    Da transferência:{" "}
+                    {(amountNum * (1 + bonusNum / 100)).toLocaleString("pt-BR", {
+                      maximumFractionDigits: 0,
+                    })}
+                  </p>
+                  <p>
+                    Do carrinho:{" "}
+                    {(cartAmountNum * (1 + bonusNum / 100)).toLocaleString("pt-BR", {
+                      maximumFractionDigits: 0,
+                    })}
+                  </p>
                 </div>
               )}
             </div>
@@ -322,5 +356,5 @@ export function TransferForm({
         </Button>
       </div>
     </div>
-  )
+  );
 }

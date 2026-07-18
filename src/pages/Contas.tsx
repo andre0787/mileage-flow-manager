@@ -1,5 +1,16 @@
 import { useMemo, useState } from "react";
-import { Plus, CreditCard, Eye, EyeOff, Edit, Trash2, Filter, Building2, RefreshCw, AlertTriangle } from "lucide-react";
+import {
+  Plus,
+  CreditCard,
+  Eye,
+  EyeOff,
+  Edit,
+  Trash2,
+  Filter,
+  Building2,
+  RefreshCw,
+  AlertTriangle,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -7,11 +18,15 @@ import { EmptyState } from "@/components/EmptyState";
 import { Pagination } from "@/components/Pagination";
 import { SkeletonMetricCard } from "@/components/SkeletonLoader";
 import { useData } from "@/contexts/DataContext";
-import { useUpdateAccountMutation, useDeleteAccountMutation, useRecalcAccountMutation } from "@/hooks/useDatabase";
+import {
+  useUpdateAccountMutation,
+  useDeleteAccountMutation,
+  useRecalcAccountMutation,
+} from "@/hooks/useDatabase";
 import AccountDialog from "@/components/AccountDialog";
 import type { Account } from "@/types";
 
-const ITEMS_PER_PAGE = 20
+const ITEMS_PER_PAGE = 20;
 
 export default function Contas() {
   const { accounts, owners, programs, entries, sales, isLoading } = useData();
@@ -28,7 +43,10 @@ export default function Contas() {
     filterType === "todas" ? accounts : accounts.filter((a) => a.type === filterType);
 
   const totalPages = Math.ceil(filteredAccounts.length / ITEMS_PER_PAGE);
-  const paginatedAccounts = filteredAccounts.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+  const paginatedAccounts = filteredAccounts.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE,
+  );
 
   const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id;
   const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id;
@@ -38,8 +56,10 @@ export default function Contas() {
   const computedBalances = useMemo(() => {
     const map = new Map<string, number>();
     for (const a of accounts) {
-      const accEntries = entries.filter(e => e.accountId === a.id && e.entryStatus !== "aguardando");
-      const accSales = sales.filter(s => s.accountId === a.id && s.status !== "cancelado");
+      const accEntries = entries.filter(
+        (e) => e.accountId === a.id && e.entryStatus !== "aguardando",
+      );
+      const accSales = sales.filter((s) => s.accountId === a.id && s.status !== "cancelado");
       const entriesSum = accEntries.reduce((s, e) => s + (e.milesGenerated ?? e.amount), 0);
       const salesSum = accSales.reduce((s, sl) => s + sl.milesUsed, 0);
       map.set(a.id, Math.max(0, entriesSum - salesSum));
@@ -88,7 +108,7 @@ export default function Contas() {
             variant="outline"
             size="sm"
             className="gap-2"
-            onClick={() => accounts.forEach(a => recalcAccountM.mutate(a.id))}
+            onClick={() => accounts.forEach((a) => recalcAccountM.mutate(a.id))}
             disabled={recalcAccountM.isPending}
           >
             <RefreshCw className={"h-4 w-4 " + (recalcAccountM.isPending ? "animate-spin" : "")} />
@@ -190,7 +210,11 @@ export default function Contas() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-muted-foreground">Saldo:</span>
-                    <span className="font-semibold">{(computedBalances.get(account.id) ?? account.balance).toLocaleString("pt-BR")}</span>
+                    <span className="font-semibold">
+                      {(computedBalances.get(account.id) ?? account.balance).toLocaleString(
+                        "pt-BR",
+                      )}
+                    </span>
                   </div>
                   {account.averageCostPerMile != null && (
                     <div className="flex items-center justify-between">
@@ -251,7 +275,9 @@ export default function Contas() {
                     disabled={recalcAccountM.isPending}
                     title="Recalcular saldo (entradas - vendas)"
                   >
-                    <RefreshCw className={"h-4 w-4 " + (recalcAccountM.isPending ? "animate-spin" : "")} />
+                    <RefreshCw
+                      className={"h-4 w-4 " + (recalcAccountM.isPending ? "animate-spin" : "")}
+                    />
                   </Button>
                   <Button
                     size="sm"
@@ -271,9 +297,15 @@ export default function Contas() {
       {filteredAccounts.length > ITEMS_PER_PAGE && (
         <div className="mt-6 flex flex-col items-center gap-2">
           <span className="text-xs text-muted-foreground">
-            Mostrando {(currentPage - 1) * ITEMS_PER_PAGE + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, filteredAccounts.length)} de {filteredAccounts.length}
+            Mostrando {(currentPage - 1) * ITEMS_PER_PAGE + 1}–
+            {Math.min(currentPage * ITEMS_PER_PAGE, filteredAccounts.length)} de{" "}
+            {filteredAccounts.length}
           </span>
-          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
         </div>
       )}
 

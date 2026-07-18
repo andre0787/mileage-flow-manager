@@ -84,7 +84,8 @@ export default function Entradas() {
 
   const handleCreateEntry = (form: EntryFormData) => {
     const c = computeFromForm(form);
-    const isSplit = form.isRecurrent && form.recurrenceValueMode === 'split' && form.recurrenceCount > 1;
+    const isSplit =
+      form.isRecurrent && form.recurrenceValueMode === "split" && form.recurrenceCount > 1;
     const divisor = isSplit ? form.recurrenceCount : 1;
     addEntryM.mutate(
       {
@@ -135,31 +136,33 @@ export default function Entradas() {
   const handleUpdateEntry = (form: EntryFormData) => {
     if (!editingEntry) return;
     const c = computeFromForm(form);
-    
+
     // Determine recurrence settings
     let recurrenceInterval: number | undefined;
     let recurrenceEnd: string | undefined;
     if (form.isRecurrent && form.recurrenceCount > 1) {
-      const type = form.recurrenceType as 'monthly' | 'quarterly' | 'semiannual' | 'annual';
+      const type = form.recurrenceType as "monthly" | "quarterly" | "semiannual" | "annual";
       const intervalMap = { monthly: 30, quarterly: 90, semiannual: 180, annual: 365 };
       const interval = intervalMap[type];
       recurrenceInterval = interval;
       const startDate = new Date(form.date);
-      const endDate = new Date(startDate.getTime() + interval * 24 * 60 * 60 * 1000 * form.recurrenceCount);
-      recurrenceEnd = endDate.toISOString().split('T')[0];
+      const endDate = new Date(
+        startDate.getTime() + interval * 24 * 60 * 60 * 1000 * form.recurrenceCount,
+      );
+      recurrenceEnd = endDate.toISOString().split("T")[0];
     } else if (editingEntry?.recurrenceInterval) {
       // Preserve existing recurrence from clube entries (backward compat)
       recurrenceInterval = editingEntry.recurrenceInterval;
       recurrenceEnd = editingEntry.recurrenceEnd;
     }
-    
+
     const recurrenceFields: Record<string, number | string | undefined> = {};
     if (recurrenceInterval !== undefined) recurrenceFields.recurrenceInterval = recurrenceInterval;
     if (recurrenceEnd !== undefined) recurrenceFields.recurrenceEnd = recurrenceEnd;
-    
+
     const ot = origemTypes.find((ot) => ot.id === form.origemTypeId);
     const isTransfer = ot ? isTransferencia(ot) : false;
-    
+
     updateEntryM.mutate({
       oldEntry: editingEntry,
       updates: {
@@ -237,7 +240,10 @@ export default function Entradas() {
     [entriesByTab, today],
   );
   // ponytail: saldo calculado para o banner de reconciliação
-  const entriesTotalBalance = confirmedEntries.reduce((s, e) => s + (e.milesGenerated ?? e.amount), 0);
+  const entriesTotalBalance = confirmedEntries.reduce(
+    (s, e) => s + (e.milesGenerated ?? e.amount),
+    0,
+  );
   const accountsTotalBalance = accounts
     .filter((a) => a.type === activeTab)
     .reduce((s, a) => s + a.balance, 0);
@@ -301,8 +307,8 @@ export default function Entradas() {
                 {overdueEntries.length} entrada(s) atrasada(s) — confirmação vencida
               </p>
               <p className="text-xs text-red-700 dark:text-red-400 mt-0.5">
-                Estas entradas já passaram da data e seguem sem confirmação.
-                Confirme abaixo para atualizar o saldo da conta.
+                Estas entradas já passaram da data e seguem sem confirmação. Confirme abaixo para
+                atualizar o saldo da conta.
               </p>
             </div>
           </div>

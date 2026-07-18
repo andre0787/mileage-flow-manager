@@ -6,16 +6,31 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useData } from "@/contexts/DataContext";
 import {
-  useAddOwnerMutation, useUpdateOwnerMutation, useDeleteOwnerMutation,
-  useAddProgramMutation, useUpdateProgramMutation, useDeleteProgramMutation,
-  useAddOrigemTypeMutation, useUpdateOrigemTypeMutation, useDeleteOrigemTypeMutation,
+  useAddOwnerMutation,
+  useUpdateOwnerMutation,
+  useDeleteOwnerMutation,
+  useAddProgramMutation,
+  useUpdateProgramMutation,
+  useDeleteProgramMutation,
+  useAddOrigemTypeMutation,
+  useUpdateOrigemTypeMutation,
+  useDeleteOrigemTypeMutation,
 } from "@/hooks/useDatabase";
 import OwnerSection from "@/components/OwnerSection";
 import ProgramSection from "@/components/ProgramSection";
 import OrigemTypeSection from "@/components/OrigemTypeSection";
 
 export default function Configuracoes() {
-  const { owners, programs, origemTypes, accounts, entries, clearCache, clearAccountData, isLoading } = useData();
+  const {
+    owners,
+    programs,
+    origemTypes,
+    accounts,
+    entries,
+    clearCache,
+    clearAccountData,
+    isLoading,
+  } = useData();
 
   const addOwnerM = useAddOwnerMutation();
   const updateOwnerM = useUpdateOwnerMutation();
@@ -54,17 +69,27 @@ export default function Configuracoes() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Configurações</h1>
-          <p className="text-sm text-muted-foreground">Gerencie donos, programas e tipos de operação</p>
+          <p className="text-sm text-muted-foreground">
+            Gerencie donos, programas e tipos de operação
+          </p>
         </div>
       </div>
 
       <Tabs defaultValue="owners" className="space-y-6">
         <div className="-mx-4 sm:mx-0 overflow-x-auto pb-1 -mb-1 px-4 sm:px-0">
           <TabsList className="inline-flex gap-1 w-max sm:w-auto sm:flex-wrap sm:justify-center">
-            <TabsTrigger value="owners" className="gap-2 whitespace-nowrap"><User className="h-4 w-4 shrink-0" /> Donos</TabsTrigger>
-            <TabsTrigger value="programs" className="gap-2 whitespace-nowrap"><Building2 className="h-4 w-4 shrink-0" /> Programas</TabsTrigger>
-            <TabsTrigger value="origem-milhas" className="gap-2 whitespace-nowrap"><Palette className="h-4 w-4 shrink-0" /> Tipo de Operação</TabsTrigger>
-            <TabsTrigger value="preferences" className="gap-2 whitespace-nowrap"><Settings className="h-4 w-4 shrink-0" /> Preferências</TabsTrigger>
+            <TabsTrigger value="owners" className="gap-2 whitespace-nowrap">
+              <User className="h-4 w-4 shrink-0" /> Donos
+            </TabsTrigger>
+            <TabsTrigger value="programs" className="gap-2 whitespace-nowrap">
+              <Building2 className="h-4 w-4 shrink-0" /> Programas
+            </TabsTrigger>
+            <TabsTrigger value="origem-milhas" className="gap-2 whitespace-nowrap">
+              <Palette className="h-4 w-4 shrink-0" /> Tipo de Operação
+            </TabsTrigger>
+            <TabsTrigger value="preferences" className="gap-2 whitespace-nowrap">
+              <Settings className="h-4 w-4 shrink-0" /> Preferências
+            </TabsTrigger>
           </TabsList>
         </div>
 
@@ -106,12 +131,18 @@ export default function Configuracoes() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">Ações de manutenção dos dados da sua conta.</p>
+              <p className="text-sm text-muted-foreground">
+                Ações de manutenção dos dados da sua conta.
+              </p>
               <div className="flex flex-wrap gap-3">
                 <Button variant="outline" className="gap-2" onClick={clearCache}>
                   <RotateCcw className="h-4 w-4" /> Limpar Cache
                 </Button>
-                <Button variant="destructive" className="gap-2" onClick={() => setShowClearConfirm(true)}>
+                <Button
+                  variant="destructive"
+                  className="gap-2"
+                  onClick={() => setShowClearConfirm(true)}
+                >
                   <Trash2 className="h-4 w-4" /> Limpar Conta
                 </Button>
               </div>
@@ -126,12 +157,28 @@ export default function Configuracoes() {
                 </DialogTitle>
               </DialogHeader>
               <div className="py-4 space-y-4">
-                <p className="text-sm text-foreground">Tem certeza que deseja limpar todos os dados da sua conta?</p>
-                <p className="text-sm text-muted-foreground">Esta ação irá remover permanentemente todas as contas, entradas, vendas, clientes, donos, programas e tipos de operação. O tipo "Transferência" será preservado. Esta operação não pode ser desfeita.</p>
+                <p className="text-sm text-foreground">
+                  Tem certeza que deseja limpar todos os dados da sua conta?
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Esta ação irá remover permanentemente todas as contas, entradas, vendas, clientes,
+                  donos, programas e tipos de operação. O tipo "Transferência" será preservado. Esta
+                  operação não pode ser desfeita.
+                </p>
               </div>
               <div className="flex justify-end gap-2">
-                <Button variant="outline" onClick={() => setShowClearConfirm(false)}>Cancelar</Button>
-                <Button variant="destructive" onClick={() => { setShowClearConfirm(false); clearAccountData(); }}>Sim, limpar tudo</Button>
+                <Button variant="outline" onClick={() => setShowClearConfirm(false)}>
+                  Cancelar
+                </Button>
+                <Button
+                  variant="destructive"
+                  onClick={() => {
+                    setShowClearConfirm(false);
+                    clearAccountData();
+                  }}
+                >
+                  Sim, limpar tudo
+                </Button>
               </div>
             </DialogContent>
           </Dialog>

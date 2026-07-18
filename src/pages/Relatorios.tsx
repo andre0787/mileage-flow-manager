@@ -578,8 +578,8 @@ export default function Relatorios() {
                 <Award className="h-4 w-4 text-success" /> Melhor Performance
               </h4>
               <p className="text-sm">
-                {[...ownerReports].sort((a, b) => b.roi - a.roi)[0]?.ownerName} apresenta o melhor ROI (
-                {[...ownerReports].sort((a, b) => b.roi - a.roi)[0]?.roi.toFixed(1)}%)
+                {[...ownerReports].sort((a, b) => b.roi - a.roi)[0]?.ownerName} apresenta o melhor
+                ROI ({[...ownerReports].sort((a, b) => b.roi - a.roi)[0]?.roi.toFixed(1)}%)
               </p>
             </div>
 

@@ -92,7 +92,9 @@ export function MetricCard({
         )}
       />
 
-      <CardContent className={cn("p-5 relative", sparklineData && sparklineData.length >= 2 && "pb-12")}>
+      <CardContent
+        className={cn("p-5 relative", sparklineData && sparklineData.length >= 2 && "pb-12")}
+      >
         <div className="flex items-start justify-between mb-3">
           <span className="text-xs font-medium tracking-wide text-muted-foreground uppercase font-display">
             {title}

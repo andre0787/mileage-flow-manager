@@ -64,8 +64,8 @@ export function useAddProgramMutation() {
         });
       }
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: 'all' }),
-        queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: "all" }),
+        queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: "all" }),
       ]);
     },
     onError: (err) => {
@@ -91,7 +91,7 @@ export function useUpdateProgramMutation() {
       if (error) throw error;
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: 'all' });
+      await queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: "all" });
     },
     onError: (err) => {
       logError("updateProgram", err);
@@ -108,7 +108,7 @@ export function useDeleteProgramMutation() {
       if (error) throw error;
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: 'all' });
+      await queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: "all" });
       logDestructiveOp("delete", "program");
       toast.success("Programa excluído com sucesso");
     },

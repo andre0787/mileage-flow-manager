@@ -44,11 +44,11 @@ export function useAddAccountMutation() {
       if (error) throw error;
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+      await queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" });
     },
     onError: (err) => {
       logError("addAccount", err);
-      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" });
       toast.error("Erro ao criar conta");
     },
   });
@@ -72,11 +72,11 @@ export function useUpdateAccountMutation() {
       if (error) throw error;
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+      await queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" });
     },
     onError: (err) => {
       logError("updateAccount", err);
-      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" });
       toast.error("Erro ao atualizar conta");
     },
   });
@@ -91,18 +91,18 @@ export function useDeleteAccountMutation() {
     },
     onSuccess: async () => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
-        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' }),
-        queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" }),
+        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: "all" }),
+        queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: "all" }),
       ]);
       logDestructiveOp("delete", "account");
       toast.success("Conta excluída com sucesso");
     },
     onError: (err) => {
       logError("deleteAccount", err);
-      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" });
+      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: "all" });
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: "all" });
       toast.error("Erro ao excluir conta");
     },
   });
@@ -125,12 +125,14 @@ export function useRecalcAccountMutation() {
 
       // Filtra confirmadas (entryStatus está no description JSON)
       // ponytail: parse inline em vez de importar de types/
-      const confirmedEntries = (entries ?? []).filter(e => {
+      const confirmedEntries = (entries ?? []).filter((e) => {
         if (!e.description) return true;
         try {
           const desc = JSON.parse(e.description);
           return desc.entryStatus !== "aguardando";
-        } catch { return true; }
+        } catch {
+          return true;
+        }
       });
 
       // Busca vendas não canceladas da conta
@@ -142,15 +144,15 @@ export function useRecalcAccountMutation() {
       if (salesErr) throw salesErr;
 
       // Calcula saldo correto
-      const entriesSum = confirmedEntries
-        .reduce((s, e) => s + Number(e.miles_generated ?? e.amount), 0);
-      const salesSum = (sales ?? [])
-        .reduce((s, sa) => s + Number(sa.miles_used), 0);
+      const entriesSum = confirmedEntries.reduce(
+        (s, e) => s + Number(e.miles_generated ?? e.amount),
+        0,
+      );
+      const salesSum = (sales ?? []).reduce((s, sa) => s + Number(sa.miles_used), 0);
       const newBalance = Math.max(0, entriesSum - salesSum);
 
       // Recalcula totalInvested das entradas
-      const investedSum = confirmedEntries
-        .reduce((s, e) => s + Number(e.amount_paid ?? 0), 0);
+      const investedSum = confirmedEntries.reduce((s, e) => s + Number(e.amount_paid ?? 0), 0);
 
       // Aproxima custo proporcional das vendas
       const entryAvgCost = entriesSum > 0 ? investedSum / entriesSum : 0;
@@ -171,17 +173,17 @@ export function useRecalcAccountMutation() {
     },
     onSuccess: async () => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' }),
-        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' }),
-        queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" }),
+        queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: "all" }),
+        queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: "all" }),
       ]);
       toast.success("Saldo recalculado com sucesso");
     },
     onError: (err) => {
       logError("recalcAccount", err);
-      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: 'all' });
-      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' });
+      queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" });
+      queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: "all" });
+      queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: "all" });
       toast.error("Erro ao recalcular saldo");
     },
   });

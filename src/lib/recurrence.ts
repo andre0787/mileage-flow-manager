@@ -1,20 +1,26 @@
-import type { EntryFormData } from '@/types';
-import { buildMonthlyRecurrence } from '@/lib/origemTypes';
+import type { EntryFormData } from "@/types";
+import { buildMonthlyRecurrence } from "@/lib/origemTypes";
 
 /**
  * Calculate recurrence interval (in days) and end date based on form values.
  * Returns undefined for both if recurrence is not active or only single occurrence.
  */
-export function calculateRecurrence(form: Pick<
-  EntryFormData,
-  | 'isRecurrent'
-  | 'recurrenceCount'
-  | 'recurrenceType'
-  | 'date'
-  | 'isClube'
-  | 'clubeMeses'
-  | 'recurrenceValueMode'
->): { recurrenceInterval?: number; recurrenceEnd?: string; recurrenceValueMode?: 'split' | 'repeat' } {
+export function calculateRecurrence(
+  form: Pick<
+    EntryFormData,
+    | "isRecurrent"
+    | "recurrenceCount"
+    | "recurrenceType"
+    | "date"
+    | "isClube"
+    | "clubeMeses"
+    | "recurrenceValueMode"
+  >,
+): {
+  recurrenceInterval?: number;
+  recurrenceEnd?: string;
+  recurrenceValueMode?: "split" | "repeat";
+} {
   // If recurrence not enabled, fallback to clube (legacy) behavior
   if (!form.isRecurrent) {
     return buildMonthlyRecurrence(form.isClube, form.clubeMeses);
@@ -25,20 +31,16 @@ export function calculateRecurrence(form: Pick<
     return {};
   }
 
-  const type = form.recurrenceType as
-    | 'monthly'
-    | 'quarterly'
-    | 'semiannual'
-    | 'annual';
+  const type = form.recurrenceType as "monthly" | "quarterly" | "semiannual" | "annual";
   const intervalMap = { monthly: 30, quarterly: 90, semiannual: 180, annual: 365 };
   const interval = intervalMap[type];
   const startDate = new Date(form.date);
   const endDate = new Date(
-    startDate.getTime() + interval * 24 * 60 * 60 * 1000 * form.recurrenceCount
+    startDate.getTime() + interval * 24 * 60 * 60 * 1000 * form.recurrenceCount,
   );
   return {
     recurrenceInterval: interval,
-    recurrenceEnd: endDate.toISOString().split('T')[0],
+    recurrenceEnd: endDate.toISOString().split("T")[0],
     recurrenceValueMode: form.recurrenceValueMode,
   };
 }

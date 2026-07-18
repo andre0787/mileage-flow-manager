@@ -38,7 +38,9 @@ export function FeedbackDialog({ children }: FeedbackDialogProps) {
     try {
       const raw = localStorage.getItem("mc_debug_logs");
       if (raw) logs = raw;
-    } catch {/* localStorage pode falhar em alguns contextos */}
+    } catch {
+      /* localStorage pode falhar em alguns contextos */
+    }
 
     const { error } = await supabase.from("feedback").insert({
       user_id: user?.id ?? null,

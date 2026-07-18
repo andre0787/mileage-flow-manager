@@ -22,11 +22,7 @@ export function OnlineProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  return (
-    <OnlineContext.Provider value={{ isOnline }}>
-      {children}
-    </OnlineContext.Provider>
-  );
+  return <OnlineContext.Provider value={{ isOnline }}>{children}</OnlineContext.Provider>;
 }
 
 export function useOnlineStatus() {

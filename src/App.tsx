@@ -187,24 +187,24 @@ const AppLayout = () => {
 
   return (
     <OnlineProvider>
-    <DataProvider>
-    <SidebarProvider>
-      <div className="min-h-screen flex w-full">
-        <AppSidebar />
-        <div className="flex-1 flex flex-col min-w-0">
-          <OfflineBanner />
-          <PageHeader />
-            <main
-              className="flex-1 p-4 md:p-6 pb-20 md:pb-6 bg-background safe-area-bottom overflow-x-hidden"
-              style={{ overscrollBehavior: "contain" }}
-            >
-              <AnimatedRoutes />
-            </main>
-          <BottomTabBar />
-        </div>
-      </div>
-    </SidebarProvider>
-    </DataProvider>
+      <DataProvider>
+        <SidebarProvider>
+          <div className="min-h-screen flex w-full">
+            <AppSidebar />
+            <div className="flex-1 flex flex-col min-w-0">
+              <OfflineBanner />
+              <PageHeader />
+              <main
+                className="flex-1 p-4 md:p-6 pb-20 md:pb-6 bg-background safe-area-bottom overflow-x-hidden"
+                style={{ overscrollBehavior: "contain" }}
+              >
+                <AnimatedRoutes />
+              </main>
+              <BottomTabBar />
+            </div>
+          </div>
+        </SidebarProvider>
+      </DataProvider>
     </OnlineProvider>
   );
 };
@@ -214,24 +214,24 @@ const App = () => (
     <AuthProvider>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
         <I18nProvider>
-        <TooltipProvider>
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route
-                path="/*"
-                element={
-                  <ProtectedRoute>
-                    <AppLayout />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
+          <TooltipProvider>
+            <Sonner />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
+                <Route
+                  path="/*"
+                  element={
+                    <ProtectedRoute>
+                      <AppLayout />
+                    </ProtectedRoute>
+                  }
+                />
+              </Routes>
+            </BrowserRouter>
+          </TooltipProvider>
         </I18nProvider>
       </ThemeProvider>
     </AuthProvider>

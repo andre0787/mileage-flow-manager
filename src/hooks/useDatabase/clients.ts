@@ -42,7 +42,7 @@ export function useAddClientMutation() {
       if (error) throw error;
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["clients"], refetchType: 'all' });
+      await queryClient.invalidateQueries({ queryKey: ["clients"], refetchType: "all" });
     },
     onError: (err) => {
       logError("addClient", err);
@@ -67,7 +67,7 @@ export function useUpdateClientMutation() {
       if (error) throw error;
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["clients"], refetchType: 'all' });
+      await queryClient.invalidateQueries({ queryKey: ["clients"], refetchType: "all" });
     },
     onError: (err) => {
       logError("updateClient", err);
@@ -85,8 +85,8 @@ export function useDeleteClientMutation() {
     },
     onSuccess: async () => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["clients"], refetchType: 'all' }),
-        queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: 'all' }),
+        queryClient.invalidateQueries({ queryKey: ["clients"], refetchType: "all" }),
+        queryClient.invalidateQueries({ queryKey: ["sales"], refetchType: "all" }),
       ]);
       logDestructiveOp("delete", "client");
       toast.success("Cliente excluído com sucesso");

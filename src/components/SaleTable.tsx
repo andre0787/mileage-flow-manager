@@ -41,14 +41,23 @@ interface SaleTableProps {
   onEdit?: (sale: Sale) => void;
 }
 
-const ITEMS_PER_PAGE = 20
+const ITEMS_PER_PAGE = 20;
 
-export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick, onEdit }: SaleTableProps) {
+export function SaleTable({
+  sales,
+  onCancel,
+  onStatusChange,
+  onCreateClick,
+  onEdit,
+}: SaleTableProps) {
   const { isOnline } = useOnlineStatus();
   const [cancelConfirmId, setCancelConfirmId] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState(1)
-  const totalPages = Math.ceil(sales.length / ITEMS_PER_PAGE)
-  const paginatedSales = sales.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(sales.length / ITEMS_PER_PAGE);
+  const paginatedSales = sales.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE,
+  );
 
   if (sales.length === 0) {
     return (
@@ -85,7 +94,7 @@ export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick, onEd
         <CardContent>
           {/* Desktop table */}
           <div className="overflow-x-auto hidden md:block">
-                <Table striped>
+            <Table striped>
               <TableHeader>
                 <TableRow>
                   <TableHead>Data</TableHead>
@@ -114,7 +123,9 @@ export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick, onEd
                       <p className="font-medium">{sale.clientName}</p>
                       <p className="text-xs text-muted-foreground">{sale.ticketLocator}</p>
                     </TableCell>
-                    <TableCell className="text-right tabular-nums">{sale.milesUsed.toLocaleString("pt-BR")}</TableCell>
+                    <TableCell className="text-right tabular-nums">
+                      {sale.milesUsed.toLocaleString("pt-BR")}
+                    </TableCell>
                     <TableCell className="text-right tabular-nums">
                       {"R$ "}
                       {sale.saleValue.toLocaleString("pt-BR")}
@@ -125,7 +136,9 @@ export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick, onEd
                       {"R$ "}
                       {sale.profit.toLocaleString("pt-BR")}
                     </TableCell>
-                    <TableCell className="text-right tabular-nums">{sale.profitMargin.toFixed(1)}%</TableCell>
+                    <TableCell className="text-right tabular-nums">
+                      {sale.profitMargin.toFixed(1)}%
+                    </TableCell>
                     <TableCell>
                       {sale.status === "cancelado" ? (
                         <Badge variant="outline" className="text-destructive border-destructive">
@@ -139,7 +152,10 @@ export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick, onEd
                           }
                           disabled={!isOnline}
                         >
-                          <SelectTrigger className="w-28" title={!isOnline ? "Requer conexão" : undefined}>
+                          <SelectTrigger
+                            className="w-28"
+                            title={!isOnline ? "Requer conexão" : undefined}
+                          >
                             <span
                               className={`h-2 w-2 rounded-full ${sale.status === "pendente" ? "bg-warning" : sale.status === "pago" ? "bg-primary" : "bg-success"}`}
                             />
@@ -311,9 +327,14 @@ export function SaleTable({ sales, onCancel, onStatusChange, onCreateClick, onEd
       {sales.length > ITEMS_PER_PAGE && (
         <div className="mt-4 flex flex-col items-center gap-2">
           <span className="text-xs text-muted-foreground">
-            Mostrando {(currentPage - 1) * ITEMS_PER_PAGE + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, sales.length)} de {sales.length}
+            Mostrando {(currentPage - 1) * ITEMS_PER_PAGE + 1}–
+            {Math.min(currentPage * ITEMS_PER_PAGE, sales.length)} de {sales.length}
           </span>
-          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
         </div>
       )}
 

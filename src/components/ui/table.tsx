@@ -2,21 +2,22 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement> & { striped?: boolean }>(
-  ({ className, striped, ...props }, ref) => (
-    <div className="relative w-full overflow-auto">
-      <table
-        ref={ref}
-        className={cn(
-          "w-full caption-bottom text-sm",
-          striped && "[&>tbody>tr:nth-child(even)]:bg-muted/[0.03]",
-          className,
-        )}
-        {...props}
-      />
-    </div>
-  ),
-);
+const Table = React.forwardRef<
+  HTMLTableElement,
+  React.HTMLAttributes<HTMLTableElement> & { striped?: boolean }
+>(({ className, striped, ...props }, ref) => (
+  <div className="relative w-full overflow-auto">
+    <table
+      ref={ref}
+      className={cn(
+        "w-full caption-bottom text-sm",
+        striped && "[&>tbody>tr:nth-child(even)]:bg-muted/[0.03]",
+        className,
+      )}
+      {...props}
+    />
+  </div>
+));
 Table.displayName = "Table";
 
 const TableHeader = React.forwardRef<

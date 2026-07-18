@@ -81,7 +81,7 @@ export function useClearAccountDataMutation() {
       }
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ refetchType: 'all' });
+      await queryClient.invalidateQueries({ refetchType: "all" });
       logDestructiveOp("clear", "account_data");
       toast.success("Dados da conta limpos com sucesso");
     },
