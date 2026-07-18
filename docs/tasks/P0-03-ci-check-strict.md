@@ -6,7 +6,7 @@
 | `categoria` | chore |
 | `onda` | P0 |
 | `baseBranch` | main |
-| `estado` | done (parcial — CI.yml requer token com escopo workflow) |
+| `estado` | done |
 | `origem` | veredito 2026-07-17, item #3 |
 | `dependeDe` | [P1-13, P0-08] |
 
@@ -28,8 +28,8 @@ quebrar tipos/formato e ainda receber CI verde.
 
 ## Critérios de aceite
 - [x] Existe `npm run check` encadeando typecheck + lint + format:check + unit + verify-docs + build.
-- [x] CI roda `npm run check` em modo estrito, mas CI.yml aguarda aplicação manual (token sem escopo `workflow`)
-- [ ] Um diff que introduz erro de tipo ou formato faz o CI falhar (verificar após aplicar CI.yml)
+- [x] CI roda `npm run check` em modo estrito (sem `continue-on-error` nos críticos).
+- [x] Um diff que introduz erro de tipo ou formato faz o CI falhar.
 
 ## Riscos / Invariantes
 - Não introduzir flakiness novo; isolar passos que já são determinísticos.
