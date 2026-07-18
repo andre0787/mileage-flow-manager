@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `fix/p0-05-pre-pr-diff-vazio`
-- **Último commit:** `2519771` — chore: normalize report prefix to PR160
+- **Último commit:** `f2e1285` — fix: remove explicit any de catch block nos testes de pre-pr para passar no ESLint
 - **Remote:** no remote
 ### 📋 PRs Abertos
 - #160 — fix: pre-pr valida diff vazio e data do relatorio (P0-05)
@@ -38,6 +38,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Navegação Serena-First adicionada: WORKFLOW.md (hierarquia), CONVENTIONS.md (seção), AGENTS.md (passo no workflow mínimo)
 - MAP.md atualizado para refletir Serena-First no workflow
 - Relatório gerado: `docs/reports/2026-07-18/subagent-docs-2026-07-18-subagent-docs.html`
+
 
 
 
