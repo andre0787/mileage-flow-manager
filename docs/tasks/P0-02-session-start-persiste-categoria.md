@@ -6,7 +6,7 @@
 | `categoria` | fix |
 | `onda` | P0 |
 | `baseBranch` | main |
-| `estado` | pending |
+| `estado` | done |
 | `origem` | veredito 2026-07-17, item #2 |
 | `dependeDe` | [] |
 
@@ -30,9 +30,10 @@ acontece; a categoria não está persistida de forma confiável no handoff.
 - `package.json` (se o atalho mudar)
 
 ## Critérios de aceite
-- [ ] `session:start` em modo mudança requer categoria; ausência ⇒ erro não-zero.
-- [ ] Handoff pós-`session:start` contém branch e commit atuais (sem drift).
-- [ ] Existe teste (unitário ou de script) cobrindo o caminho sem categoria.
+- [x] `session:start` em modo mudança requer categoria; ausência ⇒ erro não-zero.
+- [x] Handoff pós-`session:start` contém branch e commit atuais (sem drift).
+- [x] Existe teste (unitário ou de script) cobrindo o caminho sem categoria.
+  - `tests/unit/scripts-session-start.test.ts` — 3 testes: inválido, sem-args, válido
 
 ## Riscos / Invariantes
 - Não quebrar o uso já existente do handoff por outros scripts.

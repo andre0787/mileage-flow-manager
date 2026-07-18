@@ -41,34 +41,24 @@ c74a961 chore: session end
 | Docs issues | 1 |
 | Branch | chore/llm-small-model-workflow-audit |
 
-## 🎯 Sessão Atual
-**Categoria:** docs
-**Docs carregados:** AGENTS.md (docs categoria, sem pré-carregamento)
-
-## 🏁 P0-01 — Manifesto único de workflow ✅
+## 🏁 P0-01 + P0-02 ✅
 **Status:** PR #153 aberto, aguardando merge
 
-### Entregues:
-- `docs/WORKFLOW-MANIFEST.md` — manifesto canônico com categorias, estados, comandos, alvo de PR, artefatos, bypass
-- `docs/WORKFLOW.md` — header apontando para manifesto
-- `AGENTS.md` — referência ao manifesto
-- `README.md` — alvo de PR corrigido: `develop` → `main`
-- `docs/MAP.md` — manifesto como primeira leitura
-- `docs/tasks/ROADMAP.md` — P0-01 marcado como done
+### Entregues P0-01:
+- `docs/WORKFLOW-MANIFEST.md` — manifesto canônico
+- `docs/WORKFLOW.md`, `AGENTS.md`, `README.md`, `docs/MAP.md` — referenciam manifesto
 
-## ✅ Última Sessão
-**Data:** 2026-07-18
-**Tarefa:** aplicar veredito LLM Council 2026-07-17 em roadmap + 22 task-cards + registrar no MAP.md
-**Resultado:**
-- PR #152 aberto: https://github.com/andre0787/mileage-flow-manager/pull/152
-- `docs/tasks/ROADMAP.md` com 3 ondas (P0, P1-A, P1-B, P2) de 22 cards
-- `docs/MAP.md` referencia docs/tasks/ como entrada para workflow (regra #17)
-- `pre-pr` 0 errors no último checkpoint
-- Relatório normalizado: `docs/reports/2026-07-17/PR152-2026-07-17-llm-small-model-workflow-audit.html`
+### Entregues P0-02:
+- `scripts/session-start.mjs` — agora persiste categoria/objetivo/branch no handoff
+  - Modo interativo: pergunta categoria + objetivo
+  - Modo `--set-category`: não-interativo
+  - Modo continuação: detecta sessão em andamento, só atualiza estado
+  - Categoria inválida → exit 1
+- `tests/unit/scripts-session-start.test.ts` — 3 testes
 
 ## 📌 Próxima Sessão
 1. Aguardar review/merge do PR #153.
-2. **Próximo card:** P0-02 — `session:start` persiste categoria/objetivo/branch
+2. **Próximo card:** P0-03 — CI executa `npm run check` em modo estrito
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
