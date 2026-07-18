@@ -17,6 +17,7 @@ import { execSync } from "child_process";
 import { existsSync, readdirSync, renameSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
+import { getDiffFiles } from "./lib.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
@@ -29,6 +30,22 @@ function fail(label) { console.log(`  ❌ ${label}`); errors++; }
 
 console.log("\n🔍 PRE-PR CHECK\n");
 
+// ── Lista ────────────────────────────────────────────────────────────
+if (process.argv.includes("--list")) {
+  const files = readdirSync(RULES_DIR).filter(f => f.endsWith(".mjs")).sort();
+  console.log("Regras disponíveis:");
+  files.forEach(f => console.log(`  scripts/rules/${f}`));
+  process.exit(0);
+}
+
+// ── Check de Diff Vazio ──────────────────────────────────────────────
+const changedFiles = getDiffFiles();
+if (changedFiles.length === 0) {
+  console.log("  ❌ Nenhuma alteração detectada em relação à base ou na working tree.");
+  console.log("  O pre-pr check exige um diff não vazio para ser executado.");
+  process.exit(1);
+}
+
 // ── Relatório Automático ────────────────────────────────────────────
 if (!process.argv.includes("--no-report")) {
   console.log("── Relatório ──");
@@ -38,10 +55,7 @@ if (!process.argv.includes("--no-report")) {
 
     // Se apenas docs/reports/ foi alterado, pula relatório (ex: rename de relatórios)
     // MAS se houver PR aberto, renomeia os reports com prefixo correto
-    const diffOnlyReports = execSync(
-      `git diff --name-only HEAD 2>/dev/null || true`,
-      { cwd: ROOT, encoding: "utf8", timeout: 3000 }
-    ).trim().split("\n").filter(Boolean).every(f => f.startsWith("docs/reports/"));
+    const diffOnlyReports = changedFiles.every(f => f.startsWith("docs/reports/"));
 
     if (diffOnlyReports) {
       // Tenta detectar PR e renomear relatórios se necessário
@@ -110,17 +124,14 @@ if (!process.argv.includes("--no-report")) {
   }
 }
 
-// ── Lista ────────────────────────────────────────────────────────────
-if (process.argv.includes("--list")) {
-  const files = readdirSync(RULES_DIR).filter(f => f.endsWith(".mjs")).sort();
-  console.log("Regras disponíveis:");
-  files.forEach(f => console.log(`  scripts/rules/${f}`));
-  process.exit(0);
-}
-
 // ── Regras ───────────────────────────────────────────────────────────
 console.log("── Regras ──");
-const ruleFiles = readdirSync(RULES_DIR).filter(f => f.endsWith(".mjs")).sort();
+let ruleFiles = readdirSync(RULES_DIR).filter(f => f.endsWith(".mjs")).sort();
+
+if (process.env.PRE_PR_ONLY_RULE) {
+  const allowedRules = process.env.PRE_PR_ONLY_RULE.split(",").map(r => r.trim());
+  ruleFiles = ruleFiles.filter(f => allowedRules.some(allowed => f.includes(allowed)));
+}
 
 for (const file of ruleFiles) {
   const rulePath = resolve(RULES_DIR, file);
@@ -149,29 +160,35 @@ try {
 } catch { console.log("  ⚠️  verificação de console.log falhou"); }
 
 // ── Build ────────────────────────────────────────────────────────────
-console.log("\n── Build ──");
-try {
-  execSync("npm run build 2>&1", { cwd: ROOT, encoding: "utf8", timeout: 60000 });
-  ok("build");
-} catch (e) { fail(`build: ${e.stderr?.slice(0, 200) || e.message}`); }
+if (!process.env.PRE_PR_ONLY_RULES) {
+  console.log("\n── Build ──");
+  try {
+    execSync("npm run build 2>&1", { cwd: ROOT, encoding: "utf8", timeout: 60000 });
+    ok("build");
+  } catch (e) { fail(`build: ${e.stderr?.slice(0, 200) || e.message}`); }
+}
 
 // ── Testes ───────────────────────────────────────────────────────────
-console.log("\n── Testes ──");
-try {
-  execSync("npm test 2>&1", { cwd: ROOT, encoding: "utf8", timeout: 60000 });
-  ok("test (unit)");
-} catch (e) { fail(`test: ${e.stderr?.slice(0, 200) || e.message}`); }
+if (!process.env.PRE_PR_ONLY_RULES) {
+  console.log("\n── Testes ──");
+  try {
+    execSync("npm test 2>&1", { cwd: ROOT, encoding: "utf8", timeout: 60000 });
+    ok("test (unit)");
+  } catch (e) { fail(`test: ${e.stderr?.slice(0, 200) || e.message}`); }
+}
 
 // ── Docs ─────────────────────────────────────────────────────────────
-console.log("\n── Docs ──");
-const verifyScript = resolve(ROOT, "scripts/verify-docs.mjs");
-if (existsSync(verifyScript)) {
-  try {
-    execSync(`node "${verifyScript}"`, { cwd: ROOT, encoding: "utf8", timeout: 30000 });
-    ok("verify-docs");
-  } catch (e) { fail(`verify-docs: ${e.stderr?.slice(0, 200) || e.message}`); }
-} else {
-  console.log("  ⚠️  verify-docs.mjs não encontrado, pulando");
+if (!process.env.PRE_PR_ONLY_RULES) {
+  console.log("\n── Docs ──");
+  const verifyScript = resolve(ROOT, "scripts/verify-docs.mjs");
+  if (existsSync(verifyScript)) {
+    try {
+      execSync(`node "${verifyScript}"`, { cwd: ROOT, encoding: "utf8", timeout: 30000 });
+      ok("verify-docs");
+    } catch (e) { fail(`verify-docs: ${e.stderr?.slice(0, 200) || e.message}`); }
+  } else {
+    console.log("  ⚠️  verify-docs.mjs não encontrado, pulando");
+  }
 }
 
 // ── Resumo ───────────────────────────────────────────────────────────

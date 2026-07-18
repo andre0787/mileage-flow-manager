@@ -15,6 +15,7 @@ import { execSync } from "child_process";
 import { existsSync, readdirSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
+import { getDiffFiles } from "../lib.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..", "..");
@@ -36,21 +37,24 @@ if (!prNum) {
 }
 
 const prefix = `PR${prNum}`;
-const today = new Date().toISOString().slice(0, 10);
-const dir = resolve(ROOT, `docs/reports/${today}`);
+const changedFiles = getDiffFiles();
+const reportFiles = changedFiles.filter(f => /^docs\/reports\/.*\.html$/.test(f));
 
-if (!existsSync(dir)) {
-  console.log(`  ✅ nenhum relatório em docs/reports/${today}/`);
+if (reportFiles.length === 0) {
+  console.log(`  ✅ nenhum arquivo de relatório no diff da branch`);
   process.exit(0);
 }
 
-const files = readdirSync(dir).filter(f => f.endsWith(".html"));
 // Só considera errado se o prefixo atual NÃO é PR<num> (ex: fix-, feat-, docs-, chore-, auto-)
-const wrong = files.filter(f => !/^PR\d+-/.test(f));
+const wrong = reportFiles.filter(f => {
+  const filename = f.split("/").pop() || "";
+  return !/^PR\d+-/.test(filename);
+});
 
 if (wrong.length > 0) {
   for (const f of wrong) {
-    errors.push(`    ❌ ${f} — deveria ser ${f.replace(/^(.+?)-(\d{4}-\d{2}-\d{2})/, `${prefix}-$2`)}`);
+    const filename = f.split("/").pop() || "";
+    errors.push(`    ❌ ${filename} — deveria ser ${filename.replace(/^(.+?)-(\d{4}-\d{2}-\d{2})/, `${prefix}-$2`)}`);
   }
 }
 

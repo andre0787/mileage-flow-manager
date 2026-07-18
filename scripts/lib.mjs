@@ -55,6 +55,13 @@ export function run(cmd, label) {
  * Retorna { branch, prNum, today } — informações comuns do repositório.
  */
 export function repoInfo() {
+  if (process.env.REPO_INFO_MOCK_BRANCH !== undefined) {
+    return {
+      branch: process.env.REPO_INFO_MOCK_BRANCH,
+      prNum: process.env.REPO_INFO_MOCK_PR ? parseInt(process.env.REPO_INFO_MOCK_PR, 10) : null,
+      today: process.env.REPO_INFO_MOCK_TODAY || new Date().toISOString().slice(0, 10)
+    };
+  }
   const branch = git("git rev-parse --abbrev-ref HEAD");
   let prNum = null;
   try {
@@ -66,4 +73,50 @@ export function repoInfo() {
   } catch {}
   const today = new Date().toISOString().slice(0, 10);
   return { branch, prNum, today };
+}
+
+/**
+ * Retorna lista de arquivos modificados (histórico da branch em relação a main + working tree, staged e untracked).
+ */
+export function getDiffFiles() {
+  if (process.env.PRE_PR_MOCK_DIFF !== undefined) {
+    return process.env.PRE_PR_MOCK_DIFF.split(",").filter(Boolean);
+  }
+  const files = new Set();
+  const baseBranch = "main";
+  
+  try {
+    const currentBranch = git("git rev-parse --abbrev-ref HEAD");
+    if (currentBranch && currentBranch !== baseBranch) {
+      let mergeBase = git(`git merge-base ${baseBranch} HEAD`);
+      if (!mergeBase) {
+        mergeBase = git(`git merge-base origin/${baseBranch} HEAD`);
+      }
+      const ref = mergeBase ? `${mergeBase}...HEAD` : `${baseBranch}...HEAD`;
+      const diffBaseHead = git(`git diff ${ref} --name-only`);
+      if (diffBaseHead) {
+        diffBaseHead.split("\n").map(f => f.trim()).filter(Boolean).forEach(f => files.add(f));
+      }
+    }
+  } catch {}
+
+  try {
+    const diffWorking = git("git diff HEAD --name-only");
+    if (diffWorking) {
+      diffWorking.split("\n").map(f => f.trim()).filter(Boolean).forEach(f => files.add(f));
+    }
+  } catch {}
+
+  try {
+    const statusOut = git("git status --porcelain");
+    if (statusOut) {
+      statusOut.split("\n").forEach(line => {
+        if (line.startsWith("?? ")) {
+          files.add(line.slice(3).trim());
+        }
+      });
+    }
+  } catch {}
+
+  return Array.from(files);
 }

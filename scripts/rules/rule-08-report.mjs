@@ -12,53 +12,51 @@
  * Exit: 0 = ok, 1 = violação
  */
 
-import { git, ok, err, warn, repoInfo, ROOT } from "../lib.mjs";
+import { git, ok, err, warn, repoInfo, ROOT, getDiffFiles } from "../lib.mjs";
 import { readFileSync } from "fs";
 import { resolve } from "path";
 
-const { branch, prNum, today } = repoInfo();
+const { branch, prNum } = repoInfo();
+const changedFiles = getDiffFiles();
 
-// Se não tem PR, não é possível validar relatório com prefixo PR
-// Mas ainda verifica se existe algum relatório na data
-if (!prNum) {
-  warn("branch sem PR — verificando relatório genérico");
-  const anyReport = git(`ls docs/reports/${today}/*.html 2>/dev/null || true`);
-  if (!anyReport || !anyReport.trim()) {
-    err(`nenhum relatório encontrado em docs/reports/${today}/ (regra #8)`);
-    err("  Toda alteração DEVE ter relatório HTML antes do PR");
-    err("  Dica: npm run report \"descrição\" --write");
-    process.exit(1);
-  }
-  ok(`relatório encontrado: docs/reports/${today}/ (regra #8)`);
-  process.exit(0);
-}
+// Filtra relatórios HTML existentes no diff
+const reportFiles = changedFiles.filter(f => /^docs\/reports\/.*\.html$/.test(f));
 
-// 1. Relatório existe com PR no nome
-const reportGlob = `docs/reports/${today}/PR${prNum}-*.html`;
-const report = git(`ls ${reportGlob} 2>/dev/null`);
-if (!report) {
-  err(`relatório não encontrado: ${reportGlob} (regra #8)`);
+if (reportFiles.length === 0) {
+  err(`nenhum relatório encontrado no diff (regra #8)`);
+  err("  Toda alteração DEVE ter relatório HTML antes do PR");
   err("  Dica: npm run report \"descrição\" --write");
   process.exit(1);
 }
-ok(`relatório encontrado: docs/reports/${today}/ (regra #8)`);
 
-// 2. Valida nomenclatura
-const reportFile = report.trim().split("\n")[0];
-if (reportFile) {
+const prefix = prNum ? `PR${prNum}` : null;
+
+// 1. Validar cada relatório no diff
+let hasValidReport = false;
+for (const reportFile of reportFiles) {
   const filename = reportFile.split("/").pop() || "";
-  // Padrão: PR<num>-YYYY-MM-DD-<nome>.html
-  const pattern = new RegExp(`^PR${prNum}-\\d{4}-\\d{2}-\\d{2}-.+\\.html$`);
-  if (!pattern.test(filename)) {
-    err(`nomenclatura do relatório inválida: ${filename}`);
-    err(`  Esperado: PR${prNum}-YYYY-MM-DD-<nome>.html`);
-    process.exit(1);
+  
+  if (prefix) {
+    // 2. Se temos PR, valida nomenclatura com prefixo
+    // Padrão: PR<num>-YYYY-MM-DD-<nome>.html
+    const pattern = new RegExp(`^PR${prNum}-\\d{4}-\\d{2}-\\d{2}-.+\\.html$`);
+    if (!pattern.test(filename)) {
+      err(`nomenclatura do relatório inválida no diff: ${filename}`);
+      err(`  Esperado: PR${prNum}-YYYY-MM-DD-<nome>.html`);
+      process.exit(1);
+    }
+  } else {
+    // Se não há PR, aceita formato de branch ou genérico, mas precisa de data válida
+    // Padrão: <prefixo>-YYYY-MM-DD-<nome>.html
+    const pattern = /^[a-zA-Z0-9_-]+-\d{4}-\d{2}-\d{2}-.+\.html$/;
+    if (!pattern.test(filename)) {
+      err(`nomenclatura do relatório inválida no diff: ${filename}`);
+      err(`  Esperado: <prefixo>-YYYY-MM-DD-<nome>.html`);
+      process.exit(1);
+    }
   }
-  ok(`nomenclatura do relatório OK: ${filename}`);
-}
 
-// 3. Valida seções obrigatórias
-if (reportFile) {
+  // 3. Valida seções obrigatórias
   const content = readFileSync(resolve(ROOT, reportFile), "utf8");
 
   const requiredSections = [
@@ -70,17 +68,24 @@ if (reportFile) {
     { name: "Breakdown", marker: "Breakdown" },
   ];
 
-  let allOk = true;
+  let allSectionsOk = true;
   for (const section of requiredSections) {
     if (content.includes(section.marker)) {
-      ok(`seção "${section.name}" presente`);
+      ok(`seção "${section.name}" presente em ${filename}`);
     } else {
-      err(`seção "${section.name}" ausente no relatório`);
-      allOk = false;
+      err(`seção "${section.name}" ausente no relatório ${filename}`);
+      allSectionsOk = false;
     }
   }
 
-  if (!allOk) process.exit(1);
+  if (allSectionsOk) {
+    hasValidReport = true;
+  }
+}
+
+if (!hasValidReport) {
+  err("Nenhum de seus arquivos de relatório no diff é válido.");
+  process.exit(1);
 }
 
 ok("relatório completo e válido ✅");
