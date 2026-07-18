@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `chore/finish-p0-roadmap`
-- **Último commit:** `036d197` — chore: comenta continue-on-error como diagnóstico (P0-04) (#162)
+- **Branch:** `main`
+- **Último commit:** `2f5f498` — Merge pull request #163 from andre0787/chore/finish-p0-roadmap
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -19,24 +19,28 @@ Nenhum PR aberto.
 |---------|-------|
 | Total testes | 128 |
 | Docs issues | 0 |
-| Branch | chore/finish-p0-roadmap |
+| Branch | main |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
-**Objetivo:** Finalizar itens P0 do roadmap (P0-04/P0-06/P0-07)
-**Branch:** `chore/finish-p0-roadmap`
-**Último commit:** (working tree)
+**Objetivo:** Aplicar P0-06 (branch protection)
+**Branch:** `chore/p0-06-aplicado`
+**Último commit:** `2f5f498` — Merge pull request #163
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
-Estado atualizado automaticamente.
+**Tarefa:** Finalizar itens P0 do roadmap (P0-04/P0-06/P0-07)
+**Resultado:**
+- PR #163 mergeado, deploy verificado ✅
+- P0-04 e P0-07 concluídos
+- P0-06 documentado mas bloqueado (403) por repo privado
 ## 📌 Próxima Sessão
-Continue a tarefa ativa ou selecione o próximo task-card.
+P0 completo. Avançar para P1 ou iniciar nova feature.
 ## 🧠 Notas da Sessão Atual
-- P0-04 marcado done: CI crítico roda `npm run check` sem `continue-on-error`; docs-health permanece diagnóstico comentado.
-- P0-06 preparado e documentado: `.github/branch-protection-main.json` + `docs/GIT-WORKFLOW.md`; aplicação remota bloqueada por GitHub private/free (API 403).
-- P0-07 marcado done: link runtime escapado, docs ativos sem alvo `develop`, handoff atualizado e referências ativas a AGENDA ajustadas.
+- Repositório tornado público para desbloquear branch protection
+- Branch protection aplicada via API: required_status_checks (build-and-test), required_review (1), enforce_admins
+- P0-06 agora done ✅
 
 
 

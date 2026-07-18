@@ -23,7 +23,7 @@ Pré-requisito de tudo o que segue. Sem P0, qualquer protocolo de agente é só 
 | [P0-03](P0-03-ci-check-strict.md) | CI executa `npm run check` em modo estrito | done ✅ |
 | [P0-04](P0-04-remove-continue-on-error.md) | Remover `continue-on-error` de checks críticos | done ✅ |
 | [P0-05](P0-05-pre-pr-diff-vazio.md) | `pre-pr`: detectar diff vazio corretamente | done ✅ |
-| [P0-06](P0-06-branch-protection-main.md) | Required status checks + proteção de `main` | blocked ⛔ (GitHub private/free) |
+| [P0-06](P0-06-branch-protection-main.md) | Required status checks + proteção de `main` | done ✅ |
 | [P0-07](P0-07-resolve-drift-docs.md) | Resolver drift atual (handoff, README, links, AGENDA) | done ✅ |
 | [P0-08](P0-08-format-baseline.md) | Estabelecer baseline de formatação | done ✅ |
 

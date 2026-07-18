@@ -6,7 +6,7 @@
 | `categoria` | chore |
 | `onda` | P0 |
 | `baseBranch` | main |
-| `estado` | blocked ⛔ |
+| `estado` | done ✅ |
 | `origem` | veredito 2026-07-17, item #6 |
 | `dependeDe` | [P0-03] |
 
@@ -28,7 +28,7 @@ receber merges sem que o CI estrito seja required (veredito: Revisão B).
 ## Critérios de aceite
 - [x] Config desejada versionada em `.github/branch-protection-main.json`.
 - [x] Documentado em `docs/GIT-WORKFLOW.md` quais checks são required.
-- [ ] Aplicar no GitHub quando branch protection estiver disponível para o repo privado.
+- [x] Aplicado no GitHub após tornar o repositório público.
 
 ## Riscos / Invariantes
 - Coordenar com o proprietário do repo; não bloquear fluxo de hotfix sem política.
@@ -38,4 +38,4 @@ receber merges sem que o CI estrito seja required (veredito: Revisão B).
 
 ## Evidência de pronto
 - JSON da proteção da branch + trecho do GIT-WORKFLOW.
-- Evidência atual: GitHub API retorna `403` (`Upgrade to GitHub Pro or make this repository public to enable this feature.`), então a aplicação remota está bloqueada por plano/visibilidade do GitHub.
+- API retorna configuração ativa: required_status_checks (`build-and-test`), required_pull_request_reviews (1), enforce_admins habilitado.
