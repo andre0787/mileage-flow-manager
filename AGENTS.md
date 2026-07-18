@@ -3,6 +3,10 @@
 > Projeto de gestão de milhas/pontos (milhagem). Leia o **hub abaixo** primeiro,
 > depois carregue docs específicos conforme a categoria da tarefa.
 
+> 📜 **Workflow canônico:** [`docs/WORKFLOW-MANIFEST.md`](docs/WORKFLOW-MANIFEST.md)
+> Categorias, estados, comandos obrigatórios, alvo de PR e política de bypass.
+> **Autoritativo** sobre definições conflitantes.
+
 ## ⚡ Mapa de Conhecimento
 
 | Doc | Conteúdo | Tamanho |

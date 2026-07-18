@@ -25,12 +25,14 @@ c74a961 chore: session end
 ```
 
 ## 🧭 Estado Atual
-- **Branch:** `chore/llm-small-model-workflow-audit`
-- **Último commit:** `c74a961` — chore: session end
-- **Remote:** origin/chore/llm-small-model-workflow-audit
+- **Branch:** `docs/workflow-manifest`
+- **Último commit:** `d215d74` — docs: mark P0-01 as done no roadmap + task card
+- **Remote:** origin/docs/workflow-manifest
 
 ### 📋 PRs Abertos
-- #152 — docs: roadmap em task-cards para workflow de modelo LLM menor
+- #153 — docs: workflow-manifest — documento canônico de workflow (P0-01)
+  - Status: open, aguardando review/merge
+  - [Abrir PR](https://github.com/andre0787/mileage-flow-manager/pull/153)
 
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
@@ -39,23 +41,24 @@ c74a961 chore: session end
 | Docs issues | 1 |
 | Branch | chore/llm-small-model-workflow-audit |
 
-## 🎯 Sessão Atual
-**Categoria:** docs
-**Docs carregados:** AGENTS.md (docs categoria, sem pré-carregamento)
+## 🏁 P0-01 + P0-02 ✅
+**Status:** PR #153 aberto, aguardando merge
 
-## ✅ Última Sessão
-**Data:** 2026-07-18
-**Tarefa:** aplicar veredito LLM Council 2026-07-17 em roadmap + 22 task-cards + registrar no MAP.md
-**Resultado:**
-- PR #152 aberto: https://github.com/andre0787/mileage-flow-manager/pull/152
-- `docs/tasks/ROADMAP.md` com 3 ondas (P0, P1-A, P1-B, P2) de 22 cards
-- `docs/MAP.md` referencia docs/tasks/ como entrada para workflow (regra #17)
-- `pre-pr` 0 errors no último checkpoint
-- Relatório normalizado: `docs/reports/2026-07-17/PR152-2026-07-17-llm-small-model-workflow-audit.html`
+### Entregues P0-01:
+- `docs/WORKFLOW-MANIFEST.md` — manifesto canônico
+- `docs/WORKFLOW.md`, `AGENTS.md`, `README.md`, `docs/MAP.md` — referenciam manifesto
+
+### Entregues P0-02:
+- `scripts/session-start.mjs` — agora persiste categoria/objetivo/branch no handoff
+  - Modo interativo: pergunta categoria + objetivo
+  - Modo `--set-category`: não-interativo
+  - Modo continuação: detecta sessão em andamento, só atualiza estado
+  - Categoria inválida → exit 1
+- `tests/unit/scripts-session-start.test.ts` — 3 testes
 
 ## 📌 Próxima Sessão
-1. Aguardar review/merge do PR #152.
-2. Iniciar execução dos cards P0 (P0-01 → P0-07) — um PR pequeno por card, sem instalar framework amplo.
+1. Aguardar review/merge do PR #153.
+2. **Próximo card:** P0-03 — CI executa `npm run check` em modo estrito
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
