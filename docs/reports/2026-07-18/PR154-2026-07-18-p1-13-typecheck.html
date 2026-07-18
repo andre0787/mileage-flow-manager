@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PR154 — p1 13 typecheck</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 p1 13 typecheck</h1>
+  <p class="meta">2026-07-18 01:48 &middot; chore/p1-13-typecheck &middot; bd0a0ad — docs: atualiza handoff final</p>
+  <p><span class="badge pr">PR #154</span> <span class="badge auto">PR154</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">16</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+653</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-81</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~728</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🖼️ Renderização verificada em desktop e mobile?</li>
+      <li>🤖 CI workflow válido? (sintaxe YAML)</li>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Auto-gerado pelo pre-pr-check</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Relatório gerado automaticamente como parte do workflow de validação pré-PR</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 81 remoções — 970 linhas tocadas</td>
+        <td>✨ 653 adições — 16 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .github/workflows/ci.yml, docs/handoff.md, docs/tasks/P1-13-typecheck-script.md<br><span style="color:#166534;font-weight:600">➕</span> docs/reports/2026-07-18/PR154-2026-07-18-p1-13-typecheck-estrito-e-correcoes-de-handoff.html, docs/reports/2026-07-18/PR154-2026-07-18-p1-13-typecheck.html<br><em>+11 arquivo(s)</em></td>
+      </tr>
+      
+      <tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>16</td></tr>
+    <tr><td>Adições</td><td>+653</td></tr>
+    <tr><td>Remoções</td><td>-81</td></tr>
+    <tr><td>Tokens estimados</td><td>~728</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:67">+490 add</div>
+        <div class="del" style="flex:8">-61 del</div>
+        <div class="overhead" style="flex:25">~177 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+490</td><td>67%</td></tr>
+      <tr><td>Remoções</td><td>-61</td><td>8%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~177</td><td>25%</td></tr>
+      <tr><th>Total</th><th>~728</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>.github/workflows/ci.yml</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-18/PR154-2026-07-18-p1-13-typecheck-estrito-e-correcoes-de-handoff.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-18/PR154-2026-07-18-p1-13-typecheck.html</td></tr>
+<tr><td>M</td><td>docs/tasks/P1-13-typecheck-script.md</td></tr>
+<tr><td>M</td><td>docs/tasks/ROADMAP.md</td></tr>
+<tr><td>M</td><td>package.json</td></tr>
+<tr><td>M</td><td>scripts/pre-pr-check.mjs</td></tr>
+<tr><td>M</td><td>scripts/rules/rule-02-category-loading.mjs</td></tr>
+<tr><td>M</td><td>scripts/session-start.mjs</td></tr>
+<tr><td>M</td><td>scripts/update-handoff.mjs</td></tr>
+<tr><td>M</td><td>src/components/EntryForm.tsx</td></tr>
+<tr><td>M</td><td>src/pages/Entradas.tsx</td></tr>
+<tr><td>M</td><td>src/pages/Vendas.tsx</td></tr>
+<tr><td>M</td><td>src/types/index.ts</td></tr>
+<tr><td>M</td><td>tests/unit/scripts-session-start.test.ts</td></tr>
+  </table>
+
+  
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
+index 99d6ab9..adb258a 100644
+<span class="del">--- a/.github/workflows/ci.yml</span>
+<span class="add">+++ b/.github/workflows/ci.yml</span>
+@@ -33,6 +33,9 @@ jobs:
+         run: npm run lint
+         continue-on-error: true
+ 
+<span class="add">+      - name: Typecheck</span>
+<span class="add">+        run: npm run typecheck</span>
+<span class="add">+</span>
+       - name: Build
+         run: npm run build
+ 
+diff --git a/docs/handoff.md b/docs/handoff.md
+index 65ee703..f154619 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -1,71 +1,43 @@
+ # HANDOFF — MilesControl
+ &gt; ⏰ Última atualização: 2026-07-18
+<span class="del">-&gt; Anterior: 2026-07-17</span>
+<span class="add">+&gt; Anterior: 2026-07-18</span>
+ ---
+<span class="del">-</span>
+ ## 🏗️ Projeto
+<span class="del">-</span>
+ **Stack:** React + Vite + Supabase + Tailwind | pt-BR
+ **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
+<span class="del">-**Regras críticas:** branch obrigatória, pre-pr c/ relatório, git status ZERO, lazy loading por categoria</span>
+<span class="del">-**Workflow:** session:start → categoria → carregar docs → council (se feature) → build → pre-pr → PR</span>
+<span class="del">-</span>
+<span class="add">+**Workflow:** session:start → categoria → implementação → pre-pr → PR</span>
+ ### 🐞 Bugs Abertos
+<span class="del">-</span>
+<span class="del">-- nenhum | [ver todos → Issues](https://github.com/andreluiz0787/mileage-flow-manager/issues)</span>
+<span class="del">-</span>
+<span class="del">-### 📋 Commits Recentes</span>
+<span class="del">-</span>
+<span class="del">-```</span>
+<span class="del">-c74a961 chore: session end</span>
+<span class="del">-1887367 chore: normalize report prefix to PR152 [skip ci]</span>
+<span class="del">-226faa1 docs: registra docs/tasks/ em MAP.md (rule-17)</span>
+<span class="del">-4d94949 docs: roadmap em task-cards para workflow de modelo LLM menor</span>
+<span class="del">-5c17a31 docs: analisa workflow para modelos llm menores</span>
+<span class="del">-```</span>
+<span class="del">-</span>
+<span class="add">+Consulte as GitHub Issues para a lista atual.</span>
+ ## 🧭 Estado Atual
+<span class="del">-- **Branch:** `docs/workflow-manifest`</span>
+<span class="del">-- **Último commit:** `d215d74` — docs: mark P0-01 as done no roadmap + task card</span>
+<span class="del">-- **Remote:** origin/docs/workflow-manifest</span>
+<span class="del">-</span>
+<span class="add">+- **Branch:** `chore/p1-13-typecheck`</span>
+<span class="add">+- **Último commit:** `a7edcf9 — docs: atualiza estado do P1-13 e relatório`</span>
+<span class="add">+- **Remote:** origin/chore/p1-13-typecheck</span>
+ ### 📋 PRs Abertos
+<span class="del">-- #153 — docs: workflow-manifest — documento canônico de workflow (P0-01)</span>
+<span class="del">-  - Status: open, aguardando review/merge</span>
+<span class="del">-  - [Abrir PR](https://github.com/andre0787/mileage-flow-manager/pull/153)</span>
+<span class="del">-</span>
+<span class="add">+- #154 — chore: Typecheck estrito e handoff consistente</span>
+ ### 📊 Métricas (estimativa local)
+ | Métrica | Valor |
+ |---------|-------|
+<span class="del">-| Total testes | 113 |</span>
+<span class="add">+| Total testes | 124 |</span>
+ | Docs issues | 1 |
+<span class="del">-| Branch | chore/llm-small-model-workflow-audit |</span>
+<span class="del">-</span>
+<span class="del">-## 🏁 P0-01 + P0-02 ✅</span>
+<span class="del">-**Status:** PR #153 aberto, aguardando merge</span>
+<span class="del">-</span>
+<span class="del">-### Entregues P0-01:</span>
+<span class="del">-- `docs/WORKFLOW-MANIFEST.md` — manifesto canônico</span>
+<span class="del">-- `docs/WORKFLOW.md`, `AGENTS.md`, `README.md`, `docs/MAP.md` — referenciam manifesto</span>
+<span class="del">-</span>
+<span class="del">-### Entregues P0-02:</span>
+<span class="del">-- `scripts/session-start.mjs` — agora persiste categoria/objetivo/branch no handoff</span>
+<span class="del">-  - Modo interativo: pergunta categoria + objetivo</span>
+<span class="del">-  - Modo `--set-category`: não-interativo</span>
+<span class="del">-  - Modo continuação: detecta sessão em andamento, só atualiza estado</span>
+<span class="del">-  - Categoria inválida → exit 1</span>
+<span class="del">-- `tests/unit/scripts-session-start.test.ts` — 3 testes</span>
+<span class="del">-</span>
+<span class="del">-## 📌 Próxima Sessão</span>
+<span class="del">-1. Aguardar review/merge do PR #153.</span>
+<span class="del">-2. **Próximo card:** P0-03 — CI executa `npm run check` em modo estrito</span>
+<span class="add">+| Branch | chore/p1-13-typecheck |</span>
+ 
+ ---
+ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
+<span class="del">-</span>
+<span class="add">+## 🎯 Sessão Atual</span>
+<span class="add">+**Categoria:** chore</span>
+<span class="add">+**Objetivo:** Encerrar sessão após PR #154</span>
+<span class="add">+**Branch:** `chore/p1-13-typecheck`</span>
+<span class="add">+**Último commit:** a7edcf9 — docs: atualiza estado do P1-13 e relatório</span>
+<span class="add">+**Docs carregados:** AGENTS.md</span>
+<span class="add">+## ✅ Última Sessão</span>
+<span class="add">+Estado atualizado automaticamente.</span>
+<span class="add">+## 📌 Próxima Sessão</span>
+<span class="add">+Continue a tarefa ativa ou selecione o próximo task-card.</span>
+ ## 🧠 Notas da Sessão Atual
+ - Council 2026-07-17-llm-menor-workflow escolhido: reformular trabalho em ondas pequenas em vez de instalar framework de agente.
+ - 22 task-cards entregues em `docs/tasks/` (ROADMAP.md + _TEMPLATE.md + 22 cards).
+ - MAP.md registra docs/tasks/ (rule-17).
+ - Post-pr feito: relatório renomeado para prefixo PR152.
+ - Branch: `chore/llm-small-model-workflow-audit` — contém só alterações em docs.
+<span class="add">+</span>
+<span class="add">+</span>
+diff --git a/docs/reports/2026-07-18/PR154-2026-07-18-p1-13-typecheck-estrito-e-correcoes-de-handoff.html b/docs/reports/2026-07-18/PR154-2026-07-18-p1-13-typecheck-estrito-e-correcoes-de-handoff.html
+new file mode 100644
+index 0000000..c7db197
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/reports/2026-07-18/PR154-2026-07-18-p1-13-typecheck-estrito-e-correcoes-de-handoff.html</span>
+@@ -0,0 +1,273 @@
+<span class="add">+&lt;!DOCTYPE html&gt;</span>
+<span class="add">+&lt;html lang="pt-BR"&gt;</span>
+<span class="add">+&lt;head&gt;</span>
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>

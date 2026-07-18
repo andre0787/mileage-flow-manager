@@ -21,6 +21,13 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 const HANDOFF_PATH = resolve(ROOT, "docs/handoff.md");
 const CATEGORIAS = ["feature", "bugfix", "docs", "refactor", "chore"];
+const DOCS_CARREGADOS = {
+  feature: "WORKFLOW.md, CONVENTIONS.md",
+  bugfix: "DEBUG.md, CONVENTIONS.md",
+  docs: "AGENTS.md",
+  refactor: "CONVENTIONS.md, ARCHITECTURE.md",
+  chore: "AGENTS.md",
+};
 const LABELS = { feature: "feature", bugfix: "bugfix", docs: "docs", refactor: "refactor", chore: "chore" };
 
 function readFile(p) {
@@ -170,6 +177,7 @@ function escreverSessao(cat, obj, branchAtual, commitAtual) {
     `**Objetivo:** ${obj}`,
     `**Branch:** \`${branchAtual}\``,
     `**Último commit:** ${commitAtual}`,
+    `**Docs carregados:** ${DOCS_CARREGADOS[cat]}`,
   ].join("\n");
 
   const conteudo = readFileSync(HANDOFF_PATH, "utf8");

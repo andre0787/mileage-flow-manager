@@ -20,8 +20,9 @@ const HANDOFF_PATH = resolve(ROOT, "docs/handoff.md");
 const CATEGORY_MAP = {
   feature: ["WORKFLOW.md", "CONVENTIONS.md"],
   bugfix: ["DEBUG.md", "CONVENTIONS.md"],
-  docs: [],
+  docs: ["AGENTS.md"],
   refactor: ["CONVENTIONS.md", "ARCHITECTURE.md"],
+  chore: ["AGENTS.md"],
 };
 
 function main() {
@@ -32,14 +33,14 @@ function main() {
 
   const content = readFileSync(HANDOFF_PATH, "utf8");
 
-  const catMatch = content.match(/-\s*\*\*Categoria:\*\*\s*(\w+)/);
+  const catMatch = content.match(/-?\s*\*\*Categoria:\*\*\s*(\w+)/);
   if (!catMatch) {
     console.log("  ⏭️  rule-02: categoria não definida no handoff, pulando");
     return;
   }
   const category = catMatch[1];
 
-  const docsMatch = content.match(/-\s*\*\*Docs carregados:\*\*\s*(.*)/);
+  const docsMatch = content.match(/-?\s*\*\*Docs carregados:\*\*\s*(.*)/);
   if (!docsMatch) {
     console.error("❌ rule-02: seção 'Docs carregados' não encontrada no handoff.md");
     process.exit(1);

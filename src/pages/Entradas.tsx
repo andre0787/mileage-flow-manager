@@ -190,9 +190,10 @@ export default function Entradas() {
   const handleCreateOrigemType = async (data: {
     name: string;
     color: string;
+    hasRecurrence: boolean;
   }) => {
     const id = crypto.randomUUID();
-    const desc = serializeOrigemTypeDescription(false);
+    const desc = serializeOrigemTypeDescription(data.hasRecurrence);
     await addOrigemTypeM.mutateAsync({
       id,
       name: data.name,
@@ -350,7 +351,6 @@ export default function Entradas() {
                 }}
                 onConfirm={(entry) => confirmEntryM.mutate(entry)}
                 onCreateClick={() => {
-                  setTransferInitialData(undefined);
                   setIsCreateDialogOpen(true);
                 }}
               />
@@ -387,7 +387,6 @@ export default function Entradas() {
                 }}
                 onConfirm={(entry) => confirmEntryM.mutate(entry)}
                 onCreateClick={() => {
-                  setTransferInitialData(undefined);
                   setIsCreateDialogOpen(true);
                 }}
               />
