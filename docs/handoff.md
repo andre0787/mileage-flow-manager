@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `2d3bd4a` — chore: session-end usa --no-verify para commits de handoff na main
+- **Último commit:** `9581da9 — docs: update handoff`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
