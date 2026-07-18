@@ -10,10 +10,16 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `f2e8a0c — docs: P0-03 marcado como done + ROADMAP atualizado`
-- **Remote:** origin/chore/p1-13-typecheck
+- **Último commit:** `2d3bd4a` — chore: session-end usa --no-verify para commits de handoff na main
+- **Remote:** origin/main
 ### 📋 PRs Abertos
-- #154 — chore: Typecheck estrito e handoff consistente
+Nenhum PR aberto.
+### 📊 Métricas (estimativa local)
+| Métrica | Valor |
+|---------|-------|
+| Total testes | 124 |
+| Docs issues | 1 |
+| Branch | main |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
@@ -24,17 +30,14 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 **Último commit:** (working tree)
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
-**Categoria:** bugfix
-**Objetivo:** Corrigir seletor E2E do fluxo de carrinho
-**Branch:** `chore/p1-13-typecheck`
-**Mudanças:** —
+Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
-- Revisar e aprovar PR `docs/subagent-docs` → `main`
-- Avaliar se task-card de navegação Serena-First deve ser criado
+Continue a tarefa ativa ou selecione o próximo task-card.
 ## 🧠 Notas da Sessão Atual
 - Docs de subagentes adicionados: WORKFLOW.md (seção + tabela), STACK.md (packages + skills), MAP.md (ecossistema), AGENTS.md (regra #8)
 - Navegação Serena-First adicionada: WORKFLOW.md (hierarquia), CONVENTIONS.md (seção), AGENTS.md (passo no workflow mínimo)
 - MAP.md atualizado para refletir Serena-First no workflow
 - Relatório gerado: `docs/reports/2026-07-18/subagent-docs-2026-07-18-subagent-docs.html`
+
 
 
