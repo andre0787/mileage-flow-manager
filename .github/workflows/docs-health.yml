@@ -18,6 +18,8 @@ jobs:
         run: npm ci
       - name: Verify docs integrity
         id: verify
+        # ponytail: informativo — semanal, agenda cron; não roda em PR. Em vez de
+        # falhar, abre issue automaticamente. continue-on-error é diagnóstico, não atalho.
         continue-on-error: true
         run: |
           node scripts/verify-docs.mjs --strict > verify-output.txt 2>&1 || true
