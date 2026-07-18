@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PR152 — llm small model workflow audit</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 llm small model workflow audit</h1>
+  <p class="meta">2026-07-18 21:05 &middot; chore/llm-small-model-workflow-audit &middot; 1887367 — chore: normalize report prefix to PR152 [skip ci]</p>
+  <p><span class="badge pr">PR #152</span> <span class="badge auto">PR152</span> <span class="badge" style="background:#fee2e2;color:#991b1b">Alto Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">27</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+1576</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-27</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1288</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🔷 Migração de banco aplicada?</li>
+      <li>📬 Feedback flow testado (anon + auth)?</li>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Auto-gerado pelo pre-pr-check</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Relatório gerado automaticamente como parte do workflow de validação pré-PR</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 27 remoções — 1717 linhas tocadas</td>
+        <td>✨ 1576 adições — 27 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/MAP.md<br><span style="color:#166534;font-weight:600">➕</span> docs/council/2026-07-17-llm-menor-workflow-veredito.md, docs/reports/2026-07-17/PR152-small-model-workflow-audit-2026-07-17-llm-small-model-workflow-audit.html, docs/tasks/P0-01-manifesto-workflow.md, docs/tasks/P0-02-session-start-persiste-categoria.md<br><em>+22 arquivo(s)</em></td>
+      </tr>
+      
+      <tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>27</td></tr>
+    <tr><td>Adições</td><td>+1576</td></tr>
+    <tr><td>Remoções</td><td>-27</td></tr>
+    <tr><td>Tokens estimados</td><td>~1288</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:92">+1182 add</div>
+        <div class="del" style="flex:2">-20 del</div>
+        <div class="overhead" style="flex:6">~86 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+1182</td><td>92%</td></tr>
+      <tr><td>Remoções</td><td>-20</td><td>2%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~86</td><td>6%</td></tr>
+      <tr><th>Total</th><th>~1288</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>A</td><td>docs/council/2026-07-17-llm-menor-workflow-veredito.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-17/PR152-small-model-workflow-audit-2026-07-17-llm-small-model-workflow-audit.html</td></tr>
+<tr><td>A</td><td>docs/tasks/P0-01-manifesto-workflow.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P0-02-session-start-persiste-categoria.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P0-03-ci-check-strict.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P0-04-remove-continue-on-error.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P0-05-pre-pr-diff-vazio.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P0-06-branch-protection-main.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P0-07-resolve-drift-docs.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P1-08-task-card-schema.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P1-09-context-pack.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P1-10-regra-escopo-diff.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P1-11-estados-workflow.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P1-12-skill-small-model-execution.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P1-13-typecheck-script.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P1-14-check-fast-pr-nightly.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P1-15-fixtures-negativas-regras.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P1-16-ast-regras-alto-risco.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P1-17-invariantes-financeiras.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P1-18-e2e-estabiliza.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P2-19-budgets-bundle-tempo.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P2-20-quality-consome-ci.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P2-21-metricas-programa.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P2-22-feedback-usuario-aceite.md</td></tr>
+<tr><td>A</td><td>docs/tasks/ROADMAP.md</td></tr>
+<tr><td>A</td><td>docs/tasks/_TEMPLATE.md</td></tr>
+  </table>
+
+  
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/docs/MAP.md b/docs/MAP.md
+index 7e1dba1..a5dfc2a 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -25,6 +25,27 @@
+ | `docs/handoff.md` | Início/fim de sessão | Contexto entre sessões, branch atual, PRs, próximos passos |
+ | `docs/CI-PROCESS.md` | Melhoria contínua | Ciclo de melhoria: coletar → priorizar → executar → revisar → retrospectiva |
+ 
+<span class="add">+## Docs de Roadmap / Task-cards</span>
+<span class="add">+</span>
+<span class="add">+| Arquivo | Quando ler | O que contém |</span>
+<span class="add">+|---------|-----------|--------------|</span>
+<span class="add">+| [`docs/tasks/ROADMAP.md`](tasks/ROADMAP.md) | Antes de planejar trabalho de workflow/agente | Índice em 3 ondas (P0/P1/P2) de 22 task-cards para otimizar execução de modelo LLM menor |</span>
+<span class="add">+| `docs/tasks/_TEMPLATE.md` | Ao criar novo task-card | Estrutura canônica do card (objetivo, arquivos permitidos, critérios de aceite, testes, evidência) |</span>
+<span class="add">+</span>
+<span class="add">+&gt; **Coleção de task-cards** (`docs/tasks/`): 22 cards granulares rastreáveis ao veredito</span>
+<span class="add">+&gt; do council de 2026-07-17. O índice navegável está em `tasks/ROADMAP.md`. Arquivos:</span>
+<span class="add">+&gt; `P0-01-manifesto-workflow.md`, `P0-02-session-start-persiste-categoria.md`,</span>
+<span class="add">+&gt; `P0-03-ci-check-strict.md`, `P0-04-remove-continue-on-error.md`,</span>
+<span class="add">+&gt; `P0-05-pre-pr-diff-vazio.md`, `P0-06-branch-protection-main.md`,</span>
+<span class="add">+&gt; `P0-07-resolve-drift-docs.md`, `P1-08-task-card-schema.md`, `P1-09-context-pack.md`,</span>
+<span class="add">+&gt; `P1-10-regra-escopo-diff.md`, `P1-11-estados-workflow.md`,</span>
+<span class="add">+&gt; `P1-12-skill-small-model-execution.md`, `P1-13-typecheck-script.md`,</span>
+<span class="add">+&gt; `P1-14-check-fast-pr-nightly.md`, `P1-15-fixtures-negativas-regras.md`,</span>
+<span class="add">+&gt; `P1-16-ast-regras-alto-risco.md`, `P1-17-invariantes-financeiras.md`,</span>
+<span class="add">+&gt; `P1-18-e2e-estabiliza.md`, `P2-19-budgets-bundle-tempo.md`,</span>
+<span class="add">+&gt; `P2-20-quality-consome-ci.md`, `P2-21-metricas-programa.md`,</span>
+<span class="add">+&gt; `P2-22-feedback-usuario-aceite.md`.</span>
+<span class="add">+</span>
+ ## Docs do Ecossistema
+ 
+ | Arquivo | Quando ler | O que contém |
+diff --git a/docs/council/2026-07-17-llm-menor-workflow-veredito.md b/docs/council/2026-07-17-llm-menor-workflow-veredito.md
+new file mode 100644
+index 0000000..2296135
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/council/2026-07-17-llm-menor-workflow-veredito.md</span>
+@@ -0,0 +1,171 @@
+<span class="add">+# Veredito do Council — Workflow para modelos LLM menores</span>
+<span class="add">+</span>
+<span class="add">+**Data:** 2026-07-17  </span>
+<span class="add">+**Escopo:** análise do repositório inteiro, workflow de agentes, guardrails, CI/CD, testes, documentação e skills.  </span>
+<span class="add">+**Pergunta:** como aumentar significativamente a qualidade de execução de novos pedidos quando o agente usa um modelo LLM de menor porte?</span>
+<span class="add">+</span>
+<span class="add">+## Evidências da linha de base</span>
+<span class="add">+</span>
+<span class="add">+- `npm run build`: passou.</span>
+<span class="add">+- `npx tsc --noEmit`: passou, mas não existe atalho npm nem etapa no CI.</span>
+<span class="add">+- `npm test`: 50/50 passou.</span>
+<span class="add">+- E2E completo: 54 passou, 9 foram pulados; execução levou cerca de 4m20s com 1 worker.</span>
+<span class="add">+- Smoke E2E: 3/3 passou.</span>
+<span class="add">+- `npm run lint`: 0 erros, 9 warnings; o CI usa `continue-on-error: true`.</span>
+<span class="add">+- `npm run format:check`: falha em 43 arquivos; não é executado no CI.</span>
+<span class="add">+- Bundle de produção: aproximadamente 1,39 MB precacheado; há chunks minificados acima de 500 kB; não existe budget que bloqueie regressão.</span>
+<span class="add">+- `verify-docs`: 1 link quebrado em `docs/superpowers/plans/2026-07-15-context-optimization-plan.md`.</span>
+<span class="add">+- `pre-pr --no-report --strict`: funciona fora da `main`, mas a execução em `main` é bloqueada corretamente pelo rule-04.</span>
+<span class="add">+- O `pre-pr` npm padrão não usa `--strict`; portanto pode terminar com saída zero mesmo com regras falhando.</span>
+<span class="add">+- `session:start` não pergunta a categoria apesar de a documentação prometer isso; a categoria não está persistida de forma confiável no handoff atual.</span>
+<span class="add">+- O `docs/handoff.md` observado estava desatualizado em relação ao branch/commit real, um risco direto para um modelo com pouco contexto.</span>
+<span class="add">+- Skills Superpowers estão em symlinks absolutos para um diretório da máquina do autor; podem quebrar em outro ambiente.</span>
+<span class="add">+- O CI não executa o `pre-pr`, não executa typecheck/format check, tolera lint e não torna os guardrails de documentação obrigatórios.</span>
+<span class="add">+- E2E usa um Supabase remoto, cria usuários reais, contém `waitForTimeout` frequente, pula o fluxo completo no CI e depende de dados/serviço externo.</span>
+<span class="add">+</span>
+<span class="add">+## Diagnóstico comum</span>
+<span class="add">+</span>
+<span class="add">+O projeto já tem muitos mecanismos, mas eles são predominantemente **procedimentos escritos** e **checagens textuais**. Um modelo menor precisa de menos memória implícita, menos escolhas abertas e mais contratos verificáveis. O problema principal não é falta de documentação ou de skills; é a distância entre o que a documentação promete e o que as ferramentas realmente impõem.</span>
+<span class="add">+</span>
+<span class="add">+A estratégia recomendada é transformar o workflow em uma máquina de estados pequena e fail-closed:</span>
+<span class="add">+</span>
+<span class="add">+```text</span>
+<span class="add">+preflight → task-card → plan aprovado → implementação por fatias</span>
+<span class="add">+→ verificação focada → verificação completa → revisão → PR</span>
+<span class="add">+```</span>
+<span class="add">+</span>
+<span class="add">+Cada transição deve produzir um artefato curto e uma validação executável. O agente não deve precisar inferir a próxima ação lendo dezenas de arquivos.</span>
+<span class="add">+</span>
+<span class="add">+---</span>
+<span class="add">+</span>
+<span class="add">+## Advisor: The Contrarian</span>
+<span class="add">+</span>
+<span class="add">+**Análise:** O maior risco é adicionar ainda mais skills, documentos e scripts ao sistema atual. Isso pode melhorar a sensação de processo e piorar a execução: um modelo menor terá mais instruções concorrentes, mais nomes para memorizar e mais oportunidades de seguir a regra errada. O repositório já demonstra drift: `AGENTS.md`, `WORKFLOW.md`, `CONVENTIONS.md`, `README.md` e `handoff.md` não são uma única fonte de verdade; o handoff observado não correspondia ao branch atual; e o CI não executa várias garantias que a documentação chama de obrigatórias.</span>
+<span class="add">+</span>
+<span class="add">+O segundo risco é confundir “passou” com qualidade. Os testes estáticos de regras são em boa parte tautológicos, o rule-19 usa heurísticas de texto e listas fixas de arquivos, o lint passa com warnings e o CI aceita isso, enquanto o E2E remoto é lento e parcialmente pulado. Antes de criar novas camadas, é necessário fazer os gates existentes realmente falharem quando um contrato é quebrado. Não recomendo instalar novas skills agora; recomendo uma skill local curta somente depois de o contrato do workflow ser estabilizado.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Reformule — primeiro reduza contradições e faça os gates existentes serem obrigatórios; não faça um “mega-framework” de agentes.</span>
+<span class="add">+</span>
+<span class="add">+## Advisor: First Principles Thinker</span>
+<span class="add">+</span>
+<span class="add">+**Análise:** Um LLM menor trabalha melhor quando recebe: (1) objetivo observável, (2) arquivos permitidos, (3) restrições, (4) comandos de verificação e (5) critério de pronto. Hoje esses dados estão espalhados em prosa. O fluxo deve tratar o pedido como um contrato estruturado, não como uma conversa que o agente precisa lembrar.</span>
+<span class="add">+</span>
+<span class="add">+A unidade correta de trabalho não é “sessão longa”, mas uma tarefa pequena com estado explícito. Um `task-card` versionado ou gerado deve conter categoria, objetivo, não-objetivos, critérios de aceite, arquivos autorizados, riscos/invariantes, testes exigidos e estado. Um script deve validar o card e a correspondência do diff. O contexto deve ser produzido sob demanda por risco: uma mudança de UI não precisa carregar invariantes financeiras; uma mutation financeira precisa carregar regras de saldo, testes e hooks relacionados.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Faça — crie um contrato de tarefa mínimo, um pacote de contexto seletivo e uma máquina de estados com gates determinísticos.</span>
+<span class="add">+</span>
+<span class="add">+## Advisor: The Expansionist</span>
+<span class="add">+</span>
+<span class="add">+**Análise:** O investimento pode beneficiar não só modelos menores, mas qualquer agente e a manutenção humana. O projeto pode oferecer uma “trilha de contexto” reproduzível: mapa de domínio, grafo de dependências, contratos de dados, histórico de bugs, testes relevantes e último resultado de qualidade, todos gerados em um pacote compacto. Isso cria uma base para agentes locais, CI e revisão assistida.</span>
+<span class="add">+</span>
+<span class="add">+Há oportunidades de alto retorno: classificação automática de risco do diff; seleção de testes por área; contratos de invariantes financeiras; budgets de bundle; verificação de provider/route; evidência obrigatória por mudança; e dashboards de taxa de falhas, retrabalho, flakiness e tempo de CI. O projeto também pode transformar feedback real de usuários em critérios de aceite, evitando que o agente implemente apenas o texto superficial do pedido.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Faça em fases — a fundação deve ser pequena, mas deve deixar pontos de extensão para contexto por risco, métricas e testes selecionados.</span>
+<span class="add">+</span>
+<span class="add">+## Advisor: The Outsider</span>
+<span class="add">+</span>
+<span class="add">+**Análise:** Um novo agente não sabe qual documento é autoritativo, qual branch é correta, se `develop` ainda existe como alvo ou se `main` é o alvo de PR. Ele também não sabe se deve confiar em `QUALITY.md`, no handoff ou no resultado de um script. O README ainda descreve PRs para `develop`, enquanto o workflow usa `main`. Isso é uma fonte de erro que um modelo grande pode compensar com experiência, mas um modelo menor não compensará.</span>
+<span class="add">+</span>
+<span class="add">+Também há sinais de infraestrutura frágil para um colaborador externo: symlinks de skills apontam para caminhos absolutos locais; o rule-23 confirma existência na máquina atual, não portabilidade; o CI de docs usa `continue-on-error`; relatórios são renomeados por workflows concorrentes; e a regra de relatório depende da data atual. O primeiro produto do workflow deve ser previsibilidade para um agente recém-chegado, não mais conteúdo.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Reformule — estabeleça um manifesto único de workflow, remova contradições e torne o checkout autocontido antes de expandir capacidades.</span>
+<span class="add">+</span>
+<span class="add">+## Advisor: The Executor</span>
+<span class="add">+</span>
+<span class="add">+**Análise:** A execução viável é incremental. Em um primeiro PR, corrigir a fonte de verdade, adicionar `typecheck`, `format:check` e `pre-pr --strict` ao CI, remover `continue-on-error` de checks críticos, corrigir o bug do diff vazio no gerador de relatório e adicionar testes de contrato para scripts. Em seguida, criar `task-card`/`context-pack` e uma regra de escopo; depois fortalecer regras semânticas e separar E2E rápido de E2E completo.</span>
+<span class="add">+</span>
+<span class="add">+Não é necessário adicionar dependência imediatamente. O repositório já possui TypeScript, Vitest e Playwright. O TypeScript Compiler API pode sustentar regras AST quando as heurísticas textuais não forem suficientes. Cada nova regra deve ter um teste negativo que falha com um fixture inválido e um teste positivo, não somente executar contra o estado atual. Mudanças financeiras devem continuar com testes puros e, quando possível, um teste de integração que verifica erro de Supabase e invariantes de reversal.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Faça — em PRs pequenos, com ordem de risco e sem permitir que a automação se auto-declare verde.</span>
+<span class="add">+</span>
+<span class="add">+---</span>
+<span class="add">+</span>
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>

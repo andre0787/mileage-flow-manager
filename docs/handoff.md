@@ -1,11 +1,11 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-07-17
-> Anterior: 2026-07-16
+> ⏰ Última atualização: 2026-07-18
+> Anterior: 2026-07-17
 ---
 
 ## 🏗️ Projeto
 
-> ⏰ Snapshot atualizado em: 2026-07-17
+> ⏰ Snapshot atualizado em: 2026-07-18
 
 ### 🏗️ Projeto
 
@@ -16,46 +16,49 @@
 
 ### 🐞 Bugs Abertos
 
-- nenhum | [ver todos → Issues](https://github.com/andreluiz0787/mileage-flow-manager/issues)
+- nenhum | [ver todos → Issues](https://github.com/andre0787/mileage-flow-manager/issues)
 
 ### 📋 Commits Recentes
 
 ```
-7309bd3 test: ajusta fluxo de transferência E2E
-70107da docs: atualiza handoff da correção de recorrência
-d5afb51 fix: ativa recorrencia pelo tipo de origem
+1887367 chore: normalize report prefix to PR152 [skip ci]
+226faa1 docs: registra docs/tasks/ em MAP.md (rule-17)
+4d94949 docs: roadmap em task-cards para workflow de modelo LLM menor
 ```
 
 ## 🧭 Estado Atual
-- **Branch:** `fix/auto-refresh-after-mutations`
-- **Último commit:** `7309bd3` — test: ajusta fluxo de transferência E2E
-- **Remote:** origin/fix/auto-refresh-after-mutations
+- **Branch:** `chore/llm-small-model-workflow-audit`
+- **Último commit:** `1887367` — chore: normalize report prefix to PR152 [skip ci]
+- **Remote:** origin/chore/llm-small-model-workflow-audit
+
 ### 📋 PRs Abertos
-- #150 — fix: aguarda atualização do cache após mutations
+- #152 — docs: roadmap em task-cards para workflow de modelo LLM menor
+
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
 | Total testes | 113 |
 | Docs issues | 1 |
-| Branch | fix/auto-refresh-after-mutations |
+| Branch | chore/llm-small-model-workflow-audit |
 
 ## 🎯 Sessão Atual
-**Categoria:** bugfix
-**Docs carregados:** `docs/DEBUG.md`, `docs/CONVENTIONS.md`
+**Categoria:** docs
+**Docs carregados:** `AGENTS.md` (regra de lazy loading: docs não pré-carrega)
 
 ## ✅ Última Sessão
-**Data:** 2026-07-17
-**Tarefa:** corrigir cache e ativar recorrência pelo tipo de origem
-**Resultado:** PR #150 atualizado; recorrência automática validada no E2E.
+**Data:** 2026-07-18
+**Tarefa:** aplicar veredito do LLM Council (2026-07-17) em roadmap + task-cards
+**Resultado:** PR #152 aberto (https://github.com/andre0787/mileage-flow-manager/pull/152). `pre-pr` verde (0 errors). Relatório `docs/reports/2026-07-17/PR152-2026-07-17-llm-small-model-workflow-audit.html` normalizado.
 
 ## 📌 Próxima Sessão
-1. Verificar CI/PR #150 e fazer merge quando aprovado.
-2. Investigar separadamente o fechamento da página no fluxo E2E após criar cliente, se necessário.
+1. Aguardar review/merge do PR #152.
+2. Iniciar execução dos cards P0 (P0-01 → P0-07), um PR pequeno por card.
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
+
 ## 🧠 Notas da Sessão Atual
-- Correção: callbacks `onSuccess` das mutations aguardam `invalidateQueries` com `refetchType: 'all'`.
-- Validações: 50 unit tests, build, lint com 9 warnings preexistentes, pre-pr com 0 erros.
-- E2E específico: recorrência automática e transferência passaram após atualizar o teste; o fluxo ainda fecha a página após criar cliente, sem relação com recorrência.
-- PR: https://github.com/andre0787/mileage-flow-manager/pull/150
+- Council 2026-07-17-llm-menor-workflow escolhido: **reformular em ondas pequenas**, não instalar framework amplo.
+- 22 task-cards entregues em `docs/tasks/` (1 ROADMAP.md + 1 _TEMPLATE.md + 22 cards: P0×7, P1-A×5, P1-B×6, P2×4).
+- `docs/MAP.md` agora aponta `docs/tasks/` como entrada antes de planejar trabalho de workflow/agente (regra #17).
+- Renomeação do relatório pré-pr para prefixo `PR152` aplicada via commit `chore: normalize report prefix to PR152`.
