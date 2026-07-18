@@ -1,11 +1,12 @@
 import { describe, it, expect, afterAll, beforeAll } from "vitest";
 import { execSync } from "child_process";
 import { resolve } from "path";
-import { readFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 
 const ROOT = resolve(__dirname, "../..");
 const SCRIPT = resolve(ROOT, "scripts/session-start.mjs");
 const HANDOFF = resolve(ROOT, "docs/handoff.md");
+let originalHandoff: string;
 
 function restoreHandoff() {
   execSync("git checkout -- docs/handoff.md", {
@@ -13,6 +14,11 @@ function restoreHandoff() {
     encoding: "utf8",
     timeout: 3000,
   });
+  const content = readFileSync(HANDOFF, "utf8");
+  writeFileSync(
+    HANDOFF,
+    content.replace(/## 🎯 Sessão Atual[\s\S]*?(?=\n## |\n---|$)/, ""),
+  );
 }
 
 /** Lê a seção 🎯 Sessão Atual do handoff, ou null se não existir */
@@ -26,8 +32,11 @@ function getSessaoAtual() {
   };
 }
 
-beforeAll(() => restoreHandoff());
-afterAll(() => restoreHandoff());
+beforeAll(() => {
+  originalHandoff = readFileSync(HANDOFF, "utf8");
+  restoreHandoff();
+});
+afterAll(() => writeFileSync(HANDOFF, originalHandoff));
 
 describe("session-start", () => {
   // ─── --set-category: validação ───

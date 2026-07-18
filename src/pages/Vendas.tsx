@@ -27,6 +27,7 @@ import { SaleTable } from "@/components/SaleTable";
 import { SaleSimulator, type StockItem } from "@/components/SaleSimulator";
 import confetti from "canvas-confetti";
 import { toast } from "sonner";
+import type { Sale } from "@/types";
 
 export default function Vendas() {
   const { clients, accounts, owners, programs, sales, isLoading } = useData();

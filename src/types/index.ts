@@ -9,6 +9,8 @@ export interface EntryFormData {
   cartAmount: string
   cartCost: string
   date: string
+  isClube: boolean
+  clubeMeses: string
   isRecurrent: boolean
   recurrenceType: 'monthly' | 'quarterly' | 'semiannual' | 'annual'
   recurrenceCount: number

@@ -19,7 +19,7 @@ interface EntryFormProps {
   origemTypes: OrigemType[]
   programs: Program[]
   owners: Owner[]
-  onCreateOrigemType?: (data: { name: string; color: string }) => Promise<string | undefined>
+  onCreateOrigemType?: (data: { name: string; color: string; hasRecurrence: boolean }) => Promise<string | undefined>
 }
 
 const emptyForm: EntryFormData = {
@@ -33,6 +33,8 @@ const emptyForm: EntryFormData = {
   cartAmount: "",
   cartCost: "",
   date: "",
+  isClube: false,
+  clubeMeses: "",
   isRecurrent: false,
   recurrenceType: "monthly",
   recurrenceCount: 1,
@@ -55,7 +57,7 @@ export function EntryForm({
   const [form, setForm] = useState<EntryFormData>({ ...emptyForm, ...initialData })
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({})
   const [isOrigemTypeOpen, setIsOrigemTypeOpen] = useState(false)
-  const [newOT, setNewOT] = useState({ name: "", color: "#10b981" })
+  const [newOT, setNewOT] = useState({ name: "", color: "#10b981", hasRecurrence: false })
   const [isCreatingOrigemType, setIsCreatingOrigemType] = useState(false)
   const [otErrors, setOtErrors] = useState<Partial<Record<string, string>>>({})
 

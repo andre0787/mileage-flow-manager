@@ -60,6 +60,16 @@ function build() {
     "",
     "---",
     "",
+    "## 🏗️ Projeto",
+    "",
+    "**Stack:** React + Vite + Supabase + Tailwind | pt-BR",
+    "**Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests",
+    "**Workflow:** session:start → categoria → implementação → pre-pr → PR",
+    "",
+    "### 🐞 Bugs Abertos",
+    "",
+    "Consulte as GitHub Issues para a lista atual.",
+    "",
     "## 🧭 Estado Atual",
     "",
     `- **Branch:** \`${branch}\``,
@@ -109,6 +119,21 @@ function build() {
     "",
     "_Atualizado automaticamente por \`scripts/update-handoff.mjs\`_",
     "",
+    "## 🎯 Sessão Atual",
+    "",
+    "**Categoria:** chore",
+    "**Objetivo:** descrição concisa",
+    `**Branch:** \`${branch}\``,
+    "**Docs carregados:** AGENTS.md",
+    "",
+    "## ✅ Última Sessão",
+    "",
+    "Estado atualizado automaticamente.",
+    "",
+    "## 📌 Próxima Sessão",
+    "",
+    "Continue a tarefa ativa ou selecione o próximo task-card.",
+    "",
     "## 🧠 Notas da Sessão Atual",
     "",
     "(Adicione notas manuais abaixo desta linha)",
@@ -126,9 +151,12 @@ function writeHandoff() {
   const oldContent = readCurrent();
   if (oldContent) {
     const notesMatch = oldContent.match(/## 🧠 Notas da Sessão Atual[\s\S]*/);
+    const sessionMatch = oldContent.match(/## 🎯 Sessão Atual[\s\S]*?(?=\n## |\n---|$)/);
+    const personalized = sessionMatch
+      ? result.replace(/## 🎯 Sessão Atual[\s\S]*?(?=\n## ✅ Última Sessão)/, sessionMatch[0].trim())
+      : result;
     if (notesMatch) {
-      // Replace only the auto section, preserve notes
-      const newAuto = result.replace(/\n## 🧠 Notas da Sessão Atual[\s\S]*$/, "");
+      const newAuto = personalized.replace(/\n## 🧠 Notas da Sessão Atual[\s\S]*$/, "");
       writeFileSync(HANDOFF_PATH, newAuto + "\n" + notesMatch[0] + "\n");
       console.log("✅ docs/handoff.md atualizado (notas preservadas)");
       return;

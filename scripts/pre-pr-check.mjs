@@ -138,7 +138,7 @@ for (const file of ruleFiles) {
 console.log("\n── Sanity ──");
 try {
   const logCheck = execSync(
-    `git diff HEAD -- ":(exclude)src/lib/logger.ts" | grep "console\\." || true`,
+    `git diff HEAD -- ":(exclude)src/lib/logger.ts" | grep '^+' | grep -v '^+++' | grep "console\\." || true`,
     { cwd: ROOT, encoding: "utf8", timeout: 5000 }
   ).trim();
   if (logCheck) {
