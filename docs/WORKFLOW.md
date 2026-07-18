@@ -1,5 +1,10 @@
 # 🤖 Workflow Obrigatório — council-to-superpowers
 
+> 📜 **Fonte canônica do workflow:** [`WORKFLOW-MANIFEST.md`](WORKFLOW-MANIFEST.md)
+> Este documento detalha a execução do council-to-superpowers.
+> Para definições de categorias, estados, comandos obrigatórios, alvo de PR e política de bypass,
+> consulte o **Workflow Manifest** — autoritativo sobre qualquer definição conflitante.
+
 **Toda feature ou modificação neste projeto DEVE passar por este workflow.**
 
 ## Início de Sessão — Lazy Loading

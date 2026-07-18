@@ -16,7 +16,8 @@
 
 | Arquivo | Quando ler | O que contém |
 |---------|-----------|--------------|
-| `WORKFLOW.md` | Antes de iniciar qualquer feature | Workflow council-to-superpowers + LLM Council |
+| `WORKFLOW-MANIFEST.md` | **Sempre primeiro** | Fonte canônica: categorias, estados, comandos obrigatórios, alvo de PR, política de bypass |
+| `WORKFLOW.md` | Antes de iniciar qualquer feature | Workflow council-to-superpowers + LLM Council (detalhamento do manifesto) |
 | `AGENDA.md` | Início de toda sessão | Sprint atual, tarefas em andamento, próximas, backlog |
 | `GIT-WORKFLOW.md` | Antes de commitar/criar PR | Branches, commits, PR, deploy |
 | `TESTING.md` | Antes de rodar testes | Playwright, bateria obrigatória, helpers |
@@ -78,4 +79,7 @@ Artefatos de sprints/features concluídos foram movidos para `docs/archive/`:
 
 ## Regra de Ouro
 
-**Sempre leia `AGENDA.md` + `WORKFLOW.md` + `ARCHITECTURE.md` + `CONVENTIONS.md` antes de começar qualquer tarefa.**
+**Sempre leia `WORKFLOW-MANIFEST.md` + `AGENDA.md` + `WORKFLOW.md` + `ARCHITECTURE.md` + `CONVENTIONS.md` antes de começar qualquer tarefa.**
+
+## Navegação Rápida
+- [`WORKFLOW-MANIFEST.md`](WORKFLOW-MANIFEST.md) — **Workflow canônico** (categorias, estados, comandos, alvo de PR, bypass)

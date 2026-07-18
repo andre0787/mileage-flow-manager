@@ -42,6 +42,9 @@ Produção: https://mileage-flow-manager.vercel.app
 
 ## Git Workflow
 
-- `main` — produção (deploy automático Vercel)
-- `develop` — desenvolvimento
-- `feat/*`, `fix/*` — branches com PR para `develop`
+> 📜 **Workflow canônico:** [`docs/WORKFLOW-MANIFEST.md`](docs/WORKFLOW-MANIFEST.md)  
+> Categorias, estados, comandos obrigatórios, alvo de PR e política de bypass.
+
+- `main` — produção (deploy automático Vercel), alvo de todo PR
+- `feat/*`, `fix/*`, `docs/*`, `chore/*` — branches de trabalho com PR para `main`
+- Não há branch `develop` — o fluxo é direto para `main`
