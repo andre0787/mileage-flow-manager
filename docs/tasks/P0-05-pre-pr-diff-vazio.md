@@ -6,7 +6,7 @@
 | `categoria` | fix |
 | `onda` | P0 |
 | `baseBranch` | main |
-| `estado` | pending |
+| `estado` | done |
 | `origem` | veredito 2026-07-17, item #5 |
 | `dependeDe` | [] |
 
@@ -28,9 +28,9 @@ renomeiam relatórios (veredito: Advisor The Outsider).
 - `scripts/rules/*` (validação de relatório, se aplicável)
 
 ## Critérios de aceite
-- [ ] Sem diff (base→HEAD + staged + working tree) ⇒ `pre-pr` falha com mensagem clara.
-- [ ] Validação de relatório não depende apenas da data atual.
-- [ ] Existe teste negativo (sem diff) e positivo (com diff) para a detecção.
+- [x] Sem diff (base→HEAD + staged + working tree) ⇒ `pre-pr` falha com mensagem clara.
+- [x] Validação de relatório não depende apenas da data atual.
+- [x] Existe teste negativo (sem diff) e positivo (com diff) para a detecção.
 
 ## Riscos / Invariantes
 - Não quebrar o caminho feliz atual de PRs com diff.
