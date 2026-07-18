@@ -51,6 +51,10 @@ Alimente o veredito do council no Superpowers. Leia cada SKILL.md manualmente �
 
 5. **subagent-driven-development** ou **executing-plans**
    Leia o SKILL.md correspondente
+   > Com `pi-subagents` instalado, use as ferramentas `subagent`, `chain` e `parallel`
+   > em vez do padrão manual de prompts. O skill `subagent-driven-development` já descreve
+   > o fluxo (implementer → reviewer → fix loop → final review); as tools substituem
+   > a simulação por invocações reais com progresso via TUI.
 
 6. **requesting-code-review**
    Leia `requesting-code-review/SKILL.md`

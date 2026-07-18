@@ -9,35 +9,32 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `chore/p1-13-typecheck`
-- **Último commit:** `bd0a0ad — docs: atualiza handoff final`
+- **Branch:** `main`
+- **Último commit:** `f2e8a0c — docs: P0-03 marcado como done + ROADMAP atualizado`
 - **Remote:** origin/chore/p1-13-typecheck
 ### 📋 PRs Abertos
 - #154 — chore: Typecheck estrito e handoff consistente
-### 📊 Métricas (estimativa local)
-| Métrica | Valor |
-|---------|-------|
-| Total testes | 124 |
-| Docs issues | 1 |
-| Branch | chore/p1-13-typecheck |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
+**Categoria:** docs
+**Objetivo:** Atualizar docs com subagentes + navegação Serena-First
+**Branch:** `docs/subagent-docs`
+**Último commit:** (working tree)
+**Docs carregados:** AGENTS.md
+## ✅ Última Sessão
 **Categoria:** bugfix
 **Objetivo:** Corrigir seletor E2E do fluxo de carrinho
 **Branch:** `chore/p1-13-typecheck`
-**Último commit:** bd0a0ad — docs: atualiza handoff final
-**Docs carregados:** DEBUG.md, CONVENTIONS.md
-## ✅ Última Sessão
-Estado atualizado automaticamente.
+**Mudanças:** —
 ## 📌 Próxima Sessão
-Continue a tarefa ativa ou selecione o próximo task-card.
+- Revisar e aprovar PR `docs/subagent-docs` → `main`
+- Avaliar se task-card de navegação Serena-First deve ser criado
 ## 🧠 Notas da Sessão Atual
-- Council 2026-07-17-llm-menor-workflow escolhido: reformular trabalho em ondas pequenas em vez de instalar framework de agente.
-- 22 task-cards entregues em `docs/tasks/` (ROADMAP.md + _TEMPLATE.md + 22 cards).
-- MAP.md registra docs/tasks/ (rule-17).
-- Post-pr feito: relatório renomeado para prefixo PR152.
-- Branch: `chore/llm-small-model-workflow-audit` — contém só alterações em docs.
+- Docs de subagentes adicionados: WORKFLOW.md (seção + tabela), STACK.md (packages + skills), MAP.md (ecossistema), AGENTS.md (regra #8)
+- Navegação Serena-First adicionada: WORKFLOW.md (hierarquia), CONVENTIONS.md (seção), AGENTS.md (passo no workflow mínimo)
+- MAP.md atualizado para refletir Serena-First no workflow
+- Relatório gerado: `docs/reports/2026-07-18/subagent-docs-2026-07-18-subagent-docs.html`
 
 
