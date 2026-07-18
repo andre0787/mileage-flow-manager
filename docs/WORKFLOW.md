@@ -188,7 +188,7 @@ se quer consumir alguma ideia.
 |---------|-----------|
 | `npm run think "ideia"` | Adiciona em `IDEIAS.md → Pendentes` + salva em `docs/thoughts/` |
 | `npm run think "ideia" --immediate` | Registra + sugere council-to-superpowers imediato |
-| `npm run think "bug: descrição" --bug` | Registra como bug aberto em AGENDA.md + IDEIAS.md |
+| `npm run think "bug: descrição" --bug` | Registra anotação em IDEIAS/thoughts; bug real deve virar GitHub Issue (`gh issue create --label bug`) |
 
 ### Fluxo completo de uma ideia externa
 
@@ -314,12 +314,10 @@ Ver `AGENTS.md` (regras #8-10) e `CONVENTIONS.md` → "Limpeza Pós-Sessão".
 ### Pipeline (`.github/workflows/ci.yml`)
 
 Sequência obrigatória:
-1. **Lint** — ESLint
-2. **Build** — `npm run build` (Vite)
-3. **Unit tests** — `npm test` (Vitest, 45 testes)
-4. **Playwright install** — `npx playwright install chromium --with-deps`
-5. **E2E tests** — `npm run test:e2e` (Playwright, 54 testes, 1 worker no CI)
-6. **Upload report** — `playwright-report/` como artifact
+1. **Full check** — `npm run check` (typecheck, lint, format:check, unit, verify-docs, build)
+2. **Playwright install** — `npx playwright install --with-deps`
+3. **E2E tests** — `npm run test:e2e`
+4. **Upload report** — `playwright-report/` como artifact
 
 ### Concorrência
 

@@ -9,24 +9,24 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `chore/auto-merge-on-ci-green`
-- **Último commit:** `19db4b6` — chore: normalize report prefix to PR161
-- **Remote:** no remote
+- **Branch:** `chore/finish-p0-roadmap`
+- **Último commit:** `036d197` — chore: comenta continue-on-error como diagnóstico (P0-04) (#162)
+- **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager
 ### 📋 PRs Abertos
-- #161 — chore: auto-merge de PRs quando CI passa verde
+Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
 | Total testes | 128 |
-| Docs issues | 1 |
-| Branch | chore/auto-merge-on-ci-green |
+| Docs issues | 0 |
+| Branch | chore/finish-p0-roadmap |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** docs
-**Objetivo:** Atualizar docs com subagentes + navegação Serena-First
-**Branch:** `docs/subagent-docs`
+**Categoria:** chore
+**Objetivo:** Finalizar itens P0 do roadmap (P0-04/P0-06/P0-07)
+**Branch:** `chore/finish-p0-roadmap`
 **Último commit:** (working tree)
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
@@ -34,10 +34,10 @@ Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
 Continue a tarefa ativa ou selecione o próximo task-card.
 ## 🧠 Notas da Sessão Atual
-- Docs de subagentes adicionados: WORKFLOW.md (seção + tabela), STACK.md (packages + skills), MAP.md (ecossistema), AGENTS.md (regra #8)
-- Navegação Serena-First adicionada: WORKFLOW.md (hierarquia), CONVENTIONS.md (seção), AGENTS.md (passo no workflow mínimo)
-- MAP.md atualizado para refletir Serena-First no workflow
-- Relatório gerado: `docs/reports/2026-07-18/subagent-docs-2026-07-18-subagent-docs.html`
+- P0-04 marcado done: CI crítico roda `npm run check` sem `continue-on-error`; docs-health permanece diagnóstico comentado.
+- P0-06 preparado e documentado: `.github/branch-protection-main.json` + `docs/GIT-WORKFLOW.md`; aplicação remota bloqueada por GitHub private/free (API 403).
+- P0-07 marcado done: link runtime escapado, docs ativos sem alvo `develop`, handoff atualizado e referências ativas a AGENDA ajustadas.
+
 
 
 

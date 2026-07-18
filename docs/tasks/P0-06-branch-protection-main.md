@@ -6,7 +6,7 @@
 | `categoria` | chore |
 | `onda` | P0 |
 | `baseBranch` | main |
-| `estado` | pending |
+| `estado` | blocked ⛔ |
 | `origem` | veredito 2026-07-17, item #6 |
 | `dependeDe` | [P0-03] |
 
@@ -26,15 +26,16 @@ receber merges sem que o CI estrito seja required (veredito: Revisão B).
 - Configuração via `gh api` ou GitHub UI (documentar em `docs/GIT-WORKFLOW.md`)
 
 ## Critérios de aceite
-- [ ] `main` requer review + CI estrito antes do merge.
-- [ ] Force-push desabilitado em `main`.
-- [ ] Documentado em `docs/GIT-WORKFLOW.md` quais checks são required.
+- [x] Config desejada versionada em `.github/branch-protection-main.json`.
+- [x] Documentado em `docs/GIT-WORKFLOW.md` quais checks são required.
+- [ ] Aplicar no GitHub quando branch protection estiver disponível para o repo privado.
 
 ## Riscos / Invariantes
 - Coordenar com o proprietário do repo; não bloquear fluxo de hotfix sem política.
 
 ## Testes obrigatórios
-- Verificação via `gh api repos/:owner/:repo/branches/main/protection`.
+- `gh api repos/andre0787/mileage-flow-manager/branches/main/protection`.
 
 ## Evidência de pronto
 - JSON da proteção da branch + trecho do GIT-WORKFLOW.
+- Evidência atual: GitHub API retorna `403` (`Upgrade to GitHub Pro or make this repository public to enable this feature.`), então a aplicação remota está bloqueada por plano/visibilidade do GitHub.

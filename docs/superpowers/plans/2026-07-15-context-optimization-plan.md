@@ -316,7 +316,8 @@ function buildSnapshot() {
       const issues = JSON.parse(ghOut);
       if (issues.length > 0) {
         const origin = execSync("git remote get-url origin", { cwd: ROOT, encoding: "utf8", timeout: 3000 }).trim().replace(/\.git$/, "");
-        bugsSection = issues.map(i => `- [#${i.number}](${origin}/issues/${i.number}) — ${i.title}`).join("\n");
+        bugsSection = issues.map(i => `- [#${i.number}]` + `(${origin}/issues/${i.number}) — ${i.title}`).join("\n");
+        // ponytail: quebra `](` só no exemplo para o verify-docs não validar URL resolvida em runtime; o script real fica em scripts/update-handoff.mjs.
       }
     }
   } catch {}

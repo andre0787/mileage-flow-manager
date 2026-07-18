@@ -149,13 +149,11 @@ se quer consumir alguma ideia pendente.
 
 ## 🐞 Registro de Bugs
 
-**Todo bug encontrado durante desenvolvimento DEVE ser registrado na AGENDA.md**
-na seção `🐞 Bugs Encontrados`, mesmo que corrigido na hora.
+**Todo bug encontrado durante desenvolvimento DEVE virar GitHub Issue** com label `bug`, mesmo que corrigido na hora.
 
 ### Como registrar:
-- **Bug do GitHub Issues:** usar o número da issue como identificador
-- **Bug descoberto durante dev:** descrever brevemente + severidade (`alta`/`média`/`baixa`)
-- Adicionar na tabela de corrigidos se já foi resolvido, ou em abertos se ficou pendente
+- Use `gh issue create --title "descrição" --label bug`.
+- No PR, referencie o número da issue quando a correção fizer parte da mesma entrega.
 
 ### Modos de registro:
 
@@ -318,8 +316,8 @@ Nunca mutar arrays ou objetos que vêm de `useMemo` ou `useState`.
 Se a UI mostra uma mensagem ao usuário, o código DEVE cumprir a promessa.
 
 ```tsx
-// ❌ ERRADO: UI diz "Transferência será preservada" mas código deleta tudo
-<p>O tipo "Transferência" será preservado.</p>
+// ❌ ERRADO: UI promete preservar "Transferência" mas código deleta tudo
+<p>O tipo "Transferência" continua disponível.</p>
 // ...mas clearAccountData deleta origem_types inteiro
 
 // ✅ CORRETO: código preserva o que a UI promete
@@ -353,9 +351,9 @@ useQuery({
 ### Pipeline (`.github/workflows/ci.yml`)
 
 Sequência obrigatória em todo PR:
-1. **Build** — `npm run build` (Vite)
-2. **Unit tests** — `npm test` (Vitest, 45 testes)
-3. **E2E tests** — `npm run test:e2e` (Playwright, 54 testes)
+1. **Full check** — `npm run check` (typecheck, lint, format:check, unit, verify-docs, build)
+2. **Playwright install** — `npx playwright install --with-deps`
+3. **E2E tests** — `npm run test:e2e`
 4. **Upload report** — `playwright-report/` como artifact
 
 ### Deploy (`.github/workflows/deploy.yml`)

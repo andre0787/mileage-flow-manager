@@ -18,7 +18,7 @@
 |---------|-----------|--------------|
 | `WORKFLOW-MANIFEST.md` | **Sempre primeiro** | Fonte canônica: categorias, estados, comandos obrigatórios, alvo de PR, política de bypass |
 | `WORKFLOW.md` | Antes de iniciar qualquer feature | Workflow council-to-superpowers + LLM Council + **navegação Serena-First** (detalhamento do manifesto) |
-| `AGENDA.md` | Início de toda sessão | Sprint atual, tarefas em andamento, próximas, backlog |
+| `AGENDA.md` | Obsoleto/arquivado | Stub que aponta para `docs/archive/AGENDA-2026.md`; use `docs/tasks/ROADMAP.md` e GitHub Issues |
 | `GIT-WORKFLOW.md` | Antes de commitar/criar PR | Branches, commits, PR, deploy |
 | `TESTING.md` | Antes de rodar testes | Playwright, bateria obrigatória, helpers |
 | `TEST-PLAN.md` | Planejamento de testes | 32 casos organizados em 3 fases, prioridades |
@@ -82,7 +82,7 @@ Artefatos de sprints/features concluídos foram movidos para `docs/archive/`:
 
 ## Regra de Ouro
 
-**Sempre leia `WORKFLOW-MANIFEST.md` + `AGENDA.md` + `WORKFLOW.md` + `ARCHITECTURE.md` + `CONVENTIONS.md` antes de começar qualquer tarefa.**
+**Sempre leia `WORKFLOW-MANIFEST.md` + docs da categoria em `AGENTS.md`; não carregue `AGENDA.md` em sessões normais.**
 
 ## Navegação Rápida
 - [`WORKFLOW-MANIFEST.md`](WORKFLOW-MANIFEST.md) — **Workflow canônico** (categorias, estados, comandos, alvo de PR, bypass)
