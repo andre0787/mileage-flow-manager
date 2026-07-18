@@ -20,9 +20,10 @@ describe("pre-pr-check com controle de diff e git info", () => {
         timeout: 5000,
       });
       expect(true).toBe(false);
-    } catch (e: any) {
-      expect(e.status).toBe(1);
-      const output = e.stdout || e.stderr || "";
+    } catch (e) {
+      const err = e as { status?: number; stdout?: string; stderr?: string };
+      expect(err.status).toBe(1);
+      const output = err.stdout || err.stderr || "";
       expect(output).toContain("Nenhuma alteração detectada em relação à base ou na working tree");
     }
   });
@@ -43,9 +44,10 @@ describe("pre-pr-check com controle de diff e git info", () => {
         timeout: 5000,
       });
       expect(true).toBe(false);
-    } catch (e: any) {
-      expect(e.status).toBe(1);
-      const output = e.stdout || e.stderr || "";
+    } catch (e) {
+      const err = e as { status?: number; stdout?: string; stderr?: string };
+      expect(err.status).toBe(1);
+      const output = err.stdout || err.stderr || "";
       expect(output).toContain("nenhum relatório encontrado no diff");
     }
   });
@@ -87,9 +89,10 @@ describe("pre-pr-check com controle de diff e git info", () => {
         timeout: 5000,
       });
       expect(true).toBe(false);
-    } catch (e: any) {
-      expect(e.status).toBe(1);
-      const output = e.stdout || e.stderr || "";
+    } catch (e) {
+      const err = e as { status?: number; stdout?: string; stderr?: string };
+      expect(err.status).toBe(1);
+      const output = err.stdout || err.stderr || "";
       expect(output).toContain("nomenclatura do relatório inválida no diff");
     }
   });
