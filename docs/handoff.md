@@ -9,17 +9,17 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `9581da9 — docs: update handoff`
-- **Remote:** origin/main
+- **Branch:** `fix/p0-05-pre-pr-diff-vazio`
+- **Último commit:** `2519771` — chore: normalize report prefix to PR160
+- **Remote:** no remote
 ### 📋 PRs Abertos
-Nenhum PR aberto.
+- #160 — fix: pre-pr valida diff vazio e data do relatorio (P0-05)
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 124 |
+| Total testes | 128 |
 | Docs issues | 1 |
-| Branch | main |
+| Branch | fix/p0-05-pre-pr-diff-vazio |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
@@ -38,6 +38,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Navegação Serena-First adicionada: WORKFLOW.md (hierarquia), CONVENTIONS.md (seção), AGENTS.md (passo no workflow mínimo)
 - MAP.md atualizado para refletir Serena-First no workflow
 - Relatório gerado: `docs/reports/2026-07-18/subagent-docs-2026-07-18-subagent-docs.html`
+
 
 
 
