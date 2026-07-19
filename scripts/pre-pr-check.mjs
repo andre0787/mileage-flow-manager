@@ -183,8 +183,8 @@ if (!process.env.PRE_PR_ONLY_RULES) {
   const verifyScript = resolve(ROOT, "scripts/verify-docs.mjs");
   if (existsSync(verifyScript)) {
     try {
-      execSync(`node "${verifyScript}"`, { cwd: ROOT, encoding: "utf8", timeout: 30000 });
-      ok("verify-docs");
+      execSync(`node "${verifyScript}" --strict`, { cwd: ROOT, encoding: "utf8", timeout: 30000 });
+      ok("verify-docs:strict");
     } catch (e) { fail(`verify-docs: ${e.stderr?.slice(0, 200) || e.message}`); }
   } else {
     console.log("  ⚠️  verify-docs.mjs não encontrado, pulando");

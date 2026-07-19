@@ -82,7 +82,7 @@ async function main() {
   // ─── Detecta sessão em andamento ───
   const sessaoMatch = (handoff || "").match(/## 🎯 Sessão Atual[\s\S]*?(?=\n## |\n---|$)/);
   const sessao = sessaoMatch ? sessaoMatch[0] : null;
-  const inProgress = sessao !== null && sessao.includes("**Objetivo:**") && !sessao.includes("descrição concisa");
+  const inProgress = sessao !== null && sessao.includes("**Status:** in_progress") && !sessao.includes("descrição concisa");
 
   // ─── Output inicial ───
   console.log([
@@ -175,6 +175,7 @@ function escreverSessao(cat, obj, branchAtual, commitAtual) {
     `## 🎯 Sessão Atual`,
     `**Categoria:** ${LABELS[cat]}`,
     `**Objetivo:** ${obj}`,
+    `**Status:** in_progress`,
     `**Branch:** \`${branchAtual}\``,
     `**Último commit:** ${commitAtual}`,
     `**Docs carregados:** ${DOCS_CARREGADOS[cat]}`,

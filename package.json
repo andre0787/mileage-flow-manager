@@ -25,7 +25,7 @@
     "post-pr:nopush": "node scripts/post-pr.mjs --no-push",
     "quality": "node scripts/quality-report.mjs",
     "quality:write": "node scripts/quality-report.mjs --write",
-    "check": "npm run typecheck && npm run lint && npm run format:check && npm test && npm run verify-docs && npm run build",
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm test && npm run verify-docs:strict && npm run build",
     "pre-pr": "node scripts/pre-pr-check.mjs",
     "handoff": "node scripts/update-handoff.mjs --write",
     "think": "node scripts/think.mjs",

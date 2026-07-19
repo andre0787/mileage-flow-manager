@@ -27,7 +27,7 @@ quebrar tipos/formato e ainda receber CI verde.
 - `package.json` (atalho `check`, se necessário)
 
 ## Critérios de aceite
-- [x] Existe `npm run check` encadeando typecheck + lint + format:check + unit + verify-docs + build.
+- [x] Existe `npm run check` encadeando typecheck + lint + format:check + unit + verify-docs:strict + build.
 - [x] CI roda `npm run check` em modo estrito (sem `continue-on-error` nos críticos).
 - [x] Um diff que introduz erro de tipo ou formato faz o CI falhar.
 

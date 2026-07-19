@@ -29,6 +29,7 @@ function getSessaoAtual() {
   return {
     categoria: (m[0].match(/\*\*Categoria:\*\* (.+)/) || [])[1] || null,
     objetivo: (m[0].match(/\*\*Objetivo:\*\* (.+)/) || [])[1] || null,
+    status: (m[0].match(/\*\*Status:\*\* (.+)/) || [])[1] || null,
   };
 }
 
@@ -82,6 +83,7 @@ describe("session-start", () => {
     expect(out).toContain("✅ Sessão iniciada: docs — teste docs");
     expect(getSessaoAtual()?.categoria).toBe("docs");
     expect(getSessaoAtual()?.objetivo).toBe("teste docs");
+    expect(getSessaoAtual()?.status).toBe("in_progress");
   });
 
   it("--set-category bugfix → exit 0", () => {
@@ -137,6 +139,20 @@ describe("session-start", () => {
 
     // Sessão original preservada
     expect(getSessaoAtual()?.objetivo).toBe("continuacao");
+  });
+
+  it("sessão antiga sem Status in_progress → modo interativo (não inProgress)", () => {
+    restoreHandoff();
+    const md = readFileSync(HANDOFF, "utf8");
+    writeFileSync(
+      HANDOFF,
+      `${md}\n## 🎯 Sessão Atual\n**Categoria:** chore\n**Objetivo:** P0 completo\n`,
+    );
+    expect(() =>
+      execSync(`node "${SCRIPT}"`, {
+        cwd: ROOT, encoding: "utf8", timeout: 3000,
+      })
+    ).toThrow();
   });
 
   it("handoff limpo → modo interativo (não inProgress)", () => {
