@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://mileage-flow-manager.app/task-card.schema.json",
+  "title": "Task Card",
+  "description": "Schema para task-cards em docs/tasks/",
+  "type": "object",
+  "required": [
+    "id", "categoria", "onda", "baseBranch", "estado",
+    "origem"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^P[0-9]+(-[A-Z0-9]+)?$",
+      "description": "Identificador único do card (ex: P1-08)"
+    },
+    "categoria": {
+      "type": "string",
+      "enum": ["chore", "feat", "fix", "docs", "refactor", "test"],
+      "description": "Categoria da tarefa"
+    },
+    "onda": {
+      "type": "string",
+      "enum": ["P0", "P1-A", "P1-B", "P2"],
+      "description": "Onda/prioridade do roadmap"
+    },
+    "baseBranch": {
+      "type": "string",
+      "description": "Branch base para o PR"
+    },
+    "estado": {
+      "type": "string",
+      "enum": ["pending", "planned", "implementing", "verified", "review", "done"],
+      "description": "Estado atual do card"
+    },
+    "origem": {
+      "type": "string",
+      "description": "Origem da task (veredito, issue, etc.)"
+    },
+    "dependeDe": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Cards dos quais este depende"
+    }
+  },
+  "additionalProperties": false
+}
