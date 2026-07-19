@@ -6,7 +6,7 @@
 | `categoria` | chore |
 | `onda` | P1-B |
 | `baseBranch` | main |
-| `estado` | review |
+| `estado` | done |
 | `origem` | veredito 2026-07-17, item #13 |
 | `dependeDe` | [] |
 
@@ -25,9 +25,9 @@ evidências da linha de base). Isso deixa regressões de tipo invisíveis no CI.
 - `.github/workflows/*.yml` (etapa typecheck)
 
 ## Critérios de aceite
-- [ ] `npm run typecheck` executa `tsc --noEmit` com saída não-zero em erro.
-- [ ] CI executa `npm run typecheck`.
-- [ ] Introduzir erro de tipo em um arquivo faz CI falhar.
+- [x] `npm run typecheck` executa `tsc --noEmit` com saída não-zero em erro.
+- [x] CI executa `npm run typecheck`.
+- [x] Introduzir erro de tipo em um arquivo faz CI falhar.
 
 ## Riscos / Invariantes
 - Garantir `tsconfig.json` compatível (não mudar emit do build).
