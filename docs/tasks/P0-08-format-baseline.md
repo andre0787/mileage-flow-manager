@@ -25,8 +25,8 @@ O card `P0-03` exige que o CI execute checks estritos (incluindo `format:check`)
 - `docs/tasks/P0-08-format-baseline.md` (este card)
 
 ## Critérios de aceite
-- [ ] `npm run format:check` retorna sucesso (exit code 0).
-- [ ] Todos os arquivos modificados preservam integridade semântica (passam nos testes unitários e de integração).
+- [x] `npm run format:check` retorna sucesso (exit code 0).
+- [x] Todos os arquivos modificados preservam integridade semântica (passam nos testes unitários e de integração).
 
 ## Riscos / Invariantes
 - Nenhum. Prettier apenas reorganiza formatação visual.

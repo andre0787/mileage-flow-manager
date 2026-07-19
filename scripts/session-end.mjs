@@ -11,11 +11,13 @@
  */
 
 import { execSync } from "child_process";
+import { readFileSync, writeFileSync, existsSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
+const HANDOFF_PATH = resolve(ROOT, "docs/handoff.md");
 
 // ponytail: --no-verify em todos os commits — session:end só toca docs+reports,
 // o hook de bloqueio de main não se aplica a commits de handoff.
@@ -38,6 +40,17 @@ function dry(cmd) {
   console.log(`  🔍 ${cmd}`);
 }
 
+function encerrarSessao() {
+  if (!existsSync(HANDOFF_PATH)) return;
+  const content = readFileSync(HANDOFF_PATH, "utf8");
+  const session = content.match(/## 🎯 Sessão Atual[\s\S]*?(?=\n## |\n---|$)/);
+  if (!session) return;
+  const done = session[0].includes("**Status:**")
+    ? session[0].replace(/\*\*Status:\*\* .+/, "**Status:** done")
+    : session[0].replace(/(\*\*Objetivo:\*\* .+)/, "$1\n**Status:** done");
+  writeFileSync(HANDOFF_PATH, content.replace(session[0], done), "utf8");
+}
+
 console.log("\n── SESSION END ──\n");
 
 if (DRY_RUN) {
@@ -46,6 +59,7 @@ if (DRY_RUN) {
   dry(`git commit ${NO_VERIFY} -m "${MSG}"`);
   dry(`node scripts/handoff-snapshot.mjs --write`);
   dry(`node scripts/update-handoff.mjs --write`);
+  dry(`marcar Sessão Atual como done`);
   dry(`git add docs/handoff.md`);
   dry(`git commit ${NO_VERIFY} -m "docs: update handoff"`);
   dry(`git push origin HEAD`);
@@ -60,6 +74,7 @@ if (!status) {
   try {
     run("node scripts/handoff-snapshot.mjs --write");
     run("node scripts/update-handoff.mjs --write");
+    encerrarSessao();
     run("git add docs/handoff.md");
     try {
       run(`git commit ${NO_VERIFY} -m "docs: update handoff"`);
@@ -86,6 +101,7 @@ run(`git commit ${NO_VERIFY} -m "${MSG}"`);
 console.log("📋 Atualizando handoff...");
 run("node scripts/handoff-snapshot.mjs --write");
 run("node scripts/update-handoff.mjs --write");
+encerrarSessao();
 run("git add docs/handoff.md");
 try {
   run(`git commit ${NO_VERIFY} -m "docs: update HANDOFF"`);

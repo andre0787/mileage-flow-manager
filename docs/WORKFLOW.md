@@ -314,7 +314,7 @@ Ver `AGENTS.md` (regras #8-10) e `CONVENTIONS.md` → "Limpeza Pós-Sessão".
 ### Pipeline (`.github/workflows/ci.yml`)
 
 Sequência obrigatória:
-1. **Full check** — `npm run check` (typecheck, lint, format:check, unit, verify-docs, build)
+1. **Full check** — `npm run check` (typecheck, lint, format:check, unit, verify-docs:strict, build)
 2. **Playwright install** — `npx playwright install --with-deps`
 3. **E2E tests** — `npm run test:e2e`
 4. **Upload report** — `playwright-report/` como artifact

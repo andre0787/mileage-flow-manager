@@ -19,8 +19,15 @@ import { readFileSync, existsSync, readdirSync, statSync } from "fs";
 import { join, relative, resolve } from "path";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const EXCLUDE_DIRS = new Set(["node_modules", ".git", ".opencode", ".pi", "test-results", "playwright-report", "dist"]);
+const EXCLUDE_DIRS = new Set(["node_modules", ".git", ".opencode", ".pi", ".zcode", "test-results", "playwright-report", "dist", "tests"]);
 const EXCLUDE_FILES = new Set(["package-lock.json", "package.json"]);
+const ORPHAN_ALLOWED_PREFIXES = [
+  ".github/ISSUE_TEMPLATE/",
+  "docs/council/",
+  "docs/superpowers/plans/",
+  "docs/superpowers/specs/",
+  "docs/thoughts/",
+];
 
 // ── Helpers ──────────────────────────────────────────────────────────
 
@@ -159,13 +166,13 @@ if (!quick) {
   }
 
   // Also mark MAIN docs as referenced (they're entry points)
-  const entryDocs = ["AGENTS.md", "docs/handoff.md", "docs/memory.md", "README.md", "CHANGELOG.md", "docs/AGENDA.md", "docs/WORKFLOW.md", "docs/ARCHITECTURE.md", "docs/CONVENTIONS.md", "docs/MAP.md", "docs/STACK.md", "docs/GIT-WORKFLOW.md", "docs/UI-GUIDE.md", "docs/TESTING.md", "docs/TEST-PLAN.md", "docs/MAPA-EXPERIENCIAS-USUARIO.md"];
+  const entryDocs = ["AGENTS.md", "CLAUDE.md", "QUALITY.md", "docs/handoff.md", "docs/memory.md", "README.md", "CHANGELOG.md", "docs/AGENDA.md", "docs/WORKFLOW.md", "docs/ARCHITECTURE.md", "docs/CONVENTIONS.md", "docs/MAP.md", "docs/STACK.md", "docs/GIT-WORKFLOW.md", "docs/UI-GUIDE.md", "docs/TESTING.md", "docs/TEST-PLAN.md", "docs/MAPA-EXPERIENCIAS-USUARIO.md"]; 
   for (const d of entryDocs) {
     if (filePaths.has(d)) referenced.add(d);
   }
 
   for (const { rel } of allFiles) {
-    if (!referenced.has(rel) && !rel.startsWith("docs/archive/")) {
+    if (!referenced.has(rel) && !rel.startsWith("docs/archive/") && !ORPHAN_ALLOWED_PREFIXES.some((prefix) => rel.startsWith(prefix))) {
       issues.push({
         type: "orphan",
         file: rel,

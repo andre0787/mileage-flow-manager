@@ -133,7 +133,6 @@ Prefixos válidos: `PR<num>`, `auto`, `fix`, `feat`, `docs`, `chore`.
 | Pular pre-pr | `--skip-pre-pr` | Correção crítica em produção (hotfix) |
 | Pular verify-docs | `--skip-verify-docs` | Docs quebrados não relacionados à mudança |
 | Pular testes | `--skip-tests` | Apenas se CI vai rodar e testes são lentos |
-| Pular relatório | `--skip-report` | PR trivial de 1 linha (ex: typo em doc) |
 | Commit direto na main | `--no-verify` | **NUNCA** (bloqueado pelo hook) |
 
 ### Bypass NUNCA permitido
