@@ -33,6 +33,8 @@
     "feedback:review": "npx supabase db query --linked \"SELECT * FROM feedback ORDER BY created_at DESC;\"",
     "feedback:resolve": "node scripts/resolve-feedback.mjs",
     "validate-stock": "node scripts/validate-stock.mjs",
+    "task:validate": "node scripts/task-validate.mjs",
+    "task:validate:strict": "node scripts/task-validate.mjs --strict",
     "verify-docs": "node scripts/verify-docs.mjs",
     "verify-docs:strict": "node scripts/verify-docs.mjs --strict",
     "handoff:snapshot": "node scripts/handoff-snapshot.mjs --write",
