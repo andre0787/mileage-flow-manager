@@ -37,5 +37,6 @@ jobs:
           gh pr merge "$PR_NUM" \
             --repo "${{ github.repository }}" \
             --merge \
-            --delete-branch
+            --delete-branch \
+            --admin
           echo "✅ PR #${PR_NUM} merged and branch deleted"
