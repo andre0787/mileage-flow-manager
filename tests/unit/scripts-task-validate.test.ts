@@ -69,7 +69,7 @@ describe("task-validate", () => {
         expect(out).toMatch(/campo.*(onda|baseBranch|estado|origem).*ausente/);
       }
     } finally {
-      try { unlinkSync(badCard); } catch {}
+      try { unlinkSync(badCard); } catch { /* cleanup temp file */ }
     }
   });
 
@@ -105,7 +105,7 @@ describe("task-validate", () => {
         expect(out).toMatch(/seção.*ausente/);
       }
     } finally {
-      try { unlinkSync(badCard); } catch {}
+      try { unlinkSync(badCard); } catch { /* cleanup temp file */ }
     }
   });
 });
