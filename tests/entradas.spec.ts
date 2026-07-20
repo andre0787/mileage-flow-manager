@@ -21,7 +21,7 @@ test.describe("Edição de Entradas", () => {
 
     // Aguarda dashboard
     await page.waitForFunction(() => location.pathname === "/", { timeout: 30_000 });
-    await page.waitForTimeout(1_000);
+    await page.waitForLoadState("networkidle");
 
     // ═══════════════════════════════════════
     // 2. Criar dados de teste via Supabase JS client
@@ -99,11 +99,10 @@ test.describe("Edição de Entradas", () => {
     // ═══════════════════════════════════════
     await page.goto("/entradas");
     await page.waitForSelector("text=Entradas", { timeout: 15_000 });
-    await page.waitForTimeout(500);
 
     // Alterna para aba Milhas
     await page.locator("button[role='tab']:has-text('Milhas')").click();
-    await page.waitForTimeout(500);
+    await expect(page.locator("button[role='tab'][aria-selected='true']:has-text('Milhas')")).toBeVisible({ timeout: 5_000 });
 
     // Verifica entrada na tabela
     await expect(page.locator("text=50.000").first()).toBeVisible({ timeout: 5_000 });
@@ -113,7 +112,6 @@ test.describe("Edição de Entradas", () => {
     // ═══════════════════════════════════════
     await page.locator("button:has-text('Editar')").first().click();
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.waitForTimeout(1_000);
 
     // Verifica que o drawer de edição abriu
     const drawer = page.locator("[role='dialog']").first();
@@ -127,11 +125,10 @@ test.describe("Edição de Entradas", () => {
     await page.locator("#amountPaid").scrollIntoViewIfNeeded();
     await page.fill("#amountPaid", "5000.00");
     await expect(drawer).toBeInViewport();
-    await page.waitForTimeout(500);
 
     // Salva
     await page.locator("button:has-text('Salvar Alterações')").click({ force: true });
-    await page.waitForTimeout(2_500);
+    await expect(page.locator("text=75.000").first()).toBeVisible({ timeout: 5_000 });
 
     // Verifica valores atualizados
     await expect(page.locator("text=75.000").first()).toBeVisible({ timeout: 5_000 });
@@ -141,11 +138,10 @@ test.describe("Edição de Entradas", () => {
     // 6. Excluir entrada
     // ═══════════════════════════════════════
     await page.locator("button:has-text('Excluir')").first().click();
-    await page.waitForTimeout(1_000);
+    await expect(page.locator("div[role='alertdialog']")).toBeVisible({ timeout: 5_000 });
 
     // Confirma exclusão no AlertDialog
     await page.locator("div[role='alertdialog'] button:has-text('Excluir')").click({ force: true });
-    await page.waitForTimeout(2_500);
 
     // Verifica que a entrada foi removida
     await expect(page.locator("text=75.000").first()).not.toBeVisible();

@@ -55,7 +55,6 @@ test.describe("Autenticação", () => {
     await page.click("button[type='submit']");
 
     // Aguarda mensagem de erro inline (Login.tsx mostra erro em div text-destructive)
-    await page.waitForTimeout(2_000);
     const errorMsg = page.locator(".text-destructive").first();
     await expect(errorMsg).toBeVisible({ timeout: 10_000 });
 
@@ -72,7 +71,6 @@ test.describe("Autenticação", () => {
     await page.click("button[type='submit']");
 
     // Aguarda mensagem de erro inline
-    await page.waitForTimeout(2_000);
     const errorMsg = page.locator(".text-destructive").first();
     await expect(errorMsg).toBeVisible({ timeout: 10_000 });
   });
