@@ -82,7 +82,7 @@ async function registrarUsuario(page: Page, email: string) {
   await page.fill("#password", TEST_PASSWORD);
   await page.click("button[type='submit']");
   await page.waitForFunction(() => location.pathname === "/", { timeout: 30_000 });
-  await page.waitForTimeout(1_500);
+  await page.waitForLoadState("networkidle");
 }
 
 // Verifica overflow horizontal (conteudo vazando para fora)
@@ -131,28 +131,33 @@ test.describe("Responsividade em todos os viewports", () => {
     // ─── DASHBOARD - iPhone 16 ───
     await page.setViewportSize(VIEWPORTS.iphone16);
     await page.goto("/");
-    await page.waitForTimeout(2_500);
+    await page.waitForLoadState("networkidle");
+    // ponytail: wait for CSS reflow after viewport change + chart render
+    await page.waitForTimeout(500);
     await checkNoOverflow(page);
     await page.screenshot({ path: path.join(SCREENSHOTS_DIR, "01-dashboard-iphone16.png"), fullPage: true });
     console.log("✓ Dashboard iPhone16");
 
     // ─── DASHBOARD - iPhone SE ───
     await page.setViewportSize(VIEWPORTS.iphoneSE);
-    await page.waitForTimeout(1_000);
+    // ponytail: viewport reflow wait
+    await page.waitForTimeout(500);
     await checkNoOverflow(page);
     await page.screenshot({ path: path.join(SCREENSHOTS_DIR, "02-dashboard-iphoneSE.png"), fullPage: true });
     console.log("✓ Dashboard iPhoneSE");
 
     // ─── DASHBOARD - iPad ───
     await page.setViewportSize(VIEWPORTS.ipadAir);
-    await page.waitForTimeout(1_000);
+    // ponytail: viewport reflow wait
+    await page.waitForTimeout(500);
     await checkNoOverflow(page);
     await page.screenshot({ path: path.join(SCREENSHOTS_DIR, "03-dashboard-ipad.png"), fullPage: true });
     console.log("✓ Dashboard iPad");
 
     // ─── DASHBOARD - Desktop ───
     await page.setViewportSize(VIEWPORTS.desktopHD);
-    await page.waitForTimeout(1_000);
+    // ponytail: viewport reflow wait
+    await page.waitForTimeout(500);
     await checkNoOverflow(page);
     await page.screenshot({ path: path.join(SCREENSHOTS_DIR, "04-dashboard-desktop.png"), fullPage: true });
     console.log("✓ Dashboard Desktop");
@@ -160,7 +165,7 @@ test.describe("Responsividade em todos os viewports", () => {
     // ─── ENTRADAS - iPhone 16 (aba Milhas) ───
     await page.setViewportSize(VIEWPORTS.iphone16);
     await page.goto("/entradas");
-    await page.waitForTimeout(2_000);
+    await page.waitForLoadState("networkidle");
     await checkNoOverflow(page);
 
     // Alterna abas
@@ -168,7 +173,8 @@ test.describe("Responsividade em todos os viewports", () => {
     const qtdAbas = await abas.count();
     for (let i = 0; i < qtdAbas; i++) {
       await abas.nth(i).click();
-      await page.waitForTimeout(400);
+      // ponytail: wait for tab content to render
+      await abas.nth(i).getAttribute("aria-selected");
       await checkNoOverflow(page);
     }
     await page.screenshot({ path: path.join(SCREENSHOTS_DIR, "05-entradas-iphone16.png"), fullPage: true });
@@ -176,51 +182,53 @@ test.describe("Responsividade em todos os viewports", () => {
 
     // ─── VENDAS - iPhone 16 ───
     await page.goto("/vendas");
-    await page.waitForTimeout(2_000);
+    await page.waitForLoadState("networkidle");
     await checkNoOverflow(page);
 
     // Abre simulador se existir
     const btnSim = page.locator("button:has-text('Simulador')");
     if (await btnSim.isVisible({ timeout: 2_000 }).catch(() => false)) {
       await btnSim.click();
-      await page.waitForTimeout(500);
+      // ponytail: dialog transition
+      await page.waitForTimeout(300);
       await page.keyboard.press('Escape');
-      await page.waitForTimeout(500);
+      // ponytail: dialog close transition
+      await page.waitForTimeout(300);
     }
     await page.screenshot({ path: path.join(SCREENSHOTS_DIR, "06-vendas-iphone16.png"), fullPage: true });
     console.log("✓ Vendas iPhone16");
 
     // ─── CONTAS - iPhone 16 ───
     await page.goto("/contas");
-    await page.waitForTimeout(2_000);
+    await page.waitForLoadState("networkidle");
     await checkNoOverflow(page);
     await page.screenshot({ path: path.join(SCREENSHOTS_DIR, "07-contas-iphone16.png"), fullPage: true });
     console.log("✓ Contas iPhone16");
 
     // ─── CLIENTES - iPhone 16 ───
     await page.goto("/clientes");
-    await page.waitForTimeout(2_000);
+    await page.waitForLoadState("networkidle");
     await checkNoOverflow(page);
     await page.screenshot({ path: path.join(SCREENSHOTS_DIR, "08-clientes-iphone16.png"), fullPage: true });
     console.log("✓ Clientes iPhone16");
 
     // ─── CONTROLE CPF - iPhone 16 ───
     await page.goto("/controle-cpf");
-    await page.waitForTimeout(2_000);
+    await page.waitForLoadState("networkidle");
     await checkNoOverflow(page);
     await page.screenshot({ path: path.join(SCREENSHOTS_DIR, "09-controlecpf-iphone16.png"), fullPage: true });
     console.log("✓ ControleCPF iPhone16");
 
     // ─── RELATORIOS - iPhone 16 ───
     await page.goto("/relatorios");
-    await page.waitForTimeout(2_000);
+    await page.waitForLoadState("networkidle");
     await checkNoOverflow(page);
     await page.screenshot({ path: path.join(SCREENSHOTS_DIR, "10-relatorios-iphone16.png"), fullPage: true });
     console.log("✓ Relatórios iPhone16");
 
     // ─── CONFIGURACOES - iPhone 16 ───
     await page.goto("/config");
-    await page.waitForTimeout(2_000);
+    await page.waitForLoadState("networkidle");
     await checkNoOverflow(page);
 
     // Testa abas de configuração no mobile
@@ -238,6 +246,7 @@ test.describe("Responsividade em todos os viewports", () => {
           const el = document.querySelector("[role='tablist']");
           if (el) el.scrollLeft = el.scrollWidth;
         });
+        // ponytail: wait for scroll + reflow
         await page.waitForTimeout(300);
       }
     }
@@ -249,7 +258,8 @@ test.describe("Responsividade em todos os viewports", () => {
     // Testa que ao redimensionar a janela, o layout se ajusta sem overflow
     for (const vp of [VIEWPORTS.iphoneSE, VIEWPORTS.iphone16, VIEWPORTS.iphone16PM, VIEWPORTS.ipadAir, VIEWPORTS.desktopHD]) {
       await page.setViewportSize(vp);
-      await page.waitForTimeout(500);
+      // ponytail: viewport reflow wait (CSS transitions)
+      await page.waitForTimeout(300);
       await checkNoOverflow(page);
     }
     console.log("✓ Redimensionamento suave em 5 viewports");
@@ -258,7 +268,7 @@ test.describe("Responsividade em todos os viewports", () => {
     // MetricCards visiveis no iPhone 16
     await page.setViewportSize(VIEWPORTS.iphone16);
     await page.goto("/");
-    await page.waitForTimeout(2_000);
+    await page.waitForLoadState("networkidle");
 
     // Cards de resumo devem estar empilhados (1 coluna) no mobile
     const cards = page.locator("[class*='rounded-xl'][class*='border']");
@@ -267,12 +277,14 @@ test.describe("Responsividade em todos os viewports", () => {
 
     // Scroll ate o fim - nao deve quebrar
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await page.waitForTimeout(500);
+    // ponytail: wait for lazy-loaded content
+    await page.waitForTimeout(300);
     await checkNoOverflow(page);
 
     // Desktop - verifica sidebar visivel
     await page.setViewportSize(VIEWPORTS.desktopHD);
-    await page.waitForTimeout(1_000);
+    // ponytail: viewport reflow wait
+    await page.waitForTimeout(300);
     const sidebar = page.locator("nav[class*='flex'][class*='flex-col']").first();
     const sidebarVisivel = await sidebar.isVisible().catch(() => false);
     // Sidebar pode nao estar presente em todas as configs, mas nao deve causar overflow

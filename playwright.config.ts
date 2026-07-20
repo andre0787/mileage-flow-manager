@@ -1,5 +1,17 @@
 import { defineConfig } from "@playwright/test";
 
+// data-testid mapping (future: add to React components as flakiness factor)
+// ═══════════════════════════════════════════════════════════════════════════
+// login:       #email, #password, button[type='submit']
+// cadastro:    #name, #email, #password, button[type='submit']
+// combobox:    [role='combobox'], [role='option']
+// dialog:      [role='dialog'], [role='alertdialog']
+// tabs:        button[role='tab']
+// tabelas:     table, th, td
+// toast:       [data-sonner-toast]
+// file inputs: input[type='file'], #photo
+// ═══════════════════════════════════════════════════════════════════════════
+
 export default defineConfig({
   testDir: "./tests",
   testMatch: "*.spec.ts",

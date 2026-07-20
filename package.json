@@ -14,6 +14,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "test:e2e:smoke": "playwright test --grep 'Smoke Tests — Tela Preta'",
     "test:e2e:ui": "playwright test --ui",
     "preview": "vite preview",
     "session:start": "node scripts/session-start.mjs",

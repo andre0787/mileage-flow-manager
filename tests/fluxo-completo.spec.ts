@@ -42,7 +42,6 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.waitForFunction(() => location.pathname === "/", { timeout: 30000 });
     // Wait for React to render fully
     await page.waitForFunction(() => document.title.includes("MilesControl"), { timeout: 15000 });
-    await page.waitForTimeout(500);
     await save("01-login");
     pass("Registro concluído");
 
@@ -100,19 +99,17 @@ test("Fluxo completo de experiência", async ({ page }) => {
     pass("Dados de teste criados");
 
     // Wait for data to settle, then reload to force React Query refetch
-    await page.waitForTimeout(2000);
     await page.reload({ waitUntil: "networkidle" });
-    await page.waitForTimeout(3000);
+    await page.waitForLoadState("networkidle");
 
     // ═══ 3. ENTRADA PONTOS (COMPRA DIRETA) ═══
     await page.goto("/entradas", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(500);
 
     await page.getByRole("tab", { name: /pontos/i }).click();
-    await page.waitForTimeout(200);
+    await expect(page.getByRole("tab", { selected: true, name: /pontos/i })).toBeVisible({ timeout: 5_000 });
 
     await page.getByRole("button", { name: "Nova Entrada" }).first().click();
-    await page.waitForTimeout(300);
+    await expect(page.getByText("Nova Entrada")).toBeVisible({ timeout: 5_000 });
 
     let cmb = page.locator("[role=combobox]");
     await cmb.nth(0).click();
@@ -124,10 +121,8 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.fill("#amount", "50000");
     await page.fill("#amountPaid", "2500");
     await page.fill("#entryDate", new Date().toISOString().split("T")[0]);
-    await page.waitForTimeout(300);
     await page.getByRole("button", { name: /registrar/i }).click();
     await page.waitForFunction(() => !document.querySelector('[role=dialog]'), { timeout: 10_000 });
-    await page.waitForTimeout(1_000);
     pass("Entrada 1: 50.000 pontos registrada");
 
     await expect(page.locator("text=50.000").first()).toBeVisible({ timeout: 10_000 });
@@ -135,7 +130,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
 
     // ═══ 4. ENTRADA CLUBE ═══
     await page.getByRole("button", { name: "Nova Entrada" }).first().click();
-    await page.waitForTimeout(300);
+    await expect(page.getByText("Nova Entrada")).toBeVisible({ timeout: 5_000 });
 
     cmb = page.locator("[role=combobox]");
     await cmb.nth(0).click();
@@ -143,9 +138,8 @@ test("Fluxo completo de experiência", async ({ page }) => {
 
     await cmb.nth(1).click();
     await page.getByRole("option", { name: /clube fidelidade/i }).click();
-    await page.waitForTimeout(500);
+    await expect(page.locator("text=Recorrência ativada pelo tipo de origem selecionado")).toBeVisible({ timeout: 5_000 });
 
-    await expect(page.locator("text=Recorrência ativada pelo tipo de origem selecionado")).toBeVisible({ timeout: 3000 });
     pass("Recorrência auto-ativada");
 
     await page.fill('input[placeholder="Ex: 12"]', "3");
@@ -154,13 +148,12 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.fill("#entryDate", new Date().toISOString().split("T")[0]);
 
     await page.getByRole("button", { name: /registrar/i }).click();
-    await page.waitForTimeout(1500);
     pass("Entrada 2: Clube 10.000 (3 meses) registrada");
 
     // ═══ 5. VERIFICAR PENDÊNCIAS E CONFIRMAR ═══
     // Recarrega a página para garantir dados frescos
     await page.goto("/entradas", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(1500);
+    await page.waitForLoadState("networkidle");
 
     // Debug: log o que tem na tabela
     const rows = await page.locator("table tbody tr").count();
@@ -195,31 +188,27 @@ test("Fluxo completo de experiência", async ({ page }) => {
     const confirmBtn = page.locator("text=Confirmar").first();
     if (await confirmBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
       await confirmBtn.click();
-      await page.waitForTimeout(1000);
       pass("Entrada confirmada!");
     } else {
       fail("Nenhum Confirmar visível");
     }
 
     await save("05-pendencias");
-    await page.waitForTimeout(500);
 
     // ═══ 6. TRANSFERÊNCIA ═══
     await page.goto("/entradas", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(1000);
     await page.getByRole("tab", { name: /milhas/i }).click();
-    await page.waitForTimeout(500);
+    await expect(page.getByRole("tab", { selected: true, name: /milhas/i })).toBeVisible({ timeout: 5_000 });
 
     await page.getByRole("button", { name: /transferir/i }).click();
-    await page.waitForTimeout(300);
+    await expect(page.getByText("Transferência")).toBeVisible({ timeout: 5_000 });
 
     // TransferForm: source points first, destination miles second.
     const mCmb = page.locator("[role=combobox]");
     await mCmb.nth(0).click();
-    await page.waitForTimeout(300);
     await page.getByRole("option", { name: /smiles/i }).click();
     await mCmb.nth(1).click();
-    await page.waitForTimeout(300);
+    await page.getByRole("option", { name: /latam/i }).click();
     await page.getByRole("option", { name: /latam/i }).click();
 
     await page.fill("#transferDate", new Date().toISOString().split("T")[0]);
@@ -229,12 +218,11 @@ test("Fluxo completo de experiência", async ({ page }) => {
     if (await bonus.isVisible()) await bonus.fill("50");
 
     await page.getByRole("button", { name: /registrar/i }).click();
-    await page.waitForTimeout(1500);
     pass("Transferência de 20.000 com 50% bônus registrada");
 
     // ═══ 7. VERIFICAR SALDOS ═══
     await page.goto("/contas", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(1000);
+    await page.waitForLoadState("networkidle");
 
     // Smiles: 50.000 (compra) + 10.000 (clube pai) + 10.000 (confirmada) - 20.000 (transferidos) = 50.000
     const saldoUm = page.locator("text=50.000").first();
@@ -252,25 +240,24 @@ test("Fluxo completo de experiência", async ({ page }) => {
 
     // ═══ 8. DASHBOARD ═══
     await page.goto("/", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(500);
+    await page.waitForLoadState("networkidle");
     await page.locator("text=Entradas no mês").waitFor({ state: "visible", timeout: 10000 });
     pass("Dashboard carregado");
     await save("08-dashboard");
 
     // ═══ 9. CLIENTE + VENDA ═══
     await page.goto("/clientes", { waitUntil: "load" });
-    await page.waitForTimeout(1000);
+    await page.waitForLoadState("networkidle");
     await page.getByRole("button", { name: /novo cliente/i }).click();
-    await page.waitForTimeout(300);
+    await expect(page.getByText("Novo Cliente")).toBeVisible({ timeout: 5_000 });
     await page.fill('#name', "Maria Silva");
     const phone = page.locator('#phone, input[placeholder*="Telefone"]');
     if (await phone.isVisible()) await phone.fill("11999999999");
     await page.getByRole("button", { name: /salvar|cadastrar|criar/i }).click();
-    await page.waitForTimeout(1500);
     pass("Cliente Maria Silva criado");
 
     await page.goto("/vendas", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(1000);
+    await page.waitForLoadState("networkidle");
     await page.getByRole("button", { name: /nova venda/i }).first().click();
     const vendaDialog = page.getByRole("dialog", { name: /registrar nova venda/i });
     await expect(vendaDialog).toBeVisible({ timeout: 10000 });
@@ -291,15 +278,13 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await selectVendaCombo(2, /maria/i);
     await page.fill('input[placeholder="Ex: 50000"]', "10000");
     await page.fill('input[placeholder="Ex: 0.03"]', "0.25");
-    await page.waitForTimeout(300);
     await page.getByRole("button", { name: /registrar/i }).click({ force: true });
-    await page.waitForTimeout(1500);
     pass("Venda de 10.000 milhas registrada");
     await save("09-venda");
 
     // ═══ 10. RELATÓRIOS ═══
     await page.goto("/relatorios", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(1500);
+    await expect(page.locator("text=Relatórios").first()).toBeVisible({ timeout: 5_000 });
     await expect(page.locator("text=Relatórios").first()).toBeVisible({ timeout: 5000 });
     pass("Relatórios carregado");
     await save("10-relatorios");
@@ -307,7 +292,8 @@ test("Fluxo completo de experiência", async ({ page }) => {
     // ═══ 11. MOBILE ═══
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/entradas", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(1500);
+    // ponytail: wait for mobile reflow
+    await page.waitForTimeout(500);
     const bodyW = await page.evaluate(() => document.body.scrollWidth);
     const vpW = await page.evaluate(() => window.innerWidth);
     if (bodyW <= vpW + 2) pass(`Sem overflow mobile (${bodyW}px ≤ ${vpW}px)`);
@@ -317,7 +303,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
 
     // ═══ 12. LOGOUT/LOGIN ═══
     await page.goto("/", { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(1000);
+    await page.waitForLoadState("networkidle");
     const logoutBtn = page.getByRole("button", { name: /sair|logout/i });
     if (await logoutBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
       await logoutBtn.click();
@@ -328,7 +314,6 @@ test("Fluxo completo de experiência", async ({ page }) => {
       await page.click("button[type='submit']");
       await page.waitForFunction(() => location.pathname === "/", { timeout: 30000 });
       await page.waitForFunction(() => document.title.includes("MilesControl"), { timeout: 15000 });
-      await page.waitForTimeout(500);
       pass("Re-login OK");
     } else {
       fail("Logout não encontrado");

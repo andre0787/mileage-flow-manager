@@ -106,9 +106,8 @@ test.describe("Configurações", () => {
       await newOwnerBtn.click({ force: true });
 
       // Verifica que formulário ou drawer abre
-      await page.waitForTimeout(500);
       const form = page.locator("input").first();
-      await expect(form).toBeVisible({ timeout: 3_000 });
+      await expect(form).toBeVisible({ timeout: 5_000 });
     }
   });
 
@@ -120,9 +119,8 @@ test.describe("Configurações", () => {
     if (await newProgramBtn.isVisible()) {
       await newProgramBtn.click({ force: true });
 
-      await page.waitForTimeout(500);
       const form = page.locator("input").first();
-      await expect(form).toBeVisible({ timeout: 3_000 });
+      await expect(form).toBeVisible({ timeout: 5_000 });
     }
   });
 });

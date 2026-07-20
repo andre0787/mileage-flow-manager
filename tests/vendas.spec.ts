@@ -43,9 +43,8 @@ test.describe("Vendas", () => {
       await newSaleBtn.click({ force: true });
 
       // Verifica que drawer/formulário abre
-      await page.waitForTimeout(500);
       const drawer = page.locator("[role='dialog']").first();
-      await expect(drawer).toBeVisible({ timeout: 3_000 });
+      await expect(drawer).toBeVisible({ timeout: 5_000 });
     }
   });
 
@@ -57,8 +56,7 @@ test.describe("Vendas", () => {
     const simulatorTab = page.locator("text=Simulador").first();
     if (await simulatorTab.isVisible()) {
       await simulatorTab.click({ force: true });
-      await page.waitForTimeout(500);
-
+      
       // Verifica que formulário do simulador está visível
       const accountSelect = page.locator("select").first();
       if (await accountSelect.isVisible()) {
@@ -70,8 +68,8 @@ test.describe("Vendas", () => {
         if (await amountInput.isVisible()) {
           await amountInput.fill("1000");
 
-          // Verifica que resultados aparecem
-          await page.waitForTimeout(500);
+          // ponytail: resultados podem ter debounce
+          await page.waitForTimeout(300);
           const results = page.locator("text=/Lucro|Margem|ROI/").first();
           // Resultados podem ou não aparecer dependendo da conta selecionada
         }
@@ -97,7 +95,8 @@ test.describe("Vendas", () => {
     const filterBtn = page.locator("text=Filtros").first();
     if (await filterBtn.isVisible()) {
       await filterBtn.click({ force: true });
-      await page.waitForTimeout(500);
+      // ponytail: wait for filter panel animation
+      await page.waitForTimeout(300);
 
       // Verifica que painel de filtros abre
       const filterPanel = page.locator("[role='dialog']").first();

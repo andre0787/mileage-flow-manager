@@ -41,11 +41,8 @@ test.describe("Clientes", () => {
       await newClientBtn.click({ force: true });
 
       // Verifica que formulário abre
-      await page.waitForTimeout(500);
       const nameInput = page.locator("input[name='name'], input[placeholder*='nome'], input[placeholder*='Nome']").first();
-      if (await nameInput.isVisible()) {
-        await expect(nameInput).toBeVisible();
-      }
+      await expect(nameInput).toBeVisible({ timeout: 5_000 });
     }
   });
 
@@ -72,7 +69,9 @@ test.describe("Clientes", () => {
     if (await searchInput.isVisible()) {
       // Digita na busca
       await searchInput.fill(" teste");
-      await page.waitForTimeout(500);
+
+      // ponytail: small wait for debounced search
+      await page.waitForTimeout(300);
 
       // Verifica que filtro foi aplicado
       const body = await page.textContent("body");

@@ -18,10 +18,7 @@ test.describe("Atalhos de Teclado", () => {
 
     // Pressiona G
     await page.keyboard.press("g");
-    await page.waitForTimeout(500);
-
-    // Verifica navegação
-    expect(page.url()).toContain("/");
+    await expect(page).toHaveURL(/#?\/$/);
   });
 
   test("TC-TRANS-002: Atalho E navega para Entradas", async ({ page }) => {
@@ -29,9 +26,7 @@ test.describe("Atalhos de Teclado", () => {
     await page.waitForLoadState("networkidle");
 
     await page.keyboard.press("e");
-    await page.waitForTimeout(500);
-
-    expect(page.url()).toContain("/entradas");
+    await expect(page).toHaveURL(/\/entradas/);
   });
 
   test("TC-TRANS-003: Atalho V navega para Vendas", async ({ page }) => {
@@ -39,9 +34,7 @@ test.describe("Atalhos de Teclado", () => {
     await page.waitForLoadState("networkidle");
 
     await page.keyboard.press("v");
-    await page.waitForTimeout(500);
-
-    expect(page.url()).toContain("/vendas");
+    await expect(page).toHaveURL(/\/vendas/);
   });
 
   test("TC-TRANS-004: Atalho C navega para Clientes", async ({ page }) => {
@@ -49,9 +42,7 @@ test.describe("Atalhos de Teclado", () => {
     await page.waitForLoadState("networkidle");
 
     await page.keyboard.press("c");
-    await page.waitForTimeout(500);
-
-    expect(page.url()).toContain("/clientes");
+    await expect(page).toHaveURL(/\/clientes/);
   });
 
   test("TC-TRANS-005: Atalho P navega para Perfil", async ({ page }) => {
@@ -59,9 +50,7 @@ test.describe("Atalhos de Teclado", () => {
     await page.waitForLoadState("networkidle");
 
     await page.keyboard.press("p");
-    await page.waitForTimeout(500);
-
-    expect(page.url()).toContain("/perfil");
+    await expect(page).toHaveURL(/\/perfil/);
   });
 
   test("TC-TRANS-006: Atalho S navega para Configurações", async ({ page }) => {
@@ -69,9 +58,7 @@ test.describe("Atalhos de Teclado", () => {
     await page.waitForLoadState("networkidle");
 
     await page.keyboard.press("s");
-    await page.waitForTimeout(500);
-
-    expect(page.url()).toContain("/configuracoes");
+    await expect(page).toHaveURL(/\/configuracoes/);
   });
 
   test("TC-TRANS-007: Atalho R navega para Relatórios", async ({ page }) => {
@@ -79,9 +66,7 @@ test.describe("Atalhos de Teclado", () => {
     await page.waitForLoadState("networkidle");
 
     await page.keyboard.press("r");
-    await page.waitForTimeout(500);
-
-    expect(page.url()).toContain("/relatorios");
+    await expect(page).toHaveURL(/\/relatorios/);
   });
 
   test("TC-TRANS-008: Atalho ? abre modal de ajuda", async ({ page }) => {
@@ -90,7 +75,6 @@ test.describe("Atalhos de Teclado", () => {
 
     // Pressiona Shift + ? (que é ?)
     await page.keyboard.press("Shift+?");
-    await page.waitForTimeout(500);
 
     // Verifica que modal de ajuda abre
     const dialog = page.locator("[role='dialog']");
@@ -142,7 +126,8 @@ test.describe("Tema (Dark Mode)", () => {
     const themeBtn = page.locator("[aria-label*='theme'], [aria-label*='tema']").first();
     if (await themeBtn.isVisible()) {
       await themeBtn.click({ force: true });
-      await page.waitForTimeout(500);
+      // ponytail: CSS transition for theme swap
+      await page.waitForTimeout(300);
 
       // Captura nova cor
       const newBg = await page.evaluate(() => {
@@ -241,9 +226,7 @@ test.describe("Navegação", () => {
     const entradasLink = page.locator("text=Entradas").first();
     if (await entradasLink.isVisible()) {
       await entradasLink.click({ force: true });
-      await page.waitForTimeout(500);
-
-      expect(page.url()).toContain("/entradas");
+      await expect(page).toHaveURL(/\/entradas/);
     }
   });
 
@@ -257,9 +240,8 @@ test.describe("Navegação", () => {
       await clearCacheBtn.click({ force: true });
 
       // Verifica toast
-      await page.waitForTimeout(1_000);
       const toast = page.locator("[data-sonner-toast]");
-      const hasToast = await toast.isVisible().catch(() => false);
+      const hasToast = await toast.isVisible({ timeout: 5_000 }).catch(() => false);
       
       // Toast pode ou não aparecer dependendo da implementação
       if (hasToast) {
