@@ -6,7 +6,7 @@
 | `categoria` | test |
 | `onda` | P1-B |
 | `baseBranch` | main |
-| `estado` | pending |
+| `estado` | done |
 | `origem` | veredito 2026-07-17, item #15 |
 | `dependeDe` | [] |
 
