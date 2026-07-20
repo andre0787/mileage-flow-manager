@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 mobile form stability v2</h1>
-  <p class="meta">2026-07-20 00:08 &middot; fix/mobile-form-stability-v2 &middot; 70ddbd0 — chore: normalize report prefix to PR173</p>
+  <p class="meta">2026-07-20 00:30 &middot; fix/mobile-form-stability-v2 &middot; 9451f01 — fix: apply session-start validation fix to mobile branch</p>
   <p><span class="badge pr">PR #173</span> <span class="badge auto">PR173</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">4</div>
+      <div style="font-size:1.5rem;font-weight:700">5</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+235</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+309</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-34</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-37</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~236</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~302</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -81,12 +81,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 34 remoções — 315 linhas tocadas</td>
-        <td>✨ 235 adições — 4 arquivo(s) alterado(s)</td>
+        <td>🧹 37 remoções — 402 linhas tocadas</td>
+        <td>✨ 309 adições — 5 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/handoff.md, src/components/FormDrawer.tsx, src/index.css<br><span style="color:#166534;font-weight:600">➕</span> docs/reports/2026-07-20/PR173-2026-07-20-mobile-form-stability-v2.html</td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/handoff.md, scripts/session-start.mjs, src/components/FormDrawer.tsx, src/index.css<br><span style="color:#166534;font-weight:600">➕</span> docs/reports/2026-07-20/PR173-2026-07-20-mobile-form-stability-v2.html</td>
       </tr>
       
       <tr>
@@ -99,25 +99,25 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>4</td></tr>
-    <tr><td>Adições</td><td>+235</td></tr>
-    <tr><td>Remoções</td><td>-34</td></tr>
-    <tr><td>Tokens estimados</td><td>~236</td></tr>
+    <tr><td>Arquivos alterados</td><td>5</td></tr>
+    <tr><td>Adições</td><td>+309</td></tr>
+    <tr><td>Remoções</td><td>-37</td></tr>
+    <tr><td>Tokens estimados</td><td>~302</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:75">+176 add</div>
-        <div class="del" style="flex:11">-26 del</div>
-        <div class="overhead" style="flex:14">~34 ctx</div>
+        <div class="add" style="flex:77">+232 add</div>
+        <div class="del" style="flex:9">-28 del</div>
+        <div class="overhead" style="flex:14">~42 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+176</td><td>75%</td></tr>
-      <tr><td>Remoções</td><td>-26</td><td>11%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~34</td><td>14%</td></tr>
-      <tr><th>Total</th><th>~236</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+232</td><td>77%</td></tr>
+      <tr><td>Remoções</td><td>-28</td><td>9%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~42</td><td>14%</td></tr>
+      <tr><th>Total</th><th>~302</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
@@ -125,6 +125,7 @@
     <tr><th>Status</th><th>Arquivo</th></tr>
     <tr><td>M</td><td>docs/handoff.md</td></tr>
 <tr><td>A</td><td>docs/reports/2026-07-20/PR173-2026-07-20-mobile-form-stability-v2.html</td></tr>
+<tr><td>M</td><td>scripts/session-start.mjs</td></tr>
 <tr><td>M</td><td>src/components/FormDrawer.tsx</td></tr>
 <tr><td>M</td><td>src/index.css</td></tr>
   </table>
@@ -134,10 +135,10 @@
   <h2>🔍 Diff</h2>
   <div class="diff">
     diff --git a/docs/handoff.md b/docs/handoff.md
-index 2bc9bfc..0365d23 100644
+index 2bc9bfc..8966357 100644
 <span class="del">--- a/docs/handoff.md</span>
 <span class="add">+++ b/docs/handoff.md</span>
-@@ -3,48 +3,54 @@
+@@ -3,48 +3,55 @@
  &gt; Anterior: 2026-07-20
  ---
  ## 🏗️ Projeto
@@ -170,7 +171,7 @@ index 2bc9bfc..0365d23 100644
 <span class="del">-- **Último commit:** `0e39e97` — chore: normalize report prefix to PR172</span>
 <span class="del">-- **Remote:** origin/feat/P1-14-check-fast-pr-nightly</span>
 <span class="add">+- **Branch:** `fix/mobile-form-stability-v2`</span>
-<span class="add">+- **Último commit:** (working tree)</span>
+<span class="add">+- **Último commit:** `70ddbd0 — chore: normalize report prefix to PR173`</span>
 <span class="add">+- **Remote:** origin/fix/mobile-form-stability-v2</span>
  ### 📋 PRs Abertos
 <span class="del">-- #172 — P1-14: Separar check:fast / check:pr / check:nightly</span>
@@ -192,9 +193,10 @@ index 2bc9bfc..0365d23 100644
 <span class="del">-**Branch:** `main`</span>
 <span class="del">-**Docs carregados:** AGENTS.md</span>
 <span class="add">+**Categoria:** bugfix</span>
-<span class="add">+**Objetivo:** Corrigir instabilidade do formulário de entrada no mobile (drawer + teclado virtual)</span>
-<span class="add">+**Status:** in progress</span>
+<span class="add">+**Objetivo:** fix mobile form instability - drawer + virtual keyboard</span>
+<span class="add">+**Status:** in_progress</span>
 <span class="add">+**Branch:** `fix/mobile-form-stability-v2`</span>
+<span class="add">+**Último commit:** 70ddbd0 — chore: normalize report prefix to PR173</span>
 <span class="add">+**Docs carregados:** DEBUG.md, CONVENTIONS.md</span>
  ## ✅ Última Sessão
 <span class="del">-Estado atualizado automaticamente.</span>
@@ -222,16 +224,16 @@ index 2bc9bfc..0365d23 100644
 <span class="add">+- Fix: removido scroll-margin-bottom + adicionado snapPoints=["100%"] e fixed no Drawer mobile</span>
 diff --git a/docs/reports/2026-07-20/PR173-2026-07-20-mobile-form-stability-v2.html b/docs/reports/2026-07-20/PR173-2026-07-20-mobile-form-stability-v2.html
 new file mode 100644
-index 0000000..42bb17f
+index 0000000..2569104
 <span class="del">--- /dev/null</span>
 <span class="add">+++ b/docs/reports/2026-07-20/PR173-2026-07-20-mobile-form-stability-v2.html</span>
-@@ -0,0 +1,192 @@
+@@ -0,0 +1,260 @@
 <span class="add">+&lt;!DOCTYPE html&gt;</span>
 <span class="add">+&lt;html lang="pt-BR"&gt;</span>
 <span class="add">+&lt;head&gt;</span>
 <span class="add">+  &lt;meta charset="UTF-8"&gt;</span>
 <span class="add">+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;</span>
-<span class="add">+  &lt;title&gt;mobile-form-stability-v2 — mobile form stability v2&lt;/title&gt;</span>
+<span class="add">+  &lt;title&gt;PR173 — mobile form stability v2&lt;/title&gt;</span>
 <span class="add">+  &lt;style&gt;</span>
 <span class="add">+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}</span>
 <span class="add">+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}</span>
@@ -252,7 +254,6 @@ index 0000000..42bb17f
 <span class="add">+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}</span>
 <span class="add">+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}</span>
 <span class="add">+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}</span>
-<span class="add">+    .token-bar .add{background:#dcfce7;color:#166534}</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
