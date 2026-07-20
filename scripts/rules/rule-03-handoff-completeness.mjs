@@ -11,7 +11,7 @@
 import { readFileSync, existsSync } from "fs";
 import { resolve } from "path";
 
-const ROOT = resolve(import.meta.dirname, "../..");
+const ROOT = process.env.MOCK_ROOT || resolve(import.meta.dirname, "../..");
 const HANDOFF_PATH = resolve(ROOT, "docs/handoff.md");
 
 const REQUIRED_SECTIONS = [

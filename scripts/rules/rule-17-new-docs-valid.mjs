@@ -20,7 +20,7 @@ import { execSync } from "child_process";
 import { existsSync, readFileSync } from "fs";
 import { resolve } from "path";
 
-const ROOT = resolve(import.meta.dirname, "../..");
+const ROOT = process.env.MOCK_ROOT || resolve(import.meta.dirname, "../..");
 let errors = 0;
 const BASE = "origin/main";
 
@@ -52,7 +52,8 @@ try {
     !f.startsWith("docs/reports/") &&
     !f.startsWith("docs/archive/") &&
     !f.startsWith(".opencode/") &&
-    !f.startsWith(".pi/")
+    !f.startsWith(".pi/") &&
+    !f.includes("__fixtures__/")
   );
 
   if (newMds.length === 0) {

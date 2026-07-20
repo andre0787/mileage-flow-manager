@@ -6,7 +6,7 @@
 | `categoria` | feat |
 | `onda` | P1-A |
 | `baseBranch` | main |
-| `estado` | review |
+| `estado` | done |
 | `origem` | veredito 2026-07-17, item #12 |
 | `dependeDe` | [P1-08, P1-09, P1-11] |
 

@@ -95,4 +95,6 @@ if (extraScripts.length > 0) {
 
 if (!hasError) {
   ok(`todas as ${definedRules.size} regras têm validação automática (regra #13)`);
+} else {
+  process.exit(1);
 }

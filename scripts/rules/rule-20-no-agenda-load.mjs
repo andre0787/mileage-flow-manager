@@ -15,7 +15,7 @@
 import { readFileSync } from "fs";
 import { resolve } from "path";
 
-const ROOT = resolve(import.meta.dirname, "../..");
+const ROOT = process.env.MOCK_ROOT || resolve(import.meta.dirname, "../..");
 
 const FILES_TO_CHECK = [
   "scripts/session-start.mjs",
