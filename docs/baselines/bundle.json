@@ -1,0 +1,8 @@
+{
+  "precache": 1500,
+  "chunks": {
+    "index": 750,
+    "charts": 450,
+    "ui": 260
+  }
+}
