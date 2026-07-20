@@ -6,7 +6,7 @@
 | `categoria` | refactor |
 | `onda` | P1-B |
 | `baseBranch` | main |
-| `estado` | pending |
+| `estado` | review |
 | `origem` | veredito 2026-07-17, item #16 |
 | `dependeDe` | [P1-15] |
 
@@ -26,11 +26,12 @@ compensa, para não inflar complexidade.
 ## Arquivos permitidos
 - `scripts/rules/*` (regras-alvo)
 - `scripts/rules/__tests__/` (fixtures AST)
+- `scripts/lib.mjs` (helpers AST compartilhados)
 
 ## Critérios de aceite
-- [ ] Identificadas regras de alto risco candidatas (lista no card de execução).
-- [ ] Regras migradas usam AST; testes negativos/positivos preservados.
-- [ ] Nenhum falso-positivo novo em código atualmente válido.
+- [x] Identificadas regras de alto risco candidatas: rule-19 (stock validation).
+- [x] Regras migradas usam AST; testes negativos/positivos preservados.
+- [x] Nenhum falso-positivo novo em código atualmente válido.
 
 ## Riscos / Invariantes
 - AST pode ser lenta; isolar para não impactar `check:fast`.

@@ -40,6 +40,43 @@ export function warn(msg) {
   return false;
 }
 
+// ponytail: AST helpers via TS Compiler API — lazy import, reutilizado por regras.
+let _ts = null;
+async function ensureTS() {
+  if (!_ts) _ts = await import("typescript");
+  return _ts;
+}
+
+/**
+ * Cria um SourceFile AST a partir de código TypeScript.
+ * Uso: const sf = await astParse(source, "file.ts");
+ */
+export async function astParse(source, fileName) {
+  const ts = await ensureTS();
+  return ts.createSourceFile(fileName, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+}
+
+/**
+ * Walk the AST chamando fn(node, ts) para cada nó.
+ * predicate recebe (node, tsProps) e retorna boolean.
+ */
+export function astFind(node, predicate, tsProps) {
+  const results = [];
+  function visit(n) {
+    if (predicate(n, tsProps)) results.push(n);
+    tsProps.forEachChild(n, visit);
+  }
+  visit(node);
+  return results;
+}
+
+/**
+ * Retorna o número da linha de um nó (1-indexed).
+ */
+export function astLineOf(node, source) {
+  return source.slice(0, node.pos).split("\n").length;
+}
+
 export function run(cmd, label) {
   try {
     gitLong(cmd);
