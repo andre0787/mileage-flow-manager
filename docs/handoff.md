@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `ba4acb0 — chore: encerra sessao - ambas PRs em producao`
+- **Último commit:** `27d0d21 — feat P1-10 — Regra de escopo (diff ≠ arquivosPermitidos) (#175)`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum

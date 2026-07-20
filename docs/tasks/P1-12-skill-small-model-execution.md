@@ -6,7 +6,7 @@
 | `categoria` | feat |
 | `onda` | P1-A |
 | `baseBranch` | main |
-| `estado` | pending |
+| `estado` | implementing |
 | `origem` | veredito 2026-07-17, item #12 |
 | `dependeDe` | [P1-08, P1-09, P1-11] |
 
@@ -25,8 +25,10 @@ estar estabilizado, e deve ser repo-local (não symlink absoluto, que quebra em
 outro ambiente).
 
 ## Arquivos permitidos
-- `.pi/skills/small-model-execution/SKILL.md` (novo)
+- `.pi/skills/small-model-execution/*` (novo)
 - `scripts/rules/rule-23*` (validar existência da skill)
+- `scripts/rules/rule-scope.mjs` (mock card isolation)
+- `tests/unit/scripts-rules.test.ts` (atualizar teste de card ativo)
 
 ## Critérios de aceite
 - [ ] SKILL.md existe, é curto e aponta para comandos versionados.

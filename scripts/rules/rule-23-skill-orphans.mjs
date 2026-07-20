@@ -17,7 +17,8 @@ import { join, resolve } from "path";
 
 const SKILLS_DIR = resolve(ROOT, ".pi/skills");
 
-// Skills que o council-to-superpowers referencia (por nome)
+// Skills que o repositório referencia (por nome)
+// Fonte: AGENTS.md (regra 8), council-to-superpowers, small-model-execution
 const REFERENCED_SKILLS = [
   "llm-council",
   "brainstorming",
@@ -32,6 +33,7 @@ const REFERENCED_SKILLS = [
   "verification-before-completion",
   "dispatching-parallel-agents",
   "receiving-code-review",
+  "small-model-execution",
 ];
 
 // Skills que existem no Superpowers mas não estão em .pi/skills/ (podem ser úteis)
