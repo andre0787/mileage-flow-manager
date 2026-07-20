@@ -26,9 +26,13 @@ export function DeleteEntryDialog({ entry }: Props) {
   const relatedSales = sales?.filter((s) => s.accountId === entry.accountId) || [];
   const hasSales = relatedSales.length > 0;
 
-  const handleDelete = () => {
-    relatedSales.forEach((sale) => deleteSaleM.mutate(sale.id));
-    deleteEntryM.mutate(entry);
+  const handleDelete = async () => {
+    // Delete related sales first
+    for (const sale of relatedSales) {
+      await deleteSaleM.mutateAsync(sale.id);
+    }
+    // Then delete the entry
+    await deleteEntryM.mutateAsync(entry);
   };
 
   return (
@@ -51,7 +55,10 @@ export function DeleteEntryDialog({ entry }: Props) {
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
           <AlertDialogAction
             className="bg-destructive text-destructive-foreground"
-            onClick={handleDelete}
+            onClick={async (e) => {
+              e.preventDefault();
+              await handleDelete();
+            }}
           >
             {hasSales ? `Excluir entrada e ${relatedSales.length} venda(s)` : "Excluir"}
           </AlertDialogAction>
