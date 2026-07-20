@@ -24,9 +24,10 @@ O veredito aponta: E2E usa Supabase remoto, cria usuários reais, tem
 serviço externo. Isso mascara skips e gera flakiness.
 
 ## Arquivos permitidos
-- `e2e/**` (specs, helpers, fixtures)
-- `.github/workflows/*.yml` (separação smoke/integração)
+- `tests/*` (specs, helpers, fixtures)
+- `.github/workflows/*` (separação smoke/integração)
 - `playwright.config.*`
+- `package.json` (apenas scripts novos)
 
 ## Critérios de aceite
 - [ ] `waitForTimeout` removido em favor de locators/assertions (onde possível).
@@ -38,7 +39,7 @@ serviço externo. Isso mascara skips e gera flakiness.
 - Smoke não deve depender de Supabase remoto.
 
 ## Testes obrigatórios
-- `npm run e2e:smoke` (ou equivalente) determinístico local.
+- `npm run test:e2e:smoke` (ou equivalente) determinístico local.
 
 ## Evidência de pronto
 - Relatório de smoke + contagem de waitForTimeout antes/depois.
