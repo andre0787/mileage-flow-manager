@@ -73,3 +73,19 @@ Por tipo:
 ---
 
 _Atualizado por `node scripts/quality-report.mjs`_
+
+<!-- CI-RUNS-START -->
+# Qualidade do Projeto
+
+Esta seção reflete o estado atual dos checks de CI (autenticado via GitHub CLI).
+
+## Últimas Execuções de CI
+| Workflow | Status | URL |
+|----------|--------|-----|
+| Deploy | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29765098950) |
+| Normalize Reports | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29765098934) |
+| Auto Merge | failure | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29762474777) |
+| CI — PR Check | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29762472357) |
+| Auto Merge | failure | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29762465603) |
+
+<!-- CI-RUNS-END -->
