@@ -31,10 +31,10 @@ Pré-requisito de tudo o que segue. Sem P0, qualquer protocolo de agente é só 
 
 | Card | Título | Estado |
 |------|--------|--------|
-| [P1-08](P1-08-task-card-schema.md) | `task-card.schema.json` + `npm run task:validate` | pending |
-| [P1-09](P1-09-context-pack.md) | `npm run context:pack` | pending |
-| [P1-10](P1-10-regra-escopo-diff.md) | Regra de escopo (diff ≠ `arquivosPermitidos`) | pending |
-| [P1-11](P1-11-estados-workflow.md) | Estados verificáveis (explore/planned/...) | pending |
+| [P1-08](P1-08-task-card-schema.md) | `task-card.schema.json` + `npm run task:validate` | done ✅ |
+| [P1-09](P1-09-context-pack.md) | `npm run context:pack` | done ✅ |
+| [P1-10](P1-10-regra-escopo-diff.md) | Regra de escopo (diff ≠ `arquivosPermitidos`) | done ✅ |
+| [P1-11](P1-11-estados-workflow.md) | Estados verificáveis (explore/planned/...) | done ✅ |
 | [P1-12](P1-12-skill-small-model-execution.md) | Skill repo-local `small-model-execution` | done ✅ |
 
 ### 🔵 P1-B — Testes e guardrails com sinal real

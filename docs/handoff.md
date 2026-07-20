@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `feat/p1-08-task-card-schema`
-- **Último commit:** `198f350` — chore: normalize report prefix to PR184
+- **Último commit:** `338445f — docs: update handoff`
 - **Remote:** origin/feat/p1-08-task-card-schema
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,12 +24,12 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** encerrar sessao - ambas PRs em producao
-**Status:** done
-**Branch:** `main`
-**Último commit:** 70918ee — fix: ensure deletion mutations complete before UI update
-**Docs carregados:** AGENTS.md
+**Categoria:** feature
+**Objetivo:** Implementar P1-09 context pack
+**Status:** in_progress
+**Branch:** `feat/p1-08-task-card-schema`
+**Último commit:** 338445f — docs: update handoff
+**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
