@@ -23,13 +23,7 @@ Nenhum PR aberto.
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** P0 completo — todos os 8 cards done ✅
-**Status:** done
-**Branch:** `main`
-**Último commit:** `7867e09` — P0-06 via PR #164
-**Docs carregados:** AGENTS.md
+
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
