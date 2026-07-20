@@ -27,7 +27,7 @@ a84dfe1 docs: update handoff
 
 ## 🧭 Estado Atual
 - **Branch:** `fix/mobile-form-stability-v2`
-- **Último commit:** (working tree)
+- **Último commit:** `70ddbd0 — chore: normalize report prefix to PR173`
 - **Remote:** origin/fix/mobile-form-stability-v2
 ### 📋 PRs Abertos
 Nenhum
@@ -42,9 +42,10 @@ Nenhum
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** bugfix
-**Objetivo:** Corrigir instabilidade do formulário de entrada no mobile (drawer + teclado virtual)
-**Status:** in progress
+**Objetivo:** fix mobile form instability - drawer + virtual keyboard
+**Status:** in_progress
 **Branch:** `fix/mobile-form-stability-v2`
+**Último commit:** 70ddbd0 — chore: normalize report prefix to PR173
 **Docs carregados:** DEBUG.md, CONVENTIONS.md
 ## ✅ Última Sessão
 PR #172 merged — P1-14: Separar check:fast / check:pr / check:nightly
