@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `fix/cache-auto-refresh-v2`
-- **Último commit:** `2f2464e — fix: handle optional chaining in session-start and adjust error message`
+- **Branch:** `main`
+- **Último commit:** `70918ee — fix: ensure deletion mutations complete before UI update`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum
@@ -23,14 +23,12 @@ Nenhum
 
 
 ## 🎯 Sessão Atual
-**Categoria:** bugfix
-**Objetivo:** fix deletion mutation race condition
+**Categoria:** chore
+**Objetivo:** encerrar sessao - ambas PRs em producao
 **Status:** in_progress
-**Branch:** `fix/cache-auto-refresh-v2`
-**Último commit:** 2f2464e — fix: handle optional chaining in session-start and adjust error message
-**Docs carregados:** DEBUG.md, CONVENTIONS.md
-
-
+**Branch:** `main`
+**Último commit:** 70918ee — fix: ensure deletion mutations complete before UI update
+**Docs carregados:** AGENTS.md
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
