@@ -184,7 +184,10 @@
   select,
   textarea,
   button {
-    scroll-margin-bottom: 6rem;
+    /* ponytail: scroll-margin removido porque no iOS Safari fazia o formulário
+       overscrollar ao focar em inputs próximos ao final do drawer,
+       empurrando o campo para fora da viewport. O Safari já faz scroll
+       nativo para o input focado. */
   }
 
   /* View Transitions API — navegação fluida entre páginas */
