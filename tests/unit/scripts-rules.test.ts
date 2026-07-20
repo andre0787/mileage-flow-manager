@@ -22,11 +22,12 @@ function runRuleOnFixture(ruleName: string, fixturePath: string): { stdout: stri
       env,
     });
     return { stdout, status: 0, error: "" };
-  } catch (e: any) {
+  } catch (e: unknown) {
+    const err = e as { stdout?: string; stderr?: string; status?: number; message?: string };
     return {
-      stdout: e.stdout || "",
-      status: e.status ?? 1,
-      error: e.stderr || e.message || "",
+      stdout: err.stdout || "",
+      status: err.status ?? 1,
+      error: err.stderr || err.message || "",
     };
   }
 }
@@ -41,11 +42,12 @@ function runRule(ruleName: string): { stdout: string; status: number; error: str
       timeout: 10000,
     });
     return { stdout, status: 0, error: "" };
-  } catch (e: any) {
+  } catch (e: unknown) {
+    const err = e as { stdout?: string; stderr?: string; status?: number; message?: string };
     return {
-      stdout: e.stdout || "",
-      status: e.status ?? 1,
-      error: e.stderr || e.message || "",
+      stdout: err.stdout || "",
+      status: err.status ?? 1,
+      error: err.stderr || err.message || "",
     };
   }
 }
@@ -62,7 +64,7 @@ function createTempFixture(fixtureSubdir: string): string {
 
 /** Limpa um diretório temporário */
 function cleanTempFixture(tmpPath: string) {
-  try { rmSync(tmpPath, { recursive: true, force: true }); } catch {}
+  try { rmSync(tmpPath, { recursive: true, force: true }); } catch { /* ignora erro se já foi limpo */ }
 }
 
 /** Inicializa git num diretório e faz commit inicial */
@@ -468,8 +470,9 @@ describe("rule-22-pr-naming", () => {
         cwd: ROOT, encoding: "utf8", timeout: 5000,
       });
       expect("deveria ter falhado").toBe("não falhou");
-    } catch (e: any) {
-      const msg = e.stdout || e.stderr || e.message || "";
+    } catch (e: unknown) {
+      const err = e as { stdout?: string; stderr?: string; message?: string };
+      const msg = err.stdout || err.stderr || err.message || "";
       expect(msg).toContain("não segue padrão");
     }
   });
@@ -478,9 +481,28 @@ describe("rule-22-pr-naming", () => {
 // ─── rule-23-skill-orphans ─────────────────────────────────────────
 
 describe("rule-23-skill-orphans", () => {
-  it("deve passar (positiva: skills todas ok)", () => {
-    const res = runRule("rule-23-skill-orphans.mjs");
-    expect(res.status).toBe(0);
+  // ponytail: .pi/skills/ tem symlinks absolutos que quebram no CI.
+  // Criamos fixture com TODAS as 14 skills referenciadas.
+  const REF_SKILLS = [
+    "llm-council", "brainstorming", "writing-plans", "using-git-worktrees",
+    "test-driven-development", "subagent-driven-development", "executing-plans",
+    "requesting-code-review", "finishing-a-development-branch",
+    "systematic-debugging", "verification-before-completion",
+    "dispatching-parallel-agents", "receiving-code-review",
+    "small-model-execution",
+  ];
+
+  it("deve passar (positiva: fixture com todas as skills)", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      const skillsDir = join(tmp, ".pi/skills");
+      for (const skill of REF_SKILLS) {
+        mkdirSync(join(skillsDir, skill), { recursive: true });
+        writeFileSync(join(skillsDir, skill, "SKILL.md"), `# ${skill}\n`);
+      }
+      const res = runRuleOnFixture("rule-23-skill-orphans.mjs", tmp);
+      expect(res.status).toBe(0);
+    } finally { cleanTempFixture(tmp); }
   });
 
   it("deve falhar (negativa: skill referenciada não existe)", () => {
@@ -520,8 +542,9 @@ describe("rule-scope", () => {
         { cwd: ROOT, encoding: "utf8", timeout: 5000 },
       );
       expect("deveria ter falhado").toBe("não falhou");
-    } catch (e: any) {
-      const msg = e.stderr || e.stdout || e.message || "";
+    } catch (e: unknown) {
+      const err = e as { stdout?: string; stderr?: string; message?: string };
+      const msg = err.stderr || err.stdout || err.message || "";
       expect(msg).toContain("fora de");
     }
   });
@@ -533,8 +556,9 @@ describe("rule-scope", () => {
         { cwd: ROOT, encoding: "utf8", timeout: 5000 },
       );
       expect("deveria ter falhado").toBe("não falhou");
-    } catch (e: any) {
-      const msg = e.stderr || e.stdout || e.message || "";
+    } catch (e: unknown) {
+      const err = e as { stdout?: string; stderr?: string; message?: string };
+      const msg = err.stderr || err.stdout || err.message || "";
       expect(msg).toContain("sensíveis");
     }
   });
