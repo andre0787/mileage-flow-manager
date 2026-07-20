@@ -143,9 +143,11 @@ async function main() {
       rl.question(
         `\nCategoria da tarefa? (${CATEGORIAS.join("/")}) `,
         (cat) => {
-          const c = cat.trim().toLowerCase();
+          const trimmed = cat?.trim();
+          const c = trimmed ? trimmed.toLowerCase() : undefined;
           if (!c || !CATEGORIAS.includes(c)) {
-            resolve({ err: `❌ Categoria inválida. Use uma de: ${CATEGORIAS.join(", ")}` });
+            const display = trimmed ?? "";
+            resolve({ err: `❌ Categoria inválida: "${display}". Use uma de: ${CATEGORIAS.join(", ")}` });
             return;
           }
           rl.question(`Objetivo da sessão? (descrição concisa) `, (obj) => {

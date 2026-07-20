@@ -23,12 +23,7 @@ Nenhum
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-## 🎯 Sessão Atual
-**Categoria:** —
-**Objetivo:** —
-**Status:** pending
-**Branch:** `main`
-**Docs carregados:** AGENTS.md
+
 ## ✅ Última Sessão
 PR #172 merged — P1-14: Separar check:fast / check:pr / check:nightly
 ## 📌 Próxima Sessão
