@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `1402a45` — chore: update task cards to done
+- **Branch:** `fix/cache-auto-refresh-v2`
+- **Último commit:** `2f2464e — fix: handle optional chaining in session-start and adjust error message`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum
@@ -20,6 +20,16 @@ Nenhum
 | Total testes | 132 |
 | Docs issues | 0 |
 | Branch | main |
+
+
+## 🎯 Sessão Atual
+**Categoria:** bugfix
+**Objetivo:** fix deletion mutation race condition
+**Status:** in_progress
+**Branch:** `fix/cache-auto-refresh-v2`
+**Último commit:** 2f2464e — fix: handle optional chaining in session-start and adjust error message
+**Docs carregados:** DEBUG.md, CONVENTIONS.md
+
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
