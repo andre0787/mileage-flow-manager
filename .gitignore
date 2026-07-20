@@ -68,3 +68,6 @@ bun.lockb
 test-results/
 tests/screenshots/
 tests/fluxo-relatorio.md
+
+# Subagent artifacts
+.pi-subagents/
