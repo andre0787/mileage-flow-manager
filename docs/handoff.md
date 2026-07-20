@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `a7f2bc3` — Merge pull request #185 from andre0787/chore/p2-19-bundle-budgets
+- **Último commit:** `fed6ac8 — docs: update handoff`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -25,10 +25,10 @@ Nenhum PR aberto.
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** feature
-**Objetivo:** Implementar P1-09 context pack
-**Status:** done
-**Branch:** `feat/p1-08-task-card-schema`
-**Último commit:** 338445f — docs: update handoff
+**Objetivo:** Continuar roadmap P1
+**Status:** in_progress
+**Branch:** `main`
+**Último commit:** fed6ac8 — docs: update handoff
 **Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
