@@ -25,8 +25,9 @@ invariantes de reversal. Hoje isso não está coberto de forma determinística.
 
 ## Arquivos permitidos
 - `src/lib/accounts*` (ou local das funções financeiras)
-- testes correspondentes em `src/**/*.test.*`
-- teste de integração (mock/erro de Supabase) — novo
+- `tests/unit/*` (testes financeiros e de integração)
+- `tests/unit/accounts.test.ts` (teste de integração — novo)
+- `.gitignore` (apenas .pi-subagents/)
 
 ## Critérios de aceite
 - [ ] Funções de saldo permanecem puras onde aplicável.
