@@ -19,7 +19,7 @@ test.describe("Transferência com Compra no Carrinho", () => {
     await page.click("button[type='submit']");
 
     await page.waitForFunction(() => location.pathname === "/", { timeout: 30_000 });
-    await page.waitForTimeout(1_000);
+    await page.waitForLoadState("networkidle");
 
     // ═══════════════════════════════════════
     // 2. Criar dados + entrada com carrinho via API
@@ -95,10 +95,9 @@ test.describe("Transferência com Compra no Carrinho", () => {
     // ═══════════════════════════════════════
     await page.goto("/entradas");
     await page.waitForSelector("text=Entradas", { timeout: 15_000 });
-    await page.waitForTimeout(500);
 
     await page.locator("button[role='tab']:has-text('Milhas')").click();
-    await page.waitForTimeout(500);
+    await expect(page.locator("button[role='tab'][aria-selected='true']:has-text('Milhas')")).toBeVisible({ timeout: 5_000 });
 
     // Use .first() since 50.000 may appear in multiple cells
     await expect(page.locator("text=50.000").first()).toBeVisible({ timeout: 5_000 });
@@ -108,15 +107,12 @@ test.describe("Transferência com Compra no Carrinho", () => {
     // 4. Editar e verificar seção carrinho
     // ═══════════════════════════════════════
     await page.locator("button:has-text('Editar')").first().click();
-    await page.waitForTimeout(1_000);
-
-    await expect(page.locator("text=Editar Entrada")).toBeVisible({ timeout: 3_000 });
-    await page.waitForTimeout(500);
+    await expect(page.locator("text=Editar Entrada")).toBeVisible({ timeout: 5_000 });
 
     await expect(page.locator("text=Compra no Carrinho").first()).toBeVisible({ timeout: 2_000 });
 
     await page.locator("button:has-text('Salvar Alterações')").click({ force: true });
-    await page.waitForTimeout(2_000);
+    await expect(page.getByRole('heading', { level: 1, name: 'Entradas', exact: true })).toBeVisible({ timeout: 5_000 });
 
     await expect(page.getByRole('heading', { level: 1, name: 'Entradas', exact: true })).toBeVisible({ timeout: 5_000 });
 
@@ -124,9 +120,8 @@ test.describe("Transferência com Compra no Carrinho", () => {
     // 5. Excluir
     // ═══════════════════════════════════════
     await page.locator("button:has-text('Excluir')").first().click();
-    await page.waitForTimeout(1_000);
+    await expect(page.locator("div[role='alertdialog']")).toBeVisible({ timeout: 5_000 });
 
     await page.locator("div[role='alertdialog'] button:has-text('Excluir')").click({ force: true });
-    await page.waitForTimeout(2_500);
   });
 });

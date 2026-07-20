@@ -19,11 +19,12 @@ test("check entradas page error with auth", async ({ page }) => {
   await page.click("button[type='submit']");
 
   await page.waitForFunction(() => location.pathname === "/", { timeout: 30_000 });
-  await page.waitForTimeout(1_000);
+  await page.waitForLoadState("networkidle");
 
   // Now go to entradas
   await page.goto("/entradas");
-  await page.waitForTimeout(8000);
+  await page.waitForSelector("text=Entradas", { timeout: 15_000 });
+  await page.waitForLoadState("networkidle");
   
   // Check for error indicators
   const bodyText = await page.textContent("body");

@@ -17,7 +17,7 @@ test("filtros refletem nos resumos e tabelas", async ({ page }) => {
   await page.fill("#password", PASSWORD);
   await page.click("button[type='submit']");
   await page.waitForFunction(() => location.pathname === "/", { timeout: 30_000 });
-  await page.waitForTimeout(1_500);
+  await page.waitForLoadState("networkidle");
 
   // 2. Seed dados completos (incluindo venda)
   await page.evaluate(async ({ url, anonKey }) => {
@@ -44,7 +44,7 @@ test("filtros refletem nos resumos e tabelas", async ({ page }) => {
 
   // 3. Ir para relatorios
   await page.goto("/relatorios");
-  await page.waitForTimeout(2_000);
+  await page.waitForLoadState("networkidle");
 
   // 4. Summary cards — dados existem
   await expect(page.getByText("R$ 300").first()).toBeVisible({ timeout: 5_000 }); // invested
@@ -57,21 +57,20 @@ test("filtros refletem nos resumos e tabelas", async ({ page }) => {
 
   // 7. Filtrar por dono "Ana" — dados continuam (único dono)
   await page.getByText("Todos os Donos").click();
-  await page.waitForTimeout(400);
+  await expect(page.getByRole("option", { name: "Ana" })).toBeVisible({ timeout: 3_000 });
   await page.getByRole("option", { name: "Ana" }).click();
-  await page.waitForTimeout(800);
-  await expect(page.getByText("R$ 300").first()).toBeVisible({ timeout: 3_000 });
+  await expect(page.getByText("R$ 300").first()).toBeVisible({ timeout: 5_000 });
 
   // 8. Voltar para "Todos os Donos"
   await page.getByText("Ana").first().click();
-  await page.waitForTimeout(400);
+  await expect(page.getByRole("option", { name: "Todos os Donos" })).toBeVisible({ timeout: 3_000 });
   await page.getByRole("option", { name: "Todos os Donos" }).click();
-  await page.waitForTimeout(800);
+  await expect(page.getByText("R$ 300").first()).toBeVisible({ timeout: 5_000 });
 
   // 9. Período 7 dias — dados recentes, devem continuar
   await page.getByText("Últimos 30 dias").click();
-  await page.waitForTimeout(400);
+  await expect(page.getByRole("option", { name: "Últimos 7 dias" })).toBeVisible({ timeout: 3_000 });
   await page.getByRole("option", { name: "Últimos 7 dias" }).click();
-  await page.waitForTimeout(800);
+  await expect(page.getByText("R$ 300").first()).toBeVisible({ timeout: 5_000 });
   await expect(page.getByText("R$ 300").first()).toBeVisible({ timeout: 3_000 });
 });

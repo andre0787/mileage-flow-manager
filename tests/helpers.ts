@@ -34,6 +34,15 @@ const post = (table, body) =>
   });
 `;
 
+/** Aguarda a SPA estabilizar após navegação — substitui waitForTimeout cego */
+export async function waitForStable(page: Page, options?: { title?: string; loadState?: 'load' | 'domcontentloaded' | 'networkidle' }) {
+  const { loadState = 'networkidle' } = options ?? {};
+  await page.waitForLoadState(loadState);
+  if (options?.title) {
+    await page.waitForFunction((t: string) => document.title.includes(t), options.title, { timeout: 15_000 });
+  }
+}
+
 /** Registra um novo usuário via fluxo de cadastro (Cadastre-se) e aguarda dashboard */
 export async function registerUser(page: Page) {
   const email = `e2e_${Date.now()}_${Math.random().toString(36).slice(2, 6)}@teste.com`;
@@ -47,7 +56,7 @@ export async function registerUser(page: Page) {
   await page.fill("#password", password);
   await page.click("button[type='submit']");
   await page.waitForFunction(() => location.pathname === "/", { timeout: 30_000 });
-  await page.waitForTimeout(1_000);
+  await waitForStable(page, { title: "MilesControl" });
   return { email, password };
 }
 
