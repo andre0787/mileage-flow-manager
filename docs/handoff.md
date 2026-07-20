@@ -1,6 +1,6 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-07-19
-> Anterior: 2026-07-18
+> ⏰ Última atualização: 2026-07-20
+> Anterior: 2026-07-20
 ---
 ## 🏗️ Projeto
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
@@ -9,21 +9,26 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `b1c285a` — Merge pull request #167 from andre0787/chore/p0-5-workflow-hardening
-- **Remote:** origin/main
+- **Branch:** `feat/P1-14-check-fast-pr-nightly`
+- **Último commit:** `0e39e97` — chore: normalize report prefix to PR172
+- **Remote:** origin/feat/P1-14-check-fast-pr-nightly
 ### 📋 PRs Abertos
-Nenhum PR aberto.
+- #172 — P1-14: Separar check:fast / check:pr / check:nightly
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 129 |
+| Total testes | 132 |
 | Docs issues | 0 |
-| Branch | main |
+| Branch | feat/P1-14-check-fast-pr-nightly |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-
+## 🎯 Sessão Atual
+**Categoria:** chore
+**Objetivo:** descrição concisa
+**Status:** done
+**Branch:** `main`
+**Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
@@ -33,6 +38,8 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Repositório tornado público (branch protection exige GitHub Free público)
 - Branch protection ativa: build-and-test required, 1 review, enforce_admins
 - PR #163 (P0-04/07/flake) e PR #164 (P0-06) mergeados e em produção ✅
+
+
 
 
 

@@ -141,18 +141,22 @@ Workflow acelerado via npm scripts — reduzem consumo de tokens automatizando r
 | `npm run session:end` | add + commit + handoff + push em 1 comando | **Final da sessão** (substitui 5 passos manuais) |
 | `npm run handoff` | Atualiza docs/handoff.md com estado atual do git | Pós-PR ou pós-merge |
 | `npm run health:deploy` | Verifica se o último deploy da main passou | Após merge/deploy ou debug de produção |
+| `npm run check:fast` | typecheck + lint + format:check + test + verify-docs | **Loop local rápido** (feedback <30s) |
+| `npm run check:pr` | check:fast + build | **Porta de PR** (roda no CI) |
+| `npm run check:nightly` | check:pr + E2E + quality:write | **Verificação completa** (schedule CI) |
 | `npm run retro` | Gera retrospectiva automática do período | Fim de sprint ou bloco de PRs |
 
 ### Fluxo compacto com scripts
 
 ```
-INÍCIO:   npm run session:start   → resumo (~500 tokens)
-MEIO:     (desenvolvimento normal)
-ANTES PR: npm run pre-pr           → valida tudo
+INÍCIO:   npm run session:start     → resumo (~500 tokens)
+LOOP:     npm run check:fast         → loop local (<30s)
+ANTES PR: npm run pre-pr             → valida tudo
+          npm run check:pr           → réplica do que o CI vai rodar
           npm run report "descrição" --write  → relatório HTML
-PÓS-MERGE: npm run health:deploy    → confirma produção
-RETRO:    npm run retro --write      → métricas do ciclo
-FIM:      npm run session:end "msg" → commit + handoff + push
+PÓS-MERGE: npm run health:deploy      → confirma produção
+RETRO:    npm run retro --write        → métricas do ciclo
+FIM:      npm run session:end "msg"   → commit + handoff + push
 ```
 
 ### Detalhamento dos scripts
@@ -166,6 +170,7 @@ FIM:      npm run session:end "msg" → commit + handoff + push
 | `scripts/update-handoff.mjs` | Atualiza métricas, branch, último commit | docs/handoff.md atualizado |
 | `scripts/check-deploy.mjs` | Consulta último workflow de deploy na main | ✅/❌ status do deploy |
 | `scripts/retro.mjs` | Coleta PRs, CI, deploys, feedbacks e commits | Markdown de retrospectiva |
+| `check:fast` / `check:pr` / `check:nightly` | Composições de scripts existentes (ver package.json) | Três níveis de verificação |
 
 ### Por quê?
 

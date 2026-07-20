@@ -1,4 +1,4 @@
-name: CI
+name: CI — PR Check
 
 on:
   pull_request:
@@ -12,7 +12,7 @@ env:
   CI: true
 
 jobs:
-  build-and-test:
+  check-pr:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,18 +29,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Full check (typecheck + lint + format + unit + docs + build)
-        run: npm run check
-
-      - name: Install Playwright
-        run: npx playwright install --with-deps
-
-      - name: E2E tests
-        run: npx playwright test
-
-      - name: Upload E2E report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report
-          path: playwright-report/
+      - name: PR check (typecheck + lint + format + unit + docs + build)
+        run: npm run check:pr
