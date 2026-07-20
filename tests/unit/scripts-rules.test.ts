@@ -99,7 +99,7 @@ describe("rule-scope", () => {
 
   it("deve passar quando não há card ativo", () => {
     const out = execSync(
-      `PRE_PR_MOCK_DIFF="scripts/rules/rule-scope.mjs" node "${RULE_SCOPE}" 2>&1`,
+      `PRE_PR_MOCK_CARD=NONEXISTENT PRE_PR_MOCK_DIFF="scripts/rules/rule-scope.mjs" node "${RULE_SCOPE}" 2>&1`,
       { cwd: ROOT, encoding: "utf8", timeout: 5000 },
     );
     expect(out).toMatch(/Nenhum card ativo/);

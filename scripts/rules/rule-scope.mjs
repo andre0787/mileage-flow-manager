@@ -87,6 +87,11 @@ if (process.env.PRE_PR_MOCK_CARD) {
       break;
     }
   }
+  // Mock card set but not found → simulates "no active card"
+  if (!card) {
+    ok("Nenhum card ativo encontrado — pulando verificação de escopo (mock)");
+    process.exit(0);
+  }
 }
 
 if (!card) {
