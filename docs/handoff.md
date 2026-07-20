@@ -10,10 +10,10 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `fed6ac8 — docs: update handoff`
+- **Último commit:** `b8d7902` — chore: session end
 - **Remote:** origin/main
 ### 📋 PRs Abertos
-Nenhum PR aberto.
+- #186 — chore(P2-20): CI quality sync to QUALITY.md
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
@@ -26,7 +26,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** feature
 **Objetivo:** Continuar roadmap P1
-**Status:** in_progress
+**Status:** done
 **Branch:** `main`
 **Último commit:** fed6ac8 — docs: update handoff
 **Docs carregados:** WORKFLOW.md, CONVENTIONS.md
@@ -39,6 +39,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Repositório tornado público (branch protection exige GitHub Free público)
 - Branch protection ativa: build-and-test required, 1 review, enforce_admins
 - PR #163 (P0-04/07/flake) e PR #164 (P0-06) mergeados e em produção ✅
+
 
 
 
