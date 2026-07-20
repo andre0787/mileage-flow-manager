@@ -6,7 +6,7 @@
 | `categoria` | feat |
 | `onda` | P1-A |
 | `baseBranch` | main |
-| `estado` | pending |
+| `estado` | done |
 | `origem` | veredito 2026-07-17, item #10 |
 | `dependeDe` | [P1-08] |
 
@@ -26,6 +26,7 @@ que um mapa sofisticado.
 
 ## Arquivos permitidos
 - `scripts/rules/rule-scope.*` (novo)
+- `tests/unit/scripts-rules.test.ts` (testes)
 - `package.json` (atalho, se necessário)
 - `scripts/pre-pr.*` (invocar a regra)
 

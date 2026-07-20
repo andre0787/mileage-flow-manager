@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `70918ee — fix: ensure deletion mutations complete before UI update`
+- **Último commit:** `ba4acb0 — chore: encerra sessao - ambas PRs em producao`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum
