@@ -1,18 +1,15 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://mileage-flow-manager.app/task-card.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Task Card",
-  "description": "Schema para task-cards em docs/tasks/",
   "type": "object",
-  "required": [
-    "id", "categoria", "onda", "baseBranch", "estado",
-    "origem"
-  ],
+  "additionalProperties": false,
+  "description": "Schema para task-cards em docs/tasks/",
   "properties": {
     "id": {
       "type": "string",
-      "pattern": "^P[0-9]+(-[A-Z0-9]+)?$",
-      "description": "Identificador único do card (ex: P1-08)"
+      "description": "Identificador único do card (ex: P1-08)",
+      "pattern": "^P[0-9]+(-[A-Z0-9]+)?$"
     },
     "categoria": {
       "type": "string",
@@ -41,7 +38,38 @@
       "type": "array",
       "items": { "type": "string" },
       "description": "Cards dos quais este depende"
+    },
+    "objetivo": {
+      "type": "string",
+      "description": "Objetivo principal"
+    },
+    "naoObjetivos": {
+      "type": "string",
+      "description": "O que esta tarefa NÃO cobre"
+    },
+    "criteriosAceite": {
+      "type": "string",
+      "description": "Critérios de aceite"
+    },
+    "arquivosPermitidos": {
+      "type": "string",
+      "description": "Arquivos afetados pela tarefa"
+    },
+    "riscos": {
+      "type": "string",
+      "description": "Riscos e invariantes"
+    },
+    "testesObrigatorios": {
+      "type": "string",
+      "description": "Testes obrigatórios"
     }
   },
-  "additionalProperties": false
+  "required": [
+    "id",
+    "categoria",
+    "onda",
+    "baseBranch",
+    "estado",
+    "origem"
+  ]
 }
