@@ -18,7 +18,7 @@ import { fileURLToPath } from "url";
 import { getDiffFiles } from "../lib.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const ROOT = resolve(__dirname, "..", "..");
+const ROOT = process.env.MOCK_ROOT || resolve(__dirname, "..", "..");
 
 const errors = [];
 

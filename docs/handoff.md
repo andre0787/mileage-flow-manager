@@ -10,30 +10,28 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `27d0d21 — feat P1-10 — Regra de escopo (diff ≠ arquivosPermitidos) (#175)`
+- **Último commit:** `400d7b8` — P1-12 completa — Skill small-model-execution criada, PR #176 merged, deploy ✅
 - **Remote:** origin/main
 ### 📋 PRs Abertos
-Nenhum
+Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 132 |
+| Total testes | 137 |
 | Docs issues | 0 |
 | Branch | main |
 
-
+---
+_Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
 **Objetivo:** encerrar sessao - ambas PRs em producao
-**Status:** in_progress
+**Status:** done
 **Branch:** `main`
 **Último commit:** 70918ee — fix: ensure deletion mutations complete before UI update
 **Docs carregados:** AGENTS.md
----
-_Atualizado automaticamente por `scripts/update-handoff.mjs`_
-
 ## ✅ Última Sessão
-PR #172 merged — P1-14: Separar check:fast / check:pr / check:nightly
+Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
 Continue a tarefa ativa ou selecione o próximo task-card.
 ## 🧠 Notas da Sessão Atual
@@ -41,3 +39,4 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Repositório tornado público (branch protection exige GitHub Free público)
 - Branch protection ativa: build-and-test required, 1 review, enforce_admins
 - PR #163 (P0-04/07/flake) e PR #164 (P0-06) mergeados e em produção ✅
+

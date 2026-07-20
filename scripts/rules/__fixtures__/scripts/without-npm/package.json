@@ -1,0 +1,6 @@
+{
+  "name": "test",
+  "scripts": {
+    "other": "node scripts/other.mjs"
+  }
+}

@@ -27,6 +27,7 @@ const ORPHAN_ALLOWED_PREFIXES = [
   "docs/superpowers/plans/",
   "docs/superpowers/specs/",
   "docs/thoughts/",
+  "scripts/rules/__fixtures__/",
 ];
 
 // ── Helpers ──────────────────────────────────────────────────────────

@@ -13,7 +13,7 @@ import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-export const ROOT = resolve(__dirname, "..");
+export const ROOT = process.env.MOCK_ROOT || resolve(__dirname, "..");
 
 export function git(cmd) {
   try { return execSync(cmd, { cwd: ROOT, encoding: "utf8", timeout: 5000 }).trim(); }
