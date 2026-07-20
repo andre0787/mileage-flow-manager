@@ -6,7 +6,8 @@
 | `categoria` | refactor |
 | `onda` | P1-B |
 | `baseBranch` | main |
-| `estado` | review |
+| `estado` | done |
+>>>>>>> origin/chore/p1-16-done
 | `origem` | veredito 2026-07-17, item #16 |
 | `dependeDe` | [P1-15] |
 
