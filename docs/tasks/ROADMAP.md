@@ -42,11 +42,11 @@ Pré-requisito de tudo o que segue. Sem P0, qualquer protocolo de agente é só 
 | Card | Título | Estado |
 |------|--------|--------|
 | [P1-13](P1-13-typecheck-script.md) | `npm run typecheck` no package.json + CI | done ✅ |
-| [P1-14](P1-14-check-fast-pr-nightly.md) | Separar `check:fast` / `check:pr` / `check:nightly` | pending |
-| [P1-15](P1-15-fixtures-negativas-regras.md) | Testes de regras com fixtures negativas/positivas | pending |
+| [P1-14](P1-14-check-fast-pr-nightly.md) | Separar `check:fast` / `check:pr` / `check:nightly` | done ✅ |
+| [P1-15](P1-15-fixtures-negativas-regras.md) | Testes de regras com fixtures negativas/positivas | done ✅ |
 | [P1-16](P1-16-ast-regras-alto-risco.md) | AST onde o risco compensa (saldo, queries, RLS) | pending |
-| [P1-17](P1-17-invariantes-financeiras.md) | Invariantes financeiras + reversais | pending |
-| [P1-18](P1-18-e2e-estabiliza.md) | E2E: eliminar `waitForTimeout`, separar smoke/integração | pending |
+| [P1-17](P1-17-invariantes-financeiras.md) | Invariantes financeiras + reversais | review |
+| [P1-18](P1-18-e2e-estabiliza.md) | E2E: eliminar `waitForTimeout`, separar smoke/integração | review |
 
 ### 🟢 P2 — Feedback de qualidade mensurável
 
