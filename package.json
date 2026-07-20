@@ -35,6 +35,8 @@
     "validate-stock": "node scripts/validate-stock.mjs",
     "task:validate": "node scripts/task-validate.mjs",
     "task:validate:strict": "node scripts/task-validate.mjs --strict",
+    "task:state": "node scripts/task-state.mjs",
+    "context:pack": "node scripts/context-pack.mjs",
     "verify-docs": "node scripts/verify-docs.mjs",
     "verify-docs:strict": "node scripts/verify-docs.mjs --strict",
     "handoff:snapshot": "node scripts/handoff-snapshot.mjs --write",
