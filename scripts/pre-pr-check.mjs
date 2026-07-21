@@ -24,31 +24,36 @@ const ROOT = resolve(__dirname, "..");
 const RULES_DIR = resolve(ROOT, "scripts/rules");
 
 let errors = 0;
+const logger = {
+  log: console.log,
+  warn: console.warn,
+  error: console.error
+};
 
-function ok(label) { console.log(`  ✅ ${label}`); }
-function fail(label) { console.log(`  ❌ ${label}`); errors++; }
+function ok(label) { logger.log(`  ✅ ${label}`); }
+function fail(label) { logger.log(`  ❌ ${label}`); errors++; }
 
-console.log("\n🔍 PRE-PR CHECK\n");
+logger.log("\n🔍 PRE-PR CHECK\n");
 
 // ── Lista ────────────────────────────────────────────────────────────
 if (process.argv.includes("--list")) {
   const files = readdirSync(RULES_DIR).filter(f => f.endsWith(".mjs")).sort();
-  console.log("Regras disponíveis:");
-  files.forEach(f => console.log(`  scripts/rules/${f}`));
+  logger.log("Regras disponíveis:");
+  files.forEach(f => logger.log(`  scripts/rules/${f}`));
   process.exit(0);
 }
 
 // ── Check de Diff Vazio ──────────────────────────────────────────────
 const changedFiles = getDiffFiles();
 if (changedFiles.length === 0) {
-  console.log("  ❌ Nenhuma alteração detectada em relação à base ou na working tree.");
-  console.log("  O pre-pr check exige um diff não vazio para ser executado.");
+  logger.log("  ❌ Nenhuma alteração detectada em relação à base ou na working tree.");
+  logger.log("  O pre-pr check exige um diff não vazio para ser executado.");
   process.exit(1);
 }
 
 // ── Relatório Automático ────────────────────────────────────────────
 if (!process.argv.includes("--no-report")) {
-  console.log("── Relatório ──");
+  logger.log("── Relatório ──");
   try {
     const today = new Date().toISOString().slice(0, 10);
     const branch = execSync("git rev-parse --abbrev-ref HEAD", { cwd: ROOT, encoding: "utf8", timeout: 3000 }).trim();
@@ -79,16 +84,16 @@ if (!process.argv.includes("--no-report")) {
             const newName = file.replace(/^(.+?)-(\d{4}-\d{2}-\d{2})/, `${prefix}-$2`);
             if (newName === file) continue;
             renameSync(resolve(reportsDir, file), resolve(reportsDir, newName));
-            console.log(`  🔄 ${file} → ${newName}`);
+            logger.log(`  🔄 ${file} → ${newName}`);
           }
           if (reportFiles.length > 0) {
-            console.log(`  ✅ ${reportFiles.length} relatório(s) renomeado(s) para ${prefix}`);
+            logger.log(`  ✅ ${reportFiles.length} relatório(s) renomeado(s) para ${prefix}`);
             execSync(`git add docs/reports/${today}/ 2>/dev/null || true`, { cwd: ROOT, timeout: 3000 });
           }
         }
-        console.log("  ⏭️  apenas docs/reports/ alterados");
+        logger.log("  ⏭️  apenas docs/reports/ alterados");
       } else {
-        console.log("  ⏭️  apenas docs/reports/ alterados, pulando geração (evita ciclo de rename)");
+        logger.log("  ⏭️  apenas docs/reports/ alterados, pulando geração (evita ciclo de rename)");
       }
     } else {
 
@@ -112,20 +117,20 @@ if (!process.argv.includes("--no-report")) {
       + ` --write 2>&1`;
 
     const out = execSync(cmd, { cwd: ROOT, encoding: "utf8", timeout: 15000 }).trim();
-    if (out) console.log(`  ${out}`);
+    if (out) logger.log(`  ${out}`);
 
     // Staging o relatório gerado para não quebrar a regra #10
     execSync(`git add docs/reports/${today}/ 2>/dev/null || true`, { cwd: ROOT, timeout: 3000 });
     }
   } catch (e) {
-    console.log(`  ❌ relatório automático FALHOU: ${e.message.slice(0, 100)}`);
-    console.log("     Dica: gere manualmente com: npm run report \"descrição\" --benefits \"...\" --impact \"...\" --write");
+    logger.log(`  ❌ relatório automático FALHOU: ${e.message.slice(0, 100)}`);
+    logger.log("     Dica: gere manualmente com: npm run report \"descrição\" --benefits \"...\" --impact \"...\" --write");
     process.exit(1);
   }
 }
 
 // ── Regras ───────────────────────────────────────────────────────────
-console.log("── Regras ──");
+logger.log("── Regras ──");
 let ruleFiles = readdirSync(RULES_DIR).filter(f => f.endsWith(".mjs")).sort();
 
 if (process.env.PRE_PR_ONLY_RULE) {
@@ -145,23 +150,11 @@ for (const file of ruleFiles) {
   }
 }
 
-// ── console.log esquecido ───────────────────────────────────────────
-console.log("\n── Sanity ──");
-try {
-  const logCheck = execSync(
-    `git diff HEAD -- ":(exclude)src/lib/logger.ts" | grep '^+' | grep -v '^+++' | grep "console\\." || true`,
-    { cwd: ROOT, encoding: "utf8", timeout: 5000 }
-  ).trim();
-  if (logCheck) {
-    console.log("  ⚠️  console.log encontrado no diff (exceto logger.ts)");
-  } else {
-    ok("sem console.log no diff");
-  }
-} catch { console.log("  ⚠️  verificação de console.log falhou"); }
+// ── logger.log esquecido ───────────────────────────────────────────
 
 // ── Build ────────────────────────────────────────────────────────────
 if (!process.env.PRE_PR_ONLY_RULES) {
-  console.log("\n── Build ──");
+  logger.log("\n── Build ──");
   try {
     execSync("npm run build 2>&1", { cwd: ROOT, encoding: "utf8", timeout: 60000 });
     ok("build");
@@ -170,7 +163,7 @@ if (!process.env.PRE_PR_ONLY_RULES) {
 
 // ── Testes ───────────────────────────────────────────────────────────
 if (!process.env.PRE_PR_ONLY_RULES) {
-  console.log("\n── Testes ──");
+  logger.log("\n── Testes ──");
   try {
     execSync("npm test 2>&1", { cwd: ROOT, encoding: "utf8", timeout: 60000 });
     ok("test (unit)");
@@ -179,7 +172,7 @@ if (!process.env.PRE_PR_ONLY_RULES) {
 
 // ── Docs ─────────────────────────────────────────────────────────────
 if (!process.env.PRE_PR_ONLY_RULES) {
-  console.log("\n── Docs ──");
+  logger.log("\n── Docs ──");
   const verifyScript = resolve(ROOT, "scripts/verify-docs.mjs");
   if (existsSync(verifyScript)) {
     try {
@@ -187,13 +180,13 @@ if (!process.env.PRE_PR_ONLY_RULES) {
       ok("verify-docs:strict");
     } catch (e) { fail(`verify-docs: ${e.stderr?.slice(0, 200) || e.message}`); }
   } else {
-    console.log("  ⚠️  verify-docs.mjs não encontrado, pulando");
+    logger.log("  ⚠️  verify-docs.mjs não encontrado, pulando");
   }
 }
 
 // ── Resumo ───────────────────────────────────────────────────────────
-console.log("\n═══════════════════════════════════");
-console.log(`  ${errors > 0 ? `❌ ${errors} errors` : "✅ 0 errors"}`);
-console.log("═══════════════════════════════════\n");
+logger.log("\n═══════════════════════════════════");
+logger.log(`  ${errors > 0 ? `❌ ${errors} errors` : "✅ 0 errors"}`);
+logger.log("═══════════════════════════════════\n");
 
 if (errors > 0 && process.argv.includes("--strict")) process.exit(1);

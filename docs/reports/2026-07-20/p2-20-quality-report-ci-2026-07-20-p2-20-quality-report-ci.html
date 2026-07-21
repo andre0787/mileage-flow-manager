@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>p2-20-quality-report-ci — p2 20 quality report ci</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 p2 20 quality report ci</h1>
+  <p class="meta">2026-07-20 17:22 &middot; chore/p2-20-quality-report-ci &middot; fed6ac8 — docs: update handoff</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">p2-20-quality-report-ci</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">1</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+7</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-6</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~29</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Auto-gerado pelo pre-pr-check</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Relatório gerado automaticamente como parte do workflow de validação pré-PR</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 6 remoções — 39 linhas tocadas</td>
+        <td>✨ 7 adições — 1 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/handoff.md</td>
+      </tr>
+      
+      <tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>1</td></tr>
+    <tr><td>Adições</td><td>+7</td></tr>
+    <tr><td>Remoções</td><td>-6</td></tr>
+    <tr><td>Tokens estimados</td><td>~29</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:17">+5 add</div>
+        <div class="del" style="flex:17">-5 del</div>
+        <div class="overhead" style="flex:66">~19 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+5</td><td>17%</td></tr>
+      <tr><td>Remoções</td><td>-5</td><td>17%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~19</td><td>66%</td></tr>
+      <tr><th>Total</th><th>~29</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>docs/handoff.md</td></tr>
+  </table>
+
+  
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/docs/handoff.md b/docs/handoff.md
+index b0ea2e0..4b05a56 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -9,9 +9,9 @@
+ ### 🐞 Bugs Abertos
+ Consulte as GitHub Issues para a lista atual.
+ ## 🧭 Estado Atual
+<span class="del">-- **Branch:** `feat/p1-08-task-card-schema`</span>
+<span class="del">-- **Último commit:** `338445f — docs: update handoff`</span>
+<span class="del">-- **Remote:** origin/feat/p1-08-task-card-schema</span>
+<span class="add">+- **Branch:** `main`</span>
+<span class="add">+- **Último commit:** `a7f2bc3` — Merge pull request #185 from andre0787/chore/p2-19-bundle-budgets</span>
+<span class="add">+- **Remote:** origin/main</span>
+ ### 📋 PRs Abertos
+ Nenhum PR aberto.
+ ### 📊 Métricas (estimativa local)
+@@ -19,14 +19,14 @@ Nenhum PR aberto.
+ |---------|-------|
+ | Total testes | 187 |
+ | Docs issues | 0 |
+<span class="del">-| Branch | feat/p1-08-task-card-schema |</span>
+<span class="add">+| Branch | main |</span>
+ 
+ ---
+ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
+ ## 🎯 Sessão Atual
+ **Categoria:** feature
+ **Objetivo:** Implementar P1-09 context pack
+<span class="del">-**Status:** in_progress</span>
+<span class="add">+**Status:** done</span>
+ **Branch:** `feat/p1-08-task-card-schema`
+ **Último commit:** 338445f — docs: update handoff
+ **Docs carregados:** WORKFLOW.md, CONVENTIONS.md
+@@ -41,3 +41,4 @@ Continue a tarefa ativa ou selecione o próximo task-card.
+ - PR #163 (P0-04/07/flake) e PR #164 (P0-06) mergeados e em produção ✅
+ 
+ 
+<span class="add">+</span>
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>

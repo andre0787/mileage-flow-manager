@@ -9,9 +9,9 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `feat/p1-08-task-card-schema`
-- **Último commit:** `338445f — docs: update handoff`
-- **Remote:** origin/feat/p1-08-task-card-schema
+- **Branch:** `main`
+- **Último commit:** `a7f2bc3` — Merge pull request #185 from andre0787/chore/p2-19-bundle-budgets
+- **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
@@ -19,14 +19,14 @@ Nenhum PR aberto.
 |---------|-------|
 | Total testes | 187 |
 | Docs issues | 0 |
-| Branch | feat/p1-08-task-card-schema |
+| Branch | main |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** feature
 **Objetivo:** Implementar P1-09 context pack
-**Status:** in_progress
+**Status:** done
 **Branch:** `feat/p1-08-task-card-schema`
 **Último commit:** 338445f — docs: update handoff
 **Docs carregados:** WORKFLOW.md, CONVENTIONS.md
@@ -39,5 +39,6 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Repositório tornado público (branch protection exige GitHub Free público)
 - Branch protection ativa: build-and-test required, 1 review, enforce_admins
 - PR #163 (P0-04/07/flake) e PR #164 (P0-06) mergeados e em produção ✅
+
 
 
