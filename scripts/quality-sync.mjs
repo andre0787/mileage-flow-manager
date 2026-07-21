@@ -23,7 +23,8 @@ function getRequiredChecks() {
         if (contexts.length === 0) return [];
         // ponytail: batch check last status for each required check via recent commits
         const recentSha = execSync("git rev-parse main", { encoding: "utf8" }).trim();
-        const checksOut = execSync(`gh api repos/${repo}/commits/${recentSha}/check-runs --paginate`, { encoding: "utf8" });
+        // ponytail: single page is enough for current scale; --paginate --slurp if > 30 checks
+        const checksOut = execSync(`gh api repos/${repo}/commits/${recentSha}/check-runs`, { encoding: "utf8" });
         const checks = JSON.parse(checksOut).check_runs || [];
         return contexts.map(name => {
             const match = checks.find(c => c.name === name);
@@ -53,6 +54,8 @@ for (const run of runs) {
 if (required.length > 0) {
     content += `
 ## Required Checks (proteção de main)
+> Status baseado no HEAD da main. Checks que só rodam em PR (ex: check-pr) aparecem como pendente.
+
 | Check | Status |
 |-------|--------|
 `;
