@@ -1,5 +1,5 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-07-20
+> ⏰ Última atualização: 2026-07-21
 > Anterior: 2026-07-20
 ---
 ## 🏗️ Projeto
@@ -9,24 +9,25 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `4ab8872 — docs: update HANDOFF`
-- **Remote:** origin/main
+- **Branch:** `feat/p2-21-metricas-programa`
+- **Último commit:** `48a92e1` — chore(P2-21): add metrics:collect shortcut
+- **Remote:** origin/feat/p2-21-metricas-programa
 ### 📋 PRs Abertos
+- #187 — feat(P2-21): metrics collection script
 - #186 — chore(P2-20): CI quality sync to QUALITY.md
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
 | Total testes | 187 |
 | Docs issues | 0 |
-| Branch | main |
+| Branch | feat/p2-21-metricas-programa |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** feature
 **Objetivo:** Continuar P2 (P2-21: Métricas)
-**Status:** in_progress
+**Status:** done
 **Branch:** `main`
 **Último commit:** 4ab8872 — docs: update HANDOFF
 **Docs carregados:** WORKFLOW.md, CONVENTIONS.md
@@ -39,6 +40,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Repositório tornado público (branch protection exige GitHub Free público)
 - Branch protection ativa: build-and-test required, 1 review, enforce_admins
 - PR #163 (P0-04/07/flake) e PR #164 (P0-06) mergeados e em produção ✅
+
 
 
 
