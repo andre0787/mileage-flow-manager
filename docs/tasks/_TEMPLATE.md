@@ -9,6 +9,7 @@
 | `estado` | pending \| planned \| implementing \| verified \| review \| done |
 | `origem` | veredito 2026-07-17, item #N |
 | `dependeDe` | [P?-NN, ...] |
+| `feedbackRef` | opcional — issue #NN de feedback de usuário |
 
 ## Objetivo
 <uma frase observável>
