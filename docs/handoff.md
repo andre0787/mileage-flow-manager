@@ -1,6 +1,6 @@
 # HANDOFF — MilesControl
 > ⏰ Última atualização: 2026-07-21
-> Anterior: 2026-07-20
+> Anterior: 2026-07-21
 ---
 ## 🏗️ Projeto
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
@@ -10,11 +10,10 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `feat/p2-21-metricas-programa`
-- **Último commit:** `48a92e1` — chore(P2-21): add metrics:collect shortcut
+- **Último commit:** `8652ee6` — Merge branch 'main' of https://github.com/andre0787/mileage-flow-manager into feat/p2-21-metricas-programa
 - **Remote:** origin/feat/p2-21-metricas-programa
 ### 📋 PRs Abertos
 - #187 — feat(P2-21): metrics collection script
-- #186 — chore(P2-20): CI quality sync to QUALITY.md
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
@@ -40,6 +39,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Repositório tornado público (branch protection exige GitHub Free público)
 - Branch protection ativa: build-and-test required, 1 review, enforce_admins
 - PR #163 (P0-04/07/flake) e PR #164 (P0-06) mergeados e em produção ✅
+
 
 
 
