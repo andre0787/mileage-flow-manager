@@ -53,9 +53,9 @@ Pré-requisito de tudo o que segue. Sem P0, qualquer protocolo de agente é só 
 | Card | Título | Estado |
 |------|--------|--------|
 | [P2-19](P2-19-budgets-bundle-tempo.md) | Budgets de bundle, tempo e flakiness | done ✅ |
-| [P2-20](P2-20-quality-consome-ci.md) | `QUALITY.md` consome resultados reais de CI | pending |
+| [P2-20](P2-20-quality-consome-ci.md) | `QUALITY.md` consome resultados reais de CI | done ✅ |
 | [P2-21](P2-21-metricas-programa.md) | Métricas: verde-na-1ª, retrabalho, skips, bypass | done ✅ |
-| [P2-22](P2-22-feedback-usuario-aceite.md) | Feedback de usuário como critério de aceite | pending |
+| [P2-22](P2-22-feedback-usuario-aceite.md) | Feedback de usuário como critério de aceite | done ✅ |
 
 ---
 

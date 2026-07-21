@@ -6,7 +6,7 @@
 | `categoria` | docs |
 | `onda` | P2 |
 | `baseBranch` | main |
-| `estado` | pending |
+| `estado` | done |
 | `origem` | veredito 2026-07-17, item #20 |
 | `dependeDe` | [P0-03] |
 
