@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `b8d7902` — chore: session end
+- **Último commit:** `4ab8872 — docs: update HANDOFF`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 - #186 — chore(P2-20): CI quality sync to QUALITY.md
@@ -25,10 +25,10 @@ Consulte as GitHub Issues para a lista atual.
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** feature
-**Objetivo:** Continuar roadmap P1
-**Status:** done
+**Objetivo:** Continuar P2 (P2-21: Métricas)
+**Status:** in_progress
 **Branch:** `main`
-**Último commit:** fed6ac8 — docs: update handoff
+**Último commit:** 4ab8872 — docs: update HANDOFF
 **Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
