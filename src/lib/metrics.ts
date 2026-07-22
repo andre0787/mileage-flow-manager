@@ -131,6 +131,8 @@ interface MetricEntry {
   amount: number;
   entryStatus?: string;
   milesGenerated?: number;
+  /** Se presente, esta entrada é uma transferência (não cria milhas novas) */
+  sourceAccountId?: string;
 }
 
 interface MetricOwner {
@@ -173,13 +175,17 @@ export function computeDashboardMetrics(
   const activeSales = filterActiveSales(sls);
 
   // ─── Fonte da verdade: entradas - vendas ───
-  // ponytail: transferências movem entre contas mas não afetam o total geral
   const totalMilesFromEntries = confirmedEntries.reduce(
     (sum, e) => sum + (e.milesGenerated ?? e.amount),
     0,
   );
+  // Transferências movem milhas entre contas, não criam milhas novas.
+  // Subtraímos o valor debitado (e.amount) da conta origem para evitar sobrecontagem.
+  const totalMilesFromTransfers = confirmedEntries
+    .filter((e) => e.sourceAccountId)
+    .reduce((sum, e) => sum + e.amount, 0);
   const totalMilesFromSales = activeSales.reduce((sum, s) => sum + s.milesUsed, 0);
-  const totalMiles = totalMilesFromEntries - totalMilesFromSales;
+  const totalMiles = totalMilesFromEntries - totalMilesFromTransfers - totalMilesFromSales;
 
   // Keep totalInvested from accounts (no per-sale proportional cost stored)
   // ponytail: if this diverges, a full reconcile from entries/sales is needed
@@ -204,7 +210,9 @@ export function computeDashboardMetrics(
     const d = new Date(e.date);
     return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
   });
-  const monthlyMilesIn = monthlyEntries.reduce((sum, e) => sum + e.amount, 0);
+  const monthlyMilesIn = monthlyEntries
+    .filter((e) => !e.sourceAccountId) // exclui transferências do mês
+    .reduce((sum, e) => sum + e.amount, 0);
 
   const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
   const prevMonthSales = filterSalesByMonth(
