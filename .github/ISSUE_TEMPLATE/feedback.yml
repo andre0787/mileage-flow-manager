@@ -1,0 +1,91 @@
+name: Feedback de usuário
+description: Relate sua experiência, sugestão ou problema encontrado no app
+title: "[Feedback] "
+labels: ["feedback"]
+assignees:
+  - andre0787
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por compartilhar seu feedback! Isso nos ajuda a melhorar o MilesControl.
+
+  - type: textarea
+    id: sintomas
+    attributes:
+      label: Sintomas / Descrição
+      description: O que você está experienciando? Seja claro e objetivo.
+      placeholder: "Ex: Ao inserir o valor do pagamento em milhas o formulário sai do controle no mobile..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproducao
+    attributes:
+      label: Passos para reproduzir
+      description: Como podemos reproduzir o que você descreveu?
+      placeholder: |
+        1. Vá até '...'
+        2. Clique em '...'
+        3. Role até '...'
+        4. Veja o problema
+      value: "1.\n2.\n3.\n4."
+
+  - type: textarea
+    id: esperado
+    attributes:
+      label: Resultado esperado
+      description: O que você esperava que acontecesse?
+      placeholder: "Ex: O formulário deveria ficar estável para preenchimento"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área do app
+      description: Onde isso ocorre?
+      options:
+        - Dashboard
+        - Estoque / Saldo
+        - Entradas
+        - Vendas
+        - Contas / Programas
+        - Configurações
+        - Mobile (geral)
+        - Outro
+    validations:
+      required: true
+
+  - type: dropdown
+    id: dispositivo
+    attributes:
+      label: Dispositivo
+      options:
+        - Desktop
+        - Mobile (celular)
+        - Tablet
+        - Não se aplica
+    validations:
+      required: true
+
+  - type: input
+    id: navegador
+    attributes:
+      label: Navegador
+      description: Qual navegador você está usando?
+      placeholder: "Ex: Chrome 120, Safari 17"
+
+  - type: textarea
+    id: evidencias
+    attributes:
+      label: Evidências
+      description: Prints, vídeos ou logs que ajudem a entender o problema.
+      placeholder: "Arraste prints aqui ou cole links de vídeo/host"
+
+  - type: textarea
+    id: contexto
+    attributes:
+      label: Informações adicionais
+      description: Qualquer outra coisa que possa ajudar.
+      placeholder: "Ex: Isso acontece desde a atualização X, só em conta Y..."
