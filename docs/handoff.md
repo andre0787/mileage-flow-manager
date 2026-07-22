@@ -9,17 +9,17 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `fix/dashboard-owner-data`
-- **Último commit:** `0de1fdd` — chore: normalize report prefix to PR194
+- **Branch:** `chore/force-deploy-cleanup`
+- **Último commit:** `cbef898` — chore: trigger deploy
 - **Remote:** no remote
 ### 📋 PRs Abertos
-- #194 — fix: dashboard não contava transferências no cálculo de totalMiles
+Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
 | Total testes | 187 |
 | Docs issues | 0 |
-| Branch | fix/dashboard-owner-data |
+| Branch | chore/force-deploy-cleanup |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
@@ -39,6 +39,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Repositório tornado público (branch protection exige GitHub Free público)
 - Branch protection ativa: build-and-test required, 1 review, enforce_admins
 - PR #163 (P0-04/07/flake) e PR #164 (P0-06) mergeados e em produção ✅
+
 
 
 
