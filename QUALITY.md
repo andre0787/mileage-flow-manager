@@ -82,10 +82,17 @@ Esta seção reflete o estado atual dos checks de CI (autenticado via GitHub CLI
 ## Últimas Execuções de CI
 | Workflow | Status | URL |
 |----------|--------|-----|
-| Deploy | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29765098950) |
-| Normalize Reports | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29765098934) |
-| Auto Merge | failure | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29762474777) |
-| CI — PR Check | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29762472357) |
-| Auto Merge | failure | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29762465603) |
+| CI — PR Check | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29829208429) |
+| Normalize PR Report | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29829208403) |
+| Normalize PR Report | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29829205526) |
+| CI — PR Check | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29829205384) |
+| Normalize PR Report | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29829202300) |
+
+## Required Checks (proteção de main)
+> Status baseado no HEAD da main. Checks que só rodam em PR (ex: check-pr) aparecem como pendente.
+
+| Check | Status |
+|-------|--------|
+| check-pr | ⏳ pending |
 
 <!-- CI-RUNS-END -->
