@@ -3,11 +3,28 @@
 > Anterior: 2026-07-21
 ---
 ## 🏗️ Projeto
+
+> ⏰ Snapshot atualizado em: 2026-07-22
+
+### 🏗️ Projeto
+
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
-**Workflow:** session:start → categoria → implementação → pre-pr → PR
+**Regras críticas:** branch obrigatória, pre-pr c/ relatório, git status ZERO, lazy loading por categoria
+**Workflow:** session:start → categoria → carregar docs → council (se feature) → build → pre-pr → PR
+
 ### 🐞 Bugs Abertos
-Consulte as GitHub Issues para a lista atual.
+
+- nenhum | [ver todos → Issues](https://github.com/andreluiz0787/mileage-flow-manager/issues)
+
+### 📋 Commits Recentes
+
+```
+43124a7 Merge pull request #190 from andre0787/docs/roadmap-p2-update
+537157d docs: mark P2-20 and P2-22 as done on roadmap
+997b0e0 Merge pull request #189 from andre0787/feat/p2-22-feedback-usuario-aceite
+```
+
 ## 🧭 Estado Atual
 - **Branch:** `feat/p2-21-metricas-programa`
 - **Último commit:** `8652ee6` — Merge branch 'main' of https://github.com/andre0787/mileage-flow-manager into feat/p2-21-metricas-programa

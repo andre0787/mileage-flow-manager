@@ -29,6 +29,20 @@ jobs:
       - name: Nightly check (fast + build + E2E + quality)
         run: npm run check:nightly
 
+      - name: Create PR with QUALITY.md update
+        if: always()
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore: atualiza QUALITY.md (nightly)"
+          title: "📊 Atualização noturna QUALITY.md"
+          body: |
+            Atualização automática das métricas de qualidade.
+            Gerado por `npm run check:nightly`.
+          branch: chore/quality-nightly-update
+          delete-branch: true
+          labels: automated, docs
+          add-paths: QUALITY.md
+
       - name: Upload E2E report
         if: always()
         uses: actions/upload-artifact@v4
