@@ -6,7 +6,7 @@
 | `categoria` | chore |
 | `onda` | P3 |
 | `baseBranch` | main |
-| `estado` | pending |
+| `estado` | done ✅ |
 | `origem` | auditoria ponytail 2026-07-22, item #2 |
 | `dependeDe` | — |
 | `feedbackRef` | — |
@@ -31,10 +31,10 @@ const entryDocs = ["...", "CHANGELOG.md", ...];
 - `scripts/verify-docs.mjs`
 
 ## Critérios de aceite
-- [ ] `CHANGELOG.md` deletado
-- [ ] `scripts/verify-docs.mjs:170` — `"CHANGELOG.md"` removido da array `entryDocs`
-- [ ] `npm run verify-docs` passa sem CHANGELOG.md
-- [ ] `npm run check:fast` passa
+- [x] `CHANGELOG.md` deletado
+- [x] `scripts/verify-docs.mjs:170` — `"CHANGELOG.md"` removido da array `entryDocs`
+- [x] `npm run verify-docs` passa (0 issues)
+- [x] `npm run check:fast` passa
 
 ## Riscos / Invariantes
 - `verify-docs.mjs` é o único validador que lista entry docs. Remover da array é suficiente.

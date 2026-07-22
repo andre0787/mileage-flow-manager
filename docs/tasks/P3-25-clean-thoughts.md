@@ -24,15 +24,17 @@ Converter o único pensamento stale em `docs/thoughts/` para GitHub Issue e remo
 A pasta é funcional — o script `scripts/think.mjs` salva novas ideias lá, e `verify-docs.mjs` já a ignora (`line 29`). O pensamento único é de Jul 11 e nunca foi consumido. Deve virar GitHub Issue (se ainda relevante) ou ser deletado.
 
 ## Arquivos permitidos
-- `docs/thoughts/2026-07-11-bot-o-de-entrada-sinalizar-apenas-atrasadas-ao-inv-s-de-pend.md`
-- `docs/IDEIAS.md` (se mover para pendentes)
+- `docs/IDEIAS.md`
 - GitHub Issues (via `gh` CLI)
 
+> Nota: o arquivo de thoughts foi removido conforme o plano (conteúdo convertido para Issue #197).
+
 ## Critérios de aceite
-- [ ] Pensamento avaliado: se relevante → GitHub Issue com label `enhancement`; se irrelevante → só deletar
-- [ ] Arquivo `.md` removido de `docs/thoughts/`
-- [ ] Se virou issue: adicionar referência em `docs/IDEIAS.md` → Pendentes
-- [ ] `npm run verify-docs` passa (verify-docs já ignora `docs/thoughts/`)
+- [x] Pensamento avaliado: relevante → GitHub Issue #197 com label `enhancement`
+- [x] Arquivo `.md` removido de `docs/thoughts/`
+- [x] Referência atualizada em `docs/IDEIAS.md` (Issue #197)
+- [ ] `npm run verify-docs` passa
+- [ ] `npm run check:fast` passa
 
 ## Riscos / Invariantes
 - Nenhum script depende de arquivos individuais dentro de `docs/thoughts/`. `verify-docs.mjs:29` já exime a pasta inteira.

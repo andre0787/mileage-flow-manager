@@ -98,6 +98,7 @@ const issues = [];
 console.log("\n🔗 Verificando links internos...\n");
 
 for (const { path: filePath, rel: fileRel } of allFiles) {
+  if (fileRel.startsWith("docs/archive/")) continue; // historical docs
   const content = readFileSync(filePath, "utf-8");
   const links = extractLinks(content, fileRel);
 
@@ -167,7 +168,7 @@ if (!quick) {
   }
 
   // Also mark MAIN docs as referenced (they're entry points)
-  const entryDocs = ["AGENTS.md", "CLAUDE.md", "QUALITY.md", "docs/handoff.md", "docs/memory.md", "README.md", "CHANGELOG.md", "docs/AGENDA.md", "docs/WORKFLOW.md", "docs/ARCHITECTURE.md", "docs/CONVENTIONS.md", "docs/MAP.md", "docs/STACK.md", "docs/GIT-WORKFLOW.md", "docs/UI-GUIDE.md", "docs/TESTING.md", "docs/TEST-PLAN.md", "docs/MAPA-EXPERIENCIAS-USUARIO.md"]; 
+    const entryDocs = ["AGENTS.md", "CLAUDE.md", "QUALITY.md", "docs/handoff.md", "docs/memory.md", "README.md", "docs/AGENDA.md", "docs/WORKFLOW.md", "docs/ARCHITECTURE.md", "docs/CONVENTIONS.md", "docs/MAP.md", "docs/STACK.md", "docs/GIT-WORKFLOW.md", "docs/UI-GUIDE.md", "docs/TESTING.md", "docs/TEST-PLAN.md", "docs/MAPA-EXPERIENCIAS-USUARIO.md"]; 
   for (const d of entryDocs) {
     if (filePaths.has(d)) referenced.add(d);
   }

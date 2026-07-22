@@ -6,7 +6,7 @@
 | `categoria` | chore |
 | `onda` | P3 |
 | `baseBranch` | main |
-| `estado` | pending |
+| `estado` | done ✅ |
 | `origem` | auditoria ponytail 2026-07-22, item #1 |
 | `dependeDe` | — |
 | `feedbackRef` | — |
@@ -22,29 +22,18 @@ Remover 5 arquivos obsoletos de `docs/archive/` que o próprio `MAP.md` já clas
 ## Contexto
 `docs/MAP.md:96` lista 5 arquivos como "artefatos obsoletos" mas eles nunca foram deletados:
 
-| Arquivo | Tamanho | Motivo |
-|---------|---------|--------|
-| `docs/archive/AVALIAR_ITENS_BUG_E_MELHORIA_HUMANO.md` | 0 bytes | Vazio, nunca preenchido |
-| `docs/archive/progress.md` | 1.1KB | Progresso do redesign visual (entregue em Jul 5) |
-| `docs/archive/task_plan.md` | 1.8KB | Plano do redesign visual (implementado) |
-| `docs/archive/SPRINT5-QUICKSTART.md` | 3.8KB | Guia da Sprint 5 (9 sprints atrás) |
-| `docs/archive/mobile-ios-notes.md` | 2.6KB | Notas iOS, todos os itens marcados "Já ajustado" |
-
-Nenhum script ou doc referencia esses arquivos (fora o MAP.md).
+Os 5 arquivos foram deletados conforme planejado. Nenhum script ou doc os referenciava (fora o MAP.md, que foi atualizado).
 
 ## Arquivos permitidos
-- `docs/archive/AVALIAR_ITENS_BUG_E_MELHORIA_HUMANO.md`
-- `docs/archive/progress.md`
-- `docs/archive/task_plan.md`
-- `docs/archive/SPRINT5-QUICKSTART.md`
-- `docs/archive/mobile-ios-notes.md`
 - `docs/MAP.md`
 
+> Nota: os 5 arquivos (`AVALIAR_ITENS_BUG_E_MELHORIA_HUMANO.md`, `progress.md`, `task_plan.md`, `SPRINT5-QUICKSTART.md`, `mobile-ios-notes.md`) foram deletados conforme o plano.
+
 ## Critérios de aceite
-- [ ] Os 5 arquivos foram deletados do disco
-- [ ] `docs/MAP.md` não referencia mais os 5 arquivos como obsoletos (substituir por "Nenhum — todos removidos")
-- [ ] `npm run verify-docs` passa (não quebra por arquivos removidos do archive)
-- [ ] `git status` limpo
+- [x] Os 5 arquivos foram deletados do disco
+- [x] `docs/MAP.md` não referencia mais os 5 arquivos como obsoletos (substituir por "Nenhum — todos removidos")
+- [x] `npm run verify-docs` passa (0 issues)
+- [x] `git status` limpo
 
 ## Riscos / Invariantes
 - `verify-docs.mjs` não lista arquivos individuais do archive — só a pasta `docs/archive/` é ignorada. Não deve quebrar.

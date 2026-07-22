@@ -69,7 +69,7 @@ Artefatos de sprints/features concluídos foram movidos para `docs/archive/`:
 | `docs/archive/specs/` | 19 specs de features já implementadas |
 | `docs/archive/plans/` | 9 planos de features já implementadas |
 | `docs/archive/council/` | 10 vereditos de decisões concluídas |
-| `docs/archive/` raiz | 5 artefatos obsoletos (SPRINT5-QUICKSTART, mobile-ios-notes, progress.md, task_plan.md, AVALIAR_ITENS_BUG_E_MELHORIA_HUMANO.md) |
+| `docs/archive/` raiz | Nenhum — todos removidos |
 
 ## Regra de Ouro
 
