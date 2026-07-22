@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-07-11
-> Último commit: c614263-Sprint B — Limpeza & Confiabilidade 🧹
+> Gerado em: 2026-07-22
+> Último commit: 43124a7-Merge pull request #190 from andre0787/docs/roadmap-p2-update
 
 ## Pipeline
 
@@ -15,60 +15,31 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 45 |
+| Unit | 124 |
 | E2E  | 63 |
-| **Total** | **108** |
+| **Total** | **187** |
 
 ## Bundle
 
 | Métrica | Valor |
 |---------|-------|
-| Tamanho (dist) | 1369kB |
+| Tamanho (dist) | 1392kB |
 
 ## Documentação
 
 | Métrica | Valor |
 |---------|-------|
-| Arquivos .md | 62 |
-| Arquivados | 43 |
-| Issues (verify-docs) | 1 |
+| Arquivos .md | 123 |
+| Arquivados | 44 |
+| Issues (verify-docs) | 0 |
 
-### 🔴 Issues de Documentação
-
-```
-
-🔗 Verificando links internos...
-
-═══════════════════════════════════════════
-  verify-docs.mjs — Relatório
-═══════════════════════════════════════════
-
-Total arquivos .md: 62
-Total issues:       9
-
-Por tipo:
-   broken-link: 9
-
-❌ Problemas encontrados:
-
-  🔗 docs/archive/plans/2026-07-09-modo-offline-plan.md:4 → link quebrado: "docs/superpowers/specs/2026-07-09-modo-offline-design.md" (texto: "docs/superpowers/specs/2026-07-09-modo-offline-design.md")
-  🔗 docs/archive/plans/2026-07-10-automacao-sprints-plan.md:3 → link quebrado: "docs/superpowers/specs/2026-07-10-automacao-sprints-design.md" (texto: "docs/superpowers/specs/2026-07-10-automacao-sprints-design.md")
-  🔗 docs/archive/plans/2026-07-10-automacao-sprints-plan.md:85 → link quebrado: "docs/SPRINT5-QUICKSTART.md" (texto: "docs/SPRINT5-QUICKSTART.md")
-  🔗 docs/archive/plans/2026-07-10-automacao-sprints-plan.md:86 → link quebrado: "docs/mobile-ios-notes.md" (texto: "docs/mobile-ios-notes.md")
-  🔗 docs/archive/plans/2026-07-10-automacao-sprints-plan.md:87 → link quebrado: "docs/progress.md" (texto: "docs/progress.md")
-  🔗 docs/archive/plans/2026-07-10-automacao-sprints-plan.md:88 → link quebrado: "docs/task_plan.md" (texto: "docs/task_plan.md")
-  🔗 docs/archive/plans/code-splitting-recharts.md:4 → link quebrado: "docs/superpowers/specs/code-splitting-recharts.md" (texto: "docs/superpowers/specs/code-splitting-recharts.md")
-  🔗 docs/archive/specs/2026-07-08-vendas-extract-components-design.md:165 → link quebrado: "docs/superpowers/specs/2026-07-08-entradas-refactor-design.md" (texto: "docs/superpowers/specs/2026-07-08-entradas-refactor-design.md")
-  🔗 docs/archive/specs/2026-07-09-modo-offline-design.md:81 → link quebrado: "docs/council/2026-07-09-modo-offline-veredito.md" (texto: "docs/council/2026-07-09-modo-offline-veredito.md")
-
-
-```
+### ✅ Documentação limpa — zero issues
 
 ## Histórico
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-07-11 | ✅ | 108 | 1369kB | 1 issues |
+| 2026-07-22 | ✅ | 187 | 1392kB | 0 issues |
 
 ---
 
@@ -82,11 +53,11 @@ Esta seção reflete o estado atual dos checks de CI (autenticado via GitHub CLI
 ## Últimas Execuções de CI
 | Workflow | Status | URL |
 |----------|--------|-----|
-| CI — PR Check | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29829208429) |
-| Normalize PR Report | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29829208403) |
-| Normalize PR Report | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29829205526) |
-| CI — PR Check | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29829205384) |
-| Normalize PR Report | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29829202300) |
+| Deploy | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29911886318) |
+| Normalize PR Report | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29911759210) |
+| CI — PR Check | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29911758964) |
+| Auto Merge | failure | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29911754549) |
+| Deploy | success | [Link](https://github.com/andre0787/mileage-flow-manager/actions/runs/29911746800) |
 
 ## Required Checks (proteção de main)
 > Status baseado no HEAD da main. Checks que só rodam em PR (ex: check-pr) aparecem como pendente.
