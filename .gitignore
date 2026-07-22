@@ -71,3 +71,6 @@ tests/fluxo-relatorio.md
 
 # Subagent artifacts
 .pi-subagents/
+
+# OpenCode AI extension artifacts
+.opencode/

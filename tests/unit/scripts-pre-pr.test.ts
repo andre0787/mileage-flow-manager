@@ -54,16 +54,16 @@ describe("pre-pr-check com controle de diff e git info", () => {
 
   it("deve passar livremente se houver diff de codigo + relatorio com nomenclatura valida (mesmo de data anterior)", () => {
     // Simulamos a data como 2026-07-25 (futuro)
-    // E fornecemos um relatório válido que existe na página 2026-07-18: PR159-2026-07-18-subagent-docs.html
+    // E fornecemos um relatório válido que existe na página 2026-07-22: PR195-2026-07-22-animated-number-stale.html
     const out = execSync(`node "${SCRIPT}" --strict`, {
       cwd: ROOT,
       env: {
         ...process.env,
-        PRE_PR_MOCK_DIFF: "src/components/ui/button.tsx,docs/reports/2026-07-18/PR159-2026-07-18-subagent-docs.html",
+        PRE_PR_MOCK_DIFF: "src/components/ui/button.tsx,docs/reports/2026-07-22/PR195-2026-07-22-animated-number-stale.html",
         PRE_PR_ONLY_RULES: "true",
         PRE_PR_ONLY_RULE: "rule-08,rule-17",
         REPO_INFO_MOCK_BRANCH: "feat/some-feat",
-        REPO_INFO_MOCK_PR: "159", // PR e prefixo corretos
+        REPO_INFO_MOCK_PR: "195", // PR e prefixo corretos
         REPO_INFO_MOCK_TODAY: "2026-07-25", // Data simulada no futuro
       },
       encoding: "utf8",
@@ -78,11 +78,11 @@ describe("pre-pr-check com controle de diff e git info", () => {
         cwd: ROOT,
         env: {
           ...process.env,
-          PRE_PR_MOCK_DIFF: "src/components/ui/button.tsx,docs/reports/2026-07-18/PR159-2026-07-18-subagent-docs.html",
+          PRE_PR_MOCK_DIFF: "src/components/ui/button.tsx,docs/reports/2026-07-22/PR195-2026-07-22-animated-number-stale.html",
           PRE_PR_ONLY_RULES: "true",
           PRE_PR_ONLY_RULE: "rule-08,rule-17",
           REPO_INFO_MOCK_BRANCH: "feat/some-feat",
-          REPO_INFO_MOCK_PR: "999", // PR number diferente do index (PR159)
+          REPO_INFO_MOCK_PR: "999", // PR number diferente do index (PR195)
           REPO_INFO_MOCK_TODAY: "2026-07-25",
         },
         encoding: "utf8",
