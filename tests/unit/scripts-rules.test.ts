@@ -154,8 +154,13 @@ describe("rule-02-grid", () => {
 
 describe("rule-04-branch", () => {
   it("deve passar (positiva: branch não é main)", () => {
-    const res = runRule("rule-04-branch.mjs");
-    expect(res.status).toBe(0);
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      execSync("git checkout -b feat/test-branch", { cwd: tmp, encoding: "utf8", timeout: 5000 });
+      const res = runRuleOnFixture("rule-04-branch.mjs", tmp);
+      expect(res.status).toBe(0);
+    } finally { cleanTempFixture(tmp); }
   });
 
   it("deve falhar (negativa: branch é main)", () => {
