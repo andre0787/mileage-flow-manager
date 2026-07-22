@@ -18,7 +18,7 @@
     },
     "onda": {
       "type": "string",
-      "enum": ["P0", "P1-A", "P1-B", "P2"],
+      "enum": ["P0", "P1-A", "P1-B", "P2", "P3"],
       "description": "Onda/prioridade do roadmap"
     },
     "baseBranch": {

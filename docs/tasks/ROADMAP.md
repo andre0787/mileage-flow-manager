@@ -57,11 +57,21 @@ Pré-requisito de tudo o que segue. Sem P0, qualquer protocolo de agente é só 
 | [P2-21](P2-21-metricas-programa.md) | Métricas: verde-na-1ª, retrabalho, skips, bypass | done ✅ |
 | [P2-22](P2-22-feedback-usuario-aceite.md) | Feedback de usuário como critério de aceite | done ✅ |
 
+### ⚪ P3 — Housekeeping (limpeza de artefatos obsoletos)
+
+| Card | Título | Estado |
+|------|--------|--------|
+| [P3-23](P3-23-delete-archive-debris.md) | Deletar 5 artefatos obsoletos do archive | pending ⏳ |
+| [P3-24](P3-24-retire-changelog.md) | Retirar CHANGELOG.md obsoleto + atualizar verify-docs | pending ⏳ |
+| [P3-25](P3-25-clean-thoughts.md) | Limpar docs/thoughts/ — converter pensamento stale em issue | pending ⏳ |
+
 ---
 
 ## Ordem de execução recomendada
 
-1. **P0 primeiro, em sequência.** P0-07 (drift) e P0-06 (branch protection) podem
+1. **P3 primeiro (independentes).** P3-23, P3-24 e P3-25 não dependem um do outro — podem rodar em qualquer ordem ou em paralelo.
+
+2. **P0 primeiro, em sequência.** P0-07 (drift) e P0-06 (branch protection) podem
    rodar em paralelo com o resto de P0; P0-03/04 dependem do P0-13 (`typecheck`)
    ser definido — trazer P1-13 para o início se necessário.
 2. **P1-A em seguida.** P1-08 (schema) é o alicerce de P1-09/10/11.
