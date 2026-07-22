@@ -30,22 +30,12 @@
 
 | Arquivo | Quando ler | O que contém |
 |---------|-----------|--------------|
-| [`docs/tasks/ROADMAP.md`](tasks/ROADMAP.md) | Antes de planejar trabalho de workflow/agente | Índice em 3 ondas (P0/P1/P2) de 22 task-cards para otimizar execução de modelo LLM menor |
+| [`docs/tasks/ROADMAP.md`](tasks/ROADMAP.md) | Antes de planejar trabalho de workflow/agente | Índice em 4 ondas (P0/P1/P2/P3) de 25 task-cards |
 | `docs/tasks/_TEMPLATE.md` | Ao criar novo task-card | Estrutura canônica do card (objetivo, arquivos permitidos, critérios de aceite, testes, evidência) |
 
-> **Coleção de task-cards** (`docs/tasks/`): 22 cards granulares rastreáveis ao veredito
-> do council de 2026-07-17. O índice navegável está em `tasks/ROADMAP.md`. Arquivos:
-> `P0-01-manifesto-workflow.md`, `P0-02-session-start-persiste-categoria.md`,
-> `P0-03-ci-check-strict.md`, `P0-04-remove-continue-on-error.md`,
-> `P0-05-pre-pr-diff-vazio.md`, `P0-06-branch-protection-main.md`,
-> `P0-07-resolve-drift-docs.md`, `P1-08-task-card-schema.md`, `P1-09-context-pack.md`,
-> `P1-10-regra-escopo-diff.md`, `P1-11-estados-workflow.md`,
-> `P1-12-skill-small-model-execution.md`, `P1-13-typecheck-script.md`,
-> `P1-14-check-fast-pr-nightly.md`, `P1-15-fixtures-negativas-regras.md`,
-> `P1-16-ast-regras-alto-risco.md`, `P1-17-invariantes-financeiras.md`,
-> `P1-18-e2e-estabiliza.md`, `P2-19-budgets-bundle-tempo.md`,
-> `P2-20-quality-consome-ci.md`, `P2-21-metricas-programa.md`,
-> `P2-22-feedback-usuario-aceite.md`.
+> **Coleção de task-cards** (`docs/tasks/`): 25 cards granulares em 4 ondas (P0/P1/P2/P3).
+> O índice navegável está em `docs/tasks/ROADMAP.md`. Cards P3 de housekeeping:
+> `P3-23-delete-archive-debris.md`, `P3-24-retire-changelog.md`, `P3-25-clean-thoughts.md`.
 
 ## Docs do Ecossistema
 
@@ -54,6 +44,7 @@
 | `STACK.md` (seção Agente) | Quando precisar de ferramentas do agente | pi, opencode, MCPs, plugins, skills, subagentes |
 | `docs/memory.md` | Contexto de sessões anteriores | Histórico de decisões, sprints, post-mortems |
 | `docs/IDEIAS.md` | Caixa de entrada de ideias | Ideias humanas pendentes, lidas no início da sessão |
+| `docs/FLUXO.md` | Diagramas do ecossistema | Flowcharts Mermaid: visão geral, fluxo de dados, rotas |
 | `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md` |
 | `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atual: `2026-07-16-ios-form-stability-design.md` |
 | `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atual: `2026-07-16-ios-form-stability.md` |

@@ -36,31 +36,32 @@
 </head>
 <body>
   <h1>📋 force deploy cleanup</h1>
-  <p class="meta">2026-07-22 18:55 &middot; chore/force-deploy-cleanup &middot; 6ad21b1 — docs: update handoff</p>
-  <p><span class="badge auto">auto</span> <span class="badge auto">force-deploy-cleanup</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+  <p class="meta">2026-07-22 18:58 &middot; chore/force-deploy-cleanup &middot; ac40a61 — docs: cria onda P3 de housekeeping (3 task cards + FLUXO.md)</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">force-deploy-cleanup</span> <span class="badge" style="background:#fee2e2;color:#991b1b">Alto Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">1</div>
+      <div style="font-size:1.5rem;font-weight:700">8</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+6</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+624</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-5</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-25</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~23</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~537</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
 
   <h2>✅ Checklist de Revisão</h2>
     <ul>
+      <li>🔷 Migração de banco aplicada?</li>
       <li>🧪 Testes manuais realizados?</li>
       <li>📋 Regras de validação passam? (npm run pre-pr)</li>
     </ul>
@@ -80,12 +81,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 5 remoções — 31 linhas tocadas</td>
-        <td>✨ 6 adições — 1 arquivo(s) alterado(s)</td>
+        <td>🧹 25 remoções — 716 linhas tocadas</td>
+        <td>✨ 624 adições — 8 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/handoff.md</td>
+        <td colspan="2"><span style="color:#166534;font-weight:600">➕</span> docs/FLUXO.md, docs/reports/2026-07-22/force-deploy-cleanup-2026-07-22-force-deploy-cleanup.html, docs/tasks/P3-23-delete-archive-debris.md<br><span style="color:#92400e;font-weight:600">✏️</span> docs/handoff.md, docs/task-card.schema.json<br><em>+3 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,68 +99,164 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>1</td></tr>
-    <tr><td>Adições</td><td>+6</td></tr>
-    <tr><td>Remoções</td><td>-5</td></tr>
-    <tr><td>Tokens estimados</td><td>~23</td></tr>
+    <tr><td>Arquivos alterados</td><td>8</td></tr>
+    <tr><td>Adições</td><td>+624</td></tr>
+    <tr><td>Remoções</td><td>-25</td></tr>
+    <tr><td>Tokens estimados</td><td>~537</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:22">+5 add</div>
-        <div class="del" style="flex:17">-4 del</div>
-        <div class="overhead" style="flex:61">~14 ctx</div>
+        <div class="add" style="flex:87">+468 add</div>
+        <div class="del" style="flex:4">-19 del</div>
+        <div class="overhead" style="flex:9">~50 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+5</td><td>22%</td></tr>
-      <tr><td>Remoções</td><td>-4</td><td>17%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~14</td><td>61%</td></tr>
-      <tr><th>Total</th><th>~23</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+468</td><td>87%</td></tr>
+      <tr><td>Remoções</td><td>-19</td><td>4%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~50</td><td>9%</td></tr>
+      <tr><th>Total</th><th>~537</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-    <tr><td>M</td><td>docs/handoff.md</td></tr>
+    <tr><td>A</td><td>docs/FLUXO.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-22/force-deploy-cleanup-2026-07-22-force-deploy-cleanup.html</td></tr>
+<tr><td>M</td><td>docs/task-card.schema.json</td></tr>
+<tr><td>A</td><td>docs/tasks/P3-23-delete-archive-debris.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P3-24-retire-changelog.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P3-25-clean-thoughts.md</td></tr>
+<tr><td>M</td><td>docs/tasks/ROADMAP.md</td></tr>
   </table>
 
   
 
   <h2>🔍 Diff</h2>
   <div class="diff">
-    diff --git a/docs/handoff.md b/docs/handoff.md
-index 13b9825..bc55fd0 100644
-<span class="del">--- a/docs/handoff.md</span>
-<span class="add">+++ b/docs/handoff.md</span>
-@@ -9,17 +9,17 @@
- ### 🐞 Bugs Abertos
- Consulte as GitHub Issues para a lista atual.
- ## 🧭 Estado Atual
-<span class="del">-- **Branch:** `fix/dashboard-owner-data`</span>
-<span class="del">-- **Último commit:** `0de1fdd` — chore: normalize report prefix to PR194</span>
-<span class="add">+- **Branch:** `chore/force-deploy-cleanup`</span>
-<span class="add">+- **Último commit:** `cbef898` — chore: trigger deploy</span>
- - **Remote:** no remote
- ### 📋 PRs Abertos
-<span class="del">-- #194 — fix: dashboard não contava transferências no cálculo de totalMiles</span>
-<span class="add">+Nenhum PR aberto.</span>
- ### 📊 Métricas (estimativa local)
- | Métrica | Valor |
- |---------|-------|
- | Total testes | 187 |
- | Docs issues | 0 |
-<span class="del">-| Branch | fix/dashboard-owner-data |</span>
-<span class="add">+| Branch | chore/force-deploy-cleanup |</span>
- 
- ---
- _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-@@ -47,3 +47,4 @@ Continue a tarefa ativa ou selecione o próximo task-card.
- 
- 
- 
+    diff --git a/docs/FLUXO.md b/docs/FLUXO.md
+new file mode 100644
+index 0000000..56e6afc
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/FLUXO.md</span>
+@@ -0,0 +1,253 @@
+<span class="add">+# Fluxograma do Projeto — MilesControl</span>
 <span class="add">+</span>
+<span class="add">+&gt; Diagrama geral do ecossistema: desenvolvimento + arquitetura + task system.</span>
+<span class="add">+&gt; Gerado em 2026-07-22.</span>
+<span class="add">+</span>
+<span class="add">+## Visão Geral</span>
+<span class="add">+</span>
+<span class="add">+```mermaid</span>
+<span class="add">+flowchart TB</span>
+<span class="add">+    subgraph Ecosistema["🌐 Ecossistema do Projeto"]</span>
+<span class="add">+        direction TB</span>
+<span class="add">+        </span>
+<span class="add">+        subgraph Dev["⚙️ Workflow de Desenvolvimento"]</span>
+<span class="add">+            direction TB</span>
+<span class="add">+            SS["npm run session:start</span>
+<span class="add">+📋 lê handoff.md + snapshot"]</span>
+<span class="add">+            CAT{"Qual categoria?"}</span>
+<span class="add">+            CAT --&gt;|feature| F["WORKFLOW.md</span>
+<span class="add">++ CONVENTIONS.md</span>
+<span class="add">+(council → build)"]</span>
+<span class="add">+            CAT --&gt;|bugfix| BUG["DEBUG.md</span>
+<span class="add">++ CONVENTIONS.md</span>
+<span class="add">+(triagem → fix)"]</span>
+<span class="add">+            CAT --&gt;|docs| DOCS["só AGENTS.md</span>
+<span class="add">+(editar → pre-pr)"]</span>
+<span class="add">+            CAT --&gt;|refactor| REF["CONVENTIONS.md</span>
+<span class="add">++ ARCHITECTURE.md</span>
+<span class="add">+(spec → build)"]</span>
+<span class="add">+            CAT --&gt;|chore| CHORE["só AGENTS.md</span>
+<span class="add">+(executar → pre-pr)"]</span>
+<span class="add">+            </span>
+<span class="add">+            F --&gt; COUNCIL{"LLM Council?</span>
+<span class="add">+(trigger se dúvida</span>
+<span class="add">+design/risco)"}</span>
+<span class="add">+            COUNCIL --&gt;|decidir| BRAIN["🧠 Brainstorming</span>
+<span class="add">+→ docs/superpowers/specs/"]</span>
+<span class="add">+            COUNCIL --&gt;|pular| PLAN["📝 Plano</span>
+<span class="add">+→ docs/superpowers/plans/"]</span>
+<span class="add">+            BRAIN --&gt; PLAN</span>
+<span class="add">+            </span>
+<span class="add">+            PLAN --&gt; BRANCH["🌿 Branch:</span>
+<span class="add">+feat|fix|docs|chore/&lt;nome&gt;"]</span>
+<span class="add">+            BRANCH --&gt; IMPL["👨‍💻 Implementação</span>
+<span class="add">+Serena-First navigation</span>
+<span class="add">+TDD (red→green→refactor)"]</span>
+<span class="add">+            </span>
+<span class="add">+            IMPL --&gt; PREREP["📊 npm run pre-pr</span>
+<span class="add">+(relatório HTML automático)</span>
+<span class="add">++ git status ZERO"]</span>
+<span class="add">+            PREREP --&gt; PR["🔀 Pull Request → main</span>
+<span class="add">+npm run report --write</span>
+<span class="add">++ CI (build+test+E2E)"]</span>
+<span class="add">+            PR --&gt; MERGE["✅ Merge</span>
+<span class="add">+git squash + handoff"]</span>
+<span class="add">+            MERGE --&gt; DEPLOY["🚀 Deploy Automático</span>
+<span class="add">+Vercel</span>
+<span class="add">+mileage-flow-manager.vercel.app"]</span>
+<span class="add">+        end</span>
+<span class="add">+</span>
+<span class="add">+        subgraph Tasks["📋 Sistema de Tasks"]</span>
+<span class="add">+            direction TB</span>
+<span class="add">+            ROADMAP["docs/tasks/ROADMAP.md</span>
+<span class="add">+3 ondas de evolução"]</span>
+<span class="add">+            </span>
+<span class="add">+            ROADMAP --&gt; P0["🟠 P0 — Confiança</span>
+<span class="add">+(8 cards, done ✅)</span>
+<span class="add">+workflow + CI + git"]</span>
+<span class="add">+            ROADMAP --&gt; P1A["🔵 P1-A — Contrato</span>
+<span class="add">+(5 cards, done ✅)</span>
+<span class="add">+schema + estados + escopo"]</span>
+<span class="add">+            ROADMAP --&gt; P1B["🔵 P1-B — Testes</span>
+<span class="add">+(6 cards, done ✅)</span>
+<span class="add">+typecheck + invariants + e2e"]</span>
+<span class="add">+            ROADMAP --&gt; P2["🟢 P2 — Feedback</span>
+<span class="add">+(4 cards, done ✅)</span>
+<span class="add">+métricas + qualidade"]</span>
+<span class="add">+            </span>
+<span class="add">+            P0 --&gt; TC["📄 Cada card =</span>
+<span class="add">+docs/tasks/P?-NN-*.md</span>
+<span class="add">+com template canônico</span>
+<span class="add">+_TEMPLATE.md"]</span>
+<span class="add">+            P1A --&gt; TC</span>
+<span class="add">+            P1B --&gt; TC</span>
+<span class="add">+            P2 --&gt; TC</span>
+<span class="add">+            </span>
+<span class="add">+            TC --&gt; ESTADOS{"Estados do card"}</span>
+<span class="add">+            ESTADOS --&gt;|pending| PLANNED["planned</span>
+<span class="add">+(branch + plano)"]</span>
+<span class="add">+            ESTADOS --&gt;|planned| IMPL2["implementing</span>
+<span class="add">+(código)"]</span>
+<span class="add">+            ESTADOS --&gt;|implementing| VERIFIED["verified</span>
+<span class="add">+(testes + pre-pr)"]</span>
+<span class="add">+            ESTADOS --&gt;|verified| REVIEW["review</span>
+<span class="add">+(PR aberto)"]</span>
+<span class="add">+            ESTADOS --&gt;|review| DONE["done</span>
+<span class="add">+(mergeado main)"]</span>
+<span class="add">+            ESTADOS --&gt;|blocked| PENDING["pending</span>
+<span class="add">+(após resolver)"]</span>
+<span class="add">+        end</span>
+<span class="add">+</span>
+<span class="add">+        subgraph App["🏗️ Arquitetura da App"]</span>
+<span class="add">+            direction TB</span>
+<span class="add">+            </span>
+<span class="add">+            subgraph Frontend["React + Vite + Tailwind"]</span>
+<span class="add">+                PAGES["📱 Páginas</span>
+<span class="add">+Dashboard | Entradas | Vendas</span>
+<span class="add">+Contas | Clientes | ControleCPF</span>
+<span class="add">+Relatorios | Configuracoes</span>
+<span class="add">+Perfil | Login | NotFound"]</span>
+<span class="add">+                </span>
+<span class="add">+                COMP["🧩 Componentes</span>
+<span class="add">+MetricCard | AltitudeBar</span>
+<span class="add">+FlowMap | FormDrawer</span>
+<span class="add">+AppSidebar | BottomTabBar</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>

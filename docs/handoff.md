@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** (pendente — alterações não commitadas)
+- **Branch:** `chore/force-deploy-cleanup`
+- **Último commit:** `ac40a61` — docs: cria onda P3 de housekeeping (3 task cards + FLUXO.md)
 - **Remote:** origin
 ### 📋 PRs Abertos
 Nenhum PR aberto.
