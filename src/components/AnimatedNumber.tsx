@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 interface AnimatedNumberProps {
   value: number;
@@ -6,13 +6,9 @@ interface AnimatedNumberProps {
 
 export function AnimatedNumber({ value }: AnimatedNumberProps) {
   const [count, setCount] = useState(0);
-  const startedRef = useRef(false);
   const duration = 800;
 
   useEffect(() => {
-    if (startedRef.current) return;
-    startedRef.current = true;
-
     const startTime = performance.now();
     const animate = (now: number) => {
       const elapsed = now - startTime;
@@ -21,8 +17,9 @@ export function AnimatedNumber({ value }: AnimatedNumberProps) {
       setCount(Math.round(value * eased));
       if (progress < 1) requestAnimationFrame(animate);
     };
-    requestAnimationFrame(animate);
-  }, [value, duration]);
+    const raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
+  }, [value]);
 
   return <>{count.toLocaleString("pt-BR")}</>;
 }

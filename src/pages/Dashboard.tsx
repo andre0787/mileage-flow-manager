@@ -466,7 +466,7 @@ export default function Dashboard() {
 
               <BalanceReconcileBanner
                 computedTotal={currentMetrics.totalMiles}
-                accounts={milhasAccounts}
+                accounts={selectedOwner ? filteredAccounts : milhasAccounts}
               />
 
               <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
@@ -820,7 +820,7 @@ export default function Dashboard() {
 
               <BalanceReconcileBanner
                 computedTotal={currentMetrics.totalMiles}
-                accounts={pontosAccounts}
+                accounts={selectedOwner ? filteredAccounts : pontosAccounts}
               />
 
               <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8">
