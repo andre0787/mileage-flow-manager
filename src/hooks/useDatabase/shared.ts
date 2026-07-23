@@ -24,11 +24,12 @@ export function generateRecurringEntries(
   let cursor = new Date(startDate);
   while (cursor < end) {
     // ponytail: month-based math quando recurrenceDayOfMonth está presente (novo),
-    // fallback para intervalDays (legado) quando ausente
+    // fallback para intervalDays (legado) quando ausente.
+    // Usa UTC para consistência com datas ISO (YYYY-MM-DD).
     if (recurrenceDayOfMonth) {
       const monthsMap: Record<number, number> = { 30: 1, 90: 3, 180: 6, 365: 12 };
       const months = monthsMap[intervalDays] ?? 1;
-      cursor.setMonth(cursor.getMonth() + months);
+      cursor.setUTCMonth(cursor.getUTCMonth() + months);
     } else {
       cursor = new Date(cursor.getTime() + intervalDays * 24 * 60 * 60 * 1000);
     }

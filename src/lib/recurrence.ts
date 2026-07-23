@@ -35,13 +35,14 @@ export function calculateRecurrence(
   const type = form.recurrenceType as "monthly" | "quarterly" | "semiannual" | "annual";
   const monthsMap = { monthly: 1, quarterly: 3, semiannual: 6, annual: 12 };
   const monthsPerPeriod = monthsMap[type];
+  // ponytail: usar UTC para evitar off-by-one em timezones negativos (ex: Brasil UTC-3)
   const startDate = new Date(form.date);
   const endDate = new Date(startDate);
-  endDate.setMonth(endDate.getMonth() + monthsPerPeriod * form.recurrenceCount);
+  endDate.setUTCMonth(endDate.getUTCMonth() + monthsPerPeriod * form.recurrenceCount);
   return {
     recurrenceInterval: 30, // mantido para compatibilidade com dados legados
     recurrenceEnd: endDate.toISOString().split("T")[0],
     recurrenceValueMode: form.recurrenceValueMode,
-    recurrenceDayOfMonth: startDate.getDate(),
+    recurrenceDayOfMonth: startDate.getUTCDate(),
   };
 }

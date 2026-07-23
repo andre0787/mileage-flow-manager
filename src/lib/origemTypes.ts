@@ -34,7 +34,8 @@ export function buildMonthlyRecurrence(
   }
 
   const endDate = new Date();
-  endDate.setMonth(endDate.getMonth() + parsedMonths);
+  // ponytail: UTC para consistência com datas ISO
+  endDate.setUTCMonth(endDate.getUTCMonth() + parsedMonths);
   return {
     recurrenceInterval: 30,
     recurrenceEnd: endDate.toISOString().split("T")[0],

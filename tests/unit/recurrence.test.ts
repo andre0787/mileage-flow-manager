@@ -27,11 +27,14 @@ describe("calculateRecurrence", () => {
     };
     const result = calculateRecurrence(form);
     expect(result).toHaveProperty("recurrenceInterval", 30);
+    const start = new Date(form.date);
+    const dayOfMonth = start.getUTCDate();
+    expect(result).toHaveProperty("recurrenceDayOfMonth", dayOfMonth);
     expect(typeof result.recurrenceEnd).toBe("string");
     const end = new Date(result.recurrenceEnd!);
-    const start = new Date(form.date);
-    const diffDays = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
-    expect(diffDays).toBeCloseTo(30 * 3, 0);
+    // 3 meses (Jan 1 → Apr 1 UTC)
+    expect(end.getUTCMonth()).toBe((start.getUTCMonth() + 3) % 12);
+    expect(end.getUTCDate()).toBe(dayOfMonth);
   });
 
   test("returns correct quarterly recurrence", () => {
@@ -42,12 +45,16 @@ describe("calculateRecurrence", () => {
       recurrenceType: "quarterly",
     };
     const result = calculateRecurrence(form);
-    expect(result).toHaveProperty("recurrenceInterval", 90);
+    // ponytail: recurrenceInterval é sempre 30 para compatibilidade legada
+    expect(result).toHaveProperty("recurrenceInterval", 30);
+    const start = new Date(form.date);
+    const dayOfMonth = start.getUTCDate();
+    expect(result).toHaveProperty("recurrenceDayOfMonth", dayOfMonth);
     expect(typeof result.recurrenceEnd).toBe("string");
     const end = new Date(result.recurrenceEnd!);
-    const start = new Date(form.date);
-    const diffDays = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
-    expect(diffDays).toBeCloseTo(90 * 2, 0);
+    // 2 trimestres = 6 meses (Jan 1 → Jul 1 UTC)
+    expect(end.getUTCMonth()).toBe((start.getUTCMonth() + 6) % 12);
+    expect(end.getUTCDate()).toBe(dayOfMonth);
   });
 
   test("falls back to clube recurrence when isRecurrent false", () => {
@@ -60,11 +67,13 @@ describe("calculateRecurrence", () => {
     const result = calculateRecurrence(form);
     expect(result).toHaveProperty("recurrenceInterval", 30);
     expect(typeof result.recurrenceEnd).toBe("string");
-    // Should be approx 6 months from now (approx 180 days)
+    // Clube usa setUTCMonth: 6 meses a partir de hoje
     const end = new Date(result.recurrenceEnd!);
-    const start = new Date(); // Note: clube uses Date.now()
-    const diffDays = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
-    expect(diffDays).toBeGreaterThan(175);
-    expect(diffDays).toBeLessThan(185);
+    const start = new Date();
+    const diffMonths =
+      (end.getUTCFullYear() - start.getUTCFullYear()) * 12 +
+      end.getUTCMonth() -
+      start.getUTCMonth();
+    expect(diffMonths).toBe(6);
   });
 });
