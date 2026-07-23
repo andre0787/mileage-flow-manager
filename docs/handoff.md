@@ -1,6 +1,6 @@
 # HANDOFF — MilesControl
 > ⏰ Última atualização: 2026-07-23
-> Anterior: 2026-07-22
+> Anterior: 2026-07-23
 ---
 ## 🏗️ Projeto
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `2ec3f62` — Merge branch 'main' of https://github.com/andre0787/mileage-flow-manager
+- **Último commit:** `ff2ac05` — Merge branch 'main' of https://github.com/andre0787/mileage-flow-manager
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -43,6 +43,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   - Deletar GIT-WORKFLOW.md (conteúdo único do projeto)
   - Consolidar TEST-PLAN.md/TESTING.md (propósitos diferentes)
   - Deletar CI-PROCESS.md (inofensivo)
+
 
 
 
