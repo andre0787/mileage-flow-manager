@@ -20,6 +20,7 @@ export function calculateRecurrence(
   recurrenceInterval?: number;
   recurrenceEnd?: string;
   recurrenceValueMode?: "split" | "repeat";
+  recurrenceDayOfMonth?: number;
 } {
   // If recurrence not enabled, fallback to clube (legacy) behavior
   if (!form.isRecurrent) {
@@ -32,15 +33,16 @@ export function calculateRecurrence(
   }
 
   const type = form.recurrenceType as "monthly" | "quarterly" | "semiannual" | "annual";
-  const intervalMap = { monthly: 30, quarterly: 90, semiannual: 180, annual: 365 };
-  const interval = intervalMap[type];
+  const monthsMap = { monthly: 1, quarterly: 3, semiannual: 6, annual: 12 };
+  const monthsPerPeriod = monthsMap[type];
+  // ponytail: usar UTC para evitar off-by-one em timezones negativos (ex: Brasil UTC-3)
   const startDate = new Date(form.date);
-  const endDate = new Date(
-    startDate.getTime() + interval * 24 * 60 * 60 * 1000 * form.recurrenceCount,
-  );
+  const endDate = new Date(startDate);
+  endDate.setUTCMonth(endDate.getUTCMonth() + monthsPerPeriod * form.recurrenceCount);
   return {
-    recurrenceInterval: interval,
+    recurrenceInterval: 30, // mantido para compatibilidade com dados legados
     recurrenceEnd: endDate.toISOString().split("T")[0],
     recurrenceValueMode: form.recurrenceValueMode,
+    recurrenceDayOfMonth: startDate.getUTCDate(),
   };
 }
