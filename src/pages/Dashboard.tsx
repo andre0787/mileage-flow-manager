@@ -405,8 +405,8 @@ export default function Dashboard() {
                 {overdueEntries.length > 1 ? "s" : ""} — confirmação vencida
               </p>
               <p className="text-xs text-red-700 dark:text-red-400 mt-0.5">
-                Clube de {activeTab === "milhas" ? "Milhas" : "Pontos"} — regularize em Entradas para
-                atualizar o saldo
+                Clube de {activeTab === "milhas" ? "Milhas" : "Pontos"} — regularize em Entradas
+                para atualizar o saldo
               </p>
             </div>
             <Button
@@ -429,7 +429,8 @@ export default function Dashboard() {
             <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-amber-800 dark:text-amber-300">
-                {activePendingEntries.length} entrada{activePendingEntries.length > 1 ? "s" : ""} pendente
+                {activePendingEntries.length} entrada{activePendingEntries.length > 1 ? "s" : ""}{" "}
+                pendente
                 {activePendingEntries.length > 1 ? "s" : ""} de confirmação
               </p>
               <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
