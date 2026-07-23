@@ -25,6 +25,20 @@ export class ErrorBoundary extends Component<Props, State> {
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     this.setState({ errorInfo });
     console.error("[ErrorBoundary]", error, errorInfo);
+    // Persiste o erro no localStorage para debug após reload
+    try {
+      localStorage.setItem(
+        "mc_error_boundary",
+        JSON.stringify({
+          message: error.message,
+          stack: error.stack,
+          componentStack: errorInfo.componentStack,
+          time: new Date().toISOString(),
+        }),
+      );
+    } catch {
+      // localStorage pode falhar em alguns ambientes (private browsing)
+    }
   }
 
   handleRetry = () => {
