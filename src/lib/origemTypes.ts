@@ -33,10 +33,11 @@ export function buildMonthlyRecurrence(
     return { recurrenceInterval: 30 };
   }
 
+  const endDate = new Date();
+  // ponytail: UTC para consistência com datas ISO
+  endDate.setUTCMonth(endDate.getUTCMonth() + parsedMonths);
   return {
     recurrenceInterval: 30,
-    recurrenceEnd: new Date(Date.now() + parsedMonths * 30 * 24 * 60 * 60 * 1000)
-      .toISOString()
-      .split("T")[0],
+    recurrenceEnd: endDate.toISOString().split("T")[0],
   };
 }

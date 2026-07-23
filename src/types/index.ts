@@ -98,6 +98,8 @@ export interface PointEntry {
   recurrenceEnd?: string;
   /** Modo de distribuição dos valores nas recorrências: split (divide) ou repeat (repete) */
   recurrenceValueMode?: "split" | "repeat";
+  /** Dia do mês para recorrências (ex: 15 para sempre cair no dia 15) */
+  recurrenceDayOfMonth?: number;
   date: string;
   description?: string;
 }
@@ -111,6 +113,7 @@ export function serializeDescription(opts: {
   recurrenceInterval?: number;
   recurrenceEnd?: string;
   recurrenceValueMode?: "split" | "repeat";
+  recurrenceDayOfMonth?: number;
 }): string | undefined {
   const obj: Record<string, unknown> = {};
   if (opts.cartAmount && opts.cartAmount > 0) {
@@ -122,6 +125,7 @@ export function serializeDescription(opts: {
   if (opts.recurrenceInterval) obj.recurrenceInterval = opts.recurrenceInterval;
   if (opts.recurrenceEnd) obj.recurrenceEnd = opts.recurrenceEnd;
   if (opts.recurrenceValueMode) obj.recurrenceValueMode = opts.recurrenceValueMode;
+  if (opts.recurrenceDayOfMonth) obj.recurrenceDayOfMonth = opts.recurrenceDayOfMonth;
   return Object.keys(obj).length > 0 ? JSON.stringify(obj) : undefined;
 }
 
@@ -134,6 +138,7 @@ export function parseDescription(description?: string | null): {
   recurrenceInterval?: number;
   recurrenceEnd?: string;
   recurrenceValueMode?: "split" | "repeat";
+  recurrenceDayOfMonth?: number;
 } {
   if (!description) return {};
   try {

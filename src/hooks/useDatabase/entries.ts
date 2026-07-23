@@ -52,6 +52,7 @@ export function useAddEntryMutation() {
             recurrenceInterval: entry.recurrenceInterval,
             recurrenceEnd: entry.recurrenceEnd,
             recurrenceValueMode: entry.recurrenceValueMode,
+            recurrenceDayOfMonth: entry.recurrenceDayOfMonth,
           }) ?? null,
         date: entry.date,
       });
@@ -63,6 +64,7 @@ export function useAddEntryMutation() {
           user!.id,
           entry.recurrenceInterval,
           entry.recurrenceEnd,
+          entry.recurrenceDayOfMonth,
         );
         for (const fe of futureEntries) {
           await supabase.from("entries").insert({
@@ -86,6 +88,7 @@ export function useAddEntryMutation() {
                 parentEntryId: fe.parentEntryId,
                 recurrenceInterval: fe.recurrenceInterval,
                 recurrenceEnd: fe.recurrenceEnd,
+                recurrenceDayOfMonth: fe.recurrenceDayOfMonth,
                 recurrenceValueMode: entry.recurrenceValueMode,
               }) ?? null,
             date: fe.date!,
@@ -292,6 +295,7 @@ export function useUpdateEntryMutation() {
             parentEntryId: merged.parentEntryId,
             recurrenceInterval: merged.recurrenceInterval,
             recurrenceEnd: merged.recurrenceEnd,
+            recurrenceDayOfMonth: merged.recurrenceDayOfMonth,
           }) ?? null,
         date: merged.date,
       });
