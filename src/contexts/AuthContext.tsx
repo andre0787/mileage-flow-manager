@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { supabase } from "@/lib/supabase";
 import type { User, Session } from "@supabase/supabase-js";
 
@@ -19,17 +19,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const initialized = useRef(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
+      initialized.current = true;
       setLoading(false);
     });
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
+      // ponytail: ignore auth events during initialization to avoid race
+      // between getSession() and the listener — the listener delivers the
+      // same session that getSession() is already fetching, and on first
+      // load a stale SIGNED_IN event can arrive before getSession() resolves.
+      if (!initialized.current) return;
       setSession(session);
       setUser(session?.user ?? null);
     });
