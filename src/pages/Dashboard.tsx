@@ -55,7 +55,8 @@ export default function Dashboard() {
   const milhasAccounts = useMemo(() => accounts.filter((a) => a.type === "milhas"), [accounts]);
   const pontosAccounts = useMemo(() => accounts.filter((a) => a.type === "pontos"), [accounts]);
   const filteredPontosAccounts = useMemo(
-    () => (!selectedOwner ? pontosAccounts : pontosAccounts.filter((a) => a.ownerId === selectedOwner)),
+    () =>
+      !selectedOwner ? pontosAccounts : pontosAccounts.filter((a) => a.ownerId === selectedOwner),
     [pontosAccounts, selectedOwner],
   );
   const totalPontosBalance = useMemo(
