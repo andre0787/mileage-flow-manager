@@ -10,19 +10,28 @@ export function useUserId(): string | null {
   return user?.id ?? null;
 }
 
-/** Gera N entradas futuras para recorrência de clube */
+/** Gera N entradas futuras para recorrência */
 export function generateRecurringEntries(
   entry: PointEntry,
   userId: string,
   intervalDays: number,
   endDate: string,
+  recurrenceDayOfMonth?: number,
 ): Partial<PointEntry>[] {
   const future: Partial<PointEntry>[] = [];
   const startDate = new Date(entry.date);
   const end = new Date(endDate);
   let cursor = new Date(startDate);
   while (cursor < end) {
-    cursor = new Date(cursor.getTime() + intervalDays * 24 * 60 * 60 * 1000);
+    // ponytail: month-based math quando recurrenceDayOfMonth está presente (novo),
+    // fallback para intervalDays (legado) quando ausente
+    if (recurrenceDayOfMonth) {
+      const monthsMap: Record<number, number> = { 30: 1, 90: 3, 180: 6, 365: 12 };
+      const months = monthsMap[intervalDays] ?? 1;
+      cursor.setMonth(cursor.getMonth() + months);
+    } else {
+      cursor = new Date(cursor.getTime() + intervalDays * 24 * 60 * 60 * 1000);
+    }
     if (cursor > end) break;
     const dateStr = cursor.toISOString().split("T")[0];
     future.push({
@@ -44,6 +53,7 @@ export function generateRecurringEntries(
       parentEntryId: entry.id,
       recurrenceInterval: intervalDays,
       recurrenceEnd: endDate,
+      recurrenceDayOfMonth,
     });
   }
   return future;

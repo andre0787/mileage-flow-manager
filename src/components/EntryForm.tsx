@@ -373,10 +373,10 @@ export function EntryForm({
                     <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="monthly">Mensal (30 dias)</SelectItem>
-                    <SelectItem value="quarterly">Trimestral (90 dias)</SelectItem>
-                    <SelectItem value="semiannual">Semestral (180 dias)</SelectItem>
-                    <SelectItem value="annual">Anual (365 dias)</SelectItem>
+                    <SelectItem value="monthly">Mensal</SelectItem>
+                    <SelectItem value="quarterly">Trimestral</SelectItem>
+                    <SelectItem value="semiannual">Semestral</SelectItem>
+                    <SelectItem value="annual">Anual</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -457,6 +457,10 @@ export function EntryForm({
                 <div className="flex justify-between mt-1">
                   <span>Início:</span>
                   <span>{form.startDate}</span>
+                </div>
+                <div className="flex justify-between mt-1 text-xs text-primary">
+                  <span>Dia do mês:</span>
+                  <span>{form.startDate ? new Date(form.startDate).getDate() + "º dia" : "—"}</span>
                 </div>
                 {form.recurrenceValueMode === "split" && (
                   <div className="flex justify-between mt-1">

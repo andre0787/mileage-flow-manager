@@ -138,27 +138,26 @@ export default function Entradas() {
     const c = computeFromForm(form);
 
     // Determine recurrence settings
-    let recurrenceInterval: number | undefined;
-    let recurrenceEnd: string | undefined;
+    let recurrenceFields: Record<string, unknown> = {};
     if (form.isRecurrent && form.recurrenceCount > 1) {
-      const type = form.recurrenceType as "monthly" | "quarterly" | "semiannual" | "annual";
-      const intervalMap = { monthly: 30, quarterly: 90, semiannual: 180, annual: 365 };
-      const interval = intervalMap[type];
-      recurrenceInterval = interval;
-      const startDate = new Date(form.date);
-      const endDate = new Date(
-        startDate.getTime() + interval * 24 * 60 * 60 * 1000 * form.recurrenceCount,
-      );
-      recurrenceEnd = endDate.toISOString().split("T")[0];
+      recurrenceFields = {
+        ...calculateRecurrence({
+          isRecurrent: form.isRecurrent,
+          recurrenceCount: form.recurrenceCount,
+          recurrenceType: form.recurrenceType,
+          date: form.date,
+          isClube: form.isClube,
+          clubeMeses: form.clubeMeses,
+          recurrenceValueMode: form.recurrenceValueMode,
+        }),
+      };
     } else if (editingEntry?.recurrenceInterval) {
       // Preserve existing recurrence from clube entries (backward compat)
-      recurrenceInterval = editingEntry.recurrenceInterval;
-      recurrenceEnd = editingEntry.recurrenceEnd;
+      recurrenceFields = {
+        recurrenceInterval: editingEntry.recurrenceInterval,
+        recurrenceEnd: editingEntry.recurrenceEnd,
+      };
     }
-
-    const recurrenceFields: Record<string, number | string | undefined> = {};
-    if (recurrenceInterval !== undefined) recurrenceFields.recurrenceInterval = recurrenceInterval;
-    if (recurrenceEnd !== undefined) recurrenceFields.recurrenceEnd = recurrenceEnd;
 
     const ot = origemTypes.find((ot) => ot.id === form.origemTypeId);
     const isTransfer = ot ? isTransferencia(ot) : false;
