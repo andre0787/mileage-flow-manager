@@ -3,11 +3,28 @@
 > Anterior: 2026-07-23
 ---
 ## 🏗️ Projeto
+
+> ⏰ Snapshot atualizado em: 2026-07-23
+
+### 🏗️ Projeto
+
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
-**Workflow:** session:start → categoria → implementação → pre-pr → PR
+**Regras críticas:** branch obrigatória, pre-pr c/ relatório, git status ZERO, lazy loading por categoria
+**Workflow:** session:start → categoria → carregar docs → council (se feature) → build → pre-pr → PR
+
 ### 🐞 Bugs Abertos
-Consulte as GitHub Issues para a lista atual.
+
+- nenhum | [ver todos → Issues](https://github.com/andreluiz0787/mileage-flow-manager/issues)
+
+### 📋 Commits Recentes
+
+```
+8303de3 fix: race condition no carregamento inicial (auth + ErrorBoundary logging)
+c3f5926 chore: normalize report prefix to PR201
+f4bee98 fix: race condition no carregamento inicial do auth + log de erros no ErrorBoundary
+```
+
 ## 🧭 Estado Atual
 - **Branch:** `main`
 - **Último commit:** `ff2ac05` — Merge branch 'main' of https://github.com/andre0787/mileage-flow-manager
