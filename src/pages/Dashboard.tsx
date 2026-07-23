@@ -10,6 +10,7 @@ import {
   AlertTriangle,
   DollarSign,
   Plane,
+  Coins,
   ArrowUpRight,
   ArrowDownRight,
 } from "lucide-react";
@@ -53,6 +54,19 @@ export default function Dashboard() {
 
   const milhasAccounts = useMemo(() => accounts.filter((a) => a.type === "milhas"), [accounts]);
   const pontosAccounts = useMemo(() => accounts.filter((a) => a.type === "pontos"), [accounts]);
+  const filteredPontosAccounts = useMemo(
+    () =>
+      !selectedOwner ? pontosAccounts : pontosAccounts.filter((a) => a.ownerId === selectedOwner),
+    [pontosAccounts, selectedOwner],
+  );
+  const totalPontosBalance = useMemo(
+    () => filteredPontosAccounts.reduce((sum, a) => sum + a.balance, 0),
+    [filteredPontosAccounts],
+  );
+  const totalPontosInvested = useMemo(
+    () => filteredPontosAccounts.reduce((sum, a) => sum + (a.totalInvested ?? 0), 0),
+    [filteredPontosAccounts],
+  );
 
   const milhasSales = useMemo(
     () =>
@@ -628,9 +642,82 @@ export default function Dashboard() {
             />
           </div>
 
-          {/* FLOW MAP */}
-          <div className="animate-appear animate-delay-400">
+          {/* ESTOQUE + FLUXO DE TRABALHO */}
+          <div className="animate-appear animate-delay-400 space-y-4">
+            <div className="grid gap-4 md:grid-cols-2">
+              {/* Milhas em Estoque */}
+              <Card className="overflow-hidden transition-card duration-300 hover:shadow-elegant">
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/60 via-gold/40 to-primary/30" />
+                <CardContent className="p-5 md:p-6 relative">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Coins className="w-4 h-4 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-foreground font-display">
+                        Milhas em Estoque
+                      </h3>
+                      <p className="text-xs text-muted-foreground">
+                        {currentMetrics.totalMiles.toLocaleString("pt-BR")} milhas
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-2.5 rounded-lg bg-primary/5 border border-primary/10">
+                      <span className="text-xs text-muted-foreground">Saldo total</span>
+                      <span className="text-sm font-bold text-primary tabular-nums">
+                        {currentMetrics.totalMiles.toLocaleString("pt-BR")}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between p-2.5 rounded-lg bg-gold/5 border border-gold/10">
+                      <span className="text-xs text-muted-foreground">Total investido</span>
+                      <span className="text-sm font-bold text-gold tabular-nums">
+                        R$ {financialMetrics.totalInvested.toLocaleString("pt-BR")}
+                      </span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Pontos em Estoque */}
+              <Card className="overflow-hidden transition-card duration-300 hover:shadow-elegant">
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-teal/60 via-gold/40 to-teal/30" />
+                <CardContent className="p-5 md:p-6 relative">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 rounded-lg bg-teal/10 flex items-center justify-center">
+                      <Coins className="w-4 h-4 text-teal" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-foreground font-display">
+                        Pontos em Estoque
+                      </h3>
+                      <p className="text-xs text-muted-foreground">
+                        {totalPontosBalance.toLocaleString("pt-BR")} pontos
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-2.5 rounded-lg bg-teal/5 border border-teal/10">
+                      <span className="text-xs text-muted-foreground">Saldo total</span>
+                      <span className="text-sm font-bold text-teal tabular-nums">
+                        {totalPontosBalance.toLocaleString("pt-BR")}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between p-2.5 rounded-lg bg-gold/5 border border-gold/10">
+                      <span className="text-xs text-muted-foreground">Total investido</span>
+                      <span className="text-sm font-bold text-gold tabular-nums">
+                        R$ {totalPontosInvested.toLocaleString("pt-BR")}
+                      </span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
             <FlowMap
+              title="Fluxo de Trabalho"
               totalMiles={currentMetrics.totalMiles}
               activeAccounts={currentMetrics.activeAccounts}
               totalSoldMiles={currentMetrics.totalSoldMiles}

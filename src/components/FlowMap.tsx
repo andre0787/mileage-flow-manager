@@ -21,6 +21,7 @@ interface FlowMapProps {
   ownersCount: number;
   className?: string;
   unitLabel?: string;
+  title?: string;
 }
 
 export function FlowMap({
@@ -31,6 +32,7 @@ export function FlowMap({
   ownersCount,
   className,
   unitLabel = "Milhas",
+  title,
 }: FlowMapProps) {
   const nodes: FlowNode[] = useMemo(
     () => [
@@ -87,7 +89,7 @@ export function FlowMap({
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground font-display">
-              Fluxo de {unitLabel}
+              {title ?? `Fluxo de ${unitLabel}`}
             </h3>
             <p className="text-xs text-muted-foreground">
               {ownersCount} proprietário{ownersCount !== 1 ? "s" : ""} ativo
