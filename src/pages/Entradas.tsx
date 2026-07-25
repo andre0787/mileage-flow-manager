@@ -26,6 +26,7 @@ import {
   useAddEntryMutation,
   useUpdateEntryMutation,
   useAddOrigemTypeMutation,
+  useAddAccountMutation,
   useConfirmEntryMutation,
 } from "@/hooks/useDatabase";
 import { EntrySummary } from "@/components/EntrySummary";
@@ -43,6 +44,7 @@ export default function Entradas() {
   const addEntryM = useAddEntryMutation();
   const updateEntryM = useUpdateEntryMutation();
   const addOrigemTypeM = useAddOrigemTypeMutation();
+  const addAccountM = useAddAccountMutation();
   const confirmEntryM = useConfirmEntryMutation();
   const haptic = useHaptic();
 
@@ -202,6 +204,27 @@ export default function Entradas() {
       accountType: activeTab,
       color: data.color,
       description: desc,
+    });
+    return id;
+  };
+
+  const handleCreateAccount = async (data: {
+    name: string;
+    ownerId: string;
+    programId: string;
+  }) => {
+    const program = programs.find((p) => p.id === data.programId);
+    if (!program) return;
+    const id = crypto.randomUUID();
+    await addAccountM.mutateAsync({
+      id,
+      name: data.name,
+      ownerId: data.ownerId,
+      programId: data.programId,
+      type: program.type,
+      balance: 0,
+      status: "ativa",
+      createdAt: new Date().toISOString().split("T")[0],
     });
     return id;
   };
@@ -414,6 +437,7 @@ export default function Entradas() {
           programs={programs}
           owners={owners}
           onCreateOrigemType={handleCreateOrigemType}
+          onCreateAccount={handleCreateAccount}
           onSubmit={handleCreateEntry}
           onCancel={() => setIsCreateDialogOpen(false)}
         />

@@ -9,6 +9,7 @@
 ## Pendentes
 
 <!-- Ideias adicionadas via npm run think aparecem aqui -->
+- [ ] 2026-07-25: permitir criar o dono e criar o programa juntos no momento de criar a mileage program (entry)
 
 ## Em Andamento
 
