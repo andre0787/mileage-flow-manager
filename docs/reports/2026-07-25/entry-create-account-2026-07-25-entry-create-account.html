@@ -36,31 +36,32 @@
 </head>
 <body>
   <h1>📋 entry create account</h1>
-  <p class="meta">2026-07-25 00:01 &middot; feat/entry-create-account &middot; 42f9fa2 — feat: cards de estoque e fluxo de trabalho no dashboard</p>
-  <p><span class="badge auto">auto</span> <span class="badge auto">entry-create-account</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+  <p class="meta">2026-07-25 00:02 &middot; feat/entry-create-account &middot; adc7dcf — chore: atualiza settings pi, adiciona artifacts do council e specs, testes da feature, e registro de ideia</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">entry-create-account</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">0</div>
+      <div style="font-size:1.5rem;font-weight:700">10</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+1130</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-99</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1179</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
 
   <h2>✅ Checklist de Revisão</h2>
     <ul>
+      <li>🖼️ Renderização verificada em desktop e mobile?</li>
       <li>🧪 Testes manuais realizados?</li>
       <li>📋 Regras de validação passam? (npm run pre-pr)</li>
     </ul>
@@ -80,12 +81,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 0 remoções — 1 linhas tocadas</td>
-        <td>✨ 0 adições — 0 arquivo(s) alterado(s)</td>
+        <td>🧹 99 remoções — 1572 linhas tocadas</td>
+        <td>✨ 1130 adições — 10 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .pi/settings.json, docs/IDEIAS.md<br><span style="color:#166534;font-weight:600">➕</span> docs/council/2026-07-24-entry-create-account-veredito.md, docs/reports/2026-07-25/entry-create-account-2026-07-25-entry-create-account.html, docs/superpowers/specs/2026-07-24-entry-create-account-design.md<br><em>+5 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,38 +99,166 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>0</td></tr>
-    <tr><td>Adições</td><td>+0</td></tr>
-    <tr><td>Remoções</td><td>-0</td></tr>
-    <tr><td>Tokens estimados</td><td>~1</td></tr>
+    <tr><td>Arquivos alterados</td><td>10</td></tr>
+    <tr><td>Adições</td><td>+1130</td></tr>
+    <tr><td>Remoções</td><td>-99</td></tr>
+    <tr><td>Tokens estimados</td><td>~1179</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:72">+848 add</div>
+        <div class="del" style="flex:6">-74 del</div>
+        <div class="overhead" style="flex:22">~257 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+848</td><td>72%</td></tr>
+      <tr><td>Remoções</td><td>-74</td><td>6%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~257</td><td>22%</td></tr>
+      <tr><th>Total</th><th>~1179</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-    
+    <tr><td>M</td><td>.pi/settings.json</td></tr>
+<tr><td>M</td><td>docs/IDEIAS.md</td></tr>
+<tr><td>A</td><td>docs/council/2026-07-24-entry-create-account-veredito.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-25/entry-create-account-2026-07-25-entry-create-account.html</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-07-24-entry-create-account-design.md</td></tr>
+<tr><td>A</td><td>docs/thoughts/2026-07-25-permitir-criar-o-dono-e-criar-o-programa-juntos-no-momento-d.md</td></tr>
+<tr><td>M</td><td>package-lock.json</td></tr>
+<tr><td>M</td><td>src/components/EntryForm.tsx</td></tr>
+<tr><td>M</td><td>src/pages/Entradas.tsx</td></tr>
+<tr><td>A</td><td>tests/create-account-inline.spec.ts</td></tr>
   </table>
 
   
 
   <h2>🔍 Diff</h2>
   <div class="diff">
-    
+    diff --git a/.pi/settings.json b/.pi/settings.json
+index 4f34a81..e66dfc6 100644
+<span class="del">--- a/.pi/settings.json</span>
+<span class="add">+++ b/.pi/settings.json</span>
+@@ -2,9 +2,15 @@
+   "theme": "mileage-dark",
+   "sessionDir": ".pi/sessions",
+   "quietStartup": true,
+<span class="del">-  "skills": ["~/.config/opencode/skills", ".pi/skills"],</span>
+<span class="add">+  "skills": [</span>
+<span class="add">+    "~/.config/opencode/skills",</span>
+<span class="add">+    ".pi/skills"</span>
+<span class="add">+  ],</span>
+   "compaction": {
+     "reserveTokens": 20480,
+     "keepRecentTokens": 24000
+<span class="del">-  }</span>
+<span class="del">-}</span>
+<span class="add">+  },</span>
+<span class="add">+  "packages": [</span>
+<span class="add">+    "git:github.com/obra/superpowers"</span>
+<span class="add">+  ]</span>
+<span class="add">+}</span>
+\ No newline at end of file
+diff --git a/docs/IDEIAS.md b/docs/IDEIAS.md
+index 176b43d..b2369bb 100644
+<span class="del">--- a/docs/IDEIAS.md</span>
+<span class="add">+++ b/docs/IDEIAS.md</span>
+@@ -9,6 +9,7 @@
+ ## Pendentes
+ 
+ &lt;!-- Ideias adicionadas via npm run think aparecem aqui --&gt;
+<span class="add">+- [ ] 2026-07-25: permitir criar o dono e criar o programa juntos no momento de criar a mileage program (entry)</span>
+ 
+ ## Em Andamento
+ 
+diff --git a/docs/council/2026-07-24-entry-create-account-veredito.md b/docs/council/2026-07-24-entry-create-account-veredito.md
+new file mode 100644
+index 0000000..2350dc6
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/council/2026-07-24-entry-create-account-veredito.md</span>
+@@ -0,0 +1,33 @@
+<span class="add">+# Council Veredito — Criação inline de conta no EntryForm</span>
+<span class="add">+</span>
+<span class="add">+**Data:** 2026-07-24</span>
+<span class="add">+**Tópico:** Adicionar criação inline de conta ao registrar entrada</span>
+<span class="add">+</span>
+<span class="add">+## Participantes</span>
+<span class="add">+</span>
+<span class="add">+- The Contrarian</span>
+<span class="add">+- First Principles Thinker</span>
+<span class="add">+- The Expansionist</span>
+<span class="add">+- The Outsider</span>
+<span class="add">+- The Executor (Chairman)</span>
+<span class="add">+</span>
+<span class="add">+## Veredito Final</span>
+<span class="add">+</span>
+<span class="add">+**Faça** ✅ — unânime.</span>
+<span class="add">+</span>
+<span class="add">+## Decisões</span>
+<span class="add">+</span>
+<span class="add">+| Tópico | Decisão |</span>
+<span class="add">+|--------|---------|</span>
+<span class="add">+| Abordagem | FormDrawer inline (mesmo padrão do `onCreateOrigemType`) |</span>
+<span class="add">+| Campos | nome, dono (select), programa (select) |</span>
+<span class="add">+| Saldo inicial | Zero (a entrada ajusta via mutation) |</span>
+<span class="add">+| Tipo | Derivado automaticamente do programa |</span>
+<span class="add">+| Dono/Programa | Usar listas existentes, sem criação aninhada |</span>
+<span class="add">+</span>
+<span class="add">+## Próximos Passos</span>
+<span class="add">+</span>
+<span class="add">+1. Brainstorming → spec detalhada</span>
+<span class="add">+2. Branch `feat/entry-create-account`</span>
+<span class="add">+3. Implementar no EntryForm + Entradas.tsx</span>
+<span class="add">+4. Pre-PR + relatório</span>
+diff --git a/docs/reports/2026-07-25/entry-create-account-2026-07-25-entry-create-account.html b/docs/reports/2026-07-25/entry-create-account-2026-07-25-entry-create-account.html
+new file mode 100644
+index 0000000..85ec0b5
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/reports/2026-07-25/entry-create-account-2026-07-25-entry-create-account.html</span>
+@@ -0,0 +1,137 @@
+<span class="add">+&lt;!DOCTYPE html&gt;</span>
+<span class="add">+&lt;html lang="pt-BR"&gt;</span>
+<span class="add">+&lt;head&gt;</span>
+<span class="add">+  &lt;meta charset="UTF-8"&gt;</span>
+<span class="add">+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;</span>
+<span class="add">+  &lt;title&gt;entry-create-account — entry create account&lt;/title&gt;</span>
+<span class="add">+  &lt;style&gt;</span>
+<span class="add">+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}</span>
+<span class="add">+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}</span>
+<span class="add">+    h2{font-size:1rem;margin-top:1.5rem;color:#333}</span>
+<span class="add">+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}</span>
+<span class="add">+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}</span>
+<span class="add">+    .badge.pr{background:#dbeafe;color:#1e40af}</span>
+<span class="add">+    .badge.auto{background:#fef3c7;color:#92400e}</span>
+<span class="add">+    .badge.fix{background:#fee2e2;color:#991b1b}</span>
+<span class="add">+    .badge.feat{background:#dcfce7;color:#166534}</span>
+<span class="add">+    .badge.docs{background:#ede9fe;color:#5b21b6}</span>
+<span class="add">+    .badge.chore{background:#f3f4f6;color:#374151}</span>
+<span class="add">+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}</span>
+<span class="add">+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}</span>
+<span class="add">+    th{background:#f3f4f6;font-weight:600}</span>
+<span class="add">+    tr.add{background:#f0fdf4}</span>
+<span class="add">+    tr.del{background:#fef2f2}</span>
+<span class="add">+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}</span>
+<span class="add">+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}</span>
+<span class="add">+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}</span>
+<span class="add">+    .token-bar .add{background:#dcfce7;color:#166534}</span>
+<span class="add">+    .token-bar .del{background:#fee2e2;color:#991b1b}</span>
+<span class="add">+    .token-bar .overhead{background:#f3f4f6;color:#374151}</span>
+<span class="add">+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}</span>
+<span class="add">+    .diff .add{color:#4ade80}</span>
+<span class="add">+    .diff .del{color:#f87171}</span>
+<span class="add">+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}</span>
+<span class="add">+    .center{text-align:center}</span>
+<span class="add">+  &lt;/style&gt;</span>
+<span class="add">+&lt;/head&gt;</span>
+<span class="add">+&lt;body&gt;</span>
+<span class="add">+  &lt;h1&gt;📋 entry create account&lt;/h1&gt;</span>
+<span class="add">+  &lt;p class="meta"&gt;2026-07-25 00:01 &amp;middot; feat/entry-create-account &amp;middot; 42f9fa2 — feat: cards de estoque e fluxo de trabalho no dashboard&lt;/p&gt;</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
