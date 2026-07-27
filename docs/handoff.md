@@ -6,27 +6,23 @@
 
 > ⏰ Snapshot atualizado em: 2026-07-27
 
+### 🏗️ Projeto
+
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
 **Regras críticas:** branch obrigatória, pre-pr c/ relatório, git status ZERO, lazy loading por categoria
 **Workflow:** session:start → categoria → carregar docs → council (se feature) → build → pre-pr → PR
 
-### Bugs e Issues
+### 🐞 Bugs Abertos
 
-- Nenhum bug aberto
-- #204 — Nightly E2E falhando → **✅ CORRIGIDO** (PR #205 mergeado e deployado)
-- Ideia pendente "criar dono + programa inline" → **✅ IMPLEMENTADO** (PR #207 mergeado e deployado)
+- nenhum | [ver todos → Issues](https://github.com/andreluiz0787/mileage-flow-manager/issues)
 
 ### 📋 Commits Recentes
 
 ```
-a8ec3fb Merge PR #207: feat: criar dono e programa inline no EntryForm
-6d3d510 chore: normalize report prefix to PR207 [skip ci]
-1a7a204 test: add E2E test for owner and program inline creation
-9ecaace feat: wire up owner and program inline creation handlers in Entradas
-50e5c04 feat: add owner and program inline creation to EntryForm
-a64a266 docs: add council veredito, spec and plan for create owner/program inline
-a48d9ab fix: corrige seletores E2E ambíguos e viewport no nightly workflow (#204)
+103b948 Merge pull request #210 from andre0787/fix/owner-inline-optimistic-cache
+e513590 chore: adiciona script de validacao da regra #24 + relatorio Playwright
+3e3e03b Merge pull request #209 from andre0787/fix/owner-inline-optimistic-cache
 ```
 
 ## 🧭 Estado Atual
