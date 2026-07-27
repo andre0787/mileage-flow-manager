@@ -45,8 +45,8 @@
 | `docs/memory.md` | Contexto de sessões anteriores | Histórico de decisões, sprints, post-mortems |
 | `docs/IDEIAS.md` | Caixa de entrada de ideias | Ideias humanas pendentes, lidas no início da sessão |
 | `docs/FLUXO.md` | Diagramas do ecossistema | Flowcharts Mermaid: visão geral, fluxo de dados, rotas |
-| `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md` |
-| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atual: `2026-07-16-ios-form-stability-design.md` |
+| `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md` |
+| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md` |
 | `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atual: `2026-07-16-ios-form-stability.md` |
 | `docs/reports/` | Relatórios HTML | Relatórios obrigatórios antes de cada PR |
 | `.githooks/` | Git hooks | Pre-commit que bloqueia commits na main |

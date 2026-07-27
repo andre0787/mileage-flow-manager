@@ -4,7 +4,7 @@
 ---
 ## 🏗️ Projeto
 
-> ⏰ Snapshot atualizado em: 2026-07-23
+> ⏰ Snapshot atualizado em: 2026-07-27
 
 ### 🏗️ Projeto
 
@@ -20,9 +20,9 @@
 ### 📋 Commits Recentes
 
 ```
-8303de3 fix: race condition no carregamento inicial (auth + ErrorBoundary logging)
-c3f5926 chore: normalize report prefix to PR201
-f4bee98 fix: race condition no carregamento inicial do auth + log de erros no ErrorBoundary
+528521d docs: atualiza handoff com estado da sessão
+06076d5 chore: renomeia relatório para prefixo PR203 [skip ci]
+fa26764 chore: ignora .pi/git/ e .pi/themes/ (config local do pi)
 ```
 
 ## 🧭 Estado Atual

@@ -74,3 +74,7 @@ tests/fluxo-relatorio.md
 
 # OpenCode AI extension artifacts
 .opencode/
+
+# pi local config (user-specific)
+.pi/git/
+.pi/themes/

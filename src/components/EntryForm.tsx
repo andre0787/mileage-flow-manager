@@ -30,6 +30,11 @@ interface EntryFormProps {
     color: string;
     hasRecurrence: boolean;
   }) => Promise<string | undefined>;
+  onCreateAccount?: (data: {
+    name: string;
+    ownerId: string;
+    programId: string;
+  }) => Promise<string | undefined>;
 }
 
 const emptyForm: EntryFormData = {
@@ -63,6 +68,7 @@ export function EntryForm({
   programs,
   owners,
   onCreateOrigemType,
+  onCreateAccount,
 }: EntryFormProps) {
   const [form, setForm] = useState<EntryFormData>({ ...emptyForm, ...initialData });
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
@@ -70,6 +76,10 @@ export function EntryForm({
   const [newOT, setNewOT] = useState({ name: "", color: "#10b981", hasRecurrence: false });
   const [isCreatingOrigemType, setIsCreatingOrigemType] = useState(false);
   const [otErrors, setOtErrors] = useState<Partial<Record<string, string>>>({});
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
+  const [newAccount, setNewAccount] = useState({ name: "", ownerId: "", programId: "" });
+  const [isCreatingAccount, setIsCreatingAccount] = useState(false);
+  const [accountErrors, setAccountErrors] = useState<Partial<Record<string, string>>>({});
 
   const set = (patch: Partial<EntryFormData>) => setForm((prev) => ({ ...prev, ...patch }));
   const clearErr = (field: string) => setErrors((prev) => ({ ...prev, [field]: "" }));
@@ -133,6 +143,30 @@ export function EntryForm({
     }
   };
 
+  const handleCreateAccount = async () => {
+    const errs: typeof accountErrors = {};
+    if (!newAccount.name.trim()) errs.name = "Nome é obrigatório";
+    if (!newAccount.ownerId) errs.ownerId = "Selecione um dono";
+    if (!newAccount.programId) errs.programId = "Selecione um programa";
+    setAccountErrors(errs);
+    if (Object.keys(errs).length > 0) return;
+
+    setIsCreatingAccount(true);
+    try {
+      const id = await onCreateAccount?.({
+        name: newAccount.name.trim(),
+        ownerId: newAccount.ownerId,
+        programId: newAccount.programId,
+      });
+      if (id) set({ accountId: id });
+      setNewAccount({ name: "", ownerId: "", programId: "" });
+      setAccountErrors({});
+      setIsAccountOpen(false);
+    } finally {
+      setIsCreatingAccount(false);
+    }
+  };
+
   const milesGenerated = parseFloat(form.amount) * parseFloat(form.conversionRate || "1");
   const costPerMile = parseFloat(form.amountPaid) / (milesGenerated || 1);
   const costPerThousand = (parseFloat(form.amountPaid) / parseFloat(form.amount)) * 1000;
@@ -142,25 +176,140 @@ export function EntryForm({
       {/* Conta */}
       <div className="space-y-2">
         <Label htmlFor="entryAccount">Conta</Label>
-        <Select
-          value={form.accountId}
-          onValueChange={(value) => {
-            set({ accountId: value });
-            clearErr("accountId");
-          }}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Selecione a conta" />
-          </SelectTrigger>
-          <SelectContent>
-            {availableAccounts.map((acc) => (
-              <SelectItem key={acc.id} value={acc.id}>
-                {acc.name} ({ownerName(acc.ownerId)})
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <div className="flex gap-2">
+          <div className="flex-1">
+            <Select
+              value={form.accountId}
+              onValueChange={(value) => {
+                set({ accountId: value });
+                clearErr("accountId");
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Selecione a conta" />
+              </SelectTrigger>
+              <SelectContent>
+                {availableAccounts.map((acc) => (
+                  <SelectItem key={acc.id} value={acc.id}>
+                    {acc.name} ({ownerName(acc.ownerId)})
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          {mode === "create" && onCreateAccount && (
+            <Button
+              variant="outline"
+              size="icon"
+              className="shrink-0"
+              onClick={() => setIsAccountOpen(true)}
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+          )}
+        </div>
         {errors.accountId && <p className="text-xs text-destructive">{errors.accountId}</p>}
+        <FormDrawer
+          open={isAccountOpen}
+          onOpenChange={(open) => {
+            setIsAccountOpen(open);
+            if (!open) setAccountErrors({});
+          }}
+          title="Nova Conta"
+        >
+          <div className="grid gap-4 py-4">
+            <div className="space-y-2">
+              <Label>Nome da Conta</Label>
+              <Input
+                value={newAccount.name}
+                onChange={(e) => {
+                  setNewAccount((p) => ({ ...p, name: e.target.value }));
+                  setAccountErrors((p) => ({ ...p, name: "" }));
+                }}
+                placeholder="Ex: Conta Principal LATAM"
+              />
+              {accountErrors.name && (
+                <p className="text-xs text-destructive">{accountErrors.name}</p>
+              )}
+            </div>
+            <div className="space-y-2">
+              <Label>Dono</Label>
+              <Select
+                value={newAccount.ownerId}
+                onValueChange={(v) => {
+                  setNewAccount((p) => ({ ...p, ownerId: v }));
+                  setAccountErrors((p) => ({ ...p, ownerId: "" }));
+                }}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione o dono" />
+                </SelectTrigger>
+                <SelectContent>
+                  {owners.map((o) => (
+                    <SelectItem key={o.id} value={o.id}>
+                      {o.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {accountErrors.ownerId && (
+                <p className="text-xs text-destructive">{accountErrors.ownerId}</p>
+              )}
+            </div>
+            <div className="space-y-2">
+              <Label>Programa</Label>
+              <Select
+                value={newAccount.programId}
+                onValueChange={(v) => {
+                  setNewAccount((p) => ({ ...p, programId: v }));
+                  setAccountErrors((p) => ({ ...p, programId: "" }));
+                }}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione o programa" />
+                </SelectTrigger>
+                <SelectContent>
+                  {programs.map((p) => (
+                    <SelectItem key={p.id} value={p.id}>
+                      {p.name} ({p.type === "pontos" ? "Pontos" : "Milhas"})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {accountErrors.programId && (
+                <p className="text-xs text-destructive">{accountErrors.programId}</p>
+              )}
+            </div>
+            {newAccount.programId && (
+              <div className="p-3 bg-muted/30 rounded-lg text-sm">
+                <span className="text-muted-foreground">Tipo da conta: </span>
+                <span className="font-medium">
+                  {programs.find((p) => p.id === newAccount.programId)?.type === "pontos"
+                    ? "Pontos"
+                    : "Milhas"}
+                </span>
+              </div>
+            )}
+          </div>
+          <div className="flex justify-end gap-2 mt-4">
+            <Button
+              variant="outline"
+              onClick={() => {
+                setIsAccountOpen(false);
+                setAccountErrors({});
+              }}
+            >
+              Cancelar
+            </Button>
+            <Button
+              onClick={handleCreateAccount}
+              disabled={isCreatingAccount}
+              className="bg-gradient-primary hover:opacity-90"
+            >
+              {isCreatingAccount ? "Salvando..." : "Cadastrar"}
+            </Button>
+          </div>
+        </FormDrawer>
       </div>
 
       {/* Tipo de Origem */}
