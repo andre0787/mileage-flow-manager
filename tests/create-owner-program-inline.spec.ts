@@ -141,7 +141,16 @@ test("Criação inline de dono e programa ao registrar entrada", async ({ page }
   // 12. Verificar entrada na tabela
   await expect(page.getByText("50.000").first()).toBeVisible({ timeout: 5_000 });
 
-  // 13. Verificar dono e programa criados na página de configurações
+  // 13. Verificar que o nome do dono aparece na tabela de entradas
+  // O nome do dono fica abaixo do nome da conta, em texto secundário na coluna desktop
+  await expect(
+    page
+      .locator("table")
+      .getByText("Dono Criado Inline")
+      .first()
+  ).toBeVisible({ timeout: 5_000 });
+
+  // 14. Verificar dono e programa criados na página de configurações
   await page.goto("/configuracoes");
   await page.waitForSelector("text=Configurações", { timeout: 15_000 });
   await expect(page.getByText("Dono Criado Inline").first()).toBeVisible({ timeout: 5_000 });
