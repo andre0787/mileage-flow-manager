@@ -71,9 +71,7 @@ export function useUpdateOwnerMutation() {
       if (userId) {
         queryClient.setQueryData<Owner[]>(["owners", userId], (old) => {
           if (!old) return old;
-          return old.map((o) =>
-            o.id === variables.id ? { ...o, ...variables } : o
-          );
+          return old.map((o) => (o.id === variables.id ? { ...o, ...variables } : o));
         });
       }
       await queryClient.invalidateQueries({ queryKey: ["owners"], refetchType: "all" });

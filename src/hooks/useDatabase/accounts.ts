@@ -87,9 +87,7 @@ export function useUpdateAccountMutation() {
       if (userId) {
         queryClient.setQueryData<Account[]>(["accounts", userId], (old) => {
           if (!old) return old;
-          return old.map((a) =>
-            a.id === variables.id ? { ...a, ...variables } : a
-          );
+          return old.map((a) => (a.id === variables.id ? { ...a, ...variables } : a));
         });
       }
       await queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" });

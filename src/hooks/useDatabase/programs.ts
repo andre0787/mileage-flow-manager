@@ -97,9 +97,7 @@ export function useUpdateProgramMutation() {
       if (userId) {
         queryClient.setQueryData<Program[]>(["programs", userId], (old) => {
           if (!old) return old;
-          return old.map((p) =>
-            p.id === variables.id ? { ...p, ...variables } : p
-          );
+          return old.map((p) => (p.id === variables.id ? { ...p, ...variables } : p));
         });
       }
       await queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: "all" });
