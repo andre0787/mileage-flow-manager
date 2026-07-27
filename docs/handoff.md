@@ -3,67 +3,35 @@
 > Anterior: 2026-07-27
 ---
 ## 🏗️ Projeto
-
-> ⏰ Snapshot atualizado em: 2026-07-27
-
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
-**Regras críticas:** branch obrigatória, pre-pr c/ relatório, git status ZERO, lazy loading por categoria
-**Workflow:** session:start → categoria → carregar docs → council (se feature) → build → pre-pr → PR
-
-### Bugs e Issues
-
-- Nenhum bug aberto
-- #204 — Nightly E2E falhando → **✅ CORRIGIDO** (PR #205 mergeado e deployado)
-- Ideia pendente "criar dono + programa inline" → **✅ IMPLEMENTADO** (PR #207 mergeado e deployado)
-
-### 📋 Commits Recentes
-
-```
-a8ec3fb Merge PR #207: feat: criar dono e programa inline no EntryForm
-6d3d510 chore: normalize report prefix to PR207 [skip ci]
-1a7a204 test: add E2E test for owner and program inline creation
-9ecaace feat: wire up owner and program inline creation handlers in Entradas
-50e5c04 feat: add owner and program inline creation to EntryForm
-a64a266 docs: add council veredito, spec and plan for create owner/program inline
-a48d9ab fix: corrige seletores E2E ambíguos e viewport no nightly workflow (#204)
-```
-
+**Workflow:** session:start → categoria → implementação → pre-pr → PR
+### 🐞 Bugs Abertos
+Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `a8ec3fb` — Merge PR #207: feat: criar dono e programa inline no EntryForm
+- **Último commit:** `2a07de5` — chore: session end
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
-### 📊 Métricas
+### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Unit tests | 124/124 (2 falhas pré-existentes) |
-| Build | ✅ |
+| Total testes | 189 |
+| Docs issues | 0 |
 | Branch | main |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** Implementar criar dono + programa inline no EntryForm
-**Status:** done ✅
-**Branch:** `feat/create-owner-program-inline` → merged em `main`
-**Docs carregados:** AGENTS.md, WORKFLOW.md, CONVENTIONS.md, council-to-superpowers, llm-council, brainstorming, writing-plans, subagent-driven-development, finishing-a-development-branch
-
-### O que foi feito
-1. ✅ **Council** — decidiu criar dono + programa inline (FormDrawer aninhado, consistente com PR #203)
-2. ✅ **Design** — aprovado, salvo em `docs/superpowers/specs/`
-3. ✅ **Plano** — salvo em `docs/superpowers/plans/`
-4. ✅ **Task 1:** EntryForm — props, state, Owner/Program drawers
-5. ✅ **Task 2:** Entradas.tsx — handlers + mutations
-6. ✅ **Task 3:** E2E test — fluxo completo
-7. ✅ **PR #207** — mergeado
-8. 🚀 **Deploy Vercel** — sucesso
-
+**Categoria:** chore
+**Objetivo:** descrição concisa
+**Status:** done
+**Branch:** `main`
+**Docs carregados:** AGENTS.md
+## ✅ Última Sessão
+Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
-Nenhuma tarefa pendente. Iniciar nova sessão com `npm run session:start`.
-
-## 🧠 Notas da Sessão Anterior
-- Bug #204 corrigido: seletores ambíguos + viewport + seletor data-lov-name inexistente
-- 4 arquivos de teste alterados (nenhuma mudança em src/)
+Continue a tarefa ativa ou selecione o próximo task-card.
+## 🧠 Notas da Sessão Atual
+(Adicione notas manuais abaixo desta linha)

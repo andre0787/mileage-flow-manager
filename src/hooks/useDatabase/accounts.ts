@@ -26,6 +26,7 @@ export function useAccountsQuery() {
 export function useAddAccountMutation() {
   const queryClient = useQueryClient();
   const { user } = useAuth();
+  const userId = user?.id ?? null;
   return useMutation({
     mutationFn: async (account: Account) => {
       const { error } = await supabase.from("accounts").insert({
@@ -43,7 +44,15 @@ export function useAddAccountMutation() {
       });
       if (error) throw error;
     },
-    onSuccess: async () => {
+    onSuccess: async (_data, variables) => {
+      // ponytail: optimistic cache update so dropdown shows new account instantly
+      if (userId) {
+        queryClient.setQueryData<Account[]>(["accounts", userId], (old) => {
+          if (!old) return [variables];
+          if (old.some((a) => a.id === variables.id)) return old;
+          return [...old, variables];
+        });
+      }
       await queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" });
     },
     onError: (err) => {
@@ -56,6 +65,8 @@ export function useAddAccountMutation() {
 
 export function useUpdateAccountMutation() {
   const queryClient = useQueryClient();
+  const { user } = useAuth();
+  const userId = user?.id ?? null;
   return useMutation({
     mutationFn: async ({ id, ...data }: Partial<Account> & { id: string }) => {
       const updateData: AccountUpdate = {};
@@ -71,7 +82,14 @@ export function useUpdateAccountMutation() {
       const { error } = await supabase.from("accounts").update(updateData).eq("id", id);
       if (error) throw error;
     },
-    onSuccess: async () => {
+    onSuccess: async (_data, variables) => {
+      // ponytail: optimistic cache update so UI updates instantly after update
+      if (userId) {
+        queryClient.setQueryData<Account[]>(["accounts", userId], (old) => {
+          if (!old) return old;
+          return old.map((a) => (a.id === variables.id ? { ...a, ...variables } : a));
+        });
+      }
       await queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" });
     },
     onError: (err) => {
@@ -84,12 +102,21 @@ export function useUpdateAccountMutation() {
 
 export function useDeleteAccountMutation() {
   const queryClient = useQueryClient();
+  const { user } = useAuth();
+  const userId = user?.id ?? null;
   return useMutation({
     mutationFn: async (id: string) => {
       const { error } = await supabase.from("accounts").delete().eq("id", id);
       if (error) throw error;
     },
-    onSuccess: async () => {
+    onSuccess: async (_data, variables) => {
+      // ponytail: optimistic cache update so UI updates instantly after delete
+      if (userId) {
+        queryClient.setQueryData<Account[]>(["accounts", userId], (old) => {
+          if (!old) return old;
+          return old.filter((a) => a.id !== variables);
+        });
+      }
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: ["accounts"], refetchType: "all" }),
         queryClient.invalidateQueries({ queryKey: ["entries"], refetchType: "all" }),

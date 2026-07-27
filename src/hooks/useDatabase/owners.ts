@@ -59,12 +59,21 @@ export function useAddOwnerMutation() {
 
 export function useUpdateOwnerMutation() {
   const queryClient = useQueryClient();
+  const { user } = useAuth();
+  const userId = user?.id ?? null;
   return useMutation({
     mutationFn: async ({ id, ...data }: Partial<Owner> & { id: string }) => {
       const { error } = await supabase.from("owners").update(data).eq("id", id);
       if (error) throw error;
     },
-    onSuccess: async () => {
+    onSuccess: async (_data, variables) => {
+      // ponytail: optimistic cache update so dropdown shows updated owner instantly
+      if (userId) {
+        queryClient.setQueryData<Owner[]>(["owners", userId], (old) => {
+          if (!old) return old;
+          return old.map((o) => (o.id === variables.id ? { ...o, ...variables } : o));
+        });
+      }
       await queryClient.invalidateQueries({ queryKey: ["owners"], refetchType: "all" });
     },
     onError: (err) => {
@@ -76,12 +85,21 @@ export function useUpdateOwnerMutation() {
 
 export function useDeleteOwnerMutation() {
   const queryClient = useQueryClient();
+  const { user } = useAuth();
+  const userId = user?.id ?? null;
   return useMutation({
     mutationFn: async (id: string) => {
       const { error } = await supabase.from("owners").delete().eq("id", id);
       if (error) throw error;
     },
-    onSuccess: async () => {
+    onSuccess: async (_data, variables) => {
+      // ponytail: optimistic cache update so UI updates instantly after delete
+      if (userId) {
+        queryClient.setQueryData<Owner[]>(["owners", userId], (old) => {
+          if (!old) return old;
+          return old.filter((o) => o.id !== variables);
+        });
+      }
       await queryClient.invalidateQueries({ queryKey: ["owners"], refetchType: "all" });
       logDestructiveOp("delete", "owner");
       toast.success("Dono excluído com sucesso");

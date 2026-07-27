@@ -77,6 +77,8 @@ export function useAddProgramMutation() {
 
 export function useUpdateProgramMutation() {
   const queryClient = useQueryClient();
+  const { user } = useAuth();
+  const userId = user?.id ?? null;
   return useMutation({
     mutationFn: async ({ id, ...data }: Partial<Program> & { id: string }) => {
       const updateData: ProgramUpdate = {};
@@ -90,7 +92,14 @@ export function useUpdateProgramMutation() {
       const { error } = await supabase.from("programs").update(updateData).eq("id", id);
       if (error) throw error;
     },
-    onSuccess: async () => {
+    onSuccess: async (_data, variables) => {
+      // ponytail: optimistic cache update so dropdown shows updated program instantly
+      if (userId) {
+        queryClient.setQueryData<Program[]>(["programs", userId], (old) => {
+          if (!old) return old;
+          return old.map((p) => (p.id === variables.id ? { ...p, ...variables } : p));
+        });
+      }
       await queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: "all" });
     },
     onError: (err) => {
@@ -102,12 +111,21 @@ export function useUpdateProgramMutation() {
 
 export function useDeleteProgramMutation() {
   const queryClient = useQueryClient();
+  const { user } = useAuth();
+  const userId = user?.id ?? null;
   return useMutation({
     mutationFn: async (id: string) => {
       const { error } = await supabase.from("programs").delete().eq("id", id);
       if (error) throw error;
     },
-    onSuccess: async () => {
+    onSuccess: async (_data, variables) => {
+      // ponytail: optimistic cache update so UI updates instantly after delete
+      if (userId) {
+        queryClient.setQueryData<Program[]>(["programs", userId], (old) => {
+          if (!old) return old;
+          return old.filter((p) => p.id !== variables);
+        });
+      }
       await queryClient.invalidateQueries({ queryKey: ["programs"], refetchType: "all" });
       logDestructiveOp("delete", "program");
       toast.success("Programa excluído com sucesso");
