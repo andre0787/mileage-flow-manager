@@ -26,6 +26,7 @@ export function useOwnersQuery() {
 export function useAddOwnerMutation() {
   const queryClient = useQueryClient();
   const { user } = useAuth();
+  const userId = user?.id ?? null;
   return useMutation({
     mutationFn: async (owner: Owner) => {
       const row: OwnerInsert = {
@@ -38,7 +39,15 @@ export function useAddOwnerMutation() {
       const { error } = await supabase.from("owners").insert(row);
       if (error) throw error;
     },
-    onSuccess: async () => {
+    onSuccess: async (_data, variables) => {
+      // ponytail: optimistic cache update so dropdown shows new owner instantly
+      if (userId) {
+        queryClient.setQueryData<Owner[]>(["owners", userId], (old) => {
+          if (!old) return [variables];
+          if (old.some((o) => o.id === variables.id)) return old;
+          return [...old, variables];
+        });
+      }
       await queryClient.invalidateQueries({ queryKey: ["owners"], refetchType: "all" });
     },
     onError: (err) => {

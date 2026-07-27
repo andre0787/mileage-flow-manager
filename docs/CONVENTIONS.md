@@ -390,6 +390,35 @@ O projeto é compatível com 3 harnesses:
 
 Todas as skills seguem o Agent Skills standard.
 
+## Testes com Uso Real — REGRA #24
+
+Sempre que possível, os testes E2E devem executar o fluxo real contra o Supabase de produção, não apenas mocks isolados.
+
+### Por quê?
+- Mocks escondem race conditions, comportamento de terceiros (Radix UI, Supabase) e timing de rede
+- Playwright + Supabase real expõe bugs que testes unitários nunca pegam
+- A única forma de garantir que "funciona" é testar o que o usuário realmente faz
+
+### Checklist
+
+| Situação | Abordagem real | Abordagem falsa (evitar) |
+|----------|---------------|--------------------------|
+| Criação inline | Criar usuário real no Supabase, navegar, preencher formulário | Mockar resposta da mutation |
+| Select dropdown | Verificar se texto aparece no DOM renderizado com Radix | Mockar componente Select |
+| Navegação entre páginas | Usar `page.goto()` e esperar load | Simular eventos sem navegação |
+| Cache React Query | Verificar se dado aparece sem recarregar | Mockar queryClient |
+
+### Ferramentas
+- **Playwright** com `baseURL` apontando para dev server real (`http://localhost:8080`)
+- **Supabase** de produção/staging com credenciais anônimas
+- **Usuários efêmeros** — criar com `email: test_\${Date.now()}@teste.com`, dados são limpos periodicamente
+
+### Armadilhas comuns (já encontradas)
+1. **Radix Select com portal:** `getByRole('dialog').nth(N)` é frágil — usar `{ name: 'Título' }` quando possível
+2. **CSS :has() em locator:** `button:has(svg.lucide-plus)` pode não funcionar em todos contextos — preferir `button svg.lucide-plus` + navegar ao pai
+3. **Tabs com defaultTab:** verificar aba correta antes de procurar elementos
+4. **Placeholder vs valor real:** Se Select tem `value` definido, o placeholder não aparece — o texto do item selecionado aparece
+
 ## Debug
 
 Ver `docs/DEBUG.md` para guia completo.
