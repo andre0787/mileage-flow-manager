@@ -25,7 +25,7 @@ test("Tipos de origem são criados e listados corretamente", async ({ page }) =>
 
   // 3. Abre Nova Entrada
   await page.getByRole("button", { name: "Nova Entrada" }).first().click();
-  await expect(page.getByText("Nova Entrada")).toBeVisible({ timeout: 5_000 });
+  await expect(page.getByRole("dialog").first()).toBeVisible({ timeout: 5_000 });
 
   // 4. Plus button ao lado do Tipo de Origem
   const plusBtn = page.locator("button:has(svg.lucide-plus)").last();
@@ -47,7 +47,7 @@ test("Tipos de origem são criados e listados corretamente", async ({ page }) =>
   await page.keyboard.press('Escape');
   await page.waitForTimeout(300); // ponytail: dialog close animation
   await page.getByRole("button", { name: "Nova Entrada" }).first().click();
-  await expect(page.getByText("Nova Entrada")).toBeVisible({ timeout: 5_000 });
+  await expect(page.getByRole("dialog").first()).toBeVisible({ timeout: 5_000 });
 
   await origemCombobox.click();
   await expect(page.getByRole('option', { name: /Clube Mensal/i })).toBeVisible({ timeout: 5000 });
