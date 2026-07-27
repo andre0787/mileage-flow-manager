@@ -228,7 +228,9 @@ export function EntryForm({
                 }}
                 placeholder="Ex: Conta Principal LATAM"
               />
-              {accountErrors.name && <p className="text-xs text-destructive">{accountErrors.name}</p>}
+              {accountErrors.name && (
+                <p className="text-xs text-destructive">{accountErrors.name}</p>
+              )}
             </div>
             <div className="space-y-2">
               <Label>Dono</Label>
@@ -250,7 +252,9 @@ export function EntryForm({
                   ))}
                 </SelectContent>
               </Select>
-              {accountErrors.ownerId && <p className="text-xs text-destructive">{accountErrors.ownerId}</p>}
+              {accountErrors.ownerId && (
+                <p className="text-xs text-destructive">{accountErrors.ownerId}</p>
+              )}
             </div>
             <div className="space-y-2">
               <Label>Programa</Label>
@@ -272,7 +276,9 @@ export function EntryForm({
                   ))}
                 </SelectContent>
               </Select>
-              {accountErrors.programId && <p className="text-xs text-destructive">{accountErrors.programId}</p>}
+              {accountErrors.programId && (
+                <p className="text-xs text-destructive">{accountErrors.programId}</p>
+              )}
             </div>
             {newAccount.programId && (
               <div className="p-3 bg-muted/30 rounded-lg text-sm">

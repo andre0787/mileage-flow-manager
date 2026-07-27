@@ -20,9 +20,9 @@
 ### 📋 Commits Recentes
 
 ```
+528521d docs: atualiza handoff com estado da sessão
 06076d5 chore: renomeia relatório para prefixo PR203 [skip ci]
 fa26764 chore: ignora .pi/git/ e .pi/themes/ (config local do pi)
-c279452 docs: adiciona referências aos novos artefatos (council, specs, thought) no MAP.md e IDEIAS.md
 ```
 
 ## 🧭 Estado Atual
