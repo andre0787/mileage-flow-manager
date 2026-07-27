@@ -53,7 +53,8 @@
     "health:deploy": "node scripts/check-deploy.mjs",
     "retro": "node scripts/retro.mjs",
     "retro:write": "node scripts/retro.mjs --write",
-    "rule:skill-orphans": "node scripts/rules/rule-23-skill-orphans.mjs"
+    "rule:skill-orphans": "node scripts/rules/rule-23-skill-orphans.mjs",
+    "rule:real-tests": "node scripts/rules/rule-24-real-tests.mjs"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.1",
