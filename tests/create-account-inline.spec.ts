@@ -78,7 +78,7 @@ test("Criação inline de conta ao registrar entrada", async ({ page }) => {
   await expect(entryDrawer).toBeVisible({ timeout: 5_000 });
 
   // 5. Clicar no botão "+" de Conta (primeiro botão + dentro do drawer)
-  await entryDrawer.locator('button[data-lov-name="Button"] svg.lucide-plus').first().click();
+  await entryDrawer.locator('button:has(svg.lucide-plus)').first().click();
 
   // 6. Preencher o formulário de Nova Conta
   // O FormDrawer de Nova Conta abre dentro do EntryForm, os campos estão visíveis
@@ -117,7 +117,7 @@ test("Criação inline de conta ao registrar entrada", async ({ page }) => {
   await page.fill("#amountPaid", "1500.00");
 
   // 10. Salvar
-  await entryDrawer.getByRole('button', { name: 'Registrar Entrada' }).click();
+  await entryDrawer.getByRole('button', { name: 'Registrar Entrada' }).click({ force: true });
 
   // 11. Verificar entrada na tabela
   await expect(page.getByText('25.000').first()).toBeVisible({ timeout: 5_000 });

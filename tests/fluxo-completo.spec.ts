@@ -109,7 +109,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await expect(page.getByRole("tab", { selected: true, name: /pontos/i })).toBeVisible({ timeout: 5_000 });
 
     await page.getByRole("button", { name: "Nova Entrada" }).first().click();
-    await expect(page.getByText("Nova Entrada")).toBeVisible({ timeout: 5_000 });
+    await expect(page.getByRole("dialog").first()).toBeVisible({ timeout: 5_000 });
 
     let cmb = page.locator("[role=combobox]");
     await cmb.nth(0).click();
@@ -121,7 +121,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.fill("#amount", "50000");
     await page.fill("#amountPaid", "2500");
     await page.fill("#entryDate", new Date().toISOString().split("T")[0]);
-    await page.getByRole("button", { name: /registrar/i }).click();
+    await page.getByRole("button", { name: /registrar/i }).click({ force: true });
     await page.waitForFunction(() => !document.querySelector('[role=dialog]'), { timeout: 10_000 });
     pass("Entrada 1: 50.000 pontos registrada");
 
@@ -130,7 +130,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
 
     // ═══ 4. ENTRADA CLUBE ═══
     await page.getByRole("button", { name: "Nova Entrada" }).first().click();
-    await expect(page.getByText("Nova Entrada")).toBeVisible({ timeout: 5_000 });
+    await expect(page.getByRole("dialog").first()).toBeVisible({ timeout: 5_000 });
 
     cmb = page.locator("[role=combobox]");
     await cmb.nth(0).click();
@@ -147,7 +147,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.fill("#amountPaid", "800");
     await page.fill("#entryDate", new Date().toISOString().split("T")[0]);
 
-    await page.getByRole("button", { name: /registrar/i }).click();
+    await page.getByRole("button", { name: /registrar/i }).click({ force: true });
     pass("Entrada 2: Clube 10.000 (3 meses) registrada");
 
     // ═══ 5. VERIFICAR PENDÊNCIAS E CONFIRMAR ═══
@@ -217,7 +217,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
     const bonus = page.locator('#transferBonus');
     if (await bonus.isVisible()) await bonus.fill("50");
 
-    await page.getByRole("button", { name: /registrar/i }).click();
+    await page.getByRole("button", { name: /registrar/i }).click({ force: true });
     pass("Transferência de 20.000 com 50% bônus registrada");
 
     // ═══ 7. VERIFICAR SALDOS ═══

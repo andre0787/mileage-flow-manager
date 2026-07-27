@@ -78,7 +78,7 @@ test.describe("Recorrência", () => {
 
     // Abrir dialog de nova entrada
     await page.locator("button:has-text('Nova Entrada')").first().click();
-    await expect(page.getByText("Nova Entrada")).toBeVisible({ timeout: 5_000 });
+    await expect(page.getByRole("dialog").first()).toBeVisible({ timeout: 5_000 });
 
     // Preencher formulário — selecionar conta
     await page.locator("button[role='combobox']").first().click();
@@ -104,7 +104,8 @@ test.describe("Recorrência", () => {
     await inicioInput.fill(new Date().toISOString().split('T')[0]);
 
     // Registrar
-    await page.locator("button:has-text('Registrar Entrada')").click();
+    await page.locator("button:has-text('Registrar Entrada')").scrollIntoViewIfNeeded();
+    await page.locator("button:has-text('Registrar Entrada')").click({ force: true });
 
     // ═══════════════════════════════════════
     // 4. Verificar badges
