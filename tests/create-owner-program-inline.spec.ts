@@ -78,15 +78,15 @@ test("Criação inline de dono e programa ao registrar entrada", async ({ page }
   await expect(entryDrawer).toBeVisible({ timeout: 5_000 });
 
   // 5. Clicar no botão "+" de Conta (primeiro botão + dentro do drawer)
-  await entryDrawer.locator("button:has(svg.lucide-plus)").first().click();
+  await entryDrawer.locator('button svg.lucide-plus').locator('..').first().click();
 
   // 6. Criar DONO inline
   await expect(page.getByText("Nome da Conta")).toBeVisible({ timeout: 3_000 });
 
   // Clica no "+" ao lado de Dono (primeiro botão + dentro do drawer de conta)
-  const accountDrawer = page.getByRole("dialog").nth(1);
-  const plusButtons = accountDrawer.locator("button:has(svg.lucide-plus)");
-  await plusButtons.first().click();
+  const accountDrawer = page.getByRole("dialog", { name: "Nova Conta" });
+  await expect(accountDrawer).toBeVisible({ timeout: 3_000 });
+  await accountDrawer.locator('button svg.lucide-plus').locator('..').first().click();
 
   // Preenche formulário do novo dono
   await expect(page.getByText("Novo Dono")).toBeVisible({ timeout: 3_000 });
@@ -100,15 +100,14 @@ test("Criação inline de dono e programa ao registrar entrada", async ({ page }
   await expect(accountDrawer.getByText("Dono Criado Inline")).toBeVisible({ timeout: 5_000 });
 
   // 7. Criar PROGRAMA inline
-  const programPlusButtons = accountDrawer.locator("button:has(svg.lucide-plus)");
-  await programPlusButtons.last().click();
+  await accountDrawer.locator('button svg.lucide-plus').locator('..').last().click();
 
   await expect(page.getByText("Novo Programa")).toBeVisible({ timeout: 3_000 });
   const programDrawer = page.getByRole("dialog").last();
   await programDrawer.getByPlaceholder("Ex: LATAM Pass").fill("Programa Criado Inline");
 
   // Seleciona tipo Milhas
-  await programDrawer.getByText("Selecione o tipo").click();
+  await programDrawer.getByText("Pontos").click();
   await page.getByRole("option", { name: "Milhas" }).click();
 
   // Clica em Cadastrar
@@ -145,6 +144,9 @@ test("Criação inline de dono e programa ao registrar entrada", async ({ page }
   // 13. Verificar dono e programa criados na página de configurações
   await page.goto("/configuracoes");
   await page.waitForSelector("text=Configurações", { timeout: 15_000 });
-  await expect(page.getByText("Dono Criado Inline")).toBeVisible({ timeout: 5_000 });
-  await expect(page.getByText("Programa Criado Inline")).toBeVisible({ timeout: 5_000 });
+  await expect(page.getByText("Dono Criado Inline").first()).toBeVisible({ timeout: 5_000 });
+
+  // Alterna para aba Programas
+  await page.getByRole("tab", { name: "Programas" }).click();
+  await expect(page.getByText("Programa Criado Inline").first()).toBeVisible({ timeout: 5_000 });
 });
