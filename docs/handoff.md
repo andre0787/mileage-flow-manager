@@ -1,12 +1,10 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-07-23
+> ⏰ Última atualização: 2026-07-27
 > Anterior: 2026-07-23
 ---
 ## 🏗️ Projeto
 
 > ⏰ Snapshot atualizado em: 2026-07-27
-
-### 🏗️ Projeto
 
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
@@ -15,59 +13,45 @@
 
 ### 🐞 Bugs Abertos
 
-- nenhum | [ver todos → Issues](https://github.com/andreluiz0787/mileage-flow-manager/issues)
+- #204 — Nightly workflow falhando há 5 dias (E2E testes quebrados) → **✅ FIXED** (PR #205 mergeado)
 
 ### 📋 Commits Recentes
 
 ```
+a48d9ab fix: corrige seletores E2E ambíguos e viewport no nightly workflow (#204)
 528521d docs: atualiza handoff com estado da sessão
 06076d5 chore: renomeia relatório para prefixo PR203 [skip ci]
-fa26764 chore: ignora .pi/git/ e .pi/themes/ (config local do pi)
 ```
 
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `ff2ac05` — Merge branch 'main' of https://github.com/andre0787/mileage-flow-manager
+- **Último commit:** `a48d9ab` — fix: corrige seletores E2E ambíguos e viewport no nightly workflow (#204)
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 187 |
+| Unit tests | 124/124 |
+| E2E tests | Fix aplicado (aguardando nightly) |
 | Docs issues | 0 |
 | Branch | main |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
+
+## 📌 Próxima Sessão
+**Feature:** "Criar dono e programa juntos no momento de criar a mileage program (entry)"
+- Pendente em `docs/IDEIAS.md`
+- Doc de pensamento: `docs/thoughts/2026-07-25-permitir-criar-o-dono-e-criar-o-programa-juntos-no-momento-d.md`
+- Recomendado: carregar `council-to-superpowers` para planejamento
+- Categoria: feature
+
+## 🧠 Notas da Sessão Atual
+- PR #203 (create account inline) foi o primeiro passo; falta criar owner + program inline
+- Nenhuma alteração em `src/` — só arquivos de teste foram modificados
+- Branch de feature removida localmente após merge
+
 ## 🎯 Sessão Atual
 **Categoria:** chore
-**Objetivo:** Auditoria ponytail + criar onda P3 de housekeeping
-**Status:** done
-**Branch:** `main`
-**Docs carregados:** AGENTS.md
-## ✅ Última Sessão
-Estado atualizado automaticamente.
-## 📌 Próxima Sessão
-Continue a tarefa ativa ou selecione o próximo task-card.
-## 🧠 Notas da Sessão Atual
-- Auditoria ponytail completa: 557 arquivos (excluindo node_modules/git/dist)
-- 3 task cards P3 criados, todos `pending ⏳`
-- `docs/FLUXO.md` criado (diagramas Mermaid do ecossistema)
-- P0/P1/P2: 22 cards todos `done ✅`
-- Recomendações **descartadas** por serem falsa economia:
-  - Deletar AGENDA.md (referenciado por 5+ scripts)
-  - Deletar GIT-WORKFLOW.md (conteúdo único do projeto)
-  - Consolidar TEST-PLAN.md/TESTING.md (propósitos diferentes)
-  - Deletar CI-PROCESS.md (inofensivo)
-
-
-
-
-
-
-
-
-
-
-
+**Objetivo:** P0 completo
