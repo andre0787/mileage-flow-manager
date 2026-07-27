@@ -35,6 +35,15 @@ interface EntryFormProps {
     ownerId: string;
     programId: string;
   }) => Promise<string | undefined>;
+  onCreateOwner?: (data: {
+    name: string;
+    cpf?: string;
+    phone?: string;
+  }) => Promise<string | undefined>;
+  onCreateProgram?: (data: {
+    name: string;
+    type: "pontos" | "milhas";
+  }) => Promise<string | undefined>;
 }
 
 const emptyForm: EntryFormData = {
@@ -69,6 +78,8 @@ export function EntryForm({
   owners,
   onCreateOrigemType,
   onCreateAccount,
+  onCreateOwner,
+  onCreateProgram,
 }: EntryFormProps) {
   const [form, setForm] = useState<EntryFormData>({ ...emptyForm, ...initialData });
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
@@ -80,6 +91,19 @@ export function EntryForm({
   const [newAccount, setNewAccount] = useState({ name: "", ownerId: "", programId: "" });
   const [isCreatingAccount, setIsCreatingAccount] = useState(false);
   const [accountErrors, setAccountErrors] = useState<Partial<Record<string, string>>>({});
+
+  const [isOwnerOpen, setIsOwnerOpen] = useState(false);
+  const [newOwner, setNewOwner] = useState({ name: "", cpf: "", phone: "" });
+  const [isCreatingOwner, setIsCreatingOwner] = useState(false);
+  const [ownerErrors, setOwnerErrors] = useState<Record<string, string>>({});
+
+  const [isProgramOpen, setIsProgramOpen] = useState(false);
+  const [newProgram, setNewProgram] = useState<{ name: string; type: "pontos" | "milhas" }>({
+    name: "",
+    type: "pontos",
+  });
+  const [isCreatingProgram, setIsCreatingProgram] = useState(false);
+  const [programErrors, setProgramErrors] = useState<Record<string, string>>({});
 
   const set = (patch: Partial<EntryFormData>) => setForm((prev) => ({ ...prev, ...patch }));
   const clearErr = (field: string) => setErrors((prev) => ({ ...prev, [field]: "" }));
@@ -140,6 +164,49 @@ export function EntryForm({
       setIsOrigemTypeOpen(false);
     } finally {
       setIsCreatingOrigemType(false);
+    }
+  };
+
+  const handleCreateOwner = async () => {
+    const errs: Record<string, string> = {};
+    if (!newOwner.name.trim()) errs.name = "Nome é obrigatório";
+    setOwnerErrors(errs);
+    if (Object.keys(errs).length > 0) return;
+
+    setIsCreatingOwner(true);
+    try {
+      const id = await onCreateOwner?.({
+        name: newOwner.name.trim(),
+        cpf: newOwner.cpf.trim() || undefined,
+        phone: newOwner.phone.trim() || undefined,
+      });
+      if (id) setNewAccount((p) => ({ ...p, ownerId: id }));
+      setNewOwner({ name: "", cpf: "", phone: "" });
+      setOwnerErrors({});
+      setIsOwnerOpen(false);
+    } finally {
+      setIsCreatingOwner(false);
+    }
+  };
+
+  const handleCreateProgram = async () => {
+    const errs: Record<string, string> = {};
+    if (!newProgram.name.trim()) errs.name = "Nome é obrigatório";
+    setProgramErrors(errs);
+    if (Object.keys(errs).length > 0) return;
+
+    setIsCreatingProgram(true);
+    try {
+      const id = await onCreateProgram?.({
+        name: newProgram.name.trim(),
+        type: newProgram.type,
+      });
+      if (id) setNewAccount((p) => ({ ...p, programId: id }));
+      setNewProgram({ name: "", type: "pontos" });
+      setProgramErrors({});
+      setIsProgramOpen(false);
+    } finally {
+      setIsCreatingProgram(false);
     }
   };
 
@@ -234,48 +301,76 @@ export function EntryForm({
             </div>
             <div className="space-y-2">
               <Label>Dono</Label>
-              <Select
-                value={newAccount.ownerId}
-                onValueChange={(v) => {
-                  setNewAccount((p) => ({ ...p, ownerId: v }));
-                  setAccountErrors((p) => ({ ...p, ownerId: "" }));
-                }}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione o dono" />
-                </SelectTrigger>
-                <SelectContent>
-                  {owners.map((o) => (
-                    <SelectItem key={o.id} value={o.id}>
-                      {o.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <div className="flex gap-2">
+                <div className="flex-1">
+                  <Select
+                    value={newAccount.ownerId}
+                    onValueChange={(v) => {
+                      setNewAccount((p) => ({ ...p, ownerId: v }));
+                      setAccountErrors((p) => ({ ...p, ownerId: "" }));
+                    }}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione o dono" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {owners.map((o) => (
+                        <SelectItem key={o.id} value={o.id}>
+                          {o.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                {onCreateOwner && (
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="shrink-0"
+                    onClick={() => setIsOwnerOpen(true)}
+                  >
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                )}
+              </div>
               {accountErrors.ownerId && (
                 <p className="text-xs text-destructive">{accountErrors.ownerId}</p>
               )}
             </div>
             <div className="space-y-2">
               <Label>Programa</Label>
-              <Select
-                value={newAccount.programId}
-                onValueChange={(v) => {
-                  setNewAccount((p) => ({ ...p, programId: v }));
-                  setAccountErrors((p) => ({ ...p, programId: "" }));
-                }}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione o programa" />
-                </SelectTrigger>
-                <SelectContent>
-                  {programs.map((p) => (
-                    <SelectItem key={p.id} value={p.id}>
-                      {p.name} ({p.type === "pontos" ? "Pontos" : "Milhas"})
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <div className="flex gap-2">
+                <div className="flex-1">
+                  <Select
+                    value={newAccount.programId}
+                    onValueChange={(v) => {
+                      setNewAccount((p) => ({ ...p, programId: v }));
+                      setAccountErrors((p) => ({ ...p, programId: "" }));
+                    }}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione o programa" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {programs.map((p) => (
+                        <SelectItem key={p.id} value={p.id}>
+                          {p.name} ({p.type === "pontos" ? "Pontos" : "Milhas"})
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                {onCreateProgram && (
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="shrink-0"
+                    onClick={() => setIsProgramOpen(true)}
+                  >
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                )}
+              </div>
               {accountErrors.programId && (
                 <p className="text-xs text-destructive">{accountErrors.programId}</p>
               )}
@@ -307,6 +402,127 @@ export function EntryForm({
               className="bg-gradient-primary hover:opacity-90"
             >
               {isCreatingAccount ? "Salvando..." : "Cadastrar"}
+            </Button>
+          </div>
+        </FormDrawer>
+
+        {/* Owner creation drawer */}
+        <FormDrawer
+          open={isOwnerOpen}
+          onOpenChange={(open) => {
+            setIsOwnerOpen(open);
+            if (!open) setOwnerErrors({});
+          }}
+          title="Novo Dono"
+        >
+          <div className="grid gap-4 py-4">
+            <div className="space-y-2">
+              <Label>Nome</Label>
+              <Input
+                value={newOwner.name}
+                onChange={(e) => {
+                  setNewOwner((p) => ({ ...p, name: e.target.value }));
+                  setOwnerErrors((p) => ({ ...p, name: "" }));
+                }}
+                placeholder="Ex: João Silva"
+              />
+              {ownerErrors.name && <p className="text-xs text-destructive">{ownerErrors.name}</p>}
+            </div>
+            <div className="space-y-2">
+              <Label>CPF (opcional)</Label>
+              <Input
+                value={newOwner.cpf}
+                onChange={(e) => setNewOwner((p) => ({ ...p, cpf: e.target.value }))}
+                placeholder="000.000.000-00"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Telefone (opcional)</Label>
+              <Input
+                value={newOwner.phone}
+                onChange={(e) => setNewOwner((p) => ({ ...p, phone: e.target.value }))}
+                placeholder="(11) 99999-8888"
+              />
+            </div>
+          </div>
+          <div className="flex justify-end gap-2 mt-4">
+            <Button
+              variant="outline"
+              onClick={() => {
+                setIsOwnerOpen(false);
+                setOwnerErrors({});
+              }}
+            >
+              Cancelar
+            </Button>
+            <Button
+              onClick={handleCreateOwner}
+              disabled={isCreatingOwner}
+              className="bg-gradient-primary hover:opacity-90"
+            >
+              {isCreatingOwner ? "Salvando..." : "Cadastrar"}
+            </Button>
+          </div>
+        </FormDrawer>
+
+        {/* Program creation drawer */}
+        <FormDrawer
+          open={isProgramOpen}
+          onOpenChange={(open) => {
+            setIsProgramOpen(open);
+            if (!open) setProgramErrors({});
+          }}
+          title="Novo Programa"
+        >
+          <div className="grid gap-4 py-4">
+            <div className="space-y-2">
+              <Label>Nome</Label>
+              <Input
+                value={newProgram.name}
+                onChange={(e) => {
+                  setNewProgram((p) => ({ ...p, name: e.target.value }));
+                  setProgramErrors((p) => ({ ...p, name: "" }));
+                }}
+                placeholder="Ex: LATAM Pass"
+              />
+              {programErrors.name && (
+                <p className="text-xs text-destructive">{programErrors.name}</p>
+              )}
+            </div>
+            <div className="space-y-2">
+              <Label>Tipo</Label>
+              <Select
+                value={newProgram.type}
+                onValueChange={(v) =>
+                  setNewProgram((p) => ({ ...p, type: v as "pontos" | "milhas" }))
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione o tipo" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="pontos">Pontos</SelectItem>
+                  <SelectItem value="milhas">Milhas</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <div className="flex justify-end gap-2 mt-4">
+            <Button
+              variant="outline"
+              onClick={() => {
+                setIsProgramOpen(false);
+                setProgramErrors({});
+              }}
+            >
+              Cancelar
+            </Button>
+            <Button
+              onClick={handleCreateProgram}
+              disabled={isCreatingProgram}
+              className="bg-gradient-primary hover:opacity-90"
+            >
+              {isCreatingProgram ? "Salvando..." : "Cadastrar"}
             </Button>
           </div>
         </FormDrawer>

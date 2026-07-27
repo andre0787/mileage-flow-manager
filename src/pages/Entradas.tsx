@@ -28,6 +28,8 @@ import {
   useAddOrigemTypeMutation,
   useAddAccountMutation,
   useConfirmEntryMutation,
+  useAddOwnerMutation,
+  useAddProgramMutation,
 } from "@/hooks/useDatabase";
 import { EntrySummary } from "@/components/EntrySummary";
 import { EntryTable } from "@/components/EntryTable";
@@ -45,6 +47,8 @@ export default function Entradas() {
   const updateEntryM = useUpdateEntryMutation();
   const addOrigemTypeM = useAddOrigemTypeMutation();
   const addAccountM = useAddAccountMutation();
+  const addOwnerM = useAddOwnerMutation();
+  const addProgramM = useAddProgramMutation();
   const confirmEntryM = useConfirmEntryMutation();
   const haptic = useHaptic();
 
@@ -189,6 +193,23 @@ export default function Entradas() {
     });
     setEditingEntry(null);
     setIsEditDialogOpen(false);
+  };
+
+  const handleCreateOwner = async (data: { name: string; cpf?: string; phone?: string }) => {
+    const id = crypto.randomUUID();
+    await addOwnerM.mutateAsync({
+      id,
+      name: data.name,
+      cpf: data.cpf ?? "",
+      phone: data.phone ?? "",
+    });
+    return id;
+  };
+
+  const handleCreateProgram = async (data: { name: string; type: "pontos" | "milhas" }) => {
+    const id = crypto.randomUUID();
+    await addProgramM.mutateAsync({ id, name: data.name, type: data.type });
+    return id;
   };
 
   const handleCreateOrigemType = async (data: {
@@ -438,6 +459,8 @@ export default function Entradas() {
           owners={owners}
           onCreateOrigemType={handleCreateOrigemType}
           onCreateAccount={handleCreateAccount}
+          onCreateOwner={handleCreateOwner}
+          onCreateProgram={handleCreateProgram}
           onSubmit={handleCreateEntry}
           onCancel={() => setIsCreateDialogOpen(false)}
         />
