@@ -2,8 +2,8 @@ import { test, expect } from "@playwright/test";
 import { writeFileSync, mkdirSync } from "fs";
 import path from "path";
 
-// ponytail: skip in CI due to flakiness with parallel workers
-const isCI = !!process.env.CI;
+// Execução serial para evitar race conditions com outros testes que usam Supabase
+test.describe.configure({ mode: "serial" });
 
 const PASSWORD = "Test@123456";
 const email = `fluxo_${Date.now()}@teste.com`;
@@ -19,8 +19,8 @@ function pass(msg: string) { log(` ✅ ${msg}`); }
 function fail(msg: string) { log(` ❌ ${msg}`); }
 
 test("Fluxo completo de experiência", async ({ page }) => {
-  test.skip(isCI, "Pulado no CI — flaky com workers paralelos");
   test.setTimeout(300_000);
+  test.slow(); // 3x timeout padrão do Playwright
   mkdirSync(SCREENSHOTS_DIR, { recursive: true });
 
   async function save(name: string) {

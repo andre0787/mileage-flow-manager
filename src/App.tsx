@@ -29,6 +29,7 @@ import ControleCPF from "./pages/ControleCPF";
 import Relatorios from "./pages/Relatorios";
 import Configuracoes from "./pages/Configuracoes";
 import Perfil from "./pages/Perfil";
+import AdminEventos from "./pages/AdminEventos";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -136,6 +137,16 @@ const AnimatedRoutes = () => {
         }
       />
       <Route
+        path="/admin/eventos"
+        element={
+          <ErrorBoundary>
+            <div className="animate-appear">
+              <AdminEventos />
+            </div>
+          </ErrorBoundary>
+        }
+      />
+      <Route
         path="*"
         element={
           <div className="animate-appear">
@@ -157,6 +168,7 @@ const PAGE_TITLES: Record<string, string> = {
   "/relatorios": "Relatórios",
   "/configuracoes": "Configurações",
   "/perfil": "Perfil",
+  "/admin/eventos": "Observabilidade",
 };
 
 const PageHeader = () => {

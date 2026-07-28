@@ -140,6 +140,7 @@ function gradeDiff(checklistMode = false) {
       if (!file.endsWith(".ts") && !file.endsWith(".tsx")) continue;
       if (file.includes(".test.") || file.includes(".spec.")) continue;
       if (file.includes("/ui/") || file.includes("/types/")) continue;
+      if (file === "src/App.tsx" || file === "src/main.tsx") continue; // entry points (rule-14)
 
       const testFile = findTestFile(file);
       if (!testFile) {

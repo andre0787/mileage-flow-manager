@@ -68,3 +68,176 @@
 {"timestamp":"2026-07-28T22:35:01.913Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/prompt-versioning-phase1","commit":"c036aac","categoria":"chore"}
 {"timestamp":"2026-07-28T22:35:04.563Z","type":"session:start","description":"docs: verifica output","branch":"feat/prompt-versioning-phase1","commit":"c036aac","categoria":"docs"}
 {"timestamp":"2026-07-28T22:35:04.695Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/prompt-versioning-phase1","commit":"c036aac","errors":3}
+{"timestamp":"2026-07-28T23:11:40.301Z","type":"session:start","description":"bugfix: corrige bug","branch":"main","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:11:40.607Z","type":"session:start","description":"refactor: refatora modulo","branch":"main","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:11:40.839Z","type":"session:start","description":"feature: primeira feature","branch":"main","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:11:41.032Z","type":"pre-pr","description":"pre-pr PASS","branch":"main","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:11:41.039Z","type":"session:start","description":"chore: segunda chore","branch":"main","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:11:41.160Z","type":"session:start","description":"docs: continuacao","branch":"main","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:11:46.445Z","type":"session:start","description":"chore: descrição concisa","branch":"main","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:11:49.078Z","type":"session:start","description":"docs: verifica output","branch":"main","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:11:49.211Z","type":"pre-pr","description":"pre-pr FAIL","branch":"main","commit":"ba86220","errors":5}
+{"timestamp":"2026-07-28T23:11:57.573Z","type":"session:start","description":"docs: teste docs","branch":"main","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:11:57.894Z","type":"session:start","description":"bugfix: corrige bug","branch":"main","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:11:58.175Z","type":"session:start","description":"refactor: refatora modulo","branch":"main","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:11:58.323Z","type":"pre-pr","description":"pre-pr PASS","branch":"main","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:11:58.462Z","type":"session:start","description":"feature: primeira feature","branch":"main","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:11:58.606Z","type":"session:start","description":"chore: segunda chore","branch":"main","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:11:58.726Z","type":"session:start","description":"docs: continuacao","branch":"main","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:12:03.986Z","type":"session:start","description":"chore: descrição concisa","branch":"main","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:12:06.661Z","type":"session:start","description":"docs: verifica output","branch":"main","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:12:15.585Z","type":"session:start","description":"docs: teste docs","branch":"main","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:12:15.843Z","type":"session:start","description":"bugfix: corrige bug","branch":"main","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:12:16.096Z","type":"session:start","description":"refactor: refatora modulo","branch":"main","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:12:16.194Z","type":"pre-pr","description":"pre-pr PASS","branch":"main","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:12:16.309Z","type":"session:start","description":"feature: primeira feature","branch":"main","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:12:16.421Z","type":"session:start","description":"chore: segunda chore","branch":"main","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:12:16.540Z","type":"session:start","description":"docs: continuacao","branch":"main","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:12:21.855Z","type":"session:start","description":"chore: descrição concisa","branch":"main","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:12:24.485Z","type":"session:start","description":"docs: verifica output","branch":"main","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:13:19.581Z","type":"session:start","description":"docs: teste docs","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:13:19.850Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:13:20.087Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:13:20.157Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:13:20.327Z","type":"session:start","description":"feature: primeira feature","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:13:20.444Z","type":"session:start","description":"chore: segunda chore","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:13:20.562Z","type":"session:start","description":"docs: continuacao","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:13:25.897Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:13:28.546Z","type":"session:start","description":"docs: verifica output","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:13:28.691Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":5}
+{"timestamp":"2026-07-28T23:13:44.551Z","type":"session:start","description":"docs: teste docs","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:13:44.824Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:13:45.000Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:13:45.083Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:13:45.309Z","type":"session:start","description":"feature: primeira feature","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:13:45.422Z","type":"session:start","description":"chore: segunda chore","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:13:45.537Z","type":"session:start","description":"docs: continuacao","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:13:50.818Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:13:53.472Z","type":"session:start","description":"docs: verifica output","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:13:53.609Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":5}
+{"timestamp":"2026-07-28T23:14:02.149Z","type":"session:start","description":"docs: teste docs","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:14:02.440Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:14:02.622Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:14:02.722Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:14:02.895Z","type":"session:start","description":"feature: primeira feature","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:14:03.012Z","type":"session:start","description":"chore: segunda chore","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:14:03.129Z","type":"session:start","description":"docs: continuacao","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:14:08.463Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:14:11.123Z","type":"session:start","description":"docs: verifica output","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:14:18.040Z","type":"session:start","description":"docs: teste docs","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:14:18.273Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:14:18.511Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:14:18.515Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:14:18.658Z","type":"session:start","description":"feature: primeira feature","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:14:18.773Z","type":"session:start","description":"chore: segunda chore","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:14:18.896Z","type":"session:start","description":"docs: continuacao","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:14:24.192Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:14:27.015Z","type":"session:start","description":"docs: verifica output","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:14:58.292Z","type":"session:start","description":"docs: teste docs","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:14:58.557Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:14:58.695Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:14:58.828Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:14:59.010Z","type":"session:start","description":"feature: primeira feature","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:14:59.118Z","type":"session:start","description":"chore: segunda chore","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:14:59.230Z","type":"session:start","description":"docs: continuacao","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:15:04.766Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:15:07.417Z","type":"session:start","description":"docs: verifica output","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:15:07.541Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":3}
+{"timestamp":"2026-07-28T23:15:31.879Z","type":"session:start","description":"docs: teste docs","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:15:32.216Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:15:32.446Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:15:32.502Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:15:32.665Z","type":"session:start","description":"feature: primeira feature","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:15:32.779Z","type":"session:start","description":"chore: segunda chore","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:15:32.901Z","type":"session:start","description":"docs: continuacao","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:15:38.366Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:15:41.036Z","type":"session:start","description":"docs: verifica output","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:15:41.163Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":3}
+{"timestamp":"2026-07-28T23:16:38.096Z","type":"session:start","description":"docs: teste docs","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:16:38.364Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:16:38.617Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:16:38.621Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:16:38.801Z","type":"session:start","description":"feature: primeira feature","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:16:38.920Z","type":"session:start","description":"chore: segunda chore","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:16:39.046Z","type":"session:start","description":"docs: continuacao","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:16:44.378Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:16:47.233Z","type":"session:start","description":"docs: verifica output","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:16:47.359Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":2}
+{"timestamp":"2026-07-28T23:17:04.970Z","type":"session:start","description":"docs: teste docs","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:17:05.244Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:17:05.443Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:17:05.528Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:17:05.820Z","type":"session:start","description":"feature: primeira feature","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:17:05.951Z","type":"session:start","description":"chore: segunda chore","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:17:06.068Z","type":"session:start","description":"docs: continuacao","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:17:11.401Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:17:14.074Z","type":"session:start","description":"docs: verifica output","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:17:14.197Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":2}
+{"timestamp":"2026-07-28T23:17:35.562Z","type":"session:start","description":"docs: teste docs","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:17:35.850Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:17:36.131Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:17:36.216Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:17:36.321Z","type":"session:start","description":"feature: primeira feature","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:17:36.435Z","type":"session:start","description":"chore: segunda chore","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:17:36.557Z","type":"session:start","description":"docs: continuacao","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:17:41.898Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:17:44.540Z","type":"session:start","description":"docs: verifica output","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:17:44.666Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":1}
+{"timestamp":"2026-07-28T23:18:00.117Z","type":"session:start","description":"docs: teste docs","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:18:00.176Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:18:00.375Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:18:00.609Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:18:00.739Z","type":"session:start","description":"feature: primeira feature","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:18:00.848Z","type":"session:start","description":"chore: segunda chore","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:18:00.967Z","type":"session:start","description":"docs: continuacao","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:18:06.288Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:18:08.969Z","type":"session:start","description":"docs: verifica output","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:18:09.098Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":1}
+{"timestamp":"2026-07-28T23:18:24.134Z","type":"session:start","description":"docs: teste docs","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:18:24.362Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:18:24.530Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:18:24.626Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:18:24.784Z","type":"session:start","description":"feature: primeira feature","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:18:24.901Z","type":"session:start","description":"chore: segunda chore","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:18:25.020Z","type":"session:start","description":"docs: continuacao","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:18:30.374Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:18:33.046Z","type":"session:start","description":"docs: verifica output","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:18:33.175Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":1}
+{"timestamp":"2026-07-28T23:18:48.630Z","type":"session:start","description":"docs: teste docs","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:18:48.876Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:18:49.136Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:18:49.142Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:18:49.406Z","type":"session:start","description":"feature: primeira feature","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:18:49.558Z","type":"session:start","description":"chore: segunda chore","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:18:49.678Z","type":"session:start","description":"docs: continuacao","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:18:55.001Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:18:57.701Z","type":"session:start","description":"docs: verifica output","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:18:57.827Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":1}
+{"timestamp":"2026-07-28T23:19:12.990Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:19:13.272Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:19:13.563Z","type":"session:start","description":"feature: primeira feature","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:19:13.605Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:19:13.778Z","type":"session:start","description":"chore: segunda chore","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:19:13.907Z","type":"session:start","description":"docs: continuacao","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:19:19.459Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:19:22.143Z","type":"session:start","description":"docs: verifica output","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:19:22.276Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":2}
+{"timestamp":"2026-07-28T23:19:37.279Z","type":"session:start","description":"docs: teste docs","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:19:37.572Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:19:37.845Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:19:37.963Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:19:38.045Z","type":"session:start","description":"feature: primeira feature","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:19:38.163Z","type":"session:start","description":"chore: segunda chore","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:19:38.287Z","type":"session:start","description":"docs: continuacao","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:19:43.684Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:19:46.338Z","type":"session:start","description":"docs: verifica output","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:19:46.463Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":1}
+{"timestamp":"2026-07-28T23:19:52.989Z","type":"session:start","description":"docs: teste docs","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:19:53.257Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"bugfix"}
+{"timestamp":"2026-07-28T23:19:53.426Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/fase2-audit-dashboard","commit":"ba86220","errors":0}
+{"timestamp":"2026-07-28T23:19:53.474Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"refactor"}
+{"timestamp":"2026-07-28T23:19:53.682Z","type":"session:start","description":"feature: primeira feature","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"feature"}
+{"timestamp":"2026-07-28T23:19:53.799Z","type":"session:start","description":"chore: segunda chore","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:19:53.919Z","type":"session:start","description":"docs: continuacao","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}
+{"timestamp":"2026-07-28T23:19:59.312Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"chore"}
+{"timestamp":"2026-07-28T23:20:02.150Z","type":"session:start","description":"docs: verifica output","branch":"feat/fase2-audit-dashboard","commit":"ba86220","categoria":"docs"}

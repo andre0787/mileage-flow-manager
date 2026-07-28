@@ -62,6 +62,7 @@
 | `scripts/check-deploy.mjs` | Saúde do deploy | Verifica status do último deploy via GitHub API |
 | `scripts/retro.mjs` | Retrospectiva | Gera relatório de retrospectiva do período |
 | `scripts/rules/rule-22-pr-naming.mjs` | Validação de PR | Valida nomenclatura de PRs no pre-pr |
+| `scripts/twins-check.mjs` | TWINS gate | Busca automatizada de padrões no código |
 | `CLAUDE.md` | Cross-harness (Claude Code) | Instruções resumidas para Claude Code |
 | `QUALITY.md` | Qualidade do código | Métricas e padrões de qualidade |
 
@@ -85,6 +86,13 @@ Artefatos de sprints/features concluídos foram movidos para `docs/archive/`:
 | 🧠 **INTENT** | `council-to-superpowers` + `writing-plans` | Antes de qualquer edição: alinha código, teste e spec com declaração explícita |
 | 🔁 **TWINS** | `systematic-debugging` | Ao corrigir bug: busca mesmo padrão no projeto todo e corrige todas as ocorrências |
 | 🔐 **AUTH** | `finishing-a-development-branch` | Antes de push/merge/deploy: exige as palavras exatas do usuário como autorização |
+
+## Fable Method — Fase 2 Audit
+
+[`docs/fable-method-audit.md`](fable-method-audit.md) — Auditoria da entrega prompt-versioning
+(PR #219) verificando se os 3 gates teriam pego problemas reais.
+
+**ROI verificado: 🟢 Positivo.** Ver auditoria completa no link acima.
 
 ## Regra de Ouro
 
