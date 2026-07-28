@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 prompt versioning phase1</h1>
-  <p class="meta">2026-07-28 18:29 &middot; feat/prompt-versioning-phase1 &middot; 9a227f3 — docs: update handoff</p>
-  <p><span class="badge auto">auto</span> <span class="badge auto">prompt-versioning-phase1</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+  <p class="meta">2026-07-28 18:35 &middot; feat/prompt-versioning-phase1 &middot; 2f3f79a — feat: observability — event tracking + sessão scriptada + docs</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">prompt-versioning-phase1</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">1</div>
+      <div style="font-size:1.5rem;font-weight:700">19</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+32</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+2049</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-144</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-164</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~140</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1748</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -80,12 +80,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 144 remoções — 187 linhas tocadas</td>
-        <td>✨ 32 adições — 1 arquivo(s) alterado(s)</td>
+        <td>🧹 164 remoções — 2330 linhas tocadas</td>
+        <td>✨ 2049 adições — 19 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/handoff.md</td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .pi/skills/council-to-superpowers/SKILL.md, .pi/skills/llm-council/SKILL.md, docs/WORKFLOW.md, docs/handoff.md<br><span style="color:#166534;font-weight:600">➕</span> .prompts-manifest.json<br><em>+14 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,157 +98,175 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>1</td></tr>
-    <tr><td>Adições</td><td>+32</td></tr>
-    <tr><td>Remoções</td><td>-144</td></tr>
-    <tr><td>Tokens estimados</td><td>~140</td></tr>
+    <tr><td>Arquivos alterados</td><td>19</td></tr>
+    <tr><td>Adições</td><td>+2049</td></tr>
+    <tr><td>Remoções</td><td>-164</td></tr>
+    <tr><td>Tokens estimados</td><td>~1748</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:17">+24 add</div>
-        <div class="del" style="flex:77">-108 del</div>
-        <div class="overhead" style="flex:6">~8 ctx</div>
+        <div class="add" style="flex:88">+1537 add</div>
+        <div class="del" style="flex:7">-123 del</div>
+        <div class="overhead" style="flex:5">~88 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+24</td><td>17%</td></tr>
-      <tr><td>Remoções</td><td>-108</td><td>77%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~8</td><td>6%</td></tr>
-      <tr><th>Total</th><th>~140</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+1537</td><td>88%</td></tr>
+      <tr><td>Remoções</td><td>-123</td><td>7%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~88</td><td>5%</td></tr>
+      <tr><th>Total</th><th>~1748</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-    <tr><td>M</td><td>docs/handoff.md</td></tr>
+    <tr><td>M</td><td>.pi/skills/council-to-superpowers/SKILL.md</td></tr>
+<tr><td>M</td><td>.pi/skills/llm-council/SKILL.md</td></tr>
+<tr><td>A</td><td>.prompts-manifest.json</td></tr>
+<tr><td>M</td><td>docs/WORKFLOW.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-28/prompt-versioning-phase1-2026-07-28-prompt-versioning-phase1.html</td></tr>
+<tr><td>A</td><td>docs/superpowers/plans/2026-07-28-prompt-versioning-plan.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-07-28-prompt-versioning-design.md</td></tr>
+<tr><td>A</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>package.json</td></tr>
+<tr><td>A</td><td>scripts/event-log.mjs</td></tr>
+<tr><td>A</td><td>scripts/outcome-grader.mjs</td></tr>
+<tr><td>M</td><td>scripts/pre-pr-check.mjs</td></tr>
+<tr><td>A</td><td>scripts/prompt-manifest.mjs</td></tr>
+<tr><td>A</td><td>scripts/rules/rule-29-prompt-version.mjs</td></tr>
+<tr><td>A</td><td>scripts/rules/rule-30-outcome-grade.mjs</td></tr>
+<tr><td>M</td><td>scripts/session-end.mjs</td></tr>
+<tr><td>M</td><td>scripts/session-start.mjs</td></tr>
+<tr><td>A</td><td>scripts/session-tracking.mjs</td></tr>
   </table>
 
   
 
   <h2>🔍 Diff</h2>
   <div class="diff">
-    diff --git a/docs/handoff.md b/docs/handoff.md
-index e9f5c76..0194afe 100644
-<span class="del">--- a/docs/handoff.md</span>
-<span class="add">+++ b/docs/handoff.md</span>
-@@ -1,149 +1,37 @@
- # HANDOFF — MilesControl
-<span class="del">-&gt; ⏰ Última atualização: 2026-07-28 02:29 BRT</span>
-<span class="del">-&gt; Sessão: PR #213 + #214 — Metodologia de Testes Contra Produção</span>
-<span class="del">-</span>
-<span class="add">+&gt; ⏰ Última atualização: 2026-07-28</span>
-<span class="add">+&gt; Anterior: 2026-07-28</span>
-<span class="add">+---</span>
- ## 🏗️ Projeto
-<span class="add">+**Stack:** React + Vite + Supabase + Tailwind | pt-BR</span>
-<span class="add">+**Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests</span>
-<span class="add">+**Workflow:** session:start → categoria → implementação → pre-pr → PR</span>
-<span class="add">+### 🐞 Bugs Abertos</span>
-<span class="add">+Consulte as GitHub Issues para a lista atual.</span>
-<span class="add">+## 🧭 Estado Atual</span>
-<span class="add">+- **Branch:** `main`</span>
-<span class="add">+- **Último commit:** `b5289a4` — feat: regras de validacao #26 (session:start), #27 (council), #28 (spec)</span>
-<span class="add">+- **Remote:** origin/main</span>
-<span class="add">+### 📋 PRs Abertos</span>
-<span class="add">+Nenhum PR aberto.</span>
-<span class="add">+### 📊 Métricas (estimativa local)</span>
-<span class="add">+| Métrica | Valor |</span>
-<span class="add">+|---------|-------|</span>
-<span class="add">+| Total testes | 190 |</span>
-<span class="add">+| Docs issues | 0 |</span>
-<span class="add">+| Branch | main |</span>
+    diff --git a/.pi/skills/council-to-superpowers/SKILL.md b/.pi/skills/council-to-superpowers/SKILL.md
+index d0ad74e..6b84b5e 100644
+<span class="del">--- a/.pi/skills/council-to-superpowers/SKILL.md</span>
+<span class="add">+++ b/.pi/skills/council-to-superpowers/SKILL.md</span>
+@@ -29,7 +29,13 @@ Execute o council completo: 5 advisors (Contrarian, First Principles, Expansioni
  
-<span class="del">-&gt; ⏰ Snapshot de 2026-07-28</span>
-<span class="del">-&gt; **Stack:** React + Vite + Supabase + Tailwind | pt-BR</span>
-<span class="del">-&gt; **Branch:** feat/ci-preview-smoke</span>
-<span class="del">-&gt; **PRs abertos:** nenhum</span>
-<span class="del">-</span>
-<span class="del">-## 🎯 Sessão 3 — Metodologia de Testes Contra Produção</span>
-<span class="del">-</span>
-<span class="del">-**Objetivo:** Criar metodologia de testes E2E contra produção (Regra #25) com:</span>
-<span class="del">-- docs/TESTING-PRODUCTION.md — documentação completa</span>
-<span class="del">-- playwright.config.ts com BASE_URL dinâmico</span>
-<span class="del">-- Scripts npm: test:e2e:prod, test:e2e:prod:smoke, etc.</span>
-<span class="del">-- Regra #25 em CONVENTIONS.md + validação automática</span>
-<span class="del">-- CI e2e-smoke-preview em todo PR (preview Vercel)</span>
-<span class="del">-- CI e2e-smoke-prod pós-deploy (produção real)</span>
-<span class="del">-- Tags @smoke-prod nos testes críticos</span>
-<span class="del">-**Sessão 1 (PR #211)**: Adicionar `setQueryData` em todas mutations de owners, programs, accounts.</span>
-<span class="del">-</span>
-<span class="del">-**Sessão 2 (PR #212)**: Corrigir bug de dono não carregar automaticamente — **causa raiz**: SW cacheava respostas Supabase REST com `StaleWhileRevalidate` (5 min), e o `invalidateQueries` recebia dado obsoleto que sobrescrevia o `setQueryData`.</span>
-<span class="del">-</span>
-<span class="del">-## ✅ Done</span>
-<span class="del">-- [x] **PR #213** merged ✅ — infraestrutura base (docs, config, scripts, CI)</span>
-<span class="del">-- [x] **PR #214** merged ✅ — CI automático contra preview Vercel em todo PR</span>
-<span class="del">-- [x] **Produção**: https://mileage-flow-manager.vercel.app/ ✅ (200)</span>
-<span class="del">-</span>
-<span class="del">-## 📋 Próxima Sessão</span>
-<span class="del">-</span>
-<span class="del">-1. **Monitorar e2e-smoke-preview** no CI — verificar se Vercel preview URL é encontrada (pode precisar de ajuste no polling)</span>
-<span class="del">-2. **Usar nova metodologia** nas próximas features/bugs — smoke tests contra preview/produção são automáticos</span>
-<span class="del">-3. **Deletar branches**: fix/optimistic-cache-all-mutations, fix/sw-cache-supabase-api, feat/testing-production-methodology, feat/ci-preview-smoke</span>
-<span class="del">-4. **Explorar idea pendente** em IDEIAS.md: "permitir criar dono e programa juntos"</span>
-<span class="del">-</span>
-<span class="del">-## 🔑 Key Decisions</span>
-<span class="del">-- **`setQueryData` no `onSuccess` sobre `mutateAsync`**: Mesmo padrão do PR #209 — atualizar cache síncronamente antes do refetch assíncrono do `invalidateQueries`, evitando race condition com Radix UI Select</span>
-<span class="del">-- **Extrair `userId` no escopo do hook**: `const userId = user?.id ?? null` no corpo do hook, não no `onSuccess`, para evitar closure stale e manter consistência com `useAddOwnerMutation` e `useAddProgramMutation`</span>
-<span class="del">-- **Guard `if (userId)`**: Impede `setQueryData` com key undefined antes do usuário estar carregado</span>
-<span class="del">-- **E2E com `page.locator('tr')` em vez de `getByRole('row')`**: O seletor `getByRole('row')` não encontrava as linhas da tabela no teste de deleção; `page.locator('tr')` resolveu</span>
-<span class="del">-- **Prettier multi-line → single-line**: CI falhou por formatação ternários multi-line; Prettier colapsou para single-line, corrigido e CI passou</span>
-<span class="del">-</span>
-<span class="del">-## 📋 Next Steps</span>
-<span class="del">-1. ✅ Bug resolvido — usuário confirmou que funciona</span>
-<span class="del">-2. **Deletar branches**: `git branch -d fix/optimistic-cache-all-mutations fix/sw-cache-supabase-api`</span>
-<span class="del">-3. **Explorar nova metodologia de testes**: Criar skill/test-runner ou docs/TESTING-PRODUCTION.md documentando a abordagem de testes contra produção com Playwright (detalhes na seção abaixo)</span>
-<span class="del">-4. **Aplicar metodologia em próximas features/bugs**: Testes E2E contra deploy real devem fazer parte do workflow standard, não apenas con1**: https://github.com/andre0787/mileage-flow-manager/pull/211 (merged)</span>
-<span class="del">-- **PR #212**: https://github.com/andre0787/mileage-flow-manager/pull/212 (merged)</span>
-<span class="del">-- **Arquivos alterados**: `src/hooks/useDatabase/accounts.ts` (+3 mutations com setQueryData), `owners.ts` (+2 mutations), `programs.ts` (+2 mutations), `tests/delete-owner-program.spec.ts` (novo), `vite.config.ts` (removeu runtimeCaching Supabase)</span>
-<span class="del">-- **E2E tests**: 3/3 passam (create-owner-program-inline + delete-owner-program + create-owner-program-inline contra Vercel produção)</span>
-<span class="del">-- **Token GH**: `GH_TOKEN` em `.env` para automação</span>
-<span class="del">-- **Bug original**: Dono criado inline não carregava automaticamente — **causa raiz real**: SW cacheava Supabase REST com `StaleWhileRevalidate` (5 min). `setQueryData` adicionava o dono, mas o refetch do `invalidateQueries` recebia resposta cacheada SEM o dono, sobrescrevendo o cache do React Query</span>
-<span class="del">-- **Complementa PR #209**: PR #209 adicionou `setQueryData` apenas em `useAddOwnerMutation`; PR #211 completou as mutations de update/delete; PR #212 removeu o SW cache que anulava o `setQueryData`</span>
-<span class="del">-</span>
-<span class="del">-## 🧠 Critical Context</span>
-<span class="del">-- **Branch atual**: `fix/optimistic-cache-all-mutations` (pode deletar após merge)</span>
-<span class="del">-- **PR #211**: https://github.com/andre0787/mileage-flow-manager/pull/211 (merged)</span>
-<span class="del">-- **Arquivos alterados**: `src/hooks/useDatabase/accounts.ts` (+3 mutations com setQueryData), `owners.ts` (+2 mutations), `programs.ts` (+2 mutations), `tests/delete-owner-program.spec.ts` (novo)</span>
-<span class="del">-- **E2E tests**: 2/2 passam contra Supabase real</span>
-<span class="del">-- **Token GH**: `GH_TOKEN` em `.env` para automação</span>
-<span class="del">-- **Relatório**: `docs/reports/2026-07-27/PR211-2026-07-27-optimistic-cache-all-mutations.html`</span>
-<span class="del">-- **Bug original**: Dono criado inline não carregava automaticamente no Account Drawer (PR #209 + PR #211 resolvem)</span>
-<span class="del">-- **Complementa PR #209**: PR #209 adicionou `setQueryData` apenas em `useAddOwnerMutation`; PR #211 completa as mutations de update e delete em owners, programs e accounts</span>
-<span class="del">-</span>
-<span class="del">-## Estado Atual</span>
-<span class="del">-</span>
-<span class="del">-Em andamento: PR #213 — metodologia de testes contra produção.</span>
-<span class="del">-Sessão anterior (PR #212) corrigiu bug do SW cache.</span>
-<span class="del">-</span>
-<span class="del">-## Próxima Sessão</span>
-<span class="del">-</span>
-<span class="del">-1. Mergear PR #213</span>
-<span class="del">-2. Usar nova metodologia nas próximas features/bugs</span>
-<span class="del">-3. Deletar branches: fix/optimistic-cache-all-mutations, fix/sw-cache-supabase-api</span>
-<span class="del">-</span>
-<span class="del">-</span>
+ Leia [`llm-council/SKILL.md`](../llm-council/SKILL.md) para o protocolo completo.
+ 
+<span class="del">-**Output:** veredito do council com recomendação.</span>
+<span class="add">+Para decisões complexas ou de alto risco (trade-offs com 3+ variáveis,</span>
+<span class="add">+alto investimento, dados insuficientes, risco de regressão), o chairman</span>
+<span class="add">+do council DEVE solicitar **Extended Thinking** de um ou mais advisors</span>
+<span class="add">+antes da síntese final. Veja a seção "Extended Thinking" no protocolo</span>
+<span class="add">+llm-council para gatilhos e formato.</span>
+<span class="add">+</span>
+<span class="add">+**Output:** veredito do council com recomendação (e nota se Extended Thinking foi usado).</span>
+ 
+ **Salvar em:** `docs/council/&lt;data&gt;-&lt;topico&gt;-veredito.md`
+ 
+diff --git a/.pi/skills/llm-council/SKILL.md b/.pi/skills/llm-council/SKILL.md
+index 365e7ba..43c59da 100644
+<span class="del">--- a/.pi/skills/llm-council/SKILL.md</span>
+<span class="add">+++ b/.pi/skills/llm-council/SKILL.md</span>
+@@ -34,6 +34,38 @@ Cada advisor recebe as análises dos outros 4 anonimamente e pode:
+ - Questionar premissas
+ - Ajustar seu veredito
+ 
+<span class="add">+## Extended Thinking (Deep Analysis)</span>
+<span class="add">+</span>
+<span class="add">+Para decisões complexas ou de alto risco, invoque **Extended Thinking** antes da</span>
+<span class="add">+síntese do chairman. O chairman avalia se algum advisor se beneficiaria de</span>
+<span class="add">+raciocínio estendido — tipicamente quando:</span>
+<span class="add">+</span>
+<span class="add">+- O tema envolve trade-offs não óbvios entre 3+ variáveis interdependentes</span>
+<span class="add">+- O problema cruza múltiplos domínios (ex: backend + financeiro + regulatório)</span>
+<span class="add">+- A recomendação tem alto custo de implementação (&gt;1 sprint)</span>
+<span class="add">+- Há dados conflitantes ou incompletos que exigem análise mais profunda</span>
+<span class="add">+</span>
+<span class="add">+### Gatilhos para Extended Thinking</span>
+<span class="add">+</span>
+<span class="add">+| Gatilho | Quando aplicar |</span>
+<span class="add">+|---------|----------------|</span>
+<span class="add">+| Trade-off complexo | Decisão entre 3+ opções com critérios conflitantes |</span>
+<span class="add">+| Alto investimento | Feature que consome &gt;30% do sprint ou envolve refactor arquitetural |</span>
+<span class="add">+| Dados insuficientes | Conselho baseado em suposições não validadas |</span>
+<span class="add">+| Risco de regressão | Mudança em área crítica (saldos, autenticação, dados financeiros) |</span>
+<span class="add">+</span>
+<span class="add">+### Formato</span>
+<span class="add">+</span>
+<span class="add">+```markdown</span>
+<span class="add">+### Extended Thinking: &lt;advisor&gt;</span>
+<span class="add">+</span>
+<span class="add">+**Análise Estendida:** &lt;3-5 parágrafos com raciocínio detalhado, cenários, riscos&gt;</span>
+<span class="add">+**Novas Descobertas:** &lt;o que o raciocínio adicional revelou&gt;</span>
+<span class="add">+**Impacto no Veredito:** &lt;manteve, ajustou ou reverteu&gt;</span>
+<span class="add">+```</span>
+<span class="add">+</span>
+<span class="add">+O chairman incorpora as análises estendidas na síntese final.</span>
+<span class="add">+</span>
+ ## Chairman Synthesis
+ 
+ O chairman (Executor) sintetiza:
+@@ -43,4 +75,5 @@ O chairman (Executor) sintetiza:
+ **Consenso:** &lt;resumo&gt;
+ **Veredito Final:** &lt;Faça / Não faça / Reformule&gt;
+ **Próximos Passos:** &lt;se Faça, encaminha para Superpowers&gt;
+<span class="add">+**Extended Thinking Usado:** &lt;sim/não — quais advisors&gt;</span>
+ ```
+diff --git a/.prompts-manifest.json b/.prompts-manifest.json
+new file mode 100644
+index 0000000..57e7e8a
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/.prompts-manifest.json</span>
+@@ -0,0 +1,15 @@
+<span class="add">+{</span>
+<span class="add">+  "version": 1,</span>
+<span class="add">+  "updatedAt": "2026-07-28T21:34:15.540Z",</span>
+<span class="add">+  "prompts": {</span>
+<span class="add">+    ".pi/skills/council-to-superpowers/SKILL.md": "sha256-122ba80c522405b993bee5dd019f8787499e1687b77151589a17ed374b393a31",</span>
+<span class="add">+    ".pi/skills/handoff/SKILL.md": "sha256-197d78747c41df7a0ef94eb66b19a3698a534a74884f4c367a86530d04aea6f5",</span>
+<span class="add">+    ".pi/skills/llm-council/SKILL.md": "sha256-07b77f34235dd9dddbc44d924793afceafd3b4c6a19637dc429cb083c753b722",</span>
+<span class="add">+    ".pi/skills/small-model-execution/SKILL.md": "sha256-ae38282bdc7aaafc4ea05ab1cf698b22a76184304bd4fbe3418c992bf867acf1",</span>
+<span class="add">+    "AGENTS.md": "sha256-5daa619ab2f23d153235a0976ce584e7368710b4ac50f72d17d7caf1b07ab050",</span>
+<span class="add">+    "CLAUDE.md": "sha256-051e5599efd15f4e716edf63dcb3b1da2d23fdcd3728e80831e8adaabab68d87",</span>
+<span class="add">+    "docs/CONTEXT-MANAGEMENT.md": "sha256-199e22e9973cf5433626612bc40c2d6ac5d135f7c295a453cfb2e8650bab57cc",</span>
+<span class="add">+    "docs/WORKFLOW-MANIFEST.md": "sha256-dce7a1b1ba7696a30e7d08113b3f7d318361316f8a1593057fdc695bf9d71d7e",</span>
+<span class="add">+    "docs/WORKFLOW.md": "sha256-12f00896306958841427be979f43f73decb08e68279b551c58ee521444b1fe8e"</span>
+<span class="add">+  }</span>
+<span class="add">+}</span>
+diff --git a/docs/WORKFLOW.md b/docs/WORKFLOW.md
+index e7e1804..f9c10f8 100644
+<span class="del">--- a/docs/WORKFLOW.md</span>
+<span class="add">+++ b/docs/WORKFLOW.md</span>
+@@ -351,3 +351,98 @@ concurrency:
+ - **Node**: manter compat com Node 22+ (GitHub Actions usa Node 24 por padrão)
+ - **Playwright browsers**: atualizar via `npx playwright install --with-deps`
+ - **Relatório de falha**: sempre baixar artifact `playwright-report/` e abrir `index.html`
+<span class="add">+</span>
 <span class="add">+---</span>
-<span class="add">+_Atualizado automaticamente por `scripts/update-handoff.mjs`_</span>
- ## 🎯 Sessão Atual
- **Categoria:** chore
-<span class="del">-**Objetivo:** validacao regras #26 #27 #28</span>
-<span class="del">-**Status:** in_progress</span>
-<span class="del">-**Iniciada em:** 2026-07-28T03:54:08.475Z</span>
-<span class="del">-**Branch:** `feat/workflow-validation-scripts`</span>
-<span class="del">-**Último commit:** aff8a14 — docs: update handoff — sessão 3 finalizada (PRs #213 + #214)</span>
-<span class="add">+**Objetivo:** descrição concisa</span>
-<span class="add">+**Status:** done</span>
-<span class="add">+**Branch:** `main`</span>
- **Docs carregados:** AGENTS.md
-<span class="del">----</span>
-<span class="del">-_Atualizado manualmente — Sessão encerrada_</span>
-<span class="del">-</span>
-<span class="del">-## 🔬 Proposta: Nova Metodologia de Testes (para próxima sessão)</span>
+<span class="add">+</span>
+<span class="add">+## Prompt Versioning</span>
+<span class="add">+</span>
+<span class="add">+O projeto usa um sistema de versionamento de prompts via hashes SHA256 para rastrear</span>
+<span class="add">+mudanças em skills e documentos de configuração do agente.</span>
+<span class="add">+</span>
+<span class="add">+### Arquivo manifesto</span>
+<span class="add">+</span>
+<span class="add">+`.prompts-manifest.json` na raiz do projeto contém hashes SHA256 de todos os</span>
+<span class="add">+arquivos de prompt/skill monitorados.</span>
+<span class="add">+</span>
+<span class="add">+### Arquivos monitorados</span>
+<span class="add">+</span>
+<span class="add">+- `.pi/skills/*/SKILL.md` (skills do agente)</span>
+<span class="add">+- `AGENTS.md`, `CLAUDE.md` (configuração do agente)</span>
+<span class="add">+- `docs/CONTEXT-MANAGEMENT.md`, `docs/WORKFLOW-MANIFEST.md`, `docs/WORKFLOW.md` (docs de workflow)</span>
+<span class="add">+</span>
+<span class="add">+### Scripts</span>
+<span class="add">+</span>
+<span class="add">+| Script | Descrição |</span>
+<span class="add">+|--------|-----------|</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
