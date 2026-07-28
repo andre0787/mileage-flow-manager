@@ -21,6 +21,7 @@
 | `docs/TESTING.md` | Estratégia de testes | 3.2KB |
 | `docs/MAP.md` | Mapa completo do projeto + skills de subagentes | 5.6KB |
 | `docs/CONTEXT-MANAGEMENT.md` | Estratégia de lazy loading | novo |
+| `docs/fable-gates.md` | Gates INTENT, TWINS e AUTH do Fable Method | novo |
 
 ## 🔥 Regras Essenciais (7)
 
@@ -39,6 +40,9 @@
 30. **Outcome grade ≥ 80%** — diff deve passar quality gates (console.log, tests, protegidos). Valida: `rule-30`.
 31. **Toda lib em `src/lib/` tem test unitário** — exceções: db.ts, supabase.ts. Valida: `rule-31`.
 32. **Todo componente customizado tem teste** — aplica a `src/components/ui/` custom e hooks. Valida: `rule-32`.
+33. **🧠 INTENT Gate** — antes de qualquer mudança de comportamento, declare `INTENT: código faz X; teste espera Y; spec diz Z`. Se divergirem, não edite — reporte. Aplicado em `council-to-superpowers` e `writing-plans`. Valida: `rule-33`.
+34. **🔁 TWINS Check** — ao corrigir um bug, busque o mesmo padrão no projeto todo e corrija todas as ocorrências. Declare `TWINS: searched <padrão> — found <N> locais`. Aplicado em `systematic-debugging`. Valida: `rule-34`.
+35. **🔐 AUTH Gate** — antes de push/merge/deploy irreversível, exija as palavras exatas do usuário. Declare `AUTH: usuário disse "<citação>"`. Sem citação, não aja. Aplicado em `finishing-a-development-branch`. Valida: `rule-35`.
 
 ## 🎯 Sistema de Categorias (LAZY LOADING)
 

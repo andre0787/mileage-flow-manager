@@ -3,51 +3,34 @@
 > Anterior: 2026-07-28
 ---
 ## 🏗️ Projeto
-
-> ⏰ Snapshot atualizado em: 2026-07-28
-
-### 🏗️ Projeto
-
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
-**Regras críticas:** branch obrigatória, pre-pr c/ relatório, git status ZERO, lazy loading por categoria
-**Workflow:** session:start → categoria → carregar docs → council (se feature) → build → pre-pr → PR
-
+**Workflow:** session:start → categoria → implementação → pre-pr → PR
 ### 🐞 Bugs Abertos
-
-- nenhum | [ver todos → Issues](https://github.com/andreluiz0787/mileage-flow-manager/issues)
-
-### 📋 Commits Recentes
-
-```
-fc4a5f1 fix: ajuste keyword 'bônus assinatura' + testes de integração auto-classify
-22afdf2 feat: rule-32 cobertura testes componentes + DataTable 7 testes
-4675ec4 docs: spec técnica para Fase 3-4 — classificação, consulta NL e design system
-```
-
+Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `feat/prompt-versioning-phase1`
-- **Último commit:** `9a227f3 — docs: update handoff`
-- **Remote:** origin/main
+- **Último commit:** `c036aac — fix: spec feedback-issues-spec adequada ao formato rule-28 (#217)`
+- **Remote:** origin/feat/prompt-versioning-phase1
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 190 |
+| Total testes | 238 |
 | Docs issues | 0 |
-| Branch | main |
+| Branch | feat/prompt-versioning-phase1 |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** Prompt Versioning — sistema de hashes SHA256 para versionamento de skills e documentos de configuração
+**Categoria:** chore
+**Objetivo:** Implementar INTENT gate, TWINS check e AUTH gate do Fable Method
 **Status:** in_progress
-**Iniciada em:** 2026-07-28T21:28:14.842Z
+**Iniciada em:** 2026-07-28T22:31:34.779Z
 **Branch:** `feat/prompt-versioning-phase1`
-**Último commit:** 9a227f3 — docs: update handoff
-**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
+**Último commit:** c036aac — fix: spec feedback-issues-spec adequada ao formato rule-28 (#217)
+**Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
