@@ -34,6 +34,7 @@ import { useSmartQuery, periodFromFilter } from "@/hooks/useSmartQuery";
 import { calcProfitMargin, calcROI, calcWeightedAverageCost } from "@/lib/metrics";
 import { downloadCSV } from "@/lib/utils";
 import { PERIOD_OPTIONS } from "@/lib/dates";
+import { describeFilters } from "@/lib/text-to-query";
 
 interface OwnerReport {
   ownerName: string;
@@ -59,6 +60,8 @@ export default function Relatorios() {
   const [selectedPeriod, setSelectedPeriod] = useState("30");
   const [selectedOwner, setSelectedOwner] = useState("todos");
   const [selectedProgram, setSelectedProgram] = useState("todos");
+  const { owners, accounts, programs, entries, sales, isLoading } = useData();
+
   const {
     nlQuery, setNlQuery,
     nlFilters, description,
@@ -77,8 +80,6 @@ export default function Relatorios() {
       if (matched) setSelectedProgram(matched.name);
     }
   }, [nlFilters, programs]);
-
-  const { owners, accounts, programs, entries, sales, isLoading } = useData();
 
   const dateCutoff = useMemo(() => {
     const d = new Date();

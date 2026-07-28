@@ -28,6 +28,7 @@ import { Pagination } from "@/components/Pagination";
 import { SkeletonMetricCard, SkeletonTable } from "@/components/SkeletonLoader";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
+import { SearchInput } from "@/components/ui/SearchInput";
 import {
   useAddClientMutation,
   useUpdateClientMutation,

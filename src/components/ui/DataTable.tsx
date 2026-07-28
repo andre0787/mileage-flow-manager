@@ -25,6 +25,7 @@
  */
 
 import { useState, useMemo } from "react";
+import { Search } from "lucide-react";
 import { SearchInput } from "@/components/ui/SearchInput";
 import {
   Table,
@@ -156,7 +157,7 @@ export function DataTable<T>({
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-40">
                   <EmptyState
-                    icon="search"
+                    icon={Search}
                     title={emptyTitle}
                     description={emptyDescription}
                     action={emptyAction}
@@ -189,7 +190,7 @@ export function DataTable<T>({
       <div className="sm:hidden space-y-3">
         {paginatedData.length === 0 ? (
           <EmptyState
-            icon="search"
+            icon={Search}
             title={emptyTitle}
             description={emptyDescription}
             action={emptyAction}

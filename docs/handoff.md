@@ -20,9 +20,9 @@
 ### 📋 Commits Recentes
 
 ```
-38f2bc9 feat: testes de componente SearchInput (9 testes) + 187/190 passando
-2e86100 feat: testes de componente para StatusBadge + jsdom setup
-9865dd9 feat: useSmartQuery hook + 30 testes de integração NL
+fc4a5f1 fix: ajuste keyword 'bônus assinatura' + testes de integração auto-classify
+22afdf2 feat: rule-32 cobertura testes componentes + DataTable 7 testes
+4675ec4 docs: spec técnica para Fase 3-4 — classificação, consulta NL e design system
 ```
 
 ## 🧭 Estado Atual
