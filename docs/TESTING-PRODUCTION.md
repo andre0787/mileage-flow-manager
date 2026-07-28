@@ -72,7 +72,18 @@ test("Smoke Tests — Tela Preta @smoke-prod", ...)
 
 ## CI — Smoke Contra Produção
 
-O pipeline de deploy (`.github/workflows/deploy.yml`) roda `e2e-smoke-prod` após o deploy:
+### Pipeline de PR (`.github/workflows/ci.yml`)
+
+O job `e2e-smoke-preview` roda automaticamente após `check-pr`:
+1. Aguarda deploy preview do Vercel (até 6 min)
+2. Obtém a URL do preview via Vercel API
+3. Roda `npx playwright test --grep '@smoke-prod'` contra o preview
+4. `continue-on-error: true` — não bloqueia o merge, apenas informa
+5. Upload do report como artifact
+
+### Pipeline de Deploy (`.github/workflows/deploy.yml`)
+
+O job `e2e-smoke-prod` roda após deploy na Vercel:
 
 1. Deploy na Vercel → success
 2. Job `e2e-smoke-prod` inicia
