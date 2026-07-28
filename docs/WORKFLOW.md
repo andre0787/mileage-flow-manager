@@ -351,3 +351,45 @@ concurrency:
 - **Node**: manter compat com Node 22+ (GitHub Actions usa Node 24 por padrão)
 - **Playwright browsers**: atualizar via `npx playwright install --with-deps`
 - **Relatório de falha**: sempre baixar artifact `playwright-report/` e abrir `index.html`
+
+---
+
+## Prompt Versioning
+
+O projeto usa um sistema de versionamento de prompts via hashes SHA256 para rastrear
+mudanças em skills e documentos de configuração do agente.
+
+### Arquivo manifesto
+
+`.prompts-manifest.json` na raiz do projeto contém hashes SHA256 de todos os
+arquivos de prompt/skill monitorados.
+
+### Arquivos monitorados
+
+- `.pi/skills/*/SKILL.md` (skills do agente)
+- `AGENTS.md`, `CLAUDE.md` (configuração do agente)
+- `docs/CONTEXT-MANAGEMENT.md`, `docs/WORKFLOW-MANIFEST.md`, `docs/WORKFLOW.md` (docs de workflow)
+
+### Scripts
+
+| Script | Descrição |
+|--------|-----------|
+| `npm run prompt:manifest` | Gera/atualiza `.prompts-manifest.json` com SHA256 dos prompts |
+| `npm run prompt:check` | Verifica se hashes do manifesto correspondem aos arquivos atuais |
+
+### Regra de validação
+
+- **Rule #29** (`scripts/rules/rule-29-prompt-version.mjs`): valida no pre-pr que todo
+  arquivo monitorado modificado teve seu hash atualizado no manifesto.
+
+### Fluxo
+
+```
+1. Edita arquivo monitorado (skill, AGENTS.md, etc.)
+2. npm run prompt:manifest   ← atualiza .prompts-manifest.json
+3. npm run pre-pr            ← rule-29 valida consistência
+4. Cria PR
+```
+
+Se esquecer de rodar `prompt:manifest`, o pre-pr falha com erro claro apontando
+qual arquivo precisa ser atualizado.

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>prompt-versioning-phase1 — prompt versioning phase1</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 prompt versioning phase1</h1>
+  <p class="meta">2026-07-28 18:29 &middot; feat/prompt-versioning-phase1 &middot; 9a227f3 — docs: update handoff</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">prompt-versioning-phase1</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">1</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+32</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-144</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~140</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Auto-gerado pelo pre-pr-check</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Relatório gerado automaticamente como parte do workflow de validação pré-PR</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 144 remoções — 187 linhas tocadas</td>
+        <td>✨ 32 adições — 1 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/handoff.md</td>
+      </tr>
+      
+      <tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>1</td></tr>
+    <tr><td>Adições</td><td>+32</td></tr>
+    <tr><td>Remoções</td><td>-144</td></tr>
+    <tr><td>Tokens estimados</td><td>~140</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:17">+24 add</div>
+        <div class="del" style="flex:77">-108 del</div>
+        <div class="overhead" style="flex:6">~8 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+24</td><td>17%</td></tr>
+      <tr><td>Remoções</td><td>-108</td><td>77%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~8</td><td>6%</td></tr>
+      <tr><th>Total</th><th>~140</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>docs/handoff.md</td></tr>
+  </table>
+
+  
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/docs/handoff.md b/docs/handoff.md
+index e9f5c76..0194afe 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -1,149 +1,37 @@
+ # HANDOFF — MilesControl
+<span class="del">-&gt; ⏰ Última atualização: 2026-07-28 02:29 BRT</span>
+<span class="del">-&gt; Sessão: PR #213 + #214 — Metodologia de Testes Contra Produção</span>
+<span class="del">-</span>
+<span class="add">+&gt; ⏰ Última atualização: 2026-07-28</span>
+<span class="add">+&gt; Anterior: 2026-07-28</span>
+<span class="add">+---</span>
+ ## 🏗️ Projeto
+<span class="add">+**Stack:** React + Vite + Supabase + Tailwind | pt-BR</span>
+<span class="add">+**Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests</span>
+<span class="add">+**Workflow:** session:start → categoria → implementação → pre-pr → PR</span>
+<span class="add">+### 🐞 Bugs Abertos</span>
+<span class="add">+Consulte as GitHub Issues para a lista atual.</span>
+<span class="add">+## 🧭 Estado Atual</span>
+<span class="add">+- **Branch:** `main`</span>
+<span class="add">+- **Último commit:** `b5289a4` — feat: regras de validacao #26 (session:start), #27 (council), #28 (spec)</span>
+<span class="add">+- **Remote:** origin/main</span>
+<span class="add">+### 📋 PRs Abertos</span>
+<span class="add">+Nenhum PR aberto.</span>
+<span class="add">+### 📊 Métricas (estimativa local)</span>
+<span class="add">+| Métrica | Valor |</span>
+<span class="add">+|---------|-------|</span>
+<span class="add">+| Total testes | 190 |</span>
+<span class="add">+| Docs issues | 0 |</span>
+<span class="add">+| Branch | main |</span>
+ 
+<span class="del">-&gt; ⏰ Snapshot de 2026-07-28</span>
+<span class="del">-&gt; **Stack:** React + Vite + Supabase + Tailwind | pt-BR</span>
+<span class="del">-&gt; **Branch:** feat/ci-preview-smoke</span>
+<span class="del">-&gt; **PRs abertos:** nenhum</span>
+<span class="del">-</span>
+<span class="del">-## 🎯 Sessão 3 — Metodologia de Testes Contra Produção</span>
+<span class="del">-</span>
+<span class="del">-**Objetivo:** Criar metodologia de testes E2E contra produção (Regra #25) com:</span>
+<span class="del">-- docs/TESTING-PRODUCTION.md — documentação completa</span>
+<span class="del">-- playwright.config.ts com BASE_URL dinâmico</span>
+<span class="del">-- Scripts npm: test:e2e:prod, test:e2e:prod:smoke, etc.</span>
+<span class="del">-- Regra #25 em CONVENTIONS.md + validação automática</span>
+<span class="del">-- CI e2e-smoke-preview em todo PR (preview Vercel)</span>
+<span class="del">-- CI e2e-smoke-prod pós-deploy (produção real)</span>
+<span class="del">-- Tags @smoke-prod nos testes críticos</span>
+<span class="del">-**Sessão 1 (PR #211)**: Adicionar `setQueryData` em todas mutations de owners, programs, accounts.</span>
+<span class="del">-</span>
+<span class="del">-**Sessão 2 (PR #212)**: Corrigir bug de dono não carregar automaticamente — **causa raiz**: SW cacheava respostas Supabase REST com `StaleWhileRevalidate` (5 min), e o `invalidateQueries` recebia dado obsoleto que sobrescrevia o `setQueryData`.</span>
+<span class="del">-</span>
+<span class="del">-## ✅ Done</span>
+<span class="del">-- [x] **PR #213** merged ✅ — infraestrutura base (docs, config, scripts, CI)</span>
+<span class="del">-- [x] **PR #214** merged ✅ — CI automático contra preview Vercel em todo PR</span>
+<span class="del">-- [x] **Produção**: https://mileage-flow-manager.vercel.app/ ✅ (200)</span>
+<span class="del">-</span>
+<span class="del">-## 📋 Próxima Sessão</span>
+<span class="del">-</span>
+<span class="del">-1. **Monitorar e2e-smoke-preview** no CI — verificar se Vercel preview URL é encontrada (pode precisar de ajuste no polling)</span>
+<span class="del">-2. **Usar nova metodologia** nas próximas features/bugs — smoke tests contra preview/produção são automáticos</span>
+<span class="del">-3. **Deletar branches**: fix/optimistic-cache-all-mutations, fix/sw-cache-supabase-api, feat/testing-production-methodology, feat/ci-preview-smoke</span>
+<span class="del">-4. **Explorar idea pendente** em IDEIAS.md: "permitir criar dono e programa juntos"</span>
+<span class="del">-</span>
+<span class="del">-## 🔑 Key Decisions</span>
+<span class="del">-- **`setQueryData` no `onSuccess` sobre `mutateAsync`**: Mesmo padrão do PR #209 — atualizar cache síncronamente antes do refetch assíncrono do `invalidateQueries`, evitando race condition com Radix UI Select</span>
+<span class="del">-- **Extrair `userId` no escopo do hook**: `const userId = user?.id ?? null` no corpo do hook, não no `onSuccess`, para evitar closure stale e manter consistência com `useAddOwnerMutation` e `useAddProgramMutation`</span>
+<span class="del">-- **Guard `if (userId)`**: Impede `setQueryData` com key undefined antes do usuário estar carregado</span>
+<span class="del">-- **E2E com `page.locator('tr')` em vez de `getByRole('row')`**: O seletor `getByRole('row')` não encontrava as linhas da tabela no teste de deleção; `page.locator('tr')` resolveu</span>
+<span class="del">-- **Prettier multi-line → single-line**: CI falhou por formatação ternários multi-line; Prettier colapsou para single-line, corrigido e CI passou</span>
+<span class="del">-</span>
+<span class="del">-## 📋 Next Steps</span>
+<span class="del">-1. ✅ Bug resolvido — usuário confirmou que funciona</span>
+<span class="del">-2. **Deletar branches**: `git branch -d fix/optimistic-cache-all-mutations fix/sw-cache-supabase-api`</span>
+<span class="del">-3. **Explorar nova metodologia de testes**: Criar skill/test-runner ou docs/TESTING-PRODUCTION.md documentando a abordagem de testes contra produção com Playwright (detalhes na seção abaixo)</span>
+<span class="del">-4. **Aplicar metodologia em próximas features/bugs**: Testes E2E contra deploy real devem fazer parte do workflow standard, não apenas con1**: https://github.com/andre0787/mileage-flow-manager/pull/211 (merged)</span>
+<span class="del">-- **PR #212**: https://github.com/andre0787/mileage-flow-manager/pull/212 (merged)</span>
+<span class="del">-- **Arquivos alterados**: `src/hooks/useDatabase/accounts.ts` (+3 mutations com setQueryData), `owners.ts` (+2 mutations), `programs.ts` (+2 mutations), `tests/delete-owner-program.spec.ts` (novo), `vite.config.ts` (removeu runtimeCaching Supabase)</span>
+<span class="del">-- **E2E tests**: 3/3 passam (create-owner-program-inline + delete-owner-program + create-owner-program-inline contra Vercel produção)</span>
+<span class="del">-- **Token GH**: `GH_TOKEN` em `.env` para automação</span>
+<span class="del">-- **Bug original**: Dono criado inline não carregava automaticamente — **causa raiz real**: SW cacheava Supabase REST com `StaleWhileRevalidate` (5 min). `setQueryData` adicionava o dono, mas o refetch do `invalidateQueries` recebia resposta cacheada SEM o dono, sobrescrevendo o cache do React Query</span>
+<span class="del">-- **Complementa PR #209**: PR #209 adicionou `setQueryData` apenas em `useAddOwnerMutation`; PR #211 completou as mutations de update/delete; PR #212 removeu o SW cache que anulava o `setQueryData`</span>
+<span class="del">-</span>
+<span class="del">-## 🧠 Critical Context</span>
+<span class="del">-- **Branch atual**: `fix/optimistic-cache-all-mutations` (pode deletar após merge)</span>
+<span class="del">-- **PR #211**: https://github.com/andre0787/mileage-flow-manager/pull/211 (merged)</span>
+<span class="del">-- **Arquivos alterados**: `src/hooks/useDatabase/accounts.ts` (+3 mutations com setQueryData), `owners.ts` (+2 mutations), `programs.ts` (+2 mutations), `tests/delete-owner-program.spec.ts` (novo)</span>
+<span class="del">-- **E2E tests**: 2/2 passam contra Supabase real</span>
+<span class="del">-- **Token GH**: `GH_TOKEN` em `.env` para automação</span>
+<span class="del">-- **Relatório**: `docs/reports/2026-07-27/PR211-2026-07-27-optimistic-cache-all-mutations.html`</span>
+<span class="del">-- **Bug original**: Dono criado inline não carregava automaticamente no Account Drawer (PR #209 + PR #211 resolvem)</span>
+<span class="del">-- **Complementa PR #209**: PR #209 adicionou `setQueryData` apenas em `useAddOwnerMutation`; PR #211 completa as mutations de update e delete em owners, programs e accounts</span>
+<span class="del">-</span>
+<span class="del">-## Estado Atual</span>
+<span class="del">-</span>
+<span class="del">-Em andamento: PR #213 — metodologia de testes contra produção.</span>
+<span class="del">-Sessão anterior (PR #212) corrigiu bug do SW cache.</span>
+<span class="del">-</span>
+<span class="del">-## Próxima Sessão</span>
+<span class="del">-</span>
+<span class="del">-1. Mergear PR #213</span>
+<span class="del">-2. Usar nova metodologia nas próximas features/bugs</span>
+<span class="del">-3. Deletar branches: fix/optimistic-cache-all-mutations, fix/sw-cache-supabase-api</span>
+<span class="del">-</span>
+<span class="del">-</span>
+<span class="add">+---</span>
+<span class="add">+_Atualizado automaticamente por `scripts/update-handoff.mjs`_</span>
+ ## 🎯 Sessão Atual
+ **Categoria:** chore
+<span class="del">-**Objetivo:** validacao regras #26 #27 #28</span>
+<span class="del">-**Status:** in_progress</span>
+<span class="del">-**Iniciada em:** 2026-07-28T03:54:08.475Z</span>
+<span class="del">-**Branch:** `feat/workflow-validation-scripts`</span>
+<span class="del">-**Último commit:** aff8a14 — docs: update handoff — sessão 3 finalizada (PRs #213 + #214)</span>
+<span class="add">+**Objetivo:** descrição concisa</span>
+<span class="add">+**Status:** done</span>
+<span class="add">+**Branch:** `main`</span>
+ **Docs carregados:** AGENTS.md
+<span class="del">----</span>
+<span class="del">-_Atualizado manualmente — Sessão encerrada_</span>
+<span class="del">-</span>
+<span class="del">-## 🔬 Proposta: Nova Metodologia de Testes (para próxima sessão)</span>
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>

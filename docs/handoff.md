@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `b5289a4` — feat: regras de validacao #26 (session:start), #27 (council), #28 (spec)
+- **Branch:** `feat/prompt-versioning-phase1`
+- **Último commit:** `9a227f3 — docs: update handoff`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,11 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** descrição concisa
-**Status:** done
-**Branch:** `main`
-**Docs carregados:** AGENTS.md
+**Categoria:** feature
+**Objetivo:** Prompt Versioning — sistema de hashes SHA256 para versionamento de skills e documentos de configuração
+**Status:** in_progress
+**Iniciada em:** 2026-07-28T21:28:14.842Z
+**Branch:** `feat/prompt-versioning-phase1`
+**Último commit:** 9a227f3 — docs: update handoff
+**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
