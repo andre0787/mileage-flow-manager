@@ -53,6 +53,8 @@ const TRANSFERENCIA_KEYWORDS: KeywordMatrix = {
 };
 
 const BONUS_KEYWORDS: KeywordMatrix = {
+  "bônus assinatura": { category: "bonus", icon: "celebration" },
+  "bonus assinatura": { category: "bonus", icon: "celebration" },
   bônus: { category: "bonus", icon: "celebration" },
   bonus: { category: "bonus", icon: "celebration" },
   promoção: { category: "bonus", icon: "celebration" },
