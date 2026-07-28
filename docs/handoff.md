@@ -20,9 +20,9 @@
 ### 📋 Commits Recentes
 
 ```
-fc4a5f1 fix: ajuste keyword 'bônus assinatura' + testes de integração auto-classify
-22afdf2 feat: rule-32 cobertura testes componentes + DataTable 7 testes
-4675ec4 docs: spec técnica para Fase 3-4 — classificação, consulta NL e design system
+fbda17d fix: barrel index.ts para DataTable + import em Relatorios (rule-14)
+a5453ca docs: MAP.md — adiciona specs e plans dos Fases 1-4
+a97c00b style: prettier format — 9 arquivos corrigidos
 ```
 
 ## 🧭 Estado Atual
