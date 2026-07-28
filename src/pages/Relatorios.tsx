@@ -7,6 +7,7 @@ import {
   AlertTriangle,
   Lightbulb,
   Award,
+  Sparkles,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -28,6 +29,8 @@ import {
 } from "@/components/ui/table";
 import { useData } from "@/contexts/DataContext";
 import { toast } from "sonner";
+import { SearchInput } from "@/components/ui/SearchInput";
+import { parseNaturalQuery, describeFilters } from "@/lib/text-to-query";
 import { calcProfitMargin, calcROI, calcWeightedAverageCost } from "@/lib/metrics";
 import { downloadCSV } from "@/lib/utils";
 import { PERIOD_OPTIONS } from "@/lib/dates";
@@ -56,6 +59,11 @@ export default function Relatorios() {
   const [selectedPeriod, setSelectedPeriod] = useState("30");
   const [selectedOwner, setSelectedOwner] = useState("todos");
   const [selectedProgram, setSelectedProgram] = useState("todos");
+  const [nlQuery, setNlQuery] = useState("");
+  const nlFilters = useMemo(() => {
+    if (!nlQuery.trim()) return null;
+    return parseNaturalQuery(nlQuery);
+  }, [nlQuery]);
 
   const { owners, accounts, programs, entries, sales, isLoading } = useData();
 
@@ -231,6 +239,40 @@ export default function Relatorios() {
           </Button>
         </div>
       </div>
+
+      {/* Smart Query — linguagem natural */}
+      <Card className="shadow-card animate-appear animate-delay-100 bg-gradient-to-br from-primary/5 to-transparent">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-base">
+            <Sparkles className="h-4 w-4 text-primary" />
+            Consulta Inteligente
+          </CardTitle>
+          <p className="text-xs text-muted-foreground">
+            Digite em linguagem natural: "vendas do mês passado", "entradas por programa", "clientes ativos", "lucro total"
+          </p>
+        </CardHeader>
+        <CardContent>
+          <SearchInput
+            value={nlQuery}
+            onChange={setNlQuery}
+            placeholder="O que você quer consultar? Ex: vendas pendentes este mês"
+            showHotkey={false}
+          />
+          {nlFilters && (
+            <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary/10 text-primary rounded-full text-xs font-medium">
+                <Sparkles className="h-3 w-3" />
+                {describeFilters(nlFilters)}
+              </span>
+              {nlFilters.period && nlFilters.period !== "all" && (
+                <span className="text-xs text-muted-foreground">
+                  Filtrando por período
+                </span>
+              )}
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Filters */}
       <Card className="shadow-card animate-appear animate-delay-200">
