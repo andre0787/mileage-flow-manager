@@ -29,7 +29,13 @@ Execute o council completo: 5 advisors (Contrarian, First Principles, Expansioni
 
 Leia [`llm-council/SKILL.md`](../llm-council/SKILL.md) para o protocolo completo.
 
-**Output:** veredito do council com recomendação.
+Para decisões complexas ou de alto risco (trade-offs com 3+ variáveis,
+alto investimento, dados insuficientes, risco de regressão), o chairman
+do council DEVE solicitar **Extended Thinking** de um ou mais advisors
+antes da síntese final. Veja a seção "Extended Thinking" no protocolo
+llm-council para gatilhos e formato.
+
+**Output:** veredito do council com recomendação (e nota se Extended Thinking foi usado).
 
 **Salvar em:** `docs/council/<data>-<topico>-veredito.md`
 

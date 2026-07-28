@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-28T21:28:18.401Z",
+  "updatedAt": "2026-07-28T21:31:06.855Z",
   "prompts": {
-    ".pi/skills/council-to-superpowers/SKILL.md": "sha256-fb036e370a3be5282227f335e8e31e9a25dbb8609eb1db2b7f8519bf56d71e73",
+    ".pi/skills/council-to-superpowers/SKILL.md": "sha256-122ba80c522405b993bee5dd019f8787499e1687b77151589a17ed374b393a31",
     ".pi/skills/handoff/SKILL.md": "sha256-197d78747c41df7a0ef94eb66b19a3698a534a74884f4c367a86530d04aea6f5",
-    ".pi/skills/llm-council/SKILL.md": "sha256-a0364acc11000b9abd20dfd05cb1786056ccaaac649a029022fb9b58ad419c90",
+    ".pi/skills/llm-council/SKILL.md": "sha256-07b77f34235dd9dddbc44d924793afceafd3b4c6a19637dc429cb083c753b722",
     ".pi/skills/small-model-execution/SKILL.md": "sha256-ae38282bdc7aaafc4ea05ab1cf698b22a76184304bd4fbe3418c992bf867acf1",
     "AGENTS.md": "sha256-5daa619ab2f23d153235a0976ce584e7368710b4ac50f72d17d7caf1b07ab050",
     "CLAUDE.md": "sha256-051e5599efd15f4e716edf63dcb3b1da2d23fdcd3728e80831e8adaabab68d87",

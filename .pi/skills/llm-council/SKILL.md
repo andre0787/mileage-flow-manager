@@ -34,6 +34,38 @@ Cada advisor recebe as análises dos outros 4 anonimamente e pode:
 - Questionar premissas
 - Ajustar seu veredito
 
+## Extended Thinking (Deep Analysis)
+
+Para decisões complexas ou de alto risco, invoque **Extended Thinking** antes da
+síntese do chairman. O chairman avalia se algum advisor se beneficiaria de
+raciocínio estendido — tipicamente quando:
+
+- O tema envolve trade-offs não óbvios entre 3+ variáveis interdependentes
+- O problema cruza múltiplos domínios (ex: backend + financeiro + regulatório)
+- A recomendação tem alto custo de implementação (>1 sprint)
+- Há dados conflitantes ou incompletos que exigem análise mais profunda
+
+### Gatilhos para Extended Thinking
+
+| Gatilho | Quando aplicar |
+|---------|----------------|
+| Trade-off complexo | Decisão entre 3+ opções com critérios conflitantes |
+| Alto investimento | Feature que consome >30% do sprint ou envolve refactor arquitetural |
+| Dados insuficientes | Conselho baseado em suposições não validadas |
+| Risco de regressão | Mudança em área crítica (saldos, autenticação, dados financeiros) |
+
+### Formato
+
+```markdown
+### Extended Thinking: <advisor>
+
+**Análise Estendida:** <3-5 parágrafos com raciocínio detalhado, cenários, riscos>
+**Novas Descobertas:** <o que o raciocínio adicional revelou>
+**Impacto no Veredito:** <manteve, ajustou ou reverteu>
+```
+
+O chairman incorpora as análises estendidas na síntese final.
+
 ## Chairman Synthesis
 
 O chairman (Executor) sintetiza:
@@ -43,4 +75,5 @@ O chairman (Executor) sintetiza:
 **Consenso:** <resumo>
 **Veredito Final:** <Faça / Não faça / Reformule>
 **Próximos Passos:** <se Faça, encaminha para Superpowers>
+**Extended Thinking Usado:** <sim/não — quais advisors>
 ```
