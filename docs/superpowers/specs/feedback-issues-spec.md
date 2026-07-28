@@ -1,11 +1,13 @@
-# Spec: Canal de Feedback (Bugs/Sugestões)
+# Design
 
+> Spec: Canal de Feedback (Bugs/Sugestões)
 > Council Verdict: 2026-07-11 — Fazer em 2 fases
 
-## Problema
-Usuários não têm um canal para reportar bugs ou sugerir melhorias dentro do app.
+## Contexto
 
-## Solução
+Usuários não têm um canal para reportar bugs ou sugerir melhorias dentro do app. Atualmente não há mecanismo padronizado para capturar feedback, resultando em issues manuais inconsistentes ou perda de relatos.
+
+## Abordagem
 
 ### Fase 1 — 🧪 MVP (5 min)
 - Templates de Issue no GitHub (`.github/ISSUE_TEMPLATE/`)
