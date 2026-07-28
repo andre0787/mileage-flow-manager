@@ -3,47 +3,30 @@
 > Anterior: 2026-07-28
 ---
 ## 🏗️ Projeto
-
-> ⏰ Snapshot atualizado em: 2026-07-28
-
-### 🏗️ Projeto
-
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
-**Regras críticas:** branch obrigatória, pre-pr c/ relatório, git status ZERO, lazy loading por categoria
-**Workflow:** session:start → categoria → carregar docs → council (se feature) → build → pre-pr → PR
-
+**Workflow:** session:start → categoria → implementação → pre-pr → PR
 ### 🐞 Bugs Abertos
-
-- nenhum | [ver todos → Issues](https://github.com/andreluiz0787/mileage-flow-manager/issues)
-
-### 📋 Commits Recentes
-
-```
-fbda17d fix: barrel index.ts para DataTable + import em Relatorios (rule-14)
-a5453ca docs: MAP.md — adiciona specs e plans dos Fases 1-4
-a97c00b style: prettier format — 9 arquivos corrigidos
-```
-
+Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `feat/prompt-versioning-phase1`
-- **Último commit:** `9a227f3 — docs: update handoff`
-- **Remote:** origin/main
+- **Último commit:** `2f647ab` — chore: session end
+- **Remote:** origin/feat/prompt-versioning-phase1
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 190 |
+| Total testes | 238 |
 | Docs issues | 0 |
-| Branch | main |
+| Branch | feat/prompt-versioning-phase1 |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** feature
 **Objetivo:** Prompt Versioning — sistema de hashes SHA256 para versionamento de skills e documentos de configuração
-**Status:** in_progress
+**Status:** done
 **Iniciada em:** 2026-07-28T21:28:14.842Z
 **Branch:** `feat/prompt-versioning-phase1`
 **Último commit:** 9a227f3 — docs: update handoff
