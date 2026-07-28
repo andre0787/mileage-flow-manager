@@ -134,11 +134,13 @@ export default function AdminEventos() {
         {filtered.map((log, i) => (
           <Card key={i} className="border-l-4 border-l-transparent hover:border-l-primary/50">
             <CardContent className="flex items-start gap-3 py-3">
-              <StatusBadge
-                status={log.type === "destructive_op" ? "pendente" : log.type === "error" ? "cancelado" : "concluido"}
-                showLabel
-                className="shrink-0"
-              />
+              <div className="shrink-0">
+                <StatusBadge
+                  status={log.type === "destructive_op" ? "pendente" : log.type === "error" ? "cancelado" : "concluido"}
+                  showLabel
+                  size="sm"
+                />
+              </div>
               <div className="min-w-0 flex-1">
                 <p className="break-words text-sm font-medium">{log.context}</p>
                 {log.error && (
