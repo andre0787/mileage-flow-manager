@@ -351,3 +351,98 @@ concurrency:
 - **Node**: manter compat com Node 22+ (GitHub Actions usa Node 24 por padrão)
 - **Playwright browsers**: atualizar via `npx playwright install --with-deps`
 - **Relatório de falha**: sempre baixar artifact `playwright-report/` e abrir `index.html`
+
+---
+
+## Prompt Versioning
+
+O projeto usa um sistema de versionamento de prompts via hashes SHA256 para rastrear
+mudanças em skills e documentos de configuração do agente.
+
+### Arquivo manifesto
+
+`.prompts-manifest.json` na raiz do projeto contém hashes SHA256 de todos os
+arquivos de prompt/skill monitorados.
+
+### Arquivos monitorados
+
+- `.pi/skills/*/SKILL.md` (skills do agente)
+- `AGENTS.md`, `CLAUDE.md` (configuração do agente)
+- `docs/CONTEXT-MANAGEMENT.md`, `docs/WORKFLOW-MANIFEST.md`, `docs/WORKFLOW.md` (docs de workflow)
+
+### Scripts
+
+| Script | Descrição |
+|--------|-----------|
+| `npm run prompt:manifest` | Gera/atualiza `.prompts-manifest.json` com SHA256 dos prompts |
+| `npm run prompt:check` | Verifica se hashes do manifesto correspondem aos arquivos atuais |
+| `npm run outcome:grader` | Avalia diff contra quality gates (console.log, tests, protected files) |
+| `npm run outcome:checklist` | Gera checklist de verificação pós-task |
+
+### Regra de validação
+
+- **Rule #29** (`scripts/rules/rule-29-prompt-version.mjs`): valida no pre-pr que todo
+  arquivo monitorado modificado teve seu hash atualizado no manifesto.
+
+### Fluxo
+
+```
+1. Edita arquivo monitorado (skill, AGENTS.md, etc.)
+2. npm run prompt:manifest   ← atualiza .prompts-manifest.json
+3. npm run pre-pr            ← rule-29 valida consistência
+4. Cria PR
+```
+
+Se esquecer de rodar `prompt:manifest`, o pre-pr falha com erro claro apontando
+qual arquivo precisa ser atualizado.
+
+---
+
+## Outcome Graders
+
+Verificação automatizada de qualidade do diff contra acceptance criteria,
+integrada ao pre-pr via **Rule #30**.
+
+### Critérios avaliados
+
+1. **Console.log/debugger** — linhas adicionadas no diff com `console.log()` ou `debugger`
+2. **Test parity** — arquivos `.ts/.tsx` modificados devem ter test correspondente
+3. **Arquivos protegidos** — alterações em `supabase`, `tailwind.config`, `vite.config` disparam warning
+4. **Import hygiene** — verificação de imports básica
+
+### Scripts
+
+| Script | Descrição |
+|--------|-----------|
+| `npm run outcome:grader` | Executa avaliação completa do diff |
+| `npm run outcome:checklist` | Gera checklist de verificação pós-task |
+
+### Regra de validação
+
+- **Rule #30** (`scripts/rules/rule-30-outcome-grade.mjs`): executada automaticamente
+  pelo pre-pr, exige score ≥ 80% para aprovação.
+
+---
+
+## Observability — Event Tracking
+
+Registro leve de eventos do workflow para rastrear sessões, PRs e validações.
+
+### Arquivo de log
+
+`docs/tracking/events.jsonl` — formato JSON Lines, cada linha é um evento.
+
+### Scripts
+
+| Script | Descrição |
+|--------|-----------|
+| `npm run session:tracking` | Últimos 10 eventos |
+| `npm run session:tracking:all` | Todos os eventos |
+| `npm run session:tracking:stats` | Estatísticas agregadas (por tipo/dia) |
+
+### Eventos registrados automaticamente
+
+- `session:start` — via `session-start.mjs` ao iniciar sessão
+- `session:end` — via `session-end.mjs` ao finalizar
+- `pre-pr` — via `pre-pr-check.mjs` após validação
+- `commit` — manual via `npm run event:log`

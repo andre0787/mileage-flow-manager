@@ -3,6 +3,7 @@ import { Package, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useOnlineStatus } from "@/contexts/OnlineContext";
 import { Badge } from "@/components/ui/badge";
+import { StatusBadge } from "@/components/ui/StatusBadge";
 import {
   Table,
   TableBody,
@@ -109,14 +110,7 @@ export function EntryTable({
           🔄 Clube
         </Badge>
       )}
-      {entry.entryStatus === "aguardando" && (
-        <Badge
-          variant="secondary"
-          className="text-[10px] h-5 gap-1 bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400"
-        >
-          ⏳ Aguardando
-        </Badge>
-      )}
+      {entry.entryStatus === "aguardando" && <StatusBadge status="aguardando" size="sm" />}
     </div>
   );
 

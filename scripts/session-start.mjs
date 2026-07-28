@@ -117,6 +117,7 @@ async function main() {
     }
     escreverSessao(cat, obj, branch, commit);
     console.log(`✅ Sessão iniciada: ${cat} — ${obj}`);
+    execSync(`node scripts/event-log.mjs session:start "${cat}: ${obj}" --meta '{"categoria":"${cat}"}' 2>/dev/null || true`, { cwd: ROOT, encoding: 'utf8', timeout: 5000 });
     return;
   }
 

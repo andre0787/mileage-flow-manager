@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   BarChart3,
   TrendingUp,
@@ -7,6 +7,7 @@ import {
   AlertTriangle,
   Lightbulb,
   Award,
+  Sparkles,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -28,9 +29,13 @@ import {
 } from "@/components/ui/table";
 import { useData } from "@/contexts/DataContext";
 import { toast } from "sonner";
+import { SearchInput } from "@/components/ui/SearchInput";
+import { useSmartQuery, periodFromFilter } from "@/hooks/useSmartQuery";
 import { calcProfitMargin, calcROI, calcWeightedAverageCost } from "@/lib/metrics";
 import { downloadCSV } from "@/lib/utils";
 import { PERIOD_OPTIONS } from "@/lib/dates";
+import { describeFilters } from "@/lib/text-to-query";
+import { DataTable } from "@/components/ui";
 
 interface OwnerReport {
   ownerName: string;
@@ -56,8 +61,22 @@ export default function Relatorios() {
   const [selectedPeriod, setSelectedPeriod] = useState("30");
   const [selectedOwner, setSelectedOwner] = useState("todos");
   const [selectedProgram, setSelectedProgram] = useState("todos");
-
   const { owners, accounts, programs, entries, sales, isLoading } = useData();
+
+  const { nlQuery, setNlQuery, nlFilters, description, clearQuery, suggestions } = useSmartQuery();
+
+  // Auto-aplica filtros da consulta NL
+  useEffect(() => {
+    if (!nlFilters) return;
+    const period = periodFromFilter(nlFilters.period);
+    if (period) setSelectedPeriod(period);
+    if (nlFilters.program && nlFilters.program !== "todos") {
+      const matched = programs.find((p) =>
+        p.name.toLowerCase().includes(nlFilters.program!.toLowerCase()),
+      );
+      if (matched) setSelectedProgram(matched.name);
+    }
+  }, [nlFilters, programs]);
 
   const dateCutoff = useMemo(() => {
     const d = new Date();
@@ -231,6 +250,67 @@ export default function Relatorios() {
           </Button>
         </div>
       </div>
+
+      {/* Smart Query — linguagem natural */}
+      <Card className="shadow-card animate-appear animate-delay-100 bg-gradient-to-br from-primary/5 to-transparent">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-base">
+            <Sparkles className="h-4 w-4 text-primary" />
+            Consulta Inteligente
+          </CardTitle>
+          <p className="text-xs text-muted-foreground">
+            Digite em linguagem natural: "vendas do mês passado", "entradas por programa", "clientes
+            ativos", "lucro total"
+          </p>
+        </CardHeader>
+        <CardContent>
+          <SearchInput
+            value={nlQuery}
+            onChange={setNlQuery}
+            placeholder="O que você quer consultar? Ex: vendas pendentes este mês"
+            showHotkey={false}
+          />
+          {!nlQuery.trim() ? (
+            <div className="flex flex-wrap gap-1.5 mt-2">
+              {[
+                "vendas do mês passado",
+                "entradas por programa",
+                "clientes ativos",
+                "lucro total",
+                "vendas pendentes",
+              ].map((suggestion) => (
+                <button
+                  key={suggestion}
+                  onClick={() => setNlQuery(suggestion)}
+                  className="text-xs px-2 py-1 rounded-full bg-muted hover:bg-primary/10 hover:text-primary transition-colors text-muted-foreground border"
+                  type="button"
+                >
+                  {suggestion}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary/10 text-primary rounded-full text-xs font-medium">
+                <Sparkles className="h-3 w-3" />
+                {nlFilters ? describeFilters(nlFilters) : "Não entendi. Tente outra consulta."}
+              </span>
+              {nlFilters?.period && nlFilters.period !== "all" && (
+                <span className="text-xs text-muted-foreground">
+                  Período ajustado automaticamente
+                </span>
+              )}
+              <button
+                onClick={() => setNlQuery("")}
+                className="text-xs text-muted-foreground hover:text-foreground underline ml-auto"
+                type="button"
+              >
+                Limpar
+              </button>
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Filters */}
       <Card className="shadow-card animate-appear animate-delay-200">

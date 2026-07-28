@@ -28,6 +28,14 @@
     "report:rename": "node scripts/generate-report.mjs --rename",
     "post-pr": "node scripts/post-pr.mjs",
     "post-pr:nopush": "node scripts/post-pr.mjs --no-push",
+    "outcome:grader": "node scripts/outcome-grader.mjs",
+    "event:log": "node scripts/event-log.mjs",
+    "outcome:checklist": "node scripts/outcome-grader.mjs --checklist",
+    "session:tracking": "node scripts/session-tracking.mjs",
+    "session:tracking:stats": "node scripts/session-tracking.mjs --stats",
+    "session:tracking:all": "node scripts/session-tracking.mjs --all",
+    "prompt:check": "node scripts/prompt-manifest.mjs --check",
+    "prompt:manifest": "node scripts/prompt-manifest.mjs --write",
     "quality": "node scripts/quality-report.mjs",
     "quality:write": "node scripts/quality-report.mjs --write",
     "quality:sync": "node scripts/quality-sync.mjs",
@@ -59,7 +67,9 @@
     "retro:write": "node scripts/retro.mjs --write",
     "rule:skill-orphans": "node scripts/rules/rule-23-skill-orphans.mjs",
     "rule:real-tests": "node scripts/rules/rule-24-real-tests.mjs",
-    "rule:prod-tests": "node scripts/rules/rule-25-production-tests.mjs"
+    "rule:prod-tests": "node scripts/rules/rule-25-production-tests.mjs",
+    "rule:31": "node scripts/rules/rule-31-lib-test-coverage.mjs",
+    "rule:32": "node scripts/rules/rule-32-component-test-coverage.mjs"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.1",
@@ -95,6 +105,9 @@
   "devDependencies": {
     "@eslint/js": "^9.9.0",
     "@playwright/test": "^1.61.1",
+    "@testing-library/jest-dom": "^7.0.0",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^22.5.5",
     "@types/react": "^18.3.3",
@@ -105,6 +118,7 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
+    "jsdom": "^30.0.0",
     "lovable-tagger": "^1.1.7",
     "postcss": "^8.4.47",
     "prettier": "^3.9.4",
