@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `feat/prompt-versioning-phase1`
-- **Último commit:** `2f647ab` — chore: session end
+- **Último commit:** `c036aac — fix: spec feedback-issues-spec adequada ao formato rule-28 (#217)`
 - **Remote:** origin/feat/prompt-versioning-phase1
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,13 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** Prompt Versioning — sistema de hashes SHA256 para versionamento de skills e documentos de configuração
-**Status:** done
-**Iniciada em:** 2026-07-28T21:28:14.842Z
+**Categoria:** chore
+**Objetivo:** Implementar INTENT gate, TWINS check e AUTH gate do Fable Method
+**Status:** in_progress
+**Iniciada em:** 2026-07-28T22:31:34.779Z
 **Branch:** `feat/prompt-versioning-phase1`
-**Último commit:** 9a227f3 — docs: update handoff
-**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
+**Último commit:** c036aac — fix: spec feedback-issues-spec adequada ao formato rule-28 (#217)
+**Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão

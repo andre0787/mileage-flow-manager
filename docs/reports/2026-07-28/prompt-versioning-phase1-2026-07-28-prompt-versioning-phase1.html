@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 prompt versioning phase1</h1>
-  <p class="meta">2026-07-28 19:06 &middot; feat/prompt-versioning-phase1 &middot; a5453ca — docs: MAP.md — adiciona specs e plans dos Fases 1-4</p>
+  <p class="meta">2026-07-28 19:34 &middot; feat/prompt-versioning-phase1 &middot; c036aac — fix: spec feedback-issues-spec adequada ao formato rule-28 (#217)</p>
   <p><span class="badge auto">auto</span> <span class="badge auto">prompt-versioning-phase1</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">47</div>
+      <div style="font-size:1.5rem;font-weight:700">50</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+5130</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+5439</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-223</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-239</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~4485</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~4736</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -64,6 +64,7 @@
       <li>🖼️ Renderização verificada em desktop e mobile?</li>
       <li>🔌 Hooks testados em tela real?</li>
       <li>📦 Biblioteca testada com casos de borda?</li>
+      <li>📬 Feedback flow testado (anon + auth)?</li>
       <li>🧪 Testes manuais realizados?</li>
       <li>📋 Regras de validação passam? (npm run pre-pr)</li>
     </ul>
@@ -83,12 +84,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 223 remoções — 5980 linhas tocadas</td>
-        <td>✨ 5130 adições — 47 arquivo(s) alterado(s)</td>
+        <td>🧹 239 remoções — 6314 linhas tocadas</td>
+        <td>✨ 5439 adições — 50 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .pi/skills/council-to-superpowers/SKILL.md, .pi/skills/llm-council/SKILL.md, AGENTS.md, docs/MAP.md<br><span style="color:#166534;font-weight:600">➕</span> .prompts-manifest.json<br><em>+42 arquivo(s)</em></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .pi/skills/council-to-superpowers/SKILL.md, .pi/skills/llm-council/SKILL.md, AGENTS.md, docs/MAP.md<br><span style="color:#166534;font-weight:600">➕</span> .prompts-manifest.json<br><em>+45 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -101,25 +102,25 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>47</td></tr>
-    <tr><td>Adições</td><td>+5130</td></tr>
-    <tr><td>Remoções</td><td>-223</td></tr>
-    <tr><td>Tokens estimados</td><td>~4485</td></tr>
+    <tr><td>Arquivos alterados</td><td>50</td></tr>
+    <tr><td>Adições</td><td>+5439</td></tr>
+    <tr><td>Remoções</td><td>-239</td></tr>
+    <tr><td>Tokens estimados</td><td>~4736</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:86">+3848 add</div>
-        <div class="del" style="flex:4">-167 del</div>
-        <div class="overhead" style="flex:10">~470 ctx</div>
+        <div class="add" style="flex:86">+4079 add</div>
+        <div class="del" style="flex:4">-179 del</div>
+        <div class="overhead" style="flex:10">~478 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+3848</td><td>86%</td></tr>
-      <tr><td>Remoções</td><td>-167</td><td>4%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~470</td><td>10%</td></tr>
-      <tr><th>Total</th><th>~4485</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+4079</td><td>86%</td></tr>
+      <tr><td>Remoções</td><td>-179</td><td>4%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~478</td><td>10%</td></tr>
+      <tr><th>Total</th><th>~4736</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
@@ -133,9 +134,11 @@
 <tr><td>M</td><td>docs/WORKFLOW.md</td></tr>
 <tr><td>M</td><td>docs/handoff.md</td></tr>
 <tr><td>A</td><td>docs/reports/2026-07-28/PR219-versioning-phase1-2026-07-28-prompt-versioning-phase1.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-28/prompt-versioning-phase1-2026-07-28-prompt-versioning-phase1.html</td></tr>
 <tr><td>A</td><td>docs/superpowers/plans/2026-07-28-prompt-versioning-plan.md</td></tr>
 <tr><td>A</td><td>docs/superpowers/specs/2026-07-28-prompt-versioning-design.md</td></tr>
 <tr><td>A</td><td>docs/superpowers/specs/2026-07-29-classification-nl-design-spec.md</td></tr>
+<tr><td>M</td><td>docs/superpowers/specs/feedback-issues-spec.md</td></tr>
 <tr><td>A</td><td>docs/tracking/events.jsonl</td></tr>
 <tr><td>M</td><td>package-lock.json</td></tr>
 <tr><td>M</td><td>package.json</td></tr>
@@ -153,8 +156,6 @@
 <tr><td>M</td><td>src/components/EntryForm.tsx</td></tr>
 <tr><td>M</td><td>src/components/EntryTable.tsx</td></tr>
 <tr><td>M</td><td>src/components/SaleTable.tsx</td></tr>
-<tr><td>A</td><td>src/components/ui/DataTable.tsx</td></tr>
-<tr><td>A</td><td>src/components/ui/SearchInput.tsx</td></tr>
   </table>
 
   

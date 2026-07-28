@@ -41,6 +41,22 @@ llm-council para gatilhos e formato.
 
 ## Fase 2 — Superpowers
 
+### 🧠 INTENT Gate (obrigatório antes da implementação)
+
+Antes de tocar em qualquer arquivo, **declare explicitamente o INTENT** no formato:
+
+```
+INTENT: código faz <X>; o teste/task espera <Y>; a spec/documentação diz <Z>
+```
+
+**Regra:** Se X, Y e Z não estiverem todos de acordo, **não edite ainda**. A divergência é o verdadeiro achado — reporte ao usuário.
+
+**Autoridade (quando discordam):** declaração explícita do usuário > spec > testes > comportamento atual do código.
+
+> 🧿 Baseado no **INTENT gate do Fable Method** (Sahir619/fable-method).
+
+---
+
 Alimente o veredito do council no Superpowers. Leia cada SKILL.md manualmente — elas não disparam sozinhas.
 
 1. **brainstorming** — "O council recomendou X. Faça o brainstorming da implementação."
@@ -54,6 +70,8 @@ Alimente o veredito do council no Superpowers. Leia cada SKILL.md manualmente �
 
 4. **test-driven-development** — RED/GREEN/REFACTOR
    Leia `test-driven-development/SKILL.md`
+
+   > 💡 Lembre-se do **INTENT gate** acima: antes de escrever o teste RED, confirme que código, teste e spec estão alinhados.
 
 5. **subagent-driven-development** ou **executing-plans**
    Leia o SKILL.md correspondente

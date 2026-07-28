@@ -54,6 +54,10 @@
 | `.pi/skills/subagent-driven-development/SKILL.md` | Execução delegada com subagentes | Plano → subagente por tarefa → task review → final review |
 | `.pi/skills/dispatching-parallel-agents/SKILL.md` | Investigação paralela | 1 subagente por domínio de problema independente |
 | `.pi/skills/using-git-worktrees/SKILL.md` | Worktrees isolados | Branches separadas para trabalho concorrente sem conflito |
+| `.pi/skills/council-to-superpowers/SKILL.md` | Workflow feature | Council → **INTENT gate** → brainstorming → plans → execução → PR |
+| `.pi/skills/writing-plans/SKILL.md` | Planos de implementação | **INTENT gate** antes de definir tasks — alinha código, teste e spec |
+| `.pi/skills/systematic-debugging/SKILL.md` | Debug estruturado | **TWINS check** ao corrigir bugs — busca mesmo padrão no projeto todo |
+| `.pi/skills/finishing-a-development-branch/SKILL.md` | Finalização de branch | **AUTH gate** — exige palavras do usuário antes de push/merge/deploy irreversível |
 | `scripts/check-feedback.mjs` | Verificação de feedback | Consulta feedbacks de usuários no Supabase |
 | `scripts/check-deploy.mjs` | Saúde do deploy | Verifica status do último deploy via GitHub API |
 | `scripts/retro.mjs` | Retrospectiva | Gera relatório de retrospectiva do período |
@@ -71,6 +75,16 @@ Artefatos de sprints/features concluídos foram movidos para `docs/archive/`:
 | `docs/archive/plans/` | 9 planos de features já implementadas |
 | `docs/archive/council/` | 10 vereditos de decisões concluídas |
 | `docs/archive/` raiz | Nenhum — todos removidos |
+
+## Gates do Fable Method
+
+3 gates importados do [Fable Method](https://github.com/Sahir619/fable-method) para aumento de rigor:
+
+| Gate | Onde | O que faz |
+|------|------|-----------|
+| 🧠 **INTENT** | `council-to-superpowers` + `writing-plans` | Antes de qualquer edição: alinha código, teste e spec com declaração explícita |
+| 🔁 **TWINS** | `systematic-debugging` | Ao corrigir bug: busca mesmo padrão no projeto todo e corrige todas as ocorrências |
+| 🔐 **AUTH** | `finishing-a-development-branch` | Antes de push/merge/deploy: exige as palavras exatas do usuário como autorização |
 
 ## Regra de Ouro
 
