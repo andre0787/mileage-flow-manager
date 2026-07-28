@@ -35,6 +35,8 @@
 26. **`npm run session:start` obrigatório no início de toda sessão** — marcador de timestamp validado. Valida: `rule-26`.
 27. **Council obrigatório no workflow feature** — veredito em `docs/council/`. Valida: `rule-27`.
 28. **Spec técnica obrigatória no workflow refactor** — spec em `docs/superpowers/specs/`. Valida: `rule-28`.
+29. **Prompt versioning** — todo prompt/skill modificado tem hash atualizado no manifesto. Valida: `rule-29`.
+30. **Outcome grade ≥ 80%** — diff deve passar quality gates (console.log, tests, protegidos). Valida: `rule-30`.
 
 ## 🎯 Sistema de Categorias (LAZY LOADING)
 
