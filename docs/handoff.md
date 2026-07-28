@@ -2,6 +2,13 @@
 > ⏰ Última atualização: 2026-07-27 20:41 BRT
 > Sessão: PR #212 — remove SW cache Supabase REST que causava stale data
 
+## 🏗️ Projeto
+
+> ⏰ Snapshot de 2026-07-27
+> **Stack:** React + Vite + Supabase + Tailwind | pt-BR
+> **Branch:** feat/testing-production-methodology
+> **PRs abertos:** PR #213 (metodologia testes produção)
+
 ## 🎯 Goal (Sessões 1 e 2)
 **Sessão 1 (PR #211)**: Adicionar `setQueryData` em todas mutations de owners, programs, accounts.
 
@@ -53,6 +60,27 @@
 - **Relatório**: `docs/reports/2026-07-27/PR211-2026-07-27-optimistic-cache-all-mutations.html`
 - **Bug original**: Dono criado inline não carregava automaticamente no Account Drawer (PR #209 + PR #211 resolvem)
 - **Complementa PR #209**: PR #209 adicionou `setQueryData` apenas em `useAddOwnerMutation`; PR #211 completa as mutations de update e delete em owners, programs e accounts
+
+## Estado Atual
+
+Em andamento: PR #213 — metodologia de testes contra produção.
+Sessão anterior (PR #212) corrigiu bug do SW cache.
+
+## Próxima Sessão
+
+1. Mergear PR #213
+2. Usar nova metodologia nas próximas features/bugs
+3. Deletar branches: fix/optimistic-cache-all-mutations, fix/sw-cache-supabase-api
+
+
+## 🎯 Sessão Atual
+**Categoria:** docs
+**Objetivo:** verifica output
+**Status:** in_progress
+**Branch:** `feat/testing-production-methodology`
+**Último commit:** c632d4b — feat: implementa metodologia de testes contra produção (Regra #25)
+**Docs carregados:** AGENTS.md
+
 
 ---
 _Atualizado manualmente — Sessão encerrada_
