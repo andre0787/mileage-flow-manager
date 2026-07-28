@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Package, TrendingDown, Users } from "lucide-react";
 import { useOnlineStatus } from "@/contexts/OnlineContext";
 import { Badge } from "@/components/ui/badge";
+import { StatusBadge } from "@/components/ui/StatusBadge";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -141,9 +142,7 @@ export function SaleTable({
                     </TableCell>
                     <TableCell>
                       {sale.status === "cancelado" ? (
-                        <Badge variant="outline" className="text-destructive border-destructive">
-                          Cancelado
-                        </Badge>
+                        <StatusBadge status="cancelado" size="sm" />
                       ) : (
                         <Select
                           value={sale.status}

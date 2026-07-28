@@ -7,7 +7,7 @@ import {
   TrendingUp,
   TrendingDown,
 } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { SearchInput } from "@/components/ui/SearchInput";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -309,13 +309,11 @@ export default function Entradas() {
           <p className="text-sm text-muted-foreground">Gerencie aquisição de pontos e milhas</p>
         </div>
         <div className="flex gap-2 w-full sm:w-auto flex-wrap">
-          <div className="relative flex-1 sm:flex-none min-w-[180px]">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-            <Input
-              className="pl-9 w-full"
+          <div className="flex-1 sm:flex-none min-w-[200px]">
+            <SearchInput
               placeholder="Buscar entrada..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={setSearchTerm}
             />
           </div>
           <Button

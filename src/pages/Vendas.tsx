@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
-import { Plus, Search, Calculator, Download } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Plus, Calculator, Download } from "lucide-react";
+import { SearchInput } from "@/components/ui/SearchInput";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -244,13 +244,11 @@ export default function Vendas() {
           </p>
         </div>
         <div className="flex flex-wrap gap-2 w-full sm:w-auto">
-          <div className="relative flex-1 sm:flex-none min-w-0">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-            <Input
-              className="pl-9 w-full sm:w-56"
+          <div className="min-w-[200px] flex-1 sm:flex-none">
+            <SearchInput
               placeholder="Buscar venda..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={setSearchTerm}
             />
           </div>
           <Select value={statusFilter} onValueChange={setStatusFilter}>
