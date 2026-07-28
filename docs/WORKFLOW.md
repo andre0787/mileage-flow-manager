@@ -421,3 +421,28 @@ integrada ao pre-pr via **Rule #30**.
 
 - **Rule #30** (`scripts/rules/rule-30-outcome-grade.mjs`): executada automaticamente
   pelo pre-pr, exige score ≥ 80% para aprovação.
+
+---
+
+## Observability — Event Tracking
+
+Registro leve de eventos do workflow para rastrear sessões, PRs e validações.
+
+### Arquivo de log
+
+`docs/tracking/events.jsonl` — formato JSON Lines, cada linha é um evento.
+
+### Scripts
+
+| Script | Descrição |
+|--------|-----------|
+| `npm run session:tracking` | Últimos 10 eventos |
+| `npm run session:tracking:all` | Todos os eventos |
+| `npm run session:tracking:stats` | Estatísticas agregadas (por tipo/dia) |
+
+### Eventos registrados automaticamente
+
+- `session:start` — via `session-start.mjs` ao iniciar sessão
+- `session:end` — via `session-end.mjs` ao finalizar
+- `pre-pr` — via `pre-pr-check.mjs` após validação
+- `commit` — manual via `npm run event:log`

@@ -190,3 +190,9 @@ logger.log(`  ${errors > 0 ? `❌ ${errors} errors` : "✅ 0 errors"}`);
 logger.log("═══════════════════════════════════\n");
 
 if (errors > 0 && process.argv.includes("--strict")) process.exit(1);
+
+// Event log — não bloqueante
+try {
+  const branch = execSync("git rev-parse --abbrev-ref HEAD", { cwd: ROOT, encoding: "utf8", timeout: 3000 }).trim();
+  execSync(`node scripts/event-log.mjs pre-pr "pre-pr ${errors > 0 ? 'FAIL' : 'PASS'}" --meta '{"errors":${errors},"branch":"${branch}"}' 2>/dev/null || true`, { cwd: ROOT, encoding: 'utf8', timeout: 5000 });
+} catch { /* non-blocking */ }

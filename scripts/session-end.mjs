@@ -80,6 +80,9 @@ if (!status) {
       run(`git commit ${NO_VERIFY} -m "docs: update handoff"`);
       run("git push origin HEAD");
       console.log("\n✅ HANDOFF atualizado e push feito.");
+      try {
+        execSync('node scripts/event-log.mjs session:end "handoff atualizado" 2>/dev/null || true', { cwd: ROOT, encoding: 'utf8', timeout: 5000 });
+      } catch { /* non-blocking */ }
     } catch {
       console.log("  (nada a commitar no HANDOFF)");
     }
