@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   BarChart3,
   TrendingUp,
@@ -30,7 +30,7 @@ import {
 import { useData } from "@/contexts/DataContext";
 import { toast } from "sonner";
 import { SearchInput } from "@/components/ui/SearchInput";
-import { parseNaturalQuery, describeFilters } from "@/lib/text-to-query";
+import { useSmartQuery, periodFromFilter } from "@/hooks/useSmartQuery";
 import { calcProfitMargin, calcROI, calcWeightedAverageCost } from "@/lib/metrics";
 import { downloadCSV } from "@/lib/utils";
 import { PERIOD_OPTIONS } from "@/lib/dates";
@@ -59,11 +59,24 @@ export default function Relatorios() {
   const [selectedPeriod, setSelectedPeriod] = useState("30");
   const [selectedOwner, setSelectedOwner] = useState("todos");
   const [selectedProgram, setSelectedProgram] = useState("todos");
-  const [nlQuery, setNlQuery] = useState("");
-  const nlFilters = useMemo(() => {
-    if (!nlQuery.trim()) return null;
-    return parseNaturalQuery(nlQuery);
-  }, [nlQuery]);
+  const {
+    nlQuery, setNlQuery,
+    nlFilters, description,
+    clearQuery, suggestions,
+  } = useSmartQuery();
+
+  // Auto-aplica filtros da consulta NL
+  useEffect(() => {
+    if (!nlFilters) return;
+    const period = periodFromFilter(nlFilters.period);
+    if (period) setSelectedPeriod(period);
+    if (nlFilters.program && nlFilters.program !== "todos") {
+      const matched = programs.find(
+        (p) => p.name.toLowerCase().includes(nlFilters.program!.toLowerCase())
+      );
+      if (matched) setSelectedProgram(matched.name);
+    }
+  }, [nlFilters, programs]);
 
   const { owners, accounts, programs, entries, sales, isLoading } = useData();
 
@@ -258,17 +271,43 @@ export default function Relatorios() {
             placeholder="O que você quer consultar? Ex: vendas pendentes este mês"
             showHotkey={false}
           />
-          {nlFilters && (
+          {!nlQuery.trim() ? (
+            <div className="flex flex-wrap gap-1.5 mt-2">
+              {[
+                "vendas do mês passado",
+                "entradas por programa",
+                "clientes ativos",
+                "lucro total",
+                "vendas pendentes",
+              ].map((suggestion) => (
+                <button
+                  key={suggestion}
+                  onClick={() => setNlQuery(suggestion)}
+                  className="text-xs px-2 py-1 rounded-full bg-muted hover:bg-primary/10 hover:text-primary transition-colors text-muted-foreground border"
+                  type="button"
+                >
+                  {suggestion}
+                </button>
+              ))}
+            </div>
+          ) : (
             <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
               <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary/10 text-primary rounded-full text-xs font-medium">
                 <Sparkles className="h-3 w-3" />
-                {describeFilters(nlFilters)}
+                {nlFilters ? describeFilters(nlFilters) : "Não entendi. Tente outra consulta."}
               </span>
-              {nlFilters.period && nlFilters.period !== "all" && (
+              {nlFilters?.period && nlFilters.period !== "all" && (
                 <span className="text-xs text-muted-foreground">
-                  Filtrando por período
+                  Período ajustado automaticamente
                 </span>
               )}
+              <button
+                onClick={() => setNlQuery("")}
+                className="text-xs text-muted-foreground hover:text-foreground underline ml-auto"
+                type="button"
+              >
+                Limpar
+              </button>
             </div>
           )}
         </CardContent>
