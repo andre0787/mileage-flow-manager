@@ -128,7 +128,8 @@ export default function AdminEventos() {
       <div className="space-y-2">
         {filtered.length === 0 && (
           <p className="py-8 text-center text-muted-foreground">
-            Nenhum evento registrado. Ative <code>VITE_ENABLE_DEBUG_LOG=true</code> no .env para começar.
+            Nenhum evento registrado. Ative <code>VITE_ENABLE_DEBUG_LOG=true</code> no .env para
+            começar.
           </p>
         )}
         {filtered.map((log, i) => (
@@ -136,16 +137,20 @@ export default function AdminEventos() {
             <CardContent className="flex items-start gap-3 py-3">
               <div className="shrink-0">
                 <StatusBadge
-                  status={log.type === "destructive_op" ? "pendente" : log.type === "error" ? "cancelado" : "concluido"}
+                  status={
+                    log.type === "destructive_op"
+                      ? "pendente"
+                      : log.type === "error"
+                        ? "cancelado"
+                        : "concluido"
+                  }
                   showLabel
                   size="sm"
                 />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="break-words text-sm font-medium">{log.context}</p>
-                {log.error && (
-                  <p className="mt-1 text-xs text-destructive">{log.error}</p>
-                )}
+                {log.error && <p className="mt-1 text-xs text-destructive">{log.error}</p>}
                 {log.details && (
                   <pre className="mt-1 overflow-x-auto text-xs text-muted-foreground">
                     {JSON.stringify(log.details, null, 2)}
