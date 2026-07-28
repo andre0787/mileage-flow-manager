@@ -33,6 +33,7 @@
     "outcome:checklist": "node scripts/outcome-grader.mjs --checklist",
     "session:tracking": "node scripts/session-tracking.mjs",
     "session:tracking:stats": "node scripts/session-tracking.mjs --stats",
+    "twins:check": "node scripts/twins-check.mjs",
     "session:tracking:all": "node scripts/session-tracking.mjs --all",
     "prompt:check": "node scripts/prompt-manifest.mjs --check",
     "prompt:manifest": "node scripts/prompt-manifest.mjs --write",

@@ -3,14 +3,31 @@
 > Anterior: 2026-07-28
 ---
 ## 🏗️ Projeto
+
+> ⏰ Snapshot atualizado em: 2026-07-28
+
+### 🏗️ Projeto
+
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
-**Workflow:** session:start → categoria → implementação → pre-pr → PR
+**Regras críticas:** branch obrigatória, pre-pr c/ relatório, git status ZERO, lazy loading por categoria
+**Workflow:** session:start → categoria → carregar docs → council (se feature) → build → pre-pr → PR
+
 ### 🐞 Bugs Abertos
-Consulte as GitHub Issues para a lista atual.
+
+- nenhum | [ver todos → Issues](https://github.com/andreluiz0787/mileage-flow-manager/issues)
+
+### 📋 Commits Recentes
+
+```
+ba86220 feat: INTENT gate, TWINS check e AUTH gate do Fable Method (rules 33-35) (#220)
+85e1c41 feat: implementação completa Fases 1-4 do Claude Cookbook (#219)
+fbda17d fix: barrel index.ts para DataTable + import em Relatorios (rule-14)
+```
+
 ## 🧭 Estado Atual
-- **Branch:** `feat/prompt-versioning-phase1`
-- **Último commit:** `c036aac — fix: spec feedback-issues-spec adequada ao formato rule-28 (#217)`
+- **Branch:** `feat/fase2-audit-dashboard`
+- **Último commit:** `ba86220 — feat: INTENT gate, TWINS check e AUTH gate do Fable Method (rules 33-35) (#220)`
 - **Remote:** origin/feat/prompt-versioning-phase1
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -25,11 +42,11 @@ Nenhum PR aberto.
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
-**Objetivo:** Implementar INTENT gate, TWINS check e AUTH gate do Fable Method
+**Objetivo:** Fase 2 — audit + dashboard + lib tests + CI + E2E fixes
 **Status:** in_progress
-**Iniciada em:** 2026-07-28T22:31:34.779Z
-**Branch:** `feat/prompt-versioning-phase1`
-**Último commit:** c036aac — fix: spec feedback-issues-spec adequada ao formato rule-28 (#217)
+**Iniciada em:** 2026-07-28T20:11:00.000Z
+**Branch:** `feat/fase2-audit-dashboard`
+**Último commit:** ba86220 — feat: INTENT gate, TWINS check e AUTH gate do Fable Method (rules 33-35) (#220)
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.

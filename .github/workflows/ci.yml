@@ -67,7 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [check-pr]
     continue-on-error: true
-    timeout-minutes: 10
+    timeout-minutes: 12
 
     steps:
       - uses: actions/checkout@v4
@@ -95,8 +95,8 @@ jobs:
           BRANCH: ${{ github.head_ref }}
         run: |
           echo "Aguardando deploy preview do Vercel para branch $BRANCH..."
-          for i in $(seq 1 24); do
-            RESPONSE=$(curl -s -H "Authorization: Bearer $VERCEL_TOKEN" \
+          for i in $(seq 1 48); do
+            RESPONSE=$(curl -s --max-time 8 -H "Authorization: Bearer $VERCEL_TOKEN" \
               "https://api.vercel.com/v1/deployments?projectId=$VERCEL_PROJECT_ID&teamId=$VERCEL_ORG_ID&state=READY&limit=10")
             
             URL=$(echo "$RESPONSE" | node -e "
@@ -114,10 +114,10 @@ jobs:
               echo "Preview URL encontrada: $URL"
               exit 0
             fi
-            echo "  Tentativa $i/24 — deploy preview ainda não está READY..."
-            sleep 15
+            echo "  Tentativa $i/48 — deploy preview ainda não está READY..."
+            sleep 10
           done
-          echo "Timeout: deploy preview não ficou READY em 6 minutos"
+          echo "Timeout: deploy preview não ficou READY em ~8 minutos"
           exit 1
 
       - name: E2E Smoke contra preview Vercel

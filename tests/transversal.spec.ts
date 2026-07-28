@@ -94,7 +94,7 @@ test.describe("Tema (Dark Mode)", () => {
     const password = process.env.TEST_PASSWORD;
 
     if (!email || !password) {
-      test.skip();
+      test.skip(true, "TEST_EMAIL/TEST_PASSWORD ausentes — pula testes de Tema");
       return;
     }
 
@@ -147,7 +147,7 @@ test.describe("Idioma (i18n)", () => {
     const password = process.env.TEST_PASSWORD;
 
     if (!email || !password) {
-      test.skip();
+      test.skip(true, "TEST_EMAIL/TEST_PASSWORD ausentes — pula testes de Idioma");
       return;
     }
 
@@ -190,7 +190,7 @@ test.describe("Navegação", () => {
     const password = process.env.TEST_PASSWORD;
 
     if (!email || !password) {
-      test.skip();
+      test.skip(true, "TEST_EMAIL/TEST_PASSWORD ausentes — pula testes de Navegação");
       return;
     }
 
