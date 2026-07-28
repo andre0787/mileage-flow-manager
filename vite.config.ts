@@ -8,9 +8,10 @@ import { VitePWA } from "vite-plugin-pwa";
 export default defineConfig(({ mode }) => ({
   test: {
     globals: true,
-    environment: "node",
+    environment: "jsdom",
     passWithNoTests: true,
-    include: ["tests/**/*.test.ts"],
+    include: ["tests/**/*.test.ts", "tests/**/*.test.tsx"],
+    setupFiles: ["tests/setup.ts"],
   },
   server: {
     host: "::",
