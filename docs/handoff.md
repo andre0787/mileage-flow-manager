@@ -77,14 +77,13 @@ Sessão anterior (PR #212) corrigiu bug do SW cache.
 
 
 ## 🎯 Sessão Atual
-**Categoria:** docs
-**Objetivo:** verifica output
+**Categoria:** chore
+**Objetivo:** validacao regras #26 #27 #28
 **Status:** in_progress
-**Branch:** `feat/testing-production-methodology`
-**Último commit:** c632d4b — feat: implementa metodologia de testes contra produção (Regra #25)
+**Iniciada em:** 2026-07-28T03:54:08.475Z
+**Branch:** `feat/workflow-validation-scripts`
+**Último commit:** aff8a14 — docs: update handoff — sessão 3 finalizada (PRs #213 + #214)
 **Docs carregados:** AGENTS.md
-
-
 ---
 _Atualizado manualmente — Sessão encerrada_
 

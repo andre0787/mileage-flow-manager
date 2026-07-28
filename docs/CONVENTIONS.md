@@ -666,6 +666,30 @@ Nenhum script deve referenciá-lo.
 **Violação:** script referencia AGENDA.md.
 **Valida:** `rule-20-no-agenda-load.mjs`
 
+### #26 — session:start Obrigatório
+
+O `npm run session:start` DEVE ser executado no início de toda sessão.
+O script escreve um marcador com timestamp em `docs/handoff.md`.
+
+**Violação:** handoff.md sem seção Sessão Atual, sem timestamp, ou branch divergente.
+**Valida:** `rule-26-session-started.mjs`
+
+### #27 — Council Obrigatório (Feature)
+
+No workflow **feature**, o LLM Council DEVE ser executado e seu veredito
+salvo em `docs/council/` antes da implementação.
+
+**Violação:** categoria feature sem veredito do council em `docs/council/`.
+**Valida:** `rule-27-council-veredict.mjs`
+
+### #28 — Spec Obrigatória (Refactor)
+
+No workflow **refactor** (e opcionalmente feature), a spec técnica DEVE
+ser criada em `docs/superpowers/specs/` antes da implementação.
+
+**Violação:** categoria refactor sem spec em `docs/superpowers/specs/`.
+**Valida:** `rule-28-spec-exists.mjs`
+
 ## Observações Gerais
 
 - Não adicionar dependências sem necessidade
