@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>prompt-versioning-phase1 — prompt versioning phase1</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 prompt versioning phase1</h1>
+  <p class="meta">2026-07-28 19:06 &middot; feat/prompt-versioning-phase1 &middot; a5453ca — docs: MAP.md — adiciona specs e plans dos Fases 1-4</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">prompt-versioning-phase1</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">47</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+5130</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-223</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~4485</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🖼️ Renderização verificada em desktop e mobile?</li>
+      <li>🔌 Hooks testados em tela real?</li>
+      <li>📦 Biblioteca testada com casos de borda?</li>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Auto-gerado pelo pre-pr-check</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Relatório gerado automaticamente como parte do workflow de validação pré-PR</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 223 remoções — 5980 linhas tocadas</td>
+        <td>✨ 5130 adições — 47 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .pi/skills/council-to-superpowers/SKILL.md, .pi/skills/llm-council/SKILL.md, AGENTS.md, docs/MAP.md<br><span style="color:#166534;font-weight:600">➕</span> .prompts-manifest.json<br><em>+42 arquivo(s)</em></td>
+      </tr>
+      
+      <tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>47</td></tr>
+    <tr><td>Adições</td><td>+5130</td></tr>
+    <tr><td>Remoções</td><td>-223</td></tr>
+    <tr><td>Tokens estimados</td><td>~4485</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:86">+3848 add</div>
+        <div class="del" style="flex:4">-167 del</div>
+        <div class="overhead" style="flex:10">~470 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+3848</td><td>86%</td></tr>
+      <tr><td>Remoções</td><td>-167</td><td>4%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~470</td><td>10%</td></tr>
+      <tr><th>Total</th><th>~4485</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>.pi/skills/council-to-superpowers/SKILL.md</td></tr>
+<tr><td>M</td><td>.pi/skills/llm-council/SKILL.md</td></tr>
+<tr><td>A</td><td>.prompts-manifest.json</td></tr>
+<tr><td>M</td><td>AGENTS.md</td></tr>
+<tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>M</td><td>docs/WORKFLOW.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-28/PR219-versioning-phase1-2026-07-28-prompt-versioning-phase1.html</td></tr>
+<tr><td>A</td><td>docs/superpowers/plans/2026-07-28-prompt-versioning-plan.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-07-28-prompt-versioning-design.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-07-29-classification-nl-design-spec.md</td></tr>
+<tr><td>A</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>package-lock.json</td></tr>
+<tr><td>M</td><td>package.json</td></tr>
+<tr><td>A</td><td>scripts/event-log.mjs</td></tr>
+<tr><td>A</td><td>scripts/outcome-grader.mjs</td></tr>
+<tr><td>M</td><td>scripts/pre-pr-check.mjs</td></tr>
+<tr><td>A</td><td>scripts/prompt-manifest.mjs</td></tr>
+<tr><td>A</td><td>scripts/rules/rule-29-prompt-version.mjs</td></tr>
+<tr><td>A</td><td>scripts/rules/rule-30-outcome-grade.mjs</td></tr>
+<tr><td>A</td><td>scripts/rules/rule-31-lib-test-coverage.mjs</td></tr>
+<tr><td>A</td><td>scripts/rules/rule-32-component-test-coverage.mjs</td></tr>
+<tr><td>M</td><td>scripts/session-end.mjs</td></tr>
+<tr><td>M</td><td>scripts/session-start.mjs</td></tr>
+<tr><td>A</td><td>scripts/session-tracking.mjs</td></tr>
+<tr><td>M</td><td>src/components/EntryForm.tsx</td></tr>
+<tr><td>M</td><td>src/components/EntryTable.tsx</td></tr>
+<tr><td>M</td><td>src/components/SaleTable.tsx</td></tr>
+<tr><td>A</td><td>src/components/ui/DataTable.tsx</td></tr>
+<tr><td>A</td><td>src/components/ui/SearchInput.tsx</td></tr>
+  </table>
+
+  
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/.pi/skills/council-to-superpowers/SKILL.md b/.pi/skills/council-to-superpowers/SKILL.md
+index d0ad74e..6b84b5e 100644
+<span class="del">--- a/.pi/skills/council-to-superpowers/SKILL.md</span>
+<span class="add">+++ b/.pi/skills/council-to-superpowers/SKILL.md</span>
+@@ -29,7 +29,13 @@ Execute o council completo: 5 advisors (Contrarian, First Principles, Expansioni
+ 
+ Leia [`llm-council/SKILL.md`](../llm-council/SKILL.md) para o protocolo completo.
+ 
+<span class="del">-**Output:** veredito do council com recomendação.</span>
+<span class="add">+Para decisões complexas ou de alto risco (trade-offs com 3+ variáveis,</span>
+<span class="add">+alto investimento, dados insuficientes, risco de regressão), o chairman</span>
+<span class="add">+do council DEVE solicitar **Extended Thinking** de um ou mais advisors</span>
+<span class="add">+antes da síntese final. Veja a seção "Extended Thinking" no protocolo</span>
+<span class="add">+llm-council para gatilhos e formato.</span>
+<span class="add">+</span>
+<span class="add">+**Output:** veredito do council com recomendação (e nota se Extended Thinking foi usado).</span>
+ 
+ **Salvar em:** `docs/council/&lt;data&gt;-&lt;topico&gt;-veredito.md`
+ 
+diff --git a/.pi/skills/llm-council/SKILL.md b/.pi/skills/llm-council/SKILL.md
+index 365e7ba..43c59da 100644
+<span class="del">--- a/.pi/skills/llm-council/SKILL.md</span>
+<span class="add">+++ b/.pi/skills/llm-council/SKILL.md</span>
+@@ -34,6 +34,38 @@ Cada advisor recebe as análises dos outros 4 anonimamente e pode:
+ - Questionar premissas
+ - Ajustar seu veredito
+ 
+<span class="add">+## Extended Thinking (Deep Analysis)</span>
+<span class="add">+</span>
+<span class="add">+Para decisões complexas ou de alto risco, invoque **Extended Thinking** antes da</span>
+<span class="add">+síntese do chairman. O chairman avalia se algum advisor se beneficiaria de</span>
+<span class="add">+raciocínio estendido — tipicamente quando:</span>
+<span class="add">+</span>
+<span class="add">+- O tema envolve trade-offs não óbvios entre 3+ variáveis interdependentes</span>
+<span class="add">+- O problema cruza múltiplos domínios (ex: backend + financeiro + regulatório)</span>
+<span class="add">+- A recomendação tem alto custo de implementação (&gt;1 sprint)</span>
+<span class="add">+- Há dados conflitantes ou incompletos que exigem análise mais profunda</span>
+<span class="add">+</span>
+<span class="add">+### Gatilhos para Extended Thinking</span>
+<span class="add">+</span>
+<span class="add">+| Gatilho | Quando aplicar |</span>
+<span class="add">+|---------|----------------|</span>
+<span class="add">+| Trade-off complexo | Decisão entre 3+ opções com critérios conflitantes |</span>
+<span class="add">+| Alto investimento | Feature que consome &gt;30% do sprint ou envolve refactor arquitetural |</span>
+<span class="add">+| Dados insuficientes | Conselho baseado em suposições não validadas |</span>
+<span class="add">+| Risco de regressão | Mudança em área crítica (saldos, autenticação, dados financeiros) |</span>
+<span class="add">+</span>
+<span class="add">+### Formato</span>
+<span class="add">+</span>
+<span class="add">+```markdown</span>
+<span class="add">+### Extended Thinking: &lt;advisor&gt;</span>
+<span class="add">+</span>
+<span class="add">+**Análise Estendida:** &lt;3-5 parágrafos com raciocínio detalhado, cenários, riscos&gt;</span>
+<span class="add">+**Novas Descobertas:** &lt;o que o raciocínio adicional revelou&gt;</span>
+<span class="add">+**Impacto no Veredito:** &lt;manteve, ajustou ou reverteu&gt;</span>
+<span class="add">+```</span>
+<span class="add">+</span>
+<span class="add">+O chairman incorpora as análises estendidas na síntese final.</span>
+<span class="add">+</span>
+ ## Chairman Synthesis
+ 
+ O chairman (Executor) sintetiza:
+@@ -43,4 +75,5 @@ O chairman (Executor) sintetiza:
+ **Consenso:** &lt;resumo&gt;
+ **Veredito Final:** &lt;Faça / Não faça / Reformule&gt;
+ **Próximos Passos:** &lt;se Faça, encaminha para Superpowers&gt;
+<span class="add">+**Extended Thinking Usado:** &lt;sim/não — quais advisors&gt;</span>
+ ```
+diff --git a/.prompts-manifest.json b/.prompts-manifest.json
+new file mode 100644
+index 0000000..a4106af
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/.prompts-manifest.json</span>
+@@ -0,0 +1,15 @@
+<span class="add">+{</span>
+<span class="add">+  "version": 1,</span>
+<span class="add">+  "updatedAt": "2026-07-28T21:49:11.966Z",</span>
+<span class="add">+  "prompts": {</span>
+<span class="add">+    ".pi/skills/council-to-superpowers/SKILL.md": "sha256-122ba80c522405b993bee5dd019f8787499e1687b77151589a17ed374b393a31",</span>
+<span class="add">+    ".pi/skills/handoff/SKILL.md": "sha256-197d78747c41df7a0ef94eb66b19a3698a534a74884f4c367a86530d04aea6f5",</span>
+<span class="add">+    ".pi/skills/llm-council/SKILL.md": "sha256-07b77f34235dd9dddbc44d924793afceafd3b4c6a19637dc429cb083c753b722",</span>
+<span class="add">+    ".pi/skills/small-model-execution/SKILL.md": "sha256-ae38282bdc7aaafc4ea05ab1cf698b22a76184304bd4fbe3418c992bf867acf1",</span>
+<span class="add">+    "AGENTS.md": "sha256-51d52eba3a9ab81c5622a8825c96147427d135e93e9eddb076ac56ad0713354b",</span>
+<span class="add">+    "CLAUDE.md": "sha256-051e5599efd15f4e716edf63dcb3b1da2d23fdcd3728e80831e8adaabab68d87",</span>
+<span class="add">+    "docs/CONTEXT-MANAGEMENT.md": "sha256-199e22e9973cf5433626612bc40c2d6ac5d135f7c295a453cfb2e8650bab57cc",</span>
+<span class="add">+    "docs/WORKFLOW-MANIFEST.md": "sha256-dce7a1b1ba7696a30e7d08113b3f7d318361316f8a1593057fdc695bf9d71d7e",</span>
+<span class="add">+    "docs/WORKFLOW.md": "sha256-12f00896306958841427be979f43f73decb08e68279b551c58ee521444b1fe8e"</span>
+<span class="add">+  }</span>
+<span class="add">+}</span>
+diff --git a/AGENTS.md b/AGENTS.md
+index d397513..beb2a00 100644
+<span class="del">--- a/AGENTS.md</span>
+<span class="add">+++ b/AGENTS.md</span>
+@@ -35,6 +35,10 @@
+ 26. **`npm run session:start` obrigatório no início de toda sessão** — marcador de timestamp validado. Valida: `rule-26`.
+ 27. **Council obrigatório no workflow feature** — veredito em `docs/council/`. Valida: `rule-27`.
+ 28. **Spec técnica obrigatória no workflow refactor** — spec em `docs/superpowers/specs/`. Valida: `rule-28`.
+<span class="add">+29. **Prompt versioning** — todo prompt/skill modificado tem hash atualizado no manifesto. Valida: `rule-29`.</span>
+<span class="add">+30. **Outcome grade ≥ 80%** — diff deve passar quality gates (console.log, tests, protegidos). Valida: `rule-30`.</span>
+<span class="add">+31. **Toda lib em `src/lib/` tem test unitário** — exceções: db.ts, supabase.ts. Valida: `rule-31`.</span>
+<span class="add">+32. **Todo componente customizado tem teste** — aplica a `src/components/ui/` custom e hooks. Valida: `rule-32`.</span>
+ 
+ ## 🎯 Sistema de Categorias (LAZY LOADING)
+ 
+diff --git a/docs/MAP.md b/docs/MAP.md
+index 9ba1635..026df18 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -47,8 +47,8 @@
+ | `docs/IDEIAS.md` | Caixa de entrada de ideias | Ideias humanas pendentes, lidas no início da sessão |
+ | `docs/FLUXO.md` | Diagramas do ecossistema | Flowcharts Mermaid: visão geral, fluxo de dados, rotas |
+ | `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md` |
+<span class="del">-| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md` |</span>
+<span class="del">-| `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atual: `2026-07-16-ios-form-stability.md` |</span>
+<span class="add">+| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md` |</span>
+<span class="add">+| `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md` |</span>
+ | `docs/reports/` | Relatórios HTML | Relatórios obrigatórios antes de cada PR |
+ | `.githooks/` | Git hooks | Pre-commit que bloqueia commits na main |
+ | `.pi/skills/subagent-driven-development/SKILL.md` | Execução delegada com subagentes | Plano → subagente por tarefa → task review → final review |
+diff --git a/docs/WORKFLOW.md b/docs/WORKFLOW.md
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>

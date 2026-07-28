@@ -35,6 +35,7 @@ import { calcProfitMargin, calcROI, calcWeightedAverageCost } from "@/lib/metric
 import { downloadCSV } from "@/lib/utils";
 import { PERIOD_OPTIONS } from "@/lib/dates";
 import { describeFilters } from "@/lib/text-to-query";
+import { DataTable } from "@/components/ui";
 
 interface OwnerReport {
   ownerName: string;
