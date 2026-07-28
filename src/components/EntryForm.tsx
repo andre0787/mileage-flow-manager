@@ -648,30 +648,31 @@ export function EntryForm({
             <span className="text-muted-foreground">Programa: </span>
             <span className="font-medium">{programName(selectedAccount.programId)}</span>
           </div>
-          {form.origemTypeId && (() => {
-            const ot = origemTypes.find(t => t.id === form.origemTypeId);
-            if (!ot) return null;
-            const classification = classifyByText(ot.name + " " + (ot.description || ""));
-            if (classification.category === "desconhecido") return null;
-            return (
-              <div className="flex items-center gap-2 text-xs">
-                <span className="text-muted-foreground">Classificação: </span>
-                <span
-                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-medium"
-                  style={{
-                    backgroundColor: categoryColor(classification.category) + "20",
-                    color: categoryColor(classification.category),
-                  }}
-                >
+          {form.origemTypeId &&
+            (() => {
+              const ot = origemTypes.find((t) => t.id === form.origemTypeId);
+              if (!ot) return null;
+              const classification = classifyByText(ot.name + " " + (ot.description || ""));
+              if (classification.category === "desconhecido") return null;
+              return (
+                <div className="flex items-center gap-2 text-xs">
+                  <span className="text-muted-foreground">Classificação: </span>
                   <span
-                    className="w-1.5 h-1.5 rounded-full"
-                    style={{ backgroundColor: categoryColor(classification.category) }}
-                  />
-                  {categoryLabel(classification.category)}
-                </span>
-              </div>
-            );
-          })()}
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-medium"
+                    style={{
+                      backgroundColor: categoryColor(classification.category) + "20",
+                      color: categoryColor(classification.category),
+                    }}
+                  >
+                    <span
+                      className="w-1.5 h-1.5 rounded-full"
+                      style={{ backgroundColor: categoryColor(classification.category) }}
+                    />
+                    {categoryLabel(classification.category)}
+                  </span>
+                </div>
+              );
+            })()}
         </div>
       )}
 

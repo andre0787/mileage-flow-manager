@@ -170,9 +170,7 @@ export function DataTable<T>({
                   {columns.map((col) => (
                     <TableCell
                       key={col.key}
-                      className={`${
-                        col.hideOnMobile ? "hidden sm:table-cell" : ""
-                      } ${
+                      className={`${col.hideOnMobile ? "hidden sm:table-cell" : ""} ${
                         col.hideOnTablet ? "hidden md:table-cell" : ""
                       } ${col.className || ""}`}
                     >
@@ -204,13 +202,8 @@ export function DataTable<T>({
               {columns
                 .filter((col) => !col.hideOnMobile)
                 .map((col) => (
-                  <div
-                    key={col.key}
-                    className="flex items-center justify-between text-sm"
-                  >
-                    <span className="text-muted-foreground text-xs">
-                      {col.label}
-                    </span>
+                  <div key={col.key} className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground text-xs">{col.label}</span>
                     <span>{col.render(item)}</span>
                   </div>
                 ))}

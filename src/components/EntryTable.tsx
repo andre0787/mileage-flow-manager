@@ -110,9 +110,7 @@ export function EntryTable({
           🔄 Clube
         </Badge>
       )}
-      {entry.entryStatus === "aguardando" && (
-        <StatusBadge status="aguardando" size="sm" />
-      )}
+      {entry.entryStatus === "aguardando" && <StatusBadge status="aguardando" size="sm" />}
     </div>
   );
 

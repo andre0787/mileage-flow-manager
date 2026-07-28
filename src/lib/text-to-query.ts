@@ -112,12 +112,22 @@ const PATTERNS: NLPattern[] = [
   },
   {
     regex: /contas?\s*(ativas|ativa)/i,
-    handler: () => ({ table: "accounts", status: "confirmada", metric: "count", isAggregate: true }),
+    handler: () => ({
+      table: "accounts",
+      status: "confirmada",
+      metric: "count",
+      isAggregate: true,
+    }),
     labelTemplate: "Contas ativas",
   },
   {
     regex: /contas?\s*(inativas|inativa)/i,
-    handler: () => ({ table: "accounts", status: "aguardando", metric: "count", isAggregate: true }),
+    handler: () => ({
+      table: "accounts",
+      status: "aguardando",
+      metric: "count",
+      isAggregate: true,
+    }),
     labelTemplate: "Contas inativas",
   },
 

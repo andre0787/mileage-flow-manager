@@ -89,7 +89,10 @@ const ALL_KEYWORDS: KeywordMatrix = {
 };
 
 // Programas reconhecidos e suas categorias padrão
-const PROGRAM_PATTERNS: Record<string, { program: string; defaultCategory: ClassifierSuggestion["category"] }> = {
+const PROGRAM_PATTERNS: Record<
+  string,
+  { program: string; defaultCategory: ClassifierSuggestion["category"] }
+> = {
   azul: { program: "Azul Fidelidade", defaultCategory: "compra" },
   "azul fidelidade": { program: "Azul Fidelidade", defaultCategory: "compra" },
   todes: { program: "Todes", defaultCategory: "compra" },
@@ -102,9 +105,9 @@ const PROGRAM_PATTERNS: Record<string, { program: string; defaultCategory: Class
   "smiles gol": { program: "Smiles", defaultCategory: "compra" },
   "tudo azul": { program: "TudoAzul", defaultCategory: "compra" },
   tudoazul: { program: "TudoAzul", defaultCategory: "compra" },
-  "livelo": { program: "Livelo", defaultCategory: "compra" },
-  "esfera": { program: "Esfera", defaultCategory: "compra" },
-  "dotz": { program: "Dotz", defaultCategory: "compra" },
+  livelo: { program: "Livelo", defaultCategory: "compra" },
+  esfera: { program: "Esfera", defaultCategory: "compra" },
+  dotz: { program: "Dotz", defaultCategory: "compra" },
 };
 
 // ── Funções de classificação ─────────────────────────────────────────
@@ -141,7 +144,8 @@ export function classifyByText(text: string): {
 } {
   const normalized = normalize(text);
   const tokens = tokenize(text);
-  const matches: { category: ClassifierSuggestion["category"]; weight: number; icon: string }[] = [];
+  const matches: { category: ClassifierSuggestion["category"]; weight: number; icon: string }[] =
+    [];
 
   // Match de keywords
   for (const [keyword, meta] of Object.entries(ALL_KEYWORDS)) {
@@ -202,7 +206,7 @@ export function detectProgram(text: string): string | undefined {
 export function classifyEntry(
   origemNome: string,
   descricao?: string | null,
-  amount?: number
+  amount?: number,
 ): ClassifierSuggestion {
   const text = [origemNome, descricao].filter(Boolean).join(" ");
   const byText = classifyByText(text);

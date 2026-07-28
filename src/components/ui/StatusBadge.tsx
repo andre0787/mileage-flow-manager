@@ -20,15 +20,12 @@ import { Badge } from "@/components/ui/badge";
 import type { VariantProps } from "class-variance-authority";
 
 // Mapeamento de status → variante do Badge
-const STATUS_VARIANTS: Record<
-  string,
-  "default" | "secondary" | "destructive" | "outline"
-> = {
-  confirmada: "default",   // green (via --success)
+const STATUS_VARIANTS: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
+  confirmada: "default", // green (via --success)
   aguardando: "secondary", // amber (via --warning)
-  pendente: "secondary",   // amber (via --warning)
-  pago: "outline",         // navy (via --primary)
-  concluido: "default",    // green (via --success)
+  pendente: "secondary", // amber (via --warning)
+  pago: "outline", // navy (via --primary)
+  concluido: "default", // green (via --success)
   cancelado: "destructive", // red
 };
 
@@ -47,11 +44,7 @@ interface StatusBadgeProps {
   showLabel?: boolean;
 }
 
-export function StatusBadge({
-  status,
-  size = "default",
-  showLabel = true,
-}: StatusBadgeProps) {
+export function StatusBadge({ status, size = "default", showLabel = true }: StatusBadgeProps) {
   const variant = STATUS_VARIANTS[status] || "outline";
   const label = STATUS_LABELS[status] || status;
 

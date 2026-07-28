@@ -74,9 +74,7 @@ export function useSmartQuery(): UseSmartQueryReturn {
 /**
  * Mapeia QueryFilter.period para períodos numéricos do sistema.
  */
-export function periodFromFilter(
-  period?: string
-): string | undefined {
+export function periodFromFilter(period?: string): string | undefined {
   const periodMap: Record<string, string> = {
     today: "1",
     this_week: "7",

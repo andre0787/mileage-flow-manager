@@ -53,10 +53,7 @@ export function SearchInput({
   }, []);
 
   return (
-    <div
-      className={`relative flex items-center ${className}`}
-      data-search-input=""
-    >
+    <div className={`relative flex items-center ${className}`} data-search-input="">
       <Search
         className={`absolute left-3 h-4 w-4 transition-colors ${
           focused ? "text-primary" : "text-muted-foreground"

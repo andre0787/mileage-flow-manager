@@ -62,11 +62,7 @@ export default function Relatorios() {
   const [selectedProgram, setSelectedProgram] = useState("todos");
   const { owners, accounts, programs, entries, sales, isLoading } = useData();
 
-  const {
-    nlQuery, setNlQuery,
-    nlFilters, description,
-    clearQuery, suggestions,
-  } = useSmartQuery();
+  const { nlQuery, setNlQuery, nlFilters, description, clearQuery, suggestions } = useSmartQuery();
 
   // Auto-aplica filtros da consulta NL
   useEffect(() => {
@@ -74,8 +70,8 @@ export default function Relatorios() {
     const period = periodFromFilter(nlFilters.period);
     if (period) setSelectedPeriod(period);
     if (nlFilters.program && nlFilters.program !== "todos") {
-      const matched = programs.find(
-        (p) => p.name.toLowerCase().includes(nlFilters.program!.toLowerCase())
+      const matched = programs.find((p) =>
+        p.name.toLowerCase().includes(nlFilters.program!.toLowerCase()),
       );
       if (matched) setSelectedProgram(matched.name);
     }
@@ -262,7 +258,8 @@ export default function Relatorios() {
             Consulta Inteligente
           </CardTitle>
           <p className="text-xs text-muted-foreground">
-            Digite em linguagem natural: "vendas do mês passado", "entradas por programa", "clientes ativos", "lucro total"
+            Digite em linguagem natural: "vendas do mês passado", "entradas por programa", "clientes
+            ativos", "lucro total"
           </p>
         </CardHeader>
         <CardContent>
