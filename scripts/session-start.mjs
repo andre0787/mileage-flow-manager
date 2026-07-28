@@ -173,11 +173,13 @@ async function main() {
 // ─── Helpers ───
 
 function escreverSessao(cat, obj, branchAtual, commitAtual) {
+  const now = new Date().toISOString();
   const markdown = [
     `## 🎯 Sessão Atual`,
     `**Categoria:** ${LABELS[cat]}`,
     `**Objetivo:** ${obj}`,
     `**Status:** in_progress`,
+    `**Iniciada em:** ${now}`,
     `**Branch:** \`${branchAtual}\``,
     `**Último commit:** ${commitAtual}`,
     `**Docs carregados:** ${DOCS_CARREGADOS[cat]}`,

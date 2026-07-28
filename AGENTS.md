@@ -32,6 +32,9 @@
 6. **Sem duplicatas > 75%** em componentes. Valida: `rule-15`.
 7. **Todo script em `scripts/` tem atalho npm**. Valida: `rule-16`.
 8. **Skills do workflow e subagentes existem em `.pi/skills/`** — sem symlink quebrado ou skill faltando. Skills de subagente (`subagent-driven-development`, `dispatching-parallel-agents`) estão disponíveis para execução paralela e delegada. Valida: `rule-23`.
+26. **`npm run session:start` obrigatório no início de toda sessão** — marcador de timestamp validado. Valida: `rule-26`.
+27. **Council obrigatório no workflow feature** — veredito em `docs/council/`. Valida: `rule-27`.
+28. **Spec técnica obrigatória no workflow refactor** — spec em `docs/superpowers/specs/`. Valida: `rule-28`.
 
 ## 🎯 Sistema de Categorias (LAZY LOADING)
 

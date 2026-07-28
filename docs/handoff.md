@@ -1,36 +1,39 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-07-27 20:41 BRT
-> Sessão: PR #212 — remove SW cache Supabase REST que causava stale data
+> ⏰ Última atualização: 2026-07-28 02:29 BRT
+> Sessão: PR #213 + #214 — Metodologia de Testes Contra Produção
 
 ## 🏗️ Projeto
 
-> ⏰ Snapshot de 2026-07-27
+> ⏰ Snapshot de 2026-07-28
 > **Stack:** React + Vite + Supabase + Tailwind | pt-BR
-> **Branch:** feat/testing-production-methodology
-> **PRs abertos:** PR #213 (metodologia testes produção)
+> **Branch:** feat/ci-preview-smoke
+> **PRs abertos:** nenhum
 
-## 🎯 Goal (Sessões 1 e 2)
+## 🎯 Sessão 3 — Metodologia de Testes Contra Produção
+
+**Objetivo:** Criar metodologia de testes E2E contra produção (Regra #25) com:
+- docs/TESTING-PRODUCTION.md — documentação completa
+- playwright.config.ts com BASE_URL dinâmico
+- Scripts npm: test:e2e:prod, test:e2e:prod:smoke, etc.
+- Regra #25 em CONVENTIONS.md + validação automática
+- CI e2e-smoke-preview em todo PR (preview Vercel)
+- CI e2e-smoke-prod pós-deploy (produção real)
+- Tags @smoke-prod nos testes críticos
 **Sessão 1 (PR #211)**: Adicionar `setQueryData` em todas mutations de owners, programs, accounts.
 
 **Sessão 2 (PR #212)**: Corrigir bug de dono não carregar automaticamente — **causa raiz**: SW cacheava respostas Supabase REST com `StaleWhileRevalidate` (5 min), e o `invalidateQueries` recebia dado obsoleto que sobrescrevia o `setQueryData`.
 
 ## ✅ Done
-- [x] **`accounts.ts`**: `useAddAccountMutation`, `useUpdateAccountMutation`, `useDeleteAccountMutation` — adicionado `setQueryData` no `onSuccess` com extração de `userId = user?.id ?? null`
-- [x] **`owners.ts`**: `useUpdateOwnerMutation`, `useDeleteOwnerMutation` — adicionado `setQueryData` no `onSuccess`
-- [x] **`programs.ts`**: `useUpdateProgramMutation`, `useDeleteProgramMutation` — adicionado `setQueryData` no `onSuccess`
-- [x] **Build**: Vite build — exit 0
-- [x] **TypeScript**: `tsc --noEmit` — sem erros
-- [x] **Testes unitários**: 124/124 pass (11 files)
-- [x] **E2E `create-owner-program-inline.spec.ts`**: ✅ 10.8s (contra Supabase real)
-- [x] **E2E `delete-owner-program.spec.ts`**: ✅ 6.9s (contra Supabase real, teste novo)
-- [x] **Pre-PR**: build + testes + docs verify ✅ (1 warning por uncommitted files, resolvido)
-- [x] **CI**: `check-pr` ✅, `e2e-smoke` ✅, `Vercel` ✅
-- [x] **PR #211 criado**: https://github.com/andre0787/mileage-flow-manager/pull/211
-- [x] **PR #211 merged**: commit `7324701` (via `gh pr merge --admin --merge`)
-- [x] **PR #212 — SW cache removido**: https://github.com/andre0787/mileage-flow-manager/pull/212 (merged)
+- [x] **PR #213** merged ✅ — infraestrutura base (docs, config, scripts, CI)
+- [x] **PR #214** merged ✅ — CI automático contra preview Vercel em todo PR
 - [x] **Produção**: https://mileage-flow-manager.vercel.app/ ✅ (200)
-- [x] **Código em produção**: `origin/main` com 3 `setQueryData` em accounts/owners/programs + SW sem runtimeCaching Supabase
-- [x] **E2E contra Vercel produção**: 10.6s — fluxo completo passa
+
+## 📋 Próxima Sessão
+
+1. **Monitorar e2e-smoke-preview** no CI — verificar se Vercel preview URL é encontrada (pode precisar de ajuste no polling)
+2. **Usar nova metodologia** nas próximas features/bugs — smoke tests contra preview/produção são automáticos
+3. **Deletar branches**: fix/optimistic-cache-all-mutations, fix/sw-cache-supabase-api, feat/testing-production-methodology, feat/ci-preview-smoke
+4. **Explorar idea pendente** em IDEIAS.md: "permitir criar dono e programa juntos"
 
 ## 🔑 Key Decisions
 - **`setQueryData` no `onSuccess` sobre `mutateAsync`**: Mesmo padrão do PR #209 — atualizar cache síncronamente antes do refetch assíncrono do `invalidateQueries`, evitando race condition com Radix UI Select
@@ -74,14 +77,13 @@ Sessão anterior (PR #212) corrigiu bug do SW cache.
 
 
 ## 🎯 Sessão Atual
-**Categoria:** docs
-**Objetivo:** verifica output
+**Categoria:** chore
+**Objetivo:** validacao regras #26 #27 #28
 **Status:** in_progress
-**Branch:** `feat/testing-production-methodology`
-**Último commit:** c632d4b — feat: implementa metodologia de testes contra produção (Regra #25)
+**Iniciada em:** 2026-07-28T03:54:08.475Z
+**Branch:** `feat/workflow-validation-scripts`
+**Último commit:** aff8a14 — docs: update handoff — sessão 3 finalizada (PRs #213 + #214)
 **Docs carregados:** AGENTS.md
-
-
 ---
 _Atualizado manualmente — Sessão encerrada_
 

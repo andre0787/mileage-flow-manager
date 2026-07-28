@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>workflow-validation-scripts — workflow validation scripts</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 workflow validation scripts</h1>
+  <p class="meta">2026-07-28 00:54 &middot; feat/workflow-validation-scripts &middot; aff8a14 — docs: update handoff — sessão 3 finalizada (PRs #213 + #214)</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">workflow-validation-scripts</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">3</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+107</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-26</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~124</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🤖 CI workflow válido? (sintaxe YAML)</li>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Auto-gerado pelo pre-pr-check</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Relatório gerado automaticamente como parte do workflow de validação pré-PR</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 26 remoções — 165 linhas tocadas</td>
+        <td>✨ 107 adições — 3 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .github/workflows/ci.yml, docs/TESTING-PRODUCTION.md, docs/handoff.md</td>
+      </tr>
+      
+      <tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>3</td></tr>
+    <tr><td>Adições</td><td>+107</td></tr>
+    <tr><td>Remoções</td><td>-26</td></tr>
+    <tr><td>Tokens estimados</td><td>~124</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:65">+80 add</div>
+        <div class="del" style="flex:16">-20 del</div>
+        <div class="overhead" style="flex:19">~24 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+80</td><td>65%</td></tr>
+      <tr><td>Remoções</td><td>-20</td><td>16%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~24</td><td>19%</td></tr>
+      <tr><th>Total</th><th>~124</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>.github/workflows/ci.yml</td></tr>
+<tr><td>M</td><td>docs/TESTING-PRODUCTION.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+  </table>
+
+  
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
+index 9a1eeab..0e3825e 100644
+<span class="del">--- a/.github/workflows/ci.yml</span>
+<span class="add">+++ b/.github/workflows/ci.yml</span>
+@@ -62,3 +62,70 @@ jobs:
+         with:
+           name: playwright-smoke-report
+           path: playwright-report/
+<span class="add">+</span>
+<span class="add">+  e2e-smoke-preview:</span>
+<span class="add">+    runs-on: ubuntu-latest</span>
+<span class="add">+    needs: [check-pr]</span>
+<span class="add">+    continue-on-error: true</span>
+<span class="add">+    timeout-minutes: 10</span>
+<span class="add">+</span>
+<span class="add">+    steps:</span>
+<span class="add">+      - uses: actions/checkout@v4</span>
+<span class="add">+</span>
+<span class="add">+      - uses: actions/setup-node@v4</span>
+<span class="add">+        with:</span>
+<span class="add">+          node-version: 22</span>
+<span class="add">+          cache: "npm"</span>
+<span class="add">+</span>
+<span class="add">+      - name: Upgrade npm</span>
+<span class="add">+        run: npm install -g npm@11</span>
+<span class="add">+</span>
+<span class="add">+      - name: Install dependencies</span>
+<span class="add">+        run: npm ci</span>
+<span class="add">+</span>
+<span class="add">+      - name: Install Playwright</span>
+<span class="add">+        run: npx playwright install chromium --with-deps</span>
+<span class="add">+</span>
+<span class="add">+      - name: Wait for Vercel preview and get URL</span>
+<span class="add">+        id: vercel-preview</span>
+<span class="add">+        env:</span>
+<span class="add">+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}</span>
+<span class="add">+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}</span>
+<span class="add">+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}</span>
+<span class="add">+          BRANCH: ${{ github.head_ref }}</span>
+<span class="add">+        run: |</span>
+<span class="add">+          echo "Aguardando deploy preview do Vercel para branch $BRANCH..."</span>
+<span class="add">+          for i in $(seq 1 24); do</span>
+<span class="add">+            RESPONSE=$(curl -s -H "Authorization: Bearer $VERCEL_TOKEN" \</span>
+<span class="add">+              "https://api.vercel.com/v1/deployments?projectId=$VERCEL_PROJECT_ID&amp;teamId=$VERCEL_ORG_ID&amp;state=READY&amp;limit=10")</span>
+<span class="add">+            </span>
+<span class="add">+            URL=$(echo "$RESPONSE" | node -e "</span>
+<span class="add">+              const d=require('fs').readFileSync('/dev/stdin','utf8');</span>
+<span class="add">+              try {</span>
+<span class="add">+                const j = JSON.parse(d);</span>
+<span class="add">+                const deployments = j.deployments || [];</span>
+<span class="add">+                const match = deployments.find(d =&gt; d.meta?.githubCommitRef === process.env.BRANCH);</span>
+<span class="add">+                console.log(match ? 'https://' + match.url : '');</span>
+<span class="add">+              } catch(e) { console.log(''); }</span>
+<span class="add">+            ")</span>
+<span class="add">+            </span>
+<span class="add">+            if [ -n "$URL" ]; then</span>
+<span class="add">+              echo "preview_url=$URL" &gt;&gt; "$GITHUB_OUTPUT"</span>
+<span class="add">+              echo "Preview URL encontrada: $URL"</span>
+<span class="add">+              exit 0</span>
+<span class="add">+            fi</span>
+<span class="add">+            echo "  Tentativa $i/24 — deploy preview ainda não está READY..."</span>
+<span class="add">+            sleep 15</span>
+<span class="add">+          done</span>
+<span class="add">+          echo "Timeout: deploy preview não ficou READY em 6 minutos"</span>
+<span class="add">+          exit 1</span>
+<span class="add">+</span>
+<span class="add">+      - name: E2E Smoke contra preview Vercel</span>
+<span class="add">+        run: BASE_URL="${{ steps.vercel-preview.outputs.preview_url }}" npx playwright test --grep '@smoke-prod' --reporter=list</span>
+<span class="add">+</span>
+<span class="add">+      - name: Upload preview smoke report</span>
+<span class="add">+        if: always()</span>
+<span class="add">+        uses: actions/upload-artifact@v4</span>
+<span class="add">+        with:</span>
+<span class="add">+          name: playwright-smoke-preview-report</span>
+<span class="add">+          path: playwright-report/</span>
+diff --git a/docs/TESTING-PRODUCTION.md b/docs/TESTING-PRODUCTION.md
+index 0880b69..f6d13f3 100644
+<span class="del">--- a/docs/TESTING-PRODUCTION.md</span>
+<span class="add">+++ b/docs/TESTING-PRODUCTION.md</span>
+@@ -72,7 +72,18 @@ test("Smoke Tests — Tela Preta @smoke-prod", ...)
+ 
+ ## CI — Smoke Contra Produção
+ 
+<span class="del">-O pipeline de deploy (`.github/workflows/deploy.yml`) roda `e2e-smoke-prod` após o deploy:</span>
+<span class="add">+### Pipeline de PR (`.github/workflows/ci.yml`)</span>
+<span class="add">+</span>
+<span class="add">+O job `e2e-smoke-preview` roda automaticamente após `check-pr`:</span>
+<span class="add">+1. Aguarda deploy preview do Vercel (até 6 min)</span>
+<span class="add">+2. Obtém a URL do preview via Vercel API</span>
+<span class="add">+3. Roda `npx playwright test --grep '@smoke-prod'` contra o preview</span>
+<span class="add">+4. `continue-on-error: true` — não bloqueia o merge, apenas informa</span>
+<span class="add">+5. Upload do report como artifact</span>
+<span class="add">+</span>
+<span class="add">+### Pipeline de Deploy (`.github/workflows/deploy.yml`)</span>
+<span class="add">+</span>
+<span class="add">+O job `e2e-smoke-prod` roda após deploy na Vercel:</span>
+ 
+ 1. Deploy na Vercel → success
+ 2. Job `e2e-smoke-prod` inicia
+diff --git a/docs/handoff.md b/docs/handoff.md
+index 18530db..b31a8ad 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -1,36 +1,39 @@
+ # HANDOFF — MilesControl
+<span class="del">-&gt; ⏰ Última atualização: 2026-07-27 20:41 BRT</span>
+<span class="del">-&gt; Sessão: PR #212 — remove SW cache Supabase REST que causava stale data</span>
+<span class="add">+&gt; ⏰ Última atualização: 2026-07-28 02:29 BRT</span>
+<span class="add">+&gt; Sessão: PR #213 + #214 — Metodologia de Testes Contra Produção</span>
+ 
+ ## 🏗️ Projeto
+ 
+<span class="del">-&gt; ⏰ Snapshot de 2026-07-27</span>
+<span class="add">+&gt; ⏰ Snapshot de 2026-07-28</span>
+ &gt; **Stack:** React + Vite + Supabase + Tailwind | pt-BR
+<span class="del">-&gt; **Branch:** feat/testing-production-methodology</span>
+<span class="del">-&gt; **PRs abertos:** PR #213 (metodologia testes produção)</span>
+<span class="del">-</span>
+<span class="del">-## 🎯 Goal (Sessões 1 e 2)</span>
+<span class="add">+&gt; **Branch:** feat/ci-preview-smoke</span>
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>
