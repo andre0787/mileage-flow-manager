@@ -21,6 +21,7 @@
 | `AGENDA.md` | Obsoleto/arquivado | Stub que aponta para `docs/archive/AGENDA-2026.md`; use `docs/tasks/ROADMAP.md` e GitHub Issues |
 | `GIT-WORKFLOW.md` | Antes de commitar/criar PR | Branches, commits, PR, deploy |
 | `TESTING.md` | Antes de rodar testes | Playwright, bateria obrigatória, helpers |
+| `TESTING-PRODUCTION.md` | Testes contra produção | Metodologia duas camadas, armadilhas, CI pós-deploy |
 | `TEST-PLAN.md` | Planejamento de testes | 32 casos organizados em 3 fases, prioridades |
 | `MAPA-EXPERIENCIAS-USUARIO.md` | Contexto UX | 43 fluxos de usuário, 85+ cenários de teste, edge cases |
 | `docs/handoff.md` | Início/fim de sessão | Contexto entre sessões, branch atual, PRs, próximos passos |

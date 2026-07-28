@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 const TEST_PASSWORD = "Test@123456";
 
-test("Criação inline de dono e programa ao registrar entrada", async ({ page }) => {
+test("Criação inline de dono e programa ao registrar entrada @smoke-prod", async ({ page }) => {
   const email = `test_owner_program_${Date.now()}@teste.com`;
 
   // 1. Registrar novo usuário

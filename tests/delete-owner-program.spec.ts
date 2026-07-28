@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 const TEST_PASSWORD = "Test@123456";
 
-test("Deleção de dono e programa via Configuracoes atualiza UI automaticamente", async ({
+test("Deleção de dono e programa via Configuracoes atualiza UI automaticamente @smoke-prod", async ({
   page,
 }) => {
   const email = `test_delete_${Date.now()}@teste.com`;
