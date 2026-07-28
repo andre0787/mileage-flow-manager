@@ -12,7 +12,7 @@ import { registerUser } from "./helpers";
  */
 
 test.describe("Smoke Tests — Tela Preta", () => {
-  test("Login não mostra tela preta", async ({ page }) => {
+  test("Login não mostra tela preta @smoke-prod", async ({ page }) => {
     await page.goto("/login");
     await page.waitForLoadState("networkidle");
 
@@ -44,7 +44,7 @@ test.describe("Smoke Tests — Tela Preta", () => {
 });
 
 test.describe("Smoke Tests — Autenticado", () => {
-  test("Dashboard não mostra tela preta após login", async ({ page }) => {
+  test("Dashboard não mostra tela preta após login @smoke-prod", async ({ page }) => {
     test.skip(!!process.env.CI_SMOKE_ONLY, "Pulado no CI smoke — depende de Supabase remoto");
 
     // Registra e loga antes do teste

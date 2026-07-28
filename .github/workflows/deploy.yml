@@ -32,3 +32,40 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           vercel-args: "--prod"
+
+  e2e-smoke-prod:
+    runs-on: ubuntu-latest
+    needs: [deploy]
+    # Não falha o workflow se smoke falhar — deploy já foi feito
+    # O resultado fica visível no GitHub Actions para investigação
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Upgrade npm
+        run: npm install -g npm@11
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright
+        run: npx playwright install chromium --with-deps
+
+      - name: E2E Smoke contra produção
+        run: npm run test:e2e:prod:smoke
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || '' }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY || '' }}
+
+      - name: Upload smoke report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-smoke-prod-report
+          path: playwright-report/

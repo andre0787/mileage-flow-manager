@@ -586,7 +586,60 @@ A regra #19 (estoque) é validada estaticamente no `pre-pr` via
 - Reporta discrepâncias
 - Aceita `--fix` para corrigir automaticamente
 
-## Gerenciamento de Contexto — Regras #02, #03, #20
+## Testes Contra Produção — REGRA #25
+
+**Toda feature que envolve criação/alteração de dados DEVE ser testada contra produção.**
+
+### Quando testar contra produção (obrigatório)
+
+1. **Feature que cria/altera dados** (criação inline de dono, programa, conta)
+   - Risco: cache do SW pode esconder o novo registro do `invalidateQueries`
+2. **Bug reportado em produção** — reprodução fiel
+3. **Mudanças no PWA/SW config** (`vite.config.ts`, `workbox`, `runtimeCaching`)
+
+### Como testar
+
+```bash
+# Local (rápido) — sempre passa primeiro
+npx playwright test
+
+# Contra produção (confiável) — após local passar
+npm run test:e2e:prod
+
+# Apenas smoke tests contra produção (CI)
+npm run test:e2e:prod:smoke
+```
+
+### Config
+
+O `playwright.config.ts` já lê `process.env.BASE_URL` com fallback para
+`http://localhost:8080`. Quando `BASE_URL` está definido, o webServer local
+NÃO é iniciado.
+
+```typescript
+const BASE_URL = process.env.BASE_URL || "http://localhost:8080";
+const IS_PRODUCTION_TEST = !!process.env.BASE_URL;
+```
+
+### Armadilhas conhecidas (ver `docs/TESTING-PRODUCTION.md`)
+
+1. **SW `StaleWhileRevalidate`** — cache de 5 min esconde dados (já corrigido no PR #212)
+2. **Playwright não ativa SW rápido o suficiente** — primeiro fetch pode não passar pelo SW
+3. **Vercel cold start** — primeiro request até 5s
+4. **Rate limiting Supabase** — 100 req/min para anônimo
+
+### Verificação automática
+
+A regra #25 é validada no pre-pr via `scripts/rules/rule-25-production-tests.mjs`,
+que verifica:
+- Feature que altera dados tem teste E2E
+- Teste E2E pode rodar contra produção (usa `BASE_URL`)
+
+### Por quê?
+
+Bug #212 (dono não carregar no dropdown) só foi descoberto em produção. E2E contra
+localhost passava porque o SW não estava ativo. Testar contra produção é a única
+forma de garantir o comportamento real que o usuário vai experimentar.
 
 ### #02 — Lazy Loading por Categoria
 
