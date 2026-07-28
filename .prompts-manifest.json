@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-28T21:31:06.855Z",
+  "updatedAt": "2026-07-28T21:32:37.447Z",
   "prompts": {
     ".pi/skills/council-to-superpowers/SKILL.md": "sha256-122ba80c522405b993bee5dd019f8787499e1687b77151589a17ed374b393a31",
     ".pi/skills/handoff/SKILL.md": "sha256-197d78747c41df7a0ef94eb66b19a3698a534a74884f4c367a86530d04aea6f5",
@@ -10,6 +10,6 @@
     "CLAUDE.md": "sha256-051e5599efd15f4e716edf63dcb3b1da2d23fdcd3728e80831e8adaabab68d87",
     "docs/CONTEXT-MANAGEMENT.md": "sha256-199e22e9973cf5433626612bc40c2d6ac5d135f7c295a453cfb2e8650bab57cc",
     "docs/WORKFLOW-MANIFEST.md": "sha256-dce7a1b1ba7696a30e7d08113b3f7d318361316f8a1593057fdc695bf9d71d7e",
-    "docs/WORKFLOW.md": "sha256-55bf0fe3cea0c910b43c1a0757b10bc7ad4f0d6d728c5212ab7293e8926371ec"
+    "docs/WORKFLOW.md": "sha256-ac373af8f81bcad7365dbdc631413279b2fdfa6ef7e583f768052770ece70cd0"
   }
 }

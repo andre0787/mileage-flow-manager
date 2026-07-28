@@ -28,6 +28,8 @@
     "report:rename": "node scripts/generate-report.mjs --rename",
     "post-pr": "node scripts/post-pr.mjs",
     "post-pr:nopush": "node scripts/post-pr.mjs --no-push",
+    "outcome:grader": "node scripts/outcome-grader.mjs",
+    "outcome:checklist": "node scripts/outcome-grader.mjs --checklist",
     "prompt:check": "node scripts/prompt-manifest.mjs --check",
     "prompt:manifest": "node scripts/prompt-manifest.mjs --write",
     "quality": "node scripts/quality-report.mjs",

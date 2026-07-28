@@ -376,6 +376,8 @@ arquivos de prompt/skill monitorados.
 |--------|-----------|
 | `npm run prompt:manifest` | Gera/atualiza `.prompts-manifest.json` com SHA256 dos prompts |
 | `npm run prompt:check` | Verifica se hashes do manifesto correspondem aos arquivos atuais |
+| `npm run outcome:grader` | Avalia diff contra quality gates (console.log, tests, protected files) |
+| `npm run outcome:checklist` | Gera checklist de verificação pós-task |
 
 ### Regra de validação
 
@@ -393,3 +395,29 @@ arquivos de prompt/skill monitorados.
 
 Se esquecer de rodar `prompt:manifest`, o pre-pr falha com erro claro apontando
 qual arquivo precisa ser atualizado.
+
+---
+
+## Outcome Graders
+
+Verificação automatizada de qualidade do diff contra acceptance criteria,
+integrada ao pre-pr via **Rule #30**.
+
+### Critérios avaliados
+
+1. **Console.log/debugger** — linhas adicionadas no diff com `console.log()` ou `debugger`
+2. **Test parity** — arquivos `.ts/.tsx` modificados devem ter test correspondente
+3. **Arquivos protegidos** — alterações em `supabase`, `tailwind.config`, `vite.config` disparam warning
+4. **Import hygiene** — verificação de imports básica
+
+### Scripts
+
+| Script | Descrição |
+|--------|-----------|
+| `npm run outcome:grader` | Executa avaliação completa do diff |
+| `npm run outcome:checklist` | Gera checklist de verificação pós-task |
+
+### Regra de validação
+
+- **Rule #30** (`scripts/rules/rule-30-outcome-grade.mjs`): executada automaticamente
+  pelo pre-pr, exige score ≥ 80% para aprovação.
