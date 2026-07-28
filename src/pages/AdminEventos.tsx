@@ -136,10 +136,9 @@ export default function AdminEventos() {
             <CardContent className="flex items-start gap-3 py-3">
               <StatusBadge
                 status={log.type === "destructive_op" ? "pendente" : log.type === "error" ? "cancelado" : "concluido"}
+                showLabel
                 className="shrink-0"
-              >
-                {TYPE_LABELS[log.type] || log.type}
-              </StatusBadge>
+              />
               <div className="min-w-0 flex-1">
                 <p className="break-words text-sm font-medium">{log.context}</p>
                 {log.error && (
