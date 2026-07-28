@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+/* eslint-disable */
 /**
  * twins-check.mjs — Busca automatizada de padrão para TWINS gate.
  *
@@ -7,8 +8,8 @@
  *   node scripts/twins-check.mjs <padrão> [glob]
  *
  * Exemplo:
- *   node scripts/twins-check.mjs "from.*@/components/" "src/**/*.tsx"
- *   → Busca o padrão em arquivos .tsx e lista ocorrências
+ *   node scripts/twins-check.mjs "from.*@/components/" "src/"
+ *   → Busca o padrao em arquivos na pasta src/
  *
  * Saída formatada para uso no relatório AUTH/TWINS.
  */
@@ -43,10 +44,10 @@ try {
   }
 } catch (e) {
   // grep exit code 1 = no matches
-  if ((e as { status?: number }).status === 1) {
+  if (e && typeof e === "object" && "status" in e && (/** @type {{status?:number}}*/(e)).status === 1) {
     console.log(`TWINS: searched "${pattern}" in ${glob} — found 0 other locations.`);
     process.exit(0);
   }
-  console.error(`TWINS: erro ao buscar — ${(e as Error).message}`);
+  console.error(`TWINS: erro ao buscar — ${e && typeof e === "object" && "message" in e ? e.message : String(e)}`);
   process.exit(1);
 }

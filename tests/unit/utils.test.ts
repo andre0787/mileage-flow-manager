@@ -25,6 +25,7 @@ describe("utils", () => {
     });
 
     it("deve remover valores falsy", () => {
+      // eslint-disable-next-line no-constant-binary-expression
       const result = cn("px-4", false && "hidden", undefined, null, "py-2");
       expect(result).toBe("px-4 py-2");
     });
