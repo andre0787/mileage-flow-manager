@@ -251,7 +251,7 @@ src/
 
 | Teste | O que verifica |
 |-------|---------------|
-| `scripts/kpi-report.test.mjs` | Agregação de dados mock (events.jsonl fictício) |
+| `tests/kpi-report.test.ts` | Agregação de dados mock (events.jsonl fictício) |
 | `KPI.test.tsx` | Render dos cards, fetch do JSON, fallback |
 | `KPICard.test.tsx` | Render com valor, delta, label |
 | `KPIChart.test.tsx` | Render com dados mock |

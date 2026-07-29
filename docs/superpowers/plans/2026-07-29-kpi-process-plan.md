@@ -31,7 +31,7 @@ Desacoplamento via JSON — script e app independem.
 
 **Files:**
 - Create: `scripts/kpi-report.mjs`
-- Test: `scripts/kpi-report.test.mjs`
+- Test: `tests/kpi-report.test.ts`
 
 **Interfaces:**
 - Consumes: `scripts/lib.mjs` (git, readFile, ok/err/warn), `docs/tracking/events.jsonl`
@@ -306,7 +306,7 @@ git commit -m "chore: add npm run kpi script"
 ### Task 4: Testes do script
 
 **Files:**
-- Create: `scripts/kpi-report.test.mjs`
+- Create: `tests/kpi-report.test.ts`
 
 - [ ] **Step 1: Escrever teste de `parseEvents`**
 
@@ -365,13 +365,13 @@ describe("computeMonthlyKPI", () => {
 - [ ] **Step 4: Rodar testes**
 
 ```bash
-npx vitest run scripts/kpi-report.test.mjs -v
+npx vitest run tests/kpi-report.test.ts -v
 ```
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add scripts/kpi-report.test.mjs
+git add tests/kpi-report.test.ts
 git commit -m "test: kpi-report script unit tests"
 ```
 
@@ -799,10 +799,10 @@ git commit -m "feat: KPITable and KPIMonthSelector components"
 ### Task 10: Testes dos componentes
 
 **Files:**
-- Create: `src/components/__tests__/KPICard.test.tsx`
-- Create: `src/components/__tests__/KPIDashboard.test.tsx`
-- Create: `src/components/__tests__/KPITable.test.tsx`
-- Create: `src/pages/__tests__/KPI.test.tsx`
+- Create: `tests/components/KPICard.test.tsx`
+- Create: `tests/components/KPIDashboard.test.tsx`
+- Create: `tests/components/KPITable.test.tsx`
+- Create: `tests/pages/KPI.test.tsx`
 
 - [ ] **Step 1: Testar KPICard**
 
@@ -857,15 +857,15 @@ describe("KPI Page", () => {
 - [ ] **Step 4: Rodar testes**
 
 ```bash
-npx vitest run src/components/__tests__/KPICard.test.tsx -v
-npx vitest run src/components/__tests__/KPITable.test.tsx -v
-npx vitest run src/pages/__tests__/KPI.test.tsx -v
+npx vitest run tests/components/KPICard.test.tsx -v
+npx vitest run tests/components/KPITable.test.tsx -v
+npx vitest run tests/pages/KPI.test.tsx -v
 ```
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add src/components/__tests__/KPICard.test.tsx src/components/__tests__/KPITable.test.tsx src/components/__tests__/KPIDashboard.test.tsx src/pages/__tests__/KPI.test.tsx
+git add tests/components/KPICard.test.tsx tests/components/KPITable.test.tsx tests/components/KPIDashboard.test.tsx tests/pages/KPI.test.tsx
 git commit -m "test: KPI components unit tests"
 ```
 
