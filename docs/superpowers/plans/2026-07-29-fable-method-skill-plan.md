@@ -123,7 +123,7 @@ Sintetize as evidências em **uma recomendação**. Se considerou alternativas, 
 1. Escreva `AUTH: usuário disse "<citação exata>"`
 2. Se nada na conversa fornece a citação, não aja — a ação vai no relatório como próximo passo
 3. Documentação não é autorização
-4. Referência: [`docs/fable-gates.md`](../docs/fable-gates.md)
+4. Referência: `docs/fable-gates.md`
 
 Reversibilidade: ações no working tree local são reversíveis. Push/merge/deploy são irreversíveis.
 ```
@@ -140,7 +140,7 @@ INTENT: código faz <X>; o teste/task espera <Y>; a spec/documentação diz <Z>
 
 Se X, Y, Z não concordam, não edite — a divergência é o achado. Reporte.
 Autoridade: usuário > spec > testes > código atual.
-Referência: [`docs/fable-gates.md`](../docs/fable-gates.md)
+Referência: `docs/fable-gates.md`
 
 **Regras de edição:**
 1️⃣ Mude o mínimo necessário para a tarefa
@@ -163,7 +163,7 @@ TWINS: searched <padrão> — found <N> outros locais: <arquivos, ou "none">
 ```
 
 Nomeie o padrão exato que causou o bug, busque no projeto inteiro com `npm run twins:check "<padrão>"`, e corrija cada ocorrência.
-Referência: [`docs/fable-gates.md`](../docs/fable-gates.md)
+Referência: `docs/fable-gates.md`
 
 Se algo não pode ser verificado (sem runtime, precisa de credenciais), diga exatamente isso. Uma alegação não verificada não passa como verificada.
 ```
