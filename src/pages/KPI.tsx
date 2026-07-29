@@ -1,26 +1,5 @@
 import { useEffect, useState } from "react";
-import KPIDashboard from "@/components/KPIDashboard";
-
-interface MonthlyKPI {
-  month: string;
-  prePrPassRate: number;
-  prePrTotal: number;
-  prePrPass: number;
-  prePrFail: number;
-  testCoverageLibs: number | null;
-  testCoverageComponents: number | null;
-  gateActivations: { intent: number; twins: number; auth: number };
-  avgOutcomeGrade: number | null;
-  topViolations: Array<{ rule: string; count: number }>;
-  avgCycleTimeDays: number | null;
-  branchesMerged: number;
-}
-
-interface KpiData {
-  generatedAt: string;
-  currentMonth: string;
-  months: MonthlyKPI[];
-}
+import KPIDashboard, { type KpiData } from "@/components/KPIDashboard";
 
 export default function KPI() {
   const [data, setData] = useState<KpiData | null>(null);
@@ -62,8 +41,9 @@ export default function KPI() {
             Nenhum dado disponível
           </h2>
           <p className="text-muted-foreground text-sm">
-            Execute <code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">npm run kpi</code>{" "}
-            no terminal para gerar os KPIs do mês.
+            Execute{" "}
+            <code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">npm run kpi</code> no
+            terminal para gerar os KPIs do mês.
           </p>
         </div>
       </div>

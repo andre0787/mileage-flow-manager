@@ -21,9 +21,7 @@ export default function KPICard({ label, value, delta, description }: KPICardPro
           </span>
         )}
       </div>
-      {description && (
-        <div className="mt-1 text-xs text-muted-foreground">{description}</div>
-      )}
+      {description && <div className="mt-1 text-xs text-muted-foreground">{description}</div>}
     </div>
   );
 }

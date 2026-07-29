@@ -4,7 +4,8 @@ import KPIChart from "./KPIChart";
 import KPITable from "./KPITable";
 import KPIMonthSelector from "./KPIMonthSelector";
 
-interface MonthlyKPI {
+export interface MonthlyKPI {
+  [key: string]: unknown;
   month: string;
   prePrPassRate: number;
   prePrTotal: number;
@@ -19,7 +20,7 @@ interface MonthlyKPI {
   branchesMerged: number;
 }
 
-interface KpiData {
+export interface KpiData {
   generatedAt: string;
   currentMonth: string;
   months: MonthlyKPI[];
@@ -32,7 +33,8 @@ function calcDelta(current: number, previous: number | null): number | null {
 
 export default function KPIDashboard({ data }: { data: KpiData }) {
   const [selectedMonth, setSelectedMonth] = useState(data.currentMonth);
-  const current = data.months.find((m) => m.month === selectedMonth) ?? data.months[data.months.length - 1];
+  const current =
+    data.months.find((m) => m.month === selectedMonth) ?? data.months[data.months.length - 1];
   const previous = data.months.length > 1 ? data.months[data.months.length - 2] : null;
 
   return (
@@ -44,7 +46,11 @@ export default function KPIDashboard({ data }: { data: KpiData }) {
             Última atualização: {new Date(data.generatedAt).toLocaleString("pt-BR")}
           </p>
         </div>
-        <KPIMonthSelector months={data.months} selected={selectedMonth} onChange={setSelectedMonth} />
+        <KPIMonthSelector
+          months={data.months}
+          selected={selectedMonth}
+          onChange={setSelectedMonth}
+        />
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -61,8 +67,13 @@ export default function KPIDashboard({ data }: { data: KpiData }) {
         />
         <KPICard
           label="Cobertura Componentes"
-          value={current.testCoverageComponents !== null ? `${current.testCoverageComponents}%` : "—"}
-          delta={calcDelta(current.testCoverageComponents ?? 0, previous?.testCoverageComponents ?? null)}
+          value={
+            current.testCoverageComponents !== null ? `${current.testCoverageComponents}%` : "—"
+          }
+          delta={calcDelta(
+            current.testCoverageComponents ?? 0,
+            previous?.testCoverageComponents ?? null,
+          )}
         />
         <KPICard
           label="Outcome Grade"

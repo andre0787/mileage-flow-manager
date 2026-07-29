@@ -12,11 +12,7 @@ interface KPIMonthSelectorProps {
   onChange: (month: string) => void;
 }
 
-export default function KPIMonthSelector({
-  months,
-  selected,
-  onChange,
-}: KPIMonthSelectorProps) {
+export default function KPIMonthSelector({ months, selected, onChange }: KPIMonthSelectorProps) {
   return (
     <Select value={selected} onValueChange={onChange}>
       <SelectTrigger className="w-40">

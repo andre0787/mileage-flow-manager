@@ -10,28 +10,18 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-interface KPIChartProps {
+interface KPIChartProps<T> {
   title: string;
-  data: Record<string, unknown>[];
+  data: T[];
   dataKey: string | string[];
   type: "bar" | "line";
   unit?: string;
   labels?: string[];
 }
 
-const COLORS = [
-  "hsl(var(--primary))",
-  "hsl(173 80% 40%)",
-  "hsl(43 96% 46%)",
-  "hsl(0 73% 52%)",
-];
+const COLORS = ["hsl(var(--primary))", "hsl(173 80% 40%)", "hsl(43 96% 46%)", "hsl(0 73% 52%)"];
 
 function getNestedValue(obj: Record<string, unknown>, path: string): number {
   const parts = path.split(".");
@@ -46,14 +36,14 @@ function getNestedValue(obj: Record<string, unknown>, path: string): number {
   return typeof current === "number" ? current : 0;
 }
 
-export default function KPIChart({
+export default function KPIChart<T extends Record<string, unknown>>({
   title,
   data,
   dataKey,
   type,
   unit,
   labels,
-}: KPIChartProps) {
+}: KPIChartProps<T>) {
   const keys = Array.isArray(dataKey) ? dataKey : [dataKey];
   const chartLabels = labels ?? keys;
 
@@ -70,29 +60,16 @@ export default function KPIChart({
   return (
     <Card>
       <CardHeader className="pb-2">
-        <CardTitle className="text-sm font-semibold font-display">
-          {title}
-        </CardTitle>
+        <CardTitle className="text-sm font-semibold font-display">{title}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="h-[280px]">
           <ResponsiveContainer width="100%" height="100%">
             {type === "bar" ? (
               <BarChart data={chartData}>
-                <CartesianGrid
-                  strokeDasharray="3 3"
-                  className="stroke-border"
-                />
-                <XAxis
-                  dataKey="month"
-                  className="text-xs"
-                  tick={{ fontSize: 11 }}
-                />
-                <YAxis
-                  className="text-xs"
-                  tick={{ fontSize: 11 }}
-                  unit={unit}
-                />
+                <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                <XAxis dataKey="month" className="text-xs" tick={{ fontSize: 11 }} />
+                <YAxis className="text-xs" tick={{ fontSize: 11 }} unit={unit} />
                 <Tooltip
                   contentStyle={{
                     borderRadius: "8px",
@@ -113,21 +90,9 @@ export default function KPIChart({
               </BarChart>
             ) : (
               <LineChart data={chartData}>
-                <CartesianGrid
-                  strokeDasharray="3 3"
-                  className="stroke-border"
-                />
-                <XAxis
-                  dataKey="month"
-                  className="text-xs"
-                  tick={{ fontSize: 11 }}
-                />
-                <YAxis
-                  className="text-xs"
-                  tick={{ fontSize: 11 }}
-                  unit={unit}
-                  domain={[0, 100]}
-                />
+                <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                <XAxis dataKey="month" className="text-xs" tick={{ fontSize: 11 }} />
+                <YAxis className="text-xs" tick={{ fontSize: 11 }} unit={unit} domain={[0, 100]} />
                 <Tooltip
                   contentStyle={{
                     borderRadius: "8px",
