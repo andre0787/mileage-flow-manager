@@ -66,6 +66,7 @@ jobs:
   e2e-smoke-preview:
     runs-on: ubuntu-latest
     needs: [check-pr]
+    if: secrets.VERCEL_TOKEN != '' && secrets.VERCEL_ORG_ID != '' && secrets.VERCEL_PROJECT_ID != ''
     continue-on-error: true
     timeout-minutes: 12
 
