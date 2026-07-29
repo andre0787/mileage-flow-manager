@@ -327,3 +327,133 @@
 {"timestamp":"2026-07-29T02:41:47.859Z","type":"session:start","description":"docs: continuacao","branch":"feat/kpi-process","commit":"cb78dcb","categoria":"docs"}
 {"timestamp":"2026-07-29T02:41:53.318Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/kpi-process","commit":"cb78dcb","categoria":"chore"}
 {"timestamp":"2026-07-29T02:41:55.955Z","type":"session:start","description":"docs: verifica output","branch":"feat/kpi-process","commit":"cb78dcb","categoria":"docs"}
+{"timestamp":"2026-07-29T02:44:34.328Z","type":"session:start","description":"docs: teste docs","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:44:34.760Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/kpi-process","commit":"65e8906","categoria":"bugfix"}
+{"timestamp":"2026-07-29T02:44:35.169Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/kpi-process","commit":"65e8906","categoria":"refactor"}
+{"timestamp":"2026-07-29T02:44:35.449Z","type":"session:start","description":"feature: primeira feature","branch":"feat/kpi-process","commit":"65e8906","categoria":"feature"}
+{"timestamp":"2026-07-29T02:44:35.509Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-process","commit":"65e8906","errors":0}
+{"timestamp":"2026-07-29T02:44:35.787Z","type":"session:start","description":"chore: segunda chore","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:44:36.005Z","type":"session:start","description":"docs: continuacao","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:44:41.426Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:44:44.078Z","type":"session:start","description":"docs: verifica output","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:44:44.212Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-process","commit":"65e8906","errors":2}
+{"timestamp":"2026-07-29T02:44:58.691Z","type":"session:start","description":"docs: teste docs","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:44:59.142Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/kpi-process","commit":"65e8906","categoria":"bugfix"}
+{"timestamp":"2026-07-29T02:44:59.542Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/kpi-process","commit":"65e8906","categoria":"refactor"}
+{"timestamp":"2026-07-29T02:44:59.769Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-process","commit":"65e8906","errors":0}
+{"timestamp":"2026-07-29T02:44:59.781Z","type":"session:start","description":"feature: primeira feature","branch":"feat/kpi-process","commit":"65e8906","categoria":"feature"}
+{"timestamp":"2026-07-29T02:44:59.958Z","type":"session:start","description":"chore: segunda chore","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:45:00.117Z","type":"session:start","description":"docs: continuacao","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:45:05.494Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:45:08.127Z","type":"session:start","description":"docs: verifica output","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:45:08.265Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-process","commit":"65e8906","errors":3}
+{"timestamp":"2026-07-29T02:45:21.887Z","type":"session:start","description":"chore: KPIs de Processo — script + app React","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:45:28.817Z","type":"session:start","description":"docs: teste docs","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:45:29.165Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/kpi-process","commit":"65e8906","categoria":"bugfix"}
+{"timestamp":"2026-07-29T02:45:29.466Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/kpi-process","commit":"65e8906","categoria":"refactor"}
+{"timestamp":"2026-07-29T02:45:29.607Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-process","commit":"65e8906","errors":0}
+{"timestamp":"2026-07-29T02:45:29.687Z","type":"session:start","description":"feature: primeira feature","branch":"feat/kpi-process","commit":"65e8906","categoria":"feature"}
+{"timestamp":"2026-07-29T02:45:29.834Z","type":"session:start","description":"chore: segunda chore","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:45:29.995Z","type":"session:start","description":"docs: continuacao","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:45:35.354Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:45:38.026Z","type":"session:start","description":"docs: verifica output","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:46:05.129Z","type":"session:start","description":"docs: teste docs","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:46:05.495Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/kpi-process","commit":"65e8906","categoria":"bugfix"}
+{"timestamp":"2026-07-29T02:46:05.818Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/kpi-process","commit":"65e8906","categoria":"refactor"}
+{"timestamp":"2026-07-29T02:46:06.011Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-process","commit":"65e8906","errors":0}
+{"timestamp":"2026-07-29T02:46:06.111Z","type":"session:start","description":"feature: primeira feature","branch":"feat/kpi-process","commit":"65e8906","categoria":"feature"}
+{"timestamp":"2026-07-29T02:46:06.305Z","type":"session:start","description":"chore: segunda chore","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:46:06.450Z","type":"session:start","description":"docs: continuacao","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:46:11.883Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:46:14.662Z","type":"session:start","description":"docs: verifica output","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:46:14.796Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-process","commit":"65e8906","errors":1}
+{"timestamp":"2026-07-29T02:46:29.126Z","type":"session:start","description":"docs: teste docs","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:46:29.432Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/kpi-process","commit":"65e8906","categoria":"bugfix"}
+{"timestamp":"2026-07-29T02:46:29.716Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/kpi-process","commit":"65e8906","categoria":"refactor"}
+{"timestamp":"2026-07-29T02:46:30.075Z","type":"session:start","description":"feature: primeira feature","branch":"feat/kpi-process","commit":"65e8906","categoria":"feature"}
+{"timestamp":"2026-07-29T02:46:30.255Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-process","commit":"65e8906","errors":0}
+{"timestamp":"2026-07-29T02:46:30.327Z","type":"session:start","description":"chore: segunda chore","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:46:30.496Z","type":"session:start","description":"docs: continuacao","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:46:35.854Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:46:38.485Z","type":"session:start","description":"docs: verifica output","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:46:38.616Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-process","commit":"65e8906","errors":1}
+{"timestamp":"2026-07-29T02:46:53.177Z","type":"session:start","description":"docs: teste docs","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:46:53.582Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/kpi-process","commit":"65e8906","categoria":"bugfix"}
+{"timestamp":"2026-07-29T02:46:53.933Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/kpi-process","commit":"65e8906","categoria":"refactor"}
+{"timestamp":"2026-07-29T02:46:54.159Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-process","commit":"65e8906","errors":0}
+{"timestamp":"2026-07-29T02:46:54.199Z","type":"session:start","description":"feature: primeira feature","branch":"feat/kpi-process","commit":"65e8906","categoria":"feature"}
+{"timestamp":"2026-07-29T02:46:54.367Z","type":"session:start","description":"chore: segunda chore","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:46:54.520Z","type":"session:start","description":"docs: continuacao","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:46:59.887Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:47:02.548Z","type":"session:start","description":"docs: verifica output","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:47:02.682Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-process","commit":"65e8906","errors":1}
+{"timestamp":"2026-07-29T02:47:16.983Z","type":"session:start","description":"docs: teste docs","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:47:17.334Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/kpi-process","commit":"65e8906","categoria":"bugfix"}
+{"timestamp":"2026-07-29T02:47:17.685Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/kpi-process","commit":"65e8906","categoria":"refactor"}
+{"timestamp":"2026-07-29T02:47:17.876Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-process","commit":"65e8906","errors":0}
+{"timestamp":"2026-07-29T02:47:17.948Z","type":"session:start","description":"feature: primeira feature","branch":"feat/kpi-process","commit":"65e8906","categoria":"feature"}
+{"timestamp":"2026-07-29T02:47:18.151Z","type":"session:start","description":"chore: segunda chore","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:47:18.318Z","type":"session:start","description":"docs: continuacao","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:47:23.761Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:47:26.441Z","type":"session:start","description":"docs: verifica output","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:47:26.574Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-process","commit":"65e8906","errors":1}
+{"timestamp":"2026-07-29T02:47:42.646Z","type":"session:start","description":"docs: teste docs","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:47:42.956Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/kpi-process","commit":"65e8906","categoria":"bugfix"}
+{"timestamp":"2026-07-29T02:47:43.316Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/kpi-process","commit":"65e8906","categoria":"refactor"}
+{"timestamp":"2026-07-29T02:47:43.699Z","type":"session:start","description":"feature: primeira feature","branch":"feat/kpi-process","commit":"65e8906","categoria":"feature"}
+{"timestamp":"2026-07-29T02:47:43.934Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-process","commit":"65e8906","errors":0}
+{"timestamp":"2026-07-29T02:47:43.962Z","type":"session:start","description":"chore: segunda chore","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:47:44.149Z","type":"session:start","description":"docs: continuacao","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:47:49.645Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:47:52.292Z","type":"session:start","description":"docs: verifica output","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:47:52.424Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-process","commit":"65e8906","errors":1}
+{"timestamp":"2026-07-29T02:48:07.506Z","type":"session:start","description":"docs: teste docs","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:48:07.863Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/kpi-process","commit":"65e8906","categoria":"bugfix"}
+{"timestamp":"2026-07-29T02:48:08.252Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/kpi-process","commit":"65e8906","categoria":"refactor"}
+{"timestamp":"2026-07-29T02:48:08.398Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-process","commit":"65e8906","errors":0}
+{"timestamp":"2026-07-29T02:48:08.528Z","type":"session:start","description":"feature: primeira feature","branch":"feat/kpi-process","commit":"65e8906","categoria":"feature"}
+{"timestamp":"2026-07-29T02:48:08.696Z","type":"session:start","description":"chore: segunda chore","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:48:08.847Z","type":"session:start","description":"docs: continuacao","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:48:14.292Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:48:16.962Z","type":"session:start","description":"docs: verifica output","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:48:17.099Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-process","commit":"65e8906","errors":1}
+{"timestamp":"2026-07-29T02:48:31.475Z","type":"session:start","description":"docs: teste docs","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:48:31.823Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/kpi-process","commit":"65e8906","categoria":"bugfix"}
+{"timestamp":"2026-07-29T02:48:32.118Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/kpi-process","commit":"65e8906","categoria":"refactor"}
+{"timestamp":"2026-07-29T02:48:32.518Z","type":"session:start","description":"feature: primeira feature","branch":"feat/kpi-process","commit":"65e8906","categoria":"feature"}
+{"timestamp":"2026-07-29T02:48:32.737Z","type":"session:start","description":"chore: segunda chore","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:48:32.886Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-process","commit":"65e8906","errors":0}
+{"timestamp":"2026-07-29T02:48:32.933Z","type":"session:start","description":"docs: continuacao","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:48:38.367Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:48:41.008Z","type":"session:start","description":"docs: verifica output","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:48:41.143Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-process","commit":"65e8906","errors":1}
+{"timestamp":"2026-07-29T02:48:55.409Z","type":"session:start","description":"docs: teste docs","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:48:55.743Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/kpi-process","commit":"65e8906","categoria":"bugfix"}
+{"timestamp":"2026-07-29T02:48:56.049Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/kpi-process","commit":"65e8906","categoria":"refactor"}
+{"timestamp":"2026-07-29T02:48:56.289Z","type":"session:start","description":"feature: primeira feature","branch":"feat/kpi-process","commit":"65e8906","categoria":"feature"}
+{"timestamp":"2026-07-29T02:48:56.388Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-process","commit":"65e8906","errors":0}
+{"timestamp":"2026-07-29T02:48:56.485Z","type":"session:start","description":"chore: segunda chore","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:48:56.652Z","type":"session:start","description":"docs: continuacao","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:49:02.049Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:49:04.715Z","type":"session:start","description":"docs: verifica output","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:49:04.852Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-process","commit":"65e8906","errors":1}
+{"timestamp":"2026-07-29T02:49:23.697Z","type":"session:start","description":"docs: teste docs","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:49:24.022Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/kpi-process","commit":"65e8906","categoria":"bugfix"}
+{"timestamp":"2026-07-29T02:49:24.339Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/kpi-process","commit":"65e8906","categoria":"refactor"}
+{"timestamp":"2026-07-29T02:49:24.588Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-process","commit":"65e8906","errors":0}
+{"timestamp":"2026-07-29T02:49:24.597Z","type":"session:start","description":"feature: primeira feature","branch":"feat/kpi-process","commit":"65e8906","categoria":"feature"}
+{"timestamp":"2026-07-29T02:49:24.769Z","type":"session:start","description":"chore: segunda chore","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:49:24.922Z","type":"session:start","description":"docs: continuacao","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:49:30.428Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/kpi-process","commit":"65e8906","categoria":"chore"}
+{"timestamp":"2026-07-29T02:49:33.201Z","type":"session:start","description":"docs: verifica output","branch":"feat/kpi-process","commit":"65e8906","categoria":"docs"}
+{"timestamp":"2026-07-29T02:49:33.350Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-process","commit":"65e8906","errors":1}
+{"timestamp":"2026-07-29T02:50:02.169Z","type":"session:start","description":"docs: teste docs","branch":"feat/kpi-process","commit":"078a600","categoria":"docs"}
+{"timestamp":"2026-07-29T02:50:02.569Z","type":"session:start","description":"bugfix: corrige bug","branch":"feat/kpi-process","commit":"078a600","categoria":"bugfix"}
+{"timestamp":"2026-07-29T02:50:02.896Z","type":"session:start","description":"refactor: refatora modulo","branch":"feat/kpi-process","commit":"078a600","categoria":"refactor"}
+{"timestamp":"2026-07-29T02:50:03.134Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-process","commit":"078a600","errors":0}
+{"timestamp":"2026-07-29T02:50:03.225Z","type":"session:start","description":"feature: primeira feature","branch":"feat/kpi-process","commit":"078a600","categoria":"feature"}
+{"timestamp":"2026-07-29T02:50:03.434Z","type":"session:start","description":"chore: segunda chore","branch":"feat/kpi-process","commit":"078a600","categoria":"chore"}
+{"timestamp":"2026-07-29T02:50:03.598Z","type":"session:start","description":"docs: continuacao","branch":"feat/kpi-process","commit":"078a600","categoria":"docs"}
+{"timestamp":"2026-07-29T02:50:09.129Z","type":"session:start","description":"chore: descrição concisa","branch":"feat/kpi-process","commit":"078a600","categoria":"chore"}
+{"timestamp":"2026-07-29T02:50:11.878Z","type":"session:start","description":"docs: verifica output","branch":"feat/kpi-process","commit":"078a600","categoria":"docs"}
+{"timestamp":"2026-07-29T02:50:12.023Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-process","commit":"078a600","errors":0}
