@@ -51,6 +51,7 @@
 | `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md`, `2026-07-29-auth-ci-plan.md` |
 | `docs/reports/` | Relatórios HTML | Relatórios obrigatórios antes de cada PR |
 | `.githooks/` | Git hooks | Pre-commit que bloqueia commits na main |
+| `.pi/skills/fable-method/SKILL.md` | Skill primária de desenvolvimento | Loop de 7 passos Fable Method adaptado ao MilesControl — costura categorias, gates, workflow e scripts |
 | `.pi/skills/subagent-driven-development/SKILL.md` | Execução delegada com subagentes | Plano → subagente por tarefa → task review → final review |
 | `.pi/skills/dispatching-parallel-agents/SKILL.md` | Investigação paralela | 1 subagente por domínio de problema independente |
 | `.pi/skills/using-git-worktrees/SKILL.md` | Worktrees isolados | Branches separadas para trabalho concorrente sem conflito |
