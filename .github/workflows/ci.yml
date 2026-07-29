@@ -12,6 +12,12 @@ env:
   CI: true
 
 jobs:
+  validate-workflow:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "✅ Workflow file validation OK"
+
   check-pr:
     runs-on: ubuntu-latest
 
