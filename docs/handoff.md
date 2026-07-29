@@ -45,8 +45,8 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 **Objetivo:** TWINS checklist — integrar script `twins:check` no workflow (systematic-debugging, finishing-branch, WORKFLOW.md)
 **Status:** in progress
 **Iniciada em:** 2026-07-29
-**Branch:** `feat/twins-checklist-integration`
-**Último commit:** 3033527 — docs: update handoff
+**Branch:** `feat/auth-ci-gate`
+**Último commit:** 2ad1df9 — feat: AUTH Gate no CI — workflow_dispatch com validação de frase + rule-35 script
 **Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
