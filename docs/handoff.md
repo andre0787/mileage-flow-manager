@@ -1,10 +1,10 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-07-28
+> ⏰ Última atualização: 2026-07-29
 > Anterior: 2026-07-28
 ---
 ## 🏗️ Projeto
 
-> ⏰ Snapshot atualizado em: 2026-07-28
+> ⏰ Snapshot atualizado em: 2026-07-29
 
 ### 🏗️ Projeto
 
@@ -20,37 +20,38 @@
 ### 📋 Commits Recentes
 
 ```
+3033527 docs: update handoff
+1233318 feat: Fase 2 — audit Fable + dashboard + lib tests + CI flakiness + E2E fixes (#221)
 ba86220 feat: INTENT gate, TWINS check e AUTH gate do Fable Method (rules 33-35) (#220)
-85e1c41 feat: implementação completa Fases 1-4 do Claude Cookbook (#219)
-fbda17d fix: barrel index.ts para DataTable + import em Relatorios (rule-14)
 ```
 
 ## 🧭 Estado Atual
-- **Branch:** `feat/fase2-audit-dashboard`
-- **Último commit:** `ba86220 — feat: INTENT gate, TWINS check e AUTH gate do Fable Method (rules 33-35) (#220)`
-- **Remote:** origin/feat/prompt-versioning-phase1
+- **Branch:** `main`
+- **Último commit:** `1233318` — feat: Fase 2 — audit Fable + dashboard + lib tests + CI flakiness + E2E fixes (#221)
+- **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 238 |
+| Total testes | 291 |
 | Docs issues | 0 |
-| Branch | feat/prompt-versioning-phase1 |
+| Branch | main |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** Fase 2 — audit + dashboard + lib tests + CI + E2E fixes
-**Status:** in_progress
-**Iniciada em:** 2026-07-28T20:11:00.000Z
-**Branch:** `feat/fase2-audit-dashboard`
-**Último commit:** ba86220 — feat: INTENT gate, TWINS check e AUTH gate do Fable Method (rules 33-35) (#220)
-**Docs carregados:** AGENTS.md
+**Categoria:** feature
+**Objetivo:** TWINS checklist — integrar script `twins:check` no workflow (systematic-debugging, finishing-branch, WORKFLOW.md)
+**Status:** in progress
+**Iniciada em:** 2026-07-29
+**Branch:** `feat/auth-ci-gate`
+**Último commit:** 2ad1df9 — feat: AUTH Gate no CI — workflow_dispatch com validação de frase + rule-35 script
+**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
 Continue a tarefa ativa ou selecione o próximo task-card.
 ## 🧠 Notas da Sessão Atual
 (Adicione notas manuais abaixo desta linha)
+

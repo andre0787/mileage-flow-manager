@@ -424,6 +424,22 @@ integrada ao pre-pr via **Rule #30**.
 
 ---
 
+## Fable Method Gates — Scripts de Suporte
+
+Scripts auxiliares para os gates do Fable Method (INTENT, TWINS, AUTH) documentados em
+[`docs/fable-gates.md`](./fable-gates.md).
+
+### Scripts
+
+| Script | Descrição | Gate |
+|--------|-----------|------|
+| `npm run twins:check "<padrão>" [glob]` | Busca padrão regex em arquivos `.ts/.tsx` | 🔁 TWINS |
+
+> 💡 O script `twins:check` é usado manualmente após corrigir um bug, não automaticamente
+> no pre-pr. Veja `systematic-debugging/SKILL.md` para o fluxo completo.
+
+---
+
 ## Observability — Event Tracking
 
 Registro leve de eventos do workflow para rastrear sessões, PRs e validações.

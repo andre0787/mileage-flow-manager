@@ -47,10 +47,11 @@
 | `docs/IDEIAS.md` | Caixa de entrada de ideias | Ideias humanas pendentes, lidas no início da sessão |
 | `docs/FLUXO.md` | Diagramas do ecossistema | Flowcharts Mermaid: visão geral, fluxo de dados, rotas |
 | `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md` |
-| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md` |
-| `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md` |
+| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md` |
+| `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md`, `2026-07-29-auth-ci-plan.md`, `2026-07-29-fable-method-skill-plan.md` |
 | `docs/reports/` | Relatórios HTML | Relatórios obrigatórios antes de cada PR |
 | `.githooks/` | Git hooks | Pre-commit que bloqueia commits na main |
+| `.pi/skills/fable-method/SKILL.md` | Skill primária de desenvolvimento | Loop de 7 passos Fable Method adaptado ao MilesControl — costura categorias, gates, workflow e scripts |
 | `.pi/skills/subagent-driven-development/SKILL.md` | Execução delegada com subagentes | Plano → subagente por tarefa → task review → final review |
 | `.pi/skills/dispatching-parallel-agents/SKILL.md` | Investigação paralela | 1 subagente por domínio de problema independente |
 | `.pi/skills/using-git-worktrees/SKILL.md` | Worktrees isolados | Branches separadas para trabalho concorrente sem conflito |

@@ -3,12 +3,27 @@ name: Deploy
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      auth_phrase:
+        description: '🔐 Frase de autorização para deploy manual'
+        required: true
+        type: string
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      - name: 🔐 AUTH Gate
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          if [ "${{ github.event.inputs.auth_phrase }}" != "Autorizo o deploy para produção" ]; then
+            echo "❌ AUTH DENIED: frase incorreta"
+            exit 1
+          fi
+          echo "✅ AUTH GRANTED — deploy autorizado"
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4

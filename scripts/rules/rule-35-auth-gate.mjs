@@ -1,51 +1,31 @@
 #!/usr/bin/env node
+// rule-35-auth-gate.mjs — verifica que o deploy.yml tem AUTH Gate (workflow_dispatch + frase de autorização)
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
-/**
- * rule-35-auth-gate.mjs — Valida que o AUTH gate está documentado
- * e referenciado nas skills do projeto.
- *
- * Regra 35: Antes de push/merge/deploy irreversível, exija as
- * palavras exatas do usuário. AUTH: usuário disse "<citação>".
- */
+const root = process.cwd();
+const deployYml = readFileSync(join(root, '.github/workflows/deploy.yml'), 'utf8');
 
-import { existsSync, readFileSync } from "fs";
-import { resolve, dirname } from "path";
-import { fileURLToPath } from "url";
+const checks = [
+  { name: 'workflow_dispatch trigger', pattern: /workflow_dispatch:/ },
+  { name: 'auth_phrase input', pattern: /auth_phrase:/ },
+  { name: 'AUTH Gate step name', pattern: /🔐 AUTH Gate/ },
+  { name: 'frase exata de autorização', pattern: /Autorizo o deploy para produção/ },
+  { name: 'condicional workflow_dispatch', pattern: /github\.event_name == 'workflow_dispatch'/ },
+];
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const ROOT = resolve(__dirname, "../..");
+let passed = 0;
+let failed = 0;
 
-const FABLE_DOC = resolve(ROOT, "docs/fable-gates.md");
-const AGENTS = resolve(ROOT, "AGENTS.md");
-
-let pass = true;
-
-// 1. AUTH gate must be documented in fable-gates.md
-if (!existsSync(FABLE_DOC)) {
-  console.log("  ❌ rule-35: docs/fable-gates.md não encontrado");
-  pass = false;
-} else {
-  const content = readFileSync(FABLE_DOC, "utf8");
-  if (!content.includes("## 🔐 AUTH Gate")) {
-    console.log("  ❌ rule-35: docs/fable-gates.md não contém seção AUTH Gate");
-    pass = false;
+for (const check of checks) {
+  if (check.pattern.test(deployYml)) {
+    console.log(`  ✅ ${check.name}`);
+    passed++;
   } else {
-    console.log("  ✅ rule-35: AUTH Gate documentado em docs/fable-gates.md");
+    console.log(`  ❌ ${check.name}`);
+    failed++;
   }
 }
 
-// 2. Rule 35 must exist in AGENTS.md
-if (!existsSync(AGENTS)) {
-  console.log("  ❌ rule-35: AGENTS.md não encontrado");
-  pass = false;
-} else {
-  const content = readFileSync(AGENTS, "utf8");
-  if (!content.includes("rule-35")) {
-    console.log("  ❌ rule-35: não referenciada em AGENTS.md");
-    pass = false;
-  } else {
-    console.log("  ✅ rule-35: referenciada em AGENTS.md");
-  }
-}
-
-if (!pass) process.exit(1);
+console.log(`\n📊 rule-35: ${passed} pass, ${failed} fail`);
+process.exit(failed > 0 ? 1 : 0);
