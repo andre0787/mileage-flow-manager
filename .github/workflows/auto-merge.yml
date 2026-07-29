@@ -1,7 +1,8 @@
 name: Auto Merge
 
 on:
-  check_suite:
+  workflow_run:
+    workflows: ["CI — PR Check"]
     types: [completed]
 
 permissions:
@@ -11,8 +12,8 @@ permissions:
 jobs:
   auto-merge:
     if: >
-      github.event.check_suite.conclusion == 'success' &&
-      github.event.check_suite.head_branch != 'main'
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch != github.event.repository.default_branch
     runs-on: ubuntu-latest
 
     steps:
@@ -21,10 +22,16 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          BRANCH="${{ github.event.check_suite.head_branch }}"
-          PR_NUM=$(gh pr list --repo "${{ github.repository }}" --head "$BRANCH" --state open --json number -q '.[0].number' 2>/dev/null || echo "")
-          echo "num=${PR_NUM:-}" >> $GITHUB_OUTPUT
-          echo "branch=${BRANCH}" >> $GITHUB_OUTPUT
+          BRANCH="${{ github.event.workflow_run.head_branch }}"
+          echo "🔍 Buscando PR aberto da branch: $BRANCH"
+          PR_NUM=$(gh pr list \
+            --repo "${{ github.repository }}" \
+            --head "$BRANCH" \
+            --state open \
+            --json number \
+            -q '.[0].number' 2>/dev/null || echo "")
+          echo "num=${PR_NUM:-}" >> "$GITHUB_OUTPUT"
+          echo "branch=${BRANCH}" >> "$GITHUB_OUTPUT"
 
       - name: Merge PR
         if: steps.pr.outputs.num != ''
@@ -33,10 +40,9 @@ jobs:
         run: |
           PR_NUM="${{ steps.pr.outputs.num }}"
           BRANCH="${{ steps.pr.outputs.branch }}"
-          echo "🔀 Merging PR #${PR_NUM} (branch: ${BRANCH})"
+          echo "🔀 Mergindo PR #${PR_NUM} (branch: ${BRANCH})"
           gh pr merge "$PR_NUM" \
             --repo "${{ github.repository }}" \
             --merge \
-            --delete-branch \
-            --admin
-          echo "✅ PR #${PR_NUM} merged and branch deleted"
+            --delete-branch
+          echo "✅ PR #${PR_NUM} merged e branch deletada"

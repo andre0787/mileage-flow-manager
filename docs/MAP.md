@@ -67,6 +67,18 @@
 | `CLAUDE.md` | Cross-harness (Claude Code) | Instruções resumidas para Claude Code |
 | `QUALITY.md` | Qualidade do código | Métricas e padrões de qualidade |
 
+## KPIs de Processo
+
+Dashboard mensal de métricas de qualidade do desenvolvimento:
+
+| O quê | Caminho |
+|-------|---------|
+| Design spec | `docs/superpowers/specs/2026-07-29-kpi-process-design.md` |
+| Implementation plan | `docs/superpowers/plans/2026-07-29-kpi-process-plan.md` |
+| Script | `scripts/kpi-report.mjs` |
+| App page | `src/pages/KPI.tsx` |
+| Comando | `npm run kpi` |
+
 ## Docs Arquivados
 
 Artefatos de sprints/features concluídos foram movidos para `docs/archive/`:

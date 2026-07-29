@@ -57,6 +57,7 @@ const menuGroups: { label: string; items: NavItem[] }[] = [
     items: [
       { title: "Controle CPF", url: "/cpf", icon: Shield },
       { title: "Relatórios", url: "/relatorios", icon: BarChart3 },
+      { title: "KPIs de Processo", url: "/kpi", icon: TrendingUp },
     ],
   },
 ];

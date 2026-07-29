@@ -30,6 +30,7 @@ import Relatorios from "./pages/Relatorios";
 import Configuracoes from "./pages/Configuracoes";
 import Perfil from "./pages/Perfil";
 import AdminEventos from "./pages/AdminEventos";
+import KPI from "./pages/KPI";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -137,6 +138,16 @@ const AnimatedRoutes = () => {
         }
       />
       <Route
+        path="/kpi"
+        element={
+          <ErrorBoundary>
+            <div className="animate-appear">
+              <KPI />
+            </div>
+          </ErrorBoundary>
+        }
+      />
+      <Route
         path="/admin/eventos"
         element={
           <ErrorBoundary>
@@ -168,6 +179,7 @@ const PAGE_TITLES: Record<string, string> = {
   "/relatorios": "Relatórios",
   "/configuracoes": "Configurações",
   "/perfil": "Perfil",
+  "/kpi": "KPIs de Processo",
   "/admin/eventos": "Observabilidade",
 };
 
