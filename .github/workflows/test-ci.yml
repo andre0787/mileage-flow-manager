@@ -1,0 +1,12 @@
+name: Test CI Minimal
+
+on:
+  push:
+    branches:
+      - chore/npm-vuln-radar
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello, world!"
