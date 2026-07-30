@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `e9b7780` — docs: update handoff — PR #228 merged + deployed [skip ci]
+- **Branch:** `chore/npm-vuln-radar`
+- **Último commit:** `acf1d22 — docs: update handoff`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -23,12 +23,7 @@ Nenhum PR aberto.
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** descrição concisa
-**Status:** done
-**Branch:** `main`
-**Docs carregados:** AGENTS.md
+
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão

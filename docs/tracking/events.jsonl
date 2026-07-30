@@ -547,3 +547,81 @@
 {"timestamp":"2026-07-30T02:08:05.186Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-reset-pagination-hydration","commit":"7edebf3","categoria":"docs"}
 {"timestamp":"2026-07-30T02:08:10.377Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-reset-pagination-hydration","commit":"7edebf3","categoria":"chore"}
 {"timestamp":"2026-07-30T02:08:12.944Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-reset-pagination-hydration","commit":"7edebf3","categoria":"docs"}
+{"timestamp":"2026-07-30T02:33:42.537Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/npm-vuln-radar","commit":"acf1d22","errors":0}
+{"timestamp":"2026-07-30T02:33:46.956Z","type":"session:start","description":"docs: teste docs","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"docs"}
+{"timestamp":"2026-07-30T02:33:48.181Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"bugfix"}
+{"timestamp":"2026-07-30T02:33:49.395Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"refactor"}
+{"timestamp":"2026-07-30T02:33:50.604Z","type":"session:start","description":"feature: primeira feature","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"feature"}
+{"timestamp":"2026-07-30T02:33:51.815Z","type":"session:start","description":"chore: segunda chore","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"chore"}
+{"timestamp":"2026-07-30T02:33:53.016Z","type":"session:start","description":"docs: continuacao","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"docs"}
+{"timestamp":"2026-07-30T02:34:01.387Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"chore"}
+{"timestamp":"2026-07-30T02:34:05.600Z","type":"session:start","description":"docs: verifica output","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"docs"}
+{"timestamp":"2026-07-30T02:34:24.240Z","type":"session:start","description":"chore: adicionar radar de vulnerabilidades npm + remover git clone superpowers","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"chore"}
+{"timestamp":"2026-07-30T02:34:41.092Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/npm-vuln-radar","commit":"acf1d22","errors":0}
+{"timestamp":"2026-07-30T02:34:45.612Z","type":"session:start","description":"docs: teste docs","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"docs"}
+{"timestamp":"2026-07-30T02:34:46.836Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"bugfix"}
+{"timestamp":"2026-07-30T02:34:48.043Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"refactor"}
+{"timestamp":"2026-07-30T02:34:49.252Z","type":"session:start","description":"feature: primeira feature","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"feature"}
+{"timestamp":"2026-07-30T02:34:50.445Z","type":"session:start","description":"chore: segunda chore","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"chore"}
+{"timestamp":"2026-07-30T02:34:51.690Z","type":"session:start","description":"docs: continuacao","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"docs"}
+{"timestamp":"2026-07-30T02:35:00.091Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"chore"}
+{"timestamp":"2026-07-30T02:35:04.306Z","type":"session:start","description":"docs: verifica output","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"docs"}
+{"timestamp":"2026-07-30T02:35:26.097Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/npm-vuln-radar","commit":"acf1d22","errors":0}
+{"timestamp":"2026-07-30T02:35:30.803Z","type":"session:start","description":"docs: teste docs","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"docs"}
+{"timestamp":"2026-07-30T02:35:32.004Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"bugfix"}
+{"timestamp":"2026-07-30T02:35:33.267Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"refactor"}
+{"timestamp":"2026-07-30T02:35:34.460Z","type":"session:start","description":"feature: primeira feature","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"feature"}
+{"timestamp":"2026-07-30T02:35:35.655Z","type":"session:start","description":"chore: segunda chore","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"chore"}
+{"timestamp":"2026-07-30T02:35:36.848Z","type":"session:start","description":"docs: continuacao","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"docs"}
+{"timestamp":"2026-07-30T02:35:45.298Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"chore"}
+{"timestamp":"2026-07-30T02:35:49.519Z","type":"session:start","description":"docs: verifica output","branch":"chore/npm-vuln-radar","commit":"acf1d22","categoria":"docs"}
+{"timestamp":"2026-07-30T02:35:49.646Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/npm-vuln-radar","commit":"acf1d22","errors":0}
+{"timestamp":"2026-07-30T02:40:34.745Z","type":"session:start","description":"docs: teste docs","branch":"chore/npm-vuln-radar","commit":"e61cb80","categoria":"docs"}
+{"timestamp":"2026-07-30T02:40:35.999Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/npm-vuln-radar","commit":"e61cb80","categoria":"bugfix"}
+{"timestamp":"2026-07-30T02:40:37.236Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/npm-vuln-radar","commit":"e61cb80","categoria":"refactor"}
+{"timestamp":"2026-07-30T02:40:38.452Z","type":"session:start","description":"feature: primeira feature","branch":"chore/npm-vuln-radar","commit":"e61cb80","categoria":"feature"}
+{"timestamp":"2026-07-30T02:40:39.770Z","type":"session:start","description":"chore: segunda chore","branch":"chore/npm-vuln-radar","commit":"e61cb80","categoria":"chore"}
+{"timestamp":"2026-07-30T02:40:40.968Z","type":"session:start","description":"docs: continuacao","branch":"chore/npm-vuln-radar","commit":"e61cb80","categoria":"docs"}
+{"timestamp":"2026-07-30T03:09:08.301Z","type":"session:start","description":"docs: teste docs","branch":"chore/npm-vuln-radar","commit":"90537a9","categoria":"docs"}
+{"timestamp":"2026-07-30T03:09:09.505Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/npm-vuln-radar","commit":"90537a9","categoria":"bugfix"}
+{"timestamp":"2026-07-30T03:09:10.728Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/npm-vuln-radar","commit":"90537a9","categoria":"refactor"}
+{"timestamp":"2026-07-30T03:09:11.976Z","type":"session:start","description":"feature: primeira feature","branch":"chore/npm-vuln-radar","commit":"90537a9","categoria":"feature"}
+{"timestamp":"2026-07-30T03:09:13.211Z","type":"session:start","description":"chore: segunda chore","branch":"chore/npm-vuln-radar","commit":"90537a9","categoria":"chore"}
+{"timestamp":"2026-07-30T03:09:14.432Z","type":"session:start","description":"docs: continuacao","branch":"chore/npm-vuln-radar","commit":"90537a9","categoria":"docs"}
+{"timestamp":"2026-07-30T03:09:22.847Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/npm-vuln-radar","commit":"90537a9","categoria":"chore"}
+{"timestamp":"2026-07-30T03:09:27.036Z","type":"session:start","description":"docs: verifica output","branch":"chore/npm-vuln-radar","commit":"90537a9","categoria":"docs"}
+{"timestamp":"2026-07-30T03:09:46.777Z","type":"session:start","description":"docs: teste docs","branch":"chore/npm-vuln-radar","commit":"90537a9","categoria":"docs"}
+{"timestamp":"2026-07-30T03:09:47.985Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/npm-vuln-radar","commit":"90537a9","categoria":"bugfix"}
+{"timestamp":"2026-07-30T03:09:49.224Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/npm-vuln-radar","commit":"90537a9","categoria":"refactor"}
+{"timestamp":"2026-07-30T03:09:50.432Z","type":"session:start","description":"feature: primeira feature","branch":"chore/npm-vuln-radar","commit":"90537a9","categoria":"feature"}
+{"timestamp":"2026-07-30T03:09:51.624Z","type":"session:start","description":"chore: segunda chore","branch":"chore/npm-vuln-radar","commit":"90537a9","categoria":"chore"}
+{"timestamp":"2026-07-30T03:09:52.828Z","type":"session:start","description":"docs: continuacao","branch":"chore/npm-vuln-radar","commit":"90537a9","categoria":"docs"}
+{"timestamp":"2026-07-30T03:10:01.300Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/npm-vuln-radar","commit":"90537a9","categoria":"chore"}
+{"timestamp":"2026-07-30T03:10:05.506Z","type":"session:start","description":"docs: verifica output","branch":"chore/npm-vuln-radar","commit":"90537a9","categoria":"docs"}
+{"timestamp":"2026-07-30T03:12:05.938Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/npm-vuln-radar","commit":"535d893","errors":0}
+{"timestamp":"2026-07-30T03:12:10.343Z","type":"session:start","description":"docs: teste docs","branch":"chore/npm-vuln-radar","commit":"535d893","categoria":"docs"}
+{"timestamp":"2026-07-30T03:12:11.573Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/npm-vuln-radar","commit":"535d893","categoria":"bugfix"}
+{"timestamp":"2026-07-30T03:12:12.784Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/npm-vuln-radar","commit":"535d893","categoria":"refactor"}
+{"timestamp":"2026-07-30T03:12:14.000Z","type":"session:start","description":"feature: primeira feature","branch":"chore/npm-vuln-radar","commit":"535d893","categoria":"feature"}
+{"timestamp":"2026-07-30T03:12:15.202Z","type":"session:start","description":"chore: segunda chore","branch":"chore/npm-vuln-radar","commit":"535d893","categoria":"chore"}
+{"timestamp":"2026-07-30T03:12:16.446Z","type":"session:start","description":"docs: continuacao","branch":"chore/npm-vuln-radar","commit":"535d893","categoria":"docs"}
+{"timestamp":"2026-07-30T03:12:24.872Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/npm-vuln-radar","commit":"535d893","categoria":"chore"}
+{"timestamp":"2026-07-30T03:12:29.091Z","type":"session:start","description":"docs: verifica output","branch":"chore/npm-vuln-radar","commit":"535d893","categoria":"docs"}
+{"timestamp":"2026-07-30T03:12:50.840Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/npm-vuln-radar","commit":"535d893","errors":0}
+{"timestamp":"2026-07-30T03:12:54.959Z","type":"session:start","description":"docs: teste docs","branch":"chore/npm-vuln-radar","commit":"535d893","categoria":"docs"}
+{"timestamp":"2026-07-30T03:12:56.177Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/npm-vuln-radar","commit":"535d893","categoria":"bugfix"}
+{"timestamp":"2026-07-30T03:12:57.416Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/npm-vuln-radar","commit":"535d893","categoria":"refactor"}
+{"timestamp":"2026-07-30T03:12:58.637Z","type":"session:start","description":"feature: primeira feature","branch":"chore/npm-vuln-radar","commit":"535d893","categoria":"feature"}
+{"timestamp":"2026-07-30T03:12:59.842Z","type":"session:start","description":"chore: segunda chore","branch":"chore/npm-vuln-radar","commit":"535d893","categoria":"chore"}
+{"timestamp":"2026-07-30T03:13:01.121Z","type":"session:start","description":"docs: continuacao","branch":"chore/npm-vuln-radar","commit":"535d893","categoria":"docs"}
+{"timestamp":"2026-07-30T03:13:09.586Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/npm-vuln-radar","commit":"535d893","categoria":"chore"}
+{"timestamp":"2026-07-30T03:13:13.830Z","type":"session:start","description":"docs: verifica output","branch":"chore/npm-vuln-radar","commit":"535d893","categoria":"docs"}
+{"timestamp":"2026-07-30T03:15:39.248Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/npm-vuln-radar","commit":"1742600","errors":0}
+{"timestamp":"2026-07-30T03:15:43.430Z","type":"session:start","description":"docs: teste docs","branch":"chore/npm-vuln-radar","commit":"1742600","categoria":"docs"}
+{"timestamp":"2026-07-30T03:15:44.644Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/npm-vuln-radar","commit":"1742600","categoria":"bugfix"}
+{"timestamp":"2026-07-30T03:15:45.872Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/npm-vuln-radar","commit":"1742600","categoria":"refactor"}
+{"timestamp":"2026-07-30T03:15:47.068Z","type":"session:start","description":"feature: primeira feature","branch":"chore/npm-vuln-radar","commit":"1742600","categoria":"feature"}
+{"timestamp":"2026-07-30T03:15:48.292Z","type":"session:start","description":"chore: segunda chore","branch":"chore/npm-vuln-radar","commit":"1742600","categoria":"chore"}
+{"timestamp":"2026-07-30T03:15:49.559Z","type":"session:start","description":"docs: continuacao","branch":"chore/npm-vuln-radar","commit":"1742600","categoria":"docs"}
+{"timestamp":"2026-07-30T03:15:57.962Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/npm-vuln-radar","commit":"1742600","categoria":"chore"}
+{"timestamp":"2026-07-30T03:16:02.181Z","type":"session:start","description":"docs: verifica output","branch":"chore/npm-vuln-radar","commit":"1742600","categoria":"docs"}
