@@ -40,7 +40,9 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
   const [programId, setProgramId] = useState(account?.programId ?? "");
   const [type, setType] = useState<"pontos" | "milhas">(account?.type ?? "milhas");
   const [balance, setBalance] = useState(account?.balance ?? 0);
-  const [averageCostPerMile, setAverageCostPerMile] = useState<number | undefined>(account?.averageCostPerMile);
+  const [averageCostPerMile, setAverageCostPerMile] = useState<number | undefined>(
+    account?.averageCostPerMile,
+  );
   const [totalInvested, setTotalInvested] = useState<number | undefined>(account?.totalInvested);
   const [status, setStatus] = useState<"ativa" | "inativa">(account?.status ?? "ativa");
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({});

@@ -79,6 +79,13 @@ async function main() {
   const snapshotMatch = (handoff || "").match(/## 🏗️ Projeto[\s\S]*?(?=\n## |\n---|$)/);
   const snapshot = snapshotMatch ? snapshotMatch[0].trim() : "(snapshot não encontrado)";
 
+  // ─── Radar de vulnerabilidades (não bloqueante, skip em CI/test) ───
+  if (!process.env.CI && !process.env.VITEST) {
+    try {
+      execSync("node scripts/check-radar.mjs", { cwd: ROOT, encoding: "utf8", timeout: 20000, stdio: "inherit" });
+    } catch { /* radar pode falhar silenciosamente */ }
+  }
+
   // ─── Detecta sessão em andamento ───
   const sessaoMatch = (handoff || "").match(/## 🎯 Sessão Atual[\s\S]*?(?=\n## |\n---|$)/);
   const sessao = sessaoMatch ? sessaoMatch[0] : null;
