@@ -1,0 +1,132 @@
+name: CI — PR Check
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+env:
+  CI: true
+
+jobs:
+  check-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Upgrade npm
+        run: npm install -g npm@11
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: PR check (typecheck + lint + format + unit + docs + build)
+        run: npm run check:pr
+
+  e2e-smoke:
+    runs-on: ubuntu-latest
+    needs: [check-pr]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Upgrade npm
+        run: npm install -g npm@11
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright
+        run: npx playwright install chromium --with-deps
+
+      - name: E2E Smoke (PR gate, auth-free)
+        run: CI_SMOKE_ONLY=true npx playwright test --grep "Smoke Tests — Tela Preta" --reporter=list
+
+      - name: Upload smoke report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-smoke-report
+          path: playwright-report/
+
+  e2e-smoke-preview:
+    runs-on: ubuntu-latest
+    needs: [check-pr]
+    if: ${{ secrets.VERCEL_TOKEN != '' && secrets.VERCEL_ORG_ID != '' && secrets.VERCEL_PROJECT_ID != '' }}
+    continue-on-error: true
+    timeout-minutes: 12
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Upgrade npm
+        run: npm install -g npm@11
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright
+        run: npx playwright install chromium --with-deps
+
+      - name: Wait for Vercel preview and get URL
+        id: vercel-preview
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          BRANCH: ${{ github.head_ref }}
+        run: |
+          echo "Aguardando deploy preview do Vercel para branch $BRANCH..."
+          for i in $(seq 1 48); do
+            RESPONSE=$(curl -s --max-time 8 -H "Authorization: Bearer $VERCEL_TOKEN" \
+              "https://api.vercel.com/v1/deployments?projectId=$VERCEL_PROJECT_ID&teamId=$VERCEL_ORG_ID&state=READY&limit=10")
+            
+            URL=$(echo "$RESPONSE" | node -e "
+              const d=require('fs').readFileSync('/dev/stdin','utf8');
+              try {
+                const j = JSON.parse(d);
+                const deployments = j.deployments || [];
+                const match = deployments.find(d => d.meta?.githubCommitRef === process.env.BRANCH);
+                console.log(match ? 'https://' + match.url : '');
+              } catch(e) { console.log(''); }
+            ")
+            
+            if [ -n "$URL" ]; then
+              echo "preview_url=$URL" >> "$GITHUB_OUTPUT"
+              echo "Preview URL encontrada: $URL"
+              exit 0
+            fi
+            echo "  Tentativa $i/48 — deploy preview ainda não está READY..."
+            sleep 10
+          done
+          echo "Timeout: deploy preview não ficou READY em ~8 minutos"
+          exit 1
+
+      - name: E2E Smoke contra preview Vercel
+        run: BASE_URL="${{ steps.vercel-preview.outputs.preview_url }}" npx playwright test --grep '@smoke-prod' --reporter=list
+
+      - name: Upload preview smoke report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-smoke-preview-report
+          path: playwright-report/
