@@ -1,10 +1,10 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-07-29
-> Anterior: 2026-07-28
+> ⏰ Última atualização: 2026-07-30
+> Anterior: 2026-07-29
 
 ## 🏗️ Projeto
 
-> ⏰ Snapshot atualizado em: 2026-07-29
+> ⏰ Snapshot atualizado em: 2026-07-30
 
 ### 🏗️ Projeto
 
@@ -28,8 +28,8 @@ e41bddc feat: KPI Process Dashboard (#225)
 ```
 
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `3014d55` — fix: e2e-smoke-preview condicional
+- **Branch:** `fix/form-reset-pagination-hydration`
+- **Último commit:** `7edebf3` — docs: update handoff — session complete, all PRs to production
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto — todas as PRs (#225, #226, #227) concluídas/mergeadas/deployadas.
@@ -38,17 +38,18 @@ Nenhum PR aberto — todas as PRs (#225, #226, #227) concluídas/mergeadas/deplo
 |---------|-------|
 | Total testes | 291 |
 | Docs issues | 0 |
-| Branch | main |
+| Branch | fix/form-reset-pagination-hydration |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** feature/chore
-**Objetivo:** Track PR #225 to production + fix CI/CD infra
-**Status:** ✅ complete
-**Iniciada em:** 2026-07-29
-**Branch:** `main`
-**Último commit:** 3014d55 — fix: e2e-smoke-preview condicional
+**Categoria:** refactor/bugfix/chore
+**Objetivo:** Form reset (AccountDialog) + pagination (DataTable) + hydration (sidebar) + deps update
+**Status:** 🔄 em andamento
+**Iniciada em:** 2026-07-30
+**Branch:** `fix/form-reset-pagination-hydration`
+**Último commit:** 7edebf3 — docs: update handoff — session complete, all PRs to production
+**Docs carregados:** CONVENTIONS.md, ARCHITECTURE.md
 
 ## ✅ Última Sessão
 KPI Dashboard completo + PR #225 aberto. CI/CD fixes pendentes.

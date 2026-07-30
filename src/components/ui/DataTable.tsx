@@ -24,7 +24,7 @@
  * ponytail: dependências shadcn/ui + SearchInput + EmptyState
  */
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Search } from "lucide-react";
 import { SearchInput } from "@/components/ui/SearchInput";
 import {
@@ -103,11 +103,11 @@ export function DataTable<T>({
   }, [data, currentPage, pageSize]);
 
   // Reset page when data changes
-  useMemo(() => {
+  useEffect(() => {
     if (currentPage > Math.ceil(data.length / pageSize)) {
       setCurrentPage(1);
     }
-  }, [data.length, pageSize]);
+  }, [data.length, pageSize, currentPage]);
 
   if (loading) {
     return (

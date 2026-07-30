@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Plus } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
@@ -35,14 +35,14 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
   const addAccountM = useAddAccountMutation();
   const updateAccountM = useUpdateAccountMutation();
 
-  const [name, setName] = useState("");
-  const [ownerId, setOwnerId] = useState("");
-  const [programId, setProgramId] = useState("");
-  const [type, setType] = useState<"pontos" | "milhas">("milhas");
-  const [balance, setBalance] = useState(0);
-  const [averageCostPerMile, setAverageCostPerMile] = useState<number | undefined>(undefined);
-  const [totalInvested, setTotalInvested] = useState<number | undefined>(undefined);
-  const [status, setStatus] = useState<"ativa" | "inativa">("ativa");
+  const [name, setName] = useState(account?.name ?? "");
+  const [ownerId, setOwnerId] = useState(account?.ownerId ?? "");
+  const [programId, setProgramId] = useState(account?.programId ?? "");
+  const [type, setType] = useState<"pontos" | "milhas">(account?.type ?? "milhas");
+  const [balance, setBalance] = useState(account?.balance ?? 0);
+  const [averageCostPerMile, setAverageCostPerMile] = useState<number | undefined>(account?.averageCostPerMile);
+  const [totalInvested, setTotalInvested] = useState<number | undefined>(account?.totalInvested);
+  const [status, setStatus] = useState<"ativa" | "inativa">(account?.status ?? "ativa");
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
 
   // Sub-dialogs
@@ -56,38 +56,7 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
   const [newProgramName, setNewProgramName] = useState("");
   const [newProgramType, setNewProgramType] = useState<"pontos" | "milhas">("milhas");
 
-  // Pre-fill on edit
-  useEffect(() => {
-    if (!open) return;
-    if (mode === "edit" && account) {
-      setName(account.name);
-      setOwnerId(account.ownerId);
-      setProgramId(account.programId);
-      setType(account.type);
-      setBalance(account.balance);
-      setAverageCostPerMile(account.averageCostPerMile);
-      setTotalInvested(account.totalInvested);
-      setStatus(account.status);
-    } else {
-      setName("");
-      setOwnerId("");
-      setProgramId("");
-      setType("milhas");
-      setBalance(0);
-      setAverageCostPerMile(undefined);
-      setTotalInvested(undefined);
-      setStatus("ativa");
-    }
-    setErrors({});
-  }, [mode, account, open]);
-
-  // Auto-derive type when program changes
-  useEffect(() => {
-    const program = programs.find((p) => p.id === programId);
-    if (program) {
-      setType(program.type);
-    }
-  }, [programId, programs]);
+  const formKey = mode === "edit" && account ? account.id : "create";
 
   const validate = () => {
     const errs: Partial<Record<string, string>> = {};
@@ -155,7 +124,7 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent key={formKey} className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>{mode === "create" ? "Criar Nova Conta" : "Editar Conta"}</DialogTitle>
           </DialogHeader>
@@ -183,6 +152,8 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
                     value={programId}
                     onValueChange={(v) => {
                       setProgramId(v);
+                      const program = programs.find((p) => p.id === v);
+                      if (program) setType(program.type);
                       setErrors((p) => ({ ...p, programId: "" }));
                     }}
                   >
