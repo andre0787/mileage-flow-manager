@@ -254,6 +254,37 @@ test.describe("Responsividade em todos os viewports", () => {
     await page.screenshot({ path: path.join(SCREENSHOTS_DIR, "11-configuracoes-iphone16.png"), fullPage: true });
     console.log("✓ Configurações iPhone16");
 
+    // ─── FORM DRAWER - iPhone 16 (bug: drawer preso embaixo do app) ───
+    await page.setViewportSize(VIEWPORTS.iphone16);
+    await page.goto("/clientes");
+    await page.waitForLoadState("networkidle");
+
+    // Abre o FormDrawer de criação de cliente
+    const btnNovoCliente = page.locator("button:has-text('Novo Cliente')");
+    await btnNovoCliente.click();
+    // ponytail: drawer transition
+    await page.waitForTimeout(600);
+
+    // Drawer deve estar visível e o input preenchível (bug anterior: ficava embaixo do app)
+    const drawerInput = page.locator("#name");
+    await expect(drawerInput).toBeVisible({ timeout: 5_000 });
+    await drawerInput.fill("Cliente Drawer Teste");
+    await expect(drawerInput).toHaveValue("Cliente Drawer Teste");
+
+    // O input deve estar dentro da viewport (não preso abaixo do app)
+    const inputBox = await drawerInput.boundingBox();
+    const vpH = page.viewportSize()?.height ?? 0;
+    expect(inputBox!.y).toBeGreaterThanOrEqual(0);
+    expect(inputBox!.y + inputBox!.height).toBeLessThanOrEqual(vpH + 5);
+
+    await page.screenshot({ path: path.join(SCREENSHOTS_DIR, "12-formdrawer-iphone16.png"), fullPage: true });
+    await checkNoOverflow(page);
+
+    // Fecha o drawer
+    await page.keyboard.press("Escape");
+    // ponytail: drawer close transition
+    await page.waitForTimeout(600);
+
     // ─── REDIMENSIONAMENTO DINÂMICO ───
     // Testa que ao redimensionar a janela, o layout se ajusta sem overflow
     for (const vp of [VIEWPORTS.iphoneSE, VIEWPORTS.iphone16, VIEWPORTS.iphone16PM, VIEWPORTS.ipadAir, VIEWPORTS.desktopHD]) {

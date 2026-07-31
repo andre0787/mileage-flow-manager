@@ -635,3 +635,203 @@
 {"timestamp":"2026-07-30T03:34:25.071Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/npm-vuln-radar","commit":"1f61980","categoria":"chore"}
 {"timestamp":"2026-07-30T03:34:29.405Z","type":"session:start","description":"docs: verifica output","branch":"chore/npm-vuln-radar","commit":"1f61980","categoria":"docs"}
 {"timestamp":"2026-07-30T03:34:41.860Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/npm-vuln-radar","commit":"1f61980","errors":0}
+{"timestamp":"2026-07-31T00:18:41.930Z","type":"session:start","description":"docs: teste docs","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"docs"}
+{"timestamp":"2026-07-31T00:18:42.305Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"bugfix"}
+{"timestamp":"2026-07-31T00:18:42.706Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"refactor"}
+{"timestamp":"2026-07-31T00:18:42.809Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/npm-vuln-radar","commit":"07c7544","errors":0}
+{"timestamp":"2026-07-31T00:18:42.935Z","type":"session:start","description":"feature: primeira feature","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"feature"}
+{"timestamp":"2026-07-31T00:18:43.113Z","type":"session:start","description":"chore: segunda chore","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"chore"}
+{"timestamp":"2026-07-31T00:18:43.281Z","type":"session:start","description":"docs: continuacao","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"docs"}
+{"timestamp":"2026-07-31T00:18:48.590Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"chore"}
+{"timestamp":"2026-07-31T00:18:51.213Z","type":"session:start","description":"docs: verifica output","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"docs"}
+{"timestamp":"2026-07-31T00:18:51.339Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/npm-vuln-radar","commit":"07c7544","errors":3}
+{"timestamp":"2026-07-31T02:00:19.768Z","type":"session:start","description":"docs: teste docs","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"docs"}
+{"timestamp":"2026-07-31T02:00:20.194Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"bugfix"}
+{"timestamp":"2026-07-31T02:00:20.501Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"refactor"}
+{"timestamp":"2026-07-31T02:00:20.788Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/npm-vuln-radar","commit":"07c7544","errors":0}
+{"timestamp":"2026-07-31T02:00:20.798Z","type":"session:start","description":"feature: primeira feature","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"feature"}
+{"timestamp":"2026-07-31T02:00:20.964Z","type":"session:start","description":"chore: segunda chore","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"chore"}
+{"timestamp":"2026-07-31T02:00:21.146Z","type":"session:start","description":"docs: continuacao","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"docs"}
+{"timestamp":"2026-07-31T02:00:26.508Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"chore"}
+{"timestamp":"2026-07-31T02:00:29.129Z","type":"session:start","description":"docs: verifica output","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"docs"}
+{"timestamp":"2026-07-31T02:03:57.603Z","type":"session:start","description":"docs: teste docs","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"docs"}
+{"timestamp":"2026-07-31T02:03:57.970Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"bugfix"}
+{"timestamp":"2026-07-31T02:03:58.256Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"refactor"}
+{"timestamp":"2026-07-31T02:03:58.632Z","type":"session:start","description":"feature: primeira feature","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"feature"}
+{"timestamp":"2026-07-31T02:03:58.749Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/npm-vuln-radar","commit":"07c7544","errors":0}
+{"timestamp":"2026-07-31T02:03:58.830Z","type":"session:start","description":"chore: segunda chore","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"chore"}
+{"timestamp":"2026-07-31T02:03:59.007Z","type":"session:start","description":"docs: continuacao","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"docs"}
+{"timestamp":"2026-07-31T02:04:04.313Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"chore"}
+{"timestamp":"2026-07-31T02:04:07.006Z","type":"session:start","description":"docs: verifica output","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"docs"}
+{"timestamp":"2026-07-31T02:04:07.145Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/npm-vuln-radar","commit":"07c7544","errors":4}
+{"timestamp":"2026-07-31T02:04:22.379Z","type":"session:start","description":"docs: teste docs","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"docs"}
+{"timestamp":"2026-07-31T02:04:22.765Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"bugfix"}
+{"timestamp":"2026-07-31T02:04:23.042Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"refactor"}
+{"timestamp":"2026-07-31T02:04:23.330Z","type":"session:start","description":"feature: primeira feature","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"feature"}
+{"timestamp":"2026-07-31T02:04:23.414Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/npm-vuln-radar","commit":"07c7544","errors":0}
+{"timestamp":"2026-07-31T02:04:23.534Z","type":"session:start","description":"chore: segunda chore","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"chore"}
+{"timestamp":"2026-07-31T02:04:23.680Z","type":"session:start","description":"docs: continuacao","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"docs"}
+{"timestamp":"2026-07-31T02:04:29.054Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"chore"}
+{"timestamp":"2026-07-31T02:04:31.703Z","type":"session:start","description":"docs: verifica output","branch":"chore/npm-vuln-radar","commit":"07c7544","categoria":"docs"}
+{"timestamp":"2026-07-31T02:04:31.851Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/npm-vuln-radar","commit":"07c7544","errors":4}
+{"timestamp":"2026-07-31T02:07:18.960Z","type":"session:start","description":"bugfix: fix: drawer forms presos no mobile + auditoria UX (PWA, search, AccountDialog)","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"bugfix"}
+{"timestamp":"2026-07-31T02:07:36.968Z","type":"session:start","description":"docs: teste docs","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:07:37.357Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"bugfix"}
+{"timestamp":"2026-07-31T02:07:37.602Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":0}
+{"timestamp":"2026-07-31T02:07:37.718Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"refactor"}
+{"timestamp":"2026-07-31T02:07:38.000Z","type":"session:start","description":"feature: primeira feature","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"feature"}
+{"timestamp":"2026-07-31T02:07:38.166Z","type":"session:start","description":"chore: segunda chore","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:07:38.327Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:07:43.742Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:07:46.361Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:07:46.486Z","type":"pre-pr","description":"pre-pr FAIL","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":2}
+{"timestamp":"2026-07-31T02:10:51.223Z","type":"session:start","description":"docs: teste docs","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:10:51.608Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"bugfix"}
+{"timestamp":"2026-07-31T02:10:51.919Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":0}
+{"timestamp":"2026-07-31T02:10:52.008Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"refactor"}
+{"timestamp":"2026-07-31T02:10:52.333Z","type":"session:start","description":"feature: primeira feature","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"feature"}
+{"timestamp":"2026-07-31T02:10:52.597Z","type":"session:start","description":"chore: segunda chore","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:10:52.809Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:10:58.359Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:11:00.993Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:11:08.357Z","type":"session:start","description":"docs: teste docs","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:11:08.684Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"bugfix"}
+{"timestamp":"2026-07-31T02:11:09.051Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"refactor"}
+{"timestamp":"2026-07-31T02:11:09.477Z","type":"session:start","description":"feature: primeira feature","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"feature"}
+{"timestamp":"2026-07-31T02:11:09.614Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":0}
+{"timestamp":"2026-07-31T02:11:09.799Z","type":"session:start","description":"chore: segunda chore","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:11:10.130Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:11:15.796Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:11:18.396Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:11:32.206Z","type":"session:start","description":"docs: teste docs","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:11:32.560Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"bugfix"}
+{"timestamp":"2026-07-31T02:11:32.944Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"refactor"}
+{"timestamp":"2026-07-31T02:11:33.048Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":0}
+{"timestamp":"2026-07-31T02:11:33.282Z","type":"session:start","description":"feature: primeira feature","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"feature"}
+{"timestamp":"2026-07-31T02:11:33.579Z","type":"session:start","description":"chore: segunda chore","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:11:33.845Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:11:39.328Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:11:41.971Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:11:48.546Z","type":"session:start","description":"docs: teste docs","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:11:48.952Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"bugfix"}
+{"timestamp":"2026-07-31T02:11:49.358Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"refactor"}
+{"timestamp":"2026-07-31T02:11:49.397Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":0}
+{"timestamp":"2026-07-31T02:11:49.701Z","type":"session:start","description":"feature: primeira feature","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"feature"}
+{"timestamp":"2026-07-31T02:11:50.013Z","type":"session:start","description":"chore: segunda chore","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:11:50.228Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:11:55.739Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:11:58.381Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:12:43.912Z","type":"session:start","description":"docs: teste docs","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:12:44.263Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"bugfix"}
+{"timestamp":"2026-07-31T02:12:44.630Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"refactor"}
+{"timestamp":"2026-07-31T02:12:44.985Z","type":"session:start","description":"feature: primeira feature","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"feature"}
+{"timestamp":"2026-07-31T02:12:45.146Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":0}
+{"timestamp":"2026-07-31T02:12:45.321Z","type":"session:start","description":"chore: segunda chore","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:12:45.598Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:12:51.121Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:12:53.747Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:13:10.627Z","type":"session:start","description":"docs: teste docs","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:13:11.054Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"bugfix"}
+{"timestamp":"2026-07-31T02:13:11.433Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":0}
+{"timestamp":"2026-07-31T02:13:11.438Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"refactor"}
+{"timestamp":"2026-07-31T02:13:11.779Z","type":"session:start","description":"feature: primeira feature","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"feature"}
+{"timestamp":"2026-07-31T02:13:12.085Z","type":"session:start","description":"chore: segunda chore","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:13:12.312Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:13:17.715Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:13:20.336Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:13:20.462Z","type":"pre-pr","description":"pre-pr FAIL","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":1}
+{"timestamp":"2026-07-31T02:13:37.757Z","type":"session:start","description":"docs: teste docs","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:13:38.174Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"bugfix"}
+{"timestamp":"2026-07-31T02:13:38.260Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":0}
+{"timestamp":"2026-07-31T02:13:38.562Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"refactor"}
+{"timestamp":"2026-07-31T02:13:38.890Z","type":"session:start","description":"feature: primeira feature","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"feature"}
+{"timestamp":"2026-07-31T02:13:39.121Z","type":"session:start","description":"chore: segunda chore","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:13:39.337Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:13:44.932Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:13:47.576Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:13:47.703Z","type":"pre-pr","description":"pre-pr FAIL","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":1}
+{"timestamp":"2026-07-31T02:14:04.763Z","type":"session:start","description":"docs: teste docs","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:14:05.152Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"bugfix"}
+{"timestamp":"2026-07-31T02:14:05.489Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"refactor"}
+{"timestamp":"2026-07-31T02:14:05.577Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":0}
+{"timestamp":"2026-07-31T02:14:05.815Z","type":"session:start","description":"feature: primeira feature","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"feature"}
+{"timestamp":"2026-07-31T02:14:06.116Z","type":"session:start","description":"chore: segunda chore","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:14:06.331Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:14:11.892Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:14:14.516Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:14:14.642Z","type":"pre-pr","description":"pre-pr FAIL","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":1}
+{"timestamp":"2026-07-31T02:14:31.147Z","type":"session:start","description":"docs: teste docs","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:14:31.556Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"bugfix"}
+{"timestamp":"2026-07-31T02:14:31.739Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":0}
+{"timestamp":"2026-07-31T02:14:31.976Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"refactor"}
+{"timestamp":"2026-07-31T02:14:32.285Z","type":"session:start","description":"feature: primeira feature","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"feature"}
+{"timestamp":"2026-07-31T02:14:32.595Z","type":"session:start","description":"chore: segunda chore","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:14:32.805Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:14:38.272Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:14:40.918Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:14:41.045Z","type":"pre-pr","description":"pre-pr FAIL","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":1}
+{"timestamp":"2026-07-31T02:15:00.842Z","type":"session:start","description":"docs: teste docs","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:15:01.148Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"bugfix"}
+{"timestamp":"2026-07-31T02:15:01.564Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"refactor"}
+{"timestamp":"2026-07-31T02:15:01.719Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":0}
+{"timestamp":"2026-07-31T02:15:01.931Z","type":"session:start","description":"feature: primeira feature","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"feature"}
+{"timestamp":"2026-07-31T02:15:02.262Z","type":"session:start","description":"chore: segunda chore","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:15:02.480Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:15:07.995Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T02:15:10.664Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T02:15:10.792Z","type":"pre-pr","description":"pre-pr FAIL","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":1}
+{"timestamp":"2026-07-31T10:26:33.736Z","type":"session:start","description":"docs: teste docs","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T10:26:34.104Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"bugfix"}
+{"timestamp":"2026-07-31T10:26:34.253Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":0}
+{"timestamp":"2026-07-31T10:26:34.489Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"refactor"}
+{"timestamp":"2026-07-31T10:26:34.826Z","type":"session:start","description":"feature: primeira feature","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"feature"}
+{"timestamp":"2026-07-31T10:26:35.139Z","type":"session:start","description":"chore: segunda chore","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T10:26:35.331Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T10:26:40.757Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T10:26:43.392Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T10:26:49.858Z","type":"session:start","description":"docs: teste docs","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T10:26:50.235Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"bugfix"}
+{"timestamp":"2026-07-31T10:26:50.410Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":0}
+{"timestamp":"2026-07-31T10:26:50.586Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"refactor"}
+{"timestamp":"2026-07-31T10:26:50.910Z","type":"session:start","description":"feature: primeira feature","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"feature"}
+{"timestamp":"2026-07-31T10:26:51.139Z","type":"session:start","description":"chore: segunda chore","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T10:26:51.357Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T10:26:56.714Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T10:26:59.377Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T10:27:07.418Z","type":"session:start","description":"docs: teste docs","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T10:27:07.795Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"bugfix"}
+{"timestamp":"2026-07-31T10:27:08.093Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"refactor"}
+{"timestamp":"2026-07-31T10:27:08.327Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":0}
+{"timestamp":"2026-07-31T10:27:08.499Z","type":"session:start","description":"feature: primeira feature","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"feature"}
+{"timestamp":"2026-07-31T10:27:08.832Z","type":"session:start","description":"chore: segunda chore","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T10:27:09.051Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T10:27:14.441Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T10:27:17.048Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T10:27:46.512Z","type":"session:start","description":"docs: teste docs","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T10:27:46.812Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"bugfix"}
+{"timestamp":"2026-07-31T10:27:47.107Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"refactor"}
+{"timestamp":"2026-07-31T10:27:47.457Z","type":"session:start","description":"feature: primeira feature","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"feature"}
+{"timestamp":"2026-07-31T10:27:47.499Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":0}
+{"timestamp":"2026-07-31T10:27:47.775Z","type":"session:start","description":"chore: segunda chore","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T10:27:48.038Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T10:27:53.528Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T10:27:56.150Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T10:28:11.754Z","type":"session:start","description":"docs: teste docs","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T10:28:12.129Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"bugfix"}
+{"timestamp":"2026-07-31T10:28:12.476Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"refactor"}
+{"timestamp":"2026-07-31T10:28:12.808Z","type":"session:start","description":"feature: primeira feature","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"feature"}
+{"timestamp":"2026-07-31T10:28:12.851Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":0}
+{"timestamp":"2026-07-31T10:28:13.066Z","type":"session:start","description":"chore: segunda chore","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T10:28:13.399Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T10:28:18.938Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"chore"}
+{"timestamp":"2026-07-31T10:28:21.559Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","categoria":"docs"}
+{"timestamp":"2026-07-31T10:28:21.688Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"a6c5fe0","errors":0}
+{"timestamp":"2026-07-31T10:38:37.214Z","type":"session:start","description":"docs: teste docs","branch":"fix/form-drawer-mobile-ux","commit":"0800f2a","categoria":"docs"}
+{"timestamp":"2026-07-31T10:38:37.587Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/form-drawer-mobile-ux","commit":"0800f2a","categoria":"bugfix"}
+{"timestamp":"2026-07-31T10:38:37.931Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/form-drawer-mobile-ux","commit":"0800f2a","errors":0}
+{"timestamp":"2026-07-31T10:38:37.963Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/form-drawer-mobile-ux","commit":"0800f2a","categoria":"refactor"}
+{"timestamp":"2026-07-31T10:38:38.381Z","type":"session:start","description":"feature: primeira feature","branch":"fix/form-drawer-mobile-ux","commit":"0800f2a","categoria":"feature"}
+{"timestamp":"2026-07-31T10:38:38.645Z","type":"session:start","description":"chore: segunda chore","branch":"fix/form-drawer-mobile-ux","commit":"0800f2a","categoria":"chore"}
+{"timestamp":"2026-07-31T10:38:38.885Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"0800f2a","categoria":"docs"}
+{"timestamp":"2026-07-31T10:38:44.674Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"0800f2a","categoria":"chore"}
+{"timestamp":"2026-07-31T10:38:47.281Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"0800f2a","categoria":"docs"}

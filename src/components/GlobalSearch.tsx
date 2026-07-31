@@ -176,7 +176,7 @@ export function GlobalSearch() {
       </div>
 
       {isOpen && query.trim() && (
-        <div className="absolute top-full mt-2 w-full min-w-[300px] max-h-80 overflow-y-auto rounded-xl border bg-background shadow-lg z-50">
+        <div className="absolute right-0 top-full mt-2 w-[min(320px,calc(100vw-2rem))] max-h-80 overflow-y-auto rounded-xl border bg-background shadow-lg z-50">
           {results.length === 0 ? (
             <div className="p-4 text-sm text-muted-foreground text-center">
               Nenhum resultado para "{query}"

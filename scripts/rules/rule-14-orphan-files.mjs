@@ -105,6 +105,8 @@ for (const { rel } of allFiles) {
   // Skip known entry points and type defs
   if (rel === "main.tsx" || rel === "vite-env.d.ts") continue;
   if (rel.endsWith(".d.ts")) continue;
+  // Skip co-located tests (src/**/tests/*.test.ts(x)) — carregados pelo vitest via glob, não por import
+  if (rel.includes("/tests/") && (rel.endsWith(".test.ts") || rel.endsWith(".test.tsx"))) continue;
 
   const aliasPath = "@/" + rel.replace(/\.[^.]+$/, "");
   const referenced = isFileReferenced(rel, aliasPath, importIndex);

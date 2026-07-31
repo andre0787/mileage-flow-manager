@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { FormDrawer } from "@/components/FormDrawer";
 import {
   Select,
   SelectContent,
@@ -125,259 +125,251 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
 
   return (
     <>
-      <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent key={formKey} className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>{mode === "create" ? "Criar Nova Conta" : "Editar Conta"}</DialogTitle>
-          </DialogHeader>
+      <FormDrawer
+        open={open}
+        onOpenChange={onOpenChange}
+        title={mode === "create" ? "Criar Nova Conta" : "Editar Conta"}
+      >
+        <div key={formKey} className="grid gap-4 py-4">
+          <div className="space-y-2">
+            <Label htmlFor="acc-name">Nome da Conta</Label>
+            <Input
+              id="acc-name"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+                setErrors((p) => ({ ...p, name: "" }));
+              }}
+              placeholder="Ex: Conta Principal LATAM"
+            />
+            {errors.name && <p className="text-xs text-destructive">{errors.name}</p>}
+          </div>
 
-          <div className="grid gap-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="acc-name">Nome da Conta</Label>
-              <Input
-                id="acc-name"
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                  setErrors((p) => ({ ...p, name: "" }));
-                }}
-                placeholder="Ex: Conta Principal LATAM"
-              />
-              {errors.name && <p className="text-xs text-destructive">{errors.name}</p>}
-            </div>
-
-            <div className="space-y-2">
-              <Label>Programa</Label>
-              <div className="flex gap-2">
-                <div className="flex-1">
-                  <Select
-                    value={programId}
-                    onValueChange={(v) => {
-                      setProgramId(v);
-                      const program = programs.find((p) => p.id === v);
-                      if (program) setType(program.type);
-                      setErrors((p) => ({ ...p, programId: "" }));
-                    }}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selecione o programa" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {programs.map((p) => (
-                        <SelectItem key={p.id} value={p.id}>
-                          {p.name} ({p.type === "pontos" ? "Pontos" : "Milhas"})
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="min-h-[44px] min-w-[44px]"
-                  onClick={() => setProgramDialogOpen(true)}
-                  title="Novo programa"
+          <div className="space-y-2">
+            <Label>Programa</Label>
+            <div className="flex gap-2">
+              <div className="flex-1">
+                <Select
+                  value={programId}
+                  onValueChange={(v) => {
+                    setProgramId(v);
+                    const program = programs.find((p) => p.id === v);
+                    if (program) setType(program.type);
+                    setErrors((p) => ({ ...p, programId: "" }));
+                  }}
                 >
-                  <Plus className="h-4 w-4" />
-                </Button>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o programa" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {programs.map((p) => (
+                      <SelectItem key={p.id} value={p.id}>
+                        {p.name} ({p.type === "pontos" ? "Pontos" : "Milhas"})
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
-              {errors.programId && <p className="text-xs text-destructive">{errors.programId}</p>}
-            </div>
-
-            <div className="space-y-2">
-              <Label>Tipo de Conta</Label>
-              <Select value={type} onValueChange={(v) => setType(v as "pontos" | "milhas")}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="pontos">Pontos</SelectItem>
-                  <SelectItem value="milhas">Milhas</SelectItem>
-                </SelectContent>
-              </Select>
-              <p className="text-xs text-muted-foreground">
-                Preenchido automaticamente pelo programa. Pode ser alterado manualmente.
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <Label>Dono</Label>
-              <div className="flex gap-2">
-                <div className="flex-1">
-                  <Select
-                    value={ownerId}
-                    onValueChange={(v) => {
-                      setOwnerId(v);
-                      setErrors((p) => ({ ...p, ownerId: "" }));
-                    }}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selecione o dono" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {owners.map((o) => (
-                        <SelectItem key={o.id} value={o.id}>
-                          {o.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="min-h-[44px] min-w-[44px]"
-                  onClick={() => setOwnerDialogOpen(true)}
-                  title="Novo dono"
-                >
-                  <Plus className="h-4 w-4" />
-                </Button>
-              </div>
-              {errors.ownerId && <p className="text-xs text-destructive">{errors.ownerId}</p>}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="acc-balance">Saldo Inicial</Label>
-              <Input
-                id="acc-balance"
-                type="number"
-                min="0"
-                value={balance}
-                onChange={(e) => setBalance(Number(e.target.value))}
-              />
-              {errors.balance && <p className="text-xs text-destructive">{errors.balance}</p>}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="acc-cost">Custo/Milha (opcional)</Label>
-              <Input
-                id="acc-cost"
-                type="number"
-                min="0"
-                step="0.0001"
-                value={averageCostPerMile ?? ""}
-                onChange={(e) =>
-                  setAverageCostPerMile(e.target.value ? Number(e.target.value) : undefined)
-                }
-              />
-              {errors.averageCostPerMile && (
-                <p className="text-xs text-destructive">{errors.averageCostPerMile}</p>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="acc-invested">Valor Investido (opcional)</Label>
-              <Input
-                id="acc-invested"
-                type="number"
-                min="0"
-                value={totalInvested ?? ""}
-                onChange={(e) =>
-                  setTotalInvested(e.target.value ? Number(e.target.value) : undefined)
-                }
-              />
-              {errors.totalInvested && (
-                <p className="text-xs text-destructive">{errors.totalInvested}</p>
-              )}
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <Switch
-                id="acc-status"
-                checked={status === "ativa"}
-                onCheckedChange={(c) => setStatus(c ? "ativa" : "inativa")}
-              />
-              <Label htmlFor="acc-status">Conta Ativa</Label>
-            </div>
-          </div>
-
-          <div className="flex justify-end gap-2">
-            <Button variant="outline" onClick={() => onOpenChange(false)}>
-              Cancelar
-            </Button>
-            <Button onClick={handleSave}>{mode === "create" ? "Criar Conta" : "Salvar"}</Button>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={ownerDialogOpen} onOpenChange={setOwnerDialogOpen}>
-        <DialogContent className="sm:max-w-[350px]">
-          <DialogHeader>
-            <DialogTitle>Novo Dono</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="space-y-2">
-              <Label>Nome</Label>
-              <Input
-                value={newOwnerName}
-                onChange={(e) => setNewOwnerName(e.target.value)}
-                placeholder="Nome do dono"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label>CPF</Label>
-              <Input
-                value={newOwnerCpf}
-                onChange={(e) => setNewOwnerCpf(e.target.value)}
-                placeholder="000.000.000-00"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label>Telefone</Label>
-              <Input
-                value={newOwnerPhone}
-                onChange={(e) => setNewOwnerPhone(e.target.value)}
-                placeholder="(11) 99999-9999"
-              />
-            </div>
-          </div>
-          <div className="flex justify-end gap-2">
-            <Button variant="outline" onClick={() => setOwnerDialogOpen(false)}>
-              Cancelar
-            </Button>
-            <Button onClick={handleCreateOwner}>Salvar</Button>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={programDialogOpen} onOpenChange={setProgramDialogOpen}>
-        <DialogContent className="sm:max-w-[350px]">
-          <DialogHeader>
-            <DialogTitle>Novo Programa</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="space-y-2">
-              <Label>Nome</Label>
-              <Input
-                value={newProgramName}
-                onChange={(e) => setNewProgramName(e.target.value)}
-                placeholder="Nome do programa"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label>Tipo</Label>
-              <Select
-                value={newProgramType}
-                onValueChange={(v) => setNewProgramType(v as "pontos" | "milhas")}
+              <Button
+                variant="outline"
+                size="icon"
+                className="min-h-[44px] min-w-[44px]"
+                onClick={() => setProgramDialogOpen(true)}
+                title="Novo programa"
               >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="pontos">Pontos</SelectItem>
-                  <SelectItem value="milhas">Milhas</SelectItem>
-                </SelectContent>
-              </Select>
+                <Plus className="h-4 w-4" />
+              </Button>
             </div>
+            {errors.programId && <p className="text-xs text-destructive">{errors.programId}</p>}
           </div>
-          <div className="flex justify-end gap-2">
-            <Button variant="outline" onClick={() => setProgramDialogOpen(false)}>
-              Cancelar
-            </Button>
-            <Button onClick={handleCreateProgram}>Salvar</Button>
+
+          <div className="space-y-2">
+            <Label>Tipo de Conta</Label>
+            <Select value={type} onValueChange={(v) => setType(v as "pontos" | "milhas")}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="pontos">Pontos</SelectItem>
+                <SelectItem value="milhas">Milhas</SelectItem>
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">
+              Preenchido automaticamente pelo programa. Pode ser alterado manualmente.
+            </p>
           </div>
-        </DialogContent>
-      </Dialog>
+
+          <div className="space-y-2">
+            <Label>Dono</Label>
+            <div className="flex gap-2">
+              <div className="flex-1">
+                <Select
+                  value={ownerId}
+                  onValueChange={(v) => {
+                    setOwnerId(v);
+                    setErrors((p) => ({ ...p, ownerId: "" }));
+                  }}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o dono" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {owners.map((o) => (
+                      <SelectItem key={o.id} value={o.id}>
+                        {o.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <Button
+                variant="outline"
+                size="icon"
+                className="min-h-[44px] min-w-[44px]"
+                onClick={() => setOwnerDialogOpen(true)}
+                title="Novo dono"
+              >
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+            {errors.ownerId && <p className="text-xs text-destructive">{errors.ownerId}</p>}
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="acc-balance">Saldo Inicial</Label>
+            <Input
+              id="acc-balance"
+              type="number"
+              min="0"
+              value={balance}
+              onChange={(e) => setBalance(Number(e.target.value))}
+            />
+            {errors.balance && <p className="text-xs text-destructive">{errors.balance}</p>}
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="acc-cost">Custo/Milha (opcional)</Label>
+            <Input
+              id="acc-cost"
+              type="number"
+              min="0"
+              step="0.0001"
+              value={averageCostPerMile ?? ""}
+              onChange={(e) =>
+                setAverageCostPerMile(e.target.value ? Number(e.target.value) : undefined)
+              }
+            />
+            {errors.averageCostPerMile && (
+              <p className="text-xs text-destructive">{errors.averageCostPerMile}</p>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="acc-invested">Valor Investido (opcional)</Label>
+            <Input
+              id="acc-invested"
+              type="number"
+              min="0"
+              value={totalInvested ?? ""}
+              onChange={(e) =>
+                setTotalInvested(e.target.value ? Number(e.target.value) : undefined)
+              }
+            />
+            {errors.totalInvested && (
+              <p className="text-xs text-destructive">{errors.totalInvested}</p>
+            )}
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="acc-status"
+              checked={status === "ativa"}
+              onCheckedChange={(c) => setStatus(c ? "ativa" : "inativa")}
+            />
+            <Label htmlFor="acc-status">Conta Ativa</Label>
+          </div>
+        </div>
+
+        <div className="flex justify-end gap-2">
+          <Button variant="outline" onClick={() => onOpenChange(false)}>
+            Cancelar
+          </Button>
+          <Button onClick={handleSave}>{mode === "create" ? "Criar Conta" : "Salvar"}</Button>
+        </div>
+      </FormDrawer>
+
+      <FormDrawer open={ownerDialogOpen} onOpenChange={setOwnerDialogOpen} title="Novo Dono">
+        <div className="grid gap-4 py-4">
+          <div className="space-y-2">
+            <Label>Nome</Label>
+            <Input
+              value={newOwnerName}
+              onChange={(e) => setNewOwnerName(e.target.value)}
+              placeholder="Nome do dono"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>CPF</Label>
+            <Input
+              value={newOwnerCpf}
+              onChange={(e) => setNewOwnerCpf(e.target.value)}
+              placeholder="000.000.000-00"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Telefone</Label>
+            <Input
+              value={newOwnerPhone}
+              onChange={(e) => setNewOwnerPhone(e.target.value)}
+              placeholder="(11) 99999-9999"
+            />
+          </div>
+        </div>
+        <div className="flex justify-end gap-2">
+          <Button variant="outline" onClick={() => setOwnerDialogOpen(false)}>
+            Cancelar
+          </Button>
+          <Button onClick={handleCreateOwner}>Salvar</Button>
+        </div>
+      </FormDrawer>
+
+      <FormDrawer
+        open={programDialogOpen}
+        onOpenChange={setProgramDialogOpen}
+        title="Novo Programa"
+      >
+        <div className="grid gap-4 py-4">
+          <div className="space-y-2">
+            <Label>Nome</Label>
+            <Input
+              value={newProgramName}
+              onChange={(e) => setNewProgramName(e.target.value)}
+              placeholder="Nome do programa"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Tipo</Label>
+            <Select
+              value={newProgramType}
+              onValueChange={(v) => setNewProgramType(v as "pontos" | "milhas")}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="pontos">Pontos</SelectItem>
+                <SelectItem value="milhas">Milhas</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        <div className="flex justify-end gap-2">
+          <Button variant="outline" onClick={() => setProgramDialogOpen(false)}>
+            Cancelar
+          </Button>
+          <Button onClick={handleCreateProgram}>Salvar</Button>
+        </div>
+      </FormDrawer>
     </>
   );
 }
