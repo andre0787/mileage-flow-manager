@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => ({
     globals: true,
     environment: "jsdom",
     passWithNoTests: true,
-    include: ["tests/**/*.test.ts", "tests/**/*.test.tsx"],
+    include: ["tests/**/*.test.ts", "tests/**/*.test.tsx", "src/**/tests/**/*.test.ts", "src/**/tests/**/*.test.tsx"],
     setupFiles: ["tests/setup.ts"],
   },
   server: {
@@ -32,9 +32,15 @@ export default defineConfig(({ mode }) => ({
         name: 'MilesControl',
         short_name: 'MilesControl',
         description: 'Gestão de milhas aéreas e pontos',
+        start_url: '/',
+        display: 'standalone',
+        orientation: 'portrait',
+        background_color: '#0B1020',
         theme_color: '#5B72C4',
+        categories: ['finance', 'travel', 'productivity'],
         icons: [
           { src: '/icon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any monochrome' },
+          { src: '/icon-180.png', sizes: '180x180', type: 'image/png', purpose: 'any' },
         ],
       },
       workbox: {

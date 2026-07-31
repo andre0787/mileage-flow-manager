@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { FormDrawer } from "@/components/FormDrawer";
 import {
   Select,
   SelectContent,
@@ -125,13 +125,12 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
 
   return (
     <>
-      <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent key={formKey} className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>{mode === "create" ? "Criar Nova Conta" : "Editar Conta"}</DialogTitle>
-          </DialogHeader>
-
-          <div className="grid gap-4 py-4">
+      <FormDrawer
+        open={open}
+        onOpenChange={onOpenChange}
+        title={mode === "create" ? "Criar Nova Conta" : "Editar Conta"}
+      >
+        <div key={formKey} className="grid gap-4 py-4">
             <div className="space-y-2">
               <Label htmlFor="acc-name">Nome da Conta</Label>
               <Input
@@ -297,15 +296,14 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
             </Button>
             <Button onClick={handleSave}>{mode === "create" ? "Criar Conta" : "Salvar"}</Button>
           </div>
-        </DialogContent>
-      </Dialog>
+      </FormDrawer>
 
-      <Dialog open={ownerDialogOpen} onOpenChange={setOwnerDialogOpen}>
-        <DialogContent className="sm:max-w-[350px]">
-          <DialogHeader>
-            <DialogTitle>Novo Dono</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
+      <FormDrawer
+        open={ownerDialogOpen}
+        onOpenChange={setOwnerDialogOpen}
+        title="Novo Dono"
+      >
+        <div className="grid gap-4 py-4">
             <div className="space-y-2">
               <Label>Nome</Label>
               <Input
@@ -337,15 +335,14 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
             </Button>
             <Button onClick={handleCreateOwner}>Salvar</Button>
           </div>
-        </DialogContent>
-      </Dialog>
+      </FormDrawer>
 
-      <Dialog open={programDialogOpen} onOpenChange={setProgramDialogOpen}>
-        <DialogContent className="sm:max-w-[350px]">
-          <DialogHeader>
-            <DialogTitle>Novo Programa</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
+      <FormDrawer
+        open={programDialogOpen}
+        onOpenChange={setProgramDialogOpen}
+        title="Novo Programa"
+      >
+        <div className="grid gap-4 py-4">
             <div className="space-y-2">
               <Label>Nome</Label>
               <Input
@@ -376,8 +373,7 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
             </Button>
             <Button onClick={handleCreateProgram}>Salvar</Button>
           </div>
-        </DialogContent>
-      </Dialog>
+      </FormDrawer>
     </>
   );
 }

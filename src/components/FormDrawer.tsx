@@ -31,8 +31,8 @@ export function FormDrawer({ open, onOpenChange, title, description, children }:
         open={open}
         onOpenChange={onOpenChange}
         repositionInputs={false}
-        snapPoints={["100%"]}
         fixed
+        noBodyStyles
       >
         <DrawerContent className="top-0 mt-0 h-[100svh] max-h-[100dvh] rounded-t-none">
           <DrawerHeader className="shrink-0 text-left">

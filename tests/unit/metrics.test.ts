@@ -170,16 +170,19 @@ describe("computeDashboardMetrics", () => {
     { id: "a3", balance: 2000, totalInvested: 300, status: "inativa", ownerId: "o2" },
   ];
 
+// Data do mês passado com dia 1 — evita rollover do JS Date (ex: 31/07 - 1 mês = 31/06 → 01/07)
+const lastMonthDate = () => new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1);
+
   const sales = [
     { status: "concluida", date: new Date().toISOString(), saleValue: 800, profit: 200, milesUsed: 2000, accountId: "a1", passengers: [{ cpf: "111" }, { cpf: "222" }] },
     { status: "pendente", date: new Date().toISOString(), saleValue: 500, profit: 100, milesUsed: 1000, accountId: "a1", passengers: [{ cpf: "333" }] },
     { status: "cancelado", date: new Date().toISOString(), saleValue: 300, profit: 50, milesUsed: 500, accountId: "a2", passengers: [] },
-    { status: "concluida", saleValue: 400, profit: 80, milesUsed: 1000, accountId: "a1", passengers: [{ cpf: "444" }], date: new Date(new Date().setMonth(new Date().getMonth() - 1)).toISOString() },
+    { status: "concluida", saleValue: 400, profit: 80, milesUsed: 1000, accountId: "a1", passengers: [{ cpf: "444" }], date: lastMonthDate().toISOString() },
   ];
 
   const entries = [
     { date: new Date().toISOString(), amount: 5000, entryStatus: "confirmado" },
-    { date: new Date(new Date().setMonth(new Date().getMonth() - 1)).toISOString(), amount: 3000, entryStatus: "confirmado" },
+    { date: lastMonthDate().toISOString(), amount: 3000, entryStatus: "confirmado" },
     { date: new Date().toISOString(), amount: 1000, entryStatus: "aguardando" },
   ];
 
