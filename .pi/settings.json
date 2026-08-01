@@ -3,14 +3,11 @@
   "sessionDir": ".pi/sessions",
   "quietStartup": true,
   "skills": [
-    "~/.config/opencode/skills",
     ".pi/skills"
   ],
   "compaction": {
     "reserveTokens": 20480,
     "keepRecentTokens": 24000
   },
-  "packages": [
-    "git:github.com/obra/superpowers"
-  ]
+  "packages": []
 }
