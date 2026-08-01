@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "aliases": {
+    "deepseek-current": "deepseek-v4-flash-free"
+  },
+  "profiles": {
+    "strong-reasoning": { "primary": "deepseek-current", "fallbacks": [] },
+    "coding": { "primary": "deepseek-current", "fallbacks": [] },
+    "efficient": { "primary": "deepseek-current", "fallbacks": [] },
+    "independent-review": { "primary": "deepseek-current", "fallbacks": [] }
+  },
+  "categoryDefaults": {
+    "feature": "coding",
+    "bugfix": "strong-reasoning",
+    "docs": "efficient",
+    "refactor": "coding",
+    "chore": "efficient"
+  },
+  "globalDefault": "efficient",
+  "routes": [
+    { "category": "feature", "capability": "review", "profile": "independent-review" },
+    { "category": "bugfix", "capability": "debugging", "profile": "strong-reasoning" },
+    { "category": "refactor", "capability": "implementation", "profile": "coding" },
+    { "category": "docs", "capability": "documentation", "profile": "efficient" }
+  ]
+}
