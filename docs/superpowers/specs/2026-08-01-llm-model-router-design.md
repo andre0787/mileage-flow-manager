@@ -43,6 +43,7 @@ O objetivo é tornar explícito e reproduzível:
 - Alterações no schema do Supabase ou na interface do MilesControl.
 - Armazenar chaves, tokens ou credenciais no repositório.
 - A/B testing ou ajuste automático de rotas sem métricas de base.
+- Captura de browser e análise multimodal no MVP.
 
 ## 5. Arquitetura
 
@@ -74,7 +75,7 @@ O contexto normalizado deve conter, no mínimo:
 TaskContext {
   taskId: string
   category: feature | bugfix | docs | refactor | chore
-  capability?: analysis | planning | implementation | debugging | testing | review | documentation
+  capability?: analysis | planning | implementation | debugging | testing | review | documentation | visual-inspection
   phase?: string
   modelProfileOverride?: string
   retrySafety: read-only | may-write
@@ -90,7 +91,7 @@ O task-card não deve precisar conhecer IDs concretos de providers. Um override 
 
 A configuração proposta fica em `config/llm-router.json`. Ela terá quatro blocos:
 
-- **`profiles`:** perfis legíveis (`strong-reasoning`, `coding`, `efficient`, `independent-review`) com modelo principal e candidatos de fallback;
+- **`profiles`:** perfis legíveis (`strong-reasoning`, `coding`, `efficient`, `independent-review`, `vision-observer`) com modelo principal e candidatos de fallback;
 - **`categoryDefaults`:** perfil padrão para cada categoria;
 - **`routes`:** regras opcionais de `category + capability`;
 - **`version`:** versão do contrato de configuração.
@@ -175,7 +176,38 @@ A implementação só será considerada pronta quando:
 6. todas as decisões e resultados relevantes forem auditáveis;
 7. os testes do router e o `pre-pr` passarem.
 
-## 12. Evolução futura
+## 12. Extensão futura: observação multimodal
+
+Quando uma tarefa exigir validação visual, o router poderá usar a capacidade `visual-inspection` e o perfil `vision-observer`, sem trocar o modelo do orquestrador nem enviar imagens a um modelo que não suporte visão.
+
+### Fluxo recomendado
+
+```text
+Agente de código solicita evidência visual
+  → runtime/browser acessa o servidor local
+  → Playwright captura screenshot e metadados determinísticos
+  → modelo multimodal analisa a evidência
+  → observação estruturada retorna ao agente de código
+  → agente continua ou corrige a implementação
+```
+
+A captura deve pertencer ao runtime controlado do workflow, não depender de o provider “descobrir” o `localhost` sozinho. O modelo multimodal recebe a imagem, URL, viewport, passos executados e contexto mínimo da tarefa; não precisa editar código.
+
+O resultado deve ser um artefato textual estruturado contendo:
+
+- URL, viewport e ambiente;
+- passos executados;
+- comportamento esperado e observado;
+- divergências visuais;
+- erros relevantes de console/rede quando disponíveis;
+- referências às screenshots;
+- nível de confiança e limitações da observação.
+
+A chamada visual só deve ocorrer quando o critério de aceite exigir evidência visual. Se o runtime, a sessão ou o modelo multimodal estiver indisponível, o workflow deve registrar “validação visual não executada” e parar ou solicitar validação humana; nunca declarar a validação como aprovada.
+
+Pré-requisitos para essa fase são: browser runner com acesso ao servidor local, readiness check, autenticação/fixtures controlados, armazenamento seguro dos artefatos, redaction de dados sensíveis e limite de tempo/custo. A integração deve permanecer agnóstica ao provider; Gemini é uma opção de implementação, não um contrato do router.
+
+## 13. Evolução futura
 
 A primeira versão deve deixar interfaces para, mas não implementar ainda:
 
@@ -189,7 +221,7 @@ A primeira versão deve deixar interfaces para, mas não implementar ainda:
 
 Essas evoluções exigem métricas do MVP e não devem ser antecipadas por abstrações sem consumidor.
 
-## 13. Sequência de implementação proposta
+## 14. Sequência de implementação proposta
 
 A implementação futura deve ser dividida em fatias revisáveis:
 

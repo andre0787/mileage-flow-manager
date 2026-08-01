@@ -64,6 +64,10 @@ Os testes devem cobrir precedência, aliases, configuração incompleta, fallbac
 - Logs devem registrar a decisão e o resultado, mas nunca prompts completos, tokens ou credenciais.
 - O MVP não deve introduzir troca de modelo do orquestrador, scoring dinâmico ou um segundo LLM para decidir a rota.
 
+## Addendum pós-revisão
+
+Após o council, foi identificada uma extensão útil para tarefas de validação de UI: um perfil multimodal dedicado pode analisar screenshots capturadas pelo runtime/browser e devolver evidência textual ao agente de código. A extensão foi registrada na spec como `visual-inspection`/`vision-observer`, mas permanece fora do MVP. A recomendação é controlar a captura com Playwright ou ferramenta equivalente e manter o provider multimodal intercambiável.
+
 ## Síntese do Chairman
 
 **Consenso:** a separação entre orquestrador fixo e executores roteados resolve o problema com menos risco que a troca de modelo da sessão. O roteamento deve ser híbrido na entrada, mas determinístico na resolução: metadados explícitos primeiro, categoria como default e inferência apenas como fallback.
