@@ -1,4 +1,3 @@
-{"timestamp": "2026-07-28T23:15:07.417Z", "type": "session:start", "description": "docs: verifica output", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "docs"}
 {"timestamp": "2026-07-28T23:15:07.541Z", "type": "pre-pr", "description": "pre-pr FAIL", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "errors": 3}
 {"timestamp": "2026-07-28T23:15:31.879Z", "type": "session:start", "description": "docs: teste docs", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "docs"}
 {"timestamp": "2026-07-28T23:15:32.216Z", "type": "session:start", "description": "bugfix: corrige bug", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "bugfix"}
@@ -998,3 +997,4 @@
 {"timestamp":"2026-08-01T13:26:09.586Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/add-pi-package-webui-project","commit":"a29e632","rule":"rule-10-clean"}
 {"timestamp":"2026-08-01T13:26:30.058Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/add-pi-package-webui-project","commit":"a29e632","errors":1}
 {"timestamp":"2026-08-01T13:28:48.941Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/add-pi-package-webui-project","commit":"a29e632","errors":0}
+{"timestamp":"2026-08-01T13:29:20.614Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/add-pi-package-webui-project","commit":"926b7be","errors":0}
