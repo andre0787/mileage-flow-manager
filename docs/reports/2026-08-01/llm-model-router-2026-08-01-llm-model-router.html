@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 llm model router</h1>
-  <p class="meta">2026-08-01 13:06 &middot; feat/llm-model-router &middot; 5550119 — feat: expor resolucao de rotas por cli</p>
+  <p class="meta">2026-08-01 13:08 &middot; feat/llm-model-router &middot; fe1bda2 — docs: integrar llm router ao workflow de subagentes</p>
   <p><span class="badge auto">auto</span> <span class="badge auto">llm-model-router</span> <span class="badge" style="background:#fee2e2;color:#991b1b">Alto Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">20</div>
+      <div style="font-size:1.5rem;font-weight:700">25</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+2391</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+2475</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-56</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-74</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1960</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~2084</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -81,12 +81,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 56 remoções — 2613 linhas tocadas</td>
-        <td>✨ 2391 adições — 20 arquivo(s) alterado(s)</td>
+        <td>🧹 74 remoções — 2779 linhas tocadas</td>
+        <td>✨ 2475 adições — 25 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"><span style="color:#166534;font-weight:600">➕</span> config/llm-router.json, config/llm-router.schema.json, docs/council/2026-08-01-llm-model-router-veredito.md<br><span style="color:#92400e;font-weight:600">✏️</span> docs/MAP.md, docs/RADAR.md<br><em>+15 arquivo(s)</em></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .pi/skills/small-model-execution/SKILL.md, .prompts-manifest.json, AGENTS.md<br><span style="color:#166534;font-weight:600">➕</span> config/llm-router.json, config/llm-router.schema.json<br><em>+20 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -99,34 +99,39 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>20</td></tr>
-    <tr><td>Adições</td><td>+2391</td></tr>
-    <tr><td>Remoções</td><td>-56</td></tr>
-    <tr><td>Tokens estimados</td><td>~1960</td></tr>
+    <tr><td>Arquivos alterados</td><td>25</td></tr>
+    <tr><td>Adições</td><td>+2475</td></tr>
+    <tr><td>Remoções</td><td>-74</td></tr>
+    <tr><td>Tokens estimados</td><td>~2084</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:91">+1793 add</div>
-        <div class="del" style="flex:2">-42 del</div>
-        <div class="overhead" style="flex:7">~125 ctx</div>
+        <div class="add" style="flex:89">+1856 add</div>
+        <div class="del" style="flex:3">-56 del</div>
+        <div class="overhead" style="flex:8">~172 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+1793</td><td>91%</td></tr>
-      <tr><td>Remoções</td><td>-42</td><td>2%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~125</td><td>7%</td></tr>
-      <tr><th>Total</th><th>~1960</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+1856</td><td>89%</td></tr>
+      <tr><td>Remoções</td><td>-56</td><td>3%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~172</td><td>8%</td></tr>
+      <tr><th>Total</th><th>~2084</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-    <tr><td>A</td><td>config/llm-router.json</td></tr>
+    <tr><td>M</td><td>.pi/skills/small-model-execution/SKILL.md</td></tr>
+<tr><td>M</td><td>.prompts-manifest.json</td></tr>
+<tr><td>M</td><td>AGENTS.md</td></tr>
+<tr><td>A</td><td>config/llm-router.json</td></tr>
 <tr><td>A</td><td>config/llm-router.schema.json</td></tr>
+<tr><td>A</td><td>docs/LLM-ROUTER.md</td></tr>
 <tr><td>M</td><td>docs/MAP.md</td></tr>
 <tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>M</td><td>docs/WORKFLOW.md</td></tr>
 <tr><td>A</td><td>docs/council/2026-08-01-llm-model-router-veredito.md</td></tr>
 <tr><td>M</td><td>docs/handoff.md</td></tr>
 <tr><td>A</td><td>docs/reports/2026-08-01/llm-model-router-2026-08-01-llm-model-router.html</td></tr>
@@ -149,7 +154,83 @@
 
   <h2>🔍 Diff</h2>
   <div class="diff">
-    diff --git a/config/llm-router.json b/config/llm-router.json
+    diff --git a/.pi/skills/small-model-execution/SKILL.md b/.pi/skills/small-model-execution/SKILL.md
+index 1838c98..df0b690 100644
+<span class="del">--- a/.pi/skills/small-model-execution/SKILL.md</span>
+<span class="add">+++ b/.pi/skills/small-model-execution/SKILL.md</span>
+@@ -21,8 +21,9 @@ Use quando receber um task-card (`P?-NN`) para executar.
+ ## Fluxo
+ 
+ ```
+<span class="del">-context:pack → ler card → task:state implementing → implementar</span>
+<span class="del">-→ task:validate → pre-pr → task:state verified → PR → task:state review</span>
+<span class="add">+context:pack → ler card → task:state implementing → resolver rota</span>
+<span class="add">+→ subagent_gate → implementar/registrar conclusão → task:validate</span>
+<span class="add">+→ pre-pr → task:state verified → PR → task:state review</span>
+ ```
+ 
+ ### Passo a passo
+@@ -31,12 +32,14 @@ context:pack → ler card → task:state implementing → implementar
+ 2. **Ler o card** — foco em `arquivos permitidos`, `critérios de aceite`,
+    `testes obrigatórios`, `evidência de pronto`
+ 3. **`npm run task:state &lt;ID&gt; implementing`** — registra início
+<span class="del">-4. **Implementar** — alterar apenas arquivos em `arquivos permitidos`</span>
+<span class="del">-5. **`npm run task:validate`** — valida todos os cards contra o schema</span>
+<span class="del">-6. **`npm run pre-pr`** — relatório + validações completas</span>
+<span class="del">-7. **`npm run task:state &lt;ID&gt; verified`** — registra verificação</span>
+<span class="del">-8. **Criar PR** — `gh pr create` ou `npm run pre-pr` gera relatório</span>
+<span class="del">-9. **`npm run task:state &lt;ID&gt; review`** — registra review</span>
+<span class="add">+4. **`npm run llm:route -- resolve --task &lt;ID&gt;`** — obtém `model`, `fallbackModels` e `retrySafety`; consulte [`docs/LLM-ROUTER.md`](../../../docs/LLM-ROUTER.md)</span>
+<span class="add">+5. **Chamar `subagent_gate`** com os três valores retornados; preserve `may-write` em tarefas com efeitos externos</span>
+<span class="add">+6. **Implementar e registrar conclusão** — alterar apenas arquivos em `arquivos permitidos` e registrar `llm.route.completed` sem prompt nem resposta integral</span>
+<span class="add">+7. **`npm run task:validate`** — valida todos os cards contra o schema</span>
+<span class="add">+8. **`npm run pre-pr`** — relatório + validações completas</span>
+<span class="add">+9. **`npm run task:state &lt;ID&gt; verified`** — registra verificação</span>
+<span class="add">+10. **Criar PR** — `gh pr create` ou `npm run pre-pr` gera relatório</span>
+<span class="add">+11. **`npm run task:state &lt;ID&gt; review`** — registra review</span>
+ 
+ ## Estados (WORKFLOW-MANIFEST.md §2)
+ 
+diff --git a/.prompts-manifest.json b/.prompts-manifest.json
+index f2ae4b8..e75b528 100644
+<span class="del">--- a/.prompts-manifest.json</span>
+<span class="add">+++ b/.prompts-manifest.json</span>
+@@ -1,15 +1,15 @@
+ {
+   "version": 1,
+<span class="del">-  "updatedAt": "2026-07-29T02:10:49.476Z",</span>
+<span class="add">+  "updatedAt": "2026-08-01T16:06:00.344Z",</span>
+   "prompts": {
+     ".pi/skills/council-to-superpowers/SKILL.md": "sha256-424faade51fe07225ad5e4958685daf4181be98cbb5d98d2a07ec8e9aecbb69a",
+     ".pi/skills/handoff/SKILL.md": "sha256-197d78747c41df7a0ef94eb66b19a3698a534a74884f4c367a86530d04aea6f5",
+     ".pi/skills/llm-council/SKILL.md": "sha256-07b77f34235dd9dddbc44d924793afceafd3b4c6a19637dc429cb083c753b722",
+<span class="del">-    ".pi/skills/small-model-execution/SKILL.md": "sha256-ae38282bdc7aaafc4ea05ab1cf698b22a76184304bd4fbe3418c992bf867acf1",</span>
+<span class="del">-    "AGENTS.md": "sha256-16548cc8aab4a76b430a08b11da0352b6c655c58e3b3096d0b5f26809c447767",</span>
+<span class="add">+    ".pi/skills/small-model-execution/SKILL.md": "sha256-08e7a6da64ef05169bd4f11767b510efb8f34cb4a86035659a2d9fdeffd1ba71",</span>
+<span class="add">+    "AGENTS.md": "sha256-4f46599e13b87a7db6470464104a95b193779a4c6722008447b027bd5b416006",</span>
+     "CLAUDE.md": "sha256-051e5599efd15f4e716edf63dcb3b1da2d23fdcd3728e80831e8adaabab68d87",
+     "docs/CONTEXT-MANAGEMENT.md": "sha256-199e22e9973cf5433626612bc40c2d6ac5d135f7c295a453cfb2e8650bab57cc",
+     "docs/WORKFLOW-MANIFEST.md": "sha256-dce7a1b1ba7696a30e7d08113b3f7d318361316f8a1593057fdc695bf9d71d7e",
+<span class="del">-    "docs/WORKFLOW.md": "sha256-6b81eeab6e62aa43354ec4603c05f1b2257be4da76e9c14d5b0904a0748bf180"</span>
+<span class="add">+    "docs/WORKFLOW.md": "sha256-1c832d42ad04b8d5f483ae1c99877994f127f330dbd60380ceb4cabaf8a0f8ae"</span>
+   }
+ }
+diff --git a/AGENTS.md b/AGENTS.md
+index 2af910f..ebdfdd5 100644
+<span class="del">--- a/AGENTS.md</span>
+<span class="add">+++ b/AGENTS.md</span>
+@@ -23,6 +23,10 @@
+ | `docs/CONTEXT-MANAGEMENT.md` | Estratégia de lazy loading | novo |
+ | `docs/fable-gates.md` | Gates INTENT, TWINS e AUTH do Fable Method | novo |
+ 
+<span class="add">+### Roteamento de subagentes</span>
+<span class="add">+</span>
+<span class="add">+Antes de cada `subagent_gate`, resolva a tarefa com `npm run llm:route`. Use exatamente `model`, `fallbackModels` e `retrySafety` retornados; não escolha modelo inline nem omita `model` em uma tarefa roteada. Registre conclusão somente com metadados sanitizados. Consulte [`docs/LLM-ROUTER.md`](docs/LLM-ROUTER.md) para o contrato operacional.</span>
+<span class="add">+</span>
+ ## 🔥 Regras Essenciais (7)
+ 
+ 1. **NUNCA direto na main** — branch obrigatória (`feat/`, `fix/`, `docs/`, `chore/`). Hook bloqueia.
+diff --git a/config/llm-router.json b/config/llm-router.json
 new file mode 100644
 index 0000000..af7776a
 <span class="del">--- /dev/null</span>
@@ -193,82 +274,6 @@ index 0000000..a3c565a
 <span class="add">+  "title": "LLM Router Config",</span>
 <span class="add">+  "type": "object",</span>
 <span class="add">+  "additionalProperties": false,</span>
-<span class="add">+  "required": ["version", "aliases", "profiles", "categoryDefaults", "globalDefault", "routes"],</span>
-<span class="add">+  "properties": {</span>
-<span class="add">+    "version": { "type": "integer", "const": 1 },</span>
-<span class="add">+    "aliases": {</span>
-<span class="add">+      "type": "object",</span>
-<span class="add">+      "minProperties": 1,</span>
-<span class="add">+      "additionalProperties": { "type": "string", "minLength": 1 }</span>
-<span class="add">+    },</span>
-<span class="add">+    "profiles": {</span>
-<span class="add">+      "type": "object",</span>
-<span class="add">+      "minProperties": 1,</span>
-<span class="add">+      "additionalProperties": {</span>
-<span class="add">+        "type": "object",</span>
-<span class="add">+        "additionalProperties": false,</span>
-<span class="add">+        "required": ["primary", "fallbacks"],</span>
-<span class="add">+        "properties": {</span>
-<span class="add">+          "primary": { "type": "string", "minLength": 1 },</span>
-<span class="add">+          "fallbacks": {</span>
-<span class="add">+            "type": "array",</span>
-<span class="add">+            "uniqueItems": true,</span>
-<span class="add">+            "items": { "type": "string", "minLength": 1 }</span>
-<span class="add">+          }</span>
-<span class="add">+        }</span>
-<span class="add">+      }</span>
-<span class="add">+    },</span>
-<span class="add">+    "categoryDefaults": {</span>
-<span class="add">+      "type": "object",</span>
-<span class="add">+      "additionalProperties": { "type": "string", "minLength": 1 }</span>
-<span class="add">+    },</span>
-<span class="add">+    "globalDefault": { "type": "string", "minLength": 1 },</span>
-<span class="add">+    "routes": {</span>
-<span class="add">+      "type": "array",</span>
-<span class="add">+      "items": {</span>
-<span class="add">+        "type": "object",</span>
-<span class="add">+        "additionalProperties": false,</span>
-<span class="add">+        "required": ["category", "capability", "profile"],</span>
-<span class="add">+        "properties": {</span>
-<span class="add">+          "category": { "type": "string" },</span>
-<span class="add">+          "capability": { "type": "string" },</span>
-<span class="add">+          "profile": { "type": "string", "minLength": 1 }</span>
-<span class="add">+        }</span>
-<span class="add">+      }</span>
-<span class="add">+    }</span>
-<span class="add">+  }</span>
-<span class="add">+}</span>
-diff --git a/docs/MAP.md b/docs/MAP.md
-index 248fab1..1f7c499 100644
-<span class="del">--- a/docs/MAP.md</span>
-<span class="add">+++ b/docs/MAP.md</span>
-@@ -47,9 +47,9 @@
- | `docs/memory.md` | Contexto de sessões anteriores | Histórico de decisões, sprints, post-mortems |
- | `docs/IDEIAS.md` | Caixa de entrada de ideias | Ideias humanas pendentes, lidas no início da sessão |
- | `docs/FLUXO.md` | Diagramas do ecossistema | Flowcharts Mermaid: visão geral, fluxo de dados, rotas |
-<span class="del">-| `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md` |</span>
-<span class="del">-| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md` |</span>
-<span class="del">-| `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md`, `2026-07-29-auth-ci-plan.md`, `2026-07-29-fable-method-skill-plan.md` |</span>
-<span class="add">+| `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md`, `2026-08-01-llm-model-router-veredito.md` |</span>
-<span class="add">+| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md`, `2026-08-01-llm-model-router-design.md` |</span>
-<span class="add">+| `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md`, `2026-07-29-auth-ci-plan.md`, `2026-07-29-fable-method-skill-plan.md`, `2026-08-01-llm-model-router-plan.md` |</span>
- | `docs/reports/` | Relatórios HTML | Relatórios obrigatórios antes de cada PR |
- | `.githooks/` | Git hooks | Pre-commit que bloqueia commits na main |
- | `.pi/skills/fable-method/SKILL.md` | Skill primária de desenvolvimento | Loop de 7 passos Fable Method adaptado ao MilesControl — costura categorias, gates, workflow e scripts |
-diff --git a/docs/RADAR.md b/docs/RADAR.md
-index 0aa159b..774a10a 100644
-<span class="del">--- a/docs/RADAR.md</span>
-<span class="add">+++ b/docs/RADAR.md</span>
-@@ -1,6 +1,6 @@
- # 🔭 Radar de Vulnerabilidades
- 
-<span class="del">-&gt; Atualizado em: 2026-08-01T13:58:47.997Z</span>
-<span class="add">+&gt; Atualizado em: 2026-08-01T14:51:00.639Z</span>
- 
- ## ⚠️  Vulnerabilidades Ativas (1 pacotes)
- 
-diff --git a/docs/council/2026-08-01-llm-model-router-veredito.md b/docs/council/2026-08-01-llm-model-router-veredito.md
-new file mode 100644
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
