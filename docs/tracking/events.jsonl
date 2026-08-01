@@ -1,7 +1,3 @@
-{"timestamp": "2026-07-28T23:14:18.273Z", "type": "session:start", "description": "bugfix: corrige bug", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "bugfix"}
-{"timestamp": "2026-07-28T23:14:18.511Z", "type": "pre-pr", "description": "pre-pr PASS", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "errors": 0}
-{"timestamp": "2026-07-28T23:14:18.515Z", "type": "session:start", "description": "refactor: refatora modulo", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "refactor"}
-{"timestamp": "2026-07-28T23:14:18.658Z", "type": "session:start", "description": "feature: primeira feature", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "feature"}
 {"timestamp": "2026-07-28T23:14:18.773Z", "type": "session:start", "description": "chore: segunda chore", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "chore"}
 {"timestamp": "2026-07-28T23:14:18.896Z", "type": "session:start", "description": "docs: continuacao", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "docs"}
 {"timestamp": "2026-07-28T23:14:24.192Z", "type": "session:start", "description": "chore: descrição concisa", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "chore"}
@@ -998,3 +994,7 @@
 {"timestamp":"2026-08-01T05:05:32.258Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/kpi-dados-reais","commit":"5e3833d","rule":"rule-10-clean"}
 {"timestamp":"2026-08-01T05:05:52.732Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-dados-reais","commit":"5e3833d","errors":1}
 {"timestamp":"2026-08-01T05:06:59.558Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-dados-reais","commit":"5e3833d","errors":0}
+{"timestamp":"2026-08-01T05:37:05.529Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-restore-remote","commit":"292eae3","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-01T05:37:30.864Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-restore-remote","commit":"292eae3","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-01T05:38:09.836Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-restore-remote","commit":"292eae3","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-01T05:38:36.261Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"docs/session-end-restore-remote","commit":"292eae3","rule":"rule-10-clean"}
