@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `fix/kpi-report-formato-plano`
-- **Último commit:** `aaeb6d9 — chore: tracking pre-pr final (0 errors)`
+- **Branch:** `main`
+- **Último commit:** `8cdad8a — Merge pull request #233 from andre0787/fix/kpi-report-formato-plano`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,15 +24,19 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** bugfix
-**Objetivo:** Subir fix/kpi-report-formato-plano até produção
-**Status:** in_progress
+**Categoria:** docs
+**Objetivo:** Encerra sessão — handoff atualizado
+**Status:** concluído
 **Iniciada em:** 2026-08-01T04:16:30.740Z
-**Branch:** `fix/kpi-report-formato-plano`
-**Último commit:** aaeb6d9 — chore: tracking pre-pr final (0 errors)
-**Docs carregados:** DEBUG.md, CONVENTIONS.md
+**Encerrada em:** 2026-08-01T04:26:00Z
+**Branch:** `docs/session-end-handoff`
+**Último commit:** 8cdad8a — Merge pull request #233 (produção)
+**Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
-Estado atualizado automaticamente.
+- **fix/kpi-report-formato-plano → PR #233 merged** — KPIs zerados no webapp corrigidos (kpi-report lia formato aninhado, event-log grava plano; isPrePrPass/isPrePrFail compatíveis)
+- Deploy produção: success (2m12s) + e2e-smoke-prod passou
+- Skills materializadas em .pi/skills (sem symlinks quebrados); prévia: PR #234 (chore superpowers) também merged e em produção
+- Sessão encerrada conforme pedido do usuário: "pode subir tudo em producao, so pare quando estiver na prod e encerre a sessao"
 ## 📌 Próxima Sessão
 Continue a tarefa ativa ou selecione o próximo task-card.
 ## 🧠 Notas da Sessão Atual
