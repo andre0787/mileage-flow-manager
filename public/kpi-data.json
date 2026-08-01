@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-01T13:59:26.064Z",
+  "generatedAt": "2026-08-01T14:52:39.728Z",
   "months": [
     {
       "month": "2026-03",
@@ -75,9 +75,9 @@
     },
     {
       "month": "2026-07",
-      "prePrPassRate": 68.5,
-      "prePrTotal": 108,
-      "prePrPass": 74,
+      "prePrPassRate": 68.2,
+      "prePrTotal": 107,
+      "prePrPass": 73,
       "prePrFail": 34,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -93,9 +93,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 61.3,
-      "prePrTotal": 62,
-      "prePrPass": 38,
+      "prePrPassRate": 61.9,
+      "prePrTotal": 63,
+      "prePrPass": 39,
       "prePrFail": 24,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -104,7 +104,7 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 92.2,
+      "avgOutcomeGrade": 93.1,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -112,15 +112,15 @@
         },
         {
           "rule": "rule-26-session-started",
-          "count": 6
+          "count": 7
         },
         {
           "rule": "rule-27-council-veredict",
-          "count": 2
+          "count": 3
         }
       ],
       "avgCycleTimeHours": 0,
-      "branchesMerged": 7
+      "branchesMerged": 8
     }
   ],
   "currentMonth": "2026-08"

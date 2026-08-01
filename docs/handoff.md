@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `2c2674c` — Merge pull request #244 from andre0787/docs/session-end-close-package-webui
+- **Branch:** `feat/llm-model-router`
+- **Último commit:** `152b82a — Merge pull request #245 from andre0787/docs/session-close-notes`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,13 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** docs
-**Objetivo:** session-end do chore package-webui (PR #241) + handoff
-**Status:** done
-**Iniciada em:** 2026-08-01T13:58:48.004Z
-**Branch:** `docs/session-end-package-webui`
-**Último commit:** 4be7b77 — docs: update handoff
-**Docs carregados:** AGENTS.md
+**Categoria:** feature
+**Objetivo:** definir router declarativo de modelos LLM
+**Status:** in_progress
+**Iniciada em:** 2026-08-01T14:51:00.646Z
+**Branch:** `feat/llm-model-router`
+**Último commit:** 152b82a — Merge pull request #245 from andre0787/docs/session-close-notes
+**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
