@@ -142,23 +142,27 @@ export function parseReportsForMonth(monthLabel) {
  */
 export function computeCycleTime(events) {
   const sessionEvents = events.filter(
-    (e) => e.type === "session" && e.data?.branch,
+    (e) =>
+      (e.type === "session" || e.type === "session:start") &&
+      (e.branch || e.data?.branch),
   );
   /** @type {Record<string, {start?: string, end?: string}>} */
   const branchMap = {};
 
   for (const ev of sessionEvents) {
-    const branch = ev.data.branch;
+    const branch = ev.branch ?? ev.data?.branch;
     if (!branchMap[branch]) branchMap[branch] = {};
     branchMap[branch].start = ev.timestamp;
   }
 
   const prePrPasses = events.filter(
     (e) =>
-      e.type === "pre-pr" && e.data?.result === "PASS" && e.data?.branch,
+      e.type === "pre-pr" &&
+      isPrePrPass(e) &&
+      (e.branch || e.data?.branch),
   );
   for (const ev of prePrPasses) {
-    const branch = ev.data.branch;
+    const branch = ev.branch ?? ev.data?.branch;
     if (branchMap[branch]) branchMap[branch].end = ev.timestamp;
   }
 
@@ -177,6 +181,32 @@ export function computeCycleTime(events) {
 // ─── Agregação Mensal ───────────────────────────────────────────────
 
 /**
+ * Verdadeiro se evento pre-pr representa PASS.
+ * Formato real do event-log (plano): description "pre-pr PASS" + errors 0.
+ * Compatível também com formato aninhado legado (data.result).
+ * @param {{description?: string, errors?: number, data?: {result?: string}}} e
+ */
+function isPrePrPass(e) {
+  return (
+    e.description?.includes("PASS") ||
+    e.errors === 0 ||
+    e.data?.result === "PASS"
+  );
+}
+
+/**
+ * Verdadeiro se evento pre-pr representa FAIL.
+ * @param {{description?: string, errors?: number, data?: {result?: string}}} e
+ */
+function isPrePrFail(e) {
+  return (
+    e.description?.includes("FAIL") ||
+    (e.errors ?? 0) > 0 ||
+    e.data?.result === "FAIL"
+  );
+}
+
+/**
  * Computa todos os KPIs para um mês.
  * @param {KPIEvent[]} events - Eventos filtrados do mês
  * @param {string} monthLabel - "YYYY-MM"
@@ -185,16 +215,16 @@ export function computeCycleTime(events) {
 export function computeMonthlyKPI(events, monthLabel) {
   const prePrs = events.filter((e) => e.type === "pre-pr");
   const total = prePrs.length;
-  const passes = prePrs.filter((e) => e.data?.result === "PASS").length;
-  const fails = prePrs.filter((e) => e.data?.result === "FAIL").length;
+  const passes = prePrs.filter(isPrePrPass).length;
+  const fails = prePrs.filter(isPrePrFail).length;
   const prePrPassRate =
     total > 0 ? Math.round((passes / total) * 1000) / 10 : 0;
 
   const gates = events.filter((e) => e.type === "gate");
   const gateActivations = {
-    intent: gates.filter((e) => e.data?.gate === "intent").length,
-    twins: gates.filter((e) => e.data?.gate === "twins").length,
-    auth: gates.filter((e) => e.data?.gate === "auth").length,
+    intent: gates.filter((e) => e.gate === "intent" || e.data?.gate === "intent").length,
+    twins: gates.filter((e) => e.gate === "twins" || e.data?.gate === "twins").length,
+    auth: gates.filter((e) => e.gate === "auth" || e.data?.gate === "auth").length,
   };
 
   const {
@@ -209,8 +239,8 @@ export function computeMonthlyKPI(events, monthLabel) {
   // Branches merged: unique branches com pre-pr PASS no mês
   const branchesMerged = new Set(
     prePrs
-      .filter((e) => e.data?.result === "PASS" && e.data?.branch)
-      .map((e) => e.data.branch),
+      .filter((e) => isPrePrPass(e) && (e.branch || e.data?.branch))
+      .map((e) => e.branch ?? e.data?.branch),
   ).size;
 
   return {
