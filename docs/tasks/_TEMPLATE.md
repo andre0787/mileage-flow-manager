@@ -10,6 +10,10 @@
 | `origem` | veredito 2026-07-17, item #N |
 | `dependeDe` | [P?-NN, ...] |
 | `feedbackRef` | opcional — issue #NN de feedback de usuário |
+| `capability` | opcional — capability do router |
+| `phase` | opcional — fase operacional |
+| `modelProfileOverride` | opcional — perfil/alias validado pelo router |
+| `retrySafety` | opcional — `read-only` ou `may-write` |
 
 ## Objetivo
 <uma frase observável>

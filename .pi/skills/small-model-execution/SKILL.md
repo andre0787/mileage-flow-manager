@@ -21,8 +21,9 @@ Use quando receber um task-card (`P?-NN`) para executar.
 ## Fluxo
 
 ```
-context:pack → ler card → task:state implementing → implementar
-→ task:validate → pre-pr → task:state verified → PR → task:state review
+context:pack → ler card → task:state implementing → resolver rota
+→ subagent_gate → implementar/registrar conclusão → task:validate
+→ pre-pr → task:state verified → PR → task:state review
 ```
 
 ### Passo a passo
@@ -31,12 +32,14 @@ context:pack → ler card → task:state implementing → implementar
 2. **Ler o card** — foco em `arquivos permitidos`, `critérios de aceite`,
    `testes obrigatórios`, `evidência de pronto`
 3. **`npm run task:state <ID> implementing`** — registra início
-4. **Implementar** — alterar apenas arquivos em `arquivos permitidos`
-5. **`npm run task:validate`** — valida todos os cards contra o schema
-6. **`npm run pre-pr`** — relatório + validações completas
-7. **`npm run task:state <ID> verified`** — registra verificação
-8. **Criar PR** — `gh pr create` ou `npm run pre-pr` gera relatório
-9. **`npm run task:state <ID> review`** — registra review
+4. **`npm run llm:route -- resolve --task <ID>`** — obtém `model`, `fallbackModels` e `retrySafety`; consulte [`docs/LLM-ROUTER.md`](../../../docs/LLM-ROUTER.md)
+5. **Chamar `subagent_gate`** com os três valores retornados; preserve `may-write` em tarefas com efeitos externos
+6. **Implementar e registrar conclusão** — alterar apenas arquivos em `arquivos permitidos` e registrar `llm.route.completed` sem prompt nem resposta integral
+7. **`npm run task:validate`** — valida todos os cards contra o schema
+8. **`npm run pre-pr`** — relatório + validações completas
+9. **`npm run task:state <ID> verified`** — registra verificação
+10. **Criar PR** — `gh pr create` ou `npm run pre-pr` gera relatório
+11. **`npm run task:state <ID> review`** — registra review
 
 ## Estados (WORKFLOW-MANIFEST.md §2)
 

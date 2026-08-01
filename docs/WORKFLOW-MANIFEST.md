@@ -80,6 +80,13 @@ branch de trabalho → PR → merge → main → deploy automático (Vercel)
 > ⚠️ **Drift resolvido:** `README.md` anteriormente citava `develop` como alvo.
 > A fonte da verdade é este manifesto: **alvo = `main`**.
 
+### Proteção de `main` no modo solo
+
+O PR continua obrigatório e os checks `check-pr` e `e2e-smoke` são required, com
+`strict: true` e `enforce_admins: true`. Como o repositório tem um único mantenedor,
+`required_pull_request_reviews` fica `null`; reviews externos são recomendados,
+mas não são uma dependência obrigatória do merge.
+
 ### Nomenclatura de PR
 
 ```

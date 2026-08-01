@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>llm-model-router — llm model router</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 llm model router</h1>
+  <p class="meta">2026-08-01 13:08 &middot; feat/llm-model-router &middot; fe1bda2 — docs: integrar llm router ao workflow de subagentes</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">llm-model-router</span> <span class="badge" style="background:#fee2e2;color:#991b1b">Alto Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">25</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+2475</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-74</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~2084</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🔷 Migração de banco aplicada?</li>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Auto-gerado pelo pre-pr-check</li>
+    </ul>
+
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Relatório gerado automaticamente como parte do workflow de validação pré-PR</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 74 remoções — 2779 linhas tocadas</td>
+        <td>✨ 2475 adições — 25 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .pi/skills/small-model-execution/SKILL.md, .prompts-manifest.json, AGENTS.md<br><span style="color:#166534;font-weight:600">➕</span> config/llm-router.json, config/llm-router.schema.json<br><em>+20 arquivo(s)</em></td>
+      </tr>
+
+      <tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>25</td></tr>
+    <tr><td>Adições</td><td>+2475</td></tr>
+    <tr><td>Remoções</td><td>-74</td></tr>
+    <tr><td>Tokens estimados</td><td>~2084</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:89">+1856 add</div>
+        <div class="del" style="flex:3">-56 del</div>
+        <div class="overhead" style="flex:8">~172 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+1856</td><td>89%</td></tr>
+      <tr><td>Remoções</td><td>-56</td><td>3%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~172</td><td>8%</td></tr>
+      <tr><th>Total</th><th>~2084</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>.pi/skills/small-model-execution/SKILL.md</td></tr>
+<tr><td>M</td><td>.prompts-manifest.json</td></tr>
+<tr><td>M</td><td>AGENTS.md</td></tr>
+<tr><td>A</td><td>config/llm-router.json</td></tr>
+<tr><td>A</td><td>config/llm-router.schema.json</td></tr>
+<tr><td>A</td><td>docs/LLM-ROUTER.md</td></tr>
+<tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>M</td><td>docs/WORKFLOW.md</td></tr>
+<tr><td>A</td><td>docs/council/2026-08-01-llm-model-router-veredito.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-01/llm-model-router-2026-08-01-llm-model-router.html</td></tr>
+<tr><td>A</td><td>docs/superpowers/plans/2026-08-01-llm-model-router-plan.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-08-01-llm-model-router-design.md</td></tr>
+<tr><td>M</td><td>docs/task-card.schema.json</td></tr>
+<tr><td>M</td><td>docs/tasks/_TEMPLATE.md</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>package.json</td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td></tr>
+<tr><td>M</td><td>scripts/event-log.mjs</td></tr>
+<tr><td>A</td><td>scripts/lib/llm-router.mjs</td></tr>
+<tr><td>A</td><td>scripts/llm-route.mjs</td></tr>
+<tr><td>A</td><td>tests/unit/llm-router.test.ts</td></tr>
+<tr><td>A</td><td>tests/unit/scripts-llm-route.test.ts</td></tr>
+  </table>
+
+
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/.pi/skills/small-model-execution/SKILL.md b/.pi/skills/small-model-execution/SKILL.md
+index 1838c98..df0b690 100644
+<span class="del">--- a/.pi/skills/small-model-execution/SKILL.md</span>
+<span class="add">+++ b/.pi/skills/small-model-execution/SKILL.md</span>
+@@ -21,8 +21,9 @@ Use quando receber um task-card (`P?-NN`) para executar.
+ ## Fluxo
+
+ ```
+<span class="del">-context:pack → ler card → task:state implementing → implementar</span>
+<span class="del">-→ task:validate → pre-pr → task:state verified → PR → task:state review</span>
+<span class="add">+context:pack → ler card → task:state implementing → resolver rota</span>
+<span class="add">+→ subagent_gate → implementar/registrar conclusão → task:validate</span>
+<span class="add">+→ pre-pr → task:state verified → PR → task:state review</span>
+ ```
+
+ ### Passo a passo
+@@ -31,12 +32,14 @@ context:pack → ler card → task:state implementing → implementar
+ 2. **Ler o card** — foco em `arquivos permitidos`, `critérios de aceite`,
+    `testes obrigatórios`, `evidência de pronto`
+ 3. **`npm run task:state &lt;ID&gt; implementing`** — registra início
+<span class="del">-4. **Implementar** — alterar apenas arquivos em `arquivos permitidos`</span>
+<span class="del">-5. **`npm run task:validate`** — valida todos os cards contra o schema</span>
+<span class="del">-6. **`npm run pre-pr`** — relatório + validações completas</span>
+<span class="del">-7. **`npm run task:state &lt;ID&gt; verified`** — registra verificação</span>
+<span class="del">-8. **Criar PR** — `gh pr create` ou `npm run pre-pr` gera relatório</span>
+<span class="del">-9. **`npm run task:state &lt;ID&gt; review`** — registra review</span>
+<span class="add">+4. **`npm run llm:route -- resolve --task &lt;ID&gt;`** — obtém `model`, `fallbackModels` e `retrySafety`; consulte [`docs/LLM-ROUTER.md`](../../../docs/LLM-ROUTER.md)</span>
+<span class="add">+5. **Chamar `subagent_gate`** com os três valores retornados; preserve `may-write` em tarefas com efeitos externos</span>
+<span class="add">+6. **Implementar e registrar conclusão** — alterar apenas arquivos em `arquivos permitidos` e registrar `llm.route.completed` sem prompt nem resposta integral</span>
+<span class="add">+7. **`npm run task:validate`** — valida todos os cards contra o schema</span>
+<span class="add">+8. **`npm run pre-pr`** — relatório + validações completas</span>
+<span class="add">+9. **`npm run task:state &lt;ID&gt; verified`** — registra verificação</span>
+<span class="add">+10. **Criar PR** — `gh pr create` ou `npm run pre-pr` gera relatório</span>
+<span class="add">+11. **`npm run task:state &lt;ID&gt; review`** — registra review</span>
+
+ ## Estados (WORKFLOW-MANIFEST.md §2)
+
+diff --git a/.prompts-manifest.json b/.prompts-manifest.json
+index f2ae4b8..e75b528 100644
+<span class="del">--- a/.prompts-manifest.json</span>
+<span class="add">+++ b/.prompts-manifest.json</span>
+@@ -1,15 +1,15 @@
+ {
+   "version": 1,
+<span class="del">-  "updatedAt": "2026-07-29T02:10:49.476Z",</span>
+<span class="add">+  "updatedAt": "2026-08-01T16:06:00.344Z",</span>
+   "prompts": {
+     ".pi/skills/council-to-superpowers/SKILL.md": "sha256-424faade51fe07225ad5e4958685daf4181be98cbb5d98d2a07ec8e9aecbb69a",
+     ".pi/skills/handoff/SKILL.md": "sha256-197d78747c41df7a0ef94eb66b19a3698a534a74884f4c367a86530d04aea6f5",
+     ".pi/skills/llm-council/SKILL.md": "sha256-07b77f34235dd9dddbc44d924793afceafd3b4c6a19637dc429cb083c753b722",
+<span class="del">-    ".pi/skills/small-model-execution/SKILL.md": "sha256-ae38282bdc7aaafc4ea05ab1cf698b22a76184304bd4fbe3418c992bf867acf1",</span>
+<span class="del">-    "AGENTS.md": "sha256-16548cc8aab4a76b430a08b11da0352b6c655c58e3b3096d0b5f26809c447767",</span>
+<span class="add">+    ".pi/skills/small-model-execution/SKILL.md": "sha256-08e7a6da64ef05169bd4f11767b510efb8f34cb4a86035659a2d9fdeffd1ba71",</span>
+<span class="add">+    "AGENTS.md": "sha256-4f46599e13b87a7db6470464104a95b193779a4c6722008447b027bd5b416006",</span>
+     "CLAUDE.md": "sha256-051e5599efd15f4e716edf63dcb3b1da2d23fdcd3728e80831e8adaabab68d87",
+     "docs/CONTEXT-MANAGEMENT.md": "sha256-199e22e9973cf5433626612bc40c2d6ac5d135f7c295a453cfb2e8650bab57cc",
+     "docs/WORKFLOW-MANIFEST.md": "sha256-dce7a1b1ba7696a30e7d08113b3f7d318361316f8a1593057fdc695bf9d71d7e",
+<span class="del">-    "docs/WORKFLOW.md": "sha256-6b81eeab6e62aa43354ec4603c05f1b2257be4da76e9c14d5b0904a0748bf180"</span>
+<span class="add">+    "docs/WORKFLOW.md": "sha256-1c832d42ad04b8d5f483ae1c99877994f127f330dbd60380ceb4cabaf8a0f8ae"</span>
+   }
+ }
+diff --git a/AGENTS.md b/AGENTS.md
+index 2af910f..ebdfdd5 100644
+<span class="del">--- a/AGENTS.md</span>
+<span class="add">+++ b/AGENTS.md</span>
+@@ -23,6 +23,10 @@
+ | `docs/CONTEXT-MANAGEMENT.md` | Estratégia de lazy loading | novo |
+ | `docs/fable-gates.md` | Gates INTENT, TWINS e AUTH do Fable Method | novo |
+
+<span class="add">+### Roteamento de subagentes</span>
+<span class="add">+</span>
+<span class="add">+Antes de cada `subagent_gate`, resolva a tarefa com `npm run llm:route`. Use exatamente `model`, `fallbackModels` e `retrySafety` retornados; não escolha modelo inline nem omita `model` em uma tarefa roteada. Registre conclusão somente com metadados sanitizados. Consulte [`docs/LLM-ROUTER.md`](docs/LLM-ROUTER.md) para o contrato operacional.</span>
+<span class="add">+</span>
+ ## 🔥 Regras Essenciais (7)
+
+ 1. **NUNCA direto na main** — branch obrigatória (`feat/`, `fix/`, `docs/`, `chore/`). Hook bloqueia.
+diff --git a/config/llm-router.json b/config/llm-router.json
+new file mode 100644
+index 0000000..af7776a
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/config/llm-router.json</span>
+@@ -0,0 +1,26 @@
+<span class="add">+{</span>
+<span class="add">+  "version": 1,</span>
+<span class="add">+  "aliases": {</span>
+<span class="add">+    "deepseek-current": "deepseek-v4-flash-free"</span>
+<span class="add">+  },</span>
+<span class="add">+  "profiles": {</span>
+<span class="add">+    "strong-reasoning": { "primary": "deepseek-current", "fallbacks": [] },</span>
+<span class="add">+    "coding": { "primary": "deepseek-current", "fallbacks": [] },</span>
+<span class="add">+    "efficient": { "primary": "deepseek-current", "fallbacks": [] },</span>
+<span class="add">+    "independent-review": { "primary": "deepseek-current", "fallbacks": [] }</span>
+<span class="add">+  },</span>
+<span class="add">+  "categoryDefaults": {</span>
+<span class="add">+    "feature": "coding",</span>
+<span class="add">+    "bugfix": "strong-reasoning",</span>
+<span class="add">+    "docs": "efficient",</span>
+<span class="add">+    "refactor": "coding",</span>
+<span class="add">+    "chore": "efficient"</span>
+<span class="add">+  },</span>
+<span class="add">+  "globalDefault": "efficient",</span>
+<span class="add">+  "routes": [</span>
+<span class="add">+    { "category": "feature", "capability": "review", "profile": "independent-review" },</span>
+<span class="add">+    { "category": "bugfix", "capability": "debugging", "profile": "strong-reasoning" },</span>
+<span class="add">+    { "category": "refactor", "capability": "implementation", "profile": "coding" },</span>
+<span class="add">+    { "category": "docs", "capability": "documentation", "profile": "efficient" }</span>
+<span class="add">+  ]</span>
+<span class="add">+}</span>
+diff --git a/config/llm-router.schema.json b/config/llm-router.schema.json
+new file mode 100644
+index 0000000..a3c565a
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/config/llm-router.schema.json</span>
+@@ -0,0 +1,51 @@
+<span class="add">+{</span>
+<span class="add">+  "$schema": "http://json-schema.org/draft-07/schema#",</span>
+<span class="add">+  "$id": "https://mileage-flow-manager.app/llm-router.schema.json",</span>
+<span class="add">+  "title": "LLM Router Config",</span>
+<span class="add">+  "type": "object",</span>
+<span class="add">+  "additionalProperties": false,</span>
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>

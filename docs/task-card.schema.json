@@ -62,6 +62,20 @@
     "testesObrigatorios": {
       "type": "string",
       "description": "Testes obrigatórios"
+    },
+    "capability": {
+      "type": "string",
+      "enum": ["analysis", "planning", "implementation", "debugging", "testing", "review", "documentation", "visual-inspection"]
+    },
+    "phase": {
+      "type": "string"
+    },
+    "modelProfileOverride": {
+      "type": "string"
+    },
+    "retrySafety": {
+      "type": "string",
+      "enum": ["read-only", "may-write"]
     }
   },
   "required": [

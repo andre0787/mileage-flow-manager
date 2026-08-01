@@ -23,6 +23,10 @@
 | `docs/CONTEXT-MANAGEMENT.md` | Estratégia de lazy loading | novo |
 | `docs/fable-gates.md` | Gates INTENT, TWINS e AUTH do Fable Method | novo |
 
+### Roteamento de subagentes
+
+Antes de cada `subagent_gate`, resolva a tarefa com `npm run llm:route`. Use exatamente `model`, `fallbackModels` e `retrySafety` retornados; não escolha modelo inline nem omita `model` em uma tarefa roteada. Registre conclusão somente com metadados sanitizados. Consulte [`docs/LLM-ROUTER.md`](docs/LLM-ROUTER.md) para o contrato operacional.
+
 ## 🔥 Regras Essenciais (7)
 
 1. **NUNCA direto na main** — branch obrigatória (`feat/`, `fix/`, `docs/`, `chore/`). Hook bloqueia.

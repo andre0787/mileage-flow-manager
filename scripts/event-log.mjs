@@ -47,6 +47,8 @@ const TIPOS_VALIDOS = [
   "pr:merge",
   "rule:fail",
   "gate",
+  "llm.route.resolved",
+  "llm.route.completed",
   "custom",
 ];
 
