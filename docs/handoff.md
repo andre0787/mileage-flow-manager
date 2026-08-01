@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `b535a2e` — Merge pull request #231 from andre0787/fix/form-drawer-mobile-ux
+- **Branch:** `chore/remove-superpowers-package`
+- **Último commit:** `23ebd8d — chore(pi): remove superpowers package e skill path global do settings`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -19,18 +19,18 @@ Nenhum PR aberto.
 |---------|-------|
 | Total testes | 291 |
 | Docs issues | 0 |
-| Branch | main |
+| Branch | fix/kpi-report-formato-plano |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** bugfix
-**Objetivo:** fix: drawer forms presos no mobile + auditoria UX (PWA, search, AccountDialog)
-**Status:** done
-**Iniciada em:** 2026-07-31T02:07:18.939Z
-**Branch:** `fix/form-drawer-mobile-ux`
-**Último commit:** a6c5fe0 — chore: add npm vulnerability radar + remove redundant superpowers git clone (#230)
-**Docs carregados:** DEBUG.md, CONVENTIONS.md
+**Categoria:** chore
+**Objetivo:** Remoção do package superpowers e materialização das skills em .pi/skills
+**Status:** in_progress
+**Iniciada em:** 2026-08-01T03:44:20.653Z
+**Branch:** `chore/remove-superpowers-package`
+**Último commit:** 23ebd8d — chore(pi): remove superpowers package e skill path global do settings
+**Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
