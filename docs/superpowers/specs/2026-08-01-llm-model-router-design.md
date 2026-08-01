@@ -89,14 +89,16 @@ O task-card não deve precisar conhecer IDs concretos de providers. Um override 
 
 ## 7. Configuração e resolução
 
-A configuração proposta fica em `config/llm-router.json`. Ela terá quatro blocos:
+A configuração proposta fica em `config/llm-router.json`. Ela terá seis blocos:
 
-- **`profiles`:** perfis legíveis (`strong-reasoning`, `coding`, `efficient`, `independent-review`, `vision-observer`) com modelo principal e candidatos de fallback;
+- **`aliases`:** nomes estáveis que apontam para IDs reais de modelos;
+- **`profiles`:** perfis legíveis (`strong-reasoning`, `coding`, `efficient`, `independent-review`, `vision-observer`) com `primary` e `fallbacks`, ambos referenciando aliases;
 - **`categoryDefaults`:** perfil padrão para cada categoria;
 - **`routes`:** regras opcionais de `category + capability`;
+- **`globalDefault`:** perfil usado quando não há default específico da categoria;
 - **`version`:** versão do contrato de configuração.
 
-IDs reais de modelos são dados de configuração, não regras de negócio. Credenciais continuam no mecanismo de autenticação do provider.
+IDs reais de modelos são dados de configuração, não regras de negócio. Credenciais continuam no mecanismo de autenticação do provider. A resolução expande aliases para devolver IDs concretos ao dispatcher.
 
 A precedência obrigatória é:
 
