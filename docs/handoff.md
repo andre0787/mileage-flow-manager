@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `docs/session-end-kpi-reais-v2`
-- **Último commit:** `292eae3` — Merge pull request #237 from andre0787/chore/restore-remote-webui
+- **Branch:** `chore/add-pi-package-webui-project`
+- **Último commit:** `8f69505 — Merge pull request #239 from andre0787/docs/session-end-restore-remote`
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -25,11 +25,11 @@ Nenhum PR aberto.
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
-**Objetivo:** Restaurar comando /remote — reinstall @firstpick/pi-package-remote-webui (global+projeto)
-**Status:** done
-**Iniciada em:** 2026-08-01T05:22:00.000Z
-**Branch:** `docs/session-end-restore-remote`
-**Último commit:** 292eae3 — Merge pull request #237 from andre0787/chore/restore-remote-webui
+**Objetivo:** adiciona @firstpick/pi-package-webui ao projeto para /remote funcionar
+**Status:** in_progress
+**Iniciada em:** 2026-08-01T13:24:20.105Z
+**Branch:** `chore/add-pi-package-webui-project`
+**Último commit:** 8f69505 — Merge pull request #239 from andre0787/docs/session-end-restore-remote
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 - **chore/restore-remote-webui → PR #237 merged** — comando `/remote` restaurado: reinstalado `@firstpick/pi-package-remote-webui` (global + projeto) + `pi-package-webui` (global), removidos por engano na limpeza do superpowers (01/08 00:36 — array packages global esvaziado + `rm -rf ~/.pi/agent/npm`)

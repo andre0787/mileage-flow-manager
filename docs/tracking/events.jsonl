@@ -1,16 +1,3 @@
-{"timestamp": "2026-07-28T23:14:18.773Z", "type": "session:start", "description": "chore: segunda chore", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "chore"}
-{"timestamp": "2026-07-28T23:14:18.896Z", "type": "session:start", "description": "docs: continuacao", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "docs"}
-{"timestamp": "2026-07-28T23:14:24.192Z", "type": "session:start", "description": "chore: descrição concisa", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "chore"}
-{"timestamp": "2026-07-28T23:14:27.015Z", "type": "session:start", "description": "docs: verifica output", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "docs"}
-{"timestamp": "2026-07-28T23:14:58.292Z", "type": "session:start", "description": "docs: teste docs", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "docs"}
-{"timestamp": "2026-07-28T23:14:58.557Z", "type": "session:start", "description": "bugfix: corrige bug", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "bugfix"}
-{"timestamp": "2026-07-28T23:14:58.695Z", "type": "pre-pr", "description": "pre-pr PASS", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "errors": 0}
-{"timestamp": "2026-07-28T23:14:58.828Z", "type": "session:start", "description": "refactor: refatora modulo", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "refactor"}
-{"timestamp": "2026-07-28T23:14:59.010Z", "type": "session:start", "description": "feature: primeira feature", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "feature"}
-{"timestamp": "2026-07-28T23:14:59.118Z", "type": "session:start", "description": "chore: segunda chore", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "chore"}
-{"timestamp": "2026-07-28T23:14:59.230Z", "type": "session:start", "description": "docs: continuacao", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "docs"}
-{"timestamp": "2026-07-28T23:15:04.766Z", "type": "session:start", "description": "chore: descrição concisa", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "chore"}
-{"timestamp": "2026-07-28T23:15:07.417Z", "type": "session:start", "description": "docs: verifica output", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "docs"}
 {"timestamp": "2026-07-28T23:15:07.541Z", "type": "pre-pr", "description": "pre-pr FAIL", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "errors": 3}
 {"timestamp": "2026-07-28T23:15:31.879Z", "type": "session:start", "description": "docs: teste docs", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "docs"}
 {"timestamp": "2026-07-28T23:15:32.216Z", "type": "session:start", "description": "bugfix: corrige bug", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "bugfix"}
@@ -998,3 +985,16 @@
 {"timestamp":"2026-08-01T05:37:30.864Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-restore-remote","commit":"292eae3","rule":"rule-26-session-started"}
 {"timestamp":"2026-08-01T05:38:09.836Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-restore-remote","commit":"292eae3","rule":"rule-26-session-started"}
 {"timestamp":"2026-08-01T05:38:36.261Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"docs/session-end-restore-remote","commit":"292eae3","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T13:24:20.126Z","type":"session:start","description":"chore: adiciona @firstpick/pi-package-webui ao projeto para /remote funcionar","branch":"chore/add-pi-package-webui-project","commit":"8f69505","categoria":"chore"}
+{"timestamp":"2026-08-01T13:24:25.243Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/add-pi-package-webui-project","commit":"a29e632","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T13:24:46.550Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/add-pi-package-webui-project","commit":"a29e632","errors":1}
+{"timestamp":"2026-08-01T13:24:50.123Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/add-pi-package-webui-project","commit":"a29e632","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T13:25:10.240Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/add-pi-package-webui-project","commit":"a29e632","errors":1}
+{"timestamp":"2026-08-01T13:25:13.252Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/add-pi-package-webui-project","commit":"a29e632","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T13:25:26.981Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/add-pi-package-webui-project","commit":"a29e632","errors":2}
+{"timestamp":"2026-08-01T13:25:29.878Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/add-pi-package-webui-project","commit":"a29e632","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T13:25:50.314Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/add-pi-package-webui-project","commit":"a29e632","errors":1}
+{"timestamp":"2026-08-01T13:26:09.586Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/add-pi-package-webui-project","commit":"a29e632","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T13:26:30.058Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/add-pi-package-webui-project","commit":"a29e632","errors":1}
+{"timestamp":"2026-08-01T13:28:48.941Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/add-pi-package-webui-project","commit":"a29e632","errors":0}
+{"timestamp":"2026-08-01T13:29:20.614Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/add-pi-package-webui-project","commit":"926b7be","errors":0}
