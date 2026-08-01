@@ -1,24 +1,6 @@
 {
-  "generatedAt": "2026-08-01T01:25:51.989Z",
+  "generatedAt": "2026-08-01T05:06:59.670Z",
   "months": [
-    {
-      "month": "2026-02",
-      "prePrPassRate": 0,
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "testCoverageLibs": null,
-      "testCoverageComponents": null,
-      "gateActivations": {
-        "intent": 0,
-        "twins": 0,
-        "auth": 0
-      },
-      "avgOutcomeGrade": null,
-      "topViolations": [],
-      "avgCycleTimeDays": null,
-      "branchesMerged": 0
-    },
     {
       "month": "2026-03",
       "prePrPassRate": 0,
@@ -34,7 +16,7 @@
       },
       "avgOutcomeGrade": null,
       "topViolations": [],
-      "avgCycleTimeDays": null,
+      "avgCycleTimeHours": null,
       "branchesMerged": 0
     },
     {
@@ -52,7 +34,7 @@
       },
       "avgOutcomeGrade": null,
       "topViolations": [],
-      "avgCycleTimeDays": null,
+      "avgCycleTimeHours": null,
       "branchesMerged": 0
     },
     {
@@ -70,7 +52,7 @@
       },
       "avgOutcomeGrade": null,
       "topViolations": [],
-      "avgCycleTimeDays": null,
+      "avgCycleTimeHours": null,
       "branchesMerged": 0
     },
     {
@@ -88,15 +70,15 @@
       },
       "avgOutcomeGrade": null,
       "topViolations": [],
-      "avgCycleTimeDays": null,
+      "avgCycleTimeHours": null,
       "branchesMerged": 0
     },
     {
       "month": "2026-07",
-      "prePrPassRate": 67.7,
-      "prePrTotal": 124,
-      "prePrPass": 84,
-      "prePrFail": 40,
+      "prePrPassRate": 68.5,
+      "prePrTotal": 111,
+      "prePrPass": 76,
+      "prePrFail": 35,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -106,9 +88,40 @@
       },
       "avgOutcomeGrade": null,
       "topViolations": [],
-      "avgCycleTimeDays": 0,
-      "branchesMerged": 8
+      "avgCycleTimeHours": null,
+      "branchesMerged": 7
+    },
+    {
+      "month": "2026-08",
+      "prePrPassRate": 66,
+      "prePrTotal": 53,
+      "prePrPass": 35,
+      "prePrFail": 18,
+      "testCoverageLibs": null,
+      "testCoverageComponents": null,
+      "gateActivations": {
+        "intent": 1,
+        "twins": 0,
+        "auth": 1
+      },
+      "avgOutcomeGrade": 80,
+      "topViolations": [
+        {
+          "rule": "rule-10-clean",
+          "count": 8
+        },
+        {
+          "rule": "rule-26-session-started",
+          "count": 2
+        },
+        {
+          "rule": "rule-27-council-veredict",
+          "count": 2
+        }
+      ],
+      "avgCycleTimeHours": 0,
+      "branchesMerged": 5
     }
   ],
-  "currentMonth": "2026-07"
+  "currentMonth": "2026-08"
 }

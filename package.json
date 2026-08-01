@@ -30,6 +30,7 @@
     "post-pr:nopush": "node scripts/post-pr.mjs --no-push",
     "outcome:grader": "node scripts/outcome-grader.mjs",
     "event:log": "node scripts/event-log.mjs",
+    "quality:log": "node scripts/quality-log.mjs",
     "outcome:checklist": "node scripts/outcome-grader.mjs --checklist",
     "session:tracking": "node scripts/session-tracking.mjs",
     "session:tracking:stats": "node scripts/session-tracking.mjs --stats",

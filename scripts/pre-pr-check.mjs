@@ -147,6 +147,14 @@ for (const file of ruleFiles) {
     errors++;
     if (e.stdout) process.stdout.write(e.stdout + "\n");
     if (e.stderr) process.stderr.write(e.stderr + "\n");
+    // Registra a violação como evento (fonte do KPI "Top Violações")
+    try {
+      const ruleName = file.replace(/\.mjs$/, "");
+      execSync(
+        `node scripts/event-log.mjs rule:fail "${ruleName} falhou" --meta '{"rule":"${ruleName}"}'`,
+        { cwd: ROOT, encoding: "utf8", timeout: 5000 },
+      );
+    } catch { /* não bloqueante */ }
   }
 }
 
@@ -196,3 +204,12 @@ try {
   const branch = execSync("git rev-parse --abbrev-ref HEAD", { cwd: ROOT, encoding: "utf8", timeout: 3000 }).trim();
   execSync(`node scripts/event-log.mjs pre-pr "pre-pr ${errors > 0 ? 'FAIL' : 'PASS'}" --meta '{"errors":${errors},"branch":"${branch}"}' 2>/dev/null || true`, { cwd: ROOT, encoding: 'utf8', timeout: 5000 });
 } catch { /* non-blocking */ }
+
+// Regenera KPIs — não bloqueante (mantém public/kpi-data.json fresco a cada pre-pr)
+// Pula em modo de teste (PRE_PR_ONLY_RULES / VITEST) para não sujar a working tree
+if (!process.env.PRE_PR_ONLY_RULES && !process.env.VITEST) {
+  try {
+    execSync("npm run kpi 2>/dev/null", { cwd: ROOT, encoding: "utf8", timeout: 15000 });
+    execSync("git add public/kpi-data.json docs/tracking/events.jsonl docs/tracking/quality.jsonl 2>/dev/null || true", { cwd: ROOT, timeout: 3000 });
+  } catch { /* non-blocking */ }
+}

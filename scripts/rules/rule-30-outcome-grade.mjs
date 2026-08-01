@@ -31,6 +31,15 @@ function main() {
     const scoreMatch = out.match(/Score:\s*(\d+)%/);
     const score = scoreMatch ? parseInt(scoreMatch[1], 10) : 100;
 
+    // Registrar métrica estruturada (fonte dos KPIs de qualidade)
+    try {
+      execSync(`node scripts/quality-log.mjs rule-30 '{"outcomeGrade":${score}}'`, {
+        cwd: ROOT,
+        encoding: "utf8",
+        timeout: 3000,
+      });
+    } catch { /* não bloqueante */ }
+
     // Contar resultados
     const passCount = (out.match(/✅/g) || []).length;
     const warnCount = (out.match(/⚠️/g) || []).length;

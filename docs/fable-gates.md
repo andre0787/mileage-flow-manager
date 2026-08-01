@@ -72,6 +72,23 @@ AUTH: usuário disse "<palavras exatas do usuário>
 | Systematic Debugging | 🔁 TWINS | Após corrigir bug: o mesmo padrão existe em outros lugares? |
 | Finishing a Branch | 🔐 AUTH | Antes de push/merge: o usuário explicitamente autorizou? |
 
+## 📡 Registro de ativações (observabilidade)
+
+Toda ativação de gate **deve ser registrada** para alimentar a aba "KPIs de Processo"
+(card "Ativação de Gates"). O log é estruturado e deduplicável por mês.
+
+```bash
+# ATENÇÃO: use node diretamente (npm run engole flags como --meta)
+node scripts/event-log.mjs gate "INTENT declarado" --meta '{"gate":"intent","target":"<arquivo/escopo>"}'
+node scripts/event-log.mjs gate "TWINS check executado" --meta '{"gate":"twins","target":"<padrão buscado>"}'
+node scripts/event-log.mjs gate "AUTH concedido" --meta '{"gate":"auth","target":"<ação irreversível>"}'
+```
+
+- `gate` é o **único** valor aceito pelo `event-log.mjs` para o tipo; o campo `gate` no meta
+  define qual gate (`intent` | `twins` | `auth`).
+- O pre-pr conta as ativações por mês via `scripts/kpi-report.mjs` → `public/kpi-data.json`.
+- Em ambiente de teste (vitest) o registro é ignorado automaticamente — nunca polui o histórico.
+
 ## Validação automatizada
 
 Uma rule pode ser adicionada em `scripts/rules/` para verificar:

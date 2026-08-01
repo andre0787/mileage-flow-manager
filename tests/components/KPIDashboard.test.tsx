@@ -17,7 +17,7 @@ const mockData = {
       gateActivations: { intent: 3, twins: 1, auth: 0 },
       avgOutcomeGrade: 92.5,
       topViolations: [{ rule: "rule-14", count: 2 }],
-      avgCycleTimeDays: 1.5,
+      avgCycleTimeHours: 1.5,
       branchesMerged: 4,
     },
     {
@@ -31,7 +31,7 @@ const mockData = {
       gateActivations: { intent: 2, twins: 0, auth: 0 },
       avgOutcomeGrade: 88.0,
       topViolations: [],
-      avgCycleTimeDays: 2.1,
+      avgCycleTimeHours: 2.1,
       branchesMerged: 5,
     },
   ],
@@ -66,7 +66,7 @@ describe("KPIDashboard", () => {
     const months = screen.getAllByText("2026-07");
     expect(months.length).toBeGreaterThanOrEqual(1);
     expect(screen.getAllByText("2026-06").length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByText("1.5")).toBeDefined();
-    expect(screen.getByText("2.1")).toBeDefined();
+    expect(screen.getByText("1.5h")).toBeDefined();
+    expect(screen.getByText("2.1h")).toBeDefined();
   });
 });

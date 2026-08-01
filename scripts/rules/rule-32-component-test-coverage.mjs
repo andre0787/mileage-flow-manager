@@ -144,6 +144,16 @@ function checkComponentCoverage() {
     `\n📊 Cobertura de testes (componentes+hooks): ${covered}/${total} (${total > 0 ? Math.round((covered / total) * 100) : 0}%)`
   );
 
+  // Registrar métrica estruturada (fonte dos KPIs de qualidade)
+  if (total > 0) {
+    try {
+      execSync(
+        `node scripts/quality-log.mjs rule-32 '{"covered":${covered},"total":${total},"pct":${Math.round((covered / total) * 100)}}'`,
+        { cwd: ROOT, encoding: "utf8", timeout: 3000 },
+      );
+    } catch { /* não bloqueante */ }
+  }
+
   if (total === 0) {
     console.log("ℹ️ Nenhum componente/hook customizado para verificar.");
     return { pass: true, errors: [] };
