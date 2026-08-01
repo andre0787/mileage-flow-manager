@@ -835,3 +835,94 @@
 {"timestamp":"2026-07-31T10:38:38.885Z","type":"session:start","description":"docs: continuacao","branch":"fix/form-drawer-mobile-ux","commit":"0800f2a","categoria":"docs"}
 {"timestamp":"2026-07-31T10:38:44.674Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/form-drawer-mobile-ux","commit":"0800f2a","categoria":"chore"}
 {"timestamp":"2026-07-31T10:38:47.281Z","type":"session:start","description":"docs: verifica output","branch":"fix/form-drawer-mobile-ux","commit":"0800f2a","categoria":"docs"}
+{"timestamp":"2026-08-01T03:41:06.262Z","type":"session:start","description":"docs: teste docs","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:41:06.587Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"bugfix"}
+{"timestamp":"2026-08-01T03:41:06.870Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"refactor"}
+{"timestamp":"2026-08-01T03:41:06.967Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":0}
+{"timestamp":"2026-08-01T03:42:33.828Z","type":"session:start","description":"docs: teste docs","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:42:34.131Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"bugfix"}
+{"timestamp":"2026-08-01T03:42:34.341Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":0}
+{"timestamp":"2026-08-01T03:42:34.476Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"refactor"}
+{"timestamp":"2026-08-01T03:42:34.777Z","type":"session:start","description":"feature: primeira feature","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"feature"}
+{"timestamp":"2026-08-01T03:42:35.052Z","type":"session:start","description":"chore: segunda chore","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:42:35.255Z","type":"session:start","description":"docs: continuacao","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:42:40.558Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:42:43.114Z","type":"session:start","description":"docs: verifica output","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:43:05.260Z","type":"session:start","description":"docs: teste docs","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:43:05.629Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"bugfix"}
+{"timestamp":"2026-08-01T03:43:05.821Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":0}
+{"timestamp":"2026-08-01T03:43:05.948Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"refactor"}
+{"timestamp":"2026-08-01T03:43:06.229Z","type":"session:start","description":"feature: primeira feature","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"feature"}
+{"timestamp":"2026-08-01T03:43:06.472Z","type":"session:start","description":"chore: segunda chore","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:43:06.675Z","type":"session:start","description":"docs: continuacao","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:43:11.921Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:43:14.491Z","type":"session:start","description":"docs: verifica output","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:43:28.741Z","type":"session:start","description":"docs: teste docs","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:43:29.027Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"bugfix"}
+{"timestamp":"2026-08-01T03:43:29.341Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"refactor"}
+{"timestamp":"2026-08-01T03:43:29.446Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":0}
+{"timestamp":"2026-08-01T03:43:29.636Z","type":"session:start","description":"feature: primeira feature","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"feature"}
+{"timestamp":"2026-08-01T03:43:29.957Z","type":"session:start","description":"chore: segunda chore","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:43:30.192Z","type":"session:start","description":"docs: continuacao","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:43:35.477Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:43:38.047Z","type":"session:start","description":"docs: verifica output","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:43:38.172Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":2}
+{"timestamp":"2026-08-01T03:44:20.677Z","type":"session:start","description":"chore: Remoção do package superpowers e materialização das skills em .pi/skills","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:44:34.729Z","type":"session:start","description":"docs: teste docs","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:44:35.070Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"bugfix"}
+{"timestamp":"2026-08-01T03:44:35.247Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":0}
+{"timestamp":"2026-08-01T03:44:35.430Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"refactor"}
+{"timestamp":"2026-08-01T03:44:35.710Z","type":"session:start","description":"feature: primeira feature","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"feature"}
+{"timestamp":"2026-08-01T03:44:35.959Z","type":"session:start","description":"chore: segunda chore","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:44:36.140Z","type":"session:start","description":"docs: continuacao","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:44:41.404Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:44:43.957Z","type":"session:start","description":"docs: verifica output","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:44:57.513Z","type":"session:start","description":"docs: teste docs","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:44:57.892Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"bugfix"}
+{"timestamp":"2026-08-01T03:44:58.149Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":0}
+{"timestamp":"2026-08-01T03:44:58.224Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"refactor"}
+{"timestamp":"2026-08-01T03:44:58.562Z","type":"session:start","description":"feature: primeira feature","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"feature"}
+{"timestamp":"2026-08-01T03:44:58.813Z","type":"session:start","description":"chore: segunda chore","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:44:58.981Z","type":"session:start","description":"docs: continuacao","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:45:04.228Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:45:06.778Z","type":"session:start","description":"docs: verifica output","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:45:06.899Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":1}
+{"timestamp":"2026-08-01T03:45:22.150Z","type":"session:start","description":"docs: teste docs","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:45:22.483Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"bugfix"}
+{"timestamp":"2026-08-01T03:45:22.783Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":0}
+{"timestamp":"2026-08-01T03:45:22.782Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"refactor"}
+{"timestamp":"2026-08-01T03:45:23.089Z","type":"session:start","description":"feature: primeira feature","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"feature"}
+{"timestamp":"2026-08-01T03:45:23.346Z","type":"session:start","description":"chore: segunda chore","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:45:23.596Z","type":"session:start","description":"docs: continuacao","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:45:28.916Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:45:31.463Z","type":"session:start","description":"docs: verifica output","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:45:31.585Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":1}
+{"timestamp":"2026-08-01T03:45:46.198Z","type":"session:start","description":"docs: teste docs","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:45:46.554Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"bugfix"}
+{"timestamp":"2026-08-01T03:45:46.808Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"refactor"}
+{"timestamp":"2026-08-01T03:45:47.006Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":0}
+{"timestamp":"2026-08-01T03:45:47.110Z","type":"session:start","description":"feature: primeira feature","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"feature"}
+{"timestamp":"2026-08-01T03:45:47.373Z","type":"session:start","description":"chore: segunda chore","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:45:47.588Z","type":"session:start","description":"docs: continuacao","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:45:52.910Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:45:55.469Z","type":"session:start","description":"docs: verifica output","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:45:55.589Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":1}
+{"timestamp":"2026-08-01T03:46:57.657Z","type":"session:start","description":"docs: teste docs","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:46:58.054Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"bugfix"}
+{"timestamp":"2026-08-01T03:46:58.152Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":0}
+{"timestamp":"2026-08-01T03:46:58.370Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"refactor"}
+{"timestamp":"2026-08-01T03:46:58.652Z","type":"session:start","description":"feature: primeira feature","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"feature"}
+{"timestamp":"2026-08-01T03:46:58.925Z","type":"session:start","description":"chore: segunda chore","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:46:59.121Z","type":"session:start","description":"docs: continuacao","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:47:04.393Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:47:06.961Z","type":"session:start","description":"docs: verifica output","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:47:07.081Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":0}
+{"timestamp":"2026-08-01T03:48:03.859Z","type":"session:start","description":"docs: teste docs","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:48:04.189Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"bugfix"}
+{"timestamp":"2026-08-01T03:48:04.509Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"refactor"}
+{"timestamp":"2026-08-01T03:48:04.576Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":0}
+{"timestamp":"2026-08-01T03:48:04.857Z","type":"session:start","description":"feature: primeira feature","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"feature"}
+{"timestamp":"2026-08-01T03:48:05.138Z","type":"session:start","description":"chore: segunda chore","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:48:05.366Z","type":"session:start","description":"docs: continuacao","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:48:10.644Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:48:13.213Z","type":"session:start","description":"docs: verifica output","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
