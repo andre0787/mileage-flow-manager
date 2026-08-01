@@ -36,31 +36,32 @@
 </head>
 <body>
   <h1>📋 llm model router</h1>
-  <p class="meta">2026-08-01 12:52 &middot; feat/llm-model-router &middot; 3012591 — docs: criar plano de implementacao do llm router</p>
-  <p><span class="badge auto">auto</span> <span class="badge auto">llm-model-router</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
+  <p class="meta">2026-08-01 12:58 &middot; feat/llm-model-router &middot; d63cec4 — feat: definir contrato declarativo do llm router</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">llm-model-router</span> <span class="badge" style="background:#fee2e2;color:#991b1b">Alto Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">10</div>
+      <div style="font-size:1.5rem;font-weight:700">14</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+1221</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+1324</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-42</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-48</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1027</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1128</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
 
   <h2>✅ Checklist de Revisão</h2>
     <ul>
+      <li>🔷 Migração de banco aplicada?</li>
       <li>🧪 Testes manuais realizados?</li>
       <li>📋 Regras de validação passam? (npm run pre-pr)</li>
     </ul>
@@ -80,12 +81,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 42 remoções — 1369 linhas tocadas</td>
-        <td>✨ 1221 adições — 10 arquivo(s) alterado(s)</td>
+        <td>🧹 48 remoções — 1504 linhas tocadas</td>
+        <td>✨ 1324 adições — 14 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/MAP.md, docs/RADAR.md, docs/handoff.md<br><span style="color:#166534;font-weight:600">➕</span> docs/council/2026-08-01-llm-model-router-veredito.md, docs/reports/2026-08-01/llm-model-router-2026-08-01-llm-model-router.html<br><em>+5 arquivo(s)</em></td>
+        <td colspan="2"><span style="color:#166534;font-weight:600">➕</span> config/llm-router.json, config/llm-router.schema.json, docs/council/2026-08-01-llm-model-router-veredito.md<br><span style="color:#92400e;font-weight:600">✏️</span> docs/MAP.md, docs/RADAR.md<br><em>+9 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,37 +99,41 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>10</td></tr>
-    <tr><td>Adições</td><td>+1221</td></tr>
-    <tr><td>Remoções</td><td>-42</td></tr>
-    <tr><td>Tokens estimados</td><td>~1027</td></tr>
+    <tr><td>Arquivos alterados</td><td>14</td></tr>
+    <tr><td>Adições</td><td>+1324</td></tr>
+    <tr><td>Remoções</td><td>-48</td></tr>
+    <tr><td>Tokens estimados</td><td>~1128</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:89">+916 add</div>
-        <div class="del" style="flex:3">-32 del</div>
-        <div class="overhead" style="flex:8">~79 ctx</div>
+        <div class="add" style="flex:88">+993 add</div>
+        <div class="del" style="flex:3">-36 del</div>
+        <div class="overhead" style="flex:9">~99 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+916</td><td>89%</td></tr>
-      <tr><td>Remoções</td><td>-32</td><td>3%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~79</td><td>8%</td></tr>
-      <tr><th>Total</th><th>~1027</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+993</td><td>88%</td></tr>
+      <tr><td>Remoções</td><td>-36</td><td>3%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~99</td><td>9%</td></tr>
+      <tr><th>Total</th><th>~1128</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-    <tr><td>M</td><td>docs/MAP.md</td></tr>
+    <tr><td>A</td><td>config/llm-router.json</td></tr>
+<tr><td>A</td><td>config/llm-router.schema.json</td></tr>
+<tr><td>M</td><td>docs/MAP.md</td></tr>
 <tr><td>M</td><td>docs/RADAR.md</td></tr>
 <tr><td>A</td><td>docs/council/2026-08-01-llm-model-router-veredito.md</td></tr>
 <tr><td>M</td><td>docs/handoff.md</td></tr>
 <tr><td>A</td><td>docs/reports/2026-08-01/llm-model-router-2026-08-01-llm-model-router.html</td></tr>
 <tr><td>A</td><td>docs/superpowers/plans/2026-08-01-llm-model-router-plan.md</td></tr>
 <tr><td>A</td><td>docs/superpowers/specs/2026-08-01-llm-model-router-design.md</td></tr>
+<tr><td>M</td><td>docs/task-card.schema.json</td></tr>
+<tr><td>M</td><td>docs/tasks/_TEMPLATE.md</td></tr>
 <tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
 <tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
 <tr><td>M</td><td>public/kpi-data.json</td></tr>
@@ -138,21 +143,112 @@
 
   <h2>🔍 Diff</h2>
   <div class="diff">
-    diff --git a/docs/MAP.md b/docs/MAP.md
-index 248fab1..f16c133 100644
+    diff --git a/config/llm-router.json b/config/llm-router.json
+new file mode 100644
+index 0000000..af7776a
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/config/llm-router.json</span>
+@@ -0,0 +1,26 @@
+<span class="add">+{</span>
+<span class="add">+  "version": 1,</span>
+<span class="add">+  "aliases": {</span>
+<span class="add">+    "deepseek-current": "deepseek-v4-flash-free"</span>
+<span class="add">+  },</span>
+<span class="add">+  "profiles": {</span>
+<span class="add">+    "strong-reasoning": { "primary": "deepseek-current", "fallbacks": [] },</span>
+<span class="add">+    "coding": { "primary": "deepseek-current", "fallbacks": [] },</span>
+<span class="add">+    "efficient": { "primary": "deepseek-current", "fallbacks": [] },</span>
+<span class="add">+    "independent-review": { "primary": "deepseek-current", "fallbacks": [] }</span>
+<span class="add">+  },</span>
+<span class="add">+  "categoryDefaults": {</span>
+<span class="add">+    "feature": "coding",</span>
+<span class="add">+    "bugfix": "strong-reasoning",</span>
+<span class="add">+    "docs": "efficient",</span>
+<span class="add">+    "refactor": "coding",</span>
+<span class="add">+    "chore": "efficient"</span>
+<span class="add">+  },</span>
+<span class="add">+  "globalDefault": "efficient",</span>
+<span class="add">+  "routes": [</span>
+<span class="add">+    { "category": "feature", "capability": "review", "profile": "independent-review" },</span>
+<span class="add">+    { "category": "bugfix", "capability": "debugging", "profile": "strong-reasoning" },</span>
+<span class="add">+    { "category": "refactor", "capability": "implementation", "profile": "coding" },</span>
+<span class="add">+    { "category": "docs", "capability": "documentation", "profile": "efficient" }</span>
+<span class="add">+  ]</span>
+<span class="add">+}</span>
+diff --git a/config/llm-router.schema.json b/config/llm-router.schema.json
+new file mode 100644
+index 0000000..a3c565a
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/config/llm-router.schema.json</span>
+@@ -0,0 +1,51 @@
+<span class="add">+{</span>
+<span class="add">+  "$schema": "http://json-schema.org/draft-07/schema#",</span>
+<span class="add">+  "$id": "https://mileage-flow-manager.app/llm-router.schema.json",</span>
+<span class="add">+  "title": "LLM Router Config",</span>
+<span class="add">+  "type": "object",</span>
+<span class="add">+  "additionalProperties": false,</span>
+<span class="add">+  "required": ["version", "aliases", "profiles", "categoryDefaults", "globalDefault", "routes"],</span>
+<span class="add">+  "properties": {</span>
+<span class="add">+    "version": { "type": "integer", "const": 1 },</span>
+<span class="add">+    "aliases": {</span>
+<span class="add">+      "type": "object",</span>
+<span class="add">+      "minProperties": 1,</span>
+<span class="add">+      "additionalProperties": { "type": "string", "minLength": 1 }</span>
+<span class="add">+    },</span>
+<span class="add">+    "profiles": {</span>
+<span class="add">+      "type": "object",</span>
+<span class="add">+      "minProperties": 1,</span>
+<span class="add">+      "additionalProperties": {</span>
+<span class="add">+        "type": "object",</span>
+<span class="add">+        "additionalProperties": false,</span>
+<span class="add">+        "required": ["primary", "fallbacks"],</span>
+<span class="add">+        "properties": {</span>
+<span class="add">+          "primary": { "type": "string", "minLength": 1 },</span>
+<span class="add">+          "fallbacks": {</span>
+<span class="add">+            "type": "array",</span>
+<span class="add">+            "uniqueItems": true,</span>
+<span class="add">+            "items": { "type": "string", "minLength": 1 }</span>
+<span class="add">+          }</span>
+<span class="add">+        }</span>
+<span class="add">+      }</span>
+<span class="add">+    },</span>
+<span class="add">+    "categoryDefaults": {</span>
+<span class="add">+      "type": "object",</span>
+<span class="add">+      "additionalProperties": { "type": "string", "minLength": 1 }</span>
+<span class="add">+    },</span>
+<span class="add">+    "globalDefault": { "type": "string", "minLength": 1 },</span>
+<span class="add">+    "routes": {</span>
+<span class="add">+      "type": "array",</span>
+<span class="add">+      "items": {</span>
+<span class="add">+        "type": "object",</span>
+<span class="add">+        "additionalProperties": false,</span>
+<span class="add">+        "required": ["category", "capability", "profile"],</span>
+<span class="add">+        "properties": {</span>
+<span class="add">+          "category": { "type": "string" },</span>
+<span class="add">+          "capability": { "type": "string" },</span>
+<span class="add">+          "profile": { "type": "string", "minLength": 1 }</span>
+<span class="add">+        }</span>
+<span class="add">+      }</span>
+<span class="add">+    }</span>
+<span class="add">+  }</span>
+<span class="add">+}</span>
+diff --git a/docs/MAP.md b/docs/MAP.md
+index 248fab1..1f7c499 100644
 <span class="del">--- a/docs/MAP.md</span>
 <span class="add">+++ b/docs/MAP.md</span>
-@@ -47,8 +47,8 @@
+@@ -47,9 +47,9 @@
  | `docs/memory.md` | Contexto de sessões anteriores | Histórico de decisões, sprints, post-mortems |
  | `docs/IDEIAS.md` | Caixa de entrada de ideias | Ideias humanas pendentes, lidas no início da sessão |
  | `docs/FLUXO.md` | Diagramas do ecossistema | Flowcharts Mermaid: visão geral, fluxo de dados, rotas |
 <span class="del">-| `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md` |</span>
 <span class="del">-| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md` |</span>
+<span class="del">-| `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md`, `2026-07-29-auth-ci-plan.md`, `2026-07-29-fable-method-skill-plan.md` |</span>
 <span class="add">+| `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md`, `2026-08-01-llm-model-router-veredito.md` |</span>
 <span class="add">+| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md`, `2026-08-01-llm-model-router-design.md` |</span>
- | `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md`, `2026-07-29-auth-ci-plan.md`, `2026-07-29-fable-method-skill-plan.md` |
+<span class="add">+| `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md`, `2026-07-29-auth-ci-plan.md`, `2026-07-29-fable-method-skill-plan.md`, `2026-08-01-llm-model-router-plan.md` |</span>
  | `docs/reports/` | Relatórios HTML | Relatórios obrigatórios antes de cada PR |
  | `.githooks/` | Git hooks | Pre-commit que bloqueia commits na main |
+ | `.pi/skills/fable-method/SKILL.md` | Skill primária de desenvolvimento | Loop de 7 passos Fable Method adaptado ao MilesControl — costura categorias, gates, workflow e scripts |
 diff --git a/docs/RADAR.md b/docs/RADAR.md
 index 0aa159b..774a10a 100644
 <span class="del">--- a/docs/RADAR.md</span>
@@ -167,97 +263,6 @@ index 0aa159b..774a10a 100644
  
 diff --git a/docs/council/2026-08-01-llm-model-router-veredito.md b/docs/council/2026-08-01-llm-model-router-veredito.md
 new file mode 100644
-index 0000000..ce0e5d3
-<span class="del">--- /dev/null</span>
-<span class="add">+++ b/docs/council/2026-08-01-llm-model-router-veredito.md</span>
-@@ -0,0 +1,79 @@
-<span class="add">+# Veredito do Council — Router declarativo de modelos LLM</span>
-<span class="add">+</span>
-<span class="add">+**Data:** 2026-08-01  </span>
-<span class="add">+**Escopo:** estratégia de roteamento de modelos para o workflow do MilesControl; nenhuma implementação nesta etapa.  </span>
-<span class="add">+**Pergunta:** devemos manter um orquestrador LLM fixo e selecionar automaticamente modelos diferentes para subagentes conforme a tarefa?</span>
-<span class="add">+</span>
-<span class="add">+## Contexto observado</span>
-<span class="add">+</span>
-<span class="add">+- O workflow já possui categorias `feature`, `bugfix`, `docs`, `refactor` e `chore`.</span>
-<span class="add">+- O `subagent_gate` aceita `model` e `fallbackModels` por tarefa.</span>
-<span class="add">+- Existe um skill para execução de task-cards por modelos menores.</span>
-<span class="add">+- O modelo do agente principal é definido no início da sessão; trocá-lo no meio do fluxo adicionaria perda de contexto e acoplamento ao harness.</span>
-<span class="add">+- A necessidade principal é equilibrar qualidade, custo e latência sem tornar o workflow não determinístico.</span>
-<span class="add">+</span>
-<span class="add">+&gt; **Nota operacional:** foram tentadas execuções do council via `subagent_gate` (quórum de cinco advisors e uma tentativa de diagnóstico), mas todas falharam em pré-lançamento porque o ambiente atual não expôs um responder do `pi-subagents`. As análises abaixo são a revisão estruturada desta sessão e não devem ser interpretadas como respostas independentes de subagentes.</span>
-<span class="add">+</span>
-<span class="add">+## Advisors</span>
-<span class="add">+</span>
-<span class="add">+## Advisor: The Contrarian</span>
-<span class="add">+</span>
-<span class="add">+**Análise:** Um router pode virar apenas mais uma camada de configuração que o agente precisa entender. Se a taxonomia de tarefas crescer sem controle, uma alteração simples passará por categoria, capacidade, alias, fallback e política de retry antes de executar. O risco maior não é escolher o modelo “errado”, mas o workflow deixar de ser legível e falhar silenciosamente para um modelo padrão.</span>
-<span class="add">+</span>
-<span class="add">+A primeira versão precisa ser fail-closed: aliases resolvidos, precedência única, fallback explícito e registro da decisão. O router não deve inferir um modelo novo, trocar o orquestrador ou repetir tarefas com efeitos colaterais. Sem esses limites, a economia de custo pode ser anulada por retrabalho e diagnósticos difíceis.</span>
-<span class="add">+</span>
-<span class="add">+**Veredito:** Reformule — faça apenas um router declarativo, pequeno e auditável.</span>
-<span class="add">+</span>
-<span class="add">+## Advisor: First Principles Thinker</span>
-<span class="add">+</span>
-<span class="add">+**Análise:** O problema mínimo é separar duas responsabilidades: o orquestrador preserva contexto e coordena; o executor recebe uma tarefa delimitada e precisa do modelo adequado. Não é necessário um sistema inteligente para resolver a rota. Um `TaskContext` normalizado, uma tabela de regras e uma cadeia de candidatos já resolvem a seleção de forma reproduzível.</span>
-<span class="add">+</span>
-<span class="add">+A categoria sozinha é ampla demais, e o prompt sozinho é instável demais. A fonte principal deve ser metadado explícito no task-card; a inferência do orquestrador serve somente para preencher uma capacidade ausente, retornando ao default da categoria quando houver incerteza. O critério de sucesso é a mesma entrada produzir a mesma decisão e a falha de uma rota não ser confundida com sucesso da tarefa.</span>
-<span class="add">+</span>
-<span class="add">+**Veredito:** Faça — com resolução determinística e contrato estruturado.</span>
-<span class="add">+</span>
-<span class="add">+## Advisor: The Expansionist</span>
-<span class="add">+</span>
-<span class="add">+**Análise:** A tabela inicial pode evoluir para um catálogo de capacidades sem exigir uma reescrita. Aliases desacoplam regras de IDs de providers, enquanto eventos de roteamento permitem medir qualidade, custo, latência, taxa de fallback e retrabalho por tipo de tarefa. Isso pode apoiar budgets, health checks, scoring e experimentos controlados no futuro.</span>
-<span class="add">+</span>
-<span class="add">+A expansão deve ser orientada por evidência. Primeiro registrar decisões e resultados; depois adicionar seleção por disponibilidade/capacidade; só então considerar um classificador dedicado ou feedback automático. O router não deve coletar prompts nem credenciais para obter métricas.</span>
-<span class="add">+</span>
-<span class="add">+**Veredito:** Faça em fases — MVP declarativo com pontos de extensão claros.</span>
-<span class="add">+</span>
-<span class="add">+## Advisor: The Outsider</span>
-<span class="add">+</span>
-<span class="add">+**Análise:** Um colaborador precisa conseguir responder três perguntas sem conhecer a implementação: qual tarefa está sendo executada, por que determinado modelo foi escolhido e o que acontece se ele estiver indisponível. A configuração deve estar versionada, os aliases devem ser legíveis e um override humano deve ser possível e rastreável.</span>
-<span class="add">+</span>
-<span class="add">+Também é importante não prometer “automático” quando a tarefa não traz metadados. O sistema deve indicar que usou o default ou a inferência, em vez de esconder a decisão. Configuração inválida, alias ausente e todos os fallbacks indisponíveis devem interromper a delegação com uma mensagem acionável.</span>
-<span class="add">+</span>
-<span class="add">+**Veredito:** Faça — desde que a decisão seja visível e os defaults sejam seguros.</span>
-<span class="add">+</span>
-<span class="add">+## Advisor: The Executor</span>
-<span class="add">+</span>
-<span class="add">+**Análise:** A implementação é viável sem dependência nova. Um resolver puro pode validar a configuração, aplicar a precedência `override → categoria/capacidade → categoria → global`, devolver modelo e fallbacks e ser integrado ao ponto que já chama `subagent_gate`. O orquestrador continua fixo; o dispatcher não decide política.</span>
-<span class="add">+</span>
-<span class="add">+Os testes devem cobrir precedência, aliases, configuração incompleta, fallback transitório e a diferença entre tarefas read-only e tarefas com efeitos colaterais. A primeira entrega pode incluir modo de previsão/log antes de ativar o roteamento automático, reduzindo o risco de bloquear o workflow.</span>
-<span class="add">+</span>
-<span class="add">+**Veredito:** Faça — em fatias pequenas, começando pelo contrato e pelos testes do resolver.</span>
-<span class="add">+</span>
-<span class="add">+## Peer review anônimo</span>
-<span class="add">+</span>
-<span class="add">+- A rota não pode depender apenas de classificação livre; o task-card deve ser a fonte de verdade quando existir.</span>
-<span class="add">+- Fallback não pode mascarar erro de configuração. Provider indisponível e alias inexistente são problemas diferentes.</span>
-<span class="add">+- `retrySafety=read-only` precisa ser preservado, pois repetir uma tarefa de escrita pode duplicar efeitos.</span>
-<span class="add">+- Logs devem registrar a decisão e o resultado, mas nunca prompts completos, tokens ou credenciais.</span>
-<span class="add">+- O MVP não deve introduzir troca de modelo do orquestrador, scoring dinâmico ou um segundo LLM para decidir a rota.</span>
-<span class="add">+</span>
-<span class="add">+## Addendum pós-revisão</span>
-<span class="add">+</span>
-<span class="add">+Após o council, foi identificada uma extensão útil para tarefas de validação de UI: um perfil multimodal dedicado pode analisar screenshots capturadas pelo runtime/browser e devolver evidência textual ao agente de código. A extensão foi registrada na spec como `visual-inspection`/`vision-observer`, mas permanece fora do MVP. A recomendação é controlar a captura com Playwright ou ferramenta equivalente e manter o provider multimodal intercambiável.</span>
-<span class="add">+</span>
-<span class="add">+## Síntese do Chairman</span>
-<span class="add">+</span>
-<span class="add">+**Consenso:** a separação entre orquestrador fixo e executores roteados resolve o problema com menos risco que a troca de modelo da sessão. O roteamento deve ser híbrido na entrada, mas determinístico na resolução: metadados explícitos primeiro, categoria como default e inferência apenas como fallback.</span>
-<span class="add">+</span>
-<span class="add">+**Veredito final:** **Faça em fases.** Comece com um router declarativo versionado, aliases de modelos, fallbacks explícitos, política de retry segura, auditoria e testes puros. Adie scoring dinâmico e meta-router LLM até haver métricas que justifiquem a complexidade.</span>
-<span class="add">+</span>
-<span class="add">+**Próximos passos:** aprovar a spec de design; depois criar um plano de implementação para contrato/configuração, resolver, integração com `subagent_gate`, observabilidade e testes.</span>
-<span class="add">+</span>
-<span class="add">+**Extended Thinking Usado:** não foi executado; a infraestrutura de subagentes falhou antes do lançamento.</span>
-diff --git a/docs/handoff.md b/docs/handoff.md
-index 587d055..e047b1c 100644
-<span class="del">--- a/docs/handoff.md</span>
-<span class="add">+++ b/docs/handoff.md</span>
-@@ -9,8 +9,8 @@
- ### 🐞 Bugs Abertos
- Consulte as GitHub Issues para a lista atual.
- ## 🧭 Estado Atual
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
