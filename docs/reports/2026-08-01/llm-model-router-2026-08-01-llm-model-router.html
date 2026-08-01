@@ -70,7 +70,7 @@
     <ul>
       <li>Auto-gerado pelo pre-pr-check</li>
     </ul>
-    
+
 
   <h2>🏢 Impacto no Negócio</h2>
        <div class="impact-box">Relatório gerado automaticamente como parte do workflow de validação pré-PR</div>
@@ -88,7 +88,7 @@
         <td><strong>Arquivos</strong></td>
         <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .pi/skills/small-model-execution/SKILL.md, .prompts-manifest.json, AGENTS.md<br><span style="color:#166534;font-weight:600">➕</span> config/llm-router.json, config/llm-router.schema.json<br><em>+20 arquivo(s)</em></td>
       </tr>
-      
+
       <tr>
         <td><strong>💡 Dica</strong></td>
         <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
@@ -150,7 +150,7 @@
 <tr><td>A</td><td>tests/unit/scripts-llm-route.test.ts</td></tr>
   </table>
 
-  
+
 
   <h2>🔍 Diff</h2>
   <div class="diff">
@@ -160,7 +160,7 @@ index 1838c98..df0b690 100644
 <span class="add">+++ b/.pi/skills/small-model-execution/SKILL.md</span>
 @@ -21,8 +21,9 @@ Use quando receber um task-card (`P?-NN`) para executar.
  ## Fluxo
- 
+
  ```
 <span class="del">-context:pack → ler card → task:state implementing → implementar</span>
 <span class="del">-→ task:validate → pre-pr → task:state verified → PR → task:state review</span>
@@ -168,7 +168,7 @@ index 1838c98..df0b690 100644
 <span class="add">+→ subagent_gate → implementar/registrar conclusão → task:validate</span>
 <span class="add">+→ pre-pr → task:state verified → PR → task:state review</span>
  ```
- 
+
  ### Passo a passo
 @@ -31,12 +32,14 @@ context:pack → ler card → task:state implementing → implementar
  2. **Ler o card** — foco em `arquivos permitidos`, `critérios de aceite`,
@@ -188,9 +188,9 @@ index 1838c98..df0b690 100644
 <span class="add">+9. **`npm run task:state &lt;ID&gt; verified`** — registra verificação</span>
 <span class="add">+10. **Criar PR** — `gh pr create` ou `npm run pre-pr` gera relatório</span>
 <span class="add">+11. **`npm run task:state &lt;ID&gt; review`** — registra review</span>
- 
+
  ## Estados (WORKFLOW-MANIFEST.md §2)
- 
+
 diff --git a/.prompts-manifest.json b/.prompts-manifest.json
 index f2ae4b8..e75b528 100644
 <span class="del">--- a/.prompts-manifest.json</span>
@@ -222,13 +222,13 @@ index 2af910f..ebdfdd5 100644
 @@ -23,6 +23,10 @@
  | `docs/CONTEXT-MANAGEMENT.md` | Estratégia de lazy loading | novo |
  | `docs/fable-gates.md` | Gates INTENT, TWINS e AUTH do Fable Method | novo |
- 
+
 <span class="add">+### Roteamento de subagentes</span>
 <span class="add">+</span>
 <span class="add">+Antes de cada `subagent_gate`, resolva a tarefa com `npm run llm:route`. Use exatamente `model`, `fallbackModels` e `retrySafety` retornados; não escolha modelo inline nem omita `model` em uma tarefa roteada. Registre conclusão somente com metadados sanitizados. Consulte [`docs/LLM-ROUTER.md`](docs/LLM-ROUTER.md) para o contrato operacional.</span>
 <span class="add">+</span>
  ## 🔥 Regras Essenciais (7)
- 
+
  1. **NUNCA direto na main** — branch obrigatória (`feat/`, `fix/`, `docs/`, `chore/`). Hook bloqueia.
 diff --git a/config/llm-router.json b/config/llm-router.json
 new file mode 100644
