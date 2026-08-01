@@ -1,5 +1,5 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-07-30
+> ⏰ Última atualização: 2026-08-01
 > Anterior: 2026-07-30
 ---
 ## 🏗️ Projeto
@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `fix/form-drawer-mobile-ux`
-- **Último commit:** `a6c5fe0 — chore: add npm vulnerability radar + remove redundant superpowers git clone (#230)`
+- **Branch:** `main`
+- **Último commit:** `b535a2e` — Merge pull request #231 from andre0787/fix/form-drawer-mobile-ux
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -21,20 +21,16 @@ Nenhum PR aberto.
 | Docs issues | 0 |
 | Branch | main |
 
-
+---
+_Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** bugfix
 **Objetivo:** fix: drawer forms presos no mobile + auditoria UX (PWA, search, AccountDialog)
-**Status:** in_progress
+**Status:** done
 **Iniciada em:** 2026-07-31T02:07:18.939Z
 **Branch:** `fix/form-drawer-mobile-ux`
 **Último commit:** a6c5fe0 — chore: add npm vulnerability radar + remove redundant superpowers git clone (#230)
 **Docs carregados:** DEBUG.md, CONVENTIONS.md
-
-
----
-_Atualizado automaticamente por `scripts/update-handoff.mjs`_
-
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
