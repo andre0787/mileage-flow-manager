@@ -9,9 +9,9 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `457cab4` — chore: session end — KPIs reais em prod (PR236)
-- **Remote:** origin/main
+- **Branch:** `docs/session-end-kpi-reais-v2`
+- **Último commit:** `292eae3` — Merge pull request #237 from andre0787/chore/restore-remote-webui
+- **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
@@ -19,14 +19,14 @@ Nenhum PR aberto.
 |---------|-------|
 | Total testes | 291 |
 | Docs issues | 0 |
-| Branch | main |
+| Branch | docs/session-end-kpi-reais-v2 |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
 **Objetivo:** Restaurar comando /remote — reinstall @firstpick/pi-package-remote-webui (global+projeto)
-**Status:** in_progress
+**Status:** done
 **Iniciada em:** 2026-08-01T05:22:00.000Z
 **Branch:** `chore/restore-remote-webui`
 **Último commit:** 5e3833d — Merge pull request #235 from andre0787/docs/session-end-handoff
@@ -37,4 +37,5 @@ Estado atualizado automaticamente.
 Continue a tarefa ativa ou selecione o próximo task-card.
 ## 🧠 Notas da Sessão Atual
 (Adicione notas manuais abaixo desta linha)
+
 
