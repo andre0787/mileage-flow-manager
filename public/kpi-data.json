@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-01T13:29:20.744Z",
+  "generatedAt": "2026-08-01T13:59:26.064Z",
   "months": [
     {
       "month": "2026-03",
@@ -75,10 +75,10 @@
     },
     {
       "month": "2026-07",
-      "prePrPassRate": 67.9,
-      "prePrTotal": 109,
+      "prePrPassRate": 68.5,
+      "prePrTotal": 108,
       "prePrPass": 74,
-      "prePrFail": 35,
+      "prePrFail": 34,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -93,10 +93,10 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 61.7,
-      "prePrTotal": 60,
-      "prePrPass": 37,
-      "prePrFail": 23,
+      "prePrPassRate": 61.3,
+      "prePrTotal": 62,
+      "prePrPass": 38,
+      "prePrFail": 24,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -104,7 +104,7 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 91.4,
+      "avgOutcomeGrade": 92.2,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -112,7 +112,7 @@
         },
         {
           "rule": "rule-26-session-started",
-          "count": 5
+          "count": 6
         },
         {
           "rule": "rule-27-council-veredict",
@@ -120,7 +120,7 @@
         }
       ],
       "avgCycleTimeHours": 0,
-      "branchesMerged": 6
+      "branchesMerged": 7
     }
   ],
   "currentMonth": "2026-08"

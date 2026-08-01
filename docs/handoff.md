@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `e87bd4d` — Merge pull request #241 from andre0787/chore/add-pi-package-webui-project
+- **Branch:** `docs/session-end-package-webui`
+- **Último commit:** `4be7b77 — docs: update handoff`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,12 +24,12 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** adiciona @firstpick/pi-package-webui ao projeto para /remote funcionar
-**Status:** done
-**Iniciada em:** 2026-08-01T13:24:20.105Z
-**Branch:** `chore/add-pi-package-webui-project`
-**Último commit:** 8f69505 — Merge pull request #239 from andre0787/docs/session-end-restore-remote
+**Categoria:** docs
+**Objetivo:** session-end do chore package-webui (PR #241) + handoff
+**Status:** in_progress
+**Iniciada em:** 2026-08-01T13:58:48.004Z
+**Branch:** `docs/session-end-package-webui`
+**Último commit:** 4be7b77 — docs: update handoff
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
