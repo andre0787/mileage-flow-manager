@@ -14,17 +14,22 @@
  *   pr:create        — PR criado
  *   pr:merge         — PR mergeado
  *   rule:fail        — regra de validação falhou
+ *   gate             — ativação de gate (INTENT/TWINS/AUTH)
  *   custom           — evento customizado
  *
  * Exemplos:
  *   node scripts/event-log.mjs session:start "Início da sessão" --meta '{"branch":"feat/x"}'
  *   node scripts/event-log.mjs commit "feat: implementa X"
  *   node scripts/event-log.mjs rule:fail "rule-29 falhou" --meta '{"file":"SKILL.md"}'
+ *   node scripts/event-log.mjs gate "INTENT declarado" --meta '{"gate":"intent","target":"kpi-report.mjs"}'
+ *
+ * Ambiente de teste: com VITEST setado (vitest), nenhum evento é gravado —
+ * testes unitários não podem poluir o log de produção.
  *
  * ponytail: fs nativo, zero deps
  */
 
-import { existsSync, mkdirSync, readFileSync, appendFileSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, appendFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { execSync } from "child_process";
 
@@ -41,6 +46,7 @@ const TIPOS_VALIDOS = [
   "pr:create",
   "pr:merge",
   "rule:fail",
+  "gate",
   "custom",
 ];
 
@@ -96,6 +102,13 @@ function main() {
   if (!TIPOS_VALIDOS.includes(tipo)) {
     console.error(`❌ Tipo inválido: "${tipo}". Válidos: ${TIPOS_VALIDOS.join(", ")}`);
     process.exit(1);
+  }
+
+  // Hermeticidade: em ambiente de teste (vitest) ou com guard explícito,
+  // não grava no log de produção (evita poluir os KPIs com sessões falsas).
+  if (process.env.VITEST || process.env.EVENT_LOG_DISABLED) {
+    console.log(`  🔇 event-log: ${tipo} pulado (ambiente de teste)`);
+    return;
   }
 
   const event = {

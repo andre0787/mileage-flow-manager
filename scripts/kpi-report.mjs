@@ -12,7 +12,7 @@
  */
 
 // @ts-check
-import { readFileSync, existsSync, readdirSync, writeFileSync } from "fs";
+import { readFileSync, existsSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { execSync } from "child_process";
 
@@ -20,7 +20,7 @@ import { execSync } from "child_process";
 
 /** @typedef {{ type: string, timestamp: string, data: Record<string,any> }} KPIEvent */
 
-/** @typedef {{ month: string, prePrPassRate: number, prePrTotal: number, prePrPass: number, prePrFail: number, testCoverageLibs: number|null, testCoverageComponents: number|null, gateActivations: {intent:number, twins:number, auth:number}, avgOutcomeGrade: number|null, topViolations: Array<{rule:string, count:number}>, avgCycleTimeDays: number|null, branchesMerged: number }} MonthlyKPI */
+/** @typedef {{ month: string, prePrPassRate: number, prePrTotal: number, prePrPass: number, prePrFail: number, testCoverageLibs: number|null, testCoverageComponents: number|null, gateActivations: {intent:number, twins:number, auth:number}, avgOutcomeGrade: number|null, topViolations: Array<{rule:string, count:number}>, avgCycleTimeHours: number|null, branchesMerged: number }} MonthlyKPI */
 
 // ─── Parser ──────────────────────────────────────────────────────────
 
@@ -49,94 +49,64 @@ export function filterByMonth(events, year, month) {
 }
 
 /**
- * Extrai valor numérico de um relatório HTML via regex.
- * @param {string} content
- * @param {RegExp} pattern
+ * Média de valores numéricos (1 casa decimal), ou null se vazio.
+ * @param {number[]} values
  * @returns {number|null}
  */
-function extractFromReport(content, pattern) {
-  const match = content.match(pattern);
-  return match ? Number(match[1]) : null;
+function average(values) {
+  if (values.length === 0) return null;
+  return Math.round((values.reduce((a, b) => a + b, 0) / values.length) * 10) / 10;
 }
 
 /**
- * Parseia relatórios HTML do mês para extrair outcome grade e cobertura.
+ * Lê métricas de qualidade estruturadas do mês em docs/tracking/quality.jsonl.
+ * Fonte gravada pelas rules 30/31/32 a cada execução do pre-pr (quality-log.mjs).
  * @param {string} monthLabel - "YYYY-MM"
- * @returns {{ avgOutcomeGrade: number|null, testCoverageLibs: number|null, testCoverageComponents: number|null, topViolations: Array<{rule:string, count:number}> }}
+ * @returns {{ avgOutcomeGrade: number|null, testCoverageLibs: number|null, testCoverageComponents: number|null }}
  */
 export function parseReportsForMonth(monthLabel) {
-  const [year] = monthLabel.split("-").map(Number);
   const ROOT = resolve(import.meta.dirname, "..");
-  const reportsBase = resolve(ROOT, "docs/reports");
-  const outcomes = [];
+  const qualityPath = resolve(ROOT, "docs/tracking/quality.jsonl");
+  const grades = [];
   const libCovs = [];
   const compCovs = [];
 
-  if (!existsSync(reportsBase)) {
+  if (!existsSync(qualityPath)) {
     return {
       avgOutcomeGrade: null,
       testCoverageLibs: null,
       testCoverageComponents: null,
-      topViolations: [],
     };
   }
 
-  const dirs = readdirSync(reportsBase).filter((d) =>
-    d.startsWith(`${year}-`),
-  );
+  const lines = readFileSync(qualityPath, "utf8").split("\n").filter((l) => l.trim());
+  for (const line of lines) {
+    let entry;
+    try {
+      entry = JSON.parse(line);
+    } catch {
+      continue; // linha corrompida — ignora
+    }
+    if (!entry.timestamp?.startsWith(monthLabel)) continue;
 
-  for (const dir of dirs) {
-    const dirPath = resolve(reportsBase, dir);
-    if (!existsSync(dirPath)) continue;
-    const files = readdirSync(dirPath).filter((f) => f.endsWith(".html"));
-    for (const file of files) {
-      const content = readFileSync(resolve(dirPath, file), "utf8");
-
-      // Outcome grade
-      const grade = extractFromReport(content, /outcome grade[:\s]+(\d+)/i);
-      if (grade !== null) outcomes.push(grade);
-
-      // Cobertura de libs (rule-31)
-      const libCov = extractFromReport(
-        content,
-        /cobertura\s*(?:d[ae])\s*libs[:\s]+(\d+)\/+/i,
-      );
-      if (libCov !== null) libCovs.push(libCov);
-
-      // Cobertura de componentes (rule-32)
-      const compCov = extractFromReport(
-        content,
-        /cobertura\s*(?:d[ae])\s*componentes[:\s]+(\d+)\/+/i,
-      );
-      if (compCov !== null) compCovs.push(compCov);
+    if (entry.rule === "rule-30" && typeof entry.outcomeGrade === "number") {
+      grades.push(entry.outcomeGrade);
+    } else if (entry.rule === "rule-31" && typeof entry.pct === "number") {
+      libCovs.push(entry.pct);
+    } else if (entry.rule === "rule-32" && typeof entry.pct === "number") {
+      compCovs.push(entry.pct);
     }
   }
 
-  const avgOutcomeGrade =
-    outcomes.length > 0
-      ? Math.round(
-          (outcomes.reduce((a, b) => a + b, 0) / outcomes.length) * 10,
-        ) / 10
-      : null;
-  const testCoverageLibs =
-    libCovs.length > 0
-      ? Math.round(libCovs.reduce((a, b) => a + b, 0) / libCovs.length)
-      : null;
-  const testCoverageComponents =
-    compCovs.length > 0
-      ? Math.round(compCovs.reduce((a, b) => a + b, 0) / compCovs.length)
-      : null;
-
   return {
-    avgOutcomeGrade,
-    testCoverageLibs,
-    testCoverageComponents,
-    topViolations: [],
+    avgOutcomeGrade: average(grades),
+    testCoverageLibs: average(libCovs),
+    testCoverageComponents: average(compCovs),
   };
 }
 
 /**
- * Computa tempo médio de ciclo (dias) entre session:start e pre-pr PASS.
+ * Computa tempo médio de ciclo (horas) entre session:start e pre-pr PASS.
  * @param {KPIEvent[]} events
  * @returns {number|null}
  */
@@ -171,11 +141,17 @@ export function computeCycleTime(events) {
   );
   if (cycles.length === 0) return null;
 
-  const totalDays = cycles.reduce((sum, c) => {
+  // Filtra durações inválidas (end < start): artefatos de eventos antigos/poluídos
+  const validCycles = cycles.filter(
+    (c) => new Date(c.end).getTime() >= new Date(c.start).getTime(),
+  );
+  if (validCycles.length === 0) return null;
+
+  const totalHours = validCycles.reduce((sum, c) => {
     const diff = new Date(c.end).getTime() - new Date(c.start).getTime();
-    return sum + diff / (1000 * 60 * 60 * 24);
+    return sum + diff / (1000 * 60 * 60);
   }, 0);
-  return Math.round((totalDays / cycles.length) * 10) / 10;
+  return Math.round((totalHours / validCycles.length) * 10) / 10;
 }
 
 // ─── Agregação Mensal ───────────────────────────────────────────────
@@ -231,10 +207,20 @@ export function computeMonthlyKPI(events, monthLabel) {
     avgOutcomeGrade,
     testCoverageLibs,
     testCoverageComponents,
-    topViolations,
   } = parseReportsForMonth(monthLabel);
 
-  const avgCycleTimeDays = computeCycleTime(events);
+  const avgCycleTimeHours = computeCycleTime(events);
+
+  // Top violações: eventos rule:fail registrados pelo pre-pr (regra + contagem)
+  const violationsByRule = {};
+  for (const v of events.filter((e) => e.type === "rule:fail")) {
+    const rule = v.rule ?? v.data?.rule ?? v.description ?? "desconhecida";
+    violationsByRule[rule] = (violationsByRule[rule] ?? 0) + 1;
+  }
+  const topViolations = Object.entries(violationsByRule)
+    .map(([rule, count]) => ({ rule, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
 
   // Branches merged: unique branches com pre-pr PASS no mês
   const branchesMerged = new Set(
@@ -254,7 +240,7 @@ export function computeMonthlyKPI(events, monthLabel) {
     gateActivations,
     avgOutcomeGrade,
     topViolations,
-    avgCycleTimeDays,
+    avgCycleTimeHours,
     branchesMerged,
   };
 }

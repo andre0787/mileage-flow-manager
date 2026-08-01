@@ -16,7 +16,7 @@ export interface MonthlyKPI {
   gateActivations: { intent: number; twins: number; auth: number };
   avgOutcomeGrade: number | null;
   topViolations: Array<{ rule: string; count: number }>;
-  avgCycleTimeDays: number | null;
+  avgCycleTimeHours: number | null;
   branchesMerged: number;
 }
 
@@ -120,10 +120,10 @@ export default function KPIDashboard({ data }: { data: KpiData }) {
       <div className="grid gap-4 lg:grid-cols-2">
         <KPITable
           title="⏱️ Tempo de Ciclo"
-          headers={["Mês", "Média (dias)", "Branches"]}
+          headers={["Mês", "Média (horas)", "Branches"]}
           rows={data.months.map((m) => [
             m.month,
-            m.avgCycleTimeDays !== null ? String(m.avgCycleTimeDays) : "—",
+            m.avgCycleTimeHours !== null ? `${String(m.avgCycleTimeHours)}h` : "—",
             String(m.branchesMerged),
           ])}
         />

@@ -84,7 +84,7 @@ describe("computeMonthlyKPI", () => {
 });
 
 describe("computeCycleTime", () => {
-  it("computes average cycle time from session:start+pre-pr events", () => {
+  it("computes average cycle time in hours from session:start+pre-pr events", () => {
     const events = [
       { type: "session:start", timestamp: "2026-07-01T08:00:00Z", branch: "feat/a" },
       { type: "pre-pr", timestamp: "2026-07-03T08:00:00Z", description: "pre-pr PASS", errors: 0, branch: "feat/a" },
@@ -93,7 +93,8 @@ describe("computeCycleTime", () => {
     ];
 
     const result = computeCycleTime(events);
-    expect(result).toBe(1.5);
+    // 48h e 24h → média 36 horas
+    expect(result).toBe(36);
   });
 
   it("returns null when no cycles complete", () => {
@@ -106,13 +107,53 @@ describe("computeCycleTime", () => {
   it("returns null for empty events", () => {
     expect(computeCycleTime([])).toBeNull();
   });
+
+  it("ignores invalid cycles (pre-pr before session start)", () => {
+    const events = [
+      { type: "session:start", timestamp: "2026-07-02T08:00:00Z", branch: "feat/a" },
+      { type: "pre-pr", timestamp: "2026-07-01T10:00:00Z", description: "pre-pr PASS", errors: 0, branch: "feat/a" },
+      { type: "session:start", timestamp: "2026-07-05T10:00:00Z", branch: "feat/b" },
+      { type: "pre-pr", timestamp: "2026-07-05T12:30:00Z", description: "pre-pr PASS", errors: 0, branch: "feat/b" },
+    ];
+    const result = computeCycleTime(events);
+    // apenas o ciclo válido (2.5h) conta; o negativo é ignorado
+    expect(result).toBe(2.5);
+  });
+
+  it("returns null when all cycles are invalid", () => {
+    const events = [
+      { type: "session:start", timestamp: "2026-07-02T08:00:00Z", branch: "feat/a" },
+      { type: "pre-pr", timestamp: "2026-07-01T10:00:00Z", description: "pre-pr PASS", errors: 0, branch: "feat/a" },
+    ];
+    expect(computeCycleTime(events)).toBeNull();
+  });
 });
 
-describe("parseReportsForMonth", () => {
-  it("returns null metrics when dir does not exist", () => {
+describe("parseReportsForMonth (quality.jsonl)", () => {
+  it("returns null metrics when file does not exist or month has no data", () => {
     const result = parseReportsForMonth("2025-01");
     expect(result.avgOutcomeGrade).toBeNull();
     expect(result.testCoverageLibs).toBeNull();
     expect(result.testCoverageComponents).toBeNull();
+  });
+});
+
+describe("computeMonthlyKPI — fontes reais", () => {
+  it("derives topViolations from rule:fail events", () => {
+    const events = [
+      { type: "rule:fail", timestamp: "2026-07-01T10:00:00Z", rule: "rule-30-outcome-grade" },
+      { type: "rule:fail", timestamp: "2026-07-02T10:00:00Z", rule: "rule-30-outcome-grade" },
+      { type: "rule:fail", timestamp: "2026-07-03T10:00:00Z", rule: "rule-31-lib-test-coverage" },
+    ];
+    const result = computeMonthlyKPI(events, "2026-07");
+    expect(result.topViolations).toEqual([
+      { rule: "rule-30-outcome-grade", count: 2 },
+      { rule: "rule-31-lib-test-coverage", count: 1 },
+    ]);
+  });
+
+  it("uses avgCycleTimeHours field with null when no cycles", () => {
+    const result = computeMonthlyKPI([], "2026-07");
+    expect(result.avgCycleTimeHours).toBeNull();
   });
 });

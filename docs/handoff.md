@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `8cdad8a — Merge pull request #233 from andre0787/fix/kpi-report-formato-plano`
+- **Branch:** `feat/kpi-dados-reais`
+- **Último commit:** `5e3833d — Merge pull request #235 from andre0787/docs/session-end-handoff`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,14 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** docs
-**Objetivo:** Encerra sessão — handoff atualizado
-**Status:** concluído
-**Iniciada em:** 2026-08-01T04:16:30.740Z
-**Encerrada em:** 2026-08-01T04:26:00Z
-**Branch:** `docs/session-end-handoff`
-**Último commit:** 8cdad8a — Merge pull request #233 (produção)
-**Docs carregados:** AGENTS.md
+**Categoria:** feature
+**Objetivo:** KPIs de Processo: dados reais (gates, quality.jsonl, frescor no pre-pr)
+**Status:** in_progress
+**Iniciada em:** 2026-08-01T05:02:54.380Z
+**Branch:** `feat/kpi-dados-reais`
+**Último commit:** 5e3833d — Merge pull request #235 from andre0787/docs/session-end-handoff
+**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 ## ✅ Última Sessão
 - **fix/kpi-report-formato-plano → PR #233 merged** — KPIs zerados no webapp corrigidos (kpi-report lia formato aninhado, event-log grava plano; isPrePrPass/isPrePrFail compatíveis)
 - Deploy produção: success (2m12s) + e2e-smoke-prod passou

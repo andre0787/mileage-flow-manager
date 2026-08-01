@@ -62,6 +62,16 @@ export function checkLibCoverage({ fix = false } = {}) {
     `\n📊 Cobertura de testes libs: ${covered}/${totalLibs} (${Math.round((covered / totalLibs) * 100)}%)`
   );
 
+  // Registrar métrica estruturada (fonte dos KPIs de qualidade)
+  if (totalLibs > 0) {
+    try {
+      execSync(
+        `node scripts/quality-log.mjs rule-31 '{"covered":${covered},"total":${totalLibs},"pct":${Math.round((covered / totalLibs) * 100)}}'`,
+        { cwd: ROOT, encoding: "utf8", timeout: 3000 },
+      );
+    } catch { /* não bloqueante */ }
+  }
+
   if (results.pass) {
     console.log("✅ Toda lib tem teste correspondente.");
   } else {
