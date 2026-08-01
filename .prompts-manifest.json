@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-01T16:06:00.344Z",
+  "updatedAt": "2026-08-01T21:38:55.076Z",
   "prompts": {
     ".pi/skills/council-to-superpowers/SKILL.md": "sha256-424faade51fe07225ad5e4958685daf4181be98cbb5d98d2a07ec8e9aecbb69a",
     ".pi/skills/handoff/SKILL.md": "sha256-197d78747c41df7a0ef94eb66b19a3698a534a74884f4c367a86530d04aea6f5",
@@ -9,7 +9,7 @@
     "AGENTS.md": "sha256-4f46599e13b87a7db6470464104a95b193779a4c6722008447b027bd5b416006",
     "CLAUDE.md": "sha256-051e5599efd15f4e716edf63dcb3b1da2d23fdcd3728e80831e8adaabab68d87",
     "docs/CONTEXT-MANAGEMENT.md": "sha256-199e22e9973cf5433626612bc40c2d6ac5d135f7c295a453cfb2e8650bab57cc",
-    "docs/WORKFLOW-MANIFEST.md": "sha256-dce7a1b1ba7696a30e7d08113b3f7d318361316f8a1593057fdc695bf9d71d7e",
+    "docs/WORKFLOW-MANIFEST.md": "sha256-724cd939c0e01ed467579bfed5909c1c498c5d9e530957a712471109c07dc1c7",
     "docs/WORKFLOW.md": "sha256-1c832d42ad04b8d5f483ae1c99877994f127f330dbd60380ceb4cabaf8a0f8ae"
   }
 }

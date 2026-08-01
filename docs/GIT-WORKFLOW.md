@@ -11,14 +11,18 @@ via PR mergeado. Isso inclui reverts.
 A proteção remota desejada está versionada em `.github/branch-protection-main.json`.
 
 Checks required em `main`:
-- `build-and-test` (`.github/workflows/ci.yml`): `npm run check` + Playwright E2E.
+- `check-pr` (`.github/workflows/ci.yml`): `npm run check:pr`.
+- `e2e-smoke` (`.github/workflows/ci.yml`): Playwright smoke da PR.
 
-Política:
+Política para mantenedor solo:
 - PR obrigatório para `main`.
-- 1 review obrigatório.
-- branch atualizada com `main` antes do merge (`strict: true`).
+- 0 reviews obrigatórios (`required_pull_request_reviews: null`).
+- CI required e branch atualizada com `main` antes do merge (`strict: true`).
 - force-push e deleção de `main` desabilitados.
 - admin também segue a regra (`enforce_admins: true`).
+
+Reviews adicionais continuam permitidos e recomendados quando houver colaboradores,
+mas não bloqueiam o fluxo solo.
 
 Aplicação/verificação via GitHub API:
 
@@ -33,7 +37,7 @@ gh api \
 gh api repos/andre0787/mileage-flow-manager/branches/main/protection
 ```
 
-> Estado verificado em 2026-07-18: o GitHub retornou `403` para branch protection/rulesets porque o repo está privado em plano sem o recurso. O gate local/CI está pronto; a proteção remota depende de habilitar o recurso no GitHub.
+> Estado verificado em 2026-08-01: a API retorna `check-pr` + `e2e-smoke` como required, `required_pull_request_reviews: null`, `strict: true` e `enforce_admins: true`.
 
 Um **pre-commit hook** (`.githooks/pre-commit`) bloqueia commits na `main`:
 

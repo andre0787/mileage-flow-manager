@@ -27,17 +27,17 @@ receber merges sem que o CI estrito seja required (veredito: Revisão B).
 
 ## Critérios de aceite
 - [x] Config desejada versionada em `.github/branch-protection-main.json`.
-- [x] Documentado em `docs/GIT-WORKFLOW.md` quais checks são required.
+- [x] Documentado em `docs/GIT-WORKFLOW.md` quais checks são required e que o modo solo não exige review externo.
 - [x] Aplicado no GitHub após tornar o repositório público.
 
 ## Riscos / Invariantes
-- Coordenar com o proprietário do repo; não bloquear fluxo de hotfix sem política.
+- Coordenar com o proprietário do repo; não bloquear fluxo solo ou hotfix sem política.
 
 ## Testes obrigatórios
 - `gh api repos/andre0787/mileage-flow-manager/branches/main/protection`.
 
 ## Evidência de pronto
 - JSON da proteção da branch + trecho do GIT-WORKFLOW.
-- API retorna configuração ativa: required_status_checks (`build-and-test`), required_pull_request_reviews (1), enforce_admins habilitado.
-- Repositório tornado público (necessário para GitHub Free).
-- Deploy em produção verificado após PR #164.
+- API retorna configuração ativa: required_status_checks (`check-pr`, `e2e-smoke`), `required_pull_request_reviews: null`, `strict: true` e `enforce_admins` habilitado.
+- Mantenedor solo mantém PR obrigatório, CI required e sem bypass administrativo.
+- Deploy em produção verificado após PR #246.
