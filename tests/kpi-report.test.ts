@@ -14,13 +14,14 @@ import {
 } from "../scripts/kpi-report.mjs";
 
 describe("parseEvents", () => {
-  it("parses JSONL lines", () => {
-    const input = `{"type":"pre-pr","timestamp":"2026-07-01T10:00:00Z","data":{"result":"PASS"}}\n{"type":"pre-pr","timestamp":"2026-07-02T10:00:00Z","data":{"result":"FAIL"}}`;
+  it("parses JSONL lines (formato plano do event-log)", () => {
+    const input = `{"type":"pre-pr","timestamp":"2026-07-01T10:00:00Z","description":"pre-pr PASS","errors":0,"branch":"feat/a"}\n{"type":"pre-pr","timestamp":"2026-07-02T10:00:00Z","description":"pre-pr FAIL","errors":5,"branch":"feat/b"}`;
     const result = parseEvents(input);
     expect(result).toHaveLength(2);
     expect(result[0].type).toBe("pre-pr");
-    expect(result[0].data.result).toBe("PASS");
-    expect(result[1].data.result).toBe("FAIL");
+    expect(result[0].description).toBe("pre-pr PASS");
+    expect(result[0].errors).toBe(0);
+    expect(result[1].errors).toBe(5);
   });
 
   it("handles empty input", () => {
@@ -28,7 +29,7 @@ describe("parseEvents", () => {
   });
 
   it("skips empty lines", () => {
-    const input = `{"type":"pre-pr","timestamp":"2026-07-01T10:00:00Z","data":{}}\n\n{"type":"gate","timestamp":"2026-07-02T10:00:00Z","data":{}}`;
+    const input = `{"type":"pre-pr","timestamp":"2026-07-01T10:00:00Z","errors":0}\n\n{"type":"session:start","timestamp":"2026-07-02T10:00:00Z","branch":"feat/a"}`;
     const result = parseEvents(input);
     expect(result).toHaveLength(2);
   });
@@ -36,9 +37,9 @@ describe("parseEvents", () => {
 
 describe("filterByMonth", () => {
   const events = [
-    { type: "pre-pr", timestamp: "2026-07-15T10:00:00Z", data: { result: "PASS" } },
-    { type: "pre-pr", timestamp: "2026-06-15T10:00:00Z", data: { result: "FAIL" } },
-    { type: "gate", timestamp: "2026-07-01T08:00:00Z", data: { gate: "intent" } },
+    { type: "pre-pr", timestamp: "2026-07-15T10:00:00Z", description: "pre-pr PASS", errors: 0, branch: "feat/a" },
+    { type: "pre-pr", timestamp: "2026-06-15T10:00:00Z", description: "pre-pr FAIL", errors: 5, branch: "feat/b" },
+    { type: "session:start", timestamp: "2026-07-01T08:00:00Z", branch: "feat/c" },
   ];
 
   it("filters by specific year and month", () => {
@@ -53,13 +54,13 @@ describe("filterByMonth", () => {
 });
 
 describe("computeMonthlyKPI", () => {
-  it("computes pass rate correctly from pre-pr events", () => {
+  it("computes pass rate correctly from flat pre-pr events", () => {
     const events = [
-      { type: "pre-pr", timestamp: "2026-07-01T10:00:00Z", data: { result: "PASS", branch: "feat/a" } },
-      { type: "pre-pr", timestamp: "2026-07-02T10:00:00Z", data: { result: "PASS", branch: "feat/b" } },
-      { type: "pre-pr", timestamp: "2026-07-03T10:00:00Z", data: { result: "FAIL", branch: "feat/c" } },
-      { type: "gate", timestamp: "2026-07-03T11:00:00Z", data: { gate: "intent" } },
-      { type: "gate", timestamp: "2026-07-03T12:00:00Z", data: { gate: "twins" } },
+      { type: "pre-pr", timestamp: "2026-07-01T10:00:00Z", description: "pre-pr PASS", errors: 0, branch: "feat/a" },
+      { type: "pre-pr", timestamp: "2026-07-02T10:00:00Z", description: "pre-pr PASS", errors: 0, branch: "feat/b" },
+      { type: "pre-pr", timestamp: "2026-07-03T10:00:00Z", description: "pre-pr FAIL", errors: 5, branch: "feat/c" },
+      { type: "gate", timestamp: "2026-07-03T11:00:00Z", gate: "intent" },
+      { type: "gate", timestamp: "2026-07-03T12:00:00Z", gate: "twins" },
     ];
 
     const result = computeMonthlyKPI(events, "2026-07");
@@ -83,12 +84,12 @@ describe("computeMonthlyKPI", () => {
 });
 
 describe("computeCycleTime", () => {
-  it("computes average cycle time from session+pre-pr events", () => {
+  it("computes average cycle time from session:start+pre-pr events", () => {
     const events = [
-      { type: "session", timestamp: "2026-07-01T08:00:00Z", data: { category: "feature", branch: "feat/a" } },
-      { type: "pre-pr", timestamp: "2026-07-03T08:00:00Z", data: { result: "PASS", branch: "feat/a" } },
-      { type: "session", timestamp: "2026-07-05T10:00:00Z", data: { category: "bugfix", branch: "feat/b" } },
-      { type: "pre-pr", timestamp: "2026-07-06T10:00:00Z", data: { result: "PASS", branch: "feat/b" } },
+      { type: "session:start", timestamp: "2026-07-01T08:00:00Z", branch: "feat/a" },
+      { type: "pre-pr", timestamp: "2026-07-03T08:00:00Z", description: "pre-pr PASS", errors: 0, branch: "feat/a" },
+      { type: "session:start", timestamp: "2026-07-05T10:00:00Z", branch: "feat/b" },
+      { type: "pre-pr", timestamp: "2026-07-06T10:00:00Z", description: "pre-pr PASS", errors: 0, branch: "feat/b" },
     ];
 
     const result = computeCycleTime(events);
@@ -97,7 +98,7 @@ describe("computeCycleTime", () => {
 
   it("returns null when no cycles complete", () => {
     const events = [
-      { type: "session", timestamp: "2026-07-01T08:00:00Z", data: { category: "feature", branch: "feat/a" } },
+      { type: "session:start", timestamp: "2026-07-01T08:00:00Z", branch: "feat/a" },
     ];
     expect(computeCycleTime(events)).toBeNull();
   });

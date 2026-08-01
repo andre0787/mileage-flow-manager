@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `chore/remove-superpowers-package`
-- **Último commit:** `23ebd8d — chore(pi): remove superpowers package e skill path global do settings`
+- **Branch:** `fix/kpi-report-formato-plano`
+- **Último commit:** `aaeb6d9 — chore: tracking pre-pr final (0 errors)`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,13 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** Remoção do package superpowers e materialização das skills em .pi/skills
+**Categoria:** bugfix
+**Objetivo:** Subir fix/kpi-report-formato-plano até produção
 **Status:** in_progress
-**Iniciada em:** 2026-08-01T03:44:20.653Z
-**Branch:** `chore/remove-superpowers-package`
-**Último commit:** 23ebd8d — chore(pi): remove superpowers package e skill path global do settings
-**Docs carregados:** AGENTS.md
+**Iniciada em:** 2026-08-01T04:16:30.740Z
+**Branch:** `fix/kpi-report-formato-plano`
+**Último commit:** aaeb6d9 — chore: tracking pre-pr final (0 errors)
+**Docs carregados:** DEBUG.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão

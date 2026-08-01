@@ -1,0 +1,114 @@
+{
+  "generatedAt": "2026-08-01T01:25:51.989Z",
+  "months": [
+    {
+      "month": "2026-02",
+      "prePrPassRate": 0,
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "testCoverageLibs": null,
+      "testCoverageComponents": null,
+      "gateActivations": {
+        "intent": 0,
+        "twins": 0,
+        "auth": 0
+      },
+      "avgOutcomeGrade": null,
+      "topViolations": [],
+      "avgCycleTimeDays": null,
+      "branchesMerged": 0
+    },
+    {
+      "month": "2026-03",
+      "prePrPassRate": 0,
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "testCoverageLibs": null,
+      "testCoverageComponents": null,
+      "gateActivations": {
+        "intent": 0,
+        "twins": 0,
+        "auth": 0
+      },
+      "avgOutcomeGrade": null,
+      "topViolations": [],
+      "avgCycleTimeDays": null,
+      "branchesMerged": 0
+    },
+    {
+      "month": "2026-04",
+      "prePrPassRate": 0,
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "testCoverageLibs": null,
+      "testCoverageComponents": null,
+      "gateActivations": {
+        "intent": 0,
+        "twins": 0,
+        "auth": 0
+      },
+      "avgOutcomeGrade": null,
+      "topViolations": [],
+      "avgCycleTimeDays": null,
+      "branchesMerged": 0
+    },
+    {
+      "month": "2026-05",
+      "prePrPassRate": 0,
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "testCoverageLibs": null,
+      "testCoverageComponents": null,
+      "gateActivations": {
+        "intent": 0,
+        "twins": 0,
+        "auth": 0
+      },
+      "avgOutcomeGrade": null,
+      "topViolations": [],
+      "avgCycleTimeDays": null,
+      "branchesMerged": 0
+    },
+    {
+      "month": "2026-06",
+      "prePrPassRate": 0,
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "testCoverageLibs": null,
+      "testCoverageComponents": null,
+      "gateActivations": {
+        "intent": 0,
+        "twins": 0,
+        "auth": 0
+      },
+      "avgOutcomeGrade": null,
+      "topViolations": [],
+      "avgCycleTimeDays": null,
+      "branchesMerged": 0
+    },
+    {
+      "month": "2026-07",
+      "prePrPassRate": 67.7,
+      "prePrTotal": 124,
+      "prePrPass": 84,
+      "prePrFail": 40,
+      "testCoverageLibs": null,
+      "testCoverageComponents": null,
+      "gateActivations": {
+        "intent": 0,
+        "twins": 0,
+        "auth": 0
+      },
+      "avgOutcomeGrade": null,
+      "topViolations": [],
+      "avgCycleTimeDays": 0,
+      "branchesMerged": 8
+    }
+  ],
+  "currentMonth": "2026-07"
+}
