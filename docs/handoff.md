@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `fix/kpi-report-formato-plano`
-- **Último commit:** `3e6fa49 — Merge pull request #232 from andre0787/docs/session-end-handoff`
+- **Último commit:** `aaeb6d9 — chore: tracking pre-pr final (0 errors)`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -25,11 +25,11 @@ Nenhum PR aberto.
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** bugfix
-**Objetivo:** KPIs do webapp zerados: kpi-report lê formato aninhado, event-log grava plano
+**Objetivo:** Subir fix/kpi-report-formato-plano até produção
 **Status:** in_progress
-**Iniciada em:** 2026-08-01T01:23:10.502Z
+**Iniciada em:** 2026-08-01T04:16:30.740Z
 **Branch:** `fix/kpi-report-formato-plano`
-**Último commit:** 3e6fa49 — Merge pull request #232 from andre0787/docs/session-end-handoff
+**Último commit:** aaeb6d9 — chore: tracking pre-pr final (0 errors)
 **Docs carregados:** DEBUG.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
