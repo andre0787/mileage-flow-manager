@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `docs/session-end-package-webui`
-- **Último commit:** `4be7b77 — docs: update handoff`
+- **Branch:** `main`
+- **Último commit:** `a638015` — Merge pull request #243 from andre0787/docs/session-end-package-webui
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -26,7 +26,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** docs
 **Objetivo:** session-end do chore package-webui (PR #241) + handoff
-**Status:** in_progress
+**Status:** done
 **Iniciada em:** 2026-08-01T13:58:48.004Z
 **Branch:** `docs/session-end-package-webui`
 **Último commit:** 4be7b77 — docs: update handoff
@@ -37,6 +37,7 @@ Estado atualizado automaticamente.
 Continue a tarefa ativa ou selecione o próximo task-card.
 ## 🧠 Notas da Sessão Atual
 (Adicione notas manuais abaixo desta linha)
+
 
 
 
