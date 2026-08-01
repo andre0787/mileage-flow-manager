@@ -24,13 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** KPIs de Processo: dados reais (gates, quality.jsonl, frescor no pre-pr)
-**Status:** done
-**Iniciada em:** 2026-08-01T05:02:54.380Z
-**Branch:** `feat/kpi-dados-reais`
+**Categoria:** chore
+**Objetivo:** Restaurar comando /remote — reinstall @firstpick/pi-package-remote-webui (global+projeto)
+**Status:** in_progress
+**Iniciada em:** 2026-08-01T05:22:00.000Z
+**Branch:** `chore/restore-remote-webui`
 **Último commit:** 5e3833d — Merge pull request #235 from andre0787/docs/session-end-handoff
-**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
+**Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
