@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `chore/llm-router-model-catalog`
-- **Último commit:** `d3b0907` — chore: normalize report prefix to PR247
+- **Branch:** `feat/process-kpi-observability`
+- **Último commit:** `405a6ca — chore: registrar encerramento da sessao de modelos`
 - **Remote:** origin/chore/llm-router-model-catalog
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,13 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** configurar perfis equilibrados do router LLM
-**Status:** done
-**Iniciada em:** 2026-08-03T12:12:29.178Z
-**Branch:** `chore/llm-router-model-catalog`
-**Último commit:** 4167c15 — Merge pull request #246 from andre0787/feat/llm-model-router
-**Docs carregados:** AGENTS.md
+**Categoria:** feature
+**Objetivo:** KPIs de processo, observabilidade do router LLM e sanitização segura
+**Status:** in_progress
+**Iniciada em:** 2026-08-03T13:13:39.315Z
+**Branch:** `feat/process-kpi-observability`
+**Último commit:** 405a6ca — chore: registrar encerramento da sessao de modelos
+**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
