@@ -5,11 +5,13 @@
 
 ---
 
-## ✅ Concluído (2026-08-03)
+## ✅ Concluído
 
 | # | Item | PR | Observação |
 |---|------|-----|------------|
-| 0 | P0 — Fix do `Normalize PR Report` com `[skip ci]` | — | Workflow commita `[skip ci]` e deixava PRs `blocked` (CI não rodava no head renomeado). Fix: remover `[skip ci]` e usar re-trigger do CI no SHA normalizado. |
+| 0 | P0 — Fix do `Normalize PR Report` com `[skip ci]` | [#251](https://github.com/andre0787/mileage-flow-manager/pull/251) | Workflow commita sem `[skip ci]`; guard de regressão em `tests/unit/workflows-guard.test.ts`; produção `1a3457d` |
+
+> ⚠️ **Observação P0 (pós-merge):** mesmo sem `[skip ci]`, o push do normalize (GITHUB_TOKEN) pode criar run `action_required` fantasma sem jobs quando o concurrency cancela o anterior. Workaround: commit vazio para re-disparar CI (documentado no handoff).
 
 ---
 

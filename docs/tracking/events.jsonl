@@ -1046,3 +1046,5 @@
 {"timestamp":"2026-08-03T20:48:46.958Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"fix/normalize-pr-no-skip-ci","commit":"943d267","rule":"rule-10-clean"}
 {"timestamp":"2026-08-03T20:49:35.543Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/normalize-pr-no-skip-ci","commit":"943d267","errors":0}
 {"timestamp":"2026-08-03T20:55:47.838Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/normalize-pr-no-skip-ci","commit":"e5d868e","errors":0}
+{"timestamp":"2026-08-03T21:13:34.259Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/roadmap-p0-done","commit":"1a3457d","errors":0}
+{"timestamp":"2026-08-03T21:14:02.034Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/roadmap-p0-done","commit":"b4aff22","errors":0}
