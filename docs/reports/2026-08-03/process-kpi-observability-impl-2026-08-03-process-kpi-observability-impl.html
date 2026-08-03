@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 process kpi observability impl</h1>
-  <p class="meta">2026-08-03 11:40 &middot; feat/process-kpi-observability-impl &middot; b3172a5 — docs: registrar telemetria do router no handoff</p>
+  <p class="meta">2026-08-03 11:45 &middot; feat/process-kpi-observability-impl &middot; 45834d6 — feat: classificar achados de sanitizacao</p>
   <p><span class="badge auto">auto</span> <span class="badge auto">process-kpi-observability-impl</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">49</div>
+      <div style="font-size:1.5rem;font-weight:700">51</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+3799</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+3967</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-157</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-159</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~3503</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~3638</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -81,12 +81,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 157 remoções — 4670 linhas tocadas</td>
-        <td>✨ 3799 adições — 49 arquivo(s) alterado(s)</td>
+        <td>🧹 159 remoções — 4850 linhas tocadas</td>
+        <td>✨ 3967 adições — 51 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .gitignore, docs/CONVENTIONS.md, docs/LLM-ROUTER.md, docs/MAP.md, docs/RADAR.md<br><em>+44 arquivo(s)</em></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .gitignore, docs/CONVENTIONS.md, docs/LLM-ROUTER.md, docs/MAP.md, docs/RADAR.md<br><em>+46 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -99,25 +99,25 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>49</td></tr>
-    <tr><td>Adições</td><td>+3799</td></tr>
-    <tr><td>Remoções</td><td>-157</td></tr>
-    <tr><td>Tokens estimados</td><td>~3503</td></tr>
+    <tr><td>Arquivos alterados</td><td>51</td></tr>
+    <tr><td>Adições</td><td>+3967</td></tr>
+    <tr><td>Remoções</td><td>-159</td></tr>
+    <tr><td>Tokens estimados</td><td>~3638</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:81">+2849 add</div>
-        <div class="del" style="flex:3">-118 del</div>
-        <div class="overhead" style="flex:16">~536 ctx</div>
+        <div class="add" style="flex:82">+2975 add</div>
+        <div class="del" style="flex:3">-119 del</div>
+        <div class="overhead" style="flex:15">~544 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+2849</td><td>81%</td></tr>
-      <tr><td>Remoções</td><td>-118</td><td>3%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~536</td><td>16%</td></tr>
-      <tr><th>Total</th><th>~3503</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+2975</td><td>82%</td></tr>
+      <tr><td>Remoções</td><td>-119</td><td>3%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~544</td><td>15%</td></tr>
+      <tr><th>Total</th><th>~3638</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
@@ -149,10 +149,10 @@
 <tr><td>M</td><td>scripts/lib/llm-router.mjs</td></tr>
 <tr><td>A</td><td>scripts/lib/log-trim.mjs</td></tr>
 <tr><td>A</td><td>scripts/lib/process-events.mjs</td></tr>
+<tr><td>A</td><td>scripts/lib/project-audit.mjs</td></tr>
 <tr><td>A</td><td>scripts/lib/router-kpi.mjs</td></tr>
 <tr><td>M</td><td>scripts/pre-pr-check.mjs</td></tr>
 <tr><td>A</td><td>scripts/process-audit.mjs</td></tr>
-<tr><td>M</td><td>scripts/quality-log.mjs</td></tr>
   </table>
 
   

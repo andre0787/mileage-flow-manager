@@ -233,6 +233,32 @@ Regras do auditor:
    conclusão do router estar ativo.
 3. O comando é read-only: nunca reescreve nem apaga linhas do log.
 
+### Auditoria estrutural do projeto (read-only)
+
+O comando `npm run project:audit` inspeciona estrutura, duplicidade e artefatos
+gerados sem mutar nada:
+
+- `npm run project:audit` — relatório humano (checks por regra + findings classificados)
+- `npm run project:audit -- --json` — documento JSON (`checks`, `findings`) para CI, sem ANSI
+- `npm run project:audit -- --strict` — exit 1 se houver finding crítico ou check falho
+
+Domínios e limites (não duplica algoritmos das regras):
+
+1. Roda as regras 14, 15, 16, 18, 23, 31 e 32 como child processes; falha de regra
+   vira check `fail`, nunca é convertida em pass.
+2. `classifyTrackedArtifacts` (scripts/lib/project-audit.mjs) marca `generated`
+   critical apenas diretórios gerados (`playwright-report/`, `test-results/`,
+   `dist/`, `coverage/`) fora da allowlist operacional (`docs/tracking/`,
+   `supabase/migrations/`, `.pi/skills/`, `scripts/lib/`, `scripts/rules/`,
+   `docs/superpowers/`, `docs/council/`); `docs/archive/`, `docs/reports/` e
+   `docs/audits/` são históricos preservados.
+3. Detecção de órfãos respeita entry points, fixtures, migrações e docs
+   históricos; duplicatas usam o threshold da rule-15; `npm audit` (segurança)
+   é separado da auditoria estrutural.
+4. Não existe flag genérica `--fix`: remoções são commits explícitos e
+   allowlisted. A saída JSON só contém caminhos/categorias/contagens, nunca
+   conteúdo de arquivo.
+
 ## Limpeza Pós-Sessão — OBRIGATÓRIA
 
 **Antes de finalizar qualquer sessão ou subir PR, verifique `git status`.**
