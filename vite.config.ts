@@ -56,10 +56,13 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router'],
-          ui: ['@radix-ui/react-dialog', '@radix-ui/react-select', '@radix-ui/react-tabs'],
-          charts: ['recharts'],
+        manualChunks: (id) => {
+          if (id.includes("node_modules/react") || id.includes("node_modules/scheduler")) return "vendor";
+          if (id.includes("node_modules/react-router")) return "vendor";
+          if (id.includes("node_modules/@radix-ui")) return "ui";
+          if (id.includes("node_modules/recharts") || id.includes("node_modules/d3-") || id.includes("node_modules/victory")) return "charts";
+          if (id.includes("node_modules/lucide-react")) return "ui";
+          return undefined;
         },
       },
     },
