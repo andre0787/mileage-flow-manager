@@ -95,4 +95,26 @@ describe("project-audit CLI", () => {
     expect(parsed.findings.some((f: { path: string }) => f.path.includes("fluxo-relatorio"))).toBe(false);
     expect(existsSync(join(dir, "tests/fluxo-relatorio/nota.md"))).toBe(true);
   });
+
+  it("inclui checks nomeados para cada domínio de auditoria", () => {
+    const { dir } = makeRepo({
+      "src/pages/KPI.tsx": "export const a = 1;\n",
+    });
+
+    const result = runAudit(dir, ["--json"]);
+    const parsed = JSON.parse(result.stdout);
+    const names = parsed.checks.map((c: { rule: string }) => c.rule);
+    for (const expected of [
+      "rule-14-orphan-files",
+      "rule-15-duplicate-code",
+      "rule-16-orphan-scripts",
+      "rule-18-no-duplicate-root-docs",
+      "rule-23-skill-orphans",
+      "rule-31-lib-test-coverage",
+      "rule-32-component-test-coverage",
+      "verify-docs",
+    ]) {
+      expect(names).toContain(expected);
+    }
+  });
 });

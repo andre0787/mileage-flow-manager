@@ -27,6 +27,7 @@
 | `docs/handoff.md` | Início/fim de sessão | Contexto entre sessões, branch atual, PRs, próximos passos |
 | `docs/CI-PROCESS.md` | Melhoria contínua | Ciclo de melhoria: coletar → priorizar → executar → revisar → retrospectiva |
 | `docs/RADAR.md` | **Início de toda sessão (automático)** | Relatório persistente de vulnerabilidades npm monitoradas (gerado pelo `scripts/check-radar.mjs`) |
+| `docs/audits/2026-08-03-project-audit.md` | Ao investigar estrutura/sujeira do repositório | Snapshot read-only da auditoria estrutural (`npm run project:audit`): checks, findings, allowlists |
 
 ## Docs de Roadmap / Task-cards
 

@@ -33,6 +33,24 @@ const AUDIT_RULES = [
   "rule-32-component-test-coverage.mjs",
 ];
 
+function runDocsVerifier() {
+  const verifierPath = resolve(ROOT, "scripts/verify-docs.mjs");
+  try {
+    const stdout = execFileSync(process.execPath, [verifierPath, "--strict"], {
+      cwd: ROOT,
+      encoding: "utf8",
+      timeout: 30000,
+      env: { ...process.env, MOCK_ROOT: ROOT },
+    });
+    return { rule: "verify-docs", status: "pass", summary: stdout.trim().split("\n").filter(Boolean).pop() || "" };
+  } catch (error) {
+    const e = error;
+    const stdout = e.stdout ? String(e.stdout) : "";
+    const summary = stdout.trim().split("\n").filter(Boolean).pop() || e.message?.slice(0, 120) || "";
+    return { rule: "verify-docs", status: "fail", summary };
+  }
+}
+
 function runRule(ruleFile) {
   const rulePath = resolve(RULES_DIR, ruleFile);
   try {
@@ -70,7 +88,7 @@ function main() {
   const jsonMode = args.includes("--json");
   const strictMode = args.includes("--strict");
 
-  const checks = AUDIT_RULES.map(runRule);
+  const checks = [...AUDIT_RULES.map(runRule), runDocsVerifier()];
   const findings = classifyTrackedArtifacts(trackedPaths());
 
   const criticalFindings = findings.filter((f) => f.severity === "critical");
