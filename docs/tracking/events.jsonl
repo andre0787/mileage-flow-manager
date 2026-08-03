@@ -1034,3 +1034,7 @@
 {"timestamp":"2026-08-03T15:07:59.863Z","type":"llm.route.completed","description":"LLM route completed","branch":"feat/process-kpi-observability-impl","commit":"84835ee","taskId":"process-kpis-review-final","model":"openai-codex/gpt-5.4-mini","resolvedModel":"openai-codex/gpt-5.4-mini","provider":"openai-codex","attempt":2,"status":"failed","failureKind":"subagent_prelaunch"}
 {"timestamp":"2026-08-03T15:42:48.062Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"4f558bb","errors":0}
 {"timestamp":"2026-08-03T16:41:45.906Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"043537d","errors":0}
+{"timestamp":"2026-08-03T19:23:15.990Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-process-kpi","commit":"08d1886","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-03T19:23:45.569Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-process-kpi","commit":"08d1886","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-03T19:24:36.548Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-process-kpi","commit":"08d1886","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-03T19:26:11.190Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-process-kpi","commit":"08d1886","errors":0}
