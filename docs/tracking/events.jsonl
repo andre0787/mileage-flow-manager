@@ -1001,3 +1001,11 @@
 {"timestamp":"2026-08-03T13:49:54.654Z","type":"llm.route.completed","description":"LLM route completed","branch":"feat/process-kpi-observability-impl","commit":"d30d733","taskId":"process-guardrails-task-2","model":"openai-codex/gpt-5.4-mini","provider":"openai-codex","attempt":1,"status":"failed","failureKind":"subagent_prelaunch"}
 {"timestamp":"2026-08-03T13:57:21.964Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/process-kpi-observability-impl","commit":"d30d733","rule":"rule-10-clean"}
 {"timestamp":"2026-08-03T14:02:54.392Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"d30d733","errors":0}
+{"timestamp":"2026-08-03T14:03:37.120Z","type":"llm.route.completed","description":"LLM route completed","branch":"feat/process-kpi-observability-impl","commit":"09a33a7","taskId":"process-guardrails-task-3","model":"openai-codex/gpt-5.4-mini","provider":"openai-codex","attempt":1,"status":"failed","failureKind":"subagent_prelaunch"}
+{"timestamp":"2026-08-03T14:05:29.830Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"09a33a7","errors":0}
+{"timestamp":"2026-08-03T14:07:04.627Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/process-kpi-observability-impl","commit":"09a33a7","rule":"rule-10-clean"}
+{"timestamp":"2026-08-03T14:07:29.625Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/process-kpi-observability-impl","commit":"09a33a7","rule":"rule-10-clean"}
+{"timestamp":"2026-08-03T14:07:55.953Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/process-kpi-observability-impl","commit":"09a33a7","rule":"rule-10-clean"}
+{"timestamp":"2026-08-03T14:08:22.355Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/process-kpi-observability-impl","commit":"09a33a7","rule":"rule-10-clean"}
+{"timestamp":"2026-08-03T14:08:52.195Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/process-kpi-observability-impl","commit":"09a33a7","rule":"rule-10-clean"}
+{"timestamp":"2026-08-03T14:08:52.234Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/process-kpi-observability-impl","commit":"09a33a7","errors":1}

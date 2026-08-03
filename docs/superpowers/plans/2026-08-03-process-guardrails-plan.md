@@ -186,9 +186,9 @@ git commit -m "feat: validar evidencia de processo"
 - Consumes: parseProcessEvents, validateProcessEvents and summarizeProcessEvidence.
 - Produces: npm run process:audit, process-audit --check/--json, and a pre-pr rule that exits nonzero for invalid evidence.
 
-- [ ] **Step 1: Write RED tests for CLI behavior**
+- [x] **Step 1: Write RED tests for CLI behavior**
 
-In tests/unit/process-audit.test.ts, execute the CLI against a temporary JSONL file selected by PROCESS_EVENTS_PATH. Assert that --json returns an object with total, invalid, byType and unobserved; assert that --check returns status 0 for a valid fixture and status 1 for malformed JSON or a resolution without conclusion. Assert that output contains paths/counts only and never the value of a prompt or token field.
+In tests/unit/process-audit.test.ts, execute the CLI against a temporary JSONL file selected by PROCESS_EVENTS_PATH. Assert that --json returns an object with total, invalid, byType and unobserved; assert that --check returns status 0 for a valid fixture, status 1 for malformed JSON, and status 1 when a prompt/token field leaks. A router resolution without a conclusion must produce an explicit unobserved count without failing the check until the router completion contract is active (aligned with the approved spec and Step 2). Assert that output contains paths/counts only and never the value of a prompt or token field.
 
 - [ ] **Step 2: Implement the read-only CLI**
 
