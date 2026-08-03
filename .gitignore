@@ -66,6 +66,7 @@ bun.lockb
 
 # Playwright artifacts
 test-results/
+playwright-report/
 tests/screenshots/
 tests/fluxo-relatorio.md
 

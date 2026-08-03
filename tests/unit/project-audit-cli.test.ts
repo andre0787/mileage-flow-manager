@@ -71,6 +71,25 @@ describe("project-audit CLI", () => {
     expect(result.stdout).toMatch(/playwright-report\/index\.html/);
   });
 
+  it("--strict não reporta relatório gerado não rastreado e preserva o arquivo", () => {
+    const { dir } = makeRepo({
+      "src/pages/KPI.tsx": "export const a = 1;\n",
+      "docs/handoff.md": "# h\n",
+    });
+    // Relatório gerado localmente, mas não versionado (pós .gitignore).
+    mkdirSync(join(dir, "playwright-report"), { recursive: true });
+    writeFileSync(join(dir, "playwright-report/index.html"), "<html>local</html>\n");
+
+    const result = runAudit(dir, ["--json"]);
+    const parsed = JSON.parse(result.stdout);
+    // O finding de artefato gerado só existe quando o caminho é rastreado.
+    expect(
+      parsed.findings.some((f: { path: string }) => f.path.startsWith("playwright-report/")),
+    ).toBe(false);
+    // “Read-only”: o arquivo local jamais é apagado pela auditoria.
+    expect(existsSync(join(dir, "playwright-report/index.html"))).toBe(true);
+  });
+
   it("--json só contém caminhos/categorias e nunca conteúdo de arquivo", () => {
     const { dir } = makeRepo({
       "playwright-report/index.html": "SECRET-CONTENT-123\n",
