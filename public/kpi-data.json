@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-03T15:06:20.011Z",
+  "generatedAt": "2026-08-03T15:09:03.314Z",
   "months": [
     {
       "month": "2026-03",
@@ -185,9 +185,9 @@
       "avgCycleTimeHours": 0.2,
       "branchesMerged": 11,
       "llmRouter": {
-        "resolved": 5,
+        "resolved": 6,
         "completed": 0,
-        "failed": 9,
+        "failed": 10,
         "unobserved": 0,
         "fallbackUsed": 0,
         "completionRate": 0,
