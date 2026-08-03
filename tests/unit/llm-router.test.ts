@@ -237,8 +237,94 @@ describe("llm-router contract", () => {
       source: "category-capability",
       retrySafety: "read-only",
       configVersion: 1,
+      skills: [],
     });
     expect(JSON.stringify(event)).not.toMatch(/prompt|response|output|token|secret/i);
+  });
+
+  it("normaliza skills no contexto e os propaga na resolução", () => {
+    const normalized = normalizeTaskContext({
+      taskId: "P1-ROUTER",
+      category: "feature",
+      skills: [" Brainstorming ", "test-driven-development"],
+    });
+    expect(normalized.skills).toEqual(["brainstorming", "test-driven-development"]);
+
+    const decision = resolveRoute(normalized, config);
+    const event = createResolvedEvent(normalized, decision);
+    expect(event.skills).toEqual(["brainstorming", "test-driven-development"]);
+  });
+
+  it("rejeita skills inválidas no contexto", () => {
+    expect(() =>
+      normalizeTaskContext({
+        taskId: "P1-ROUTER",
+        category: "feature",
+        skills: ["not valid"],
+      }),
+    ).toThrow(/skills/i);
+
+    expect(() =>
+      normalizeTaskContext({
+        taskId: "P1-ROUTER",
+        category: "feature",
+        skills: ["duplicate", "duplicate"],
+      }),
+    ).toThrow(/skills/i);
+
+    expect(() =>
+      normalizeTaskContext({
+        taskId: "P1-ROUTER",
+        category: "feature",
+        skills: "not-an-array",
+      }),
+    ).toThrow(/skills/i);
+  });
+
+  it("gera conclusão com modelo efetivo, fallback e skills", () => {
+    expect(
+      createCompletedEvent({
+        taskId: "P1-ROUTER",
+        model: "model/fallback",
+        resolvedModel: "model/primary",
+        provider: "local",
+        attempt: 2,
+        status: "completed",
+        fallbackUsed: true,
+        skills: ["brainstorming"],
+        durationMs: 12,
+      }),
+    ).toMatchObject({
+      fallbackUsed: true,
+      resolvedModel: "model/primary",
+      skills: ["brainstorming"],
+      status: "completed",
+    });
+  });
+
+  it("rejeita status não terminal, fallback inconsistente e skills inválidas na conclusão", () => {
+    expect(() =>
+      createCompletedEvent({ taskId: "x", model: "m", status: "success" }),
+    ).toThrow(/status/i);
+
+    expect(() =>
+      createCompletedEvent({
+        taskId: "x",
+        model: "m",
+        resolvedModel: "m",
+        status: "completed",
+        fallbackUsed: true,
+      }),
+    ).toThrow(/fallback/i);
+
+    expect(() =>
+      createCompletedEvent({
+        taskId: "x",
+        model: "m",
+        status: "completed",
+        skills: ["Bad Skill"],
+      }),
+    ).toThrow(/skills/i);
   });
 
   it("gera evento de conclusão somente com metadados permitidos", () => {
@@ -290,6 +376,7 @@ describe("llm-router contract", () => {
         source: "category-default",
         retrySafety: "may-write",
         configVersion: 1,
+        skills: [],
       }),
     ).toEqual([]);
 

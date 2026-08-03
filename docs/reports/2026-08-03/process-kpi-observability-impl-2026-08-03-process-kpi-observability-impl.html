@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 process kpi observability impl</h1>
-  <p class="meta">2026-08-03 11:17 &middot; feat/process-kpi-observability-impl &middot; 80cd250 — fix: preparar artefatos gerados antes do pre-pr</p>
+  <p class="meta">2026-08-03 11:25 &middot; feat/process-kpi-observability-impl &middot; 8adbddf — docs: registrar guardrails de evidencia</p>
   <p><span class="badge auto">auto</span> <span class="badge auto">process-kpi-observability-impl</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">39</div>
+      <div style="font-size:1.5rem;font-weight:700">40</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+2830</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+2856</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-142</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-143</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~2616</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~2654</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -80,12 +80,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 142 remoções — 3488 linhas tocadas</td>
-        <td>✨ 2830 adições — 39 arquivo(s) alterado(s)</td>
+        <td>🧹 143 remoções — 3538 linhas tocadas</td>
+        <td>✨ 2856 adições — 40 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .gitignore, docs/MAP.md, docs/RADAR.md, docs/handoff.md<br><span style="color:#166534;font-weight:600">➕</span> docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md<br><em>+34 arquivo(s)</em></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .gitignore, docs/CONVENTIONS.md, docs/MAP.md, docs/RADAR.md<br><span style="color:#166534;font-weight:600">➕</span> docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md<br><em>+35 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,31 +98,32 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>39</td></tr>
-    <tr><td>Adições</td><td>+2830</td></tr>
-    <tr><td>Remoções</td><td>-142</td></tr>
-    <tr><td>Tokens estimados</td><td>~2616</td></tr>
+    <tr><td>Arquivos alterados</td><td>40</td></tr>
+    <tr><td>Adições</td><td>+2856</td></tr>
+    <tr><td>Remoções</td><td>-143</td></tr>
+    <tr><td>Tokens estimados</td><td>~2654</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:81">+2123 add</div>
+        <div class="add" style="flex:81">+2142 add</div>
         <div class="del" style="flex:4">-107 del</div>
-        <div class="overhead" style="flex:15">~386 ctx</div>
+        <div class="overhead" style="flex:15">~405 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+2123</td><td>81%</td></tr>
+      <tr><td>Adições</td><td>+2142</td><td>81%</td></tr>
       <tr><td>Remoções</td><td>-107</td><td>4%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~386</td><td>15%</td></tr>
-      <tr><th>Total</th><th>~2616</th><th>100%</th></tr>
+      <tr><td>Contexto (overhead)</td><td>~405</td><td>15%</td></tr>
+      <tr><th>Total</th><th>~2654</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
     <tr><td>M</td><td>.gitignore</td></tr>
+<tr><td>M</td><td>docs/CONVENTIONS.md</td></tr>
 <tr><td>M</td><td>docs/MAP.md</td></tr>
 <tr><td>M</td><td>docs/RADAR.md</td></tr>
 <tr><td>A</td><td>docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md</td></tr>
@@ -151,7 +152,6 @@
 <tr><td>M</td><td>scripts/quality-log.mjs</td></tr>
 <tr><td>M</td><td>scripts/rules/rule-14-orphan-files.mjs</td></tr>
 <tr><td>M</td><td>scripts/rules/rule-17-new-docs-valid.mjs</td></tr>
-<tr><td>A</td><td>scripts/rules/rule-36-process-evidence.mjs</td></tr>
   </table>
 
   
@@ -172,8 +172,45 @@ index 73c0afd..157634c 100644
  # OpenCode AI extension artifacts
  .opencode/
  
+diff --git a/docs/CONVENTIONS.md b/docs/CONVENTIONS.md
+index 026056a..be6ee94 100644
+<span class="del">--- a/docs/CONVENTIONS.md</span>
+<span class="add">+++ b/docs/CONVENTIONS.md</span>
+@@ -198,6 +198,7 @@ que impeça sua violação de forma automatizada.
+ | verify-docs — Docs refs código inexistentes | `verify-docs.mjs` (check #4) | `scripts/verify-docs.mjs` |
+ | #17 — Novos .md válidos (órfãos, links, MAP.md) | `rule-17-new-docs-valid.mjs` (auto no pre-pr) | `scripts/rules/rule-17-new-docs-valid.mjs` |
+ | #22 — PR naming convention | `rule-22-pr-naming.mjs` (auto no pre-pr) | `scripts/rules/rule-22-pr-naming.mjs` |
+<span class="add">+| #36 — Evidência de processo válida | `npm run process:audit -- --check` (auto no pre-pr via rule-36) | `scripts/rules/rule-36-process-evidence.mjs` |</span>
+ | Deploy health | `check-deploy.mjs` | `scripts/check-deploy.mjs` |
+ | Retrospectiva | `retro.mjs` | `scripts/retro.mjs` |
+ | CI Process | `CI-PROCESS.md` | `docs/CI-PROCESS.md` |
+@@ -214,6 +215,24 @@ que impeça sua violação de forma automatizada.
+ 
+ **Sem validação automática, a regra não está completa.**
+ 
+<span class="add">+### Auditoria de evidência de processo (read-only)</span>
+<span class="add">+</span>
+<span class="add">+O comando `npm run process:audit` valida `docs/tracking/events.jsonl` sem gravar</span>
+<span class="add">+nada:</span>
+<span class="add">+</span>
+<span class="add">+- `npm run process:audit` — relatório humano (contagens por tipo, inválidos, unobserved)</span>
+<span class="add">+- `npm run process:audit -- --check` — exit 1 se houver evento inválido (mesma lógica da rule-36 no pre-pr)</span>
+<span class="add">+- `npm run process:audit -- --json` — objeto estruturado para CI</span>
+<span class="add">+</span>
+<span class="add">+Regras do auditor:</span>
+<span class="add">+</span>
+<span class="add">+1. Campos sensíveis (`prompt`, `output`, `token`, `apiKey`, `password`…) tornam o</span>
+<span class="add">+   evento inválido **sem ecoar o valor** no relatório.</span>
+<span class="add">+2. Resoluções do router sem conclusão são reportadas como `unobserved`, que é</span>
+<span class="add">+   **distinto** de evento inválido: não falha o `--check` até o contrato de</span>
+<span class="add">+   conclusão do router estar ativo.</span>
+<span class="add">+3. O comando é read-only: nunca reescreve nem apaga linhas do log.</span>
+<span class="add">+</span>
+ ## Limpeza Pós-Sessão — OBRIGATÓRIA
+ 
+ **Antes de finalizar qualquer sessão ou subir PR, verifique `git status`.**
 diff --git a/docs/MAP.md b/docs/MAP.md
-index 956a3ac..4fb221f 100644
+index 956a3ac..6c47c46 100644
 <span class="del">--- a/docs/MAP.md</span>
 <span class="add">+++ b/docs/MAP.md</span>
 @@ -47,9 +47,9 @@
@@ -189,6 +226,17 @@ index 956a3ac..4fb221f 100644
  | [`docs/LLM-ROUTER.md`](LLM-ROUTER.md) | Router de subagentes | Contrato operacional, comandos, precedência, auditoria e escopo multimodal futuro |
  | `docs/reports/` | Relatórios HTML | Relatórios obrigatórios antes de cada PR |
  | `.githooks/` | Git hooks | Pre-commit que bloqueia commits na main |
+@@ -66,6 +66,10 @@
+ | `scripts/retro.mjs` | Retrospectiva | Gera relatório de retrospectiva do período |
+ | `scripts/rules/rule-22-pr-naming.mjs` | Validação de PR | Valida nomenclatura de PRs no pre-pr |
+ | `scripts/twins-check.mjs` | TWINS gate | Busca automatizada de padrões no código |
+<span class="add">+| `scripts/process-audit.mjs` | Auditoria de evidência | Valida `docs/tracking/events.jsonl` (read-only); `--check`/`--json` |</span>
+<span class="add">+| `scripts/lib/process-events.mjs` | Contrato de eventos | Parser + validador compartilhado (CLI e rule-36) |</span>
+<span class="add">+| `scripts/lib/generated-artifacts.mjs` | Staging de artefatos | Allowlist dos 4+2 artefatos gerados stageados no pre-pr |</span>
+<span class="add">+| `scripts/rules/rule-36-process-evidence.mjs` | Guardrail #36 | Evidência de processo válida no pre-pr |</span>
+ | `CLAUDE.md` | Cross-harness (Claude Code) | Instruções resumidas para Claude Code |
+ | `QUALITY.md` | Qualidade do código | Métricas e padrões de qualidade |
+ 
 diff --git a/docs/RADAR.md b/docs/RADAR.md
 index 498509b..53157fb 100644
 <span class="del">--- a/docs/RADAR.md</span>
@@ -230,54 +278,6 @@ index 0000000..d42a281
 <span class="add">+- O evento atual `llm.route.resolved` registra a decisão planejada; `llm.route.completed` registra apenas modelo/tentativa/status/duração/falha e não registra `skills`, nem diferencia explicitamente modelo solicitado de modelo efetivo.</span>
 <span class="add">+</span>
 <span class="add">+## Advisors</span>
-<span class="add">+</span>
-<span class="add">+### Advisor: The Contrarian (síntese)</span>
-<span class="add">+</span>
-<span class="add">+O maior risco é transformar “sanitização total” em deleção em massa. Logs históricos, relatórios, arquivos gerados e documentos arquivados têm funções diferentes; apagar por nome, tamanho ou baixa frequência pode destruir evidência necessária para medir as violações que motivaram o pedido. A limpeza deve começar por inventário somente leitura, produzir uma lista de candidatos e só remover algo quando uma análise de referências demonstrar que não é entry point, fonte histórica ou artefato de CI.</span>
-<span class="add">+</span>
-<span class="add">+Também é perigoso chamar `llm.route.resolved` de ativação efetiva. Uma rota pode falhar antes do subagente iniciar, como aconteceu nesta sessão, ou pode usar um fallback. O KPI precisa separar resolução, tentativa, conclusão, falha de pré-lançamento e fallback real; caso contrário a dashboard premiará um workflow que apenas planeja chamadas.</span>
-<span class="add">+</span>
-<span class="add">+**Veredito:** Reformule e faça em fases.</span>
-<span class="add">+</span>
-<span class="add">+**Recomendações:** falhar fechado em guardrails críticos; não armazenar prompts, respostas, tokens ou credenciais; preservar histórico; bloquear limpeza destrutiva sem relatório e teste de referência.</span>
-<span class="add">+</span>
-<span class="add">+### Advisor: First Principles Thinker (síntese)</span>
-<span class="add">+</span>
-<span class="add">+Um KPI só é confiável quando sua definição, fonte e cálculo são verificáveis. Para violações, a unidade canônica deve ser uma execução de regra com identificador estável, status e contexto de branch/commit. Para o router, a unidade canônica deve ser uma tarefa: uma resolução planejada, zero ou mais tentativas e uma conclusão. O modelo efetivamente usado é o modelo da conclusão; fallback é a diferença entre o modelo primário resolvido e o modelo efetivo, ou uma tentativa posterior em um candidato declarado.</span>
-<span class="add">+</span>
-<span class="add">+A atribuição skill→LLM não pode ser inferida de texto livre. O dispatcher deve fornecer uma lista normalizada de skills na resolução/conclusão e a validação deve rejeitar campos desconhecidos, vazios, duplicados ou potencialmente sensíveis. A ausência de conclusão não é sucesso nem fallback: é “não observado”, e deve aparecer no KPI para revelar gaps do workflow.</span>
-<span class="add">+</span>
-<span class="add">+**Veredito:** Faça, mas com contrato de eventos primeiro.</span>
-<span class="add">+</span>
-<span class="add">+**Recomendações:** estender o schema do router e os testes; manter `resolved`, `attempt` e `completed` correlacionáveis por `taskId`; gerar agregados determinísticos no Node; exibir `N/A` quando não medido.</span>
-<span class="add">+</span>
-<span class="add">+### Advisor: The Expansionist (síntese)</span>
-<span class="add">+</span>
-<span class="add">+Há oportunidade de fechar o ciclo de melhoria sem criar uma plataforma nova: o mesmo JSONL pode alimentar taxas de pre-pr, violações, qualidade, rotas, falhas, fallback e matriz de skills. Os agregados úteis são taxa de conclusão do router, taxa de fallback, falhas por modelo/provider, distribuição por capability/categoria e contagem de tarefas sem conclusão. A matriz skill→modelo deve permitir descobrir que uma skill está concentrando falhas ou sendo sempre encaminhada ao perfil errado.</span>
-<span class="add">+</span>
-<span class="add">+A evolução deve ser incremental. Primeiro tornar os eventos verdadeiros e os guardrails executáveis; depois usar os dados para ajustar perfis e convenções. Não implementar scoring automático, meta-router, custo/token ou banco externo antes de existir uma série temporal confiável. O dashboard deve mostrar a data da geração e a cobertura do dado para evitar interpretações indevidas.</span>
-<span class="add">+</span>
-<span class="add">+**Veredito:** Faça em fatias pequenas.</span>
-<span class="add">+</span>
-<span class="add">+**Recomendações:** adicionar agregados mensais versionados; incluir contagens e percentuais, não apenas médias; registrar a versão da configuração; manter o app desacoplado via `public/kpi-data.json`.</span>
-<span class="add">+</span>
-<span class="add">+### Advisor: The Outsider (síntese)</span>
-<span class="add">+</span>
-<span class="add">+Um colaborador novo não conseguiria responder, olhando apenas a dashboard, se uma rota foi escolhida, executada ou usada como fallback. Também não saberia se “0 gates” significa que ninguém declarou gates ou que o instrumento não capturou eventos. O contrato deve tornar esses estados explícitos e os comandos devem produzir uma saída curta que permita reproduzir a contagem.</span>
-<span class="add">+</span>
-<span class="add">+A auditoria atual passa vários checks, mas isso só cobre os padrões que as regras conhecem. “Arquivo órfão” não é sinônimo de “arquivo não importado” em entry points, fixtures, migrations, scripts internos ou documentação histórica. A sanitização deve ter modo `audit` e modo `check`; o primeiro lista achados e o segundo falha somente em contratos que conseguem ser provados de forma determinística.</span>
-<span class="add">+</span>
-<span class="add">+**Veredito:** Faça, com linguagem de cobertura e limitações explícitas.</span>
-<span class="add">+</span>
-<span class="add">+**Recomendações:** não chamar uma varredura heurística de limpeza total; incluir fixtures e arquivos gerados na taxonomia; testar o auditor com repositórios fixture; documentar exceções permitidas.</span>
-<span class="add">+</span>
-<span class="add">+### Advisor: The Executor (síntese)</span>
-<span class="add">+</span>
-<span class="add">+A execução segura deve ser dividida em três subprojetos dependentes: (A) auditoria de violações e guardrails de processo; (B) contrato/telemetria do router e novos KPIs; (C) auditoria e sanitização segura. A frente B depende de um evento de conclusão extensível; a frente C deve começar e terminar com inventários e usar a suíte existente para provar que o comportamento da aplicação permaneceu inalterado.</span>
-<span class="add">+</span>
-<span class="add">+Cada mudança de comportamento deve seguir INTENT + TDD. Cada novo script deve ter atalho npm, teste unitário e integração no pre-pr quando for um guardrail imutável. A saída precisa passar por `pre-pr`, relatório HTML, review e testes E2E locais/produção aplicáveis. O deploy deve permanecer no fluxo protegido de PR para `main`; não se deve fazer push/merge/deploy silencioso.</span>
-<span class="add">+</span>
-<span class="add">+**Veredito:** Faça em fases, começando por evidência e contrato.</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>

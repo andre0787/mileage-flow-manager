@@ -49,6 +49,7 @@ describe("parseEvents", () => {
         source: "category-default",
         retrySafety: "may-write",
         configVersion: 1,
+        skills: [],
       }),
     ).toEqual([]);
   });

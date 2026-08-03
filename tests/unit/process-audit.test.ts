@@ -47,7 +47,7 @@ describe("process-audit CLI", () => {
 
   it("resolução do router sem conclusão é unobserved, sem falhar o check", () => {
     const fixture = [
-      '{"type":"llm.route.resolved","timestamp":"2026-08-01T10:00:00Z","taskId":"t1","category":"feature","capability":null,"profile":"coding","model":"model/primary","fallbackModels":[],"source":"category-default","retrySafety":"may-write","configVersion":1}',
+      '{"type":"llm.route.resolved","timestamp":"2026-08-01T10:00:00Z","taskId":"t1","category":"feature","capability":null,"profile":"coding","model":"model/primary","fallbackModels":[],"source":"category-default","retrySafety":"may-write","configVersion":1,"skills":[]}',
     ];
 
     const json = runAudit(fixture, ["--json"]);
@@ -69,7 +69,7 @@ describe("process-audit CLI", () => {
 
   it("relatório humano contém contagens e não valores sensíveis", () => {
     const fixture = [
-      '{"type":"llm.route.resolved","timestamp":"2026-08-01T10:00:00Z","taskId":"t1","category":"feature","capability":null,"profile":"coding","model":"model/primary","fallbackModels":[],"source":"category-default","retrySafety":"may-write","configVersion":1}',
+      '{"type":"llm.route.resolved","timestamp":"2026-08-01T10:00:00Z","taskId":"t1","category":"feature","capability":null,"profile":"coding","model":"model/primary","fallbackModels":[],"source":"category-default","retrySafety":"may-write","configVersion":1,"skills":[]}',
       '{"type":"pre-pr","timestamp":"2026-08-01T11:00:00Z","branch":"feat/a","errors":0,"token":"abc"}',
     ];
 

@@ -1014,3 +1014,7 @@
 {"timestamp":"2026-08-03T14:11:27.174Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/process-kpi-observability-impl","commit":"1627613","rule":"rule-10-clean"}
 {"timestamp":"2026-08-03T14:15:08.683Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"1627613","errors":0}
 {"timestamp":"2026-08-03T14:17:12.383Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"80cd250","errors":0}
+{"timestamp":"2026-08-03T14:23:30.190Z","type":"rule:fail","description":"rule-36-process-evidence falhou","branch":"feat/process-kpi-observability-impl","commit":"8adbddf","rule":"rule-36-process-evidence"}
+{"timestamp":"2026-08-03T14:24:01.067Z","type":"rule:fail","description":"rule-36-process-evidence falhou","branch":"feat/process-kpi-observability-impl","commit":"8adbddf","rule":"rule-36-process-evidence"}
+{"timestamp":"2026-08-03T14:24:31.687Z","type":"rule:fail","description":"rule-36-process-evidence falhou","branch":"feat/process-kpi-observability-impl","commit":"8adbddf","rule":"rule-36-process-evidence"}
+{"timestamp":"2026-08-03T14:25:33.039Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"8adbddf","errors":0}
