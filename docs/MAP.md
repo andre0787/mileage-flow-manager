@@ -66,6 +66,10 @@
 | `scripts/retro.mjs` | Retrospectiva | Gera relatório de retrospectiva do período |
 | `scripts/rules/rule-22-pr-naming.mjs` | Validação de PR | Valida nomenclatura de PRs no pre-pr |
 | `scripts/twins-check.mjs` | TWINS gate | Busca automatizada de padrões no código |
+| `scripts/process-audit.mjs` | Auditoria de evidência | Valida `docs/tracking/events.jsonl` (read-only); `--check`/`--json` |
+| `scripts/lib/process-events.mjs` | Contrato de eventos | Parser + validador compartilhado (CLI e rule-36) |
+| `scripts/lib/generated-artifacts.mjs` | Staging de artefatos | Allowlist dos 4+2 artefatos gerados stageados no pre-pr |
+| `scripts/rules/rule-36-process-evidence.mjs` | Guardrail #36 | Evidência de processo válida no pre-pr |
 | `CLAUDE.md` | Cross-harness (Claude Code) | Instruções resumidas para Claude Code |
 | `QUALITY.md` | Qualidade do código | Métricas e padrões de qualidade |
 
