@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 process kpi observability impl</h1>
-  <p class="meta">2026-08-03 11:27 &middot; feat/process-kpi-observability-impl &middot; e0d1acc — feat: registrar skills e fallback efetivo do router</p>
+  <p class="meta">2026-08-03 11:30 &middot; feat/process-kpi-observability-impl &middot; ebaece0 — docs: explicitar conclusao efetiva do router</p>
   <p><span class="badge auto">auto</span> <span class="badge auto">process-kpi-observability-impl</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">40</div>
+      <div style="font-size:1.5rem;font-weight:700">42</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+3026</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+3084</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-142</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-144</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~2825</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~2882</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -80,12 +80,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 142 remoções — 3766 linhas tocadas</td>
-        <td>✨ 3026 adições — 40 arquivo(s) alterado(s)</td>
+        <td>🧹 144 remoções — 3842 linhas tocadas</td>
+        <td>✨ 3084 adições — 42 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .gitignore, docs/CONVENTIONS.md, docs/MAP.md, docs/RADAR.md<br><span style="color:#166534;font-weight:600">➕</span> docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md<br><em>+35 arquivo(s)</em></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .gitignore, docs/CONVENTIONS.md, docs/LLM-ROUTER.md, docs/MAP.md, docs/RADAR.md<br><em>+37 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,25 +98,25 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>40</td></tr>
-    <tr><td>Adições</td><td>+3026</td></tr>
-    <tr><td>Remoções</td><td>-142</td></tr>
-    <tr><td>Tokens estimados</td><td>~2825</td></tr>
+    <tr><td>Arquivos alterados</td><td>42</td></tr>
+    <tr><td>Adições</td><td>+3084</td></tr>
+    <tr><td>Remoções</td><td>-144</td></tr>
+    <tr><td>Tokens estimados</td><td>~2882</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:80">+2270 add</div>
-        <div class="del" style="flex:4">-107 del</div>
-        <div class="overhead" style="flex:16">~448 ctx</div>
+        <div class="add" style="flex:80">+2313 add</div>
+        <div class="del" style="flex:4">-108 del</div>
+        <div class="overhead" style="flex:16">~461 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+2270</td><td>80%</td></tr>
-      <tr><td>Remoções</td><td>-107</td><td>4%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~448</td><td>16%</td></tr>
-      <tr><th>Total</th><th>~2825</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+2313</td><td>80%</td></tr>
+      <tr><td>Remoções</td><td>-108</td><td>4%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~461</td><td>16%</td></tr>
+      <tr><th>Total</th><th>~2882</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
@@ -124,6 +124,7 @@
     <tr><th>Status</th><th>Arquivo</th></tr>
     <tr><td>M</td><td>.gitignore</td></tr>
 <tr><td>M</td><td>docs/CONVENTIONS.md</td></tr>
+<tr><td>M</td><td>docs/LLM-ROUTER.md</td></tr>
 <tr><td>M</td><td>docs/MAP.md</td></tr>
 <tr><td>M</td><td>docs/RADAR.md</td></tr>
 <tr><td>A</td><td>docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md</td></tr>
@@ -151,7 +152,6 @@
 <tr><td>A</td><td>scripts/process-audit.mjs</td></tr>
 <tr><td>M</td><td>scripts/quality-log.mjs</td></tr>
 <tr><td>M</td><td>scripts/rules/rule-14-orphan-files.mjs</td></tr>
-<tr><td>M</td><td>scripts/rules/rule-17-new-docs-valid.mjs</td></tr>
   </table>
 
   
@@ -209,6 +209,32 @@ index 026056a..be6ee94 100644
  ## Limpeza Pós-Sessão — OBRIGATÓRIA
  
  **Antes de finalizar qualquer sessão ou subir PR, verifique `git status`.**
+diff --git a/docs/LLM-ROUTER.md b/docs/LLM-ROUTER.md
+index ca695e6..590b25c 100644
+<span class="del">--- a/docs/LLM-ROUTER.md</span>
+<span class="add">+++ b/docs/LLM-ROUTER.md</span>
+@@ -49,6 +49,21 @@ Resoluções produzem `llm.route.resolved`; conclusões podem ser registradas co
+ npm run llm:route -- complete --event '{"taskId":"P1-09","model":"openai-codex/gpt-5.4-mini","provider":"openai-codex","attempt":1,"status":"completed","durationMs":42}'
+ ```
+ 
+<span class="add">+### Ordem obrigatória do dispatcher</span>
+<span class="add">+</span>
+<span class="add">+1. **resolve** — escolhe primário e fallbacks; registra `llm.route.resolved` (decisão planejada).</span>
+<span class="add">+2. **invoque** o subagente/modelo — primeiro o primário, depois o fallback se necessário.</span>
+<span class="add">+3. **complete** — registra `llm.route.completed` com o **modelo efetivo** em `model`, o</span>
+<span class="add">+   primário planejado em `resolvedModel`, `fallbackUsed: true` quando o efetivo</span>
+<span class="add">+diverge do primário, `status` terminal (`completed|failed|cancelled|blocked`) e</span>
+<span class="add">+`skills` normalizadas.</span>
+<span class="add">+4. **falha pré-lançamento** — se o dispatcher não consegue nem lançar o</span>
+<span class="add">+   subagente, registra `llm.route.completed` com `status: "failed"` e</span>
+<span class="add">+   `failureKind: "subagent_prelaunch"`.</span>
+<span class="add">+</span>
+<span class="add">+`resolved` sozinho **não é execução**: o KPI só conta tarefas terminadas com um</span>
+<span class="add">+`completed` terminal. Resoluções sem conclusão ficam como `unobserved`.</span>
+<span class="add">+</span>
+ Eventos aceitam somente metadados estruturados. Não inclua prompts, respostas integrais, tokens, API keys ou credenciais. Use `--no-log` em dry-runs e testes.
+ 
+ ## Capacidades futuras
 diff --git a/docs/MAP.md b/docs/MAP.md
 index 956a3ac..6c47c46 100644
 <span class="del">--- a/docs/MAP.md</span>
@@ -252,32 +278,6 @@ index 498509b..53157fb 100644
 diff --git a/docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md b/docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md
 new file mode 100644
 index 0000000..d42a281
-<span class="del">--- /dev/null</span>
-<span class="add">+++ b/docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md</span>
-@@ -0,0 +1,93 @@
-<span class="add">+# Veredito do Council — KPIs de Processo, Router LLM e Sanitização</span>
-<span class="add">+</span>
-<span class="add">+&gt; **Data:** 2026-08-03</span>
-<span class="add">+&gt; **Categoria:** feature de workflow com frentes de chore/refactor</span>
-<span class="add">+&gt; **Solicitação:** investigar violações de KPIs de processo e criar guardrails; medir ativação/execução do router LLM, fallback e atribuição de skills; auditar duplicidade, redundância, órfãos e sujeira e sanitizar com segurança até produção.</span>
-<span class="add">+</span>
-<span class="add">+## Limitação operacional do Council</span>
-<span class="add">+</span>
-<span class="add">+Foram tentadas duas execuções via `subagent_gate`: primeiro o quórum de cinco advisors com rótulos específicos e depois uma tentativa com o agente genérico suportado. Ambas falharam em **pré-lançamento**, com `0/5` e `0/1` sucessos, porque o ambiente atual não expôs um responder do `pi-subagents`. Nenhuma análise independente foi recebida. As cinco rotas foram registradas como `llm.route.resolved` e suas conclusões como `llm.route.completed` com `status: failed` e `failureKind: subagent_prelaunch`; não são apresentadas como consenso de subagentes.</span>
-<span class="add">+</span>
-<span class="add">+O documento abaixo é a síntese estruturada do orquestrador, baseada no código, nos testes, nos logs e nas regras atuais. Essa limitação deve ser tratada como dado do próprio KPI do router.</span>
-<span class="add">+</span>
-<span class="add">+## Evidências de baseline</span>
-<span class="add">+</span>
-<span class="add">+- `public/kpi-data.json` mostra, em agosto de 2026, 74 execuções de pre-pr: 50 pass, 24 fail e taxa de 67,6%.</span>
-<span class="add">+- As violações históricas mais frequentes são `rule-10-clean` (14), `rule-26-session-started` (7) e `rule-27-council-veredict` (3).</span>
-<span class="add">+- O log possui 177 eventos `pre-pr`, 24 `rule:fail`, somente 2 ativações de gate e, antes desta análise, não possuía conclusões do router para as cinco rotas recém-resolvidas.</span>
-<span class="add">+- As regras 14, 15, 16, 18, 23, 31 e 32 passam no estado atual; isso prova que os checks existentes não encontram sujeira nesses recortes, não que a auditoria total esteja concluída.</span>
-<span class="add">+- O baseline funcional observado foi: 326 testes unitários passando, typecheck sem erros, lint sem erros mas com 10 warnings, format check passando, verify-docs estrito passando, outcome grader 100%.</span>
-<span class="add">+- `npm audit --omit=dev` reporta duas vulnerabilidades high em `react-router` transitivo; a correção sugerida pelo npm é breaking (`react-router-dom@7.11.0`) e não deve ser aplicada cegamente nesta sanitização.</span>
-<span class="add">+- O evento atual `llm.route.resolved` registra a decisão planejada; `llm.route.completed` registra apenas modelo/tentativa/status/duração/falha e não registra `skills`, nem diferencia explicitamente modelo solicitado de modelo efetivo.</span>
-<span class="add">+</span>
-<span class="add">+## Advisors</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
