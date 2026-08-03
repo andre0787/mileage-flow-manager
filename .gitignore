@@ -66,11 +66,15 @@ bun.lockb
 
 # Playwright artifacts
 test-results/
+playwright-report/
 tests/screenshots/
 tests/fluxo-relatorio.md
 
 # Subagent artifacts
 .pi-subagents/
+
+# Local git worktrees
+.worktrees/
 
 # OpenCode AI extension artifacts
 .opencode/

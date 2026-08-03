@@ -34,6 +34,10 @@ function listSourceFiles(dir, prefix = "") {
 }
 
 /** Collect all import/require paths from a file content */
+function stripSourceExtension(filePath) {
+  return filePath.replace(/\.(?:tsx?|jsx?)$/, "");
+}
+
 function collectImports(content) {
   const imports = new Set();
   // import ... from "..." / export ... from "..."
@@ -73,16 +77,16 @@ function isFileReferenced(rel, aliasPath, importIndex) {
       // ── 3. Check relative import ──
       if (imp.startsWith("./") || imp.startsWith("../")) {
         const dir = importerRel.split("/").slice(0, -1).join("/");
-        const resolved = join(ROOT, dir, imp);
-        const resolvedBase = resolved.replace(/\.[^.]+$/, ""); // strip ext if present
-        const fileBaseNoExt = join(ROOT, rel.replace(/\.[^.]+$/, ""));
+        const resolved = join(SRC, dir, imp);
+        const resolvedBase = stripSourceExtension(resolved);
+        const fileBaseNoExt = join(SRC, stripSourceExtension(rel));
         if (resolvedBase === fileBaseNoExt) return true;
         // Also check if it resolves to the barrel index
         if (resolvedBase === fileBaseNoExt.replace(/\/index$/, "")) return true;
       }
 
       // ── 4. Check direct src/ path reference (rare) ──
-      if (imp === `src/${rel}` || imp === `src/${rel.replace(/\.[^.]+$/, "")}`) return true;
+      if (imp === `src/${rel}` || imp === `src/${stripSourceExtension(rel)}`) return true;
     }
   }
   return false;
@@ -108,7 +112,7 @@ for (const { rel } of allFiles) {
   // Skip co-located tests (src/**/tests/*.test.ts(x)) — carregados pelo vitest via glob, não por import
   if (rel.includes("/tests/") && (rel.endsWith(".test.ts") || rel.endsWith(".test.tsx"))) continue;
 
-  const aliasPath = "@/" + rel.replace(/\.[^.]+$/, "");
+  const aliasPath = "@/" + stripSourceExtension(rel);
   const referenced = isFileReferenced(rel, aliasPath, importIndex);
 
   if (!referenced) {

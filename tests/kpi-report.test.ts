@@ -12,6 +12,7 @@ import {
   parseReportsForMonth,
   computeCycleTime,
 } from "../scripts/kpi-report.mjs";
+import { validateProcessEvent } from "../scripts/lib/process-events.mjs";
 
 describe("parseEvents", () => {
   it("parses JSONL lines (formato plano do event-log)", () => {
@@ -32,6 +33,25 @@ describe("parseEvents", () => {
     const input = `{"type":"pre-pr","timestamp":"2026-07-01T10:00:00Z","errors":0}\n\n{"type":"session:start","timestamp":"2026-07-02T10:00:00Z","branch":"feat/a"}`;
     const result = parseEvents(input);
     expect(result).toHaveLength(2);
+  });
+
+  it("aceita evento router válido pelo validador compartilhado", () => {
+    expect(
+      validateProcessEvent({
+        type: "llm.route.resolved",
+        timestamp: "2026-07-01T10:00:00Z",
+        taskId: "task-1",
+        category: "feature",
+        capability: null,
+        profile: "coding",
+        model: "model/primary",
+        fallbackModels: [],
+        source: "category-default",
+        retrySafety: "may-write",
+        configVersion: 1,
+        skills: [],
+      }),
+    ).toEqual([]);
   });
 });
 
@@ -80,6 +100,78 @@ describe("computeMonthlyKPI", () => {
     expect(result.prePrPassRate).toBe(0);
     expect(result.prePrTotal).toBe(0);
     expect(result.gateActivations.intent).toBe(0);
+  });
+
+  it("preserva o formato legado aninhado de pre-pr", () => {
+    const result = computeMonthlyKPI([
+      {
+        type: "pre-pr",
+        timestamp: "2026-07-01T10:00:00Z",
+        data: { result: "PASS", branch: "feat/legacy" },
+      },
+    ], "2026-07");
+
+    expect(result.prePrPass).toBe(1);
+    expect(result.branchesMerged).toBe(1);
+  });
+
+  it("inclui bloco llmRouter zero-filled para mês sem router", () => {
+    const result = computeMonthlyKPI([], "2026-07");
+
+    expect(result.llmRouter).toMatchObject({
+      resolved: 0,
+      completed: 0,
+      failed: 0,
+      unobserved: 0,
+      fallbackUsed: 0,
+      models: [],
+      skillsByModel: [],
+    });
+    expect(result.llmRouter.completionRate).toBeNull();
+  });
+
+  it("calcula o bloco llmRouter para resolução + fallback completado", () => {
+    const result = computeMonthlyKPI([
+      {
+        type: "llm.route.resolved",
+        taskId: "aug-1",
+        model: "model/primary",
+        fallbackModels: ["model/fallback"],
+        skills: [],
+        timestamp: "2026-08-01T10:00:00Z",
+      },
+      {
+        type: "llm.route.completed",
+        taskId: "aug-1",
+        model: "model/primary",
+        attempt: 1,
+        status: "failed",
+        timestamp: "2026-08-01T10:01:00Z",
+      },
+      {
+        type: "llm.route.completed",
+        taskId: "aug-1",
+        model: "model/fallback",
+        attempt: 2,
+        status: "completed",
+        resolvedModel: "model/primary",
+        fallbackUsed: true,
+        skills: ["test-driven-development"],
+        timestamp: "2026-08-01T10:02:00Z",
+      },
+    ], "2026-08");
+
+    expect(result.llmRouter).toMatchObject({
+      resolved: 1,
+      completed: 1,
+      failed: 0,
+      unobserved: 0,
+      fallbackUsed: 1,
+      completionRate: 100,
+      fallbackRate: 100,
+      models: ["model/fallback"],
+      skillsByModel: [{ skill: "test-driven-development", model: "model/fallback" }],
+    });
   });
 });
 

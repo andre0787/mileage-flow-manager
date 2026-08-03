@@ -15,6 +15,8 @@
 import { readFileSync, existsSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { execSync } from "child_process";
+import { parseProcessEvents } from "./lib/process-events.mjs";
+import { computeRouterKPI } from "./lib/router-kpi.mjs";
 
 // ─── Tipos ───────────────────────────────────────────────────────────
 
@@ -30,10 +32,7 @@ import { execSync } from "child_process";
  * @returns {KPIEvent[]}
  */
 export function parseEvents(raw) {
-  return raw
-    .split("\n")
-    .filter((l) => l.trim())
-    .map((l) => JSON.parse(l));
+  return parseProcessEvents(raw);
 }
 
 /**
@@ -242,6 +241,7 @@ export function computeMonthlyKPI(events, monthLabel) {
     topViolations,
     avgCycleTimeHours,
     branchesMerged,
+    llmRouter: computeRouterKPI(events),
   };
 }
 

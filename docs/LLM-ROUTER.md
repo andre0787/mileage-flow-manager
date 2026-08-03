@@ -49,6 +49,21 @@ Resoluções produzem `llm.route.resolved`; conclusões podem ser registradas co
 npm run llm:route -- complete --event '{"taskId":"P1-09","model":"openai-codex/gpt-5.4-mini","provider":"openai-codex","attempt":1,"status":"completed","durationMs":42}'
 ```
 
+### Ordem obrigatória do dispatcher
+
+1. **resolve** — escolhe primário e fallbacks; registra `llm.route.resolved` (decisão planejada).
+2. **invoque** o subagente/modelo — primeiro o primário, depois o fallback se necessário.
+3. **complete** — registra `llm.route.completed` com o **modelo efetivo** em `model`, o
+   primário planejado em `resolvedModel`, `fallbackUsed: true` quando o efetivo
+diverge do primário, `status` terminal (`completed|failed|cancelled|blocked`) e
+`skills` normalizadas.
+4. **falha pré-lançamento** — se o dispatcher não consegue nem lançar o
+   subagente, registra `llm.route.completed` com `status: "failed"` e
+   `failureKind: "subagent_prelaunch"`.
+
+`resolved` sozinho **não é execução**: o KPI só conta tarefas terminadas com um
+`completed` terminal. Resoluções sem conclusão ficam como `unobserved`.
+
 Eventos aceitam somente metadados estruturados. Não inclua prompts, respostas integrais, tokens, API keys ou credenciais. Use `--no-log` em dry-runs e testes.
 
 ## Capacidades futuras

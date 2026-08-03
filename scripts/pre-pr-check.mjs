@@ -18,6 +18,20 @@ import { existsSync, readdirSync, renameSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 import { getDiffFiles } from "./lib.mjs";
+import { stageGeneratedArtifacts } from "./lib/generated-artifacts.mjs";
+
+/**
+ * Executa git sem o ambiente Git herdado de hooks (GIT_INDEX_FILE/GIT_DIR…),
+ * para que operações de inspeção usem o repositório real e não o index
+ * temporário do hook.
+ */
+function gitExec(cmd, opts = {}) {
+  const env = { ...process.env };
+  for (const key of ["GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_COMMON_DIR", "GIT_PREFIX"]) {
+    delete env[key];
+  }
+  return execSync(cmd, { cwd: ROOT, encoding: "utf8", timeout: 5000, ...opts, env: { ...env, ...(opts.env || {}) } });
+}
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
@@ -56,7 +70,7 @@ if (!process.argv.includes("--no-report")) {
   logger.log("── Relatório ──");
   try {
     const today = new Date().toISOString().slice(0, 10);
-    const branch = execSync("git rev-parse --abbrev-ref HEAD", { cwd: ROOT, encoding: "utf8", timeout: 3000 }).trim();
+    const branch = gitExec("git rev-parse --abbrev-ref HEAD").trim();
 
     // Se apenas docs/reports/ foi alterado, pula relatório (ex: rename de relatórios)
     // MAS se houver PR aberto, renomeia os reports com prefixo correto
@@ -132,6 +146,14 @@ if (!process.argv.includes("--no-report")) {
 // ── Regras ───────────────────────────────────────────────────────────
 logger.log("── Regras ──");
 let ruleFiles = readdirSync(RULES_DIR).filter(f => f.endsWith(".mjs")).sort();
+
+// Stageia os artefatos gerados conhecidos ANTES do loop de regras para
+// não criar falso-positivo na rule-10-clean (ex: kpi-data.json fresco).
+try {
+  stageGeneratedArtifacts(ROOT);
+} catch (e) {
+  logger.warn(`  ⚠️  staging de artefatos gerados falhou: ${e.message.slice(0, 100)}`);
+}
 
 if (process.env.PRE_PR_ONLY_RULE) {
   const allowedRules = process.env.PRE_PR_ONLY_RULE.split(",").map(r => r.trim());
@@ -210,6 +232,6 @@ try {
 if (!process.env.PRE_PR_ONLY_RULES && !process.env.VITEST) {
   try {
     execSync("npm run kpi 2>/dev/null", { cwd: ROOT, encoding: "utf8", timeout: 15000 });
-    execSync("git add public/kpi-data.json docs/tracking/events.jsonl docs/tracking/quality.jsonl 2>/dev/null || true", { cwd: ROOT, timeout: 3000 });
+    stageGeneratedArtifacts(ROOT);
   } catch { /* non-blocking */ }
 }

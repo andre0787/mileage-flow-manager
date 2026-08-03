@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-03T12:14:48.969Z",
+  "generatedAt": "2026-08-03T15:42:48.184Z",
   "months": [
     {
       "month": "2026-03",
@@ -17,7 +17,18 @@
       "avgOutcomeGrade": null,
       "topViolations": [],
       "avgCycleTimeHours": null,
-      "branchesMerged": 0
+      "branchesMerged": 0,
+      "llmRouter": {
+        "resolved": 0,
+        "completed": 0,
+        "failed": 0,
+        "unobserved": 0,
+        "fallbackUsed": 0,
+        "completionRate": null,
+        "fallbackRate": null,
+        "models": [],
+        "skillsByModel": []
+      }
     },
     {
       "month": "2026-04",
@@ -35,7 +46,18 @@
       "avgOutcomeGrade": null,
       "topViolations": [],
       "avgCycleTimeHours": null,
-      "branchesMerged": 0
+      "branchesMerged": 0,
+      "llmRouter": {
+        "resolved": 0,
+        "completed": 0,
+        "failed": 0,
+        "unobserved": 0,
+        "fallbackUsed": 0,
+        "completionRate": null,
+        "fallbackRate": null,
+        "models": [],
+        "skillsByModel": []
+      }
     },
     {
       "month": "2026-05",
@@ -53,7 +75,18 @@
       "avgOutcomeGrade": null,
       "topViolations": [],
       "avgCycleTimeHours": null,
-      "branchesMerged": 0
+      "branchesMerged": 0,
+      "llmRouter": {
+        "resolved": 0,
+        "completed": 0,
+        "failed": 0,
+        "unobserved": 0,
+        "fallbackUsed": 0,
+        "completionRate": null,
+        "fallbackRate": null,
+        "models": [],
+        "skillsByModel": []
+      }
     },
     {
       "month": "2026-06",
@@ -71,14 +104,25 @@
       "avgOutcomeGrade": null,
       "topViolations": [],
       "avgCycleTimeHours": null,
-      "branchesMerged": 0
+      "branchesMerged": 0,
+      "llmRouter": {
+        "resolved": 0,
+        "completed": 0,
+        "failed": 0,
+        "unobserved": 0,
+        "fallbackUsed": 0,
+        "completionRate": null,
+        "fallbackRate": null,
+        "models": [],
+        "skillsByModel": []
+      }
     },
     {
       "month": "2026-07",
-      "prePrPassRate": 69.2,
-      "prePrTotal": 104,
-      "prePrPass": 72,
-      "prePrFail": 32,
+      "prePrPassRate": 69.7,
+      "prePrTotal": 99,
+      "prePrPass": 69,
+      "prePrFail": 30,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -89,14 +133,25 @@
       "avgOutcomeGrade": null,
       "topViolations": [],
       "avgCycleTimeHours": null,
-      "branchesMerged": 7
+      "branchesMerged": 7,
+      "llmRouter": {
+        "resolved": 0,
+        "completed": 0,
+        "failed": 0,
+        "unobserved": 0,
+        "fallbackUsed": 0,
+        "completionRate": null,
+        "fallbackRate": null,
+        "models": [],
+        "skillsByModel": []
+      }
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 67.6,
-      "prePrTotal": 74,
-      "prePrPass": 50,
-      "prePrFail": 24,
+      "prePrPassRate": 74.2,
+      "prePrTotal": 97,
+      "prePrPass": 72,
+      "prePrFail": 25,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -104,23 +159,45 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 95.1,
+      "avgOutcomeGrade": 97.6,
       "topViolations": [
         {
           "rule": "rule-10-clean",
-          "count": 14
+          "count": 23
         },
         {
           "rule": "rule-26-session-started",
-          "count": 7
+          "count": 8
         },
         {
           "rule": "rule-27-council-veredict",
+          "count": 4
+        },
+        {
+          "rule": "rule-36-process-evidence",
           "count": 3
+        },
+        {
+          "rule": "rule-17-new-docs-valid",
+          "count": 1
         }
       ],
-      "avgCycleTimeHours": 0,
-      "branchesMerged": 9
+      "avgCycleTimeHours": 0.3,
+      "branchesMerged": 11,
+      "llmRouter": {
+        "resolved": 6,
+        "completed": 0,
+        "failed": 10,
+        "unobserved": 0,
+        "fallbackUsed": 0,
+        "completionRate": 0,
+        "fallbackRate": null,
+        "models": [
+          "openai-codex/gpt-5.4-mini",
+          "openai-codex/gpt-5.6-luna"
+        ],
+        "skillsByModel": []
+      }
     }
   ],
   "currentMonth": "2026-08"

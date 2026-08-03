@@ -3,6 +3,7 @@ import KPICard from "./KPICard";
 import KPIChart from "./KPIChart";
 import KPITable from "./KPITable";
 import KPIMonthSelector from "./KPIMonthSelector";
+import LLMRouterKPISection, { type RouterMonthlyKPI } from "./LLMRouterKPISection";
 
 export interface MonthlyKPI {
   [key: string]: unknown;
@@ -18,6 +19,7 @@ export interface MonthlyKPI {
   topViolations: Array<{ rule: string; count: number }>;
   avgCycleTimeHours: number | null;
   branchesMerged: number;
+  llmRouter?: RouterMonthlyKPI;
 }
 
 export interface KpiData {
@@ -25,6 +27,18 @@ export interface KpiData {
   currentMonth: string;
   months: MonthlyKPI[];
 }
+
+const LEGACY_ROUTER_KPI: RouterMonthlyKPI = {
+  resolved: 0,
+  completed: 0,
+  failed: 0,
+  unobserved: 0,
+  fallbackUsed: 0,
+  completionRate: null,
+  fallbackRate: null,
+  models: [],
+  skillsByModel: [],
+};
 
 function calcDelta(current: number, previous: number | null): number | null {
   if (previous === null || previous === 0) return null;
@@ -133,6 +147,8 @@ export default function KPIDashboard({ data }: { data: KpiData }) {
           rows={current.topViolations.map((v) => [v.rule, String(v.count)])}
         />
       </div>
+
+      <LLMRouterKPISection llmRouter={current.llmRouter ?? LEGACY_ROUTER_KPI} />
     </div>
   );
 }

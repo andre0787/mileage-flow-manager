@@ -198,6 +198,7 @@ que impeça sua violação de forma automatizada.
 | verify-docs — Docs refs código inexistentes | `verify-docs.mjs` (check #4) | `scripts/verify-docs.mjs` |
 | #17 — Novos .md válidos (órfãos, links, MAP.md) | `rule-17-new-docs-valid.mjs` (auto no pre-pr) | `scripts/rules/rule-17-new-docs-valid.mjs` |
 | #22 — PR naming convention | `rule-22-pr-naming.mjs` (auto no pre-pr) | `scripts/rules/rule-22-pr-naming.mjs` |
+| #36 — Evidência de processo válida | `npm run process:audit -- --check` (auto no pre-pr via rule-36) | `scripts/rules/rule-36-process-evidence.mjs` |
 | Deploy health | `check-deploy.mjs` | `scripts/check-deploy.mjs` |
 | Retrospectiva | `retro.mjs` | `scripts/retro.mjs` |
 | CI Process | `CI-PROCESS.md` | `docs/CI-PROCESS.md` |
@@ -213,6 +214,50 @@ que impeça sua violação de forma automatizada.
 4. Se for hook, garanta que ele é instalado via `session:start`
 
 **Sem validação automática, a regra não está completa.**
+
+### Auditoria de evidência de processo (read-only)
+
+O comando `npm run process:audit` valida `docs/tracking/events.jsonl` sem gravar
+nada:
+
+- `npm run process:audit` — relatório humano (contagens por tipo, inválidos, unobserved)
+- `npm run process:audit -- --check` — exit 1 se houver evento inválido (mesma lógica da rule-36 no pre-pr)
+- `npm run process:audit -- --json` — objeto estruturado para CI
+
+Regras do auditor:
+
+1. Campos sensíveis (`prompt`, `output`, `token`, `apiKey`, `password`…) tornam o
+   evento inválido **sem ecoar o valor** no relatório.
+2. Resoluções do router sem conclusão são reportadas como `unobserved`, que é
+   **distinto** de evento inválido: não falha o `--check` até o contrato de
+   conclusão do router estar ativo.
+3. O comando é read-only: nunca reescreve nem apaga linhas do log.
+
+### Auditoria estrutural do projeto (read-only)
+
+O comando `npm run project:audit` inspeciona estrutura, duplicidade e artefatos
+gerados sem mutar nada:
+
+- `npm run project:audit` — relatório humano (checks por regra + findings classificados)
+- `npm run project:audit -- --json` — documento JSON (`checks`, `findings`) para CI, sem ANSI
+- `npm run project:audit -- --strict` — exit 1 se houver finding crítico ou check falho
+
+Domínios e limites (não duplica algoritmos das regras):
+
+1. Roda as regras 14, 15, 16, 18, 23, 31 e 32 como child processes; falha de regra
+   vira check `fail`, nunca é convertida em pass.
+2. `classifyTrackedArtifacts` (scripts/lib/project-audit.mjs) marca `generated`
+   critical apenas diretórios gerados (`playwright-report/`, `test-results/`,
+   `dist/`, `coverage/`) fora da allowlist operacional (`docs/tracking/`,
+   `supabase/migrations/`, `.pi/skills/`, `scripts/lib/`, `scripts/rules/`,
+   `docs/superpowers/`, `docs/council/`); `docs/archive/`, `docs/reports/` e
+   `docs/audits/` são históricos preservados.
+3. Detecção de órfãos respeita entry points, fixtures, migrações e docs
+   históricos; duplicatas usam o threshold da rule-15; `npm audit` (segurança)
+   é separado da auditoria estrutural.
+4. Não existe flag genérica `--fix`: remoções são commits explícitos e
+   allowlisted. A saída JSON só contém caminhos/categorias/contagens, nunca
+   conteúdo de arquivo.
 
 ## Limpeza Pós-Sessão — OBRIGATÓRIA
 

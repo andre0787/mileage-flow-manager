@@ -32,11 +32,15 @@
 import { existsSync, mkdirSync, readFileSync, appendFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { execSync } from "child_process";
+import { splitAtLimit } from "./lib/log-trim.mjs";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const TRACKING_DIR = resolve(ROOT, "docs/tracking");
+const TRACKING_DIR = process.env.EVENT_LOG_TRACKING_DIR
+  ? resolve(process.env.EVENT_LOG_TRACKING_DIR)
+  : resolve(ROOT, "docs/tracking");
 const LOG_PATH = resolve(TRACKING_DIR, "events.jsonl");
-const MAX_EVENTS = 1000; // mantém apenas os últimos N eventos
+const ARCHIVE_PATH = resolve(TRACKING_DIR, "events-archive.jsonl");
+const MAX_EVENTS = 20000; // mantém os últimos N eventos; excesso vai para o archive
 
 const TIPOS_VALIDOS = [
   "session:start",
@@ -82,9 +86,10 @@ function appendEvent(event) {
 function trimLog() {
   if (!existsSync(LOG_PATH)) return;
   const lines = readFileSync(LOG_PATH, "utf8").trimEnd().split("\n");
-  if (lines.length > MAX_EVENTS) {
-    const trimmed = lines.slice(lines.length - MAX_EVENTS);
-    writeFileSync(LOG_PATH, trimmed.join("\n") + "\n", "utf8");
+  const { kept, archived } = splitAtLimit(lines, MAX_EVENTS);
+  if (archived.length > 0) {
+    writeFileSync(LOG_PATH, kept.join("\n") + "\n", "utf8");
+    appendFileSync(ARCHIVE_PATH, archived.join("\n") + "\n", "utf8");
   }
 }
 

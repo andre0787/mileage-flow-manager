@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>process-kpi-observability-impl — process kpi observability impl</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 process kpi observability impl</h1>
+  <p class="meta">2026-08-03 12:42 &middot; feat/process-kpi-observability-impl &middot; 4f558bb — chore: registrar falha de review delegado</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">process-kpi-observability-impl</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">55</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+4368</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-254</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~4039</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🖼️ Renderização verificada em desktop e mobile?</li>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Auto-gerado pelo pre-pr-check</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Relatório gerado automaticamente como parte do workflow de validação pré-PR</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 254 remoções — 5385 linhas tocadas</td>
+        <td>✨ 4368 adições — 55 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .gitignore, docs/CONVENTIONS.md, docs/LLM-ROUTER.md, docs/MAP.md, docs/RADAR.md<br><em>+50 arquivo(s)</em></td>
+      </tr>
+      
+      <tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>55</td></tr>
+    <tr><td>Adições</td><td>+4368</td></tr>
+    <tr><td>Remoções</td><td>-254</td></tr>
+    <tr><td>Tokens estimados</td><td>~4039</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:81">+3276 add</div>
+        <div class="del" style="flex:5">-191 del</div>
+        <div class="overhead" style="flex:14">~572 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+3276</td><td>81%</td></tr>
+      <tr><td>Remoções</td><td>-191</td><td>5%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~572</td><td>14%</td></tr>
+      <tr><th>Total</th><th>~4039</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>.gitignore</td></tr>
+<tr><td>M</td><td>docs/CONVENTIONS.md</td></tr>
+<tr><td>M</td><td>docs/LLM-ROUTER.md</td></tr>
+<tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>A</td><td>docs/audits/2026-08-03-project-audit.md</td></tr>
+<tr><td>A</td><td>docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-03/process-kpi-observability-2026-08-03-process-kpi-observability.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-03/process-kpi-observability-impl-2026-08-03-process-kpi-observability-impl.html</td></tr>
+<tr><td>A</td><td>docs/superpowers/plans/2026-08-03-llm-router-kpi-plan.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/plans/2026-08-03-process-guardrails-plan.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/plans/2026-08-03-project-sanitization-plan.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-08-03-llm-router-kpi-design.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-08-03-process-guardrails-design.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-08-03-project-sanitization-design.md</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>package.json</td></tr>
+<tr><td>D</td><td>playwright-report/index.html</td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td></tr>
+<tr><td>M</td><td>scripts/event-log.mjs</td></tr>
+<tr><td>M</td><td>scripts/kpi-report.mjs</td></tr>
+<tr><td>M</td><td>scripts/lib.mjs</td></tr>
+<tr><td>A</td><td>scripts/lib/generated-artifacts.mjs</td></tr>
+<tr><td>M</td><td>scripts/lib/llm-router.mjs</td></tr>
+<tr><td>A</td><td>scripts/lib/log-trim.mjs</td></tr>
+<tr><td>A</td><td>scripts/lib/process-events.mjs</td></tr>
+<tr><td>A</td><td>scripts/lib/project-audit.mjs</td></tr>
+<tr><td>A</td><td>scripts/lib/router-kpi.mjs</td></tr>
+  </table>
+
+  
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/.gitignore b/.gitignore
+index 73c0afd..66f9692 100644
+<span class="del">--- a/.gitignore</span>
+<span class="add">+++ b/.gitignore</span>
+@@ -66,12 +66,16 @@ bun.lockb
+ 
+ # Playwright artifacts
+ test-results/
+<span class="add">+playwright-report/</span>
+ tests/screenshots/
+ tests/fluxo-relatorio.md
+ 
+ # Subagent artifacts
+ .pi-subagents/
+ 
+<span class="add">+# Local git worktrees</span>
+<span class="add">+.worktrees/</span>
+<span class="add">+</span>
+ # OpenCode AI extension artifacts
+ .opencode/
+ 
+diff --git a/docs/CONVENTIONS.md b/docs/CONVENTIONS.md
+index 026056a..9033f18 100644
+<span class="del">--- a/docs/CONVENTIONS.md</span>
+<span class="add">+++ b/docs/CONVENTIONS.md</span>
+@@ -198,6 +198,7 @@ que impeça sua violação de forma automatizada.
+ | verify-docs — Docs refs código inexistentes | `verify-docs.mjs` (check #4) | `scripts/verify-docs.mjs` |
+ | #17 — Novos .md válidos (órfãos, links, MAP.md) | `rule-17-new-docs-valid.mjs` (auto no pre-pr) | `scripts/rules/rule-17-new-docs-valid.mjs` |
+ | #22 — PR naming convention | `rule-22-pr-naming.mjs` (auto no pre-pr) | `scripts/rules/rule-22-pr-naming.mjs` |
+<span class="add">+| #36 — Evidência de processo válida | `npm run process:audit -- --check` (auto no pre-pr via rule-36) | `scripts/rules/rule-36-process-evidence.mjs` |</span>
+ | Deploy health | `check-deploy.mjs` | `scripts/check-deploy.mjs` |
+ | Retrospectiva | `retro.mjs` | `scripts/retro.mjs` |
+ | CI Process | `CI-PROCESS.md` | `docs/CI-PROCESS.md` |
+@@ -214,6 +215,50 @@ que impeça sua violação de forma automatizada.
+ 
+ **Sem validação automática, a regra não está completa.**
+ 
+<span class="add">+### Auditoria de evidência de processo (read-only)</span>
+<span class="add">+</span>
+<span class="add">+O comando `npm run process:audit` valida `docs/tracking/events.jsonl` sem gravar</span>
+<span class="add">+nada:</span>
+<span class="add">+</span>
+<span class="add">+- `npm run process:audit` — relatório humano (contagens por tipo, inválidos, unobserved)</span>
+<span class="add">+- `npm run process:audit -- --check` — exit 1 se houver evento inválido (mesma lógica da rule-36 no pre-pr)</span>
+<span class="add">+- `npm run process:audit -- --json` — objeto estruturado para CI</span>
+<span class="add">+</span>
+<span class="add">+Regras do auditor:</span>
+<span class="add">+</span>
+<span class="add">+1. Campos sensíveis (`prompt`, `output`, `token`, `apiKey`, `password`…) tornam o</span>
+<span class="add">+   evento inválido **sem ecoar o valor** no relatório.</span>
+<span class="add">+2. Resoluções do router sem conclusão são reportadas como `unobserved`, que é</span>
+<span class="add">+   **distinto** de evento inválido: não falha o `--check` até o contrato de</span>
+<span class="add">+   conclusão do router estar ativo.</span>
+<span class="add">+3. O comando é read-only: nunca reescreve nem apaga linhas do log.</span>
+<span class="add">+</span>
+<span class="add">+### Auditoria estrutural do projeto (read-only)</span>
+<span class="add">+</span>
+<span class="add">+O comando `npm run project:audit` inspeciona estrutura, duplicidade e artefatos</span>
+<span class="add">+gerados sem mutar nada:</span>
+<span class="add">+</span>
+<span class="add">+- `npm run project:audit` — relatório humano (checks por regra + findings classificados)</span>
+<span class="add">+- `npm run project:audit -- --json` — documento JSON (`checks`, `findings`) para CI, sem ANSI</span>
+<span class="add">+- `npm run project:audit -- --strict` — exit 1 se houver finding crítico ou check falho</span>
+<span class="add">+</span>
+<span class="add">+Domínios e limites (não duplica algoritmos das regras):</span>
+<span class="add">+</span>
+<span class="add">+1. Roda as regras 14, 15, 16, 18, 23, 31 e 32 como child processes; falha de regra</span>
+<span class="add">+   vira check `fail`, nunca é convertida em pass.</span>
+<span class="add">+2. `classifyTrackedArtifacts` (scripts/lib/project-audit.mjs) marca `generated`</span>
+<span class="add">+   critical apenas diretórios gerados (`playwright-report/`, `test-results/`,</span>
+<span class="add">+   `dist/`, `coverage/`) fora da allowlist operacional (`docs/tracking/`,</span>
+<span class="add">+   `supabase/migrations/`, `.pi/skills/`, `scripts/lib/`, `scripts/rules/`,</span>
+<span class="add">+   `docs/superpowers/`, `docs/council/`); `docs/archive/`, `docs/reports/` e</span>
+<span class="add">+   `docs/audits/` são históricos preservados.</span>
+<span class="add">+3. Detecção de órfãos respeita entry points, fixtures, migrações e docs</span>
+<span class="add">+   históricos; duplicatas usam o threshold da rule-15; `npm audit` (segurança)</span>
+<span class="add">+   é separado da auditoria estrutural.</span>
+<span class="add">+4. Não existe flag genérica `--fix`: remoções são commits explícitos e</span>
+<span class="add">+   allowlisted. A saída JSON só contém caminhos/categorias/contagens, nunca</span>
+<span class="add">+   conteúdo de arquivo.</span>
+<span class="add">+</span>
+ ## Limpeza Pós-Sessão — OBRIGATÓRIA
+ 
+ **Antes de finalizar qualquer sessão ou subir PR, verifique `git status`.**
+diff --git a/docs/LLM-ROUTER.md b/docs/LLM-ROUTER.md
+index ca695e6..590b25c 100644
+<span class="del">--- a/docs/LLM-ROUTER.md</span>
+<span class="add">+++ b/docs/LLM-ROUTER.md</span>
+@@ -49,6 +49,21 @@ Resoluções produzem `llm.route.resolved`; conclusões podem ser registradas co
+ npm run llm:route -- complete --event '{"taskId":"P1-09","model":"openai-codex/gpt-5.4-mini","provider":"openai-codex","attempt":1,"status":"completed","durationMs":42}'
+ ```
+ 
+<span class="add">+### Ordem obrigatória do dispatcher</span>
+<span class="add">+</span>
+<span class="add">+1. **resolve** — escolhe primário e fallbacks; registra `llm.route.resolved` (decisão planejada).</span>
+<span class="add">+2. **invoque** o subagente/modelo — primeiro o primário, depois o fallback se necessário.</span>
+<span class="add">+3. **complete** — registra `llm.route.completed` com o **modelo efetivo** em `model`, o</span>
+<span class="add">+   primário planejado em `resolvedModel`, `fallbackUsed: true` quando o efetivo</span>
+<span class="add">+diverge do primário, `status` terminal (`completed|failed|cancelled|blocked`) e</span>
+<span class="add">+`skills` normalizadas.</span>
+<span class="add">+4. **falha pré-lançamento** — se o dispatcher não consegue nem lançar o</span>
+<span class="add">+   subagente, registra `llm.route.completed` com `status: "failed"` e</span>
+<span class="add">+   `failureKind: "subagent_prelaunch"`.</span>
+<span class="add">+</span>
+<span class="add">+`resolved` sozinho **não é execução**: o KPI só conta tarefas terminadas com um</span>
+<span class="add">+`completed` terminal. Resoluções sem conclusão ficam como `unobserved`.</span>
+<span class="add">+</span>
+ Eventos aceitam somente metadados estruturados. Não inclua prompts, respostas integrais, tokens, API keys ou credenciais. Use `--no-log` em dry-runs e testes.
+ 
+ ## Capacidades futuras
+diff --git a/docs/MAP.md b/docs/MAP.md
+index 956a3ac..c103da4 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -27,6 +27,7 @@
+ | `docs/handoff.md` | Início/fim de sessão | Contexto entre sessões, branch atual, PRs, próximos passos |
+ | `docs/CI-PROCESS.md` | Melhoria contínua | Ciclo de melhoria: coletar → priorizar → executar → revisar → retrospectiva |
+ | `docs/RADAR.md` | **Início de toda sessão (automático)** | Relatório persistente de vulnerabilidades npm monitoradas (gerado pelo `scripts/check-radar.mjs`) |
+<span class="add">+| `docs/audits/2026-08-03-project-audit.md` | Ao investigar estrutura/sujeira do repositório | Snapshot read-only da auditoria estrutural (`npm run project:audit`): checks, findings, allowlists |</span>
+ 
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>

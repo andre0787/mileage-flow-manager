@@ -113,6 +113,20 @@ export function repoInfo() {
 }
 
 /**
+ * Escolhe o merge-base remoto preferido, com fallback para a referência local.
+ * @param {string} baseBranch
+ * @param {(ref: string) => string} resolveRef
+ * @returns {string}
+ */
+export function chooseMergeBase(baseBranch, resolveRef) {
+  for (const baseRef of [`origin/${baseBranch}`, baseBranch]) {
+    const mergeBase = resolveRef(baseRef);
+    if (mergeBase) return mergeBase;
+  }
+  return "";
+}
+
+/**
  * Retorna lista de arquivos modificados (histórico da branch em relação a main + working tree, staged e untracked).
  */
 export function getDiffFiles() {
@@ -125,10 +139,10 @@ export function getDiffFiles() {
   try {
     const currentBranch = git("git rev-parse --abbrev-ref HEAD");
     if (currentBranch && currentBranch !== baseBranch) {
-      let mergeBase = git(`git merge-base ${baseBranch} HEAD`);
-      if (!mergeBase) {
-        mergeBase = git(`git merge-base origin/${baseBranch} HEAD`);
-      }
+      const mergeBase = chooseMergeBase(
+        baseBranch,
+        (baseRef) => git(`git merge-base ${baseRef} HEAD`),
+      );
       const ref = mergeBase ? `${mergeBase}...HEAD` : `${baseBranch}...HEAD`;
       const diffBaseHead = git(`git diff ${ref} --name-only`);
       if (diffBaseHead) {

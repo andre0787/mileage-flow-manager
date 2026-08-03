@@ -12,11 +12,14 @@ const ROUTE_KEYS = ["category", "capability", "profile"];
 const EVENT_FIELDS = [
   "taskId",
   "model",
+  "resolvedModel",
   "provider",
   "attempt",
   "status",
   "durationMs",
   "failureKind",
+  "fallbackUsed",
+  "skills",
 ];
 const SENSITIVE_EVENT_FIELDS = new Set([
   "prompt",
@@ -32,6 +35,42 @@ const SENSITIVE_EVENT_FIELDS = new Set([
   "credential",
   "credentials",
 ]);
+
+export const TERMINAL_STATUSES = Object.freeze(["completed", "failed", "cancelled", "blocked"]);
+
+const SKILL_IDENTIFIER = /^[a-z0-9][a-z0-9-]*$/;
+
+/**
+ * Normaliza a lista de skills: aceita undefined como [], exige array caso
+ * contrário, trima/minusculiza cada item e rejeita vazios, duplicatas e
+ * valores fora do identificador `^[a-z0-9][a-z0-9-]*$`.
+ * @param {unknown} input
+ * @param {string[]} issues
+ * @returns {string[]}
+ */
+export function normalizeSkills(input, issues = []) {
+  if (input === undefined) return [];
+  if (!Array.isArray(input)) {
+    issues.push("skills must be an array when provided");
+    return [];
+  }
+  const seen = new Set();
+  const normalized = [];
+  for (const raw of input) {
+    const skill = typeof raw === "string" ? raw.trim().toLowerCase() : "";
+    if (!SKILL_IDENTIFIER.test(skill)) {
+      issues.push(`skills: "${raw}" is invalid (use lowercase letters, numbers and hyphens)`);
+      continue;
+    }
+    if (seen.has(skill)) {
+      issues.push(`skills: "${skill}" is duplicated`);
+      continue;
+    }
+    seen.add(skill);
+    normalized.push(skill);
+  }
+  return normalized;
+}
 
 export const CATEGORIES = Object.freeze(["feature", "bugfix", "docs", "refactor", "chore"]);
 export const CAPABILITIES = Object.freeze([
@@ -275,6 +314,9 @@ export function normalizeTaskContext(input) {
   const source = input.source === undefined ? "orchestrator-inference" : input.source;
   if (!CONTEXT_SOURCES.includes(source)) issues.push(`source "${source}" is invalid`);
 
+  const hasSkills = input.skills !== undefined;
+  const skills = normalizeSkills(input.skills, issues);
+
   if (issues.length > 0) throw new RouterConfigError(issues);
 
   return {
@@ -285,6 +327,7 @@ export function normalizeTaskContext(input) {
     ...(modelProfileOverride === undefined ? {} : { modelProfileOverride }),
     retrySafety,
     source,
+    ...(hasSkills ? { skills } : {}),
   };
 }
 
@@ -364,6 +407,7 @@ export function createResolvedEvent(context, decision) {
     source: decision.source,
     retrySafety: decision.retrySafety,
     configVersion: CONFIG_VERSION,
+    skills: normalized.skills ?? [],
   };
 }
 
@@ -385,6 +429,33 @@ export function createCompletedEvent(input) {
     if (!isNonEmptyString(input[key]))
       issues.push(`completion event ${key} must be a non-empty string`);
   }
+  if (!TERMINAL_STATUSES.includes(input.status)) {
+    issues.push(`completion event status must be one of ${TERMINAL_STATUSES.join(", ")}`);
+  }
+  if (input.resolvedModel !== undefined && !isNonEmptyString(input.resolvedModel)) {
+    issues.push("completion event resolvedModel must be a non-empty string when provided");
+  }
+  if (input.fallbackUsed !== undefined && typeof input.fallbackUsed !== "boolean") {
+    issues.push("completion event fallbackUsed must be a boolean when provided");
+  }
+  if (input.fallbackUsed === true && !isNonEmptyString(input.resolvedModel)) {
+    issues.push("completion event fallbackUsed requires resolvedModel");
+  }
+  if (
+    input.fallbackUsed === true &&
+    isNonEmptyString(input.resolvedModel) &&
+    input.resolvedModel === input.model
+  ) {
+    issues.push("completion event fallbackUsed must be false when model equals resolvedModel");
+  }
+  if (
+    input.fallbackUsed === false &&
+    isNonEmptyString(input.resolvedModel) &&
+    input.resolvedModel !== input.model
+  ) {
+    issues.push("completion event fallbackUsed must be true when model differs from resolvedModel");
+  }
+  normalizeSkills(input.skills, issues);
   if (input.provider !== undefined && !isNonEmptyString(input.provider)) {
     issues.push("completion event provider must be a non-empty string when provided");
   }
@@ -408,4 +479,44 @@ export function createCompletedEvent(input) {
     if (input[field] !== undefined) event[field] = input[field];
   }
   return event;
+}
+
+export function validateRouterEvent(event) {
+  if (!isRecord(event)) return ["router event must be an object"];
+
+  if (event.type === "llm.route.resolved") {
+    const issues = [];
+    for (const key of ["taskId", "category", "profile", "model", "source", "retrySafety"]) {
+      if (!isNonEmptyString(event[key])) issues.push(`resolved event ${key} must be a non-empty string`);
+    }
+    if (!CATEGORIES.includes(event.category)) issues.push(`resolved event category is invalid`);
+    if (event.capability !== null && event.capability !== undefined && !CAPABILITIES.includes(event.capability)) {
+      issues.push("resolved event capability is invalid");
+    }
+    if (!ROUTE_SOURCES.includes(event.source)) issues.push("resolved event source is invalid");
+    if (!RETRY_SAFETY_VALUES.includes(event.retrySafety)) issues.push("resolved event retrySafety is invalid");
+    if (!Array.isArray(event.fallbackModels) || event.fallbackModels.some((model) => !isNonEmptyString(model))) {
+      issues.push("resolved event fallbackModels must be an array of non-empty strings");
+    }
+    if (event.configVersion !== CONFIG_VERSION) issues.push(`resolved event configVersion must be ${CONFIG_VERSION}`);
+    if (event.skills !== undefined && !Array.isArray(event.skills)) {
+      issues.push("resolved event skills must be an array when provided");
+    }
+    return issues;
+  }
+
+  if (event.type === "llm.route.completed") {
+    const payload = {};
+    for (const field of EVENT_FIELDS) {
+      if (event[field] !== undefined) payload[field] = event[field];
+    }
+    try {
+      createCompletedEvent(payload);
+      return [];
+    } catch (error) {
+      return error instanceof RouterConfigError ? [...error.issues] : [String(error.message || error)];
+    }
+  }
+
+  return [`unknown router event type "${event.type ?? ""}"`];
 }
