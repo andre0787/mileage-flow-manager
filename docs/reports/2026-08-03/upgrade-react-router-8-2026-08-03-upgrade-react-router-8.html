@@ -36,31 +36,33 @@
 </head>
 <body>
   <h1>📋 upgrade react router 8</h1>
-  <p class="meta">2026-08-03 19:35 &middot; feat/upgrade-react-router-8 &middot; d1d96a5 — Merge pull request #252 from andre0787/chore/roadmap-p0-done</p>
-  <p><span class="badge auto">auto</span> <span class="badge auto">upgrade-react-router-8</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+  <p class="meta">2026-08-03 19:36 &middot; feat/upgrade-react-router-8 &middot; 9797cd9 — feat: upgrade react-router 8.3.0 + React 19 (GHSA-qwww-vcr4-c8h2)</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">upgrade-react-router-8</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">0</div>
+      <div style="font-size:1.5rem;font-weight:700">25</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+1648</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-487</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~2123</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
 
   <h2>✅ Checklist de Revisão</h2>
     <ul>
+      <li>🖼️ Renderização verificada em desktop e mobile?</li>
+      <li>🔌 Hooks testados em tela real?</li>
       <li>🧪 Testes manuais realizados?</li>
       <li>📋 Regras de validação passam? (npm run pre-pr)</li>
     </ul>
@@ -80,12 +82,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 0 remoções — 1 linhas tocadas</td>
-        <td>✨ 0 adições — 0 arquivo(s) alterado(s)</td>
+        <td>🧹 487 remoções — 2830 linhas tocadas</td>
+        <td>✨ 1648 adições — 25 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/MAP.md, docs/RADAR.md, docs/handoff.md<br><span style="color:#166534;font-weight:600">➕</span> docs/reports/2026-08-03/upgrade-react-router-8-2026-08-03-upgrade-react-router-8.html, docs/superpowers/specs/2026-08-03-react-router-8-upgrade-design.md<br><em>+20 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,38 +100,181 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>0</td></tr>
-    <tr><td>Adições</td><td>+0</td></tr>
-    <tr><td>Remoções</td><td>-0</td></tr>
-    <tr><td>Tokens estimados</td><td>~1</td></tr>
+    <tr><td>Arquivos alterados</td><td>25</td></tr>
+    <tr><td>Adições</td><td>+1648</td></tr>
+    <tr><td>Remoções</td><td>-487</td></tr>
+    <tr><td>Tokens estimados</td><td>~2123</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:58">+1236 add</div>
+        <div class="del" style="flex:17">-365 del</div>
+        <div class="overhead" style="flex:25">~522 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+1236</td><td>58%</td></tr>
+      <tr><td>Remoções</td><td>-365</td><td>17%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~522</td><td>25%</td></tr>
+      <tr><th>Total</th><th>~2123</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-    
+    <tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-03/upgrade-react-router-8-2026-08-03-upgrade-react-router-8.html</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-08-03-react-router-8-upgrade-design.md</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>package-lock.json</td></tr>
+<tr><td>M</td><td>package.json</td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td></tr>
+<tr><td>M</td><td>scripts/lib/project-audit.mjs</td></tr>
+<tr><td>M</td><td>scripts/project-audit.mjs</td></tr>
+<tr><td>M</td><td>src/App.tsx</td></tr>
+<tr><td>M</td><td>src/components/AppSidebar.tsx</td></tr>
+<tr><td>M</td><td>src/components/BottomTabBar.tsx</td></tr>
+<tr><td>M</td><td>src/components/GlobalSearch.tsx</td></tr>
+<tr><td>M</td><td>src/components/ProtectedRoute.tsx</td></tr>
+<tr><td>M</td><td>src/components/tests/GlobalSearch.test.tsx</td></tr>
+<tr><td>M</td><td>src/hooks/useKeyboardShortcuts.ts</td></tr>
+<tr><td>M</td><td>src/pages/Dashboard.tsx</td></tr>
+<tr><td>M</td><td>src/pages/ForgotPassword.tsx</td></tr>
+<tr><td>M</td><td>src/pages/Login.tsx</td></tr>
+<tr><td>M</td><td>src/pages/NotFound.tsx</td></tr>
+<tr><td>M</td><td>src/pages/ResetPassword.tsx</td></tr>
+<tr><td>A</td><td>tests/unit/dependency-policy.test.ts</td></tr>
   </table>
 
   
 
   <h2>🔍 Diff</h2>
   <div class="diff">
-    
+    diff --git a/docs/MAP.md b/docs/MAP.md
+index 0878d2c..e8d1c39 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -50,7 +50,7 @@
+ | `docs/IDEIAS.md` | Caixa de entrada de ideias | Ideias humanas pendentes, lidas no início da sessão |
+ | `docs/FLUXO.md` | Diagramas do ecossistema | Flowcharts Mermaid: visão geral, fluxo de dados, rotas |
+ | `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md`, `2026-08-01-llm-model-router-veredito.md`, `2026-08-03-process-kpis-router-sanitizacao-veredito.md` |
+<span class="del">-| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md`, `2026-08-01-llm-model-router-design.md`, `2026-08-03-process-guardrails-design.md`, `2026-08-03-llm-router-kpi-design.md`, `2026-08-03-project-sanitization-design.md` |</span>
+<span class="add">+| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md`, `2026-08-01-llm-model-router-design.md`, `2026-08-03-process-guardrails-design.md`, `2026-08-03-llm-router-kpi-design.md`, `2026-08-03-project-sanitization-design.md`, `2026-08-03-react-router-8-upgrade-design.md` |</span>
+ | `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md`, `2026-07-29-auth-ci-plan.md`, `2026-07-29-fable-method-skill-plan.md`, `2026-08-01-llm-model-router-plan.md`, `2026-08-03-process-guardrails-plan.md`, `2026-08-03-llm-router-kpi-plan.md`, `2026-08-03-project-sanitization-plan.md` |
+ | [`docs/LLM-ROUTER.md`](LLM-ROUTER.md) | Router de subagentes | Contrato operacional, comandos, precedência, auditoria e escopo multimodal futuro |
+ | `docs/reports/` | Relatórios HTML | Relatórios obrigatórios antes de cada PR |
+diff --git a/docs/RADAR.md b/docs/RADAR.md
+index e788f92..0935462 100644
+<span class="del">--- a/docs/RADAR.md</span>
+<span class="add">+++ b/docs/RADAR.md</span>
+@@ -1,30 +1,18 @@
+ # 🔭 Radar de Vulnerabilidades
+ 
+<span class="del">-&gt; Atualizado em: 2026-08-03T20:41:03.351Z</span>
+<span class="add">+&gt; Atualizado em: 2026-08-03T22:30:33.798Z</span>
+ 
+<span class="del">-## ⚠️  Vulnerabilidades Ativas (3 pacotes)</span>
+<span class="add">+## ✅ Radar Limpo</span>
+<span class="add">+Nenhuma vulnerabilidade ativa detectada.</span>
+ 
+<span class="del">-### 🟠 brace-expansion@5.0.8 (high)</span>
+<span class="del">-</span>
+<span class="del">-| # | Advisory | Range | Severidade |</span>
+<span class="del">-|---|----------|-------|------------|</span>
+<span class="del">-| 1 | brace-expansion: DoS via unbounded intermediate arrays, bypassing t... [🔗](https://github.com/advisories/GHSA-rgw5-rvv9-x895) | `&gt;=4.0.0 &lt;5.0.9` | high |</span>
+<span class="del">-</span>
+<span class="del">-### 🟠 fast-uri@3.1.4 (high)</span>
+<span class="del">-</span>
+<span class="del">-| # | Advisory | Range | Severidade |</span>
+<span class="del">-|---|----------|-------|------------|</span>
+<span class="del">-| 1 | fast-uri vulnerable to host confusion via backslash authority intro... [🔗](https://github.com/advisories/GHSA-7p8r-x3mc-p8w7) | `&gt;=3.0.0 &lt;3.1.5` | high |</span>
+<span class="del">-</span>
+<span class="del">-### 🟠 react-router@7.18.2 (high)</span>
+<span class="add">+---</span>
+ 
+<span class="del">-| # | Advisory | Range | Severidade |</span>
+<span class="del">-|---|----------|-------|------------|</span>
+<span class="del">-| 1 | React Router: RSC Mode CSRF Bypass Allows Action Execution Before 4... [🔗](https://github.com/advisories/GHSA-qwww-vcr4-c8h2) | `&gt;=7.12.0 &lt;8.3.0` | high |</span>
+<span class="add">+## 🗂️ Histórico — Vulnerabilidades Resolvidas</span>
+ 
+<span class="del">----</span>
+<span class="add">+&gt; Preservado para auditoria; não reclassificar. Resolvido em 2026-08-03 (PR P1 react-router 8 + React 19).</span>
+ 
+<span class="del">-**Para resolver:**</span>
+<span class="del">-- `npm update &lt;pacote&gt;` — se houver versão segura</span>
+<span class="del">-- `npm audit fix` — corrige automaticamente (pode quebrar)</span>
+<span class="del">-- Verificar advisories individuais nos links acima</span>
+<span class="add">+| # | Advisory | Range | Severidade | Resolução |</span>
+<span class="add">+|---|----------|-------|------------|-----------|</span>
+<span class="add">+| 1 | brace-expansion: DoS via unbounded intermediate arrays, bypassing t... [🔗](https://github.com/advisories/GHSA-rgw5-rvv9-x895) | `&gt;=4.0.0 &lt;5.0.9` | high | `npm audit fix` → 5.0.9 |</span>
+<span class="add">+| 2 | fast-uri vulnerable to host confusion via backslash authority intro... [🔗](https://github.com/advisories/GHSA-7p8r-x3mc-p8w7) | `&gt;=3.0.0 &lt;3.1.5` | high | `npm audit fix` → 3.1.5 |</span>
+<span class="add">+| 3 | React Router: RSC Mode CSRF Bypass Allows Action Execution Before 4... [🔗](https://github.com/advisories/GHSA-qwww-vcr4-c8h2) | `&gt;=7.12.0 &lt;8.3.0` | high | upgrade major: react-router 8.3.0 + React 19 (PR P1) |</span>
+diff --git a/docs/handoff.md b/docs/handoff.md
+index 2180f7d..7d45501 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -9,8 +9,8 @@
+ ### 🐞 Bugs Abertos
+ Consulte as GitHub Issues para a lista atual.
+ ## 🧭 Estado Atual
+<span class="del">-- **Branch:** `chore/roadmap-p0-done`</span>
+<span class="del">-- **Último commit:** `1a3457d` — Merge pull request #251 from andre0787/fix/normalize-pr-no-skip-ci</span>
+<span class="add">+- **Branch:** `feat/upgrade-react-router-8`</span>
+<span class="add">+- **Último commit:** `d1d96a5 — Merge pull request #252 from andre0787/chore/roadmap-p0-done`</span>
+ - **Remote:** origin/main
+ ### 📋 PRs Abertos
+ Nenhum PR aberto.
+@@ -24,13 +24,13 @@ Nenhum PR aberto.
+ ---
+ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
+ ## 🎯 Sessão Atual
+<span class="del">-**Categoria:** bugfix</span>
+<span class="del">-**Objetivo:** fix normalize PR report skip-ci</span>
+<span class="del">-**Status:** done</span>
+<span class="del">-**Iniciada em:** 2026-08-03T20:41:03.358Z</span>
+<span class="del">-**Branch:** `chore/roadmap-p0-done`</span>
+<span class="del">-**Último commit:** 1a3457d — Merge pull request #251 from andre0787/docs/session-end-process-kpi</span>
+<span class="del">-**Docs carregados:** DEBUG.md, CONVENTIONS.md</span>
+<span class="add">+**Categoria:** refactor</span>
+<span class="add">+**Objetivo:** upgrade react-router 8.3+ GHSA-qwww-vcr4-c8h2</span>
+<span class="add">+**Status:** in_progress</span>
+<span class="add">+**Iniciada em:** 2026-08-03T22:22:23.369Z</span>
+<span class="add">+**Branch:** `feat/upgrade-react-router-8`</span>
+<span class="add">+**Último commit:** d1d96a5 — Merge pull request #252 from andre0787/chore/roadmap-p0-done</span>
+<span class="add">+**Docs carregados:** CONVENTIONS.md, ARCHITECTURE.md</span>
+ ## ✅ Última Sessão
+ Estado atualizado automaticamente.
+ ## 📌 Próxima Sessão
+diff --git a/docs/reports/2026-08-03/upgrade-react-router-8-2026-08-03-upgrade-react-router-8.html b/docs/reports/2026-08-03/upgrade-react-router-8-2026-08-03-upgrade-react-router-8.html
+new file mode 100644
+index 0000000..55fad50
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/reports/2026-08-03/upgrade-react-router-8-2026-08-03-upgrade-react-router-8.html</span>
+@@ -0,0 +1,137 @@
+<span class="add">+&lt;!DOCTYPE html&gt;</span>
+<span class="add">+&lt;html lang="pt-BR"&gt;</span>
+<span class="add">+&lt;head&gt;</span>
+<span class="add">+  &lt;meta charset="UTF-8"&gt;</span>
+<span class="add">+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;</span>
+<span class="add">+  &lt;title&gt;upgrade-react-router-8 — upgrade react router 8&lt;/title&gt;</span>
+<span class="add">+  &lt;style&gt;</span>
+<span class="add">+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}</span>
+<span class="add">+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}</span>
+<span class="add">+    h2{font-size:1rem;margin-top:1.5rem;color:#333}</span>
+<span class="add">+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}</span>
+<span class="add">+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}</span>
+<span class="add">+    .badge.pr{background:#dbeafe;color:#1e40af}</span>
+<span class="add">+    .badge.auto{background:#fef3c7;color:#92400e}</span>
+<span class="add">+    .badge.fix{background:#fee2e2;color:#991b1b}</span>
+<span class="add">+    .badge.feat{background:#dcfce7;color:#166534}</span>
+<span class="add">+    .badge.docs{background:#ede9fe;color:#5b21b6}</span>
+<span class="add">+    .badge.chore{background:#f3f4f6;color:#374151}</span>
+<span class="add">+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
