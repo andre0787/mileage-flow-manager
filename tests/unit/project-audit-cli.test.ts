@@ -27,10 +27,14 @@ function makeRepo(files: Record<string, string>) {
 
 function runAudit(root: string, args: string[] = []) {
   try {
+    const env = { ...process.env, MOCK_ROOT: root };
+    for (const key of ["GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_COMMON_DIR", "GIT_PREFIX"]) {
+      delete env[key];
+    }
     const stdout = execFileSync(process.execPath, [CLI, ...args], {
       cwd: root,
       encoding: "utf8",
-      env: { ...process.env, MOCK_ROOT: root },
+      env,
       timeout: 15000,
     });
     return { status: 0, stdout };

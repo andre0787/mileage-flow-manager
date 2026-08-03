@@ -20,6 +20,19 @@ import { fileURLToPath } from "url";
 import { getDiffFiles } from "./lib.mjs";
 import { stageGeneratedArtifacts } from "./lib/generated-artifacts.mjs";
 
+/**
+ * Executa git sem o ambiente Git herdado de hooks (GIT_INDEX_FILE/GIT_DIR…),
+ * para que operações de inspeção usem o repositório real e não o index
+ * temporário do hook.
+ */
+function gitExec(cmd, opts = {}) {
+  const env = { ...process.env };
+  for (const key of ["GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_COMMON_DIR", "GIT_PREFIX"]) {
+    delete env[key];
+  }
+  return execSync(cmd, { cwd: ROOT, encoding: "utf8", timeout: 5000, ...opts, env: { ...env, ...(opts.env || {}) } });
+}
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 const RULES_DIR = resolve(ROOT, "scripts/rules");
@@ -57,7 +70,7 @@ if (!process.argv.includes("--no-report")) {
   logger.log("── Relatório ──");
   try {
     const today = new Date().toISOString().slice(0, 10);
-    const branch = execSync("git rev-parse --abbrev-ref HEAD", { cwd: ROOT, encoding: "utf8", timeout: 3000 }).trim();
+    const branch = gitExec("git rev-parse --abbrev-ref HEAD").trim();
 
     // Se apenas docs/reports/ foi alterado, pula relatório (ex: rename de relatórios)
     // MAS se houver PR aberto, renomeia os reports com prefixo correto
