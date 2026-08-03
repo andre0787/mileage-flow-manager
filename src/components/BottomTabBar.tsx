@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router";
 import { LayoutDashboard, CreditCard, TrendingUp, TrendingDown, Settings } from "lucide-react";
 import { useData } from "@/contexts/DataContext";
 import { cn } from "@/lib/utils";

@@ -17,9 +17,9 @@
  */
 
 import { execFileSync } from "child_process";
-import { readdirSync } from "fs";
+import { readdirSync, readFileSync } from "fs";
 import { resolve } from "path";
-import { classifyTrackedArtifacts } from "./lib/project-audit.mjs";
+import { classifyTrackedArtifacts, checkDependencyPolicy } from "./lib/project-audit.mjs";
 
 const ROOT = process.env.MOCK_ROOT || resolve(import.meta.dirname, "..");
 const RULES_DIR = resolve(ROOT, "scripts/rules");
@@ -48,6 +48,31 @@ function runDocsVerifier() {
     const stdout = e.stdout ? String(e.stdout) : "";
     const summary = stdout.trim().split("\n").filter(Boolean).pop() || e.message?.slice(0, 120) || "";
     return { rule: "verify-docs", status: "fail", summary };
+  }
+}
+
+function dependencyPolicyCheck() {
+  try {
+    const pkg = JSON.parse(readFileSync(resolve(ROOT, "package.json"), "utf8"));
+    const findings = checkDependencyPolicy(pkg);
+    const severityRank = { critical: 0, warning: 1, info: 2 };
+    const worst = (severityRank[findings.map((f) => f.severity).sort()[0]] ?? 2) ?? 2;
+    return {
+      rule: "dependency-policy",
+      status: findings.length === 0 ? "pass" : "fail",
+      summary:
+        findings.length === 0
+          ? "política ok (react-router >=8.3.0, react >=19)"
+          : `política violada: ${findings.map((f) => `${f.packageName}@${f.version || "?"}`).join(", ")}`,
+      findings,
+    };
+  } catch (error) {
+    return {
+      rule: "dependency-policy",
+      status: "fail",
+      summary: `falha ao ler package.json: ${error.message || error}`,
+      findings: [],
+    };
   }
 }
 
@@ -88,8 +113,8 @@ function main() {
   const jsonMode = args.includes("--json");
   const strictMode = args.includes("--strict");
 
-  const checks = [...AUDIT_RULES.map(runRule), runDocsVerifier()];
-  const findings = classifyTrackedArtifacts(trackedPaths());
+  const checks = [...AUDIT_RULES.map(runRule), dependencyPolicyCheck(), runDocsVerifier()];
+  const findings = [...classifyTrackedArtifacts(trackedPaths()), ...dependencyPolicyCheck().findings];
 
   const criticalFindings = findings.filter((f) => f.severity === "critical");
   const failedChecks = checks.filter((c) => c.status === "fail");

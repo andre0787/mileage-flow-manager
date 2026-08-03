@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `chore/roadmap-p0-done`
-- **Último commit:** `1a3457d` — Merge pull request #251 from andre0787/fix/normalize-pr-no-skip-ci
+- **Branch:** `feat/upgrade-react-router-8`
+- **Último commit:** `d1d96a5 — Merge pull request #252 from andre0787/chore/roadmap-p0-done`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,13 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** bugfix
-**Objetivo:** fix normalize PR report skip-ci
-**Status:** done
-**Iniciada em:** 2026-08-03T20:41:03.358Z
-**Branch:** `chore/roadmap-p0-done`
-**Último commit:** 1a3457d — Merge pull request #251 from andre0787/docs/session-end-process-kpi
-**Docs carregados:** DEBUG.md, CONVENTIONS.md
+**Categoria:** refactor
+**Objetivo:** upgrade react-router 8.3+ GHSA-qwww-vcr4-c8h2
+**Status:** in_progress
+**Iniciada em:** 2026-08-03T22:22:23.369Z
+**Branch:** `feat/upgrade-react-router-8`
+**Último commit:** d1d96a5 — Merge pull request #252 from andre0787/chore/roadmap-p0-done
+**Docs carregados:** CONVENTIONS.md, ARCHITECTURE.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
