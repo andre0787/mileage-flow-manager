@@ -1039,3 +1039,9 @@
 {"timestamp":"2026-08-03T19:24:36.548Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-process-kpi","commit":"08d1886","rule":"rule-26-session-started"}
 {"timestamp":"2026-08-03T19:26:11.190Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-process-kpi","commit":"08d1886","errors":0}
 {"timestamp":"2026-08-03T19:26:51.164Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-process-kpi","commit":"c0780ff","errors":0}
+{"timestamp":"2026-08-03T20:41:03.381Z","type":"session:start","description":"bugfix: fix normalize PR report skip-ci","branch":"fix/normalize-pr-no-skip-ci","commit":"943d267","categoria":"bugfix"}
+{"timestamp":"2026-08-03T20:45:51.336Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"fix/normalize-pr-no-skip-ci","commit":"943d267","rule":"rule-10-clean"}
+{"timestamp":"2026-08-03T20:47:11.544Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"fix/normalize-pr-no-skip-ci","commit":"943d267","rule":"rule-10-clean"}
+{"timestamp":"2026-08-03T20:48:22.363Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"fix/normalize-pr-no-skip-ci","commit":"943d267","rule":"rule-10-clean"}
+{"timestamp":"2026-08-03T20:48:46.958Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"fix/normalize-pr-no-skip-ci","commit":"943d267","rule":"rule-10-clean"}
+{"timestamp":"2026-08-03T20:49:35.543Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/normalize-pr-no-skip-ci","commit":"943d267","errors":0}
