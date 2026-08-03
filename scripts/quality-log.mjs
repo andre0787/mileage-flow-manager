@@ -20,11 +20,12 @@
 
 import { existsSync, mkdirSync, readFileSync, appendFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
-
+import { splitAtLimit } from "./lib/log-trim.mjs";
 const ROOT = resolve(import.meta.dirname, "..");
 const TRACKING_DIR = resolve(ROOT, "docs/tracking");
 const QUALITY_PATH = resolve(TRACKING_DIR, "quality.jsonl");
-const MAX_LINES = 500; // mantém apenas as últimas N medições
+const QUALITY_ARCHIVE_PATH = resolve(TRACKING_DIR, "quality-archive.jsonl");
+const MAX_LINES = 2000; // mantém as últimas N medições; excesso vai para o archive
 
 function main() {
   const [rule, metaRaw] = process.argv.slice(2);
@@ -57,11 +58,13 @@ function main() {
   const entry = { timestamp: new Date().toISOString(), rule, ...meta };
   appendFileSync(QUALITY_PATH, JSON.stringify(entry) + "\n", "utf8");
 
-  // Trim: mantém apenas as últimas MAX_LINES medições
+  // Trim: mantém as últimas MAX_LINES medições e arquiva o excesso
   if (existsSync(QUALITY_PATH)) {
     const lines = readFileSync(QUALITY_PATH, "utf8").trimEnd().split("\n").filter(Boolean);
-    if (lines.length > MAX_LINES) {
-      writeFileSync(QUALITY_PATH, lines.slice(-MAX_LINES).join("\n") + "\n", "utf8");
+    const { kept, archived } = splitAtLimit(lines, MAX_LINES);
+    if (archived.length > 0) {
+      writeFileSync(QUALITY_PATH, kept.join("\n") + "\n", "utf8");
+      appendFileSync(QUALITY_ARCHIVE_PATH, archived.join("\n") + "\n", "utf8");
     }
   }
 

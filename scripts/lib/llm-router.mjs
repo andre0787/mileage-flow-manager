@@ -409,3 +409,40 @@ export function createCompletedEvent(input) {
   }
   return event;
 }
+
+export function validateRouterEvent(event) {
+  if (!isRecord(event)) return ["router event must be an object"];
+
+  if (event.type === "llm.route.resolved") {
+    const issues = [];
+    for (const key of ["taskId", "category", "profile", "model", "source", "retrySafety"]) {
+      if (!isNonEmptyString(event[key])) issues.push(`resolved event ${key} must be a non-empty string`);
+    }
+    if (!CATEGORIES.includes(event.category)) issues.push(`resolved event category is invalid`);
+    if (event.capability !== null && event.capability !== undefined && !CAPABILITIES.includes(event.capability)) {
+      issues.push("resolved event capability is invalid");
+    }
+    if (!ROUTE_SOURCES.includes(event.source)) issues.push("resolved event source is invalid");
+    if (!RETRY_SAFETY_VALUES.includes(event.retrySafety)) issues.push("resolved event retrySafety is invalid");
+    if (!Array.isArray(event.fallbackModels) || event.fallbackModels.some((model) => !isNonEmptyString(model))) {
+      issues.push("resolved event fallbackModels must be an array of non-empty strings");
+    }
+    if (event.configVersion !== CONFIG_VERSION) issues.push(`resolved event configVersion must be ${CONFIG_VERSION}`);
+    return issues;
+  }
+
+  if (event.type === "llm.route.completed") {
+    const payload = {};
+    for (const field of EVENT_FIELDS) {
+      if (event[field] !== undefined) payload[field] = event[field];
+    }
+    try {
+      createCompletedEvent(payload);
+      return [];
+    } catch (error) {
+      return error instanceof RouterConfigError ? [...error.issues] : [String(error.message || error)];
+    }
+  }
+
+  return [`unknown router event type "${event.type ?? ""}"`];
+}

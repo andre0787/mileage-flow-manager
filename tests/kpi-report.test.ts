@@ -12,6 +12,7 @@ import {
   parseReportsForMonth,
   computeCycleTime,
 } from "../scripts/kpi-report.mjs";
+import { validateProcessEvent } from "../scripts/lib/process-events.mjs";
 
 describe("parseEvents", () => {
   it("parses JSONL lines (formato plano do event-log)", () => {
@@ -32,6 +33,24 @@ describe("parseEvents", () => {
     const input = `{"type":"pre-pr","timestamp":"2026-07-01T10:00:00Z","errors":0}\n\n{"type":"session:start","timestamp":"2026-07-02T10:00:00Z","branch":"feat/a"}`;
     const result = parseEvents(input);
     expect(result).toHaveLength(2);
+  });
+
+  it("aceita evento router válido pelo validador compartilhado", () => {
+    expect(
+      validateProcessEvent({
+        type: "llm.route.resolved",
+        timestamp: "2026-07-01T10:00:00Z",
+        taskId: "task-1",
+        category: "feature",
+        capability: null,
+        profile: "coding",
+        model: "model/primary",
+        fallbackModels: [],
+        source: "category-default",
+        retrySafety: "may-write",
+        configVersion: 1,
+      }),
+    ).toEqual([]);
   });
 });
 
@@ -80,6 +99,19 @@ describe("computeMonthlyKPI", () => {
     expect(result.prePrPassRate).toBe(0);
     expect(result.prePrTotal).toBe(0);
     expect(result.gateActivations.intent).toBe(0);
+  });
+
+  it("preserva o formato legado aninhado de pre-pr", () => {
+    const result = computeMonthlyKPI([
+      {
+        type: "pre-pr",
+        timestamp: "2026-07-01T10:00:00Z",
+        data: { result: "PASS", branch: "feat/legacy" },
+      },
+    ], "2026-07");
+
+    expect(result.prePrPass).toBe(1);
+    expect(result.branchesMerged).toBe(1);
   });
 });
 

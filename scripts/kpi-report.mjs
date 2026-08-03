@@ -15,6 +15,7 @@
 import { readFileSync, existsSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { execSync } from "child_process";
+import { parseProcessEvents } from "./lib/process-events.mjs";
 
 // ─── Tipos ───────────────────────────────────────────────────────────
 
@@ -30,10 +31,7 @@ import { execSync } from "child_process";
  * @returns {KPIEvent[]}
  */
 export function parseEvents(raw) {
-  return raw
-    .split("\n")
-    .filter((l) => l.trim())
-    .map((l) => JSON.parse(l));
+  return parseProcessEvents(raw);
 }
 
 /**

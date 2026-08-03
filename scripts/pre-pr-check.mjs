@@ -210,6 +210,6 @@ try {
 if (!process.env.PRE_PR_ONLY_RULES && !process.env.VITEST) {
   try {
     execSync("npm run kpi 2>/dev/null", { cwd: ROOT, encoding: "utf8", timeout: 15000 });
-    execSync("git add public/kpi-data.json docs/tracking/events.jsonl docs/tracking/quality.jsonl 2>/dev/null || true", { cwd: ROOT, timeout: 3000 });
+    execSync("git add public/kpi-data.json docs/tracking/events.jsonl docs/tracking/quality.jsonl docs/tracking/events-archive.jsonl docs/tracking/quality-archive.jsonl 2>/dev/null || true", { cwd: ROOT, timeout: 3000 });
   } catch { /* non-blocking */ }
 }

@@ -7,6 +7,7 @@ import {
   createCompletedEvent,
   createResolvedEvent,
   normalizeTaskContext,
+  validateRouterEvent,
   resolveRoute,
   validateRouterConfig,
 } from "../../scripts/lib/llm-router.mjs";
@@ -274,5 +275,33 @@ describe("llm-router contract", () => {
         }),
       ).toThrow(new RegExp(field, "i"));
     }
+  });
+
+  it("valida evento do router dentro do envelope de processo", () => {
+    expect(
+      validateRouterEvent({
+        type: "llm.route.resolved",
+        taskId: "P1-ROUTER",
+        category: "feature",
+        capability: null,
+        profile: "coding",
+        model: "model/primary",
+        fallbackModels: [],
+        source: "category-default",
+        retrySafety: "may-write",
+        configVersion: 1,
+      }),
+    ).toEqual([]);
+
+    expect(
+      validateRouterEvent({
+        type: "llm.route.completed",
+        taskId: "P1-ROUTER",
+        model: "model/primary",
+        provider: "local",
+        attempt: 1,
+        status: "completed",
+      }),
+    ).toEqual([]);
   });
 });

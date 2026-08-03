@@ -115,14 +115,20 @@ git commit -m "fix: corrigir guardrails de arquivos e docs"
 **Files:**
 - Create: scripts/lib/process-events.mjs
 - Create: tests/unit/process-events.test.ts
+- Create: scripts/lib/log-trim.mjs
+- Create: tests/unit/log-trim.test.ts
+- Modify: scripts/event-log.mjs
+- Modify: scripts/quality-log.mjs
+- Modify: scripts/lib/llm-router.mjs
+- Modify: tests/unit/llm-router.test.ts
 - Modify: scripts/kpi-report.mjs
 - Modify: tests/kpi-report.test.ts
 
 **Interfaces:**
 - Consumes: JSONL plano atual e o formato legado com data.result/data.branch.
-- Produces: parseProcessEvents(raw), validateProcessEvent(event), validateProcessEvents(events), summarizeProcessEvidence(events).
+- Produces: validateRouterEvent(event) no contrato do router; parseProcessEvents(raw), validateProcessEvent(event), validateProcessEvents(events), summarizeProcessEvidence(events).
 
-- [ ] **Step 1: Write failing tests for parser and schema**
+- [x] **Step 1: Write failing tests for parser and schema**
 
 Create tests/unit/process-events.test.ts with cases for:
 
@@ -136,11 +142,11 @@ expect(validateProcessEvent({ type: "custom", prompt: "segredo" })).toEqual(expe
 
 Add assertions that summarizeProcessEvidence counts invalid events, event types, and router resolutions without conclusions as unobserved. Run the file and observe RED because the module does not exist.
 
-- [ ] **Step 2: Implement the minimal pure module**
+- [x] **Step 2: Implement the minimal pure module**
 
 Define exported constants for valid process types and sensitive field names. parseProcessEvents must preserve event objects, skip blank lines, and throw an Error containing the 1-indexed line number for malformed JSON. validateProcessEvent returns string issues rather than throwing so the CLI can report multiple issues. Validate timestamp as a non-empty ISO-like string, type as a known type, and the type-specific required fields from the approved design. Delegate llm.route.resolved and llm.route.completed validation to the router validator exported by scripts/lib/llm-router.mjs.
 
-- [ ] **Step 3: Add compatibility tests to the existing KPI parser**
+- [x] **Step 3: Add compatibility tests to the existing KPI parser**
 
 In tests/kpi-report.test.ts, add one event containing data.result and data.branch and assert computeMonthlyKPI keeps the current pass/fail behavior. Add a test that a valid router event is accepted by the process parser. Run:
 
@@ -150,14 +156,18 @@ npm test -- tests/unit/process-events.test.ts tests/kpi-report.test.ts
 
 Expected: GREEN after the module and the compatibility import are implemented.
 
-- [ ] **Step 4: Wire the KPI parser through the shared validator without changing historical calculations**
+- [x] **Step 4: Wire the KPI parser through the shared validator without changing historical calculations**
 
 In scripts/kpi-report.mjs, use parseProcessEvents for the JSONL input and retain computeMonthlyKPI’s existing six KPI fields. Do not make kpi-report rewrite or drop legacy events. The router KPI block is added by the router plan, not in this task.
 
-- [ ] **Step 5: Commit the event contract**
+- [ ] **Step 6: Preserve history in the event/quality trims (TWINS)**
+
+scripts/event-log.mjs caps events.jsonl at 1000 lines and scripts/quality-log.mjs caps quality.jsonl at 500, deleting the oldest lines — history loss. Extract a pure splitAtLimit(lines, max) into scripts/lib/log-trim.mjs returning { kept, archived } without touching the filesystem, raise the caps to 20000/2000, and have both scripts append the archived overflow to docs/tracking/events-archive.jsonl and quality-archive.jsonl instead of deleting it. Add both archive paths to the pre-pr staging git add. Test RED first (a fixture with 3 lines and max 2 must return kept: 2, archived: 1), then GREEN, then confirm the real logs are below the new caps.
+
+- [ ] **Step 7: Commit the event contract**
 
 ```bash
-git add scripts/lib/process-events.mjs tests/unit/process-events.test.ts scripts/kpi-report.mjs tests/kpi-report.test.ts
+git add scripts/lib/process-events.mjs tests/unit/process-events.test.ts scripts/lib/log-trim.mjs tests/unit/log-trim.test.ts scripts/event-log.mjs scripts/quality-log.mjs scripts/lib/llm-router.mjs tests/unit/llm-router.test.ts scripts/kpi-report.mjs tests/kpi-report.test.ts
 git commit -m "feat: validar evidencia de processo"
 ```
 
