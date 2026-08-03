@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-01T21:40:32.348Z",
+  "generatedAt": "2026-08-03T12:14:09.409Z",
   "months": [
     {
       "month": "2026-03",
@@ -75,10 +75,10 @@
     },
     {
       "month": "2026-07",
-      "prePrPassRate": 68.6,
-      "prePrTotal": 105,
+      "prePrPassRate": 69.2,
+      "prePrTotal": 104,
       "prePrPass": 72,
-      "prePrFail": 33,
+      "prePrFail": 32,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -93,9 +93,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 66.7,
-      "prePrTotal": 72,
-      "prePrPass": 48,
+      "prePrPassRate": 67.1,
+      "prePrTotal": 73,
+      "prePrPass": 49,
       "prePrFail": 24,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -104,7 +104,7 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 94.9,
+      "avgOutcomeGrade": 95,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -119,8 +119,8 @@
           "count": 3
         }
       ],
-      "avgCycleTimeHours": 1,
-      "branchesMerged": 8
+      "avgCycleTimeHours": 0,
+      "branchesMerged": 9
     }
   ],
   "currentMonth": "2026-08"

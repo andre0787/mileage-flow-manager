@@ -24,7 +24,18 @@ A categoria é obrigatória. A precedência é override manual, override do task
 npm run llm:route:validate
 ```
 
-A configuração versionada fica em `config/llm-router.json`; aliases apontam para IDs concretos e profiles declaram fallbacks explícitos. Uma referência inválida falha antes do dispatch.
+A configuração versionada fica em `config/llm-router.json`; aliases apontam para IDs fully-qualified (`provider/model`) e profiles declaram fallbacks explícitos. Uma referência inválida falha antes do dispatch.
+
+### Matriz ativa equilibrada
+
+| Profile | Primário | Fallback |
+|---|---|---|
+| `efficient` | `opencode/deepseek-v4-flash-free` | `opencode/ling-3.0-flash-free` |
+| `coding` | `openai-codex/gpt-5.4-mini` | `opencode/deepseek-v4-flash-free` |
+| `strong-reasoning` | `openai-codex/gpt-5.6-luna` | `opencode/deepseek-v4-flash-free` |
+| `independent-review` | `openai-codex/gpt-5.6-luna` | `opencode/deepseek-v4-flash-free` |
+
+Os quatro IDs únicos da matriz ativa responderam ao canary local. `opencode/deepseek-v4-pro` e `opencode/claude-sonnet-4-6` ficaram fora por exigirem método de pagamento no workspace OpenCode.
 
 ## Overrides, retry e auditoria
 
@@ -35,7 +46,7 @@ Preserve `retrySafety` na chamada ao gate: `read-only` pode participar de retrie
 Resoluções produzem `llm.route.resolved`; conclusões podem ser registradas com:
 
 ```bash
-npm run llm:route -- complete --event '{"taskId":"P1-09","model":"deepseek-v4-flash-free","provider":"opencode","attempt":1,"status":"completed","durationMs":42}'
+npm run llm:route -- complete --event '{"taskId":"P1-09","model":"openai-codex/gpt-5.4-mini","provider":"openai-codex","attempt":1,"status":"completed","durationMs":42}'
 ```
 
 Eventos aceitam somente metadados estruturados. Não inclua prompts, respostas integrais, tokens, API keys ou credenciais. Use `--no-log` em dry-runs e testes.

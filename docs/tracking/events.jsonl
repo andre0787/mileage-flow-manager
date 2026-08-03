@@ -1,7 +1,3 @@
-{"timestamp": "2026-07-28T23:16:39.046Z", "type": "session:start", "description": "docs: continuacao", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "docs"}
-{"timestamp": "2026-07-28T23:16:44.378Z", "type": "session:start", "description": "chore: descrição concisa", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "chore"}
-{"timestamp": "2026-07-28T23:16:47.233Z", "type": "session:start", "description": "docs: verifica output", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "docs"}
-{"timestamp": "2026-07-28T23:16:47.359Z", "type": "pre-pr", "description": "pre-pr FAIL", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "errors": 2}
 {"timestamp": "2026-07-28T23:17:04.970Z", "type": "session:start", "description": "docs: teste docs", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "docs"}
 {"timestamp": "2026-07-28T23:17:05.244Z", "type": "session:start", "description": "bugfix: corrige bug", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "categoria": "bugfix"}
 {"timestamp": "2026-07-28T23:17:05.443Z", "type": "pre-pr", "description": "pre-pr PASS", "branch": "feat/fase2-audit-dashboard", "commit": "ba86220", "errors": 0}
@@ -998,3 +994,7 @@
 {"timestamp":"2026-08-01T16:06:49.890Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/llm-model-router","commit":"5550119","errors":0}
 {"timestamp":"2026-08-01T16:08:50.402Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/llm-model-router","commit":"fe1bda2","errors":0}
 {"timestamp":"2026-08-01T21:40:32.231Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/llm-model-router","commit":"8e23484","errors":0}
+{"timestamp":"2026-08-01T21:53:24.288Z","type":"session:end","description":"handoff atualizado","branch":"feat/llm-model-router","commit":"07fc58d"}
+{"timestamp":"2026-08-03T04:16:31.551Z","type":"session:start","description":"chore: inventariar modelos disponíveis e configurar perfis do router LLM","branch":"feat/llm-model-router","commit":"ab3bc8a","categoria":"chore"}
+{"timestamp":"2026-08-03T12:12:29.201Z","type":"session:start","description":"chore: configurar perfis equilibrados do router LLM","branch":"chore/llm-router-model-catalog","commit":"4167c15","categoria":"chore"}
+{"timestamp":"2026-08-03T12:14:09.290Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/llm-router-model-catalog","commit":"4167c15","errors":0}
