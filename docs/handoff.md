@@ -9,36 +9,36 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `fix/normalize-pr-no-skip-ci`
-- **Último commit:** `943d267 — Merge pull request #250 from andre0787/docs/session-end-process-kpi`
+- **Branch:** `chore/roadmap-p0-done`
+- **Último commit:** `1a3457d` — Merge pull request #251 from andre0787/fix/normalize-pr-no-skip-ci
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 364 |
+| Total testes | 366 |
 | Docs issues | 0 |
-| Branch | docs/session-end-process-kpi |
+| Branch | chore/roadmap-p0-done |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** bugfix
 **Objetivo:** fix normalize PR report skip-ci
-**Status:** in_progress
+**Status:** done
 **Iniciada em:** 2026-08-03T20:41:03.358Z
-**Branch:** `fix/normalize-pr-no-skip-ci`
-**Último commit:** 943d267 — Merge pull request #250 from andre0787/docs/session-end-process-kpi
+**Branch:** `chore/roadmap-p0-done`
+**Último commit:** 1a3457d — Merge pull request #251 from andre0787/docs/session-end-process-kpi
 **Docs carregados:** DEBUG.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
 Continue a tarefa ativa ou selecione o próximo task-card.
-
-> 📋 **Itens do futuro priorizados — ver bloco na seção 🧠 Notas da Sessão Atual abaixo** (roadmap canônico: `docs/ROADMAP.md`)
-
 ## 🧠 Notas da Sessão Atual
+- **✅ P0 CONCLUÍDO (PR #251, produção `1a3457d`):** removido `[skip ci]` do commit do `Normalize PR Report`; guard de regressão `tests/unit/workflows-guard.test.ts` (RED→GREEN, 381/381 testes); pre-pr 58 checks
+- **ℹ️ Pós-merge P0:** mesmo sem `[skip ci]`, push do normalize (GITHUB_TOKEN) pode criar run `action_required` fantasma sem jobs quando concurrency cancela o anterior — workaround: commit vazio "re-disparar CI" (aplicado no #251); reavaliar em sessão futura
+- **Roadmap criado:** `docs/ROADMAP.md` (itens P1-P4: react-router GHSA, npm audit, subagentes `subagent_prelaunch`, branch órfã) + link no MAP.md
 - **📋 ITENS DO FUTURO (prioridade sugerida — aprovar na próxima sessão):**
   1. **P0 — Fix do `Normalize PR Report` com `[skip ci]`**: workflow commita `[skip ci]` no head e a proteção da main (check-pr + e2e-smoke) deixa PRs subsequentes `blocked` (CI não roda no head renomeado). Workaround atual: commit vazio "re-disparar CI". Fix: remover `[skip ci]` do commit de normalize ou re-trigger do CI no SHA normalizado
   2. **P1 — GHSA-qwww-vcr4-c8h2 (react-router RSC CSRF)**: `react-router-dom@7.18.2` vulnerável; fix exige 8.3.0+ (major breaking); SPA sem RSC → vetor não alcançável; PR próprio com teste de política de dependência; blocker registrado em `docs/RADAR.md`
@@ -54,5 +54,6 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Observação: gh não autenticado por padrão — usar `GH_TOKEN` do `.env` da raiz (`grep GH_TOKEN .env`)
 - Worktree: `.worktrees/process-kpi-observability`; branch atual do worktree: `docs/session-end-process-kpi` (nova, a partir do main `08d1886`)
 - Trailing whitespace em `docs/reports/*.html` (gerados) e hard-breaks md das specs é esperado — git diff --check acusa, sem ação
+
 
 
