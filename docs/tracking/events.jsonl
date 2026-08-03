@@ -1010,3 +1010,6 @@
 {"timestamp":"2026-08-03T14:08:52.195Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/process-kpi-observability-impl","commit":"09a33a7","rule":"rule-10-clean"}
 {"timestamp":"2026-08-03T14:08:52.234Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/process-kpi-observability-impl","commit":"09a33a7","errors":1}
 {"timestamp":"2026-08-03T14:09:27.463Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"09a33a7","errors":0}
+{"timestamp":"2026-08-03T14:11:16.107Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/process-kpi-observability-impl","commit":"1627613","rule":"rule-10-clean"}
+{"timestamp":"2026-08-03T14:11:27.174Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/process-kpi-observability-impl","commit":"1627613","rule":"rule-10-clean"}
+{"timestamp":"2026-08-03T14:15:08.683Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"1627613","errors":0}

@@ -160,11 +160,11 @@ Expected: GREEN after the module and the compatibility import are implemented.
 
 In scripts/kpi-report.mjs, use parseProcessEvents for the JSONL input and retain computeMonthlyKPI’s existing six KPI fields. Do not make kpi-report rewrite or drop legacy events. The router KPI block is added by the router plan, not in this task.
 
-- [ ] **Step 6: Preserve history in the event/quality trims (TWINS)**
+- [x] **Step 6: Preserve history in the event/quality trims (TWINS)**
 
 scripts/event-log.mjs caps events.jsonl at 1000 lines and scripts/quality-log.mjs caps quality.jsonl at 500, deleting the oldest lines — history loss. Extract a pure splitAtLimit(lines, max) into scripts/lib/log-trim.mjs returning { kept, archived } without touching the filesystem, raise the caps to 20000/2000, and have both scripts append the archived overflow to docs/tracking/events-archive.jsonl and quality-archive.jsonl instead of deleting it. Add both archive paths to the pre-pr staging git add. Test RED first (a fixture with 3 lines and max 2 must return kept: 2, archived: 1), then GREEN, then confirm the real logs are below the new caps.
 
-- [ ] **Step 7: Commit the event contract**
+- [x] **Step 7: Commit the event contract**
 
 ```bash
 git add scripts/lib/process-events.mjs tests/unit/process-events.test.ts scripts/lib/log-trim.mjs tests/unit/log-trim.test.ts scripts/event-log.mjs scripts/quality-log.mjs scripts/lib/llm-router.mjs tests/unit/llm-router.test.ts scripts/kpi-report.mjs tests/kpi-report.test.ts
