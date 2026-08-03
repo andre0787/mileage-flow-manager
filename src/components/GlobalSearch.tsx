@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { Search, TrendingUp, TrendingDown, Users, CreditCard, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useData } from "@/contexts/DataContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { cn } from "@/lib/utils";
 
 interface SearchResult {
