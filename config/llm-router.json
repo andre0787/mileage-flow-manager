@@ -1,13 +1,20 @@
 {
   "version": 1,
   "aliases": {
-    "deepseek-current": "deepseek-v4-flash-free"
+    "efficient-primary": "opencode/deepseek-v4-flash-free",
+    "efficient-fallback": "opencode/ling-3.0-flash-free",
+    "coding-primary": "openai-codex/gpt-5.4-mini",
+    "coding-fallback": "opencode/deepseek-v4-flash-free",
+    "reasoning-primary": "openai-codex/gpt-5.6-luna",
+    "reasoning-fallback": "opencode/deepseek-v4-flash-free",
+    "review-primary": "openai-codex/gpt-5.6-luna",
+    "review-fallback": "opencode/deepseek-v4-flash-free"
   },
   "profiles": {
-    "strong-reasoning": { "primary": "deepseek-current", "fallbacks": [] },
-    "coding": { "primary": "deepseek-current", "fallbacks": [] },
-    "efficient": { "primary": "deepseek-current", "fallbacks": [] },
-    "independent-review": { "primary": "deepseek-current", "fallbacks": [] }
+    "strong-reasoning": { "primary": "reasoning-primary", "fallbacks": ["reasoning-fallback"] },
+    "coding": { "primary": "coding-primary", "fallbacks": ["coding-fallback"] },
+    "efficient": { "primary": "efficient-primary", "fallbacks": ["efficient-fallback"] },
+    "independent-review": { "primary": "review-primary", "fallbacks": ["review-fallback"] }
   },
   "categoryDefaults": {
     "feature": "coding",

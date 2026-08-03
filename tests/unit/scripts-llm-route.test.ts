@@ -42,7 +42,8 @@ describe("llm-route CLI", () => {
 
     expect(decision.source).toBe("category-default");
     expect(decision.profile).toBe("coding");
-    expect(decision.model).toBe("deepseek-v4-flash-free");
+    expect(decision.model).toBe("openai-codex/gpt-5.4-mini");
+    expect(decision.fallbackModels).toEqual(["opencode/deepseek-v4-flash-free"]);
     expect(decision.retrySafety).toBe("may-write");
   });
 
@@ -64,8 +65,8 @@ describe("llm-route CLI", () => {
 
     expect(decision).toMatchObject({
       profile: "strong-reasoning",
-      model: "deepseek-v4-flash-free",
-      fallbackModels: [],
+      model: "openai-codex/gpt-5.6-luna",
+      fallbackModels: ["opencode/deepseek-v4-flash-free"],
       source: "category-capability",
       retrySafety: "read-only",
     });
@@ -108,8 +109,8 @@ describe("llm-route CLI", () => {
         "--event",
         JSON.stringify({
           taskId: "P1-09",
-          model: "deepseek-v4-flash-free",
-          provider: "opencode",
+          model: "openai-codex/gpt-5.4-mini",
+          provider: "openai-codex",
           attempt: 1,
           status: "completed",
           durationMs: 42,
@@ -120,8 +121,8 @@ describe("llm-route CLI", () => {
     expect(event).toEqual({
       type: "llm.route.completed",
       taskId: "P1-09",
-      model: "deepseek-v4-flash-free",
-      provider: "opencode",
+      model: "openai-codex/gpt-5.4-mini",
+      provider: "openai-codex",
       attempt: 1,
       status: "completed",
       durationMs: 42,
