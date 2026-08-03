@@ -7,6 +7,10 @@ const ROOT = resolve(__dirname, "../..");
 const SCRIPT = resolve(ROOT, "scripts/session-start.mjs");
 const HANDOFF = resolve(ROOT, "docs/handoff.md");
 let originalHandoff: string;
+const GIT_CONTEXT_KEYS = ["GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_COMMON_DIR", "GIT_PREFIX"];
+const originalGitContext = Object.fromEntries(
+  GIT_CONTEXT_KEYS.filter((key) => process.env[key] !== undefined).map((key) => [key, process.env[key]]),
+);
 
 function restoreHandoff() {
   execSync("git checkout -- docs/handoff.md", {
@@ -34,10 +38,17 @@ function getSessaoAtual() {
 }
 
 beforeAll(() => {
+  for (const key of GIT_CONTEXT_KEYS) delete process.env[key];
   originalHandoff = readFileSync(HANDOFF, "utf8");
   restoreHandoff();
 });
-afterAll(() => writeFileSync(HANDOFF, originalHandoff));
+afterAll(() => {
+  writeFileSync(HANDOFF, originalHandoff);
+  for (const key of GIT_CONTEXT_KEYS) {
+    if (originalGitContext[key] === undefined) delete process.env[key];
+    else process.env[key] = originalGitContext[key];
+  }
+});
 
 describe("session-start", () => {
   // ─── --set-category: validação ───

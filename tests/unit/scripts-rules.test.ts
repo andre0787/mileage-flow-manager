@@ -7,13 +7,29 @@ import { tmpdir } from "os";
 const ROOT = resolve(__dirname, "../..");
 const RULES_DIR = resolve(ROOT, "scripts/rules");
 const FIXTURES_DIR = resolve(RULES_DIR, "__fixtures__");
+const GIT_CONTEXT_KEYS = ["GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_COMMON_DIR", "GIT_PREFIX"];
 
 // ─── Helpers ─────────────────────────────────────────────────────────
+
+function cleanGitEnv(extra: NodeJS.ProcessEnv = {}) {
+  const env = { ...process.env, ...extra };
+  for (const key of GIT_CONTEXT_KEYS) delete env[key];
+  return env;
+}
+
+function gitExec(command: string, cwd: string) {
+  return execSync(command, {
+    cwd,
+    encoding: "utf8",
+    timeout: 5000,
+    env: cleanGitEnv(),
+  });
+}
 
 /** Roda uma rule num fixture via MOCK_ROOT, retorna { stdout, status, error } */
 function runRuleOnFixture(ruleName: string, fixturePath: string): { stdout: string; status: number; error: string } {
   const ruleScript = resolve(RULES_DIR, ruleName);
-  const env = { ...process.env, MOCK_ROOT: fixturePath };
+  const env = cleanGitEnv({ MOCK_ROOT: fixturePath });
   try {
     const stdout = execSync(`node "${ruleScript}" 2>&1`, {
       cwd: fixturePath,
@@ -33,13 +49,14 @@ function runRuleOnFixture(ruleName: string, fixturePath: string): { stdout: stri
 }
 
 /** Roda uma rule normalmente (no repo real) */
-function runRule(ruleName: string): { stdout: string; status: number; error: string } {
+function runRule(ruleName: string, extraEnv: NodeJS.ProcessEnv = {}): { stdout: string; status: number; error: string } {
   const ruleScript = resolve(RULES_DIR, ruleName);
   try {
     const stdout = execSync(`node "${ruleScript}" 2>&1`, {
       cwd: ROOT,
       encoding: "utf8",
       timeout: 10000,
+      env: cleanGitEnv(extraEnv),
     });
     return { stdout, status: 0, error: "" };
   } catch (e: unknown) {
@@ -69,18 +86,16 @@ function cleanTempFixture(tmpPath: string) {
 
 /** Inicializa git num diretório e faz commit inicial */
 function initGitRepo(dir: string) {
-  execSync("git init", { cwd: dir, encoding: "utf8", timeout: 5000 });
+  gitExec("git init", dir);
   // Configura identidade para evitar aviso
-  execSync('git config user.email "test@test.com"', { cwd: dir, encoding: "utf8", timeout: 5000 });
-  execSync('git config user.name "Test"', { cwd: dir, encoding: "utf8", timeout: 5000 });
+  gitExec('git config user.email "test@test.com"', dir);
+  gitExec('git config user.name "Test"', dir);
   // Cria um commit inicial para que git status funcione
   const readme = join(dir, "README.md");
   if (!existsSync(readme)) {
     writeFileSync(readme, "# Test Repo\n");
   }
-  execSync("git add -A && git commit -m 'initial' 2>/dev/null", {
-    cwd: dir, encoding: "utf8", timeout: 5000,
-  });
+  gitExec("git add -A && git commit -m 'initial' 2>/dev/null", dir);
 }
 
 // ─── rule-02-category-loading ──────────────────────────────────────
@@ -143,7 +158,7 @@ describe("rule-02-grid", () => {
       const badFile = join(tmp, "src/components/Bad.tsx");
       mkdirSync(join(tmp, "src/components"), { recursive: true });
       writeFileSync(badFile, 'export function Bad() { return <div className="grid-cols-3">x</div>; }\n');
-      execSync("git add src/components/Bad.tsx", { cwd: tmp, encoding: "utf8", timeout: 5000 });
+      gitExec("git add src/components/Bad.tsx", tmp);
       const res = runRuleOnFixture("rule-02-grid.mjs", tmp);
       expect(res.status).not.toBe(0);
     } finally { cleanTempFixture(tmp); }
@@ -157,7 +172,7 @@ describe("rule-04-branch", () => {
     const tmp = createTempFixture("handoff/valid");
     try {
       initGitRepo(tmp);
-      execSync("git checkout -b feat/test-branch", { cwd: tmp, encoding: "utf8", timeout: 5000 });
+      gitExec("git checkout -b feat/test-branch", tmp);
       const res = runRuleOnFixture("rule-04-branch.mjs", tmp);
       expect(res.status).toBe(0);
     } finally { cleanTempFixture(tmp); }
@@ -168,7 +183,7 @@ describe("rule-04-branch", () => {
     try {
       initGitRepo(tmp);
       // Cria branch main e vai pra ela
-      execSync("git checkout -b main", { cwd: tmp, encoding: "utf8", timeout: 5000 });
+      gitExec("git checkout -b main", tmp);
       const res = runRuleOnFixture("rule-04-branch.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toContain("não permitida");
@@ -209,9 +224,7 @@ describe("rule-07-ptbr", () => {
       const badFile = join(tmp, "src/components/Teste.tsx");
       mkdirSync(join(tmp, "src/components"), { recursive: true });
       writeFileSync(badFile, 'export function T() { return <div>Save</div>; }\n');
-      execSync("git add -A && git commit -m 'add english' 2>/dev/null", {
-        cwd: tmp, encoding: "utf8", timeout: 5000,
-      });
+      gitExec("git add -A && git commit -m 'add english' 2>/dev/null", tmp);
       // Agora modifica com string em inglês (no working tree)
       writeFileSync(badFile, 'export function T() { return <div>{"Cancel"}</div>; }\n');
       const res = runRuleOnFixture("rule-07-ptbr.mjs", tmp);
@@ -249,7 +262,7 @@ describe("rule-09-handoff", () => {
     try {
       initGitRepo(tmp);
       // Garante que não está em main
-      execSync("git checkout -b feat/teste", { cwd: tmp, encoding: "utf8", timeout: 5000 });
+      gitExec("git checkout -b feat/teste", tmp);
       const res = runRuleOnFixture("rule-09-handoff.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toContain("handoff.md não encontrado");
@@ -296,7 +309,7 @@ describe("rule-11-bug-registry", () => {
       // Cria staged src/ change
       mkdirSync(join(tmp, "src"), { recursive: true });
       writeFileSync(join(tmp, "src/foo.ts"), "export const x = 1;\n");
-      execSync("git add src/foo.ts 2>/dev/null", { cwd: tmp, encoding: "utf8", timeout: 5000 });
+      gitExec("git add src/foo.ts 2>/dev/null", tmp);
       const res = runRuleOnFixture("rule-11-bug-registry.mjs", tmp);
       // Rule 11 não faz exit(1) — é warn apenas
       expect(res.stdout || "").toContain("AGENDA.md não foi modificado");
@@ -331,6 +344,19 @@ describe("rule-14-orphan-files", () => {
   it("deve passar (positiva: sem arquivos órfãos no repo)", () => {
     const res = runRule("rule-14-orphan-files.mjs");
     expect(res.status).toBe(0);
+  });
+
+  it("resolve imports relativos a partir de src, não da raiz do repositório", () => {
+    const tmp = mkdtempSync(join(tmpdir(), "rule-orphan-relative-"));
+    try {
+      mkdirSync(join(tmp, "src/components"), { recursive: true });
+      writeFileSync(join(tmp, "src/main.tsx"), 'import Parent from "./components/Parent";\nvoid Parent;\n');
+      writeFileSync(join(tmp, "src/components/Parent.tsx"), 'import Child from "./Child";\nexport default Child;\n');
+      writeFileSync(join(tmp, "src/components/Child.tsx"), "const Child = () => null;\nexport default Child;\n");
+
+      const res = runRuleOnFixture("rule-14-orphan-files.mjs", tmp);
+      expect(res.status).toBe(0);
+    } finally { cleanTempFixture(tmp); }
   });
 
   it("deve falhar (negativa: arquivo órfão em src/)", () => {
@@ -383,7 +409,7 @@ describe("rule-16-orphan-scripts", () => {
 
 describe("rule-17-new-docs-valid", () => {
   it("deve passar (positiva: sem novos .md no diff)", () => {
-    const res = runRule("rule-17-new-docs-valid.mjs");
+    const res = runRule("rule-17-new-docs-valid.mjs", { PRE_PR_MOCK_DIFF: "" });
     expect(res.status).toBe(0);
   });
 });

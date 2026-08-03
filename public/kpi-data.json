@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-03T13:14:18.567Z",
+  "generatedAt": "2026-08-03T13:46:59.233Z",
   "months": [
     {
       "month": "2026-03",
@@ -75,10 +75,10 @@
     },
     {
       "month": "2026-07",
-      "prePrPassRate": 69.3,
-      "prePrTotal": 101,
-      "prePrPass": 70,
-      "prePrFail": 31,
+      "prePrPassRate": 69.7,
+      "prePrTotal": 99,
+      "prePrPass": 69,
+      "prePrFail": 30,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -93,9 +93,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 68,
-      "prePrTotal": 75,
-      "prePrPass": 51,
+      "prePrPassRate": 68.8,
+      "prePrTotal": 77,
+      "prePrPass": 53,
       "prePrFail": 24,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -104,7 +104,7 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 95.4,
+      "avgOutcomeGrade": 95.5,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -117,10 +117,18 @@
         {
           "rule": "rule-27-council-veredict",
           "count": 4
+        },
+        {
+          "rule": "rule-17-new-docs-valid",
+          "count": 1
+        },
+        {
+          "rule": "rule-30-outcome-grade",
+          "count": 1
         }
       ],
       "avgCycleTimeHours": 0,
-      "branchesMerged": 10
+      "branchesMerged": 11
     }
   ],
   "currentMonth": "2026-08"

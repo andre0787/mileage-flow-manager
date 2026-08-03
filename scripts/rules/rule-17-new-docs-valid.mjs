@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import { execSync } from "child_process";
+
 /**
  * rule-17-new-docs-valid.mjs — Valida novos arquivos .md contra orphan/devirando-issue.
  *
@@ -16,13 +18,12 @@
  * ponytail: execSync puro, zero deps. Só checa novos arquivos.
  */
 
-import { execSync } from "child_process";
 import { existsSync, readFileSync } from "fs";
 import { resolve } from "path";
+import { getDiffFiles } from "../lib.mjs";
 
 const ROOT = process.env.MOCK_ROOT || resolve(import.meta.dirname, "../..");
 let errors = 0;
-const BASE = "origin/main";
 
 function linkRefs(filePath, allMds) {
   const name = filePath.split("/").pop();
@@ -42,9 +43,7 @@ function internalLinks(path) {
 
 try {
   // ── Descobrir novos .md no diff ─────────────────────────────────
-  const diffCmd = `git diff --name-only --diff-filter=A ${BASE}...HEAD 2>/dev/null || echo ""`;
-  const changed = execSync(diffCmd, { cwd: ROOT, encoding: "utf8", timeout: 5000 })
-    .trim().split("\n").filter(Boolean);
+  const changed = getDiffFiles();
 
   const newMds = changed.filter(f =>
     f.endsWith(".md") &&
@@ -95,8 +94,11 @@ try {
     // Check 3: links internos existem?
     const links = internalLinks(absPath);
     for (const link of links) {
-      const target = link.startsWith("/") ? link.slice(1) : resolve(ROOT, file, "..", link);
-      if (!existsSync(resolve(ROOT, target)) && !existsSync(resolve(ROOT, target.replace(/^\.\//, "")))) {
+      const fileDir = resolve(ROOT, file, "..");
+      const target = link.startsWith("/") || link.startsWith("docs/")
+        ? resolve(ROOT, link.replace(/^\//, ""))
+        : resolve(fileDir, link);
+      if (!existsSync(target) && !existsSync(target.replace(/^\.\//, ""))) {
         console.log(`      ⚠️  link quebrado: "${link}" → arquivo não existe`);
         errors++;
       }

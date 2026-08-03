@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>process-kpi-observability-impl — process kpi observability impl</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 process kpi observability impl</h1>
+  <p class="meta">2026-08-03 10:46 &middot; feat/process-kpi-observability-impl &middot; a8c32f3 — chore: ignorar worktrees locais</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">process-kpi-observability-impl</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">11</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+707</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-53</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~663</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Auto-gerado pelo pre-pr-check</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Relatório gerado automaticamente como parte do workflow de validação pré-PR</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 53 remoções — 884 linhas tocadas</td>
+        <td>✨ 707 adições — 11 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .gitignore, docs/RADAR.md, docs/handoff.md<br><span style="color:#166534;font-weight:600">➕</span> docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md, docs/reports/2026-08-03/process-kpi-observability-2026-08-03-process-kpi-observability.html<br><em>+6 arquivo(s)</em></td>
+      </tr>
+      
+      <tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>11</td></tr>
+    <tr><td>Adições</td><td>+707</td></tr>
+    <tr><td>Remoções</td><td>-53</td></tr>
+    <tr><td>Tokens estimados</td><td>~663</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:80">+530 add</div>
+        <div class="del" style="flex:6">-40 del</div>
+        <div class="overhead" style="flex:14">~93 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+530</td><td>80%</td></tr>
+      <tr><td>Remoções</td><td>-40</td><td>6%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~93</td><td>14%</td></tr>
+      <tr><th>Total</th><th>~663</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>.gitignore</td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>A</td><td>docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-03/process-kpi-observability-2026-08-03-process-kpi-observability.html</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-08-03-llm-router-kpi-design.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-08-03-process-guardrails-design.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-08-03-project-sanitization-design.md</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td></tr>
+  </table>
+
+  
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/.gitignore b/.gitignore
+index 73c0afd..157634c 100644
+<span class="del">--- a/.gitignore</span>
+<span class="add">+++ b/.gitignore</span>
+@@ -72,6 +72,9 @@ tests/fluxo-relatorio.md
+ # Subagent artifacts
+ .pi-subagents/
+ 
+<span class="add">+# Local git worktrees</span>
+<span class="add">+.worktrees/</span>
+<span class="add">+</span>
+ # OpenCode AI extension artifacts
+ .opencode/
+ 
+diff --git a/docs/RADAR.md b/docs/RADAR.md
+index 498509b..87c8bf5 100644
+<span class="del">--- a/docs/RADAR.md</span>
+<span class="add">+++ b/docs/RADAR.md</span>
+@@ -1,6 +1,6 @@
+ # 🔭 Radar de Vulnerabilidades
+ 
+<span class="del">-&gt; Atualizado em: 2026-08-03T12:12:29.170Z</span>
+<span class="add">+&gt; Atualizado em: 2026-08-03T13:13:39.308Z</span>
+ 
+ ## ⚠️  Vulnerabilidades Ativas (1 pacotes)
+ 
+diff --git a/docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md b/docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md
+new file mode 100644
+index 0000000..d42a281
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md</span>
+@@ -0,0 +1,93 @@
+<span class="add">+# Veredito do Council — KPIs de Processo, Router LLM e Sanitização</span>
+<span class="add">+</span>
+<span class="add">+&gt; **Data:** 2026-08-03</span>
+<span class="add">+&gt; **Categoria:** feature de workflow com frentes de chore/refactor</span>
+<span class="add">+&gt; **Solicitação:** investigar violações de KPIs de processo e criar guardrails; medir ativação/execução do router LLM, fallback e atribuição de skills; auditar duplicidade, redundância, órfãos e sujeira e sanitizar com segurança até produção.</span>
+<span class="add">+</span>
+<span class="add">+## Limitação operacional do Council</span>
+<span class="add">+</span>
+<span class="add">+Foram tentadas duas execuções via `subagent_gate`: primeiro o quórum de cinco advisors com rótulos específicos e depois uma tentativa com o agente genérico suportado. Ambas falharam em **pré-lançamento**, com `0/5` e `0/1` sucessos, porque o ambiente atual não expôs um responder do `pi-subagents`. Nenhuma análise independente foi recebida. As cinco rotas foram registradas como `llm.route.resolved` e suas conclusões como `llm.route.completed` com `status: failed` e `failureKind: subagent_prelaunch`; não são apresentadas como consenso de subagentes.</span>
+<span class="add">+</span>
+<span class="add">+O documento abaixo é a síntese estruturada do orquestrador, baseada no código, nos testes, nos logs e nas regras atuais. Essa limitação deve ser tratada como dado do próprio KPI do router.</span>
+<span class="add">+</span>
+<span class="add">+## Evidências de baseline</span>
+<span class="add">+</span>
+<span class="add">+- `public/kpi-data.json` mostra, em agosto de 2026, 74 execuções de pre-pr: 50 pass, 24 fail e taxa de 67,6%.</span>
+<span class="add">+- As violações históricas mais frequentes são `rule-10-clean` (14), `rule-26-session-started` (7) e `rule-27-council-veredict` (3).</span>
+<span class="add">+- O log possui 177 eventos `pre-pr`, 24 `rule:fail`, somente 2 ativações de gate e, antes desta análise, não possuía conclusões do router para as cinco rotas recém-resolvidas.</span>
+<span class="add">+- As regras 14, 15, 16, 18, 23, 31 e 32 passam no estado atual; isso prova que os checks existentes não encontram sujeira nesses recortes, não que a auditoria total esteja concluída.</span>
+<span class="add">+- O baseline funcional observado foi: 326 testes unitários passando, typecheck sem erros, lint sem erros mas com 10 warnings, format check passando, verify-docs estrito passando, outcome grader 100%.</span>
+<span class="add">+- `npm audit --omit=dev` reporta duas vulnerabilidades high em `react-router` transitivo; a correção sugerida pelo npm é breaking (`react-router-dom@7.11.0`) e não deve ser aplicada cegamente nesta sanitização.</span>
+<span class="add">+- O evento atual `llm.route.resolved` registra a decisão planejada; `llm.route.completed` registra apenas modelo/tentativa/status/duração/falha e não registra `skills`, nem diferencia explicitamente modelo solicitado de modelo efetivo.</span>
+<span class="add">+</span>
+<span class="add">+## Advisors</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Contrarian (síntese)</span>
+<span class="add">+</span>
+<span class="add">+O maior risco é transformar “sanitização total” em deleção em massa. Logs históricos, relatórios, arquivos gerados e documentos arquivados têm funções diferentes; apagar por nome, tamanho ou baixa frequência pode destruir evidência necessária para medir as violações que motivaram o pedido. A limpeza deve começar por inventário somente leitura, produzir uma lista de candidatos e só remover algo quando uma análise de referências demonstrar que não é entry point, fonte histórica ou artefato de CI.</span>
+<span class="add">+</span>
+<span class="add">+Também é perigoso chamar `llm.route.resolved` de ativação efetiva. Uma rota pode falhar antes do subagente iniciar, como aconteceu nesta sessão, ou pode usar um fallback. O KPI precisa separar resolução, tentativa, conclusão, falha de pré-lançamento e fallback real; caso contrário a dashboard premiará um workflow que apenas planeja chamadas.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Reformule e faça em fases.</span>
+<span class="add">+</span>
+<span class="add">+**Recomendações:** falhar fechado em guardrails críticos; não armazenar prompts, respostas, tokens ou credenciais; preservar histórico; bloquear limpeza destrutiva sem relatório e teste de referência.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: First Principles Thinker (síntese)</span>
+<span class="add">+</span>
+<span class="add">+Um KPI só é confiável quando sua definição, fonte e cálculo são verificáveis. Para violações, a unidade canônica deve ser uma execução de regra com identificador estável, status e contexto de branch/commit. Para o router, a unidade canônica deve ser uma tarefa: uma resolução planejada, zero ou mais tentativas e uma conclusão. O modelo efetivamente usado é o modelo da conclusão; fallback é a diferença entre o modelo primário resolvido e o modelo efetivo, ou uma tentativa posterior em um candidato declarado.</span>
+<span class="add">+</span>
+<span class="add">+A atribuição skill→LLM não pode ser inferida de texto livre. O dispatcher deve fornecer uma lista normalizada de skills na resolução/conclusão e a validação deve rejeitar campos desconhecidos, vazios, duplicados ou potencialmente sensíveis. A ausência de conclusão não é sucesso nem fallback: é “não observado”, e deve aparecer no KPI para revelar gaps do workflow.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Faça, mas com contrato de eventos primeiro.</span>
+<span class="add">+</span>
+<span class="add">+**Recomendações:** estender o schema do router e os testes; manter `resolved`, `attempt` e `completed` correlacionáveis por `taskId`; gerar agregados determinísticos no Node; exibir `N/A` quando não medido.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Expansionist (síntese)</span>
+<span class="add">+</span>
+<span class="add">+Há oportunidade de fechar o ciclo de melhoria sem criar uma plataforma nova: o mesmo JSONL pode alimentar taxas de pre-pr, violações, qualidade, rotas, falhas, fallback e matriz de skills. Os agregados úteis são taxa de conclusão do router, taxa de fallback, falhas por modelo/provider, distribuição por capability/categoria e contagem de tarefas sem conclusão. A matriz skill→modelo deve permitir descobrir que uma skill está concentrando falhas ou sendo sempre encaminhada ao perfil errado.</span>
+<span class="add">+</span>
+<span class="add">+A evolução deve ser incremental. Primeiro tornar os eventos verdadeiros e os guardrails executáveis; depois usar os dados para ajustar perfis e convenções. Não implementar scoring automático, meta-router, custo/token ou banco externo antes de existir uma série temporal confiável. O dashboard deve mostrar a data da geração e a cobertura do dado para evitar interpretações indevidas.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Faça em fatias pequenas.</span>
+<span class="add">+</span>
+<span class="add">+**Recomendações:** adicionar agregados mensais versionados; incluir contagens e percentuais, não apenas médias; registrar a versão da configuração; manter o app desacoplado via `public/kpi-data.json`.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Outsider (síntese)</span>
+<span class="add">+</span>
+<span class="add">+Um colaborador novo não conseguiria responder, olhando apenas a dashboard, se uma rota foi escolhida, executada ou usada como fallback. Também não saberia se “0 gates” significa que ninguém declarou gates ou que o instrumento não capturou eventos. O contrato deve tornar esses estados explícitos e os comandos devem produzir uma saída curta que permita reproduzir a contagem.</span>
+<span class="add">+</span>
+<span class="add">+A auditoria atual passa vários checks, mas isso só cobre os padrões que as regras conhecem. “Arquivo órfão” não é sinônimo de “arquivo não importado” em entry points, fixtures, migrations, scripts internos ou documentação histórica. A sanitização deve ter modo `audit` e modo `check`; o primeiro lista achados e o segundo falha somente em contratos que conseguem ser provados de forma determinística.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Faça, com linguagem de cobertura e limitações explícitas.</span>
+<span class="add">+</span>
+<span class="add">+**Recomendações:** não chamar uma varredura heurística de limpeza total; incluir fixtures e arquivos gerados na taxonomia; testar o auditor com repositórios fixture; documentar exceções permitidas.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Executor (síntese)</span>
+<span class="add">+</span>
+<span class="add">+A execução segura deve ser dividida em três subprojetos dependentes: (A) auditoria de violações e guardrails de processo; (B) contrato/telemetria do router e novos KPIs; (C) auditoria e sanitização segura. A frente B depende de um evento de conclusão extensível; a frente C deve começar e terminar com inventários e usar a suíte existente para provar que o comportamento da aplicação permaneceu inalterado.</span>
+<span class="add">+</span>
+<span class="add">+Cada mudança de comportamento deve seguir INTENT + TDD. Cada novo script deve ter atalho npm, teste unitário e integração no pre-pr quando for um guardrail imutável. A saída precisa passar por `pre-pr`, relatório HTML, review e testes E2E locais/produção aplicáveis. O deploy deve permanecer no fluxo protegido de PR para `main`; não se deve fazer push/merge/deploy silencioso.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Faça em fases, começando por evidência e contrato.</span>
+<span class="add">+</span>
+<span class="add">+**Recomendações:** não misturar a atualização breaking de `react-router` com a sanitização sem plano próprio; tratar o problema de subagentes indisponíveis como um KPI e blocker de validação delegada, não como motivo para fabricar sucesso.</span>
+<span class="add">+</span>
+<span class="add">+## Extended Thinking</span>
+<span class="add">+</span>
+<span class="add">+O tema cruza observabilidade, CI, segurança de dados, UX da dashboard e limpeza estrutural, com risco de regressão e custo de implementação acima de uma tarefa isolada. O extended thinking independente dos advisors não pôde ser executado porque o harness falhou antes do lançamento. A síntese do orquestrador aplicou uma análise estendida explícita aos trade-offs: preservar evidência versus sanitizar, medir intenção versus execução e aumentar cobertura versus aumentar complexidade.</span>
+<span class="add">+</span>
+<span class="add">+## Síntese do Chairman</span>
+<span class="add">+</span>
+<span class="add">+**Consenso operacional:** o pedido é válido, mas não deve ser implementado como uma grande limpeza ou como mais uma camada de documentação. Primeiro é preciso estabilizar o contrato de evidência e os guardrails; em seguida medir o router de forma honesta; por fim sanitizar apenas achados comprovados. A base existente é funcional, porém há violações reais de processo e um gap de telemetria de execução/fallback/skills.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito final:** **REFORMULE E FAÇA EM FASES**.</span>
+<span class="add">+</span>
+<span class="add">+**Recomendação única:** executar três planos revisáveis, nesta ordem:</span>
+<span class="add">+</span>
+<span class="add">+1. **Observabilidade e guardrails:** normalizar eventos de violação, detectar pre-pr/session/council inconsistentes, adicionar regras npm que falhem de forma determinística e cobrir os casos com fixtures.</span>
+<span class="add">+2. **Router LLM observável:** ampliar `resolved/completed` com execução efetiva, fallback e `skills`, criar KPI mensal com cobertura/ausência de conclusão e adicionar visualização no `/kpi` sem expor conteúdo sensível.</span>
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>

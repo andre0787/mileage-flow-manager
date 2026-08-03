@@ -3,7 +3,7 @@
 > **Data:** 2026-08-03  
 > **Status:** design aprovado pelo usuário; implementação pendente  
 > **Categoria:** feature de workflow  
-> **Council:** [`docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md`](docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md)
+> **Council:** `docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md`
 
 ## Objetivo
 

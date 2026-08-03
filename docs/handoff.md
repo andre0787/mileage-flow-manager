@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `feat/process-kpi-observability`
-- **Último commit:** `405a6ca — chore: registrar encerramento da sessao de modelos`
+- **Branch:** `feat/process-kpi-observability-impl`
+- **Último commit:** `a8c32f3 — chore: ignorar worktrees locais`
 - **Remote:** origin/chore/llm-router-model-catalog
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -27,9 +27,9 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 **Categoria:** feature
 **Objetivo:** KPIs de processo, observabilidade do router LLM e sanitização segura
 **Status:** in_progress
-**Iniciada em:** 2026-08-03T13:13:39.315Z
-**Branch:** `feat/process-kpi-observability`
-**Último commit:** 405a6ca — chore: registrar encerramento da sessao de modelos
+**Iniciada em:** 2026-08-03T13:33:28.775Z
+**Branch:** `feat/process-kpi-observability-impl`
+**Último commit:** a8c32f3 — chore: ignorar worktrees locais
 **Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
