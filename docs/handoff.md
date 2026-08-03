@@ -1,5 +1,5 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-08-01
+> ⏰ Última atualização: 2026-08-03
 > Anterior: 2026-08-01
 ---
 ## 🏗️ Projeto
@@ -10,8 +10,8 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `chore/llm-router-model-catalog`
-- **Último commit:** `4167c15 — Merge pull request #246 from andre0787/feat/llm-model-router`
-- **Remote:** origin/feat/llm-model-router
+- **Último commit:** `d3b0907` — chore: normalize report prefix to PR247
+- **Remote:** origin/chore/llm-router-model-catalog
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
@@ -19,14 +19,14 @@ Nenhum PR aberto.
 |---------|-------|
 | Total testes | 318 |
 | Docs issues | 0 |
-| Branch | feat/llm-model-router |
+| Branch | chore/llm-router-model-catalog |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
 **Objetivo:** configurar perfis equilibrados do router LLM
-**Status:** in_progress
+**Status:** done
 **Iniciada em:** 2026-08-03T12:12:29.178Z
 **Branch:** `chore/llm-router-model-catalog`
 **Último commit:** 4167c15 — Merge pull request #246 from andre0787/feat/llm-model-router
@@ -40,3 +40,4 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - PR #243 merged: handoff sessão docs + relatório pre-pr (0 errors, outcome grade 100%)
 - session:end marcou sessão done; push direto na main bloqueado pela branch protection → PR #244 merged
 - Observação: gh não autenticado — usar GH_TOKEN do .env ou rodar `gh auth login`
+
