@@ -129,4 +129,43 @@ describe("llm-route CLI", () => {
     });
     expect(JSON.stringify(event)).not.toMatch(/prompt|response|output|token/i);
   });
+
+  it("registra conclusão com modelo efetivo, fallback e skills", () => {
+    const event = JSON.parse(
+      run([
+        "complete",
+        "--event",
+        JSON.stringify({
+          taskId: "P1-09",
+          model: "opencode/deepseek-v4-flash-free",
+          resolvedModel: "openai-codex/gpt-5.4-mini",
+          provider: "opencode",
+          attempt: 2,
+          status: "completed",
+          fallbackUsed: true,
+          skills: ["systematic-debugging"],
+          durationMs: 12,
+        }),
+      ]),
+    );
+
+    expect(event).toMatchObject({
+      model: "opencode/deepseek-v4-flash-free",
+      resolvedModel: "openai-codex/gpt-5.4-mini",
+      fallbackUsed: true,
+      skills: ["systematic-debugging"],
+      status: "completed",
+    });
+    expect(JSON.stringify(event)).not.toMatch(/prompt|response|output|token/i);
+  });
+
+  it("falha com status não terminal", () => {
+    const failure = runFailure([
+      "complete",
+      "--event",
+      JSON.stringify({ taskId: "x", model: "m", status: "success" }),
+    ]);
+
+    expect(failure.status).toBe(1);
+  });
 });
