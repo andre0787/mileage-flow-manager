@@ -1057,3 +1057,4 @@
 {"timestamp":"2026-08-03T22:35:43.002Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/upgrade-react-router-8","commit":"d1d96a5","errors":0}
 {"timestamp":"2026-08-03T22:36:10.846Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/upgrade-react-router-8","commit":"9797cd9","errors":0}
 {"timestamp":"2026-08-03T23:01:38.815Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/upgrade-react-router-8","commit":"f4ade8e","rule":"rule-10-clean"}
+{"timestamp":"2026-08-03T23:02:32.520Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/upgrade-react-router-8","commit":"8be17a8","errors":0}
