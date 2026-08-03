@@ -9,33 +9,30 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `feat/upgrade-react-router-8`
-- **Último commit:** `d1d96a5 — Merge pull request #252 from andre0787/chore/roadmap-p0-done`
+- **Branch:** `chore/roadmap-p1-done`
+- **Último commit:** `0637337` — Merge pull request #253 from andre0787/feat/upgrade-react-router-8
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 366 |
+| Total testes | 374 |
 | Docs issues | 0 |
-| Branch | chore/roadmap-p0-done |
+| Branch | chore/roadmap-p1-done |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-## 🎯 Sessão Atual
-**Categoria:** refactor
-**Objetivo:** upgrade react-router 8.3+ GHSA-qwww-vcr4-c8h2
-**Status:** in_progress
-**Iniciada em:** 2026-08-03T22:22:23.369Z
-**Branch:** `feat/upgrade-react-router-8`
-**Último commit:** d1d96a5 — Merge pull request #252 from andre0787/chore/roadmap-p0-done
-**Docs carregados:** CONVENTIONS.md, ARCHITECTURE.md
+
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
 Continue a tarefa ativa ou selecione o próximo task-card.
 ## 🧠 Notas da Sessão Atual
+- **✅ P1 CONCLUÍDO (PR #253, produção `0637337`):** upgrade `react-router@8.3.0` + React 19.2.8 (GHSA-qwww-vcr4-c8h2); `npm audit --omit=dev` → 0 vulns (brace-expansion 5.0.9, fast-uri 3.1.5); política de dependência nova em `project-audit.mjs` (check `dependency-policy`); guard tests: `dependency-policy.test.ts` (5) + `vite-config-guard.test.ts` (3); 389/389 testes, pre-pr 65 checks
+- **✅ P3 CONCLUÍDO:** branch remota `feat/process-kpi-observability-impl` já não existe (auto-merge #249 com `--delete-branch`); conteúdo confirmado no main (diff plans vazio vs `f9091c6`)
+- **🧩 Aprendizados P1:** (1) `react-router-dom` NÃO tem v8 — v8 unifica no core `react-router` (imports migrados em 13 arquivos); (2) React 19 exige atualizar next-themes/recharts 2.15/sonner 2/vaul 1; (3) manualChunks com array não captura React 19 — usar função com `id.includes` (senão index estoura o budget 750KB → 943KB); (4) `gh pr edit` requer scope read:org — usar REST PATCH no body
+- **⏭️ P2 restante (roadmap):** harness de subagentes `subagent_prelaunch` (infra fora do repo)
 - **✅ P0 CONCLUÍDO (PR #251, produção `1a3457d`):** removido `[skip ci]` do commit do `Normalize PR Report`; guard de regressão `tests/unit/workflows-guard.test.ts` (RED→GREEN, 381/381 testes); pre-pr 58 checks
 - **ℹ️ Pós-merge P0:** mesmo sem `[skip ci]`, push do normalize (GITHUB_TOKEN) pode criar run `action_required` fantasma sem jobs quando concurrency cancela o anterior — workaround: commit vazio "re-disparar CI" (aplicado no #251); reavaliar em sessão futura
 - **Roadmap criado:** `docs/ROADMAP.md` (itens P1-P4: react-router GHSA, npm audit, subagentes `subagent_prelaunch`, branch órfã) + link no MAP.md
@@ -57,3 +54,13 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 
 
+
+
+## 🎯 Sessão Atual
+**Categoria:** docs
+**Objetivo:** roadmap P1/P3 done + fechamento handoff
+**Status:** in_progress
+**Iniciada em:** 2026-08-03T22:22:23.369Z
+**Branch:** `chore/roadmap-p1-done`
+**Último commit:** 0637337 — Merge pull request #253
+**Docs carregados:** AGENTS.md
