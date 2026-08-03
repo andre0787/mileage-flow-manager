@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 llm router model catalog</h1>
-  <p class="meta">2026-08-03 09:14 &middot; chore/llm-router-model-catalog &middot; 4167c15 — Merge pull request #246 from andre0787/feat/llm-model-router</p>
-  <p><span class="badge auto">auto</span> <span class="badge auto">llm-router-model-catalog</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+  <p class="meta">2026-08-03 09:14 &middot; chore/llm-router-model-catalog &middot; 7210ea4 — chore: normalizar whitespace do relatorio de modelos</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">llm-router-model-catalog</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">0</div>
+      <div style="font-size:1.5rem;font-weight:700">9</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+206</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-54</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~305</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -80,12 +80,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 0 remoções — 1 linhas tocadas</td>
-        <td>✨ 0 adições — 0 arquivo(s) alterado(s)</td>
+        <td>🧹 54 remoções — 406 linhas tocadas</td>
+        <td>✨ 206 adições — 9 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> config/llm-router.json, docs/LLM-ROUTER.md, docs/RADAR.md, docs/handoff.md<br><span style="color:#166534;font-weight:600">➕</span> docs/reports/2026-08-03/llm-router-model-catalog-2026-08-03-llm-router-model-catalog.html<br><em>+4 arquivo(s)</em></td>
       </tr>
 
       <tr>
@@ -98,38 +98,165 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>0</td></tr>
-    <tr><td>Adições</td><td>+0</td></tr>
-    <tr><td>Remoções</td><td>-0</td></tr>
-    <tr><td>Tokens estimados</td><td>~1</td></tr>
+    <tr><td>Arquivos alterados</td><td>9</td></tr>
+    <tr><td>Adições</td><td>+206</td></tr>
+    <tr><td>Remoções</td><td>-54</td></tr>
+    <tr><td>Tokens estimados</td><td>~305</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:51">+155 add</div>
+        <div class="del" style="flex:13">-41 del</div>
+        <div class="overhead" style="flex:36">~109 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+155</td><td>51%</td></tr>
+      <tr><td>Remoções</td><td>-41</td><td>13%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~109</td><td>36%</td></tr>
+      <tr><th>Total</th><th>~305</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-
+    <tr><td>M</td><td>config/llm-router.json</td></tr>
+<tr><td>M</td><td>docs/LLM-ROUTER.md</td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-03/llm-router-model-catalog-2026-08-03-llm-router-model-catalog.html</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td></tr>
+<tr><td>M</td><td>tests/unit/scripts-llm-route.test.ts</td></tr>
   </table>
 
 
 
   <h2>🔍 Diff</h2>
   <div class="diff">
+    diff --git a/config/llm-router.json b/config/llm-router.json
+index af7776a..d7c92f9 100644
+<span class="del">--- a/config/llm-router.json</span>
+<span class="add">+++ b/config/llm-router.json</span>
+@@ -1,13 +1,20 @@
+ {
+   "version": 1,
+   "aliases": {
+<span class="del">-    "deepseek-current": "deepseek-v4-flash-free"</span>
+<span class="add">+    "efficient-primary": "opencode/deepseek-v4-flash-free",</span>
+<span class="add">+    "efficient-fallback": "opencode/ling-3.0-flash-free",</span>
+<span class="add">+    "coding-primary": "openai-codex/gpt-5.4-mini",</span>
+<span class="add">+    "coding-fallback": "opencode/deepseek-v4-flash-free",</span>
+<span class="add">+    "reasoning-primary": "openai-codex/gpt-5.6-luna",</span>
+<span class="add">+    "reasoning-fallback": "opencode/deepseek-v4-flash-free",</span>
+<span class="add">+    "review-primary": "openai-codex/gpt-5.6-luna",</span>
+<span class="add">+    "review-fallback": "opencode/deepseek-v4-flash-free"</span>
+   },
+   "profiles": {
+<span class="del">-    "strong-reasoning": { "primary": "deepseek-current", "fallbacks": [] },</span>
+<span class="del">-    "coding": { "primary": "deepseek-current", "fallbacks": [] },</span>
+<span class="del">-    "efficient": { "primary": "deepseek-current", "fallbacks": [] },</span>
+<span class="del">-    "independent-review": { "primary": "deepseek-current", "fallbacks": [] }</span>
+<span class="add">+    "strong-reasoning": { "primary": "reasoning-primary", "fallbacks": ["reasoning-fallback"] },</span>
+<span class="add">+    "coding": { "primary": "coding-primary", "fallbacks": ["coding-fallback"] },</span>
+<span class="add">+    "efficient": { "primary": "efficient-primary", "fallbacks": ["efficient-fallback"] },</span>
+<span class="add">+    "independent-review": { "primary": "review-primary", "fallbacks": ["review-fallback"] }</span>
+   },
+   "categoryDefaults": {
+     "feature": "coding",
+diff --git a/docs/LLM-ROUTER.md b/docs/LLM-ROUTER.md
+index f78430b..ca695e6 100644
+<span class="del">--- a/docs/LLM-ROUTER.md</span>
+<span class="add">+++ b/docs/LLM-ROUTER.md</span>
+@@ -24,7 +24,18 @@ A categoria é obrigatória. A precedência é override manual, override do task
+ npm run llm:route:validate
+ ```
 
+<span class="del">-A configuração versionada fica em `config/llm-router.json`; aliases apontam para IDs concretos e profiles declaram fallbacks explícitos. Uma referência inválida falha antes do dispatch.</span>
+<span class="add">+A configuração versionada fica em `config/llm-router.json`; aliases apontam para IDs fully-qualified (`provider/model`) e profiles declaram fallbacks explícitos. Uma referência inválida falha antes do dispatch.</span>
+<span class="add">+</span>
+<span class="add">+### Matriz ativa equilibrada</span>
+<span class="add">+</span>
+<span class="add">+| Profile | Primário | Fallback |</span>
+<span class="add">+|---|---|---|</span>
+<span class="add">+| `efficient` | `opencode/deepseek-v4-flash-free` | `opencode/ling-3.0-flash-free` |</span>
+<span class="add">+| `coding` | `openai-codex/gpt-5.4-mini` | `opencode/deepseek-v4-flash-free` |</span>
+<span class="add">+| `strong-reasoning` | `openai-codex/gpt-5.6-luna` | `opencode/deepseek-v4-flash-free` |</span>
+<span class="add">+| `independent-review` | `openai-codex/gpt-5.6-luna` | `opencode/deepseek-v4-flash-free` |</span>
+<span class="add">+</span>
+<span class="add">+Os quatro IDs únicos da matriz ativa responderam ao canary local. `opencode/deepseek-v4-pro` e `opencode/claude-sonnet-4-6` ficaram fora por exigirem método de pagamento no workspace OpenCode.</span>
+
+ ## Overrides, retry e auditoria
+
+@@ -35,7 +46,7 @@ Preserve `retrySafety` na chamada ao gate: `read-only` pode participar de retrie
+ Resoluções produzem `llm.route.resolved`; conclusões podem ser registradas com:
+
+ ```bash
+<span class="del">-npm run llm:route -- complete --event '{"taskId":"P1-09","model":"deepseek-v4-flash-free","provider":"opencode","attempt":1,"status":"completed","durationMs":42}'</span>
+<span class="add">+npm run llm:route -- complete --event '{"taskId":"P1-09","model":"openai-codex/gpt-5.4-mini","provider":"openai-codex","attempt":1,"status":"completed","durationMs":42}'</span>
+ ```
+
+ Eventos aceitam somente metadados estruturados. Não inclua prompts, respostas integrais, tokens, API keys ou credenciais. Use `--no-log` em dry-runs e testes.
+diff --git a/docs/RADAR.md b/docs/RADAR.md
+index 774a10a..498509b 100644
+<span class="del">--- a/docs/RADAR.md</span>
+<span class="add">+++ b/docs/RADAR.md</span>
+@@ -1,6 +1,6 @@
+ # 🔭 Radar de Vulnerabilidades
+
+<span class="del">-&gt; Atualizado em: 2026-08-01T14:51:00.639Z</span>
+<span class="add">+&gt; Atualizado em: 2026-08-03T12:12:29.170Z</span>
+
+ ## ⚠️  Vulnerabilidades Ativas (1 pacotes)
+
+diff --git a/docs/handoff.md b/docs/handoff.md
+index e047b1c..8474523 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -9,28 +9,28 @@
+ ### 🐞 Bugs Abertos
+ Consulte as GitHub Issues para a lista atual.
+ ## 🧭 Estado Atual
+<span class="del">-- **Branch:** `feat/llm-model-router`</span>
+<span class="del">-- **Último commit:** `152b82a — Merge pull request #245 from andre0787/docs/session-close-notes`</span>
+<span class="del">-- **Remote:** origin/main</span>
+<span class="add">+- **Branch:** `chore/llm-router-model-catalog`</span>
+<span class="add">+- **Último commit:** `4167c15 — Merge pull request #246 from andre0787/feat/llm-model-router`</span>
+<span class="add">+- **Remote:** origin/feat/llm-model-router</span>
+ ### 📋 PRs Abertos
+ Nenhum PR aberto.
+ ### 📊 Métricas (estimativa local)
+ | Métrica | Valor |
+ |---------|-------|
+<span class="del">-| Total testes | 291 |</span>
+<span class="add">+| Total testes | 318 |</span>
+ | Docs issues | 0 |
+<span class="del">-| Branch | main |</span>
+<span class="add">+| Branch | feat/llm-model-router |</span>
+
+ ---
+ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
+ ## 🎯 Sessão Atual
+<span class="del">-**Categoria:** feature</span>
+<span class="del">-**Objetivo:** definir router declarativo de modelos LLM</span>
+<span class="add">+**Categoria:** chore</span>
+<span class="add">+**Objetivo:** configurar perfis equilibrados do router LLM</span>
+ **Status:** in_progress
+<span class="del">-**Iniciada em:** 2026-08-01T14:51:00.646Z</span>
+<span class="del">-**Branch:** `feat/llm-model-router`</span>
+<span class="del">-**Último commit:** 152b82a — Merge pull request #245 from andre0787/docs/session-close-notes</span>
+<span class="del">-**Docs carregados:** WORKFLOW.md, CONVENTIONS.md</span>
+<span class="add">+**Iniciada em:** 2026-08-03T12:12:29.178Z</span>
+<span class="add">+**Branch:** `chore/llm-router-model-catalog`</span>
+<span class="add">+**Último commit:** 4167c15 — Merge pull request #246 from andre0787/feat/llm-model-router</span>
+<span class="add">+**Docs carregados:** AGENTS.md</span>
+ ## ✅ Última Sessão
+ Estado atualizado automaticamente.
+ ## 📌 Próxima Sessão
+@@ -40,8 +40,3 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
