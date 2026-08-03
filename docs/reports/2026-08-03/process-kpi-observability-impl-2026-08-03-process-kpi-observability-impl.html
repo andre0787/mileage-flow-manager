@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 process kpi observability impl</h1>
-  <p class="meta">2026-08-03 10:46 &middot; feat/process-kpi-observability-impl &middot; a8c32f3 — chore: ignorar worktrees locais</p>
+  <p class="meta">2026-08-03 10:48 &middot; feat/process-kpi-observability-impl &middot; 679863a — fix: corrigir guardrails de arquivos e docs</p>
   <p><span class="badge auto">auto</span> <span class="badge auto">process-kpi-observability-impl</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">11</div>
+      <div style="font-size:1.5rem;font-weight:700">22</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+707</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+1953</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-53</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-107</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~663</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1807</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -80,12 +80,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 53 remoções — 884 linhas tocadas</td>
-        <td>✨ 707 adições — 11 arquivo(s) alterado(s)</td>
+        <td>🧹 107 remoções — 2409 linhas tocadas</td>
+        <td>✨ 1953 adições — 22 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .gitignore, docs/RADAR.md, docs/handoff.md<br><span style="color:#166534;font-weight:600">➕</span> docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md, docs/reports/2026-08-03/process-kpi-observability-2026-08-03-process-kpi-observability.html<br><em>+6 arquivo(s)</em></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .gitignore, docs/MAP.md, docs/RADAR.md, docs/handoff.md<br><span style="color:#166534;font-weight:600">➕</span> docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md<br><em>+17 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,41 +98,52 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>11</td></tr>
-    <tr><td>Adições</td><td>+707</td></tr>
-    <tr><td>Remoções</td><td>-53</td></tr>
-    <tr><td>Tokens estimados</td><td>~663</td></tr>
+    <tr><td>Arquivos alterados</td><td>22</td></tr>
+    <tr><td>Adições</td><td>+1953</td></tr>
+    <tr><td>Remoções</td><td>-107</td></tr>
+    <tr><td>Tokens estimados</td><td>~1807</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:80">+530 add</div>
-        <div class="del" style="flex:6">-40 del</div>
-        <div class="overhead" style="flex:14">~93 ctx</div>
+        <div class="add" style="flex:81">+1465 add</div>
+        <div class="del" style="flex:4">-80 del</div>
+        <div class="overhead" style="flex:15">~262 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+530</td><td>80%</td></tr>
-      <tr><td>Remoções</td><td>-40</td><td>6%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~93</td><td>14%</td></tr>
-      <tr><th>Total</th><th>~663</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+1465</td><td>81%</td></tr>
+      <tr><td>Remoções</td><td>-80</td><td>4%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~262</td><td>15%</td></tr>
+      <tr><th>Total</th><th>~1807</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
     <tr><td>M</td><td>.gitignore</td></tr>
+<tr><td>M</td><td>docs/MAP.md</td></tr>
 <tr><td>M</td><td>docs/RADAR.md</td></tr>
 <tr><td>A</td><td>docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md</td></tr>
 <tr><td>M</td><td>docs/handoff.md</td></tr>
 <tr><td>A</td><td>docs/reports/2026-08-03/process-kpi-observability-2026-08-03-process-kpi-observability.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-03/process-kpi-observability-impl-2026-08-03-process-kpi-observability-impl.html</td></tr>
+<tr><td>A</td><td>docs/superpowers/plans/2026-08-03-llm-router-kpi-plan.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/plans/2026-08-03-process-guardrails-plan.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/plans/2026-08-03-project-sanitization-plan.md</td></tr>
 <tr><td>A</td><td>docs/superpowers/specs/2026-08-03-llm-router-kpi-design.md</td></tr>
 <tr><td>A</td><td>docs/superpowers/specs/2026-08-03-process-guardrails-design.md</td></tr>
 <tr><td>A</td><td>docs/superpowers/specs/2026-08-03-project-sanitization-design.md</td></tr>
 <tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
 <tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
 <tr><td>M</td><td>public/kpi-data.json</td></tr>
+<tr><td>M</td><td>scripts/lib.mjs</td></tr>
+<tr><td>M</td><td>scripts/rules/rule-14-orphan-files.mjs</td></tr>
+<tr><td>M</td><td>scripts/rules/rule-17-new-docs-valid.mjs</td></tr>
+<tr><td>A</td><td>tests/unit/scripts-lib.test.ts</td></tr>
+<tr><td>M</td><td>tests/unit/scripts-rules.test.ts</td></tr>
+<tr><td>M</td><td>tests/unit/scripts-session-start.test.ts</td></tr>
   </table>
 
   
@@ -153,15 +164,32 @@ index 73c0afd..157634c 100644
  # OpenCode AI extension artifacts
  .opencode/
  
+diff --git a/docs/MAP.md b/docs/MAP.md
+index 956a3ac..4fb221f 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -47,9 +47,9 @@
+ | `docs/memory.md` | Contexto de sessões anteriores | Histórico de decisões, sprints, post-mortems |
+ | `docs/IDEIAS.md` | Caixa de entrada de ideias | Ideias humanas pendentes, lidas no início da sessão |
+ | `docs/FLUXO.md` | Diagramas do ecossistema | Flowcharts Mermaid: visão geral, fluxo de dados, rotas |
+<span class="del">-| `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md`, `2026-08-01-llm-model-router-veredito.md` |</span>
+<span class="del">-| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md`, `2026-08-01-llm-model-router-design.md` |</span>
+<span class="del">-| `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md`, `2026-07-29-auth-ci-plan.md`, `2026-07-29-fable-method-skill-plan.md`, `2026-08-01-llm-model-router-plan.md` |</span>
+<span class="add">+| `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md`, `2026-08-01-llm-model-router-veredito.md`, `2026-08-03-process-kpis-router-sanitizacao-veredito.md` |</span>
+<span class="add">+| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md`, `2026-08-01-llm-model-router-design.md`, `2026-08-03-process-guardrails-design.md`, `2026-08-03-llm-router-kpi-design.md`, `2026-08-03-project-sanitization-design.md` |</span>
+<span class="add">+| `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md`, `2026-07-29-auth-ci-plan.md`, `2026-07-29-fable-method-skill-plan.md`, `2026-08-01-llm-model-router-plan.md`, `2026-08-03-process-guardrails-plan.md`, `2026-08-03-llm-router-kpi-plan.md`, `2026-08-03-project-sanitization-plan.md` |</span>
+ | [`docs/LLM-ROUTER.md`](LLM-ROUTER.md) | Router de subagentes | Contrato operacional, comandos, precedência, auditoria e escopo multimodal futuro |
+ | `docs/reports/` | Relatórios HTML | Relatórios obrigatórios antes de cada PR |
+ | `.githooks/` | Git hooks | Pre-commit que bloqueia commits na main |
 diff --git a/docs/RADAR.md b/docs/RADAR.md
-index 498509b..87c8bf5 100644
+index 498509b..53157fb 100644
 <span class="del">--- a/docs/RADAR.md</span>
 <span class="add">+++ b/docs/RADAR.md</span>
 @@ -1,6 +1,6 @@
  # 🔭 Radar de Vulnerabilidades
  
 <span class="del">-&gt; Atualizado em: 2026-08-03T12:12:29.170Z</span>
-<span class="add">+&gt; Atualizado em: 2026-08-03T13:13:39.308Z</span>
+<span class="add">+&gt; Atualizado em: 2026-08-03T13:33:28.766Z</span>
  
  ## ⚠️  Vulnerabilidades Ativas (1 pacotes)
  
@@ -242,23 +270,6 @@ index 0000000..d42a281
 <span class="add">+Cada mudança de comportamento deve seguir INTENT + TDD. Cada novo script deve ter atalho npm, teste unitário e integração no pre-pr quando for um guardrail imutável. A saída precisa passar por `pre-pr`, relatório HTML, review e testes E2E locais/produção aplicáveis. O deploy deve permanecer no fluxo protegido de PR para `main`; não se deve fazer push/merge/deploy silencioso.</span>
 <span class="add">+</span>
 <span class="add">+**Veredito:** Faça em fases, começando por evidência e contrato.</span>
-<span class="add">+</span>
-<span class="add">+**Recomendações:** não misturar a atualização breaking de `react-router` com a sanitização sem plano próprio; tratar o problema de subagentes indisponíveis como um KPI e blocker de validação delegada, não como motivo para fabricar sucesso.</span>
-<span class="add">+</span>
-<span class="add">+## Extended Thinking</span>
-<span class="add">+</span>
-<span class="add">+O tema cruza observabilidade, CI, segurança de dados, UX da dashboard e limpeza estrutural, com risco de regressão e custo de implementação acima de uma tarefa isolada. O extended thinking independente dos advisors não pôde ser executado porque o harness falhou antes do lançamento. A síntese do orquestrador aplicou uma análise estendida explícita aos trade-offs: preservar evidência versus sanitizar, medir intenção versus execução e aumentar cobertura versus aumentar complexidade.</span>
-<span class="add">+</span>
-<span class="add">+## Síntese do Chairman</span>
-<span class="add">+</span>
-<span class="add">+**Consenso operacional:** o pedido é válido, mas não deve ser implementado como uma grande limpeza ou como mais uma camada de documentação. Primeiro é preciso estabilizar o contrato de evidência e os guardrails; em seguida medir o router de forma honesta; por fim sanitizar apenas achados comprovados. A base existente é funcional, porém há violações reais de processo e um gap de telemetria de execução/fallback/skills.</span>
-<span class="add">+</span>
-<span class="add">+**Veredito final:** **REFORMULE E FAÇA EM FASES**.</span>
-<span class="add">+</span>
-<span class="add">+**Recomendação única:** executar três planos revisáveis, nesta ordem:</span>
-<span class="add">+</span>
-<span class="add">+1. **Observabilidade e guardrails:** normalizar eventos de violação, detectar pre-pr/session/council inconsistentes, adicionar regras npm que falhem de forma determinística e cobrir os casos com fixtures.</span>
-<span class="add">+2. **Router LLM observável:** ampliar `resolved/completed` com execução efetiva, fallback e `skills`, criar KPI mensal com cobertura/ausência de conclusão e adicionar visualização no `/kpi` sem expor conteúdo sensível.</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
