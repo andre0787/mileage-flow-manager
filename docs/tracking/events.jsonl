@@ -1058,3 +1058,16 @@
 {"timestamp":"2026-08-03T22:36:10.846Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/upgrade-react-router-8","commit":"9797cd9","errors":0}
 {"timestamp":"2026-08-03T23:01:38.815Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/upgrade-react-router-8","commit":"f4ade8e","rule":"rule-10-clean"}
 {"timestamp":"2026-08-03T23:02:32.520Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/upgrade-react-router-8","commit":"8be17a8","errors":0}
+{"timestamp":"2026-08-03T23:37:12.216Z","type":"rule:fail","description":"rule-02-category-loading falhou","branch":"chore/roadmap-p1-done","commit":"0637337","rule":"rule-02-category-loading"}
+{"timestamp":"2026-08-03T23:37:12.307Z","type":"rule:fail","description":"rule-03-handoff-completeness falhou","branch":"chore/roadmap-p1-done","commit":"0637337","rule":"rule-03-handoff-completeness"}
+{"timestamp":"2026-08-03T23:37:12.566Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/roadmap-p1-done","commit":"0637337","rule":"rule-10-clean"}
+{"timestamp":"2026-08-03T23:37:14.805Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"chore/roadmap-p1-done","commit":"0637337","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-03T23:37:36.889Z","type":"rule:fail","description":"rule-02-category-loading falhou","branch":"chore/roadmap-p1-done","commit":"0637337","rule":"rule-02-category-loading"}
+{"timestamp":"2026-08-03T23:37:36.977Z","type":"rule:fail","description":"rule-03-handoff-completeness falhou","branch":"chore/roadmap-p1-done","commit":"0637337","rule":"rule-03-handoff-completeness"}
+{"timestamp":"2026-08-03T23:37:37.242Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/roadmap-p1-done","commit":"0637337","rule":"rule-10-clean"}
+{"timestamp":"2026-08-03T23:37:39.466Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"chore/roadmap-p1-done","commit":"0637337","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-03T23:38:16.986Z","type":"rule:fail","description":"rule-02-category-loading falhou","branch":"chore/roadmap-p1-done","commit":"0637337","rule":"rule-02-category-loading"}
+{"timestamp":"2026-08-03T23:38:17.299Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/roadmap-p1-done","commit":"0637337","rule":"rule-10-clean"}
+{"timestamp":"2026-08-03T23:38:43.831Z","type":"rule:fail","description":"rule-02-category-loading falhou","branch":"chore/roadmap-p1-done","commit":"0637337","rule":"rule-02-category-loading"}
+{"timestamp":"2026-08-03T23:38:44.156Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/roadmap-p1-done","commit":"0637337","rule":"rule-10-clean"}
+{"timestamp":"2026-08-03T23:40:11.434Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/roadmap-p1-done","commit":"0637337","errors":0}
