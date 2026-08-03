@@ -40,7 +40,7 @@
 - Consumes: getDiffFiles() from scripts/lib.mjs and the existing src import graph.
 - Produces: rule-14 status 0 on the current source tree; rule-17-new-docs-valid status 0 with PRE_PR_MOCK_DIFF; all three approved specs listed in docs/MAP.md.
 
-- [ ] **Step 1: Reproduce the RED baseline tests**
+- [x] **Step 1: Reproduce the RED baseline tests**
 
 Run from the implementation worktree:
 
@@ -51,15 +51,15 @@ node scripts/rules/rule-14-orphan-files.mjs
 
 Expected before the fix: rule-14 reports legitimate relative-import files as orphaned; the rule-17 test reports the newly added specs as nine issues; the pre-pr fixture test fails because rule-17 reads git diff directly instead of PRE_PR_MOCK_DIFF.
 
-- [ ] **Step 2: Add a focused regression assertion for relative imports**
+- [x] **Step 2: Add a focused regression assertion for relative imports**
 
 In tests/unit/scripts-rules.test.ts, retain the existing positive rule-14 assertion and add a fixture-based assertion whose temporary tree contains src/components/Parent.tsx importing ./Child and src/components/Child.tsx. The rule must return status 0 for that tree. Keep the existing negative fixture that contains a truly unreferenced src file and require a nonzero status.
 
-- [ ] **Step 3: Fix rule-14 at the path-resolution source**
+- [x] **Step 3: Fix rule-14 at the path-resolution source**
 
 In scripts/rules/rule-14-orphan-files.mjs, resolve relative imports from SRC plus the importer directory, not ROOT plus the importer directory. Preserve extensionless imports and index barrels by comparing normalized absolute paths for .ts, .tsx and /index variants. Keep @/ alias handling unchanged and continue skipping main.tsx, vite-env.d.ts and co-located tests.
 
-- [ ] **Step 4: Prefer the remote base branch in shared diff discovery**
+- [x] **Step 4: Prefer the remote base branch in shared diff discovery**
 
 Add a pure regression test in tests/unit/scripts-lib.test.ts for a stale local main and newer origin/main resolver: inject a callback that returns different merge-base values for each ref. Export chooseMergeBase(baseBranch, resolveRef) from scripts/lib.mjs, make it try origin/main before local main, and have getDiffFiles use it. The result must prefer the remote value and fall back locally only when the remote ref is unavailable.
 
@@ -71,15 +71,15 @@ npm test -- tests/unit/scripts-lib.test.ts
 
 Expected before the implementation: chooseMergeBase is unavailable; after it: the remote value is selected and the local fallback case passes without creating a temporary Git repository.
 
-- [ ] **Step 5: Isolate Git fixture tests from commit-hook environment**
+- [x] **Step 5: Isolate Git fixture tests from commit-hook environment**
 
 Remove GIT_DIR, GIT_WORK_TREE, GIT_INDEX_FILE, GIT_COMMON_DIR and GIT_PREFIX from child environments that create temporary repositories or run rules against them. Apply the same cleanup around scripts-session-start.test.ts, whose restoreHandoff uses git checkout. Run the full suite once with a temporary GIT_INDEX_FILE and assert the branch and HEAD remain the implementation branch/commit after the run.
 
-- [ ] **Step 6: Make rule-17 consume the shared diff source**
+- [x] **Step 6: Make rule-17 consume the shared diff source**
 
 In scripts/rules/rule-17-new-docs-valid.mjs, import getDiffFiles from scripts/lib.mjs and replace the direct origin/main git diff used to discover new markdown files with getDiffFiles(). Keep the existing exclusions for reports, archive, .pi, .opencode and fixtures. Resolve an internal link relative to the markdown file directory and normalize it with resolve; a root-relative docs/council path must not be treated as docs/superpowers/specs/docs/council.
 
-- [ ] **Step 7: Make the approved docs valid for both validators**
+- [x] **Step 7: Make the approved docs valid for both validators**
 
 List these exact filenames in the docs/superpowers/specs/ row of docs/MAP.md and list the council filename in the docs/council/ row:
 
@@ -90,7 +90,7 @@ List these exact filenames in the docs/superpowers/specs/ row of docs/MAP.md and
 
 Use a plain backtick reference to docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md in each spec instead of a markdown link that the two validators resolve differently.
 
-- [ ] **Step 8: Verify the focused GREEN set
+- [x] **Step 8: Verify the focused GREEN set
 
 ```bash
 npm test -- tests/unit/scripts-rules.test.ts tests/unit/scripts-pre-pr.test.ts
@@ -101,7 +101,7 @@ PRE_PR_MOCK_DIFF='src/components/ui/button.tsx,docs/reports/2026-07-22/PR195-202
 
 Expected: all focused tests exit 0, docs report zero issues, rule-14 reports no orphan files, and the mocked pre-pr output contains “relatório completo e válido ✅”.
 
-- [ ] **Step 9: Commit the isolated guardrail repair
+- [x] **Step 9: Commit the isolated guardrail repair
 
 ```bash
 git add scripts/lib.mjs scripts/rules/rule-14-orphan-files.mjs scripts/rules/rule-17-new-docs-valid.mjs tests/unit/scripts-lib.test.ts tests/unit/scripts-rules.test.ts tests/unit/scripts-session-start.test.ts tests/unit/scripts-pre-pr.test.ts docs/MAP.md docs/superpowers/specs/2026-08-03-*-design.md
@@ -190,15 +190,15 @@ git commit -m "feat: validar evidencia de processo"
 
 In tests/unit/process-audit.test.ts, execute the CLI against a temporary JSONL file selected by PROCESS_EVENTS_PATH. Assert that --json returns an object with total, invalid, byType and unobserved; assert that --check returns status 0 for a valid fixture, status 1 for malformed JSON, and status 1 when a prompt/token field leaks. A router resolution without a conclusion must produce an explicit unobserved count without failing the check until the router completion contract is active (aligned with the approved spec and Step 2). Assert that output contains paths/counts only and never the value of a prompt or token field.
 
-- [ ] **Step 2: Implement the read-only CLI**
+- [x] **Step 2: Implement the read-only CLI**
 
 scripts/process-audit.mjs must read PROCESS_EVENTS_PATH when provided, otherwise docs/tracking/events.jsonl. Default output is a concise human summary. --json prints one JSON object. --check and --strict exit 1 when invalid events exist; unobserved router resolutions are reported but do not become invalid until the router plan’s completion contract is active. The default command never writes any file.
 
-- [ ] **Step 3: Implement rule-36 as a thin adapter**
+- [x] **Step 3: Implement rule-36 as a thin adapter**
 
 scripts/rules/rule-36-process-evidence.mjs must call the same validator/summary functions, print the first five sanitized issues, and exit 1 if invalid event count is nonzero. It must not parse JSONL independently. Add the npm shortcut process:audit in package.json; rule-16 must discover the new top-level script through that shortcut.
 
-- [ ] **Step 4: Verify the shared path**
+- [x] **Step 4: Verify the shared path**
 
 ```bash
 npm test -- tests/unit/process-audit.test.ts
@@ -208,7 +208,7 @@ PRE_PR_ONLY_RULES=true PRE_PR_ONLY_RULE=rule-36-process-evidence npm run pre-pr 
 
 Expected: the CLI and rule report the same counts; the rule passes on the current log after the five recorded pre-launch failures are validated as completed failed events.
 
-- [ ] **Step 5: Commit the audit gate**
+- [x] **Step 5: Commit the audit gate**
 
 ```bash
 git add scripts/process-audit.mjs scripts/rules/rule-36-process-evidence.mjs tests/unit/process-audit.test.ts scripts/lib/process-events.mjs package.json
@@ -228,19 +228,19 @@ git commit -m "feat: adicionar auditoria de evidencia do workflow"
 - Consumes: repository root and the explicit generated artifact allowlist.
 - Produces: stageGeneratedArtifacts(root), which runs git add only for the four generated paths.
 
-- [ ] **Step 1: Write RED tests for the allowlist**
+- [x] **Step 1: Write RED tests for the allowlist**
 
 Assert that stageGeneratedArtifacts invokes git add with exactly docs/RADAR.md, docs/tracking/events.jsonl, docs/tracking/quality.jsonl and public/kpi-data.json when present, never with git add ., src, docs/superpowers or arbitrary markdown. Use a temporary git repository and inspect git status --short.
 
-- [ ] **Step 2: Implement the helper**
+- [x] **Step 2: Implement the helper**
 
 Use existsSync and execFileSync with an argv array. Ignore absent generated files, propagate a nonzero git-add error, and return the list of staged candidates. Export the allowlist for the test.
 
-- [ ] **Step 3: Call the helper at the correct boundaries**
+- [x] **Step 3: Call the helper at the correct boundaries**
 
 In pre-pr-check.mjs, call stageGeneratedArtifacts before the rule loop and after the final event/KPI generation. Keep report staging separate and preserve the existing behavior that never stages source or user-authored docs. Do not hide rule-10 failures caused by actual unstaged source changes.
 
-- [ ] **Step 4: Verify the regression**
+- [x] **Step 4: Verify the regression**
 
 ```bash
 npm test -- tests/unit/generated-artifacts.test.ts tests/unit/scripts-pre-pr.test.ts
@@ -249,7 +249,7 @@ npm run pre-pr -- --strict
 
 Expected: the generated files do not create a false rule-10 failure; an intentionally unstaged src file still fails rule-10.
 
-- [ ] **Step 5: Commit the pre-pr staging fix**
+- [x] **Step 5: Commit the pre-pr staging fix**
 
 ```bash
 git add scripts/lib/generated-artifacts.mjs tests/unit/generated-artifacts.test.ts scripts/pre-pr-check.mjs
@@ -272,11 +272,11 @@ git commit -m "fix: preparar artefatos gerados antes do pre-pr"
 - Consumes: process:audit e rule-36 já verdes.
 - Produces: documentação do comando, snapshot de KPI atualizado e evidência versionada sem campos sensíveis.
 
-- [ ] **Step 1: Document the command and guardrail**
+- [x] **Step 1: Document the command and guardrail**
 
 Add the exact commands npm run process:audit and npm run process:audit -- --check to the workflow/conventions section that documents validation scripts. Explain that the command is read-only and that unobserved router resolutions are distinct from invalid JSON.
 
-- [ ] **Step 2: Run the focused and full checks**
+- [x] **Step 2: Run the focused and full checks**
 
 ```bash
 npm test -- tests/unit/process-events.test.ts tests/unit/process-audit.test.ts tests/unit/generated-artifacts.test.ts tests/unit/scripts-rules.test.ts tests/unit/scripts-pre-pr.test.ts tests/kpi-report.test.ts
@@ -287,17 +287,17 @@ npm run rule:31
 npm run rule:32
 ```
 
-- [ ] **Step 3: Regenerate only the tracked KPI artifact**
+- [x] **Step 3: Regenerate only the tracked KPI artifact**
 
 Run npm run kpi, inspect that the JSON remains valid and contains no prompt/response/token-like key, then stage public/kpi-data.json and the tracking files generated by the command.
 
-- [ ] **Step 4: Commit the integrated guardrails**
+- [x] **Step 4: Commit the integrated guardrails**
 
 ```bash
 git add docs/CONVENTIONS.md docs/MAP.md docs/handoff.md docs/tracking/events.jsonl docs/tracking/quality.jsonl public/kpi-data.json
 git commit -m "docs: registrar guardrails de evidencia"
 ```
 
-- [ ] **Step 5: Record plan completion evidence**
+- [x] **Step 5: Record plan completion evidence**
 
 Run npm run check:fast and npm run build. Record exact pass counts and any pre-existing lint warnings in the SDD ledger before starting the router plan.

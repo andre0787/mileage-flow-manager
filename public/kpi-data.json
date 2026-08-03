@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-03T15:42:48.184Z",
+  "generatedAt": "2026-08-03T16:41:46.026Z",
   "months": [
     {
       "month": "2026-03",
@@ -148,9 +148,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 74.2,
-      "prePrTotal": 97,
-      "prePrPass": 72,
+      "prePrPassRate": 74.5,
+      "prePrTotal": 98,
+      "prePrPass": 73,
       "prePrFail": 25,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -182,7 +182,7 @@
           "count": 1
         }
       ],
-      "avgCycleTimeHours": 0.3,
+      "avgCycleTimeHours": 0.4,
       "branchesMerged": 11,
       "llmRouter": {
         "resolved": 6,
