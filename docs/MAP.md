@@ -34,6 +34,7 @@
 | Arquivo | Quando ler | O que contém |
 |---------|-----------|--------------|
 | [`docs/tasks/ROADMAP.md`](tasks/ROADMAP.md) | Antes de planejar trabalho de workflow/agente | Índice em 4 ondas (P0/P1/P2/P3) de 25 task-cards |
+| [`docs/ROADMAP.md`](ROADMAP.md) | Backlog de itens do futuro fora da sessão corrente | Itens P1-P4 priorizados (react-router GHSA, npm audit, subagentes, branch órfã) |
 | `docs/tasks/_TEMPLATE.md` | Ao criar novo task-card | Estrutura canônica do card (objetivo, arquivos permitidos, critérios de aceite, testes, evidência) |
 
 > **Coleção de task-cards** (`docs/tasks/`): 25 cards granulares em 4 ondas (P0/P1/P2/P3).

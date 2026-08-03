@@ -1,8 +1,20 @@
 # 🔭 Radar de Vulnerabilidades
 
-> Atualizado em: 2026-08-03T13:33:28.766Z
+> Atualizado em: 2026-08-03T20:41:03.351Z
 
-## ⚠️  Vulnerabilidades Ativas (1 pacotes)
+## ⚠️  Vulnerabilidades Ativas (3 pacotes)
+
+### 🟠 brace-expansion@5.0.8 (high)
+
+| # | Advisory | Range | Severidade |
+|---|----------|-------|------------|
+| 1 | brace-expansion: DoS via unbounded intermediate arrays, bypassing t... [🔗](https://github.com/advisories/GHSA-rgw5-rvv9-x895) | `>=4.0.0 <5.0.9` | high |
+
+### 🟠 fast-uri@3.1.4 (high)
+
+| # | Advisory | Range | Severidade |
+|---|----------|-------|------------|
+| 1 | fast-uri vulnerable to host confusion via backslash authority intro... [🔗](https://github.com/advisories/GHSA-7p8r-x3mc-p8w7) | `>=3.0.0 <3.1.5` | high |
 
 ### 🟠 react-router@7.18.2 (high)
 

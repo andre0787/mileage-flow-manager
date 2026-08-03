@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `docs/session-end-process-kpi`
-- **Último commit:** `08d1886` — Merge pull request #249 from andre0787/chore/marcar-planos-tdd
+- **Branch:** `fix/normalize-pr-no-skip-ci`
+- **Último commit:** `943d267 — Merge pull request #250 from andre0787/docs/session-end-process-kpi`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,19 +24,19 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** KPIs de processo, observabilidade do router LLM e sanitização segura
-**Status:** done
-**Iniciada em:** 2026-08-03T13:33:28.775Z
-**Branch:** `docs/session-end-process-kpi`
-**Último commit:** 08d1886 — Merge pull request #249
-**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
+**Categoria:** bugfix
+**Objetivo:** fix normalize PR report skip-ci
+**Status:** in_progress
+**Iniciada em:** 2026-08-03T20:41:03.358Z
+**Branch:** `fix/normalize-pr-no-skip-ci`
+**Último commit:** 943d267 — Merge pull request #250 from andre0787/docs/session-end-process-kpi
+**Docs carregados:** DEBUG.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
 Continue a tarefa ativa ou selecione o próximo task-card.
 
-> 📋 **Itens do futuro priorizados — ver bloco na seção 🧠 Notas da Sessão Atual abaixo**
+> 📋 **Itens do futuro priorizados — ver bloco na seção 🧠 Notas da Sessão Atual abaixo** (roadmap canônico: `docs/ROADMAP.md`)
 
 ## 🧠 Notas da Sessão Atual
 - **📋 ITENS DO FUTURO (prioridade sugerida — aprovar na próxima sessão):**

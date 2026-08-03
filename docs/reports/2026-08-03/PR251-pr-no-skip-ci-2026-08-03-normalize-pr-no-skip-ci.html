@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>normalize-pr-no-skip-ci — normalize pr no skip ci</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 normalize pr no skip ci</h1>
+  <p class="meta">2026-08-03 17:55 &middot; fix/normalize-pr-no-skip-ci &middot; e5d868e — fix: remover [skip ci] do normalize para desbloquear auto-merge</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">normalize-pr-no-skip-ci</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">10</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+266</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-30</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~302</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🤖 CI workflow válido? (sintaxe YAML)</li>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Auto-gerado pelo pre-pr-check</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Relatório gerado automaticamente como parte do workflow de validação pré-PR</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 30 remoções — 402 linhas tocadas</td>
+        <td>✨ 266 adições — 10 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .github/workflows/normalize-pr-report.yml, docs/MAP.md, docs/RADAR.md, docs/handoff.md<br><span style="color:#166534;font-weight:600">➕</span> docs/ROADMAP.md<br><em>+5 arquivo(s)</em></td>
+      </tr>
+      
+      <tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>10</td></tr>
+    <tr><td>Adições</td><td>+266</td></tr>
+    <tr><td>Remoções</td><td>-30</td></tr>
+    <tr><td>Tokens estimados</td><td>~302</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:66">+200 add</div>
+        <div class="del" style="flex:8">-23 del</div>
+        <div class="overhead" style="flex:26">~79 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+200</td><td>66%</td></tr>
+      <tr><td>Remoções</td><td>-23</td><td>8%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~79</td><td>26%</td></tr>
+      <tr><th>Total</th><th>~302</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>.github/workflows/normalize-pr-report.yml</td></tr>
+<tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>A</td><td>docs/ROADMAP.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-03/normalize-pr-no-skip-ci-2026-08-03-normalize-pr-no-skip-ci.html</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td></tr>
+<tr><td>A</td><td>tests/unit/workflows-guard.test.ts</td></tr>
+  </table>
+
+  
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/.github/workflows/normalize-pr-report.yml b/.github/workflows/normalize-pr-report.yml
+index 48c84ff..c696fb8 100644
+<span class="del">--- a/.github/workflows/normalize-pr-report.yml</span>
+<span class="add">+++ b/.github/workflows/normalize-pr-report.yml</span>
+@@ -53,7 +53,7 @@ jobs:
+             git config user.name "github-actions[bot]"
+             git config user.email "github-actions[bot]@users.noreply.github.com"
+             git add -A
+<span class="del">-            git commit -m "chore: normalize report prefix to PR${PR_NUM} [skip ci]"</span>
+<span class="add">+            git commit -m "chore: normalize report prefix to PR${PR_NUM}"</span>
+             git push origin "${{ github.head_ref }}"
+             echo "✅ Relatório(s) renomeado(s) para PR${PR_NUM} e commitado na branch"
+           else
+diff --git a/docs/MAP.md b/docs/MAP.md
+index c103da4..0878d2c 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -34,6 +34,7 @@
+ | Arquivo | Quando ler | O que contém |
+ |---------|-----------|--------------|
+ | [`docs/tasks/ROADMAP.md`](tasks/ROADMAP.md) | Antes de planejar trabalho de workflow/agente | Índice em 4 ondas (P0/P1/P2/P3) de 25 task-cards |
+<span class="add">+| [`docs/ROADMAP.md`](ROADMAP.md) | Backlog de itens do futuro fora da sessão corrente | Itens P1-P4 priorizados (react-router GHSA, npm audit, subagentes, branch órfã) |</span>
+ | `docs/tasks/_TEMPLATE.md` | Ao criar novo task-card | Estrutura canônica do card (objetivo, arquivos permitidos, critérios de aceite, testes, evidência) |
+ 
+ &gt; **Coleção de task-cards** (`docs/tasks/`): 25 cards granulares em 4 ondas (P0/P1/P2/P3).
+diff --git a/docs/RADAR.md b/docs/RADAR.md
+index 53157fb..e788f92 100644
+<span class="del">--- a/docs/RADAR.md</span>
+<span class="add">+++ b/docs/RADAR.md</span>
+@@ -1,8 +1,20 @@
+ # 🔭 Radar de Vulnerabilidades
+ 
+<span class="del">-&gt; Atualizado em: 2026-08-03T13:33:28.766Z</span>
+<span class="add">+&gt; Atualizado em: 2026-08-03T20:41:03.351Z</span>
+ 
+<span class="del">-## ⚠️  Vulnerabilidades Ativas (1 pacotes)</span>
+<span class="add">+## ⚠️  Vulnerabilidades Ativas (3 pacotes)</span>
+<span class="add">+</span>
+<span class="add">+### 🟠 brace-expansion@5.0.8 (high)</span>
+<span class="add">+</span>
+<span class="add">+| # | Advisory | Range | Severidade |</span>
+<span class="add">+|---|----------|-------|------------|</span>
+<span class="add">+| 1 | brace-expansion: DoS via unbounded intermediate arrays, bypassing t... [🔗](https://github.com/advisories/GHSA-rgw5-rvv9-x895) | `&gt;=4.0.0 &lt;5.0.9` | high |</span>
+<span class="add">+</span>
+<span class="add">+### 🟠 fast-uri@3.1.4 (high)</span>
+<span class="add">+</span>
+<span class="add">+| # | Advisory | Range | Severidade |</span>
+<span class="add">+|---|----------|-------|------------|</span>
+<span class="add">+| 1 | fast-uri vulnerable to host confusion via backslash authority intro... [🔗](https://github.com/advisories/GHSA-7p8r-x3mc-p8w7) | `&gt;=3.0.0 &lt;3.1.5` | high |</span>
+ 
+ ### 🟠 react-router@7.18.2 (high)
+ 
+diff --git a/docs/ROADMAP.md b/docs/ROADMAP.md
+new file mode 100644
+index 0000000..549a3c8
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/ROADMAP.md</span>
+@@ -0,0 +1,53 @@
+<span class="add">+# 🗺️ Roadmap — MilesControl</span>
+<span class="add">+</span>
+<span class="add">+&gt; Backlog priorizado fora do escopo da sessão corrente. Atualize ao concluir itens.</span>
+<span class="add">+&gt; Para cada item: descrição, por que, esforço estimado e critério de feito.</span>
+<span class="add">+</span>
+<span class="add">+---</span>
+<span class="add">+</span>
+<span class="add">+## ✅ Concluído (2026-08-03)</span>
+<span class="add">+</span>
+<span class="add">+| # | Item | PR | Observação |</span>
+<span class="add">+|---|------|-----|------------|</span>
+<span class="add">+| 0 | P0 — Fix do `Normalize PR Report` com `[skip ci]` | — | Workflow commita `[skip ci]` e deixava PRs `blocked` (CI não rodava no head renomeado). Fix: remover `[skip ci]` e usar re-trigger do CI no SHA normalizado. |</span>
+<span class="add">+</span>
+<span class="add">+---</span>
+<span class="add">+</span>
+<span class="add">+## 🔒 Pendentes (prioridade decrescente)</span>
+<span class="add">+</span>
+<span class="add">+### P1 — GHSA-qwww-vcr4-c8h2 (react-router RSC CSRF)</span>
+<span class="add">+</span>
+<span class="add">+- **O quê:** `react-router-dom@7.18.2` vulnerável a CSRF em componentes RSC</span>
+<span class="add">+- **Fix:** upgrade para `8.3.0+` (major breaking)</span>
+<span class="add">+- **Por quê importa:** segurança da base do SPA</span>
+<span class="add">+- **Estado:** vetor **não alcançável** (SPA sem RSC — documentado em `docs/RADAR.md` como blocker)</span>
+<span class="add">+- **Escopo:** PR próprio com teste de política de dependência; revisar breaking changes do router v8</span>
+<span class="add">+- **Risco:** médio (breaking major)</span>
+<span class="add">+</span>
+<span class="add">+### #2 — `npm audit --omit=dev` (2 high transitivos)</span>
+<span class="add">+</span>
+<span class="add">+- **O quê:** 2 vulnerabilidades high transitivas do react-router</span>
+<span class="add">+- **Por quê:** higiene de dependências / CI audit</span>
+<span class="add">+- **Estado:** resolve junto com o item de react-router acima</span>
+<span class="add">+- **Esforço:** baixo (automático após upgrade do router)</span>
+<span class="add">+</span>
+<span class="add">+### #3 — Subagentes falhando em pré-lançamento (`subagent_prelaunch`)</span>
+<span class="add">+</span>
+<span class="add">+- **O quê:** &gt;13 falhas de pré-lançamento registradas como KPI do router LLM</span>
+<span class="add">+- **Por quê:** degradação do harness de delegação; hoje a execução é inline (workaround)</span>
+<span class="add">+- **Estado:** quantidade visível no dashboard `/kpi` (fila de `llm.route.completed` com `failureKind: subagent_prelaunch`)</span>
+<span class="add">+- **Esforço:** fora do repo (infra de subagentes)</span>
+<span class="add">+</span>
+<span class="add">+### #4 — Branch remota órfã `feat/process-kpi-observability-impl`</span>
+<span class="add">+</span>
+<span class="add">+- **O quê:** branch remota com commit `f9091c6` fora do merge #248 (conteúdo igual entrou via #249)</span>
+<span class="add">+- **Por quê:** higiene do repo; confusão de estado</span>
+<span class="add">+- **Esforço:** baixo (deletar branch após confirmar que o conteúdo foi enterrado)</span>
+<span class="add">+</span>
+<span class="add">+---</span>
+<span class="add">+</span>
+<span class="add">+## 🧭 Como usar</span>
+<span class="add">+</span>
+<span class="add">+- Sessões novas: consultar `docs/handoff.md` → **Itens do futuro** + este roadmap</span>
+<span class="add">+- Priorize por P0 &gt; P1 &gt; P2; um item por PR (salvo dependências explícitas)</span>
+<span class="add">+- Ao concluir, mude para "✅ Concluído" com número de PR</span>
+\ No newline at end of file
+diff --git a/docs/handoff.md b/docs/handoff.md
+index c2dd7fa..c5addcb 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -9,8 +9,8 @@
+ ### 🐞 Bugs Abertos
+ Consulte as GitHub Issues para a lista atual.
+ ## 🧭 Estado Atual
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>
