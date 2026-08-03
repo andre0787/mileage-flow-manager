@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 session end process kpi</h1>
-  <p class="meta">2026-08-03 16:26 &middot; docs/session-end-process-kpi &middot; 08d1886 — Merge pull request #249 from andre0787/chore/marcar-planos-tdd</p>
-  <p><span class="badge auto">auto</span> <span class="badge auto">session-end-process-kpi</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+  <p class="meta">2026-08-03 16:26 &middot; docs/session-end-process-kpi &middot; c0780ff — docs: registrar fechamento da sessao e itens do futuro</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">session-end-process-kpi</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">0</div>
+      <div style="font-size:1.5rem;font-weight:700">5</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+185</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-27</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~222</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -80,12 +80,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 0 remoções — 1 linhas tocadas</td>
-        <td>✨ 0 adições — 0 arquivo(s) alterado(s)</td>
+        <td>🧹 27 remoções — 296 linhas tocadas</td>
+        <td>✨ 185 adições — 5 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/handoff.md, docs/tracking/events.jsonl, docs/tracking/quality.jsonl, public/kpi-data.json<br><span style="color:#166534;font-weight:600">➕</span> docs/reports/2026-08-03/session-end-process-kpi-2026-08-03-session-end-process-kpi.html</td>
       </tr>
       
       <tr>
@@ -98,38 +98,161 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>0</td></tr>
-    <tr><td>Adições</td><td>+0</td></tr>
-    <tr><td>Remoções</td><td>-0</td></tr>
-    <tr><td>Tokens estimados</td><td>~1</td></tr>
+    <tr><td>Arquivos alterados</td><td>5</td></tr>
+    <tr><td>Adições</td><td>+185</td></tr>
+    <tr><td>Remoções</td><td>-27</td></tr>
+    <tr><td>Tokens estimados</td><td>~222</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:63">+139 add</div>
+        <div class="del" style="flex:9">-20 del</div>
+        <div class="overhead" style="flex:28">~63 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+139</td><td>63%</td></tr>
+      <tr><td>Remoções</td><td>-20</td><td>9%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~63</td><td>28%</td></tr>
+      <tr><th>Total</th><th>~222</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-    
+    <tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-03/session-end-process-kpi-2026-08-03-session-end-process-kpi.html</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td></tr>
   </table>
 
   
 
   <h2>🔍 Diff</h2>
   <div class="diff">
-    
+    diff --git a/docs/handoff.md b/docs/handoff.md
+index c214e91..c2dd7fa 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -1,6 +1,6 @@
+ # HANDOFF — MilesControl
+ &gt; ⏰ Última atualização: 2026-08-03
+<span class="del">-&gt; Anterior: 2026-08-01</span>
+<span class="add">+&gt; Anterior: 2026-08-03</span>
+ ---
+ ## 🏗️ Projeto
+ **Stack:** React + Vite + Supabase + Tailwind | pt-BR
+@@ -9,37 +9,50 @@
+ ### 🐞 Bugs Abertos
+ Consulte as GitHub Issues para a lista atual.
+ ## 🧭 Estado Atual
+<span class="del">-- **Branch:** `feat/process-kpi-observability-impl`</span>
+<span class="del">-- **Último commit:** `a8c32f3 — chore: ignorar worktrees locais`</span>
+<span class="del">-- **Remote:** origin/chore/llm-router-model-catalog</span>
+<span class="add">+- **Branch:** `docs/session-end-process-kpi`</span>
+<span class="add">+- **Último commit:** `08d1886` — Merge pull request #249 from andre0787/chore/marcar-planos-tdd</span>
+<span class="add">+- **Remote:** origin/main</span>
+ ### 📋 PRs Abertos
+ Nenhum PR aberto.
+ ### 📊 Métricas (estimativa local)
+ | Métrica | Valor |
+ |---------|-------|
+<span class="del">-| Total testes | 318 |</span>
+<span class="add">+| Total testes | 364 |</span>
+ | Docs issues | 0 |
+<span class="del">-| Branch | chore/llm-router-model-catalog |</span>
+<span class="add">+| Branch | docs/session-end-process-kpi |</span>
+ 
+ ---
+ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
+ ## 🎯 Sessão Atual
+ **Categoria:** feature
+ **Objetivo:** KPIs de processo, observabilidade do router LLM e sanitização segura
+<span class="del">-**Status:** in_progress</span>
+<span class="add">+**Status:** done</span>
+ **Iniciada em:** 2026-08-03T13:33:28.775Z
+<span class="del">-**Branch:** `feat/process-kpi-observability-impl`</span>
+<span class="del">-**Último commit:** a8c32f3 — chore: ignorar worktrees locais</span>
+<span class="add">+**Branch:** `docs/session-end-process-kpi`</span>
+<span class="add">+**Último commit:** 08d1886 — Merge pull request #249</span>
+ **Docs carregados:** WORKFLOW.md, CONVENTIONS.md
+ ## ✅ Última Sessão
+ Estado atualizado automaticamente.
+ ## 📌 Próxima Sessão
+ Continue a tarefa ativa ou selecione o próximo task-card.
+<span class="add">+</span>
+<span class="add">+&gt; 📋 **Itens do futuro priorizados — ver bloco na seção 🧠 Notas da Sessão Atual abaixo**</span>
+<span class="add">+</span>
+ ## 🧠 Notas da Sessão Atual
+<span class="del">-- Sessão retomada após reinício da máquina — workflow docs/session-end-package-webui finalizado</span>
+<span class="del">-- PR #243 merged: handoff sessão docs + relatório pre-pr (0 errors, outcome grade 100%)</span>
+<span class="del">-- session:end marcou sessão done; push direto na main bloqueado pela branch protection → PR #244 merged</span>
+<span class="del">-- Observação: gh não autenticado — usar GH_TOKEN do .env ou rodar `gh auth login`</span>
+<span class="del">-- Router KPI agosto/2026: 5 ativações, 0 completadas, 9 falhas (todas `failed`, incluindo 5 `subagent_prelaunch`), 0 unobserved, 0 fallback efetivo; bloco `llmRouter` em todos os 6 meses do `public/kpi-data.json`</span>
+<span class="del">-- Guardrails de processo: `npm run process:audit` (read-only) + rule-36 no pre-pr; staging automático dos artefatos gerados no pre-pr</span>
+<span class="add">+- **📋 ITENS DO FUTURO (prioridade sugerida — aprovar na próxima sessão):**</span>
+<span class="add">+  1. **P0 — Fix do `Normalize PR Report` com `[skip ci]`**: workflow commita `[skip ci]` no head e a proteção da main (check-pr + e2e-smoke) deixa PRs subsequentes `blocked` (CI não roda no head renomeado). Workaround atual: commit vazio "re-disparar CI". Fix: remover `[skip ci]` do commit de normalize ou re-trigger do CI no SHA normalizado</span>
+<span class="add">+  2. **P1 — GHSA-qwww-vcr4-c8h2 (react-router RSC CSRF)**: `react-router-dom@7.18.2` vulnerável; fix exige 8.3.0+ (major breaking); SPA sem RSC → vetor não alcançável; PR próprio com teste de política de dependência; blocker registrado em `docs/RADAR.md`</span>
+<span class="add">+  3. **P1 — `npm audit --omit=dev`**: 2 high transitivos do react-router — resolver junto com o item 2</span>
+<span class="add">+  4. **P2 — Subagentes (`subagent_prelaunch`)**: 13+ falhas de pré-lançamento registradas como KPI; infra do harness (fora do repo); execução inline é o workaround</span>
+<span class="add">+  5. **P3 — Branch remota órfã `feat/process-kpi-observability-impl`**: commit `f9091c6` não entrou no merge #248 (conteúdo igual entrou via #249); deletar branch remota após merge completo se não houver necessidade</span>
+<span class="add">+- **Sessão principal (3 frentes) COMPLETA e publicada:** guardrails de processo (process:audit, rule-36, log-trim archive), KPI do router LLM (llmRouter mensal no /kpi + telemetria por taskId), sanitização (project:audit read-only, playwright-report removido do git, política de dependência)</span>
+<span class="add">+- PR #248 merged (auto-merge, app/github-actions): 3 frentes; PR #249 merged: checkboxes dos planos TDD marcados (ficou fora do #248; cherry-pick + commit vazio para re-disparar CI)</span>
+<span class="add">+- **Produção deployada:** vercel[bot] 17:12:44Z commit `08d1886` (contém #248 + #249), status success; kpi-data.json servido com `llmRouter` agosto `{resolved:6, completed:0, failed:10, unobserved:0, fallbackUsed:0}`; HTTP 200</span>
+<span class="add">+- **Nota deploy:** auto-merge via GITHUB_TOKEN não re-dispara workflow Deploy (health:deploy mostra último workflow 12:19); deploy real foi via Vercel bot</span>
+<span class="add">+- Evidência final: 379/379 testes, pre-pr 66 checks, project:audit --strict exit 0, process:audit 0 inválidos, verify-docs 0 issues</span>
+<span class="add">+- Subagentes: 13+ falhas pré-lançamento registradas como KPI (implementação/revisão inline documentada); revisão delegada final falhou 2/2</span>
+<span class="add">+- Observação: gh não autenticado por padrão — usar `GH_TOKEN` do `.env` da raiz (`grep GH_TOKEN .env`)</span>
+<span class="add">+- Worktree: `.worktrees/process-kpi-observability`; branch atual do worktree: `docs/session-end-process-kpi` (nova, a partir do main `08d1886`)</span>
+<span class="add">+- Trailing whitespace em `docs/reports/*.html` (gerados) e hard-breaks md das specs é esperado — git diff --check acusa, sem ação</span>
+<span class="add">+</span>
+ 
+diff --git a/docs/reports/2026-08-03/session-end-process-kpi-2026-08-03-session-end-process-kpi.html b/docs/reports/2026-08-03/session-end-process-kpi-2026-08-03-session-end-process-kpi.html
+new file mode 100644
+index 0000000..352f1c0
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/reports/2026-08-03/session-end-process-kpi-2026-08-03-session-end-process-kpi.html</span>
+@@ -0,0 +1,137 @@
+<span class="add">+&lt;!DOCTYPE html&gt;</span>
+<span class="add">+&lt;html lang="pt-BR"&gt;</span>
+<span class="add">+&lt;head&gt;</span>
+<span class="add">+  &lt;meta charset="UTF-8"&gt;</span>
+<span class="add">+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;</span>
+<span class="add">+  &lt;title&gt;session-end-process-kpi — session end process kpi&lt;/title&gt;</span>
+<span class="add">+  &lt;style&gt;</span>
+<span class="add">+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}</span>
+<span class="add">+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}</span>
+<span class="add">+    h2{font-size:1rem;margin-top:1.5rem;color:#333}</span>
+<span class="add">+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}</span>
+<span class="add">+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}</span>
+<span class="add">+    .badge.pr{background:#dbeafe;color:#1e40af}</span>
+<span class="add">+    .badge.auto{background:#fef3c7;color:#92400e}</span>
+<span class="add">+    .badge.fix{background:#fee2e2;color:#991b1b}</span>
+<span class="add">+    .badge.feat{background:#dcfce7;color:#166534}</span>
+<span class="add">+    .badge.docs{background:#ede9fe;color:#5b21b6}</span>
+<span class="add">+    .badge.chore{background:#f3f4f6;color:#374151}</span>
+<span class="add">+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}</span>
+<span class="add">+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}</span>
+<span class="add">+    th{background:#f3f4f6;font-weight:600}</span>
+<span class="add">+    tr.add{background:#f0fdf4}</span>
+<span class="add">+    tr.del{background:#fef2f2}</span>
+<span class="add">+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}</span>
+<span class="add">+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}</span>
+<span class="add">+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}</span>
+<span class="add">+    .token-bar .add{background:#dcfce7;color:#166534}</span>
+<span class="add">+    .token-bar .del{background:#fee2e2;color:#991b1b}</span>
+<span class="add">+    .token-bar .overhead{background:#f3f4f6;color:#374151}</span>
+<span class="add">+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}</span>
+<span class="add">+    .diff .add{color:#4ade80}</span>
+<span class="add">+    .diff .del{color:#f87171}</span>
+<span class="add">+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}</span>
+<span class="add">+    .center{text-align:center}</span>
+<span class="add">+  &lt;/style&gt;</span>
+<span class="add">+&lt;/head&gt;</span>
+<span class="add">+&lt;body&gt;</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
