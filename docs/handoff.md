@@ -40,4 +40,6 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - PR #243 merged: handoff sessão docs + relatório pre-pr (0 errors, outcome grade 100%)
 - session:end marcou sessão done; push direto na main bloqueado pela branch protection → PR #244 merged
 - Observação: gh não autenticado — usar GH_TOKEN do .env ou rodar `gh auth login`
+- Router KPI agosto/2026: 5 ativações, 0 completadas, 9 falhas (todas `failed`, incluindo 5 `subagent_prelaunch`), 0 unobserved, 0 fallback efetivo; bloco `llmRouter` em todos os 6 meses do `public/kpi-data.json`
+- Guardrails de processo: `npm run process:audit` (read-only) + rule-36 no pre-pr; staging automático dos artefatos gerados no pre-pr
 
