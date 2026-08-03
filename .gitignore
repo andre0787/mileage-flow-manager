@@ -72,6 +72,9 @@ tests/fluxo-relatorio.md
 # Subagent artifacts
 .pi-subagents/
 
+# Local git worktrees
+.worktrees/
+
 # OpenCode AI extension artifacts
 .opencode/
 
