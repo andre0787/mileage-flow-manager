@@ -442,7 +442,7 @@ export function createCompletedEvent(input) {
     issues.push("completion event fallbackUsed requires resolvedModel");
   }
   if (
-    input.fallbackUsed !== undefined &&
+    input.fallbackUsed === true &&
     isNonEmptyString(input.resolvedModel) &&
     input.resolvedModel === input.model
   ) {

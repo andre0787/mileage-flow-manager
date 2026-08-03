@@ -35,7 +35,9 @@ import { execSync } from "child_process";
 import { splitAtLimit } from "./lib/log-trim.mjs";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const TRACKING_DIR = resolve(ROOT, "docs/tracking");
+const TRACKING_DIR = process.env.EVENT_LOG_TRACKING_DIR
+  ? resolve(process.env.EVENT_LOG_TRACKING_DIR)
+  : resolve(ROOT, "docs/tracking");
 const LOG_PATH = resolve(TRACKING_DIR, "events.jsonl");
 const ARCHIVE_PATH = resolve(TRACKING_DIR, "events-archive.jsonl");
 const MAX_EVENTS = 20000; // mantém os últimos N eventos; excesso vai para o archive
