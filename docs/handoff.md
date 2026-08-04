@@ -9,24 +9,24 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `feat/ux-entradas-vendas`
-- **Último commit:** `afd4907 — Merge pull request #259 from andre0787/docs/session-end-final`
-- **Remote:** origin/main
+- **Branch:** `docs/session-end-ux-entradas-vendas`
+- **Último commit:** `2b82a4c` — Merge pull request #260 from andre0787/feat/ux-entradas-vendas
+- **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 374 |
+| Total testes | 397 |
 | Docs issues | 0 |
-| Branch | main |
+| Branch | docs/session-end-ux-entradas-vendas |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** feature
 **Objetivo:** UX melhorias: filtro por dono em entradas/vendas, scroll por mouse, sanitizar tipos de origem, ordenacao de colunas
-**Status:** in_progress
+**Status:** done
 **Iniciada em:** 2026-08-04T16:01:09.584Z
 **Branch:** `feat/ux-entradas-vendas`
 **Último commit:** afd4907 — Merge pull request #259 from andre0787/docs/session-end-final
@@ -57,6 +57,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Observação: gh não autenticado por padrão — usar `GH_TOKEN` do `.env` da raiz (`grep GH_TOKEN .env`)
 - **✅ LIMPEZA GIT CONCLUÍDA (PR #257 + handoff-cleanup):** 17 branches locais + 34 branches remotas órfãs deletadas (todas verificadas: conteúdo já no main por SHA); worktrees antigos removidos; só `main` no local e no remoto; `main == origin/main == da89e84`
 - Trailing whitespace em `docs/reports/*.html` (gerados) e hard-breaks md das specs é esperado — git diff --check acusa, sem ação
+
 
 
 
