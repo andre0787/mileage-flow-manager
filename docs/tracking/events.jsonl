@@ -1124,3 +1124,6 @@
 {"timestamp":"2026-08-04T16:11:58.831Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/ux-entradas-vendas","commit":"afd4907","rule":"rule-10-clean"}
 {"timestamp":"2026-08-04T16:12:20.213Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/ux-entradas-vendas","commit":"afd4907","errors":1}
 {"timestamp":"2026-08-04T16:13:36.051Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/ux-entradas-vendas","commit":"afd4907","errors":0}
+{"timestamp":"2026-08-04T16:14:04.588Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/ux-entradas-vendas","commit":"8c31bf9","errors":1}
+{"timestamp":"2026-08-04T16:24:56.362Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/ux-entradas-vendas","commit":"8c31bf9","errors":1}
+{"timestamp":"2026-08-04T16:25:34.142Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/ux-entradas-vendas","commit":"8c31bf9","errors":0}
