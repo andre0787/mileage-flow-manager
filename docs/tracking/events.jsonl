@@ -1086,3 +1086,4 @@
 {"timestamp":"2026-08-04T00:39:54.435Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/roadmap-p3-done","commit":"7a8a1c9","rule":"rule-10-clean"}
 {"timestamp":"2026-08-04T00:40:16.403Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/roadmap-p3-done","commit":"7a8a1c9","errors":1}
 {"timestamp":"2026-08-04T00:48:16.068Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/roadmap-p3-done","commit":"7a8a1c9","errors":0}
+{"timestamp":"2026-08-04T00:48:43.180Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/roadmap-p3-done","commit":"a1558ce","errors":1}
