@@ -1,8 +1,14 @@
 name: Deploy
 
+permissions:
+  issues: write
+
 on:
-  push:
-    branches: [main]
+  # Disparado pelo auto-merge (repository_dispatch) após merge na main.
+  # Push de bot (GITHUB_TOKEN) não gera evento push → deploy só via dispatch
+  # evita deploy duplicado e garante produção automática de verdade.
+  repository_dispatch:
+    types: [deploy]
   workflow_dispatch:
     inputs:
       auth_phrase:
@@ -13,6 +19,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: 🔐 AUTH Gate
@@ -31,9 +38,6 @@ jobs:
           node-version: 22
           cache: "npm"
 
-      - name: Upgrade npm
-        run: npm install -g npm@11
-
       - name: Install dependencies
         run: npm ci
 
@@ -51,6 +55,7 @@ jobs:
   e2e-smoke-prod:
     runs-on: ubuntu-latest
     needs: [deploy]
+    timeout-minutes: 15
     # Não falha o workflow se smoke falhar — deploy já foi feito
     # O resultado fica visível no GitHub Actions para investigação
     continue-on-error: true
@@ -63,8 +68,13 @@ jobs:
           node-version: 22
           cache: "npm"
 
-      - name: Upgrade npm
-        run: npm install -g npm@11
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: pw-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            pw-${{ runner.os }}-
 
       - name: Install dependencies
         run: npm ci
@@ -73,10 +83,23 @@ jobs:
         run: npx playwright install chromium --with-deps
 
       - name: E2E Smoke contra produção
+        id: smoke
         run: npm run test:e2e:prod:smoke
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL || '' }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY || '' }}
+
+      - name: Alerta de falha do smoke de produção
+        if: failure() && steps.smoke.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --repo "${{ github.repository }}" \
+            --title "🚨 Smoke de produção falhou após deploy ${{ github.sha }}" \
+            --label bug \
+            --body "O smoke pós-deploy falhou (evento: ${{ github.event_name }}). Investigar em https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo "✅ Issue de alerta criada (smoke-prod)"
 
       - name: Upload smoke report
         if: always()

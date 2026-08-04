@@ -6,8 +6,9 @@ on:
   workflow_dispatch:       # permitir trigger manual
 
 jobs:
-  nightly:
+  quality-and-check:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
       - uses: actions/checkout@v4
@@ -17,17 +18,14 @@ jobs:
           node-version: 22
           cache: "npm"
 
-      - name: Upgrade npm
-        run: npm install -g npm@11
-
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright
-        run: npx playwright install --with-deps
+      - name: Check (fast + build + budget)
+        run: npm run check:pr
 
-      - name: Nightly check (fast + build + E2E + quality)
-        run: npm run check:nightly
+      - name: Quality write
+        run: npm run quality:write
 
       - name: Create PR with QUALITY.md update
         if: always()
@@ -37,18 +35,11 @@ jobs:
           title: "📊 Atualização noturna QUALITY.md"
           body: |
             Atualização automática das métricas de qualidade.
-            Gerado por `npm run check:nightly`.
+            Gerado pelo workflow nightly (jobs paralelos check + e2e).
           branch: chore/quality-nightly-update
           delete-branch: true
           labels: automated, docs
           add-paths: QUALITY.md
-
-      - name: Upload E2E report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report-nightly
-          path: playwright-report/
 
       - name: Upload quality report
         if: always()
@@ -56,3 +47,39 @@ jobs:
         with:
           name: quality-report
           path: docs/reports/
+
+  e2e-full:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: pw-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            pw-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      - name: E2E completo
+        run: npm run test:e2e
+
+      - name: Upload E2E report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-nightly
+          path: playwright-report/
