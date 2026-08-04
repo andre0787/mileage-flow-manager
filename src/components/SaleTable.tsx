@@ -83,7 +83,6 @@ export function SaleTable({
 
   const sortedSales = useMemo(
     () => sortByKey(sales, sort.key, sort.dir, (s) => getSortValue(s, sort.key)),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [sales, sort],
   );
 
@@ -132,12 +131,41 @@ export function SaleTable({
               <TableHeader>
                 <TableRow>
                   <SortableHeader label="Data" sortKey="Data" sort={sort} onSort={setSort} />
-                  <SortableHeader label="Dono/Programa" sortKey="Dono/Programa" sort={sort} onSort={setSort} />
+                  <SortableHeader
+                    label="Dono/Programa"
+                    sortKey="Dono/Programa"
+                    sort={sort}
+                    onSort={setSort}
+                  />
                   <SortableHeader label="Cliente" sortKey="Cliente" sort={sort} onSort={setSort} />
-                  <SortableHeader label="Milhas" sortKey="Milhas" sort={sort} onSort={setSort} className="text-right tabular-nums" />
-                  <SortableHeader label="Valor" sortKey="Valor" sort={sort} onSort={setSort} className="text-right tabular-nums" />
-                  <SortableHeader label="Lucro" sortKey="Lucro" sort={sort} onSort={setSort} className="text-right tabular-nums" />
-                  <SortableHeader label="Margem" sortKey="Margem" sort={sort} onSort={setSort} className="text-right tabular-nums" />
+                  <SortableHeader
+                    label="Milhas"
+                    sortKey="Milhas"
+                    sort={sort}
+                    onSort={setSort}
+                    className="text-right tabular-nums"
+                  />
+                  <SortableHeader
+                    label="Valor"
+                    sortKey="Valor"
+                    sort={sort}
+                    onSort={setSort}
+                    className="text-right tabular-nums"
+                  />
+                  <SortableHeader
+                    label="Lucro"
+                    sortKey="Lucro"
+                    sort={sort}
+                    onSort={setSort}
+                    className="text-right tabular-nums"
+                  />
+                  <SortableHeader
+                    label="Margem"
+                    sortKey="Margem"
+                    sort={sort}
+                    onSort={setSort}
+                    className="text-right tabular-nums"
+                  />
                   <SortableHeader label="Status" sortKey="Status" sort={sort} onSort={setSort} />
                   <TableHead>Ações</TableHead>
                 </TableRow>

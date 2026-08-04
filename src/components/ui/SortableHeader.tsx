@@ -19,7 +19,13 @@ interface SortableHeaderProps {
   className?: string;
 }
 
-export function SortableHeader({ label, sortKey, sort, onSort, className = "" }: SortableHeaderProps) {
+export function SortableHeader({
+  label,
+  sortKey,
+  sort,
+  onSort,
+  className = "",
+}: SortableHeaderProps) {
   return (
     <TableHead
       className={`cursor-pointer select-none ${className}`}

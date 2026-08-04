@@ -83,7 +83,6 @@ export function EntryTable({
 
   const sortedEntries = useMemo(
     () => sortByKey(entries, sort.key, sort.dir, (e) => getSortValue(e, sort.key)),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [entries, sort],
   );
 
