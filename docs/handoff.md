@@ -1,5 +1,5 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-08-03
+> ⏰ Última atualização: 2026-08-04
 > Anterior: 2026-08-03
 ---
 ## 🏗️ Projeto
@@ -9,9 +9,9 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `chore/roadmap-p3-done`
-- **Último commit:** `7a8a1c9 — Merge pull request #254 from andre0787/chore/roadmap-p1-done`
-- **Remote:** origin/main
+- **Branch:** `docs/session-end-handoff`
+- **Último commit:** `6ed8dec` — Merge pull request #255 from andre0787/chore/roadmap-p3-done
+- **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
@@ -19,11 +19,18 @@ Nenhum PR aberto.
 |---------|-------|
 | Total testes | 374 |
 | Docs issues | 0 |
-| Branch | chore/roadmap-p1-done |
+| Branch | docs/session-end-handoff |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-
+## 🎯 Sessão Atual
+**Categoria:** chore
+**Objetivo:** finalizar roadmap P3 (housekeeping): limpar thoughts stale + exclude .worktrees do verify-docs
+**Status:** done
+**Iniciada em:** 2026-08-04T00:38:43.878Z
+**Branch:** `chore/roadmap-p3-done`
+**Último commit:** 7a8a1c9 — Merge pull request #254 from andre0787/chore/roadmap-p1-done
+**Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
@@ -56,11 +63,3 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 
 
-## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** finalizar roadmap P3 (housekeeping): limpar thoughts stale + exclude .worktrees do verify-docs
-**Status:** in_progress
-**Iniciada em:** 2026-08-04T00:38:43.878Z
-**Branch:** `chore/roadmap-p3-done`
-**Último commit:** 7a8a1c9 — Merge pull request #254 from andre0787/chore/roadmap-p1-done
-**Docs carregados:** AGENTS.md
