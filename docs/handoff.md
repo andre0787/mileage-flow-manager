@@ -10,8 +10,8 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `da89e84` — Merge pull request #257 from andre0787/docs/session-end-handoff
-- **Remote:** `origin` (github.com/andre0787/mileage-flow-manager)
+- **Último commit:** `05ec9bf` — Merge pull request #258 from andre0787/docs/handoff-cleanup
+- **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
@@ -57,6 +57,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Observação: gh não autenticado por padrão — usar `GH_TOKEN` do `.env` da raiz (`grep GH_TOKEN .env`)
 - **✅ LIMPEZA GIT CONCLUÍDA (PR #257 + handoff-cleanup):** 17 branches locais + 34 branches remotas órfãs deletadas (todas verificadas: conteúdo já no main por SHA); worktrees antigos removidos; só `main` no local e no remoto; `main == origin/main == da89e84`
 - Trailing whitespace em `docs/reports/*.html` (gerados) e hard-breaks md das specs é esperado — git diff --check acusa, sem ação
+
 
 
 
