@@ -111,7 +111,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.getByRole("button", { name: "Nova Entrada" }).first().click();
     await expect(page.getByRole("dialog").first()).toBeVisible({ timeout: 5_000 });
 
-    let cmb = page.locator("[role=combobox]");
+    let cmb = page.getByRole("dialog").first().locator("[role=combobox]");
     await cmb.nth(0).click();
     await page.getByRole("option", { name: /smiles/i }).click();
 
@@ -132,7 +132,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.getByRole("button", { name: "Nova Entrada" }).first().click();
     await expect(page.getByRole("dialog").first()).toBeVisible({ timeout: 5_000 });
 
-    cmb = page.locator("[role=combobox]");
+    cmb = page.getByRole("dialog").first().locator("[role=combobox]");
     await cmb.nth(0).click();
     await page.getByRole("option", { name: /smiles/i }).click();
 
@@ -204,7 +204,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await expect(page.getByText("Transferência")).toBeVisible({ timeout: 5_000 });
 
     // TransferForm: source points first, destination miles second.
-    const mCmb = page.locator("[role=combobox]");
+    const mCmb = page.getByRole("dialog").first().locator("[role=combobox]");
     await mCmb.nth(0).click();
     await page.getByRole("option", { name: /smiles/i }).click();
     await mCmb.nth(1).click();

@@ -80,13 +80,15 @@ test.describe("Recorrência", () => {
     await page.locator("button:has-text('Nova Entrada')").first().click();
     await expect(page.getByRole("dialog").first()).toBeVisible({ timeout: 5_000 });
 
-    // Preencher formulário — selecionar conta
-    await page.locator("button[role='combobox']").first().click();
+    // Preencher formulário — selecionar conta (escopo no dialog: o header
+    // agora contém o OwnerFilter, um combobox a mais na página)
+    const entryDialog = page.getByRole("dialog").first();
+    await entryDialog.locator("button[role='combobox']").first().click();
     await expect(page.getByRole("option", { name: /conta milhas/i })).toBeVisible({ timeout: 3_000 });
     await page.locator("text=Conta Milhas").click();
 
     // Selecionar tipo de origem
-    await page.locator("button[role='combobox']").nth(1).click();
+    await entryDialog.locator("button[role='combobox']").nth(1).click();
     await expect(page.getByRole("option", { name: /clube fidelidade/i })).toBeVisible({ timeout: 3_000 });
     await page.locator("text=Clube Fidelidade").click();
 

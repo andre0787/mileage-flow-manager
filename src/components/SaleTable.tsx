@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Package, TrendingDown, Users } from "lucide-react";
 import { useOnlineStatus } from "@/contexts/OnlineContext";
 import { Badge } from "@/components/ui/badge";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { Button } from "@/components/ui/button";
+import { SortableHeader } from "@/components/ui/SortableHeader";
+import { sortByKey, type SortState } from "@/lib/sort";
 import {
   Select,
   SelectContent,
@@ -54,8 +56,39 @@ export function SaleTable({
   const { isOnline } = useOnlineStatus();
   const [cancelConfirmId, setCancelConfirmId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(sales.length / ITEMS_PER_PAGE);
-  const paginatedSales = sales.slice(
+  const [sort, setSort] = useState<SortState>({ key: "Data", dir: "desc" });
+
+  const getSortValue = (sale: Sale, col: string): unknown => {
+    switch (col) {
+      case "Data":
+        return new Date(sale.date).getTime();
+      case "Dono/Programa":
+        return `${sale.ownerName} ${sale.program}`.toLowerCase();
+      case "Cliente":
+        return sale.clientName.toLowerCase();
+      case "Milhas":
+        return sale.milesUsed;
+      case "Valor":
+        return sale.saleValue;
+      case "Lucro":
+        return sale.profit;
+      case "Margem":
+        return sale.profitMargin;
+      case "Status":
+        return sale.status;
+      default:
+        return "";
+    }
+  };
+
+  const sortedSales = useMemo(
+    () => sortByKey(sales, sort.key, sort.dir, (s) => getSortValue(s, sort.key)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [sales, sort],
+  );
+
+  const totalPages = Math.ceil(sortedSales.length / ITEMS_PER_PAGE);
+  const paginatedSales = sortedSales.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE,
   );
@@ -98,14 +131,14 @@ export function SaleTable({
             <Table striped>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Data</TableHead>
-                  <TableHead>Dono/Programa</TableHead>
-                  <TableHead>Cliente</TableHead>
-                  <TableHead className="text-right tabular-nums">Milhas</TableHead>
-                  <TableHead className="text-right tabular-nums">Valor</TableHead>
-                  <TableHead className="text-right tabular-nums">Lucro</TableHead>
-                  <TableHead className="text-right tabular-nums">Margem</TableHead>
-                  <TableHead>Status</TableHead>
+                  <SortableHeader label="Data" sortKey="Data" sort={sort} onSort={setSort} />
+                  <SortableHeader label="Dono/Programa" sortKey="Dono/Programa" sort={sort} onSort={setSort} />
+                  <SortableHeader label="Cliente" sortKey="Cliente" sort={sort} onSort={setSort} />
+                  <SortableHeader label="Milhas" sortKey="Milhas" sort={sort} onSort={setSort} className="text-right tabular-nums" />
+                  <SortableHeader label="Valor" sortKey="Valor" sort={sort} onSort={setSort} className="text-right tabular-nums" />
+                  <SortableHeader label="Lucro" sortKey="Lucro" sort={sort} onSort={setSort} className="text-right tabular-nums" />
+                  <SortableHeader label="Margem" sortKey="Margem" sort={sort} onSort={setSort} className="text-right tabular-nums" />
+                  <SortableHeader label="Status" sortKey="Status" sort={sort} onSort={setSort} />
                   <TableHead>Ações</TableHead>
                 </TableRow>
               </TableHeader>
@@ -323,11 +356,11 @@ export function SaleTable({
         </CardContent>
       </Card>
 
-      {sales.length > ITEMS_PER_PAGE && (
+      {sortedSales.length > ITEMS_PER_PAGE && (
         <div className="mt-4 flex flex-col items-center gap-2">
           <span className="text-xs text-muted-foreground">
             Mostrando {(currentPage - 1) * ITEMS_PER_PAGE + 1}–
-            {Math.min(currentPage * ITEMS_PER_PAGE, sales.length)} de {sales.length}
+            {Math.min(currentPage * ITEMS_PER_PAGE, sortedSales.length)} de {sortedSales.length}
           </span>
           <Pagination
             currentPage={currentPage}

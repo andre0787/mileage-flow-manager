@@ -219,8 +219,7 @@ const AppLayout = () => {
               <OfflineBanner />
               <PageHeader />
               <main
-                className="flex-1 p-4 md:p-6 pb-20 md:pb-6 bg-background safe-area-bottom overflow-x-hidden"
-                style={{ overscrollBehavior: "contain" }}
+                className="flex-1 p-4 md:p-6 pb-20 md:pb-6 bg-background safe-area-bottom overflow-x-clip"
               >
                 <AnimatedRoutes />
               </main>

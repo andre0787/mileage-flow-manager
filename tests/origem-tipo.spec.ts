@@ -39,8 +39,13 @@ test("Tipos de origem são criados e listados corretamente", async ({ page }) =>
   await page.locator('input[placeholder="Ex: Cashback"]').fill("Clube Mensal");
   await page.getByRole("button", { name: "Cadastrar" }).click();
 
-  // 7. Verifica que o tipo foi selecionado no combobox
-  const origemCombobox = page.locator("button[role='combobox']").nth(1);
+  // 7. Verifica que o tipo foi selecionado no combobox (escopado ao dialog —
+  //    o header agora tem o OwnerFilter, um combobox a mais na página)
+  const origemCombobox = page
+    .getByRole("dialog")
+    .first()
+    .locator("button[role='combobox']")
+    .nth(1);
   await expect(origemCombobox).toContainText(/Clube Mensal/i, { timeout: 5000 });
 
   // 8. Fecha e reabre o formulário para garantir que o tipo novo ficou disponível na aba Pontos

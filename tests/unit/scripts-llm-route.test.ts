@@ -42,8 +42,9 @@ describe("llm-route CLI", () => {
 
     expect(decision.source).toBe("category-default");
     expect(decision.profile).toBe("coding");
-    expect(decision.model).toBe("openai-codex/gpt-5.4-mini");
-    expect(decision.fallbackModels).toEqual(["opencode/deepseek-v4-flash-free"]);
+    // Modo sessão (router desativado): todas as rotas resolvem para o modelo atual, sem fallbacks
+    expect(decision.model).toBe("opencode/deepseek-v4-flash-free");
+    expect(decision.fallbackModels).toEqual([]);
     expect(decision.retrySafety).toBe("may-write");
   });
 
@@ -65,8 +66,9 @@ describe("llm-route CLI", () => {
 
     expect(decision).toMatchObject({
       profile: "strong-reasoning",
-      model: "openai-codex/gpt-5.6-luna",
-      fallbackModels: ["opencode/deepseek-v4-flash-free"],
+      // Modo sessão (router desativado): todas as rotas resolvem para o modelo atual, sem fallbacks
+      model: "opencode/deepseek-v4-flash-free",
+      fallbackModels: [],
       source: "category-capability",
       retrySafety: "read-only",
     });

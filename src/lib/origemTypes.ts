@@ -19,6 +19,46 @@ export function parseOrigemTypeDescription(description?: string | null): {
   }
 }
 
+/**
+ * Sanitização defensiva de nomes de tipos de origem (sem DELETE em banco).
+ * Marca como sujeira nomes vazios/whitespace e padrões óbvios de teste/lixo.
+ */
+const JUNK_PATTERNS = [
+  /^n\/a$/i,
+  /^na$/i,
+  /^teste$/i,
+  /^test$/i,
+  /^e2e_/i,
+  /e2e/i,
+  /lixo/i,
+  /sujeira/i,
+];
+
+export function isJunkOrigemTypeName(name: string | null | undefined): boolean {
+  if (!name) return true;
+  const trimmed = name.trim();
+  if (!trimmed) return true;
+  return JUNK_PATTERNS.some((re) => re.test(trimmed));
+}
+
+/** Remove duplicatas case-insensitive mantendo a primeira ocorrência (sem mutar). */
+export function dedupeOrigemTypes<T extends { name: string }>(items: T[]): T[] {
+  const seen = new Set<string>();
+  const result: T[] = [];
+  for (const item of items) {
+    const key = item.name.trim().toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    result.push(item);
+  }
+  return result;
+}
+
+/** Filtra sujeira E duplicatas em uma passada (sem mutar). */
+export function filterToCleanOrigemTypes<T extends { name: string }>(items: T[]): T[] {
+  return dedupeOrigemTypes(items.filter((item) => !isJunkOrigemTypeName(item.name)));
+}
+
 export function buildMonthlyRecurrence(
   enabled: boolean,
   months?: string,
