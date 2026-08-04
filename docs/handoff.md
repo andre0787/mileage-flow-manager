@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `chore/roadmap-p1-done`
-- **Último commit:** `0637337` — Merge pull request #253 from andre0787/feat/upgrade-react-router-8
+- **Branch:** `chore/roadmap-p3-done`
+- **Último commit:** `7a8a1c9 — Merge pull request #254 from andre0787/chore/roadmap-p1-done`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -57,10 +57,10 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 
 ## 🎯 Sessão Atual
-**Categoria:** docs
-**Objetivo:** roadmap P1/P3 done + fechamento handoff
+**Categoria:** chore
+**Objetivo:** finalizar roadmap P3 (housekeeping): limpar thoughts stale + exclude .worktrees do verify-docs
 **Status:** in_progress
-**Iniciada em:** 2026-08-03T22:22:23.369Z
-**Branch:** `chore/roadmap-p1-done`
-**Último commit:** 0637337 — Merge pull request #253
+**Iniciada em:** 2026-08-04T00:38:43.878Z
+**Branch:** `chore/roadmap-p3-done`
+**Último commit:** 7a8a1c9 — Merge pull request #254 from andre0787/chore/roadmap-p1-done
 **Docs carregados:** AGENTS.md

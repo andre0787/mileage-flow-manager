@@ -61,9 +61,9 @@ Pré-requisito de tudo o que segue. Sem P0, qualquer protocolo de agente é só 
 
 | Card | Título | Estado |
 |------|--------|--------|
-| [P3-23](P3-23-delete-archive-debris.md) | Deletar 5 artefatos obsoletos do archive | pending ⏳ |
-| [P3-24](P3-24-retire-changelog.md) | Retirar CHANGELOG.md obsoleto + atualizar verify-docs | pending ⏳ |
-| [P3-25](P3-25-clean-thoughts.md) | Limpar docs/thoughts/ — converter pensamento stale em issue | pending ⏳ |
+| [P3-23](P3-23-delete-archive-debris.md) | Deletar 5 artefatos obsoletos do archive | done ✅ |
+| [P3-24](P3-24-retire-changelog.md) | Retirar CHANGELOG.md obsoleto + atualizar verify-docs | done ✅ |
+| [P3-25](P3-25-clean-thoughts.md) | Limpar docs/thoughts/ — converter pensamento stale em issue | done ✅ |
 
 ---
 

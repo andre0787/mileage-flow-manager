@@ -47,6 +47,7 @@ try {
 
   const newMds = changed.filter(f =>
     f.endsWith(".md") &&
+    existsSync(resolve(ROOT, f)) &&
     !f.startsWith("node_modules/") &&
     !f.startsWith("docs/reports/") &&
     !f.startsWith("docs/archive/") &&

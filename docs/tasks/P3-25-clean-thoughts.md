@@ -6,7 +6,7 @@
 | `categoria` | chore |
 | `onda` | P3 |
 | `baseBranch` | main |
-| `estado` | pending |
+| `estado` | done ✅ |
 | `origem` | auditoria ponytail 2026-07-22, item #3 |
 | `dependeDe` | — |
 | `feedbackRef` | — |
@@ -33,8 +33,8 @@ A pasta é funcional — o script `scripts/think.mjs` salva novas ideias lá, e 
 - [x] Pensamento avaliado: relevante → GitHub Issue #197 com label `enhancement`
 - [x] Arquivo `.md` removido de `docs/thoughts/`
 - [x] Referência atualizada em `docs/IDEIAS.md` (Issue #197)
-- [ ] `npm run verify-docs` passa
-- [ ] `npm run check:fast` passa
+- [x] `npm run verify-docs` passa (0 issues — após excluir `.worktrees/` do scan em `verify-docs.mjs`)
+- [x] `npm run check:fast` passa
 
 ## Riscos / Invariantes
 - Nenhum script depende de arquivos individuais dentro de `docs/thoughts/`. `verify-docs.mjs:29` já exime a pasta inteira.

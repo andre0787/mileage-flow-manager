@@ -13,14 +13,14 @@
  */
 
 import { git, ok, err, warn, repoInfo, ROOT, getDiffFiles } from "../lib.mjs";
-import { readFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { resolve } from "path";
 
 const { branch, prNum } = repoInfo();
 const changedFiles = getDiffFiles();
 
 // Filtra relatórios HTML existentes no diff
-const reportFiles = changedFiles.filter(f => /^docs\/reports\/.*\.html$/.test(f));
+const reportFiles = changedFiles.filter(f => /^docs\/reports\/.*\.html$/.test(f) && existsSync(resolve(ROOT, f)));
 
 if (reportFiles.length === 0) {
   err(`nenhum relatório encontrado no diff (regra #8)`);
