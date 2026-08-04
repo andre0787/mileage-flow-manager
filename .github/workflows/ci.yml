@@ -3,9 +3,6 @@ name: CI PR Check
 on:
   pull_request:
     branches: [main]
-  push:
-    branches:
-      - chore/npm-vuln-radar
 
 concurrency:
   group: ci-pr-${{ github.head_ref || github.ref }}
@@ -15,8 +12,30 @@ env:
   CI: true
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      code: ${{ steps.filter.outputs.code }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            code:
+              - 'src/**'
+              - 'tests/**'
+              - 'playwright.config.ts'
+              - 'package.json'
+              - 'package-lock.json'
+              - 'vite.config.ts'
+              - '.github/workflows/**'
+              - 'scripts/**'
+
   check-pr:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -30,13 +49,24 @@ jobs:
 
   e2e-smoke:
     runs-on: ubuntu-latest
-    needs: [check-pr]
+    needs: [changes]
+    timeout-minutes: 20
+    # Só roda quando o código (src/tests/config/scripts/workflows) mudou;
+    # PRs docs-only pulam o smoke sem perder o gate de qualidade.
+    if: needs.changes.outputs.code == 'true'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: pw-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            pw-${{ runner.os }}-
       - name: Install deps
         run: npm ci
       - name: Install Playwright

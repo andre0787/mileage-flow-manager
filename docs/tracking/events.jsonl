@@ -1129,3 +1129,14 @@
 {"timestamp":"2026-08-04T16:25:34.142Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/ux-entradas-vendas","commit":"8c31bf9","errors":0}
 {"timestamp":"2026-08-04T16:29:58.653Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/ux-entradas-vendas","commit":"afed65f","errors":0}
 {"timestamp":"2026-08-04T16:30:46.763Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/ux-entradas-vendas","commit":"b6e1798","errors":0}
+{"timestamp":"2026-08-04T16:46:26.875Z","type":"session:start","description":"chore: CI: refinar eficiencia da esteira por tipo de implantacao (PR/main/nightly)","branch":"main","commit":"3c2f561","categoria":"chore"}
+{"timestamp":"2026-08-04T17:18:16.559Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"chore/ci-efficiencia-fase1","commit":"3c2f561","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-04T17:19:31.119Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"chore/ci-efficiencia-fase1","commit":"3c2f561","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-04T17:21:55.417Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"chore/ci-efficiencia-fase1","commit":"3c2f561","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-04T17:22:24.612Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"chore/ci-efficiencia-fase1","commit":"3c2f561","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-04T17:22:59.088Z","type":"session:start","description":"chore: CI: refinar eficiencia da esteira por tipo de implantacao (PR/main/nightly)","branch":"chore/ci-efficiencia-fase1","commit":"3c2f561","categoria":"chore"}
+{"timestamp":"2026-08-04T17:22:59.638Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/ci-efficiencia-fase1","commit":"3c2f561","rule":"rule-10-clean"}
+{"timestamp":"2026-08-04T17:23:29.132Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/ci-efficiencia-fase1","commit":"3c2f561","rule":"rule-10-clean"}
+{"timestamp":"2026-08-04T17:23:58.300Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/ci-efficiencia-fase1","commit":"3c2f561","rule":"rule-10-clean"}
+{"timestamp":"2026-08-04T17:24:28.665Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/ci-efficiencia-fase1","commit":"3c2f561","rule":"rule-10-clean"}
+{"timestamp":"2026-08-04T17:25:36.215Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/ci-efficiencia-fase1","commit":"3c2f561","errors":0}

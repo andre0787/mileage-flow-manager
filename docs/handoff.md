@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `docs/session-end-ux-entradas-vendas`
-- **Último commit:** `2b82a4c` — Merge pull request #260 from andre0787/feat/ux-entradas-vendas
+- **Branch:** `chore/ci-efficiencia-fase1`
+- **Último commit:** `3c2f561 — docs: update handoff (#261)`
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,13 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** UX melhorias: filtro por dono em entradas/vendas, scroll por mouse, sanitizar tipos de origem, ordenacao de colunas
-**Status:** done
-**Iniciada em:** 2026-08-04T16:01:09.584Z
-**Branch:** `feat/ux-entradas-vendas`
-**Último commit:** afd4907 — Merge pull request #259 from andre0787/docs/session-end-final
-**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
+**Categoria:** chore
+**Objetivo:** CI: refinar eficiencia da esteira por tipo de implantacao (PR/main/nightly)
+**Status:** in_progress
+**Iniciada em:** 2026-08-04T17:22:59.064Z
+**Branch:** `chore/ci-efficiencia-fase1`
+**Último commit:** 3c2f561 — docs: update handoff (#261)
+**Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
