@@ -1,6 +1,6 @@
 # HANDOFF — MilesControl
 > ⏰ Última atualização: 2026-08-04
-> Anterior: 2026-08-03
+> Anterior: 2026-08-04
 ---
 ## 🏗️ Projeto
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `docs/session-end-handoff`
-- **Último commit:** `6ed8dec` — Merge pull request #255 from andre0787/chore/roadmap-p3-done
+- **Último commit:** `51a97a4` — Merge pull request #256 from andre0787/docs/session-end-handoff
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -58,6 +58,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Observação: gh não autenticado por padrão — usar `GH_TOKEN` do `.env` da raiz (`grep GH_TOKEN .env`)
 - Worktree: `.worktrees/process-kpi-observability`; branch atual do worktree: `docs/session-end-process-kpi` (nova, a partir do main `08d1886`)
 - Trailing whitespace em `docs/reports/*.html` (gerados) e hard-breaks md das specs é esperado — git diff --check acusa, sem ação
+
 
 
 
