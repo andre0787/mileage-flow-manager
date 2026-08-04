@@ -9,24 +9,24 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `chore/ci-efficiencia-fase1`
-- **Último commit:** `3c2f561 — docs: update handoff (#261)`
+- **Branch:** `docs/session-end-ci-efficiencia`
+- **Último commit:** `1ddfc6a` — Merge pull request #262 from andre0787/chore/ci-efficiencia-fase1
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 397 |
+| Total testes | 410 |
 | Docs issues | 0 |
-| Branch | docs/session-end-ux-entradas-vendas |
+| Branch | docs/session-end-ci-efficiencia |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
 **Objetivo:** CI: refinar eficiencia da esteira por tipo de implantacao (PR/main/nightly)
-**Status:** in_progress
+**Status:** done
 **Iniciada em:** 2026-08-04T17:22:59.064Z
 **Branch:** `chore/ci-efficiencia-fase1`
 **Último commit:** 3c2f561 — docs: update handoff (#261)
@@ -57,6 +57,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Observação: gh não autenticado por padrão — usar `GH_TOKEN` do `.env` da raiz (`grep GH_TOKEN .env`)
 - **✅ LIMPEZA GIT CONCLUÍDA (PR #257 + handoff-cleanup):** 17 branches locais + 34 branches remotas órfãs deletadas (todas verificadas: conteúdo já no main por SHA); worktrees antigos removidos; só `main` no local e no remoto; `main == origin/main == da89e84`
 - Trailing whitespace em `docs/reports/*.html` (gerados) e hard-breaks md das specs é esperado — git diff --check acusa, sem ação
+
 
 
 
