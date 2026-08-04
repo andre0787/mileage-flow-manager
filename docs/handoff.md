@@ -63,11 +63,3 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 
 
-## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** finalizar roadmap P3 (housekeeping): limpar thoughts stale + exclude .worktrees do verify-docs
-**Status:** in_progress
-**Iniciada em:** 2026-08-04T00:38:43.878Z
-**Branch:** `chore/roadmap-p3-done`
-**Último commit:** 7a8a1c9 — Merge pull request #254 from andre0787/chore/roadmap-p1-done
-**Docs carregados:** AGENTS.md
