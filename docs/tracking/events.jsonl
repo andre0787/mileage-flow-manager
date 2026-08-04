@@ -1140,3 +1140,4 @@
 {"timestamp":"2026-08-04T17:23:58.300Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/ci-efficiencia-fase1","commit":"3c2f561","rule":"rule-10-clean"}
 {"timestamp":"2026-08-04T17:24:28.665Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/ci-efficiencia-fase1","commit":"3c2f561","rule":"rule-10-clean"}
 {"timestamp":"2026-08-04T17:25:36.215Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/ci-efficiencia-fase1","commit":"3c2f561","errors":0}
+{"timestamp":"2026-08-04T17:38:39.325Z","type":"session:end","description":"handoff atualizado","branch":"docs/session-end-ci-efficiencia","commit":"c37e154"}
