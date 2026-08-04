@@ -162,7 +162,10 @@
     @apply bg-background text-foreground font-body;
     -webkit-text-size-adjust: 100%;
     overscroll-behavior: none;
-    overflow-x: hidden;
+    /* ponytail: `clip` não cria scroll container (diferente de `hidden`),
+       então o wheel do mouse rola a viewport normalmente. `hidden` aqui
+       gerava overflow-y:auto no body e travava o scroll por mouse no PC. */
+    overflow-x: clip;
   }
 
   h1,

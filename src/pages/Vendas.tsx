@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { Plus, Calculator, Download } from "lucide-react";
 import { SearchInput } from "@/components/ui/SearchInput";
+import { OwnerFilter, ALL_OWNERS } from "@/components/ui";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -34,6 +35,7 @@ export default function Vendas() {
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearch = useDebounce(searchTerm, 300);
   const [statusFilter, setStatusFilter] = useState<string>("todos");
+  const [ownerFilter, setOwnerFilter] = useState<string>(ALL_OWNERS);
   const [simulatorOpen, setSimulatorOpen] = useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -196,8 +198,13 @@ export default function Vendas() {
 
   // Filtros
   const filteredSales = useMemo(() => {
+    const ownerAccountIds =
+      ownerFilter === ALL_OWNERS
+        ? null
+        : new Set(accounts.filter((a) => a.ownerId === ownerFilter).map((a) => a.id));
     return sales.filter((s) => {
       if (statusFilter !== "todos" && s.status !== statusFilter) return false;
+      if (ownerAccountIds && !ownerAccountIds.has(s.accountId ?? "")) return false;
       if (!debouncedSearch) return true;
       const q = debouncedSearch.toLowerCase();
       return (
@@ -207,7 +214,7 @@ export default function Vendas() {
         s.ticketLocator.toLowerCase().includes(q)
       );
     });
-  }, [sales, statusFilter, debouncedSearch]);
+  }, [sales, statusFilter, ownerFilter, accounts, debouncedSearch]);
 
   if (isLoading) {
     return (
@@ -251,6 +258,12 @@ export default function Vendas() {
               onChange={setSearchTerm}
             />
           </div>
+          <OwnerFilter
+            owners={owners}
+            value={ownerFilter}
+            onChange={setOwnerFilter}
+            className="w-full sm:w-44"
+          />
           <Select value={statusFilter} onValueChange={setStatusFilter}>
             <SelectTrigger className="w-32">
               <SelectValue />

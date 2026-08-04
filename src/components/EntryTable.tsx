@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Package, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useOnlineStatus } from "@/contexts/OnlineContext";
 import { Badge } from "@/components/ui/badge";
 import { StatusBadge } from "@/components/ui/StatusBadge";
+import { SortableHeader } from "@/components/ui/SortableHeader";
+import { sortByKey, type SortState } from "@/lib/sort";
 import {
   Table,
   TableBody,
@@ -44,11 +46,6 @@ export function EntryTable({
 }: EntryTableProps) {
   const { isOnline } = useOnlineStatus();
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(entries.length / ITEMS_PER_PAGE);
-  const paginatedEntries = entries.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE,
-  );
   const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id;
   const origemTypeName = (id: string) => {
     const ot = origemTypes.find((ot) => ot.id === id);
@@ -57,6 +54,43 @@ export function EntryTable({
     return prog?.name ?? id;
   };
   const isPontos = type === "pontos";
+  const [sort, setSort] = useState<SortState>({ key: "Data", dir: "desc" });
+
+  // Extrai o valor comparável por coluna (nunca muta o array — sortByKey copia)
+  const getSortValue = (entry: PointEntry, col: string): unknown => {
+    switch (col) {
+      case "Data":
+        return new Date(entry.date).getTime();
+      case "Conta":
+        return accounts.find((a) => a.id === entry.accountId)?.name ?? "";
+      case "Origem":
+        return origemTypeName(entry.origemTypeId).toLowerCase();
+      case "Pontos":
+        return entry.amount;
+      case "Milhas Geradas":
+      case "Milhas":
+        return entry.milesGenerated ?? entry.amount;
+      case "Valor Pago":
+        return entry.amountPaid;
+      case "Taxa Conv.":
+        return entry.conversionRate ?? 0;
+      case "Custo/Milha":
+        return entry.costPerMile ?? 0;
+      default:
+        return "";
+    }
+  };
+
+  const sortedEntries = useMemo(
+    () => sortByKey(entries, sort.key, sort.dir, (e) => getSortValue(e, sort.key)),
+    [entries, sort],
+  );
+
+  const totalPages = Math.ceil(sortedEntries.length / ITEMS_PER_PAGE);
+  const paginatedEntries = sortedEntries.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE,
+  );
 
   const desktopColumns = isPontos
     ? [
@@ -239,18 +273,26 @@ export function EntryTable({
         <Table striped>
           <TableHeader>
             <TableRow>
-              {desktopColumns.map((col) => (
-                <TableHead
-                  key={col}
-                  className={`${col === "Ações" ? "text-right" : numericCols.includes(col) ? "text-right tabular-nums" : ""} hidden md:table-cell`}
-                >
-                  {col}
-                </TableHead>
-              ))}
+              {desktopColumns.map((col) =>
+                col === "Ações" ? (
+                  <TableHead key={col} className="hidden md:table-cell text-right">
+                    Ações
+                  </TableHead>
+                ) : (
+                  <SortableHeader
+                    key={col}
+                    label={col}
+                    sortKey={col}
+                    sort={sort}
+                    onSort={setSort}
+                    className={`hidden md:table-cell ${numericCols.includes(col) ? "text-right tabular-nums" : ""}`}
+                  />
+                ),
+              )}
             </TableRow>
           </TableHeader>
           <TableBody>
-            {entries.length === 0 ? (
+            {sortedEntries.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={desktopColumns.length} className="py-12">
                   <EmptyState
@@ -318,7 +360,7 @@ export function EntryTable({
 
       {/* Mobile card list */}
       <div className="md:hidden space-y-3 mt-4">
-        {entries.length === 0 ? (
+        {sortedEntries.length === 0 ? (
           <EmptyState
             icon={Package}
             title={`Nenhuma entrada de ${type === "pontos" ? "pontos" : "milhas"}`}
@@ -330,11 +372,11 @@ export function EntryTable({
         )}
       </div>
 
-      {entries.length > ITEMS_PER_PAGE && (
+      {sortedEntries.length > ITEMS_PER_PAGE && (
         <div className="mt-4 flex flex-col items-center gap-2">
           <span className="text-xs text-muted-foreground">
             Mostrando {(currentPage - 1) * ITEMS_PER_PAGE + 1}–
-            {Math.min(currentPage * ITEMS_PER_PAGE, entries.length)} de {entries.length}
+            {Math.min(currentPage * ITEMS_PER_PAGE, sortedEntries.length)} de {sortedEntries.length}
           </span>
           <Pagination
             currentPage={currentPage}

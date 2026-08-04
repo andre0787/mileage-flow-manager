@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `05ec9bf` — Merge pull request #258 from andre0787/docs/handoff-cleanup
+- **Branch:** `feat/ux-entradas-vendas`
+- **Último commit:** `afd4907 — Merge pull request #259 from andre0787/docs/session-end-final`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,13 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** encerrar sessão + limpeza total de branches (17 locais + 34 remotas órfãs) + sincronizar main
-**Status:** done
-**Iniciada em:** 2026-08-04T02:12:00.000Z
-**Branch:** `docs/handoff-cleanup`
-**Último commit:** `da89e84` — Merge pull request #257 from andre0787/docs/session-end-handoff
-**Docs carregados:** AGENTS.md
+**Categoria:** feature
+**Objetivo:** UX melhorias: filtro por dono em entradas/vendas, scroll por mouse, sanitizar tipos de origem, ordenacao de colunas
+**Status:** in_progress
+**Iniciada em:** 2026-08-04T16:01:09.584Z
+**Branch:** `feat/ux-entradas-vendas`
+**Último commit:** afd4907 — Merge pull request #259 from andre0787/docs/session-end-final
+**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão

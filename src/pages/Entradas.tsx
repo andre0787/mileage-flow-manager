@@ -8,6 +8,7 @@ import {
   TrendingDown,
 } from "lucide-react";
 import { SearchInput } from "@/components/ui/SearchInput";
+import { OwnerFilter, ALL_OWNERS } from "@/components/ui";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -53,6 +54,7 @@ export default function Entradas() {
   const haptic = useHaptic();
 
   const [activeTab, setActiveTab] = useState<"pontos" | "milhas">("pontos");
+  const [ownerFilter, setOwnerFilter] = useState<string>(ALL_OWNERS);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editingEntry, setEditingEntry] = useState<PointEntry | null>(null);
@@ -256,9 +258,16 @@ export default function Entradas() {
   );
 
   const entriesFiltered = useMemo(() => {
-    if (!debouncedSearch) return entriesByTab;
+    const ownerAccountIds =
+      ownerFilter === ALL_OWNERS
+        ? null
+        : new Set(accounts.filter((a) => a.ownerId === ownerFilter).map((a) => a.id));
+    const byOwner = ownerAccountIds
+      ? entriesByTab.filter((e) => ownerAccountIds.has(e.accountId))
+      : entriesByTab;
+    if (!debouncedSearch) return byOwner;
     const q = debouncedSearch.toLowerCase();
-    return entriesByTab.filter((e) => {
+    return byOwner.filter((e) => {
       const account = accounts.find((a) => a.id === e.accountId);
       const accountName = account?.name.toLowerCase() ?? "";
       const origemNome =
@@ -271,7 +280,7 @@ export default function Entradas() {
         new Date(e.date).toLocaleDateString("pt-BR").includes(q)
       );
     });
-  }, [entriesByTab, debouncedSearch, accounts, origemTypes, programs]);
+  }, [entriesByTab, debouncedSearch, accounts, origemTypes, programs, ownerFilter]);
 
   const confirmedEntries = useMemo(
     () => entriesFiltered.filter((e) => e.entryStatus !== "aguardando"),
@@ -316,6 +325,12 @@ export default function Entradas() {
               onChange={setSearchTerm}
             />
           </div>
+          <OwnerFilter
+            owners={owners}
+            value={ownerFilter}
+            onChange={setOwnerFilter}
+            className="w-full sm:w-44"
+          />
           <Button
             onClick={() => setIsTransferDialogOpen(true)}
             className="gap-2 bg-gradient-primary hover:opacity-90 shrink-0"

@@ -8,13 +8,14 @@
     "reasoning-primary": "openai-codex/gpt-5.6-luna",
     "reasoning-fallback": "opencode/deepseek-v4-flash-free",
     "review-primary": "openai-codex/gpt-5.6-luna",
-    "review-fallback": "opencode/deepseek-v4-flash-free"
+    "review-fallback": "opencode/deepseek-v4-flash-free",
+    "session-model": "opencode/deepseek-v4-flash-free"
   },
   "profiles": {
-    "strong-reasoning": { "primary": "reasoning-primary", "fallbacks": ["reasoning-fallback"] },
-    "coding": { "primary": "coding-primary", "fallbacks": ["coding-fallback"] },
-    "efficient": { "primary": "efficient-primary", "fallbacks": ["efficient-fallback"] },
-    "independent-review": { "primary": "review-primary", "fallbacks": ["review-fallback"] }
+    "strong-reasoning": { "primary": "session-model", "fallbacks": [] },
+    "coding": { "primary": "session-model", "fallbacks": [] },
+    "efficient": { "primary": "session-model", "fallbacks": [] },
+    "independent-review": { "primary": "session-model", "fallbacks": [] }
   },
   "categoryDefaults": {
     "feature": "coding",

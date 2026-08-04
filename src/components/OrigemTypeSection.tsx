@@ -28,7 +28,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { DeleteConfirmDialog } from "@/components/DeleteConfirmDialog";
-import { parseOrigemTypeDescription, serializeOrigemTypeDescription } from "@/lib/origemTypes";
+import {
+  parseOrigemTypeDescription,
+  serializeOrigemTypeDescription,
+  filterToCleanOrigemTypes,
+} from "@/lib/origemTypes";
 import { isTransferencia } from "@/lib/utils";
 import type { OrigemType, PointEntry } from "@/types";
 
@@ -59,8 +63,8 @@ export default function OrigemTypeSection({
   onUpdate,
   onDelete,
 }: OrigemTypeSectionProps) {
-  const milhasTypes = origemTypes.filter(
-    (ot) => ot.accountType === "milhas" && !isTransferencia(ot),
+  const milhasTypes = filterToCleanOrigemTypes(
+    origemTypes.filter((ot) => ot.accountType === "milhas" && !isTransferencia(ot)),
   );
   const [form, setForm] = useState({
     name: "",
