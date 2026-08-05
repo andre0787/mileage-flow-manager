@@ -18,7 +18,7 @@
 
 ## 🔒 Pendentes (prioridade decrescente)
 
-### ~~P2 — Subagentes falhando em pré-lançamento~~ ✅ **resolvido 2026-08-05** (sessão bugfix)
+### ~~P2 — Subagentes falhando em pré-lançamento~~ ✅ **resolvido 2026-08-05** ([#277](https://github.com/andre0787/mileage-flow-manager/pull/277))
 
 - **Causa raiz:** pacote `pi-subagents` **ausente** do ambiente (settings do pi sem o pacote) → responder RPC inexistente → `subagent_gate` falha em pre-launch (`failureKind: subagent_prelaunch`); agravado pela v0.39.0 (01/08) que passou a rejeitar agentes fora do catálogo (`allowedAgents` — `general-purpose`, `council-contrarian`, `review` eram inválidos)
 - **Fix aplicado:** `pi install npm:pi-subagents` (settings registrado; extensão ativa no próximo startup do pi) + uso de agentes builtin (`worker`, `reviewer`, `oracle`, `scout`, `planner`, `researcher`, `advisor`, `delegate`, `context-builder`)
