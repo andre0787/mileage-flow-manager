@@ -1160,3 +1160,4 @@
 {"timestamp":"2026-08-05T00:26:21.837Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/ci-ghost-run-fix","commit":"32ca742","errors":0}
 {"timestamp":"2026-08-05T00:33:29.512Z","type":"session:start","description":"chore: CI: auto-merge aprova run fantasma action_required do bot normalize (approval gate)","branch":"chore/ci-approve-ghost-run","commit":"d2a9592","categoria":"chore"}
 {"timestamp":"2026-08-05T00:33:51.451Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/ci-approve-ghost-run","commit":"d2a9592","errors":0}
+{"timestamp":"2026-08-05T00:37:49.673Z","type":"session:end","description":"handoff atualizado","branch":"docs/session-end-ci-approve","commit":"9c44b4a"}
