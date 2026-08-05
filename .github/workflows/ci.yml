@@ -5,8 +5,13 @@ on:
     branches: [main]
 
 concurrency:
+  # cancel-in-progress: false (serial) — cancelar o run anterior quando o push
+  # do bot normalize chega cria um run fantasma 'action_required' com 0 jobs
+  # (race de cancelamento); o run seguinte nunca agenda jobs e o PR fica sem
+  # checks verdes no head final — exigindo commit vazio manual para re-disparar.
+  # Com serialização, o run do head final executa normalmente.
   group: ci-pr-${{ github.head_ref || github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 env:
   CI: true

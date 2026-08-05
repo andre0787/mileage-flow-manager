@@ -1150,3 +1150,11 @@
 {"timestamp":"2026-08-05T00:15:25.177Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/limpeza-conflito-p1-16","commit":"a90639d","rule":"rule-26-session-started"}
 {"timestamp":"2026-08-05T00:15:51.651Z","type":"session:start","description":"chore: limpeza: remover marcador de conflito git residual do task-card P1-16","branch":"docs/limpeza-conflito-p1-16","commit":"a90639d","categoria":"chore"}
 {"timestamp":"2026-08-05T00:17:53.555Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/limpeza-conflito-p1-16","commit":"a90639d","errors":0}
+{"timestamp":"2026-08-05T00:23:08.987Z","type":"session:start","description":"chore: CI: eliminar run fantasma action_required no push do bot normalize (concurrency cancel race)","branch":"main","commit":"32ca742","categoria":"chore"}
+{"timestamp":"2026-08-05T00:23:40.343Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"chore/ci-ghost-run-fix","commit":"32ca742","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-05T00:24:06.371Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"chore/ci-ghost-run-fix","commit":"32ca742","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-05T00:24:38.325Z","type":"session:start","description":"chore: CI: eliminar run fantasma action_required no push do bot normalize (concurrency cancel race)","branch":"chore/ci-ghost-run-fix","commit":"32ca742","categoria":"chore"}
+{"timestamp":"2026-08-05T00:24:38.869Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/ci-ghost-run-fix","commit":"32ca742","rule":"rule-10-clean"}
+{"timestamp":"2026-08-05T00:25:05.169Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/ci-ghost-run-fix","commit":"32ca742","rule":"rule-10-clean"}
+{"timestamp":"2026-08-05T00:25:32.639Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/ci-ghost-run-fix","commit":"32ca742","rule":"rule-10-clean"}
+{"timestamp":"2026-08-05T00:26:21.837Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/ci-ghost-run-fix","commit":"32ca742","errors":0}

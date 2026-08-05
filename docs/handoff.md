@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `docs/limpeza-conflito-p1-16`
-- **Último commit:** `a90639d — Merge pull request #263 from andre0787/docs/session-end-ci-efficiencia`
+- **Branch:** `chore/ci-ghost-run-fix`
+- **Último commit:** `32ca742 — Merge pull request #264 from andre0787/docs/limpeza-conflito-p1-16`
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -25,11 +25,11 @@ Nenhum PR aberto.
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
-**Objetivo:** limpeza: remover marcador de conflito git residual do task-card P1-16
+**Objetivo:** CI: eliminar run fantasma action_required no push do bot normalize (concurrency cancel race)
 **Status:** in_progress
-**Iniciada em:** 2026-08-05T00:15:51.627Z
-**Branch:** `docs/limpeza-conflito-p1-16`
-**Último commit:** a90639d — Merge pull request #263 from andre0787/docs/session-end-ci-efficiencia
+**Iniciada em:** 2026-08-05T00:24:38.302Z
+**Branch:** `chore/ci-ghost-run-fix`
+**Último commit:** 32ca742 — Merge pull request #264 from andre0787/docs/limpeza-conflito-p1-16
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
