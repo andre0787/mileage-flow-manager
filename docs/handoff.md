@@ -9,24 +9,24 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `1bc72cf — Merge pull request #272 from andre0787/docs/session-end-done`
+- **Branch:** `docs/session-end-process-violations`
+- **Último commit:** `2d90f85` — docs: session:end — travas de auto-heal do KPI implementadas
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 414 |
+| Total testes | 428 |
 | Docs issues | 0 |
-| Branch | docs/session-end-done |
+| Branch | docs/session-end-process-violations |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** feature
 **Objetivo:** Planejar e implementar travas para mitigar as top violações do KPI de processo
-**Status:** in_progress
+**Status:** done
 **Iniciada em:** 2026-08-05T01:36:26.912Z
 **Branch:** `feat/process-violations-travas`
 **Último commit:** 1bc72cf — Merge pull request #272 from andre0787/docs/session-end-done
@@ -42,4 +42,5 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - **Validação real:** auto-heal funcionou dentro do hook de commit (handoff curado sem session:start manual; evento healed gravado)
 - **Fase 2 aberta (ROADMAP item 3):** Trava C (MAP.md auto-registrado p/ rule-17 ×12) + Trava D (mensagens acionáveis + `gate:blocked` p/ rule-27 ×6)
 - **Aprendizado:** commit com mensagem multi-linha + pipe (`| sed`) pode quebrar o -m do git (pathspec error) — usar mensagem em arquivo ou heredoc
+
 
