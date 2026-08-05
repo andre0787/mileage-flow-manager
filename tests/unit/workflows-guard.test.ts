@@ -19,6 +19,22 @@ describe("normalize-pr-report workflow (P0: PRs blocked por [skip ci])", () => {
     const content = readFileSync(WF, "utf8");
     expect(content).toMatch(/pull_request:\s*\n\s*types:\s*\[opened\]/);
   });
+
+  it("aprova o run fantasma action_required criado pelo próprio push do bot", () => {
+    const content = readFileSync(WF, "utf8");
+    // Push do bot (GITHUB_TOKEN) cria run de CI 'action_required' com 0 jobs
+    // (approval gate); workflow_run não dispara para esses runs. O normalize
+    // aprova via API (reinicia com jobs reais) e notifica o auto-merge.
+    expect(content).toMatch(/actions: write/);
+    expect(content).toMatch(/action_required/);
+    expect(content).toMatch(/\/approve/);
+  });
+
+  it("notifica auto-merge via repository_dispatch pr-ready após sucesso", () => {
+    const content = readFileSync(WF, "utf8");
+    expect(content).toMatch(/pr-ready/);
+    expect(content).toMatch(/client_payload\[branch\]/);
+  });
 });
 
 describe("deploy workflow (deploy automático pós-merge)", () => {
@@ -59,14 +75,13 @@ describe("auto-merge workflow (dispara deploy após merge)", () => {
     expect(content).toMatch(/event_type="deploy"/);
   });
 
-  it("aprova run fantasma action_required (push do bot normalize) e mergeia", () => {
-    // Run criado por push do github-actions[bot] nasce 'action_required' com 0
-    // jobs (approval gate para runs disparados por GitHub Actions). O auto-merge
-    // aprova via API, aguarda a conclusão e mergeia se success.
-    expect(content).toMatch(/aprova-e-mergeia-fantasma/);
-    expect(content).toMatch(/conclusion == 'action_required'/);
-    expect(content).toMatch(/actions\/runs\/\$RUN_ID\/approve/);
-    expect(content).toMatch(/conclusion=success/);
+  it("mergeia via repository_dispatch pr-ready (fluxo do bot normalize)", () => {
+    // workflow_run NÃO dispara para runs action_required (approval gate) — o
+    // normalize aprova o run e notifica via pr-ready com client_payload.branch.
+    expect(content).toMatch(/repository_dispatch/);
+    expect(content).toMatch(/types: \[pr-ready\]/);
+    expect(content).toMatch(/mergeia-pr-ready/);
+    expect(content).toMatch(/client_payload\.branch/);
     expect(content).toMatch(/gh pr merge/);
   });
 });

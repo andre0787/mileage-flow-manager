@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `chore/ci-validar-approve`
-- **Último commit:** `2fccd65 — Merge pull request #267 from andre0787/docs/session-end-ci-approve`
+- **Branch:** `chore/ci-normalize-approve`
+- **Último commit:** `8382b35 — Merge pull request #268 from andre0787/chore/ci-validar-approve`
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -25,11 +25,11 @@ Nenhum PR aberto.
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
-**Objetivo:** CI: validar caminho de aprovação automática do run fantasma (auto-merge #266)
+**Objetivo:** CI: normalize aprova run fantasma e auto-merge mergeia via pr-ready
 **Status:** in_progress
-**Iniciada em:** 2026-08-05T00:43:38.491Z
-**Branch:** `chore/ci-validar-approve`
-**Último commit:** 2fccd65 — Merge pull request #267 from andre0787/docs/session-end-ci-approve
+**Iniciada em:** 2026-08-05T00:52:28.080Z
+**Branch:** `chore/ci-normalize-approve`
+**Último commit:** 8382b35 — Merge pull request #268 from andre0787/chore/ci-validar-approve
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.

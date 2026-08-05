@@ -7,10 +7,12 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   normalize:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -18,6 +20,7 @@ jobs:
           fetch-depth: 2
 
       - name: Normalize report prefix to PR number
+        id: normalize
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -27,6 +30,7 @@ jobs:
 
           if [ ! -d "$REPORTS_DIR" ]; then
             echo "ℹ️  Nenhum relatório em docs/reports/$TODAY/"
+            echo "pushed=no" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -56,6 +60,82 @@ jobs:
             git commit -m "chore: normalize report prefix to PR${PR_NUM}"
             git push origin "${{ github.head_ref }}"
             echo "✅ Relatório(s) renomeado(s) para PR${PR_NUM} e commitado na branch"
+            echo "pushed=yes" >> "$GITHUB_OUTPUT"
           else
             echo "✅ Nenhum relatório para renomear"
+            echo "pushed=no" >> "$GITHUB_OUTPUT"
           fi
+
+      # ── Aprovação do run fantasma ────────────────────────────────────
+      # O push do bot (GITHUB_TOKEN) cria um run de CI que nasce
+      # 'action_required' com 0 jobs (approval gate do GitHub para runs
+      # disparados por GitHub Actions). workflow_run NÃO dispara para esses
+      # runs → o auto-merge nunca os vê. Aqui aprovamos o run via API
+      # (reinicia com jobs reais), aguardamos a conclusão e avisamos o
+      # auto-merge via repository_dispatch 'pr-ready' para mergear.
+      - name: Aprovar run fantasma e notificar auto-merge
+        if: steps.normalize.outputs.pushed == 'yes'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="${{ github.head_ref }}"
+          NEW_SHA="$(git rev-parse HEAD)"
+
+          # 1) Achar o run de CI criado para o SHA do push do bot
+          RUN_ID=""
+          for i in $(seq 1 15); do
+            RUN_ID=$(gh api "/repos/${{ github.repository }}/actions/runs?head_sha=$NEW_SHA&per_page=5" \
+              --jq '.workflow_runs[] | select(.conclusion == "action_required") | .id' | head -1)
+            if [ -n "$RUN_ID" ]; then
+              echo "🔓 Run fantasma encontrado: $RUN_ID (SHA $NEW_SHA)"
+              break
+            fi
+            sleep 6
+          done
+
+          if [ -z "$RUN_ID" ]; then
+            echo "ℹ️  Nenhum run action_required para $NEW_SHA — nada a aprovar"
+            exit 0
+          fi
+
+          # 2) Aprovar — reinicia o run com jobs reais
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            "/repos/${{ github.repository }}/actions/runs/$RUN_ID/approve"
+          echo "✅ Run $RUN_ID aprovado — jobs em execução"
+
+          # 3) Aguardar conclusão (até ~20 min)
+          CONCLUSION=""
+          for i in $(seq 1 40); do
+            STATE=$(gh api "/repos/${{ github.repository }}/actions/runs/$RUN_ID" \
+              --jq '"\(.status) \(.conclusion)"')
+            echo "⏳ [$i] estado: $STATE"
+            case "$STATE" in
+              "completed success")
+                CONCLUSION="success"
+                break ;;
+              completed\ *)
+                CONCLUSION="failure"
+                echo "⚠️ Run concluído sem sucesso: $STATE"
+                exit 0 ;;
+            esac
+            sleep 30
+          done
+
+          if [ "$CONCLUSION" != "success" ]; then
+            echo "⏰ Timeout aguardando o run $RUN_ID"
+            exit 0
+          fi
+
+          # 4) Avisar o auto-merge (repository_dispatch com a branch)
+          echo "🚀 Notificando auto-merge (pr-ready) para $BRANCH..."
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/${{ github.repository }}/dispatches" \
+            -f event_type="pr-ready" \
+            -f "client_payload[branch]=$BRANCH" \
+            -f "client_payload[run_id]=$RUN_ID"
+          echo "✅ pr-ready enviado — auto-merge mergeará o PR"
