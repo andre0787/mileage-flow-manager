@@ -82,6 +82,13 @@ describe("ci workflow (eficiência PR)", () => {
   it("não tem trigger morto chore/npm-vuln-radar", () => {
     expect(content).not.toMatch(/npm-vuln-radar/);
   });
+
+  it("concurrency serial (cancel-in-progress: false) — evita run fantasma do bot normalize", () => {
+    // Run fantasma: push do bot normalize cancela o run anterior (cancel-in-progress: true)
+    // e o run novo nasce action_required com 0 jobs — PR fica sem checks no head final.
+    expect(content).toMatch(/cancel-in-progress: false/);
+    expect(content).not.toMatch(/cancel-in-progress: true/);
+  });
 });
 
 describe("nightly workflow (split paralelo)", () => {
