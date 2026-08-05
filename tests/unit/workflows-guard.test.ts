@@ -58,6 +58,17 @@ describe("auto-merge workflow (dispara deploy após merge)", () => {
     expect(content).toMatch(/dispatches/);
     expect(content).toMatch(/event_type="deploy"/);
   });
+
+  it("aprova run fantasma action_required (push do bot normalize) e mergeia", () => {
+    // Run criado por push do github-actions[bot] nasce 'action_required' com 0
+    // jobs (approval gate para runs disparados por GitHub Actions). O auto-merge
+    // aprova via API, aguarda a conclusão e mergeia se success.
+    expect(content).toMatch(/aprova-e-mergeia-fantasma/);
+    expect(content).toMatch(/conclusion == 'action_required'/);
+    expect(content).toMatch(/actions\/runs\/\$RUN_ID\/approve/);
+    expect(content).toMatch(/conclusion=success/);
+    expect(content).toMatch(/gh pr merge/);
+  });
 });
 
 describe("ci workflow (eficiência PR)", () => {
