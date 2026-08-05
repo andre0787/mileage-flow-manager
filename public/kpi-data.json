@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T02:05:59.527Z",
+  "generatedAt": "2026-08-05T03:40:20.978Z",
   "months": [
     {
       "month": "2026-03",
@@ -17,6 +17,7 @@
       "avgOutcomeGrade": null,
       "topViolations": [],
       "healedByRule": {},
+      "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 0,
       "llmRouter": {
@@ -47,6 +48,7 @@
       "avgOutcomeGrade": null,
       "topViolations": [],
       "healedByRule": {},
+      "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 0,
       "llmRouter": {
@@ -77,6 +79,7 @@
       "avgOutcomeGrade": null,
       "topViolations": [],
       "healedByRule": {},
+      "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 0,
       "llmRouter": {
@@ -107,6 +110,7 @@
       "avgOutcomeGrade": null,
       "topViolations": [],
       "healedByRule": {},
+      "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 0,
       "llmRouter": {
@@ -137,6 +141,7 @@
       "avgOutcomeGrade": null,
       "topViolations": [],
       "healedByRule": {},
+      "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 7,
       "llmRouter": {
@@ -153,9 +158,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 66.4,
-      "prePrTotal": 152,
-      "prePrPass": 101,
+      "prePrPassRate": 66.7,
+      "prePrTotal": 153,
+      "prePrPass": 102,
       "prePrFail": 51,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -187,9 +192,12 @@
           "count": 4
         }
       ],
-      "healedByRule": {},
+      "healedByRule": {
+        "rule-26": 1
+      },
+      "gateBlockedByRule": {},
       "avgCycleTimeHours": 0.3,
-      "branchesMerged": 28,
+      "branchesMerged": 29,
       "llmRouter": {
         "resolved": 6,
         "completed": 0,

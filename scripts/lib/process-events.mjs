@@ -11,13 +11,14 @@ export const PROCESS_EVENT_TYPES = Object.freeze([
   "rule:fail",
   "healed",
   "gate",
+  "gate:blocked",
   "llm.route.resolved",
   "llm.route.completed",
   "custom",
 ]);
 
 const CATEGORIES = new Set(["feature", "bugfix", "docs", "refactor", "chore"]);
-const GATES = new Set(["intent", "twins", "auth"]);
+const GATES = new Set(["intent", "twins", "auth", "council"]);
 const SENSITIVE_KEYS = new Set([
   "prompt",
   "input",
@@ -130,6 +131,12 @@ export function validateProcessEvent(event) {
     case "healed":
       if (!nonEmptyString(valueFromEvent(event, "rule"))) issues.push("healed rule is required");
       break;
+    case "gate:blocked": {
+      if (!nonEmptyString(valueFromEvent(event, "rule"))) issues.push("gate:blocked rule is required");
+      const gate = valueFromEvent(event, "gate");
+      if (gate !== undefined && !GATES.has(gate)) issues.push("gate:blocked gate must be intent, twins, auth or council");
+      break;
+    }
     case "gate": {
       const gate = valueFromEvent(event, "gate");
       if (!GATES.has(gate)) issues.push("gate must be intent, twins or auth");

@@ -19,6 +19,7 @@ import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 import { getDiffFiles } from "./lib.mjs";
 import { healSession } from "./lib/session-heal.mjs";
+import { healMapDocs } from "./lib/map-heal.mjs";
 import { stageGeneratedArtifacts } from "./lib/generated-artifacts.mjs";
 
 /**
@@ -53,6 +54,15 @@ const logger = {
   warn: console.warn,
   error: console.error
 };
+
+// Gates de julgamento (council 2026-08-05): NUNCA auto-corrigem. Quando falham,
+// o pre-pr registra `gate:blocked` (telemetria distinta de rule:fail) e mantém
+// o bloqueio — o KPI assim separa violação de ativação correta de gate.
+const GATE_RULES = new Map([
+  ["rule-27-council-veredict", "council"],
+  ["rule-33-intent-gate", "intent"],
+  ["rule-35-auth-gate", "auth"],
+]);
 
 function ok(label) { logger.log(`  ✅ ${label}`); }
 function fail(label) { logger.log(`  ❌ ${label}`); errors++; }
@@ -153,14 +163,18 @@ if (!process.argv.includes("--no-report")) {
   }
 }
 
-// ── Auto-heal de violações mecânicas de sessão (travas rule-26/rule-02) ──
-// Council 2026-08-05: violações 100% mecânicas são auto-corrigidas, não
-// delegadas ao humano. Cada heal é registrado como evento `healed` (telemetria
-// distinta de rule:fail). O handoff.md é stageado em seguida (Trava A: rule-10).
+// ── Auto-heal de violações mecânicas (travas do council 2026-08-05) ──
+// Fase 1: healSession corrige branch/docs da sessão (rule-26/rule-02).
+// Fase 2 (Trava C): healMapDocs registra docs novos no MAP.md (rule-17) com
+// marcação (auto), mantendo o índice curado intacto.
 try {
-  const healed = healSession(ROOT);
+  const healed = [...healSession(ROOT), ...healMapDocs(ROOT)];
   for (const rule of healed) {
-    logger.log(`  🔧 auto-heal: ${rule} corrigido no handoff (branch/docs)`);
+    if (rule === "rule-17-new-docs-valid") {
+      logger.log("  🔧 auto-heal: rule-17-new-docs-valid — docs novos registrados no MAP.md (seção auto)");
+    } else {
+      logger.log(`  🔧 auto-heal: ${rule} corrigido (sessão)`);
+    }
     execSync(
       `node scripts/event-log.mjs healed "${rule} auto-corrigido" --meta '{"rule":"${rule}","branch":"${gitExec("git rev-parse --abbrev-ref HEAD").trim()}"}' 2>/dev/null || true`,
       { cwd: ROOT, encoding: "utf8", timeout: 5000 },
@@ -197,13 +211,22 @@ for (const file of ruleFiles) {
     errors++;
     if (e.stdout) process.stdout.write(e.stdout + "\n");
     if (e.stderr) process.stderr.write(e.stderr + "\n");
-    // Registra a violação como evento (fonte do KPI "Top Violações")
+    // Registra o evento (fonte do KPI "Top Violações" / "Gates Bloqueados")
     try {
       const ruleName = file.replace(/\.mjs$/, "");
-      execSync(
-        `node scripts/event-log.mjs rule:fail "${ruleName} falhou" --meta '{"rule":"${ruleName}"}'`,
-        { cwd: ROOT, encoding: "utf8", timeout: 5000 },
-      );
+      const gate = GATE_RULES.get(ruleName);
+      if (gate) {
+        logger.log(`  🔐 gate:blocked — ${ruleName} (${gate}): julgamento humano requerido`);
+        execSync(
+          `node scripts/event-log.mjs gate:blocked "${ruleName} bloqueado pelo gate ${gate}" --meta '{"rule":"${ruleName}","gate":"${gate}","branch":"${gitExec("git rev-parse --abbrev-ref HEAD").trim()}"}' 2>/dev/null || true`,
+          { cwd: ROOT, encoding: "utf8", timeout: 5000 },
+        );
+      } else {
+        execSync(
+          `node scripts/event-log.mjs rule:fail "${ruleName} falhou" --meta '{"rule":"${ruleName}"}' 2>/dev/null || true`,
+          { cwd: ROOT, encoding: "utf8", timeout: 5000 },
+        );
+      }
     } catch { /* não bloqueante */ }
   }
 }

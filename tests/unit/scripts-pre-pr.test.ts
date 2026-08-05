@@ -105,7 +105,7 @@ describe("pre-pr auto-heal (travas do council 2026-08-05)", () => {
     expect(content).toMatch(/import \{ healSession \} from "\.\/lib\/session-heal\.mjs"/);
     expect(content).toMatch(/healSession\(ROOT\)/);
     expect(content).toMatch(/event-log\.mjs healed/);
-    expect(content).toMatch(/Auto-heal de violações mecânicas de sessão/);
+    expect(content).toMatch(/Auto-heal de violações mecânicas/);
   });
 
   it("stageia artefatos após heal (não deixa handoff unstaged)", () => {
@@ -120,5 +120,52 @@ describe("pre-pr auto-heal (travas do council 2026-08-05)", () => {
     expect(healIdx).toBeGreaterThan(-1);
     expect(rulesIdx).toBeGreaterThan(-1);
     expect(healIdx).toBeLessThan(rulesIdx);
+  });
+});
+
+describe("pre-pr Trava C (MAP.md auto-registrado, council 2026-08-05 Fase 2)", () => {
+  it("integra healMapDocs e registra evento healed para rule-17", () => {
+    const content = readFileSync(SCRIPT, "utf8");
+    expect(content).toMatch(/import \{ healMapDocs \} from "\.\/lib\/map-heal\.mjs"/);
+    expect(content).toMatch(/healMapDocs\(ROOT\)/);
+    expect(content).toMatch(/rule-17-new-docs-valid/);
+  });
+
+  it("stageia artefatos se MAP.md foi curado (não deixa unstaged)", () => {
+    const content = readFileSync(SCRIPT, "utf8");
+    const healMapIdx = content.indexOf("healMapDocs(ROOT)");
+    const stageIdx = content.indexOf("stageGeneratedArtifacts(ROOT)");
+    expect(healMapIdx).toBeGreaterThan(-1);
+    expect(stageIdx).toBeGreaterThan(healMapIdx);
+  });
+
+  it("MAP.md está nos artefatos gerados stageados (Trava A sobre o heal)", () => {
+    const content = readFileSync(resolve(ROOT, "scripts/lib/generated-artifacts.mjs"), "utf8");
+    expect(content).toMatch(/"docs\/MAP\.md"/);
+  });
+});
+
+describe("pre-pr Trava D (gate:blocked, council 2026-08-05 Fase 2)", () => {
+  it("gates de julgamento registram gate:blocked (não rule:fail) no catch de regras", () => {
+    const content = readFileSync(SCRIPT, "utf8");
+    expect(content).toMatch(/GATE_RULES|gate:blocked/);
+    expect(content).toMatch(/rule-27-council-veredict/);
+    expect(content).toMatch(/rule-33-intent-gate/);
+    expect(content).toMatch(/rule-35-auth-gate/);
+    expect(content).toMatch(/event-log\.mjs gate:blocked/);
+  });
+
+  it("gate continua bloqueando (errors++ — julgamento nunca auto-corrige)", () => {
+    const content = readFileSync(SCRIPT, "utf8");
+    // O catch que trata gate deve continuar incrementando errors
+    const gateSection = content.slice(content.indexOf("GATE_RULES"), content.indexOf("── Build ──"));
+    expect(gateSection).toContain("errors++");
+  });
+
+  it("rule-27 tem mensagem acionável com comando exato (council)", () => {
+    const rule27 = readFileSync(resolve(ROOT, "scripts/rules/rule-27-council-veredict.mjs"), "utf8");
+    expect(rule27).toMatch(/council-to-superpowers|council\.mjs|\.pi\/skills\/council-to-superpowers/);
+    expect(rule27).toMatch(/## Advisors/);
+    expect(rule27).toMatch(/## Síntese do Chairman/);
   });
 });

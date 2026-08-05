@@ -22,7 +22,7 @@ import { computeRouterKPI } from "./lib/router-kpi.mjs";
 
 /** @typedef {{ type: string, timestamp: string, data: Record<string,any> }} KPIEvent */
 
-/** @typedef {{ month: string, prePrPassRate: number, prePrTotal: number, prePrPass: number, prePrFail: number, testCoverageLibs: number|null, testCoverageComponents: number|null, gateActivations: {intent:number, twins:number, auth:number}, avgOutcomeGrade: number|null, topViolations: Array<{rule:string, count:number}>, healedByRule: Record<string, number>, avgCycleTimeHours: number|null, branchesMerged: number }} MonthlyKPI */
+/** @typedef {{ month: string, prePrPassRate: number, prePrTotal: number, prePrPass: number, prePrFail: number, testCoverageLibs: number|null, testCoverageComponents: number|null, gateActivations: {intent:number, twins:number, auth:number}, avgOutcomeGrade: number|null, topViolations: Array<{rule:string, count:number}>, healedByRule: Record<string, number>, gateBlockedByRule: Record<string, number>, avgCycleTimeHours: number|null, branchesMerged: number }} MonthlyKPI */
 
 // ─── Parser ──────────────────────────────────────────────────────────
 
@@ -228,6 +228,14 @@ export function computeMonthlyKPI(events, monthLabel) {
     healedByRule[rule] = (healedByRule[rule] ?? 0) + 1;
   }
 
+  // Gates bloqueados: eventos gate:blocked (julgamento humano exigido —
+  // separado de violação para o KPI não penalizar ativação correta do gate)
+  const gateBlockedByRule = {};
+  for (const g of events.filter((e) => e.type === "gate:blocked")) {
+    const rule = g.rule ?? g.data?.rule ?? g.description ?? "desconhecida";
+    gateBlockedByRule[rule] = (gateBlockedByRule[rule] ?? 0) + 1;
+  }
+
   // Branches merged: unique branches com pre-pr PASS no mês
   const branchesMerged = new Set(
     prePrs
@@ -247,6 +255,7 @@ export function computeMonthlyKPI(events, monthLabel) {
     avgOutcomeGrade,
     topViolations,
     healedByRule,
+    gateBlockedByRule,
     avgCycleTimeHours,
     branchesMerged,
     llmRouter: computeRouterKPI(events),
