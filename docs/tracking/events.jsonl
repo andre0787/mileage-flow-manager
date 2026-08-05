@@ -1203,3 +1203,7 @@
 {"timestamp":"2026-08-05T03:39:57.713Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/process-violations-fase2","commit":"d3931bc","rule":"rule-26"}
 {"timestamp":"2026-08-05T03:40:20.851Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-violations-fase2","commit":"d3931bc","errors":0}
 {"timestamp":"2026-08-05T03:41:02.747Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-violations-fase2","commit":"20bb644","errors":0}
+{"timestamp":"2026-08-05T04:23:00.735Z","type":"session:start","description":"bugfix: P2: diagnosticar e corrigir as falhas subagent_prelaunch do harness de subagentes (13+ falhas no KPI do router LLM, hoje com workaround inline)","branch":"main","commit":"088df44","categoria":"bugfix"}
+{"timestamp":"2026-08-05T04:25:55.186Z","type":"llm.route.resolved","description":"LLM route resolved","branch":"main","commit":"088df44","taskId":"p2-harness-probe","category":"bugfix","capability":"review","profile":"strong-reasoning","model":"opencode/deepseek-v4-flash-free","fallbackModels":[],"source":"category-default","retrySafety":"read-only","configVersion":1,"skills":[]}
+{"timestamp":"2026-08-05T04:31:51.944Z","type":"healed","description":"rule-26 auto-corrigido","branch":"fix/harness-subagents-p2","commit":"088df44","rule":"rule-26"}
+{"timestamp":"2026-08-05T04:32:14.299Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/harness-subagents-p2","commit":"088df44","errors":0}

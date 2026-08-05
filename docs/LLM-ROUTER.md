@@ -69,3 +69,22 @@ Eventos aceitam somente metadados estruturados. Não inclua prompts, respostas i
 ## Capacidades futuras
 
 `visual-inspection` é aceito pelo contrato para evolução futura, assim como o perfil conceitual `vision-observer`, mas nenhum browser runner, captura de screenshot ou provider multimodal é ativado no MVP. A captura visual futura deverá pertencer ao runtime controlado; o provider apenas analisará evidências já capturadas.
+
+## Harness de subagentes (diagnóstico P2)
+
+A delegação via `subagent_gate` depende do pacote **`pi-subagents`** instalado no ambiente:
+
+```bash
+pi install npm:pi-subagents   # único passo; extensão carrega no startup do pi
+```
+
+**Agentes válidos (catálogo builtin, v0.39+):** `advisor`, `context-builder`, `delegate`, `oracle`, `planner`, `researcher`, `reviewer`, `scout`, `worker`. A partir da 0.39.0 o harness valida agentes no pré-lançamento (`allowedAgents`): nomes fora do catálogo falham com `failureKind: "subagent_prelaunch"` (sem child run). Nomes históricos inválidos: `general-purpose`, `council-contrarian`, `review`, `process-guardrails-*`.
+
+**Verifique antes de delegar:**
+
+```bash
+npm run harness:check            # relatório informativo (read-only)
+npm run harness:check -- --check # exit 1 se o pacote estiver ausente
+```
+
+Se o pacote estiver ausente, **não** dispare `subagent_gate` — registre a falha como `llm.route.completed` com `status: "failed"` e `failureKind: "subagent_prelaunch"` apenas quando houver intenção real de lançar (o guard evita falhas reativas no KPI). Após instalar, reinicie a sessão do pi para a extensão registrar a tool.

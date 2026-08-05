@@ -77,7 +77,8 @@
     "rule:32": "node scripts/rules/rule-32-component-test-coverage.mjs",
     "kpi": "node scripts/kpi-report.mjs",
     "process:audit": "node scripts/process-audit.mjs",
-    "project:audit": "node scripts/project-audit.mjs"
+    "project:audit": "node scripts/project-audit.mjs",
+    "harness:check": "node scripts/harness-check.mjs"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.1",
