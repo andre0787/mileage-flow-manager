@@ -1141,3 +1141,12 @@
 {"timestamp":"2026-08-04T17:24:28.665Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/ci-efficiencia-fase1","commit":"3c2f561","rule":"rule-10-clean"}
 {"timestamp":"2026-08-04T17:25:36.215Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/ci-efficiencia-fase1","commit":"3c2f561","errors":0}
 {"timestamp":"2026-08-04T17:38:39.325Z","type":"session:end","description":"handoff atualizado","branch":"docs/session-end-ci-efficiencia","commit":"c37e154"}
+{"timestamp":"2026-08-04T17:57:03.940Z","type":"session:start","description":"chore: limpeza: remover marcador de conflito git residual do task-card P1-16","branch":"main","commit":"a90639d","categoria":"chore"}
+{"timestamp":"2026-08-04T17:57:46.387Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"docs/limpeza-conflito-p1-16","commit":"a90639d","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-04T17:57:48.305Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/limpeza-conflito-p1-16","commit":"a90639d","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-04T17:58:12.977Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"docs/limpeza-conflito-p1-16","commit":"a90639d","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-04T17:58:14.926Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/limpeza-conflito-p1-16","commit":"a90639d","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-05T00:14:28.292Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/limpeza-conflito-p1-16","commit":"a90639d","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-05T00:15:25.177Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/limpeza-conflito-p1-16","commit":"a90639d","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-05T00:15:51.651Z","type":"session:start","description":"chore: limpeza: remover marcador de conflito git residual do task-card P1-16","branch":"docs/limpeza-conflito-p1-16","commit":"a90639d","categoria":"chore"}
+{"timestamp":"2026-08-05T00:17:53.555Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/limpeza-conflito-p1-16","commit":"a90639d","errors":0}

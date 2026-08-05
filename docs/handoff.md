@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `docs/session-end-ci-efficiencia`
-- **Último commit:** `1ddfc6a` — Merge pull request #262 from andre0787/chore/ci-efficiencia-fase1
+- **Branch:** `docs/limpeza-conflito-p1-16`
+- **Último commit:** `a90639d — Merge pull request #263 from andre0787/docs/session-end-ci-efficiencia`
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -25,11 +25,11 @@ Nenhum PR aberto.
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
-**Objetivo:** CI: refinar eficiencia da esteira por tipo de implantacao (PR/main/nightly)
-**Status:** done
-**Iniciada em:** 2026-08-04T17:22:59.064Z
-**Branch:** `chore/ci-efficiencia-fase1`
-**Último commit:** 3c2f561 — docs: update handoff (#261)
+**Objetivo:** limpeza: remover marcador de conflito git residual do task-card P1-16
+**Status:** in_progress
+**Iniciada em:** 2026-08-05T00:15:51.627Z
+**Branch:** `docs/limpeza-conflito-p1-16`
+**Último commit:** a90639d — Merge pull request #263 from andre0787/docs/session-end-ci-efficiencia
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
