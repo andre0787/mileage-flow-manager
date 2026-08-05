@@ -22,6 +22,7 @@ describe("generated-artifacts allowlist", () => {
   it("contém os artefatos gerados conhecidos", () => {
     expect([...GENERATED_ARTIFACTS].sort()).toEqual([
       "docs/RADAR.md",
+      "docs/handoff.md",
       "docs/tracking/events-archive.jsonl",
       "docs/tracking/events.jsonl",
       "docs/tracking/quality-archive.jsonl",

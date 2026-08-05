@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `docs/session-end-done`
-- **Último commit:** `b9ffe38` — Merge pull request #271 from andre0787/docs/session-end-ghost-run
+- **Branch:** `main`
+- **Último commit:** `1bc72cf — Merge pull request #272 from andre0787/docs/session-end-done`
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,13 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** session:end — run fantasma resolvido
-**Status:** done
-**Iniciada em:** 2026-08-05T01:21:07.241Z
-**Branch:** `docs/session-end-ghost-run`
-**Último commit:** 501dfaf — Merge pull request #270 from andre0787/docs/validacao-pr-ready
-**Docs carregados:** AGENTS.md
+**Categoria:** feature
+**Objetivo:** Planejar e implementar travas para mitigar as top violações do KPI de processo
+**Status:** in_progress
+**Iniciada em:** 2026-08-05T01:36:26.912Z
+**Branch:** `feat/process-violations-travas`
+**Último commit:** 1bc72cf — Merge pull request #272 from andre0787/docs/session-end-done
+**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão

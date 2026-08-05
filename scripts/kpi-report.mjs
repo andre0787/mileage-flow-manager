@@ -22,7 +22,7 @@ import { computeRouterKPI } from "./lib/router-kpi.mjs";
 
 /** @typedef {{ type: string, timestamp: string, data: Record<string,any> }} KPIEvent */
 
-/** @typedef {{ month: string, prePrPassRate: number, prePrTotal: number, prePrPass: number, prePrFail: number, testCoverageLibs: number|null, testCoverageComponents: number|null, gateActivations: {intent:number, twins:number, auth:number}, avgOutcomeGrade: number|null, topViolations: Array<{rule:string, count:number}>, avgCycleTimeHours: number|null, branchesMerged: number }} MonthlyKPI */
+/** @typedef {{ month: string, prePrPassRate: number, prePrTotal: number, prePrPass: number, prePrFail: number, testCoverageLibs: number|null, testCoverageComponents: number|null, gateActivations: {intent:number, twins:number, auth:number}, avgOutcomeGrade: number|null, topViolations: Array<{rule:string, count:number}>, healedByRule: Record<string, number>, avgCycleTimeHours: number|null, branchesMerged: number }} MonthlyKPI */
 
 // ─── Parser ──────────────────────────────────────────────────────────
 
@@ -221,6 +221,13 @@ export function computeMonthlyKPI(events, monthLabel) {
     .sort((a, b) => b.count - a.count)
     .slice(0, 5);
 
+  // Auto-heals: eventos healed registrados pelo pre-pr (fricção removida por regra)
+  const healedByRule = {};
+  for (const h of events.filter((e) => e.type === "healed")) {
+    const rule = h.rule ?? h.data?.rule ?? h.description ?? "desconhecida";
+    healedByRule[rule] = (healedByRule[rule] ?? 0) + 1;
+  }
+
   // Branches merged: unique branches com pre-pr PASS no mês
   const branchesMerged = new Set(
     prePrs
@@ -239,6 +246,7 @@ export function computeMonthlyKPI(events, monthLabel) {
     gateActivations,
     avgOutcomeGrade,
     topViolations,
+    healedByRule,
     avgCycleTimeHours,
     branchesMerged,
     llmRouter: computeRouterKPI(events),

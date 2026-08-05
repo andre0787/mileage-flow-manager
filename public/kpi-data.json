@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T01:21:29.750Z",
+  "generatedAt": "2026-08-05T02:05:59.527Z",
   "months": [
     {
       "month": "2026-03",
@@ -16,6 +16,7 @@
       },
       "avgOutcomeGrade": null,
       "topViolations": [],
+      "healedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 0,
       "llmRouter": {
@@ -45,6 +46,7 @@
       },
       "avgOutcomeGrade": null,
       "topViolations": [],
+      "healedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 0,
       "llmRouter": {
@@ -74,6 +76,7 @@
       },
       "avgOutcomeGrade": null,
       "topViolations": [],
+      "healedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 0,
       "llmRouter": {
@@ -103,6 +106,7 @@
       },
       "avgOutcomeGrade": null,
       "topViolations": [],
+      "healedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 0,
       "llmRouter": {
@@ -132,6 +136,7 @@
       },
       "avgOutcomeGrade": null,
       "topViolations": [],
+      "healedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 7,
       "llmRouter": {
@@ -148,9 +153,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 66.2,
-      "prePrTotal": 151,
-      "prePrPass": 100,
+      "prePrPassRate": 66.4,
+      "prePrTotal": 152,
+      "prePrPass": 101,
       "prePrFail": 51,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -159,7 +164,7 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 94.2,
+      "avgOutcomeGrade": 94.3,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -171,19 +176,20 @@
         },
         {
           "rule": "rule-17-new-docs-valid",
-          "count": 12
+          "count": 14
         },
         {
           "rule": "rule-27-council-veredict",
-          "count": 6
+          "count": 8
         },
         {
           "rule": "rule-02-category-loading",
           "count": 4
         }
       ],
+      "healedByRule": {},
       "avgCycleTimeHours": 0.3,
-      "branchesMerged": 27,
+      "branchesMerged": 28,
       "llmRouter": {
         "resolved": 6,
         "completed": 0,

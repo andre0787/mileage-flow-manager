@@ -9,6 +9,7 @@ export const PROCESS_EVENT_TYPES = Object.freeze([
   "pr:create",
   "pr:merge",
   "rule:fail",
+  "healed",
   "gate",
   "llm.route.resolved",
   "llm.route.completed",
@@ -125,6 +126,9 @@ export function validateProcessEvent(event) {
     }
     case "rule:fail":
       if (!nonEmptyString(valueFromEvent(event, "rule"))) issues.push("rule:fail rule is required");
+      break;
+    case "healed":
+      if (!nonEmptyString(valueFromEvent(event, "rule"))) issues.push("healed rule is required");
       break;
     case "gate": {
       const gate = valueFromEvent(event, "gate");

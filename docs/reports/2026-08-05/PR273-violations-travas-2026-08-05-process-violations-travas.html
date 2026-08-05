@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>process-violations-travas — process violations travas</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 process violations travas</h1>
+  <p class="meta">2026-08-05 23:14 &middot; feat/process-violations-travas &middot; 6aefcdb — feat(processo): travas de auto-heal para top violações do KPI (rule-10/26/02)</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">process-violations-travas</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">19</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+707</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-41</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~755</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Auto-gerado pelo pre-pr-check</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Relatório gerado automaticamente como parte do workflow de validação pré-PR</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 41 remoções — 1006 linhas tocadas</td>
+        <td>✨ 707 adições — 19 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/MAP.md, docs/RADAR.md, docs/handoff.md<br><span style="color:#166534;font-weight:600">➕</span> docs/council/2026-08-05-process-violations-veredito.md, docs/reports/2026-08-05/main-2026-08-05-main.html<br><em>+14 arquivo(s)</em></td>
+      </tr>
+      
+      <tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>19</td></tr>
+    <tr><td>Adições</td><td>+707</td></tr>
+    <tr><td>Remoções</td><td>-41</td></tr>
+    <tr><td>Tokens estimados</td><td>~755</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:70">+530 add</div>
+        <div class="del" style="flex:4">-31 del</div>
+        <div class="overhead" style="flex:26">~194 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+530</td><td>70%</td></tr>
+      <tr><td>Remoções</td><td>-31</td><td>4%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~194</td><td>26%</td></tr>
+      <tr><th>Total</th><th>~755</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>A</td><td>docs/council/2026-08-05-process-violations-veredito.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-05/main-2026-08-05-main.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-05/process-violations-travas-2026-08-05-process-violations-travas.html</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td></tr>
+<tr><td>M</td><td>scripts/event-log.mjs</td></tr>
+<tr><td>M</td><td>scripts/kpi-report.mjs</td></tr>
+<tr><td>M</td><td>scripts/lib/generated-artifacts.mjs</td></tr>
+<tr><td>M</td><td>scripts/lib/process-events.mjs</td></tr>
+<tr><td>A</td><td>scripts/lib/session-heal.mjs</td></tr>
+<tr><td>M</td><td>scripts/pre-pr-check.mjs</td></tr>
+<tr><td>M</td><td>tests/unit/generated-artifacts.test.ts</td></tr>
+<tr><td>M</td><td>tests/unit/process-events.test.ts</td></tr>
+<tr><td>M</td><td>tests/unit/scripts-pre-pr.test.ts</td></tr>
+<tr><td>A</td><td>tests/unit/session-heal.test.ts</td></tr>
+  </table>
+
+  
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/docs/MAP.md b/docs/MAP.md
+index de975ca..0d384b8 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -50,7 +50,7 @@
+ | `docs/memory.md` | Contexto de sessões anteriores | Histórico de decisões, sprints, post-mortems |
+ | `docs/IDEIAS.md` | Caixa de entrada de ideias | Ideias humanas pendentes, lidas no início da sessão |
+ | `docs/FLUXO.md` | Diagramas do ecossistema | Flowcharts Mermaid: visão geral, fluxo de dados, rotas |
+<span class="del">-| `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md`, `2026-08-01-llm-model-router-veredito.md`, `2026-08-03-process-kpis-router-sanitizacao-veredito.md`, `2026-08-04-ux-entradas-vendas-veredito.md` |</span>
+<span class="add">+| `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md`, `2026-08-01-llm-model-router-veredito.md`, `2026-08-03-process-kpis-router-sanitizacao-veredito.md`, `2026-08-04-ux-entradas-vendas-veredito.md`, `2026-08-05-process-violations-veredito.md` |</span>
+ | `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md`, `2026-08-01-llm-model-router-design.md`, `2026-08-03-process-guardrails-design.md`, `2026-08-03-llm-router-kpi-design.md`, `2026-08-03-project-sanitization-design.md`, `2026-08-03-react-router-8-upgrade-design.md`, `2026-08-04-ux-entradas-vendas.md` |
+ | `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md`, `2026-07-29-auth-ci-plan.md`, `2026-07-29-fable-method-skill-plan.md`, `2026-08-01-llm-model-router-plan.md`, `2026-08-03-process-guardrails-plan.md`, `2026-08-03-llm-router-kpi-plan.md`, `2026-08-03-project-sanitization-plan.md` |
+ | [`docs/LLM-ROUTER.md`](LLM-ROUTER.md) | Router de subagentes | Contrato operacional, comandos, precedência, auditoria e escopo multimodal futuro |
+diff --git a/docs/RADAR.md b/docs/RADAR.md
+index c1addcf..bd14307 100644
+<span class="del">--- a/docs/RADAR.md</span>
+<span class="add">+++ b/docs/RADAR.md</span>
+@@ -1,6 +1,6 @@
+ # 🔭 Radar de Vulnerabilidades
+ 
+<span class="del">-&gt; Atualizado em: 2026-08-05T01:21:07.234Z</span>
+<span class="add">+&gt; Atualizado em: 2026-08-05T01:36:26.904Z</span>
+ 
+ ## ✅ Radar Limpo
+ Nenhuma vulnerabilidade ativa detectada.
+diff --git a/docs/council/2026-08-05-process-violations-veredito.md b/docs/council/2026-08-05-process-violations-veredito.md
+new file mode 100644
+index 0000000..a1049a7
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/council/2026-08-05-process-violations-veredito.md</span>
+@@ -0,0 +1,68 @@
+<span class="add">+# Veredito do Council — Travas de mitigação das top violações do KPI de processo</span>
+<span class="add">+</span>
+<span class="add">+&gt; **Data:** 2026-08-05</span>
+<span class="add">+&gt; **Sessão:** feature — planejar e implementar travas para mitigar top violações do KPI de processo</span>
+<span class="add">+&gt; **Fonte de dados:** `docs/tracking/events.jsonl` (agosto/2026, via `kpi-report.mjs`)</span>
+<span class="add">+</span>
+<span class="add">+## Contexto (dados reais)</span>
+<span class="add">+</span>
+<span class="add">+| Regra | Falhas | Classe |</span>
+<span class="add">+|-------|--------|--------|</span>
+<span class="add">+| rule-10-clean (git status limpo) | 65 | Mecânica (artefatos do próprio workflow ficam unstaged) |</span>
+<span class="add">+| rule-26-session-started (branch da sessão) | 31 | Mecânica (session:start antes de criar a branch) |</span>
+<span class="add">+| rule-17-new-docs-valid (MAP.md) | 12 | Semi-mecânica (docs gerados por skills sem auto-registro) |</span>
+<span class="add">+| rule-27-council-veredict (council feature) | 6 | Gate de julgamento (fricção intencional) |</span>
+<span class="add">+| rule-02-category-loading (docs por categoria) | 4 | Mecânica (categoria herdada sem re-sync) |</span>
+<span class="add">+</span>
+<span class="add">+118 eventos `rule:fail` em 51 pre-pr FAILs (151 execuções; pass rate 66,2%).</span>
+<span class="add">+~2-4h/mês de fricção manual estimada (retries de pre-pr).</span>
+<span class="add">+</span>
+<span class="add">+## Advisors</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Contrarian</span>
+<span class="add">+</span>
+<span class="add">+**Análise:** O perigo central é o **auto-healing transformar o KPI em mentira**. Se o pre-pr corrige tudo sozinho, `rule:fail` some do events.jsonl e o KPI mostra 0 violações — não porque o processo melhorou, mas porque deixou de medir. Especificamente: (1) `git add` automático no hook pode commitar lixo (logs, fixtures de debug) — mitigar com whitelist de artefatos conhecidos; (2) auto-registro no MAP.md pode poluir um índice curado com entradas inúteis; (3) auto-update de branch no handoff pode mascarar um problema real de sessão na branch errada. E o caso rule-27 é suspeito: 6 falhas em features — se o council é obrigatório e o usuário não rodou, **a trava JÁ funcionou** (bloqueou o commit). "Mitigar" rule-27 pode significar enfraquecer um gate intencional.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Reformule — auto-heal apenas para violações *mecânicas* comprovadas (rule-10, rule-26, rule-02); manter gates de *julgamento* (rule-27, rule-17) com auto-heal parcial (MAP.md auto-registrado com marcação clara "auto"); telemetria deve registrar `healed` separado de `violation`.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: First Principles Thinker</span>
+<span class="add">+</span>
+<span class="add">+**Análise:** Por que o KPI existe? Para medir **custo de fricção do processo**, não virtude moral. Uma violação que o script sabe corrigir sozinho (branch do handoff desatualizada) não é falha de disciplina — é **atrito mecânico mal desenhado**. O princípio: *o computador deve fazer trabalho mecânico; o humano deve fazer julgamento*. rule-10/26/02 são 100% mecânicas — o sistema tem toda a informação (branch atual, categoria, arquivos) e ainda assim delega ao humano o `git add` e o `session:start` repetido. rule-27/35/33 (council/auth/intent) são gates de julgamento — não podem auto-corrigir, mas podem (a) falhar com mensagem de ação acionável, (b) registrar o bloqueio como ativação de gate (evento distinto), não como violação.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Faça — auto-heal mecânico + separar telemetria (healed/blocked/violation), com gate de julgamento intacto.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Expansionist</span>
+<span class="add">+</span>
+<span class="add">+**Análise:** Oportunidades: (1) cada auto-heal registra um evento `healed` com regra e causa → o KPI ganha métrica nova "fricção removida" (impacto real mensurável); (2) o padrão de auto-heal no pre-pr é replicável para outras regras mecânicas; (3) MAP.md auto-registrado com seção "Índice gerado" mantém o índice curado intacto; (4) o mesmo mecanismo de staging pode cobrir handoff.md + relatórios → rule-10 despenca; (5) meta: zero violações mecânicas no mês seguinte.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Faça — e adicione `healed` à telemetria + métrica no dashboard /kpi.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Outsider</span>
+<span class="add">+</span>
+<span class="add">+**Análise:** Se o pre-pr *sabe* que o handoff está com a branch errada, por que ele não atualiza em vez de gritar "Execute: npm run session:start"? Por que o hook gera um relatório HTML que fica untracked e depois acusa o usuário de working tree sujo? O processo atual pune o usuário por algo que o script causou. 151 pre-prs em um mês é volume alto; 118 falhas ≈ 2-4 horas de fricção pura no mês. As travas devem eliminar a *classe* de erro, não a ocorrência individual.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Faça — ataque as classes: (1) staging completo de artefatos no hook, (2) auto-sync de branch/categoria no handoff, (3) auto-registro MAP.md, (4) mensagens acionáveis nos gates de julgamento.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Executor</span>
+<span class="add">+</span>
+<span class="add">+**Análise:** Viabilidade por trava: (A) rule-10 → adicionar `docs/handoff.md` ao `GENERATED_ARTIFACTS` + staging automático pós-pre-pr — trivial, testável; (B) rule-26 → pre-pr detecta divergência e auto-atualiza o handoff (com evento `healed:rule-26`) — médio, cuidado com loop (auto-update não deve re-disparar regras); (C) rule-17 → auto-append no MAP.md com seção gerada + re-validação — médio, escopo decidir; (D) rule-27 → manter bloqueio, adicionar mensagem com comando exato do council + telemetria distinta; (E) rule-02 → auto-sync igual ao B. Testes: regras têm fixtures (`__fixtures__`), padrão TDD do projeto. Risco principal: `git add` automático commitar arquivos não intencionais — whitelist mitigável; auto-heal do handoff exige execução não-interativa.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito:** Faça — escopo em 2 fases: fase 1 = A+B+E (mecânicas, ~90% das violações), fase 2 = C+D (MAP.md auto + telemetria de gates).</span>
+<span class="add">+</span>
+<span class="add">+## Peer Review (resumido)</span>
+<span class="add">+</span>
+<span class="add">+- Contrarian reforça: **nunca auto-corrigir gate de julgamento**; telemetria `healed` ≠ `violation` (aceito por todos).</span>
+<span class="add">+- First Principles: KPI deve medir fricção mecânica + ativação de gates separadamente (concordância unânime).</span>
+<span class="add">+- Expansionist: métrica "fricção removida" vira KPI novo (aceito; fase 2).</span>
+<span class="add">+- Outsider: hook causa o problema (relatório untracked) — o fix do hook deve incluir o staging do que ele próprio gerou (aceito).</span>
+<span class="add">+- Executor: fase 1 não toca rule-17/27 (mantém gates); fase 2 com marcação "auto" no MAP.md (aceito).</span>
+<span class="add">+</span>
+<span class="add">+## Síntese do Chairman</span>
+<span class="add">+</span>
+<span class="add">+**Consenso:** Auto-healing para violações 100% mecânicas; gates de julgamento intactos com mensagens acionáveis; telemetria separando `healed` (auto-corrigido) de `violation` (humano ignorou) e ativações de gate (julgamento acionado).</span>
+<span class="add">+</span>
+<span class="add">+**Veredito Final:** **Faça** — Fase 1 (esta sessão): travas A (rule-10: staging completo + handoff nos artefatos), B (rule-26: auto-sync de branch), E (rule-02: auto-sync de categoria/docs) + telemetria `healed`. Fase 2 (próxima sessão): C (MAP.md auto-registrado), D (mensagens acionáveis + telemetria de gates).</span>
+<span class="add">+</span>
+<span class="add">+**Próximos Passos:** brainstorming → spec → TDD (RED → GREEN) → pre-pr → PR. Guards novos para as travas.</span>
+<span class="add">+</span>
+<span class="add">+**Extended Thinking Usado:** não</span>
+diff --git a/docs/handoff.md b/docs/handoff.md
+index 205c152..2098ff2 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -9,8 +9,8 @@
+ ### 🐞 Bugs Abertos
+ Consulte as GitHub Issues para a lista atual.
+ ## 🧭 Estado Atual
+<span class="del">-- **Branch:** `docs/session-end-done`</span>
+<span class="del">-- **Último commit:** `b9ffe38` — Merge pull request #271 from andre0787/docs/session-end-ghost-run</span>
+<span class="add">+- **Branch:** `main`</span>
+<span class="add">+- **Último commit:** `1bc72cf — Merge pull request #272 from andre0787/docs/session-end-done`</span>
+ - **Remote:** no remote
+ ### 📋 PRs Abertos
+ Nenhum PR aberto.
+@@ -24,13 +24,13 @@ Nenhum PR aberto.
+ ---
+ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
+ ## 🎯 Sessão Atual
+<span class="del">-**Categoria:** chore</span>
+<span class="del">-**Objetivo:** session:end — run fantasma resolvido</span>
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>

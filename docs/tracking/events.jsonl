@@ -1192,3 +1192,10 @@
 {"timestamp":"2026-08-05T01:20:40.336Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-ghost-run","commit":"501dfaf","rule":"rule-26-session-started"}
 {"timestamp":"2026-08-05T01:21:07.263Z","type":"session:start","description":"chore: session:end — run fantasma resolvido","branch":"docs/session-end-ghost-run","commit":"501dfaf","categoria":"chore"}
 {"timestamp":"2026-08-05T01:21:29.625Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-ghost-run","commit":"501dfaf","errors":0}
+{"timestamp":"2026-08-05T01:32:16.336Z","type":"session:end","description":"handoff atualizado","branch":"docs/session-end-done","commit":"3ebc48a"}
+{"timestamp":"2026-08-05T01:36:26.935Z","type":"session:start","description":"feature: Planejar e implementar travas para mitigar as top violações do KPI de processo","branch":"main","commit":"1bc72cf","categoria":"feature"}
+{"timestamp":"2026-08-05T02:03:55.586Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/process-violations-travas","commit":"1bc72cf","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-05T02:03:57.564Z","type":"rule:fail","description":"rule-27-council-veredict falhou","branch":"feat/process-violations-travas","commit":"1bc72cf","rule":"rule-27-council-veredict"}
+{"timestamp":"2026-08-05T02:04:23.270Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/process-violations-travas","commit":"1bc72cf","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-05T02:04:25.228Z","type":"rule:fail","description":"rule-27-council-veredict falhou","branch":"feat/process-violations-travas","commit":"1bc72cf","rule":"rule-27-council-veredict"}
+{"timestamp":"2026-08-05T02:05:59.403Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-violations-travas","commit":"1bc72cf","errors":0}
