@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T00:52:50.029Z",
+  "generatedAt": "2026-08-05T01:13:04.202Z",
   "months": [
     {
       "month": "2026-03",
@@ -148,10 +148,10 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 66.9,
-      "prePrTotal": 145,
-      "prePrPass": 97,
-      "prePrFail": 48,
+      "prePrPassRate": 66,
+      "prePrTotal": 150,
+      "prePrPass": 99,
+      "prePrFail": 51,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -159,11 +159,11 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 93.9,
+      "avgOutcomeGrade": 94.1,
       "topViolations": [
         {
           "rule": "rule-10-clean",
-          "count": 62
+          "count": 65
         },
         {
           "rule": "rule-26-session-started",
@@ -183,7 +183,7 @@
         }
       ],
       "avgCycleTimeHours": 0.3,
-      "branchesMerged": 25,
+      "branchesMerged": 26,
       "llmRouter": {
         "resolved": 6,
         "completed": 0,
