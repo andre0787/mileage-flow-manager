@@ -1,5 +1,5 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-08-04
+> ⏰ Última atualização: 2026-08-05
 > Anterior: 2026-08-04
 ---
 ## 🏗️ Projeto
@@ -9,24 +9,24 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `chore/ci-approve-ghost-run`
-- **Último commit:** `d2a9592 — Merge pull request #265 from andre0787/chore/ci-ghost-run-fix`
+- **Branch:** `docs/session-end-ci-approve`
+- **Último commit:** `611c3f3` — Merge pull request #266 from andre0787/chore/ci-approve-ghost-run
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 410 |
+| Total testes | 412 |
 | Docs issues | 0 |
-| Branch | docs/session-end-ci-efficiencia |
+| Branch | docs/session-end-ci-approve |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
 **Objetivo:** CI: auto-merge aprova run fantasma action_required do bot normalize (approval gate)
-**Status:** in_progress
+**Status:** done
 **Iniciada em:** 2026-08-05T00:33:29.490Z
 **Branch:** `chore/ci-approve-ghost-run`
 **Último commit:** d2a9592 — Merge pull request #265 from andre0787/chore/ci-ghost-run-fix
@@ -57,6 +57,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Observação: gh não autenticado por padrão — usar `GH_TOKEN` do `.env` da raiz (`grep GH_TOKEN .env`)
 - **✅ LIMPEZA GIT CONCLUÍDA (PR #257 + handoff-cleanup):** 17 branches locais + 34 branches remotas órfãs deletadas (todas verificadas: conteúdo já no main por SHA); worktrees antigos removidos; só `main` no local e no remoto; `main == origin/main == da89e84`
 - Trailing whitespace em `docs/reports/*.html` (gerados) e hard-breaks md das specs é esperado — git diff --check acusa, sem ação
+
 
 
 
