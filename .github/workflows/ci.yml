@@ -5,11 +5,10 @@ on:
     branches: [main]
 
 concurrency:
-  # cancel-in-progress: false (serial) — cancelar o run anterior quando o push
-  # do bot normalize chega cria um run fantasma 'action_required' com 0 jobs
-  # (race de cancelamento); o run seguinte nunca agenda jobs e o PR fica sem
-  # checks verdes no head final — exigindo commit vazio manual para re-disparar.
-  # Com serialização, o run do head final executa normalmente.
+  # cancel-in-progress: false (serial) — evita que um push em rajada cancele o
+  # run do head final. O run fantasma 'action_required' (0 jobs) do push do bot
+  # normalize é um approval gate do GitHub para runs disparados por GitHub
+  # Actions — resolvido no auto-merge (aprova via API e mergeia).
   group: ci-pr-${{ github.head_ref || github.ref }}
   cancel-in-progress: false
 

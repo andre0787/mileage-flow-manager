@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `chore/ci-ghost-run-fix`
-- **Último commit:** `32ca742 — Merge pull request #264 from andre0787/docs/limpeza-conflito-p1-16`
+- **Branch:** `chore/ci-approve-ghost-run`
+- **Último commit:** `d2a9592 — Merge pull request #265 from andre0787/chore/ci-ghost-run-fix`
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -25,11 +25,11 @@ Nenhum PR aberto.
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
-**Objetivo:** CI: eliminar run fantasma action_required no push do bot normalize (concurrency cancel race)
+**Objetivo:** CI: auto-merge aprova run fantasma action_required do bot normalize (approval gate)
 **Status:** in_progress
-**Iniciada em:** 2026-08-05T00:24:38.302Z
-**Branch:** `chore/ci-ghost-run-fix`
-**Último commit:** 32ca742 — Merge pull request #264 from andre0787/docs/limpeza-conflito-p1-16
+**Iniciada em:** 2026-08-05T00:33:29.490Z
+**Branch:** `chore/ci-approve-ghost-run`
+**Último commit:** d2a9592 — Merge pull request #265 from andre0787/chore/ci-ghost-run-fix
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
