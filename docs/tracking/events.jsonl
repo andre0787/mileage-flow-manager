@@ -1188,3 +1188,7 @@
 {"timestamp":"2026-08-05T01:10:31.693Z","type":"pre-pr","description":"pre-pr FAIL","branch":"docs/validacao-pr-ready","commit":"a2d4132","errors":1}
 {"timestamp":"2026-08-05T01:12:42.073Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/validacao-pr-ready","commit":"a2d4132","errors":0}
 {"timestamp":"2026-08-05T01:13:04.079Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/validacao-pr-ready","commit":"a2d4132","errors":0}
+{"timestamp":"2026-08-05T01:20:02.562Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-ghost-run","commit":"501dfaf","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-05T01:20:40.336Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-ghost-run","commit":"501dfaf","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-05T01:21:07.263Z","type":"session:start","description":"chore: session:end — run fantasma resolvido","branch":"docs/session-end-ghost-run","commit":"501dfaf","categoria":"chore"}
+{"timestamp":"2026-08-05T01:21:29.625Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-ghost-run","commit":"501dfaf","errors":0}
