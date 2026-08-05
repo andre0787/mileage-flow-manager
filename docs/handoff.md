@@ -26,7 +26,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** feature
 **Objetivo:** Fase 2 das travas do KPI: Trava C (MAP.md auto-registrado) + Trava D (mensagens acionaveis + gate:blocked)
-**Status:** in_progress
+**Status:** done
 **Iniciada em:** 2026-08-05T03:38:59.094Z
 **Branch:** `feat/process-violations-fase2`
 **Último commit:** d3931bc — Merge pull request #274 from andre0787/docs/session-end-process-violations
@@ -36,7 +36,7 @@ Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
 Continue a tarefa ativa ou selecione o próximo task-card.
 ## 🧠 Notas da Sessão Atual
-- **FASE 2 EM ANDAMENTO (PR #276):** Trava C — `scripts/lib/map-heal.mjs` (`healMapDocs`) registra docs novos no MAP.md (seção "🤖 Índice Auto-Gerado" com marcação `(auto)`), idempotente, ignora reports/archive/council/thoughts, integrado ao pre-pr com evento `healed`; MAP.md entrou em GENERATED_ARTIFACTS (Trava A sobre o heal). Trava D — gates de julgamento (rule-27/33/35) registram `gate:blocked` no pre-pr (telemetria distinta de rule:fail, gate continua bloqueando com errors++); parser aceita o tipo novo (`rule` obrigatória, `gate` validado: intent/twins/auth/council); `gateBlockedByRule` no KPI (não contamina topViolations); rule-27 com mensagens acionáveis (comando council-to-superpowers + seções canônicas).
-- **Validação real da Trava C:** pre-pr com doc de teste curou o MAP.md no repo real + evento healed gravado (03:34:54) — validado e limpo (doc/entrada/evento removidos; working tree sem resíduo).
-- **Atenção:** `git checkout -- .` reverte também edições não commitadas — na limpeza desta sessão derrubou código/testes e o handoff; reaplicado e re-registrado via session:start.
-- **Dados do KPI (agosto/2026):** 118 rule:fail em 51 pre-pr FAILs (66,2% pass rate) — rule-10 ×65, rule-26 ×31, rule-17 ×12, rule-27 ×6, rule-02 ×4
+- **✅ SESSÃO CONCLUÍDA (PR #275 merged 03:52 + deploy success):** Fase 2 das travas do KPI entregue — Trava C: `scripts/lib/map-heal.mjs` (`healMapDocs`) registra docs novos no MAP.md na seção "🤖 Índice Auto-Gerado" (marcação `(auto)`), idempotente, ignora reports/archive/council/thoughts, integrado ao pre-pr com evento `healed`; MAP.md em GENERATED_ARTIFACTS. Trava D: gates de julgamento (rule-27/33/35) registram `gate:blocked` no pre-pr (bloqueio mantido, telemetria separada de rule:fail); parser valida tipo novo (rule obrigatória; gate: intent/twins/auth/council); `gateBlockedByRule` no KPI; rule-27 com mensagens acionáveis (comando council-to-superpowers + seções canônicas). 456 testes (20 novos); lint 0 errors.
+- **Validação real da Trava C:** pre-pr com doc de teste curou o MAP.md no repo real (03:34) + evento healed gravado; resíduo limpo (working tree sem lixo).
+- **Aprendizado:** `git checkout -- .` reverte também edições não commitadas (derrubou código/testes/handoff no meio da sessão — reaplicado e re-registrado via session:start). Usar `git restore --staged` + remoção seletiva.
+- **Dados do KPI (agosto/2026):** 118 rule:fail em 51 pre-pr FAILs (66,2%) — agora mecânicas auto-curam (rule-10/26/17/02) e gates têm telemetria própria (gate:blocked).
