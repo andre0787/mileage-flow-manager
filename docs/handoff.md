@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `docs/session-end-ci-approve`
-- **Último commit:** `611c3f3` — Merge pull request #266 from andre0787/chore/ci-approve-ghost-run
+- **Branch:** `chore/ci-validar-approve`
+- **Último commit:** `2fccd65 — Merge pull request #267 from andre0787/docs/session-end-ci-approve`
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -25,11 +25,11 @@ Nenhum PR aberto.
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
-**Objetivo:** CI: auto-merge aprova run fantasma action_required do bot normalize (approval gate)
-**Status:** done
-**Iniciada em:** 2026-08-05T00:33:29.490Z
-**Branch:** `chore/ci-approve-ghost-run`
-**Último commit:** d2a9592 — Merge pull request #265 from andre0787/chore/ci-ghost-run-fix
+**Objetivo:** CI: validar caminho de aprovação automática do run fantasma (auto-merge #266)
+**Status:** in_progress
+**Iniciada em:** 2026-08-05T00:43:38.491Z
+**Branch:** `chore/ci-validar-approve`
+**Último commit:** 2fccd65 — Merge pull request #267 from andre0787/docs/session-end-ci-approve
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
