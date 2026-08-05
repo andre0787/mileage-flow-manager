@@ -1,6 +1,6 @@
 # HANDOFF — MilesControl
 > ⏰ Última atualização: 2026-08-05
-> Anterior: 2026-08-04
+> Anterior: 2026-08-05
 ---
 ## 🏗️ Projeto
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
@@ -9,27 +9,27 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `docs/validacao-pr-ready`
-- **Último commit:** `a2d4132 — Merge pull request #269 from andre0787/chore/ci-normalize-approve`
-- **Remote:** no remote
+- **Branch:** `docs/session-end-ghost-run`
+- **Último commit:** `501dfaf — Merge pull request #270 from andre0787/docs/validacao-pr-ready`
+- **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 412 |
+| Total testes | 414 |
 | Docs issues | 0 |
-| Branch | docs/session-end-ci-approve |
+| Branch | main |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
-**Objetivo:** CI: validar ciclo pr-ready completo (normalize aprova ghost → auto-merge mergeia)
+**Objetivo:** session:end — run fantasma resolvido
 **Status:** in_progress
-**Iniciada em:** 2026-08-05T01:08:08.008Z
-**Branch:** `docs/validacao-pr-ready`
-**Último commit:** a2d4132 — Merge pull request #269 from andre0787/chore/ci-normalize-approve
+**Iniciada em:** 2026-08-05T01:21:07.241Z
+**Branch:** `docs/session-end-ghost-run`
+**Último commit:** 501dfaf — Merge pull request #270 from andre0787/docs/validacao-pr-ready
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
@@ -41,7 +41,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - **🧩 Aprendizados P1:** (1) `react-router-dom` NÃO tem v8 — v8 unifica no core `react-router` (imports migrados em 13 arquivos); (2) React 19 exige atualizar next-themes/recharts 2.15/sonner 2/vaul 1; (3) manualChunks com array não captura React 19 — usar função com `id.includes` (senão index estoura o budget 750KB → 943KB); (4) `gh pr edit` requer scope read:org — usar REST PATCH no body
 - **⏭️ P2 restante (roadmap):** harness de subagentes `subagent_prelaunch` (infra fora do repo)
 - **✅ P0 CONCLUÍDO (PR #251, produção `1a3457d`):** removido `[skip ci]` do commit do `Normalize PR Report`; guard de regressão `tests/unit/workflows-guard.test.ts` (RED→GREEN, 381/381 testes); pre-pr 58 checks
-- **ℹ️ Pós-merge P0:** mesmo sem `[skip ci]`, push do normalize (GITHUB_TOKEN) pode criar run `action_required` fantasma sem jobs quando concurrency cancela o anterior — workaround: commit vazio "re-disparar CI" (aplicado no #251); reavaliar em sessão futura
+- **✅ RUN FANTASMA RESOLVIDO (PRs #269/#270):** causa raiz = approval gate do GitHub para runs disparados por GitHub Actions (push do bot GITHUB_TOKEN) — o run nasce `action_required` com 0 jobs e `workflow_run` **não dispara** para ele (job de aprovação no auto-merge #266 era inalcançável; validado empiricamente no #268). Fix: `normalize-pr-report.yml` aprova o próprio ghost via API (`actions: write`), aguarda conclusão e notifica `repository_dispatch pr-ready`; `auto-merge.yml` escuta `pr-ready` (job `mergeia-pr-ready`) + retry 6×15s no merge (race: workflow_run dispara antes dos status checks registrarem → "base branch policy prohibits the merge"). Validação #270: normalize pusheou (ghost não nasceu desta vez), run do bot completou, auto-merge com retry mergeou na tentativa final, deploy disparado — **ciclo inteiro sem intervenção humana**; ghost intermitente (3/5 PRs) → pr-ready é a rede de segurança que fecha o ciclo quando ele nascer
 - **Roadmap criado:** `docs/ROADMAP.md` (itens P1-P4: react-router GHSA, npm audit, subagentes `subagent_prelaunch`, branch órfã) + link no MAP.md
 - **📋 ITENS DO FUTURO (prioridade sugerida — aprovar na próxima sessão):**
   1. **P0 — Fix do `Normalize PR Report` com `[skip ci]`**: workflow commita `[skip ci]` no head e a proteção da main (check-pr + e2e-smoke) deixa PRs subsequentes `blocked` (CI não roda no head renomeado). Workaround atual: commit vazio "re-disparar CI". Fix: remover `[skip ci]` do commit de normalize ou re-trigger do CI no SHA normalizado
@@ -57,6 +57,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Observação: gh não autenticado por padrão — usar `GH_TOKEN` do `.env` da raiz (`grep GH_TOKEN .env`)
 - **✅ LIMPEZA GIT CONCLUÍDA (PR #257 + handoff-cleanup):** 17 branches locais + 34 branches remotas órfãs deletadas (todas verificadas: conteúdo já no main por SHA); worktrees antigos removidos; só `main` no local e no remoto; `main == origin/main == da89e84`
 - Trailing whitespace em `docs/reports/*.html` (gerados) e hard-breaks md das specs é esperado — git diff --check acusa, sem ação
+
 
 
 

@@ -11,8 +11,7 @@
 |---|------|-----|------------|
 | 0 | P0 — Fix do `Normalize PR Report` com `[skip ci]` | [#251](https://github.com/andre0787/mileage-flow-manager/pull/251) | Workflow commita sem `[skip ci]`; guard de regressão em `tests/unit/workflows-guard.test.ts`; produção `1a3457d` |
 | 1 | P1 — GHSA-qwww-vcr4-c8h2 (react-router) + npm audit | [#253](https://github.com/andre0787/mileage-flow-manager/pull/253) | `react-router@8.3.0` + React 19.2.8; política de dependência em `project-audit.mjs`; `npm audit --omit=dev` → **0 vulnerabilidades**; produção `0637337` |
-
-> ⚠️ **Observação P0 (pós-merge):** mesmo sem `[skip ci]`, o push do normalize (GITHUB_TOKEN) pode criar run `action_required` fantasma sem jobs quando o concurrency cancela o anterior. Workaround: commit vazio para re-disparar CI (documentado no handoff).
+| 2 | P1 — Run fantasma `action_required` do push do normalize | [#269](https://github.com/andre0787/mileage-flow-manager/pull/269) + [#270](https://github.com/andre0787/mileage-flow-manager/pull/270) | **Causa raiz**: approval gate do GitHub para runs disparados por GitHub Actions; `workflow_run` NÃO dispara para `action_required`. **Fix**: normalize aprova o próprio ghost via API (`actions: write`), aguarda e notifica `repository_dispatch pr-ready`; auto-merge escuta `pr-ready` + retry 6×15s no merge (race de registro de checks). **Validação #270**: merge + deploy 100% automáticos, zero intervenção |
 
 ---
 
