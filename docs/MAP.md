@@ -40,6 +40,7 @@
 > **Coleção de task-cards** (`docs/tasks/`): 25 cards granulares em 4 ondas (P0/P1/P2/P3).
 > O índice navegável está em `docs/tasks/ROADMAP.md`. Cards P3 de housekeeping:
 > `P3-23-delete-archive-debris.md`, `P3-24-retire-changelog.md`, `P3-25-clean-thoughts.md`.
+> Cards P1 de infraestrutura de regras: `P1-15-fixtures-negativas-regras.md`, `P1-16-ast-regras-alto-risco.md`, `P1-17-invariantes-financeiras.md`, `P1-18-e2e-estabiliza.md`.
 
 ## Docs do Ecossistema
 
