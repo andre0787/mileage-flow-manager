@@ -48,11 +48,25 @@ jobs:
           PR_NUM="${{ steps.pr.outputs.num }}"
           BRANCH="${{ steps.pr.outputs.branch }}"
           echo "🔀 Mergindo PR #${PR_NUM} (branch: ${BRANCH})"
+          # O workflow_run dispara quando o run completa, mas os status checks
+          # do head podem não estar registrados ainda (race com a branch
+          # protection) — retry com backoff resolve.
+          for i in 1 2 3 4 5 6; do
+            if gh pr merge "$PR_NUM" \
+              --repo "${{ github.repository }}" \
+              --merge \
+              --delete-branch 2>/dev/null; then
+              echo "✅ PR #${PR_NUM} merged e branch deletada (tentativa $i)"
+              exit 0
+            fi
+            echo "⏳ Tentativa $i falhou (checks em registro?) — aguardando 15s"
+            sleep 15
+          done
+          # Última tentativa com erro visível
           gh pr merge "$PR_NUM" \
             --repo "${{ github.repository }}" \
             --merge \
             --delete-branch
-          echo "✅ PR #${PR_NUM} merged e branch deletada"
 
       - name: Disparar deploy de produção
         if: steps.pr.outputs.num != ''
@@ -106,11 +120,22 @@ jobs:
           PR_NUM="${{ steps.pr.outputs.num }}"
           BRANCH="${{ steps.pr.outputs.branch }}"
           echo "🔀 Mergindo PR #${PR_NUM} (branch: ${BRANCH})"
+          # Mesmo retry do fluxo normal (registro de checks vs branch protection)
+          for i in 1 2 3 4 5 6; do
+            if gh pr merge "$PR_NUM" \
+              --repo "${{ github.repository }}" \
+              --merge \
+              --delete-branch 2>/dev/null; then
+              echo "✅ PR #${PR_NUM} merged e branch deletada (tentativa $i)"
+              exit 0
+            fi
+            echo "⏳ Tentativa $i falhou (checks em registro?) — aguardando 15s"
+            sleep 15
+          done
           gh pr merge "$PR_NUM" \
             --repo "${{ github.repository }}" \
             --merge \
             --delete-branch
-          echo "✅ PR #${PR_NUM} merged e branch deletada"
 
       - name: Disparar deploy de produção
         if: steps.pr.outputs.num != ''
