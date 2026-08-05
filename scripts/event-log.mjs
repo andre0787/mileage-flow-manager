@@ -52,6 +52,7 @@ const TIPOS_VALIDOS = [
   "rule:fail",
   "healed",
   "gate",
+  "gate:blocked",
   "llm.route.resolved",
   "llm.route.completed",
   "custom",

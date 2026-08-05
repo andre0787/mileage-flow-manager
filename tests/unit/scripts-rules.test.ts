@@ -610,3 +610,39 @@ describe("rule-scope", () => {
     expect(out).toMatch(/Nenhum card ativo/);
   });
 });
+
+// ─── rule-27-council-veredict (gate de julgamento, Trava D) ──────
+
+describe("rule-27-council-veredict (mensagens acionáveis — Trava D)", () => {
+  it("deve falhar com comando acionável quando docs/council/ não existe", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/teste 2>/dev/null", tmp);
+      const res = runRuleOnFixture("rule-27-council-veredict.mjs", tmp);
+      expect(res.status).not.toBe(0);
+      const out = (res.stdout || "") + (res.error || "");
+      expect(out).toContain("council-to-superpowers");
+      expect(out).toContain(".pi/skills/council-to-superpowers");
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve falhar listando as seções obrigatórias + dica de correção", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/teste 2>/dev/null", tmp);
+      mkdirSync(join(tmp, "docs/council"), { recursive: true });
+      writeFileSync(
+        join(tmp, "docs/council/2026-08-05-x-veredito.md"),
+        "# Veredito\nSem as seções obrigatórias.\n",
+      );
+      const res = runRuleOnFixture("rule-27-council-veredict.mjs", tmp);
+      expect(res.status).not.toBe(0);
+      const out = (res.stdout || "") + (res.error || "");
+      expect(out).toContain("## Advisors");
+      expect(out).toContain("## Síntese do Chairman");
+      expect(out).toMatch(/Adicione as seções/i);
+    } finally { cleanTempFixture(tmp); }
+  });
+});

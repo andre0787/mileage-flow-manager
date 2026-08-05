@@ -64,7 +64,11 @@ function main() {
 
   // Verifica se docs/council/ existe e tem arquivos
   if (!existsSync(COUNCIL_DIR)) {
-    console.error("❌ rule-27: docs/council/ não encontrado. Crie o diretório com o veredito do council.");
+    console.error("❌ rule-27: docs/council/ não encontrado.");
+    console.error("   Workflow feature exige council antes de implementar.");
+    console.error("   Ação: execute o council-to-superpowers →");
+    console.error("   .pi/skills/council-to-superpowers/SKILL.md (5 advisors + peer review + chairman)");
+    console.error("   e salve o veredito em docs/council/YYYY-MM-DD-<tema>-veredito.md");
     process.exit(1);
   }
 
@@ -73,7 +77,9 @@ function main() {
 
   if (councilFiles.length === 0) {
     console.error("❌ rule-27: nenhum veredito do council encontrado em docs/council/");
-    console.error("   Workflow feature exige council. Execute o council-to-superpowers primeiro.");
+    console.error("   Ação: rode o council-to-superpowers (skill em .pi/skills/council-to-superpowers/SKILL.md)");
+    console.error("   e salve o veredito com as seções canônicas. Exemplo:");
+    console.error("   docs/council/2026-08-05-<tema>-veredito.md");
     process.exit(1);
   }
 
@@ -88,6 +94,10 @@ function main() {
 
   if (missing.length > 0) {
     console.error(`❌ rule-27: veredito ${latest} sem seções obrigatórias: ${missing.join(", ")}`);
+    console.error("   Adicione as seções canônicas ao arquivo do veredito:");
+    console.error("   - ## Advisors (5 advisors: Contrarian, First Principles, Expansionist, Outsider, Executor + peer review)");
+    console.error("   - ## Síntese do Chairman (veredito final + próximos passos)");
+    console.error("   Depois re-rode o pre-pr.");
     process.exit(1);
   }
 

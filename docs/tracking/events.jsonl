@@ -1199,3 +1199,7 @@
 {"timestamp":"2026-08-05T02:04:23.270Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/process-violations-travas","commit":"1bc72cf","rule":"rule-17-new-docs-valid"}
 {"timestamp":"2026-08-05T02:04:25.228Z","type":"rule:fail","description":"rule-27-council-veredict falhou","branch":"feat/process-violations-travas","commit":"1bc72cf","rule":"rule-27-council-veredict"}
 {"timestamp":"2026-08-05T02:05:59.403Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-violations-travas","commit":"1bc72cf","errors":0}
+{"timestamp":"2026-08-05T03:38:59.117Z","type":"session:start","description":"feature: Fase 2 das travas do KPI: Trava C (MAP.md auto-registrado) + Trava D (mensagens acionaveis + gate:blocked)","branch":"main","commit":"d3931bc","categoria":"feature"}
+{"timestamp":"2026-08-05T03:39:57.713Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/process-violations-fase2","commit":"d3931bc","rule":"rule-26"}
+{"timestamp":"2026-08-05T03:40:20.851Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-violations-fase2","commit":"d3931bc","errors":0}
+{"timestamp":"2026-08-05T03:41:02.747Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-violations-fase2","commit":"20bb644","errors":0}

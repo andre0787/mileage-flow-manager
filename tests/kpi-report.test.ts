@@ -95,6 +95,23 @@ describe("computeMonthlyKPI", () => {
     expect(result.branchesMerged).toBe(2);
   });
 
+  it("separa gate:blocked (bloqueio) de rule:fail (violação) em gateBlockedByRule", () => {
+    const events = [
+      { type: "rule:fail", timestamp: "2026-07-04T10:00:00Z", rule: "rule-10-clean" },
+      { type: "gate:blocked", timestamp: "2026-07-05T10:00:00Z", rule: "rule-27-council-veredict", gate: "council" },
+      { type: "gate:blocked", timestamp: "2026-07-06T10:00:00Z", rule: "rule-27-council-veredict", gate: "council" },
+      { type: "gate:blocked", timestamp: "2026-07-07T10:00:00Z", rule: "rule-33-intent-gate", gate: "intent" },
+    ];
+    const result = computeMonthlyKPI(events, "2026-07");
+    // Violação (rule:fail) não contamina gateBlockedByRule
+    expect(result.gateBlockedByRule["rule-27-council-veredict"]).toBe(2);
+    expect(result.gateBlockedByRule["rule-33-intent-gate"]).toBe(1);
+    expect(result.gateBlockedByRule["rule-10-clean"]).toBeUndefined();
+    // E gate:blocked não contamina topViolations (rule:fail)
+    expect(result.topViolations.find((v) => v.rule === "rule-27-council-veredict")).toBeUndefined();
+    expect(result.topViolations[0].rule).toBe("rule-10-clean");
+  });
+
   it("returns zero-filled KPI for empty event list", () => {
     const result = computeMonthlyKPI([], "2026-07");
     expect(result.prePrPassRate).toBe(0);

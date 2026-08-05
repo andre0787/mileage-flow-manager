@@ -21,6 +21,7 @@ function makeRepo() {
 describe("generated-artifacts allowlist", () => {
   it("contém os artefatos gerados conhecidos", () => {
     expect([...GENERATED_ARTIFACTS].sort()).toEqual([
+      "docs/MAP.md",
       "docs/RADAR.md",
       "docs/handoff.md",
       "docs/tracking/events-archive.jsonl",

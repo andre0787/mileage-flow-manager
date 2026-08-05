@@ -15,6 +15,7 @@ import { execFileSync } from "child_process";
 export const GENERATED_ARTIFACTS = Object.freeze([
   "docs/RADAR.md",
   "docs/handoff.md",
+  "docs/MAP.md",
   "docs/tracking/events.jsonl",
   "docs/tracking/quality.jsonl",
   "docs/tracking/events-archive.jsonl",

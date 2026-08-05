@@ -80,6 +80,38 @@ describe("process-events validation", () => {
     expect(issues).toEqual(expect.arrayContaining([expect.stringMatching(/rule/i)]));
   });
 
+  it("aceita gate:blocked com regra (telemetria de bloqueio de gate)", () => {
+    expect(
+      validateProcessEvent({
+        type: "gate:blocked",
+        timestamp: "2026-08-05T10:00:00Z",
+        rule: "rule-27-council-veredict",
+        gate: "council",
+        branch: "feat/x",
+      }),
+    ).toEqual([]);
+  });
+
+  it("rejeita gate:blocked sem regra e com gate desconhecido", () => {
+    const issues = validateProcessEvent({
+      type: "gate:blocked",
+      timestamp: "2026-08-05T10:00:00Z",
+      gate: "magic",
+    });
+    expect(issues).toEqual(expect.arrayContaining([expect.stringMatching(/rule/i)]));
+    expect(issues).toEqual(expect.arrayContaining([expect.stringMatching(/gate/i)]));
+  });
+
+  it("aceita gate de council no tipo gate (novo gate do workflow feature)", () => {
+    expect(
+      validateProcessEvent({
+        type: "gate",
+        timestamp: "2026-08-05T10:00:00Z",
+        gate: "council",
+      }),
+    ).toEqual([]);
+  });
+
   it("valida eventos router pelo contrato compartilhado", () => {
     expect(validateProcessEvent(resolvedEvent)).toEqual([]);
     expect(
