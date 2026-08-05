@@ -9,17 +9,17 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `d3931bc — Merge pull request #274 from andre0787/docs/session-end-process-violations`
+- **Branch:** `docs/session-end-fase2`
+- **Último commit:** `af57fe6` — session:end — Fase 2 das travas do KPI entregue (PR #275 merged, deploy success)
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 428 |
+| Total testes | 444 |
 | Docs issues | 0 |
-| Branch | docs/session-end-process-violations |
+| Branch | docs/session-end-fase2 |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
