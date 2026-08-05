@@ -97,3 +97,27 @@ describe("pre-pr-check com controle de diff e git info", () => {
     }
   });
 });
+
+describe("pre-pr auto-heal (travas do council 2026-08-05)", () => {
+  it("integra healSession antes das regras e registra evento healed", () => {
+    const content = require("fs").readFileSync(SCRIPT, "utf8");
+    expect(content).toMatch(/import \{ healSession \} from "\.\/lib\/session-heal\.mjs"/);
+    expect(content).toMatch(/healSession\(ROOT\)/);
+    expect(content).toMatch(/event-log\.mjs healed/);
+    expect(content).toMatch(/Auto-heal de violações mecânicas de sessão/);
+  });
+
+  it("stageia artefatos após heal (não deixa handoff unstaged)", () => {
+    const content = require("fs").readFileSync(SCRIPT, "utf8");
+    expect(content).toMatch(/if \(healed\.length > 0\) stageGeneratedArtifacts\(ROOT\)/);
+  });
+
+  it("heal roda ANTES do loop de regras (ordem do source)", () => {
+    const content = require("fs").readFileSync(SCRIPT, "utf8");
+    const healIdx = content.indexOf("healSession(ROOT)");
+    const rulesIdx = content.indexOf("── Regras ──");
+    expect(healIdx).toBeGreaterThan(-1);
+    expect(rulesIdx).toBeGreaterThan(-1);
+    expect(healIdx).toBeLessThan(rulesIdx);
+  });
+});

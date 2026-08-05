@@ -18,6 +18,7 @@ import { existsSync, readdirSync, renameSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 import { getDiffFiles } from "./lib.mjs";
+import { healSession } from "./lib/session-heal.mjs";
 import { stageGeneratedArtifacts } from "./lib/generated-artifacts.mjs";
 
 /**
@@ -31,6 +32,15 @@ function gitExec(cmd, opts = {}) {
     delete env[key];
   }
   return execSync(cmd, { cwd: ROOT, encoding: "utf8", timeout: 5000, ...opts, env: { ...env, ...(opts.env || {}) } });
+}
+
+const GIT_CONTEXT_KEYS = ["GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_COMMON_DIR", "GIT_PREFIX"];
+
+/** Retorna env sem contexto Git herdado de hooks (índice temporário do commit). */
+function cleanGitEnv() {
+  const env = { ...process.env };
+  for (const key of GIT_CONTEXT_KEYS) delete env[key];
+  return env;
 }
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -102,7 +112,7 @@ if (!process.argv.includes("--no-report")) {
           }
           if (reportFiles.length > 0) {
             logger.log(`  ✅ ${reportFiles.length} relatório(s) renomeado(s) para ${prefix}`);
-            execSync(`git add docs/reports/${today}/ 2>/dev/null || true`, { cwd: ROOT, timeout: 3000 });
+            execSync(`git add -A docs/reports/${today}/ 2>/dev/null || true`, { cwd: ROOT, env: cleanGitEnv(), timeout: 3000 });
           }
         }
         logger.log("  ⏭️  apenas docs/reports/ alterados");
@@ -134,13 +144,31 @@ if (!process.argv.includes("--no-report")) {
     if (out) logger.log(`  ${out}`);
 
     // Staging o relatório gerado para não quebrar a regra #10
-    execSync(`git add docs/reports/${today}/ 2>/dev/null || true`, { cwd: ROOT, timeout: 3000 });
+    execSync(`git add -A docs/reports/${today}/ 2>/dev/null || true`, { cwd: ROOT, env: cleanGitEnv(), timeout: 3000 });
     }
   } catch (e) {
     logger.log(`  ❌ relatório automático FALHOU: ${e.message.slice(0, 100)}`);
     logger.log("     Dica: gere manualmente com: npm run report \"descrição\" --benefits \"...\" --impact \"...\" --write");
     process.exit(1);
   }
+}
+
+// ── Auto-heal de violações mecânicas de sessão (travas rule-26/rule-02) ──
+// Council 2026-08-05: violações 100% mecânicas são auto-corrigidas, não
+// delegadas ao humano. Cada heal é registrado como evento `healed` (telemetria
+// distinta de rule:fail). O handoff.md é stageado em seguida (Trava A: rule-10).
+try {
+  const healed = healSession(ROOT);
+  for (const rule of healed) {
+    logger.log(`  🔧 auto-heal: ${rule} corrigido no handoff (branch/docs)`);
+    execSync(
+      `node scripts/event-log.mjs healed "${rule} auto-corrigido" --meta '{"rule":"${rule}","branch":"${gitExec("git rev-parse --abbrev-ref HEAD").trim()}"}' 2>/dev/null || true`,
+      { cwd: ROOT, encoding: "utf8", timeout: 5000 },
+    );
+  }
+  if (healed.length > 0) stageGeneratedArtifacts(ROOT);
+} catch (e) {
+  logger.warn(`  ⚠️  auto-heal de sessão falhou: ${e.message.slice(0, 100)}`);
 }
 
 // ── Regras ───────────────────────────────────────────────────────────

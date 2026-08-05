@@ -61,6 +61,25 @@ describe("process-events validation", () => {
     expect(issues.join(" ")).not.toContain("segredo");
   });
 
+  it("aceita healed com regra (telemetria de auto-correção)", () => {
+    expect(
+      validateProcessEvent({
+        type: "healed",
+        timestamp: "2026-08-05T10:00:00Z",
+        rule: "rule-26",
+        branch: "feat/x",
+      }),
+    ).toEqual([]);
+  });
+
+  it("rejeita healed sem regra", () => {
+    const issues = validateProcessEvent({
+      type: "healed",
+      timestamp: "2026-08-05T10:00:00Z",
+    });
+    expect(issues).toEqual(expect.arrayContaining([expect.stringMatching(/rule/i)]));
+  });
+
   it("valida eventos router pelo contrato compartilhado", () => {
     expect(validateProcessEvent(resolvedEvent)).toEqual([]);
     expect(

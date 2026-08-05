@@ -50,6 +50,7 @@ const TIPOS_VALIDOS = [
   "pr:create",
   "pr:merge",
   "rule:fail",
+  "healed",
   "gate",
   "llm.route.resolved",
   "llm.route.completed",
