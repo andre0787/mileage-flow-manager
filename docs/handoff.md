@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `chore/ci-normalize-approve`
-- **Último commit:** `8382b35 — Merge pull request #268 from andre0787/chore/ci-validar-approve`
+- **Branch:** `docs/validacao-pr-ready`
+- **Último commit:** `a2d4132 — Merge pull request #269 from andre0787/chore/ci-normalize-approve`
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -25,11 +25,11 @@ Nenhum PR aberto.
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
-**Objetivo:** CI: normalize aprova run fantasma e auto-merge mergeia via pr-ready
+**Objetivo:** CI: validar ciclo pr-ready completo (normalize aprova ghost → auto-merge mergeia)
 **Status:** in_progress
-**Iniciada em:** 2026-08-05T00:52:28.080Z
-**Branch:** `chore/ci-normalize-approve`
-**Último commit:** 8382b35 — Merge pull request #268 from andre0787/chore/ci-validar-approve
+**Iniciada em:** 2026-08-05T01:08:08.008Z
+**Branch:** `docs/validacao-pr-ready`
+**Último commit:** a2d4132 — Merge pull request #269 from andre0787/chore/ci-normalize-approve
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
