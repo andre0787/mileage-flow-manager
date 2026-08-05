@@ -9,17 +9,17 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `088df44 — Merge pull request #276 from andre0787/docs/session-end-fase2`
+- **Branch:** `docs/session-end-harness-p2`
+- **Último commit:** `5e896ec` — session:end — P2 harness de subagentes resolvido (PR #277 merged, deploy success)
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 444 |
+| Total testes | 451 |
 | Docs issues | 0 |
-| Branch | docs/session-end-fase2 |
+| Branch | docs/session-end-harness-p2 |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
