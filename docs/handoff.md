@@ -9,9 +9,9 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `docs/session-end-ghost-run`
-- **Último commit:** `501dfaf — Merge pull request #270 from andre0787/docs/validacao-pr-ready`
-- **Remote:** origin/main
+- **Branch:** `docs/session-end-done`
+- **Último commit:** `b9ffe38` — Merge pull request #271 from andre0787/docs/session-end-ghost-run
+- **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
@@ -19,14 +19,14 @@ Nenhum PR aberto.
 |---------|-------|
 | Total testes | 414 |
 | Docs issues | 0 |
-| Branch | main |
+| Branch | docs/session-end-done |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
 **Objetivo:** session:end — run fantasma resolvido
-**Status:** in_progress
+**Status:** done
 **Iniciada em:** 2026-08-05T01:21:07.241Z
 **Branch:** `docs/session-end-ghost-run`
 **Último commit:** 501dfaf — Merge pull request #270 from andre0787/docs/validacao-pr-ready
@@ -57,6 +57,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - Observação: gh não autenticado por padrão — usar `GH_TOKEN` do `.env` da raiz (`grep GH_TOKEN .env`)
 - **✅ LIMPEZA GIT CONCLUÍDA (PR #257 + handoff-cleanup):** 17 branches locais + 34 branches remotas órfãs deletadas (todas verificadas: conteúdo já no main por SHA); worktrees antigos removidos; só `main` no local e no remoto; `main == origin/main == da89e84`
 - Trailing whitespace em `docs/reports/*.html` (gerados) e hard-breaks md das specs é esperado — git diff --check acusa, sem ação
+
 
 
 
