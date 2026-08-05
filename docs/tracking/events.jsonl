@@ -1177,3 +1177,5 @@
 {"timestamp":"2026-08-05T00:44:53.704Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/ci-validar-approve","commit":"2fccd65","errors":2}
 {"timestamp":"2026-08-05T00:45:20.368Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/ci-validar-approve","commit":"2fccd65","errors":0}
 {"timestamp":"2026-08-05T00:45:47.904Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/ci-validar-approve","commit":"2fccd65","errors":0}
+{"timestamp":"2026-08-05T00:52:28.103Z","type":"session:start","description":"chore: CI: normalize aprova run fantasma e auto-merge mergeia via pr-ready","branch":"chore/ci-normalize-approve","commit":"8382b35","categoria":"chore"}
+{"timestamp":"2026-08-05T00:52:49.904Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/ci-normalize-approve","commit":"8382b35","errors":0}

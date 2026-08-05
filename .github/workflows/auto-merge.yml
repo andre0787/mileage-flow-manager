@@ -4,6 +4,8 @@ on:
   workflow_run:
     workflows: ["CI PR Check"]
     types: [completed]
+  repository_dispatch:
+    types: [pr-ready]
 
 permissions:
   contents: write
@@ -11,102 +13,12 @@ permissions:
   actions: write
 
 jobs:
-  # ── Run fantasma do bot (approval gate) ──────────────────────────────
-  # O Normalize PR Report (github-actions[bot] + GITHUB_TOKEN) renomeia o
-  # relatório e faz push no head do PR. O pull_request event cria um run de
-  # CI que nasce 'action_required' com 0 jobs: o repo exige aprovação para
-  # runs disparados por GitHub Actions (gate de segurança).
-  #
-  # Aprovar via API reinicia o run com jobs reais. Como workflow_run NÃO
-  # re-dispara para o attempt aprovado, este job aprova, aguarda a conclusão
-  # e mergeia o PR se o run concluir success (checks verdes no head final).
-  aprova-e-mergeia-fantasma:
-    if: >
-      github.event.workflow_run.conclusion == 'action_required' &&
-      github.event.workflow_run.head_branch != github.event.repository.default_branch
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-
-    steps:
-      - name: Aprovar run aguardando aprovação
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          RUN_ID="${{ github.event.workflow_run.id }}"
-          echo "🔓 Aprovando run $RUN_ID (action_required do push do bot)..."
-          gh api \
-            --method POST \
-            -H "Accept: application/vnd.github+json" \
-            "/repos/${{ github.repository }}/actions/runs/$RUN_ID/approve"
-          echo "✅ Run aprovado — jobs serão executados"
-
-      - name: Aguardar conclusão do run aprovado
-        id: wait
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          RUN_ID="${{ github.event.workflow_run.id }}"
-          for i in $(seq 1 40); do
-            STATE=$(gh api "/repos/${{ github.repository }}/actions/runs/$RUN_ID" \
-              --jq '"\(.status) \(.conclusion)"')
-            echo "⏳ [$i] estado: $STATE"
-            case "$STATE" in
-              "completed success")
-                echo "✅ Run concluído com sucesso"
-                echo "conclusion=success" >> "$GITHUB_OUTPUT"
-                exit 0 ;;
-              completed\ *)
-                echo "⚠️ Run concluído sem sucesso: $STATE (sem merge automático)"
-                echo "conclusion=failure" >> "$GITHUB_OUTPUT"
-                exit 0 ;;
-            esac
-            sleep 30
-          done
-          echo "⏰ Timeout aguardando o run — merge manual necessário"
-          echo "conclusion=timeout" >> "$GITHUB_OUTPUT"
-
-      - name: Merge PR (checks verdes no head final)
-        if: steps.wait.outputs.conclusion == 'success'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          BRANCH="${{ github.event.workflow_run.head_branch }}"
-          PR_NUM=$(gh pr list \
-            --repo "${{ github.repository }}" \
-            --head "$BRANCH" \
-            --state open \
-            --json number \
-            -q '.[0].number' 2>/dev/null || echo "")
-          if [ -z "$PR_NUM" ]; then
-            echo "⏭️  Nenhum PR aberto para $BRANCH — nada a mergear"
-            exit 0
-          fi
-          echo "🔀 Mergindo PR #${PR_NUM} (branch: ${BRANCH})"
-          gh pr merge "$PR_NUM" \
-            --repo "${{ github.repository }}" \
-            --merge \
-            --delete-branch
-          echo "✅ PR #${PR_NUM} merged e branch deletada"
-
-      - name: Disparar deploy de produção
-        if: steps.wait.outputs.conclusion == 'success'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Merge feito por GITHUB_TOKEN (bot) não gera evento push → deploy.yml
-          # não dispara sozinho. repository_dispatch é o gatilho robusto pós-merge.
-          echo "🚀 Disparando repository_dispatch 'deploy'..."
-          gh api \
-            --method POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            "/repos/${{ github.repository }}/dispatches" \
-            -f event_type="deploy"
-          echo "✅ Deploy disparado (repository_dispatch)"
-
   # ── Fluxo normal (run de push humano com jobs reais) ────────────────
+  # workflow_run dispara quando um run do CI completa (success/failure).
+  # O run do head final (push humano) completa success → merge.
   auto-merge:
     if: >
+      github.event_name == 'workflow_run' &&
       github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.head_branch != github.event.repository.default_branch
     runs-on: ubuntu-latest
@@ -149,6 +61,62 @@ jobs:
         run: |
           # Merge feito por GITHUB_TOKEN (bot) não gera evento push → deploy.yml
           # não dispara sozinho. repository_dispatch é o gatilho robusto pós-merge.
+          echo "🚀 Disparando repository_dispatch 'deploy'..."
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/${{ github.repository }}/dispatches" \
+            -f event_type="deploy"
+          echo "✅ Deploy disparado (repository_dispatch)"
+
+  # ── Fluxo do bot normalize (run fantasma aprovado) ───────────────────
+  # O Normalize PR Report pusheia o rename (GITHUB_TOKEN) → o CI nasce
+  # 'action_required' com 0 jobs (approval gate p/ runs de GitHub Actions);
+  # workflow_run NÃO dispara para esses runs. O normalize então aprova o
+  # run via API, aguarda a conclusão e avisa este job via repository_dispatch
+  # 'pr-ready' (client_payload.branch) → merge + deploy.
+  mergeia-pr-ready:
+    if: github.event_name == 'repository_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Find open PR for branch
+        id: pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="${{ github.event.client_payload.branch }}"
+          echo "🔍 Buscando PR aberto da branch: $BRANCH (pr-ready)"
+          PR_NUM=$(gh pr list \
+            --repo "${{ github.repository }}" \
+            --head "$BRANCH" \
+            --state open \
+            --json number \
+            -q '.[0].number' 2>/dev/null || echo "")
+          echo "num=${PR_NUM:-}" >> "$GITHUB_OUTPUT"
+          echo "branch=${BRANCH}" >> "$GITHUB_OUTPUT"
+
+      - name: Merge PR (checks verdes no head do bot)
+        if: steps.pr.outputs.num != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUM="${{ steps.pr.outputs.num }}"
+          BRANCH="${{ steps.pr.outputs.branch }}"
+          echo "🔀 Mergindo PR #${PR_NUM} (branch: ${BRANCH})"
+          gh pr merge "$PR_NUM" \
+            --repo "${{ github.repository }}" \
+            --merge \
+            --delete-branch
+          echo "✅ PR #${PR_NUM} merged e branch deletada"
+
+      - name: Disparar deploy de produção
+        if: steps.pr.outputs.num != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
           echo "🚀 Disparando repository_dispatch 'deploy'..."
           gh api \
             --method POST \
