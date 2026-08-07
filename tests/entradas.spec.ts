@@ -130,9 +130,12 @@ test.describe("Edição de Entradas", () => {
     // compartilhado por IP do runner do GitHub); se o save funcionou o drawer
     // fecha (botão some) e basta esperar o re-fetch da tabela
     const saveBtn = page.locator("button:has-text('Salvar Alterações')");
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) {
       if (await saveBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
         await saveBtn.click({ force: true });
+        // backoff curto: janela de rate-limit (429) do Supabase compartilhado
+        // por IP do runner — o 1o clique pode ser rejeitado, o 2o passa
+        await page.waitForTimeout(2000);
       }
       const saved = await page
         .locator("text=75.000")
