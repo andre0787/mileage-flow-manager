@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `30d915a` — session:end — item 2 CRG validado; item 3 (nightly falhando) anotado no backlog
+- **Último commit:** `3a10f34 — Merge pull request #287 from andre0787/docs/session-end-item3`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,13 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** ITEM 2 do backlog: aplicar code-review-graph (npm run crg:*) no apoio às tarefas
-**Status:** done
-**Iniciada em:** 2026-08-07T03:50:47.109Z
-**Branch:** `main`
-**Último commit:** 15c1c09 — Merge pull request #286 from andre0787/docs/backlog-item2-crg
-**Docs carregados:** AGENTS.md
+**Categoria:** bugfix
+**Objetivo:** ITEM 3: nightly.yml falha diariamente — verificar necessidade, corrigir ou sanitizar actions obsoletas, até PRD
+**Status:** in_progress
+**Iniciada em:** 2026-08-07T03:59:00.605Z
+**Branch:** `fix/nightly-e2e-permissions`
+**Último commit:** 3a10f34 — Merge pull request #287 from andre0787/docs/session-end-item3
+**Docs carregados:** DEBUG.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão

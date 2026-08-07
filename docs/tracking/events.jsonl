@@ -1241,3 +1241,9 @@
 {"timestamp":"2026-08-07T03:33:29.198Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/backlog-item2-crg","commit":"8d6dc45","agent":"pi","errors":0}
 {"timestamp":"2026-08-07T03:50:47.133Z","type":"session:start","description":"chore: ITEM 2 do backlog: aplicar code-review-graph (npm run crg:*) no apoio às tarefas","branch":"main","commit":"15c1c09","agent":"pi","categoria":"chore"}
 {"timestamp":"2026-08-07T03:51:11.294Z","type":"custom","description":"item-2-crg: pipeline validado — grafo main@15c1c09, detect-changes risco 0.0, architecture 17 comunidades","branch":"main","commit":"15c1c09","agent":"pi","item":"backlog-item-2","tool":"code-review-graph","commands":["crg:update","crg:detect-changes","crg:architecture","crg:dead-code"]}
+{"timestamp":"2026-08-07T03:59:00.626Z","type":"session:start","description":"bugfix: ITEM 3: nightly.yml falha diariamente — verificar necessidade, corrigir ou sanitizar actions obsoletas, até PRD","branch":"main","commit":"3a10f34","agent":"pi","categoria":"bugfix"}
+{"timestamp":"2026-08-07T05:53:44.473Z","type":"healed","description":"rule-26 auto-corrigido","branch":"fix/nightly-e2e-permissions","commit":"3a10f34","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-08-07T05:54:06.821Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/nightly-e2e-permissions","commit":"3a10f34","agent":"pi","errors":0}
+{"timestamp":"2026-08-07T05:56:40.250Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/nightly-e2e-permissions","commit":"3a10f34","agent":"pi","errors":0}
+{"timestamp":"2026-08-07T05:57:05.573Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/nightly-e2e-permissions","commit":"3a10f34","agent":"pi","errors":0}
+{"timestamp":"2026-08-07T05:57:32.662Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/nightly-e2e-permissions","commit":"3a10f34","agent":"pi","errors":0}
