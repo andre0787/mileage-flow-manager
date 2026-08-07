@@ -66,6 +66,48 @@ diverge do primário, `status` terminal (`completed|failed|cancelled|blocked`) e
 
 Eventos aceitam somente metadados estruturados. Não inclua prompts, respostas integrais, tokens, API keys ou credenciais. Use `--no-log` em dry-runs e testes.
 
+## Providers e sampling (pi ≥ 0.84)
+
+### Baseten (GLM-5.2) — perfil opcional
+
+O provider builtin `baseten` autentica via `BASETEN_API_KEY` e expõe
+`zai-org/GLM-5.2` como modelo padrão. O router declara o alias
+`baseten-primary` e o perfil `baseten` (fallback: `efficient-primary`), sem
+alterar os defaults das categorias:
+
+```bash
+npm run llm:route -- resolve --context '{"taskId":"x","category":"chore","source":"manual"}' --profile baseten
+```
+
+Sem `BASETEN_API_KEY` no ambiente, o modelo não aparece no catálogo e o
+dispatch do subagente falha — o perfil é opt-in, não default.
+
+### samplingParams e thinking_token_budget
+
+Desde a 0.84 o pi aceita `samplingParams` arbitrários (OpenAI-compat) em
+`~/.pi/agent/models.json` (models + `modelOverrides`), extension providers e
+stream options — chaves vencem os campos nomeados do pi (`temperature`,
+`top_p`, `top_k`, `min_p` etc.). Exemplo de override global:
+
+```json
+{
+  "providers": {
+    "baseten": {
+      "modelOverrides": {
+        "zai-org/GLM-5.2": {
+          "samplingParams": { "temperature": 0.7, "top_p": 0.9 }
+        }
+      }
+    }
+  }
+}
+```
+
+`thinking_token_budget` (vLLM) reserva tokens de output para a resposta final
+em servidores OpenAI-compatíveis que o suportem. `models.json` é global do
+usuário (`~/.pi/agent/models.json`) — não é versionado no repo; o router do
+projeto decide modelos, o pi decide sampling.
+
 ## Capacidades futuras
 
 `visual-inspection` é aceito pelo contrato para evolução futura, assim como o perfil conceitual `vision-observer`, mas nenhum browser runner, captura de screenshot ou provider multimodal é ativado no MVP. A captura visual futura deverá pertencer ao runtime controlado; o provider apenas analisará evidências já capturadas.

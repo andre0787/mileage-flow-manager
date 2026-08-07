@@ -28,6 +28,7 @@ const PROMPT_FILES = [
   ".pi/skills/small-model-execution/SKILL.md",
   "AGENTS.md",
   "CLAUDE.md",
+  "docs/tasks/AGENTS.override.md",
   "docs/CONTEXT-MANAGEMENT.md",
   "docs/WORKFLOW-MANIFEST.md",
   "docs/WORKFLOW.md",

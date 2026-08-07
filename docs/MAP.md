@@ -122,3 +122,11 @@ Artefatos de sprints/features concluídos foram movidos para `docs/archive/`:
 
 ## Navegação Rápida
 - [`WORKFLOW-MANIFEST.md`](WORKFLOW-MANIFEST.md) — **Workflow canônico** (categorias, estados, comandos, alvo de PR, bypass)
+
+## 🤖 Índice Auto-Gerado (pre-pr)
+
+Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova para a tabela curada acima se pertinente):
+
+| Arquivo | Registrado em |
+|---------|---------------|
+| `docs/tasks/AGENTS.override.md` (auto) | 2026-08-07 |

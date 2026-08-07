@@ -19,7 +19,7 @@ import { readFileSync, existsSync, readdirSync, statSync } from "fs";
 import { join, relative, resolve } from "path";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const EXCLUDE_DIRS = new Set(["node_modules", ".git", ".worktrees", ".opencode", ".pi", ".superpowers", ".zcode", "test-results", "playwright-report", "dist", "tests"]);
+const EXCLUDE_DIRS = new Set(["node_modules", ".git", ".worktrees", ".opencode", ".pi", ".pi-subagents", ".superpowers", ".zcode", "test-results", "playwright-report", "dist", "tests"]);
 const EXCLUDE_FILES = new Set(["package-lock.json", "package.json"]);
 const ORPHAN_ALLOWED_PREFIXES = [
   ".github/ISSUE_TEMPLATE/",

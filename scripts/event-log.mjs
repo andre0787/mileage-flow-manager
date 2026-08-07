@@ -23,6 +23,10 @@
  *   node scripts/event-log.mjs rule:fail "rule-29 falhou" --meta '{"file":"SKILL.md"}'
  *   node scripts/event-log.mjs gate "INTENT declarado" --meta '{"gate":"intent","target":"kpi-report.mjs"}'
  *
+ * Atribuição de autoria (pi ≥ 0.84): quando o processo filho roda sob o agente
+ * pi (env AI_AGENT=pi), todo evento ganha `agent: "pi"`; caso contrário,
+ * `agent: "human"`. O campo pode ser sobrescrito via --meta.
+ *
  * Ambiente de teste: com VITEST setado (vitest), nenhum evento é gravado —
  * testes unitários não podem poluir o log de produção.
  *
@@ -126,6 +130,7 @@ function main() {
     description: descricao,
     branch: getBranch(),
     commit: getCommit(),
+    agent: process.env.AI_AGENT === "pi" ? "pi" : "human",
     ...meta,
   };
 

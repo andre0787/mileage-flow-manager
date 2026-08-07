@@ -29,6 +29,8 @@ const PROMPT_FILES = [
   // Docs de configuração do agente
   "AGENTS.md",
   "CLAUDE.md",
+  // Contexto por diretório (pi ≥ 0.84) — substitui AGENTS.md em docs/tasks/
+  "docs/tasks/AGENTS.override.md",
   // Docs de workflow
   "docs/CONTEXT-MANAGEMENT.md",
   "docs/WORKFLOW-MANIFEST.md",

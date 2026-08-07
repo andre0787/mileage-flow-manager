@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T04:32:14.420Z",
+  "generatedAt": "2026-08-07T02:33:23.504Z",
   "months": [
     {
       "month": "2026-03",
@@ -158,10 +158,10 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 67.1,
-      "prePrTotal": 155,
-      "prePrPass": 104,
-      "prePrFail": 51,
+      "prePrPassRate": 65.8,
+      "prePrTotal": 161,
+      "prePrPass": 106,
+      "prePrFail": 55,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -169,11 +169,11 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 94.4,
+      "avgOutcomeGrade": 94.6,
       "topViolations": [
         {
           "rule": "rule-10-clean",
-          "count": 65
+          "count": 70
         },
         {
           "rule": "rule-26-session-started",
@@ -193,16 +193,17 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 2
+        "rule-26": 3,
+        "rule-17-new-docs-valid": 1
       },
       "gateBlockedByRule": {},
       "avgCycleTimeHours": 0.3,
-      "branchesMerged": 30,
+      "branchesMerged": 31,
       "llmRouter": {
-        "resolved": 7,
+        "resolved": 8,
         "completed": 0,
         "failed": 10,
-        "unobserved": 1,
+        "unobserved": 2,
         "fallbackUsed": 0,
         "completionRate": 0,
         "fallbackRate": null,
