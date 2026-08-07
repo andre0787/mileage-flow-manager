@@ -4,7 +4,7 @@ const TEST_PASSWORD = "Test@123456";
 const email = `test_origem_${Date.now()}@teste.com`;
 
 test("Tipos de origem são criados e listados corretamente", async ({ page }) => {
-  test.setTimeout(60000);
+  test.setTimeout(120000);
 
   // 1. Registrar
   await page.goto("/login", { waitUntil: "domcontentloaded" });
@@ -60,13 +60,22 @@ test("Tipos de origem são criados e listados corretamente", async ({ page }) =>
   await expect(page.getByRole("listbox")).toHaveCount(0, { timeout: 5000 });
 
   // 8. Fecha e reabre o formulário para garantir que o tipo novo ficou disponível na aba Pontos
-  // Fechamento via X do dialog (determinístico — Escape é ambíguo com dropdown aberto)
-  await page
+  // Fechamento via X do dialog (determinístico — Escape é ambíguo com dropdown aberto).
+  // Click normal + retry: force clica na coordenada e pode acertar o overlay em vez do X.
+  const closeBtn = page
     .getByRole("dialog")
     .first()
-    .getByRole("button", { name: /Close|Fechar/i })
-    .click({ timeout: 5000 })
-    .catch((e) => console.log("[origem-tipo] fechar por X falhou", String(e).slice(0, 100)));
+    .getByRole("button", { name: /Close|Fechar/i });
+  for (let i = 0; i < 3; i++) {
+    await closeBtn.click({ timeout: 5000 }).catch(() => {});
+    const hidden = await page
+      .getByRole("dialog")
+      .first()
+      .isHidden({ timeout: 4000 })
+      .catch(() => false);
+    if (hidden) break;
+    console.log(`[origem-tipo] close retry ${i}`);
+  }
   await expect(page.getByRole("dialog").first()).toBeHidden({ timeout: 5_000 });
   // Reabre com force + retry (o click normal falha por instabilidade do botão no CI)
   const reopenBtn = page.getByRole("button", { name: "Nova Entrada" }).first();
