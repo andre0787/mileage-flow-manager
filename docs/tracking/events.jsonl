@@ -1271,3 +1271,6 @@
 {"timestamp":"2026-08-07T14:23:06.149Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/card-ultimo-registro-alertas","commit":"3c56d28","agent":"pi","errors":0}
 {"timestamp":"2026-08-07T20:51:10.239Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/card-ultimo-registro-alertas","commit":"cea9a4e","agent":"pi","errors":0}
 {"timestamp":"2026-08-07T20:51:40.653Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/card-ultimo-registro-alertas","commit":"cea9a4e","agent":"pi","errors":0}
+{"timestamp":"2026-08-07T20:59:51.130Z","type":"session:end","description":"Item feature PRD: último registro no card + alertas por conta","branch":"main","commit":"b0dadba","agent":"pi","pr":"306","deploy":"success","migration":"account_alerts via CLI","tests":"dirigido 9.1s + suite completa 0 failed","check":"472 unit passed"}
+{"timestamp":"2026-08-07T21:00:05.641Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/session-end-feature-prd","commit":"b0dadba","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-08-07T21:00:36.577Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-feature-prd","commit":"b0dadba","agent":"pi","errors":0}
