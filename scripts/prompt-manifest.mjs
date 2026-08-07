@@ -22,6 +22,7 @@ const MANIFEST_VERSION = 1;
 // Arquivos monitorados — paths relativos à raiz do projeto
 const PROMPT_FILES = [
   // Skills
+  ".pi/skills/code-review-graph/SKILL.md",
   ".pi/skills/council-to-superpowers/SKILL.md",
   ".pi/skills/handoff/SKILL.md",
   ".pi/skills/llm-council/SKILL.md",

@@ -27,7 +27,7 @@ promete comandos inexistentes; AGENDA referenciada mas precisa de arquivamento.
 - `README.md`
 - `docs/handoff.md`
 - `docs/superpowers/plans/2026-07-15-context-optimization-plan.md`
-- `docs/AGENDA.md` (arquivar/se necessário)
+- `AGENDA.md` (arquivado em 07/08 → `docs/archive/AGENDA-2026.md`)
 - quaisquer docs que referenciem `develop` como alvo
 
 ## Critérios de aceite

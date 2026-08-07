@@ -604,13 +604,13 @@ git commit -m "docs: handoff.md novo template com snapshot do projeto"
 
 **Files:**
 - Create: `docs/archive/AGENDA-2026.md`
-- Modify: `docs/AGENDA.md`
+- Modify: `AGENDA.md` → arquivado em `docs/archive/AGENDA-2026.md` (07/08: limpeza de docs)
 
 - [ ] **Step 1: Arquivar AGENDA.md**
 
 ```bash
 mkdir -p docs/archive
-cp docs/AGENDA.md docs/archive/AGENDA-2026.md
+cp AGENDA.md docs/archive/AGENDA-2026.md
 ```
 
 - [ ] **Step 2: Migrar bugs (dry-run)**

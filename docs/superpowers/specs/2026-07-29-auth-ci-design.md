@@ -2,7 +2,7 @@
 
 ## Contexto
 
-Recomendação #3 do audit Fable Method (`docs/fable-method-audit.md` §5):
+Recomendação #3 do audit Fable Method (`docs/archive/fable-method-audit.md` §5):
 adicionar passo de confirmação manual no workflow de deploy para produção.
 
 ## Abordagem
