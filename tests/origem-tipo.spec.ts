@@ -51,7 +51,17 @@ test("Tipos de origem são criados e listados corretamente", async ({ page }) =>
   await expect(origemCombobox).toContainText(/Clube Mensal/i, { timeout: 5000 });
 
   // 8. Fecha e reabre o formulário para garantir que o tipo novo ficou disponível na aba Pontos
-  await page.keyboard.press('Escape');
+  // Escape é ambíguo: com o dropdown aberto, o 1º Escape fecha só o dropdown; o 2º fecha o
+  // dialog. Pressiona até fechar de forma determinística.
+  for (let i = 0; i < 3; i++) {
+    const hidden = await page
+      .getByRole("dialog")
+      .first()
+      .isHidden({ timeout: 2000 })
+      .catch(() => false);
+    if (hidden) break;
+    await page.keyboard.press('Escape');
+  }
   await expect(page.getByRole("dialog").first()).toBeHidden({ timeout: 5_000 });
   await page.getByRole("button", { name: "Nova Entrada" }).first().click();
   await expect(page.getByRole("dialog").first()).toBeVisible({ timeout: 5_000 });
@@ -64,12 +74,23 @@ test("Tipos de origem são criados e listados corretamente", async ({ page }) =>
   await expect(page.getByRole("listbox")).toHaveCount(0, { timeout: 5000 });
 
   // 9. Cria outro tipo avulso e valida que aparece no combobox
-  // Dialog reaberto pode estar em animação/estado transiente no CI — re-resolve
-  // o locator fresco (filter visible + toHaveCount) e re-clica até o modal abrir
+  // Auto-curativo: se o dialog fechou (Escape ambíguo/animação), reabre; re-resolve
+  // o locator fresco e re-clica até o modal abrir
   for (let attempt = 0; attempt < 3; attempt++) {
+    const dlg = page.getByRole("dialog").filter({ visible: true }).first();
+    const dlgVisible = await dlg.isVisible({ timeout: 3000 }).catch(() => false);
+    if (!dlgVisible) {
+      await page
+        .getByRole("button", { name: "Nova Entrada" })
+        .first()
+        .click({ timeout: 5000 })
+        .catch(() => {});
+      await expect(page.getByRole("dialog").filter({ visible: true }).first())
+        .toBeVisible({ timeout: 5000 })
+        .catch(() => {});
+    }
     await expect(page.getByRole("listbox")).toHaveCount(0, { timeout: 5000 }).catch(() => {});
-    const dialog2 = page.getByRole("dialog").filter({ visible: true }).first();
-    const cbs2 = dialog2.locator("button[role='combobox']");
+    const cbs2 = dlg.locator("button[role='combobox']");
     await expect(cbs2).toHaveCount(2, { timeout: 5000 }).catch(() => {});
     const plus2 = cbs2.nth(1).locator("xpath=../..").locator("button:has(svg.lucide-plus)");
     await plus2.click({ force: true, timeout: 5000 }).catch(() => {});
