@@ -27,11 +27,17 @@ test("Tipos de origem são criados e listados corretamente", async ({ page }) =>
   await page.getByRole("button", { name: "Nova Entrada" }).first().click();
   await expect(page.getByRole("dialog").first()).toBeVisible({ timeout: 5_000 });
 
-  // 4. Plus button ao lado do Tipo de Origem
-  const plusBtn = page.locator("button:has(svg.lucide-plus)").last();
-  await expect(plusBtn).toBeVisible({ timeout: 10000 });
+  // 4. Plus button ao lado do Tipo de Origem (irmão do combobox de origem —
+  // locator estrutural; `.last()` era frágil com múltiplos botões plus no form)
+  const origemCombobox = page
+    .getByRole("dialog")
+    .first()
+    .locator("button[role='combobox']")
+    .nth(1);
+  const plusOrigemType = origemCombobox.locator("xpath=../..").locator("button:has(svg.lucide-plus)");
+  await expect(plusOrigemType).toBeVisible({ timeout: 10000 });
   // force: elemento visível mas instável (transition-all) sob carga do runner
-  await plusBtn.click({ force: true });
+  await plusOrigemType.click({ force: true });
 
   // 5. Verifica modal
   await expect(page.getByText("Novo Tipo de Origem")).toBeVisible({ timeout: 5000 });
@@ -42,11 +48,6 @@ test("Tipos de origem são criados e listados corretamente", async ({ page }) =>
 
   // 7. Verifica que o tipo foi selecionado no combobox (escopado ao dialog —
   //    o header agora tem o OwnerFilter, um combobox a mais na página)
-  const origemCombobox = page
-    .getByRole("dialog")
-    .first()
-    .locator("button[role='combobox']")
-    .nth(1);
   await expect(origemCombobox).toContainText(/Clube Mensal/i, { timeout: 5000 });
 
   // 8. Fecha e reabre o formulário para garantir que o tipo novo ficou disponível na aba Pontos
@@ -60,7 +61,15 @@ test("Tipos de origem são criados e listados corretamente", async ({ page }) =>
   await page.keyboard.press('Escape');
 
   // 9. Cria outro tipo avulso e valida que aparece no combobox
-  await page.locator("button:has(svg.lucide-plus)").last().click({ force: true });
+  // Dialog reaberto em animação (passo 8) pode engolir o 1o clique — retry curto
+  for (let attempt = 0; attempt < 3; attempt++) {
+    await plusOrigemType.click({ force: true });
+    const opened = await page
+      .getByText("Novo Tipo de Origem")
+      .isVisible({ timeout: 3000 })
+      .catch(() => false);
+    if (opened) break;
+  }
   await expect(page.getByText("Novo Tipo de Origem")).toBeVisible({ timeout: 5000 });
   await page.locator('input[placeholder="Ex: Cashback"]').fill("Compra Avulsa");
   await page.getByRole("button", { name: "Cadastrar" }).click();
