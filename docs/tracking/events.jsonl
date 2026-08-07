@@ -1274,3 +1274,8 @@
 {"timestamp":"2026-08-07T20:59:51.130Z","type":"session:end","description":"Item feature PRD: último registro no card + alertas por conta","branch":"main","commit":"b0dadba","agent":"pi","pr":"306","deploy":"success","migration":"account_alerts via CLI","tests":"dirigido 9.1s + suite completa 0 failed","check":"472 unit passed"}
 {"timestamp":"2026-08-07T21:00:05.641Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/session-end-feature-prd","commit":"b0dadba","agent":"pi","rule":"rule-26"}
 {"timestamp":"2026-08-07T21:00:36.577Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-feature-prd","commit":"b0dadba","agent":"pi","errors":0}
+{"timestamp":"2026-08-07T21:38:50.355Z","type":"healed","description":"rule-26 auto-corrigido","branch":"fix/fuso-formatacao-data","commit":"f3cc29d","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-08-07T21:39:14.831Z","type":"pre-pr","description":"pre-pr FAIL","branch":"fix/fuso-formatacao-data","commit":"f3cc29d","agent":"pi","errors":1}
+{"timestamp":"2026-08-07T21:40:34.432Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/fuso-formatacao-data","commit":"f3cc29d","agent":"pi","errors":0}
+{"timestamp":"2026-08-07T21:41:11.330Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/fuso-formatacao-data","commit":"f3cc29d","agent":"pi","errors":0}
+{"timestamp":"2026-08-07T21:42:43.244Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/fuso-formatacao-data","commit":"f3cc29d","agent":"pi","errors":0}

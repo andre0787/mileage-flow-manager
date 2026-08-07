@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { useData } from "@/contexts/DataContext";
 import { useNavigate } from "react-router";
 import { cn } from "@/lib/utils";
+import { formatDateBR } from "@/lib/dateUtils";
 
 interface SearchResult {
   type: "entrada" | "venda" | "cliente" | "conta";
@@ -46,8 +47,7 @@ export function GlobalSearch() {
         origemTypes.find((ot) => ot.id === e.origemTypeId)?.name ??
         programs.find((p) => p.id === e.origemTypeId)?.name ??
         "";
-      const text =
-        `${account?.name ?? ""} ${origem} ${new Date(e.date).toLocaleDateString("pt-BR")}`.toLowerCase();
+      const text = `${account?.name ?? ""} ${origem} ${formatDateBR(e.date)}`.toLowerCase();
       if (text.includes(q)) {
         items.push({
           type: "entrada",

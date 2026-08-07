@@ -5,6 +5,7 @@ import { useOnlineStatus } from "@/contexts/OnlineContext";
 import { Badge } from "@/components/ui/badge";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { SortableHeader } from "@/components/ui/SortableHeader";
+import { formatDateBR } from "@/lib/dateUtils";
 import { sortByKey, type SortState } from "@/lib/sort";
 import {
   Table,
@@ -189,9 +190,7 @@ export function EntryTable({
               </Badge>
             )}
           </div>
-          <p className="text-xs text-muted-foreground">
-            {new Date(entry.date).toLocaleDateString("pt-BR")}
-          </p>
+          <p className="text-xs text-muted-foreground">{formatDateBR(entry.date)}</p>
         </div>
         <Badge variant="outline">{accounts.find((a) => a.id === entry.accountId)?.name}</Badge>
       </div>
@@ -308,9 +307,7 @@ export function EntryTable({
             ) : (
               paginatedEntries.map((entry) => (
                 <TableRow key={entry.id}>
-                  <TableCell className="hidden md:table-cell">
-                    {new Date(entry.date).toLocaleDateString("pt-BR")}
-                  </TableCell>
+                  <TableCell className="hidden md:table-cell">{formatDateBR(entry.date)}</TableCell>
                   <TableCell className="hidden md:table-cell">
                     <p className="font-medium">
                       {accounts.find((a) => a.id === entry.accountId)?.name}

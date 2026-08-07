@@ -22,6 +22,7 @@ import {
 } from "@/hooks/useDatabase";
 import { calcProfit, calcProfitMargin } from "@/lib/metrics";
 import { downloadCSV } from "@/lib/utils";
+import { formatDateBR } from "@/lib/dateUtils";
 import { SaleMetrics } from "@/components/SaleMetrics";
 import { SaleForm, type SaleFormData } from "@/components/SaleForm";
 import { SaleTable } from "@/components/SaleTable";
@@ -181,7 +182,7 @@ export default function Vendas() {
 
   const exportSalesReport = () => {
     const data = filteredSales.map((s) => ({
-      Data: new Date(s.date).toLocaleDateString("pt-BR"),
+      Data: formatDateBR(s.date),
       Cliente: s.clientName,
       Dono: s.ownerName,
       Programa: s.program,

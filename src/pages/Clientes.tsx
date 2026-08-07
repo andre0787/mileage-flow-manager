@@ -34,6 +34,7 @@ import {
   useUpdateClientMutation,
   useDeleteClientMutation,
 } from "@/hooks/useDatabase";
+import { formatDateBR } from "@/lib/dateUtils";
 import { formatCPF } from "@/lib/utils";
 
 const ITEMS_PER_PAGE = 20;
@@ -611,9 +612,7 @@ export default function Clientes() {
                       key={sale.id}
                       className="flex items-center justify-between p-2 bg-muted/30 rounded text-sm"
                     >
-                      <span className="text-muted-foreground">
-                        {new Date(sale.date).toLocaleDateString("pt-BR")}
-                      </span>
+                      <span className="text-muted-foreground">{formatDateBR(sale.date)}</span>
                       <span className="font-mono text-xs">{sale.ticketLocator}</span>
                       <span className="font-medium">
                         {sale.milesUsed.toLocaleString("pt-BR")} milhas
