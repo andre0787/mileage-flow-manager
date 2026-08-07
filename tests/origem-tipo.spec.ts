@@ -59,11 +59,15 @@ test("Tipos de origem são criados e listados corretamente", async ({ page }) =>
   await origemCombobox.click();
   await expect(page.getByRole('option', { name: /Clube Mensal/i })).toBeVisible({ timeout: 5000 });
   await page.keyboard.press('Escape');
+  // espera o dropdown (listbox) desmontar: aberto, ele COBRE o botão plus —
+  // o force click atingiria o overlay e o modal nunca abriria (CI)
+  await expect(page.getByRole("listbox")).toHaveCount(0, { timeout: 5000 });
 
   // 9. Cria outro tipo avulso e valida que aparece no combobox
   // Dialog reaberto pode estar em animação/estado transiente no CI — re-resolve
   // o locator fresco (filter visible + toHaveCount) e re-clica até o modal abrir
   for (let attempt = 0; attempt < 3; attempt++) {
+    await expect(page.getByRole("listbox")).toHaveCount(0, { timeout: 5000 }).catch(() => {});
     const dialog2 = page.getByRole("dialog").filter({ visible: true }).first();
     const cbs2 = dialog2.locator("button[role='combobox']");
     await expect(cbs2).toHaveCount(2, { timeout: 5000 }).catch(() => {});
