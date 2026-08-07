@@ -1239,3 +1239,5 @@
 {"timestamp":"2026-08-07T03:26:35.748Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-crg","commit":"3b4b4ad","agent":"pi","errors":0}
 {"timestamp":"2026-08-07T03:33:07.102Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/backlog-item2-crg","commit":"8d6dc45","agent":"pi","rule":"rule-26"}
 {"timestamp":"2026-08-07T03:33:29.198Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/backlog-item2-crg","commit":"8d6dc45","agent":"pi","errors":0}
+{"timestamp":"2026-08-07T03:50:47.133Z","type":"session:start","description":"chore: ITEM 2 do backlog: aplicar code-review-graph (npm run crg:*) no apoio às tarefas","branch":"main","commit":"15c1c09","agent":"pi","categoria":"chore"}
+{"timestamp":"2026-08-07T03:51:11.294Z","type":"custom","description":"item-2-crg: pipeline validado — grafo main@15c1c09, detect-changes risco 0.0, architecture 17 comunidades","branch":"main","commit":"15c1c09","agent":"pi","item":"backlog-item-2","tool":"code-review-graph","commands":["crg:update","crg:detect-changes","crg:architecture","crg:dead-code"]}
