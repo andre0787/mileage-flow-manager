@@ -1,7 +1,7 @@
 import { describe, it, expect, afterAll, beforeAll } from "vitest";
 import { execSync } from "child_process";
 import { resolve } from "path";
-import { readFileSync, writeFileSync } from "fs";
+import { readFileSync, writeFileSync, existsSync } from "fs";
 
 const ROOT = resolve(__dirname, "../..");
 const SCRIPT = resolve(ROOT, "scripts/session-start.mjs");
@@ -12,12 +12,30 @@ const originalGitContext = Object.fromEntries(
   GIT_CONTEXT_KEYS.filter((key) => process.env[key] !== undefined).map((key) => [key, process.env[key]]),
 );
 
+function gitCheckoutHandoff() {
+  // Retry: outros testes unitários rodam scripts de rules que usam git no ROOT
+  // em paralelo (vitest workers) — o index.lock conflita transiente. Polling curto.
+  let lastErr: unknown;
+  for (let attempt = 0; attempt < 10; attempt++) {
+    try {
+      execSync("git checkout -- docs/handoff.md", {
+        cwd: ROOT,
+        encoding: "utf8",
+        timeout: 3000,
+      });
+      return;
+    } catch (err) {
+      lastErr = err;
+      const lockFree = !existsSync(resolve(ROOT, ".git/index.lock"));
+      if (lockFree) throw err;
+      execSync("sleep 0.5", { shell: true });
+    }
+  }
+  throw lastErr;
+}
+
 function restoreHandoff() {
-  execSync("git checkout -- docs/handoff.md", {
-    cwd: ROOT,
-    encoding: "utf8",
-    timeout: 3000,
-  });
+  gitCheckoutHandoff();
   const content = readFileSync(HANDOFF, "utf8");
   writeFileSync(
     HANDOFF,
