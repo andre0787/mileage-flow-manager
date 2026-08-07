@@ -1250,3 +1250,7 @@
 {"timestamp":"2026-08-07T06:08:46.581Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/nightly-e2e-permissions","commit":"4f397ee","agent":"pi","errors":0}
 {"timestamp":"2026-08-07T10:23:24.017Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/session-end-item3-done","commit":"77b51d0","agent":"pi","rule":"rule-26"}
 {"timestamp":"2026-08-07T10:23:45.100Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-item3-done","commit":"77b51d0","agent":"pi","errors":0}
+{"timestamp":"2026-08-07T12:05:19.768Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/session-end-item3-final","commit":"305a38a","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-08-07T12:05:22.446Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-item3-final","commit":"305a38a","agent":"pi","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-07T12:06:05.328Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-item3-final","commit":"305a38a","agent":"pi","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-07T12:06:58.512Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-item3-final","commit":"305a38a","agent":"pi","errors":0}
