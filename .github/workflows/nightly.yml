@@ -29,6 +29,9 @@ jobs:
       - name: Quality write
         run: npm run quality:write
 
+      - name: Disable pre-commit hooks (bot commit — pre-pr não roda no CI)
+        run: mkdir -p /tmp/no-hooks && git config core.hooksPath /tmp/no-hooks
+
       - name: Create PR with QUALITY.md update
         if: always()
         uses: peter-evans/create-pull-request@v7
