@@ -135,7 +135,7 @@ test.describe("Alertas por conta", () => {
     await bellButton.click();
     await expect(page.getByText(`Alertas — ${accountName}`)).toBeVisible({ timeout: 5_000 });
     await page.getByRole("switch").first().click();
-    await expect(page.getByText("Lida")).toBeVisible({ timeout: 5_000 });
+    await expect(page.getByText("Lida", { exact: true }).first()).toBeVisible({ timeout: 5_000 });
 
     // Fechar → badge some
     await page.keyboard.press("Escape");
@@ -153,7 +153,7 @@ test.describe("Alertas por conta", () => {
       .getByRole("button", { name: `Alertas de ${accountName}` });
     await bellAfterReload.click();
     await expect(page.getByText("Renovar clube fidelidade")).toBeVisible({ timeout: 5_000 });
-    await expect(page.getByText("Lida").first()).toBeVisible({ timeout: 5_000 });
+    await expect(page.getByText("Lida", { exact: true }).first()).toBeVisible({ timeout: 5_000 });
     await expect(page.getByText("Não lido")).toBeHidden({ timeout: 5_000 });
   });
 });
