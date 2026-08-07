@@ -1235,3 +1235,5 @@
 {"timestamp":"2026-08-07T03:14:48.040Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-audit","commit":"96f4007","agent":"pi","errors":0}
 {"timestamp":"2026-08-07T03:16:30.908Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-audit","commit":"73da844","agent":"pi","errors":0}
 {"timestamp":"2026-08-07T03:17:13.751Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-audit","commit":"73da844","agent":"pi","errors":0}
+{"timestamp":"2026-08-07T03:26:14.126Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/session-end-crg","commit":"3b4b4ad","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-08-07T03:26:35.748Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-crg","commit":"3b4b4ad","agent":"pi","errors":0}
