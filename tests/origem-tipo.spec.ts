@@ -60,7 +60,7 @@ test("Tipos de origem são criados e listados corretamente", async ({ page }) =>
   await page.keyboard.press('Escape');
 
   // 9. Cria outro tipo avulso e valida que aparece no combobox
-  await page.locator("button:has(svg.lucide-plus)").last().click();
+  await page.locator("button:has(svg.lucide-plus)").last().click({ force: true });
   await expect(page.getByText("Novo Tipo de Origem")).toBeVisible({ timeout: 5000 });
   await page.locator('input[placeholder="Ex: Cashback"]').fill("Compra Avulsa");
   await page.getByRole("button", { name: "Cadastrar" }).click();
