@@ -46,6 +46,3 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
 
 
-## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** P0 completo
