@@ -78,7 +78,15 @@
     "kpi": "node scripts/kpi-report.mjs",
     "process:audit": "node scripts/process-audit.mjs",
     "project:audit": "node scripts/project-audit.mjs",
-    "harness:check": "node scripts/harness-check.mjs"
+    "harness:check": "node scripts/harness-check.mjs",
+    "crg:status": "code-review-graph status",
+    "crg:build": "code-review-graph build",
+    "crg:update": "code-review-graph update",
+    "crg:architecture": "code-review-graph architecture",
+    "crg:dead-code": "code-review-graph dead-code",
+    "crg:impact": "code-review-graph impact",
+    "crg:detect-changes": "code-review-graph detect-changes",
+    "crg:wiki": "code-review-graph wiki"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.1",

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-07T03:02:50.680Z",
+  "updatedAt": "2026-08-07T03:16:08.571Z",
   "prompts": {
     ".pi/skills/code-review-graph/SKILL.md": "sha256-b0a1a323e4979fac77f70da66b364098252dc2c9623688a95a9ef2e39fa0963b",
     ".pi/skills/council-to-superpowers/SKILL.md": "sha256-424faade51fe07225ad5e4958685daf4181be98cbb5d98d2a07ec8e9aecbb69a",
@@ -12,6 +12,6 @@
     "docs/tasks/AGENTS.override.md": "sha256-28738b9893ae399d5d2dc6fa55c0ce6e0d1e40d38166b54e5e30dbe0def11f5e",
     "docs/CONTEXT-MANAGEMENT.md": "sha256-199e22e9973cf5433626612bc40c2d6ac5d135f7c295a453cfb2e8650bab57cc",
     "docs/WORKFLOW-MANIFEST.md": "sha256-724cd939c0e01ed467579bfed5909c1c498c5d9e530957a712471109c07dc1c7",
-    "docs/WORKFLOW.md": "sha256-1c832d42ad04b8d5f483ae1c99877994f127f330dbd60380ceb4cabaf8a0f8ae"
+    "docs/WORKFLOW.md": "sha256-8cc966385c03bbed2600710a1f581cebaf246130c7fc74fb649e872ae430082f"
   }
 }
