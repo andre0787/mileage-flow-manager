@@ -126,8 +126,22 @@ test.describe("Edição de Entradas", () => {
     await page.fill("#amountPaid", "5000.00");
     await expect(drawer).toBeInViewport();
 
-    // Salva
-    await page.locator("button:has-text('Salvar Alterações')").click({ force: true });
+    // Salva — retry: a mutation pode falhar transiente (rate-limit do Supabase
+    // compartilhado por IP do runner do GitHub); se o save funcionou o drawer
+    // fecha (botão some) e basta esperar o re-fetch da tabela
+    const saveBtn = page.locator("button:has-text('Salvar Alterações')");
+    for (let i = 0; i < 3; i++) {
+      if (await saveBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
+        await saveBtn.click({ force: true });
+      }
+      const saved = await page
+        .locator("text=75.000")
+        .first()
+        .isVisible({ timeout: 15000 })
+        .catch(() => false);
+      if (saved) break;
+      console.log(`[entradas] save retry ${i}`);
+    }
     await expect(page.locator("text=75.000").first()).toBeVisible({ timeout: 5_000 });
 
     // Verifica valores atualizados
