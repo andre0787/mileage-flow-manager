@@ -61,9 +61,14 @@ test("Tipos de origem são criados e listados corretamente", async ({ page }) =>
   await page.keyboard.press('Escape');
 
   // 9. Cria outro tipo avulso e valida que aparece no combobox
-  // Dialog reaberto em animação (passo 8) pode engolir o 1o clique — retry curto
+  // Dialog reaberto pode estar em animação/estado transiente no CI — re-resolve
+  // o locator fresco (filter visible + toHaveCount) e re-clica até o modal abrir
   for (let attempt = 0; attempt < 3; attempt++) {
-    await plusOrigemType.click({ force: true });
+    const dialog2 = page.getByRole("dialog").filter({ visible: true }).first();
+    const cbs2 = dialog2.locator("button[role='combobox']");
+    await expect(cbs2).toHaveCount(2, { timeout: 5000 }).catch(() => {});
+    const plus2 = cbs2.nth(1).locator("xpath=../..").locator("button:has(svg.lucide-plus)");
+    await plus2.click({ force: true, timeout: 5000 }).catch(() => {});
     const opened = await page
       .getByText("Novo Tipo de Origem")
       .isVisible({ timeout: 3000 })
