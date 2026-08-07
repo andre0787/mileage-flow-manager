@@ -49,20 +49,28 @@ test.describe("Transferência com Compra no Carrinho", () => {
         }
       }
 
-      // Find or create Transferência origem_type
+      // Find or create Transferência origem_type (idempotente — re-search em duplicate race)
       const search = await fetch(`${url}/rest/v1/origem_types?name=eq.Transferência&user_id=eq.${userId}&select=id`, { headers });
       let transferId: string;
-      if (search.ok) {
-        const data = await search.json();
-        if (data && data.length > 0) {
-          transferId = data[0].id;
-        } else {
-          transferId = crypto.randomUUID();
-          await post('origem_types', { id: transferId, name: 'Transferência', account_type: 'milhas', color: '#8b5cf6', description: JSON.stringify({ hasRecurrence: false }) });
-        }
+      const searchData = await search.json().catch(() => []);
+      if (searchData && searchData.length > 0) {
+        transferId = searchData[0].id;
       } else {
         transferId = crypto.randomUUID();
-        await post('origem_types', { id: transferId, name: 'Transferência', account_type: 'milhas', color: '#8b5cf6', description: JSON.stringify({ hasRecurrence: false }) });
+        const res = await fetch(`${url}/rest/v1/origem_types`, {
+          method: 'POST', headers,
+          body: JSON.stringify({ id: transferId, user_id: userId, name: 'Transferência', account_type: 'milhas', color: '#8b5cf6', description: JSON.stringify({ hasRecurrence: false }) }),
+        });
+        if (!res.ok) {
+          // duplicate key race (retry do mesmo teste) → re-search
+          const again = await fetch(`${url}/rest/v1/origem_types?name=eq.Transferência&user_id=eq.${userId}&select=id`, { headers });
+          const data2 = await again.json().catch(() => []);
+          if (data2 && data2.length > 0) {
+            transferId = data2[0].id;
+          } else {
+            throw new Error(`Falha ao criar origem_types: ${await res.text()}`);
+          }
+        }
       }
 
       const ownerId = crypto.randomUUID();

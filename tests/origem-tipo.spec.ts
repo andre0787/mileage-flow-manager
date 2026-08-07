@@ -50,7 +50,7 @@ test("Tipos de origem são criados e listados corretamente", async ({ page }) =>
 
   // 8. Fecha e reabre o formulário para garantir que o tipo novo ficou disponível na aba Pontos
   await page.keyboard.press('Escape');
-  await page.waitForTimeout(300); // ponytail: dialog close animation
+  await expect(page.getByRole("dialog").first()).toBeHidden({ timeout: 5_000 });
   await page.getByRole("button", { name: "Nova Entrada" }).first().click();
   await expect(page.getByRole("dialog").first()).toBeVisible({ timeout: 5_000 });
 
