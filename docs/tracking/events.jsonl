@@ -1222,3 +1222,5 @@
 {"timestamp":"2026-08-07T02:31:29.304Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/pi-084-adoption","commit":"c0700b0","agent":"pi","rule":"rule-10-clean"}
 {"timestamp":"2026-08-07T02:32:40.296Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/pi-084-adoption","commit":"c0700b0","agent":"pi","errors":0}
 {"timestamp":"2026-08-07T02:33:23.387Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/pi-084-adoption","commit":"c0700b0","agent":"pi","errors":0}
+{"timestamp":"2026-08-07T02:47:38.602Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/audit-next-session","commit":"e8bbf1a","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-08-07T02:48:59.077Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/audit-next-session","commit":"e8bbf1a","agent":"pi","errors":0}
