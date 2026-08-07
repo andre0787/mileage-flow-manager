@@ -160,7 +160,7 @@ test("Fluxo completo de experiência", async ({ page }) => {
     pass(`Total linhas na tabela: ${rows}`);
 
     // Verifica se tem banner de pendências
-    const bannerVisible = await page.locator("text=pendente(s) de confirmação").isVisible({ timeout: 5000 }).catch(() => false);
+    const bannerVisible = await page.getByText(/pendente[s]? de confirmação/).isVisible({ timeout: 5000 }).catch(() => false);
     if (bannerVisible) {
       pass("Banner de pendências visível");
     } else {
@@ -201,14 +201,15 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await expect(page.getByRole("tab", { selected: true, name: /milhas/i })).toBeVisible({ timeout: 5_000 });
 
     await page.getByRole("button", { name: /transferir/i }).click();
-    await expect(page.getByText("Transferência")).toBeVisible({ timeout: 5_000 });
+    // Dialog title "Registrar Transferência" (heading) — getByText("Transferência")
+    // é ambíguo: a célula da origem na tabela também casa (strict mode violation)
+    await expect(page.getByRole("dialog").getByRole("heading", { name: /transferência/i })).toBeVisible({ timeout: 5_000 });
 
     // TransferForm: source points first, destination miles second.
     const mCmb = page.getByRole("dialog").first().locator("[role=combobox]");
     await mCmb.nth(0).click();
     await page.getByRole("option", { name: /smiles/i }).click();
     await mCmb.nth(1).click();
-    await page.getByRole("option", { name: /latam/i }).click();
     await page.getByRole("option", { name: /latam/i }).click();
 
     await page.fill("#transferDate", new Date().toISOString().split("T")[0]);
@@ -249,11 +250,17 @@ test("Fluxo completo de experiência", async ({ page }) => {
     await page.goto("/clientes", { waitUntil: "load" });
     await page.waitForLoadState("networkidle");
     await page.getByRole("button", { name: /novo cliente/i }).click();
-    await expect(page.getByText("Novo Cliente")).toBeVisible({ timeout: 5_000 });
+    // Dialog title "Cadastrar Novo Cliente" (heading) — getByText("Novo Cliente") é ambíguo
+    // com o botão/heading da página (strict mode violation)
+    await expect(page.getByRole("dialog", { name: /cadastrar novo cliente/i })).toBeVisible({ timeout: 5_000 });
     await page.fill('#name', "Maria Silva");
     const phone = page.locator('#phone, input[placeholder*="Telefone"]');
     if (await phone.isVisible()) await phone.fill("11999999999");
     await page.getByRole("button", { name: /salvar|cadastrar|criar/i }).click();
+    // Aguarda o dialog fechar e o refetch (invalidateQueries) refletir a Maria na
+    // tabela — sem isso o goto seguinte abortava o INSERT em voo (race condition)
+    await expect(page.getByRole("dialog", { name: /cadastrar novo cliente/i })).toBeHidden({ timeout: 5_000 });
+    await expect(page.locator("table").getByText("Maria Silva")).toBeVisible({ timeout: 10_000 });
     pass("Cliente Maria Silva criado");
 
     await page.goto("/vendas", { waitUntil: "domcontentloaded" });

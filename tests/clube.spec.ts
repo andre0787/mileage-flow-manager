@@ -113,7 +113,9 @@ test.describe("Recorrência", () => {
     // 4. Verificar badges
     // ═══════════════════════════════════════
     await page.waitForLoadState("networkidle");
-    await expect(page.locator("text=⏳ Aguardando").first()).toBeVisible({ timeout: 10_000 });
+    // StatusBadge "Aguardando" (sem emoji) na tabela desktop — o badge com emoji
+    // (⏳) existe apenas no card mobile (md:hidden), invisível no viewport desktop
+    await expect(page.locator("table").getByText("Aguardando", { exact: true }).first()).toBeVisible({ timeout: 10_000 });
 
     // ═══════════════════════════════════════
     // 5. Confirmar entrada pendente
@@ -125,6 +127,7 @@ test.describe("Recorrência", () => {
     // ═══════════════════════════════════════
     await page.goto("/");
     await page.waitForLoadState("networkidle");
-    await expect(page.locator("text=pendente(s) de confirmação").first()).toBeVisible({ timeout: 5_000 });
+    // Banner do dashboard é dinâmico: "N entrada(s) pendente(s) de confirmação"
+    await expect(page.getByText(/pendente[s]? de confirmação/).first()).toBeVisible({ timeout: 5_000 });
   });
 });
