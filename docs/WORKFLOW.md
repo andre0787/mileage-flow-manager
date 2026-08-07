@@ -178,6 +178,21 @@ FIM:      npm run session:end "msg"   → commit + handoff + push
 | `scripts/retro.mjs` | Coleta PRs, CI, deploys, feedbacks e commits | Markdown de retrospectiva |
 | `check:fast` / `check:pr` / `check:nightly` | Composições de scripts existentes (ver package.json) | Três níveis de verificação |
 
+### Apoio: code-review-graph (CRG)
+
+O grafo estrutural do código (skill `.pi/skills/code-review-graph/SKILL.md`, CLI v2.3.7 via pipx) apoia o fluxo sem reler arquivos-fonte:
+
+| Momento do fluxo | Comando | O que responde |
+|------------------|---------|----------------|
+| Mapeamento inicial | `npm run crg:architecture` | Comunidades do código (módulos, dependências) |
+| Qualquer tarefa | `npm run crg:status` | Grafo fresco? (branch/commit do build) |
+| Antes de editar | `npm run crg:impact` | Blast radius de `HEAD~1` (o que pode quebrar) |
+| Pré-PR | `npm run crg:detect-changes` | Funções afetadas, fluxos, gaps de teste, risco 0-1 |
+| Auditoria / limpeza | `npm run crg:dead-code` | Nós sem callers (cruzar com rule-14 — há falsos positivos em handlers JSX) |
+| Pós-merge | `npm run crg:update` | Mantém o grafo fresco (incremental) |
+
+Regras: o grafo é **cache local** (nunca versionar); rode `build` na 1ª vez e após mudanças estruturais grandes; se o grafo estiver em outra branch, `crg:detect-changes`/`impact` avisam — rode `crg:update` antes.
+
 ### Por quê?
 
 - **Reduz tokens:** setup de sessão cai de ~5-8k (lendo 5 docs) para ~500 (lendo resumo)
