@@ -48,3 +48,8 @@ export {
   useUpdateClientMutation,
   useDeleteClientMutation,
 } from "./clients";
+export {
+  useAccountAlerts,
+  useAddAccountAlertMutation,
+  useToggleAccountAlertMutation,
+} from "./alerts";

@@ -334,6 +334,36 @@ export interface Database {
         };
         Relationships: [];
       };
+      account_alerts: {
+        Row: {
+          id: string;
+          account_id: string;
+          user_id: string | null;
+          date: string;
+          observation: string;
+          read: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          account_id: string;
+          user_id?: string | null;
+          date: string;
+          observation: string;
+          read?: boolean;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          account_id?: string;
+          user_id?: string | null;
+          date?: string;
+          observation?: string;
+          read?: boolean;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

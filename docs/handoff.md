@@ -24,12 +24,12 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** ITEM 3: nightly.yml falha diariamente — verificar necessidade, corrigir ou sanitizar actions obsoletas, até PRD
-**Status:** done
+**Categoria:** feature
+**Objetivo:** (1) último registro de entrada e venda no card das contas aplicáveis; (2) alerta personalizado por conta (data + observação + lido/não lido). Teste manual local via Playwright antes do PRD.
+**Status:** in_progress
 **Iniciada em:** 2026-08-07T03:59:00.605Z
-**Branch:** `docs/session-end-item3-final`
-**Docs carregados:** AGENTS.md
+**Branch:** `feat/card-ultimo-registro-alertas`
+**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 ## ✅ Última Sessão
 **ITEM 3 RESOLVIDO + PRD (12 rodadas de validação, PRs #288–#304):**
 - **quality-and-check ✅:** 403 do bot resolvido (permissions contents/pull-requests write + hooks desativados no CI).

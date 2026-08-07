@@ -70,6 +70,17 @@ export interface Account {
   createdAt: string;
 }
 
+export interface AccountAlert {
+  id: string;
+  accountId: string;
+  userId: string;
+  /** Data do alerta (YYYY-MM-DD — DATE do Postgres) */
+  date: string;
+  observation: string;
+  read: boolean;
+  createdAt: string;
+}
+
 export type EntryStatus = "confirmada" | "aguardando";
 
 export interface PointEntry {
