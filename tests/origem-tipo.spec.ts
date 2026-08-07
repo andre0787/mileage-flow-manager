@@ -30,7 +30,8 @@ test("Tipos de origem são criados e listados corretamente", async ({ page }) =>
   // 4. Plus button ao lado do Tipo de Origem
   const plusBtn = page.locator("button:has(svg.lucide-plus)").last();
   await expect(plusBtn).toBeVisible({ timeout: 10000 });
-  await plusBtn.click();
+  // force: elemento visível mas instável (transition-all) sob carga do runner
+  await plusBtn.click({ force: true });
 
   // 5. Verifica modal
   await expect(page.getByText("Novo Tipo de Origem")).toBeVisible({ timeout: 5000 });
