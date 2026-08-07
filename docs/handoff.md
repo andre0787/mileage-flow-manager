@@ -28,15 +28,15 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 **Objetivo:** Auditoria completa de docs: tasks pendentes, limpeza, órfãos, skills, pendências mapeadas
 **Status:** done
 **Iniciada em:** 2026-08-07T02:56:49.215Z
-**Branch:** `docs/session-end-crg`
+**Branch:** `docs/backlog-item2-crg`
 **Último commit:** 29bb8f4 — Merge pull request #281 from andre0787/docs/audit-next-session
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
-**Continuar tarefas pendentes seguindo o workflow:**
-1. **PENDINGs ambientais:** `BASETEN_API_KEY` para ativar perfil `baseten` do router; remote session APIs (pi) sem caso de uso; fullscreen TUI já ativo no próximo startup
-2. **Usar CRG no apoio:** `npm run crg:detect-changes` no pré-PR, `crg:impact` antes de editar, `crg:architecture`/`crg:dead-code` para mapeamentos (skill `.pi/skills/code-review-graph/SKILL.md`)
+**Trabalhar o item 2 (backlog confirmado pelo usuário):**
+1. PENDINGs ambientais: `BASETEN_API_KEY` para ativar perfil `baseten` do router; remote session APIs (pi) sem caso de uso; fullscreen TUI já ativo
+2. **🎯 ITEM 2 — CRG no apoio (trabalhar nesta sessão):** aplicar `npm run crg:*` nas tarefas — `crg:detect-changes` no pré-PR, `crg:impact` antes de editar, `crg:architecture`/`crg:dead-code` para mapeamentos (skill `.pi/skills/code-review-graph/SKILL.md`)
 3. Nova feature/bugfix/refactor: rodar `npm run session:start` → categoria → docs da categoria → council se feature
 
 ## 🧠 Notas da Sessão Atual
