@@ -20,7 +20,9 @@ export default defineConfig({
   testMatch: "*.spec.ts",
   timeout: 60_000,
   workers: process.env.CI ? 2 : undefined,
-  retries: 1,
+  // retries=2: absorve flaky transiente (rate-limit por IP do runner GitHub →
+  // Supabase compartilhado); nightly roda serial com --workers=1
+  retries: 2,
   use: {
     baseURL: BASE_URL,
     headless: true,

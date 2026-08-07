@@ -34,7 +34,11 @@ jobs:
         run: mkdir -p /tmp/no-hooks && git config core.hooksPath /tmp/no-hooks
 
       - name: Create PR with QUALITY.md update
+        # continue-on-error: a setting do repo "Allow GitHub Actions to create and
+        # approve pull requests" está desativada (Settings → Actions → General).
+        # Ativar na UI reativa o PR automático; enquanto isso, o job não falha.
         if: always()
+        continue-on-error: true
         uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "chore: atualiza QUALITY.md (nightly)"
