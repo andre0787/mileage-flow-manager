@@ -75,29 +75,33 @@ test("Tipos de origem são criados e listados corretamente", async ({ page }) =>
 
   // 9. Cria outro tipo avulso e valida que aparece no combobox
   // Auto-curativo: se o dialog fechou (Escape ambíguo/animação), reabre; re-resolve
-  // o locator fresco e re-clica até o modal abrir
+  // o locator fresco e re-clica até o modal abrir. Logs para diagnóstico no CI.
   for (let attempt = 0; attempt < 3; attempt++) {
     const dlg = page.getByRole("dialog").filter({ visible: true }).first();
     const dlgVisible = await dlg.isVisible({ timeout: 3000 }).catch(() => false);
+    console.log(`[origem-tipo] attempt=${attempt} dialogVisible=${dlgVisible}`);
     if (!dlgVisible) {
       await page
         .getByRole("button", { name: "Nova Entrada" })
         .first()
         .click({ timeout: 5000 })
-        .catch(() => {});
+        .catch((e) => console.log("[origem-tipo] reopen click falhou", String(e).slice(0, 120)));
       await expect(page.getByRole("dialog").filter({ visible: true }).first())
-        .toBeVisible({ timeout: 5000 })
-        .catch(() => {});
+        .toBeVisible({ timeout: 8000 })
+        .catch((e) => console.log("[origem-tipo] dialog nao reabriu", String(e).slice(0, 120)));
     }
-    await expect(page.getByRole("listbox")).toHaveCount(0, { timeout: 5000 }).catch(() => {});
+    const lb = await page.getByRole("listbox").count().catch(() => -1);
+    console.log(`[origem-tipo] listboxCount=${lb}`);
     const cbs2 = dlg.locator("button[role='combobox']");
-    await expect(cbs2).toHaveCount(2, { timeout: 5000 }).catch(() => {});
+    const cbCount = await cbs2.count().catch(() => -1);
+    console.log(`[origem-tipo] comboboxCount=${cbCount}`);
     const plus2 = cbs2.nth(1).locator("xpath=../..").locator("button:has(svg.lucide-plus)");
-    await plus2.click({ force: true, timeout: 5000 }).catch(() => {});
+    await plus2.click({ force: true, timeout: 5000 }).catch((e) => console.log("[origem-tipo] plus click falhou", String(e).slice(0, 120)));
     const opened = await page
       .getByText("Novo Tipo de Origem")
-      .isVisible({ timeout: 3000 })
+      .isVisible({ timeout: 5000 })
       .catch(() => false);
+    console.log(`[origem-tipo] modalAberto=${opened}`);
     if (opened) break;
   }
   await expect(page.getByText("Novo Tipo de Origem")).toBeVisible({ timeout: 5000 });
