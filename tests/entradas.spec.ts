@@ -6,6 +6,8 @@ test.describe("Edição de Entradas", () => {
   const email = `test_e2e_${Date.now()}@teste.com`;
 
   test("Fluxo completo: criar, editar e excluir entrada", async ({ page }) => {
+    // 300s: o save pode levar 3 tentativas x (60s janela do rate-limit do Supabase + 15s check)
+    test.setTimeout(300000);
     // ═══════════════════════════════════════
     // 1. Registrar novo usuário
     // ═══════════════════════════════════════
@@ -130,12 +132,9 @@ test.describe("Edição de Entradas", () => {
     // compartilhado por IP do runner do GitHub); se o save funcionou o drawer
     // fecha (botão some) e basta esperar o re-fetch da tabela
     const saveBtn = page.locator("button:has-text('Salvar Alterações')");
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
       if (await saveBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
         await saveBtn.click({ force: true });
-        // backoff curto: janela de rate-limit (429) do Supabase compartilhado
-        // por IP do runner — o 1o clique pode ser rejeitado, o 2o passa
-        await page.waitForTimeout(2000);
       }
       const saved = await page
         .locator("text=75.000")
@@ -144,6 +143,11 @@ test.describe("Edição de Entradas", () => {
         .catch(() => false);
       if (saved) break;
       console.log(`[entradas] save retry ${i}`);
+      if (i < 2) {
+        // espera a janela do rate-limit (429) do Supabase compartilhado por IP
+        // do runner do GitHub resetar (60s) antes de re-tentar a mutation
+        await page.waitForTimeout(60000);
+      }
     }
     await expect(page.locator("text=75.000").first()).toBeVisible({ timeout: 5_000 });
 
