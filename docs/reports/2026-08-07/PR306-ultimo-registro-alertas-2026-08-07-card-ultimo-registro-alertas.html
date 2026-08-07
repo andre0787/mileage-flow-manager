@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>card-ultimo-registro-alertas — card ultimo registro alertas</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 card ultimo registro alertas</h1>
+  <p class="meta">2026-08-07 17:51 &middot; feat/card-ultimo-registro-alertas &middot; cea9a4e — test: locators de lida/não lido sem ambiguidade + outcome-grader alinhado à rule-31 (tests/unit) e supabase-types gerado</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">card-ultimo-registro-alertas</span> <span class="badge" style="background:#fee2e2;color:#991b1b">Alto Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">22</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+2040</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-40</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1715</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🔷 Migração de banco aplicada?</li>
+      <li>🖼️ Renderização verificada em desktop e mobile?</li>
+      <li>🔌 Hooks testados em tela real?</li>
+      <li>📦 Biblioteca testada com casos de borda?</li>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Auto-gerado pelo pre-pr-check</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Relatório gerado automaticamente como parte do workflow de validação pré-PR</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 40 remoções — 2286 linhas tocadas</td>
+        <td>✨ 2040 adições — 22 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/MAP.md, docs/RADAR.md, docs/handoff.md<br><span style="color:#166534;font-weight:600">➕</span> docs/council/2026-08-07-card-ultimo-registro-alertas-veredito.md, docs/reports/2026-08-07/card-ultimo-registro-alertas-2026-08-07-card-ultimo-registro-alertas.html<br><em>+17 arquivo(s)</em></td>
+      </tr>
+      
+      <tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>22</td></tr>
+    <tr><td>Adições</td><td>+2040</td></tr>
+    <tr><td>Remoções</td><td>-40</td></tr>
+    <tr><td>Tokens estimados</td><td>~1715</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:89">+1530 add</div>
+        <div class="del" style="flex:2">-30 del</div>
+        <div class="overhead" style="flex:9">~155 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+1530</td><td>89%</td></tr>
+      <tr><td>Remoções</td><td>-30</td><td>2%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~155</td><td>9%</td></tr>
+      <tr><th>Total</th><th>~1715</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>A</td><td>docs/council/2026-08-07-card-ultimo-registro-alertas-veredito.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-07/card-ultimo-registro-alertas-2026-08-07-card-ultimo-registro-alertas.html</td></tr>
+<tr><td>A</td><td>docs/superpowers/plans/2026-08-07-card-ultimo-registro-alertas.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-08-07-card-ultimo-registro-alertas-design.md</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td></tr>
+<tr><td>M</td><td>scripts/outcome-grader.mjs</td></tr>
+<tr><td>A</td><td>src/components/AccountAlertsDialog.tsx</td></tr>
+<tr><td>A</td><td>src/components/tests/AccountAlertsDialog.test.tsx</td></tr>
+<tr><td>A</td><td>src/hooks/useDatabase/alerts.ts</td></tr>
+<tr><td>M</td><td>src/hooks/useDatabase/index.ts</td></tr>
+<tr><td>A</td><td>src/lib/accountActivity.ts</td></tr>
+<tr><td>M</td><td>src/lib/supabase-types.ts</td></tr>
+<tr><td>M</td><td>src/pages/Contas.tsx</td></tr>
+<tr><td>M</td><td>src/types/index.ts</td></tr>
+<tr><td>A</td><td>supabase/migrations/20260807000000_add_account_alerts.sql</td></tr>
+<tr><td>A</td><td>tests/alerts.spec.ts</td></tr>
+<tr><td>A</td><td>tests/unit/accountActivity.test.ts</td></tr>
+  </table>
+
+  
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/docs/MAP.md b/docs/MAP.md
+index 5ce30cf..2e8fed7 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -134,3 +134,5 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
+ | `docs/tasks/AGENTS.override.md` (auto) | 2026-08-07 |
+ | `docs/superpowers/plans/2026-07-15-context-optimization-plan.md` (auto) | 2026-08-07 |
+ | `docs/tasks/P0-07-resolve-drift-docs.md` (auto) | 2026-08-07 |
+<span class="add">+| `docs/superpowers/plans/2026-08-07-card-ultimo-registro-alertas.md` (auto) | 2026-08-07 |</span>
+<span class="add">+| `docs/superpowers/specs/2026-08-07-card-ultimo-registro-alertas-design.md` (auto) | 2026-08-07 |</span>
+diff --git a/docs/RADAR.md b/docs/RADAR.md
+index eaf2b0c..d5bf684 100644
+<span class="del">--- a/docs/RADAR.md</span>
+<span class="add">+++ b/docs/RADAR.md</span>
+@@ -1,6 +1,6 @@
+ # 🔭 Radar de Vulnerabilidades
+ 
+<span class="del">-&gt; Atualizado em: 2026-08-07T03:59:00.598Z</span>
+<span class="add">+&gt; Atualizado em: 2026-08-07T12:39:16.155Z</span>
+ 
+ ## ✅ Radar Limpo
+ Nenhuma vulnerabilidade ativa detectada.
+diff --git a/docs/council/2026-08-07-card-ultimo-registro-alertas-veredito.md b/docs/council/2026-08-07-card-ultimo-registro-alertas-veredito.md
+new file mode 100644
+index 0000000..b2a3bed
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/council/2026-08-07-card-ultimo-registro-alertas-veredito.md</span>
+@@ -0,0 +1,65 @@
+<span class="add">+# Veredito — Council: Último registro no card + Alertas por conta</span>
+<span class="add">+</span>
+<span class="add">+&gt; **Data:** 2026-08-07</span>
+<span class="add">+&gt; **Sessão:** feature — (1) último registro de entrada/venda no card das contas; (2) alerta personalizado por conta (data + observação + lido/não lido)</span>
+<span class="add">+&gt; **Topico:** 2 itens — UI no card de conta + nova entidade com migration</span>
+<span class="add">+</span>
+<span class="add">+---</span>
+<span class="add">+</span>
+<span class="add">+## Solicitação</span>
+<span class="add">+</span>
+<span class="add">+1. **Último registro de entrada e último registro de venda** no card das contas aplicáveis (`src/pages/Contas.tsx`)</span>
+<span class="add">+2. **Alerta personalizado por conta** — inclusão de data + observação + marcação lido/não lido. **Teste manual via Playwright em servidor local antes do PRD** (exigência explícita do usuário)</span>
+<span class="add">+</span>
+<span class="add">+## Evidências coletadas (evidência antes de opinião)</span>
+<span class="add">+</span>
+<span class="add">+| Item | Evidência |</span>
+<span class="add">+|------|-----------|</span>
+<span class="add">+| Card da conta | `src/pages/Contas.tsx` (355 linhas): grid `sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4`, Card com header (nome, programa, badges tipo/status) + CardContent (Saldo, Custo/Milha, Valor Investido, Saldo registrado se divergir, Dono) + botões (Ativar/Desativar, Editar, Recalcular, Excluir) |</span>
+<span class="add">+| Dados disponíveis | `useData()` já expõe `entries` (PointEntry[]) e `sales` (Sale[]) na página; `computedBalances` já deriva de entries/sales por accountId (exclui `entryStatus === "aguardando"` e `status === "cancelado"`) — mesmo filtro deve valer para "último registro" |</span>
+<span class="add">+| Campos de data | `PointEntry.date: string` (linha 103 types) e `Sale.date: string` (linha 171) — comparação lexicográfica de ISO suficiente |</span>
+<span class="add">+| Types | `Account` (id, name, ownerId, programId, type, balance, ...) — sem campo de alertas; types em `src/types/index.ts` |</span>
+<span class="add">+| Padrão de migration | `20260711000000_add_feedback_table.sql`: `CREATE TABLE IF NOT EXISTS`, `ENABLE ROW LEVEL SECURITY`, policies por `auth.uid()`; hooks em `src/hooks/useDatabase/` split por entidade, `useUserId()` |</span>
+<span class="add">+| Regra #31/#32 | Toda lib em `src/lib/` e todo componente customizado tem teste unitário |</span>
+<span class="add">+| Regra #25 | Feature que cria/alterar dados DEVE ter teste E2E; usuário pediu teste manual local via Playwright antes do PRD |</span>
+<span class="add">+| E2E local | Suíte e2e roda contra `http://localhost:8080` (Vite dev), `CI=true`; retries=2, workers CI?2 — suíte completa leva ~8min; teste dirigido roda em segundos |</span>
+<span class="add">+</span>
+<span class="add">+## Advisors</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Contrarian</span>
+<span class="add">+**Análise:** O item 1 parece inofensivo, mas o diabo está nos detalhes: "último registro" precisa definir o que é um registro válido — entradas `aguardando` (recorrência) e vendas `cancelado` poluem o card se contadas; o card já tem 5 linhas de metadados + 4 botões — adicionar 2 linhas pode estourar o layout do grid (alturas desiguais, hover translate). Item 2 é o risco real: **nova tabela + RLS** — uma policy errada expõe alertas de outro usuário (dados potencialmente sensíveis: observações sobre negociações). Migration em produção exige cuidado com `IF NOT EXISTS` + idempotência. O teste manual via Playwright que o usuário pediu não pode ser só "abrir a página": precisa validar criação → listagem → marcação lido → persistência.</span>
+<span class="add">+**Veredito:** Faça, com ressalvas: (a) último registro deve filtrar `aguardando`/`cancelado` (consistente com `computedBalances`); (b) RLS estrito por `auth.uid()`; (c) Playwright local cobrindo o fluxo completo de alerta antes do PR.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: First Principles Thinker</span>
+<span class="add">+**Análise:** Item 1: o princípio é "o card conta a história da conta" — saldo diz o estado, último registro diz a atividade. Não é preciso nova query: `entries` e `sales` já estão no contexto global (React Query, staleTime 30s). Derivação client-side com `reduce`/sort é suficiente e consistente com `computedBalances`. "Contas aplicáveis" = exibir sempre, com placeholder quando não houver registro (uniformidade &gt; omissão). Item 2: princípio "alerta = 1 registro por conta com 3 campos (data, observação, lido)". A tabela mínima: `id, account_id, user_id, date, observation, read, created_at`. Nada de status complexos — o requisito pede só lido/não lido. Inserção e toggle de leitura via mutations com `invalidateQueries` (`refetchType: 'all'` — regra #19).</span>
+<span class="add">+**Veredito:** Faça. Derivação client-side no item 1; schema mínimo no item 2.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Expansionist</span>
+<span class="add">+**Análise:** O último registro vira um mini-rastreador de atividade: usuário consegue ver em um golpe de olho quando a conta foi movimentada por último — excelente para contas inativas (saber se "vale a pena" reativar). Os alertas destravam um fluxo de lembrete: "entrada do Clube X vence dia Y" (data futura) — a data é um campo de AGENDA, não só de registro. O badge de não lido no card dá visibilidade imediata. Oportunidade: se os alertas forem filtrados no card (badge com contagem), o valor percebido sobe. Sugiro também tooltip/aria-label nos ícones para acessibilidade.</span>
+<span class="add">+**Veredito:** Faça. Badge de contagem de não lidos no card + suporte a data futura (agenda) sem custo extra.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Outsider</span>
+<span class="add">+**Análise:** Perguntas óbvias: (a) o que acontece quando a conta é EXCLUÍDA — os alertas dela somem (CASCADE) ou ficam órfãos? (b) cadê o botão/ícone de "novo alerta" no card — onde o usuário acha essa função? (c) lido/não lido: um clique no alerta marca como lido, ou há botão explícito? (d) o card já tem 4 botões — um quinto vai estourar a linha. Respostas propostas: (a) `ON DELETE CASCADE` em account_id — alerta de conta deletada é lixo; (b) ícone Bell no header do card + badge de contagem; (c) dialog com lista + toggle de lido explícito (clique abre/edita, checkbox marca lido); (d) Bell no header, NÃO na fileira de botões.</span>
+<span class="add">+**Veredito:** Faça. Bell no header do card; CASCADE na FK; toggle explícito.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Executor</span>
+<span class="add">+**Análise:** Esforço estimado: item 1 ~15min (derivação + 2 linhas no card + teste unitário de helper); item 2 ~2-3h (migration + types + hooks useDatabase/accountAlerts + componente AlertDialog/AlertsDialog + badge no card + testes unitários + e2e dirigido). Caminho de implementação: migration → types → hooks (query + add + toggle read) → dialog de alertas (lista + form data/obs + toggle lido) → badge Bell no card → testes. Ordem segura: 1º item 1 (rápido, baixo risco), 2º item 2. Playwright local dirigido (`tests/alerts.spec.ts`) cobrindo: criar conta e2e → criar alerta → badge não lido → marcar lido → badge some → reload persiste. Depois suíte completa local (62 testes) antes do PR.</span>
+<span class="add">+**Veredito:** Faça. Ordem: item 1 → item 2; testes locais dirigidos + suíte completa antes do PR; pre-pr → PR → merge → PRD.</span>
+<span class="add">+</span>
+<span class="add">+## Peer Review</span>
+<span class="add">+</span>
+<span class="add">+- **Contrarian** reforça: exclusão de conta sem CASCADE deixaria alertas órfãos na tabela — concordância geral com a proposta do Outsider (CASCADE).</span>
+<span class="add">+- **First Principles** ajusta: a derivação client-side do item 1 deve reusar o mesmo filtro do `computedBalances` (fonte única — não duplicar regra de "registro válido").</span>
+<span class="add">+- **Expansionist** concorda com o badge, mas nota: o badge não pode quebrar o layout do header (usar posição absoluta ou inline flex pequeno).</span>
+<span class="add">+- **Outsider** mantém: Bell no header, fora da fileira de botões (4 botões já lotam a linha em mobile).</span>
+<span class="add">+- **Executor** confirma: hook único `useAccountAlerts(userId)` + `useAddAccountAlertMutation` + `useToggleAlertReadMutation`; dialog reutilizável; e2e dirigido local (não no CI nightly — e2e-full fora da cron).</span>
+<span class="add">+</span>
+<span class="add">+## Síntese do Chairman</span>
+<span class="add">+</span>
+<span class="add">+**Consenso:** Faça os 2 itens. Item 1 derivado client-side (sem query nova) com filtro consistente com `computedBalances`; item 2 com schema mínimo, RLS estrito por user, CASCADE na FK, Bell + badge de não lidos no header do card, dialog com lista e toggle explícito de leitura. Teste manual via Playwright local (dirigido + suíte completa) obrigatório antes do PR — exigência do usuário.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito Final:** Faça</span>
+<span class="add">+</span>
+<span class="add">+**Próximos Passos:** Superpowers — brainstorming → spec → plano → branch `feat/card-ultimo-registro-alertas` → TDD (helper de último registro + hook de alertas + dialog) → e2e local dirigido + suíte completa → pre-pr → PR → merge → deploy → validação em PRD</span>
+<span class="add">+</span>
+<span class="add">+**Extended Thinking Usado:** não (decisão de escopo moderado, sem trade-off de arquitetura — 1 migration simples, sem tocar em dados financeiros existentes)</span>
+diff --git a/docs/handoff.md b/docs/handoff.md
+index 921ec63..28f185f 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -24,12 +24,12 @@ Nenhum PR aberto.
+ ---
+ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
+ ## 🎯 Sessão Atual
+<span class="del">-**Categoria:** chore</span>
+<span class="del">-**Objetivo:** ITEM 3: nightly.yml falha diariamente — verificar necessidade, corrigir ou sanitizar actions obsoletas, até PRD</span>
+<span class="del">-**Status:** done</span>
+<span class="add">+**Categoria:** feature</span>
+<span class="add">+**Objetivo:** (1) último registro de entrada e venda no card das contas aplicáveis; (2) alerta personalizado por conta (data + observação + lido/não lido). Teste manual local via Playwright antes do PRD.</span>
+<span class="add">+**Status:** in_progress</span>
+ **Iniciada em:** 2026-08-07T03:59:00.605Z
+<span class="del">-**Branch:** `docs/session-end-item3-final`</span>
+<span class="del">-**Docs carregados:** AGENTS.md</span>
+<span class="add">+**Branch:** `feat/card-ultimo-registro-alertas`</span>
+<span class="add">+**Docs carregados:** WORKFLOW.md, CONVENTIONS.md</span>
+ ## ✅ Última Sessão
+ **ITEM 3 RESOLVIDO + PRD (12 rodadas de validação, PRs #288–#304):**
+ - **quality-and-check ✅:** 403 do bot resolvido (permissions contents/pull-requests write + hooks desativados no CI).
+diff --git a/docs/reports/2026-08-07/card-ultimo-registro-alertas-2026-08-07-card-ultimo-registro-alertas.html b/docs/reports/2026-08-07/card-ultimo-registro-alertas-2026-08-07-card-ultimo-registro-alertas.html
+new file mode 100644
+index 0000000..4ac1e88
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/reports/2026-08-07/card-ultimo-registro-alertas-2026-08-07-card-ultimo-registro-alertas.html</span>
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>

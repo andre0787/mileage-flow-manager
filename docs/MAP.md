@@ -134,3 +134,5 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/tasks/AGENTS.override.md` (auto) | 2026-08-07 |
 | `docs/superpowers/plans/2026-07-15-context-optimization-plan.md` (auto) | 2026-08-07 |
 | `docs/tasks/P0-07-resolve-drift-docs.md` (auto) | 2026-08-07 |
+| `docs/superpowers/plans/2026-08-07-card-ultimo-registro-alertas.md` (auto) | 2026-08-07 |
+| `docs/superpowers/specs/2026-08-07-card-ultimo-registro-alertas-design.md` (auto) | 2026-08-07 |

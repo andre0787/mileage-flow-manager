@@ -10,6 +10,7 @@ import {
   Building2,
   RefreshCw,
   AlertTriangle,
+  Bell,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,7 +25,10 @@ import {
   useRecalcAccountMutation,
 } from "@/hooks/useDatabase";
 import AccountDialog from "@/components/AccountDialog";
-import type { Account } from "@/types";
+import { AccountAlertsDialog } from "@/components/AccountAlertsDialog";
+import { useAccountAlerts } from "@/hooks/useDatabase";
+import { getLastAccountActivity } from "@/lib/accountActivity";
+import type { Account, PointEntry, Sale } from "@/types";
 
 const ITEMS_PER_PAGE = 20;
 
@@ -38,6 +42,7 @@ export default function Contas() {
   const [editAccount, setEditAccount] = useState<Account | undefined>(undefined);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [alertsAccount, setAlertsAccount] = useState<Account | null>(null);
 
   const filteredAccounts =
     filterType === "todas" ? accounts : accounts.filter((a) => a.type === filterType);
@@ -66,6 +71,19 @@ export default function Contas() {
     }
     return map;
   }, [accounts, entries, sales]);
+
+  // Última entrada e última venda válidas por conta (filtro idêntico ao computedBalances)
+  const lastActivityByAccount = useMemo(() => {
+    const map = new Map<string, { lastEntry?: PointEntry; lastSale?: Sale }>();
+    for (const a of accounts) {
+      map.set(a.id, getLastAccountActivity(entries, sales, a.id));
+    }
+    return map;
+  }, [accounts, entries, sales]);
+
+  const { data: allAlerts = [] } = useAccountAlerts();
+  const unreadCount = (accountId: string) =>
+    allAlerts.filter((a) => a.accountId === accountId && !a.read).length;
 
   const toggleAccountStatus = (id: string) => {
     const account = accounts.find((a) => a.id === id);
@@ -186,6 +204,20 @@ export default function Contas() {
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      className="relative inline-flex items-center justify-center rounded-md p-1.5 hover:bg-muted transition-colors"
+                      onClick={() => setAlertsAccount(account)}
+                      aria-label={`Alertas de ${account.name}`}
+                      title="Alertas da conta"
+                    >
+                      <Bell className="h-4 w-4" />
+                      {unreadCount(account.id) > 0 && (
+                        <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-destructive text-[10px] font-semibold text-white px-1">
+                          {unreadCount(account.id)}
+                        </span>
+                      )}
+                    </button>
                     <Badge variant={account.type === "pontos" ? "secondary" : "default"}>
                       {account.type === "pontos" ? "Pontos" : "Milhas"}
                     </Badge>
@@ -244,6 +276,26 @@ export default function Contas() {
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-muted-foreground">Dono:</span>
                     <span className="text-sm font-medium">{ownerName(account.ownerId)}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">Última entrada:</span>
+                    <span className="text-sm font-medium">
+                      {lastActivityByAccount.get(account.id)?.lastEntry
+                        ? new Date(
+                            lastActivityByAccount.get(account.id)!.lastEntry!.date,
+                          ).toLocaleDateString("pt-BR")
+                        : "—"}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">Última venda:</span>
+                    <span className="text-sm font-medium">
+                      {lastActivityByAccount.get(account.id)?.lastSale
+                        ? new Date(
+                            lastActivityByAccount.get(account.id)!.lastSale!.date,
+                          ).toLocaleDateString("pt-BR")
+                        : "—"}
+                    </span>
                   </div>
                 </div>
 
@@ -350,6 +402,16 @@ export default function Contas() {
           </div>
         </CardContent>
       </Card>
+
+      {alertsAccount && (
+        <AccountAlertsDialog
+          account={alertsAccount}
+          open
+          onOpenChange={(open) => {
+            if (!open) setAlertsAccount(null);
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -24,7 +24,7 @@ import { resolve } from "path";
 const ROOT = resolve(import.meta.dirname, "..");
 
 const PROTECTED_FILES = [
-  "src/lib/supabase",
+  "src/lib/supabase.ts",
   "tailwind.config",
   "postcss.config",
   "vite.config",
@@ -67,6 +67,9 @@ function findTestFile(srcFile) {
     const testPath2 = `${dir}/tests/${name}${ext}`;
     if (existsSync(resolve(ROOT, testPath2))) return testPath2;
   }
+  // Convenção da rule-31: libs de src/lib/ têm teste em tests/unit/<name>.test.ts
+  const unitPath = resolve(ROOT, "tests", "unit", `${name}${TEST_EXTENSIONS[0]}`);
+  if (existsSync(unitPath)) return unitPath;
   return null;
 }
 
