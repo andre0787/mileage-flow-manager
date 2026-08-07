@@ -18,7 +18,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 const SCHEMA_PATH = resolve(ROOT, "docs/task-card.schema.json");
 const TASKS_DIR = resolve(ROOT, "docs/tasks");
-const EXCLUDE = new Set(["_TEMPLATE.md", "ROADMAP.md"]);
+const EXCLUDE = new Set(["_TEMPLATE.md", "ROADMAP.md", "AGENTS.override.md"]);
 
 const schema = JSON.parse(readFileSync(SCHEMA_PATH, "utf8"));
 const requiredFields = new Set(schema.required);

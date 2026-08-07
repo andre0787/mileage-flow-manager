@@ -1207,3 +1207,18 @@
 {"timestamp":"2026-08-05T04:25:55.186Z","type":"llm.route.resolved","description":"LLM route resolved","branch":"main","commit":"088df44","taskId":"p2-harness-probe","category":"bugfix","capability":"review","profile":"strong-reasoning","model":"opencode/deepseek-v4-flash-free","fallbackModels":[],"source":"category-default","retrySafety":"read-only","configVersion":1,"skills":[]}
 {"timestamp":"2026-08-05T04:31:51.944Z","type":"healed","description":"rule-26 auto-corrigido","branch":"fix/harness-subagents-p2","commit":"088df44","rule":"rule-26"}
 {"timestamp":"2026-08-05T04:32:14.299Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/harness-subagents-p2","commit":"088df44","errors":0}
+{"timestamp":"2026-08-06T01:08:51.204Z","type":"llm.route.resolved","description":"LLM route resolved","branch":"main","commit":"c0700b0","taskId":"probe-responder-pi-subagents","category":"chore","capability":null,"profile":"efficient","model":"opencode/deepseek-v4-flash-free","fallbackModels":[],"source":"category-default","retrySafety":"may-write","configVersion":1,"skills":[]}
+{"timestamp":"2026-08-07T02:25:06.021Z","type":"session:start","description":"chore: Adotar features novas do pi 0.84 (AI_AGENT nos scripts, AGENTS.override.md, Baseten+samplingParams no router, settings TUI)","branch":"main","commit":"c0700b0","categoria":"chore"}
+{"timestamp":"2026-08-07T02:28:03.824Z","type":"healed","description":"rule-26 auto-corrigido","branch":"chore/pi-084-adoption","commit":"c0700b0","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-08-07T02:28:03.860Z","type":"healed","description":"rule-17-new-docs-valid auto-corrigido","branch":"chore/pi-084-adoption","commit":"c0700b0","agent":"pi","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-07T02:28:04.230Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/pi-084-adoption","commit":"c0700b0","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-07T02:28:28.748Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/pi-084-adoption","commit":"c0700b0","agent":"pi","errors":3}
+{"timestamp":"2026-08-07T02:29:54.407Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/pi-084-adoption","commit":"c0700b0","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-07T02:30:16.040Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/pi-084-adoption","commit":"c0700b0","agent":"pi","errors":1}
+{"timestamp":"2026-08-07T02:30:20.341Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/pi-084-adoption","commit":"c0700b0","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-07T02:30:41.760Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/pi-084-adoption","commit":"c0700b0","agent":"pi","errors":1}
+{"timestamp":"2026-08-07T02:30:46.388Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/pi-084-adoption","commit":"c0700b0","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-07T02:31:07.926Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/pi-084-adoption","commit":"c0700b0","agent":"pi","errors":1}
+{"timestamp":"2026-08-07T02:31:29.304Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/pi-084-adoption","commit":"c0700b0","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-07T02:32:40.296Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/pi-084-adoption","commit":"c0700b0","agent":"pi","errors":0}
+{"timestamp":"2026-08-07T02:33:23.387Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/pi-084-adoption","commit":"c0700b0","agent":"pi","errors":0}
