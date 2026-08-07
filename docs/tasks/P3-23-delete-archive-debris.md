@@ -16,7 +16,7 @@ Remover 5 arquivos obsoletos de `docs/archive/` que o próprio `MAP.md` já clas
 
 ## Não objetivos
 - Não alterar arquivos de `docs/archive/specs/`, `docs/archive/plans/`, `docs/archive/council/` (são históricos legítimos)
-- Não deletar `docs/AGENDA.md` (ainda referenciado por 5+ scripts — esforço > benefício)
+- ~~Não deletar `AGENDA.md` (ainda referenciado por 5+ scripts — esforço > benefício)~~ — nota 07/08: `AGENDA.md` removido na limpeza de docs; conteúdo preservado em `docs/archive/AGENDA-2026.md`
 - Não alterar `scripts/verify-docs.mjs` (só lista `docs/archive/` como um todo)
 
 ## Contexto

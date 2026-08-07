@@ -1224,3 +1224,10 @@
 {"timestamp":"2026-08-07T02:33:23.387Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/pi-084-adoption","commit":"c0700b0","agent":"pi","errors":0}
 {"timestamp":"2026-08-07T02:47:38.602Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/audit-next-session","commit":"e8bbf1a","agent":"pi","rule":"rule-26"}
 {"timestamp":"2026-08-07T02:48:59.077Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/audit-next-session","commit":"e8bbf1a","agent":"pi","errors":0}
+{"timestamp":"2026-08-07T02:56:49.239Z","type":"session:start","description":"docs: Auditoria completa de docs: tasks pendentes, limpeza, órfãos, skills, pendências mapeadas","branch":"main","commit":"29bb8f4","agent":"pi","categoria":"docs"}
+{"timestamp":"2026-08-07T03:02:17.532Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/docs-audit-2026-08","commit":"29bb8f4","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-08-07T03:02:17.568Z","type":"healed","description":"rule-17-new-docs-valid auto-corrigido","branch":"docs/docs-audit-2026-08","commit":"29bb8f4","agent":"pi","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-07T03:02:20.547Z","type":"rule:fail","description":"rule-29-prompt-version falhou","branch":"docs/docs-audit-2026-08","commit":"29bb8f4","agent":"pi","rule":"rule-29-prompt-version"}
+{"timestamp":"2026-08-07T03:02:40.271Z","type":"pre-pr","description":"pre-pr FAIL","branch":"docs/docs-audit-2026-08","commit":"29bb8f4","agent":"pi","errors":1}
+{"timestamp":"2026-08-07T03:03:13.287Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/docs-audit-2026-08","commit":"29bb8f4","agent":"pi","errors":0}
+{"timestamp":"2026-08-07T03:03:41.431Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/docs-audit-2026-08","commit":"29bb8f4","agent":"pi","errors":0}

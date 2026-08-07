@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `8ac2b90` — Merge pull request #279 from andre0787/chore/pi-084-adoption
+- **Último commit:** `29bb8f4 — Merge pull request #281 from andre0787/docs/audit-next-session`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,12 +24,12 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** Adotar features novas do pi 0.84 (AI_AGENT nos scripts, AGENTS.override.md, Baseten+samplingParams no router, settings TUI)
-**Status:** done
-**Iniciada em:** 2026-08-07T02:25:05.997Z
-**Branch:** `docs/audit-next-session`
-**Último commit:** c0700b0 — Merge pull request #278 from andre0787/docs/session-end-harness-p2
+**Categoria:** docs
+**Objetivo:** Auditoria completa de docs: tasks pendentes, limpeza, órfãos, skills, pendências mapeadas
+**Status:** in_progress
+**Iniciada em:** 2026-08-07T02:56:49.215Z
+**Branch:** `docs/docs-audit-2026-08`
+**Último commit:** 29bb8f4 — Merge pull request #281 from andre0787/docs/audit-next-session
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.

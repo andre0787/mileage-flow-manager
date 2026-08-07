@@ -28,6 +28,7 @@
 | `docs/CI-PROCESS.md` | Melhoria contínua | Ciclo de melhoria: coletar → priorizar → executar → revisar → retrospectiva |
 | `docs/RADAR.md` | **Início de toda sessão (automático)** | Relatório persistente de vulnerabilidades npm monitoradas (gerado pelo `scripts/check-radar.mjs`) |
 | `docs/audits/2026-08-03-project-audit.md` | Ao investigar estrutura/sujeira do repositório | Snapshot read-only da auditoria estrutural (`npm run project:audit`): checks, findings, allowlists |
+| `docs/audits/2026-08-07-docs-audit.md` | Ao auditar docs/skills/pendências | Auditoria completa de docs: checklist 6 itens, inventário .md, limpeza executada, órfãos, skills, pendências mapeadas |
 
 ## Docs de Roadmap / Task-cards
 
@@ -111,7 +112,7 @@ Artefatos de sprints/features concluídos foram movidos para `docs/archive/`:
 
 ## Fable Method — Fase 2 Audit
 
-[`docs/fable-method-audit.md`](fable-method-audit.md) — Auditoria da entrega prompt-versioning
+[`docs/archive/fable-method-audit.md`](archive/fable-method-audit.md) — Auditoria da entrega prompt-versioning (arquivada em 07/08, ciclo encerrado)
 (PR #219) verificando se os 3 gates teriam pego problemas reais.
 
 **ROI verificado: 🟢 Positivo.** Ver auditoria completa no link acima.
@@ -130,3 +131,5 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | Arquivo | Registrado em |
 |---------|---------------|
 | `docs/tasks/AGENTS.override.md` (auto) | 2026-08-07 |
+| `docs/superpowers/plans/2026-07-15-context-optimization-plan.md` (auto) | 2026-08-07 |
+| `docs/tasks/P0-07-resolve-drift-docs.md` (auto) | 2026-08-07 |

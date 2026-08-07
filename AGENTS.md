@@ -22,6 +22,7 @@
 | `docs/MAP.md` | Mapa completo do projeto + skills de subagentes | 5.6KB |
 | `docs/CONTEXT-MANAGEMENT.md` | Estratégia de lazy loading | novo |
 | `docs/fable-gates.md` | Gates INTENT, TWINS e AUTH do Fable Method | novo |
+| `.pi/skills/code-review-graph/SKILL.md` | Mapeamento estrutural do código (CLI CRG v2.3.7, pipx): architecture, dead-code, communities, impact | nova — usar em auditorias e reviews |
 
 ### Roteamento de subagentes
 
