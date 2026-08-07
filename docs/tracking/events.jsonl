@@ -1279,3 +1279,6 @@
 {"timestamp":"2026-08-07T21:40:34.432Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/fuso-formatacao-data","commit":"f3cc29d","agent":"pi","errors":0}
 {"timestamp":"2026-08-07T21:41:11.330Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/fuso-formatacao-data","commit":"f3cc29d","agent":"pi","errors":0}
 {"timestamp":"2026-08-07T21:42:43.244Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/fuso-formatacao-data","commit":"f3cc29d","agent":"pi","errors":0}
+{"timestamp":"2026-08-07T21:50:18.883Z","type":"session:end","description":"Item feature PRD + bug fuso data corrigido: última entrada/venda no card + alertas por conta + formatDateBR","branch":"docs/session-end-fuso","commit":"98b6b13","agent":"pi","prs":"306, 309","issues":"308","deploy":"success","prod_revalidado":"entrada 05/08/2026 + alertas 8.1s","twins":"10 locais corrigidos"}
+{"timestamp":"2026-08-07T21:50:19.110Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/session-end-fuso","commit":"98b6b13","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-08-07T21:50:44.794Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-fuso","commit":"98b6b13","agent":"pi","errors":0}
