@@ -28,6 +28,7 @@ import AccountDialog from "@/components/AccountDialog";
 import { AccountAlertsDialog } from "@/components/AccountAlertsDialog";
 import { useAccountAlerts } from "@/hooks/useDatabase";
 import { getLastAccountActivity } from "@/lib/accountActivity";
+import { formatDateBR } from "@/lib/dateUtils";
 import type { Account, PointEntry, Sale } from "@/types";
 
 const ITEMS_PER_PAGE = 20;
@@ -281,9 +282,7 @@ export default function Contas() {
                     <span className="text-sm text-muted-foreground">Última entrada:</span>
                     <span className="text-sm font-medium">
                       {lastActivityByAccount.get(account.id)?.lastEntry
-                        ? new Date(
-                            lastActivityByAccount.get(account.id)!.lastEntry!.date,
-                          ).toLocaleDateString("pt-BR")
+                        ? formatDateBR(lastActivityByAccount.get(account.id)!.lastEntry!.date)
                         : "—"}
                     </span>
                   </div>
@@ -291,9 +290,7 @@ export default function Contas() {
                     <span className="text-sm text-muted-foreground">Última venda:</span>
                     <span className="text-sm font-medium">
                       {lastActivityByAccount.get(account.id)?.lastSale
-                        ? new Date(
-                            lastActivityByAccount.get(account.id)!.lastSale!.date,
-                          ).toLocaleDateString("pt-BR")
+                        ? formatDateBR(lastActivityByAccount.get(account.id)!.lastSale!.date)
                         : "—"}
                     </span>
                   </div>

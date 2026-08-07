@@ -22,6 +22,7 @@ import { isTransferencia } from "@/lib/utils";
 import { calculateRecurrence } from "@/lib/recurrence";
 import { calcMilesGenerated, calcCostPerThousand, calcCostPerMile } from "@/lib/metrics";
 import { serializeOrigemTypeDescription } from "@/lib/origemTypes";
+import { formatDateBR } from "@/lib/dateUtils";
 import { toast } from "sonner";
 import {
   useAddEntryMutation,
@@ -274,11 +275,7 @@ export default function Entradas() {
         origemTypes.find((ot) => ot.id === e.origemTypeId)?.name.toLowerCase() ??
         programs.find((p) => p.id === e.origemTypeId)?.name.toLowerCase() ??
         "";
-      return (
-        accountName.includes(q) ||
-        origemNome.includes(q) ||
-        new Date(e.date).toLocaleDateString("pt-BR").includes(q)
-      );
+      return accountName.includes(q) || origemNome.includes(q) || formatDateBR(e.date).includes(q);
     });
   }, [entriesByTab, debouncedSearch, accounts, origemTypes, programs, ownerFilter]);
 

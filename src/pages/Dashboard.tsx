@@ -28,6 +28,7 @@ import { EmptyState } from "@/components/EmptyState";
 import { SkeletonMetricCard, SkeletonTable } from "@/components/SkeletonLoader";
 import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
+import { formatDateBR } from "@/lib/dateUtils";
 import { computeDashboardMetrics, computeMetricHistory } from "@/lib/metrics";
 import type { Account, Sale, PointEntry } from "@/types";
 
@@ -1099,7 +1100,7 @@ export default function Dashboard() {
                             {t.sourceAccountName}
                           </h4>
                           <p className="text-xs text-muted-foreground font-body">
-                            {new Date(t.date).toLocaleDateString("pt-BR")} • {t.destAccountName}{" "}
+                            {formatDateBR(t.date)} • {t.destAccountName}{" "}
                             {t.bonusPercent ? `• +${t.bonusPercent}% bônus` : ""}
                           </p>
                         </div>

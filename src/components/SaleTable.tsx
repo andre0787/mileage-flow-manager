@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { SortableHeader } from "@/components/ui/SortableHeader";
+import { formatDateBR } from "@/lib/dateUtils";
 import { sortByKey, type SortState } from "@/lib/sort";
 import {
   Select,
@@ -176,7 +177,7 @@ export function SaleTable({
                     key={sale.id}
                     className={sale.status === "cancelado" ? "opacity-50" : ""}
                   >
-                    <TableCell>{new Date(sale.date).toLocaleDateString("pt-BR")}</TableCell>
+                    <TableCell>{formatDateBR(sale.date)}</TableCell>
                     <TableCell>
                       <p className="font-medium">{sale.ownerName}</p>
                       <p className="text-xs text-muted-foreground">{sale.program}</p>
@@ -276,7 +277,7 @@ export function SaleTable({
                   <div className="min-w-0 flex-1">
                     <p className="font-semibold truncate">{sale.program}</p>
                     <p className="text-xs text-muted-foreground truncate">
-                      {sale.ownerName} • {new Date(sale.date).toLocaleDateString("pt-BR")}
+                      {sale.ownerName} • {formatDateBR(sale.date)}
                     </p>
                   </div>
                   {sale.status === "cancelado" ? (

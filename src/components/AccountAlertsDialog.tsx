@@ -16,6 +16,7 @@ import {
   useAddAccountAlertMutation,
   useToggleAccountAlertMutation,
 } from "@/hooks/useDatabase";
+import { formatDateBR } from "@/lib/dateUtils";
 import type { Account } from "@/types";
 
 interface AccountAlertsDialogProps {
@@ -103,9 +104,7 @@ export function AccountAlertsDialog({ account, open, onOpenChange }: AccountAler
                 className="flex items-start justify-between gap-3 rounded-md border p-3"
               >
                 <div className="space-y-1">
-                  <p className="text-sm font-medium">
-                    {new Date(alert.date + "T12:00:00").toLocaleDateString("pt-BR")}
-                  </p>
+                  <p className="text-sm font-medium">{formatDateBR(alert.date)}</p>
                   <p className="text-sm text-muted-foreground">{alert.observation}</p>
                   <Badge variant={alert.read ? "secondary" : "default"}>
                     {alert.read ? "Lida" : "Não lido"}
