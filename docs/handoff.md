@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `9ed34fb` — Merge pull request #300 from andre0787/fix/nightly-e2e-permissions
+- **Último commit:** `846a10f — Merge pull request #301 from andre0787/docs/session-end-item3-done`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -21,16 +21,11 @@ Nenhum PR aberto.
 | Docs issues | 0 |
 | Branch | main |
 
+
+
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-## 🎯 Sessão Atual
-**Categoria:** bugfix
-**Objetivo:** ITEM 3: nightly.yml falha diariamente — verificar necessidade, corrigir ou sanitizar actions obsoletas, até PRD
-**Status:** done
-**Iniciada em:** 2026-08-07T03:59:00.605Z
-**Branch:** `docs/session-end-item3-done`
-**Último commit:** 9ed34fb — Merge pull request #300 (final do item 3)
-**Docs carregados:** DEBUG.md, CONVENTIONS.md
+
 ## ✅ Última Sessão
 **ITEM 3 RESOLVIDO + PRD (12 rodadas de validação, PRs #288–#300):**
 - **quality-and-check ✅:** 403 do bot resolvido (permissions contents/pull-requests write + hooks desativados no CI). Último bloqueio = setting do repo *"Allow GitHub Actions to create and approve pull requests"* (UI-only, desativada) → `continue-on-error` no create-pull-request: o job **nunca mais falha**. Para reativar o PR automático do QUALITY.md: **1 clique em Settings → Actions → General**.
@@ -50,3 +45,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
 
 
+
+## 🎯 Sessão Atual
+**Categoria:** chore
+**Objetivo:** P0 completo
