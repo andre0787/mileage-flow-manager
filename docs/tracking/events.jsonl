@@ -1269,3 +1269,5 @@
 {"timestamp":"2026-08-07T14:18:36.658Z","type":"rule:fail","description":"rule-30-outcome-grade falhou","branch":"feat/card-ultimo-registro-alertas","commit":"3c56d28","agent":"pi","rule":"rule-30-outcome-grade"}
 {"timestamp":"2026-08-07T14:19:03.834Z","type":"rule:fail","description":"rule-30-outcome-grade falhou","branch":"feat/card-ultimo-registro-alertas","commit":"3c56d28","agent":"pi","rule":"rule-30-outcome-grade"}
 {"timestamp":"2026-08-07T14:23:06.149Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/card-ultimo-registro-alertas","commit":"3c56d28","agent":"pi","errors":0}
+{"timestamp":"2026-08-07T20:51:10.239Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/card-ultimo-registro-alertas","commit":"cea9a4e","agent":"pi","errors":0}
+{"timestamp":"2026-08-07T20:51:40.653Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/card-ultimo-registro-alertas","commit":"cea9a4e","agent":"pi","errors":0}
