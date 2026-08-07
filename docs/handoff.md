@@ -26,9 +26,9 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** feature
 **Objetivo:** (1) último registro de entrada e venda no card das contas aplicáveis; (2) alerta personalizado por conta (data + observação + lido/não lido). Teste manual local via Playwright antes do PRD.
-**Status:** implementado + testes locais verdes; migration aplicada via CLI (db push + repair das antigas); aguardando pre-pr final + PR
+**Status:** CONCLUÍDO + PRD ✅ (PR #306 merged + deploy success) — 2 itens entregues: último registro no card + alertas por conta. Teste manual local via Playwright exigido pelo usuário foi executado (dirigido 9.1s + suíte completa 0 failed).
 **Iniciada em:** 2026-08-07T03:59:00.605Z
-**Branch:** `feat/card-ultimo-registro-alertas`
+**Branch:** `docs/session-end-feature-prd`
 **Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 ## ✅ Última Sessão
 **ITEM 3 RESOLVIDO + PRD (12 rodadas de validação, PRs #288–#304):**
