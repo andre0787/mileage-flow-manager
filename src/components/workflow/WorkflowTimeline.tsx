@@ -48,11 +48,7 @@ export function WorkflowTimeline() {
                 <div
                   className={cn(
                     "absolute left-4 md:left-1/2 top-4 h-3 w-3 -translate-x-1/2 rounded-full border-2 bg-card z-10",
-                    isFail
-                      ? "border-red-500"
-                      : isGate
-                        ? "border-amber-500"
-                        : "border-primary",
+                    isFail ? "border-red-500" : isGate ? "border-amber-500" : "border-primary",
                   )}
                 />
                 {/* card alternando lado */}

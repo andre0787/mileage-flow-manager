@@ -4,10 +4,7 @@ import { WorkflowHero } from "@/components/workflow/WorkflowHero";
 import { WorkflowJourney } from "@/components/workflow/WorkflowJourney";
 import { WorkflowGates } from "@/components/workflow/WorkflowGates";
 import { WorkflowSimulator } from "@/components/workflow/WorkflowSimulator";
-import {
-  WorkflowMindMap,
-  __mindTest,
-} from "@/components/workflow/WorkflowMindMap";
+import { WorkflowMindMap, __mindTest } from "@/components/workflow/WorkflowMindMap";
 
 const { estWidth, computeLayout, linePath } = __mindTest;
 

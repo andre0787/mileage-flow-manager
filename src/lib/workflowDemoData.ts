@@ -59,9 +59,7 @@ export interface FluxoPhase {
   label: string;
 }
 
-export type FluxoItem =
-  | { type: "phase"; phase: FluxoPhase }
-  | { type: "step"; step: FluxoTStep };
+export type FluxoItem = { type: "phase"; phase: FluxoPhase } | { type: "step"; step: FluxoTStep };
 
 export interface MindBranch {
   id: string;
@@ -123,7 +121,7 @@ export const KPI_STATS: KpiStat[] = [
   { value: 274, label: "notas de qualidade", sub: "docs/tracking/quality.jsonl" },
   { value: 39, label: "regras de validação", sub: "auto-executadas no pre-pr" },
   { value: 503, label: "testes unitários", sub: "56 arquivos de teste" },
-  { value: 23, label: "auto-correções", sub: "eventos \"healed\"" },
+  { value: 23, label: "auto-correções", sub: 'eventos "healed"' },
   { value: 2, label: "novos gates de evidência", sub: "coding + code-review" },
 ];
 
@@ -182,7 +180,7 @@ export const JOURNEY_STEPS: JourneyStep[] = [
     title: "INTENT Gate",
     badge: "rule-33",
     badgeKind: "gate",
-    body: "Antes de qualquer edição, o agente declara: \"o código faz X; o teste espera Y; a spec diz Z\". Se os três não baterem, ele não edita — reporta.",
+    body: 'Antes de qualquer edição, o agente declara: "o código faz X; o teste espera Y; a spec diz Z". Se os três não baterem, ele não edita — reporta.',
     ev: "INTENT: código faz X; teste espera Y; spec diz Z\n→ se divergirem: NÃO editar, reportar",
   },
   {
@@ -240,7 +238,7 @@ export const JOURNEY_STEPS: JourneyStep[] = [
     title: "AUTH Gate",
     badge: "rule-35",
     badgeKind: "gate",
-    body: "Push, merge e deploy são irreversíveis. Por isso, exigem a palavra exata do usuário (\"manda bala\", \"autorizo\"...). Sem a citação, o agente não age.",
+    body: 'Push, merge e deploy são irreversíveis. Por isso, exigem a palavra exata do usuário ("manda bala", "autorizo"...). Sem a citação, o agente não age.',
     ev: 'AUTH: usuário disse "<citação exata>"\n→ sem citação: não agir',
   },
   {
@@ -264,7 +262,7 @@ export const JOURNEY_STEPS: JourneyStep[] = [
     title: "E se eu pular um gate?",
     badge: "fail-closed",
     badgeKind: "tele",
-    body: "Os gates são fail-closed: sem evidência, o pre-pr falha (exit 1) e mostra a mensagem de como corrigir. Não dá para \"empurrar com a barriga\" — o sistema prefere parar a liberar.",
+    body: 'Os gates são fail-closed: sem evidência, o pre-pr falha (exit 1) e mostra a mensagem de como corrigir. Não dá para "empurrar com a barriga" — o sistema prefere parar a liberar.',
     ev: '❌ rule-38: nenhum evento code-review:done na branch feat/x\n   Dica: node scripts/event-log.mjs code-review:done \\\n     "Review aprovado por subagente" --meta \'{"subagent":true}\'',
     blocked: true,
   },
@@ -391,7 +389,7 @@ export const FLUXO_ITEMS: FluxoItem[] = [
       kind: "gate",
       time: "🔐 Gate",
       title: "AUTH",
-      desc: "Push, merge e deploy são irreversíveis → exigem a palavra exata do usuário (\"autorizo\", \"manda bala\"...). Sem citação, nada acontece.",
+      desc: 'Push, merge e deploy são irreversíveis → exigem a palavra exata do usuário ("autorizo", "manda bala"...). Sem citação, nada acontece.',
       tag: "⛔ rule-35 · bloqueia ação",
       tagKind: "warn",
     },
@@ -590,7 +588,7 @@ export const SIM_SCENARIOS: SimScenario[] = [
         kind: "fail",
       },
       {
-        text: "❌   Dica: node scripts/event-log.mjs code-review:done \\\n  \"Review aprovado por subagente\" --meta '{\"subagent\":true}'",
+        text: '❌   Dica: node scripts/event-log.mjs code-review:done \\\n  "Review aprovado por subagente" --meta \'{"subagent":true}\'',
         kind: "fail",
       },
       { text: "❌ rule-39: nenhum evento coding:done na branch feat/x", kind: "fail" },
@@ -598,13 +596,13 @@ export const SIM_SCENARIOS: SimScenario[] = [
       { text: "═══════════════════════════════════", kind: "muted" },
       { text: "❌ 3 errors — PR BLOQUEADO (fail-closed)", kind: "fail" },
       {
-        text: "➡️  O sistema não libera: falta evidência. Sem \"empurrar com a barriga\".",
+        text: '➡️  O sistema não libera: falta evidência. Sem "empurrar com a barriga".',
         kind: "muted",
       },
     ],
     summary: "❌ 3 errors — PR BLOQUEADO (fail-closed)",
     summaryKind: "fail",
-    hint: "➡️  O sistema não libera: falta evidência. Sem \"empurrar com a barriga\".",
+    hint: '➡️  O sistema não libera: falta evidência. Sem "empurrar com a barriga".',
   },
   {
     id: "ok",

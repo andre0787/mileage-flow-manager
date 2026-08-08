@@ -36,7 +36,7 @@
 </head>
 <body>
   <h1>📋 workflow tab</h1>
-  <p class="meta">2026-08-08 20:37 &middot; feat/workflow-tab &middot; 39a674c — chore: renomeia relatório do pre-pr para PR321</p>
+  <p class="meta">2026-08-08 20:40 &middot; feat/workflow-tab &middot; b41d06e — fix: preservar dados dos nós ao restaurar mapa mental</p>
   <p><span class="badge pr">PR #321</span> <span class="badge auto">PR321</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
@@ -46,15 +46,15 @@
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+3665</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+3695</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-34</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-41</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~2899</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~2929</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -82,8 +82,8 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 34 remoções — 3865 linhas tocadas</td>
-        <td>✨ 3665 adições — 21 arquivo(s) alterado(s)</td>
+        <td>🧹 41 remoções — 3905 linhas tocadas</td>
+        <td>✨ 3695 adições — 21 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
@@ -101,24 +101,24 @@
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
     <tr><td>Arquivos alterados</td><td>21</td></tr>
-    <tr><td>Adições</td><td>+3665</td></tr>
-    <tr><td>Remoções</td><td>-34</td></tr>
-    <tr><td>Tokens estimados</td><td>~2899</td></tr>
+    <tr><td>Adições</td><td>+3695</td></tr>
+    <tr><td>Remoções</td><td>-41</td></tr>
+    <tr><td>Tokens estimados</td><td>~2929</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:95">+2749 add</div>
-        <div class="del" style="flex:1">-26 del</div>
-        <div class="overhead" style="flex:4">~124 ctx</div>
+        <div class="add" style="flex:95">+2771 add</div>
+        <div class="del" style="flex:1">-31 del</div>
+        <div class="overhead" style="flex:4">~127 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+2749</td><td>95%</td></tr>
-      <tr><td>Remoções</td><td>-26</td><td>1%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~124</td><td>4%</td></tr>
-      <tr><th>Total</th><th>~2899</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+2771</td><td>95%</td></tr>
+      <tr><td>Remoções</td><td>-31</td><td>1%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~127</td><td>4%</td></tr>
+      <tr><th>Total</th><th>~2929</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
@@ -152,14 +152,14 @@
   <h2>🔍 Diff</h2>
   <div class="diff">
     diff --git a/docs/RADAR.md b/docs/RADAR.md
-index 8db1930..50c4d4c 100644
+index 8db1930..f91ac69 100644
 <span class="del">--- a/docs/RADAR.md</span>
 <span class="add">+++ b/docs/RADAR.md</span>
 @@ -1,6 +1,6 @@
  # 🔭 Radar de Vulnerabilidades
  
 <span class="del">-&gt; Atualizado em: 2026-08-08T04:09:40.246Z</span>
-<span class="add">+&gt; Atualizado em: 2026-08-08T21:44:46.262Z</span>
+<span class="add">+&gt; Atualizado em: 2026-08-08T23:36:19.470Z</span>
  
  ## ✅ Radar Limpo
  Nenhuma vulnerabilidade ativa detectada.
@@ -233,7 +233,7 @@ index 0000000..44245aa
 <span class="add">+</span>
 <span class="add">+**Extended Thinking Usado:** sim (council de 5 advisors com peer review; decisão de UI com trade-offs de portabilidade, dados e acessibilidade)</span>
 diff --git a/docs/handoff.md b/docs/handoff.md
-index 796298b..74bc31f 100644
+index 796298b..1be1a70 100644
 <span class="del">--- a/docs/handoff.md</span>
 <span class="add">+++ b/docs/handoff.md</span>
 @@ -9,8 +9,8 @@
@@ -242,35 +242,35 @@ index 796298b..74bc31f 100644
  ## 🧭 Estado Atual
 <span class="del">-- **Branch:** `main`</span>
 <span class="del">-- **Último commit:** `353a29d — Merge pull request #317 from andre0787/docs/rtk-benefits-sim`</span>
-<span class="add">+- **Branch:** `chore/code-review-gate`</span>
-<span class="add">+- **Último commit:** `845c26f — chore: atualiza artefatos do pre-pr pós-merge (handoff, relatório, KPIs)`</span>
+<span class="add">+- **Branch:** `feat/workflow-tab`</span>
+<span class="add">+- **Último commit:** `39a674c — chore: renomeia relatório do pre-pr para PR321`</span>
  - **Remote:** origin/main
  ### 📋 PRs Abertos
  Nenhum PR aberto.
-@@ -52,6 +52,6 @@ Continue a tarefa ativa ou selecione o próximo task-card.
- **Objetivo:** auditoria: workflow-skills, obsoletos, bugs ocultos, vulns npm
+@@ -47,11 +47,12 @@ Continue a tarefa ativa ou selecione o próximo task-card.
+ 
+ 
+ 
+<span class="add">+</span>
+ ## 🎯 Sessão Atual
+<span class="del">-**Categoria:** chore</span>
+<span class="del">-**Objetivo:** auditoria: workflow-skills, obsoletos, bugs ocultos, vulns npm</span>
+<span class="add">+**Categoria:** bugfix</span>
+<span class="add">+**Objetivo:** corrigir erro de tipagem do WorkflowMindMap no CI</span>
  **Status:** in_progress
- **Iniciada em:** 2026-08-08T03:59:02.742Z
+<span class="del">-**Iniciada em:** 2026-08-08T03:59:02.742Z</span>
 <span class="del">-**Branch:** `chore/code-review-gate`</span>
+<span class="del">-**Último commit:** 353a29d — Merge pull request #317 from andre0787/docs/rtk-benefits-sim</span>
+<span class="del">-**Docs carregados:** AGENTS.md</span>
+<span class="add">+**Iniciada em:** 2026-08-08T23:36:19.476Z</span>
 <span class="add">+**Branch:** `feat/workflow-tab`</span>
- **Último commit:** 353a29d — Merge pull request #317 from andre0787/docs/rtk-benefits-sim
- **Docs carregados:** AGENTS.md
+<span class="add">+**Último commit:** 39a674c — chore: renomeia relatório do pre-pr para PR321</span>
+<span class="add">+**Docs carregados:** DEBUG.md, CONVENTIONS.md</span>
+\ No newline at end of file
 diff --git a/docs/reports/2026-08-08/PR321-2026-08-08-workflow-tab.html b/docs/reports/2026-08-08/PR321-2026-08-08-workflow-tab.html
 new file mode 100644
-index 0000000..3ca66c1
+index 0000000..7637b02
 <span class="del">--- /dev/null</span>
-<span class="add">+++ b/docs/reports/2026-08-08/PR321-2026-08-08-workflow-tab.html</span>
-@@ -0,0 +1,278 @@
-<span class="add">+&lt;!DOCTYPE html&gt;</span>
-<span class="add">+&lt;html lang="pt-BR"&gt;</span>
-<span class="add">+&lt;head&gt;</span>
-<span class="add">+  &lt;meta charset="UTF-8"&gt;</span>
-<span class="add">+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;</span>
-<span class="add">+  &lt;title&gt;workflow-tab — workflow tab&lt;/title&gt;</span>
-<span class="add">+  &lt;style&gt;</span>
-<span class="add">+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}</span>
-<span class="add">+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}</span>
-<span class="add">+    h2{font-size:1rem;margin-top:1.5rem;color:#333}</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>

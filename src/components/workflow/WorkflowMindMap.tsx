@@ -256,7 +256,14 @@ export function WorkflowMindMap() {
 
   const [selected, setSelected] = useState<string | null>(null);
   const [active, setActive] = useState<Set<string>>(new Set());
-  const dragRef = useRef<{ id: string; offX: number; offY: number; moved: boolean; lastX: number; lastY: number } | null>(null);
+  const dragRef = useRef<{
+    id: string;
+    offX: number;
+    offY: number;
+    moved: boolean;
+    lastX: number;
+    lastY: number;
+  } | null>(null);
   const suppressClickRef = useRef(false);
   const svgRef = useRef<SVGSVGElement | null>(null);
 
@@ -276,9 +283,7 @@ export function WorkflowMindMap() {
     }
     const hl = new Set<string>([id]);
     if (target.level === 1) {
-      nodesRef.current
-        .filter((n) => n.id.startsWith(`${target.id}-`))
-        .forEach((n) => hl.add(n.id));
+      nodesRef.current.filter((n) => n.id.startsWith(`${target.id}-`)).forEach((n) => hl.add(n.id));
     } else {
       hl.add(target.branchId);
     }
@@ -302,30 +307,27 @@ export function WorkflowMindMap() {
     setNodes((prev) => prev.map((n) => (n.id === id ? { ...n, cx: x, cy: y } : n)));
   }, []);
 
-  const onPointerDown = useCallback(
-    (e: React.PointerEvent, id: string) => {
-      if (e.button !== undefined && e.button !== 0) return;
-      const svg = svgRef.current;
-      if (!svg) return;
-      const pt = svg.createSVGPoint();
-      pt.x = e.clientX;
-      pt.y = e.clientY;
-      const ctm = svg.getScreenCTM();
-      if (!ctm) return;
-      const p = pt.matrixTransform(ctm.inverse());
-      const n = nodesRef.current.find((x) => x.id === id);
-      if (!n) return;
-      dragRef.current = {
-        id,
-        offX: p.x - n.cx,
-        offY: p.y - n.cy,
-        moved: false,
-        lastX: p.x,
-        lastY: p.y,
-      };
-    },
-    [],
-  );
+  const onPointerDown = useCallback((e: React.PointerEvent, id: string) => {
+    if (e.button !== undefined && e.button !== 0) return;
+    const svg = svgRef.current;
+    if (!svg) return;
+    const pt = svg.createSVGPoint();
+    pt.x = e.clientX;
+    pt.y = e.clientY;
+    const ctm = svg.getScreenCTM();
+    if (!ctm) return;
+    const p = pt.matrixTransform(ctm.inverse());
+    const n = nodesRef.current.find((x) => x.id === id);
+    if (!n) return;
+    dragRef.current = {
+      id,
+      offX: p.x - n.cx,
+      offY: p.y - n.cy,
+      moved: false,
+      lastX: p.x,
+      lastY: p.y,
+    };
+  }, []);
 
   const onPointerMove = useCallback(
     (e: PointerEvent) => {
@@ -377,13 +379,10 @@ export function WorkflowMindMap() {
     [applySelection],
   );
 
-  const selectedBranch = selected
-    ? nodesById.get(selected)?.branchId ?? null
-    : null;
+  const selectedBranch = selected ? (nodesById.get(selected)?.branchId ?? null) : null;
   const detailBranch = selectedBranch ? MIND.find((b) => b.id === selectedBranch) : null;
   const selectedNode = selected ? nodesById.get(selected) : null;
-  const selectedLeafLabel =
-    selectedNode && selectedNode.level === 2 ? selectedNode.label : null;
+  const selectedLeafLabel = selectedNode && selectedNode.level === 2 ? selectedNode.label : null;
 
   return (
     <div className="space-y-3">
@@ -433,7 +432,13 @@ export function WorkflowMindMap() {
               key={`${l.from}->${l.to}`}
               d={linePath(l, nodesById)}
               fill="none"
-              stroke={active.size ? (active.has(l.to) || active.has(l.from) ? "#6366f1" : "#cbd5e1") : "#cbd5e1"}
+              stroke={
+                active.size
+                  ? active.has(l.to) || active.has(l.from)
+                    ? "#6366f1"
+                    : "#cbd5e1"
+                  : "#cbd5e1"
+              }
               strokeWidth={active.has(l.to) || active.has(l.from) ? 2.5 : 1.5}
               strokeLinecap="round"
               className="transition-all"
@@ -458,10 +463,7 @@ export function WorkflowMindMap() {
                   fill={n.level === 1 ? n.color : "#ffffff"}
                   stroke={n.color}
                   strokeWidth={n.level === 1 ? 0 : 2.5}
-                  className={cn(
-                    "transition-shadow",
-                    isActive && "drop-shadow-md",
-                  )}
+                  className={cn("transition-shadow", isActive && "drop-shadow-md")}
                 />
                 <text
                   x={n.cx}

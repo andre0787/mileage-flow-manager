@@ -101,9 +101,10 @@ export function WorkflowTelemetry() {
       </h2>
       <p className="text-sm text-muted-foreground max-w-3xl">
         Tudo o que acontece vira um registro em{" "}
-        <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">docs/tracking/events.jsonl</code>{" "}
-        e{" "}
-        <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">quality.jsonl</code>.
+        <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          docs/tracking/events.jsonl
+        </code>{" "}
+        e <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">quality.jsonl</code>.
         Estes são os dados <b className="text-foreground">reais</b> deste repositório:
       </p>
 

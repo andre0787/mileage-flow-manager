@@ -64,7 +64,8 @@ export function WorkflowJourney() {
                         step.badgeKind === "gate"
                           ? "border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-300"
                           : "border-slate-300 bg-slate-100 text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300",
-                        step.blocked && "border-red-300 bg-red-50 text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-300",
+                        step.blocked &&
+                          "border-red-300 bg-red-50 text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-300",
                       )}
                     >
                       {step.badge}
@@ -75,7 +76,9 @@ export function WorkflowJourney() {
                       </span>
                     )}
                   </span>
-                  <span className="mt-1 block text-[13.5px] text-muted-foreground">{step.body}</span>
+                  <span className="mt-1 block text-[13.5px] text-muted-foreground">
+                    {step.body}
+                  </span>
                 </span>
                 <span
                   className={cn(
