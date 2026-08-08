@@ -9,11 +9,11 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `fdaef14` — chore: session end
-- **Remote:** origin/main
+- **Branch:** `chore/remove-remote-webui-extension`
+- **Último commit:** `87ea560` — chore: remover extensao pi-package-remote-webui
+- **Remote:** origin/chore/remove-remote-webui-extension
 ### 📋 PRs Abertos
-Nenhum PR aberto.
+- **PR #312** — `chore: remover extensao pi-package-remote-webui (remote nativo do pi)` — OPEN, head `chore/remove-remote-webui-extension`
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
@@ -24,12 +24,12 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** (1) último registro de entrada e venda no card das contas aplicáveis; (2) alerta personalizado por conta (data + observação + lido/não lido). Teste manual local via Playwright antes do PRD.
-**Status:** CONCLUÍDO + PRD + REVALIDAÇÃO PROD ✅ — itens 1 e 2 entregues (PR #306) + bug de fuso de data corrigido (issue #308 → PR #309). Validado em produção após deploy: card mostra 05/08/2026 (antes 04/08), alertas 8.1s. Teste manual local via Playwright antes do PRD executado (dirigido 9.1s + suíte completa 0 failed).
-**Iniciada em:** 2026-08-07T03:59:00.605Z
+**Categoria:** chore
+**Objetivo:** remover a extensão pi `@firstpick/pi-package-remote-webui` (remote mode), mantendo apenas o Web UI local (`pi-package-webui` / `/webui-start`).
+**Status:** done — extensão removida (projeto + user level, `pi remove`), PR #312 OPEN, gh autenticado como `andre0787` (device flow, scopes gist/read:org/repo). Decisão: manter SOMENTE o Web UI local (127.0.0.1:31415), sem remote/LAN.
+**Iniciada em:** 2026-08-08
 **Branch:** `chore/remove-remote-webui-extension`
-**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
+**Docs carregados:** (chore — só AGENTS.md)
 ## ✅ Última Sessão
 **ITEM 3 RESOLVIDO + PRD (12 rodadas de validação, PRs #288–#304):**
 - **quality-and-check ✅:** 403 do bot resolvido (permissions contents/pull-requests write + hooks desativados no CI).
@@ -43,4 +43,16 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 - **PENDINGs ambientais:** `BASETEN_API_KEY` (perfil baseten do router), remote session APIs (pi), fullscreen TUI (já ativo).
 Continue a tarefa ativa ou selecione o próximo task-card.
 ## 🧠 Notas da Sessão Atual
-(Adicione notas manuais abaixo desta linha)
+
+### 🐛 Bug do Web UI: "Optional feature audit could not establish a safe resource configuration"
+- **Sintoma:** mensagem estática no topo do Web UI local (127.0.0.1:31415) após remover a extensão remote-webui: "Web UI started safely without optional companions / Optional feature audit could not establish a safe resource configuration. Recheck from localhost."
+- **Causa raiz (NÃO era a remoção do remote-webui):** bug no pacote `@firstpick/pi-package-webui` **0.8.7** — a função `packageNodeModulesPath` é chamada em `bin/pi-webui.mjs` (linha 1996, `optionalPackageCandidateRoots`) mas **não existe no 0.8.7** (existia no 0.8.6, linha 11465). A auditoria de optional features itera todas as 20 features do catálogo; a primeira chamada lança `ReferenceError: packageNodeModulesPath is not defined` → fase `degraded` → banner estático. Reinstalar o remote-webui NÃO resolveria.
+- **Fix aplicado (local, fora do git):** restaurada a função no pacote instalado `.pi/npm/node_modules/@firstpick/pi-package-webui/bin/pi-webui.mjs`:
+  ```js
+  function packageNodeModulesPath(nodeModulesRoot, packageName) {
+    return path.join(nodeModulesRoot, ...String(packageName || "").split("/").filter(Boolean));
+  }
+  ```
+  **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
+- **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
+- **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
