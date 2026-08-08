@@ -28,7 +28,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 **Objetivo:** (1) último registro de entrada e venda no card das contas aplicáveis; (2) alerta personalizado por conta (data + observação + lido/não lido). Teste manual local via Playwright antes do PRD.
 **Status:** CONCLUÍDO + PRD + REVALIDAÇÃO PROD ✅ — itens 1 e 2 entregues (PR #306) + bug de fuso de data corrigido (issue #308 → PR #309). Validado em produção após deploy: card mostra 05/08/2026 (antes 04/08), alertas 8.1s. Teste manual local via Playwright antes do PRD executado (dirigido 9.1s + suíte completa 0 failed).
 **Iniciada em:** 2026-08-07T03:59:00.605Z
-**Branch:** `docs/session-end-fuso`
+**Branch:** `chore/remove-remote-webui-extension`
 **Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 ## ✅ Última Sessão
 **ITEM 3 RESOLVIDO + PRD (12 rodadas de validação, PRs #288–#304):**
