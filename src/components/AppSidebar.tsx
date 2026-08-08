@@ -13,6 +13,7 @@ import {
   User,
   Bug,
   RotateCcw,
+  Workflow as WorkflowIcon,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { FeedbackDialog } from "./FeedbackDialog";
@@ -58,6 +59,7 @@ const menuGroups: { label: string; items: NavItem[] }[] = [
       { title: "Controle CPF", url: "/cpf", icon: Shield },
       { title: "Relatórios", url: "/relatorios", icon: BarChart3 },
       { title: "KPIs de Processo", url: "/kpi", icon: TrendingUp },
+      { title: "Workflow", url: "/workflow", icon: WorkflowIcon },
     ],
   },
 ];

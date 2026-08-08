@@ -31,6 +31,7 @@ import Configuracoes from "./pages/Configuracoes";
 import Perfil from "./pages/Perfil";
 import AdminEventos from "./pages/AdminEventos";
 import KPI from "./pages/KPI";
+import Workflow from "./pages/Workflow";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -158,6 +159,16 @@ const AnimatedRoutes = () => {
         }
       />
       <Route
+        path="/workflow"
+        element={
+          <ErrorBoundary>
+            <div className="animate-appear">
+              <Workflow />
+            </div>
+          </ErrorBoundary>
+        }
+      />
+      <Route
         path="*"
         element={
           <div className="animate-appear">
@@ -181,6 +192,7 @@ const PAGE_TITLES: Record<string, string> = {
   "/perfil": "Perfil",
   "/kpi": "KPIs de Processo",
   "/admin/eventos": "Observabilidade",
+  "/workflow": "Workflow",
 };
 
 const PageHeader = () => {

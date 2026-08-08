@@ -1392,3 +1392,30 @@
 {"timestamp":"2026-08-08T11:11:21.854Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/code-review-gate","commit":"322961d","agent":"pi","rule":"rule-10-clean"}
 {"timestamp":"2026-08-08T11:12:46.396Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/code-review-gate","commit":"143e656","agent":"pi","errors":0}
 {"timestamp":"2026-08-08T11:13:21.584Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/code-review-gate","commit":"143e656","agent":"pi","errors":0}
+{"timestamp":"2026-08-08T21:51:21.703Z","type":"custom","description":"INTENT: página Workflow.tsx renderiza 7 seções (hero, jornada, timeline, mapa, gates, telemetria, simulador); testes esperam render + interação mínima do mapa; spec diz council/docs/council/2026-08-08-workflow-tab-veredito.md Faça","branch":"chore/code-review-gate","commit":"845c26f","agent":"pi","gate":"intent","source":"assistant"}
+{"timestamp":"2026-08-08T22:01:41.839Z","type":"coding:done","description":"Codificação por subagente concluída (aba Workflow)","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","subagent":true,"skill":"subagent-driven-development","subagentRole":"coder"}
+{"timestamp":"2026-08-08T22:08:17.605Z","type":"code-review:done","description":"Review aprovado por subagente (aba Workflow)","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","subagent":true,"verdict":"approved","skill":"requesting-code-review","subagentRole":"reviewer"}
+{"timestamp":"2026-08-08T22:08:21.934Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-08-08T22:08:22.610Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T22:08:27.422Z","type":"rule:fail","description":"rule-31-lib-test-coverage falhou","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-31-lib-test-coverage"}
+{"timestamp":"2026-08-08T22:08:51.592Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","errors":2}
+{"timestamp":"2026-08-08T22:08:57.074Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T22:09:02.267Z","type":"rule:fail","description":"rule-31-lib-test-coverage falhou","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-31-lib-test-coverage"}
+{"timestamp":"2026-08-08T22:09:26.635Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","errors":2}
+{"timestamp":"2026-08-08T22:09:33.657Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T22:09:38.499Z","type":"rule:fail","description":"rule-31-lib-test-coverage falhou","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-31-lib-test-coverage"}
+{"timestamp":"2026-08-08T22:10:02.792Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","errors":2}
+{"timestamp":"2026-08-08T22:10:09.861Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T22:10:14.892Z","type":"rule:fail","description":"rule-31-lib-test-coverage falhou","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-31-lib-test-coverage"}
+{"timestamp":"2026-08-08T22:10:39.355Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","errors":2}
+{"timestamp":"2026-08-08T22:11:21.152Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T22:11:50.298Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","errors":1}
+{"timestamp":"2026-08-08T22:12:56.320Z","type":"rule:fail","description":"rule-02-grid falhou","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-02-grid"}
+{"timestamp":"2026-08-08T22:12:56.943Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T22:13:32.465Z","type":"rule:fail","description":"rule-02-grid falhou","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-02-grid"}
+{"timestamp":"2026-08-08T22:13:33.019Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T22:14:07.829Z","type":"rule:fail","description":"rule-02-grid falhou","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-02-grid"}
+{"timestamp":"2026-08-08T22:14:08.397Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T22:33:45.594Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","errors":0}
+{"timestamp":"2026-08-08T22:34:08.846Z","type":"rule:fail","description":"rule-21-feedback-review falhou","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-21-feedback-review"}
+{"timestamp":"2026-08-08T22:35:11.917Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","errors":0}
