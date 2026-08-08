@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `353a29d — Merge pull request #317 from andre0787/docs/rtk-benefits-sim`
+- **Branch:** `chore/code-review-gate`
+- **Último commit:** `322961d — chore: normalize report prefix to PR320`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -21,16 +21,18 @@ Nenhum PR aberto.
 | Docs issues | 0 |
 | Branch | main |
 
----
-_Atualizado automaticamente por `scripts/update-handoff.mjs`_
+
 ## 🎯 Sessão Atual
 **Categoria:** chore
-**Objetivo:** auditoria: workflow-skills, obsoletos, bugs ocultos, vulns npm
+**Objetivo:** segunda chore
 **Status:** in_progress
-**Iniciada em:** 2026-08-08T03:59:02.742Z
+**Iniciada em:** 2026-08-08T11:11:40.028Z
 **Branch:** `chore/code-review-gate`
-**Último commit:** 353a29d — Merge pull request #317 from andre0787/docs/rtk-benefits-sim
+**Último commit:** 322961d — chore: normalize report prefix to PR320
 **Docs carregados:** AGENTS.md
+---
+_Atualizado automaticamente por `scripts/update-handoff.mjs`_
+
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
@@ -49,6 +51,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
 - **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
+
 
 
 
