@@ -1420,3 +1420,4 @@
 {"timestamp":"2026-08-08T22:34:08.846Z","type":"rule:fail","description":"rule-21-feedback-review falhou","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","rule":"rule-21-feedback-review"}
 {"timestamp":"2026-08-08T22:35:11.917Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","errors":0}
 {"timestamp":"2026-08-08T22:36:31.263Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/workflow-tab","commit":"e784079","agent":"pi","errors":0}
+{"timestamp":"2026-08-08T23:28:24.304Z","type":"custom","description":"AUTH concedido para push/PR da branch feat/workflow-tab","branch":"feat/workflow-tab","commit":"431006c","agent":"pi","gate":"auth","source":"user","quote":"autorizo"}
