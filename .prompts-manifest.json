@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-07T03:16:08.571Z",
+  "updatedAt": "2026-08-08T01:46:06.728Z",
   "prompts": {
     ".pi/skills/code-review-graph/SKILL.md": "sha256-b0a1a323e4979fac77f70da66b364098252dc2c9623688a95a9ef2e39fa0963b",
     ".pi/skills/council-to-superpowers/SKILL.md": "sha256-424faade51fe07225ad5e4958685daf4181be98cbb5d98d2a07ec8e9aecbb69a",
     ".pi/skills/handoff/SKILL.md": "sha256-197d78747c41df7a0ef94eb66b19a3698a534a74884f4c367a86530d04aea6f5",
     ".pi/skills/llm-council/SKILL.md": "sha256-07b77f34235dd9dddbc44d924793afceafd3b4c6a19637dc429cb083c753b722",
     ".pi/skills/small-model-execution/SKILL.md": "sha256-08e7a6da64ef05169bd4f11767b510efb8f34cb4a86035659a2d9fdeffd1ba71",
-    "AGENTS.md": "sha256-b93b6d6cedb2373049154c929bd96c9f05b87e3f522275cd7d8028ddd8c26e93",
+    "AGENTS.md": "sha256-3c30a96d5fec1255f6b866602ec6ff1fdfdd59556b3b9ab7d4d95aaf97d2941f",
     "CLAUDE.md": "sha256-051e5599efd15f4e716edf63dcb3b1da2d23fdcd3728e80831e8adaabab68d87",
     "docs/tasks/AGENTS.override.md": "sha256-28738b9893ae399d5d2dc6fa55c0ce6e0d1e40d38166b54e5e30dbe0def11f5e",
     "docs/CONTEXT-MANAGEMENT.md": "sha256-199e22e9973cf5433626612bc40c2d6ac5d135f7c295a453cfb2e8650bab57cc",

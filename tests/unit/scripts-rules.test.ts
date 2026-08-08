@@ -27,9 +27,9 @@ function gitExec(command: string, cwd: string) {
 }
 
 /** Roda uma rule num fixture via MOCK_ROOT, retorna { stdout, status, error } */
-function runRuleOnFixture(ruleName: string, fixturePath: string): { stdout: string; status: number; error: string } {
+function runRuleOnFixture(ruleName: string, fixturePath: string, extraEnv: NodeJS.ProcessEnv = {}): { stdout: string; status: number; error: string } {
   const ruleScript = resolve(RULES_DIR, ruleName);
-  const env = cleanGitEnv({ MOCK_ROOT: fixturePath });
+  const env = cleanGitEnv({ MOCK_ROOT: fixturePath, ...extraEnv });
   try {
     const stdout = execSync(`node "${ruleScript}" 2>&1`, {
       cwd: fixturePath,
@@ -643,6 +643,51 @@ describe("rule-27-council-veredict (mensagens acionáveis — Trava D)", () => {
       expect(out).toContain("## Advisors");
       expect(out).toContain("## Síntese do Chairman");
       expect(out).toMatch(/Adicione as seções/i);
+    } finally { cleanTempFixture(tmp); }
+  });
+});
+
+// ─── rule-37-rtk (integração RTK no workflow) ─────────────────────
+
+describe("rule-37-rtk (integração RTK)", () => {
+  it("deve falhar quando a extensão .pi/extensions/rtk.ts não existe", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/teste 2>/dev/null", tmp);
+      const res = runRuleOnFixture("rule-37-rtk.mjs", tmp);
+      expect(res.status).not.toBe(0);
+      const out = (res.stdout || "") + (res.error || "");
+      expect(out).toContain(".pi/extensions/rtk.ts");
+      expect(out).toMatch(/rtk init --agent pi/i);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve passar quando a extensão existe e rtk está no PATH (≥0.23.0)", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/teste 2>/dev/null", tmp);
+      mkdirSync(join(tmp, ".pi/extensions"), { recursive: true });
+      writeFileSync(join(tmp, ".pi/extensions/rtk.ts"), "// rtk extension\n");
+      const res = runRuleOnFixture("rule-37-rtk.mjs", tmp, {
+        PATH: `${process.env.HOME}/.local/bin:${process.env.PATH}`,
+      });
+      expect(res.status).toBe(0);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve ser não-falho quando rtk não está no PATH (skip informativo)", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/teste 2>/dev/null", tmp);
+      mkdirSync(join(tmp, ".pi/extensions"), { recursive: true });
+      writeFileSync(join(tmp, ".pi/extensions/rtk.ts"), "// rtk extension\n");
+      const res = runRuleOnFixture("rule-37-rtk.mjs", tmp, { PATH: "/usr/bin:/bin" });
+      expect(res.status).toBe(0);
+      const out = (res.stdout || "") + (res.error || "");
+      expect(out).toMatch(/não encontrado|skip|ausente/i);
     } finally { cleanTempFixture(tmp); }
   });
 });

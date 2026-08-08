@@ -48,6 +48,7 @@ Antes de cada `subagent_gate`, resolva a tarefa com `npm run llm:route`. Use exa
 33. **🧠 INTENT Gate** — antes de qualquer mudança de comportamento, declare `INTENT: código faz X; teste espera Y; spec diz Z`. Se divergirem, não edite — reporte. Aplicado em `council-to-superpowers` e `writing-plans`. Valida: `rule-33`.
 34. **🔁 TWINS Check** — ao corrigir um bug, busque o mesmo padrão no projeto todo e corrija todas as ocorrências. Declare `TWINS: searched <padrão> — found <N> locais`. Aplicado em `systematic-debugging`. Valida: `rule-34`.
 35. **🔐 AUTH Gate** — antes de push/merge/deploy irreversível, exija as palavras exatas do usuário. Declare `AUTH: usuário disse "<citação>"`. Sem citação, não aja. Aplicado em `finishing-a-development-branch`. Valida: `rule-35`.
+36. **Integração RTK ativa** — a extensão `.pi/extensions/rtk.ts` deve existir (versionada) e o binário `rtk` local deve ser >= 0.23.0; ausência do binário é skip não-falho (fail-open). Valida: `rule-37`.
 
 ## 🎯 Sistema de Categorias (LAZY LOADING)
 

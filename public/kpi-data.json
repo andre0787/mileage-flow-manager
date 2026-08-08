@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-08T00:37:24.908Z",
+  "generatedAt": "2026-08-08T01:57:54.503Z",
   "months": [
     {
       "month": "2026-03",
@@ -158,10 +158,10 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 69.7,
-      "prePrTotal": 188,
-      "prePrPass": 131,
-      "prePrFail": 57,
+      "prePrPassRate": 65.7,
+      "prePrTotal": 201,
+      "prePrPass": 132,
+      "prePrFail": 69,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -169,11 +169,11 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 93.5,
+      "avgOutcomeGrade": 93.8,
       "topViolations": [
         {
           "rule": "rule-10-clean",
-          "count": 70
+          "count": 81
         },
         {
           "rule": "rule-26-session-started",
@@ -181,24 +181,24 @@
         },
         {
           "rule": "rule-17-new-docs-valid",
-          "count": 14
+          "count": 21
+        },
+        {
+          "rule": "rule-30-outcome-grade",
+          "count": 9
         },
         {
           "rule": "rule-27-council-veredict",
           "count": 8
-        },
-        {
-          "rule": "rule-30-outcome-grade",
-          "count": 6
         }
       ],
       "healedByRule": {
-        "rule-26": 16,
+        "rule-26": 17,
         "rule-17-new-docs-valid": 3
       },
       "gateBlockedByRule": {},
       "avgCycleTimeHours": 0.3,
-      "branchesMerged": 44,
+      "branchesMerged": 45,
       "llmRouter": {
         "resolved": 8,
         "completed": 0,
