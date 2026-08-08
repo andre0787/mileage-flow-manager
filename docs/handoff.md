@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `353a29d — Merge pull request #317 from andre0787/docs/rtk-benefits-sim`
+- **Branch:** `feat/workflow-tab`
+- **Último commit:** `39a674c — chore: renomeia relatório do pre-pr para PR321`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -47,11 +47,12 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 
 
+
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** auditoria: workflow-skills, obsoletos, bugs ocultos, vulns npm
+**Categoria:** bugfix
+**Objetivo:** corrigir erro de tipagem do WorkflowMindMap no CI
 **Status:** in_progress
-**Iniciada em:** 2026-08-08T03:59:02.742Z
-**Branch:** `chore/code-review-gate`
-**Último commit:** 353a29d — Merge pull request #317 from andre0787/docs/rtk-benefits-sim
-**Docs carregados:** AGENTS.md
+**Iniciada em:** 2026-08-08T23:36:19.476Z
+**Branch:** `feat/workflow-tab`
+**Último commit:** 39a674c — chore: renomeia relatório do pre-pr para PR321
+**Docs carregados:** DEBUG.md, CONVENTIONS.md
