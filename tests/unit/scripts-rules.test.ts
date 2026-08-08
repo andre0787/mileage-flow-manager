@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { execSync } from "child_process";
-import { resolve, join } from "path";
+import { resolve, join, dirname } from "path";
 import { existsSync, mkdtempSync, mkdirSync, writeFileSync, cpSync, rmSync, readdirSync, symlinkSync } from "fs";
 import { tmpdir } from "os";
 
@@ -684,7 +684,11 @@ describe("rule-37-rtk (integração RTK)", () => {
       gitExec("git checkout -b feat/teste 2>/dev/null", tmp);
       mkdirSync(join(tmp, ".pi/extensions"), { recursive: true });
       writeFileSync(join(tmp, ".pi/extensions/rtk.ts"), "// rtk extension\n");
-      const res = runRuleOnFixture("rule-37-rtk.mjs", tmp, { PATH: "/usr/bin:/bin" });
+      const res = runRuleOnFixture("rule-37-rtk.mjs", tmp, {
+        // PATH sintético sem rtk, mas mantendo o diretório do node executável
+        // (no CI o node não fica em /usr/bin — remover o PATH inteiro causaria 127).
+        PATH: `${dirname(process.execPath)}:/usr/bin:/bin`,
+      });
       expect(res.status).toBe(0);
       const out = (res.stdout || "") + (res.error || "");
       expect(out).toMatch(/não encontrado|skip|ausente/i);
