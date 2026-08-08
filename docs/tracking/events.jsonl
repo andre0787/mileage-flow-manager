@@ -1325,3 +1325,14 @@
 {"timestamp":"2026-08-08T01:56:33.281Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-10-clean"}
 {"timestamp":"2026-08-08T01:57:01.741Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","errors":1}
 {"timestamp":"2026-08-08T01:57:54.387Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","errors":0}
+{"timestamp":"2026-08-08T02:11:25.679Z","type":"session:end","description":"sessao rtk encerrada - integracao entregue em prod (PR 315) + handoff (PR 316)","branch":"main","commit":"b7d330d","agent":"pi"}
+{"timestamp":"2026-08-08T02:16:00.753Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/rtk-benefits-sim","commit":"b7d330d","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-08-08T02:16:01.406Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"docs/rtk-benefits-sim","commit":"b7d330d","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T02:16:30.342Z","type":"pre-pr","description":"pre-pr FAIL","branch":"docs/rtk-benefits-sim","commit":"b7d330d","agent":"pi","errors":1}
+{"timestamp":"2026-08-08T02:16:35.605Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"docs/rtk-benefits-sim","commit":"b7d330d","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T02:17:04.228Z","type":"pre-pr","description":"pre-pr FAIL","branch":"docs/rtk-benefits-sim","commit":"b7d330d","agent":"pi","errors":1}
+{"timestamp":"2026-08-08T02:17:09.382Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"docs/rtk-benefits-sim","commit":"b7d330d","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T02:17:37.585Z","type":"pre-pr","description":"pre-pr FAIL","branch":"docs/rtk-benefits-sim","commit":"b7d330d","agent":"pi","errors":2}
+{"timestamp":"2026-08-08T02:22:01.035Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"docs/rtk-benefits-sim","commit":"b7d330d","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T02:22:29.592Z","type":"pre-pr","description":"pre-pr FAIL","branch":"docs/rtk-benefits-sim","commit":"b7d330d","agent":"pi","errors":1}
+{"timestamp":"2026-08-08T02:23:47.757Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/rtk-benefits-sim","commit":"b7d330d","agent":"pi","errors":0}
