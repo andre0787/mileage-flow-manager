@@ -1390,3 +1390,5 @@
 {"timestamp":"2026-08-08T11:10:46.381Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/code-review-gate","commit":"322961d","agent":"pi","rule":"rule-10-clean"}
 {"timestamp":"2026-08-08T11:11:21.759Z","type":"rule:fail","description":"rule-08-report falhou","branch":"chore/code-review-gate","commit":"322961d","agent":"pi","rule":"rule-08-report"}
 {"timestamp":"2026-08-08T11:11:21.854Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/code-review-gate","commit":"322961d","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T11:12:46.396Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/code-review-gate","commit":"143e656","agent":"pi","errors":0}
+{"timestamp":"2026-08-08T11:13:21.584Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/code-review-gate","commit":"143e656","agent":"pi","errors":0}

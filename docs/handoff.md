@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `chore/code-review-gate`
-- **Último commit:** `322961d — chore: normalize report prefix to PR320`
+- **Branch:** `main`
+- **Último commit:** `353a29d — Merge pull request #317 from andre0787/docs/rtk-benefits-sim`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -21,15 +21,6 @@ Nenhum PR aberto.
 | Docs issues | 0 |
 | Branch | main |
 
-
-## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** segunda chore
-**Status:** in_progress
-**Iniciada em:** 2026-08-08T11:11:40.028Z
-**Branch:** `chore/code-review-gate`
-**Último commit:** 322961d — chore: normalize report prefix to PR320
-**Docs carregados:** AGENTS.md
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
@@ -56,3 +47,11 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 
 
+## 🎯 Sessão Atual
+**Categoria:** chore
+**Objetivo:** auditoria: workflow-skills, obsoletos, bugs ocultos, vulns npm
+**Status:** in_progress
+**Iniciada em:** 2026-08-08T03:59:02.742Z
+**Branch:** `chore/code-review-gate`
+**Último commit:** 353a29d — Merge pull request #317 from andre0787/docs/rtk-benefits-sim
+**Docs carregados:** AGENTS.md
