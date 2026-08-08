@@ -1421,3 +1421,12 @@
 {"timestamp":"2026-08-08T22:35:11.917Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/workflow-tab","commit":"845c26f","agent":"pi","errors":0}
 {"timestamp":"2026-08-08T22:36:31.263Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/workflow-tab","commit":"e784079","agent":"pi","errors":0}
 {"timestamp":"2026-08-08T23:28:24.304Z","type":"custom","description":"AUTH concedido para push/PR da branch feat/workflow-tab","branch":"feat/workflow-tab","commit":"431006c","agent":"pi","gate":"auth","source":"user","quote":"autorizo"}
+{"timestamp":"2026-08-08T23:35:05.905Z","type":"rule:fail","description":"rule-02-category-loading falhou","branch":"feat/workflow-tab","commit":"39a674c","agent":"pi","rule":"rule-02-category-loading"}
+{"timestamp":"2026-08-08T23:35:05.996Z","type":"rule:fail","description":"rule-03-handoff-completeness falhou","branch":"feat/workflow-tab","commit":"39a674c","agent":"pi","rule":"rule-03-handoff-completeness"}
+{"timestamp":"2026-08-08T23:35:06.559Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/workflow-tab","commit":"39a674c","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T23:35:11.542Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"feat/workflow-tab","commit":"39a674c","agent":"pi","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-08T23:35:35.989Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/workflow-tab","commit":"39a674c","agent":"pi","errors":4}
+{"timestamp":"2026-08-08T23:36:19.500Z","type":"session:start","description":"bugfix: corrigir erro de tipagem do WorkflowMindMap no CI","branch":"feat/workflow-tab","commit":"39a674c","agent":"pi","categoria":"bugfix"}
+{"timestamp":"2026-08-08T23:36:26.332Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/workflow-tab","commit":"39a674c","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T23:36:55.032Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/workflow-tab","commit":"39a674c","agent":"pi","errors":1}
+{"timestamp":"2026-08-08T23:37:58.305Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/workflow-tab","commit":"39a674c","agent":"pi","errors":0}

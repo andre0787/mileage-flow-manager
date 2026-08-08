@@ -123,9 +123,15 @@ describe("WorkflowMindMap (layout determinístico)", () => {
     expect(screen.getByText("🧲 Reposicionar")).toBeDefined();
   });
 
-  it("usa localStorage para persistir posições (sem falhar sem acesso)", () => {
-    const spy = vi.spyOn(Storage.prototype, "getItem").mockReturnValue(null);
-    render(<WorkflowMindMap />);
+  it("restaura posições do localStorage sem perder dados do nó", () => {
+    const firstNode = computeLayout().nodes[0];
+    const spy = vi
+      .spyOn(Storage.prototype, "getItem")
+      .mockReturnValue(JSON.stringify({ [firstNode.id]: { x: 123, y: 456 } }));
+    const { container } = render(<WorkflowMindMap />);
+    const firstRect = container.querySelector("g rect");
+    expect(firstRect?.getAttribute("x")).toBe(String(123 - firstNode.w / 2));
+    expect(firstRect?.getAttribute("y")).toBe(String(456 - firstNode.h / 2));
     expect(screen.getByText("Mapa mental do workflow")).toBeDefined();
     spy.mockRestore();
   });

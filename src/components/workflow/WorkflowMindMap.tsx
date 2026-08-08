@@ -246,7 +246,10 @@ export function WorkflowMindMap() {
   const [nodes, setNodes] = useState<NodeView[]>(() => {
     const saved = loadPositions();
     if (!saved) return layout.nodes;
-    return layout.nodes.map((n) => saved[n.id] ?? n);
+    return layout.nodes.map((n) => {
+      const pos = saved[n.id];
+      return pos ? { ...n, cx: pos.x, cy: pos.y } : n;
+    });
   });
   const nodesRef = useRef(nodes);
   nodesRef.current = nodes;
