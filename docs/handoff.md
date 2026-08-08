@@ -23,14 +23,7 @@ Nenhum PR aberto.
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** auditoria: workflow-skills, obsoletos, bugs ocultos, vulns npm
-**Status:** in_progress
-**Iniciada em:** 2026-08-08T03:59:02.742Z
-**Branch:** `chore/audit-fixes`
-**Último commit:** 353a29d — Merge pull request #317 from andre0787/docs/rtk-benefits-sim
-**Docs carregados:** AGENTS.md
+
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
