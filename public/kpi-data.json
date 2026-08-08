@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-08T04:22:31.202Z",
+  "generatedAt": "2026-08-08T04:37:45.107Z",
   "months": [
     {
       "month": "2026-03",
@@ -158,9 +158,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 63.3,
-      "prePrTotal": 215,
-      "prePrPass": 136,
+      "prePrPassRate": 63.4,
+      "prePrTotal": 216,
+      "prePrPass": 137,
       "prePrFail": 79,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -169,11 +169,11 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 94.2,
+      "avgOutcomeGrade": 94.3,
       "topViolations": [
         {
           "rule": "rule-10-clean",
-          "count": 91
+          "count": 93
         },
         {
           "rule": "rule-26-session-started",

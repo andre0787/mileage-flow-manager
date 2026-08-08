@@ -1355,3 +1355,10 @@
 {"timestamp":"2026-08-08T04:17:15.045Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/audit-fixes","commit":"353a29d","agent":"pi","errors":3}
 {"timestamp":"2026-08-08T04:21:56.253Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/audit-fixes","commit":"353a29d","agent":"pi","errors":0}
 {"timestamp":"2026-08-08T04:22:31.083Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/audit-fixes","commit":"eaa3c5f","agent":"pi","errors":0}
+{"timestamp":"2026-08-08T04:28:17.473Z","type":"rule:fail","description":"rule-08-report falhou","branch":"chore/audit-fixes","commit":"9b00f29","agent":"pi","rule":"rule-08-report"}
+{"timestamp":"2026-08-08T04:28:17.570Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/audit-fixes","commit":"9b00f29","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T04:28:18.437Z","type":"rule:fail","description":"rule-17-report-prefix falhou","branch":"chore/audit-fixes","commit":"9b00f29","agent":"pi","rule":"rule-17-report-prefix"}
+{"timestamp":"2026-08-08T04:29:22.779Z","type":"rule:fail","description":"rule-08-report falhou","branch":"chore/audit-fixes","commit":"9b00f29","agent":"pi","rule":"rule-08-report"}
+{"timestamp":"2026-08-08T04:29:22.873Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/audit-fixes","commit":"9b00f29","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T04:29:23.716Z","type":"rule:fail","description":"rule-17-report-prefix falhou","branch":"chore/audit-fixes","commit":"9b00f29","agent":"pi","rule":"rule-17-report-prefix"}
+{"timestamp":"2026-08-08T04:37:44.991Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/audit-fixes","commit":"609a7fd","agent":"pi","errors":0}
