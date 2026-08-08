@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 code review gate</h1>
-  <p class="meta">2026-08-08 02:14 &middot; chore/code-review-gate &middot; 5cf364e — Merge pull request #318 from andre0787/chore/audit-fixes</p>
-  <p><span class="badge auto">auto</span> <span class="badge auto">code-review-gate</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+  <p class="meta">2026-08-08 02:15 &middot; chore/code-review-gate &middot; c7863ec — chore: gates de subagente — rule-38 code review + rule-39 coding (evidência em events.jsonl)</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">code-review-gate</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">0</div>
+      <div style="font-size:1.5rem;font-weight:700">14</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+607</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-27</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~589</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -80,12 +80,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 0 remoções — 1 linhas tocadas</td>
-        <td>✨ 0 adições — 0 arquivo(s) alterado(s)</td>
+        <td>🧹 27 remoções — 785 linhas tocadas</td>
+        <td>✨ 607 adições — 14 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .prompts-manifest.json, AGENTS.md, docs/MAP.md, docs/WORKFLOW-MANIFEST.md, docs/handoff.md<br><em>+9 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,38 +98,170 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>0</td></tr>
-    <tr><td>Adições</td><td>+0</td></tr>
-    <tr><td>Remoções</td><td>-0</td></tr>
-    <tr><td>Tokens estimados</td><td>~1</td></tr>
+    <tr><td>Arquivos alterados</td><td>14</td></tr>
+    <tr><td>Adições</td><td>+607</td></tr>
+    <tr><td>Remoções</td><td>-27</td></tr>
+    <tr><td>Tokens estimados</td><td>~589</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:77">+455 add</div>
+        <div class="del" style="flex:3">-20 del</div>
+        <div class="overhead" style="flex:20">~114 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+455</td><td>77%</td></tr>
+      <tr><td>Remoções</td><td>-20</td><td>3%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~114</td><td>20%</td></tr>
+      <tr><th>Total</th><th>~589</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-    
+    <tr><td>M</td><td>.prompts-manifest.json</td></tr>
+<tr><td>M</td><td>AGENTS.md</td></tr>
+<tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>M</td><td>docs/WORKFLOW-MANIFEST.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-08/code-review-gate-2026-08-08-code-review-gate.html</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td></tr>
+<tr><td>M</td><td>scripts/event-log.mjs</td></tr>
+<tr><td>M</td><td>scripts/lib/process-events.mjs</td></tr>
+<tr><td>A</td><td>scripts/rules/rule-38-code-review-gate.mjs</td></tr>
+<tr><td>A</td><td>scripts/rules/rule-39-coding-gate.mjs</td></tr>
+<tr><td>M</td><td>tests/unit/scripts-rules.test.ts</td></tr>
   </table>
 
   
 
   <h2>🔍 Diff</h2>
   <div class="diff">
-    
+    diff --git a/.prompts-manifest.json b/.prompts-manifest.json
+index c77b2c4..4d203f4 100644
+<span class="del">--- a/.prompts-manifest.json</span>
+<span class="add">+++ b/.prompts-manifest.json</span>
+@@ -1,17 +1,17 @@
+ {
+   "version": 1,
+<span class="del">-  "updatedAt": "2026-08-08T01:46:06.728Z",</span>
+<span class="add">+  "updatedAt": "2026-08-08T05:10:53.548Z",</span>
+   "prompts": {
+     ".pi/skills/code-review-graph/SKILL.md": "sha256-b0a1a323e4979fac77f70da66b364098252dc2c9623688a95a9ef2e39fa0963b",
+     ".pi/skills/council-to-superpowers/SKILL.md": "sha256-424faade51fe07225ad5e4958685daf4181be98cbb5d98d2a07ec8e9aecbb69a",
+     ".pi/skills/handoff/SKILL.md": "sha256-197d78747c41df7a0ef94eb66b19a3698a534a74884f4c367a86530d04aea6f5",
+     ".pi/skills/llm-council/SKILL.md": "sha256-07b77f34235dd9dddbc44d924793afceafd3b4c6a19637dc429cb083c753b722",
+     ".pi/skills/small-model-execution/SKILL.md": "sha256-08e7a6da64ef05169bd4f11767b510efb8f34cb4a86035659a2d9fdeffd1ba71",
+<span class="del">-    "AGENTS.md": "sha256-3c30a96d5fec1255f6b866602ec6ff1fdfdd59556b3b9ab7d4d95aaf97d2941f",</span>
+<span class="add">+    "AGENTS.md": "sha256-209714ca8fec466f1faddd0aacddbf90b6bd5ac097035a9d42171004e46590f1",</span>
+     "CLAUDE.md": "sha256-051e5599efd15f4e716edf63dcb3b1da2d23fdcd3728e80831e8adaabab68d87",
+     "docs/tasks/AGENTS.override.md": "sha256-28738b9893ae399d5d2dc6fa55c0ce6e0d1e40d38166b54e5e30dbe0def11f5e",
+     "docs/CONTEXT-MANAGEMENT.md": "sha256-199e22e9973cf5433626612bc40c2d6ac5d135f7c295a453cfb2e8650bab57cc",
+<span class="del">-    "docs/WORKFLOW-MANIFEST.md": "sha256-724cd939c0e01ed467579bfed5909c1c498c5d9e530957a712471109c07dc1c7",</span>
+<span class="add">+    "docs/WORKFLOW-MANIFEST.md": "sha256-f678ec7db0ec2094334d3ee342146fc1fb8e48e2f64c7c951381f8ac3370dcef",</span>
+     "docs/WORKFLOW.md": "sha256-8cc966385c03bbed2600710a1f581cebaf246130c7fc74fb649e872ae430082f"
+   }
+ }
+diff --git a/AGENTS.md b/AGENTS.md
+index 9f432b9..cfc567b 100644
+<span class="del">--- a/AGENTS.md</span>
+<span class="add">+++ b/AGENTS.md</span>
+@@ -49,6 +49,8 @@ Antes de cada `subagent_gate`, resolva a tarefa com `npm run llm:route`. Use exa
+ 34. **🔁 TWINS Check** — ao corrigir um bug, busque o mesmo padrão no projeto todo e corrija todas as ocorrências. Declare `TWINS: searched &lt;padrão&gt; — found &lt;N&gt; locais`. Aplicado em `systematic-debugging`. Valida: `rule-34`.
+ 35. **🔐 AUTH Gate** — antes de push/merge/deploy irreversível, exija as palavras exatas do usuário. Declare `AUTH: usuário disse "&lt;citação&gt;"`. Sem citação, não aja. Aplicado em `finishing-a-development-branch`. Valida: `rule-35`.
+ 36. **Integração RTK ativa** — a extensão `.pi/extensions/rtk.ts` deve existir (versionada) e o binário `rtk` local deve ser &gt;= 0.23.0; ausência do binário é skip não-falho (fail-open). Valida: `rule-37`.
+<span class="add">+37. **🔎 Code Review Gate** — todo PR exige revisão de código feita por **subagente especializado** (evidência: evento `code-review:done` com `subagent:true` na branch atual). Sem evidência, o pre-pr falha. Aplicado em `requesting-code-review`. Valida: `rule-38`.</span>
+<span class="add">+38. **🛠️ Coding Gate** — toda mudança de código (src/, scripts/, tests/, .pi/) exige execução por **subagente especializado** (evidência: evento `coding:done` com `subagent:true` na branch atual). Sem evidência, o pre-pr falha. Aplicado em `subagent-driven-development` / `dispatching-parallel-agents`. Valida: `rule-39`.</span>
+ 
+ ## 🎯 Sistema de Categorias (LAZY LOADING)
+ 
+diff --git a/docs/MAP.md b/docs/MAP.md
+index 1c5db8b..87aba35 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -82,6 +82,8 @@
+ | `scripts/twins-check.mjs` | TWINS gate | Busca automatizada de padrões no código |
+ | `scripts/process-audit.mjs` | Auditoria de evidência | Valida `docs/tracking/events.jsonl` (read-only); `--check`/`--json` |
+ | `code-review-graph` (CLI, via `npm run crg:*`) | Grafo estrutural | Tree-sitter: `crg:architecture`, `crg:dead-code`, `crg:impact`, `crg:detect-changes`, `crg:status`, `crg:build/update`, `crg:wiki` — ver skill `.pi/skills/code-review-graph/SKILL.md` e WORKFLOW.md |
+<span class="add">+| `rule-38-code-review-gate.mjs` | Gate de revisão | Todo PR exige evento `code-review:done` (subagente) em `docs/tracking/events.jsonl` — ver `requesting-code-review` |</span>
+<span class="add">+| `rule-39-coding-gate.mjs` | Gate de codificação | Mudanças de código exigem evento `coding:done` (subagente) em `docs/tracking/events.jsonl` — ver `subagent-driven-development` |</span>
+ | `scripts/lib/process-events.mjs` | Contrato de eventos | Parser + validador compartilhado (CLI e rule-36) |
+ | `scripts/lib/generated-artifacts.mjs` | Staging de artefatos | Allowlist dos 4+2 artefatos gerados stageados no pre-pr |
+ | `scripts/rules/rule-36-process-evidence.mjs` | Guardrail #36 | Evidência de processo válida no pre-pr |
+diff --git a/docs/WORKFLOW-MANIFEST.md b/docs/WORKFLOW-MANIFEST.md
+index c8a7b02..fc7b537 100644
+<span class="del">--- a/docs/WORKFLOW-MANIFEST.md</span>
+<span class="add">+++ b/docs/WORKFLOW-MANIFEST.md</span>
+@@ -55,6 +55,21 @@ Todo ciclo de trabalho DEVE usar estes comandos na ordem:
+ | 4 | `npm run report "&lt;desc&gt;" --write` | ✅ Antes de todo PR | Relatório HTML detalhado |
+ | 5 | `npm run session:end "&lt;msg&gt;"` | ✅ Final da sessão | Commit + handoff + push |
+ 
+<span class="add">+### Gates de subagente (evidência em `docs/tracking/events.jsonl`)</span>
+<span class="add">+</span>
+<span class="add">+Todo PR exige **evidência registrada** de execução por subagente especializado:</span>
+<span class="add">+</span>
+<span class="add">+| Gate | Evidência (evento) | Quando |</span>
+<span class="add">+|------|--------------------|--------|</span>
+<span class="add">+| 🔎 **Code Review** (`rule-38`) | `code-review:done` com `subagent:true` na branch | Antes de todo PR (skill `requesting-code-review`) |</span>
+<span class="add">+| 🛠️ **Coding** (`rule-39`) | `coding:done` com `subagent:true` na branch | Quando há mudanças de código (skills `subagent-driven-development` / `dispatching-parallel-agents`) |</span>
+<span class="add">+</span>
+<span class="add">+Registre a conclusão com:</span>
+<span class="add">+```bash</span>
+<span class="add">+node scripts/event-log.mjs code-review:done "Review aprovado por subagente" --meta '{"subagent":true,"verdict":"approved"}'</span>
+<span class="add">+node scripts/event-log.mjs coding:done "Codificação por subagente concluída" --meta '{"subagent":true,"skill":"subagent-driven-development"}'</span>
+<span class="add">+```</span>
+<span class="add">+</span>
+ ### Comandos auxiliares
+ 
+ | Comando | Uso |
+diff --git a/docs/handoff.md b/docs/handoff.md
+index b569818..6dec49a 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -28,7 +28,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
+ **Objetivo:** auditoria: workflow-skills, obsoletos, bugs ocultos, vulns npm
+ **Status:** in_progress
+ **Iniciada em:** 2026-08-08T03:59:02.742Z
+<span class="del">-**Branch:** `chore/audit-fixes`</span>
+<span class="add">+**Branch:** `chore/code-review-gate`</span>
+ **Último commit:** 353a29d — Merge pull request #317 from andre0787/docs/rtk-benefits-sim
+ **Docs carregados:** AGENTS.md
+ ## ✅ Última Sessão
+diff --git a/docs/reports/2026-08-08/code-review-gate-2026-08-08-code-review-gate.html b/docs/reports/2026-08-08/code-review-gate-2026-08-08-code-review-gate.html
+new file mode 100644
+index 0000000..5e18546
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/reports/2026-08-08/code-review-gate-2026-08-08-code-review-gate.html</span>
+@@ -0,0 +1,137 @@
+<span class="add">+&lt;!DOCTYPE html&gt;</span>
+<span class="add">+&lt;html lang="pt-BR"&gt;</span>
+<span class="add">+&lt;head&gt;</span>
+<span class="add">+  &lt;meta charset="UTF-8"&gt;</span>
+<span class="add">+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;</span>
+<span class="add">+  &lt;title&gt;code-review-gate — code review gate&lt;/title&gt;</span>
+<span class="add">+  &lt;style&gt;</span>
+<span class="add">+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}</span>
+<span class="add">+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}</span>
+<span class="add">+    h2{font-size:1rem;margin-top:1.5rem;color:#333}</span>
+<span class="add">+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}</span>
+<span class="add">+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}</span>
+<span class="add">+    .badge.pr{background:#dbeafe;color:#1e40af}</span>
+<span class="add">+    .badge.auto{background:#fef3c7;color:#92400e}</span>
+<span class="add">+    .badge.fix{background:#fee2e2;color:#991b1b}</span>
+<span class="add">+    .badge.feat{background:#dcfce7;color:#166534}</span>
+<span class="add">+    .badge.docs{background:#ede9fe;color:#5b21b6}</span>
+<span class="add">+    .badge.chore{background:#f3f4f6;color:#374151}</span>
+<span class="add">+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}</span>
+<span class="add">+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}</span>
+<span class="add">+    th{background:#f3f4f6;font-weight:600}</span>
+<span class="add">+    tr.add{background:#f0fdf4}</span>
+<span class="add">+    tr.del{background:#fef2f2}</span>
+<span class="add">+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
