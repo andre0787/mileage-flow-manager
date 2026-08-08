@@ -65,6 +65,16 @@
 | `.pi/skills/writing-plans/SKILL.md` | Planos de implementação | **INTENT gate** antes de definir tasks — alinha código, teste e spec |
 | `.pi/skills/systematic-debugging/SKILL.md` | Debug estruturado | **TWINS check** ao corrigir bugs — busca mesmo padrão no projeto todo |
 | `.pi/skills/finishing-a-development-branch/SKILL.md` | Finalização de branch | **AUTH gate** — exige palavras do usuário antes de push/merge/deploy irreversível |
+| `.pi/skills/using-superpowers/SKILL.md` | Início de qualquer conversa | Descobre e invoca skills antes de responder; ver `docs/STACK.md` (seção Agente) |
+| `.pi/skills/brainstorming/SKILL.md` | Antes de trabalho criativo | Explora intenção, requisitos e design antes de implementar |
+| `.pi/skills/llm-council/SKILL.md` | Decisões estratégicas | 5 conselheiros + síntese do chairman — usado internamente pelo council-to-superpowers |
+| `.pi/skills/test-driven-development/SKILL.md` | Antes de implementar feature/bugfix | Escreve teste que falha → implementa → refatora |
+| `.pi/skills/executing-plans/SKILL.md` | Execução de plano em sessão separada | Checkpoints de revisão entre sessões |
+| `.pi/skills/verification-before-completion/SKILL.md` | Antes de declarar trabalho pronto | Evidência antes de afirmação — roda comandos e confirma output |
+| `.pi/skills/requesting-code-review/SKILL.md` | Antes de merge | Verifica se o trabalho atende requisitos |
+| `.pi/skills/receiving-code-review/SKILL.md` | Ao receber feedback de review | Rigor técnico e verificação, não concordância performática |
+| `.pi/skills/small-model-execution/SKILL.md` | Execução com modelo pequeno | Fluxo mínimo para executar task-card de `docs/tasks/` usando comandos versionados |
+| `.pi/skills/writing-skills/SKILL.md` | Criar/editar skills | Valida skills antes do deploy |
 | `scripts/check-feedback.mjs` | Verificação de feedback | Consulta feedbacks de usuários no Supabase |
 | `scripts/check-deploy.mjs` | Saúde do deploy | Verifica status do último deploy via GitHub API |
 | `scripts/retro.mjs` | Retrospectiva | Gera relatório de retrospectiva do período |

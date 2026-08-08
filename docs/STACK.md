@@ -4,11 +4,11 @@
 
 | Tecnologia | Versão | Uso |
 |-----------|--------|-----|
-| React 18 + TypeScript | ^18 | UI |
-| Vite | ^5 | Bundler |
+| React 19 + TypeScript | ^19 / ^5.5 | UI |
+| Vite | ^6 | Bundler |
 | Tailwind CSS | ^3 | Estilização |
 | shadcn/ui | — | Componentes base |
-| React Router v6 | ^6 | Rotas |
+| React Router v8 | ^8 | Rotas |
 | TanStack React Query | ^5 | Server state |
 | Recharts | ^2 | Gráficos |
 | react-hook-form + zod | — | Formulários |

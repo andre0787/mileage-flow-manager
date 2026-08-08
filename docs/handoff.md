@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `44818d6` — docs: sessao rtk encerrada - integracao entregue em prod (PR 315)
+- **Último commit:** `353a29d — Merge pull request #317 from andre0787/docs/rtk-benefits-sim`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,23 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** avaliar integracao do rtk (github.com/rtk-ai/rtk) no workflow + implementar se beneficioso
-**Status:** done
-**Iniciada em:** 2026-08-08T01:35:42.383Z
-**Concluída em:** 2026-08-08T02:06:00.000Z
-**Branch:** `docs/rtk-benefits-sim` (merge PR #315: feat/rtk-workflow)
-**Último commit:** 0ecb4bc — Merge pull request #315 from andre0787/feat/rtk-workflow
-**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
-
-**Entregas:**
-- Council veredito FAÇA: `docs/council/2026-08-08-rtk-integration-veredito.md`
-- Extensão Pi versionada: `.pi/extensions/rtk.ts` (`rtk init --agent pi`; fail-open; `RTK_DISABLED=1` para bypass)
-- Regra #37 + script: `scripts/rules/rule-37-rtk.mjs` (extensão presente + rtk >= 0.23.0; skip não-falho sem binário)
-- Atalho npm `rule:37`; CONVENTIONS.md + AGENTS.md; prompt manifest atualizado
-- Testes unitários rule-37 (3 casos); PR #315 merged; deploy prod success
-- Binário local: `~/.local/bin/rtk` 0.45.0
-- Simulação pós-entrega + relatório de benefícios: `docs/reports/2026-08-08/rtk-benefits-sim.md` (39% menos tokens em comandos de inspeção)
+**Categoria:** chore
+**Objetivo:** auditoria: workflow-skills, obsoletos, bugs ocultos, vulns npm
+**Status:** in_progress
+**Iniciada em:** 2026-08-08T03:59:02.742Z
+**Branch:** `chore/audit-fixes`
+**Último commit:** 353a29d — Merge pull request #317 from andre0787/docs/rtk-benefits-sim
+**Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
