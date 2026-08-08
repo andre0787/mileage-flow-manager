@@ -9,9 +9,9 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `chore/session-end-main-checkout`
-- **Último commit:** `d6df8b0` — fix: session-end comita resíduos de docs antes do checkout main
-- **Remote:** no remote
+- **Branch:** `main`
+- **Último commit:** `b8d7127` — docs: handoff final - webui 0.8.7 fix + PR 312 merged
+- **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
@@ -19,17 +19,17 @@ Nenhum PR aberto.
 |---------|-------|
 | Total testes | 461 |
 | Docs issues | 0 |
-| Branch | chore/session-end-main-checkout |
+| Branch | main |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** (1) último registro de entrada e venda no card das contas aplicáveis; (2) alerta personalizado por conta (data + observação + lido/não lido). Teste manual local via Playwright antes do PRD.
+**Categoria:** chore
+**Objetivo:** remover a extensão pi `@firstpick/pi-package-remote-webui` (remote mode) + corrigir o Web UI local degradado (bug webui 0.8.7).
 **Status:** done
-**Iniciada em:** 2026-08-07T03:59:00.605Z
-**Branch:** `chore/session-end-main-checkout`
-**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
+**Iniciada em:** 2026-08-08
+**Branch:** `main`
+**Docs carregados:** (chore — só AGENTS.md)
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
@@ -48,4 +48,6 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
 - **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
+
+
 
