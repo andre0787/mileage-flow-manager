@@ -29,7 +29,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 **Status:** done
 **Iniciada em:** 2026-08-08T01:35:42.383Z
 **Concluída em:** 2026-08-08T02:06:00.000Z
-**Branch:** `main` (merge PR #315: feat/rtk-workflow)
+**Branch:** `docs/rtk-benefits-sim` (merge PR #315: feat/rtk-workflow)
 **Último commit:** 0ecb4bc — Merge pull request #315 from andre0787/feat/rtk-workflow
 **Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 
@@ -40,6 +40,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 - Atalho npm `rule:37`; CONVENTIONS.md + AGENTS.md; prompt manifest atualizado
 - Testes unitários rule-37 (3 casos); PR #315 merged; deploy prod success
 - Binário local: `~/.local/bin/rtk` 0.45.0
+- Simulação pós-entrega + relatório de benefícios: `docs/reports/2026-08-08/rtk-benefits-sim.md` (39% menos tokens em comandos de inspeção)
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
