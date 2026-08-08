@@ -15,7 +15,6 @@
     "keepRecentTokens": 24000
   },
   "packages": [
-    "npm:@firstpick/pi-package-remote-webui",
     "npm:@firstpick/pi-package-webui"
   ]
 }
