@@ -28,7 +28,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 **Objetivo:** auditoria: workflow-skills, obsoletos, bugs ocultos, vulns npm
 **Status:** in_progress
 **Iniciada em:** 2026-08-08T03:59:02.742Z
-**Branch:** `chore/audit-fixes`
+**Branch:** `chore/code-review-gate`
 **Último commit:** 353a29d — Merge pull request #317 from andre0787/docs/rtk-benefits-sim
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão

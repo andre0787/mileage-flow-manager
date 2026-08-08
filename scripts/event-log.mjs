@@ -22,6 +22,8 @@
  *   node scripts/event-log.mjs commit "feat: implementa X"
  *   node scripts/event-log.mjs rule:fail "rule-29 falhou" --meta '{"file":"SKILL.md"}'
  *   node scripts/event-log.mjs gate "INTENT declarado" --meta '{"gate":"intent","target":"kpi-report.mjs"}'
+ *   node scripts/event-log.mjs code-review:done "Review por subagente aprovado" --meta '{"subagent":true,"verdict":"approved"}'
+ *   node scripts/event-log.mjs coding:done "Codificação por subagente concluída" --meta '{"subagent":true,"skill":"subagent-driven-development"}'
  *
  * Atribuição de autoria (pi ≥ 0.84): quando o processo filho roda sob o agente
  * pi (env AI_AGENT=pi), todo evento ganha `agent: "pi"`; caso contrário,
@@ -59,6 +61,8 @@ const TIPOS_VALIDOS = [
   "gate:blocked",
   "llm.route.resolved",
   "llm.route.completed",
+  "code-review:done",
+  "coding:done",
   "custom",
 ];
 

@@ -1355,3 +1355,21 @@
 {"timestamp":"2026-08-08T04:17:15.045Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/audit-fixes","commit":"353a29d","agent":"pi","errors":3}
 {"timestamp":"2026-08-08T04:21:56.253Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/audit-fixes","commit":"353a29d","agent":"pi","errors":0}
 {"timestamp":"2026-08-08T04:22:31.083Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/audit-fixes","commit":"eaa3c5f","agent":"pi","errors":0}
+{"timestamp":"2026-08-08T05:01:58.185Z","type":"coding:done","description":"Codificação por subagente concluída (rule-38/39 via coder subagent)","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","subagent":true,"skill":"subagent-driven-development","subagentRole":"coder"}
+{"timestamp":"2026-08-08T05:09:13.720Z","type":"code-review:done","description":"Review aprovado por subagente (rule-38/39, veredito approved)","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","subagent":true,"verdict":"approved","subagentRole":"reviewer","skill":"requesting-code-review"}
+{"timestamp":"2026-08-08T05:09:42.742Z","type":"healed","description":"rule-26 auto-corrigido","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-08-08T05:09:43.411Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T05:09:47.864Z","type":"rule:fail","description":"rule-29-prompt-version falhou","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","rule":"rule-29-prompt-version"}
+{"timestamp":"2026-08-08T05:10:11.994Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","errors":2}
+{"timestamp":"2026-08-08T05:10:19.910Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T05:10:24.726Z","type":"rule:fail","description":"rule-29-prompt-version falhou","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","rule":"rule-29-prompt-version"}
+{"timestamp":"2026-08-08T05:10:49.147Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","errors":2}
+{"timestamp":"2026-08-08T05:10:57.765Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T05:11:26.450Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","errors":1}
+{"timestamp":"2026-08-08T05:11:32.117Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T05:12:01.275Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","errors":1}
+{"timestamp":"2026-08-08T05:12:07.007Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T05:12:36.285Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","errors":1}
+{"timestamp":"2026-08-08T05:12:43.060Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T05:13:13.220Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","errors":1}
+{"timestamp":"2026-08-08T05:14:56.870Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/code-review-gate","commit":"5cf364e","agent":"pi","errors":0}

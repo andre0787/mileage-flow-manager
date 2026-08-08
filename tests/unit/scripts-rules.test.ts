@@ -695,3 +695,204 @@ describe("rule-37-rtk (integração RTK)", () => {
     } finally { cleanTempFixture(tmp); }
   });
 });
+
+// ─── rule-38-code-review-gate (revisão por subagente) ───────────────
+
+describe("rule-38-code-review-gate (revisão por subagente)", () => {
+  function writeEvents(tmp: string, branch: string, type: string, subagent: boolean) {
+    const dir = join(tmp, "docs/tracking");
+    mkdirSync(dir, { recursive: true });
+    const event = {
+      timestamp: "2026-08-08T00:00:00.000Z",
+      type,
+      description: "test",
+      branch,
+      commit: "abc123",
+      agent: "pi",
+      subagent,
+    };
+    writeFileSync(join(dir, "events.jsonl"), JSON.stringify(event) + "\n");
+  }
+
+  it("deve falhar quando não há evento code-review:done na branch", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/teste 2>/dev/null", tmp);
+      const res = runRuleOnFixture("rule-38-code-review-gate.mjs", tmp);
+      expect(res.status).not.toBe(0);
+      const out = (res.stdout || "") + (res.error || "");
+      expect(out).toMatch(/code-review:done/);
+      expect(out).toMatch(/requesting-code-review/);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve passar quando existe evento code-review:done com subagent:true na branch", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/teste 2>/dev/null", tmp);
+      writeEvents(tmp, "feat/teste", "code-review:done", true);
+      const res = runRuleOnFixture("rule-38-code-review-gate.mjs", tmp);
+      expect(res.status).toBe(0);
+      const out = (res.stdout || "") + (res.error || "");
+      expect(out).toMatch(/✅/);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve falhar quando o evento code-review:done não é de subagente", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/teste 2>/dev/null", tmp);
+      writeEvents(tmp, "feat/teste", "code-review:done", false);
+      const res = runRuleOnFixture("rule-38-code-review-gate.mjs", tmp);
+      expect(res.status).not.toBe(0);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve falhar quando o evento code-review:done é de outra branch", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/teste 2>/dev/null", tmp);
+      writeEvents(tmp, "feat/outra", "code-review:done", true);
+      const res = runRuleOnFixture("rule-38-code-review-gate.mjs", tmp);
+      expect(res.status).not.toBe(0);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve falhar quando events.jsonl não existe", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/teste 2>/dev/null", tmp);
+      const res = runRuleOnFixture("rule-38-code-review-gate.mjs", tmp);
+      expect(res.status).not.toBe(0);
+      const out = (res.stdout || "") + (res.error || "");
+      expect(out).toMatch(/events.jsonl/);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve ser skip em main/master", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      const res = runRuleOnFixture("rule-38-code-review-gate.mjs", tmp);
+      expect(res.status).toBe(0);
+      const out = (res.stdout || "") + (res.error || "");
+      expect(out).toMatch(/main|master/);
+    } finally { cleanTempFixture(tmp); }
+  });
+});
+
+// ─── rule-39-coding-gate (codificação por subagente) ────────────────
+
+describe("rule-39-coding-gate (codificação por subagente)", () => {
+  function writeEvents(tmp: string, branch: string, type: string, subagent: boolean) {
+    const dir = join(tmp, "docs/tracking");
+    mkdirSync(dir, { recursive: true });
+    const event = {
+      timestamp: "2026-08-08T00:00:00.000Z",
+      type,
+      description: "test",
+      branch,
+      commit: "abc123",
+      agent: "pi",
+      subagent,
+    };
+    writeFileSync(join(dir, "events.jsonl"), JSON.stringify(event) + "\n");
+  }
+
+  it("deve ser skip sem mudanças de código (docs-only)", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/teste 2>/dev/null", tmp);
+      const res = runRuleOnFixture("rule-39-coding-gate.mjs", tmp);
+      expect(res.status).toBe(0);
+      const out = (res.stdout || "") + (res.error || "");
+      expect(out).toMatch(/sem mudanças de código|⏭️/);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve falhar com mudança de código e sem evento coding:done", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/teste 2>/dev/null", tmp);
+      mkdirSync(join(tmp, "src"), { recursive: true });
+      writeFileSync(join(tmp, "src/test.ts"), "export const a = 1;\n");
+      const res = runRuleOnFixture("rule-39-coding-gate.mjs", tmp);
+      expect(res.status).not.toBe(0);
+      const out = (res.stdout || "") + (res.error || "");
+      expect(out).toMatch(/coding:done/);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve passar com mudança de código e evento coding:done subagent:true", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/teste 2>/dev/null", tmp);
+      mkdirSync(join(tmp, "src"), { recursive: true });
+      writeFileSync(join(tmp, "src/test.ts"), "export const a = 1;\n");
+      writeEvents(tmp, "feat/teste", "coding:done", true);
+      const res = runRuleOnFixture("rule-39-coding-gate.mjs", tmp);
+      expect(res.status).toBe(0);
+      const out = (res.stdout || "") + (res.error || "");
+      expect(out).toMatch(/✅/);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve falhar quando o evento coding:done não é de subagente", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/teste 2>/dev/null", tmp);
+      mkdirSync(join(tmp, "src"), { recursive: true });
+      writeFileSync(join(tmp, "src/test.ts"), "export const a = 1;\n");
+      writeEvents(tmp, "feat/teste", "coding:done", false);
+      const res = runRuleOnFixture("rule-39-coding-gate.mjs", tmp);
+      expect(res.status).not.toBe(0);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve falhar quando o evento coding:done é de outra branch", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/teste 2>/dev/null", tmp);
+      mkdirSync(join(tmp, "src"), { recursive: true });
+      writeFileSync(join(tmp, "src/test.ts"), "export const a = 1;\n");
+      writeEvents(tmp, "feat/outra", "coding:done", true);
+      const res = runRuleOnFixture("rule-39-coding-gate.mjs", tmp);
+      expect(res.status).not.toBe(0);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve falhar quando events.jsonl não existe e há mudança de código", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/teste 2>/dev/null", tmp);
+      mkdirSync(join(tmp, "src"), { recursive: true });
+      writeFileSync(join(tmp, "src/test.ts"), "export const a = 1;\n");
+      const res = runRuleOnFixture("rule-39-coding-gate.mjs", tmp);
+      expect(res.status).not.toBe(0);
+      const out = (res.stdout || "") + (res.error || "");
+      expect(out).toMatch(/events.jsonl/);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve ser skip em main/master", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      const res = runRuleOnFixture("rule-39-coding-gate.mjs", tmp);
+      expect(res.status).toBe(0);
+      const out = (res.stdout || "") + (res.error || "");
+      expect(out).toMatch(/main|master/);
+    } finally { cleanTempFixture(tmp); }
+  });
+});
