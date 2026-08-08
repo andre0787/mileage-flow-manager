@@ -14,6 +14,8 @@ export const PROCESS_EVENT_TYPES = Object.freeze([
   "gate:blocked",
   "llm.route.resolved",
   "llm.route.completed",
+  "code-review:done",
+  "coding:done",
   "custom",
 ]);
 
@@ -140,6 +142,13 @@ export function validateProcessEvent(event) {
     case "gate": {
       const gate = valueFromEvent(event, "gate");
       if (!GATES.has(gate)) issues.push("gate must be intent, twins or auth");
+      break;
+    }
+    case "code-review:done":
+    case "coding:done": {
+      if (!nonEmptyString(valueFromEvent(event, "branch"))) {
+        issues.push(`${event.type} branch must be a non-empty string`);
+      }
       break;
     }
     case "llm.route.resolved":

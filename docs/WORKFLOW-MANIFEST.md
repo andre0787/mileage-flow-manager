@@ -55,6 +55,21 @@ Todo ciclo de trabalho DEVE usar estes comandos na ordem:
 | 4 | `npm run report "<desc>" --write` | ✅ Antes de todo PR | Relatório HTML detalhado |
 | 5 | `npm run session:end "<msg>"` | ✅ Final da sessão | Commit + handoff + push |
 
+### Gates de subagente (evidência em `docs/tracking/events.jsonl`)
+
+Todo PR exige **evidência registrada** de execução por subagente especializado:
+
+| Gate | Evidência (evento) | Quando |
+|------|--------------------|--------|
+| 🔎 **Code Review** (`rule-38`) | `code-review:done` com `subagent:true` na branch | Antes de todo PR (skill `requesting-code-review`) |
+| 🛠️ **Coding** (`rule-39`) | `coding:done` com `subagent:true` na branch | Quando há mudanças de código (skills `subagent-driven-development` / `dispatching-parallel-agents`) |
+
+Registre a conclusão com:
+```bash
+node scripts/event-log.mjs code-review:done "Review aprovado por subagente" --meta '{"subagent":true,"verdict":"approved"}'
+node scripts/event-log.mjs coding:done "Codificação por subagente concluída" --meta '{"subagent":true,"skill":"subagent-driven-development"}'
+```
+
 ### Comandos auxiliares
 
 | Comando | Uso |

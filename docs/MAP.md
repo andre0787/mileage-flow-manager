@@ -82,6 +82,8 @@
 | `scripts/twins-check.mjs` | TWINS gate | Busca automatizada de padrões no código |
 | `scripts/process-audit.mjs` | Auditoria de evidência | Valida `docs/tracking/events.jsonl` (read-only); `--check`/`--json` |
 | `code-review-graph` (CLI, via `npm run crg:*`) | Grafo estrutural | Tree-sitter: `crg:architecture`, `crg:dead-code`, `crg:impact`, `crg:detect-changes`, `crg:status`, `crg:build/update`, `crg:wiki` — ver skill `.pi/skills/code-review-graph/SKILL.md` e WORKFLOW.md |
+| `rule-38-code-review-gate.mjs` | Gate de revisão | Todo PR exige evento `code-review:done` (subagente) em `docs/tracking/events.jsonl` — ver `requesting-code-review` |
+| `rule-39-coding-gate.mjs` | Gate de codificação | Mudanças de código exigem evento `coding:done` (subagente) em `docs/tracking/events.jsonl` — ver `subagent-driven-development` |
 | `scripts/lib/process-events.mjs` | Contrato de eventos | Parser + validador compartilhado (CLI e rule-36) |
 | `scripts/lib/generated-artifacts.mjs` | Staging de artefatos | Allowlist dos 4+2 artefatos gerados stageados no pre-pr |
 | `scripts/rules/rule-36-process-evidence.mjs` | Guardrail #36 | Evidência de processo válida no pre-pr |
