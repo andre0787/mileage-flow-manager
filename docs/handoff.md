@@ -26,11 +26,20 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** feature
 **Objetivo:** avaliar integracao do rtk (github.com/rtk-ai/rtk) no workflow + implementar se beneficioso
-**Status:** in_progress
+**Status:** done
 **Iniciada em:** 2026-08-08T01:35:42.383Z
-**Branch:** `feat/rtk-workflow`
-**Último commit:** 722c1e9 — Merge pull request #314 from andre0787/docs/session-end-event
+**Concluída em:** 2026-08-08T02:06:00.000Z
+**Branch:** `main` (merge PR #315: feat/rtk-workflow)
+**Último commit:** 0ecb4bc — Merge pull request #315 from andre0787/feat/rtk-workflow
 **Docs carregados:** WORKFLOW.md, CONVENTIONS.md
+
+**Entregas:**
+- Council veredito FAÇA: `docs/council/2026-08-08-rtk-integration-veredito.md`
+- Extensão Pi versionada: `.pi/extensions/rtk.ts` (`rtk init --agent pi`; fail-open; `RTK_DISABLED=1` para bypass)
+- Regra #37 + script: `scripts/rules/rule-37-rtk.mjs` (extensão presente + rtk >= 0.23.0; skip não-falho sem binário)
+- Atalho npm `rule:37`; CONVENTIONS.md + AGENTS.md; prompt manifest atualizado
+- Testes unitários rule-37 (3 casos); PR #315 merged; deploy prod success
+- Binário local: `~/.local/bin/rtk` 0.45.0
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
