@@ -1285,3 +1285,4 @@
 {"timestamp":"2026-08-08T00:36:26.724Z","type":"healed","description":"rule-26 auto-corrigido","branch":"chore/session-end-main-checkout","commit":"9f3dc67","agent":"pi","rule":"rule-26"}
 {"timestamp":"2026-08-08T00:36:51.025Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/session-end-main-checkout","commit":"9f3dc67","agent":"pi","errors":0}
 {"timestamp":"2026-08-08T00:37:24.785Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/session-end-main-checkout","commit":"a3b2874","agent":"pi","errors":0}
+{"timestamp":"2026-08-08T00:37:31.503Z","type":"session:end","description":"handoff atualizado","branch":"chore/session-end-main-checkout","commit":"1792f3f","agent":"pi"}

@@ -54,8 +54,18 @@ function encerrarSessao() {
   writeFileSync(HANDOFF_PATH, content.replace(session[0], done), "utf8");
 }
 
-// Garante que a sessão termina na main: checkout + pull da branch principal.
+// Garante que a sessão termina na main: comita resíduos de docs (snapshot/event-log
+// gravam após o commit principal), depois checkout + pull da branch principal.
 function finalizarNaMain() {
+  const remaining = execSync("git status --short", {
+    cwd: ROOT, encoding: "utf8", timeout: 15_000,
+  }).trim();
+  if (remaining) {
+    console.log("📦 Commit final de docs (snapshot/event-log)...");
+    execSync(`git add . && git commit ${NO_VERIFY} -m "docs: snapshot session-end"`, {
+      cwd: ROOT, encoding: "utf8", timeout: 60_000,
+    });
+  }
   console.log("🔀 Atualizando para a branch main...");
   const mainOut = execSync("git checkout main && git pull --ff-only", {
     cwd: ROOT,
