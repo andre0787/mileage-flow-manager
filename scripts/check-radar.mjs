@@ -82,59 +82,81 @@ function satisfies(version, range) {
 
 // ─── Leitura de versões instaladas ───
 
-function getInstalledVersions() {
+// Extrai {nome-pacote: versão} de um conteúdo package-lock.json.
+// Suporta pacotes scoped ("@eslint/eslintrc") e aninhados.
+function parseLockVersions(lockContent) {
+  const versions = {};
+  let lock;
   try {
-    const out = execSync("npm ls --all --json 2>/dev/null", {
-      cwd: ROOT, encoding: "utf8", timeout: 10000,
-    });
-    const parsed = JSON.parse(out);
-    const versions = {};
-
-    // Navega na árvore de dependências
-    function walk(tree, path) {
-      if (!tree) return;
-      if (tree.name && tree.version) {
-        versions[tree.name] = tree.version;
-      }
-      const deps = tree.dependencies || tree.devDependencies || {};
-      for (const [name, dep] of Object.entries(deps)) {
-        walk(dep, [...path, name]);
-      }
-    }
-    walk(parsed, []);
-
-    // Sobrescreve com package-lock.json (mais preciso)
-    if (existsSync(resolve(ROOT, "package-lock.json"))) {
-      try {
-        const lock = JSON.parse(readFileSync(resolve(ROOT, "package-lock.json"), "utf8"));
-        for (const [pkgPath, info] of Object.entries(lock.packages || {})) {
-          if (pkgPath && info.version) {
-            const name = pkgPath.split("node_modules/").pop();
-            if (name && !name.includes("/")) {
-              versions[name] = info.version;
-            }
-          }
-        }
-      } catch { /* fallback */ }
-    }
-
-    return versions;
+    lock = JSON.parse(lockContent);
   } catch {
-    return {};
+    return versions;
   }
+  for (const [pkgPath, info] of Object.entries(lock.packages || {})) {
+    if (!pkgPath || !info.version) continue;
+    const name = pkgPath.split("node_modules/").pop();
+    // Nome de pacote válido: "js-yaml", "@eslint/eslintrc", "@radix-ui/react-dialog"
+    if (name && (name.startsWith("@") || !name.includes("/"))) {
+      versions[name] = info.version;
+    }
+  }
+  return versions;
+}
+
+function getInstalledVersions() {
+  const versions = {};
+
+  // Fonte primária: package-lock.json — independente do estado do node_modules.
+  // (npm ls sai com exit 1 quando há pacotes invalid/extraneous e derrubava o radar.)
+  const lockPath = resolve(ROOT, "package-lock.json");
+  if (existsSync(lockPath)) {
+    try {
+      Object.assign(versions, parseLockVersions(readFileSync(lockPath, "utf8")));
+    } catch { /* fallback para npm ls abaixo */ }
+  }
+
+  // Fallback: npm ls --all --json. Com exit != 0 o JSON ainda vai no stdout;
+  // execSync lança, mas e.stdout preserva o output — capturamos mesmo assim.
+  if (Object.keys(versions).length === 0) {
+    let out = "";
+    try {
+      try {
+        out = execSync("npm ls --all --json 2>/dev/null", {
+          cwd: ROOT, encoding: "utf8", timeout: 10000,
+        });
+      } catch (e) {
+        if (e.stdout) out = e.stdout;
+        else throw e;
+      }
+      const parsed = JSON.parse(out);
+      function walk(tree) {
+        if (!tree) return;
+        if (tree.name && tree.version) {
+          versions[tree.name] = tree.version;
+        }
+        const deps = tree.dependencies || tree.devDependencies || {};
+        for (const dep of Object.values(deps)) walk(dep);
+      }
+      walk(parsed);
+    } catch { /* mantém o que veio do lock */ }
+  }
+
+  return versions;
 }
 
 // ─── Scaneamento de vulnerabilidades ───
 
-function scanVulnerabilities(installedVersions) {
-  let stdout = "";
-  try {
-    stdout = execSync("npm audit --json", {
-      cwd: ROOT, encoding: "utf8", timeout: 30000,
-    });
-  } catch (e) {
-    if (e.stdout) stdout = e.stdout;
-    else throw e;
+function scanVulnerabilities(installedVersions, auditJson) {
+  let stdout = auditJson || "";
+  if (!stdout) {
+    try {
+      stdout = execSync("npm audit --json", {
+        cwd: ROOT, encoding: "utf8", timeout: 30000,
+      });
+    } catch (e) {
+      if (e.stdout) stdout = e.stdout;
+      else throw e;
+    }
   }
 
   const data = JSON.parse(stdout);
@@ -150,7 +172,11 @@ function scanVulnerabilities(installedVersions) {
     for (const v of via) {
       if (typeof v === "object" && v.range && v.title) {
         try {
-          if (satisfies(version, v.range)) {
+          // Fail-closed: versão desconhecida ("?") é tratada como vulnerável.
+          // Antes, "?" fazia satisfies() retornar false e o radar reportava
+          // "limpo" mesmo com advisories ativas (falso-negativo).
+          const versionAffected = version === "?" || satisfies(version, v.range);
+          if (versionAffected) {
             activeAdvisories.push({
               title: v.title,
               range: v.range,
@@ -168,7 +194,7 @@ function scanVulnerabilities(installedVersions) {
     if (activeAdvisories.length === 0) {
       // Tenta usar a range do pacote se ela existir e a versão bater
       // (npm audit reporta 'range' no nível do pacote)
-      if (info.range && version !== "?" && satisfies(version, info.range)) {
+      if (info.range && (version === "?" || satisfies(version, info.range))) {
         // Se tem 'via' numérico (IDs internos), não conseguimos extrair título
         // mas o pacote está vulnerável
         const hasNumericVia = via.some(v => typeof v === "number");
@@ -316,4 +342,8 @@ function main() {
   process.exitCode = results.length > 0 ? 1 : 0;
 }
 
-await main();
+const IS_MAIN = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+
+export { parseSemver, compareSemver, satisfies, parseLockVersions, getInstalledVersions, scanVulnerabilities };
+
+if (IS_MAIN) await main();

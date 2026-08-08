@@ -28,6 +28,7 @@ const ORPHAN_ALLOWED_PREFIXES = [
   "docs/superpowers/specs/",
   "docs/thoughts/",
   "docs/RADAR.md",
+  "docs/reports/",
   "scripts/rules/__fixtures__/",
 ];
 
