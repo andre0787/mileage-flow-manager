@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-08T00:36:51.146Z",
+  "generatedAt": "2026-08-08T00:37:24.908Z",
   "months": [
     {
       "month": "2026-03",
@@ -158,9 +158,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 69.5,
-      "prePrTotal": 187,
-      "prePrPass": 130,
+      "prePrPassRate": 69.7,
+      "prePrTotal": 188,
+      "prePrPass": 131,
       "prePrFail": 57,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
