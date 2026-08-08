@@ -36,31 +36,33 @@
 </head>
 <body>
   <h1>📋 workflow tab</h1>
-  <p class="meta">2026-08-08 19:35 &middot; feat/workflow-tab &middot; 845c26f — chore: atualiza artefatos do pre-pr pós-merge (handoff, relatório, KPIs)</p>
-  <p><span class="badge auto">auto</span> <span class="badge auto">workflow-tab</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+  <p class="meta">2026-08-08 19:36 &middot; feat/workflow-tab &middot; e784079 — feat: aba Workflow no webapp — guia ilustrado do processo</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">workflow-tab</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">0</div>
+      <div style="font-size:1.5rem;font-weight:700">21</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+3521</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-34</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~2791</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
 
   <h2>✅ Checklist de Revisão</h2>
     <ul>
+      <li>🖼️ Renderização verificada em desktop e mobile?</li>
+      <li>📦 Biblioteca testada com casos de borda?</li>
       <li>🧪 Testes manuais realizados?</li>
       <li>📋 Regras de validação passam? (npm run pre-pr)</li>
     </ul>
@@ -80,12 +82,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 0 remoções — 1 linhas tocadas</td>
-        <td>✨ 0 adições — 0 arquivo(s) alterado(s)</td>
+        <td>🧹 34 remoções — 3721 linhas tocadas</td>
+        <td>✨ 3521 adições — 21 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/RADAR.md, docs/handoff.md, docs/tracking/events.jsonl<br><span style="color:#166534;font-weight:600">➕</span> docs/council/2026-08-08-workflow-tab-veredito.md, docs/reports/2026-08-08/workflow-tab-2026-08-08-workflow-tab.html<br><em>+16 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,38 +100,177 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>0</td></tr>
-    <tr><td>Adições</td><td>+0</td></tr>
-    <tr><td>Remoções</td><td>-0</td></tr>
-    <tr><td>Tokens estimados</td><td>~1</td></tr>
+    <tr><td>Arquivos alterados</td><td>21</td></tr>
+    <tr><td>Adições</td><td>+3521</td></tr>
+    <tr><td>Remoções</td><td>-34</td></tr>
+    <tr><td>Tokens estimados</td><td>~2791</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:95">+2641 add</div>
+        <div class="del" style="flex:1">-26 del</div>
+        <div class="overhead" style="flex:4">~124 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+2641</td><td>95%</td></tr>
+      <tr><td>Remoções</td><td>-26</td><td>1%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~124</td><td>4%</td></tr>
+      <tr><th>Total</th><th>~2791</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-    
+    <tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>A</td><td>docs/council/2026-08-08-workflow-tab-veredito.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-08/workflow-tab-2026-08-08-workflow-tab.html</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>A</td><td>docs/workflow-demo/workflow-illustrated.html</td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td></tr>
+<tr><td>M</td><td>src/App.tsx</td></tr>
+<tr><td>M</td><td>src/components/AppSidebar.tsx</td></tr>
+<tr><td>A</td><td>src/components/tests/Workflow.test.tsx</td></tr>
+<tr><td>A</td><td>src/components/workflow/WorkflowGates.tsx</td></tr>
+<tr><td>A</td><td>src/components/workflow/WorkflowHero.tsx</td></tr>
+<tr><td>A</td><td>src/components/workflow/WorkflowJourney.tsx</td></tr>
+<tr><td>A</td><td>src/components/workflow/WorkflowMindMap.tsx</td></tr>
+<tr><td>A</td><td>src/components/workflow/WorkflowSimulator.tsx</td></tr>
+<tr><td>A</td><td>src/components/workflow/WorkflowTelemetry.tsx</td></tr>
+<tr><td>A</td><td>src/components/workflow/WorkflowTimeline.tsx</td></tr>
+<tr><td>A</td><td>src/lib/workflowDemoData.ts</td></tr>
+<tr><td>A</td><td>src/pages/Workflow.tsx</td></tr>
+<tr><td>A</td><td>tests/unit/workflowDemoData.test.ts</td></tr>
   </table>
 
   
 
   <h2>🔍 Diff</h2>
   <div class="diff">
-    
+    diff --git a/docs/RADAR.md b/docs/RADAR.md
+index 8db1930..50c4d4c 100644
+<span class="del">--- a/docs/RADAR.md</span>
+<span class="add">+++ b/docs/RADAR.md</span>
+@@ -1,6 +1,6 @@
+ # 🔭 Radar de Vulnerabilidades
+ 
+<span class="del">-&gt; Atualizado em: 2026-08-08T04:09:40.246Z</span>
+<span class="add">+&gt; Atualizado em: 2026-08-08T21:44:46.262Z</span>
+ 
+ ## ✅ Radar Limpo
+ Nenhuma vulnerabilidade ativa detectada.
+diff --git a/docs/council/2026-08-08-workflow-tab-veredito.md b/docs/council/2026-08-08-workflow-tab-veredito.md
+new file mode 100644
+index 0000000..44245aa
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/council/2026-08-08-workflow-tab-veredito.md</span>
+@@ -0,0 +1,63 @@
+<span class="add">+# Veredito — Council: Incluir relatório ilustrativo do workflow como aba no webapp</span>
+<span class="add">+</span>
+<span class="add">+&gt; **Data:** 2026-08-08</span>
+<span class="add">+&gt; **Sessão:** feature — adaptar `docs/workflow-demo/workflow-illustrated.html` (56KB standalone) para uma aba/página React no MilesControl</span>
+<span class="add">+&gt; **Topico:** feature/UI — portar relatório educacional do workflow (gates + telemetria) para o app com adaptação de design mantendo a estrutura</span>
+<span class="add">+&gt; **Modelo dos advisors:** opencode/deepseek-v4-flash-free (rota llm:route, capability review, retrySafety read-only)</span>
+<span class="add">+</span>
+<span class="add">+---</span>
+<span class="add">+</span>
+<span class="add">+## Solicitação</span>
+<span class="add">+</span>
+<span class="add">+Incluir o relatório ilustrativo educacional do workflow (construído em `docs/workflow-demo/workflow-illustrated.html`, HTML standalone CSS+JS puros, 7 seções: hero KPIs, jornada, linha do tempo conectada, mapa mental SVG interativo com drag &amp; drop, portões/gates, telemetria, simulador) como uma aba/página no webapp React MilesControl. Usuário: "faz uma adaptação de design, mas mantém a estrutura e inclui no app".</span>
+<span class="add">+</span>
+<span class="add">+## Evidências coletadas (evidência antes de opinião)</span>
+<span class="add">+</span>
+<span class="add">+| Item | Evidência |</span>
+<span class="add">+|------|-----------|</span>
+<span class="add">+| O que é o relatório | 56KB HTML standalone, zero dependências; 7 seções; dados reais embutidos (1394 eventos, 274 notas quality, 503 testes, 23 healed, 39 regras); mapa mental SVG com drag&amp;drop (localStorage `mind-pos-v1`, repulsão 90 iterações) |</span>
+<span class="add">+| Stack do app | React 19 + Vite + Tailwind + shadcn/ui (19 componentes) + react-router; páginas em `src/pages/` (14), rotas+PAGE_TITLES em `src/App.tsx`, sidebar `src/components/AppSidebar.tsx` (grupos Operação/Pessoas/Controle), mobile `BottomTabBar.tsx` (5 itens) |</span>
+<span class="add">+| Padrão de dados estáticos | `public/kpi-data.json` servido em `/kpi-data.json` + fetch em `KPI.tsx` (precedente) |</span>
+<span class="add">+| Dark mode | next-themes `attribute="class"` — tokens Tailwind (bg-card, text-foreground, border) dão tema automático |</span>
+<span class="add">+| Testes | vitest + testing-library; rule-32 exige teste para componente customizado/hook; 503 testes existentes |</span>
+<span class="add">+| Restrições repo | DRY, ponytail mode (sem abstração especulativa), sem console.log (rule-30), pre-pr obrigatório, gate fail-closed |</span>
+<span class="add">+</span>
+<span class="add">+## Análise dos Advisors</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Contrarian</span>
+<span class="add">+**Análise:** O drag &amp; drop em React é o ponto de maior risco do port. `getComputedTextLength()` só funciona com elemento no DOM (no primeiro render com `useRef` vazio retorna 0) → exige medição pós-mount (`useLayoutEffect`/rAF) com risco de layout thrash; posição como `useState` dispara re-render de ~30 nós a 60fps (jank), como `useRef` o painel de detalhes não atualiza; clique vs drag com limiar de 4px precisa de `SUPPRESS_CLICK` equivalente. **Mitigação:** posição em `useRef` + estado de seleção separado, medição com ref callback + rAF, ou estimativa `label.length * fontSize * 0.62` sem medição real (mais simples e determinística). Bundle: portar reduz peso vs HTML standalone (estilos viram Tailwind); manter dados como constantes tipadas. Dark mode: substituir cores fixas do relatório por tokens — ganho automático.</span>
+<span class="add">+**Veredito:** Faça, com mitigação explícita do MindMap (medição por estimativa, posição em ref, limiar de drag).</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: First Principles</span>
+<span class="add">+**Análise:** (1) Propósito: aba educacional para devs/curiosos que já estão no app (não é onboarding de usuário final de milhas — é conteúdo de processo/qualidade) → rota protegida padrão (login), visível no grupo Controle ao lado de KPIs. (2) Dados: o relatório é *ilustrativo* — congelar constantes é aceitável e honesto (com rótulo "dados ilustrativos de 2026-08-08"); evita fetch e complexidade de re-hydration. (3) Essencial do mapa: nós + conexões + drag; complexidade acidental (repulsão, localStorage) pode ser simplificada no port (repulsão no mount via useMemo, localStorage preservado como bônus). (4) "Adaptação mantendo estrutura" = mesmas 7 seções com tokens Tailwind/shadcn, não reimaginar o conteúdo. (5) Caminho mais simples que mantém experiência: componente React puro com SVG — sem iframe, sem dangerouslySetInnerHTML.</span>
+<span class="add">+**Veredito:** Faça. Constantes tipadas em `src/lib/`, componente MindMap dedicado, 7 seções preservadas.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Expansionist</span>
+<span class="add">+**Análise:** Oportunidades: (a) a aba vira referência viva de "como o MilesControl funciona por dentro" para novos devs; (b) o MindMap pode virar componente reutilizável para outras visualizações; (c) dark mode de graça via tokens; (d) posicionamento: grupo **Controle** com "Workflow" (ícone GitBranch/Workflow) ao lado de KPIs — coerente com dados de processo; mobile: fica acessível via menu do sidebar (BottomTabBar mantém 5 itens principais, sem sobrecarregar). (e) telemetria embutida vs dinâmica: embutida agora (ilustrativo); evolução futura possível via JSON gerado por script.</span>
+<span class="add">+**Veredito:** Faça. Grupo Controle, ícone Workflow, sem tocar no BottomTabBar.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Outsider</span>
+<span class="add">+**Análise:** Perguntas óbvias: (1) público = usuário logado (rota protegida padrão — não precisa role admin, não é dado sensível); (2) por que não iframe/HTML em public/? Usuário pediu *adaptação de design* — port nativo é o que entrega isso (tema, typography, espaçamento do app); iframe quebraria dark mode e pareceria página externa; (3) números congelados envelhecem — mitigar com rótulo de data e seção "dados ilustrativos"; (4) não duplica KPI.tsx (lá é dashboard operacional com kpi-data.json; aqui é narrativa educacional do processo/gates); (5) drag em touch mobile é frágil → manter drag como aprimoramento desktop, com fallback de leitura clicável (clicar nó abre painel sem arrastar).</span>
+<span class="add">+**Veredito:** Faça. Rota protegida padrão, port nativo, rótulo de dados ilustrativos, fallback clique sem arrasto.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Executor</span>
+<span class="add">+**Análise:** Plano: (1) branch `feat/workflow-tab`; (2) `src/lib/workflowDemoData.ts` — constantes tipadas (KPIs, fases, nós do mapa, gates, telemetria, cenários) — recomendado sobre JSON em public/ (sem fetch, tipado, tree-shakeable, testes unitários rule-31); (3) componentes em `src/components/workflow/`: `WorkflowHero`, `WorkflowTimeline`, `WorkflowMindMap` (SVG + pointer events + ref p/ posição + estimativa de largura de texto), `WorkflowGates`, `WorkflowTelemetry`, `WorkflowSimulator`; (4) página `src/pages/Workflow.tsx` monta as seções (Card shadcn + tokens); (5) rota `/workflow` + PAGE_TITLES + item no AppSidebar (grupo Controle, ícone Workflow do lucide); (6) testes: 1 por componente customizado (rule-32) + lib (rule-31); (7) pre-pr → PR. Maior risco: MindMap — mitigar com estimativa de largura, posição em ref, drag com limiar.</span>
+<span class="add">+**Veredito:** Faça. Ordem: lib → componentes → página → rota/sidebar → testes → pre-pr → PR.</span>
+<span class="add">+</span>
+<span class="add">+## Peer Review</span>
+<span class="add">+</span>
+<span class="add">+- **Contrarian** reforça: MindMap em React é o único risco real; estimativa de largura (`label.length * fs * 0.62`) elimina `getComputedTextLength` e o layout thrash. Concorda com posição em ref.</span>
+<span class="add">+- **First Principles** ajusta: manter as 7 seções e a narrativa; não transformar em dashboard — é educacional.</span>
+<span class="add">+- **Expansionist** concorda: grupo Controle; não tocar BottomTabBar (5 itens é limite de UX mobile).</span>
+<span class="add">+- **Outsider** confirma: rota protegida padrão (sem role check extra), fallback clique-sem-arrasto no mapa, rótulo "dados ilustrativos" com data.</span>
+<span class="add">+- **Executor** confirma: constantes tipadas em lib (não JSON em public/), componentes pequenos por seção, testes por componente.</span>
+<span class="add">+</span>
+<span class="add">+## Síntese do Chairman</span>
+<span class="add">+</span>
+<span class="add">+**Consenso:** Faça. Portar o relatório para React nativo: `src/lib/workflowDemoData.ts` (constantes tipadas + rótulo de dados ilustrativos), componentes por seção em `src/components/workflow/` com tokens Tailwind/shadcn (dark mode automático), `src/pages/Workflow.tsx` montando as 7 seções (hero, jornada, linha do tempo conectada, mapa mental interativo com drag&amp;drop, gates, telemetria, simulador), rota `/workflow` + PAGE_TITLES + item "Workflow" no AppSidebar (grupo Controle, ícone Workflow), rota protegida padrão, testes por componente + lib, pre-pr → PR. MindMap: posição em ref, largura por estimativa, drag com limiar, fallback clique. Não tocar BottomTabBar.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito Final:** Faça</span>
+<span class="add">+</span>
+<span class="add">+**Próximos Passos:** Superpowers — branch `feat/workflow-tab` → lib de dados + componentes + página → rota/sidebar → testes (rule-31/32) → pre-pr → PR</span>
+<span class="add">+</span>
+<span class="add">+**Extended Thinking Usado:** sim (council de 5 advisors com peer review; decisão de UI com trade-offs de portabilidade, dados e acessibilidade)</span>
+diff --git a/docs/handoff.md b/docs/handoff.md
+index 796298b..74bc31f 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -9,8 +9,8 @@
+ ### 🐞 Bugs Abertos
+ Consulte as GitHub Issues para a lista atual.
+ ## 🧭 Estado Atual
+<span class="del">-- **Branch:** `main`</span>
+<span class="del">-- **Último commit:** `353a29d — Merge pull request #317 from andre0787/docs/rtk-benefits-sim`</span>
+<span class="add">+- **Branch:** `chore/code-review-gate`</span>
+<span class="add">+- **Último commit:** `845c26f — chore: atualiza artefatos do pre-pr pós-merge (handoff, relatório, KPIs)`</span>
+ - **Remote:** origin/main
+ ### 📋 PRs Abertos
+ Nenhum PR aberto.
+@@ -52,6 +52,6 @@ Continue a tarefa ativa ou selecione o próximo task-card.
+ **Objetivo:** auditoria: workflow-skills, obsoletos, bugs ocultos, vulns npm
+ **Status:** in_progress
+ **Iniciada em:** 2026-08-08T03:59:02.742Z
+<span class="del">-**Branch:** `chore/code-review-gate`</span>
+<span class="add">+**Branch:** `feat/workflow-tab`</span>
+ **Último commit:** 353a29d — Merge pull request #317 from andre0787/docs/rtk-benefits-sim
+ **Docs carregados:** AGENTS.md
+diff --git a/docs/reports/2026-08-08/workflow-tab-2026-08-08-workflow-tab.html b/docs/reports/2026-08-08/workflow-tab-2026-08-08-workflow-tab.html
+new file mode 100644
+index 0000000..1563812
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/reports/2026-08-08/workflow-tab-2026-08-08-workflow-tab.html</span>
+@@ -0,0 +1,137 @@
+<span class="add">+&lt;!DOCTYPE html&gt;</span>
+<span class="add">+&lt;html lang="pt-BR"&gt;</span>
+<span class="add">+&lt;head&gt;</span>
+<span class="add">+  &lt;meta charset="UTF-8"&gt;</span>
+<span class="add">+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;</span>
+<span class="add">+  &lt;title&gt;workflow-tab — workflow tab&lt;/title&gt;</span>
+<span class="add">+  &lt;style&gt;</span>
+<span class="add">+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}</span>
+<span class="add">+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}</span>
+<span class="add">+    h2{font-size:1rem;margin-top:1.5rem;color:#333}</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
