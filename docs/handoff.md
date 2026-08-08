@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `b8d7127` — docs: handoff final - webui 0.8.7 fix + PR 312 merged
+- **Último commit:** `722c1e9 — Merge pull request #314 from andre0787/docs/session-end-event`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,12 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** remover a extensão pi `@firstpick/pi-package-remote-webui` (remote mode) + corrigir o Web UI local degradado (bug webui 0.8.7).
-**Status:** done
-**Iniciada em:** 2026-08-08
-**Branch:** `main`
-**Docs carregados:** (chore — só AGENTS.md)
+**Categoria:** feature
+**Objetivo:** avaliar integracao do rtk (github.com/rtk-ai/rtk) no workflow + implementar se beneficioso
+**Status:** in_progress
+**Iniciada em:** 2026-08-08T01:35:42.383Z
+**Branch:** `feat/rtk-workflow`
+**Último commit:** 722c1e9 — Merge pull request #314 from andre0787/docs/session-end-event
+**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão

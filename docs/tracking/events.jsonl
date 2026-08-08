@@ -1287,3 +1287,41 @@
 {"timestamp":"2026-08-08T00:37:24.785Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/session-end-main-checkout","commit":"a3b2874","agent":"pi","errors":0}
 {"timestamp":"2026-08-08T00:37:31.503Z","type":"session:end","description":"handoff atualizado","branch":"chore/session-end-main-checkout","commit":"1792f3f","agent":"pi"}
 {"timestamp":"2026-08-08T01:33:11.006Z","type":"session:end","description":"sessao encerrada - remote-webui removido (PR 312) + webui 0.8.7 fix (PR 313)","branch":"main","commit":"080813a","agent":"pi"}
+{"timestamp":"2026-08-08T01:35:42.405Z","type":"session:start","description":"feature: avaliar integracao do rtk (github.com/rtk-ai/rtk) no workflow + implementar se beneficioso","branch":"main","commit":"722c1e9","agent":"pi","categoria":"feature"}
+{"timestamp":"2026-08-08T01:39:59.296Z","type":"session:start","description":"feature rtk - investigacao concluida","branch":"main","commit":"722c1e9","agent":"pi"}
+{"timestamp":"2026-08-08T01:46:35.692Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-08-08T01:46:36.368Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T01:46:36.867Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-08T01:47:05.696Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","errors":2}
+{"timestamp":"2026-08-08T01:47:11.008Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T01:47:11.508Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-08T01:47:40.683Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","errors":2}
+{"timestamp":"2026-08-08T01:47:47.642Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T01:47:48.138Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-08T01:48:03.984Z","type":"rule:fail","description":"rule-21-feedback-review falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-21-feedback-review"}
+{"timestamp":"2026-08-08T01:48:29.110Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","errors":3}
+{"timestamp":"2026-08-08T01:48:39.572Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T01:48:40.065Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-08T01:49:08.051Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","errors":2}
+{"timestamp":"2026-08-08T01:49:27.941Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T01:49:28.445Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-08T01:49:56.517Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","errors":2}
+{"timestamp":"2026-08-08T01:50:03.112Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T01:50:03.608Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-08T01:50:32.036Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","errors":2}
+{"timestamp":"2026-08-08T01:50:39.361Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T01:50:39.854Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-08T01:51:08.318Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","errors":2}
+{"timestamp":"2026-08-08T01:51:38.729Z","type":"rule:fail","description":"rule-30-outcome-grade falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-30-outcome-grade"}
+{"timestamp":"2026-08-08T01:52:12.464Z","type":"rule:fail","description":"rule-30-outcome-grade falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-30-outcome-grade"}
+{"timestamp":"2026-08-08T01:52:46.936Z","type":"rule:fail","description":"rule-30-outcome-grade falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-30-outcome-grade"}
+{"timestamp":"2026-08-08T01:53:10.384Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","errors":1}
+{"timestamp":"2026-08-08T01:54:50.426Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T01:55:18.632Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","errors":1}
+{"timestamp":"2026-08-08T01:55:23.982Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T01:55:51.869Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","errors":1}
+{"timestamp":"2026-08-08T01:55:58.241Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T01:56:25.963Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","errors":2}
+{"timestamp":"2026-08-08T01:56:33.281Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-08T01:57:01.741Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","errors":1}
+{"timestamp":"2026-08-08T01:57:54.387Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/rtk-workflow","commit":"722c1e9","agent":"pi","errors":0}

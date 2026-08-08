@@ -75,6 +75,7 @@
     "rule:prod-tests": "node scripts/rules/rule-25-production-tests.mjs",
     "rule:31": "node scripts/rules/rule-31-lib-test-coverage.mjs",
     "rule:32": "node scripts/rules/rule-32-component-test-coverage.mjs",
+    "rule:37": "node scripts/rules/rule-37-rtk.mjs",
     "kpi": "node scripts/kpi-report.mjs",
     "process:audit": "node scripts/process-audit.mjs",
     "project:audit": "node scripts/project-audit.mjs",

@@ -199,6 +199,7 @@ que impeça sua violação de forma automatizada.
 | #17 — Novos .md válidos (órfãos, links, MAP.md) | `rule-17-new-docs-valid.mjs` (auto no pre-pr) | `scripts/rules/rule-17-new-docs-valid.mjs` |
 | #22 — PR naming convention | `rule-22-pr-naming.mjs` (auto no pre-pr) | `scripts/rules/rule-22-pr-naming.mjs` |
 | #36 — Evidência de processo válida | `npm run process:audit -- --check` (auto no pre-pr via rule-36) | `scripts/rules/rule-36-process-evidence.mjs` |
+| #37 — Integração RTK ativa | `npm run rule:37` (auto no pre-pr) | `scripts/rules/rule-37-rtk.mjs` (veredito: `docs/council/2026-08-08-rtk-integration-veredito.md`) |
 | Deploy health | `check-deploy.mjs` | `scripts/check-deploy.mjs` |
 | Retrospectiva | `retro.mjs` | `scripts/retro.mjs` |
 | CI Process | `CI-PROCESS.md` | `docs/CI-PROCESS.md` |
