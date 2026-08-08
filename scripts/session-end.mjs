@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 
 /**
- * session-end.mjs — Finaliza sessão: add + commit + handoff + push.
+ * session-end.mjs — Finaliza sessão: add + commit + handoff + push + checkout main.
  *
  * Uso:
  *   node scripts/session-end.mjs "mensagem do commit"
  *   node scripts/session-end.mjs "feat: implementa X" --dry-run  # só mostra
+ *
+ * Garante que a sessão termina NA MAIN (checkout + pull) — os dois caminhos
+ * (com mudanças e sem mudanças) passam por finalizarNaMain().
  *
  * ponytail: execSync em série, zero deps
  */
@@ -51,6 +54,18 @@ function encerrarSessao() {
   writeFileSync(HANDOFF_PATH, content.replace(session[0], done), "utf8");
 }
 
+// Garante que a sessão termina na main: checkout + pull da branch principal.
+function finalizarNaMain() {
+  console.log("🔀 Atualizando para a branch main...");
+  const mainOut = execSync("git checkout main && git pull --ff-only", {
+    cwd: ROOT,
+    encoding: "utf8",
+    timeout: 60_000,
+  }).trim();
+  console.log(mainOut);
+  console.log("✅ Agora na main (atualizada).");
+}
+
 console.log("\n── SESSION END ──\n");
 
 if (DRY_RUN) {
@@ -63,6 +78,7 @@ if (DRY_RUN) {
   dry(`git add docs/handoff.md`);
   dry(`git commit ${NO_VERIFY} -m "docs: update handoff"`);
   dry(`git push origin HEAD`);
+  dry(`git checkout main && git pull --ff-only`);
   console.log("\nPara executar: node scripts/session-end.mjs \"sua mensagem\"\n");
   process.exit(0);
 }
@@ -89,6 +105,7 @@ if (!status) {
   } catch (e) {
     console.error(`❌ Erro no handoff/push: ${e.message}`);
   }
+  finalizarNaMain();
   process.exit(0);
 }
 
@@ -117,3 +134,6 @@ console.log("☁️  Push...");
 run("git push origin HEAD");
 
 console.log(`\n✅ Sessão finalizada: ${MSG}`);
+
+// 6. Checkout para main (garante que a sessão termina na branch principal)
+finalizarNaMain();
