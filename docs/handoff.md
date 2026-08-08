@@ -1,6 +1,6 @@
 # HANDOFF — MilesControl
 > ⏰ Última atualização: 2026-08-08
-> Anterior: 2026-08-07
+> Anterior: 2026-08-08
 ---
 ## 🏗️ Projeto
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `chore/session-end-main-checkout`
-- **Último commit:** `08e8b99` — docs: relatório pre-pr session-end-main-checkout
+- **Último commit:** `d6df8b0` — fix: session-end comita resíduos de docs antes do checkout main
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -36,3 +36,4 @@ Estado atualizado automaticamente.
 Continue a tarefa ativa ou selecione o próximo task-card.
 ## 🧠 Notas da Sessão Atual
 (Adicione notas manuais abaixo desta linha)
+
