@@ -1,5 +1,5 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-08-07
+> ⏰ Última atualização: 2026-08-08
 > Anterior: 2026-08-07
 ---
 ## 🏗️ Projeto
@@ -10,37 +10,29 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `chore/remove-remote-webui-extension`
-- **Último commit:** `87ea560` — chore: remover extensao pi-package-remote-webui
+- **Último commit:** `887f1f7` — chore: session end - remove remote-webui + fix webui 0.8.7 audit bug
 - **Remote:** origin/chore/remove-remote-webui-extension
 ### 📋 PRs Abertos
-- **PR #312** — `chore: remover extensao pi-package-remote-webui (remote nativo do pi)` — OPEN, head `chore/remove-remote-webui-extension`
+- #312 — chore: remover extensao pi-package-remote-webui (remote nativo do pi)
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 451 |
+| Total testes | 461 |
 | Docs issues | 0 |
-| Branch | main |
+| Branch | chore/remove-remote-webui-extension |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** chore
 **Objetivo:** remover a extensão pi `@firstpick/pi-package-remote-webui` (remote mode), mantendo apenas o Web UI local (`pi-package-webui` / `/webui-start`).
-**Status:** done — extensão removida (projeto + user level, `pi remove`), PR #312 OPEN, gh autenticado como `andre0787` (device flow, scopes gist/read:org/repo). Decisão: manter SOMENTE o Web UI local (127.0.0.1:31415), sem remote/LAN.
+**Status:** done
 **Iniciada em:** 2026-08-08
 **Branch:** `chore/remove-remote-webui-extension`
 **Docs carregados:** (chore — só AGENTS.md)
 ## ✅ Última Sessão
-**ITEM 3 RESOLVIDO + PRD (12 rodadas de validação, PRs #288–#304):**
-- **quality-and-check ✅:** 403 do bot resolvido (permissions contents/pull-requests write + hooks desativados no CI).
-- **Setting do repo ATIVADA via API (07/08):** `PUT /repos/{owner}/{repo}/actions/permissions/workflow` com `can_approve_pull_request_reviews: true` (endpoint `/workflow`! O campo em `/actions/permissions` é ignorado silenciosamente — 204 sem efeito). `default_workflow_permissions` preservado em "read" (workflows declaram permissions explícitas). **Nenhuma ação na UI necessária.**
-- **e2e-full ⚠️→ sanitizado (decisão autorizada):** causa raiz = **rate-limit do Supabase por IP compartilhado do runner do GitHub** (evidência: 5 rejeições seguidas no save do entradas; não reproduz local). Fora da cron (`if: workflow_dispatch && inputs.run-e2e == 'true'`) — disponível manualmente. Testes corrigidos permanecem (clube, fluxo-completo, carrinho, origem-tipo, entradas): locator estrutural, Escape determinístico, close por X com retry (force clicava o overlay), retry save com backoff 60s, retries=2, workers=1.
-- **Bônus:** fix do flaky do check-pr (index.lock no teste unitário `scripts-session-start` — retry com polling).
-- **Pipeline QUALITY.md 100% automático (PR #303):** novo step no nightly aprova o run fantasma do CI (approval gate de runs de GITHUB_TOKEN — `workflow_run` NÃO dispara p/ eles) e envia `repository_dispatch pr-ready` (padrão do normalize-pr-report). Validado: nightly → PR #304 criado → aprovado → merged → deploy, sem intervenção.
-- **Validação final:** nightly run 31176208053 = **SUCCESS** (quality-and-check ✅, e2e skipped, PR #304 no fluxo completo). A cron de 06:00 UTC roda o mesmo código.
+Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
-- **PENDENTE:** se quiser, revalidar o e2e completo manualmente: `gh workflow run nightly.yml -f run-e2e=true` (evitar horário de pico — rate-limit do Supabase por IP).
-- **PENDINGs ambientais:** `BASETEN_API_KEY` (perfil baseten do router), remote session APIs (pi), fullscreen TUI (já ativo).
 Continue a tarefa ativa ou selecione o próximo task-card.
 ## 🧠 Notas da Sessão Atual
 
