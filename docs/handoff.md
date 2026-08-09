@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `456f3a2` — Merge pull request #322
+- **Branch:** `fix/audit-workflow-p0`
+- **Último commit:** `666532c — Merge pull request #324 from andre0787/docs/fix-handoff-branch-field`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -25,12 +25,11 @@ Nenhum PR aberto.
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** bugfix
-**Objetivo:** corrigir erro de tipagem do WorkflowMindMap no CI
-**Status:** done
-**Iniciada em:** 2026-08-08T23:36:19.476Z
-**Encerrada em:** 2026-08-09
-**Branch:** `feat/workflow-tab` (mergeada via PR #321)
-**Último commit:** da91457 — style: alinhar arquivos do Workflow ao Prettier
+**Objetivo:** P0: strict pre-pr + hook rápido + fix auto-poluição rule-10
+**Status:** in_progress
+**Iniciada em:** 2026-08-09T15:02:03.040Z
+**Branch:** `fix/audit-workflow-p0`
+**Último commit:** 666532c — Merge pull request #324 from andre0787/docs/fix-handoff-branch-field
 **Docs carregados:** DEBUG.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.

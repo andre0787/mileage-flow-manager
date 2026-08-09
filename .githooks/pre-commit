@@ -46,7 +46,7 @@ fi
 echo "🔍 Executando validações automáticas (pre-pr)..."
 
 # Silencia output se tudo OK, mostra só se falhar
-NPM_OUTPUT=$(node scripts/pre-pr-check.mjs --strict 2>&1)
+NPM_OUTPUT=$(PRE_PR_ONLY_RULES=1 PRE_PR_DOCS=1 PRE_PR_ONLY_RULE="rule-14,rule-15,rule-16" node scripts/pre-pr-check.mjs --strict --no-report 2>&1)
 NPM_EXIT=$?
 
 if [ $NPM_EXIT -ne 0 ]; then
