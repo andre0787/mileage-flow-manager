@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `refactor/audit-p1-conventions`
-- **Último commit:** `2e1f210 — Merge pull request #325 from andre0787/fix/audit-workflow-p0`
+- **Branch:** `refactor/audit-p2-conventions`
+- **Último commit:** `3fbb58e — Merge pull request #327 from andre0787/refactor/audit-p1-conventions`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -25,12 +25,12 @@ Nenhum PR aberto.
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** refactor
-**Objetivo:** P2: fatiar CONVENTIONS.md + wirear context-pack
+**Objetivo:** P2: fatiar CONVENTIONS.md (28KB) em slices por categoria + wirear context-pack no workflow
 **Status:** in_progress
-**Iniciada em:** 2026-08-09T16:13:50.410Z
-**Branch:** `refactor/audit-p1-conventions`
-**Último commit:** 2e1f210 — Merge pull request #325 from andre0787/fix/audit-workflow-p0
-**Docs carregados:** CONVENTIONS.md, ARCHITECTURE.md
+**Iniciada em:** 2026-08-09T16:46:30.747Z
+**Branch:** `refactor/audit-p2-conventions`
+**Último commit:** 3fbb58e — Merge pull request #327 from andre0787/refactor/audit-p1-conventions
+**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão

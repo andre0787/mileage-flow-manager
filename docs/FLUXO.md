@@ -16,14 +16,17 @@ flowchart TB
 📋 lê handoff.md + snapshot"]
             CAT{"Qual categoria?"}
             CAT -->|feature| F["WORKFLOW.md
-+ CONVENTIONS.md
++ conventions/common.md
++ conventions/feature.md
 (council → build)"]
             CAT -->|bugfix| BUG["DEBUG.md
-+ CONVENTIONS.md
++ conventions/common.md
++ conventions/bugfix.md
 (triagem → fix)"]
             CAT -->|docs| DOCS["só AGENTS.md
 (editar → pre-pr)"]
-            CAT -->|refactor| REF["CONVENTIONS.md
+            CAT -->|refactor| REF["conventions/common.md
++ conventions/refactor.md
 + ARCHITECTURE.md
 (spec → build)"]
             CAT -->|chore| CHORE["só AGENTS.md

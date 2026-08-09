@@ -18,10 +18,10 @@ Cada sessão começa com `npm run session:start`, que:
 
 | Categoria | Docs |
 |-----------|------|
-| feature | `WORKFLOW.md` + `CONVENTIONS.md` (seções relevantes) |
-| bugfix | `DEBUG.md` + `CONVENTIONS.md` (seção bugs) |
+| feature | `WORKFLOW.md` + `conventions/common.md` + `conventions/feature.md` |
+| bugfix | `DEBUG.md` + `conventions/common.md` + `conventions/bugfix.md` |
 | docs | (só AGENTS.md) |
-| refactor | `CONVENTIONS.md` + `ARCHITECTURE.md` |
+| refactor | `conventions/common.md` + `conventions/refactor.md` + `ARCHITECTURE.md` |
 | chore | (só AGENTS.md) |
 
 > ⚠️ **REGRA DOURADA:** Não pré-carregue docs fora da categoria.
@@ -331,7 +331,7 @@ Antes de criar qualquer PR, executar este checklist:
 ## Regra de Limpeza
 
 **Antes de merge/PR, TODOS os arquivos devem estar commitados.**
-Ver `AGENTS.md` (regras #8-10) e `CONVENTIONS.md` → "Limpeza Pós-Sessão".
+Ver `AGENTS.md` (regras #8-10) e `conventions/workflow.md` → "Limpeza Pós-Sessão".
 
 ---
 

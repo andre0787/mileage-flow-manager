@@ -76,4 +76,4 @@ Quando um teste E2E falha no CI:
 
 ---
 
-_Consulte `docs/CONVENTIONS.md` → "Debug" para convenções._
+_Consulte `docs/conventions/bugfix.md` → "Debug" para convenções._

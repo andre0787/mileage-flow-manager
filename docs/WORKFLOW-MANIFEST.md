@@ -10,10 +10,10 @@
 
 | Categoria | Quando usar | Docs autorizados | Workflow |
 |-----------|-------------|------------------|----------|
-| **feature** | Nova funcionalidade ou modificação significativa | `WORKFLOW.md` + `CONVENTIONS.md` | council → build → pre-pr → PR |
-| **bugfix** | Correção de bug | `DEBUG.md` + `CONVENTIONS.md` (seção bugs) | triagem → fix → pre-pr → PR |
+| **feature** | Nova funcionalidade ou modificação significativa | `WORKFLOW.md` + `conventions/common.md` + `conventions/feature.md` | council → build → pre-pr → PR |
+| **bugfix** | Correção de bug | `DEBUG.md` + `conventions/common.md` + `conventions/bugfix.md` | triagem → fix → pre-pr → PR |
 | **docs** | Documentação (exceto código) | `AGENTS.md` | editar → pre-pr → PR |
-| **refactor** | Mudança estrutural sem mudar comportamento | `CONVENTIONS.md` + `ARCHITECTURE.md` | spec → build → pre-pr → PR |
+| **refactor** | Mudança estrutural sem mudar comportamento | `conventions/common.md` + `conventions/refactor.md` + `ARCHITECTURE.md` | spec → build → pre-pr → PR |
 | **chore** | Tarefa de manutenção/infra | `AGENTS.md` | executar → pre-pr → PR |
 
 > Se a categoria não estiver na tabela, pergunte ao usuário.

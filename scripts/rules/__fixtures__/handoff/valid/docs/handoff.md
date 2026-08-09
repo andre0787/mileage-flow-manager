@@ -7,7 +7,7 @@ Tudo funcionando.
 ## 🎯 Sessão Atual
 **Branch:** feat/teste
 **Categoria:** feature
-**Docs carregados:** WORKFLOW.md, CONVENTIONS.md
+**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 **Próximo passo:** testar
 
 ## ✅ Última Sessão
