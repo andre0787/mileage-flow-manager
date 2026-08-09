@@ -43,6 +43,14 @@ if (definedRules.size === 0) {
   process.exit(1);
 }
 
+// Lê docs/RULES.md e extrai os números documentados (primeira coluna das tabelas: | N | ...)
+const RULES_MD_PATH = resolve(ROOT, "docs/RULES.md");
+const rulesMdContent = existsSync(RULES_MD_PATH) ? readFileSync(RULES_MD_PATH, "utf8") : "";
+const documentedRules = new Set();
+const docRe = /^\|\s*(\d+)\s*\|/gm;
+let docMatch;
+while ((docMatch = docRe.exec(rulesMdContent)) !== null) documentedRules.add(parseInt(docMatch[1]));
+
 // Lista scripts rules disponíveis
 const existingScripts = new Set(
   readdirSync(RULES_DIR)
@@ -70,6 +78,12 @@ for (const num of [...definedRules].sort((a, b) => a - b)) {
   }
 }
 
+// Regras definidas no AGENTS.md que NÃO têm entrada documentada em docs/RULES.md
+let missingDoc = [];
+for (const num of [...definedRules].sort((a, b) => a - b)) {
+  if (!documentedRules.has(num)) missingDoc.push(num);
+}
+
 // Scripts extras (que validam algo não listado como regra numerada em AGENTS.md)
 for (const num of [...existingScripts].sort((a, b) => a - b)) {
   if (!definedRules.has(num)) {
@@ -82,6 +96,12 @@ let hasError = false;
 if (missing.length > 0) {
   err(`Regras SEM script de validação: #${missing.join(", #")}`);
   err("Crie scripts/rules/rule-0N-*.mjs para cada uma (ou adicione à UNVERIFIABLE se não for automatizável)");
+  hasError = true;
+}
+
+if (missingDoc.length > 0) {
+  err(`Regras SEM entrada em docs/RULES.md: #${missingDoc.join(", #")}`);
+  err("Adicione 1 linha por regra em docs/RULES.md (formato: | N | nome | script | status |)");
   hasError = true;
 }
 

@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `fix/audit-workflow-p0`
-- **Último commit:** `666532c — Merge pull request #324 from andre0787/docs/fix-handoff-branch-field`
+- **Branch:** `chore/audit-p1-workflow`
+- **Último commit:** `2e1f210 — Merge pull request #325 from andre0787/fix/audit-workflow-p0`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,13 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** bugfix
-**Objetivo:** P0: strict pre-pr + hook rápido + fix auto-poluição rule-10
+**Categoria:** chore
+**Objetivo:** P1: normalizar events.jsonl + criar RULES.md + rule-13 exige doc + decisão serena
 **Status:** in_progress
-**Iniciada em:** 2026-08-09T15:02:03.040Z
-**Branch:** `fix/audit-workflow-p0`
-**Último commit:** 666532c — Merge pull request #324 from andre0787/docs/fix-handoff-branch-field
-**Docs carregados:** DEBUG.md, CONVENTIONS.md
+**Iniciada em:** 2026-08-09T15:50:26.948Z
+**Branch:** `chore/audit-p1-workflow`
+**Último commit:** 2e1f210 — Merge pull request #325 from andre0787/fix/audit-workflow-p0
+**Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
