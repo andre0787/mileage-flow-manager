@@ -72,7 +72,7 @@ pergunte ao usuário. **Não leia docs "preventivamente".**
 1. `npm run session:start` — carrega handoff.md + pergunta categoria
 2. Carregar docs da categoria (tabela acima)
 3. Se **feature**: executar council-to-superpowers
-4. **Navegação Símbolos-Primeiro** — antes de ler arquivos-fonte inteiros, use navegação estrutural disponível (`code-review-graph`, `grep -rn` ou Serena se o MCP estiver ativo). Só use `read` completo quando a navegação parcial não bastar.
+4. **Navegação via Gate** — antes de ler arquivos-fonte inteiros, rode `npm run nav:gate` para decidir a ferramenta (code-review-graph padrão no pi; serena apenas se `SERENA_MCP_URL` definido; fallback `grep -rn` + `read` com offset/limit). Só use `read` completo quando a navegação estrutural não bastar.
 5. Build / editar código
 6. `npm run pre-pr` (relatório automático + validações)
 7. Criar PR → `npm run post-pr` (renomeia relatório)

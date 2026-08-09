@@ -9,7 +9,7 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `chore/audit-p1-workflow`
+- **Branch:** `refactor/audit-p1-conventions`
 - **Último commit:** `2e1f210 — Merge pull request #325 from andre0787/fix/audit-workflow-p0`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
@@ -24,13 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** P1: normalizar events.jsonl + criar RULES.md + rule-13 exige doc + decisão serena
+**Categoria:** refactor
+**Objetivo:** P2: fatiar CONVENTIONS.md + wirear context-pack
 **Status:** in_progress
-**Iniciada em:** 2026-08-09T15:50:26.948Z
-**Branch:** `chore/audit-p1-workflow`
+**Iniciada em:** 2026-08-09T16:13:50.410Z
+**Branch:** `refactor/audit-p1-conventions`
 **Último commit:** 2e1f210 — Merge pull request #325 from andre0787/fix/audit-workflow-p0
-**Docs carregados:** AGENTS.md
+**Docs carregados:** CONVENTIONS.md, ARCHITECTURE.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão

@@ -88,7 +88,8 @@
     "crg:dead-code": "code-review-graph dead-code",
     "crg:impact": "code-review-graph impact",
     "crg:detect-changes": "code-review-graph detect-changes",
-    "crg:wiki": "code-review-graph wiki"
+    "crg:wiki": "code-review-graph wiki",
+    "nav:gate": "node scripts/navigation-gate.mjs"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.1",

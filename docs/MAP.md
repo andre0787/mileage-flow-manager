@@ -149,3 +149,4 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/superpowers/plans/2026-08-07-card-ultimo-registro-alertas.md` (auto) | 2026-08-07 |
 | `docs/superpowers/specs/2026-08-07-card-ultimo-registro-alertas-design.md` (auto) | 2026-08-07 |
 | `docs/RULES.md` (auto) | 2026-08-09 |
+| `docs/superpowers/specs/2026-08-09-navigation-gate-design.md` (auto) | 2026-08-09 |
