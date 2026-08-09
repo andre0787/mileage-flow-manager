@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // metrics/collect.mjs — Coleta dados do GitHub via gh CLI (PRs paginados + check-runs).
-// Uso: node scripts/metrics/collect.mjs [--since 2026-07-01] [--dry] [--out <path>]
+// Uso: node scripts/metrics/collect.mjs [--since 2026-07-01] [--limit N] [--out <path>]
 
 import { execSync } from "child_process";
 import { writeFileSync } from "fs";

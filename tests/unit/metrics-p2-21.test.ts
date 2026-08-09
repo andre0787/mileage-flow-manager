@@ -44,6 +44,17 @@ describe("metrics lib", () => {
     ).toBe(false);
   });
 
+  it("proxy bypass: caminho REST real (state closed + mergedAt) e PR não mergeado", () => {
+    const restMerged = { number: 998, state: "closed", mergedAt: "2026-08-01T00:00:00Z", headRefName: "fix/nopre" };
+    expect(proxyBypassPr(restMerged, [])).toBe(true);
+    expect(
+      proxyBypassPr(restMerged, [ev({ type: "pre-pr", branch: "fix/nopre", errors: 0 })]),
+    ).toBe(false);
+    // PR aberto/fechado sem merge não conta como bypass
+    expect(proxyBypassPr({ number: 997, state: "closed", mergedAt: null, headRefName: "chore/x" }, [])).toBe(false);
+    expect(proxyBypassPr({ number: 996, state: "open", headRefName: "feat/y" }, [])).toBe(false);
+  });
+
   it("skip por design", () => {
     expect(isSkipByDesign("e2e-smoke")).toBe(true);
     expect(isSkipByDesign("check-pr")).toBe(false);
