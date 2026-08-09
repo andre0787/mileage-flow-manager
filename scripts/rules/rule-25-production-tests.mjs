@@ -57,15 +57,15 @@ if (existsSync(pkgPath)) {
   }
 }
 
-// 4. Verificar se CONVENTIONS.md tem Regra #25
-const convPath = join(ROOT, "docs", "CONVENTIONS.md");
+// 4. Verificar se a Regra #25 está documentada em conventions/workflow.md
+const convPath = join(ROOT, "docs", "conventions", "workflow.md");
 if (existsSync(convPath)) {
   const conv = readFileSync(convPath, "utf-8");
   if (!conv.includes("REGRA #25") && !conv.includes("Regra #25")) {
-    console.log("❌ rule-25: CONVENTIONS.md não tem Regra #25");
+    console.log("❌ rule-25: docs/conventions/workflow.md não tem Regra #25");
     errors++;
   } else {
-    console.log("✅ rule-25: Regra #25 documentada em CONVENTIONS.md");
+    console.log("✅ rule-25: Regra #25 documentada em docs/conventions/workflow.md");
   }
 }
 

@@ -13,7 +13,8 @@
 |-----|----------|---------|
 | `docs/STACK.md` | Stack técnica (React, Vite, Supabase, Tailwind) | 2KB |
 | `docs/ARCHITECTURE.md` | Estrutura de pastas e arquitetura | 4.8KB |
-| `docs/CONVENTIONS.md` | Regras detalhadas, padrões de código, DRY, UI | 20KB |
+| `docs/CONVENTIONS.md` | Índice dos slices de convenções (ver `docs/conventions/`) | 1KB |
+| `docs/conventions/` | Slices por categoria: `common` (todas), `feature`, `bugfix`, `refactor`, `workflow` | ~30KB total |
 | `docs/WORKFLOW.md` | Processos, scripts, fluxo completo + subagentes | 12.5KB |
 | `docs/UI-GUIDE.md` | Design system, grid, cores, componentes | 3.9KB |
 | `docs/DEBUG.md` | Debug, troubleshooting, logs | 2.1KB |
@@ -56,10 +57,10 @@ Antes de cada `subagent_gate`, resolva a tarefa com `npm run llm:route`. Use exa
 
 | Tipo | Carregar | Workflow |
 |------|----------|----------|
-| **feature** | `WORKFLOW.md` + `CONVENTIONS.md` (seções relevantes) | council → build → pre-pr → PR |
-| **bugfix** | `DEBUG.md` + `CONVENTIONS.md` (seção bugs) | triagem → fix → pre-pr → PR |
+| **feature** | `WORKFLOW.md` + `conventions/common.md` + `conventions/feature.md` | council → build → pre-pr → PR |
+| **bugfix** | `DEBUG.md` + `conventions/common.md` + `conventions/bugfix.md` | triagem → fix → pre-pr → PR |
 | **docs** | (só este AGENTS.md) | editar → pre-pr → PR |
-| **refactor** | `CONVENTIONS.md` + `ARCHITECTURE.md` | spec → build → pre-pr → PR |
+| **refactor** | `conventions/common.md` + `conventions/refactor.md` + `ARCHITECTURE.md` | spec → build → pre-pr → PR |
 | **chore** | (só este AGENTS.md) | executar → pre-pr → PR |
 
 ## ⚠️ REGRA DOURADA: NÃO PRÉ-CARREGUE DOCS

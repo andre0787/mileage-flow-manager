@@ -21,9 +21,18 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 const TASKS_DIR = resolve(ROOT, "docs/tasks");
-const CONVENTIONS_PATH = resolve(ROOT, "docs/CONVENTIONS.md");
+const CONVENTIONS_DIR = resolve(ROOT, "docs/conventions");
 const ARCHITECTURE_PATH = resolve(ROOT, "docs/ARCHITECTURE.md");
 const STACK_PATH = resolve(ROOT, "docs/STACK.md");
+
+// ── Lê todos os slices de docs/conventions/ e agrega ──
+function readConventions() {
+  const files = readdirSync(CONVENTIONS_DIR).filter((f) => f.endsWith(".md"));
+  return files
+    .sort()
+    .map((f) => readFileSync(resolve(CONVENTIONS_DIR, f), "utf8"))
+    .join("\n\n");
+}
 
 // ── Mapeamento: palavra-chave no card → seções da CONVENTIONS.md ──
 // Cada entrada: { keywords, sections } — se o card (título/objetivo/meta)
@@ -180,7 +189,7 @@ const area = meta.categoria || "???";
 const selectedSections = selectSections(card.content + " " + (meta.objetivo || ""));
 
 // Extrair
-const conventions = readFileSync(CONVENTIONS_PATH, "utf8");
+const conventions = readConventions();
 const allConvSections = extractAllSections(conventions);
 
 // Pacote

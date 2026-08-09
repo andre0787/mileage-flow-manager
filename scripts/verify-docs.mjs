@@ -16,7 +16,7 @@
  */
 
 import { readFileSync, existsSync, readdirSync, statSync } from "fs";
-import { join, relative, resolve } from "path";
+import { join, relative, resolve, posix } from "path";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const EXCLUDE_DIRS = new Set(["node_modules", ".git", ".worktrees", ".opencode", ".pi", ".pi-subagents", ".superpowers", ".zcode", "test-results", "playwright-report", "dist", "tests"]);
@@ -107,7 +107,7 @@ for (const { path: filePath, rel: fileRel } of allFiles) {
   for (const link of links) {
     let target = link.target;
 
-    // Resolve relative links
+    // Resolve relative links (normalizando `..`/`.` via posix.normalize)
     if (target.startsWith("./")) {
       const dir = fileRel.split("/").slice(0, -1).join("/");
       target = dir ? `${dir}/${target.slice(2)}` : target.slice(2);
@@ -116,6 +116,7 @@ for (const { path: filePath, rel: fileRel } of allFiles) {
       const dir = fileRel.split("/").slice(0, -1).join("/");
       target = dir ? `${dir}/${target}` : target;
     }
+    target = posix.normalize(target);
 
     // Remove trailing slash, fragment, query
     target = target.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/$/, "");
@@ -163,6 +164,7 @@ if (!quick) {
         const dir = fileRel.split("/").slice(0, -1).join("/");
         target = dir ? `${dir}/${target}` : target;
       }
+      target = posix.normalize(target);
       target = target.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/$/, "");
       const asMd = target.endsWith(".md") ? target : `${target}.md`;
       if (filePaths.has(asMd)) referenced.add(asMd);
@@ -170,7 +172,7 @@ if (!quick) {
   }
 
   // Also mark MAIN docs as referenced (they're entry points)
-    const entryDocs = ["AGENTS.md", "CLAUDE.md", "QUALITY.md", "docs/handoff.md", "docs/memory.md", "README.md", "docs/AGENDA.md", "docs/WORKFLOW.md", "docs/ARCHITECTURE.md", "docs/CONVENTIONS.md", "docs/MAP.md", "docs/STACK.md", "docs/GIT-WORKFLOW.md", "docs/UI-GUIDE.md", "docs/TESTING.md", "docs/TEST-PLAN.md", "docs/MAPA-EXPERIENCIAS-USUARIO.md"]; 
+    const entryDocs = ["AGENTS.md", "CLAUDE.md", "QUALITY.md", "docs/handoff.md", "docs/memory.md", "README.md", "docs/AGENDA.md", "docs/WORKFLOW.md", "docs/ARCHITECTURE.md", "docs/CONVENTIONS.md", "docs/conventions/common.md", "docs/conventions/feature.md", "docs/conventions/bugfix.md", "docs/conventions/refactor.md", "docs/conventions/workflow.md", "docs/MAP.md", "docs/STACK.md", "docs/GIT-WORKFLOW.md", "docs/UI-GUIDE.md", "docs/TESTING.md", "docs/TEST-PLAN.md", "docs/MAPA-EXPERIENCIAS-USUARIO.md"]; 
   for (const d of entryDocs) {
     if (filePaths.has(d)) referenced.add(d);
   }

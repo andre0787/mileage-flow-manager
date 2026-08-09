@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T16:39:10.668Z",
+  "generatedAt": "2026-08-09T20:54:27.497Z",
   "months": [
     {
       "month": "2026-03",
@@ -158,22 +158,22 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 61,
-      "prePrTotal": 254,
-      "prePrPass": 155,
+      "prePrPassRate": 61.5,
+      "prePrTotal": 257,
+      "prePrPass": 158,
       "prePrFail": 99,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
-        "intent": 5,
+        "intent": 6,
         "twins": 0,
-        "auth": 1
+        "auth": 2
       },
-      "avgOutcomeGrade": 94.1,
+      "avgOutcomeGrade": 94.3,
       "topViolations": [
         {
           "rule": "rule-10-clean",
-          "count": 122
+          "count": 126
         },
         {
           "rule": "rule-26-session-started",
@@ -194,16 +194,16 @@
       ],
       "healedByRule": {
         "rule-26": 24,
-        "rule-17-new-docs-valid": 5
+        "rule-17-new-docs-valid": 6
       },
       "gateBlockedByRule": {},
-      "avgCycleTimeHours": 1.6,
-      "branchesMerged": 54,
+      "avgCycleTimeHours": 1.7,
+      "branchesMerged": 55,
       "llmRouter": {
-        "resolved": 17,
+        "resolved": 19,
         "completed": 0,
         "failed": 10,
-        "unobserved": 11,
+        "unobserved": 12,
         "fallbackUsed": 0,
         "completionRate": 0,
         "fallbackRate": null,

@@ -18,10 +18,10 @@ const ROOT = process.env.MOCK_ROOT || resolve(import.meta.dirname, "../..");
 const HANDOFF_PATH = resolve(ROOT, "docs/handoff.md");
 
 const CATEGORY_MAP = {
-  feature: ["WORKFLOW.md", "CONVENTIONS.md"],
-  bugfix: ["DEBUG.md", "CONVENTIONS.md"],
+  feature: ["WORKFLOW.md", "conventions/common.md", "conventions/feature.md"],
+  bugfix: ["DEBUG.md", "conventions/common.md", "conventions/bugfix.md"],
   docs: ["AGENTS.md"],
-  refactor: ["CONVENTIONS.md", "ARCHITECTURE.md"],
+  refactor: ["conventions/common.md", "conventions/refactor.md", "ARCHITECTURE.md"],
   chore: ["AGENTS.md"],
 };
 

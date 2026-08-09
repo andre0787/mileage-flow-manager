@@ -150,3 +150,10 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/superpowers/specs/2026-08-07-card-ultimo-registro-alertas-design.md` (auto) | 2026-08-07 |
 | `docs/RULES.md` (auto) | 2026-08-09 |
 | `docs/superpowers/specs/2026-08-09-navigation-gate-design.md` (auto) | 2026-08-09 |
+| `docs/CONTEXT-MANAGEMENT.md` (auto) | 2026-08-09 |
+| `docs/conventions/common.md` (auto) | 2026-08-09 |
+| `docs/conventions/refactor.md` (auto) | 2026-08-09 |
+| `docs/conventions/feature.md` (auto) | 2026-08-09 |
+| `docs/conventions/bugfix.md` (auto) | 2026-08-09 |
+| `docs/conventions/workflow.md` (auto) | 2026-08-09 |
+| `docs/superpowers/specs/2026-08-09-conventions-split-design.md` (auto) | 2026-08-09 |
