@@ -59,6 +59,15 @@ const SESS_OK = `## 🎯 Sessão Atual
 **Último commit:** abc
 **Docs carregados:** AGENTS.md`;
 
+const SESS_DONE_BRANCH_DIVERGENTE = `## 🎯 Sessão Atual
+**Categoria:** chore
+**Objetivo:** teste
+**Status:** done
+**Iniciada em:** 2026-08-05T00:00:00.000Z
+**Branch:** \`feat/outra-branch\`
+**Último commit:** abc
+**Docs carregados:** AGENTS.md`;
+
 describe("healSession — Trava B (rule-26) e Trava E (rule-02)", () => {
   it("branch da sessão diverge da atual → corrige e retorna ['rule-26']", () => {
     const { dir } = makeRepo();
@@ -130,5 +139,14 @@ describe("healSession — Trava B (rule-26) e Trava E (rule-02)", () => {
     writeHandoff(dir, SESS_BRANCH_ERRADA);
     expect(healSession(dir)).toEqual(["rule-26"]);
     expect(healSession(dir)).toEqual([]);
+  });
+
+  it("sessão encerrada (Status: done) → não reescreve a branch (registro histórico preservado)", () => {
+    const { dir } = makeRepo();
+    writeHandoff(dir, SESS_DONE_BRANCH_DIVERGENTE);
+    const healed = healSession(dir);
+    expect(healed).toEqual([]);
+    const md = readFileSync(join(dir, "docs/handoff.md"), "utf8");
+    expect(md).toContain("**Branch:** `feat/outra-branch`");
   });
 });

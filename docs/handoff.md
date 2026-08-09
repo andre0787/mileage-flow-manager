@@ -29,7 +29,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 **Status:** done
 **Iniciada em:** 2026-08-08T23:36:19.476Z
 **Encerrada em:** 2026-08-09
-**Branch:** `docs/session-end-workflow-tab` (mergeada via PR #321)
+**Branch:** `feat/workflow-tab` (mergeada via PR #321)
 **Último commit:** da91457 — style: alinhar arquivos do Workflow ao Prettier
 **Docs carregados:** DEBUG.md, CONVENTIONS.md
 ## ✅ Última Sessão
