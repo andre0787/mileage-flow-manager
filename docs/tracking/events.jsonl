@@ -1495,3 +1495,10 @@
 {"timestamp":"2026-08-09T16:32:47.049Z","type":"healed","description":"rule-17-new-docs-valid auto-corrigido","branch":"refactor/audit-p1-conventions","commit":"2e1f210","agent":"pi","rule":"rule-17-new-docs-valid"}
 {"timestamp":"2026-08-09T16:33:17.906Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/audit-p1-conventions","commit":"2e1f210","agent":"pi","errors":0}
 {"timestamp":"2026-08-09T16:33:28.133Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/audit-p1-conventions","commit":"2e1f210","agent":"pi","errors":0}
+{"timestamp":"2026-08-09T16:39:32.558Z","type":"rule:fail","description":"rule-08-report falhou","branch":"refactor/audit-p1-conventions","commit":"24e58d3","agent":"pi","rule":"rule-08-report"}
+{"timestamp":"2026-08-09T16:39:32.592Z","type":"rule:fail","description":"rule-17-report-prefix falhou","branch":"refactor/audit-p1-conventions","commit":"24e58d3","agent":"pi","rule":"rule-17-report-prefix"}
+{"timestamp":"2026-08-09T16:39:32.624Z","type":"rule:fail","description":"rule-22-pr-naming falhou","branch":"refactor/audit-p1-conventions","commit":"24e58d3","agent":"pi","rule":"rule-22-pr-naming"}
+{"timestamp":"2026-08-09T16:40:18.005Z","type":"rule:fail","description":"rule-08-report falhou","branch":"refactor/audit-p1-conventions","commit":"24e58d3","agent":"pi","rule":"rule-08-report"}
+{"timestamp":"2026-08-09T16:40:18.039Z","type":"rule:fail","description":"rule-17-report-prefix falhou","branch":"refactor/audit-p1-conventions","commit":"24e58d3","agent":"pi","rule":"rule-17-report-prefix"}
+{"timestamp":"2026-08-09T16:40:18.076Z","type":"rule:fail","description":"rule-22-pr-naming falhou","branch":"refactor/audit-p1-conventions","commit":"24e58d3","agent":"pi","rule":"rule-22-pr-naming"}
+{"timestamp":"2026-08-09T16:43:43.003Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/audit-p1-conventions","commit":"24e58d3","agent":"pi","errors":0}
