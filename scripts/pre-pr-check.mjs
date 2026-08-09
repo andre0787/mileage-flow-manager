@@ -202,6 +202,7 @@ if (process.env.PRE_PR_ONLY_RULE) {
   ruleFiles = ruleFiles.filter(f => allowedRules.some(allowed => f.includes(allowed)));
 }
 
+const pendingEvents = [];
 for (const file of ruleFiles) {
   const rulePath = resolve(RULES_DIR, file);
   try {
@@ -211,25 +212,32 @@ for (const file of ruleFiles) {
     errors++;
     if (e.stdout) process.stdout.write(e.stdout + "\n");
     if (e.stderr) process.stderr.write(e.stderr + "\n");
-    // Registra o evento (fonte do KPI "Top Violações" / "Gates Bloqueados")
-    try {
-      const ruleName = file.replace(/\.mjs$/, "");
-      const gate = GATE_RULES.get(ruleName);
-      if (gate) {
-        logger.log(`  🔐 gate:blocked — ${ruleName} (${gate}): julgamento humano requerido`);
-        execSync(
-          `node scripts/event-log.mjs gate:blocked "${ruleName} bloqueado pelo gate ${gate}" --meta '{"rule":"${ruleName}","gate":"${gate}","branch":"${gitExec("git rev-parse --abbrev-ref HEAD").trim()}"}' 2>/dev/null || true`,
-          { cwd: ROOT, encoding: "utf8", timeout: 5000 },
-        );
-      } else {
-        execSync(
-          `node scripts/event-log.mjs rule:fail "${ruleName} falhou" --meta '{"rule":"${ruleName}"}' 2>/dev/null || true`,
-          { cwd: ROOT, encoding: "utf8", timeout: 5000 },
-        );
-      }
-    } catch { /* não bloqueante */ }
+    // Bufferiza o evento (rule:fail/gate:blocked) — o flush ocorre DEPOIS do
+    // loop para não sujar events.jsonl durante a execução do rule-10-clean.
+    const ruleName = file.replace(/\.mjs$/, "");
+    const gate = GATE_RULES.get(ruleName);
+    if (gate) {
+      logger.log(`  🔐 gate:blocked — ${ruleName} (${gate}): julgamento humano requerido`);
+      pendingEvents.push(
+        `node scripts/event-log.mjs gate:blocked "${ruleName} bloqueado pelo gate ${gate}" --meta '{"rule":"${ruleName}","gate":"${gate}","branch":"${gitExec("git rev-parse --abbrev-ref HEAD").trim()}"}'`
+      );
+    } else {
+      pendingEvents.push(
+        `node scripts/event-log.mjs rule:fail "${ruleName} falhou" --meta '{"rule":"${ruleName}"}'`
+      );
+    }
   }
 }
+
+// Flush dos eventos de falha APÓS o loop (não polui a árvore durante o rule-10)
+for (const cmd of pendingEvents) {
+  try {
+    execSync(`${cmd} 2>/dev/null || true`, { cwd: ROOT, encoding: "utf8", timeout: 5000 });
+  } catch { /* não bloqueante */ }
+}
+try {
+  stageGeneratedArtifacts(ROOT);
+} catch { /* não bloqueante */ }
 
 // ── logger.log esquecido ───────────────────────────────────────────
 
@@ -252,7 +260,7 @@ if (!process.env.PRE_PR_ONLY_RULES) {
 }
 
 // ── Docs ─────────────────────────────────────────────────────────────
-if (!process.env.PRE_PR_ONLY_RULES) {
+if (!process.env.PRE_PR_ONLY_RULES || process.env.PRE_PR_DOCS) {
   logger.log("\n── Docs ──");
   const verifyScript = resolve(ROOT, "scripts/verify-docs.mjs");
   if (existsSync(verifyScript)) {
@@ -283,6 +291,11 @@ try {
 if (!process.env.PRE_PR_ONLY_RULES && !process.env.VITEST) {
   try {
     execSync("npm run kpi 2>/dev/null", { cwd: ROOT, encoding: "utf8", timeout: 15000 });
-    stageGeneratedArtifacts(ROOT);
   } catch { /* non-blocking */ }
 }
+// Stage final: garante que events.jsonl (com o evento pre-pr recém-logado) e
+// demais artefatos gerados fiquem stageados — sem isso o próximo pre-pr
+// falharia no rule-10-clean com árvore suja.
+try {
+  stageGeneratedArtifacts(ROOT);
+} catch { /* non-blocking */ }
