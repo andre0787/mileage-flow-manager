@@ -896,3 +896,54 @@ describe("rule-39-coding-gate (codificação por subagente)", () => {
     } finally { cleanTempFixture(tmp); }
   });
 });
+
+// ─── rule-26-session-started (git-dependent) ──────────────────────
+
+describe("rule-26-session-started", () => {
+  function writeSessaoAtualHandoff(tmp: string, status: string, branchSessao: string) {
+    const dir = join(tmp, "docs");
+    mkdirSync(dir, { recursive: true });
+    const handoff = `## 🏗️ Projeto
+Stack: React + Vite + Supabase + Tailwind
+
+## 🎯 Sessão Atual
+**Categoria:** bugfix
+**Objetivo:** corrigir erro de tipagem
+**Iniciada em:** 2026-08-09T12:00:00.000Z
+**Status:** ${status}
+**Branch:** \`${branchSessao}\`
+**Último commit:** abc
+**Docs carregados:** DEBUG.md, CONVENTIONS.md
+
+## ✅ Última Sessão
+Nada feito ainda.
+`;
+    writeFileSync(join(dir, "handoff.md"), handoff);
+  }
+
+  it("deve passar (skip) quando Status: done e branch da sessão difere da branch git atual", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/foo 2>/dev/null", tmp);
+      writeSessaoAtualHandoff(tmp, "done", "feat/outra-branch");
+      const res = runRuleOnFixture("rule-26-session-started.mjs", tmp);
+      expect(res.status).toBe(0);
+      const out = (res.stdout || "") + (res.error || "");
+      expect(out).toMatch(/done/);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve falhar (exit 1) quando Status: in_progress e branch da sessão difere da branch git atual", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git checkout -b feat/foo 2>/dev/null", tmp);
+      writeSessaoAtualHandoff(tmp, "in_progress", "feat/outra-branch");
+      const res = runRuleOnFixture("rule-26-session-started.mjs", tmp);
+      expect(res.status).not.toBe(0);
+      const out = (res.stdout || "") + (res.error || "");
+      expect(out).toMatch(/difere da branch atual/);
+    } finally { cleanTempFixture(tmp); }
+  });
+});

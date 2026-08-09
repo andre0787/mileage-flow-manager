@@ -59,8 +59,14 @@ export function healSession(root) {
   let session = sessionMatch[0];
 
   // ── Trava B: rule-26 — branch da sessão difere da branch atual ──
+  // Sessão encerrada (Status: done) é registro histórico: a branch original
+  // (ex: feat/workflow-tab, mergeada via PR) NÃO deve ser reescrita para a
+  // branch corrente do commit de finalização. Espelha a rule-26, que pula a
+  // checagem quando status === "done".
+  const statusMatch = session.match(/\*\*Status:\*\*\s*(.+)/);
+  const status = statusMatch ? statusMatch[1].trim() : "";
   const branchMatch = session.match(/\*\*Branch:\*\*\s*`([^`]+)`/);
-  if (branchMatch && branchMatch[1] !== branch) {
+  if (status !== "done" && branchMatch && branchMatch[1] !== branch) {
     session = session.replace(/\*\*Branch:\*\*\s*`[^`]+`/, `**Branch:** \`${branch}\``);
     healed.push("rule-26");
   }

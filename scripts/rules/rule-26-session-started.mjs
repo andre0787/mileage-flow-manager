@@ -53,6 +53,17 @@ function main() {
 
   const session = sessionMatch[0];
 
+  // Sessão encerrada (Status: done) é registro histórico: a branch original
+  // (ex: feat/workflow-tab, mergeada via PR) não deve ser validada contra a
+  // branch git atual. Skip antes da checagem de branch (espelha o heal).
+  const statusMatch = session.match(/\*\*Status:\*\*\s*(.+)/);
+  const status = statusMatch ? statusMatch[1].trim() : "";
+
+  if (status === "done") {
+    console.log("  ⏭️  rule-26: sessão atual está marcada como 'done' — session:start foi executado anteriormente");
+    return;
+  }
+
   // Verifica categoria
   if (!/\*\*Categoria:\*\*/.test(session)) {
     console.error("❌ rule-26: 'Categoria' não definida na Sessão Atual");
@@ -80,14 +91,6 @@ function main() {
     console.error(`❌ rule-26: branch na Sessão Atual ("${branchMatch[1]}") difere da branch atual ("${branch}")`);
     console.error("   Execute: npm run session:start para atualizar");
     process.exit(1);
-  }
-
-  const statusMatch = session.match(/\*\*Status:\*\*\s*(.+)/);
-  const status = statusMatch ? statusMatch[1].trim() : "";
-
-  if (status === "done") {
-    console.log("  ⏭️  rule-26: sessão atual está marcada como 'done' — session:start foi executado anteriormente");
-    return;
   }
 
   console.log(`  ✅ rule-26: session:start executado (${status})`);
