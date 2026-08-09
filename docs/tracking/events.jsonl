@@ -1431,3 +1431,4 @@
 {"timestamp":"2026-08-08T23:36:55.032Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/workflow-tab","commit":"39a674c","agent":"pi","errors":1}
 {"timestamp":"2026-08-08T23:37:58.305Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/workflow-tab","commit":"39a674c","agent":"pi","errors":0}
 {"timestamp":"2026-08-08T23:40:18.787Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/workflow-tab","commit":"b41d06e","agent":"pi","errors":0}
+{"timestamp":"2026-08-09T12:53:16.913Z","type":"session:end","description":"bugfix WorkflowMindMap mergeado via PR #321; sessão encerrada na main","branch":"main","commit":"456f3a2","agent":"pi"}
