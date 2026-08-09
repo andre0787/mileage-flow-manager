@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T23:41:11.059Z",
+  "generatedAt": "2026-08-09T23:57:17.288Z",
   "since": "2026-07-01",
   "coverageSince": "2026-07-28T23:18:00.848Z",
   "totals": {
@@ -21,8 +21,8 @@
   },
   "cycleHours": 0.4,
   "rework": {
-    "prsWithFails": 35,
-    "totalRuleFails": 250
+    "prsWithFails": 36,
+    "totalRuleFails": 251
   },
   "e2eSkips": {
     "total": 34,
@@ -61,7 +61,7 @@
   "byModel": [
     {
       "model": "sem-modelo",
-      "count": 1493
+      "count": 1499
     },
     {
       "model": "openai-codex/gpt-5.4-mini",
@@ -73,7 +73,7 @@
     },
     {
       "model": "opencode/deepseek-v4-flash-free",
-      "count": 22
+      "count": 23
     }
   ]
 }

@@ -3,7 +3,7 @@
 > Data: 2026-08-09 · Categoria: feat · Card: `docs/tasks/P2-21-metricas-programa.md`
 > Método: LLM Council (5 advisors + chairman), Extended Thinking não necessário (risco baixo, escopo de scripts).
 
-## Participantes
+## Advisors
 
 1. **The Contrarian** — Reformule
 2. **First Principles Thinker** — Reformule
