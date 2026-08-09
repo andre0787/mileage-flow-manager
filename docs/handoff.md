@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `0903f2a — Merge pull request #328 (P2 conventions split)`
+- **Último commit:** `b4990b3 — Merge pull request #329 from andre0787/docs/handoff-pr328-merged`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,13 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** refactor
-**Objetivo:** P2: fatiar CONVENTIONS.md (28KB) em slices por categoria + wirear context-pack no workflow
-**Status:** done — PR #328 **merged** (0903f2a); P2 concluída
-**Iniciada em:** 2026-08-09T16:46:30.747Z
-**Branch:** `docs/handoff-pr328-merged`
-**Último commit:** 3fbb58e — Merge pull request #327 from andre0787/refactor/audit-p1-conventions
-**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
+**Categoria:** feature
+**Objetivo:** P2-21 metricas do programa de engenharia
+**Status:** in_progress
+**Iniciada em:** 2026-08-09T23:15:10.279Z
+**Branch:** `feat/p2-21-metricas-programa`
+**Último commit:** b4990b3 — Merge pull request #329 from andre0787/docs/handoff-pr328-merged
+**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
