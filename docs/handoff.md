@@ -26,7 +26,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** refactor
 **Objetivo:** P2: fatiar CONVENTIONS.md (28KB) em slices por categoria + wirear context-pack no workflow
-**Status:** in_progress
+**Status:** done — PR #328 aberto (mergeable), pós-P2 pronto
 **Iniciada em:** 2026-08-09T16:46:30.747Z
 **Branch:** `refactor/audit-p2-conventions`
 **Último commit:** 3fbb58e — Merge pull request #327 from andre0787/refactor/audit-p1-conventions
