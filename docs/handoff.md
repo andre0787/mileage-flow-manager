@@ -1,5 +1,5 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-08-08
+> ⏰ Última atualização: 2026-08-09
 > Anterior: 2026-08-08
 ---
 ## 🏗️ Projeto
@@ -9,21 +9,29 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `feat/workflow-tab`
-- **Último commit:** `39a674c — chore: renomeia relatório do pre-pr para PR321`
+- **Branch:** `main`
+- **Último commit:** `456f3a2` — Merge pull request #322
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 464 |
+| Total testes | 500 |
 | Docs issues | 0 |
 | Branch | main |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-
+## 🎯 Sessão Atual
+**Categoria:** bugfix
+**Objetivo:** corrigir erro de tipagem do WorkflowMindMap no CI
+**Status:** done
+**Iniciada em:** 2026-08-08T23:36:19.476Z
+**Encerrada em:** 2026-08-09
+**Branch:** `docs/session-end-workflow-tab` (mergeada via PR #321)
+**Último commit:** da91457 — style: alinhar arquivos do Workflow ao Prettier
+**Docs carregados:** DEBUG.md, CONVENTIONS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
@@ -42,13 +50,3 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
 - **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
-
-
-
-
-
-
-
-## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** P0 completo
