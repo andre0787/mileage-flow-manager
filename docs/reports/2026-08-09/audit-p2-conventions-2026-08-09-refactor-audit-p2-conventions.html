@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 refactor audit p2 conventions</h1>
-  <p class="meta">2026-08-09 17:52 &middot; refactor/audit-p2-conventions &middot; 3fbb58e — Merge pull request #327 from andre0787/refactor/audit-p1-conventions</p>
-  <p><span class="badge auto">auto</span> <span class="badge auto">audit-p2-conventions</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+  <p class="meta">2026-08-09 17:54 &middot; refactor/audit-p2-conventions &middot; c90b614 — refactor(conventions): split CONVENTIONS.md em slices por categoria + wirear context-pack</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">audit-p2-conventions</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">0</div>
+      <div style="font-size:1.5rem;font-weight:700">27</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+1129</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-819</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1672</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -80,12 +80,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 0 remoções — 1 linhas tocadas</td>
-        <td>✨ 0 adições — 0 arquivo(s) alterado(s)</td>
+        <td>🧹 819 remoções — 2229 linhas tocadas</td>
+        <td>✨ 1129 adições — 27 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .prompts-manifest.json, AGENTS.md, docs/CONTEXT-MANAGEMENT.md, docs/CONVENTIONS.md, docs/DEBUG.md<br><em>+22 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,38 +98,183 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>0</td></tr>
-    <tr><td>Adições</td><td>+0</td></tr>
-    <tr><td>Remoções</td><td>-0</td></tr>
-    <tr><td>Tokens estimados</td><td>~1</td></tr>
+    <tr><td>Arquivos alterados</td><td>27</td></tr>
+    <tr><td>Adições</td><td>+1129</td></tr>
+    <tr><td>Remoções</td><td>-819</td></tr>
+    <tr><td>Tokens estimados</td><td>~1672</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:51">+847 add</div>
+        <div class="del" style="flex:37">-614 del</div>
+        <div class="overhead" style="flex:12">~211 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+847</td><td>51%</td></tr>
+      <tr><td>Remoções</td><td>-614</td><td>37%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~211</td><td>12%</td></tr>
+      <tr><th>Total</th><th>~1672</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-    
+    <tr><td>M</td><td>.prompts-manifest.json</td></tr>
+<tr><td>M</td><td>AGENTS.md</td></tr>
+<tr><td>M</td><td>docs/CONTEXT-MANAGEMENT.md</td></tr>
+<tr><td>M</td><td>docs/CONVENTIONS.md</td></tr>
+<tr><td>M</td><td>docs/DEBUG.md</td></tr>
+<tr><td>M</td><td>docs/FLUXO.md</td></tr>
+<tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>M</td><td>docs/WORKFLOW-MANIFEST.md</td></tr>
+<tr><td>M</td><td>docs/WORKFLOW.md</td></tr>
+<tr><td>A</td><td>docs/conventions/bugfix.md</td></tr>
+<tr><td>A</td><td>docs/conventions/common.md</td></tr>
+<tr><td>A</td><td>docs/conventions/feature.md</td></tr>
+<tr><td>A</td><td>docs/conventions/refactor.md</td></tr>
+<tr><td>A</td><td>docs/conventions/workflow.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-09/audit-p2-conventions-2026-08-09-refactor-audit-p2-conventions.html</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-08-09-conventions-split-design.md</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>scripts/context-pack.mjs</td></tr>
+<tr><td>M</td><td>scripts/lib/session-heal.mjs</td></tr>
+<tr><td>M</td><td>scripts/rules/__fixtures__/handoff/valid/docs/handoff.md</td></tr>
+<tr><td>M</td><td>scripts/rules/rule-02-category-loading.mjs</td></tr>
+<tr><td>M</td><td>scripts/rules/rule-25-production-tests.mjs</td></tr>
+<tr><td>M</td><td>scripts/session-start.mjs</td></tr>
+<tr><td>M</td><td>scripts/verify-docs.mjs</td></tr>
   </table>
 
   
 
   <h2>🔍 Diff</h2>
   <div class="diff">
-    
+    diff --git a/.prompts-manifest.json b/.prompts-manifest.json
+index 4ca5d99..b43de12 100644
+<span class="del">--- a/.prompts-manifest.json</span>
+<span class="add">+++ b/.prompts-manifest.json</span>
+@@ -1,17 +1,17 @@
+ {
+   "version": 1,
+<span class="del">-  "updatedAt": "2026-08-09T16:39:10.568Z",</span>
+<span class="add">+  "updatedAt": "2026-08-09T20:48:48.032Z",</span>
+   "prompts": {
+     ".pi/skills/code-review-graph/SKILL.md": "sha256-b0a1a323e4979fac77f70da66b364098252dc2c9623688a95a9ef2e39fa0963b",
+     ".pi/skills/council-to-superpowers/SKILL.md": "sha256-424faade51fe07225ad5e4958685daf4181be98cbb5d98d2a07ec8e9aecbb69a",
+     ".pi/skills/handoff/SKILL.md": "sha256-197d78747c41df7a0ef94eb66b19a3698a534a74884f4c367a86530d04aea6f5",
+     ".pi/skills/llm-council/SKILL.md": "sha256-07b77f34235dd9dddbc44d924793afceafd3b4c6a19637dc429cb083c753b722",
+     ".pi/skills/small-model-execution/SKILL.md": "sha256-08e7a6da64ef05169bd4f11767b510efb8f34cb4a86035659a2d9fdeffd1ba71",
+<span class="del">-    "AGENTS.md": "sha256-5fb4b7efdbd70db3a2e24e7bc964f796ba6dc3711799aec8b884c83e9da90f79",</span>
+<span class="add">+    "AGENTS.md": "sha256-5a6b1852fc6c05fd53c62416126aeff1cc2e6d76bb1c747ade605cd1fc77b3be",</span>
+     "CLAUDE.md": "sha256-051e5599efd15f4e716edf63dcb3b1da2d23fdcd3728e80831e8adaabab68d87",
+     "docs/tasks/AGENTS.override.md": "sha256-28738b9893ae399d5d2dc6fa55c0ce6e0d1e40d38166b54e5e30dbe0def11f5e",
+<span class="del">-    "docs/CONTEXT-MANAGEMENT.md": "sha256-199e22e9973cf5433626612bc40c2d6ac5d135f7c295a453cfb2e8650bab57cc",</span>
+<span class="del">-    "docs/WORKFLOW-MANIFEST.md": "sha256-f678ec7db0ec2094334d3ee342146fc1fb8e48e2f64c7c951381f8ac3370dcef",</span>
+<span class="del">-    "docs/WORKFLOW.md": "sha256-8cc966385c03bbed2600710a1f581cebaf246130c7fc74fb649e872ae430082f"</span>
+<span class="add">+    "docs/CONTEXT-MANAGEMENT.md": "sha256-9711e3381ed5661bee1f55454614844a3ea65377ed0881b8f787ebd86a90c3ea",</span>
+<span class="add">+    "docs/WORKFLOW-MANIFEST.md": "sha256-6279f0b12fb925bce1b231bf774c9aed7f0c9d4db53ceda43d086577504f8527",</span>
+<span class="add">+    "docs/WORKFLOW.md": "sha256-4f39746c0c8fec3e9c06a4e6050e9d6079a107b7a6f4ad9fe289be4b8748ec8a"</span>
+   }
+ }
+diff --git a/AGENTS.md b/AGENTS.md
+index 25b2d38..28967d1 100644
+<span class="del">--- a/AGENTS.md</span>
+<span class="add">+++ b/AGENTS.md</span>
+@@ -13,7 +13,8 @@
+ |-----|----------|---------|
+ | `docs/STACK.md` | Stack técnica (React, Vite, Supabase, Tailwind) | 2KB |
+ | `docs/ARCHITECTURE.md` | Estrutura de pastas e arquitetura | 4.8KB |
+<span class="del">-| `docs/CONVENTIONS.md` | Regras detalhadas, padrões de código, DRY, UI | 20KB |</span>
+<span class="add">+| `docs/CONVENTIONS.md` | Índice dos slices de convenções (ver `docs/conventions/`) | 1KB |</span>
+<span class="add">+| `docs/conventions/` | Slices por categoria: `common` (todas), `feature`, `bugfix`, `refactor`, `workflow` | ~30KB total |</span>
+ | `docs/WORKFLOW.md` | Processos, scripts, fluxo completo + subagentes | 12.5KB |
+ | `docs/UI-GUIDE.md` | Design system, grid, cores, componentes | 3.9KB |
+ | `docs/DEBUG.md` | Debug, troubleshooting, logs | 2.1KB |
+@@ -56,10 +57,10 @@ Antes de cada `subagent_gate`, resolva a tarefa com `npm run llm:route`. Use exa
+ 
+ | Tipo | Carregar | Workflow |
+ |------|----------|----------|
+<span class="del">-| **feature** | `WORKFLOW.md` + `CONVENTIONS.md` (seções relevantes) | council → build → pre-pr → PR |</span>
+<span class="del">-| **bugfix** | `DEBUG.md` + `CONVENTIONS.md` (seção bugs) | triagem → fix → pre-pr → PR |</span>
+<span class="add">+| **feature** | `WORKFLOW.md` + `conventions/common.md` + `conventions/feature.md` | council → build → pre-pr → PR |</span>
+<span class="add">+| **bugfix** | `DEBUG.md` + `conventions/common.md` + `conventions/bugfix.md` | triagem → fix → pre-pr → PR |</span>
+ | **docs** | (só este AGENTS.md) | editar → pre-pr → PR |
+<span class="del">-| **refactor** | `CONVENTIONS.md` + `ARCHITECTURE.md` | spec → build → pre-pr → PR |</span>
+<span class="add">+| **refactor** | `conventions/common.md` + `conventions/refactor.md` + `ARCHITECTURE.md` | spec → build → pre-pr → PR |</span>
+ | **chore** | (só este AGENTS.md) | executar → pre-pr → PR |
+ 
+ ## ⚠️ REGRA DOURADA: NÃO PRÉ-CARREGUE DOCS
+diff --git a/docs/CONTEXT-MANAGEMENT.md b/docs/CONTEXT-MANAGEMENT.md
+index f98d528..4e278db 100644
+<span class="del">--- a/docs/CONTEXT-MANAGEMENT.md</span>
+<span class="add">+++ b/docs/CONTEXT-MANAGEMENT.md</span>
+@@ -19,10 +19,10 @@ O projeto usa um sistema de categorias para carregar APENAS os docs relevantes:
+ 
+ | Categoria | Docs Carregados |
+ |-----------|-----------------|
+<span class="del">-| feature | WORKFLOW.md + CONVENTIONS.md |</span>
+<span class="del">-| bugfix | DEBUG.md + CONVENTIONS.md |</span>
+<span class="add">+| feature | WORKFLOW.md + conventions/common.md + conventions/feature.md |</span>
+<span class="add">+| bugfix | DEBUG.md + conventions/common.md + conventions/bugfix.md |</span>
+ | docs | (só AGENTS.md) |
+<span class="del">-| refactor | CONVENTIONS.md + ARCHITECTURE.md |</span>
+<span class="add">+| refactor | conventions/common.md + conventions/refactor.md + ARCHITECTURE.md |</span>
+ | chore | (só AGENTS.md) |
+ 
+ ### Hub Compacto (AGENTS.md)
+diff --git a/docs/CONVENTIONS.md b/docs/CONVENTIONS.md
+index 4591db9..c310c60 100644
+<span class="del">--- a/docs/CONVENTIONS.md</span>
+<span class="add">+++ b/docs/CONVENTIONS.md</span>
+@@ -1,750 +1,26 @@
+ # 📏 Convenções de Código — MilesControl
+ 
+<span class="del">-## Nomenclatura</span>
+<span class="add">+&gt; Índice. As seções foram fatiadas por categoria para lazy loading.</span>
+<span class="add">+&gt; Cada sessão carrega **apenas** o slice relevante (ver AGENTS.md — Regra #02).</span>
+ 
+<span class="del">-| Tipo | Padrão | Exemplo |</span>
+<span class="del">-|------|--------|---------|</span>
+<span class="del">-| Componentes | `PascalCase.tsx` | `MetricCard.tsx` |</span>
+<span class="del">-| Utilitários | `camelCase.ts` | `formatCPF.ts` |</span>
+<span class="del">-| Hooks | `camelCase.ts` | `useDebounce.ts` |</span>
+<span class="del">-| Tipos | `index.ts` | `types/index.ts` |</span>
+<span class="del">-| Import path | `@/` → `src/` | `@/components/MetricCard` |</span>
+<span class="del">-| PR / Workflow | `Sprint &lt;letra&gt; — &lt;descrição&gt;` | `Sprint C — Polimento &amp; Prevenção` |</span>
+<span class="add">+## Categorias → Slices</span>
+ 
+<span class="del">-**Interface:** português (pt-BR)</span>
+<span class="del">-**PR naming:** `&lt;Sprint|fix|feat|chore|docs&gt; &lt;scope&gt; — &lt;descrição&gt;` em português (ver `WORKFLOW.md`)</span>
+<span class="add">+| Categoria | Slices carregados |</span>
+<span class="add">+|-----------|-------------------|</span>
+<span class="add">+| feature | `conventions/common.md` + `conventions/feature.md` |</span>
+<span class="add">+| bugfix | `conventions/common.md` + `conventions/bugfix.md` |</span>
+<span class="add">+| refactor | `conventions/common.md` + `conventions/refactor.md` |</span>
+<span class="add">+| workflow (todas) | `conventions/workflow.md` |</span>
+ 
+<span class="del">-## Organização de Código</span>
+<span class="add">+## Links</span>
+ 
+<span class="del">-- **Business logic** → `src/lib/*.ts` (funções puras, sem React/Supabase)</span>
+<span class="del">-- **Queries/mutations** → `src/hooks/useDatabase/` (split por entidade)</span>
+<span class="del">-- **Componentes de UI** → `src/components/`</span>
+<span class="del">-- **Páginas** → `src/pages/`</span>
+<span class="del">-- **Ponto único de alteração**: cada regra de negócio em 1 arquivo apenas</span>
+<span class="add">+- [Convenções Comuns](conventions/common.md) — nomenclatura, organização, navegação, importações, escopo estrito</span>
+<span class="add">+- [Convenções de Feature](conventions/feature.md) — React, shadcn/ui, providers, financeiro, estado, UI, config, estoque/cache, testes #24</span>
+<span class="add">+- [Convenções de Bugfix](conventions/bugfix.md) — registro de bugs, debug</span>
+<span class="add">+- [Convenções de Refactor](conventions/refactor.md) — DRY, órfãos #14, duplicados #15, scripts órfãos #16, novos .md #17, duplicados raiz #18</span>
+<span class="add">+- [Convenções de Workflow](conventions/workflow.md) — handoff, relatório pós-impl, caixa de entrada, validação automática, limpeza, CI/CD, testes contra produção #25</span>
+ 
+<span class="del">-## Navegação de Código — Gate de Análise</span>
+<span class="add">+## Observações</span>
+ 
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
