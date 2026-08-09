@@ -1519,3 +1519,5 @@
 {"timestamp":"2026-08-09T20:53:52.853Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/audit-p2-conventions","commit":"3fbb58e","agent":"pi","errors":0}
 {"timestamp":"2026-08-09T20:54:27.380Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/audit-p2-conventions","commit":"c90b614","agent":"pi","errors":0}
 {"timestamp":"2026-08-09T20:55:53.905Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/audit-p2-conventions","commit":"ec415aa","agent":"pi","errors":0}
+{"timestamp":"2026-08-09T20:59:09.658Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/handoff-pr328-merged","commit":"0903f2a","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-08-09T20:59:09.950Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/handoff-pr328-merged","commit":"0903f2a","agent":"pi","errors":0}
