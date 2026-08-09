@@ -1522,3 +1522,4 @@
 {"timestamp":"2026-08-09T20:59:09.658Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/handoff-pr328-merged","commit":"0903f2a","agent":"pi","rule":"rule-26"}
 {"timestamp":"2026-08-09T20:59:09.950Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/handoff-pr328-merged","commit":"0903f2a","agent":"pi","errors":0}
 {"timestamp":"2026-08-09T20:59:22.326Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"docs/handoff-pr328-merged","commit":"0dc9b9b","agent":"pi","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-09T21:04:30.306Z","type":"code-review:done","description":"Review por subagente aprovado (branch docs handoff pós-merge PR #328, veredito approve)","branch":"docs/handoff-pr328-merged","commit":"01922bd","agent":"pi","subagent":true,"verdict":"approved","subagentRole":"reviewer","skill":"requesting-code-review"}
