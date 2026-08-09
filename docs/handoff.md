@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `refactor/audit-p2-conventions`
-- **Último commit:** `3fbb58e — Merge pull request #327 from andre0787/refactor/audit-p1-conventions`
+- **Branch:** `main`
+- **Último commit:** `0903f2a — Merge pull request #328 (P2 conventions split)`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -26,9 +26,9 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** refactor
 **Objetivo:** P2: fatiar CONVENTIONS.md (28KB) em slices por categoria + wirear context-pack no workflow
-**Status:** done — PR #328 aberto (mergeable), pós-P2 pronto
+**Status:** done — PR #328 **merged** (0903f2a); P2 concluída
 **Iniciada em:** 2026-08-09T16:46:30.747Z
-**Branch:** `refactor/audit-p2-conventions`
+**Branch:** `docs/handoff-pr328-merged`
 **Último commit:** 3fbb58e — Merge pull request #327 from andre0787/refactor/audit-p1-conventions
 **Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 ## ✅ Última Sessão
