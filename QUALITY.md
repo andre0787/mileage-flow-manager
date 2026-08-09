@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-08-08
-> Último commit: 5cf364e-Merge pull request #318 from andre0787/chore/audit-fixes
+> Gerado em: 2026-08-09
+> Último commit: 6b98c08-Merge pull request #321 from andre0787/feat/workflow-tab
 
 ## Pipeline
 
@@ -15,21 +15,21 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 405 |
+| Unit | 429 |
 | E2E  | 71 |
-| **Total** | **476** |
+| **Total** | **500** |
 
 ## Bundle
 
 | Métrica | Valor |
 |---------|-------|
-| Tamanho (dist) | 1601kB |
+| Tamanho (dist) | 1649kB |
 
 ## Documentação
 
 | Métrica | Valor |
 |---------|-------|
-| Arquivos .md | 156 |
+| Arquivos .md | 157 |
 | Arquivados | 46 |
 | Issues (verify-docs) | 0 |
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-08-08 | ✅ | 476 | 1601kB | 0 issues |
+| 2026-08-09 | ✅ | 500 | 1649kB | 0 issues |
 
 ---
 

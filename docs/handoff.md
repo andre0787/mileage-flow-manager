@@ -48,11 +48,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 
 
+
 ## 🎯 Sessão Atual
-**Categoria:** bugfix
-**Objetivo:** corrigir erro de tipagem do WorkflowMindMap no CI
-**Status:** in_progress
-**Iniciada em:** 2026-08-08T23:36:19.476Z
-**Branch:** `feat/workflow-tab`
-**Último commit:** 39a674c — chore: renomeia relatório do pre-pr para PR321
-**Docs carregados:** DEBUG.md, CONVENTIONS.md
+**Categoria:** chore
+**Objetivo:** P0 completo
