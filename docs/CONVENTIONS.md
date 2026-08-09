@@ -22,18 +22,22 @@
 - **Páginas** → `src/pages/`
 - **Ponto único de alteração**: cada regra de negócio em 1 arquivo apenas
 
-## Navegação de Código — Serena-First
+## Navegação de Código — Símbolos Primeiro
 
-Antes de ler qualquer arquivo-fonte, use a navegação simbólica do Serena:
+Antes de ler qualquer arquivo-fonte inteiro, tente navegação simbólica/estrutural.
+O MCP do Serena não está configurado no pi (apenas VS Code); use as ferramentas
+realmente disponíveis no ambiente de execução:
 
-1. **`serena_get_symbols_overview`** — outline do arquivo (substitui `read` completo)
-2. **`serena_find_symbol`** — localizar função/classe específica
-3. **`serena_find_referencing_symbols`** — ver todos os callers antes de alterar comportamento
-4. **`read`** — só quando a navegação simbólica não for suficiente
+1. **`code-review-graph`** (CLI v2.3.7, skill `.pi/skills/code-review-graph`) —
+   grafo persistente de símbolos/arestas; queries de arquitetura, código morto e impacto
+2. **`grep -rn "<símbolo>" src/`** — localizar definição/uso sem abrir o arquivo inteiro
+3. **`read` com `offset`/`limit`** — ler só o trecho necessário
+4. **`read` completo** — só quando a navegação parcial não for suficiente
 
 > **Regra de ouro:** se você sabe o nome do símbolo que precisa tocar, não leia o arquivo
-> inteiro. A navegação simbólica custa 5-10× menos tokens e entrega exatamente
-> o que você precisa.
+> inteiro. Navegação estrutural custa 5-10× menos tokens e entrega exatamente
+> o que você precisa. Se o Serena estiver disponível (VS Code), vale o mesmo princípio
+> com `serena_get_symbols_overview` / `serena_find_symbol`.
 
 ## DRY & Modularidade
 
