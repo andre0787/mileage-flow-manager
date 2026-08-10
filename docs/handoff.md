@@ -3,11 +3,28 @@
 > Anterior: 2026-08-08
 ---
 ## 🏗️ Projeto
+
+> ⏰ Snapshot atualizado em: 2026-08-10
+
+### 🏗️ Projeto
+
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
-**Workflow:** session:start → categoria → implementação → pre-pr → PR
+**Regras críticas:** branch obrigatória, pre-pr c/ relatório, git status ZERO, lazy loading por categoria
+**Workflow:** session:start → categoria → carregar docs → council (se feature) → build → pre-pr → PR
+
 ### 🐞 Bugs Abertos
-Consulte as GitHub Issues para a lista atual.
+
+- [#308](https://github.com/andre0787/mileage-flow-manager/issues/308) — Datas exibidas com 1 dia a menos no fuso -3 (América/São Paulo)
+
+### 📋 Commits Recentes
+
+```
+bf366cc Merge pull request #330 from andre0787/feat/p2-21-metricas-programa
+d9e93d1 fix(P2-21): substitui any por tipo TestEvent no teste (lint CI)
+c293200 chore(P2-21): registra pr:create PR #330
+```
+
 ## 🧭 Estado Atual
 - **Branch:** `main`
 - **Último commit:** `b4990b3 — Merge pull request #329 from andre0787/docs/handoff-pr328-merged`
@@ -26,10 +43,11 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** feature
 **Objetivo:** P2-21 metricas do programa de engenharia
-**Status:** in_progress
+**Status:** done
 **Iniciada em:** 2026-08-09T23:15:10.279Z
-**Branch:** `feat/p2-21-metricas-programa`
-**Último commit:** b4990b3 — Merge pull request #329 from andre0787/docs/handoff-pr328-merged
+**Concluída em:** 2026-08-10T00:07Z
+**Branch:** `main` (PR #330 merged `bf366cc`)
+**Último commit:** bf366cc — Merge pull request #330 from andre0787/feat/p2-21-metricas-programa
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
