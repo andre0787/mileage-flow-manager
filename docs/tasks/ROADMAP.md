@@ -70,9 +70,9 @@ Pré-requisito de tudo o que segue. Sem P0, qualquer protocolo de agente é só 
 
 | Card | Título | Estado |
 |------|--------|--------|
-| [P3-27](P3-27-blueprint-v4-p1-foundation-auth.md) | Fundação Feature-First + migração do domínio auth | review |
-| [P3-28](P3-28-blueprint-v4-p1-entradas.md) | Migração do domínio entradas (RTK Query) | pending |
-| [P3-29](P3-29-blueprint-v4-p1-contas.md) | Migração do domínio contas (RTK Query) | pending |
+| [P3-27](P3-27-blueprint-v4-p1-foundation-auth.md) | Fundação Feature-First + migração do domínio auth | done ✅ |
+| [P3-28](P3-28-blueprint-v4-p1-entradas.md) | Migração do domínio entradas (RTK Query) | done ✅ |
+| [P3-29](P3-29-blueprint-v4-p1-contas.md) | Migração do domínio contas (RTK Query) | review |
 | [P3-30](P3-30-blueprint-v4-p1-clientes.md) | Migração do domínio clientes (RTK Query) | pending |
 | [P3-31](P3-31-blueprint-v4-p1-vendas.md) | Migração do domínio vendas (RTK Query) | pending |
 | [P3-32](P3-32-blueprint-v4-p1-controle-cpf.md) | Migração do domínio controle-cpf (RTK Query) | pending |

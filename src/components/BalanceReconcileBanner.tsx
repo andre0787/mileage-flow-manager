@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { AlertTriangle, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useRecalcAccountMutation } from "@/hooks/useDatabase/accounts";
+import { useRecalcAccountMutation } from "@/hooks/useDatabase";
 import type { Account } from "@/types";
 
 interface BalanceReconcileBannerProps {
