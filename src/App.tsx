@@ -2,6 +2,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { store } from "@/features/store";
+import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router";
 import { ThemeProvider } from "next-themes";
 import { AppSidebar } from "@/components/AppSidebar";
@@ -10,7 +12,7 @@ import { GlobalSearch } from "@/components/GlobalSearch";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
-import { AuthProvider } from "@/contexts/AuthContext";
+import { AuthProvider } from "@/features/auth";
 import { OnlineProvider } from "@/contexts/OnlineContext";
 import { OfflineBanner } from "@/components/OfflineBanner";
 import { DataProvider } from "@/contexts/DataContext";
@@ -243,8 +245,9 @@ const AppLayout = () => {
 };
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <AuthProvider>
+  <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
         <I18nProvider>
           <TooltipProvider>
@@ -267,8 +270,9 @@ const App = () => (
           </TooltipProvider>
         </I18nProvider>
       </ThemeProvider>
-    </AuthProvider>
-  </QueryClientProvider>
+      </AuthProvider>
+    </QueryClientProvider>
+  </Provider>
 );
 
 export default App;

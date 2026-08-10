@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { supabase } from "@/lib/supabase";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/features/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -27,7 +27,7 @@ export default function ResetPassword() {
     const type = hashParams.get("type");
 
     if (type === "recovery") {
-      // Session will be set by onAuthStateChange in AuthContext
+      // Session will be set by onAuthStateChange in AuthProvider (features/auth)
       setVerifying(false);
     } else {
       // Check if already authenticated via magic link

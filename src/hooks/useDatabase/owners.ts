@@ -4,7 +4,7 @@ import { supabase } from "@/lib/supabase";
 import type { Database } from "@/lib/supabase-types";
 import { logError, logDestructiveOp } from "@/lib/logger";
 import type { Owner } from "@/types";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/features/auth";
 import { useUserId } from "./shared";
 import { mapOwner } from "./mappers";
 

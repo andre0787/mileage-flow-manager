@@ -38,6 +38,7 @@
 | [`docs/ROADMAP.md`](ROADMAP.md) | Backlog de itens do futuro fora da sessão corrente | Itens P1-P4 priorizados (react-router GHSA, npm audit, subagentes, branch órfã) |
 | `docs/tasks/_TEMPLATE.md` | Ao criar novo task-card | Estrutura canônica do card (objetivo, arquivos permitidos, critérios de aceite, testes, evidência) |
 | [`docs/tasks/P3-26-blueprint-v4-p0.md`](tasks/P3-26-blueprint-v4-p0.md) | Ao executar a Fase P0 do Blueprint v4 | Card da Fase P0: grafo de dependências, regras 40/41, sync-map — spec em `docs/superpowers/specs/2026-08-10-blueprint-v4-p0-design.md` |
+| [`docs/tasks/P3-27-blueprint-v4-p1-foundation-auth.md`](tasks/P3-27-blueprint-v4-p1-foundation-auth.md) | Ao executar a Fase P1 do Blueprint v4 (card 1) | Card da Fase P1: fundação Feature-First (RTK) + migração do domínio auth — spec em `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-foundation-auth-design.md` |
 
 > **Coleção de task-cards** (`docs/tasks/`): 25 cards granulares em 4 ondas (P0/P1/P2/P3).
 > O índice navegável está em `docs/tasks/ROADMAP.md`. Cards P3 de housekeeping:
@@ -316,3 +317,11 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/metrics/2026-08-09-metrics.md` (auto) | 2026-08-09 |
 | `docs/superpowers/plans/2026-08-09-p2-21-metrics.md` (auto) | 2026-08-09 |
 | `docs/tasks/P2-21-metricas-programa.md` (auto) | 2026-08-10 |
+| `docs/tasks/P3-28-blueprint-v4-p1-entradas.md` (auto) | 2026-08-10 |
+| `docs/tasks/P3-29-blueprint-v4-p1-contas.md` (auto) | 2026-08-10 |
+| `docs/tasks/P3-30-blueprint-v4-p1-clientes.md` (auto) | 2026-08-10 |
+| `docs/tasks/P3-31-blueprint-v4-p1-vendas.md` (auto) | 2026-08-10 |
+| `docs/tasks/P3-32-blueprint-v4-p1-controle-cpf.md` (auto) | 2026-08-10 |
+| `docs/tasks/P3-33-blueprint-v4-p1-relatorios.md` (auto) | 2026-08-10 |
+| `docs/tasks/P3-34-blueprint-v4-p1-simulador-venda.md` (auto) | 2026-08-10 |
+| `docs/tasks/P3-35-blueprint-v4-p1-dashboard.md` (auto) | 2026-08-10 |

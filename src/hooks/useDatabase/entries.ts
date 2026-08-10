@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/features/auth";
 import { calcProportionalCost } from "@/lib/metrics";
 import { calcAccountUpdate } from "@/lib/accounts";
 import { logError, logDestructiveOp } from "@/lib/logger";
