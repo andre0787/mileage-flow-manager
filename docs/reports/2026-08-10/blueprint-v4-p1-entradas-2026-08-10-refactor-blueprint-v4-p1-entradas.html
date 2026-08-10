@@ -36,31 +36,32 @@
 </head>
 <body>
   <h1>📋 refactor blueprint v4 p1 entradas</h1>
-  <p class="meta">2026-08-10 02:06 &middot; refactor/blueprint-v4-p1-entradas &middot; 2a0e92a — chore: session:start P3-28 — domínio entradas (RTK Query)</p>
-  <p><span class="badge auto">auto</span> <span class="badge auto">blueprint-v4-p1-entradas</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+  <p class="meta">2026-08-10 03:02 &middot; refactor/blueprint-v4-p1-entradas &middot; 1a05a53 — fix(entradas): isola cache por usuário e restaura invariantes do rule-19</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">blueprint-v4-p1-entradas</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">3</div>
+      <div style="font-size:1.5rem;font-weight:700">23</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+13</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+1368</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-10</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-503</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~40</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1592</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
 
   <h2>✅ Checklist de Revisão</h2>
     <ul>
+      <li>🔌 Hooks testados em tela real?</li>
       <li>🧪 Testes manuais realizados?</li>
       <li>📋 Regras de validação passam? (npm run pre-pr)</li>
     </ul>
@@ -80,12 +81,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 10 remoções — 53 linhas tocadas</td>
-        <td>✨ 13 adições — 3 arquivo(s) alterado(s)</td>
+        <td>🧹 503 remoções — 2122 linhas tocadas</td>
+        <td>✨ 1368 adições — 23 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/RADAR.md, docs/handoff.md, docs/tracking/events.jsonl</td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/MAP.md, docs/RADAR.md, docs/handoff.md, docs/superpowers/specs/2026-08-10-blueprint-v4-p0-design.md<br><span style="color:#166534;font-weight:600">➕</span> docs/reports/2026-08-10/blueprint-v4-p1-entradas-2026-08-10-refactor-blueprint-v4-p1-entradas.html<br><em>+18 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,40 +99,69 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>3</td></tr>
-    <tr><td>Adições</td><td>+13</td></tr>
-    <tr><td>Remoções</td><td>-10</td></tr>
-    <tr><td>Tokens estimados</td><td>~40</td></tr>
+    <tr><td>Arquivos alterados</td><td>23</td></tr>
+    <tr><td>Adições</td><td>+1368</td></tr>
+    <tr><td>Remoções</td><td>-503</td></tr>
+    <tr><td>Tokens estimados</td><td>~1592</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:25">+10 add</div>
-        <div class="del" style="flex:20">-8 del</div>
-        <div class="overhead" style="flex:55">~22 ctx</div>
+        <div class="add" style="flex:64">+1026 add</div>
+        <div class="del" style="flex:24">-377 del</div>
+        <div class="overhead" style="flex:12">~189 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+10</td><td>25%</td></tr>
-      <tr><td>Remoções</td><td>-8</td><td>20%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~22</td><td>55%</td></tr>
-      <tr><th>Total</th><th>~40</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+1026</td><td>64%</td></tr>
+      <tr><td>Remoções</td><td>-377</td><td>24%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~189</td><td>12%</td></tr>
+      <tr><th>Total</th><th>~1592</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-    <tr><td>M</td><td>docs/RADAR.md</td></tr>
+    <tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td></tr>
 <tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-10/blueprint-v4-p1-entradas-2026-08-10-refactor-blueprint-v4-p1-entradas.html</td></tr>
+<tr><td>M</td><td>docs/superpowers/specs/2026-08-10-blueprint-v4-p0-design.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-08-10-blueprint-v4-p1-entradas-design.md</td></tr>
+<tr><td>M</td><td>docs/tasks/P3-27-blueprint-v4-p1-foundation-auth.md</td></tr>
+<tr><td>M</td><td>docs/tasks/P3-28-blueprint-v4-p1-entradas.md</td></tr>
 <tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>R060</td><td>scripts/rules/__fixtures__/code/stock-violation/invalid/src/hooks/useDatabase/entries.ts scripts/rules/__fixtures__/code/stock-violation/invalid/src/hooks/useDatabase/sales.ts</td></tr>
+<tr><td>R070</td><td>scripts/rules/__fixtures__/code/stock-violation/valid/src/hooks/useDatabase/entries.ts scripts/rules/__fixtures__/code/stock-violation/valid/src/hooks/useDatabase/sales.ts</td></tr>
+<tr><td>M</td><td>scripts/rules/rule-19-stock-validation.mjs</td></tr>
+<tr><td>M</td><td>scripts/rules/rule-40-architect.mjs</td></tr>
+<tr><td>M</td><td>src/features/api/baseApi.ts</td></tr>
+<tr><td>A</td><td>src/features/entradas/entradasApi.ts</td></tr>
+<tr><td>A</td><td>src/features/entradas/hooks.ts</td></tr>
+<tr><td>A</td><td>src/features/entradas/index.ts</td></tr>
+<tr><td>M</td><td>src/features/store.ts</td></tr>
+<tr><td>D</td><td>src/hooks/useDatabase/entries.ts</td></tr>
+<tr><td>M</td><td>src/hooks/useDatabase/index.ts</td></tr>
+<tr><td>M</td><td>tests/unit/cache-invalidation.test.ts</td></tr>
+<tr><td>A</td><td>tests/unit/features-entradas-api.test.ts</td></tr>
+<tr><td>A</td><td>tests/unit/features-entradas-hooks.test.ts</td></tr>
   </table>
 
   
 
   <h2>🔍 Diff</h2>
   <div class="diff">
-    diff --git a/docs/RADAR.md b/docs/RADAR.md
+    diff --git a/docs/MAP.md b/docs/MAP.md
+index 0c22522..6c49c18 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -333,3 +333,4 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
+ | `docs/tasks/P3-33-blueprint-v4-p1-relatorios.md` (auto) | 2026-08-10 |
+ | `docs/tasks/P3-34-blueprint-v4-p1-simulador-venda.md` (auto) | 2026-08-10 |
+ | `docs/tasks/P3-35-blueprint-v4-p1-dashboard.md` (auto) | 2026-08-10 |
+<span class="add">+| `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-entradas-design.md` (auto) | 2026-08-10 |</span>
+diff --git a/docs/RADAR.md b/docs/RADAR.md
 index a633f7c..539c75f 100644
 <span class="del">--- a/docs/RADAR.md</span>
 <span class="add">+++ b/docs/RADAR.md</span>
@@ -173,17 +203,75 @@ index 5570b2d..e94aa60 100644
  **Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
  ## ✅ Última Sessão
  Estado atualizado automaticamente.
-diff --git a/docs/tracking/events.jsonl b/docs/tracking/events.jsonl
-index c744338..539ef08 100644
-<span class="del">--- a/docs/tracking/events.jsonl</span>
-<span class="add">+++ b/docs/tracking/events.jsonl</span>
-@@ -1589,3 +1589,6 @@
- {"timestamp":"2026-08-10T04:06:14.426Z","type":"pr:create","description":"PR #335 — refactor: blueprint v4.0 P1 — fundação Feature-First + domínio auth (RTK Query)","branch":"refactor/blueprint-v4-p1","commit":"686845c","agent":"pi","pr":335}
- {"timestamp":"2026-08-10T04:07:02.905Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1","commit":"e6e9633","agent":"pi","errors":0}
- {"timestamp":"2026-08-10T04:09:15.137Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1","commit":"7c2694d","agent":"pi","errors":0}
-<span class="add">+{"timestamp":"2026-08-10T04:19:43.332Z","type":"session:start","description":"refactor: Blueprint v4.0 P1 item 2 — domínio entradas (RTK Query)","branch":"main","commit":"bb2c18e","agent":"pi","categoria":"refactor"}</span>
-<span class="add">+{"timestamp":"2026-08-10T04:19:57.077Z","type":"healed","description":"rule-26 auto-corrigido","branch":"refactor/blueprint-v4-p1-entradas","commit":"bb2c18e","agent":"pi","rule":"rule-26"}</span>
-<span class="add">+{"timestamp":"2026-08-10T04:19:57.375Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-entradas","commit":"bb2c18e","agent":"pi","errors":0}</span>
+diff --git a/docs/reports/2026-08-10/blueprint-v4-p1-entradas-2026-08-10-refactor-blueprint-v4-p1-entradas.html b/docs/reports/2026-08-10/blueprint-v4-p1-entradas-2026-08-10-refactor-blueprint-v4-p1-entradas.html
+new file mode 100644
+index 0000000..d14c563
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/reports/2026-08-10/blueprint-v4-p1-entradas-2026-08-10-refactor-blueprint-v4-p1-entradas.html</span>
+@@ -0,0 +1,191 @@
+<span class="add">+&lt;!DOCTYPE html&gt;</span>
+<span class="add">+&lt;html lang="pt-BR"&gt;</span>
+<span class="add">+&lt;head&gt;</span>
+<span class="add">+  &lt;meta charset="UTF-8"&gt;</span>
+<span class="add">+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;</span>
+<span class="add">+  &lt;title&gt;blueprint-v4-p1-entradas — refactor blueprint v4 p1 entradas&lt;/title&gt;</span>
+<span class="add">+  &lt;style&gt;</span>
+<span class="add">+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}</span>
+<span class="add">+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}</span>
+<span class="add">+    h2{font-size:1rem;margin-top:1.5rem;color:#333}</span>
+<span class="add">+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}</span>
+<span class="add">+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}</span>
+<span class="add">+    .badge.pr{background:#dbeafe;color:#1e40af}</span>
+<span class="add">+    .badge.auto{background:#fef3c7;color:#92400e}</span>
+<span class="add">+    .badge.fix{background:#fee2e2;color:#991b1b}</span>
+<span class="add">+    .badge.feat{background:#dcfce7;color:#166534}</span>
+<span class="add">+    .badge.docs{background:#ede9fe;color:#5b21b6}</span>
+<span class="add">+    .badge.chore{background:#f3f4f6;color:#374151}</span>
+<span class="add">+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}</span>
+<span class="add">+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}</span>
+<span class="add">+    th{background:#f3f4f6;font-weight:600}</span>
+<span class="add">+    tr.add{background:#f0fdf4}</span>
+<span class="add">+    tr.del{background:#fef2f2}</span>
+<span class="add">+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}</span>
+<span class="add">+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}</span>
+<span class="add">+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}</span>
+<span class="add">+    .token-bar .add{background:#dcfce7;color:#166534}</span>
+<span class="add">+    .token-bar .del{background:#fee2e2;color:#991b1b}</span>
+<span class="add">+    .token-bar .overhead{background:#f3f4f6;color:#374151}</span>
+<span class="add">+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}</span>
+<span class="add">+    .diff .add{color:#4ade80}</span>
+<span class="add">+    .diff .del{color:#f87171}</span>
+<span class="add">+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}</span>
+<span class="add">+    .center{text-align:center}</span>
+<span class="add">+  &lt;/style&gt;</span>
+<span class="add">+&lt;/head&gt;</span>
+<span class="add">+&lt;body&gt;</span>
+<span class="add">+  &lt;h1&gt;📋 refactor blueprint v4 p1 entradas&lt;/h1&gt;</span>
+<span class="add">+  &lt;p class="meta"&gt;2026-08-10 02:06 &amp;middot; refactor/blueprint-v4-p1-entradas &amp;middot; 2a0e92a — chore: session:start P3-28 — domínio entradas (RTK Query)&lt;/p&gt;</span>
+<span class="add">+  &lt;p&gt;&lt;span class="badge auto"&gt;auto&lt;/span&gt; &lt;span class="badge auto"&gt;blueprint-v4-p1-entradas&lt;/span&gt; &lt;span class="badge" style="background:#dcfce7;color:#166534"&gt;Baixo Risco&lt;/span&gt;&lt;/p&gt;</span>
+<span class="add">+</span>
+<span class="add">+  &lt;!-- Status cards --&gt;</span>
+<span class="add">+  &lt;div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0"&gt;</span>
+<span class="add">+    &lt;div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
+<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700"&gt;3&lt;/div&gt;</span>
+<span class="add">+      &lt;div style="font-size:.7rem;color:#666"&gt;Arquivos&lt;/div&gt;</span>
+<span class="add">+    &lt;/div&gt;</span>
+<span class="add">+    &lt;div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
+<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700;color:#166534"&gt;+13&lt;/div&gt;</span>
+<span class="add">+      &lt;div style="font-size:.7rem;color:#666"&gt;Adições&lt;/div&gt;</span>
+<span class="add">+    &lt;/div&gt;</span>
+<span class="add">+    &lt;div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
+<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700;color:#991b1b"&gt;-10&lt;/div&gt;</span>
+<span class="add">+      &lt;div style="font-size:.7rem;color:#666"&gt;Remoções&lt;/div&gt;</span>
+<span class="add">+    &lt;/div&gt;</span>
+<span class="add">+    &lt;div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
+<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700;color:#854d0e"&gt;~40&lt;/div&gt;</span>
+<span class="add">+      &lt;div style="font-size:.7rem;color:#666"&gt;Tokens&lt;/div&gt;</span>
+<span class="add">+    &lt;/div&gt;</span>
+<span class="add">+  &lt;/div&gt;</span>
+<span class="add">+</span>
+<span class="add">+  &lt;h2&gt;✅ Checklist de Revisão&lt;/h2&gt;</span>
+<span class="add">+    &lt;ul&gt;</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>

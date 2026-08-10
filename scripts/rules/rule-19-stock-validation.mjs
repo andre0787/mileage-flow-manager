@@ -63,8 +63,11 @@ function getObjectArg(callNode, ts) {
 function hasStringProp(objLit, propName, value, ts) {
   for (const prop of objLit.properties) {
     if (!ts.isPropertyAssignment(prop)) continue;
-    const pName = ts.isIdentifier(prop.name) ? prop.name.text
-                : ts.isStringLiteral(prop.name) ? prop.name.text : null;
+    const pName = ts.isIdentifier(prop.name)
+      ? prop.name.text
+      : ts.isStringLiteral(prop.name)
+        ? prop.name.text
+        : null;
     if (pName !== propName) continue;
     if (ts.isStringLiteral(prop.initializer) && prop.initializer.text === value) return true;
     if (ts.isIdentifier(prop.initializer) && prop.initializer.text === value) return true;
@@ -76,8 +79,11 @@ function hasStringProp(objLit, propName, value, ts) {
 function hasArrayProp(objLit, propName, value, ts) {
   for (const prop of objLit.properties) {
     if (!ts.isPropertyAssignment(prop)) continue;
-    const pName = ts.isIdentifier(prop.name) ? prop.name.text
-                : ts.isStringLiteral(prop.name) ? prop.name.text : null;
+    const pName = ts.isIdentifier(prop.name)
+      ? prop.name.text
+      : ts.isStringLiteral(prop.name)
+        ? prop.name.text
+        : null;
     if (pName !== propName) continue;
     if (ts.isArrayLiteralExpression(prop.initializer)) {
       for (const elem of prop.initializer.elements) {
@@ -92,8 +98,11 @@ function hasArrayProp(objLit, propName, value, ts) {
 function hasAnyProp(objLit, propName, ts) {
   for (const prop of objLit.properties) {
     if (!ts.isPropertyAssignment(prop)) continue;
-    const pName = ts.isIdentifier(prop.name) ? prop.name.text
-                : ts.isStringLiteral(prop.name) ? prop.name.text : null;
+    const pName = ts.isIdentifier(prop.name)
+      ? prop.name.text
+      : ts.isStringLiteral(prop.name)
+        ? prop.name.text
+        : null;
     if (pName === propName) return true;
   }
   return false;
@@ -125,13 +134,21 @@ function bodyHasAccountUpdate(node, ts) {
     if (found) return;
     if (ts.isCallExpression(n)) {
       const expr = n.expression;
-      if (ts.isPropertyAccessExpression(expr) && ts.isIdentifier(expr.name) && expr.name.text === "update") {
+      if (
+        ts.isPropertyAccessExpression(expr) &&
+        ts.isIdentifier(expr.name) &&
+        expr.name.text === "update"
+      ) {
         const obj = expr.expression;
         if (ts.isCallExpression(obj) && ts.isPropertyAccessExpression(obj.expression)) {
           const inner = obj.expression;
-          if (ts.isIdentifier(inner.name) && inner.name.text === "from" &&
-              obj.arguments.length === 1 && ts.isStringLiteral(obj.arguments[0]) &&
-              obj.arguments[0].text === "accounts") {
+          if (
+            ts.isIdentifier(inner.name) &&
+            inner.name.text === "from" &&
+            obj.arguments.length === 1 &&
+            ts.isStringLiteral(obj.arguments[0]) &&
+            obj.arguments[0].text === "accounts"
+          ) {
             found = true;
           }
         }
@@ -147,7 +164,7 @@ function bodyHasAccountUpdate(node, ts) {
 function findExportedFunction(sourceFile, funcName, ts) {
   for (const stmt of sourceFile.statements) {
     if (ts.isFunctionDeclaration(stmt) && stmt.name && stmt.name.text === funcName) {
-      const isExport = stmt.modifiers?.some(m => m.kind === ts.SyntaxKind.ExportKeyword);
+      const isExport = stmt.modifiers?.some((m) => m.kind === ts.SyntaxKind.ExportKeyword);
       if (isExport) return stmt;
     }
   }
@@ -157,7 +174,7 @@ function findExportedFunction(sourceFile, funcName, ts) {
 // ─── Main ───
 
 async function main() {
-  const ts = (await import("typescript")).default || await import("typescript");
+  const ts = (await import("typescript")).default || (await import("typescript"));
 
   // ─── Check 1: all invalidateQueries have refetchType: 'all' ───
   console.log("\n─── Regra #19.1: invalidateQueries com refetchType (AST) ───\n");
@@ -198,7 +215,7 @@ async function main() {
     }
   }
 
-  if (errors.filter(e => e.includes("invalidateQueries")).length === 0) {
+  if (errors.filter((e) => e.includes("invalidateQueries")).length === 0) {
     console.log("  ✅ Todas as chamadas têm refetchType: 'all'");
   } else {
     console.log(`  ${errors.length} erro(s) encontrado(s)`);
@@ -224,9 +241,10 @@ async function main() {
     });
 
     const hasMutations = Array.from(sf.statements).some(
-      stmt => ts.isFunctionDeclaration(stmt) &&
-              stmt.name?.text?.endsWith("Mutation") &&
-              stmt.modifiers?.some(m => m.kind === ts.SyntaxKind.ExportKeyword)
+      (stmt) =>
+        ts.isFunctionDeclaration(stmt) &&
+        stmt.name?.text?.endsWith("Mutation") &&
+        stmt.modifiers?.some((m) => m.kind === ts.SyntaxKind.ExportKeyword),
     );
 
     if (hasMutations && !hasAccountsInvalidation) {
@@ -235,7 +253,7 @@ async function main() {
   }
 
   if (balanceErrors.length > 0) {
-    balanceErrors.forEach(e => errors.push(e));
+    balanceErrors.forEach((e) => errors.push(e));
     console.log(`  ${balanceErrors.length} erro(s) encontrado(s)`);
   } else {
     console.log("  ✅ Todas as mutações de saldo invalidam accounts");
@@ -264,7 +282,12 @@ async function main() {
 
   // ponytail: entries migrado para RTK Query (features/entradas) — regra cobre os domínios TanStack restantes.
   const expectedCalls = {
-    "hooks/useDatabase/sales.ts": ["useAddSaleMutation", "useUpdateSaleMutation", "useCancelSaleMutation", "useDeleteSaleMutation"],
+    "hooks/useDatabase/sales.ts": [
+      "useAddSaleMutation",
+      "useUpdateSaleMutation",
+      "useCancelSaleMutation",
+      "useDeleteSaleMutation",
+    ],
   };
 
   for (const [file, muts] of Object.entries(expectedCalls)) {
@@ -292,22 +315,33 @@ async function main() {
   const entradasApi = readFile(entradasApiPath);
   if (entradasApi) {
     const mutationNames = ["addEntry", "confirmEntry", "updateEntry", "deleteEntry"];
-    const missingMutations = mutationNames.filter((name) =>
-      !new RegExp(`${name}:\\s*builder\\.mutation`).test(entradasApi),
+    const missingMutations = mutationNames.filter(
+      (name) => !new RegExp(`${name}:\\s*builder\\.mutation`).test(entradasApi),
     );
     if (missingMutations.length > 0) {
       errors.push(`${entradasApiPath} — mutations ausentes: ${missingMutations.join(", ")}`);
     }
-    const invalidationCount = (entradasApi.match(/invalidatesTags:\s*\[\"entries\",\s*\"accounts\"\]/g) || []).length;
+    const invalidationCount = (
+      entradasApi.match(/invalidatesTags:\s*\[\"entries\",\s*\"accounts\"\]/g) || []
+    ).length;
     if (invalidationCount !== mutationNames.length) {
-      errors.push(`${entradasApiPath} — ${invalidationCount}/${mutationNames.length} mutations invalidam entries+accounts`);
+      errors.push(
+        `${entradasApiPath} — ${invalidationCount}/${mutationNames.length} mutations invalidam entries+accounts`,
+      );
     }
-    if (!/calcAccountUpdate\s*\(/.test(entradasApi)) {
-      errors.push(`${entradasApiPath} — mutations de saldo sem calcAccountUpdate`);
+    for (const name of mutationNames) {
+      const start = entradasApi.indexOf(`${name}: builder.mutation`);
+      if (start < 0) continue;
+      const rest = entradasApi.slice(start);
+      const next = rest.search(/\n    \w+: builder\.mutation/);
+      const body = next >= 0 ? rest.slice(0, next) : rest;
+      if (!/calcAccountUpdate\s*\(/.test(body)) {
+        errors.push(`${entradasApiPath} — ${name} sem calcAccountUpdate`);
+      }
     }
   }
 
-  const allHaveCalc = calcfiles.every(f => {
+  const allHaveCalc = calcfiles.every((f) => {
     const c = readFile(f);
     if (!c) return false;
     const sf = ts.createSourceFile(f, c, ts.ScriptTarget.Latest, true);
@@ -317,7 +351,7 @@ async function main() {
   if (allHaveCalc) {
     console.log("  ✅ calcAccountUpdate usado em todas as mutações de saldo");
   } else {
-    console.log(`  ${errors.filter(e => e.includes("calcAccountUpdate")).length} erro(s)`);
+    console.log(`  ${errors.filter((e) => e.includes("calcAccountUpdate")).length} erro(s)`);
   }
 
   // ─── Summary ───
