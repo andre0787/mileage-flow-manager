@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>blueprint-v4-p0 — refactor blueprint v4 p0</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 refactor blueprint v4 p0</h1>
+  <p class="meta">2026-08-10 22:07 &middot; refactor/blueprint-v4-p0 &middot; 6994298 — refactor: blueprint v4.0 P0 — infraestrutura Feature-First (grafo, sync-map, rules 40/41)</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">blueprint-v4-p0</span> <span class="badge" style="background:#fee2e2;color:#991b1b">Alto Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">29</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+1585</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-40</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1345</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🔷 Migração de banco aplicada?</li>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Auto-gerado pelo pre-pr-check</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Relatório gerado automaticamente como parte do workflow de validação pré-PR</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 40 remoções — 1793 linhas tocadas</td>
+        <td>✨ 1585 adições — 29 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> AGENTS.md, docs/MAP.md, docs/RADAR.md, docs/RULES.md, docs/handoff.md<br><em>+24 arquivo(s)</em></td>
+      </tr>
+      
+      <tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>29</td></tr>
+    <tr><td>Adições</td><td>+1585</td></tr>
+    <tr><td>Remoções</td><td>-40</td></tr>
+    <tr><td>Tokens estimados</td><td>~1345</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:88">+1189 add</div>
+        <div class="del" style="flex:2">-30 del</div>
+        <div class="overhead" style="flex:10">~126 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+1189</td><td>88%</td></tr>
+      <tr><td>Remoções</td><td>-30</td><td>2%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~126</td><td>10%</td></tr>
+      <tr><th>Total</th><th>~1345</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>AGENTS.md</td></tr>
+<tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>M</td><td>docs/RULES.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-08-10-blueprint-v4-p0-design.md</td></tr>
+<tr><td>A</td><td>docs/tasks/P3-26-blueprint-v4-p0.md</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>package.json</td></tr>
+<tr><td>A</td><td>scripts/generate-graph.mjs</td></tr>
+<tr><td>A</td><td>scripts/rules/__fixtures__/architect/invalid/src/features/contas/contasService.ts</td></tr>
+<tr><td>A</td><td>scripts/rules/__fixtures__/architect/invalid/src/features/relatorios/index.ts</td></tr>
+<tr><td>A</td><td>scripts/rules/__fixtures__/architect/invalid/src/features/relatorios/relatoriosService.ts</td></tr>
+<tr><td>A</td><td>scripts/rules/__fixtures__/architect/invalid/supabase/migrations/20240101000000_rls.sql</td></tr>
+<tr><td>A</td><td>scripts/rules/__fixtures__/architect/multi-policy/src/features/t1/index.ts</td></tr>
+<tr><td>A</td><td>scripts/rules/__fixtures__/architect/multi-policy/src/features/t1/t1Service.ts</td></tr>
+<tr><td>A</td><td>scripts/rules/__fixtures__/architect/multi-policy/src/features/t2/index.ts</td></tr>
+<tr><td>A</td><td>scripts/rules/__fixtures__/architect/multi-policy/src/features/t2/t2Service.ts</td></tr>
+<tr><td>A</td><td>scripts/rules/__fixtures__/architect/multi-policy/supabase/migrations/20240101000000_rls.sql</td></tr>
+<tr><td>A</td><td>scripts/rules/__fixtures__/architect/valid/src/features/auth/authService.ts</td></tr>
+<tr><td>A</td><td>scripts/rules/__fixtures__/architect/valid/src/features/auth/index.ts</td></tr>
+<tr><td>A</td><td>scripts/rules/__fixtures__/architect/valid/supabase/migrations/20240101000000_rls.sql</td></tr>
+<tr><td>A</td><td>scripts/rules/__fixtures__/optimizer/invalid/src/novo_grande.ts</td></tr>
+<tr><td>A</td><td>scripts/rules/__fixtures__/optimizer/valid/src/helper.ts</td></tr>
+<tr><td>A</td><td>scripts/rules/rule-40-architect.mjs</td></tr>
+<tr><td>A</td><td>scripts/rules/rule-41-optimizer.mjs</td></tr>
+<tr><td>A</td><td>scripts/sync-map.mjs</td></tr>
+<tr><td>A</td><td>tests/unit/generate-graph.test.ts</td></tr>
+<tr><td>M</td><td>tests/unit/scripts-rules.test.ts</td></tr>
+  </table>
+
+  
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/AGENTS.md b/AGENTS.md
+index 28967d1..6c9376c 100644
+<span class="del">--- a/AGENTS.md</span>
+<span class="add">+++ b/AGENTS.md</span>
+@@ -52,6 +52,8 @@ Antes de cada `subagent_gate`, resolva a tarefa com `npm run llm:route`. Use exa
+ 36. **Integração RTK ativa** — a extensão `.pi/extensions/rtk.ts` deve existir (versionada) e o binário `rtk` local deve ser &gt;= 0.23.0; ausência do binário é skip não-falho (fail-open). Valida: `rule-37`.
+ 37. **🔎 Code Review Gate** — todo PR exige revisão de código feita por **subagente especializado** (evidência: evento `code-review:done` com `subagent:true` na branch atual). Sem evidência, o pre-pr falha. Aplicado em `requesting-code-review`. Valida: `rule-38`.
+ 38. **🛠️ Coding Gate** — toda mudança de código (src/, scripts/, tests/, .pi/) exige execução por **subagente especializado** (evidência: evento `coding:done` com `subagent:true` na branch atual). Sem evidência, o pre-pr falha. Aplicado em `subagent-driven-development` / `dispatching-parallel-agents`. Valida: `rule-39`.
+<span class="add">+40. **📐 Architect Gate** — estrutura Feature-First: módulos em `src/features/[feature]` com barrel `index.ts` e RLS verificado (`CREATE POLICY` com `USING (auth.uid())` em `supabase/migrations/`); vacuous se `src/features/` não existe. Valida: `rule-40`.</span>
+<span class="add">+41. **🧹 Optimizer Gate** — hard limit de 150 linhas por arquivo em `src/` (diff-scoped contra main); arquivos novos grandes e arquivos que passam do limite falham; legados já grandes são grandfathered (warning). Aplicado no workflow refactor. Valida: `rule-41`.</span>
+ 
+ ## 🎯 Sistema de Categorias (LAZY LOADING)
+ 
+diff --git a/docs/MAP.md b/docs/MAP.md
+index 54ac438..df04b1b 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -37,6 +37,7 @@
+ | [`docs/tasks/ROADMAP.md`](tasks/ROADMAP.md) | Antes de planejar trabalho de workflow/agente | Índice em 4 ondas (P0/P1/P2/P3) de 25 task-cards |
+ | [`docs/ROADMAP.md`](ROADMAP.md) | Backlog de itens do futuro fora da sessão corrente | Itens P1-P4 priorizados (react-router GHSA, npm audit, subagentes, branch órfã) |
+ | `docs/tasks/_TEMPLATE.md` | Ao criar novo task-card | Estrutura canônica do card (objetivo, arquivos permitidos, critérios de aceite, testes, evidência) |
+<span class="add">+| [`docs/tasks/P3-26-blueprint-v4-p0.md`](tasks/P3-26-blueprint-v4-p0.md) | Ao executar a Fase P0 do Blueprint v4 | Card da Fase P0: grafo de dependências, regras 40/41, sync-map — spec em `docs/superpowers/specs/2026-08-10-blueprint-v4-p0-design.md` |</span>
+ 
+ &gt; **Coleção de task-cards** (`docs/tasks/`): 25 cards granulares em 4 ondas (P0/P1/P2/P3).
+ &gt; O índice navegável está em `docs/tasks/ROADMAP.md`. Cards P3 de housekeeping:
+@@ -52,7 +53,7 @@
+ | `docs/IDEIAS.md` | Caixa de entrada de ideias | Ideias humanas pendentes, lidas no início da sessão |
+ | `docs/FLUXO.md` | Diagramas do ecossistema | Flowcharts Mermaid: visão geral, fluxo de dados, rotas |
+ | `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md`, `2026-08-01-llm-model-router-veredito.md`, `2026-08-03-process-kpis-router-sanitizacao-veredito.md`, `2026-08-04-ux-entradas-vendas-veredito.md`, `2026-08-05-process-violations-veredito.md` |
+<span class="del">-| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md`, `2026-08-01-llm-model-router-design.md`, `2026-08-03-process-guardrails-design.md`, `2026-08-03-llm-router-kpi-design.md`, `2026-08-03-project-sanitization-design.md`, `2026-08-03-react-router-8-upgrade-design.md`, `2026-08-04-ux-entradas-vendas.md` |</span>
+<span class="add">+| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md`, `2026-08-01-llm-model-router-design.md`, `2026-08-03-process-guardrails-design.md`, `2026-08-03-llm-router-kpi-design.md`, `2026-08-03-project-sanitization-design.md`, `2026-08-03-react-router-8-upgrade-design.md`, `2026-08-04-ux-entradas-vendas.md`, `2026-08-10-blueprint-v4-p0-design.md` |</span>
+ | `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md`, `2026-07-29-auth-ci-plan.md`, `2026-07-29-fable-method-skill-plan.md`, `2026-08-01-llm-model-router-plan.md`, `2026-08-03-process-guardrails-plan.md`, `2026-08-03-llm-router-kpi-plan.md`, `2026-08-03-project-sanitization-plan.md` |
+ | [`docs/LLM-ROUTER.md`](LLM-ROUTER.md) | Router de subagentes | Contrato operacional, comandos, precedência, auditoria e escopo multimodal futuro |
+ | `docs/reports/` | Relatórios HTML | Relatórios obrigatórios antes de cada PR |
+@@ -137,6 +138,160 @@ Artefatos de sprints/features concluídos foram movidos para `docs/archive/`:
+ ## Navegação Rápida
+ - [`WORKFLOW-MANIFEST.md`](WORKFLOW-MANIFEST.md) — **Workflow canônico** (categorias, estados, comandos, alvo de PR, bypass)
+ 
+<span class="add">+&lt;!-- STRUCTURE-START --&gt;</span>
+<span class="add">+```tree</span>
+<span class="add">+src/</span>
+<span class="add">+├── components/</span>
+<span class="add">+│   ├── tests/</span>
+<span class="add">+│   │   ├── AccountAlertsDialog.test.tsx</span>
+<span class="add">+│   │   ├── AccountDialog.test.tsx</span>
+<span class="add">+│   │   ├── FormDrawer.test.tsx</span>
+<span class="add">+│   │   ├── GlobalSearch.test.tsx</span>
+<span class="add">+│   │   └── Workflow.test.tsx</span>
+<span class="add">+│   ├── ui/</span>
+<span class="add">+│   │   ├── alert-dialog.tsx</span>
+<span class="add">+│   │   ├── badge.tsx</span>
+<span class="add">+│   │   ├── button.tsx</span>
+<span class="add">+│   │   ├── card.tsx</span>
+<span class="add">+│   │   ├── DataTable.tsx</span>
+<span class="add">+│   │   ├── dialog.tsx</span>
+<span class="add">+│   │   ├── drawer.tsx</span>
+<span class="add">+│   │   ├── index.ts</span>
+<span class="add">+│   │   ├── input.tsx</span>
+<span class="add">+│   │   ├── label.tsx</span>
+<span class="add">+│   │   ├── OwnerFilter.tsx</span>
+<span class="add">+│   │   ├── progress.tsx</span>
+<span class="add">+│   │   ├── SearchInput.tsx</span>
+<span class="add">+│   │   ├── select.tsx</span>
+<span class="add">+│   │   ├── separator.tsx</span>
+<span class="add">+│   │   ├── sheet.tsx</span>
+<span class="add">+│   │   ├── sidebar.tsx</span>
+<span class="add">+│   │   ├── skeleton.tsx</span>
+<span class="add">+│   │   ├── sonner.tsx</span>
+<span class="add">+│   │   ├── SortableHeader.tsx</span>
+<span class="add">+│   │   ├── StatusBadge.tsx</span>
+<span class="add">+│   │   ├── switch.tsx</span>
+<span class="add">+│   │   ├── table.tsx</span>
+<span class="add">+│   │   ├── tabs.tsx</span>
+<span class="add">+│   │   └── tooltip.tsx</span>
+<span class="add">+│   ├── workflow/</span>
+<span class="add">+│   │   ├── WorkflowGates.tsx</span>
+<span class="add">+│   │   ├── WorkflowHero.tsx</span>
+<span class="add">+│   │   ├── WorkflowJourney.tsx</span>
+<span class="add">+│   │   ├── WorkflowMindMap.tsx</span>
+<span class="add">+│   │   ├── WorkflowSimulator.tsx</span>
+<span class="add">+│   │   ├── WorkflowTelemetry.tsx</span>
+<span class="add">+│   │   └── WorkflowTimeline.tsx</span>
+<span class="add">+│   ├── AccountAlertsDialog.tsx</span>
+<span class="add">+│   ├── AccountDialog.tsx</span>
+<span class="add">+│   ├── AltitudeBar.tsx</span>
+<span class="add">+│   ├── AnimatedNumber.tsx</span>
+<span class="add">+│   ├── AppSidebar.tsx</span>
+<span class="add">+│   ├── BalanceReconcileBanner.tsx</span>
+<span class="add">+│   ├── BottomTabBar.tsx</span>
+<span class="add">+│   ├── DashboardCharts.tsx</span>
+<span class="add">+│   ├── DashboardChartsContent.tsx</span>
+<span class="add">+│   ├── DeleteConfirmDialog.tsx</span>
+<span class="add">+│   ├── DeleteEntryDialog.tsx</span>
+<span class="add">+│   ├── EmptyState.tsx</span>
+<span class="add">+│   ├── EntryForm.tsx</span>
+<span class="add">+│   ├── EntrySummary.tsx</span>
+<span class="add">+│   ├── EntryTable.tsx</span>
+<span class="add">+│   ├── ErrorBoundary.tsx</span>
+<span class="add">+│   ├── FeedbackDialog.tsx</span>
+<span class="add">+│   ├── FlowMap.tsx</span>
+<span class="add">+│   ├── FormDrawer.tsx</span>
+<span class="add">+│   ├── GlobalSearch.tsx</span>
+<span class="add">+│   ├── KeyboardShortcutsHelp.tsx</span>
+<span class="add">+│   ├── KPICard.tsx</span>
+<span class="add">+│   ├── KPIChart.tsx</span>
+<span class="add">+│   ├── KPIDashboard.tsx</span>
+<span class="add">+│   ├── KPIMonthSelector.tsx</span>
+<span class="add">+│   ├── KPITable.tsx</span>
+<span class="add">+│   ├── LanguageSelector.tsx</span>
+<span class="add">+│   ├── LLMRouterKPISection.tsx</span>
+<span class="add">+│   ├── MetricCard.tsx</span>
+<span class="add">+│   ├── OfflineBanner.tsx</span>
+<span class="add">+│   ├── OrigemTypeSection.tsx</span>
+<span class="add">+│   ├── OwnerSection.tsx</span>
+<span class="add">+│   ├── Pagination.tsx</span>
+<span class="add">+│   ├── ProgramSection.tsx</span>
+<span class="add">+│   ├── ProtectedRoute.tsx</span>
+<span class="add">+│   ├── SaleForm.tsx</span>
+<span class="add">+│   ├── SaleMetrics.tsx</span>
+<span class="add">+│   ├── SaleSimulator.tsx</span>
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>

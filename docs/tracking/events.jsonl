@@ -1552,3 +1552,6 @@
 {"timestamp":"2026-08-10T01:05:25.599Z","type":"code-review:done","description":"Re-review aprovado por subagente — Fase P0 Blueprint v4.0 (2 majors + minors resolvidos)","branch":"refactor/blueprint-v4-p0","commit":"8fc215c","agent":"pi","subagent":true,"verdict":"approved","review":"9f168fa6"}
 {"timestamp":"2026-08-10T01:05:50.640Z","type":"healed","description":"rule-26 auto-corrigido","branch":"refactor/blueprint-v4-p0","commit":"8fc215c","agent":"pi","rule":"rule-26"}
 {"timestamp":"2026-08-10T01:06:37.633Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p0","commit":"8fc215c","agent":"pi","errors":0}
+{"timestamp":"2026-08-10T01:06:50.195Z","type":"rule:fail","description":"rule-scope falhou","branch":"refactor/blueprint-v4-p0","commit":"6994298","agent":"pi","rule":"rule-scope"}
+{"timestamp":"2026-08-10T01:07:26.000Z","type":"rule:fail","description":"rule-scope falhou","branch":"refactor/blueprint-v4-p0","commit":"6994298","agent":"pi","rule":"rule-scope"}
+{"timestamp":"2026-08-10T01:08:01.706Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p0","commit":"6994298","agent":"pi","errors":0}
