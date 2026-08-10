@@ -163,7 +163,6 @@ async function main() {
   console.log("\n─── Regra #19.1: invalidateQueries com refetchType (AST) ───\n");
 
   const dbFiles = [
-    "hooks/useDatabase/entries.ts",
     "hooks/useDatabase/accounts.ts",
     "hooks/useDatabase/sales.ts",
     "hooks/useDatabase/programs.ts",
@@ -208,7 +207,7 @@ async function main() {
   // ─── Check 2: mutations that affect balance invalidate accounts query ───
   console.log("\n─── Regra #19.2: Mutações de saldo invalidam accounts (AST) ───\n");
 
-  const balanceFiles = ["hooks/useDatabase/entries.ts", "hooks/useDatabase/sales.ts"];
+  const balanceFiles = ["hooks/useDatabase/sales.ts"];
   const balanceErrors = [];
 
   for (const file of balanceFiles) {
@@ -245,7 +244,7 @@ async function main() {
   // ─── Check 3: calcAccountUpdate used correctly ───
   console.log("\n─── Regra #19.3: calcAccountUpdate nas mutações de saldo (AST) ───\n");
 
-  const calcfiles = ["hooks/useDatabase/entries.ts", "hooks/useDatabase/sales.ts"];
+  const calcfiles = ["hooks/useDatabase/sales.ts"];
 
   for (const file of calcfiles) {
     const content = readFile(file);
@@ -263,8 +262,8 @@ async function main() {
   // Check 3b: toda mutation exportada DEVE chamar calcAccountUpdate
   console.log("\n─── Regra #19.3b: toda mutation de saldo usa calcAccountUpdate (AST) ───\n");
 
+  // ponytail: entries migrado para RTK Query (features/entradas) — regra cobre os domínios TanStack restantes.
   const expectedCalls = {
-    "hooks/useDatabase/entries.ts": ["useAddEntryMutation", "useUpdateEntryMutation", "useDeleteEntryMutation", "useConfirmEntryMutation"],
     "hooks/useDatabase/sales.ts": ["useAddSaleMutation", "useUpdateSaleMutation", "useCancelSaleMutation", "useDeleteSaleMutation"],
   };
 
