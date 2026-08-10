@@ -58,9 +58,9 @@ público `useAuth()` intacto para os 17 consumidores atuais.
 - `src/hooks/useDatabase/programs.ts` (só import de `useAuth` → `@/features/auth`)
 - `src/hooks/useDatabase/origemTypes.ts` (só import de `useAuth` → `@/features/auth`)
 - (legado) `src/features/contas/index.ts` passou a concentrar o domínio de contas após P3-29
-- (legado) src/hooks/useDatabase/entries.ts (só import de `useAuth` → `@/features/auth`)
+- `src/features/entradas/` (domínio migrado em P3-28; referência histórica ao hook legado que só importava `useAuth` → `@/features/auth`)
 - `src/hooks/useDatabase/sales.ts` (só import de `useAuth` → `@/features/auth`)
-- `src/hooks/useDatabase/clients.ts` (só import de `useAuth` → `@/features/auth`)
+- `src/features/clientes/` (domínio migrado em P3-30; referência histórica ao hook legado que só importava `useAuth` → `@/features/auth`)
 - `tests/unit/auth-slice.test.ts` (novo — teste do slice + store)
 - `tests/unit/features-auth.test.ts` (novo — teste do provider/hook)
 - `docs/MAP.md` (registro da spec/card — rule-17)

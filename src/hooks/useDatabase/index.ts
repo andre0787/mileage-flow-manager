@@ -47,7 +47,7 @@ export {
   useAddClientMutation,
   useUpdateClientMutation,
   useDeleteClientMutation,
-} from "./clients";
+} from "@/features/clientes";
 export {
   useAccountAlerts,
   useAddAccountAlertMutation,

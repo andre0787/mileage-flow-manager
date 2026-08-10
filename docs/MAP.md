@@ -238,13 +238,45 @@ src/
 │   │   ├── AuthProvider.tsx
 │   │   ├── authSlice.ts
 │   │   └── index.ts
+│   ├── clientes/
+│   │   ├── addClient.ts
+│   │   ├── clientesApi.ts
+│   │   ├── deleteClient.ts
+│   │   ├── getClients.ts
+│   │   ├── hooks.ts
+│   │   ├── index.ts
+│   │   ├── mutationHooksBasic.ts
+│   │   ├── mutationHooksLifecycle.ts
+│   │   ├── shared.ts
+│   │   └── updateClient.ts
+│   ├── contas/
+│   │   ├── addAccount.ts
+│   │   ├── contasApi.ts
+│   │   ├── deleteAccount.ts
+│   │   ├── getAccounts.ts
+│   │   ├── hooks.ts
+│   │   ├── index.ts
+│   │   ├── mutationHooksBasic.ts
+│   │   ├── mutationHooksLifecycle.ts
+│   │   ├── recalcAccount.ts
+│   │   ├── shared.ts
+│   │   └── updateAccount.ts
+│   ├── entradas/
+│   │   ├── addEntry.ts
+│   │   ├── confirmEntry.ts
+│   │   ├── deleteEntry.ts
+│   │   ├── entradasApi.ts
+│   │   ├── getEntries.ts
+│   │   ├── hooks.ts
+│   │   ├── index.ts
+│   │   ├── mutationHooksBasic.ts
+│   │   ├── mutationHooksLifecycle.ts
+│   │   ├── shared.ts
+│   │   └── updateEntry.ts
 │   └── store.ts
 ├── hooks/
 │   ├── useDatabase/
-│   │   ├── accounts.ts
 │   │   ├── alerts.ts
-│   │   ├── clients.ts
-│   │   ├── entries.ts
 │   │   ├── index.ts
 │   │   ├── mappers.ts
 │   │   ├── origemTypes.ts
@@ -335,3 +367,4 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/tasks/P3-35-blueprint-v4-p1-dashboard.md` (auto) | 2026-08-10 |
 | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-entradas-design.md` (auto) | 2026-08-10 |
 | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-contas-design.md` (auto) | 2026-08-10 |
+| `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-clientes-design.md` (auto) | 2026-08-10 |
