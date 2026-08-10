@@ -6,13 +6,17 @@ const ROOT = resolve(__dirname, "../..");
 const MUTATION_FILES = [
   "src/hooks/useDatabase/accounts.ts",
   "src/hooks/useDatabase/clients.ts",
-  "src/hooks/useDatabase/entries.ts",
   "src/hooks/useDatabase/origemTypes.ts",
   "src/hooks/useDatabase/owners.ts",
   "src/hooks/useDatabase/programs.ts",
   "src/hooks/useDatabase/sales.ts",
   "src/hooks/useDatabase/shared.ts",
 ];
+
+// Domínios migrados para RTK Query (Blueprint v4.0 P1) invalidam cache via
+// baseApi.util.invalidateTags nos wrappers de compat — mesma garantia de
+// refetch, outro mecanismo.
+const RTK_QUERY_FILES = ["src/features/entradas/hooks.ts"];
 
 describe("atualização do cache após mutations", () => {
   it("aguarda o refetch antes de concluir cada callback de sucesso", () => {
@@ -23,6 +27,15 @@ describe("atualização do cache após mutations", () => {
       expect(callbacks.length, relativePath).toBeGreaterThan(0);
       expect(callbacks.every((match) => Boolean(match[1])), relativePath).toBe(true);
       expect(source, relativePath).toMatch(/await (?:Promise\.all\(\[)?[\s\S]*?invalidateQueries/);
+    }
+  });
+
+  it("inválida tags entries/accounts nos wrappers RTK Query migrados", () => {
+    for (const relativePath of RTK_QUERY_FILES) {
+      const source = readFileSync(resolve(ROOT, relativePath), "utf8");
+      expect(source, relativePath).toMatch(/invalidateTags\(INVALIDATE\)/);
+      expect(source, relativePath).toMatch(/["']entries["']/);
+      expect(source, relativePath).toMatch(/["']accounts["']/);
     }
   });
 });

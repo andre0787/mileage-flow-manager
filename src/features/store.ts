@@ -1,16 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, type TypedUseSelectorHook } from "react-redux";
 import { authReducer } from "./auth/authSlice";
+import { baseApi } from "./api";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    [baseApi.reducerPath]: baseApi.reducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(baseApi.middleware),
 });
-
-// ponytail: base RTK Query exposta pelo barrel da feature api (rule-14: sem
-// órfãos em src/) — P3-28+ registra [baseApi.reducerPath] aqui ao injetar endpoints.
-export { baseApi } from "./api";
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
