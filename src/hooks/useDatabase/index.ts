@@ -34,7 +34,7 @@ export {
   useUpdateEntryMutation,
   useDeleteEntryMutation,
   useConfirmEntryMutation,
-} from "./entries";
+} from "@/features/entradas";
 export {
   useSalesQuery,
   useAddSaleMutation,

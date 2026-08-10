@@ -6,7 +6,7 @@
 | `categoria` | refactor |
 | `onda` | P1-A |
 | `baseBranch` | main |
-| `estado` | review |
+| `estado` | done |
 | `origem` | Blueprint MilesControl v4.0 (ground truth do usuário), fase P1, item 1 |
 | `dependeDe` | P3-26 (infraestrutura P0) |
 | `capability` | implementation |
@@ -58,7 +58,7 @@ público `useAuth()` intacto para os 17 consumidores atuais.
 - `src/hooks/useDatabase/programs.ts` (só import de `useAuth` → `@/features/auth`)
 - `src/hooks/useDatabase/origemTypes.ts` (só import de `useAuth` → `@/features/auth`)
 - `src/hooks/useDatabase/accounts.ts` (só import de `useAuth` → `@/features/auth`)
-- `src/hooks/useDatabase/entries.ts` (só import de `useAuth` → `@/features/auth`)
+- (legado) src/hooks/useDatabase/entries.ts (só import de `useAuth` → `@/features/auth`)
 - `src/hooks/useDatabase/sales.ts` (só import de `useAuth` → `@/features/auth`)
 - `src/hooks/useDatabase/clients.ts` (só import de `useAuth` → `@/features/auth`)
 - `tests/unit/auth-slice.test.ts` (novo — teste do slice + store)

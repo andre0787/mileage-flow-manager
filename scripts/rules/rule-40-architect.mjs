@@ -50,7 +50,9 @@ function hasRlsPolicy(table) {
   if (!existsSync(MIGRATIONS_DIR)) return false;
   const esc = table.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const onRe = new RegExp(`ON\\s+public\\.${esc}\\b`, "i");
-  const usingRe = /USING\s*\(\s*auth\.uid\(\)/i;
+  // Aceita USING (auth.uid() = col) e USING (col = auth.uid()) — qualquer ordem
+  // dentro do bloco da policy (o split por bloco já evita falso positivo).
+  const usingRe = /USING\s*\([^)]*auth\.uid\(\)/i;
   for (const entry of readdirSync(MIGRATIONS_DIR)) {
     if (!/\.sql$/.test(entry)) continue;
     const content = readFileSync(join(MIGRATIONS_DIR, entry), "utf8");
