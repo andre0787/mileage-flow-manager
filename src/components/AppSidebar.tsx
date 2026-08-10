@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { FeedbackDialog } from "./FeedbackDialog";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/features/auth";
 import { useData } from "@/contexts/DataContext";
 import { cn } from "@/lib/utils";
 

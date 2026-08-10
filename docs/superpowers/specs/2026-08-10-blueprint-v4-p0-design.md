@@ -17,7 +17,7 @@ O Blueprint v4.0 (fornecido pelo usuário como "ground truth absoluto") define d
 
 | Blueprint (assume) | Realidade no repo (2026-08-10) | Decisão |
 |---|---|---|
-| (legado) src/store/slices/authSlice.ts | **Não existe.** Auth vive em `src/contexts/AuthContext.tsx` | P1 migra de `contexts/AuthContext` → `src/features/auth/` |
+| (legado) src/store/slices/authSlice.ts | **Não existe.** Auth viveu em src/contexts/AuthContext.tsx (removido na P1) | P1 migra de `contexts/AuthContext` → `src/features/auth/` |
 | (legado) src/store/slices/milesSlice.ts | **Não existe.** Entradas/milhas em `src/hooks/useDatabase/entries.ts` + `src/lib/metrics.ts` | P1 migra de `hooks/useDatabase` → `src/features/entradas/` |
 | (legado) src/components/cpf | **Não existe.** CPF em `src/pages/ControleCPF.tsx` | P1 migra de `pages/ControleCPF` → `src/features/controle-cpf/` |
 | (legado) src/components/simulator | **Não existe.** Simulador dentro de `src/pages/Vendas.tsx` | P1 migra de `pages/Vendas` → `src/features/simulador-venda/` |

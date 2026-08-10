@@ -1,7 +1,10 @@
-import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { supabase } from "@/lib/supabase";
+import { useAppDispatch, useAppSelector } from "@/features/store";
+import { setSession, setLoading, selectUser, selectSession, selectLoading } from "./authSlice";
 import type { User, Session } from "@supabase/supabase-js";
 
+// Contrato público preservado do AuthContext migrado (mesma interface).
 interface AuthContextType {
   user: User | null;
   session: Session | null;
@@ -13,20 +16,15 @@ interface AuthContextType {
   updatePassword: (newPassword: string) => Promise<string | null>;
 }
 
-const AuthContext = createContext<AuthContextType | null>(null);
-
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useAppDispatch();
   const initialized = useRef(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
+      dispatch(setSession(session));
       initialized.current = true;
-      setLoading(false);
+      dispatch(setLoading(false));
     });
 
     const {
@@ -37,12 +35,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // same session that getSession() is already fetching, and on first
       // load a stale SIGNED_IN event can arrive before getSession() resolves.
       if (!initialized.current) return;
-      setSession(session);
-      setUser(session?.user ?? null);
+      dispatch(setSession(session));
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [dispatch]);
+
+  return <>{children}</>;
+}
+
+export function useAuth(): AuthContextType {
+  const user = useAppSelector(selectUser);
+  const session = useAppSelector(selectSession);
+  const loading = useAppSelector(selectLoading);
 
   const signIn = async (email: string, password: string): Promise<string | null> => {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -75,17 +80,5 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await supabase.auth.signOut();
   };
 
-  return (
-    <AuthContext.Provider
-      value={{ user, session, loading, signIn, signUp, signOut, resetPassword, updatePassword }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
-}
-
-export function useAuth(): AuthContextType {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuth must be used within AuthProvider");
-  return ctx;
+  return { user, session, loading, signIn, signUp, signOut, resetPassword, updatePassword };
 }

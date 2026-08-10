@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Bug, Lightbulb, Send, Loader2 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/features/auth";
 import {
   Dialog,
   DialogContent,

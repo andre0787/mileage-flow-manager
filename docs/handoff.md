@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `2bfbfd3` — Merge pull request #333 from andre0787/refactor/blueprint-v4-p0
+- **Último commit:** `3f8aacf — Merge pull request #334 from andre0787/docs/blueprint-v4-p0-handoff`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -25,11 +25,11 @@ Nenhum PR aberto.
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** refactor
-**Objetivo:** Migracao Feature-First com RTK Query (Blueprint v4.0)
-**Status:** done
-**Iniciada em:** 2026-08-10T00:22:36.000Z
-**Branch:** `refactor/blueprint-v4-p0`
-**Último commit:** 8fc215c — Merge pull request #332 from andre0787/docs/p2-21-card-done
+**Objetivo:** Blueprint v4.0 P1 — migracao Feature-First com RTK Query
+**Status:** in_progress
+**Iniciada em:** 2026-08-10T02:36:09.087Z
+**Branch:** `refactor/blueprint-v4-p1`
+**Último commit:** 3f8aacf — Merge pull request #334 from andre0787/docs/blueprint-v4-p0-handoff
 **Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.

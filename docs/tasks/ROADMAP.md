@@ -64,6 +64,21 @@ Pré-requisito de tudo o que segue. Sem P0, qualquer protocolo de agente é só 
 | [P3-23](P3-23-delete-archive-debris.md) | Deletar 5 artefatos obsoletos do archive | done ✅ |
 | [P3-24](P3-24-retire-changelog.md) | Retirar CHANGELOG.md obsoleto + atualizar verify-docs | done ✅ |
 | [P3-25](P3-25-clean-thoughts.md) | Limpar docs/thoughts/ — converter pensamento stale em issue | done ✅ |
+| [P3-26](P3-26-blueprint-v4-p0.md) | Blueprint v4.0 P0 — infraestrutura Feature-First (grafo, sync-map, rules 40/41) | done ✅ |
+
+### 🔴 Blueprint v4.0 P1 — Feature-First + RTK Query (um domínio por PR)
+
+| Card | Título | Estado |
+|------|--------|--------|
+| [P3-27](P3-27-blueprint-v4-p1-foundation-auth.md) | Fundação Feature-First + migração do domínio auth | review |
+| [P3-28](P3-28-blueprint-v4-p1-entradas.md) | Migração do domínio entradas (RTK Query) | pending |
+| [P3-29](P3-29-blueprint-v4-p1-contas.md) | Migração do domínio contas (RTK Query) | pending |
+| [P3-30](P3-30-blueprint-v4-p1-clientes.md) | Migração do domínio clientes (RTK Query) | pending |
+| [P3-31](P3-31-blueprint-v4-p1-vendas.md) | Migração do domínio vendas (RTK Query) | pending |
+| [P3-32](P3-32-blueprint-v4-p1-controle-cpf.md) | Migração do domínio controle-cpf (RTK Query) | pending |
+| [P3-33](P3-33-blueprint-v4-p1-relatorios.md) | Migração do domínio relatorios (RTK Query) | pending |
+| [P3-34](P3-34-blueprint-v4-p1-simulador-venda.md) | Migração do domínio simulador-venda (RTK Query) | pending |
+| [P3-35](P3-35-blueprint-v4-p1-dashboard.md) | Migração do domínio dashboard (RTK Query) | pending |
 
 ---
 

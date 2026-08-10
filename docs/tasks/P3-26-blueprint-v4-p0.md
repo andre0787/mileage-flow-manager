@@ -6,7 +6,7 @@
 | `categoria` | refactor |
 | `onda` | P0 |
 | `baseBranch` | main |
-| `estado` | review |
+| `estado` | done |
 | `origem` | Blueprint MilesControl v4.0 (ground truth do usuário), fase P0 |
 
 ## Objetivo
