@@ -312,7 +312,14 @@ async function main() {
   // RTK Query: entradas foi migrado para features/entradas; preserve a cobertura
   // estrutural das invariantes de saldo e invalidação que antes era AST TanStack.
   const entradasApiPath = "features/entradas/entradasApi.ts";
-  const entradasApi = readFile(entradasApiPath);
+  const entradasFiles = [
+    entradasApiPath,
+    "features/entradas/addEntry.ts",
+    "features/entradas/confirmEntry.ts",
+    "features/entradas/updateEntry.ts",
+    "features/entradas/deleteEntry.ts",
+  ];
+  const entradasApi = entradasFiles.map(readFile).filter(Boolean).join("\n");
   if (entradasApi) {
     const mutationNames = ["addEntry", "confirmEntry", "updateEntry", "deleteEntry"];
     const missingMutations = mutationNames.filter(

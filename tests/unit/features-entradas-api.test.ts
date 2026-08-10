@@ -194,7 +194,9 @@ describe("entradasApi — deleteEntry", () => {
 
   it("declara invalidação de entries e accounts em todas as mutations", async () => {
     const { readFileSync } = await import("node:fs");
-    const source = readFileSync("src/features/entradas/entradasApi.ts", "utf8");
+    const source = ["addEntry", "confirmEntry", "updateEntry", "deleteEntry"]
+      .map((name) => readFileSync(`src/features/entradas/${name}.ts`, "utf8"))
+      .join("\n");
     expect(source.match(/invalidatesTags: \["entries", "accounts"\]/g)).toHaveLength(4);
   });
 });

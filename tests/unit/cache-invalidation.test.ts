@@ -16,7 +16,10 @@ const MUTATION_FILES = [
 // Domínios migrados para RTK Query (Blueprint v4.0 P1) invalidam cache via
 // baseApi.util.invalidateTags nos wrappers de compat — mesma garantia de
 // refetch, outro mecanismo.
-const RTK_QUERY_FILES = ["src/features/entradas/hooks.ts"];
+const RTK_QUERY_FILES = [
+  "src/features/entradas/mutationHooksBasic.ts",
+  "src/features/entradas/mutationHooksLifecycle.ts",
+];
 
 describe("atualização do cache após mutations", () => {
   it("aguarda o refetch antes de concluir cada callback de sucesso", () => {
@@ -25,7 +28,10 @@ describe("atualização do cache após mutations", () => {
       const callbacks = [...source.matchAll(/onSuccess:\s*(async\s*)?\([^)]*\)\s*=>/g)];
 
       expect(callbacks.length, relativePath).toBeGreaterThan(0);
-      expect(callbacks.every((match) => Boolean(match[1])), relativePath).toBe(true);
+      expect(
+        callbacks.every((match) => Boolean(match[1])),
+        relativePath,
+      ).toBe(true);
       expect(source, relativePath).toMatch(/await (?:Promise\.all\(\[)?[\s\S]*?invalidateQueries/);
     }
   });
