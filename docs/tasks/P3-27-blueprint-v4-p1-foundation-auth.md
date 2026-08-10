@@ -6,7 +6,7 @@
 | `categoria` | refactor |
 | `onda` | P1-A |
 | `baseBranch` | main |
-| `estado` | planned |
+| `estado` | review |
 | `origem` | Blueprint MilesControl v4.0 (ground truth do usuário), fase P1, item 1 |
 | `dependeDe` | P3-26 (infraestrutura P0) |
 | `capability` | implementation |

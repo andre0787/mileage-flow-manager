@@ -1586,3 +1586,5 @@
 {"timestamp":"2026-08-10T04:03:46.992Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/blueprint-v4-p1","commit":"3ae8b56","agent":"pi","rule":"rule-10-clean"}
 {"timestamp":"2026-08-10T04:04:51.664Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1","commit":"3ae8b56","agent":"pi","errors":0}
 {"timestamp":"2026-08-10T04:05:33.681Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1","commit":"4fe46b4","agent":"pi","errors":0}
+{"timestamp":"2026-08-10T04:06:14.426Z","type":"pr:create","description":"PR #335 — refactor: blueprint v4.0 P1 — fundação Feature-First + domínio auth (RTK Query)","branch":"refactor/blueprint-v4-p1","commit":"686845c","agent":"pi","pr":335}
+{"timestamp":"2026-08-10T04:07:02.905Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1","commit":"e6e9633","agent":"pi","errors":0}
