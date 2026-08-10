@@ -1618,3 +1618,4 @@
 {"timestamp":"2026-08-10T06:16:19.475Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/blueprint-v4-p1-entradas","commit":"455dbaf","agent":"pi","rule":"rule-10-clean"}
 {"timestamp":"2026-08-10T06:16:19.510Z","type":"rule:fail","description":"rule-scope falhou","branch":"refactor/blueprint-v4-p1-entradas","commit":"455dbaf","agent":"pi","rule":"rule-scope"}
 {"timestamp":"2026-08-10T06:17:22.380Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-entradas","commit":"455dbaf","agent":"pi","errors":0}
+{"timestamp":"2026-08-10T06:18:54.261Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-entradas","commit":"0c0b8a9","agent":"pi","errors":0}
