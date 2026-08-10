@@ -23,14 +23,7 @@ Nenhum PR aberto.
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-## 🎯 Sessão Atual
-**Categoria:** refactor
-**Objetivo:** Blueprint v4.0 P1 item 2 — domínio entradas (RTK Query)
-**Status:** in_progress
-**Iniciada em:** 2026-08-10T04:19:43.309Z
-**Branch:** `refactor/blueprint-v4-p1-entradas`
-**Último commit:** bb2c18e — Merge pull request #336 from andre0787/docs/blueprint-v4-p1-handoff
-**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
+
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
@@ -51,3 +44,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
 
 
+
+## 🎯 Sessão Atual
+**Categoria:** chore
+**Objetivo:** P0 completo

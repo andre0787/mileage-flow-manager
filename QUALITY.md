@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-08-09
-> Último commit: 6b98c08-Merge pull request #321 from andre0787/feat/workflow-tab
+> Gerado em: 2026-08-10
+> Último commit: 7a4bacb-Merge pull request #337 from andre0787/refactor/blueprint-v4-p1-entradas
 
 ## Pipeline
 
@@ -15,21 +15,21 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 429 |
+| Unit | 487 |
 | E2E  | 71 |
-| **Total** | **500** |
+| **Total** | **558** |
 
 ## Bundle
 
 | Métrica | Valor |
 |---------|-------|
-| Tamanho (dist) | 1649kB |
+| Tamanho (dist) | 1728kB |
 
 ## Documentação
 
 | Métrica | Valor |
 |---------|-------|
-| Arquivos .md | 157 |
+| Arquivos .md | 183 |
 | Arquivados | 46 |
 | Issues (verify-docs) | 0 |
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-08-09 | ✅ | 500 | 1649kB | 0 issues |
+| 2026-08-10 | ✅ | 558 | 1728kB | 0 issues |
 
 ---
 
