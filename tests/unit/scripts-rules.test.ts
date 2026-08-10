@@ -947,3 +947,149 @@ Nada feito ainda.
     } finally { cleanTempFixture(tmp); }
   });
 });
+
+// ─── rule-40-architect (Feature-First: barrel + RLS) ──────────────
+
+describe("rule-40-architect (Feature-First)", () => {
+  it("deve passar (fixture positiva: barrel index.ts + RLS auth.uid())", () => {
+    const tmp = createTempFixture("architect/valid");
+    try {
+      const res = runRuleOnFixture("rule-40-architect.mjs", tmp);
+      expect(res.status).toBe(0);
+      expect(res.stdout).toMatch(/✅/);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve falhar (fixture negativa: feature sem barrel + tabela sem RLS)", () => {
+    const tmp = createTempFixture("architect/invalid");
+    try {
+      const res = runRuleOnFixture("rule-40-architect.mjs", tmp);
+      expect(res.status).not.toBe(0);
+      const out = (res.stdout || "") + (res.error || "");
+      expect(out).toContain("sem barrel");
+      expect(out).toContain("tabela_sem_policy");
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve falhar quando policy sem auth.uid() está no mesmo arquivo que outra com auth.uid() (falso positivo do regex global)", () => {
+    const tmp = createTempFixture("architect/multi-policy");
+    try {
+      const res = runRuleOnFixture("rule-40-architect.mjs", tmp);
+      expect(res.status).not.toBe(0);
+      const out = (res.stdout || "") + (res.error || "");
+      // t2 (USING (true)) DEVE falhar — não pode herdar o auth.uid() da policy da t1
+      expect(out).toContain('"t2"');
+      // t1 (auth.uid() no próprio bloco) continua passando
+      expect(out).toContain('public.t1');
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve passar (vacuous: src/features/ não existe)", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      const res = runRuleOnFixture("rule-40-architect.mjs", tmp);
+      expect(res.status).toBe(0);
+      expect(res.stdout).toMatch(/não existe|vacuous/i);
+    } finally { cleanTempFixture(tmp); }
+  });
+});
+
+// ─── rule-41-optimizer (hard limit 150 linhas, diff-scoped) ───────
+
+describe("rule-41-optimizer (hard limit 150 linhas)", () => {
+  it("deve passar (positiva: arquivo novo pequeno no diff)", () => {
+    const tmp = createTempFixture("optimizer/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git branch -M main", tmp);
+      gitExec("git checkout -b feat/teste", tmp);
+      mkdirSync(join(tmp, "src"), { recursive: true });
+      writeFileSync(join(tmp, "src/novo_pequeno.ts"), "export const ok = 1;\n");
+      gitExec("git add -A && git commit -m 'novo pequeno' 2>/dev/null", tmp);
+      const res = runRuleOnFixture("rule-41-optimizer.mjs", tmp);
+      expect(res.status).toBe(0);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve falhar (negativa: arquivo novo >150 linhas)", () => {
+    const tmp = createTempFixture("optimizer/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git branch -M main", tmp);
+      gitExec("git checkout -b feat/teste", tmp);
+      mkdirSync(join(tmp, "src"), { recursive: true });
+      let big = "";
+      for (let i = 0; i < 160; i++) big += `export const linha${i} = ${i};\n`;
+      writeFileSync(join(tmp, "src/novo_grande.ts"), big);
+      gitExec("git add -A && git commit -m 'novo grande' 2>/dev/null", tmp);
+      const res = runRuleOnFixture("rule-41-optimizer.mjs", tmp);
+      expect(res.status).not.toBe(0);
+      expect((res.stdout || "") + (res.error || "")).toContain("150");
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve falhar (negativa: arquivo modificado passa de 150; main tinha <=150)", () => {
+    const tmp = createTempFixture("optimizer/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git branch -M main", tmp);
+      // main tem arquivo pequeno (10 linhas)
+      mkdirSync(join(tmp, "src"), { recursive: true });
+      let pequeno = "";
+      for (let i = 0; i < 10; i++) pequeno += `export const linha${i} = ${i};\n`;
+      writeFileSync(join(tmp, "src/evolui.ts"), pequeno);
+      gitExec("git add -A && git commit -m 'pequeno em main' 2>/dev/null", tmp);
+      gitExec("git checkout -b feat/teste", tmp);
+      // branch cresce para 160 linhas
+      let grande = "";
+      for (let i = 0; i < 160; i++) grande += `export const linha${i} = ${i};\n`;
+      writeFileSync(join(tmp, "src/evolui.ts"), grande);
+      gitExec("git add -A && git commit -m 'cresceu' 2>/dev/null", tmp);
+      const res = runRuleOnFixture("rule-41-optimizer.mjs", tmp);
+      expect(res.status).not.toBe(0);
+      expect((res.stdout || "") + (res.error || "")).toContain("passou de");
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve warnar (legado >150 em main é grandfathered, não bloqueia)", () => {
+    const tmp = createTempFixture("optimizer/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git branch -M main", tmp);
+      // main já tem Dashboard.tsx com 200 linhas (legado)
+      mkdirSync(join(tmp, "src"), { recursive: true });
+      let legacy = "";
+      for (let i = 0; i < 200; i++) legacy += `export const linha${i} = ${i};\n`;
+      writeFileSync(join(tmp, "src/Dashboard.tsx"), legacy);
+      gitExec("git add -A && git commit -m 'legado em main' 2>/dev/null", tmp);
+      gitExec("git checkout -b feat/teste", tmp);
+      // branch só adiciona 1 linha (diff-scoped toca o legado)
+      writeFileSync(join(tmp, "src/Dashboard.tsx"), legacy + "export const extra = 1;\n");
+      gitExec("git add -A && git commit -m 'toca legado' 2>/dev/null", tmp);
+      const res = runRuleOnFixture("rule-41-optimizer.mjs", tmp);
+      expect(res.status).toBe(0);
+      expect(res.stdout).toMatch(/grandfathered|legado/i);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve passar (vazio: sem mudanças em src/ no diff)", () => {
+    const tmp = createTempFixture("optimizer/valid");
+    try {
+      initGitRepo(tmp);
+      gitExec("git branch -M main", tmp);
+      gitExec("git checkout -b feat/teste", tmp);
+      const res = runRuleOnFixture("rule-41-optimizer.mjs", tmp);
+      expect(res.status).toBe(0);
+      expect(res.stdout).toMatch(/nenhum arquivo src|✅/);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve ser skip sem repo git (fail-open)", () => {
+    const tmp = createTempFixture("optimizer/invalid");
+    try {
+      const res = runRuleOnFixture("rule-41-optimizer.mjs", tmp);
+      expect(res.status).toBe(0);
+      expect(res.stdout).toMatch(/⏭️|merge-base/i);
+    } finally { cleanTempFixture(tmp); }
+  });
+});

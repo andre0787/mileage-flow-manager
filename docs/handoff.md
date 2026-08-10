@@ -27,7 +27,7 @@ c293200 chore(P2-21): registra pr:create PR #330
 
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `b4990b3 — Merge pull request #329 from andre0787/docs/handoff-pr328-merged`
+- **Último commit:** `8fc215c — Merge pull request #332 from andre0787/docs/p2-21-card-done`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -41,14 +41,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** P2-21 metricas do programa de engenharia
-**Status:** done
-**Iniciada em:** 2026-08-09T23:15:10.279Z
-**Concluída em:** 2026-08-10T00:07Z
-**Branch:** `main` (PR #330 merged `bf366cc`)
-**Último commit:** bf366cc — Merge pull request #330 from andre0787/feat/p2-21-metricas-programa
-**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
+**Categoria:** refactor
+**Objetivo:** Migracao Feature-First com RTK Query (Blueprint v4.0)
+**Status:** in_progress
+**Iniciada em:** 2026-08-10T00:22:36.000Z
+**Branch:** `refactor/blueprint-v4-p0`
+**Último commit:** 8fc215c — Merge pull request #332 from andre0787/docs/p2-21-card-done
+**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão

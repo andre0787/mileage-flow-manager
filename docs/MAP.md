@@ -37,6 +37,7 @@
 | [`docs/tasks/ROADMAP.md`](tasks/ROADMAP.md) | Antes de planejar trabalho de workflow/agente | Índice em 4 ondas (P0/P1/P2/P3) de 25 task-cards |
 | [`docs/ROADMAP.md`](ROADMAP.md) | Backlog de itens do futuro fora da sessão corrente | Itens P1-P4 priorizados (react-router GHSA, npm audit, subagentes, branch órfã) |
 | `docs/tasks/_TEMPLATE.md` | Ao criar novo task-card | Estrutura canônica do card (objetivo, arquivos permitidos, critérios de aceite, testes, evidência) |
+| [`docs/tasks/P3-26-blueprint-v4-p0.md`](tasks/P3-26-blueprint-v4-p0.md) | Ao executar a Fase P0 do Blueprint v4 | Card da Fase P0: grafo de dependências, regras 40/41, sync-map — spec em `docs/superpowers/specs/2026-08-10-blueprint-v4-p0-design.md` |
 
 > **Coleção de task-cards** (`docs/tasks/`): 25 cards granulares em 4 ondas (P0/P1/P2/P3).
 > O índice navegável está em `docs/tasks/ROADMAP.md`. Cards P3 de housekeeping:
@@ -52,7 +53,7 @@
 | `docs/IDEIAS.md` | Caixa de entrada de ideias | Ideias humanas pendentes, lidas no início da sessão |
 | `docs/FLUXO.md` | Diagramas do ecossistema | Flowcharts Mermaid: visão geral, fluxo de dados, rotas |
 | `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md`, `2026-08-01-llm-model-router-veredito.md`, `2026-08-03-process-kpis-router-sanitizacao-veredito.md`, `2026-08-04-ux-entradas-vendas-veredito.md`, `2026-08-05-process-violations-veredito.md` |
-| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md`, `2026-08-01-llm-model-router-design.md`, `2026-08-03-process-guardrails-design.md`, `2026-08-03-llm-router-kpi-design.md`, `2026-08-03-project-sanitization-design.md`, `2026-08-03-react-router-8-upgrade-design.md`, `2026-08-04-ux-entradas-vendas.md` |
+| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md`, `2026-08-01-llm-model-router-design.md`, `2026-08-03-process-guardrails-design.md`, `2026-08-03-llm-router-kpi-design.md`, `2026-08-03-project-sanitization-design.md`, `2026-08-03-react-router-8-upgrade-design.md`, `2026-08-04-ux-entradas-vendas.md`, `2026-08-10-blueprint-v4-p0-design.md` |
 | `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md`, `2026-07-29-auth-ci-plan.md`, `2026-07-29-fable-method-skill-plan.md`, `2026-08-01-llm-model-router-plan.md`, `2026-08-03-process-guardrails-plan.md`, `2026-08-03-llm-router-kpi-plan.md`, `2026-08-03-project-sanitization-plan.md` |
 | [`docs/LLM-ROUTER.md`](LLM-ROUTER.md) | Router de subagentes | Contrato operacional, comandos, precedência, auditoria e escopo multimodal futuro |
 | `docs/reports/` | Relatórios HTML | Relatórios obrigatórios antes de cada PR |
@@ -136,6 +137,160 @@ Artefatos de sprints/features concluídos foram movidos para `docs/archive/`:
 
 ## Navegação Rápida
 - [`WORKFLOW-MANIFEST.md`](WORKFLOW-MANIFEST.md) — **Workflow canônico** (categorias, estados, comandos, alvo de PR, bypass)
+
+<!-- STRUCTURE-START -->
+```tree
+src/
+├── components/
+│   ├── tests/
+│   │   ├── AccountAlertsDialog.test.tsx
+│   │   ├── AccountDialog.test.tsx
+│   │   ├── FormDrawer.test.tsx
+│   │   ├── GlobalSearch.test.tsx
+│   │   └── Workflow.test.tsx
+│   ├── ui/
+│   │   ├── alert-dialog.tsx
+│   │   ├── badge.tsx
+│   │   ├── button.tsx
+│   │   ├── card.tsx
+│   │   ├── DataTable.tsx
+│   │   ├── dialog.tsx
+│   │   ├── drawer.tsx
+│   │   ├── index.ts
+│   │   ├── input.tsx
+│   │   ├── label.tsx
+│   │   ├── OwnerFilter.tsx
+│   │   ├── progress.tsx
+│   │   ├── SearchInput.tsx
+│   │   ├── select.tsx
+│   │   ├── separator.tsx
+│   │   ├── sheet.tsx
+│   │   ├── sidebar.tsx
+│   │   ├── skeleton.tsx
+│   │   ├── sonner.tsx
+│   │   ├── SortableHeader.tsx
+│   │   ├── StatusBadge.tsx
+│   │   ├── switch.tsx
+│   │   ├── table.tsx
+│   │   ├── tabs.tsx
+│   │   └── tooltip.tsx
+│   ├── workflow/
+│   │   ├── WorkflowGates.tsx
+│   │   ├── WorkflowHero.tsx
+│   │   ├── WorkflowJourney.tsx
+│   │   ├── WorkflowMindMap.tsx
+│   │   ├── WorkflowSimulator.tsx
+│   │   ├── WorkflowTelemetry.tsx
+│   │   └── WorkflowTimeline.tsx
+│   ├── AccountAlertsDialog.tsx
+│   ├── AccountDialog.tsx
+│   ├── AltitudeBar.tsx
+│   ├── AnimatedNumber.tsx
+│   ├── AppSidebar.tsx
+│   ├── BalanceReconcileBanner.tsx
+│   ├── BottomTabBar.tsx
+│   ├── DashboardCharts.tsx
+│   ├── DashboardChartsContent.tsx
+│   ├── DeleteConfirmDialog.tsx
+│   ├── DeleteEntryDialog.tsx
+│   ├── EmptyState.tsx
+│   ├── EntryForm.tsx
+│   ├── EntrySummary.tsx
+│   ├── EntryTable.tsx
+│   ├── ErrorBoundary.tsx
+│   ├── FeedbackDialog.tsx
+│   ├── FlowMap.tsx
+│   ├── FormDrawer.tsx
+│   ├── GlobalSearch.tsx
+│   ├── KeyboardShortcutsHelp.tsx
+│   ├── KPICard.tsx
+│   ├── KPIChart.tsx
+│   ├── KPIDashboard.tsx
+│   ├── KPIMonthSelector.tsx
+│   ├── KPITable.tsx
+│   ├── LanguageSelector.tsx
+│   ├── LLMRouterKPISection.tsx
+│   ├── MetricCard.tsx
+│   ├── OfflineBanner.tsx
+│   ├── OrigemTypeSection.tsx
+│   ├── OwnerSection.tsx
+│   ├── Pagination.tsx
+│   ├── ProgramSection.tsx
+│   ├── ProtectedRoute.tsx
+│   ├── SaleForm.tsx
+│   ├── SaleMetrics.tsx
+│   ├── SaleSimulator.tsx
+│   ├── SaleTable.tsx
+│   ├── SkeletonLoader.tsx
+│   ├── Sparkline.tsx
+│   ├── ThemeToggle.tsx
+│   └── TransferForm.tsx
+├── contexts/
+│   ├── AuthContext.tsx
+│   ├── DataContext.tsx
+│   ├── I18nContext.tsx
+│   └── OnlineContext.tsx
+├── hooks/
+│   ├── useDatabase/
+│   │   ├── accounts.ts
+│   │   ├── alerts.ts
+│   │   ├── clients.ts
+│   │   ├── entries.ts
+│   │   ├── index.ts
+│   │   ├── mappers.ts
+│   │   ├── origemTypes.ts
+│   │   ├── owners.ts
+│   │   ├── programs.ts
+│   │   ├── sales.ts
+│   │   └── shared.ts
+│   ├── use-mobile.tsx
+│   ├── useClientCycleAvailability.ts
+│   ├── useDatabase.ts
+│   ├── useDebounce.ts
+│   ├── useHaptic.ts
+│   ├── useKeyboardShortcuts.ts
+│   └── useSmartQuery.ts
+├── lib/
+│   ├── accountActivity.ts
+│   ├── accounts.ts
+│   ├── auto-classify.ts
+│   ├── dates.ts
+│   ├── dateUtils.ts
+│   ├── i18n.ts
+│   ├── logger.ts
+│   ├── metrics.ts
+│   ├── origemTypes.ts
+│   ├── recurrence.ts
+│   ├── sort.ts
+│   ├── supabase-types.ts
+│   ├── supabase.ts
+│   ├── text-to-query.ts
+│   ├── utils.ts
+│   └── workflowDemoData.ts
+├── pages/
+│   ├── AdminEventos.tsx
+│   ├── Clientes.tsx
+│   ├── Configuracoes.tsx
+│   ├── Contas.tsx
+│   ├── ControleCPF.tsx
+│   ├── Dashboard.tsx
+│   ├── Entradas.tsx
+│   ├── ForgotPassword.tsx
+│   ├── KPI.tsx
+│   ├── Login.tsx
+│   ├── NotFound.tsx
+│   ├── Perfil.tsx
+│   ├── Relatorios.tsx
+│   ├── ResetPassword.tsx
+│   ├── Vendas.tsx
+│   └── Workflow.tsx
+├── types/
+│   └── index.ts
+├── App.tsx
+├── main.tsx
+└── vite-env.d.ts
+```
+<!-- STRUCTURE-END -->
 
 ## 🤖 Índice Auto-Gerado (pre-pr)
 
