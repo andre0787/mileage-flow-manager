@@ -16,26 +16,6 @@ vi.mock("@/lib/supabase", () => ({
   },
 }));
 
-// Cadeia supabase completa: qualquer chamada encadeada resolve data/error.
-function chain(result: unknown) {
-  const c: Record<string, unknown> = {};
-  const call = (name: string, ...args: unknown[]) => {
-    if (!(name in c)) c[name] = vi.fn();
-    (c[name] as ReturnType<typeof vi.fn>)(...args);
-    return c;
-  };
-  c.select = call("select");
-  c.eq = call("eq");
-  c.single = call("single");
-  c.maybeSingle = call("maybeSingle");
-  c.insert = call("insert");
-  c.update = call("update");
-  c.delete = call("delete");
-  c.filter = call("filter");
-  c.resolve = () => Promise.resolve(result);
-  return c;
-}
-
 const makeEntry = (): PointEntry => ({
   id: "entry-1",
   accountId: "acc-1",
@@ -97,11 +77,19 @@ describe("entradasApi — getEntries", () => {
     });
 
     const store = makeStore();
-    const result = await store.dispatch(entradasApi.endpoints.getEntries.initiate(undefined));
+    const result = await store.dispatch(entradasApi.endpoints.getEntries.initiate("user-1"));
     expect(result.data).toHaveLength(1);
     expect(result.data![0].id).toBe("e1");
     expect(result.data![0].accountId).toBe("acc-1");
     expect(mockFrom).toHaveBeenCalledWith("entries");
+  });
+
+  it("usa userId na chave do cache para isolar sessões", async () => {
+    mockFrom.mockReturnValue({ select: () => Promise.resolve({ data: [], error: null }) });
+    const store = makeStore();
+    await store.dispatch(entradasApi.endpoints.getEntries.initiate("user-1"));
+    await store.dispatch(entradasApi.endpoints.getEntries.initiate("user-2"));
+    expect(mockFrom).toHaveBeenCalledTimes(2);
   });
 
   it("propaga erro do supabase", async () => {
@@ -110,7 +98,7 @@ describe("entradasApi — getEntries", () => {
     });
 
     const store = makeStore();
-    const result = await store.dispatch(entradasApi.endpoints.getEntries.initiate(undefined));
+    const result = await store.dispatch(entradasApi.endpoints.getEntries.initiate("user-1"));
     expect(result.error).toBeDefined();
   });
 });
@@ -143,7 +131,10 @@ describe("entradasApi — addEntry", () => {
     mockFrom.mockReturnValue({
       insert,
       select: () => ({
-        eq: () => ({ single: () => Promise.resolve({ data: { balance: 5000, total_invested: 0 }, error: null }) }),
+        eq: () => ({
+          single: () =>
+            Promise.resolve({ data: { balance: 5000, total_invested: 0 }, error: null }),
+        }),
       }),
       update,
     });
@@ -161,22 +152,49 @@ describe("entradasApi — deleteEntry", () => {
     vi.clearAllMocks();
   });
 
-  it("deleta a entrada e reverte o saldo quando confirmada", async () => {
-    const entry = { ...makeEntry(), entryStatus: "confirmada" as const };
+  it("deleta a entrada, filhos recorrentes e reverte o saldo quando confirmada", async () => {
+    const entry = {
+      ...makeEntry(),
+      entryStatus: "confirmada" as const,
+      recurrenceInterval: "monthly",
+      recurrenceEnd: "2026-12-31",
+    };
     const del = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
+    const childDelete = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
     const update = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
-    mockFrom.mockReturnValue({
-      delete: del,
-      select: () => ({
-        eq: () => ({ single: () => Promise.resolve({ data: { balance: 5000, total_invested: 0 }, error: null }) }),
-      }),
-      update,
+    const select = vi.fn().mockReturnValue({
+      filter: () => Promise.resolve({ data: [{ id: "child-1" }], error: null }),
+    });
+    let entriesCalls = 0;
+    mockFrom.mockImplementation((table: string) => {
+      if (table === "entries") {
+        entriesCalls += 1;
+        if (entriesCalls === 1) return { select };
+        if (entriesCalls === 2) return { delete: childDelete };
+        return { delete: del };
+      }
+      return {
+        select: () => ({
+          eq: () => ({
+            single: () =>
+              Promise.resolve({ data: { balance: 5000, total_invested: 0 }, error: null }),
+          }),
+        }),
+        update,
+      };
     });
 
     const store = makeStore();
     const result = await store.dispatch(entradasApi.endpoints.deleteEntry.initiate(entry));
     expect(result.data).toBeNull();
+    expect(childDelete).toHaveBeenCalled();
     expect(del).toHaveBeenCalled();
     expect(update).toHaveBeenCalled();
+  });
+
+  it("declara invalidação de entries e accounts em todas as mutations", async () => {
+    const { readFileSync } = await import("node:fs");
+    const source = readFileSync("src/features/entradas/entradasApi.ts", "utf8");
+    expect(source.match(/invalidatesTags: \["entries", "accounts"\]/g)).toHaveLength(4);
   });
 });

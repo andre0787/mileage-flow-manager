@@ -19,7 +19,7 @@ function toQueryError(err: { message: string }): FetchBaseQueryError {
 
 export const entradasApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getEntries: builder.query<PointEntry[], void>({
+    getEntries: builder.query<PointEntry[], string>({
       providesTags: ["entries"],
       queryFn: async () => {
         const { data, error } = await supabase.from("entries").select("*");

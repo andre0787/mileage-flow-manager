@@ -20,9 +20,12 @@ interface MutateOptions {
 
 export function useEntriesQuery() {
   const userId = useUserId();
-  const { data, isLoading, isError, error, refetch } = entradasApi.useGetEntriesQuery(undefined, {
-    skip: !userId,
-  });
+  const { data, isLoading, isError, error, refetch } = entradasApi.useGetEntriesQuery(
+    userId ?? "",
+    {
+      skip: !userId,
+    },
+  );
   return { data, isPending: isLoading, isError, error, refetch };
 }
 

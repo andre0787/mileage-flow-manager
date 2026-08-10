@@ -286,6 +286,27 @@ async function main() {
     }
   }
 
+  // RTK Query: entradas foi migrado para features/entradas; preserve a cobertura
+  // estrutural das invariantes de saldo e invalidação que antes era AST TanStack.
+  const entradasApiPath = "features/entradas/entradasApi.ts";
+  const entradasApi = readFile(entradasApiPath);
+  if (entradasApi) {
+    const mutationNames = ["addEntry", "confirmEntry", "updateEntry", "deleteEntry"];
+    const missingMutations = mutationNames.filter((name) =>
+      !new RegExp(`${name}:\\s*builder\\.mutation`).test(entradasApi),
+    );
+    if (missingMutations.length > 0) {
+      errors.push(`${entradasApiPath} — mutations ausentes: ${missingMutations.join(", ")}`);
+    }
+    const invalidationCount = (entradasApi.match(/invalidatesTags:\s*\[\"entries\",\s*\"accounts\"\]/g) || []).length;
+    if (invalidationCount !== mutationNames.length) {
+      errors.push(`${entradasApiPath} — ${invalidationCount}/${mutationNames.length} mutations invalidam entries+accounts`);
+    }
+    if (!/calcAccountUpdate\s*\(/.test(entradasApi)) {
+      errors.push(`${entradasApiPath} — mutations de saldo sem calcAccountUpdate`);
+    }
+  }
+
   const allHaveCalc = calcfiles.every(f => {
     const c = readFile(f);
     if (!c) return false;
