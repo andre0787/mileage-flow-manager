@@ -40,7 +40,9 @@ Blueprint v4.0 referencia caminhos legados que não existem (`src/store/slices/*
 - `docs/MAP.md` (registro de spec/card)
 - `docs/superpowers/specs/2026-08-10-blueprint-v4-p0-design.md` (já criado)
 - `.pi/logs/` (runtime, gitignored)
-- `docs/RADAR.md`, `docs/tracking/events.jsonl`, `docs/tracking/quality.jsonl` (artefatos gerados pela sessão/pre-pr)
+- `docs/RADAR.md` (artefato gerado pela sessão)
+- `docs/tracking/events.jsonl` (artefato gerado pela sessão)
+- `docs/tracking/quality.jsonl` (artefato gerado pelo pre-pr)
 
 ## Critérios de aceite
 - [ ] `npm run graph:generate` gera `.pi/logs/dependency-graph.json` com resolução `@/` correta (sem bare imports internos).
