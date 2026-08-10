@@ -7,7 +7,21 @@ import {
   splitByModel,
 } from "../../scripts/metrics/lib.mjs";
 
-const ev = (o: any) => ({ timestamp: "2026-08-01T10:00:00Z", ...o });
+type TestEvent = {
+  timestamp?: string;
+  type?: string;
+  branch?: string;
+  categoria?: string;
+  errors?: number;
+  description?: string;
+  rule?: string;
+  model?: string;
+  resolvedModel?: string;
+  data?: { branch?: string; result?: string };
+  [key: string]: unknown;
+};
+
+const ev = (o: TestEvent): TestEvent => ({ timestamp: "2026-08-01T10:00:00Z", ...o });
 const branchEvents = [
   ev({ type: "session:start", branch: "feat/x", categoria: "feature" }),
   ev({ type: "pre-pr", branch: "feat/x", errors: 2, description: "pre-pr FAIL" }),
