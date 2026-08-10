@@ -6,7 +6,7 @@
 | `categoria` | refactor |
 | `onda` | P1-A |
 | `baseBranch` | main |
-| `estado` | planned |
+| `estado` | review |
 | `origem` | Blueprint MilesControl v4.0 (ground truth do usuário), fase P1, item 2 |
 | `dependeDe` | P3-27 (fundação Feature-First) |
 | `capability` | implementation |
@@ -35,8 +35,16 @@ consumidor (DataContext, Entradas.tsx, DeleteEntryDialog) quebra.
 
 ## Arquivos permitidos
 - `src/features/entradas/index.ts` (novo — barrel, rule-40)
-- `src/features/entradas/entradasApi.ts` (novo — injectEndpoints: getEntries/addEntry/confirmEntry/updateEntry/deleteEntry)
-- `src/features/entradas/hooks.ts` (novo — wrappers de compat com shape TanStack)
+- `src/features/entradas/entradasApi.ts` (novo — composição injectEndpoints)
+- `src/features/entradas/addEntry.ts` (novo — mutation RTK)
+- `src/features/entradas/confirmEntry.ts` (novo — mutation RTK)
+- `src/features/entradas/updateEntry.ts` (novo — mutation RTK)
+- `src/features/entradas/deleteEntry.ts` (novo — mutation RTK)
+- `src/features/entradas/getEntries.ts` (novo — query RTK)
+- `src/features/entradas/shared.ts` (novo — dependências compartilhadas)
+- `src/features/entradas/hooks.ts` (novo — wrapper de query)
+- `src/features/entradas/mutationHooksBasic.ts` (novo — wrappers de add/confirm)
+- `src/features/entradas/mutationHooksLifecycle.ts` (novo — wrappers de update/delete)
 - (legado) src/hooks/useDatabase/entries.ts (remover — migrado)
 - `src/hooks/useDatabase/index.ts` (reexport dos 5 hooks de `@/features/entradas`)
 - `src/features/store.ts` (registrar `baseApi.reducer` + middleware)
@@ -45,7 +53,15 @@ consumidor (DataContext, Entradas.tsx, DeleteEntryDialog) quebra.
 - `tests/unit/features-entradas-hooks.test.ts` (novo)
 - `docs/MAP.md` (sync-map — rule-17)
 - `docs/tasks/ROADMAP.md` (estado do card)
-- `docs/RADAR.md`, `docs/tracking/events.jsonl`, `docs/tracking/quality.jsonl` (artefatos gerados)
+- `docs/RADAR.md` (sync)
+- `docs/tracking/events.jsonl` (artefato gerado)
+- `docs/tracking/quality.jsonl` (artefato gerado)
+- `docs/superpowers/specs/2026-08-10-blueprint-v4-p0-design.md`
+- `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-entradas-design.md`
+- `scripts/rules/rule-19-stock-validation.mjs`
+- `scripts/rules/rule-40-architect.mjs`
+- `scripts/rules/__fixtures__/code/stock-violation/*/src/hooks/useDatabase/sales.ts`
+- `tests/unit/cache-invalidation.test.ts`
 - `docs/handoff.md`
 
 ## Critérios de aceite

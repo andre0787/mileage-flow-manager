@@ -104,7 +104,6 @@ export const updateEntryEndpoint = (builder: EntradasBuilder) => ({
       if (insErr) return { error: toQueryError(insErr) };
 
       if (merged.entryStatus === "aguardando") return { data: null };
-
       // New source: deduct points
       if (merged.sourceAccountId) {
         const srcRes = await supabase
