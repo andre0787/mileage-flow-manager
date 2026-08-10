@@ -57,7 +57,7 @@ público `useAuth()` intacto para os 17 consumidores atuais.
 - `src/hooks/useDatabase/owners.ts` (só import de `useAuth` → `@/features/auth`)
 - `src/hooks/useDatabase/programs.ts` (só import de `useAuth` → `@/features/auth`)
 - `src/hooks/useDatabase/origemTypes.ts` (só import de `useAuth` → `@/features/auth`)
-- `src/hooks/useDatabase/accounts.ts` (só import de `useAuth` → `@/features/auth`)
+- (legado) `src/features/contas/index.ts` passou a concentrar o domínio de contas após P3-29
 - (legado) src/hooks/useDatabase/entries.ts (só import de `useAuth` → `@/features/auth`)
 - `src/hooks/useDatabase/sales.ts` (só import de `useAuth` → `@/features/auth`)
 - `src/hooks/useDatabase/clients.ts` (só import de `useAuth` → `@/features/auth`)

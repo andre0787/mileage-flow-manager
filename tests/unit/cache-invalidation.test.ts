@@ -4,7 +4,6 @@ import { resolve } from "node:path";
 
 const ROOT = resolve(__dirname, "../..");
 const MUTATION_FILES = [
-  "src/hooks/useDatabase/accounts.ts",
   "src/hooks/useDatabase/clients.ts",
   "src/hooks/useDatabase/origemTypes.ts",
   "src/hooks/useDatabase/owners.ts",
@@ -19,6 +18,8 @@ const MUTATION_FILES = [
 const RTK_QUERY_FILES = [
   "src/features/entradas/mutationHooksBasic.ts",
   "src/features/entradas/mutationHooksLifecycle.ts",
+  "src/features/contas/mutationHooksBasic.ts",
+  "src/features/contas/mutationHooksLifecycle.ts",
 ];
 
 describe("atualização do cache após mutations", () => {
@@ -39,7 +40,7 @@ describe("atualização do cache após mutations", () => {
   it("inválida tags entries/accounts nos wrappers RTK Query migrados", () => {
     for (const relativePath of RTK_QUERY_FILES) {
       const source = readFileSync(resolve(ROOT, relativePath), "utf8");
-      expect(source, relativePath).toMatch(/invalidateTags\(INVALIDATE\)/);
+      expect(source, relativePath).toMatch(/invalidateTags\((?:INVALIDATE|ACCOUNT_TAGS)\)/);
       expect(source, relativePath).toMatch(/["']entries["']/);
       expect(source, relativePath).toMatch(/["']accounts["']/);
     }

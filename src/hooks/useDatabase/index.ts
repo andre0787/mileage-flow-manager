@@ -27,7 +27,7 @@ export {
   useUpdateAccountMutation,
   useDeleteAccountMutation,
   useRecalcAccountMutation,
-} from "./accounts";
+} from "@/features/contas";
 export {
   useEntriesQuery,
   useAddEntryMutation,

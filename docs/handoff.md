@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `bb2c18e — Merge pull request #336 from andre0787/docs/blueprint-v4-p1-handoff`
+- **Branch:** `refactor/blueprint-v4-p1-contas`
+- **Último commit:** `7a4bacb — Merge pull request #337 from andre0787/refactor/blueprint-v4-p1-entradas`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -28,7 +28,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 **Objetivo:** Blueprint v4.0 P1 item 2 — domínio entradas (RTK Query)
 **Status:** in_progress
 **Iniciada em:** 2026-08-10T04:19:43.309Z
-**Branch:** `refactor/blueprint-v4-p1-entradas`
+**Branch:** `refactor/blueprint-v4-p1-contas`
 **Último commit:** bb2c18e — Merge pull request #336 from andre0787/docs/blueprint-v4-p1-handoff
 **Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 ## ✅ Última Sessão
