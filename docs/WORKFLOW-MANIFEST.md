@@ -202,3 +202,4 @@ Este manifesto é referenciado por:
 | Data | Mudança |
 |------|---------|
 | 2026-07-18 | Criação — consolida WORKFLOW.md, AGENTS.md, README.md |
+| 2026-08-10 | Blueprint v4.0 P0 (PR #333) — infraestrutura Feature-First: `graph:generate` (dependency-graph.json), `map:sync`, rules 40/41 (Architect/Optimizer) com validação; P1 (features/ + RTK Query) vira cards por domínio |

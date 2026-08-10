@@ -1560,3 +1560,5 @@
 {"timestamp":"2026-08-10T01:08:56.174Z","type":"rule:fail","description":"rule-scope falhou","branch":"refactor/blueprint-v4-p0","commit":"4c79428","agent":"pi","rule":"rule-scope"}
 {"timestamp":"2026-08-10T01:09:38.952Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p0","commit":"4c79428","agent":"pi","errors":0}
 {"timestamp":"2026-08-10T01:10:10.569Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p0","commit":"d79dc7e","agent":"pi","errors":0}
+{"timestamp":"2026-08-10T01:10:56.570Z","type":"pr:create","description":"PR #333 criado — refactor blueprint v4.0 P0","branch":"refactor/blueprint-v4-p0","commit":"4c8f45b","agent":"pi","pr":333,"base":"main","head":"refactor/blueprint-v4-p0"}
+{"timestamp":"2026-08-10T01:11:25.730Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p0","commit":"4c8f45b","agent":"pi","errors":0}

@@ -6,7 +6,7 @@
 | `categoria` | refactor |
 | `onda` | P0 |
 | `baseBranch` | main |
-| `estado` | implementing |
+| `estado` | review |
 | `origem` | Blueprint MilesControl v4.0 (ground truth do usuário), fase P0 |
 
 ## Objetivo
@@ -43,6 +43,7 @@ Blueprint v4.0 referencia caminhos legados que não existem (`src/store/slices/*
 - `docs/RADAR.md` (artefato gerado pela sessão)
 - `docs/tracking/events.jsonl` (artefato gerado pela sessão)
 - `docs/tracking/quality.jsonl` (artefato gerado pelo pre-pr)
+- `docs/WORKFLOW-MANIFEST.md` (histórico — última linha de escrita da sessão, blueprint §6)
 
 ## Critérios de aceite
 - [ ] `npm run graph:generate` gera `.pi/logs/dependency-graph.json` com resolução `@/` correta (sem bare imports internos).
