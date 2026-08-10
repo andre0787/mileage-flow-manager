@@ -1562,3 +1562,6 @@
 {"timestamp":"2026-08-10T01:10:10.569Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p0","commit":"d79dc7e","agent":"pi","errors":0}
 {"timestamp":"2026-08-10T01:10:56.570Z","type":"pr:create","description":"PR #333 criado — refactor blueprint v4.0 P0","branch":"refactor/blueprint-v4-p0","commit":"4c8f45b","agent":"pi","pr":333,"base":"main","head":"refactor/blueprint-v4-p0"}
 {"timestamp":"2026-08-10T01:11:25.730Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p0","commit":"4c8f45b","agent":"pi","errors":0}
+{"timestamp":"2026-08-10T02:36:09.109Z","type":"session:start","description":"refactor: Blueprint v4.0 P1 — migracao Feature-First com RTK Query","branch":"main","commit":"3f8aacf","agent":"pi","categoria":"refactor"}
+{"timestamp":"2026-08-10T02:39:11.322Z","type":"healed","description":"rule-26 auto-corrigido","branch":"refactor/blueprint-v4-p1","commit":"3f8aacf","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-08-10T02:39:11.613Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1","commit":"3f8aacf","agent":"pi","errors":0}
