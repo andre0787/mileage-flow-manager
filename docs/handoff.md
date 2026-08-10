@@ -1,40 +1,23 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-08-09
-> Anterior: 2026-08-08
+> ⏰ Última atualização: 2026-08-10
+> Anterior: 2026-08-09
 ---
 ## 🏗️ Projeto
-
-> ⏰ Snapshot atualizado em: 2026-08-10
-
-### 🏗️ Projeto
-
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
-**Regras críticas:** branch obrigatória, pre-pr c/ relatório, git status ZERO, lazy loading por categoria
-**Workflow:** session:start → categoria → carregar docs → council (se feature) → build → pre-pr → PR
-
+**Workflow:** session:start → categoria → implementação → pre-pr → PR
 ### 🐞 Bugs Abertos
-
-- [#308](https://github.com/andre0787/mileage-flow-manager/issues/308) — Datas exibidas com 1 dia a menos no fuso -3 (América/São Paulo)
-
-### 📋 Commits Recentes
-
-```
-bf366cc Merge pull request #330 from andre0787/feat/p2-21-metricas-programa
-d9e93d1 fix(P2-21): substitui any por tipo TestEvent no teste (lint CI)
-c293200 chore(P2-21): registra pr:create PR #330
-```
-
+Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `8fc215c — Merge pull request #332 from andre0787/docs/p2-21-card-done`
+- **Último commit:** `2bfbfd3` — Merge pull request #333 from andre0787/refactor/blueprint-v4-p0
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 500 |
+| Total testes | 535 |
 | Docs issues | 0 |
 | Branch | main |
 
@@ -43,7 +26,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** refactor
 **Objetivo:** Migracao Feature-First com RTK Query (Blueprint v4.0)
-**Status:** in_progress
+**Status:** done
 **Iniciada em:** 2026-08-10T00:22:36.000Z
 **Branch:** `refactor/blueprint-v4-p0`
 **Último commit:** 8fc215c — Merge pull request #332 from andre0787/docs/p2-21-card-done
@@ -66,3 +49,4 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
 - **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
+
