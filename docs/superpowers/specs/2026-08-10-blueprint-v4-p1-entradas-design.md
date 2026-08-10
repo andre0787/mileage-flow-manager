@@ -9,7 +9,7 @@
 A fundação Feature-First (P3-27, PR #335 merged) entregou `src/features/store.ts`
 (configureStore + hooks tipados), `src/features/api/baseApi.ts` (RTK Query `createApi`
 placeholder) e o domínio `auth` migrado. Este card migra o **domínio entradas**:
-`src/hooks/useDatabase/entries.ts` (433 linhas, 5 hooks TanStack React Query) →
+(legado) src/hooks/useDatabase/entries.ts (433 linhas, 5 hooks TanStack React Query) →
 `src/features/entradas/` usando RTK Query.
 
 ### Superfície atual (evidência coletada em 2026-08-10)
@@ -69,7 +69,7 @@ agora que há endpoints reais.
 
 ### 3. Integração (barrel de transição)
 
-- `src/hooks/useDatabase/entries.ts` **deletado**; o barrel `useDatabase/index.ts`
+- (legado) src/hooks/useDatabase/entries.ts **deletado**; o barrel `useDatabase/index.ts`
   passa a reexportar os 5 hooks de `@/features/entradas` (transição — ao final da P1,
   consumidores apontam direto para features; barrel removido).
 - `src/features/entradas/index.ts` (barrel, rule-40): reexporta api endpoints hooks
@@ -100,7 +100,7 @@ DeleteEntryDialog → deleteEntryM.mutateAsync(entry) → trigger(deleteEntry) �
 
 - [ ] `src/features/entradas/` com barrel `index.ts` (rule-40) e 5 hooks de compat com
       o mesmo shape público (nenhum consumidor quebrado).
-- [ ] `src/hooks/useDatabase/entries.ts` removido; barrel reexporta de `@/features/entradas`.
+- [ ] (legado) src/hooks/useDatabase/entries.ts removido; barrel reexporta de `@/features/entradas`.
 - [ ] Store registra `baseApi` (reducer + middleware); `tagTypes` definidos.
 - [ ] Testes novos verdes + suíte completa, lint, typecheck, `rule:40`, `pre-pr`.
 - [ ] Nenhuma lib de UI nova (Blueprint §6); grafo 0 ciclos.

@@ -58,7 +58,7 @@ público `useAuth()` intacto para os 17 consumidores atuais.
 - `src/hooks/useDatabase/programs.ts` (só import de `useAuth` → `@/features/auth`)
 - `src/hooks/useDatabase/origemTypes.ts` (só import de `useAuth` → `@/features/auth`)
 - `src/hooks/useDatabase/accounts.ts` (só import de `useAuth` → `@/features/auth`)
-- `src/hooks/useDatabase/entries.ts` (só import de `useAuth` → `@/features/auth`)
+- (legado) src/hooks/useDatabase/entries.ts (só import de `useAuth` → `@/features/auth`)
 - `src/hooks/useDatabase/sales.ts` (só import de `useAuth` → `@/features/auth`)
 - `src/hooks/useDatabase/clients.ts` (só import de `useAuth` → `@/features/auth`)
 - `tests/unit/auth-slice.test.ts` (novo — teste do slice + store)

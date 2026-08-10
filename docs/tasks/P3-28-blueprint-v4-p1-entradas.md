@@ -12,7 +12,7 @@
 | `capability` | implementation |
 
 ## Objetivo
-Migrar o domínio **entradas** de `src/hooks/useDatabase/entries.ts` (433 linhas,
+Migrar o domínio **entradas** de (legado) src/hooks/useDatabase/entries.ts (433 linhas,
 5 hooks TanStack React Query) para `src/features/entradas/` usando **RTK Query**,
 preservando o contrato público dos 5 hooks via wrappers de compatibilidade — nenhum
 consumidor (DataContext, Entradas.tsx, DeleteEntryDialog) quebra.
@@ -37,7 +37,7 @@ consumidor (DataContext, Entradas.tsx, DeleteEntryDialog) quebra.
 - `src/features/entradas/index.ts` (novo — barrel, rule-40)
 - `src/features/entradas/entradasApi.ts` (novo — injectEndpoints: getEntries/addEntry/confirmEntry/updateEntry/deleteEntry)
 - `src/features/entradas/hooks.ts` (novo — wrappers de compat com shape TanStack)
-- `src/hooks/useDatabase/entries.ts` (remover — migrado)
+- (legado) src/hooks/useDatabase/entries.ts (remover — migrado)
 - `src/hooks/useDatabase/index.ts` (reexport dos 5 hooks de `@/features/entradas`)
 - `src/features/store.ts` (registrar `baseApi.reducer` + middleware)
 - `src/features/api/baseApi.ts` (tagTypes entries/accounts)
@@ -50,7 +50,7 @@ consumidor (DataContext, Entradas.tsx, DeleteEntryDialog) quebra.
 
 ## Critérios de aceite
 - [ ] `src/features/entradas/` com barrel `index.ts` (rule-40) e 5 hooks de compat com shape público preservado.
-- [ ] `src/hooks/useDatabase/entries.ts` removido; barrel reexporta de `@/features/entradas`.
+- [ ] (legado) src/hooks/useDatabase/entries.ts removido; barrel reexporta de `@/features/entradas`.
 - [ ] Store registra `baseApi` (reducer + middleware); `tagTypes` entries/accounts.
 - [ ] Testes novos verdes + suíte completa (`npm run test`), lint, typecheck.
 - [ ] `npm run rule:40` verde; `npm run pre-pr` verde; PR único para `main`.
