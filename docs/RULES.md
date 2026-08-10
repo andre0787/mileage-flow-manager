@@ -48,4 +48,6 @@
 | 37 | Integração RTK ativa | `rule-37-rtk.mjs` | automática |
 | 38 | Code Review Gate (subagente) | `rule-38-code-review-gate.mjs` | automática |
 | 39 | Coding Gate (subagente) | `rule-39-coding-gate.mjs` | automática |
+| 40 | Estrutura Feature-First (barrel + RLS) | `rule-40-architect.mjs` | automática |
+| 41 | Hard limit 150 linhas (diff-scoped) | `rule-41-optimizer.mjs` | automática |
 | escopo | Diff dentro de `arquivosPermitidos` do card ativo | `rule-scope.mjs` | automática |

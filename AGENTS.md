@@ -52,6 +52,8 @@ Antes de cada `subagent_gate`, resolva a tarefa com `npm run llm:route`. Use exa
 36. **Integração RTK ativa** — a extensão `.pi/extensions/rtk.ts` deve existir (versionada) e o binário `rtk` local deve ser >= 0.23.0; ausência do binário é skip não-falho (fail-open). Valida: `rule-37`.
 37. **🔎 Code Review Gate** — todo PR exige revisão de código feita por **subagente especializado** (evidência: evento `code-review:done` com `subagent:true` na branch atual). Sem evidência, o pre-pr falha. Aplicado em `requesting-code-review`. Valida: `rule-38`.
 38. **🛠️ Coding Gate** — toda mudança de código (src/, scripts/, tests/, .pi/) exige execução por **subagente especializado** (evidência: evento `coding:done` com `subagent:true` na branch atual). Sem evidência, o pre-pr falha. Aplicado em `subagent-driven-development` / `dispatching-parallel-agents`. Valida: `rule-39`.
+40. **📐 Architect Gate** — estrutura Feature-First: módulos em `src/features/[feature]` com barrel `index.ts` e RLS verificado (`CREATE POLICY` com `USING (auth.uid())` em `supabase/migrations/`); vacuous se `src/features/` não existe. Valida: `rule-40`.
+41. **🧹 Optimizer Gate** — hard limit de 150 linhas por arquivo em `src/` (diff-scoped contra main); arquivos novos grandes e arquivos que passam do limite falham; legados já grandes são grandfathered (warning). Aplicado no workflow refactor. Valida: `rule-41`.
 
 ## 🎯 Sistema de Categorias (LAZY LOADING)
 
