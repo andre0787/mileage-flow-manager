@@ -35,7 +35,8 @@ público `useAuth()` intacto para os 17 consumidores atuais.
 - rule-31/32: libs e hooks customizados novos exigem teste unitário.
 
 ## Arquivos permitidos
-- `package.json` + `package-lock.json` (adicionar `@reduxjs/toolkit`, `react-redux`)
+- `package.json` (adicionar `@reduxjs/toolkit`, `react-redux`)
+- `package-lock.json` (lockfile atualizado)
 - `src/features/store.ts` (novo — `configureStore` + hooks tipados)
 - `src/features/api/baseApi.ts` (novo — `createApi` RTK Query base)
 - `src/features/api/index.ts` (novo — barrel da feature api, exigido pela rule-40)
@@ -64,8 +65,14 @@ público `useAuth()` intacto para os 17 consumidores atuais.
 - `tests/unit/features-auth.test.ts` (novo — teste do provider/hook)
 - `docs/MAP.md` (registro da spec/card — rule-17)
 - `docs/tasks/ROADMAP.md` (estado do card)
-- `docs/RADAR.md`, `docs/tracking/events.jsonl`, `docs/tracking/quality.jsonl` (artefatos gerados)
+- `docs/RADAR.md` (artefato gerado)
+- `docs/tracking/events.jsonl` (artefato gerado)
+- `docs/tracking/quality.jsonl` (artefato gerado)
 - `docs/handoff.md`
+- `docs/ARCHITECTURE.md` (drift: remover AuthContext da árvore)
+- `docs/superpowers/specs/2026-08-10-blueprint-v4-p0-design.md` (refs sem backticks)
+- `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-foundation-auth-design.md` (nova spec — rule-28)
+- `docs/tasks/P3-26-blueprint-v4-p0.md` (estado done — P0 concluída)
 
 ## Critérios de aceite
 - [ ] `@reduxjs/toolkit` + `react-redux` em `package.json` (sem lib de UI nova).

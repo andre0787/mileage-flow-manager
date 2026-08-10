@@ -64,6 +64,7 @@ Pré-requisito de tudo o que segue. Sem P0, qualquer protocolo de agente é só 
 | [P3-23](P3-23-delete-archive-debris.md) | Deletar 5 artefatos obsoletos do archive | done ✅ |
 | [P3-24](P3-24-retire-changelog.md) | Retirar CHANGELOG.md obsoleto + atualizar verify-docs | done ✅ |
 | [P3-25](P3-25-clean-thoughts.md) | Limpar docs/thoughts/ — converter pensamento stale em issue | done ✅ |
+| [P3-26](P3-26-blueprint-v4-p0.md) | Blueprint v4.0 P0 — infraestrutura Feature-First (grafo, sync-map, rules 40/41) | done ✅ |
 
 ### 🔴 Blueprint v4.0 P1 — Feature-First + RTK Query (um domínio por PR)
 
