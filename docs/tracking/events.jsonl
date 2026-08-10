@@ -1541,3 +1541,5 @@
 {"timestamp":"2026-08-10T00:03:35.177Z","type":"pr:create","description":"PR #330 aberto — P2-21 métricas do programa","branch":"feat/p2-21-metricas-programa","commit":"e92752b","agent":"pi","pr":330,"base":"main"}
 {"timestamp":"2026-08-10T00:07:46.868Z","type":"pr:merge","description":"PR #330 mergeado — P2-21 métricas do programa (bf366cc)","branch":"feat/p2-21-metricas-programa","commit":"bf366cc","agent":"pi","pr":330,"mergeCommit":"bf366cc"}
 {"timestamp":"2026-08-10T00:08:31.259Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/handoff-pr330-merged","commit":"bf366cc","agent":"pi","errors":0}
+{"timestamp":"2026-08-10T00:10:59.890Z","type":"healed","description":"rule-17-new-docs-valid auto-corrigido","branch":"docs/p2-21-card-done","commit":"a1e3d48","agent":"pi","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-10T00:11:00.181Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/p2-21-card-done","commit":"a1e3d48","agent":"pi","errors":0}
