@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>blueprint-v4-p1-clientes — refactor blueprint v4 p1 clientes</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 refactor blueprint v4 p1 clientes</h1>
+  <p class="meta">2026-08-10 14:50 &middot; refactor/blueprint-v4-p1-clientes &middot; 7c17a12 — refactor(clientes): migra domínio para RTK Query</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">blueprint-v4-p1-clientes</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">28</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+736</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-157</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~842</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🔌 Hooks testados em tela real?</li>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Auto-gerado pelo pre-pr-check</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Relatório gerado automaticamente como parte do workflow de validação pré-PR</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 157 remoções — 1122 linhas tocadas</td>
+        <td>✨ 736 adições — 28 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/MAP.md, docs/RADAR.md, docs/handoff.md, docs/tasks/P3-27-blueprint-v4-p1-foundation-auth.md<br><span style="color:#166534;font-weight:600">➕</span> docs/superpowers/specs/2026-08-10-blueprint-v4-p1-clientes-design.md<br><em>+23 arquivo(s)</em></td>
+      </tr>
+      
+      <tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>28</td></tr>
+    <tr><td>Adições</td><td>+736</td></tr>
+    <tr><td>Remoções</td><td>-157</td></tr>
+    <tr><td>Tokens estimados</td><td>~842</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:66">+552 add</div>
+        <div class="del" style="flex:14">-118 del</div>
+        <div class="overhead" style="flex:20">~172 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+552</td><td>66%</td></tr>
+      <tr><td>Remoções</td><td>-118</td><td>14%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~172</td><td>20%</td></tr>
+      <tr><th>Total</th><th>~842</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-08-10-blueprint-v4-p1-clientes-design.md</td></tr>
+<tr><td>M</td><td>docs/tasks/P3-27-blueprint-v4-p1-foundation-auth.md</td></tr>
+<tr><td>M</td><td>docs/tasks/P3-30-blueprint-v4-p1-clientes.md</td></tr>
+<tr><td>M</td><td>docs/tasks/ROADMAP.md</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>package.json</td></tr>
+<tr><td>M</td><td>scripts/pre-pr-check.mjs</td></tr>
+<tr><td>M</td><td>src/features/api/baseApi.ts</td></tr>
+<tr><td>A</td><td>src/features/clientes/addClient.ts</td></tr>
+<tr><td>A</td><td>src/features/clientes/clientesApi.ts</td></tr>
+<tr><td>A</td><td>src/features/clientes/deleteClient.ts</td></tr>
+<tr><td>A</td><td>src/features/clientes/getClients.ts</td></tr>
+<tr><td>A</td><td>src/features/clientes/hooks.ts</td></tr>
+<tr><td>A</td><td>src/features/clientes/index.ts</td></tr>
+<tr><td>A</td><td>src/features/clientes/mutationHooksBasic.ts</td></tr>
+<tr><td>A</td><td>src/features/clientes/mutationHooksLifecycle.ts</td></tr>
+<tr><td>A</td><td>src/features/clientes/shared.ts</td></tr>
+<tr><td>A</td><td>src/features/clientes/updateClient.ts</td></tr>
+<tr><td>D</td><td>src/hooks/useDatabase/clients.ts</td></tr>
+<tr><td>M</td><td>src/hooks/useDatabase/index.ts</td></tr>
+<tr><td>M</td><td>tests/unit/cache-invalidation.test.ts</td></tr>
+<tr><td>A</td><td>tests/unit/features-clientes-api.test.ts</td></tr>
+<tr><td>A</td><td>tests/unit/features-clientes-hooks.test.ts</td></tr>
+<tr><td>M</td><td>tests/unit/scripts-pre-pr.test.ts</td></tr>
+  </table>
+
+  
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/docs/MAP.md b/docs/MAP.md
+index c24ccb1..257f621 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -238,13 +238,45 @@ src/
+ │   │   ├── AuthProvider.tsx
+ │   │   ├── authSlice.ts
+ │   │   └── index.ts
+<span class="add">+│   ├── clientes/</span>
+<span class="add">+│   │   ├── addClient.ts</span>
+<span class="add">+│   │   ├── clientesApi.ts</span>
+<span class="add">+│   │   ├── deleteClient.ts</span>
+<span class="add">+│   │   ├── getClients.ts</span>
+<span class="add">+│   │   ├── hooks.ts</span>
+<span class="add">+│   │   ├── index.ts</span>
+<span class="add">+│   │   ├── mutationHooksBasic.ts</span>
+<span class="add">+│   │   ├── mutationHooksLifecycle.ts</span>
+<span class="add">+│   │   ├── shared.ts</span>
+<span class="add">+│   │   └── updateClient.ts</span>
+<span class="add">+│   ├── contas/</span>
+<span class="add">+│   │   ├── addAccount.ts</span>
+<span class="add">+│   │   ├── contasApi.ts</span>
+<span class="add">+│   │   ├── deleteAccount.ts</span>
+<span class="add">+│   │   ├── getAccounts.ts</span>
+<span class="add">+│   │   ├── hooks.ts</span>
+<span class="add">+│   │   ├── index.ts</span>
+<span class="add">+│   │   ├── mutationHooksBasic.ts</span>
+<span class="add">+│   │   ├── mutationHooksLifecycle.ts</span>
+<span class="add">+│   │   ├── recalcAccount.ts</span>
+<span class="add">+│   │   ├── shared.ts</span>
+<span class="add">+│   │   └── updateAccount.ts</span>
+<span class="add">+│   ├── entradas/</span>
+<span class="add">+│   │   ├── addEntry.ts</span>
+<span class="add">+│   │   ├── confirmEntry.ts</span>
+<span class="add">+│   │   ├── deleteEntry.ts</span>
+<span class="add">+│   │   ├── entradasApi.ts</span>
+<span class="add">+│   │   ├── getEntries.ts</span>
+<span class="add">+│   │   ├── hooks.ts</span>
+<span class="add">+│   │   ├── index.ts</span>
+<span class="add">+│   │   ├── mutationHooksBasic.ts</span>
+<span class="add">+│   │   ├── mutationHooksLifecycle.ts</span>
+<span class="add">+│   │   ├── shared.ts</span>
+<span class="add">+│   │   └── updateEntry.ts</span>
+ │   └── store.ts
+ ├── hooks/
+ │   ├── useDatabase/
+<span class="del">-│   │   ├── accounts.ts</span>
+ │   │   ├── alerts.ts
+<span class="del">-│   │   ├── clients.ts</span>
+<span class="del">-│   │   ├── entries.ts</span>
+ │   │   ├── index.ts
+ │   │   ├── mappers.ts
+ │   │   ├── origemTypes.ts
+@@ -335,3 +367,4 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
+ | `docs/tasks/P3-35-blueprint-v4-p1-dashboard.md` (auto) | 2026-08-10 |
+ | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-entradas-design.md` (auto) | 2026-08-10 |
+ | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-contas-design.md` (auto) | 2026-08-10 |
+<span class="add">+| `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-clientes-design.md` (auto) | 2026-08-10 |</span>
+diff --git a/docs/RADAR.md b/docs/RADAR.md
+index 8c110bc..df4ad47 100644
+<span class="del">--- a/docs/RADAR.md</span>
+<span class="add">+++ b/docs/RADAR.md</span>
+@@ -1,6 +1,6 @@
+ # 🔭 Radar de Vulnerabilidades
+ 
+<span class="del">-&gt; Atualizado em: 2026-08-10T12:36:25.032Z</span>
+<span class="add">+&gt; Atualizado em: 2026-08-10T17:09:07.116Z</span>
+ 
+ ## ✅ Radar Limpo
+ Nenhuma vulnerabilidade ativa detectada.
+diff --git a/docs/handoff.md b/docs/handoff.md
+index 767a775..3101774 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -9,27 +9,27 @@
+ ### 🐞 Bugs Abertos
+ Consulte as GitHub Issues para a lista atual.
+ ## 🧭 Estado Atual
+<span class="del">-- **Branch:** `refactor/blueprint-v4-p1-contas`</span>
+<span class="del">-- **Último commit:** `7a4bacb — Merge pull request #337 from andre0787/refactor/blueprint-v4-p1-entradas`</span>
+<span class="del">-- **Remote:** origin/main</span>
+<span class="add">+- **Branch:** `refactor/blueprint-v4-p1-clientes`</span>
+<span class="add">+- **Último commit:** `abf072a — Merge pull request #339 from andre0787/refactor/blueprint-v4-p1-contas`</span>
+<span class="add">+- **Remote:** no remote</span>
+ ### 📋 PRs Abertos
+ Nenhum PR aberto.
+ ### 📊 Métricas (estimativa local)
+ | Métrica | Valor |
+ |---------|-------|
+<span class="del">-| Total testes | 547 |</span>
+<span class="add">+| Total testes | 575 |</span>
+ | Docs issues | 0 |
+<span class="del">-| Branch | main |</span>
+<span class="add">+| Branch | refactor/blueprint-v4-p1-clientes |</span>
+ 
+ ---
+ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
+ ## 🎯 Sessão Atual
+ **Categoria:** refactor
+<span class="del">-**Objetivo:** Blueprint v4.0 P1 item 2 — domínio entradas (RTK Query)</span>
+<span class="del">-**Status:** in_progress</span>
+<span class="add">+**Objetivo:** P3-30 — Blueprint v4.0 P1 domínio clientes (RTK Query)</span>
+<span class="add">+**Status:** review</span>
+ **Iniciada em:** 2026-08-10T04:19:43.309Z
+<span class="del">-**Branch:** `refactor/blueprint-v4-p1-contas`</span>
+<span class="del">-**Último commit:** bb2c18e — Merge pull request #336 from andre0787/docs/blueprint-v4-p1-handoff</span>
+<span class="add">+**Branch:** `refactor/blueprint-v4-p1-clientes`</span>
+<span class="add">+**Último commit:** abf072a — Merge pull request #339 from andre0787/refactor/blueprint-v4-p1-contas</span>
+ **Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
+ ## ✅ Última Sessão
+ Estado atualizado automaticamente.
+@@ -51,3 +51,4 @@ Continue a tarefa ativa ou selecione o próximo task-card.
+ - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd &lt;repo&gt;`).
+ 
+ 
+<span class="add">+</span>
+diff --git a/docs/superpowers/specs/2026-08-10-blueprint-v4-p1-clientes-design.md b/docs/superpowers/specs/2026-08-10-blueprint-v4-p1-clientes-design.md
+new file mode 100644
+index 0000000..2cab4d5
+<span class="del">--- /dev/null</span>
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>

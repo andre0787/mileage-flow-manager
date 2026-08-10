@@ -9,27 +9,27 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `refactor/blueprint-v4-p1-contas`
-- **Último commit:** `7a4bacb — Merge pull request #337 from andre0787/refactor/blueprint-v4-p1-entradas`
-- **Remote:** origin/main
+- **Branch:** `refactor/blueprint-v4-p1-clientes`
+- **Último commit:** `abf072a — Merge pull request #339 from andre0787/refactor/blueprint-v4-p1-contas`
+- **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 547 |
+| Total testes | 575 |
 | Docs issues | 0 |
-| Branch | main |
+| Branch | refactor/blueprint-v4-p1-clientes |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** refactor
-**Objetivo:** Blueprint v4.0 P1 item 2 — domínio entradas (RTK Query)
-**Status:** in_progress
+**Objetivo:** P3-30 — Blueprint v4.0 P1 domínio clientes (RTK Query)
+**Status:** review
 **Iniciada em:** 2026-08-10T04:19:43.309Z
-**Branch:** `refactor/blueprint-v4-p1-contas`
-**Último commit:** bb2c18e — Merge pull request #336 from andre0787/docs/blueprint-v4-p1-handoff
+**Branch:** `refactor/blueprint-v4-p1-clientes`
+**Último commit:** abf072a — Merge pull request #339 from andre0787/refactor/blueprint-v4-p1-contas
 **Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
@@ -49,5 +49,6 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
 - **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
+
 
 

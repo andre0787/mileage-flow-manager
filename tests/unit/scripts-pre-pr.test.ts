@@ -31,7 +31,7 @@ describe("pre-pr-check com controle de diff e git info", () => {
 
   it("deve falhar reclamando de relatorio ausente se houver diff de codigo mas sem html de relatorio", () => {
     try {
-      execSync(`node "${SCRIPT}" --strict`, {
+      execSync(`node "${SCRIPT}" --strict --no-report`, {
         cwd: ROOT,
         env: {
           ...process.env,

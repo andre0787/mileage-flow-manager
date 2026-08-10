@@ -1639,3 +1639,32 @@
 {"timestamp":"2026-08-10T12:58:11.285Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-contas","commit":"7cd76aa","agent":"pi","errors":0}
 {"timestamp":"2026-08-10T12:59:37.708Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-contas","commit":"6715174","agent":"pi","errors":0}
 {"timestamp":"2026-08-10T13:01:53.008Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-contas","commit":"052fc4d","agent":"pi","errors":0}
+{"timestamp":"2026-08-10T16:16:28.978Z","type":"llm.route.resolved","description":"LLM route resolved","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","taskId":"P3-30","category":"refactor","capability":null,"profile":"coding","model":"opencode/deepseek-v4-flash-free","fallbackModels":[],"source":"manual","retrySafety":"may-write","configVersion":1,"skills":[]}
+{"timestamp":"2026-08-10T16:24:53.650Z","type":"coding:done","description":"P3-30 clientes migrado para RTK Query","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","subagent":true,"taskId":"P3-30"}
+{"timestamp":"2026-08-10T16:27:27.724Z","type":"healed","description":"rule-26 auto-corrigido","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-08-10T16:27:33.824Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-10T16:27:33.859Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-10T16:27:33.893Z","type":"rule:fail","description":"rule-scope falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-scope"}
+{"timestamp":"2026-08-10T16:29:33.590Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-10T16:29:33.624Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-10T16:29:33.657Z","type":"rule:fail","description":"rule-scope falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-scope"}
+{"timestamp":"2026-08-10T16:30:52.304Z","type":"rule:fail","description":"rule-scope falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-scope"}
+{"timestamp":"2026-08-10T16:31:15.879Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","errors":0}
+{"timestamp":"2026-08-10T16:36:02.382Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-10T16:36:02.419Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-10T16:36:02.455Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-10T16:36:02.491Z","type":"rule:fail","description":"rule-scope falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-scope"}
+{"timestamp":"2026-08-10T16:52:09.630Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-10T16:52:09.662Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-10T16:52:09.698Z","type":"rule:fail","description":"rule-scope falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-scope"}
+{"timestamp":"2026-08-10T17:01:23.163Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-10T17:01:23.197Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-10T17:01:23.230Z","type":"rule:fail","description":"rule-scope falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-scope"}
+{"timestamp":"2026-08-10T17:12:39.651Z","type":"code-review:done","description":"Review P3-30 aprovado por subagente","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","subagent":true,"verdict":"approved","taskId":"P3-30"}
+{"timestamp":"2026-08-10T17:12:46.839Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-10T17:33:38.971Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-10T17:33:39.004Z","type":"rule:fail","description":"rule-scope falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-scope"}
+{"timestamp":"2026-08-10T17:37:46.194Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-10T17:41:02.616Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-10T17:50:04.559Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-clientes","commit":"abf072a","agent":"pi","errors":0}
+{"timestamp":"2026-08-10T17:51:43.574Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-clientes","commit":"7c17a12","agent":"pi","errors":0}
