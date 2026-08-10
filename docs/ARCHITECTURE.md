@@ -25,7 +25,6 @@ src/
 │   ├── ProtectedRoute.tsx
 │   └── SkeletonLoader.tsx
 ├── contexts/
-│   ├── AuthContext.tsx       # Auth + sessão
 │   ├── DataContext.tsx       # Dados + isLoading + clearCache + clearAccountData
 │   ├── I18nContext.tsx       # Internacionalização (Sprint #10)
 │   └── OnlineContext.tsx     # Estado da conexão

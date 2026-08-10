@@ -4,7 +4,7 @@
 |-------|-------|
 | `id` | P3-33 |
 | `categoria` | refactor |
-| `onda` | Blueprint v4.0 P1 |
+| `onda` | P1-A |
 | `baseBranch` | main |
 | `estado` | pending |
 | `origem` | Blueprint MilesControl v4.0 (ground truth do usuário), fase P1 |
@@ -25,6 +25,15 @@ Card placeholder — preenchido no início da execução (spec em
 ## Arquivos permitidos
 - (preenchido na execução)
 
+## Critérios de aceite
+- [ ] Hooks do domínio relatorios migrados para RTK Query em `src/features/relatorios/`.
+- [ ] Barrel `index.ts` presente (rule-40) e `npm run rule:40` verde.
+- [ ] Suíte completa verde (`npm run test`), lint, typecheck.
+
+## Riscos / Invariantes
+- Manter contrato público dos hooks consumidos pelas páginas (sem quebra de API).
+- Não remover TanStack React Query até todos os domínios migrados.
+
 ## Testes obrigatórios
 - `npm run test` (unit), `npm run lint`, `npm run typecheck`
 - `npm run rule:40`, `npm run pre-pr`
@@ -32,4 +41,3 @@ Card placeholder — preenchido no início da execução (spec em
 ## Evidência de pronto
 - Spec + `npm run pre-pr` verde; PR único para `main` com eventos
   `coding:done`/`code-review:done` (subagent:true).
-

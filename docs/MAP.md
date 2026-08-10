@@ -227,10 +227,18 @@ src/
 │   ├── ThemeToggle.tsx
 │   └── TransferForm.tsx
 ├── contexts/
-│   ├── AuthContext.tsx
 │   ├── DataContext.tsx
 │   ├── I18nContext.tsx
 │   └── OnlineContext.tsx
+├── features/
+│   ├── api/
+│   │   ├── baseApi.ts
+│   │   └── index.ts
+│   ├── auth/
+│   │   ├── AuthProvider.tsx
+│   │   ├── authSlice.ts
+│   │   └── index.ts
+│   └── store.ts
 ├── hooks/
 │   ├── useDatabase/
 │   │   ├── accounts.ts
