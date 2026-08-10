@@ -157,3 +157,6 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/conventions/bugfix.md` (auto) | 2026-08-09 |
 | `docs/conventions/workflow.md` (auto) | 2026-08-09 |
 | `docs/superpowers/specs/2026-08-09-conventions-split-design.md` (auto) | 2026-08-09 |
+| `docs/superpowers/specs/2026-08-09-p2-21-metrics-design.md` (auto) | 2026-08-09 |
+| `docs/metrics/2026-08-09-metrics.md` (auto) | 2026-08-09 |
+| `docs/superpowers/plans/2026-08-09-p2-21-metrics.md` (auto) | 2026-08-09 |

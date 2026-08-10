@@ -1,0 +1,79 @@
+{
+  "generatedAt": "2026-08-09T23:57:17.288Z",
+  "since": "2026-07-01",
+  "coverageSince": "2026-07-28T23:18:00.848Z",
+  "totals": {
+    "prs": 290,
+    "merged": 280,
+    "covered": 104
+  },
+  "byCategory": {
+    "docs": 53,
+    "refactor": 5,
+    "chore": 82,
+    "bugfix": 57,
+    "feature": 69,
+    "outro": 24
+  },
+  "greenFirst": {
+    "total": 104,
+    "green": 44
+  },
+  "cycleHours": 0.4,
+  "rework": {
+    "prsWithFails": 36,
+    "totalRuleFails": 251
+  },
+  "e2eSkips": {
+    "total": 34,
+    "byDesign": 32
+  },
+  "bypassProxy": [
+    322,
+    319,
+    316,
+    314,
+    313,
+    312,
+    304,
+    303,
+    302,
+    287,
+    280,
+    278,
+    276,
+    274,
+    272,
+    267,
+    263,
+    261,
+    259,
+    249,
+    245,
+    244,
+    240,
+    239,
+    237,
+    227,
+    223,
+    222
+  ],
+  "byModel": [
+    {
+      "model": "sem-modelo",
+      "count": 1499
+    },
+    {
+      "model": "openai-codex/gpt-5.4-mini",
+      "count": 14
+    },
+    {
+      "model": "openai-codex/gpt-5.6-luna",
+      "count": 1
+    },
+    {
+      "model": "opencode/deepseek-v4-flash-free",
+      "count": 23
+    }
+  ]
+}
