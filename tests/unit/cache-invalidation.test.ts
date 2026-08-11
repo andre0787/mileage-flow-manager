@@ -7,7 +7,6 @@ const MUTATION_FILES = [
   "src/hooks/useDatabase/origemTypes.ts",
   "src/hooks/useDatabase/owners.ts",
   "src/hooks/useDatabase/programs.ts",
-  "src/hooks/useDatabase/sales.ts",
   "src/hooks/useDatabase/shared.ts",
 ];
 
@@ -24,6 +23,14 @@ const CLIENTS_RTK_FILES = [
   "src/features/clientes/addClient.ts",
   "src/features/clientes/updateClient.ts",
   "src/features/clientes/deleteClient.ts",
+];
+const VENDAS_RTK_FILES = [
+  "src/features/vendas/mutationHooksBasic.ts",
+  "src/features/vendas/mutationHooksLifecycle.ts",
+  "src/features/vendas/addVenda.ts",
+  "src/features/vendas/updateVenda.ts",
+  "src/features/vendas/deleteVenda.ts",
+  "src/features/vendas/cancelVenda.ts",
 ];
 
 describe("atualização do cache após mutations", () => {
@@ -55,6 +62,14 @@ describe("atualização do cache após mutations", () => {
       const source = readFileSync(resolve(ROOT, relativePath), "utf8");
       expect(source, relativePath).toMatch(/invalidatesTags:/);
       expect(source, relativePath).toMatch(/["']clients["']/);
+    }
+  });
+
+  it("invalida sales/accounts nos wrappers e endpoints de vendas migrados", () => {
+    for (const relativePath of VENDAS_RTK_FILES) {
+      const source = readFileSync(resolve(ROOT, relativePath), "utf8");
+      expect(source, relativePath).toMatch(/sales/);
+      expect(source, relativePath).toMatch(/accounts/);
     }
   });
 });

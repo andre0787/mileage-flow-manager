@@ -41,7 +41,7 @@ export {
   useUpdateSaleMutation,
   useDeleteSaleMutation,
   useCancelSaleMutation,
-} from "./sales";
+} from "@/features/vendas";
 export {
   useClientsQuery,
   useAddClientMutation,
