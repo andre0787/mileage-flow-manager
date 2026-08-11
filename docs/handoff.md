@@ -1,5 +1,5 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-08-10
+> ⏰ Última atualização: 2026-08-11
 > Anterior: 2026-08-10
 ---
 ## 🏗️ Projeto
@@ -9,9 +9,27 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `feat/P3-31-blueprint-v4-p1-vendas`
-- **Último commit:** `87c8e2a — Merge pull request #340 from andre0787/refactor/blueprint-v4-p1-clientes`
-- **Remote:** no remote
+- **Branch:** `main`
+- **Último commit:** `a7d6767 — Merge pull request #342 (chore/P3-31-close-docs)`
+- **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
+
+### ✅ Tarefa P3-31 concluída (produção)
+- **PR #341** — `refactor(vendas): migra domínio para RTK Query` **merged** em main (`8a53e70`)
+- **PR #342** — `chore(P3-31): finaliza card done e eventos` **merged** em main (`a7d6767`)
+- Domínio **vendas** migrado de TanStack React Query para **RTK Query** no padrão canônico
+  (`baseApi.injectEndpoints`): `src/features/vendas/` com 5 endpoints
+  (get/add/update/delete/cancelVenda), tags `sales`/`accounts`, barrel
+  `src/hooks/useDatabase/index.ts` reexportando `useSales*` (contrato público preservado),
+  (removido) src/hooks/useDatabase/sales.ts (spec exige).
+- Validações: 71 arquivos/620 testes ✅ | lint 0 erros ✅ | typecheck ✅ |
+  rule:40 ✅ | pre-pr 0 errors ✅ | code review por subagente APPROVE
+  (eventos `coding:done`/`code-review:done` com `subagent:true`).
+- Cards: P3-29/P3-30/P3-31 marcados `done`.
+
+### 🔄 Próximo passo sugerido
+- Migrar próximos domínios legados de `src/hooks/useDatabase/` para RTK Query
+  (alerts, owners, programs, origemTypes) — mesmo padrão do P3-31.
+
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
@@ -28,7 +46,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 **Objetivo:** migração do domínio vendas para RTK Query
 **Status:** in_progress
 **Iniciada em:** 2026-08-10T21:06:41.671Z
-**Branch:** `chore/P3-31-close-docs`
+**Branch:** `chore/P3-31-handoff-final`
 **Último commit:** a18b8e3 — chore(pre-pr): registra validação P3-30
 **Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 ## ✅ Última Sessão

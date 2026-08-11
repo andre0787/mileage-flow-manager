@@ -1711,3 +1711,5 @@
 {"timestamp":"2026-08-11T04:39:19.759Z","type":"session:end","description":"Sessão P3-31 encerrada — task done, PR #341 merged","branch":"main","commit":"8a53e70","agent":"pi","taskId":"P3-31","pr":341}
 {"timestamp":"2026-08-11T04:39:56.005Z","type":"healed","description":"rule-26 auto-corrigido","branch":"chore/P3-31-close-docs","commit":"8a53e70","agent":"pi","rule":"rule-26"}
 {"timestamp":"2026-08-11T04:39:56.323Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/P3-31-close-docs","commit":"8a53e70","agent":"pi","errors":0}
+{"timestamp":"2026-08-11T04:44:27.008Z","type":"healed","description":"rule-26 auto-corrigido","branch":"chore/P3-31-handoff-final","commit":"a7d6767","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-08-11T04:45:20.697Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/P3-31-handoff-final","commit":"a7d6767","agent":"pi","errors":0}
