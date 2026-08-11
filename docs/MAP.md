@@ -369,3 +369,4 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-contas-design.md` (auto) | 2026-08-10 |
 | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-clientes-design.md` (auto) | 2026-08-10 |
 | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-vendas-design.md` (auto) | 2026-08-11 |
+| `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-alerts-design.md` (auto) | 2026-08-11 |

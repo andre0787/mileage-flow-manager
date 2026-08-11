@@ -12,14 +12,14 @@ CREATE TABLE IF NOT EXISTS account_alerts (
 ALTER TABLE account_alerts ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "Usuários podem inserir seus próprios alertas"
-  ON account_alerts FOR INSERT TO authenticated
+  ON public.account_alerts FOR INSERT TO authenticated
   WITH CHECK (auth.uid() = user_id);
 
 CREATE POLICY "Usuários podem ver seus próprios alertas"
-  ON account_alerts FOR SELECT TO authenticated
+  ON public.account_alerts FOR SELECT TO authenticated
   USING (auth.uid() = user_id);
 
 CREATE POLICY "Usuários podem atualizar seus próprios alertas"
-  ON account_alerts FOR UPDATE TO authenticated
+  ON public.account_alerts FOR UPDATE TO authenticated
   USING (auth.uid() = user_id)
   WITH CHECK (auth.uid() = user_id);

@@ -107,7 +107,7 @@ export interface AccountAlert {
 }
 ```
 
-### Hooks (`src/hooks/useDatabase/alerts.ts`)
+### Hooks do domínio alerts (migrado em P3-32 para src/features/alerts/)
 
 - `useAccountAlerts()` — `useQuery(["account_alerts", userId], ...)`, enabled com userId
 - `useAddAccountAlertMutation()` — insert `{ account_id, user_id, date, observation, read: false }` + `invalidateQueries(["account_alerts"], { refetchType: 'all' })`
