@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `a7d6767 — Merge pull request #342 (chore/P3-31-close-docs)`
+- **Último commit:** `3ca8646 — Merge pull request #346 from andre0787/chore/quality-nightly-update`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Tarefa P3-31 concluída (produção)
@@ -46,7 +46,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 **Objetivo:** migração do domínio vendas para RTK Query
 **Status:** in_progress
 **Iniciada em:** 2026-08-10T21:06:41.671Z
-**Branch:** `chore/P3-31-handoff-final`
+**Branch:** `docs/blueprint-v4-p1-reconcile-cards`
 **Último commit:** a18b8e3 — chore(pre-pr): registra validação P3-30
 **Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 ## ✅ Última Sessão

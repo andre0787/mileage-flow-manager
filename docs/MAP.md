@@ -361,10 +361,10 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/tasks/P3-29-blueprint-v4-p1-contas.md` (auto) | 2026-08-10 |
 | `docs/tasks/P3-30-blueprint-v4-p1-clientes.md` (auto) | 2026-08-10 |
 | `docs/tasks/P3-31-blueprint-v4-p1-vendas.md` (auto) | 2026-08-10 |
-| `docs/tasks/P3-32-blueprint-v4-p1-controle-cpf.md` (auto) | 2026-08-10 |
-| `docs/tasks/P3-33-blueprint-v4-p1-relatorios.md` (auto) | 2026-08-10 |
-| `docs/tasks/P3-34-blueprint-v4-p1-simulador-venda.md` (auto) | 2026-08-10 |
-| `docs/tasks/P3-35-blueprint-v4-p1-dashboard.md` (auto) | 2026-08-10 |
+| `docs/tasks/P3-32-blueprint-v4-p1-alerts.md` (auto) | 2026-08-11 |
+| `docs/tasks/P3-33-blueprint-v4-p1-owners.md` (auto) | 2026-08-11 |
+| `docs/tasks/P3-34-blueprint-v4-p1-programs.md` (auto) | 2026-08-11 |
+| `docs/tasks/P3-35-blueprint-v4-p1-origem-types.md` (auto) | 2026-08-11 |
 | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-entradas-design.md` (auto) | 2026-08-10 |
 | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-contas-design.md` (auto) | 2026-08-10 |
 | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-clientes-design.md` (auto) | 2026-08-10 |

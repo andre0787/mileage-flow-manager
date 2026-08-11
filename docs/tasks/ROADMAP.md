@@ -75,10 +75,10 @@ Pré-requisito de tudo o que segue. Sem P0, qualquer protocolo de agente é só 
 | [P3-29](P3-29-blueprint-v4-p1-contas.md) | Migração do domínio contas (RTK Query) | review |
 | [P3-30](P3-30-blueprint-v4-p1-clientes.md) | Migração do domínio clientes (RTK Query) | review |
 | [P3-31](P3-31-blueprint-v4-p1-vendas.md) | Migração do domínio vendas (RTK Query) | pending |
-| [P3-32](P3-32-blueprint-v4-p1-controle-cpf.md) | Migração do domínio controle-cpf (RTK Query) | pending |
-| [P3-33](P3-33-blueprint-v4-p1-relatorios.md) | Migração do domínio relatorios (RTK Query) | pending |
-| [P3-34](P3-34-blueprint-v4-p1-simulador-venda.md) | Migração do domínio simulador-venda (RTK Query) | pending |
-| [P3-35](P3-35-blueprint-v4-p1-dashboard.md) | Migração do domínio dashboard (RTK Query) | pending |
+| [P3-32](P3-32-blueprint-v4-p1-alerts.md) | Migração do domínio alerts (RTK Query) | pending |
+| [P3-33](P3-33-blueprint-v4-p1-owners.md) | Migração do domínio owners (RTK Query) | pending |
+| [P3-34](P3-34-blueprint-v4-p1-programs.md) | Migração do domínio programs (RTK Query) | pending |
+| [P3-35](P3-35-blueprint-v4-p1-origem-types.md) | Migração do domínio origem-types (RTK Query) | pending |
 
 ---
 
