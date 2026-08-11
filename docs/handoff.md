@@ -28,7 +28,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 **Objetivo:** migração do domínio vendas para RTK Query
 **Status:** in_progress
 **Iniciada em:** 2026-08-10T21:06:41.671Z
-**Branch:** `feat/P3-31-blueprint-v4-p1-vendas`
+**Branch:** `chore/P3-31-close-docs`
 **Último commit:** a18b8e3 — chore(pre-pr): registra validação P3-30
 **Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 ## ✅ Última Sessão
