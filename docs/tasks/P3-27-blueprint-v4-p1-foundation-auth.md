@@ -19,8 +19,8 @@ Instalar `@reduxjs/toolkit` + `react-redux`, criar a fundação Feature-First
 público `useAuth()` intacto para os 17 consumidores atuais.
 
 ## Não objetivos
-- Migrar domínios de dados (entradas, contas, clientes, vendas, controle-cpf,
-  relatorios, simulador-venda, dashboard) — cards P3-28..P3-35, um por PR.
+- Migrar domínios de dados (entradas, contas, clientes, vendas, alerts,
+  owners, programs, origem-types) — cards P3-28..P3-35, um por PR.
 - Substituir TanStack React Query nos hooks `useDatabase/*` (P3-28+).
 - Nenhuma lib de UI nova (proibição de escopo Blueprint §6).
 

@@ -18,8 +18,8 @@ preservando o contrato público dos 5 hooks via wrappers de compatibilidade — 
 consumidor (DataContext, Entradas.tsx, DeleteEntryDialog) quebra.
 
 ## Não objetivos
-- Migrar outros domínios (contas P3-29, clientes P3-30, vendas P3-31, controle-cpf
-  P3-32, relatorios P3-33, simulador-venda P3-34, dashboard P3-35).
+- Migrar outros domínios (contas P3-29, clientes P3-30, vendas P3-31, alerts
+  P3-32, owners P3-33, programs P3-34, origem-types P3-35).
 - Remover TanStack React Query (só após todos os domínios migrados).
 - Nenhuma lib de UI nova (proibição de escopo Blueprint §6).
 
