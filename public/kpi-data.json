@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T17:51:43.690Z",
+  "generatedAt": "2026-08-11T04:24:30.832Z",
   "months": [
     {
       "month": "2026-03",
@@ -158,9 +158,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 66.1,
-      "prePrTotal": 295,
-      "prePrPass": 195,
+      "prePrPassRate": 66.2,
+      "prePrTotal": 296,
+      "prePrPass": 196,
       "prePrFail": 100,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -169,11 +169,11 @@
         "twins": 0,
         "auth": 2
       },
-      "avgOutcomeGrade": 94.1,
+      "avgOutcomeGrade": 93.6,
       "topViolations": [
         {
           "rule": "rule-10-clean",
-          "count": 147
+          "count": 157
         },
         {
           "rule": "rule-26-session-started",
@@ -181,7 +181,7 @@
         },
         {
           "rule": "rule-scope",
-          "count": 24
+          "count": 32
         },
         {
           "rule": "rule-17-new-docs-valid",
@@ -189,23 +189,23 @@
         },
         {
           "rule": "rule-38-code-review-gate",
-          "count": 10
+          "count": 16
         }
       ],
       "healedByRule": {
         "rule-26": 31,
-        "rule-17-new-docs-valid": 12
+        "rule-17-new-docs-valid": 13
       },
       "gateBlockedByRule": {
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.4,
-      "branchesMerged": 64,
+      "branchesMerged": 65,
       "llmRouter": {
-        "resolved": 32,
+        "resolved": 33,
         "completed": 0,
         "failed": 10,
-        "unobserved": 19,
+        "unobserved": 20,
         "fallbackUsed": 0,
         "completionRate": 0,
         "fallbackRate": null,

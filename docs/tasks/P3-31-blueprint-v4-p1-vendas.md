@@ -6,7 +6,7 @@
 | `categoria` | refactor |
 | `onda` | P1-A |
 | `baseBranch` | main |
-| `estado` | pending |
+| `estado` | review |
 | `origem` | Blueprint MilesControl v4.0 (ground truth do usuário), fase P1 |
 | `dependeDe` | P3-27 (fundação Feature-First) |
 
@@ -23,7 +23,25 @@ Card placeholder — preenchido no início da execução (spec em
 `docs/superpowers/specs/` + INTENT gate + reconciliação com a realidade).
 
 ## Arquivos permitidos
-- (preenchido na execução)
+- `src/features/vendas/*`
+- `src/features/vendas`
+- `src/hooks/useDatabase/*`
+- `src/hooks/useDatabase/index.ts`
+- (removido) src/hooks/useDatabase/sales.ts (migração concluída em P3-31)
+- `src/hooks/useDatabase/mappers.ts`
+- `src/features/api/baseApi.ts`
+- `tests/unit/features-vendas-api.test.ts`
+- `tests/unit/features-vendas-hooks.test.ts`
+- `tests/unit/cache-invalidation.test.ts`
+- `docs/tasks/P3-31-blueprint-v4-p1-vendas.md`
+- `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-vendas-design.md`
+- `docs/MAP.md`
+- `docs/RADAR.md`
+- `docs/tracking/*`
+- `docs/tracking`
+- `docs/reports/*`
+- `docs/reports`
+- `docs/handoff.md`
 
 ## Critérios de aceite
 - [ ] Hooks do domínio vendas migrados para RTK Query em `src/features/vendas/`.

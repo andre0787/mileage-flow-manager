@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `refactor/blueprint-v4-p1-clientes`
-- **Último commit:** `abf072a — Merge pull request #339 from andre0787/refactor/blueprint-v4-p1-contas`
+- **Branch:** `feat/P3-31-blueprint-v4-p1-vendas`
+- **Último commit:** `87c8e2a — Merge pull request #340 from andre0787/refactor/blueprint-v4-p1-clientes`
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -25,11 +25,11 @@ Nenhum PR aberto.
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** refactor
-**Objetivo:** P3-30 — Blueprint v4.0 P1 domínio clientes (RTK Query)
-**Status:** review
-**Iniciada em:** 2026-08-10T04:19:43.309Z
-**Branch:** `refactor/blueprint-v4-p1-clientes`
-**Último commit:** abf072a — Merge pull request #339 from andre0787/refactor/blueprint-v4-p1-contas
+**Objetivo:** migração do domínio vendas para RTK Query
+**Status:** in_progress
+**Iniciada em:** 2026-08-10T21:06:41.671Z
+**Branch:** `feat/P3-31-blueprint-v4-p1-vendas`
+**Último commit:** a18b8e3 — chore(pre-pr): registra validação P3-30
 **Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
