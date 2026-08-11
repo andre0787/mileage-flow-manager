@@ -8,7 +8,7 @@ export {
   useAddOwnerMutation,
   useUpdateOwnerMutation,
   useDeleteOwnerMutation,
-} from "./owners";
+} from "@/features/owners";
 export {
   useProgramsQuery,
   useAddProgramMutation,

@@ -5,7 +5,6 @@ import { resolve } from "node:path";
 const ROOT = resolve(__dirname, "../..");
 const MUTATION_FILES = [
   "src/hooks/useDatabase/origemTypes.ts",
-  "src/hooks/useDatabase/owners.ts",
   "src/hooks/useDatabase/programs.ts",
   "src/hooks/useDatabase/shared.ts",
 ];
@@ -31,6 +30,12 @@ const VENDAS_RTK_FILES = [
   "src/features/vendas/updateVenda.ts",
   "src/features/vendas/deleteVenda.ts",
   "src/features/vendas/cancelVenda.ts",
+];
+const OWNERS_RTK_FILES = [
+  "src/features/owners/mutationHooksLifecycle.ts",
+  "src/features/owners/addOwner.ts",
+  "src/features/owners/updateOwner.ts",
+  "src/features/owners/deleteOwner.ts",
 ];
 
 describe("atualização do cache após mutations", () => {
@@ -71,5 +76,23 @@ describe("atualização do cache após mutations", () => {
       expect(source, relativePath).toMatch(/sales/);
       expect(source, relativePath).toMatch(/accounts/);
     }
+  });
+
+  it("invalida owners nos wrappers e endpoints de owners migrados", () => {
+    for (const relativePath of OWNERS_RTK_FILES) {
+      const source = readFileSync(resolve(ROOT, relativePath), "utf8");
+      expect(source, relativePath).toMatch(/owners/);
+    }
+    const lifecycle = readFileSync(
+      resolve(ROOT, "src/features/owners/mutationHooksLifecycle.ts"),
+      "utf8",
+    );
+    expect(lifecycle).toMatch(/invalidateTags\((?:INVALIDATE)\)/);
+    const endpoints = ["addOwner", "updateOwner", "deleteOwner"]
+      .map((n) =>
+        readFileSync(resolve(ROOT, `src/features/owners/${n}.ts`), "utf8"),
+      )
+      .join("\n");
+    expect(endpoints.match(/invalidatesTags: \["owners"\]/g)).toHaveLength(3);
   });
 });
