@@ -3,10 +3,9 @@ import { vendasApi } from "./vendasApi";
 
 export function useSalesQuery() {
   const userId = useUserId();
-  const { data, isLoading, isError, error, refetch } = vendasApi.useGetVendasQuery(
-    userId ?? "",
-    { skip: !userId },
-  );
+  const { data, isLoading, isError, error, refetch } = vendasApi.useGetVendasQuery(userId ?? "", {
+    skip: !userId,
+  });
   return { data, isPending: isLoading, isError, error, refetch };
 }
 

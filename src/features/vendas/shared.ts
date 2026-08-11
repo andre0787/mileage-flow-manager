@@ -14,12 +14,7 @@ export function toQueryError(err: { message: string }): FetchBaseQueryError {
   return { status: "CUSTOM_ERROR", error: err.message };
 }
 
-export {
-  supabase,
-  calcProportionalCost,
-  calcAccountUpdate,
-  mapSale,
-};
+export { supabase, calcProportionalCost, calcAccountUpdate, mapSale };
 export type { Sale };
 export type VendasBuilder = Parameters<
   NonNullable<Parameters<typeof baseApi.injectEndpoints>[0]["endpoints"]>
