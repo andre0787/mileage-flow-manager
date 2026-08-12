@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-08-11
-> Último commit: 238a004-Merge pull request #345 from andre0787/chore/P3-31-final-event
+> Gerado em: 2026-08-12
+> Último commit: 5a24a43-Merge pull request #356 from andre0787/feat/workflow-kpis-reais
 
 ## Pipeline
 
@@ -15,21 +15,21 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 522 |
-| E2E  | 71 |
-| **Total** | **593** |
+| Unit | 619 |
+| E2E  | 72 |
+| **Total** | **691** |
 
 ## Bundle
 
 | Métrica | Valor |
 |---------|-------|
-| Tamanho (dist) | 1734kB |
+| Tamanho (dist) | 1735kB |
 
 ## Documentação
 
 | Métrica | Valor |
 |---------|-------|
-| Arquivos .md | 186 |
+| Arquivos .md | 192 |
 | Arquivados | 46 |
 | Issues (verify-docs) | 0 |
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-08-11 | ✅ | 593 | 1734kB | 0 issues |
+| 2026-08-12 | ✅ | 691 | 1735kB | 0 issues |
 
 ---
 
