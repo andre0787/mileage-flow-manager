@@ -72,6 +72,6 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 **Objetivo:** Briefing executivo: relatorio HTML de sessao com impacto de produto/negocio/processo
 **Status:** in_progress
 **Iniciada em:** 2026-08-12T21:49:29.259Z
-**Branch:** `feat/executive-report`
+**Branch:** `feat/context-optimization`
 **Último commit:** 56bf31b — feat(ui): auditoria dark mode — campos elevados, tabelas e busca com teclado (#360)
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
