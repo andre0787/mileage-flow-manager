@@ -54,9 +54,8 @@ público `useAuth()` intacto para os 17 consumidores atuais.
 - `src/components/FeedbackDialog.tsx` (import de `@/features/auth`)
 - `src/contexts/DataContext.tsx` (só import de `useAuth` → `@/features/auth`)
 - `src/hooks/useDatabase/shared.ts` (só import de `useAuth` → `@/features/auth`)
-- `src/hooks/useDatabase/owners.ts` (só import de `useAuth` → `@/features/auth`)
-- (removido) o hook de programs: seus conteúdos migrados para `src/features/programs/`; agora apenas o import de `useAuth` vem de `@/features/auth`.
-- `src/hooks/useDatabase/origemTypes.ts` (só import de `useAuth` → `@/features/auth`)
+- `src/hooks/useDatabase/owners.ts` (só import de `useAuth` → `@/features/auth`)  - (removido) o hook de programs: seus conteúdos migrados para `src/features/programs/`; agora apenas o import de `useAuth` vem de `@/features/auth`.
+  - `src/hooks/useDatabase/origemTypes.ts (removido)` (só import de `useAuth` → `@/features/auth`)
 - (legado) `src/features/contas/index.ts` passou a concentrar o domínio de contas após P3-29
 - `src/features/entradas/` (domínio migrado em P3-28; referência histórica ao hook legado que só importava `useAuth` → `@/features/auth`)
 - (removido) src/hooks/useDatabase/sales.ts (migração concluída em P3-31)

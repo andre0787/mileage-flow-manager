@@ -20,7 +20,7 @@ export {
   useAddOrigemTypeMutation,
   useUpdateOrigemTypeMutation,
   useDeleteOrigemTypeMutation,
-} from "./origemTypes";
+} from "@/features/origemTypes";
 export {
   useAccountsQuery,
   useAddAccountMutation,
