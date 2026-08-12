@@ -35,7 +35,7 @@ export function bytesToTokens(bytes) {
   return Math.round((bytes || 0) / 4);
 }
 
-/** Lê bytes de um caminho relativo (ou null se não existir). */
+/** Lê o tamanho em caracteres de um caminho relativo (ou null se não existir). */
 export function readSize(relPath) {
   try {
     return readFileSync(resolve(ROOT, relPath), "utf8").length;
@@ -44,18 +44,18 @@ export function readSize(relPath) {
   }
 }
 
-/** Soma bytes de uma lista de paths (null-safe). Retorna { bytes, tokens }. */
-export function sumDocs(paths, now = new Date()) {
-  let bytes = 0;
+/** Soma caracteres de uma lista de paths (null-safe). Retorna { chars, tokens }. */
+export function sumDocs(paths) {
+  let chars = 0;
   const breakdown = [];
   for (const p of paths) {
     const size = readSize(p);
     if (size != null) {
-      bytes += size;
-      breakdown.push({ path: p, bytes: size, tokens: bytesToTokens(size) });
+      chars += size;
+      breakdown.push({ path: p, chars: size, tokens: bytesToTokens(size) });
     }
   }
-  return { bytes, tokens: bytesToTokens(bytes), breakdown };
+  return { chars, tokens: bytesToTokens(chars), breakdown };
 }
 
 /** Auditoria completa por categoria + overhead fixo. */
@@ -63,7 +63,7 @@ export function auditContext(now = new Date()) {
   const categories = {};
   for (const [cat, paths] of Object.entries(CATEGORY_DOCS)) {
     const s = sumDocs(paths);
-    categories[cat] = { tokens: s.tokens, bytes: s.bytes, docs: s.breakdown.map((d) => `${d.path} (${d.tokens} tok)`).join(", ") };
+    categories[cat] = { tokens: s.tokens, chars: s.chars, docs: s.breakdown.map((d) => `${d.path} (${d.tokens} tok)`).join(", ") };
   }
 
   // Overhead fixo por sessão (handoff + tracking ativos)

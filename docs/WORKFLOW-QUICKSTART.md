@@ -69,7 +69,7 @@ O título vira o nome do workflow no CI — sem padrão, o CI fica ilegível.
 - Sessão feature carrega **~5.5K tokens** de docs (QUICKSTART + conventions) — economize com
   navegação estrutural (CRG), `context-pack` para tasks e `read` com offset/limit
 - Telemetria (`events.jsonl`) cresce ~1.9K linhas/mês — `npm run context:trim` arquiva o excedente
-- Skills de contexto: `.agents/skills/context-window-management/` (referência de padrões)
+- Skills de contexto: `.pi/skills/context-window-management/` (referência de padrões)
 
 ---
 *Quickstart — para o fluxo completo consulte `WORKFLOW.md`. Para definições autoritativas, `WORKFLOW-MANIFEST.md`.*

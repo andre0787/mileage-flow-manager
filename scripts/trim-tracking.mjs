@@ -55,7 +55,7 @@ export function isUsableLine(line) {
 }
 
 /** Executa a rotação de um arquivo. Retorna resumo { file, kept, archived, archiveFiles }. */
-export function trimFile(file, max, now = new Date()) {
+export function trimFile(file, max) {
   const path = resolve(TRACKING_DIR, file);
   if (!existsSync(path)) return { file, kept: 0, archived: 0, archiveFiles: [] };
   const lines = readFileSync(path, "utf8").split("\n").filter(Boolean);

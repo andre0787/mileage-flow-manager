@@ -1,0 +1,42 @@
+{"timestamp":"2026-08-01T01:23:10.525Z","type":"session:start","description":"bugfix: KPIs do webapp zerados: kpi-report lê formato aninhado, event-log grava plano","branch":"main","commit":"3e6fa49","categoria":"bugfix"}
+{"timestamp":"2026-08-01T01:25:34.689Z","type":"session:start","description":"docs: teste docs","branch":"main","commit":"3e6fa49","categoria":"docs"}
+{"timestamp":"2026-08-01T01:25:35.062Z","type":"session:start","description":"bugfix: corrige bug","branch":"main","commit":"3e6fa49","categoria":"bugfix"}
+{"timestamp":"2026-08-01T01:25:35.380Z","type":"session:start","description":"refactor: refatora modulo","branch":"main","commit":"3e6fa49","categoria":"refactor"}
+{"timestamp":"2026-08-01T01:25:35.710Z","type":"pre-pr","description":"pre-pr PASS","branch":"main","commit":"3e6fa49","errors":0}
+{"timestamp":"2026-08-01T01:25:35.758Z","type":"session:start","description":"feature: primeira feature","branch":"main","commit":"3e6fa49","categoria":"feature"}
+{"timestamp":"2026-08-01T01:25:36.126Z","type":"session:start","description":"chore: segunda chore","branch":"main","commit":"3e6fa49","categoria":"chore"}
+{"timestamp":"2026-08-01T01:25:36.376Z","type":"session:start","description":"docs: continuacao","branch":"main","commit":"3e6fa49","categoria":"docs"}
+{"timestamp":"2026-08-01T01:25:41.968Z","type":"session:start","description":"chore: descrição concisa","branch":"main","commit":"3e6fa49","categoria":"chore"}
+{"timestamp":"2026-08-01T01:25:44.605Z","type":"session:start","description":"docs: verifica output","branch":"main","commit":"3e6fa49","categoria":"docs"}
+{"timestamp":"2026-08-01T01:29:10.311Z","type":"session:start","description":"docs: teste docs","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"docs"}
+{"timestamp":"2026-08-01T01:29:10.725Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"bugfix"}
+{"timestamp":"2026-08-01T01:29:11.077Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"refactor"}
+{"timestamp":"2026-08-01T01:29:11.218Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","errors":0}
+{"timestamp":"2026-08-01T01:29:11.596Z","type":"session:start","description":"feature: primeira feature","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"feature"}
+{"timestamp":"2026-08-01T01:29:11.921Z","type":"session:start","description":"chore: segunda chore","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"chore"}
+{"timestamp":"2026-08-01T01:29:12.267Z","type":"session:start","description":"docs: continuacao","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"docs"}
+{"timestamp":"2026-08-01T01:29:17.994Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"chore"}
+{"timestamp":"2026-08-01T01:29:20.666Z","type":"session:start","description":"docs: verifica output","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"docs"}
+{"timestamp":"2026-08-01T01:29:37.096Z","type":"session:start","description":"docs: teste docs","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"docs"}
+{"timestamp":"2026-08-01T01:29:37.517Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"bugfix"}
+{"timestamp":"2026-08-01T01:29:37.928Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"refactor"}
+{"timestamp":"2026-08-01T01:29:38.207Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","errors":0}
+{"timestamp":"2026-08-01T01:29:38.273Z","type":"session:start","description":"feature: primeira feature","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"feature"}
+{"timestamp":"2026-08-01T01:29:38.588Z","type":"session:start","description":"chore: segunda chore","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"chore"}
+{"timestamp":"2026-08-01T01:29:38.902Z","type":"session:start","description":"docs: continuacao","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"docs"}
+{"timestamp":"2026-08-01T01:29:44.478Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"chore"}
+{"timestamp":"2026-08-01T01:29:47.117Z","type":"session:start","description":"docs: verifica output","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"docs"}
+{"timestamp":"2026-08-01T01:30:18.970Z","type":"session:start","description":"docs: teste docs","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"docs"}
+{"timestamp":"2026-08-01T01:30:19.357Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"bugfix"}
+{"timestamp":"2026-08-01T01:30:19.531Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","errors":0}
+{"timestamp":"2026-08-01T01:30:19.788Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"refactor"}
+{"timestamp":"2026-08-01T01:30:20.098Z","type":"session:start","description":"feature: primeira feature","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"feature"}
+{"timestamp":"2026-08-01T01:30:20.343Z","type":"session:start","description":"chore: segunda chore","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"chore"}
+{"timestamp":"2026-08-01T01:30:20.583Z","type":"session:start","description":"docs: continuacao","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"docs"}
+{"timestamp":"2026-08-01T01:30:25.972Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"chore"}
+{"timestamp":"2026-08-01T01:30:28.590Z","type":"session:start","description":"docs: verifica output","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","categoria":"docs"}
+{"timestamp":"2026-08-01T01:30:28.721Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/kpi-report-formato-plano","commit":"3e6fa49","errors":0}
+{"timestamp":"2026-08-01T01:30:45.353Z","type":"session:start","description":"docs: teste docs","branch":"fix/kpi-report-formato-plano","commit":"001db9c","categoria":"docs"}
+{"timestamp":"2026-08-01T01:30:45.708Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/kpi-report-formato-plano","commit":"001db9c","categoria":"bugfix"}
+{"timestamp":"2026-08-01T01:30:45.998Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/kpi-report-formato-plano","commit":"001db9c","categoria":"refactor"}
+{"timestamp":"2026-08-01T01:30:46.073Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/kpi-report-formato-plano","commit":"001db9c","errors":0}
