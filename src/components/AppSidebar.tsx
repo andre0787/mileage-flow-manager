@@ -86,7 +86,7 @@ export function AppSidebar() {
           {/* Header */}
           <div className="p-4 border-b border-sidebar-border">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-gradient-primary rounded-xl flex items-center justify-center shadow-sm">
+              <div className="w-9 h-9 bg-primary rounded-[10px] flex items-center justify-center shadow-sm">
                 <Plane className="w-[18px] h-[18px] text-white" />
               </div>
               {!collapsed && (
@@ -105,7 +105,7 @@ export function AppSidebar() {
             <SidebarGroup key={group.label}>
               <SidebarGroupLabel
                 className={cn(
-                  "text-xs font-semibold text-muted-foreground tracking-wider uppercase",
+                  "text-xs font-semibold text-muted-foreground tracking-wide",
                   collapsed && "sr-only",
                 )}
               >
@@ -123,8 +123,8 @@ export function AppSidebar() {
                             "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200",
                             "relative group",
                             isActive(item.url)
-                              ? "bg-primary/[0.08] text-primary font-semibold border-l-2 border-primary pl-[10px]"
-                              : "text-muted-foreground hover:text-foreground hover:bg-accent/50 border-l-2 border-transparent",
+                              ? "bg-primary/10 text-primary font-semibold"
+                              : "text-muted-foreground hover:text-foreground hover:bg-accent/50",
                           )}
                         >
                           <item.icon
@@ -171,8 +171,8 @@ export function AppSidebar() {
                     className={cn(
                       "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200",
                       isActive("/perfil")
-                        ? "bg-primary/[0.08] text-primary font-semibold border-l-2 border-primary pl-[10px]"
-                        : "text-muted-foreground hover:text-foreground hover:bg-accent/50 border-l-2 border-transparent",
+                        ? "bg-primary/10 text-primary font-semibold"
+                        : "text-muted-foreground hover:text-foreground hover:bg-accent/50",
                     )}
                   >
                     <User className="w-4 h-4 shrink-0" />
@@ -187,8 +187,8 @@ export function AppSidebar() {
                     className={cn(
                       "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200",
                       isActive("/configuracoes")
-                        ? "bg-primary/[0.08] text-primary font-semibold border-l-2 border-primary pl-[10px]"
-                        : "text-muted-foreground hover:text-foreground hover:bg-accent/50 border-l-2 border-transparent",
+                        ? "bg-primary/10 text-primary font-semibold"
+                        : "text-muted-foreground hover:text-foreground hover:bg-accent/50",
                     )}
                   >
                     <Settings className="w-4 h-4 shrink-0" />
@@ -206,7 +206,7 @@ export function AppSidebar() {
                         clearCache();
                       }
                     }}
-                    className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50 border-l-2 border-transparent"
+                    className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50"
                     title="Limpar cache local e recarregar dados"
                   >
                     <RotateCcw className="w-4 h-4 shrink-0" />
@@ -219,7 +219,7 @@ export function AppSidebar() {
               <SidebarMenuItem>
                 <FeedbackDialog>
                   <SidebarMenuButton asChild>
-                    <button className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50 border-l-2 border-transparent">
+                    <button className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50">
                       <Bug className="w-4 h-4 shrink-0" />
                       {!collapsed && (
                         <span className="text-sm font-medium font-body">Reportar problema</span>
@@ -235,7 +235,7 @@ export function AppSidebar() {
                       await signOut();
                       navigate("/login");
                     }}
-                    className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50 border-l-2 border-transparent"
+                    className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50"
                   >
                     <LogOut className="w-4 h-4 shrink-0" />
                     {!collapsed && <span className="text-sm font-medium font-body">Sair</span>}

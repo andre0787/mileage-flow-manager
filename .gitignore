@@ -73,6 +73,11 @@ tests/fluxo-relatorio.md
 # Subagent artifacts
 .pi-subagents/
 
+# Skills instaladas via npx skills (apple-design, etc.)
+.agents/
+skills-lock.json
+.pi/skills/apple-design
+
 # Local git worktrees
 .worktrees/
 

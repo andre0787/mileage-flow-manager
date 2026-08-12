@@ -49,7 +49,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 **Objetivo:** Redesign Apple HIG (skill apple-design) — tokens, tipografia, componentes, navegação
 **Status:** in_progress
 **Iniciada em:** 2026-08-12T03:22:10.807Z
-**Branch:** `fix/carrinho-transferencia-calc`
+**Branch:** `refactor/apple-design-hig`
 **Último commit:** ed08688 — fix(codereview): corrige 10 bugs — saldos de transferência, split recorrência, CSV, fuso e UI (#356 #357)
 **Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 ## ✅ Última Sessão

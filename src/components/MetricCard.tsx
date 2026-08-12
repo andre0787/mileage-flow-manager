@@ -67,28 +67,15 @@ export function MetricCard({
         "hover:shadow-elegant hover:-translate-y-0.5",
       )}
     >
-      {/* Gradient accent bar at top */}
+      {/* Solid accent bar at top (Apple-style, cor sólida sutil) */}
       <div
         className={cn(
-          "absolute top-0 left-0 right-0 h-0.5",
-          variant === "default" && "bg-gradient-to-r from-primary/60 to-primary-light/40",
-          variant === "success" && "bg-gradient-to-r from-success/60 to-success/40",
-          variant === "warning" && "bg-gradient-to-r from-warning/60 to-warning/40",
-          variant === "gold" && "bg-gradient-to-r from-gold/60 to-gold/40",
-          variant === "teal" && "bg-gradient-to-r from-teal/60 to-teal/40",
-        )}
-      />
-
-      {/* Subtle background gradient */}
-      <div
-        className={cn(
-          "absolute inset-0 opacity-[0.03] transition-opacity duration-300 group-hover:opacity-[0.06]",
-          "bg-gradient-to-br from-transparent",
-          variant === "default" && "to-primary",
-          variant === "success" && "to-success",
-          variant === "warning" && "to-warning",
-          variant === "gold" && "to-gold",
-          variant === "teal" && "to-teal",
+          "absolute top-0 left-0 right-0 h-[3px]",
+          variant === "default" && "bg-primary",
+          variant === "success" && "bg-success",
+          variant === "warning" && "bg-warning",
+          variant === "gold" && "bg-gold",
+          variant === "teal" && "bg-teal",
         )}
       />
 
@@ -96,7 +83,7 @@ export function MetricCard({
         className={cn("p-5 relative", sparklineData && sparklineData.length >= 2 && "pb-12")}
       >
         <div className="flex items-start justify-between mb-3">
-          <span className="text-xs font-medium tracking-wide text-muted-foreground uppercase font-display">
+          <span className="text-xs font-medium tracking-wide text-muted-foreground font-display">
             {title}
           </span>
           <div

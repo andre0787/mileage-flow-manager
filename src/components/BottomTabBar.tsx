@@ -21,107 +21,130 @@ export function BottomTabBar() {
   const isActive = (path: string) => location.pathname === path;
   const btnClass = (active: boolean) =>
     cn(
-      "flex flex-col items-center justify-center gap-0.5 flex-1 min-h-[52px] py-1.5 rounded-lg transition-all duration-200 relative",
+      "flex flex-col items-center justify-center gap-0.5 flex-1 min-h-[56px] py-1.5 rounded-full transition-all duration-200 relative",
       active ? "text-primary" : "text-muted-foreground hover:text-foreground",
     );
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 z-40 bg-background/80 backdrop-blur-lg border-t flex items-stretch justify-around md:hidden safe-area-bottom">
+    <nav className="fixed bottom-0 inset-x-0 z-40 bg-background/80 backdrop-blur-xl border-t border-border/60 flex items-stretch justify-around md:hidden safe-area-bottom">
       {/* Dashboard */}
       <NavLink to="/" className={btnClass(isActive("/"))} end>
-        {isActive("/") && (
-          <span className="absolute -top-px left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary rounded-full" />
-        )}
-        <LayoutDashboard
-          className={cn("h-5 w-5 transition-transform", isActive("/") && "scale-110")}
-        />
-        <span
+        <div
           className={cn(
-            "text-[10px] font-medium leading-tight font-display",
-            isActive("/") && "font-semibold",
+            "flex flex-col items-center justify-center gap-0.5 rounded-full transition-all duration-200",
+            isActive("/") ? "bg-primary/10 px-4 py-1" : "py-1",
           )}
         >
-          Dashboard
-        </span>
+          <LayoutDashboard
+            className={cn("h-5 w-5 transition-transform", isActive("/") && "scale-110")}
+          />
+          <span
+            className={cn(
+              "text-[11px] font-medium leading-tight font-display",
+              isActive("/") && "font-semibold",
+            )}
+          >
+            Dashboard
+          </span>
+        </div>
       </NavLink>
 
       {/* Contas */}
       <NavLink to="/contas" className={btnClass(isActive("/contas"))}>
-        {isActive("/contas") && (
-          <span className="absolute -top-px left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary rounded-full" />
-        )}
-        <CreditCard
-          className={cn("h-5 w-5 transition-transform", isActive("/contas") && "scale-110")}
-        />
-        <span
+        <div
           className={cn(
-            "text-[10px] font-medium leading-tight font-display",
-            isActive("/contas") && "font-semibold",
+            "flex flex-col items-center justify-center gap-0.5 rounded-full transition-all duration-200",
+            isActive("/contas") ? "bg-primary/10 px-4 py-1" : "py-1",
           )}
         >
-          Contas
-        </span>
+          <CreditCard
+            className={cn("h-5 w-5 transition-transform", isActive("/contas") && "scale-110")}
+          />
+          <span
+            className={cn(
+              "text-[11px] font-medium leading-tight font-display",
+              isActive("/contas") && "font-semibold",
+            )}
+          >
+            Contas
+          </span>
+        </div>
       </NavLink>
 
       {/* Entradas */}
       <NavLink to="/entradas" className={btnClass(isActive("/entradas"))}>
-        {isActive("/entradas") && (
-          <span className="absolute -top-px left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary rounded-full" />
-        )}
-        <div className="relative">
-          <TrendingUp
-            className={cn("h-5 w-5 transition-transform", isActive("/entradas") && "scale-110")}
-          />
-          {overdueCount > 0 && (
-            <span className="absolute -top-1 -right-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-amber-500 px-1 text-[9px] font-bold text-white">
-              {overdueCount}
-            </span>
-          )}
-        </div>
-        <span
+        <div
           className={cn(
-            "text-[10px] font-medium leading-tight font-display",
-            isActive("/entradas") && "font-semibold",
+            "flex flex-col items-center justify-center gap-0.5 rounded-full transition-all duration-200",
+            isActive("/entradas") ? "bg-primary/10 px-4 py-1" : "py-1",
           )}
         >
-          Entradas
-        </span>
+          <div className="relative">
+            <TrendingUp
+              className={cn("h-5 w-5 transition-transform", isActive("/entradas") && "scale-110")}
+            />
+            {overdueCount > 0 && (
+              <span className="absolute -top-1 -right-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-amber-500 px-1 text-[9px] font-bold text-white">
+                {overdueCount}
+              </span>
+            )}
+          </div>
+          <span
+            className={cn(
+              "text-[11px] font-medium leading-tight font-display",
+              isActive("/entradas") && "font-semibold",
+            )}
+          >
+            Entradas
+          </span>
+        </div>
       </NavLink>
 
       {/* Vendas */}
       <NavLink to="/vendas" className={btnClass(isActive("/vendas"))}>
-        {isActive("/vendas") && (
-          <span className="absolute -top-px left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary rounded-full" />
-        )}
-        <TrendingDown
-          className={cn("h-5 w-5 transition-transform", isActive("/vendas") && "scale-110")}
-        />
-        <span
+        <div
           className={cn(
-            "text-[10px] font-medium leading-tight font-display",
-            isActive("/vendas") && "font-semibold",
+            "flex flex-col items-center justify-center gap-0.5 rounded-full transition-all duration-200",
+            isActive("/vendas") ? "bg-primary/10 px-4 py-1" : "py-1",
           )}
         >
-          Vendas
-        </span>
+          <TrendingDown
+            className={cn("h-5 w-5 transition-transform", isActive("/vendas") && "scale-110")}
+          />
+          <span
+            className={cn(
+              "text-[11px] font-medium leading-tight font-display",
+              isActive("/vendas") && "font-semibold",
+            )}
+          >
+            Vendas
+          </span>
+        </div>
       </NavLink>
 
       {/* Ajustes */}
       <NavLink to="/configuracoes" className={btnClass(isActive("/configuracoes"))}>
-        {isActive("/configuracoes") && (
-          <span className="absolute -top-px left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary rounded-full" />
-        )}
-        <Settings
-          className={cn("h-5 w-5 transition-transform", isActive("/configuracoes") && "scale-110")}
-        />
-        <span
+        <div
           className={cn(
-            "text-[10px] font-medium leading-tight font-display",
-            isActive("/configuracoes") && "font-semibold",
+            "flex flex-col items-center justify-center gap-0.5 rounded-full transition-all duration-200",
+            isActive("/configuracoes") ? "bg-primary/10 px-4 py-1" : "py-1",
           )}
         >
-          Ajustes
-        </span>
+          <Settings
+            className={cn(
+              "h-5 w-5 transition-transform",
+              isActive("/configuracoes") && "scale-110",
+            )}
+          />
+          <span
+            className={cn(
+              "text-[11px] font-medium leading-tight font-display",
+              isActive("/configuracoes") && "font-semibold",
+            )}
+          >
+            Ajustes
+          </span>
+        </div>
       </NavLink>
     </nav>
   );
