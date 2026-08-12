@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 refactor apple design hig</h1>
-  <p class="meta">2026-08-12 00:31 &middot; refactor/apple-design-hig &middot; 6c769f6 — refactor(entradas): extrai helper applyBalance para manter updateEntry ≤150 linhas (rule-41)</p>
+  <p class="meta">2026-08-12 00:36 &middot; refactor/apple-design-hig &middot; 6820611 — refactor(apple-design): redesign HIG — tokens neutros, system blue, tipografia SF-like, componentes iOS</p>
   <p><span class="badge auto">auto</span> <span class="badge auto">apple-design-hig</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">24</div>
+      <div style="font-size:1.5rem;font-weight:700">44</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+1288</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+1981</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-116</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-424</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1287</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~2325</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -83,12 +83,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 116 remoções — 1716 linhas tocadas</td>
-        <td>✨ 1288 adições — 24 arquivo(s) alterado(s)</td>
+        <td>🧹 424 remoções — 3100 linhas tocadas</td>
+        <td>✨ 1981 adições — 44 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/MAP.md, docs/RADAR.md, docs/handoff.md<br><span style="color:#166534;font-weight:600">➕</span> docs/reports/2026-08-12/apple-design-2026-08-12-apple-design.html, docs/reports/2026-08-12/apple-design-hig-2026-08-12-refactor-apple-design-hig.html<br><em>+19 arquivo(s)</em></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .gitignore, docs/MAP.md, docs/RADAR.md, docs/UI-GUIDE.md, docs/handoff.md<br><em>+39 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -101,61 +101,83 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>24</td></tr>
-    <tr><td>Adições</td><td>+1288</td></tr>
-    <tr><td>Remoções</td><td>-116</td></tr>
-    <tr><td>Tokens estimados</td><td>~1287</td></tr>
+    <tr><td>Arquivos alterados</td><td>44</td></tr>
+    <tr><td>Adições</td><td>+1981</td></tr>
+    <tr><td>Remoções</td><td>-424</td></tr>
+    <tr><td>Tokens estimados</td><td>~2325</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:75">+966 add</div>
-        <div class="del" style="flex:7">-87 del</div>
-        <div class="overhead" style="flex:18">~234 ctx</div>
+        <div class="add" style="flex:64">+1486 add</div>
+        <div class="del" style="flex:14">-318 del</div>
+        <div class="overhead" style="flex:22">~521 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+966</td><td>75%</td></tr>
-      <tr><td>Remoções</td><td>-87</td><td>7%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~234</td><td>18%</td></tr>
-      <tr><th>Total</th><th>~1287</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+1486</td><td>64%</td></tr>
+      <tr><td>Remoções</td><td>-318</td><td>14%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~521</td><td>22%</td></tr>
+      <tr><th>Total</th><th>~2325</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-    <tr><td>M</td><td>docs/MAP.md</td></tr>
+    <tr><td>M</td><td>.gitignore</td></tr>
+<tr><td>M</td><td>docs/MAP.md</td></tr>
 <tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>M</td><td>docs/UI-GUIDE.md</td></tr>
 <tr><td>M</td><td>docs/handoff.md</td></tr>
 <tr><td>A</td><td>docs/reports/2026-08-12/apple-design-2026-08-12-apple-design.html</td></tr>
 <tr><td>A</td><td>docs/reports/2026-08-12/apple-design-hig-2026-08-12-refactor-apple-design-hig.html</td></tr>
 <tr><td>A</td><td>docs/reports/2026-08-12/carrinho-transferencia-calc-2026-08-12-carrinho-transferencia-calc.html</td></tr>
 <tr><td>A</td><td>docs/reports/2026-08-12/codereview-geral-2026-08-12.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-08-12-apple-design-hig.md</td></tr>
 <tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
 <tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>index.html</td></tr>
 <tr><td>M</td><td>scripts/verify-docs.mjs</td></tr>
+<tr><td>M</td><td>src/components/AltitudeBar.tsx</td></tr>
+<tr><td>M</td><td>src/components/AppSidebar.tsx</td></tr>
+<tr><td>M</td><td>src/components/BottomTabBar.tsx</td></tr>
 <tr><td>M</td><td>src/components/EntryForm.tsx</td></tr>
+<tr><td>M</td><td>src/components/MetricCard.tsx</td></tr>
 <tr><td>M</td><td>src/components/SaleForm.tsx</td></tr>
+<tr><td>M</td><td>src/components/ui/button.tsx</td></tr>
+<tr><td>M</td><td>src/components/ui/card.tsx</td></tr>
+<tr><td>M</td><td>src/components/ui/input.tsx</td></tr>
+<tr><td>M</td><td>src/components/ui/table.tsx</td></tr>
 <tr><td>M</td><td>src/contexts/DataContext.tsx</td></tr>
 <tr><td>M</td><td>src/features/contas/recalcAccount.ts</td></tr>
 <tr><td>M</td><td>src/features/entradas/confirmEntry.ts</td></tr>
 <tr><td>M</td><td>src/features/entradas/updateEntry.ts</td></tr>
 <tr><td>M</td><td>src/hooks/useClientCycleAvailability.ts</td></tr>
-<tr><td>M</td><td>src/lib/metrics.ts</td></tr>
-<tr><td>M</td><td>src/pages/Contas.tsx</td></tr>
-<tr><td>M</td><td>src/pages/Entradas.tsx</td></tr>
-<tr><td>M</td><td>src/pages/Vendas.tsx</td></tr>
-<tr><td>M</td><td>tests/unit/features-contas-api.test.ts</td></tr>
-<tr><td>M</td><td>tests/unit/features-entradas-api.test.ts</td></tr>
-<tr><td>M</td><td>tests/unit/metrics.test.ts</td></tr>
+<tr><td>M</td><td>src/index.css</td></tr>
   </table>
 
   
 
   <h2>🔍 Diff</h2>
   <div class="diff">
-    diff --git a/docs/MAP.md b/docs/MAP.md
+    diff --git a/.gitignore b/.gitignore
+index 66f9692..8d24ebc 100644
+<span class="del">--- a/.gitignore</span>
+<span class="add">+++ b/.gitignore</span>
+@@ -73,6 +73,11 @@ tests/fluxo-relatorio.md
+ # Subagent artifacts
+ .pi-subagents/
+ 
+<span class="add">+# Skills instaladas via npx skills (apple-design, etc.)</span>
+<span class="add">+.agents/</span>
+<span class="add">+skills-lock.json</span>
+<span class="add">+.pi/skills/apple-design</span>
+<span class="add">+</span>
+ # Local git worktrees
+ .worktrees/
+ 
+diff --git a/docs/MAP.md b/docs/MAP.md
 index da34557..3df3125 100644
 <span class="del">--- a/docs/MAP.md</span>
 <span class="add">+++ b/docs/MAP.md</span>
@@ -176,105 +198,89 @@ index bfcf377..f12f301 100644
  
  ## ✅ Radar Limpo
  Nenhuma vulnerabilidade ativa detectada.
-diff --git a/docs/handoff.md b/docs/handoff.md
-index 700fe91..201e005 100644
-<span class="del">--- a/docs/handoff.md</span>
-<span class="add">+++ b/docs/handoff.md</span>
-@@ -9,8 +9,8 @@
- ### 🐞 Bugs Abertos
- Consulte as GitHub Issues para a lista atual.
- ## 🧭 Estado Atual
-<span class="del">-- **Branch:** `fix/fuso-308-datas`</span>
-<span class="del">-- **Último commit:** `0f390af — Merge pull request #348 from andre0787/refactor/blueprint-v4-p1-alerts`</span>
-<span class="add">+- **Branch:** `feat/apple-design`</span>
-<span class="add">+- **Último commit:** `ed08688 — fix(codereview): corrige 10 bugs — saldos de transferência, split recorrência, CSV, fuso e UI (#356 #357)`</span>
- - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
+diff --git a/docs/UI-GUIDE.md b/docs/UI-GUIDE.md
+index e3cf6d5..14780a2 100644
+<span class="del">--- a/docs/UI-GUIDE.md</span>
+<span class="add">+++ b/docs/UI-GUIDE.md</span>
+@@ -1,50 +1,58 @@
+ # 🎨 Guia de UI — MilesControl
  
- ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
-@@ -45,13 +45,13 @@ Nenhum PR aberto.
- ---
- _Atualizado automaticamente por `scripts/update-handoff.mjs`_
- ## 🎯 Sessão Atual
-<span class="del">-**Categoria:** docs</span>
-<span class="del">-**Objetivo:** verifica output</span>
-<span class="add">+**Categoria:** refactor</span>
-<span class="add">+**Objetivo:** Redesign Apple HIG (skill apple-design) — tokens, tipografia, componentes, navegação</span>
- **Status:** in_progress
-<span class="del">-**Iniciada em:** 2026-08-10T21:06:41.671Z</span>
-<span class="add">+**Iniciada em:** 2026-08-12T03:22:10.807Z</span>
- **Branch:** `fix/carrinho-transferencia-calc`
-<span class="del">-**Último commit:** a18b8e3 — chore(pre-pr): registra validação P3-30</span>
-<span class="del">-**Docs carregados:** AGENTS.md</span>
-<span class="add">+**Último commit:** ed08688 — fix(codereview): corrige 10 bugs — saldos de transferência, split recorrência, CSV, fuso e UI (#356 #357)</span>
-<span class="add">+**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md</span>
- ## ✅ Última Sessão
- Estado atualizado automaticamente.
- ## 📌 Próxima Sessão
-diff --git a/docs/reports/2026-08-12/apple-design-2026-08-12-apple-design.html b/docs/reports/2026-08-12/apple-design-2026-08-12-apple-design.html
-new file mode 100644
-index 0000000..d268b11
-<span class="del">--- /dev/null</span>
-<span class="add">+++ b/docs/reports/2026-08-12/apple-design-2026-08-12-apple-design.html</span>
-@@ -0,0 +1,283 @@
-<span class="add">+&lt;!DOCTYPE html&gt;</span>
-<span class="add">+&lt;html lang="pt-BR"&gt;</span>
-<span class="add">+&lt;head&gt;</span>
-<span class="add">+  &lt;meta charset="UTF-8"&gt;</span>
-<span class="add">+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;</span>
-<span class="add">+  &lt;title&gt;apple-design — apple design&lt;/title&gt;</span>
-<span class="add">+  &lt;style&gt;</span>
-<span class="add">+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}</span>
-<span class="add">+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}</span>
-<span class="add">+    h2{font-size:1rem;margin-top:1.5rem;color:#333}</span>
-<span class="add">+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}</span>
-<span class="add">+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}</span>
-<span class="add">+    .badge.pr{background:#dbeafe;color:#1e40af}</span>
-<span class="add">+    .badge.auto{background:#fef3c7;color:#92400e}</span>
-<span class="add">+    .badge.fix{background:#fee2e2;color:#991b1b}</span>
-<span class="add">+    .badge.feat{background:#dcfce7;color:#166534}</span>
-<span class="add">+    .badge.docs{background:#ede9fe;color:#5b21b6}</span>
-<span class="add">+    .badge.chore{background:#f3f4f6;color:#374151}</span>
-<span class="add">+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}</span>
-<span class="add">+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}</span>
-<span class="add">+    th{background:#f3f4f6;font-weight:600}</span>
-<span class="add">+    tr.add{background:#f0fdf4}</span>
-<span class="add">+    tr.del{background:#fef2f2}</span>
-<span class="add">+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}</span>
-<span class="add">+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}</span>
-<span class="add">+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}</span>
-<span class="add">+    .token-bar .add{background:#dcfce7;color:#166534}</span>
-<span class="add">+    .token-bar .del{background:#fee2e2;color:#991b1b}</span>
-<span class="add">+    .token-bar .overhead{background:#f3f4f6;color:#374151}</span>
-<span class="add">+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}</span>
-<span class="add">+    .diff .add{color:#4ade80}</span>
-<span class="add">+    .diff .del{color:#f87171}</span>
-<span class="add">+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}</span>
-<span class="add">+    .center{text-align:center}</span>
-<span class="add">+  &lt;/style&gt;</span>
-<span class="add">+&lt;/head&gt;</span>
-<span class="add">+&lt;body&gt;</span>
-<span class="add">+  &lt;h1&gt;📋 apple design&lt;/h1&gt;</span>
-<span class="add">+  &lt;p class="meta"&gt;2026-08-12 00:17 &amp;middot; feat/apple-design &amp;middot; ed08688 — fix(codereview): corrige 10 bugs — saldos de transferência, split recorrência, CSV, fuso e UI (#356 #357)&lt;/p&gt;</span>
-<span class="add">+  &lt;p&gt;&lt;span class="badge auto"&gt;auto&lt;/span&gt; &lt;span class="badge auto"&gt;apple-design&lt;/span&gt; &lt;span class="badge" style="background:#fef3c7;color:#92400e"&gt;Médio Risco&lt;/span&gt;&lt;/p&gt;</span>
+<span class="add">+&gt; Redesign inspirado nas **Apple Human Interface Guidelines** (skill `apple-design`):</span>
+<span class="add">+&gt; paleta neutra estilo iOS system grouped, accent system blue, tipografia system</span>
+<span class="add">+&gt; (SF-like), sombras suaves e cantos arredondados.</span>
 <span class="add">+</span>
-<span class="add">+  &lt;!-- Status cards --&gt;</span>
-<span class="add">+  &lt;div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0"&gt;</span>
-<span class="add">+    &lt;div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
-<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700"&gt;25&lt;/div&gt;</span>
-<span class="add">+      &lt;div style="font-size:.7rem;color:#666"&gt;Arquivos&lt;/div&gt;</span>
-<span class="add">+    &lt;/div&gt;</span>
-<span class="add">+    &lt;div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
-<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700;color:#166534"&gt;+1003&lt;/div&gt;</span>
-<span class="add">+      &lt;div style="font-size:.7rem;color:#666"&gt;Adições&lt;/div&gt;</span>
-<span class="add">+    &lt;/div&gt;</span>
-<span class="add">+    &lt;div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
-<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700;color:#991b1b"&gt;-96&lt;/div&gt;</span>
-<span class="add">+      &lt;div style="font-size:.7rem;color:#666"&gt;Remoções&lt;/div&gt;</span>
-<span class="add">+    &lt;/div&gt;</span>
-<span class="add">+    &lt;div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
-<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700;color:#854d0e"&gt;~1101&lt;/div&gt;</span>
-<span class="add">+      &lt;div style="font-size:.7rem;color:#666"&gt;Tokens&lt;/div&gt;</span>
-<span class="add">+    &lt;/div&gt;</span>
+ ## Design System (CSS vars HSL)
+ 
+<span class="del">-Definido em `index.css`. 3 camadas de profundidade (light mode):</span>
+<span class="del">-- **Fundo**: `hsl(0 0% 92%)` — nenhum elemento usa `#fff`</span>
+<span class="del">-- **Cards**: `hsl(0 0% 96%)` — off-white</span>
+<span class="del">-- **Bordas**: `hsl(0 0% 80%)`</span>
+<span class="add">+Definido em `src/index.css`. Camadas de profundidade (light mode, estilo iOS):</span>
+<span class="add">+</span>
+<span class="add">+- **Fundo**: `hsl(220 15% 96%)` — systemGroupedBackground (≈ #F2F2F7)</span>
+<span class="add">+- **Cards**: `hsl(0 0% 100%)` — secondarySystemGroupedBackground (branco)</span>
+<span class="add">+- **Bordas**: `hsl(220 10% 86%)` — separators suaves</span>
+ 
+ ### Cores
+ 
+<span class="del">-| Variável | Valor | Uso |</span>
+<span class="del">-|----------|-------|-----|</span>
+<span class="del">-| `--primary` | `222 70% 45%` | Navy, cor principal |</span>
+<span class="del">-| `--gold` | `38 85% 50%` | Destaques, ouro |</span>
+<span class="del">-| `--teal` | `170 65% 36%` | Aba Pontos |</span>
+<span class="del">-| `--success` | `152 60% 33%` | Verde positivo |</span>
+<span class="del">-| `--warning` | `38 90% 48%` | Âmbar |</span>
+<span class="del">-| `--destructive` | `0 75% 55%` | Vermelho |</span>
+<span class="add">+| Variável | Valor (light) | Valor (dark) | Uso |</span>
+<span class="add">+|----------|---------------|--------------|-----|</span>
+<span class="add">+| `--primary` | `211 100% 45%` | `211 100% 60%` | **System blue** (Apple), cor principal |</span>
+<span class="add">+| `--gold` | `36 90% 42%` | `36 90% 58%` | Destaques, metas |</span>
+<span class="add">+| `--teal` | `188 60% 42%` | `188 60% 55%` | Aba Pontos |</span>
+<span class="add">+| `--success` | `142 65% 36%` | `142 65% 50%` | Verde positivo |</span>
+<span class="add">+| `--warning` | `32 90% 48%` | `32 90% 58%` | Âmbar |</span>
+<span class="add">+| `--destructive` | `0 72% 50%` | `0 72% 55%` | Vermelho |</span>
+ 
+<span class="del">-Dark mode: valores ajustados (ex: `--primary: 222 70% 58%`).</span>
+<span class="add">+Dark mode: fundo preto puro (`0 0% 0%`), cards `0 0% 11%` (≈ #1C1C1E), como iOS.</span>
+ 
+<span class="del">-### Sombras</span>
+<span class="add">+### Sombras (iOS-style, suaves)</span>
+ 
+ | Classe | Uso |
+ |--------|-----|
+<span class="del">-| `shadow-sm` | Cards padrão |</span>
+<span class="add">+| `shadow-sm` / `shadow-card` | Cards padrão (1-2px, opacidade baixa) |</span>
+ | `shadow-md` | Hover de cards |
+ | `shadow-lg` | Modais |
+<span class="del">-| `shadow-elegant` | Glow primary |</span>
+<span class="del">-| `shadow-card` | Padrão cards |</span>
+<span class="add">+| `shadow-elegant` | Glow primary sutil |</span>
+<span class="add">+| `shadow-glow` / `shadow-glow-gold` | Destaques (sem glow exagerado) |</span>
+ 
+<span class="del">-### Gradientes</span>
+<span class="add">+### Gradientes (sóbrios)</span>
+ 
+ | Classe | Onde usar |
+ |--------|-----------|
+<span class="del">-| `bg-gradient-primary` | Primary → primary-light |</span>
+<span class="del">-| `bg-gradient-gold` | Gold → gold-light |</span>
+<span class="del">-| `bg-gradient-hero` | Hero do Dashboard (animado) |</span>
+<span class="add">+| `bg-gradient-primary` | Botões primários (blue vertical) |</span>
+<span class="add">+| `bg-gradient-gold` | Destaques |</span>
+<span class="add">+| `bg-gradient-hero` | Hero do Dashboard (tint sutil) |</span>
+ | `bg-gradient-hero-teal` | Hero da aba Pontos |
+<span class="del">-| `bg-gradient-hero-glow` | Radial glow no hero |</span>
+ 
+<span class="del">-## Tipografia</span>
+<span class="add">+&gt; HIG: cor é usada com moderação; acentos são sólidos (MetricCard usa barra</span>
+<span class="add">+&gt; superior sólida, não gradiente).</span>
+ 
+<span class="del">-- **Display**: `Plus Jakarta Sans` (Google Fonts) — usado em todo app, inclusive números do hero</span>
+<span class="del">-- **Mono**: `JetBrains Mono` (Google Fonts) — código</span>
+<span class="del">-- Classe `.font-display` para títulos, `.font-body` para texto corrido</span>
+<span class="add">+## Tipografia (SF-like)</span>
+<span class="add">+</span>
+<span class="add">+- **Font stack system**: `-apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial` — sem Google Fonts (mais rápido, visual nativo)</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>

@@ -1835,3 +1835,5 @@
 {"timestamp":"2026-08-12T03:30:43.580Z","type":"healed","description":"rule-26 auto-corrigido","branch":"refactor/apple-design-hig","commit":"6c769f6","agent":"human","rule":"rule-26"}
 {"timestamp":"2026-08-12T03:30:50.022Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/apple-design-hig","commit":"6c769f6","agent":"human","rule":"rule-10-clean"}
 {"timestamp":"2026-08-12T03:33:59.186Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/apple-design-hig","commit":"6c769f6","agent":"human","errors":0}
+{"timestamp":"2026-08-12T03:34:15.343Z","type":"rule:fail","description":"rule-41-optimizer falhou","branch":"refactor/apple-design-hig","commit":"6820611","agent":"human","rule":"rule-41-optimizer"}
+{"timestamp":"2026-08-12T03:38:07.168Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/apple-design-hig","commit":"6820611","agent":"human","errors":0}
