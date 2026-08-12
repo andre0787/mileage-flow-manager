@@ -11,7 +11,8 @@ const Table = React.forwardRef<
       ref={ref}
       className={cn(
         "w-full caption-bottom text-sm",
-        striped && "[&>tbody>tr:nth-child(even)]:bg-muted/[0.03]",
+        striped &&
+          "[&>tbody>tr:nth-child(even)]:bg-muted/[0.03] dark:[&>tbody>tr:nth-child(even)]:bg-muted/[0.08]",
         className,
       )}
       {...props}
@@ -60,7 +61,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTML
     <tr
       ref={ref}
       className={cn(
-        "border-b transition-colors hover:bg-primary/[0.04] data-[state=selected]:bg-muted",
+        "border-b transition-colors hover:bg-primary/[0.04] dark:hover:bg-primary/[0.07] data-[state=selected]:bg-muted",
         className,
       )}
       {...props}

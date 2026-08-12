@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from "react";
-import { Search, TrendingUp, TrendingDown, Users, CreditCard, X } from "lucide-react";
+import { Search, SearchX, TrendingUp, TrendingDown, Users, CreditCard, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useData } from "@/contexts/DataContext";
 import { useNavigate } from "react-router";
@@ -31,6 +31,7 @@ const typeLabels = {
 export function GlobalSearch() {
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -112,6 +113,17 @@ export function GlobalSearch() {
     return map;
   }, [results]);
 
+  // Lista plana (na ordem exibida) para navegação por teclado
+  const flatResults = useMemo(
+    () => Array.from(grouped.entries()).flatMap(([, items]) => items),
+    [grouped],
+  );
+
+  // Reset do cursor quando a query muda ou o dropdown fecha
+  useEffect(() => {
+    setActiveIndex(-1);
+  }, [query, isOpen]);
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -144,6 +156,20 @@ export function GlobalSearch() {
     setIsOpen(false);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!isOpen || flatResults.length === 0) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActiveIndex((i) => (i + 1) % flatResults.length);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActiveIndex((i) => (i <= 0 ? flatResults.length - 1 : i - 1));
+    } else if (e.key === "Enter" && activeIndex >= 0) {
+      e.preventDefault();
+      handleSelect(flatResults[activeIndex].url);
+    }
+  };
+
   return (
     <div ref={containerRef} className="relative">
       <div className="relative">
@@ -158,6 +184,14 @@ export function GlobalSearch() {
             setIsOpen(true);
           }}
           onFocus={() => setIsOpen(true)}
+          onKeyDown={handleKeyDown}
+          aria-expanded={isOpen}
+          aria-controls="global-search-results"
+          aria-activedescendant={
+            activeIndex >= 0 ? `gs-result-${flatResults[activeIndex]?.id}` : undefined
+          }
+          role="combobox"
+          aria-autocomplete="list"
         />
         <kbd className="absolute right-3 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center gap-0.5 rounded border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground dark:bg-black/40 dark:border-border/60">
           ⌘K
@@ -176,10 +210,17 @@ export function GlobalSearch() {
       </div>
 
       {isOpen && query.trim() && (
-        <div className="absolute right-0 top-full mt-2 w-[min(320px,calc(100vw-2rem))] max-h-80 overflow-y-auto rounded-xl border bg-background shadow-lg z-50 dark:bg-card dark:border-border/70 dark:shadow-2xl">
+        <div
+          id="global-search-results"
+          role="listbox"
+          className="absolute right-0 top-full mt-2 w-[min(320px,calc(100vw-2rem))] max-h-80 overflow-y-auto rounded-xl border bg-background shadow-lg z-50 animate-in fade-in-0 zoom-in-95 duration-150 dark:bg-card dark:border-border/70 dark:shadow-2xl"
+        >
           {results.length === 0 ? (
-            <div className="p-4 text-sm text-muted-foreground text-center">
-              Nenhum resultado para "{query}"
+            <div className="p-6 text-sm text-muted-foreground text-center space-y-2">
+              <SearchX className="h-6 w-6 mx-auto opacity-60" />
+              <p>
+                Nenhum resultado para <span className="font-medium text-foreground">"{query}"</span>
+              </p>
             </div>
           ) : (
             <div className="py-2">
@@ -190,21 +231,46 @@ export function GlobalSearch() {
                     <div className="px-3 py-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                       {typeLabels[type as keyof typeof typeLabels]}
                     </div>
-                    {items.map((item) => (
-                      <button
-                        key={item.id}
-                        className="w-full px-3 py-2 flex items-center gap-3 hover:bg-accent/50 transition-colors text-left"
-                        onClick={() => handleSelect(item.url)}
-                      >
-                        <Icon className="h-4 w-4 text-muted-foreground shrink-0" />
-                        <div className="min-w-0 flex-1">
-                          <p className="text-sm font-medium text-foreground truncate">
-                            {item.title}
-                          </p>
-                          <p className="text-xs text-muted-foreground truncate">{item.subtitle}</p>
-                        </div>
-                      </button>
-                    ))}
+                    {items.map((item) => {
+                      const flatIdx = flatResults.indexOf(item);
+                      const active = flatIdx === activeIndex;
+                      return (
+                        <button
+                          key={item.id}
+                          id={`gs-result-${item.id}`}
+                          role="option"
+                          aria-selected={active}
+                          ref={(el) => {
+                            if (active && typeof el?.scrollIntoView === "function") {
+                              el.scrollIntoView({ block: "nearest" });
+                            }
+                          }}
+                          className={cn(
+                            "w-full px-3 py-2 flex items-center gap-3 transition-colors text-left",
+                            active
+                              ? "bg-accent/60 text-accent-foreground"
+                              : "hover:bg-accent/40 dark:hover:bg-accent/50",
+                          )}
+                          onMouseEnter={() => setActiveIndex(flatIdx)}
+                          onClick={() => handleSelect(item.url)}
+                        >
+                          <Icon
+                            className={cn(
+                              "h-4 w-4 shrink-0 transition-colors",
+                              active ? "text-primary" : "text-muted-foreground",
+                            )}
+                          />
+                          <div className="min-w-0 flex-1">
+                            <p className="text-sm font-medium text-foreground truncate">
+                              {item.title}
+                            </p>
+                            <p className="text-xs text-muted-foreground truncate">
+                              {item.subtitle}
+                            </p>
+                          </div>
+                        </button>
+                      );
+                    })}
                   </div>
                 );
               })}

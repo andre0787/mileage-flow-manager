@@ -10,6 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import {
   useAccountAlerts,
@@ -74,13 +75,12 @@ export function AccountAlertsDialog({ account, open, onOpenChange }: AccountAler
             <label htmlFor="alert-observation" className="text-sm font-medium">
               Observação
             </label>
-            <textarea
+            <Textarea
               id="alert-observation"
               value={observation}
               onChange={(e) => setObservation(e.target.value)}
               placeholder="Ex: Renovar clube no dia 15"
               rows={3}
-              className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             />
           </div>
           <Button
