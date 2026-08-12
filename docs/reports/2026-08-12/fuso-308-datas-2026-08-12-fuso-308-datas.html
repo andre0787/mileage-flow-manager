@@ -36,31 +36,33 @@
 </head>
 <body>
   <h1>📋 fuso 308 datas</h1>
-  <p class="meta">2026-08-12 22:59 &middot; fix/fuso-308-datas &middot; 0f390af — Merge pull request #348 from andre0787/refactor/blueprint-v4-p1-alerts</p>
-  <p><span class="badge auto">auto</span> <span class="badge auto">fuso-308-datas</span> <span class="badge" style="background:#dcfce7;color:#166534">Baixo Risco</span></p>
+  <p class="meta">2026-08-12 23:01 &middot; fix/fuso-308-datas &middot; 7758b02 — fix(dates): corrige bug de fuso #308 (datas com 1 dia a menos em America/Sao_Paulo)</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">fuso-308-datas</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">0</div>
+      <div style="font-size:1.5rem;font-weight:700">17</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+447</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-0</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-72</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~576</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
 
   <h2>✅ Checklist de Revisão</h2>
     <ul>
+      <li>🖼️ Renderização verificada em desktop e mobile?</li>
+      <li>📦 Biblioteca testada com casos de borda?</li>
       <li>🧪 Testes manuais realizados?</li>
       <li>📋 Regras de validação passam? (npm run pre-pr)</li>
     </ul>
@@ -80,12 +82,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 0 remoções — 1 linhas tocadas</td>
-        <td>✨ 0 adições — 0 arquivo(s) alterado(s)</td>
+        <td>🧹 72 remoções — 768 linhas tocadas</td>
+        <td>✨ 447 adições — 17 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> docs/handoff.md, docs/tasks/P3-32-blueprint-v4-p1-alerts.md, docs/tasks/P3-33-blueprint-v4-p1-owners.md<br><span style="color:#166534;font-weight:600">➕</span> docs/reports/2026-08-12/fuso-308-datas-2026-08-12-fuso-308-datas.html, docs/reports/2026-08-12/main-2026-08-12-main.html<br><em>+12 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -98,38 +100,173 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>0</td></tr>
-    <tr><td>Adições</td><td>+0</td></tr>
-    <tr><td>Remoções</td><td>-0</td></tr>
-    <tr><td>Tokens estimados</td><td>~1</td></tr>
+    <tr><td>Arquivos alterados</td><td>17</td></tr>
+    <tr><td>Adições</td><td>+447</td></tr>
+    <tr><td>Remoções</td><td>-72</td></tr>
+    <tr><td>Tokens estimados</td><td>~576</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:58">+335 add</div>
+        <div class="del" style="flex:9">-54 del</div>
+        <div class="overhead" style="flex:33">~187 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+335</td><td>58%</td></tr>
+      <tr><td>Remoções</td><td>-54</td><td>9%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~187</td><td>33%</td></tr>
+      <tr><th>Total</th><th>~576</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
-    
+    <tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-12/fuso-308-datas-2026-08-12-fuso-308-datas.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-12/main-2026-08-12-main.html</td></tr>
+<tr><td>M</td><td>docs/tasks/P3-32-blueprint-v4-p1-alerts.md</td></tr>
+<tr><td>M</td><td>docs/tasks/P3-33-blueprint-v4-p1-owners.md</td></tr>
+<tr><td>M</td><td>docs/tasks/ROADMAP.md</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>src/components/EntryForm.tsx</td></tr>
+<tr><td>M</td><td>src/components/SaleForm.tsx</td></tr>
+<tr><td>M</td><td>src/lib/dateUtils.ts</td></tr>
+<tr><td>M</td><td>src/lib/metrics.ts</td></tr>
+<tr><td>M</td><td>src/pages/ControleCPF.tsx</td></tr>
+<tr><td>M</td><td>src/pages/Dashboard.tsx</td></tr>
+<tr><td>M</td><td>src/pages/Relatorios.tsx</td></tr>
+<tr><td>M</td><td>tests/unit/dateUtils.test.ts</td></tr>
+<tr><td>M</td><td>tests/unit/metrics.test.ts</td></tr>
   </table>
 
   
 
   <h2>🔍 Diff</h2>
   <div class="diff">
-    
+    diff --git a/docs/handoff.md b/docs/handoff.md
+index 0cc6eac..f470812 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -9,26 +9,29 @@
+ ### 🐞 Bugs Abertos
+ Consulte as GitHub Issues para a lista atual.
+ ## 🧭 Estado Atual
+<span class="del">-- **Branch:** `refactor/blueprint-v4-p1-owners`</span>
+<span class="del">-- **Último commit:** `6353842 — Merge pull request #347 from andre0787/docs/blueprint-v4-p1-reconcile-cards`</span>
+<span class="add">+- **Branch:** `fix/fuso-308-datas`</span>
+<span class="add">+- **Último commit:** `0f390af — Merge pull request #348 from andre0787/refactor/blueprint-v4-p1-alerts`</span>
+ - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
+ 
+<span class="del">-### ✅ Tarefa P3-31 concluída (produção)</span>
+<span class="del">-- **PR #341** — `refactor(vendas): migra domínio para RTK Query` **merged** em main (`8a53e70`)</span>
+<span class="del">-- **PR #342** — `chore(P3-31): finaliza card done e eventos` **merged** em main (`a7d6767`)</span>
+<span class="del">-- Domínio **vendas** migrado de TanStack React Query para **RTK Query** no padrão canônico</span>
+<span class="del">-  (`baseApi.injectEndpoints`): `src/features/vendas/` com 5 endpoints</span>
+<span class="del">-  (get/add/update/delete/cancelVenda), tags `sales`/`accounts`, barrel</span>
+<span class="del">-  `src/hooks/useDatabase/index.ts` reexportando `useSales*` (contrato público preservado),</span>
+<span class="del">-  (removido) src/hooks/useDatabase/sales.ts (spec exige).</span>
+<span class="del">-- Validações: 71 arquivos/620 testes ✅ | lint 0 erros ✅ | typecheck ✅ |</span>
+<span class="del">-  rule:40 ✅ | pre-pr 0 errors ✅ | code review por subagente APPROVE</span>
+<span class="del">-  (eventos `coding:done`/`code-review:done` com `subagent:true`).</span>
+<span class="del">-- Cards: P3-29/P3-30/P3-31 marcados `done`.</span>
+<span class="add">+### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query</span>
+<span class="add">+- **P3-28 entradas** (`src/features/entradas/`), **P3-29 contas** (`src/features/contas/`),</span>
+<span class="add">+  **P3-30 clientes** (`src/features/clientes/`), **P3-31 vendas** (`src/features/vendas/`, PR #341),</span>
+<span class="add">+  **P3-32 alerts** (`src/features/alerts/`, PR #348), **P3-33 owners** (`src/features/owners/`, PR #349),</span>
+<span class="add">+  **P3-34 programs** (`src/features/programs/`, PR #350), **P3-35 origemTypes**</span>
+<span class="add">+  (`src/features/origemTypes/`, PR #351) — todos **merged** em main.</span>
+<span class="add">+- Padrão canônico: `baseApi.injectEndpoints` + barrel `index.ts` + wrappers com shape</span>
+<span class="add">+  público preservado (`data`/`isPending`/`isError`/`error`/`refetch`/`mutate`/`mutateAsync`</span>
+<span class="add">+  + `onSuccess`/`onError`) + tags RTK (`entries`/`accounts`/`sales`/`clients`/`alerts`/`owners`/`programs`/`origem_types`).</span>
+<span class="add">+- Módulos legados removidos de `src/hooks/useDatabase/` (restam apenas `index.ts`,</span>
+<span class="add">+  `mappers.ts`, `shared.ts`). TanStack React Query ainda presente apenas em</span>
+<span class="add">+  DataContext/App (DataProvider) e mutationHooksLifecycle de contas/clientes.</span>
+<span class="add">+- Cards P3-27 a P3-35 todos `done`; ROADMAP atualizado.</span>
+ 
+<span class="del">-### 🔄 Próximo passo sugerido</span>
+<span class="del">-- Migrar próximos domínios legados de `src/hooks/useDatabase/` para RTK Query</span>
+<span class="del">-  (alerts, owners, programs, origemTypes) — mesmo padrão do P3-31.</span>
+<span class="add">+### 🔄 Em andamento</span>
+<span class="add">+- **Issue #308 (bug de fuso)** — datas ISO date-only (`YYYY-MM-DD`) exibidas com 1 dia a</span>
+<span class="add">+  menos em America/Sao_Paulo. Exibição já corrigida com `formatDateBR` (13 usos);</span>
+<span class="add">+  correção completa em PR com `parseDateOnly` (agrupamento mensal em metrics/Dashboard/Relatorios,</span>
+<span class="add">+  ciclo de passageiros em SaleForm, dia do mês em EntryForm, TWINS em ControleCPF).</span>
+ 
+ ### 📋 PRs Abertos
+ Nenhum PR aberto.
+@@ -46,7 +49,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
+ **Objetivo:** verifica output
+ **Status:** in_progress
+ **Iniciada em:** 2026-08-10T21:06:41.671Z
+<span class="del">-**Branch:** `refactor/blueprint-v4-p1-alerts`</span>
+<span class="add">+**Branch:** `fix/fuso-308-datas`</span>
+ **Último commit:** a18b8e3 — chore(pre-pr): registra validação P3-30
+ **Docs carregados:** AGENTS.md
+ ## ✅ Última Sessão
+diff --git a/docs/reports/2026-08-12/fuso-308-datas-2026-08-12-fuso-308-datas.html b/docs/reports/2026-08-12/fuso-308-datas-2026-08-12-fuso-308-datas.html
+new file mode 100644
+index 0000000..9010d4c
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/reports/2026-08-12/fuso-308-datas-2026-08-12-fuso-308-datas.html</span>
+@@ -0,0 +1,137 @@
+<span class="add">+&lt;!DOCTYPE html&gt;</span>
+<span class="add">+&lt;html lang="pt-BR"&gt;</span>
+<span class="add">+&lt;head&gt;</span>
+<span class="add">+  &lt;meta charset="UTF-8"&gt;</span>
+<span class="add">+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;</span>
+<span class="add">+  &lt;title&gt;fuso-308-datas — fuso 308 datas&lt;/title&gt;</span>
+<span class="add">+  &lt;style&gt;</span>
+<span class="add">+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}</span>
+<span class="add">+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}</span>
+<span class="add">+    h2{font-size:1rem;margin-top:1.5rem;color:#333}</span>
+<span class="add">+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}</span>
+<span class="add">+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}</span>
+<span class="add">+    .badge.pr{background:#dbeafe;color:#1e40af}</span>
+<span class="add">+    .badge.auto{background:#fef3c7;color:#92400e}</span>
+<span class="add">+    .badge.fix{background:#fee2e2;color:#991b1b}</span>
+<span class="add">+    .badge.feat{background:#dcfce7;color:#166534}</span>
+<span class="add">+    .badge.docs{background:#ede9fe;color:#5b21b6}</span>
+<span class="add">+    .badge.chore{background:#f3f4f6;color:#374151}</span>
+<span class="add">+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}</span>
+<span class="add">+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}</span>
+<span class="add">+    th{background:#f3f4f6;font-weight:600}</span>
+<span class="add">+    tr.add{background:#f0fdf4}</span>
+<span class="add">+    tr.del{background:#fef2f2}</span>
+<span class="add">+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}</span>
+<span class="add">+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}</span>
+<span class="add">+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}</span>
+<span class="add">+    .token-bar .add{background:#dcfce7;color:#166534}</span>
+<span class="add">+    .token-bar .del{background:#fee2e2;color:#991b1b}</span>
+<span class="add">+    .token-bar .overhead{background:#f3f4f6;color:#374151}</span>
+<span class="add">+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}</span>
+<span class="add">+    .diff .add{color:#4ade80}</span>
+<span class="add">+    .diff .del{color:#f87171}</span>
+<span class="add">+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}</span>
+<span class="add">+    .center{text-align:center}</span>
+<span class="add">+  &lt;/style&gt;</span>
+<span class="add">+&lt;/head&gt;</span>
+<span class="add">+&lt;body&gt;</span>
+<span class="add">+  &lt;h1&gt;📋 fuso 308 datas&lt;/h1&gt;</span>
+<span class="add">+  &lt;p class="meta"&gt;2026-08-12 22:59 &amp;middot; fix/fuso-308-datas &amp;middot; 0f390af — Merge pull request #348 from andre0787/refactor/blueprint-v4-p1-alerts&lt;/p&gt;</span>
+<span class="add">+  &lt;p&gt;&lt;span class="badge auto"&gt;auto&lt;/span&gt; &lt;span class="badge auto"&gt;fuso-308-datas&lt;/span&gt; &lt;span class="badge" style="background:#dcfce7;color:#166534"&gt;Baixo Risco&lt;/span&gt;&lt;/p&gt;</span>
+<span class="add">+</span>
+<span class="add">+  &lt;!-- Status cards --&gt;</span>
+<span class="add">+  &lt;div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0"&gt;</span>
+<span class="add">+    &lt;div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
+<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700"&gt;0&lt;/div&gt;</span>
+<span class="add">+      &lt;div style="font-size:.7rem;color:#666"&gt;Arquivos&lt;/div&gt;</span>
+<span class="add">+    &lt;/div&gt;</span>
+<span class="add">+    &lt;div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
+<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700;color:#166534"&gt;+0&lt;/div&gt;</span>
+<span class="add">+      &lt;div style="font-size:.7rem;color:#666"&gt;Adições&lt;/div&gt;</span>
+<span class="add">+    &lt;/div&gt;</span>
+<span class="add">+    &lt;div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center"&gt;</span>
+<span class="add">+      &lt;div style="font-size:1.5rem;font-weight:700;color:#991b1b"&gt;-0&lt;/div&gt;</span>
+<span class="add">+      &lt;div style="font-size:.7rem;color:#666"&gt;Remoções&lt;/div&gt;</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
