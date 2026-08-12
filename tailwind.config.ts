@@ -17,10 +17,10 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-					display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-					body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-					displayAlt: ['"Plus Jakarta Sans"', 'sans-serif'],
-					mono: ['"JetBrains Mono"', 'monospace'],
+					display: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+					body: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"SF Pro Display"', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+					displayAlt: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', 'sans-serif'],
+					mono: ['ui-monospace', '"SF Mono"', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"JetBrains Mono"', 'monospace'],
 				},
 				fontVariantNumeric: {
 					tabular: 'tabular-nums',

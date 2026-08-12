@@ -260,7 +260,7 @@ export default function Dashboard() {
     return Array.from(programMap.entries()).map(([name, value]) => ({
       name,
       value,
-      color: "hsl(230 65% 50%)",
+      color: "hsl(211 100% 45%)",
     }));
   }, [filteredAccounts, programs]);
 
@@ -413,7 +413,7 @@ export default function Dashboard() {
             className="rounded-lg border border-red-400/30 bg-red-50 dark:bg-red-950/20 p-3 sm:p-4 flex items-start gap-3 animate-appear"
             onClick={() => navigate("/entradas")}
           >
-            <AlertTriangle className="h-5 w-5 text-red-600 shrink-0 mt-0.5" />
+            <AlertTriangle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-red-800 dark:text-red-300">
                 {overdueEntries.length} entrada{overdueEntries.length > 1 ? "s" : ""} atrasada
@@ -508,7 +508,7 @@ export default function Dashboard() {
                   <span className="absolute inset-0 rounded-full bg-success animate-ping opacity-50" />
                   <span className="relative rounded-full bg-success h-2 w-2" />
                 </span>
-                <span className="text-xs tracking-wider text-muted-foreground uppercase font-medium">
+                <span className="text-xs tracking-wide text-muted-foreground font-medium">
                   {selectedOwner
                     ? (owners.find((o) => o.id === selectedOwner)?.name ?? "Sistema")
                     : "Sistema Operacional"}
@@ -532,7 +532,7 @@ export default function Dashboard() {
                     <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display text-foreground tracking-tight leading-none tabular-nums">
                       <AnimatedNumber value={currentMetrics.totalMiles} />
                     </h1>
-                    <span className="text-xs sm:text-sm font-medium text-muted-foreground tracking-wider uppercase font-display">
+                    <span className="text-xs sm:text-sm font-medium text-muted-foreground tracking-wide font-display">
                       milhas
                     </span>
                   </div>
@@ -597,7 +597,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="relative h-1 bg-gradient-to-r from-primary/30 via-gold/30 to-teal/30" />
+            <div className="relative h-1 bg-gradient-to-r from-primary/25 via-primary/10 to-teal/25" />
           </section>
 
           {/* METRIC CARDS */}
@@ -930,7 +930,7 @@ export default function Dashboard() {
                   <span className="absolute inset-0 rounded-full bg-success animate-ping opacity-50" />
                   <span className="relative rounded-full bg-success h-2 w-2" />
                 </span>
-                <span className="text-xs tracking-wider text-muted-foreground uppercase font-medium">
+                <span className="text-xs tracking-wide text-muted-foreground font-medium">
                   {selectedOwner
                     ? (owners.find((o) => o.id === selectedOwner)?.name ?? "Sistema")
                     : "Investimento em Pontos"}
@@ -959,7 +959,7 @@ export default function Dashboard() {
                     <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display text-foreground tracking-tight leading-none tabular-nums">
                       <AnimatedNumber value={currentMetrics.totalMiles} />
                     </h1>
-                    <span className="text-xs sm:text-sm font-medium text-muted-foreground tracking-wider uppercase font-display">
+                    <span className="text-xs sm:text-sm font-medium text-muted-foreground tracking-wide font-display">
                       pontos
                     </span>
                   </div>

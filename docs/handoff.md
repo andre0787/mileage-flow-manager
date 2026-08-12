@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `feat/apple-design`
-- **Último commit:** `ed08688 — fix(codereview): corrige 10 bugs — saldos de transferência, split recorrência, CSV, fuso e UI (#356 #357)`
+- **Branch:** `refactor/apple-design-hig`
+- **Último commit:** `dcfa723 — refactor(apple-design): migra cores raw (blue/red/green) para tokens do design system`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -44,14 +44,7 @@ Nenhum PR aberto.
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-## 🎯 Sessão Atual
-**Categoria:** refactor
-**Objetivo:** Redesign Apple HIG (skill apple-design) — tokens, tipografia, componentes, navegação
-**Status:** in_progress
-**Iniciada em:** 2026-08-12T03:22:10.807Z
-**Branch:** `fix/carrinho-transferencia-calc`
-**Último commit:** ed08688 — fix(codereview): corrige 10 bugs — saldos de transferência, split recorrência, CSV, fuso e UI (#356 #357)
-**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
+
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
@@ -73,3 +66,12 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 
 
+
+## 🎯 Sessão Atual
+**Categoria:** refactor
+**Objetivo:** Subida do redesign Apple HIG para prod (polimento tokens)
+**Status:** in_progress
+**Iniciada em:** 2026-08-12T04:08:14.840Z
+**Branch:** `refactor/apple-design-hig`
+**Último commit:** dcfa723 — refactor(apple-design): migra cores raw (blue/red/green) para tokens do design system
+**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md

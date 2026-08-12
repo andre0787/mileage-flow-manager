@@ -14,7 +14,7 @@ export default function KPICard({ label, value, delta, description }: KPICardPro
         {delta !== null && delta !== undefined && (
           <span
             className={`inline-flex items-center text-sm font-medium ${
-              delta >= 0 ? "text-green-500" : "text-red-500"
+              delta >= 0 ? "text-success" : "text-destructive"
             }`}
           >
             {delta >= 0 ? "↑" : "↓"} {Math.abs(delta)}%

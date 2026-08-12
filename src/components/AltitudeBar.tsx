@@ -15,7 +15,7 @@ export function AltitudeBar({ value, goal, className, color }: AltitudeBarProps)
         className="absolute inset-y-0 left-0 rounded-full transition-all duration-1000 ease-out"
         style={{
           width: `${pct}%`,
-          background: color ?? "linear-gradient(90deg, hsl(var(--primary)), hsl(var(--gold)))",
+          background: color ?? "hsl(var(--primary))",
         }}
       />
       {pct >= 100 && (
