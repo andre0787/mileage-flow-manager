@@ -116,11 +116,7 @@ export const updateEntryEndpoint = (builder: EntradasBuilder) => ({
             Number(srcRes.data.balance),
             Number(srcRes.data.total_invested ?? 0),
           );
-          await applyBalance(
-            merged.sourceAccountId,
-            -merged.amount,
-            -proportionalCost,
-          );
+          await applyBalance(merged.sourceAccountId, -merged.amount, -proportionalCost);
         }
       }
 
