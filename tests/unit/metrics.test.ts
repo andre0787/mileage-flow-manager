@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, afterAll, beforeAll } from "vitest";
 import {
   calcCostPerMile,
   calcCostPerThousand,
@@ -140,11 +140,7 @@ describe("calcRevenueChange", () => {
 
 describe("filterActiveSales", () => {
   it("filtra vendas canceladas", () => {
-    const sales = [
-      { status: "concluida" },
-      { status: "pendente" },
-      { status: "cancelado" },
-    ];
+    const sales = [{ status: "concluida" }, { status: "pendente" }, { status: "cancelado" }];
     expect(filterActiveSales(sales)).toHaveLength(2);
   });
 });
@@ -161,6 +157,24 @@ describe("filterSalesByMonth", () => {
   });
 });
 
+describe("filterSalesByMonth com datas date-only (bug de fuso #308, TWINS)", () => {
+  const ORIGINAL_TZ = process.env.TZ;
+
+  beforeAll(() => {
+    process.env.TZ = "America/Sao_Paulo";
+  });
+
+  afterAll(() => {
+    process.env.TZ = ORIGINAL_TZ;
+  });
+
+  it("conta venda do dia 1º no mês correto (sem deslocar para o mês anterior)", () => {
+    // Supabase envia YYYY-MM-DD. Sem parseDateOnly, em -3: new Date("2026-08-01") → 31/07 21h
+    const sales = [{ date: "2026-08-01" }, { date: "2026-08-15" }, { date: "2026-07-31" }];
+    expect(filterSalesByMonth(sales, 7, 2026)).toHaveLength(2); // ago: 01 e 15
+  });
+});
+
 // ─── Métricas Agregadas ───
 
 describe("computeDashboardMetrics", () => {
@@ -170,14 +184,46 @@ describe("computeDashboardMetrics", () => {
     { id: "a3", balance: 2000, totalInvested: 300, status: "inativa", ownerId: "o2" },
   ];
 
-// Data do mês passado com dia 1 — evita rollover do JS Date (ex: 31/07 - 1 mês = 31/06 → 01/07)
-const lastMonthDate = () => new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1);
+  // Data do mês passado com dia 1 — evita rollover do JS Date (ex: 31/07 - 1 mês = 31/06 → 01/07)
+  const lastMonthDate = () => new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1);
 
   const sales = [
-    { status: "concluida", date: new Date().toISOString(), saleValue: 800, profit: 200, milesUsed: 2000, accountId: "a1", passengers: [{ cpf: "111" }, { cpf: "222" }] },
-    { status: "pendente", date: new Date().toISOString(), saleValue: 500, profit: 100, milesUsed: 1000, accountId: "a1", passengers: [{ cpf: "333" }] },
-    { status: "cancelado", date: new Date().toISOString(), saleValue: 300, profit: 50, milesUsed: 500, accountId: "a2", passengers: [] },
-    { status: "concluida", saleValue: 400, profit: 80, milesUsed: 1000, accountId: "a1", passengers: [{ cpf: "444" }], date: lastMonthDate().toISOString() },
+    {
+      status: "concluida",
+      date: new Date().toISOString(),
+      saleValue: 800,
+      profit: 200,
+      milesUsed: 2000,
+      accountId: "a1",
+      passengers: [{ cpf: "111" }, { cpf: "222" }],
+    },
+    {
+      status: "pendente",
+      date: new Date().toISOString(),
+      saleValue: 500,
+      profit: 100,
+      milesUsed: 1000,
+      accountId: "a1",
+      passengers: [{ cpf: "333" }],
+    },
+    {
+      status: "cancelado",
+      date: new Date().toISOString(),
+      saleValue: 300,
+      profit: 50,
+      milesUsed: 500,
+      accountId: "a2",
+      passengers: [],
+    },
+    {
+      status: "concluida",
+      saleValue: 400,
+      profit: 80,
+      milesUsed: 1000,
+      accountId: "a1",
+      passengers: [{ cpf: "444" }],
+      date: lastMonthDate().toISOString(),
+    },
   ];
 
   const entries = [

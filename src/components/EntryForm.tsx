@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { FormDrawer } from "@/components/FormDrawer";
 import { isTransferencia } from "@/lib/utils";
+import { parseDateOnly } from "@/lib/dateUtils";
 import { parseOrigemTypeDescription, filterToCleanOrigemTypes } from "@/lib/origemTypes";
 import { classifyByText, categoryLabel, categoryColor } from "@/lib/auto-classify";
 import type { Account, OrigemType, Program, Owner, EntryFormData } from "@/types";
@@ -853,7 +854,9 @@ export function EntryForm({
                 </div>
                 <div className="flex justify-between mt-1 text-xs text-primary">
                   <span>Dia do mês:</span>
-                  <span>{form.startDate ? new Date(form.startDate).getDate() + "º dia" : "—"}</span>
+                  <span>
+                    {form.startDate ? parseDateOnly(form.startDate).getDate() + "º dia" : "—"}
+                  </span>
                 </div>
                 {form.recurrenceValueMode === "split" && (
                   <div className="flex justify-between mt-1">

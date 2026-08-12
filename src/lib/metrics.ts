@@ -4,6 +4,8 @@
  * Toda fórmula financeira do sistema deve estar aqui.
  */
 
+import { parseDateOnly } from "@/lib/dateUtils";
+
 // ─── Cálculos de Custo ───
 
 /** Custo por milha: total pago ÷ milhas geradas */
@@ -152,7 +154,7 @@ export function filterSalesByMonth<T extends { date: string }>(
   year: number,
 ): T[] {
   return sales.filter((s) => {
-    const d = new Date(s.date);
+    const d = parseDateOnly(s.date);
     return d.getMonth() === month && d.getFullYear() === year;
   });
 }
@@ -207,7 +209,7 @@ export function computeDashboardMetrics(
   const avgCostPerMile = calcAverageCostPerMile(totalInvested, totalMiles);
 
   const monthlyEntries = confirmedEntries.filter((e) => {
-    const d = new Date(e.date);
+    const d = parseDateOnly(e.date);
     return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
   });
   const monthlyMilesIn = monthlyEntries
@@ -279,13 +281,13 @@ export function computeMetricHistory(
     const year = monthDate.getFullYear();
 
     const monthSales = sls.filter((s) => {
-      const d = new Date(s.date);
+      const d = parseDateOnly(s.date);
       return d.getMonth() === month && d.getFullYear() === year && s.status !== "cancelado";
     });
 
     const monthEntries = entrs.filter((e) => {
       if (e.entryStatus === "aguardando") return false;
-      const d = new Date(e.date);
+      const d = parseDateOnly(e.date);
       return d.getMonth() === month && d.getFullYear() === year;
     });
 
