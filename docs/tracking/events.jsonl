@@ -1202,3 +1202,4 @@
 {"timestamp":"2026-08-12T22:11:28.674Z","type":"code-review:done","description":"Review aprovado: 5 pontos corrigidos (guard CI trim, dead param, path skill, MAP link, readSize label)","branch":"feat/context-optimization","commit":"c692e01","agent":"human","subagent":true,"verdict":"approved"}
 {"timestamp":"2026-08-12T22:11:28.815Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/context-optimization","commit":"c692e01","agent":"human","rule":"rule-26"}
 {"timestamp":"2026-08-12T22:11:29.174Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/context-optimization","commit":"c692e01","agent":"human","errors":0}
+{"timestamp":"2026-08-12T22:14:49.730Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/context-optimization","commit":"436002a","agent":"human","errors":0}
