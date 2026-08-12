@@ -625,14 +625,15 @@ describe("rule-22-pr-naming", () => {
 
 describe("rule-23-skill-orphans", () => {
   // ponytail: .pi/skills/ tem symlinks absolutos que quebram no CI.
-  // Criamos fixture com TODAS as 14 skills referenciadas.
+  // Criamos fixture com TODAS as 18 skills referenciadas.
   const REF_SKILLS = [
     "llm-council", "brainstorming", "writing-plans", "using-git-worktrees",
     "test-driven-development", "subagent-driven-development", "executing-plans",
     "requesting-code-review", "finishing-a-development-branch",
     "systematic-debugging", "verification-before-completion",
     "dispatching-parallel-agents", "receiving-code-review",
-    "small-model-execution",
+    "small-model-execution", "compact-delegation", "bounded-scout",
+    "diff-miner", "test-triage",
   ];
 
   it("deve passar (positiva: fixture com todas as skills)", () => {

@@ -34,6 +34,10 @@ const REFERENCED_SKILLS = [
   "dispatching-parallel-agents",
   "receiving-code-review",
   "small-model-execution",
+  "compact-delegation",
+  "bounded-scout",
+  "diff-miner",
+  "test-triage",
 ];
 
 // Skills que existem no Superpowers mas não estão em .pi/skills/ (podem ser úteis)
