@@ -17,8 +17,13 @@ const mockData = {
       gateActivations: { intent: 3, twins: 1, auth: 0 },
       avgOutcomeGrade: 92.5,
       topViolations: [{ rule: "rule-14", count: 2 }],
+      healedByRule: { "rule-14": 1 },
+      gateBlockedByRule: { "rule-27": 1 },
       avgCycleTimeHours: 1.5,
       branchesMerged: 4,
+      violationsCaught: 5,
+      healedRate: 20,
+      frictionPerPass: 0.83,
       llmRouter: {
         resolved: 4,
         completed: 3,
@@ -45,8 +50,13 @@ const mockData = {
       gateActivations: { intent: 2, twins: 0, auth: 0 },
       avgOutcomeGrade: 88.0,
       topViolations: [],
+      healedByRule: {},
+      gateBlockedByRule: {},
       avgCycleTimeHours: 2.1,
       branchesMerged: 5,
+      violationsCaught: 0,
+      healedRate: null,
+      frictionPerPass: null,
     },
   ],
 };
@@ -69,10 +79,10 @@ describe("KPIDashboard", () => {
 
   it("renders KPI cards with values", () => {
     render(<KPIDashboard data={mockData} />);
-    expect(screen.getByText("85.7%")).toBeDefined();
-    expect(screen.getByText("90%")).toBeDefined();
-    expect(screen.getByText("80%")).toBeDefined();
-    expect(screen.getByText("92.5%")).toBeDefined();
+    expect(screen.getAllByText("85.7%").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText("90%").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText("80%").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText("92.5%").length).toBeGreaterThanOrEqual(1);
   });
 
   it("renders tables with data", () => {

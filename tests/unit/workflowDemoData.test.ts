@@ -12,6 +12,7 @@ import {
   JOURNEY_STEPS,
   FLUXO_ITEMS,
   RECENT_TIMELINE,
+  GATE_EFFICIENCY,
   kpiForId,
 } from "@/lib/workflowDemoData";
 
@@ -30,24 +31,33 @@ describe("workflowDemoData (rule-31)", () => {
   });
 
   it("kpiForId resolve pelo valor numérico", () => {
-    expect(kpiForId("1394")?.label).toBe("eventos registrados");
+    expect(kpiForId("1850")?.label).toBe("eventos registrados");
     expect(kpiForId("99999")).toBeUndefined();
   });
 
-  it("EVENT_TYPES soma 1394 eventos reais e respeita MAX_EVENTS", () => {
+  it("EVENT_TYPES soma 1850 eventos reais e respeita MAX_EVENTS", () => {
     const total = EVENT_TYPES.reduce((acc, e) => acc + e.n, 0);
-    expect(total).toBe(1394);
-    expect(MAX_EVENTS).toBe(807);
+    expect(total).toBe(1850);
+    expect(MAX_EVENTS).toBe(819);
     EVENT_TYPES.forEach((e) => {
       expect(e.name).toBeTruthy();
       expect(e.color).toMatch(/^#/);
     });
   });
 
-  it("GRADES soma 274 notas e respeita MAX_GRADE", () => {
+  it("GRADES soma 435 notas e respeita MAX_GRADE", () => {
     const total = GRADES.reduce((acc, g) => acc + g.n, 0);
-    expect(total).toBe(274);
-    expect(MAX_GRADE).toBe(206);
+    expect(total).toBe(435);
+    expect(MAX_GRADE).toBe(288);
+  });
+
+  it("GATE_EFFICIENCY reflete violações pegas, healed e pre-pr aprovados", () => {
+    expect(GATE_EFFICIENCY.ruleFails).toBe(395);
+    expect(GATE_EFFICIENCY.healed).toBe(59);
+    expect(GATE_EFFICIENCY.prePrPass).toBe(312);
+    expect(GATE_EFFICIENCY.prePrPassRate).toBe(70.6);
+    expect(GATE_EFFICIENCY.topViolations[0].rule).toBe("rule-10-clean");
+    expect(GATE_EFFICIENCY.topViolations.length).toBe(5);
   });
 
   it("RECENT_TIMELINE contém eventos pre-pr e rule:fail", () => {

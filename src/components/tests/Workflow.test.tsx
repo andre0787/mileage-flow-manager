@@ -20,8 +20,8 @@ describe("WorkflowHero", () => {
 
   it("renderiza as 4 metas do hero", () => {
     render(<WorkflowHero />);
-    expect(screen.getByText("✅ 39 regras validadas a cada pre-pr")).toBeDefined();
-    expect(screen.getByText("🛡️ 4 gates de segurança")).toBeDefined();
+    expect(screen.getByText("✅ 41 regras validadas a cada pre-pr")).toBeDefined();
+    expect(screen.getByText("🛡️ 6 gates de segurança")).toBeDefined();
     expect(screen.getByText("📡 telemetria em toda etapa")).toBeDefined();
   });
 });

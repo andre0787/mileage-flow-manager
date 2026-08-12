@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T04:09:59.379Z",
+  "generatedAt": "2026-08-12T04:35:03.734Z",
   "months": [
     {
       "month": "2026-03",
@@ -20,6 +20,9 @@
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 0,
+      "violationsCaught": 0,
+      "healedRate": null,
+      "frictionPerPass": null,
       "llmRouter": {
         "resolved": 0,
         "completed": 0,
@@ -51,6 +54,9 @@
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 0,
+      "violationsCaught": 0,
+      "healedRate": null,
+      "frictionPerPass": null,
       "llmRouter": {
         "resolved": 0,
         "completed": 0,
@@ -82,6 +88,9 @@
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 0,
+      "violationsCaught": 0,
+      "healedRate": null,
+      "frictionPerPass": null,
       "llmRouter": {
         "resolved": 0,
         "completed": 0,
@@ -113,6 +122,9 @@
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 0,
+      "violationsCaught": 0,
+      "healedRate": null,
+      "frictionPerPass": null,
       "llmRouter": {
         "resolved": 0,
         "completed": 0,
@@ -144,6 +156,9 @@
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 7,
+      "violationsCaught": 0,
+      "healedRate": null,
+      "frictionPerPass": 0,
       "llmRouter": {
         "resolved": 0,
         "completed": 0,
@@ -158,9 +173,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 70.5,
-      "prePrTotal": 339,
-      "prePrPass": 239,
+      "prePrPassRate": 71,
+      "prePrTotal": 345,
+      "prePrPass": 245,
       "prePrFail": 100,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -173,7 +188,7 @@
       "topViolations": [
         {
           "rule": "rule-10-clean",
-          "count": 184
+          "count": 187
         },
         {
           "rule": "rule-26-session-started",
@@ -193,7 +208,7 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 40,
+        "rule-26": 41,
         "rule-17-new-docs-valid": 18,
         "rule-02": 1
       },
@@ -201,7 +216,10 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.4,
-      "branchesMerged": 75,
+      "branchesMerged": 76,
+      "violationsCaught": 396,
+      "healedRate": 15.2,
+      "frictionPerPass": 1.62,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,

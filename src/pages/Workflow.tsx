@@ -4,6 +4,7 @@ import { WorkflowTimeline } from "@/components/workflow/WorkflowTimeline";
 import { WorkflowMindMap } from "@/components/workflow/WorkflowMindMap";
 import { WorkflowGates } from "@/components/workflow/WorkflowGates";
 import { WorkflowTelemetry } from "@/components/workflow/WorkflowTelemetry";
+import { WorkflowEfficiency } from "@/components/workflow/WorkflowEfficiency";
 import { WorkflowSimulator } from "@/components/workflow/WorkflowSimulator";
 import { DATA_DATE } from "@/lib/workflowDemoData";
 
@@ -39,6 +40,10 @@ export default function Workflow() {
 
       <section className="border-t pt-8" aria-label="A telemetria">
         <WorkflowTelemetry />
+      </section>
+
+      <section className="border-t pt-8" aria-label="Eficiência dos gates">
+        <WorkflowEfficiency />
       </section>
 
       <section className="border-t pt-8" aria-label="Experimente">

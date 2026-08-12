@@ -1847,3 +1847,10 @@
 {"timestamp":"2026-08-12T04:08:14.863Z","type":"session:start","description":"refactor: Subida do redesign Apple HIG para prod (polimento tokens)","branch":"refactor/apple-design-hig","commit":"dcfa723","agent":"human","categoria":"refactor"}
 {"timestamp":"2026-08-12T04:09:59.259Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/apple-design-hig","commit":"dcfa723","agent":"human","errors":0}
 {"timestamp":"2026-08-12T04:10:03.237Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/apple-design-hig","commit":"dcfa723","agent":"human","errors":0}
+{"timestamp":"2026-08-12T04:22:47.039Z","type":"session:start","description":"feature: Atualizar aba Workflow com dados reais + evoluir KPIs de processo (eficiência de gates)","branch":"main","commit":"3154f56","agent":"human","categoria":"feature"}
+{"timestamp":"2026-08-12T04:31:08.570Z","type":"coding:done","description":"Aba Workflow com dados reais + KPIs de eficiência de gates implementados por subagente","branch":"feat/workflow-kpis-reais","commit":"3154f56","agent":"human","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-08-12T04:31:08.603Z","type":"code-review:done","description":"Review do diff aprovado por subagente (números consistentes, contratos OK)","branch":"feat/workflow-kpis-reais","commit":"3154f56","agent":"human","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-08-12T04:31:09.473Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/workflow-kpis-reais","commit":"3154f56","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-12T04:31:16.762Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/workflow-kpis-reais","commit":"3154f56","agent":"human","rule":"rule-10-clean"}
+{"timestamp":"2026-08-12T04:33:11.161Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/workflow-kpis-reais","commit":"3154f56","agent":"human","errors":0}
+{"timestamp":"2026-08-12T04:35:03.614Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/workflow-kpis-reais","commit":"b62719f","agent":"human","errors":0}
