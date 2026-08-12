@@ -1874,3 +1874,6 @@
 {"timestamp":"2026-08-12T21:30:27.008Z","type":"code-review:done","description":"Review aprovado: 2 pontos corrigidos (locator ThemeToggle getByRole, parametro i removido) + fix camelCase e2e","branch":"feat/dark-ui-audit","commit":"ee53938","agent":"human","subagent":true,"verdict":"approved"}
 {"timestamp":"2026-08-12T21:32:11.062Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/dark-ui-audit","commit":"ee53938","agent":"human","errors":0}
 {"timestamp":"2026-08-12T21:32:21.924Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/dark-ui-audit","commit":"ee53938","agent":"human","errors":0}
+{"timestamp":"2026-08-12T21:49:29.281Z","type":"session:start","description":"feature: Briefing executivo: relatorio HTML de sessao com impacto de produto/negocio/processo","branch":"main","commit":"56bf31b","agent":"human","categoria":"feature"}
+{"timestamp":"2026-08-12T21:49:29.413Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/executive-report","commit":"56bf31b","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-12T21:49:29.756Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/executive-report","commit":"56bf31b","agent":"human","errors":0}

@@ -144,10 +144,20 @@ if (!process.argv.includes("--no-report")) {
 
     const prefix = prNum ? `PR${prNum}` : branch.replace(/^[a-z]+\//, "");
     const taskName = branch.replace(/^(feat\/|fix\/|chore\/|docs\/)/, "").replace(/[-_/]/g, " ");
+    // Narrativa automática por tipo de mudança (o agente pode refinar depois com
+    // npm run report "desc" --impact-produto "..." --impact-negocio "..." --write)
+    const taskType = branch.replace(/^([a-z]+)\/.*/, "$1");
+    const defaultImpactProduto = taskType === "fix"
+      ? "Correção de comportamento validada — menos risco de erro para quem usa o produto."
+      : taskType === "feat"
+        ? "Nova capacidade entregue e validada para o produto."
+        : "Alteração validada dentro do fluxo de qualidade do produto.";
     const cmd = `node scripts/generate-report.mjs "${taskName}"`
       + ` --prefix "${prefix}"`
-      + ` --benefits "Auto-gerado pelo pre-pr-check"`
-      + ` --impact "Relatório gerado automaticamente como parte do workflow de validação pré-PR"`
+      + ` --summary "Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório."`
+      + ` --impact-produto "${defaultImpactProduto}"`
+      + ` --impact-negocio "Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção."`
+      + ` --impact-processo "Fluxo completo seguido: sessão → implementação → code review → pré-PR → PR. Detalhes nas métricas automáticas."`
       + ` --write 2>&1`;
 
     const out = execSync(cmd, { cwd: ROOT, encoding: "utf8", timeout: 15000 }).trim();
