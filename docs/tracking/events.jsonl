@@ -1755,3 +1755,5 @@
 {"timestamp":"2026-08-11T23:58:15.346Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-programs","commit":"69885d7","agent":"human","errors":0}
 {"timestamp":"2026-08-12T00:31:24.341Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-programs","commit":"58a24c5","agent":"human","errors":0}
 {"timestamp":"2026-08-12T00:48:03.052Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-origem-types","commit":"a504fe5","agent":"human","errors":0}
+{"timestamp":"2026-08-12T00:48:16.737Z","type":"rule:fail","description":"rule-22-pr-naming falhou","branch":"refactor/blueprint-v4-p1-origem-types","commit":"a5e1195","agent":"human","rule":"rule-22-pr-naming"}
+{"timestamp":"2026-08-12T00:50:58.470Z","type":"rule:fail","description":"rule-21-feedback-review falhou","branch":"refactor/blueprint-v4-p1-origem-types","commit":"a5e1195","agent":"human","rule":"rule-21-feedback-review"}
