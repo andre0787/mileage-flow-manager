@@ -190,7 +190,8 @@ export default function Vendas() {
       "Valor Venda (R$)": s.saleValue,
       "Custo/Milha (R$)": s.costPerMile?.toFixed(4) ?? "",
       "Lucro (R$)": s.profit?.toFixed(2) ?? "",
-      Margem: s.profitMargin ? `${(s.profitMargin * 100).toFixed(1)}%` : "",
+      // ponytail: calcProfitMargin já retorna percentual (ex: 25 = 25%)
+      Margem: s.profitMargin ? `${s.profitMargin.toFixed(1)}%` : "",
       Status: s.status,
     }));
     downloadCSV(data, `vendas-${new Date().toISOString().split("T")[0]}.csv`);
@@ -337,6 +338,7 @@ export default function Vendas() {
       <SaleForm
         key={editingSale?.id ?? "edit"}
         mode="edit"
+        editingSaleId={editingSale?.id}
         open={isEditDialogOpen}
         onOpenChange={(open) => {
           if (!open) setEditingSale(null);

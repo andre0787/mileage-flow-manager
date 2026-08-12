@@ -76,8 +76,18 @@ export function DataProvider({ children }: { children: ReactNode }) {
           account_type: "milhas",
           color: "#8b5cf6",
         })
+        // .insert retorna PromiseLike (thenable) — sem .catch/.finally no tipo.
+        .then(
+          () => {
+            queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: "all" });
+          },
+          (err) => {
+            console.error("[DataContext] falha ao criar tipo Transferência:", err);
+          },
+        )
+        // ponytail: sempre libera o lock — sem isso, uma falha de rede/RLS
+        // impedia qualquer tentativa futura de recriar o tipo.
         .then(() => {
-          queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: "all" });
           creatingTransferencia.current = false;
         });
     }

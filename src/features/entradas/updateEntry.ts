@@ -20,15 +20,19 @@ export const updateEntryEndpoint = (builder: EntradasBuilder) => ({
       if (delErr) return { error: toQueryError(delErr) };
 
       const merged: PointEntry = { ...oldEntry, ...updates };
+      const destChanged = oldEntry.accountId !== merged.accountId;
 
       if (!isAguardando) {
         const newIsAguardando = merged.entryStatus === "aguardando";
         const oldMilesAdded = oldEntry.milesGenerated ?? oldEntry.amount;
         const newMilesAdded = merged.milesGenerated ?? merged.amount;
 
-        // ─── Delta approach: net change for confirmed→confirmed
-        //     Reverse old (confirmed→aguardando) or delta (confirmed→confirmed)
-        const applyDelta = !newIsAguardando;
+        // ─── Delta approach: net change for confirmed→confirmed no MESMO destino.
+        //     Se o destino mudou, delta não se aplica: reverter tudo na conta antiga
+        //     e creditar o valor completo na conta nova (bloco "New dest" abaixo).
+        //     Reverse old (confirmed→aguardando ou conta alterada) ou delta
+        //     (confirmed→confirmed na mesma conta).
+        const applyDelta = !newIsAguardando && !destChanged;
         const deltaMiles = applyDelta ? newMilesAdded - oldMilesAdded : -oldMilesAdded; // reverse all
         const deltaInvested = applyDelta
           ? merged.amountPaid - oldEntry.amountPaid
@@ -125,8 +129,10 @@ export const updateEntryEndpoint = (builder: EntradasBuilder) => ({
         }
       }
 
-      // New dest: only apply if old was aguardando (no delta applied above)
-      if (isAguardando) {
+      // New dest: apply full when old was aguardando (no delta applied above)
+      // OR when the destination account changed (old was fully reversed).
+      // (aguardando já retornou acima — nova entrada pendente não toca saldos.)
+      if (isAguardando || destChanged) {
         const destRes = await supabase
           .from("accounts")
           .select("balance, total_invested")
