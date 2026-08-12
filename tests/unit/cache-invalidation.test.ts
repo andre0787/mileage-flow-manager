@@ -3,11 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const ROOT = resolve(__dirname, "../..");
-const MUTATION_FILES = [
-  "src/hooks/useDatabase/origemTypes.ts",
-  "src/hooks/useDatabase/programs.ts",
-  "src/hooks/useDatabase/shared.ts",
-];
+const MUTATION_FILES = ["src/hooks/useDatabase/shared.ts"];
 
 // Domínios migrados para RTK Query (Blueprint v4.0 P1) invalidam cache via
 // baseApi.util.invalidateTags nos wrappers de compat — mesma garantia de
@@ -36,6 +32,18 @@ const OWNERS_RTK_FILES = [
   "src/features/owners/addOwner.ts",
   "src/features/owners/updateOwner.ts",
   "src/features/owners/deleteOwner.ts",
+];
+const PROGRAMS_RTK_FILES = [
+  "src/features/programs/mutationHooksLifecycle.ts",
+  "src/features/programs/addProgram.ts",
+  "src/features/programs/updateProgram.ts",
+  "src/features/programs/deleteProgram.ts",
+];
+const ORIGEM_TYPES_RTK_FILES = [
+  "src/features/origemTypes/mutationHooksLifecycle.ts",
+  "src/features/origemTypes/addOrigemType.ts",
+  "src/features/origemTypes/updateOrigemType.ts",
+  "src/features/origemTypes/deleteOrigemType.ts",
 ];
 
 describe("atualização do cache após mutations", () => {
@@ -87,12 +95,36 @@ describe("atualização do cache após mutations", () => {
       resolve(ROOT, "src/features/owners/mutationHooksLifecycle.ts"),
       "utf8",
     );
-    expect(lifecycle).toMatch(/invalidateTags\((?:INVALIDATE)\)/);
+    expect(lifecycle).toMatch(/invalidateTags\(INVALIDATE\)/);
     const endpoints = ["addOwner", "updateOwner", "deleteOwner"]
-      .map((n) =>
-        readFileSync(resolve(ROOT, `src/features/owners/${n}.ts`), "utf8"),
-      )
+      .map((n) => readFileSync(resolve(ROOT, `src/features/owners/${n}.ts`), "utf8"))
       .join("\n");
     expect(endpoints.match(/invalidatesTags: \["owners"\]/g)).toHaveLength(3);
+  });
+
+  it("invalida programs e origem_types nos wrappers e endpoints de programs migrados", () => {
+    for (const relativePath of PROGRAMS_RTK_FILES) {
+      const source = readFileSync(resolve(ROOT, relativePath), "utf8");
+      if (relativePath.endsWith("mutationHooksLifecycle.ts")) {
+        expect(source, relativePath).toMatch(/invalidateTags/);
+        expect(source, relativePath).toMatch(/["']programs["']/);
+        expect(source, relativePath).toMatch(/["']origem_types["']/);
+      } else {
+        expect(source, relativePath).toMatch(/programs/);
+      }
+    }
+  });
+
+  it("invalida origem_types nos wrappers e endpoints de origemTypes migrados", () => {
+    for (const relativePath of ORIGEM_TYPES_RTK_FILES) {
+      const source = readFileSync(resolve(ROOT, relativePath), "utf8");
+      if (relativePath.endsWith("mutationHooksLifecycle.ts")) {
+        expect(source, relativePath).toMatch(/invalidateTags\(INVALIDATE\)/);
+        expect(source, relativePath).toMatch(/["']origem_types["']/);
+      } else {
+        expect(source, relativePath).toMatch(/invalidatesTags/);
+        expect(source, relativePath).toMatch(/["']origem_types["']/);
+      }
+    }
   });
 });

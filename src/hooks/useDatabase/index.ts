@@ -14,13 +14,13 @@ export {
   useAddProgramMutation,
   useUpdateProgramMutation,
   useDeleteProgramMutation,
-} from "./programs";
+} from "@/features/programs";
 export {
   useOrigemTypesQuery,
   useAddOrigemTypeMutation,
   useUpdateOrigemTypeMutation,
   useDeleteOrigemTypeMutation,
-} from "./origemTypes";
+} from "@/features/origemTypes";
 export {
   useAccountsQuery,
   useAddAccountMutation,
