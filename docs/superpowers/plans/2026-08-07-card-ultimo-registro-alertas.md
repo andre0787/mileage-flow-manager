@@ -4,7 +4,7 @@
 
 **Goal:** Exibir último registro de entrada/venda no card das contas e permitir alertas personalizados por conta (data + observação + lido/não lido).
 
-**Architecture:** Item 1 é derivação client-side pura (novo helper em `src/lib/accountActivity.ts`, sem query nova — `entries`/`sales` já estão no `useData()`). Item 2 é uma nova entidade: migration SQL + RLS por `auth.uid()`, types, hooks React Query em `src/hooks/useDatabase/alerts.ts`, dialog `AccountAlertsDialog.tsx` e entrada no card via ícone Bell + badge de não lidos.
+**Architecture:** Item 1 é derivação client-side pura (novo helper em `src/lib/accountActivity.ts`, sem query nova — `entries`/`sales` já estão no `useData()`). Item 2 é uma nova entidade: migration SQL + RLS por `auth.uid()`, types, hooks RTK Query em `src/features/alerts/` (padrão P3-32; módulo legado de alerts foi migrado para lá), dialog `AccountAlertsDialog.tsx` e entrada no card via ícone Bell + badge de não lidos.
 
 **Tech Stack:** React 19, TanStack Query v5, Supabase (RLS), shadcn/ui (Dialog, Badge, Button, Input, Textarea, Switch), lucide-react (Bell), Vitest + Testing Library, Playwright.
 
@@ -245,7 +245,7 @@ git commit -m "feat: última entrada e última venda no card da conta"
 **Files:**
 - Create: `supabase/migrations/20260807000000_add_account_alerts.sql`
 - Modify: `src/types/index.ts` (adicionar interface `AccountAlert`)
-- Create: `src/hooks/useDatabase/alerts.ts`
+- Create: `src/features/alerts/getAccountAlerts.ts` + `addAccountAlert.ts`/`toggleAccountAlert.ts` + `hooks.ts` (padrão P3-32)
 - Modify: `src/hooks/useDatabase/index.ts` (barrel)
 
 **Interfaces:**
@@ -302,7 +302,7 @@ export interface AccountAlert {
 
 - [ ] **Step 3: Hooks**
 
-`src/hooks/useDatabase/alerts.ts` (padrão de entries.ts — useUserId, supabase, queryClient, toast, logError):
+`src/features/alerts/shared.ts` (padrão de vendas — useUserId, supabase, toQueryError, toast, logError):
 
 ```ts
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -422,7 +422,7 @@ Expected: PASS
 - [ ] **Step 6: Commit**
 
 ```bash
-git add supabase/migrations/20260807000000_add_account_alerts.sql src/types/index.ts src/hooks/useDatabase/alerts.ts src/hooks/useDatabase/index.ts
+git add supabase/migrations/20260807000000_add_account_alerts.sql src/types/index.ts src/features/alerts/ src/hooks/useDatabase/index.ts
 git commit -m "feat: migration, types e hooks de alertas por conta"
 ```
 

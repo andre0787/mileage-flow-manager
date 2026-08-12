@@ -52,4 +52,4 @@ export {
   useAccountAlerts,
   useAddAccountAlertMutation,
   useToggleAccountAlertMutation,
-} from "./alerts";
+} from "@/features/alerts";

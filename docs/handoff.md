@@ -45,9 +45,9 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 **Categoria:** docs
 **Objetivo:** verifica output
 **Status:** in_progress
-**Iniciada em:** 2026-08-11T13:26:56.850Z
-**Branch:** `refactor/blueprint-v4-p1-owners`
-**Último commit:** 6353842 — Merge pull request #347 from andre0787/docs/blueprint-v4-p1-reconcile-cards
+**Iniciada em:** 2026-08-10T21:06:41.671Z
+**Branch:** `refactor/blueprint-v4-p1-alerts`
+**Último commit:** a18b8e3 — chore(pre-pr): registra validação P3-30
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.

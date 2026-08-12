@@ -29,7 +29,7 @@ Migrar o domínio **alerts** para `src/features/alerts/` usando RTK Query
 - Nenhuma lib de UI nova (proibição de escopo Blueprint §6).
 
 ## Contexto
-Hooks legados em `src/hooks/useDatabase/alerts.ts` ainda usam TanStack React Query
+Hooks legados do domínio alerts (migrados para src/features/alerts/) ainda usam TanStack React Query
 (`useQuery`/`useMutation` + `queryClient.invalidateQueries`). Padrão canônico já
 estabelecido: entradas (P3-28), contas (P3-29), clientes (P3-30), vendas (P3-31) —
 `baseApi.injectEndpoints` + barrel `index.ts` + wrappers com shape público
@@ -39,7 +39,7 @@ callbacks `onSuccess`/`onError`) + tags RTK.
 ## Arquivos permitidos
 - (preenchido na execução — inclui `src/features/alerts/*` novo: barrel, api, endpoints, shared, hooks;
   tag `alerts` em `src/features/api/baseApi.ts`; reexport no barrel `src/hooks/useDatabase/index.ts`;
-  remoção de `src/hooks/useDatabase/alerts.ts`; spec e testes novos do domínio
+  remoção do módulo legado de alerts (migrado para src/features/alerts/); spec e testes novos do domínio
   (`tests/unit/features-alerts-*.test.ts` definidos na execução);
   artefatos de workflow: card, MAP, RADAR, tracking, relatório, handoff)
 
