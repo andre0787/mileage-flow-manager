@@ -5,7 +5,7 @@ import { baseApi } from "@/features/api/baseApi";
 import { ownersApi } from "./ownersApi";
 import type { Owner } from "@/types";
 
-const INVALIDATE: ("owners")[] = ["owners"];
+const INVALIDATE: "owners"[] = ["owners"];
 
 interface MutateOptions {
   onSuccess?: () => void;
