@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `3154f56 — Merge pull request #355 from andre0787/refactor/apple-design-hig`
+- **Último commit:** `5a24a43 — Merge pull request #356 from andre0787/feat/workflow-kpis-reais`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -69,9 +69,9 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 ## 🎯 Sessão Atual
 **Categoria:** feature
-**Objetivo:** Atualizar aba Workflow com dados reais + evoluir KPIs de processo (eficiência de gates)
+**Objetivo:** Reduzir fricção rule-10 no pre-pr + proteção git status no pre-push hook
 **Status:** in_progress
-**Iniciada em:** 2026-08-12T04:22:47.017Z
-**Branch:** `feat/workflow-kpis-reais`
-**Último commit:** 3154f56 — Merge pull request #355 from andre0787/refactor/apple-design-hig
+**Iniciada em:** 2026-08-12T13:01:41.707Z
+**Branch:** `feat/prepr-rule10-pre-push`
+**Último commit:** 5a24a43 — Merge pull request #356 from andre0787/feat/workflow-kpis-reais
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md

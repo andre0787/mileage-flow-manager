@@ -178,7 +178,7 @@ Estes itens NUNCA podem ser alterados sem aprovação explícita:
 
 1. **Alvo de PR = `main`**
 2. **pre-pr obrigatório antes de todo PR**
-3. **git status ZERO antes de merge**
+3. **git status ZERO antes de merge** (garantia dura no `.githooks/pre-push`; no pre-pr a rule-10 roda em modo aviso — fricção 2026-08-12)
 4. **Regras essenciais em `AGENTS.md`** (as 8 regras)
 5. **Workflow por categoria** (tabela na seção 1)
 

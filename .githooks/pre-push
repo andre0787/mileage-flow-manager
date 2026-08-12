@@ -1,5 +1,5 @@
 #!/bin/bash
-# Pre-push hook — verifica relatório HTML antes de push
+# Pre-push hook — verifica relatório HTML + git status ZERO antes de push
 # Ativado via: git config core.hooksPath .githooks
 
 ZERO_COMMIT="0000000000000000000000000000000000000000"
@@ -17,6 +17,27 @@ while read local_ref local_sha remote_ref remote_sha; do
   case "$remote_ref" in
     refs/heads/docs/*|refs/heads/chore/docs*) continue ;;
   esac
+
+  # ── Regra #3: git status ZERO antes de push ──────────────────────
+  # Garantia dura do AGENTS.md: "git status ZERO antes de PR/merge — sem
+  # arquivos uncommitted". O pre-pr roda a rule-10 em modo aviso (fase de
+  # desenvolvimento), então o BLOQUEIO real vive aqui, no push.
+  # Nota: aqui staged TAMBÉM bloqueia (porcelain mostra qualquer saída),
+  # diferente da rule-10 (que ignora staged) — staged-não-commitado
+  # estaria ausente do histórico enviado, então é correto bloquear.
+  DIRTY=$(git status --porcelain 2>/dev/null)
+  if [ -n "$DIRTY" ]; then
+    echo ""
+    echo "🚫 BLOQUEADO: git status NÃO está limpo (regra #3)"
+    echo "   Há arquivos não commitados na working tree:"
+    echo "$DIRTY" | head -20
+    echo ""
+    echo "   Commite ou descarte as mudanças antes do push:"
+    echo "     git add <arquivos> && git commit -m \"mensagem\""
+    echo "     # ou git checkout -- <arquivo> para descartar"
+    echo ""
+    exit 1
+  fi
 
   # Verifica se existe ao menos um relatório .html em docs/reports/
   reports=$(find docs/reports/ -name '*.html' 2>/dev/null | head -5)

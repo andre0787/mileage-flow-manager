@@ -205,8 +205,15 @@ if (process.env.PRE_PR_ONLY_RULE) {
 const pendingEvents = [];
 for (const file of ruleFiles) {
   const rulePath = resolve(RULES_DIR, file);
+  // Rule-10 em modo aviso (não-bloqueante) dentro do pre-pr: o pre-pr roda na
+  // fase de desenvolvimento (antes do commit), onde arquivos não commitados são
+  // o estado natural. A garantia dura (regra #3) vive no pre-push hook, que
+  // roda a rule-10 no modo padrão (bloqueante). Reduz fricção mecânica sem
+  // perder proteção. (fricção 2026-08-12: rule-10 = 47% de todas as rule:fail)
+  const env = { ...process.env };
+  if (file === "rule-10-clean.mjs") env.PRE_PR_CONTEXT = "1";
   try {
-    const out = execSync(`node "${rulePath}"`, { cwd: ROOT, encoding: "utf8", timeout: 15000 });
+    const out = execSync(`node "${rulePath}"`, { cwd: ROOT, encoding: "utf8", timeout: 15000, env });
     if (out) process.stdout.write(out + "\n");
   } catch (e) {
     errors++;

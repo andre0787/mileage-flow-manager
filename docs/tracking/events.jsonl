@@ -1854,3 +1854,13 @@
 {"timestamp":"2026-08-12T04:31:16.762Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/workflow-kpis-reais","commit":"3154f56","agent":"human","rule":"rule-10-clean"}
 {"timestamp":"2026-08-12T04:33:11.161Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/workflow-kpis-reais","commit":"3154f56","agent":"human","errors":0}
 {"timestamp":"2026-08-12T04:35:03.614Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/workflow-kpis-reais","commit":"b62719f","agent":"human","errors":0}
+{"timestamp":"2026-08-12T13:01:41.732Z","type":"session:start","description":"feature: Reduzir fricção rule-10 no pre-pr + proteção git status no pre-push hook","branch":"main","commit":"5a24a43","agent":"human","categoria":"feature"}
+{"timestamp":"2026-08-12T13:05:04.579Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/prepr-rule10-pre-push","commit":"5a24a43","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-12T13:05:04.704Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/prepr-rule10-pre-push","commit":"5a24a43","agent":"human","errors":0}
+{"timestamp":"2026-08-12T13:10:36.261Z","type":"coding:done","description":"Rule-10 modo aviso no pre-pr + proteção git status no pre-push hook implementados por subagente","branch":"feat/prepr-rule10-pre-push","commit":"5a24a43","agent":"human","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-08-12T13:10:36.296Z","type":"code-review:done","description":"Review aprovado: 4 pontos corrigidos (DIRTY check movido p/ dentro do loop, teste integração env, comentários)","branch":"feat/prepr-rule10-pre-push","commit":"5a24a43","agent":"human","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-08-12T13:10:47.306Z","type":"rule:fail","description":"rule-29-prompt-version falhou","branch":"feat/prepr-rule10-pre-push","commit":"5a24a43","agent":"human","rule":"rule-29-prompt-version"}
+{"timestamp":"2026-08-12T13:20:30.514Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/prepr-rule10-pre-push","commit":"5a24a43","agent":"human","errors":0}
+{"timestamp":"2026-08-12T13:21:29.608Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/prepr-rule10-pre-push","commit":"5a24a43","agent":"human","errors":0}
+{"timestamp":"2026-08-12T13:25:26.563Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/prepr-rule10-pre-push","commit":"5a24a43","agent":"human","errors":0}
+{"timestamp":"2026-08-12T13:25:32.265Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/prepr-rule10-pre-push","commit":"5a24a43","agent":"human","errors":0}

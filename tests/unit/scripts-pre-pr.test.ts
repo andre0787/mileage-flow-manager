@@ -18,7 +18,9 @@ describe("pre-pr-check com controle de diff e git info", () => {
           PRE_PR_ONLY_RULE: "rule-08,rule-17",
         },
         encoding: "utf8",
-        timeout: 5000,
+        // Timeout generoso: o pre-pr gera relatório automático (gh pr list,
+        // generate-report) — sob carga no full suite, 5s estourava (flake).
+        timeout: 20000,
       });
       expect(true).toBe(false);
     } catch (e) {
@@ -42,7 +44,7 @@ describe("pre-pr-check com controle de diff e git info", () => {
           REPO_INFO_MOCK_PR: "",
         },
         encoding: "utf8",
-        timeout: 5000,
+        timeout: 20000,
       });
       expect(true).toBe(false);
     } catch (e) {
@@ -60,7 +62,8 @@ describe("pre-pr-check com controle de diff e git info", () => {
       cwd: ROOT,
       env: {
         ...process.env,
-        PRE_PR_MOCK_DIFF: "src/components/ui/button.tsx,docs/reports/2026-07-22/PR195-2026-07-22-animated-number-stale.html",
+        PRE_PR_MOCK_DIFF:
+          "src/components/ui/button.tsx,docs/reports/2026-07-22/PR195-2026-07-22-animated-number-stale.html",
         PRE_PR_ONLY_RULES: "true",
         PRE_PR_ONLY_RULE: "rule-08,rule-17",
         REPO_INFO_MOCK_BRANCH: "feat/some-feat",
@@ -68,7 +71,7 @@ describe("pre-pr-check com controle de diff e git info", () => {
         REPO_INFO_MOCK_TODAY: "2026-07-25", // Data simulada no futuro
       },
       encoding: "utf8",
-      timeout: 5000,
+      timeout: 20000,
     });
     expect(out).toContain("relatório completo e válido ✅");
   });
@@ -79,7 +82,8 @@ describe("pre-pr-check com controle de diff e git info", () => {
         cwd: ROOT,
         env: {
           ...process.env,
-          PRE_PR_MOCK_DIFF: "src/components/ui/button.tsx,docs/reports/2026-07-22/PR195-2026-07-22-animated-number-stale.html",
+          PRE_PR_MOCK_DIFF:
+            "src/components/ui/button.tsx,docs/reports/2026-07-22/PR195-2026-07-22-animated-number-stale.html",
           PRE_PR_ONLY_RULES: "true",
           PRE_PR_ONLY_RULE: "rule-08,rule-17",
           REPO_INFO_MOCK_BRANCH: "feat/some-feat",
@@ -87,7 +91,7 @@ describe("pre-pr-check com controle de diff e git info", () => {
           REPO_INFO_MOCK_TODAY: "2026-07-25",
         },
         encoding: "utf8",
-        timeout: 5000,
+        timeout: 20000,
       });
       expect(true).toBe(false);
     } catch (e) {
@@ -96,6 +100,32 @@ describe("pre-pr-check com controle de diff e git info", () => {
       const output = err.stdout || err.stderr || "";
       expect(output).toContain("nomenclatura do relatório inválida no diff");
     }
+  });
+});
+
+describe("pre-pr rule-10 em modo aviso (fricção 2026-08-12)", () => {
+  it("passa PRE_PR_CONTEXT=1 para a rule-10 no loop de regras", () => {
+    const content = readFileSync(SCRIPT, "utf8");
+    const loopIdx = content.indexOf("const pendingEvents = []");
+    // Slice generoso: cobre o loop inteiro (comentário + condição + atribuição)
+    const ruleSection = content.slice(loopIdx, loopIdx + 1600);
+    expect(ruleSection).toMatch(/rule-10-clean\.mjs/);
+    expect(ruleSection).toMatch(/PRE_PR_CONTEXT/);
+    // A atribuição só pode acontecer dentro do if da rule-10
+    expect(ruleSection).toMatch(/if \(file === "rule-10-clean\.mjs"\) env\.PRE_PR_CONTEXT = "1"/);
+  });
+
+  it("não injeta PRE_PR_CONTEXT em outras regras (só rule-10)", () => {
+    const content = readFileSync(SCRIPT, "utf8");
+    const loopIdx = content.indexOf("const pendingEvents = []");
+    const ruleSection = content.slice(loopIdx, loopIdx + 1600);
+    // A atribuição condicional garante que só a rule-10 recebe o env;
+    // a única atribuição de PRE_PR_CONTEXT está no if da rule-10.
+    const assignment = ruleSection.match(/env\.PRE_PR_CONTEXT = "1"/g) || [];
+    expect(assignment).toHaveLength(1);
+    const guarded =
+      ruleSection.match(/if \(file === "rule-10-clean\.mjs"\) env\.PRE_PR_CONTEXT = "1"/g) || [];
+    expect(guarded).toHaveLength(1);
   });
 });
 
@@ -158,13 +188,21 @@ describe("pre-pr Trava D (gate:blocked, council 2026-08-05 Fase 2)", () => {
   it("gate continua bloqueando (errors++ — julgamento nunca auto-corrige)", () => {
     const content = readFileSync(SCRIPT, "utf8");
     // O catch que trata gate deve continuar incrementando errors
-    const gateSection = content.slice(content.indexOf("GATE_RULES"), content.indexOf("── Build ──"));
+    const gateSection = content.slice(
+      content.indexOf("GATE_RULES"),
+      content.indexOf("── Build ──"),
+    );
     expect(gateSection).toContain("errors++");
   });
 
   it("rule-27 tem mensagem acionável com comando exato (council)", () => {
-    const rule27 = readFileSync(resolve(ROOT, "scripts/rules/rule-27-council-veredict.mjs"), "utf8");
-    expect(rule27).toMatch(/council-to-superpowers|council\.mjs|\.pi\/skills\/council-to-superpowers/);
+    const rule27 = readFileSync(
+      resolve(ROOT, "scripts/rules/rule-27-council-veredict.mjs"),
+      "utf8",
+    );
+    expect(rule27).toMatch(
+      /council-to-superpowers|council\.mjs|\.pi\/skills\/council-to-superpowers/,
+    );
     expect(rule27).toMatch(/## Advisors/);
     expect(rule27).toMatch(/## Síntese do Chairman/);
   });
