@@ -27,6 +27,10 @@ const PROMPT_FILES = [
   ".pi/skills/handoff/SKILL.md",
   ".pi/skills/llm-council/SKILL.md",
   ".pi/skills/small-model-execution/SKILL.md",
+  ".pi/skills/compact-delegation/SKILL.md",
+  ".pi/skills/bounded-scout/SKILL.md",
+  ".pi/skills/diff-miner/SKILL.md",
+  ".pi/skills/test-triage/SKILL.md",
   // Docs de configuração do agente
   "AGENTS.md",
   "CLAUDE.md",

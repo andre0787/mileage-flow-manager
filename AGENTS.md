@@ -30,6 +30,8 @@
 
 Antes de cada `subagent_gate`, resolva a tarefa com `npm run llm:route`. Use exatamente `model`, `fallbackModels` e `retrySafety` retornados; não escolha modelo inline nem omita `model` em uma tarefa roteada. Registre conclusão somente com metadados sanitizados. Consulte [`docs/LLM-ROUTER.md`](docs/LLM-ROUTER.md) para o contrato operacional.
 
+**Delegação econômica (obrigatória em toda delegação):** siga `compact-delegation` — contexto mínimo (task de 1-3 frases, sem histórico), retorno estruturado de campos-chave (nunca eco de arquivos/logs), sem herança de contexto. Para escopo estreito use `bounded-scout` (file|line|finding), para entender diffs use `diff-miner` (impact|risk|files), para falhas de teste use `test-triage` (cause|fix|evidence). Subagentes mecânicos → perfil `efficient` via router.
+
 ## 🔥 Regras Essenciais (7)
 
 1. **NUNCA direto na main** — branch obrigatória (`feat/`, `fix/`, `docs/`, `chore/`). Hook bloqueia.

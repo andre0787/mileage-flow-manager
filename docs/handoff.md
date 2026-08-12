@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `56bf31b — feat(ui): auditoria dark mode — campos elevados, tabelas e busca com teclado (#360)`
+- **Último commit:** `799e786 — Merge pull request #362 from andre0787/feat/context-optimization`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -69,9 +69,9 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 ## 🎯 Sessão Atual
 **Categoria:** feature
-**Objetivo:** Briefing executivo: relatorio HTML de sessao com impacto de produto/negocio/processo
+**Objetivo:** Skills de delegacao economica: subagentes com contexto minimo e retorno compacto
 **Status:** in_progress
-**Iniciada em:** 2026-08-12T21:49:29.259Z
-**Branch:** `feat/context-optimization`
-**Último commit:** 56bf31b — feat(ui): auditoria dark mode — campos elevados, tabelas e busca com teclado (#360)
+**Iniciada em:** 2026-08-12T22:28:39.896Z
+**Branch:** `feat/token-efficient-agents`
+**Último commit:** 799e786 — Merge pull request #362 from andre0787/feat/context-optimization
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md

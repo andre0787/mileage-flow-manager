@@ -62,6 +62,10 @@
 | `.pi/skills/fable-method/SKILL.md` | Skill primária de desenvolvimento | Loop de 7 passos Fable Method adaptado ao MilesControl — costura categorias, gates, workflow e scripts |
 | `.pi/skills/subagent-driven-development/SKILL.md` | Execução delegada com subagentes | Plano → subagente por tarefa → task review → final review |
 | `.pi/skills/dispatching-parallel-agents/SKILL.md` | Investigação paralela | 1 subagente por domínio de problema independente |
+| `.pi/skills/compact-delegation/SKILL.md` | Delegação econômica | Contrato universal: contexto mínimo + retorno estruturado por campos (reduz tokens por dispatch) |
+| `.pi/skills/bounded-scout/SKILL.md` | Exploração de escopo estreito | Scout retorna file|line|finding — sem carregar arquivos no contexto |
+| `.pi/skills/diff-miner/SKILL.md` | Análise de diffs | Lê o diff (não os arquivos) e retorna impact|risk|files |
+| `.pi/skills/test-triage/SKILL.md` | Triagem de falhas de teste | Roda só o teste falho e retorna cause|fix|evidence |
 | `.pi/skills/using-git-worktrees/SKILL.md` | Worktrees isolados | Branches separadas para trabalho concorrente sem conflito |
 | `.pi/skills/council-to-superpowers/SKILL.md` | Workflow feature | Council → **INTENT gate** → brainstorming → plans → execução → PR |
 | `.pi/skills/writing-plans/SKILL.md` | Planos de implementação | **INTENT gate** antes de definir tasks — alinha código, teste e spec |
