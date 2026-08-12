@@ -1737,6 +1737,16 @@
 {"timestamp":"2026-08-11T13:16:42.616Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-alerts","commit":"6353842","agent":"pi","errors":0}
 {"timestamp":"2026-08-11T13:16:55.455Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-alerts","commit":"6353842","agent":"pi","errors":0}
 {"timestamp":"2026-08-12T01:14:38.504Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-alerts","commit":"b748f6d","agent":"human","errors":0}
+{"timestamp":"2026-08-11T13:20:25.631Z","type":"llm.route.resolved","description":"LLM route resolved","branch":"refactor/blueprint-v4-p1-owners","commit":"6353842","agent":"pi","taskId":"P3-33-coding","category":"refactor","capability":"implementation","profile":"coding","model":"opencode/deepseek-v4-flash-free","fallbackModels":[],"source":"category-capability","retrySafety":"may-write","configVersion":1,"skills":[]}
+{"timestamp":"2026-08-11T13:49:10.196Z","type":"coding:done","description":"Coding P3-33 concluído por subagente (owners → RTK Query)","branch":"refactor/blueprint-v4-p1-owners","commit":"6353842","agent":"pi","subagent":true,"card":"P3-33"}
+{"timestamp":"2026-08-11T13:59:09.902Z","type":"code-review:done","description":"Review aprovado por subagente (P3-33 owners → RTK Query)","branch":"refactor/blueprint-v4-p1-owners","commit":"6353842","agent":"pi","subagent":true,"verdict":"approved","card":"P3-33"}
+{"timestamp":"2026-08-11T13:59:26.896Z","type":"healed","description":"rule-17-new-docs-valid auto-corrigido","branch":"refactor/blueprint-v4-p1-owners","commit":"6353842","agent":"pi","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-11T13:59:33.725Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/blueprint-v4-p1-owners","commit":"6353842","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-11T14:02:28.226Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/blueprint-v4-p1-owners","commit":"6353842","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-11T14:04:20.434Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/blueprint-v4-p1-owners","commit":"6353842","agent":"pi","rule":"rule-10-clean"}
+{"timestamp":"2026-08-11T14:07:45.502Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-owners","commit":"6353842","agent":"pi","errors":0}
+{"timestamp":"2026-08-11T14:08:04.456Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-owners","commit":"6353842","agent":"pi","errors":0}
+{"timestamp":"2026-08-12T01:09:32.873Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-owners","commit":"19bd6ec","agent":"human","errors":0}
 {"timestamp":"2026-08-12T00:39:40.334Z","type":"healed","description":"rule-17-new-docs-valid auto-corrigido","branch":"refactor/blueprint-v4-p1-origem-types","commit":"6353842","agent":"human","rule":"rule-17-new-docs-valid"}
 {"timestamp":"2026-08-12T00:39:48.138Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/blueprint-v4-p1-origem-types","commit":"6353842","agent":"human","rule":"rule-10-clean"}
 {"timestamp":"2026-08-12T00:39:48.173Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"refactor/blueprint-v4-p1-origem-types","commit":"6353842","agent":"human","rule":"rule-38-code-review-gate"}
@@ -1776,3 +1786,8 @@
 {"timestamp":"2026-08-12T01:15:28.540Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-alerts","commit":"6616aa6","agent":"human","errors":0}
 {"timestamp":"2026-08-12T01:17:08.709Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-alerts","commit":"7d0e60b","agent":"human","errors":0}
 {"timestamp":"2026-08-12T01:17:40.148Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-alerts","commit":"18f6f58","agent":"human","errors":0}
+{"timestamp":"2026-08-12T01:10:55.277Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-owners","commit":"0216098","agent":"human","errors":0}
+{"timestamp":"2026-08-12T01:12:35.827Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-owners","commit":"6eab158","agent":"human","errors":0}
+{"timestamp":"2026-08-12T01:18:13.627Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-owners","commit":"a1b214a","agent":"human","errors":0}
+{"timestamp":"2026-08-12T01:21:51.611Z","type":"healed","description":"rule-02 auto-corrigido","branch":"refactor/blueprint-v4-p1-alerts","commit":"d09daf9","agent":"human","rule":"rule-02"}
+{"timestamp":"2026-08-12T01:21:51.948Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-alerts","commit":"d09daf9","agent":"human","errors":0}

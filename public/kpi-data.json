@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T01:17:08.832Z",
+  "generatedAt": "2026-08-12T01:12:35.945Z",
   "months": [
     {
       "month": "2026-03",
@@ -169,11 +169,11 @@
         "twins": 0,
         "auth": 2
       },
-      "avgOutcomeGrade": 93.1,
+      "avgOutcomeGrade": 93.3,
       "topViolations": [
         {
           "rule": "rule-10-clean",
-          "count": 174
+          "count": 170
         },
         {
           "rule": "rule-26-session-started",
@@ -202,10 +202,10 @@
       "avgCycleTimeHours": 0.4,
       "branchesMerged": 71,
       "llmRouter": {
-        "resolved": 38,
+        "resolved": 37,
         "completed": 0,
         "failed": 10,
-        "unobserved": 25,
+        "unobserved": 24,
         "fallbackUsed": 0,
         "completionRate": 0,
         "fallbackRate": null,

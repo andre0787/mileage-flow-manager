@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `3ca8646 — Merge pull request #346 from andre0787/chore/quality-nightly-update`
+- **Branch:** `refactor/blueprint-v4-p1-owners`
+- **Último commit:** `6353842 — Merge pull request #347 from andre0787/docs/blueprint-v4-p1-reconcile-cards`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Tarefa P3-31 concluída (produção)
@@ -42,13 +42,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** refactor
-**Objetivo:** migração do domínio vendas para RTK Query
+**Categoria:** docs
+**Objetivo:** verifica output
 **Status:** in_progress
 **Iniciada em:** 2026-08-10T21:06:41.671Z
 **Branch:** `refactor/blueprint-v4-p1-alerts`
 **Último commit:** a18b8e3 — chore(pre-pr): registra validação P3-30
-**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
+**Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
