@@ -159,7 +159,7 @@ export function GlobalSearch() {
           }}
           onFocus={() => setIsOpen(true)}
         />
-        <kbd className="absolute right-3 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center gap-0.5 rounded border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+        <kbd className="absolute right-3 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center gap-0.5 rounded border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground dark:bg-black/40 dark:border-border/60">
           ⌘K
         </kbd>
         {query && (
@@ -176,7 +176,7 @@ export function GlobalSearch() {
       </div>
 
       {isOpen && query.trim() && (
-        <div className="absolute right-0 top-full mt-2 w-[min(320px,calc(100vw-2rem))] max-h-80 overflow-y-auto rounded-xl border bg-background shadow-lg z-50">
+        <div className="absolute right-0 top-full mt-2 w-[min(320px,calc(100vw-2rem))] max-h-80 overflow-y-auto rounded-xl border bg-background shadow-lg z-50 dark:bg-card dark:border-border/70 dark:shadow-2xl">
           {results.length === 0 ? (
             <div className="p-4 text-sm text-muted-foreground text-center">
               Nenhum resultado para "{query}"

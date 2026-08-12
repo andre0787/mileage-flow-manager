@@ -1864,3 +1864,8 @@
 {"timestamp":"2026-08-12T13:21:29.608Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/prepr-rule10-pre-push","commit":"5a24a43","agent":"human","errors":0}
 {"timestamp":"2026-08-12T13:25:26.563Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/prepr-rule10-pre-push","commit":"5a24a43","agent":"human","errors":0}
 {"timestamp":"2026-08-12T13:25:32.265Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/prepr-rule10-pre-push","commit":"5a24a43","agent":"human","errors":0}
+{"timestamp":"2026-08-12T13:35:29.811Z","type":"session:start","description":"feature: Melhorar campos de pesquisa no dark mode (contraste e design)","branch":"main","commit":"e3b63e3","agent":"human","categoria":"feature"}
+{"timestamp":"2026-08-12T13:40:37.203Z","type":"coding:done","description":"Campos de busca dark mode melhorados por subagente (Input base, SearchInput, GlobalSearch)","branch":"fix/dark-search-fields","commit":"e3b63e3","agent":"human","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-08-12T13:40:37.239Z","type":"code-review:done","description":"Review aprovado: 4 pontos corrigidos (hover scoped dark, transition escopada, classe redundante removida, teste GlobalSearch)","branch":"fix/dark-search-fields","commit":"e3b63e3","agent":"human","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-08-12T13:42:19.104Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/dark-search-fields","commit":"e3b63e3","agent":"human","errors":0}
+{"timestamp":"2026-08-12T13:42:28.758Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/dark-search-fields","commit":"e3b63e3","agent":"human","errors":0}
