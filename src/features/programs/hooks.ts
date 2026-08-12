@@ -3,9 +3,12 @@ import { programsApi } from "./programsApi";
 
 export function useProgramsQuery() {
   const userId = useUserId();
-  const { data, isLoading, isError, error, refetch } = programsApi.useGetProgramsQuery(userId ?? "", {
-    skip: !userId,
-  });
+  const { data, isLoading, isError, error, refetch } = programsApi.useGetProgramsQuery(
+    userId ?? "",
+    {
+      skip: !userId,
+    },
+  );
   return { data, isPending: isLoading, isError, error, refetch };
 }
 

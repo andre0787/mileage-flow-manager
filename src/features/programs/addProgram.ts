@@ -20,18 +20,16 @@ export const addProgramEndpoint = (builder: ProgramsBuilder) => ({
       if (error) return { error: toQueryError(error) };
 
       if (program.type === "pontos") {
-        const { error: otError } = await supabase
-          .from("origem_types")
-          .upsert(
-            {
-              id: program.id,
-              user_id: user.id,
-              name: program.name,
-              account_type: "pontos",
-              color: "#3b82f6",
-            },
-            { onConflict: "id" },
-          );
+        const { error: otError } = await supabase.from("origem_types").upsert(
+          {
+            id: program.id,
+            user_id: user.id,
+            name: program.name,
+            account_type: "pontos",
+            color: "#3b82f6",
+          },
+          { onConflict: "id" },
+        );
         if (otError) return { error: toQueryError(otError) };
       }
 
