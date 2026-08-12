@@ -1731,3 +1731,4 @@
 {"timestamp":"2026-08-12T00:41:52.055Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/blueprint-v4-p1-origem-types","commit":"6353842","agent":"human","rule":"rule-10-clean"}
 {"timestamp":"2026-08-12T00:43:43.260Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-origem-types","commit":"6353842","agent":"human","errors":0}
 {"timestamp":"2026-08-12T00:45:18.683Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-origem-types","commit":"ae9cc59","agent":"human","errors":0}
+{"timestamp":"2026-08-12T00:45:39.648Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-origem-types","commit":"b23bdde","agent":"human","errors":0}

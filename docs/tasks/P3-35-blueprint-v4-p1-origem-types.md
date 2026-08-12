@@ -6,7 +6,7 @@
 | `categoria` | refactor |
 | `onda` | P1-A |
 | `baseBranch` | main |
-| `estado` | pending |
+| `estado` | done |
 | `origem` | Blueprint MilesControl v4.0 (ground truth do usuário), fase P1 |
 | `dependeDe` | P3-27 (fundação Feature-First) |
 
@@ -45,9 +45,9 @@ callbacks `onSuccess`/`onError`) + tags RTK.
   artefatos de workflow: card, MAP, RADAR, tracking, relatório, handoff)
 
 ## Critérios de aceite
-- [ ] Hooks do domínio origemTypes migrados para RTK Query em `src/features/origem-types/`.
-- [ ] Barrel `index.ts` presente (rule-40) e `npm run rule:40` verde.
-- [ ] Suíte completa verde (`npm run test`), lint, typecheck.
+- [x] Hooks do domínio origemTypes migrados para RTK Query em `src/features/origemTypes/`.
+- [x] Barrel `index.ts` presente (rule-40) e `npm run rule:40` verde.
+- [x] Suíte completa verde (`npm run test`), lint, typecheck.
 
 ## Riscos / Invariantes
 - Manter contrato público dos hooks consumidos por `DataContext`/`Entradas`/`Configuracoes`
