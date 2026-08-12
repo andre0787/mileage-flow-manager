@@ -30,7 +30,7 @@ Migrar o domínio **origem-types** para `src/features/origem-types/` usando RTK 
 - Nenhuma lib de UI nova (proibição de escopo Blueprint §6).
 
 ## Contexto
-Hooks legados em `src/hooks/useDatabase/origemTypes.ts` ainda usam TanStack React
+Hooks legados em `src/hooks/useDatabase/origemTypes.ts (removido)` ainda usam TanStack React
 Query (`useQuery`/`useMutation` + `queryClient.invalidateQueries`). Padrão canônico
 já estabelecido: entradas (P3-28), contas (P3-29), clientes (P3-30), vendas (P3-31) —
 `baseApi.injectEndpoints` + barrel `index.ts` + wrappers com shape público
@@ -40,7 +40,7 @@ callbacks `onSuccess`/`onError`) + tags RTK.
 ## Arquivos permitidos
 - (preenchido na execução — inclui `src/features/origem-types/*` novo: barrel, api, endpoints, shared, hooks;
   tag `origem_types` em `src/features/api/baseApi.ts`; reexport no barrel `src/hooks/useDatabase/index.ts`;
-  remoção de `src/hooks/useDatabase/origemTypes.ts`; spec e testes novos do domínio
+  remoção de `src/hooks/useDatabase/origemTypes.ts (removido)`; spec e testes novos do domínio
   (`tests/unit/features-origem-types-*.test.ts` definidos na execução);
   artefatos de workflow: card, MAP, RADAR, tracking, relatório, handoff)
 
