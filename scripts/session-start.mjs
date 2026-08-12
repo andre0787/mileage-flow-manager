@@ -86,6 +86,12 @@ async function main() {
     } catch { /* radar pode falhar silenciosamente */ }
   }
 
+  // ─── Rotação de telemetria (não bloqueante, fail-open) ───
+  // Mantém events/quality enxutos: arquiva excedente acima do limite em docs/tracking/archive/.
+  try {
+    execSync("node scripts/trim-tracking.mjs --apply", { cwd: ROOT, encoding: "utf8", timeout: 15000, stdio: "ignore" });
+  } catch { /* trim pode falhar silenciosamente (ex: repo vazio) */ }
+
   // ─── Detecta sessão em andamento ───
   const sessaoMatch = (handoff || "").match(/## 🎯 Sessão Atual[\s\S]*?(?=\n## |\n---|$)/);
   const sessao = sessaoMatch ? sessaoMatch[0] : null;

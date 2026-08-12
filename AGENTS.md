@@ -11,6 +11,7 @@
 
 | Doc | Conteúdo | Tamanho |
 |-----|----------|---------|
+| `docs/WORKFLOW-QUICKSTART.md` | **Resumo executivo do workflow** (carregar em sessão feature) | 1.5KB |
 | `docs/STACK.md` | Stack técnica (React, Vite, Supabase, Tailwind) | 2KB |
 | `docs/ARCHITECTURE.md` | Estrutura de pastas e arquitetura | 4.8KB |
 | `docs/CONVENTIONS.md` | Índice dos slices de convenções (ver `docs/conventions/`) | 1KB |
@@ -59,7 +60,7 @@ Antes de cada `subagent_gate`, resolva a tarefa com `npm run llm:route`. Use exa
 
 | Tipo | Carregar | Workflow |
 |------|----------|----------|
-| **feature** | `WORKFLOW.md` + `conventions/common.md` + `conventions/feature.md` | council → build → pre-pr → PR |
+| **feature** | `WORKFLOW-QUICKSTART.md` + `conventions/common.md` + `conventions/feature.md` (`WORKFLOW.md` só on-demand — 5.5K tokens) | council → build → pre-pr → PR |
 | **bugfix** | `DEBUG.md` + `conventions/common.md` + `conventions/bugfix.md` | triagem → fix → pre-pr → PR |
 | **docs** | (só este AGENTS.md) | editar → pre-pr → PR |
 | **refactor** | `conventions/common.md` + `conventions/refactor.md` + `ARCHITECTURE.md` | spec → build → pre-pr → PR |
