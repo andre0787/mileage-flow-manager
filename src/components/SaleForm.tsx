@@ -54,6 +54,8 @@ interface SaleFormProps {
   onCreateClient: (data: NewClientData & { id: string }) => Promise<void>;
   mode?: "create" | "edit";
   initialData?: SaleFormData;
+  /** ID da venda em edição — excluída do cálculo do ciclo de passageiros (dupla contagem) */
+  editingSaleId?: string;
 }
 
 const emptyPassenger = () => ({
@@ -91,6 +93,7 @@ export function SaleForm({
   onCreateClient,
   mode = "create",
   initialData,
+  editingSaleId,
 }: SaleFormProps) {
   const [form, setForm] = useState<SaleFormData>({ ...emptyForm, ...initialData });
   const [isClientDialogOpen, setIsClientDialogOpen] = useState(false);
@@ -138,7 +141,9 @@ export function SaleForm({
   // Passenger cycle validation
   const usedPassengersInCycle = useMemo(() => {
     if (!programConfig?.passengerCycleType || !programConfig?.maxPassengers) return 0;
-    let relevant = sales.filter((s) => s.program === form.program);
+    // Exclui a venda em edição — senão os próprios passageiros contam 2x
+    // (uma vez em `sales`, outra em `form.passengers`).
+    let relevant = sales.filter((s) => s.program === form.program && s.id !== editingSaleId);
     if (programConfig.passengerCycleType === "anual") {
       const year = new Date().getFullYear();
       relevant = relevant.filter((s) => parseDateOnly(s.date).getFullYear() === year);
@@ -149,7 +154,7 @@ export function SaleForm({
       relevant = relevant.filter((s) => parseDateOnly(s.date) >= cutoff);
     }
     return relevant.reduce((sum, s) => sum + s.passengers.length, 0);
-  }, [sales, form.program, programConfig]);
+  }, [sales, form.program, programConfig, editingSaleId]);
 
   // Profit preview usando calcProfit / calcProfitMargin
   const profitPreview = useMemo(() => {

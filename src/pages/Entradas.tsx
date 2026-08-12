@@ -42,7 +42,7 @@ import confetti from "canvas-confetti";
 import type { PointEntry } from "@/types";
 
 export default function Entradas() {
-  const { entries, accounts, owners, programs, origemTypes, isLoading } = useData();
+  const { entries, accounts, owners, programs, origemTypes, sales, isLoading } = useData();
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearch = useDebounce(searchTerm, 300);
   const addEntryM = useAddEntryMutation();
@@ -114,7 +114,9 @@ export default function Entradas() {
           : activeTab === "milhas"
             ? undefined
             : c.conversionRate,
-        milesGenerated: c.milesGenerated,
+        // ponytail: no split, amount/amountPaid são divididos — milesGenerated
+        // também precisa ser dividido para o saldo da conta não inflar (bug #356)
+        milesGenerated: c.milesGenerated / divisor,
         costPerMile: c.costPerMile,
         sourceAccountId: c.isTransfer ? form.sourceAccountId : undefined,
         bonusPercent: c.isTransfer ? parseFloat(form.bonusPercent || "0") : undefined,
@@ -295,14 +297,30 @@ export default function Entradas() {
     () => entriesByTab.filter((e) => e.entryStatus === "aguardando" && e.date < today),
     [entriesByTab, today],
   );
-  // ponytail: saldo calculado para o banner de reconciliação
-  const entriesTotalBalance = confirmedEntries.reduce(
-    (s, e) => s + (e.milesGenerated ?? e.amount),
-    0,
-  );
-  const accountsTotalBalance = accounts
-    .filter((a) => a.type === activeTab)
-    .reduce((s, a) => s + a.balance, 0);
+  // ponytail: saldo calculado para o banner de reconciliação.
+  // Fonte da verdade = entradas confirmadas - transferências de saída - vendas
+  // (mesma semântica do computeDashboardMetrics e do recalcAccount).
+  // Transferências têm accountId = destino (milhas): na aba pontos elas não
+  // aparecem como crédito, mas DEBITAM a conta de pontos de origem — e vendas
+  // debitam o saldo da conta sem contrapartida em entries.
+  const tabAccounts = accounts.filter((a) => a.type === activeTab);
+  const tabAccountIds = new Set(tabAccounts.map((a) => a.id));
+  const tabSalesOut = sales
+    .filter((s) => s.status !== "cancelado" && s.accountId && tabAccountIds.has(s.accountId))
+    .reduce((s, sl) => s + sl.milesUsed, 0);
+  const tabTransfersOut = entries
+    .filter(
+      (e) =>
+        e.entryStatus !== "aguardando" && e.sourceAccountId && tabAccountIds.has(e.sourceAccountId),
+    )
+    .reduce((s, e) => s + e.amount, 0);
+  // Usa TODAS as entradas da aba (entriesByTab), não o conjunto filtrado por
+  // busca/dono — o banner não pode mudar ao digitar no SearchInput.
+  const tabEntriesIn = entriesByTab
+    .filter((e) => e.entryStatus !== "aguardando")
+    .reduce((s, e) => s + (e.milesGenerated ?? e.amount), 0);
+  const entriesTotalBalance = tabEntriesIn - tabTransfersOut - tabSalesOut;
+  const accountsTotalBalance = tabAccounts.reduce((s, a) => s + a.balance, 0);
   const totalAmount = confirmedEntries.reduce((s, e) => s + e.amount, 0);
   const totalAmountPaid = confirmedEntries.reduce((s, e) => s + e.amountPaid, 0);
   const totalMilesGenerated = confirmedEntries.reduce(

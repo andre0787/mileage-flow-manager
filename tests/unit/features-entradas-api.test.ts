@@ -200,3 +200,63 @@ describe("entradasApi — deleteEntry", () => {
     expect(source.match(/invalidatesTags: \["entries", "accounts"\]/g)).toHaveLength(4);
   });
 });
+
+describe("entradasApi — updateEntry (regressão: troca de conta destino)", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("reverte a conta antiga e credita a nova quando o accountId muda", async () => {
+    const confirmed = (): PointEntry => ({
+      ...makeEntry(),
+      entryStatus: "confirmada",
+      accountId: "acc-1",
+      amount: 1000,
+      amountPaid: 50,
+      milesGenerated: 1000,
+    });
+    const del = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
+    const insert = vi.fn().mockResolvedValue({ error: null });
+    const update = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
+
+    // saldos por conta: acc-1 (antiga) = 5000, acc-2 (nova) = 2000
+    const accountState: Record<string, { balance: number; total_invested: number }> = {
+      "acc-1": { balance: 5000, total_invested: 250 },
+      "acc-2": { balance: 2000, total_invested: 100 },
+    };
+    mockFrom.mockImplementation((table: string) => {
+      if (table === "entries") {
+        return { delete: del, insert };
+      }
+      return {
+        select: () => ({
+          // eq(column, id) — captura o SEGUNDO argumento (o id da conta)
+          eq: (_col: string, id: string) => ({
+            single: () => Promise.resolve({ data: accountState[id] ?? null, error: null }),
+          }),
+        }),
+        update,
+      };
+    });
+
+    const store = makeStore();
+    const result = await store.dispatch(
+      entradasApi.endpoints.updateEntry.initiate({
+        oldEntry: confirmed(),
+        updates: { accountId: "acc-2" },
+      }),
+    );
+    expect(result.data).toBeNull();
+    expect(del).toHaveBeenCalled();
+    expect(insert).toHaveBeenCalled();
+
+    // conta antiga revertida (delta = -1000 / -50)
+    expect(update).toHaveBeenCalledWith(
+      expect.objectContaining({ balance: 4000, total_invested: 200 }),
+    );
+    // conta nova creditada com o valor completo (não um delta)
+    expect(update).toHaveBeenCalledWith(
+      expect.objectContaining({ balance: 3000, total_invested: 150 }),
+    );
+  });
+});

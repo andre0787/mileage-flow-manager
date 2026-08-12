@@ -1808,3 +1808,27 @@
 {"timestamp":"2026-08-12T02:32:37.853Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"fix/carrinho-transferencia-calc","commit":"788eb4c","agent":"human","rule":"rule-10-clean"}
 {"timestamp":"2026-08-12T02:34:20.055Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/carrinho-transferencia-calc","commit":"788eb4c","agent":"human","errors":0}
 {"timestamp":"2026-08-12T02:36:03.984Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/carrinho-transferencia-calc","commit":"32293e8","agent":"human","errors":0}
+{"timestamp":"2026-08-12T03:12:50.407Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/carrinho-transferencia-calc","commit":"6ba27fa","agent":"human","errors":0}
+{"timestamp":"2026-08-12T03:13:14.144Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/carrinho-transferencia-calc","commit":"6ba27fa","agent":"human","errors":0}
+{"timestamp":"2026-08-12T03:13:14.579Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/carrinho-transferencia-calc","commit":"549c6df","agent":"human","errors":0}
+{"timestamp":"2026-08-12T03:22:10.830Z","type":"session:start","description":"refactor: Redesign Apple HIG (skill apple-design) — tokens, tipografia, componentes, navegação","branch":"feat/apple-design","commit":"ed08688","agent":"human","categoria":"refactor"}
+{"timestamp":"2026-08-12T03:22:34.972Z","type":"coding:done","description":"Redesign Apple HIG executado por subagente","branch":"refactor/apple-design-hig","commit":"ed08688","agent":"human","subagent":true,"skill":"apple-design"}
+{"timestamp":"2026-08-12T03:22:35.007Z","type":"code-review:done","description":"Review do redesign aprovado por subagente (contraste corrigido)","branch":"refactor/apple-design-hig","commit":"ed08688","agent":"human","subagent":true,"verdict":"approved-with-fixes"}
+{"timestamp":"2026-08-12T03:22:43.141Z","type":"healed","description":"rule-26 auto-corrigido","branch":"refactor/apple-design-hig","commit":"ed08688","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-12T03:22:43.178Z","type":"healed","description":"rule-17-new-docs-valid auto-corrigido","branch":"refactor/apple-design-hig","commit":"ed08688","agent":"human","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-12T03:22:49.816Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/apple-design-hig","commit":"ed08688","agent":"human","rule":"rule-10-clean"}
+{"timestamp":"2026-08-12T03:22:49.850Z","type":"rule:fail","description":"rule-30-outcome-grade falhou","branch":"refactor/apple-design-hig","commit":"ed08688","agent":"human","rule":"rule-30-outcome-grade"}
+{"timestamp":"2026-08-12T03:22:49.887Z","type":"rule:fail","description":"rule-41-optimizer falhou","branch":"refactor/apple-design-hig","commit":"ed08688","agent":"human","rule":"rule-41-optimizer"}
+{"timestamp":"2026-08-12T03:24:30.565Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/apple-design-hig","commit":"ed08688","agent":"human","rule":"rule-10-clean"}
+{"timestamp":"2026-08-12T03:24:30.600Z","type":"rule:fail","description":"rule-30-outcome-grade falhou","branch":"refactor/apple-design-hig","commit":"ed08688","agent":"human","rule":"rule-30-outcome-grade"}
+{"timestamp":"2026-08-12T03:24:30.636Z","type":"rule:fail","description":"rule-41-optimizer falhou","branch":"refactor/apple-design-hig","commit":"ed08688","agent":"human","rule":"rule-41-optimizer"}
+{"timestamp":"2026-08-12T03:25:07.196Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/apple-design-hig","commit":"ed08688","agent":"human","rule":"rule-10-clean"}
+{"timestamp":"2026-08-12T03:25:07.233Z","type":"rule:fail","description":"rule-30-outcome-grade falhou","branch":"refactor/apple-design-hig","commit":"ed08688","agent":"human","rule":"rule-30-outcome-grade"}
+{"timestamp":"2026-08-12T03:25:07.267Z","type":"rule:fail","description":"rule-41-optimizer falhou","branch":"refactor/apple-design-hig","commit":"ed08688","agent":"human","rule":"rule-41-optimizer"}
+{"timestamp":"2026-08-12T03:28:24.076Z","type":"healed","description":"rule-26 auto-corrigido","branch":"fix/carrinho-transferencia-calc","commit":"ed08688","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-12T03:28:24.420Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/carrinho-transferencia-calc","commit":"ed08688","agent":"human","errors":0}
+{"timestamp":"2026-08-12T03:41:07.887Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"fix/carrinho-transferencia-calc","commit":"6c769f6","agent":"human","rule":"rule-10-clean"}
+{"timestamp":"2026-08-12T03:43:17.766Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"fix/carrinho-transferencia-calc","commit":"6c769f6","agent":"human","rule":"rule-10-clean"}
+{"timestamp":"2026-08-12T03:45:25.737Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/carrinho-transferencia-calc","commit":"6c769f6","agent":"human","errors":0}
+{"timestamp":"2026-08-12T03:47:07.934Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/carrinho-transferencia-calc","commit":"0edd198","agent":"human","errors":0}
+{"timestamp":"2026-08-12T03:52:47.804Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/carrinho-transferencia-calc","commit":"2bf76d2","agent":"human","errors":0}

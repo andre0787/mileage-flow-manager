@@ -65,10 +65,16 @@ export default function Contas() {
       const accEntries = entries.filter(
         (e) => e.accountId === a.id && e.entryStatus !== "aguardando",
       );
+      // Transferências debitam a conta origem (sourceAccountId) sem entrada própria
+      // — o saldo calculado precisa descontá-las (mesma regra do recalcAccount).
+      const accTransfersOut = entries.filter(
+        (e) => e.sourceAccountId === a.id && e.entryStatus !== "aguardando",
+      );
       const accSales = sales.filter((s) => s.accountId === a.id && s.status !== "cancelado");
       const entriesSum = accEntries.reduce((s, e) => s + (e.milesGenerated ?? e.amount), 0);
+      const transfersOutSum = accTransfersOut.reduce((s, e) => s + e.amount, 0);
       const salesSum = accSales.reduce((s, sl) => s + sl.milesUsed, 0);
-      map.set(a.id, Math.max(0, entriesSum - salesSum));
+      map.set(a.id, Math.max(0, entriesSum - transfersOutSum - salesSum));
     }
     return map;
   }, [accounts, entries, sales]);

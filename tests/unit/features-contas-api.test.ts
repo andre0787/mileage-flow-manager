@@ -95,23 +95,34 @@ describe("contasApi — mutations", () => {
     expect(update).toHaveBeenCalledWith({ owner_id: "owner-2", balance: 2 });
   });
 
-  it("recalcula saldo a partir de entradas confirmadas e vendas ativas", async () => {
+  it("recalcula saldo a partir de entradas confirmadas, vendas ativas e transferências de saída", async () => {
     const update = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
     mockFrom.mockImplementation((table: string) => {
       if (table === "entries") {
         return {
           select: () => ({
-            eq: () =>
+            eq: (col: string) =>
               Promise.resolve({
-                data: [
-                  { miles_generated: 1000, amount: 1000, amount_paid: 100, description: null },
-                  {
-                    miles_generated: 500,
-                    amount: 500,
-                    amount_paid: 50,
-                    description: JSON.stringify({ entryStatus: "aguardando" }),
-                  },
-                ],
+                data:
+                  col === "source_account_id"
+                    ? [
+                        // transferência de saída: 300 pts debitados da conta
+                        { amount: 300, description: null },
+                      ]
+                    : [
+                        {
+                          miles_generated: 1000,
+                          amount: 1000,
+                          amount_paid: 100,
+                          description: null,
+                        },
+                        {
+                          miles_generated: 500,
+                          amount: 500,
+                          amount_paid: 50,
+                          description: JSON.stringify({ entryStatus: "aguardando" }),
+                        },
+                      ],
                 error: null,
               }),
           }),
@@ -132,9 +143,11 @@ describe("contasApi — mutations", () => {
       contasApi.endpoints.recalcAccount.initiate(account.id),
     );
     expect(result.data).toBeNull();
+    // balance = 1000 (entrada) - 300 (transferência out) - 200 (venda) = 500
+    // invested = 100 - 0.1*(300+200) = 50 ; avgCost = 50/500 = 0.1
     expect(update).toHaveBeenCalledWith({
-      balance: 800,
-      total_invested: 80,
+      balance: 500,
+      total_invested: 50,
       average_cost_per_mile: 0.1,
     });
   });

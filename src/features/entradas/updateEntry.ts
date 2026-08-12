@@ -10,6 +10,23 @@ import {
 } from "./shared";
 import type { PointEntry, EntradasBuilder } from "./shared";
 
+/** Busca saldo da conta e aplica delta de milhas/investido (helper rule-41). */
+async function applyBalance(accountId: string, deltaMiles: number, deltaInvested: number) {
+  const { data } = await supabase
+    .from("accounts")
+    .select("balance, total_invested")
+    .eq("id", accountId)
+    .single();
+  if (!data) return;
+  const update = calcAccountUpdate(
+    Number(data.balance),
+    Number(data.total_invested ?? 0),
+    deltaMiles,
+    deltaInvested,
+  );
+  await supabase.from("accounts").update(update).eq("id", accountId);
+}
+
 export const updateEntryEndpoint = (builder: EntradasBuilder) => ({
   updateEntry: builder.mutation<null, { oldEntry: PointEntry; updates: Partial<PointEntry> }>({
     invalidatesTags: ["entries", "accounts"],
@@ -20,35 +37,23 @@ export const updateEntryEndpoint = (builder: EntradasBuilder) => ({
       if (delErr) return { error: toQueryError(delErr) };
 
       const merged: PointEntry = { ...oldEntry, ...updates };
+      const destChanged = oldEntry.accountId !== merged.accountId;
 
       if (!isAguardando) {
         const newIsAguardando = merged.entryStatus === "aguardando";
         const oldMilesAdded = oldEntry.milesGenerated ?? oldEntry.amount;
         const newMilesAdded = merged.milesGenerated ?? merged.amount;
 
-        // ─── Delta approach: net change for confirmed→confirmed
-        //     Reverse old (confirmed→aguardando) or delta (confirmed→confirmed)
-        const applyDelta = !newIsAguardando;
-        const deltaMiles = applyDelta ? newMilesAdded - oldMilesAdded : -oldMilesAdded; // reverse all
+        // Delta (confirmed→confirmed mesmo destino) ou reversão total
+        // (confirmed→aguardando ou destino alterado — bloco "New dest" credita).
+        const applyDelta = !newIsAguardando && !destChanged;
+        const deltaMiles = applyDelta ? newMilesAdded - oldMilesAdded : -oldMilesAdded;
         const deltaInvested = applyDelta
           ? merged.amountPaid - oldEntry.amountPaid
           : -oldEntry.amountPaid;
 
         if (deltaMiles !== 0 || deltaInvested !== 0) {
-          const { data: dest } = await supabase
-            .from("accounts")
-            .select("balance, total_invested")
-            .eq("id", oldEntry.accountId)
-            .single();
-          if (dest) {
-            const update = calcAccountUpdate(
-              Number(dest.balance),
-              Number(dest.total_invested ?? 0),
-              deltaMiles,
-              deltaInvested,
-            );
-            await supabase.from("accounts").update(update).eq("id", oldEntry.accountId);
-          }
+          await applyBalance(oldEntry.accountId, deltaMiles, deltaInvested);
         }
 
         // Old source: reverse (add back points) — always if there was one
@@ -64,13 +69,7 @@ export const updateEntryEndpoint = (builder: EntradasBuilder) => ({
               Number(src.balance),
               Number(src.total_invested ?? 0),
             );
-            const update = calcAccountUpdate(
-              Number(src.balance),
-              Number(src.total_invested ?? 0),
-              oldEntry.amount,
-              oldProp,
-            );
-            await supabase.from("accounts").update(update).eq("id", oldEntry.sourceAccountId);
+            await applyBalance(oldEntry.sourceAccountId, oldEntry.amount, oldProp);
           }
         }
       }
@@ -112,36 +111,23 @@ export const updateEntryEndpoint = (builder: EntradasBuilder) => ({
           .eq("id", merged.sourceAccountId)
           .single();
         if (srcRes.data) {
-          const srcBalance = Number(srcRes.data.balance);
-          const srcInvested = Number(srcRes.data.total_invested ?? 0);
-          const proportionalCost = calcProportionalCost(merged.amount, srcBalance, srcInvested);
-          const srcUpdate = calcAccountUpdate(
-            srcBalance,
-            srcInvested,
-            -merged.amount,
-            -proportionalCost,
+          const proportionalCost = calcProportionalCost(
+            merged.amount,
+            Number(srcRes.data.balance),
+            Number(srcRes.data.total_invested ?? 0),
           );
-          await supabase.from("accounts").update(srcUpdate).eq("id", merged.sourceAccountId);
+          await applyBalance(merged.sourceAccountId, -merged.amount, -proportionalCost);
         }
       }
 
-      // New dest: only apply if old was aguardando (no delta applied above)
-      if (isAguardando) {
-        const destRes = await supabase
-          .from("accounts")
-          .select("balance, total_invested")
-          .eq("id", merged.accountId)
-          .single();
-        if (destRes.data) {
-          const amountToAdd = merged.milesGenerated ?? merged.amount;
-          const destUpdate = calcAccountUpdate(
-            Number(destRes.data.balance),
-            Number(destRes.data.total_invested ?? 0),
-            amountToAdd,
-            merged.amountPaid,
-          );
-          await supabase.from("accounts").update(destUpdate).eq("id", merged.accountId);
-        }
+      // New dest: apply full when old was aguardando (no delta applied above)
+      // OR when the destination account changed (old was fully reversed).
+      if (isAguardando || destChanged) {
+        await applyBalance(
+          merged.accountId,
+          merged.milesGenerated ?? merged.amount,
+          merged.amountPaid,
+        );
       }
 
       return { data: null };

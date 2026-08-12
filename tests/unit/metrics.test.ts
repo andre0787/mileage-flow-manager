@@ -13,6 +13,7 @@ import {
   filterActiveSales,
   filterSalesByMonth,
   computeDashboardMetrics,
+  computeMetricHistory,
 } from "@/lib/metrics";
 
 // ─── Cálculos de Custo ───
@@ -278,5 +279,38 @@ describe("computeDashboardMetrics", () => {
 
   it("define revenueChange como número", () => {
     expect(typeof metrics.revenueChange).toBe("number");
+  });
+});
+
+describe("computeMetricHistory — regressão: exclui transferências de milesIn", () => {
+  it("transferência não conta como milhas novas no mês (mesma regra do dashboard)", () => {
+    const now = new Date();
+    const isoDate = (d: Date) => d.toISOString().split("T")[0];
+    const sales = [
+      {
+        status: "concluida",
+        date: isoDate(now),
+        saleValue: 500,
+        profit: 100,
+        milesUsed: 1000,
+      },
+    ];
+    const entries = [
+      // compra normal de milhas no mês
+      { date: isoDate(now), amount: 5000, milesGenerated: 5000, entryStatus: "confirmada" },
+      // transferência (não cria milhas novas — deve ser excluída)
+      {
+        date: isoDate(now),
+        amount: 100000,
+        milesGenerated: 100000,
+        sourceAccountId: "src-1",
+        entryStatus: "confirmada",
+      },
+    ];
+    const history = computeMetricHistory(sales, entries, 1);
+    // milesIn = 5000 (só a compra), não 105000
+    expect(history.milesIn[0]).toBe(5000);
+    // milesStock = 5000 - 1000 = 4000
+    expect(history.milesStock[0]).toBe(4000);
   });
 });

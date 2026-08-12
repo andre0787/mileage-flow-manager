@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { parseDateOnly } from "@/lib/dateUtils";
 import type { Sale, Program } from "@/types";
 
 export interface ClientUsage {
@@ -94,7 +95,10 @@ export function useClientCycleAvailability(sales: Sale[], programs: Program[]) {
 }
 
 function isInCurrentCycle(program: Program, saleDate: string): boolean {
-  const date = new Date(saleDate);
+  // ponytail: parseDateOnly evita o bug de fuso #308 — em America/Sao_Paulo,
+  // new Date("YYYY-MM-DD") cai no dia anterior 21h e quebra o ciclo anual
+  // (venda de 01/01 contada no ano errado) e o diff de dias do ciclo "dias".
+  const date = parseDateOnly(saleDate);
 
   if (program.passengerCycleType === "dias") {
     if (!program.passengerCycleDays || program.passengerCycleDays <= 0) return true;

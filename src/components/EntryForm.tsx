@@ -236,9 +236,12 @@ export function EntryForm({
     }
   };
 
-  const milesGenerated = parseFloat(form.amount) * parseFloat(form.conversionRate || "1");
-  const costPerMile = parseFloat(form.amountPaid) / (milesGenerated || 1);
-  const costPerThousand = (parseFloat(form.amountPaid) / parseFloat(form.amount)) * 1000;
+  const amountNum = parseFloat(form.amount || "0");
+  const amountPaidNum = parseFloat(form.amountPaid || "0");
+  const milesGenerated = amountNum * parseFloat(form.conversionRate || "1");
+  const costPerMile = amountPaidNum / (milesGenerated || 1);
+  // ponytail: guarda contra amount = 0 (Infinity/NaN no preview)
+  const costPerThousand = amountNum > 0 ? (amountPaidNum / amountNum) * 1000 : 0;
 
   return (
     <div className="grid gap-4 py-4">

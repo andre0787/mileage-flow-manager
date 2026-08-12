@@ -287,6 +287,9 @@ export function computeMetricHistory(
 
     const monthEntries = entrs.filter((e) => {
       if (e.entryStatus === "aguardando") return false;
+      // Transferências movem milhas entre contas, não criam milhas novas —
+      // excluir de milesIn (mesma regra do monthlyMilesIn do dashboard).
+      if (e.sourceAccountId) return false;
       const d = parseDateOnly(e.date);
       return d.getMonth() === month && d.getFullYear() === year;
     });
