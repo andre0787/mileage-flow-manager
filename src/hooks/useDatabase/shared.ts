@@ -5,6 +5,15 @@ import { supabase } from "@/lib/supabase";
 import { logError, logDestructiveOp } from "@/lib/logger";
 import type { PointEntry } from "@/types";
 
+/** Converte um erro do Supabase para o formato esperado pelos hooks */
+export function toQueryError(err: unknown) {
+  return {
+    message: err instanceof Error ? err.message : String(err),
+    // Mantemos a estrutura esperada pelo toast e pelos testes
+    // que esperam um objeto com propriedade `message`.
+  };
+}
+
 export function useUserId(): string | null {
   const { user } = useAuth();
   return user?.id ?? null;
