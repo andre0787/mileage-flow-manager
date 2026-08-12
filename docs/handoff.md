@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `fix/fuso-308-datas`
-- **Último commit:** `0f390af — Merge pull request #348 from andre0787/refactor/blueprint-v4-p1-alerts`
+- **Branch:** `feat/apple-design`
+- **Último commit:** `ed08688 — fix(codereview): corrige 10 bugs — saldos de transferência, split recorrência, CSV, fuso e UI (#356 #357)`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -45,13 +45,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** docs
-**Objetivo:** verifica output
+**Categoria:** refactor
+**Objetivo:** Redesign Apple HIG (skill apple-design) — tokens, tipografia, componentes, navegação
 **Status:** in_progress
-**Iniciada em:** 2026-08-10T21:06:41.671Z
+**Iniciada em:** 2026-08-12T03:22:10.807Z
 **Branch:** `fix/carrinho-transferencia-calc`
-**Último commit:** a18b8e3 — chore(pre-pr): registra validação P3-30
-**Docs carregados:** AGENTS.md
+**Último commit:** ed08688 — fix(codereview): corrige 10 bugs — saldos de transferência, split recorrência, CSV, fuso e UI (#356 #357)
+**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
