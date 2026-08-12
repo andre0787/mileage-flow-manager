@@ -1807,3 +1807,4 @@
 {"timestamp":"2026-08-12T02:32:31.333Z","type":"healed","description":"rule-26 auto-corrigido","branch":"fix/carrinho-transferencia-calc","commit":"788eb4c","agent":"human","rule":"rule-26"}
 {"timestamp":"2026-08-12T02:32:37.853Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"fix/carrinho-transferencia-calc","commit":"788eb4c","agent":"human","rule":"rule-10-clean"}
 {"timestamp":"2026-08-12T02:34:20.055Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/carrinho-transferencia-calc","commit":"788eb4c","agent":"human","errors":0}
+{"timestamp":"2026-08-12T02:36:03.984Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/carrinho-transferencia-calc","commit":"32293e8","agent":"human","errors":0}
