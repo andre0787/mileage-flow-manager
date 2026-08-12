@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T00:45:18.801Z",
+  "generatedAt": "2026-08-11T23:57:55.353Z",
   "months": [
     {
       "month": "2026-03",
@@ -169,11 +169,11 @@
         "twins": 0,
         "auth": 2
       },
-      "avgOutcomeGrade": 93.5,
+      "avgOutcomeGrade": 93.4,
       "topViolations": [
         {
           "rule": "rule-10-clean",
-          "count": 160
+          "count": 165
         },
         {
           "rule": "rule-26-session-started",
@@ -189,11 +189,11 @@
         },
         {
           "rule": "rule-38-code-review-gate",
-          "count": 18
+          "count": 20
         }
       ],
       "healedByRule": {
-        "rule-26": 34,
+        "rule-26": 35,
         "rule-17-new-docs-valid": 14
       },
       "gateBlockedByRule": {
@@ -202,10 +202,10 @@
       "avgCycleTimeHours": 0.4,
       "branchesMerged": 69,
       "llmRouter": {
-        "resolved": 34,
+        "resolved": 36,
         "completed": 0,
         "failed": 10,
-        "unobserved": 21,
+        "unobserved": 23,
         "fallbackUsed": 0,
         "completionRate": 0,
         "fallbackRate": null,

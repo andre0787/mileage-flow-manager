@@ -8,6 +8,6 @@ export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "/api",
   }),
-  tagTypes: ["entries", "accounts", "sales", "clients", "origem_types"],
+  tagTypes: ["entries", "accounts", "sales", "clients", "programs", "origem_types"],
   endpoints: () => ({}),
 });

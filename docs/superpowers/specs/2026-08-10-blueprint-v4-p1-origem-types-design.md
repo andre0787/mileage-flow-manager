@@ -18,7 +18,7 @@ Mover o domínio **origemTypes** do módulo legado de hooks (TanStack React Quer
 - Módulo legado de origemTypes (102 linhas): `useOrigemTypesQuery`, `useAddOrigemTypeMutation`, `useUpdateOrigemTypeMutation`, `useDeleteOrigemTypeMutation`; usava `supabase`, `useUserId` (shared), `useAuth`, `mapOrigemType` (mappers), `logError`/`logDestructiveOp`, `toast`.
 - Query: `supabase.from("origem_types").select("*")` → `.map(mapOrigemType)`, enabled com userId. **Sem order.**
 - Mutations: insert (com `description` condicional — coluna de migração), update por id (name/account_type/color/description), delete por id; invalidam via `queryClient.invalidateQueries` com `queryKey: ["origem_types"]`.
-- **Consumidores (CRG):** `DataProvider` (via `useOrigemTypesQuery`), `Entradas.tsx`/`Configuracoes.tsx` (mutations).
+- **Consumidores (CRG):** `DataProvider` (via `useOrigemTypesQuery`), `Entradas.tsx`/`Configuracoes.tsx` (mutations), e o módulo de programs (upsert em `origem_types` no addProgram quando `type === "pontos"`).
 
 ## Arquitetura alvo
 
