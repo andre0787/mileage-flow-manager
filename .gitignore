@@ -79,6 +79,11 @@ tests/fluxo-relatorio.md
 # OpenCode AI extension artifacts
 .opencode/
 
+# Skills instaladas via npx skills (apple-design, etc.)
+.agents/
+skills-lock.json
+.pi/skills/apple-design
+
 # pi local config (user-specific)
 .pi/git/
 .pi/themes/

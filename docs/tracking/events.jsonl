@@ -1827,3 +1827,6 @@
 {"timestamp":"2026-08-12T03:25:07.267Z","type":"rule:fail","description":"rule-41-optimizer falhou","branch":"refactor/apple-design-hig","commit":"ed08688","agent":"human","rule":"rule-41-optimizer"}
 {"timestamp":"2026-08-12T03:28:24.076Z","type":"healed","description":"rule-26 auto-corrigido","branch":"fix/carrinho-transferencia-calc","commit":"ed08688","agent":"human","rule":"rule-26"}
 {"timestamp":"2026-08-12T03:28:24.420Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/carrinho-transferencia-calc","commit":"ed08688","agent":"human","errors":0}
+{"timestamp":"2026-08-12T03:41:07.887Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"fix/carrinho-transferencia-calc","commit":"6c769f6","agent":"human","rule":"rule-10-clean"}
+{"timestamp":"2026-08-12T03:43:17.766Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"fix/carrinho-transferencia-calc","commit":"6c769f6","agent":"human","rule":"rule-10-clean"}
+{"timestamp":"2026-08-12T03:45:25.737Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/carrinho-transferencia-calc","commit":"6c769f6","agent":"human","errors":0}
