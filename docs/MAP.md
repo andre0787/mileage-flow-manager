@@ -368,5 +368,7 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-entradas-design.md` (auto) | 2026-08-10 |
 | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-contas-design.md` (auto) | 2026-08-10 |
 | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-clientes-design.md` (auto) | 2026-08-10 |
-| `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-vendas-design.md` (auto) | 2026-08-11 |  | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-origem-types-design.md` (auto) | 2026-08-11 |
-  | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-programs-design.md` (auto) | 2026-08-11 |
+| `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-vendas-design.md` (auto) | 2026-08-11 |
+| `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-owners-design.md` (auto) | 2026-08-11 |
+| `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-origem-types-design.md` (auto) | 2026-08-11 |
+| `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-programs-design.md` (auto) | 2026-08-11 |
