@@ -49,7 +49,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 **Objetivo:** verifica output
 **Status:** in_progress
 **Iniciada em:** 2026-08-10T21:06:41.671Z
-**Branch:** `fix/fuso-308-datas`
+**Branch:** `fix/carrinho-transferencia-calc`
 **Último commit:** a18b8e3 — chore(pre-pr): registra validação P3-30
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão

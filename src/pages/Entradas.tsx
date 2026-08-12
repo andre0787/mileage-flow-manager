@@ -20,7 +20,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
 import { calculateRecurrence } from "@/lib/recurrence";
-import { calcMilesGenerated, calcCostPerThousand, calcCostPerMile } from "@/lib/metrics";
+import { computeTransferCalc } from "@/lib/transferCalc";
 import { serializeOrigemTypeDescription } from "@/lib/origemTypes";
 import { formatDateBR } from "@/lib/dateUtils";
 import { toast } from "sonner";
@@ -70,11 +70,16 @@ export default function Entradas() {
     const cartCost = parseFloat(form.cartCost || "0");
     const conversionRate = parseFloat(form.conversionRate || "1");
     const bonusPercent = isTransfer ? parseFloat(form.bonusPercent || "0") : undefined;
-    const totalAmount = amount + (isTransfer ? cartAmount : 0);
-    const totalPaid = amountPaid + cartCost;
-    const milesGenerated = calcMilesGenerated(totalAmount, conversionRate, bonusPercent);
-    const costPerThousand = calcCostPerThousand(totalPaid, milesGenerated);
-    const costPerMile = calcCostPerMile(totalPaid, milesGenerated);
+    // Carrinho só participa quando há pontos extras (cartAmount > 0).
+    // Em não-transferências (EntryForm) cartAmount/cartCost são sempre 0.
+    const c = computeTransferCalc({
+      amount,
+      cartAmount: isTransfer ? cartAmount : 0,
+      amountPaid,
+      cartCost: isTransfer && cartAmount > 0 ? cartCost : 0,
+      conversionRate,
+      bonusPercent,
+    });
     return {
       isTransfer,
       amount,
@@ -83,11 +88,11 @@ export default function Entradas() {
       cartCost,
       conversionRate,
       bonusPercent,
-      totalAmount,
-      totalPaid,
-      milesGenerated,
-      costPerThousand,
-      costPerMile,
+      totalAmount: c.totalAmount,
+      totalPaid: c.totalPaid,
+      milesGenerated: c.milesGenerated,
+      costPerThousand: c.costPerThousand,
+      costPerMile: c.costPerMile,
     };
   };
 
@@ -139,7 +144,9 @@ export default function Entradas() {
         onError: () => toast.error("Erro ao salvar entrada. Verifique os dados e tente novamente."),
       },
     );
+    // Fecha o dialog de origem do submit: TransferForm usa o mesmo handler (isTransferDialogOpen)
     setIsCreateDialogOpen(false);
+    setIsTransferDialogOpen(false);
   };
 
   const handleUpdateEntry = (form: EntryFormData) => {
@@ -510,7 +517,12 @@ export default function Entradas() {
               origemTypeId: editingEntry.origemTypeId,
               sourceAccountId: editingEntry.sourceAccountId ?? "",
               amount: String(editingEntry.amount),
-              amountPaid: String(editingEntry.amountPaid),
+              // amount_paid no banco já inclui o cartCost (salvo como totalPaid no create).
+              // O form trata amountPaid como custo SÓ da transferência e o computeFromForm
+              // soma cartCost de novo — então subtraímos aqui para evitar contagem dupla.
+              amountPaid: String(
+                Math.max(0, (editingEntry.amountPaid ?? 0) - (editingEntry.cartCost ?? 0)),
+              ),
               bonusPercent: editingEntry.bonusPercent ? String(editingEntry.bonusPercent) : "",
               cartAmount: editingEntry.cartAmount ? String(editingEntry.cartAmount) : "",
               cartCost: editingEntry.cartCost ? String(editingEntry.cartCost) : "",
