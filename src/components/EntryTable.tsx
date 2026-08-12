@@ -155,12 +155,12 @@ export function EntryTable({
         <Button
           size="sm"
           variant="outline"
-          className="px-3 min-h-[44px] gap-1 border-blue-300 dark:border-blue-700"
+          className="px-3 min-h-[44px] gap-1 border-primary/40 dark:border-primary/60"
           onClick={() => onConfirm(entry)}
           disabled={!isOnline}
           title={!isOnline ? "Requer conexão" : undefined}
         >
-          <CheckCircle2 className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+          <CheckCircle2 className="h-3.5 w-3.5 text-primary" />
           Confirmar
         </Button>
       )}
@@ -207,7 +207,7 @@ export function EntryTable({
         {entry.entryStatus === "aguardando" && (
           <Badge
             variant="secondary"
-            className="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 text-[10px] gap-1"
+            className="bg-primary/10 text-primary dark:bg-primary/15 dark:text-primary text-[10px] gap-1"
           >
             ⏳ Aguardando
           </Badge>
@@ -246,10 +246,10 @@ export function EntryTable({
           <Button
             size="sm"
             variant="outline"
-            className="px-3 min-h-[44px] gap-1 border-blue-300 dark:border-blue-700"
+            className="px-3 min-h-[44px] gap-1 border-primary/40 dark:border-primary/60"
             onClick={() => onConfirm(entry)}
           >
-            <CheckCircle2 className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+            <CheckCircle2 className="h-3.5 w-3.5 text-primary" />
             Confirmar
           </Button>
         )}

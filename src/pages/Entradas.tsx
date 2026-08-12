@@ -379,7 +379,7 @@ export default function Entradas() {
         />
         {overdueEntries.length > 0 && (
           <div className="rounded-lg border border-red-400/30 bg-red-50 dark:bg-red-950/20 p-3 sm:p-4 flex items-start gap-3">
-            <AlertTriangle className="h-5 w-5 text-red-600 shrink-0 mt-0.5" />
+            <AlertTriangle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-red-800 dark:text-red-300">
                 {overdueEntries.length} entrada(s) atrasada(s) — confirmação vencida

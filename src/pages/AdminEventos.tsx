@@ -91,10 +91,10 @@ export default function AdminEventos() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-blue-600">Info</CardTitle>
+            <CardTitle className="text-sm font-medium text-primary">Info</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-blue-600">{stats.info}</p>
+            <p className="text-2xl font-bold text-primary">{stats.info}</p>
           </CardContent>
         </Card>
         <Card>
