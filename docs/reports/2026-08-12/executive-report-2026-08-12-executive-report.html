@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>executive-report — executive report</title>
+  <style>
+    :root{
+      --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;
+      --text:#e6edf7;--muted:#8fa3c0;--blue:#3b82f6;--green:#34d399;--amber:#fbbf24;--red:#f87171;--gold:#f59e0b;--teal:#2dd4bf;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      background:radial-gradient(1200px 600px at 15% -10%,#12203f 0%,transparent 55%),radial-gradient(1000px 500px at 110% 20%,#0f2440 0%,transparent 50%),var(--bg);
+      color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;
+    }
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    /* ── Deck ── */
+    .deck{min-height:100vh;display:flex;flex-direction:column}
+    .slide{
+      flex:1 0 auto;min-height:100vh;padding:5.5rem clamp(1.25rem,5vw,4.5rem) 3.5rem;
+      display:flex;flex-direction:column;justify-content:center;gap:1.4rem;
+      max-width:1180px;margin:0 auto;width:100%;
+      border-bottom:1px solid var(--line);
+    }
+    .deck-mode .slide{display:none}
+    .deck-mode .slide.active{display:flex}
+    /* ── Nav deck ── */
+    .nav{
+      position:fixed;top:1rem;right:1rem;z-index:60;display:flex;gap:.4rem;align-items:center;
+      background:rgba(10,15,30,.85);backdrop-filter:blur(8px);border:1px solid var(--line);
+      border-radius:999px;padding:.35rem .5rem;box-shadow:0 8px 24px rgba(0,0,0,.45);
+    }
+    .nav button{
+      background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:1.05rem;
+      width:2.1rem;height:2.1rem;border-radius:999px;transition:all .15s;line-height:1;
+    }
+    .nav button:hover{background:var(--card2);color:var(--text)}
+    .nav .count{font-size:.72rem;color:var(--muted);min-width:2.6rem;text-align:center;font-variant-numeric:tabular-nums}
+    .nav .mode-btn{width:auto;padding:0 .7rem;font-size:.72rem;color:var(--muted)}
+    /* ── Hero (slide 1) ── */
+    .hero{display:flex;flex-direction:column;gap:.9rem}
+    .hero-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+    .hero-badges{display:flex;gap:.5rem;flex-wrap:wrap}
+    .badge{
+      display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .7rem;border-radius:999px;
+      font-size:.72rem;font-weight:700;letter-spacing:.02em;border:1px solid var(--line);color:var(--muted);
+    }
+    .badge.pr{color:#93c5fd;border-color:rgba(59,130,246,.4);background:rgba(59,130,246,.12)}
+    .badge.feat{color:#6ee7b7;border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.1)}
+    .badge.fix{color:#fca5a5;border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.1)}
+    .badge.docs{color:#c4b5fd;border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.1)}
+    .badge.chore,.badge.auto{color:#a7b8d1;border-color:var(--line);background:rgba(255,255,255,.04)}
+    .badge.risk{border-style:dashed}
+    .badge.health{font-weight:800}
+    .hero-date{font-size:.78rem;color:var(--muted)}
+    h1{font-size:clamp(1.9rem,4.5vw,3.3rem);line-height:1.08;letter-spacing:-.03em;font-weight:800;text-wrap:balance}
+    .hero-summary{font-size:clamp(1rem,1.6vw,1.3rem);color:var(--muted);max-width:62ch;text-wrap:balance}
+    .hero-meta{font-size:.72rem;color:var(--muted);opacity:.8}
+    /* ── KPI cards ── */
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin-top:.4rem}
+    .kpi{
+      background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);
+      border-radius:1rem;padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.2rem;
+      box-shadow:0 10px 30px rgba(0,0,0,.3);
+    }
+    .kpi-value{font-size:clamp(1.9rem,3vw,2.6rem);font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--text)}
+    .kpi-value.green{color:var(--green)}.kpi-value.amber{color:var(--amber)}
+    .kpi-label{font-size:.8rem;color:var(--muted);font-weight:600}
+    .kpi-sub{font-size:.7rem;color:var(--muted);opacity:.75}
+    /* ── BLUF (one-pager) ── */
+    .bluf{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem}
+    .bluf-col{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}
+    .bluf-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-weight:800;margin-bottom:.4rem}
+    .bluf-col p{font-size:.9rem;color:var(--text)}
+    /* ── Slide head ── */
+    .slide-head{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.6rem}
+    .slide-kicker{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);font-weight:800}
+    .slide-head h2{font-size:clamp(1.4rem,3vw,2.1rem);letter-spacing:-.02em;font-weight:800}
+    /* ── Impact grid ── */
+    .impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+    .impact-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.4rem;display:flex;flex-direction:column;gap:.5rem}
+    .impact-icon{font-size:1.6rem}
+    .impact-card h3{font-size:1rem;font-weight:800;letter-spacing:-.01em}
+    .impact-card p{font-size:.9rem;color:var(--muted)}
+    .impact-card.blue{border-top:3px solid var(--blue)}
+    .impact-card.gold{border-top:3px solid var(--gold)}
+    .impact-card.teal{border-top:3px solid var(--teal)}
+    /* ── Timeline ── */
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;align-items:start}
+    @media(max-width:760px){.split{grid-template-columns:1fr}}
+    .timeline{position:relative;padding-left:1.4rem;display:flex;flex-direction:column;gap:1.05rem}
+    .timeline::before{content:"";position:absolute;left:.4rem;top:.3rem;bottom:.3rem;width:2px;background:linear-gradient(180deg,var(--blue),var(--green))}
+    .tl-item{position:relative;display:flex;align-items:center;gap:.9rem}
+    .tl-dot{position:absolute;left:-1.4rem;width:.85rem;height:.85rem;border-radius:50%;background:var(--card);border:2px solid var(--blue)}
+    .tl-item.pr\:merge .tl-dot,.tl-item.pr-merge .tl-dot{border-color:var(--green);background:var(--green)}
+    .tl-item.pre-pr .tl-dot{border-color:var(--amber)}
+    .tl-body{display:flex;flex-direction:column}
+    .tl-time{font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:700}
+    .tl-label{font-size:.92rem;font-weight:600}
+    .tl-total{margin-top:.4rem;font-size:.85rem;color:var(--green);font-weight:700}
+    .empty-note{font-size:.9rem;color:var(--muted);border:1px dashed var(--line);border-radius:1rem;padding:1.2rem}
+    /* ── Stats ── */
+    .stat-list{display:flex;flex-direction:column;gap:.8rem}
+    .stat{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1rem 1.2rem;display:flex;align-items:baseline;gap:.9rem}
+    .stat-v{font-size:1.7rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--blue)}
+    .stat-v.green{color:var(--green)}
+    .stat-l{font-size:.82rem;color:var(--muted)}
+    /* ── Appendix ── */
+    .appendix{justify-content:flex-start}
+    .appendix-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:860px){.appendix-grid{grid-template-columns:1fr}}
+    .ap-card{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}
+    .ap-card h3{font-size:.92rem;font-weight:800;margin-bottom:.6rem}
+    .checks{list-style:none;display:flex;flex-direction:column;gap:.35rem}
+    .checks li{font-size:.85rem;color:var(--muted)}
+    table{width:100%;border-collapse:collapse;font-size:.8rem}
+    td,th{border:1px solid var(--line);padding:.45rem .6rem;text-align:left;vertical-align:top;color:var(--muted)}
+    th{color:var(--text);font-weight:700;background:rgba(255,255,255,.04)}
+    td code,code{color:#93c5fd;font-family:ui-monospace,Menlo,monospace;font-size:.78rem}
+    .evidence{max-width:100%;border:1px solid var(--line);border-radius:.8rem;margin-top:.7rem}
+    .token-bar{display:flex;border-radius:.6rem;overflow:hidden;margin:.7rem 0;font-size:.7rem}
+    .token-bar div{padding:.3rem .7rem;text-align:center;white-space:nowrap}
+    .token-bar .add{background:rgba(52,211,153,.18);color:#6ee7b7}
+    .token-bar .del{background:rgba(248,113,113,.16);color:#fca5a5}
+    .token-bar .overhead{background:rgba(255,255,255,.07);color:var(--muted)}
+    .diff-title{margin:1.2rem 0 .5rem;font-size:.92rem;font-weight:800}
+    .diff{background:#070b16;color:#c9d6ea;padding:.9rem;border-radius:.8rem;font:.74rem/1.5 ui-monospace,Menlo,monospace;overflow-x:auto;max-height:340px;border:1px solid var(--line)}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .foot{margin:1.4rem auto 2.5rem;text-align:center;font-size:.7rem;color:var(--muted);opacity:.6}
+    .foot .scroll-hint{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3rem .9rem;margin-bottom:.8rem}
+    /* ── Print (tema claro, one-pager + apêndice) ── */
+    @media print{
+      body{background:#fff;color:#111}
+      .nav{display:none!important}
+      .slide{min-height:0;page-break-after:always;display:flex!important;border-bottom:0;padding:1.5rem 0}
+      .hero h1{color:#0b1220}
+      .hero-summary,.hero-date,.hero-meta,.kpi-label,.kpi-sub,.bluf-col p,.impact-card p,.tl-time,.tl-label,.stat-l,.checks li,td,th,.foot{color:#334155}
+      .kpi,.impact-card,.bluf-col,.ap-card,.stat{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .bluf-col,.checks li{color:#334155}
+      .diff{background:#f8fafc;color:#0f172a;border-color:#e2e8f0}
+      .timeline::before{background:linear-gradient(180deg,#3b82f6,#16a34a)}
+    }
+  </style>
+</head>
+<body>
+  <div class="nav" id="deckNav">
+    <button id="prevBtn" title="Anterior (←)">←</button>
+    <span class="count" id="slideCount">1/3</span>
+    <button id="nextBtn" title="Próxima (→)">→</button>
+    <button id="fsBtn" title="Tela cheia (F)">⛶</button>
+    <button id="printBtn" title="Imprimir / PDF (P)">⎙</button>
+    <button class="mode-btn" id="modeBtn" title="Alternar modo documento">📄</button>
+  </div>
+
+  <div class="deck" id="deck">
+    
+    <section class="slide" id="s1">
+      <div class="hero">
+        <div class="hero-top">
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">executive-report</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health amber" style="color:#fbbf24">● Sob atenção</span></div>
+          <div class="hero-date">2026-08-12 · 19:01 · <span class="mono">feat/executive-report</span></div>
+        </div>
+        <h1>executive report</h1>
+        <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
+        <div class="hero-meta mono">fa0250e — chore: base do briefing executivo de sessao</div>
+      </div>
+      
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-value">3</div>
+        <div class="kpi-label">entregas em produção</div>
+        <div class="kpi-sub">10 implementações · 10 reviews</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value">18h17m</div>
+        <div class="kpi-label">janela de entrega (dia)</div>
+        <div class="kpi-sub">da sessão ao deploy</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value">0/46</div>
+        <div class="kpi-label">fricção pré-PR (fail/total)</div>
+        <div class="kpi-sub">32 violações · 11 auto-corrigidas</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value green">92</div>
+        <div class="kpi-label">outcome grade</div>
+        <div class="kpi-sub">médio risco da mudança</div>
+      </div>
+    </div>
+      <div class="bluf">
+        <div class="bluf-col">
+          <div class="bluf-label">Decisão & entregas</div>
+          <p>Nova capacidade entregue e validada para o produto.</p>
+        </div>
+        <div class="bluf-col">
+          <div class="bluf-label">Impacto esperado</div>
+          <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+        </div>
+        <div class="bluf-col">
+          <div class="bluf-label">Riscos & trade-offs</div>
+          <p>Médio risco de mudança · outcome grade = 92 · lead time 18h17m.</p>
+        </div>
+      </div>
+    </section><section class="slide" id="s2">
+        <div class="slide-head">
+          <span class="slide-kicker">Impacto da sessão</span>
+          <h2>O que isso significa para o negócio</h2>
+        </div>
+        <div class="impact-grid">
+          <div class="impact-card blue">
+                <div class="impact-icon">🎯</div>
+                <h3>Impacto de Produto</h3>
+                <p>Nova capacidade entregue e validada para o produto.</p>
+              </div><div class="impact-card gold">
+                <div class="impact-icon">🏢</div>
+                <h3>Impacto de Negócio</h3>
+                <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+              </div><div class="impact-card teal">
+                <div class="impact-icon">🌊</div>
+                <h3>Impacto de Processo</h3>
+                <p>Fluxo completo seguido: sessão → implementação → code review → pré-PR → PR. Detalhes nas métricas automáticas.</p>
+              </div>
+        </div>
+      </section>
+    <section class="slide" id="s3">
+      <div class="slide-head">
+        <span class="slide-kicker">Execução</span>
+        <h2>Timeline da sessão</h2>
+      </div>
+      <div class="split">
+        <div class="split-left"><div class="timeline">
+        <div class="tl-item session:start">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">03:22</div>
+                <div class="tl-label">Início da sessão</div>
+              </div>
+            </div><div class="tl-item coding:done">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">00:41</div>
+                <div class="tl-label">Implementação concluída</div>
+              </div>
+            </div><div class="tl-item code-review:done">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">00:41</div>
+                <div class="tl-label">Code review aprovado</div>
+              </div>
+            </div><div class="tl-item pre-pr">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">01:14</div>
+                <div class="tl-label">Validação pré-PR</div>
+              </div>
+            </div><div class="tl-item pr:merge">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">21:38</div>
+                <div class="tl-label">Merge em produção</div>
+              </div>
+            </div>
+        <div class="tl-total">⏱ 18h17m do início à produção</div>
+      </div></div>
+        <div class="split-right">
+          <div class="stat-list">
+            <div class="stat"><span class="stat-v">46</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">32</span><span class="stat-l">violações de regra encontradas</span></div>
+            <div class="stat"><span class="stat-v green">11</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
+            <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="slide appendix" id="s4">
+      <div class="slide-head">
+        <span class="slide-kicker">Apêndice técnico</span>
+        <h2>Detalhes da implementação</h2>
+      </div>
+      <div class="appendix-grid">
+        <div class="ap-card">
+          <h3>✅ Checklist de revisão</h3>
+          <ul class="checks">
+            <li>🧪 Testes manuais realizados?</li>
+<li>📋 Regras de validação passam? (npm run pre-pr)</li>
+          </ul>
+        </div>
+        <div class="ap-card">
+          <h3>📸 Evidências — antes & depois</h3>
+          <table>
+            <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 255 remoções — 1389 linhas tocadas</td><td>✨ 930 adições — 6 arquivo(s) alterado(s)</td></tr>
+          </table>
+          
+        </div>
+        <div class="ap-card">
+          <h3>📊 Métricas da mudança</h3>
+          <table>
+            <tr><th>Métrica</th><th>Valor</th></tr>
+            <tr><td>Arquivos alterados</td><td>6</td></tr>
+            <tr><td>Adições</td><td>+930</td></tr>
+            <tr><td>Remoções</td><td>-255</td></tr>
+            <tr><td>Tokens estimados</td><td>~1042</td></tr>
+          </table>
+          <div class="token-bar">
+        <div class="add" style="flex:67">+698 add</div>
+        <div class="del" style="flex:18">-191 del</div>
+        <div class="overhead" style="flex:15">~153 ctx</div>
+      </div>
+          <h3>Breakdown de tokens</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+698</td><td>67%</td></tr>
+      <tr><td>Remoções</td><td>-191</td><td>18%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~153</td><td>15%</td></tr>
+      <tr><th>Total</th><th>~1042</th><th>100%</th></tr>
+    </table>
+        </div>
+        <div class="ap-card">
+          <h3>📁 Arquivos</h3>
+          <table>
+            <tr><th>Status</th><th>Arquivo</th></tr>
+            <tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>scripts/generate-report.mjs</td></tr>
+<tr><td>M</td><td>scripts/pre-pr-check.mjs</td></tr>
+<tr><td>A</td><td>tests/unit/generate-report.test.ts</td></tr>
+          </table>
+        </div>
+      </div>
+      
+      <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
+      <div class="diff">
+        diff --git a/docs/RADAR.md b/docs/RADAR.md
+index 770c80f..9417532 100644
+<span class="del">--- a/docs/RADAR.md</span>
+<span class="add">+++ b/docs/RADAR.md</span>
+@@ -1,6 +1,6 @@
+ # 🔭 Radar de Vulnerabilidades
+ 
+<span class="del">-&gt; Atualizado em: 2026-08-12T21:17:22.303Z</span>
+<span class="add">+&gt; Atualizado em: 2026-08-12T21:49:29.253Z</span>
+ 
+ ## ✅ Radar Limpo
+ Nenhuma vulnerabilidade ativa detectada.
+diff --git a/docs/handoff.md b/docs/handoff.md
+index 619c23a..4d6a4b9 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -10,7 +10,7 @@
+ Consulte as GitHub Issues para a lista atual.
+ ## 🧭 Estado Atual
+ - **Branch:** `main`
+<span class="del">-- **Último commit:** `ee53938 — fix(ui): campos de busca legíveis no dark mode — fundo elevado, borda nítida e micro-interações (#359)`</span>
+<span class="add">+- **Último commit:** `56bf31b — feat(ui): auditoria dark mode — campos elevados, tabelas e busca com teclado (#360)`</span>
+ - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
+ 
+ ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
+@@ -69,9 +69,9 @@ Continue a tarefa ativa ou selecione o próximo task-card.
+ 
+ ## 🎯 Sessão Atual
+ **Categoria:** feature
+<span class="del">-**Objetivo:** Auditoria dark mode: inputs, contraste app-wide, micro-interacoes de busca e testes visuais</span>
+<span class="add">+**Objetivo:** Briefing executivo: relatorio HTML de sessao com impacto de produto/negocio/processo</span>
+ **Status:** in_progress
+<span class="del">-**Iniciada em:** 2026-08-12T21:17:22.310Z</span>
+<span class="del">-**Branch:** `feat/dark-ui-audit`</span>
+<span class="del">-**Último commit:** ee53938 — fix(ui): campos de busca legíveis no dark mode — fundo elevado, borda nítida e micro-interações (#359)</span>
+<span class="add">+**Iniciada em:** 2026-08-12T21:49:29.259Z</span>
+<span class="add">+**Branch:** `feat/executive-report`</span>
+<span class="add">+**Último commit:** 56bf31b — feat(ui): auditoria dark mode — campos elevados, tabelas e busca com teclado (#360)</span>
+ **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
+\ No newline at end of file
+diff --git a/docs/tracking/events.jsonl b/docs/tracking/events.jsonl
+index 4588175..e73231c 100644
+<span class="del">--- a/docs/tracking/events.jsonl</span>
+<span class="add">+++ b/docs/tracking/events.jsonl</span>
+@@ -1874,3 +1874,6 @@
+ {&quot;timestamp&quot;:&quot;2026-08-12T21:30:27.008Z&quot;,&quot;type&quot;:&quot;code-review:done&quot;,&quot;description&quot;:&quot;Review aprovado: 2 pontos corrigidos (locator ThemeToggle getByRole, parametro i removido) + fix camelCase e2e&quot;,&quot;branch&quot;:&quot;feat/dark-ui-audit&quot;,&quot;commit&quot;:&quot;ee53938&quot;,&quot;agent&quot;:&quot;human&quot;,&quot;subagent&quot;:true,&quot;verdict&quot;:&quot;approved&quot;}
+ {&quot;timestamp&quot;:&quot;2026-08-12T21:32:11.062Z&quot;,&quot;type&quot;:&quot;pre-pr&quot;,&quot;description&quot;:&quot;pre-pr PASS&quot;,&quot;branch&quot;:&quot;feat/dark-ui-audit&quot;,&quot;commit&quot;:&quot;ee53938&quot;,&quot;agent&quot;:&quot;human&quot;,&quot;errors&quot;:0}
+ {&quot;timestamp&quot;:&quot;2026-08-12T21:32:21.924Z&quot;,&quot;type&quot;:&quot;pre-pr&quot;,&quot;description&quot;:&quot;pre-pr PASS&quot;,&quot;branch&quot;:&quot;feat/dark-ui-audit&quot;,&quot;commit&quot;:&quot;ee53938&quot;,&quot;agent&quot;:&quot;human&quot;,&quot;errors&quot;:0}
+<span class="add">+{&quot;timestamp&quot;:&quot;2026-08-12T21:49:29.281Z&quot;,&quot;type&quot;:&quot;session:start&quot;,&quot;description&quot;:&quot;feature: Briefing executivo: relatorio HTML de sessao com impacto de produto/negocio/processo&quot;,&quot;branch&quot;:&quot;main&quot;,&quot;commit&quot;:&quot;56bf31b&quot;,&quot;agent&quot;:&quot;human&quot;,&quot;categoria&quot;:&quot;feature&quot;}</span>
+<span class="add">+{&quot;timestamp&quot;:&quot;2026-08-12T21:49:29.413Z&quot;,&quot;type&quot;:&quot;healed&quot;,&quot;description&quot;:&quot;rule-26 auto-corrigido&quot;,&quot;branch&quot;:&quot;feat/executive-report&quot;,&quot;commit&quot;:&quot;56bf31b&quot;,&quot;agent&quot;:&quot;human&quot;,&quot;rule&quot;:&quot;rule-26&quot;}</span>
+<span class="add">+{&quot;timestamp&quot;:&quot;2026-08-12T21:49:29.756Z&quot;,&quot;type&quot;:&quot;pre-pr&quot;,&quot;description&quot;:&quot;pre-pr PASS&quot;,&quot;branch&quot;:&quot;feat/executive-report&quot;,&quot;commit&quot;:&quot;56bf31b&quot;,&quot;agent&quot;:&quot;human&quot;,&quot;errors&quot;:0}</span>
+diff --git a/scripts/generate-report.mjs b/scripts/generate-report.mjs
+index 3fa48da..da4fe66 100644
+<span class="del">--- a/scripts/generate-report.mjs</span>
+<span class="add">+++ b/scripts/generate-report.mjs</span>
+@@ -1,29 +1,51 @@
+ #!/usr/bin/env node
+ 
+ /**
+<span class="del">- * generate-report.mjs — Gera relatório HTML automático a partir do diff.</span>
+<span class="add">+ * generate-report.mjs — Briefing executivo de sessão (HTML).</span>
+<span class="add">+ *</span>
+<span class="add">+ * Transforma o diff + telemetria da sessão (events.jsonl/quality.jsonl) em</span>
+<span class="add">+ * uma apresentação de impacto para líderes:</span>
+<span class="add">+ *   • Slide 1 — One-Pager Executivo (BLUF): decisão, impacto, trade-offs + KPIs</span>
+<span class="add">+ *   • Slide 2 — Impacto: Produto / Negócio / Processo (antes → depois)</span>
+<span class="add">+ *   • Slide 3 — Timeline da sessão + métricas DORA-like</span>
+<span class="add">+ *   • Slide 4 — Apêndice técnico (checklist, arquivos, diff, tokens)</span>
+<span class="add">+ *</span>
+<span class="add">+ * Modos de visualização (no próprio HTML):</span>
+<span class="add">+ *   • Deck: slides fullscreen navegáveis (← → espaço, F fullscreen, P imprimir)</span>
+<span class="add">+ *   • Print/PDF: tema claro, one-pager executivo primeiro, apêndice depois</span>
+  *
+  * Uso:
+<span class="del">- *   node scripts/generate-report.mjs                          # preview no console</span>
+<span class="del">- *   node scripts/generate-report.mjs &quot;Nome&quot;                   # gera HTML</span>
+<span class="add">+ *   node scripts/generate-report.mjs                          # preview</span>
+  *   node scripts/generate-report.mjs &quot;Nome&quot; --write           # salva em docs/reports/&lt;data&gt;/
+<span class="del">- *   node scripts/generate-report.mjs &quot;Nome&quot; --prefix PR99      # prefixo custom (se nao houver PR)</span>
+<span class="del">- *   node scripts/generate-report.mjs &quot;Nome&quot; --evidence URL    # imagem inline no relatorio</span>
+<span class="del">- *   node scripts/generate-report.mjs &quot;Nome&quot; --benefits &quot;linha1&quot;  # beneficios</span>
+<span class="del">- *   node scripts/generate-report.mjs &quot;Nome&quot; --impact &quot;Reduz suporte em 30%&quot;  # impacto negocios</span>
+<span class="del">- *   node scripts/generate-report.mjs &quot;Nome&quot; --rows &quot;Item|Fix|Beneficio|Impacto|~200&quot;  # tabela detalhada</span>
+<span class="del">- *   node scripts/generate-report.mjs &quot;Nome&quot; --benefits &quot;A&quot; --impact &quot;B&quot; --rows &quot;I|F|B|I|T&quot; --write</span>
+<span class="add">+ *   node scripts/generate-report.mjs &quot;Nome&quot; --prefix PR99     # prefixo custom</span>
+<span class="add">+ *   node scripts/generate-report.mjs &quot;Nome&quot; --evidence URL    # screenshot inline</span>
+<span class="add">+ *   node scripts/generate-report.mjs &quot;Nome&quot; --summary &quot;1 frase&quot;          # BLUF decisão</span>
+<span class="add">+ *   node scripts/generate-report.mjs &quot;Nome&quot; --impact-produto &quot;texto&quot;     # impacto produto</span>
+<span class="add">+ *   node scripts/generate-report.mjs &quot;Nome&quot; --impact-negocio &quot;texto&quot;     # impacto negócio</span>
+<span class="add">+ *   node scripts/generate-report.mjs &quot;Nome&quot; --impact-processo &quot;texto&quot;    # impacto processo</span>
+<span class="add">+ *   node scripts/generate-report.mjs &quot;Nome&quot; --rows &quot;Item|Fix|Beneficio|Impacto|~200&quot;</span>
+<span class="add">+ *   node scripts/generate-report.mjs &quot;Nome&quot; --tests 734 --write</span>
+<span class="add">+ *   npm run report --rename PR103</span>
+  *
+  * ponytail: template string + execSync, zero deps
+  */
+ 
+ import { execSync } from &quot;child_process&quot;;
+<span class="del">-import { readFileSync, existsSync, mkdirSync, writeFileSync, readdirSync, renameSync } from &quot;fs&quot;;</span>
+<span class="add">+import {</span>
+<span class="add">+  readFileSync,</span>
+<span class="add">+  existsSync,</span>
+<span class="add">+  mkdirSync,</span>
+<span class="add">+  writeFileSync,</span>
+<span class="add">+  readdirSync,</span>
+<span class="add">+  renameSync,</span>
+<span class="add">+} from &quot;fs&quot;;</span>
+ import { resolve, dirname } from &quot;path&quot;;
+<span class="del">-import { fileURLToPath } from &quot;url&quot;;</span>
+<span class="add">+import { fileURLToPath, pathToFileURL } from &quot;url&quot;;</span>
+ 
+ const __dirname = dirname(fileURLToPath(import.meta.url));
+ const ROOT = resolve(__dirname, &quot;..&quot;);
+<span class="add">+const EVENTS_FILE = resolve(ROOT, &quot;docs/tracking/events.jsonl&quot;);</span>
+<span class="add">+const QUALITY_FILE = resolve(ROOT, &quot;docs/tracking/quality.jsonl&quot;);</span>
+ 
+ // ── Help ───────────────────────────────────────────────────────────────
+ if (process.argv.includes(&quot;--help&quot;) || process.argv.includes(&quot;-h&quot;)) {
+@@ -33,10 +55,15 @@ Uso: node scripts/generate-report.mjs [descrição] [flags]
+ Flags:
+      </div>
+    </section>
+    <div class="foot">
+      <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
+      Gerado por scripts/generate-report.mjs · 2026-08-12 19:01
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+      var deck = document.getElementById("deck");
+      var count = document.getElementById("slideCount");
+      var nav = document.getElementById("deckNav");
+      var current = 0;
+      var deckMode = true;
+
+      function show(i) {
+        current = Math.max(0, Math.min(slides.length - 1, i));
+        slides.forEach(function (s, idx) {
+          s.classList.toggle("active", idx === current);
+        });
+        count.textContent = (current + 1) + "/" + slides.length;
+        if (deckMode) {
+          window.scrollTo(0, 0);
+        } else {
+          slides[current].scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      function toggleMode() {
+        deckMode = !deckMode;
+        deck.classList.toggle("deck-mode", deckMode);
+        document.body.classList.toggle("deck-mode", deckMode);
+        nav.style.display = deckMode ? "flex" : "none";
+        if (deckMode) show(current);
+      }
+
+      document.getElementById("nextBtn").addEventListener("click", function () { show(current + 1); });
+      document.getElementById("prevBtn").addEventListener("click", function () { show(current - 1); });
+      document.getElementById("fsBtn").addEventListener("click", function () {
+        if (document.fullscreenElement) document.exitFullscreen();
+        else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+      });
+      document.getElementById("printBtn").addEventListener("click", function () { window.print(); });
+      document.getElementById("modeBtn").addEventListener("click", toggleMode);
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); show(current + 1); }
+        else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); show(current - 1); }
+        else if (e.key === "Home") { e.preventDefault(); show(0); }
+        else if (e.key === "End") { e.preventDefault(); show(slides.length - 1); }
+        else if (e.key === "f" || e.key === "F") {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+        }
+        else if (e.key === "p" || e.key === "P") { window.print(); }
+      });
+
+      // Mobile/estreito: começa em modo documento (scroll) para não travar leitura
+      if (window.innerWidth < 640) toggleMode();
+      else { deck.classList.add("deck-mode"); document.body.classList.add("deck-mode"); show(0); }
+    })();
+  </script>
+</body>
+</html>

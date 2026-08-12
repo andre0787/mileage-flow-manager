@@ -1877,3 +1877,13 @@
 {"timestamp":"2026-08-12T21:49:29.281Z","type":"session:start","description":"feature: Briefing executivo: relatorio HTML de sessao com impacto de produto/negocio/processo","branch":"main","commit":"56bf31b","agent":"human","categoria":"feature"}
 {"timestamp":"2026-08-12T21:49:29.413Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/executive-report","commit":"56bf31b","agent":"human","rule":"rule-26"}
 {"timestamp":"2026-08-12T21:49:29.756Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/executive-report","commit":"56bf31b","agent":"human","errors":0}
+{"timestamp":"2026-08-12T21:38:44.000Z","type":"pr:merge","description":"PR #360 merged — auditoria dark mode","branch":"feat/dark-ui-audit","commit":"fa0250e","agent":"human"}
+{"timestamp":"2026-08-12T18:38:39.000Z","type":"pr:merge","description":"PR #359 merged — dark search fields","branch":"fix/dark-search-fields","commit":"fa0250e","agent":"human"}
+{"timestamp":"2026-08-12T13:32:21.000Z","type":"pr:merge","description":"PR #358 merged — rule10 pre-push","branch":"feat/prepr-rule10-pre-push","commit":"fa0250e","agent":"human"}
+{"timestamp":"2026-08-12T21:58:03.681Z","type":"rule:fail","description":"rule-08-report falhou","branch":"feat/executive-report","commit":"fa0250e","agent":"human","rule":"rule-08-report"}
+{"timestamp":"2026-08-12T21:58:03.716Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"feat/executive-report","commit":"fa0250e","agent":"human","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-12T21:58:03.751Z","type":"rule:fail","description":"rule-39-coding-gate falhou","branch":"feat/executive-report","commit":"fa0250e","agent":"human","rule":"rule-39-coding-gate"}
+{"timestamp":"2026-08-12T22:00:23.584Z","type":"coding:done","description":"Briefing executivo implementado por subagente (deck slides + auto-metricas + rule-08 dual)","branch":"feat/executive-report","commit":"fa0250e","agent":"human","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-08-12T22:00:23.619Z","type":"code-review:done","description":"Review aprovado: correcoes de lead time (sort), health (desconto healed), label janela de entrega","branch":"feat/executive-report","commit":"fa0250e","agent":"human","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-08-12T22:02:08.482Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/executive-report","commit":"fa0250e","agent":"human","errors":0}
+{"timestamp":"2026-08-12T22:02:15.123Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/executive-report","commit":"fa0250e","agent":"human","errors":0}

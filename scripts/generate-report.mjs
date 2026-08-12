@@ -226,7 +226,11 @@ export function computeSessionMetrics(events, quality = [], tests = null) {
   const healed = events.filter((e) => e.type === "healed").length;
   const codings = events.filter((e) => e.type === "coding:done").length;
   const reviews = events.filter((e) => e.type === "code-review:done").length;
-  const prMerges = events.filter((e) => e.type === "pr:merge");
+  // Ordena por timestamp (o arquivo pode ter escrita fora de ordem) — o merge
+  // mais recente do dia define o fim da janela de entrega
+  const prMerges = events
+    .filter((e) => e.type === "pr:merge")
+    .sort((a, b) => String(a.timestamp).localeCompare(String(b.timestamp)));
   const prMergeAt = prMerges.length > 0 ? prMerges[prMerges.length - 1].timestamp : null;
   const firstStart = events.find((e) => e.type === "session:start")?.timestamp || null;
   const leadTimeMin = firstStart && prMergeAt
@@ -277,8 +281,10 @@ export function computeSessionMetrics(events, quality = [], tests = null) {
 
 /** Ponto de saúde do período (verde/âmbar/vermelho) baseado nas métricas. */
 export function sessionHealth(m) {
-  if (m.prMerges === 0 && m.ruleFails > 10) return { label: "Precisa atenção", color: "#f87171", tone: "red" };
-  if (m.prePrFail > 3 || m.ruleFails > 8) return { label: "Sob atenção", color: "#fbbf24", tone: "amber" };
+  // Desconta violações auto-corrigidas (healed): o que importa é o que sobrou
+  const net = (m.ruleFails || 0) - (m.healed || 0);
+  if (m.prMerges === 0 && net > 10) return { label: "Precisa atenção", color: "#f87171", tone: "red" };
+  if (m.prePrFail > 3 || net > 8) return { label: "Sob atenção", color: "#fbbf24", tone: "amber" };
   return { label: "Saudável", color: "#34d399", tone: "green" };
 }
 
@@ -405,6 +411,11 @@ export function generateHTML({
   const sm = session || {};
   const health = sessionHealth(sm);
   const leadTime = formatLeadTime(sm.leadTimeMin);
+  // Janela longa (> 8h) = proxy de dia inteiro (múltiplas sessões), não lead time de mudança única
+  const leadTimeLabel =
+    sm.leadTimeMin != null && sm.leadTimeMin > 480
+      ? "janela de entrega (dia)"
+      : "lead time (início → produção)";
   const friction = sm.prePrTotal > 0
     ? `${sm.prePrFail}/${sm.prePrTotal}`
     : "—";
@@ -425,7 +436,7 @@ export function generateHTML({
       </div>
       <div class="kpi">
         <div class="kpi-value">${leadTime}</div>
-        <div class="kpi-label">lead time (início → produção)</div>
+        <div class="kpi-label">${leadTimeLabel}</div>
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">

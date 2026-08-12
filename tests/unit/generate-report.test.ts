@@ -134,8 +134,8 @@ describe("generateHTML", () => {
     expect(html).toContain('<section class="slide" id="s1"');
     expect(html).toContain("bluf");
     expect(html).toContain("entregas em produção");
-    // ruleFails=10 → âmbar ("Sob atenção") — health coerente com as métricas
-    expect(html).toContain("Sob atenção");
+    // ruleFails=10 com healed=6 → 4 violações efetivas → verde ("Saudável")
+    expect(html).toContain("Saudável");
     expect(html).toContain("734");
     expect(html).toContain("3h15m");
   });
