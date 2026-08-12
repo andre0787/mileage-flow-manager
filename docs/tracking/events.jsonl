@@ -1839,3 +1839,11 @@
 {"timestamp":"2026-08-12T03:38:07.168Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/apple-design-hig","commit":"6820611","agent":"human","errors":0}
 {"timestamp":"2026-08-12T03:39:51.808Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/apple-design-hig","commit":"15d53f4","agent":"human","errors":0}
 {"timestamp":"2026-08-12T04:05:05.985Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/apple-design-hig","commit":"622ad17","agent":"human","errors":0}
+{"timestamp":"2026-08-12T04:05:06.095Z","type":"coding:done","description":"Polimento cores tokenizado por subagente (EntryTable/KPICard/AdminEventos/Entradas/Dashboard)","branch":"refactor/apple-design-hig","commit":"dcfa723","agent":"human","subagent":true,"skill":"apple-design"}
+{"timestamp":"2026-08-12T04:05:10.749Z","type":"code-review:done","description":"Redesign HIG + polimento de tokens aprovados — subagente revisou contraste e consistência","branch":"refactor/apple-design-hig","commit":"dcfa723","agent":"human","subagent":true,"verdict":"approved","gate":"AUTH: usuario disse \"se sim, ja pode subir para prod\""}
+{"timestamp":"2026-08-12T04:05:58.724Z","type":"rule:fail","description":"rule-02-category-loading falhou","branch":"refactor/apple-design-hig","commit":"dcfa723","agent":"human","rule":"rule-02-category-loading"}
+{"timestamp":"2026-08-12T04:05:58.759Z","type":"rule:fail","description":"rule-03-handoff-completeness falhou","branch":"refactor/apple-design-hig","commit":"dcfa723","agent":"human","rule":"rule-03-handoff-completeness"}
+{"timestamp":"2026-08-12T04:05:58.794Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"refactor/apple-design-hig","commit":"dcfa723","agent":"human","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-12T04:08:14.863Z","type":"session:start","description":"refactor: Subida do redesign Apple HIG para prod (polimento tokens)","branch":"refactor/apple-design-hig","commit":"dcfa723","agent":"human","categoria":"refactor"}
+{"timestamp":"2026-08-12T04:09:59.259Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/apple-design-hig","commit":"dcfa723","agent":"human","errors":0}
+{"timestamp":"2026-08-12T04:10:03.237Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/apple-design-hig","commit":"dcfa723","agent":"human","errors":0}

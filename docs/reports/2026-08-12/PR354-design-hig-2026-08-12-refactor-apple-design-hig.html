@@ -36,25 +36,25 @@
 </head>
 <body>
   <h1>📋 refactor apple design hig</h1>
-  <p class="meta">2026-08-12 00:38 &middot; refactor/apple-design-hig &middot; 15d53f4 — refactor(apple-design): extrai Tab em BottomTabBar p/ manter ≤150 linhas (rule-41)</p>
+  <p class="meta">2026-08-12 01:08 &middot; refactor/apple-design-hig &middot; dcfa723 — refactor(apple-design): migra cores raw (blue/red/green) para tokens do design system</p>
   <p><span class="badge auto">auto</span> <span class="badge auto">apple-design-hig</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
 
   <!-- Status cards -->
   <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
     <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700">44</div>
+      <div style="font-size:1.5rem;font-weight:700">29</div>
       <div style="font-size:.7rem;color:#666">Arquivos</div>
     </div>
     <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#166534">+1960</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+852</div>
       <div style="font-size:.7rem;color:#666">Adições</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-456</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-517</div>
       <div style="font-size:.7rem;color:#666">Remoções</div>
     </div>
     <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
-      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~2318</div>
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1448</div>
       <div style="font-size:.7rem;color:#666">Tokens</div>
     </div>
   </div>
@@ -62,8 +62,6 @@
   <h2>✅ Checklist de Revisão</h2>
     <ul>
       <li>🖼️ Renderização verificada em desktop e mobile?</li>
-      <li>🔌 Hooks testados em tela real?</li>
-      <li>📦 Biblioteca testada com casos de borda?</li>
       <li>🧪 Testes manuais realizados?</li>
       <li>📋 Regras de validação passam? (npm run pre-pr)</li>
     </ul>
@@ -83,12 +81,12 @@
       <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
       <tr>
         <td><strong>Código</strong></td>
-        <td>🧹 456 remoções — 3091 linhas tocadas</td>
-        <td>✨ 1960 adições — 44 arquivo(s) alterado(s)</td>
+        <td>🧹 517 remoções — 1930 linhas tocadas</td>
+        <td>✨ 852 adições — 29 arquivo(s) alterado(s)</td>
       </tr>
       <tr>
         <td><strong>Arquivos</strong></td>
-        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .gitignore, docs/MAP.md, docs/RADAR.md, docs/UI-GUIDE.md, docs/handoff.md<br><em>+39 arquivo(s)</em></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .gitignore, docs/UI-GUIDE.md, docs/handoff.md, docs/reports/2026-08-12/apple-design-hig-2026-08-12-refactor-apple-design-hig.html<br><span style="color:#166534;font-weight:600">➕</span> docs/superpowers/specs/2026-08-12-apple-design-hig.md<br><em>+24 arquivo(s)</em></td>
       </tr>
       
       <tr>
@@ -101,60 +99,59 @@
   <h2>📊 Métricas</h2>
   <table>
     <tr><th>Métrica</th><th>Valor</th></tr>
-    <tr><td>Arquivos alterados</td><td>44</td></tr>
-    <tr><td>Adições</td><td>+1960</td></tr>
-    <tr><td>Remoções</td><td>-456</td></tr>
-    <tr><td>Tokens estimados</td><td>~2318</td></tr>
+    <tr><td>Arquivos alterados</td><td>29</td></tr>
+    <tr><td>Adições</td><td>+852</td></tr>
+    <tr><td>Remoções</td><td>-517</td></tr>
+    <tr><td>Tokens estimados</td><td>~1448</td></tr>
   </table>
 
   <h2>⚡ Consumo de Tokens</h2>
   <div class="token-bar">
-        <div class="add" style="flex:63">+1470 add</div>
-        <div class="del" style="flex:15">-342 del</div>
-        <div class="overhead" style="flex:22">~506 ctx</div>
+        <div class="add" style="flex:44">+639 add</div>
+        <div class="del" style="flex:27">-388 del</div>
+        <div class="overhead" style="flex:29">~421 ctx</div>
        </div>
   <h3>Breakdown</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+1470</td><td>63%</td></tr>
-      <tr><td>Remoções</td><td>-342</td><td>15%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~506</td><td>22%</td></tr>
-      <tr><th>Total</th><th>~2318</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+639</td><td>44%</td></tr>
+      <tr><td>Remoções</td><td>-388</td><td>27%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~421</td><td>29%</td></tr>
+      <tr><th>Total</th><th>~1448</th><th>100%</th></tr>
     </table>
 
   <h2>📁 Arquivos</h2>
   <table>
     <tr><th>Status</th><th>Arquivo</th></tr>
     <tr><td>M</td><td>.gitignore</td></tr>
-<tr><td>M</td><td>docs/MAP.md</td></tr>
-<tr><td>M</td><td>docs/RADAR.md</td></tr>
 <tr><td>M</td><td>docs/UI-GUIDE.md</td></tr>
 <tr><td>M</td><td>docs/handoff.md</td></tr>
-<tr><td>A</td><td>docs/reports/2026-08-12/apple-design-2026-08-12-apple-design.html</td></tr>
-<tr><td>A</td><td>docs/reports/2026-08-12/apple-design-hig-2026-08-12-refactor-apple-design-hig.html</td></tr>
-<tr><td>A</td><td>docs/reports/2026-08-12/carrinho-transferencia-calc-2026-08-12-carrinho-transferencia-calc.html</td></tr>
-<tr><td>A</td><td>docs/reports/2026-08-12/codereview-geral-2026-08-12.md</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/apple-design-hig-2026-08-12-refactor-apple-design-hig.html</td></tr>
 <tr><td>A</td><td>docs/superpowers/specs/2026-08-12-apple-design-hig.md</td></tr>
 <tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
 <tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
 <tr><td>M</td><td>index.html</td></tr>
-<tr><td>M</td><td>scripts/verify-docs.mjs</td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td></tr>
 <tr><td>M</td><td>src/components/AltitudeBar.tsx</td></tr>
 <tr><td>M</td><td>src/components/AppSidebar.tsx</td></tr>
 <tr><td>M</td><td>src/components/BottomTabBar.tsx</td></tr>
-<tr><td>M</td><td>src/components/EntryForm.tsx</td></tr>
+<tr><td>M</td><td>src/components/EntryTable.tsx</td></tr>
+<tr><td>M</td><td>src/components/KPICard.tsx</td></tr>
 <tr><td>M</td><td>src/components/MetricCard.tsx</td></tr>
-<tr><td>M</td><td>src/components/SaleForm.tsx</td></tr>
 <tr><td>M</td><td>src/components/ui/button.tsx</td></tr>
 <tr><td>M</td><td>src/components/ui/card.tsx</td></tr>
 <tr><td>M</td><td>src/components/ui/input.tsx</td></tr>
 <tr><td>M</td><td>src/components/ui/table.tsx</td></tr>
-<tr><td>M</td><td>src/contexts/DataContext.tsx</td></tr>
-<tr><td>M</td><td>src/features/contas/recalcAccount.ts</td></tr>
-<tr><td>M</td><td>src/features/entradas/confirmEntry.ts</td></tr>
-<tr><td>M</td><td>src/features/entradas/updateEntry.ts</td></tr>
-<tr><td>M</td><td>src/hooks/useClientCycleAvailability.ts</td></tr>
 <tr><td>M</td><td>src/index.css</td></tr>
+<tr><td>M</td><td>src/pages/AdminEventos.tsx</td></tr>
+<tr><td>M</td><td>src/pages/Dashboard.tsx</td></tr>
+<tr><td>M</td><td>src/pages/Entradas.tsx</td></tr>
+<tr><td>M</td><td>tailwind.config.ts</td></tr>
+<tr><td>A</td><td>tests/unit/AltitudeBar.test.ts</td></tr>
+<tr><td>A</td><td>tests/unit/AppSidebar.test.ts</td></tr>
+<tr><td>A</td><td>tests/unit/BottomTabBar.test.ts</td></tr>
+<tr><td>A</td><td>tests/unit/Dashboard.test.ts</td></tr>
+<tr><td>A</td><td>tests/unit/MetricCard.test.ts</td></tr>
   </table>
 
   
@@ -177,27 +174,6 @@ index 66f9692..8d24ebc 100644
  # Local git worktrees
  .worktrees/
  
-diff --git a/docs/MAP.md b/docs/MAP.md
-index da34557..3df3125 100644
-<span class="del">--- a/docs/MAP.md</span>
-<span class="add">+++ b/docs/MAP.md</span>
-@@ -373,3 +373,4 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
- | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-owners-design.md` (auto) | 2026-08-11 |
- | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-origem-types-design.md` (auto) | 2026-08-11 |
- | `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-programs-design.md` (auto) | 2026-08-11 |
-<span class="add">+| `docs/superpowers/specs/2026-08-12-apple-design-hig.md` (auto) | 2026-08-12 |</span>
-diff --git a/docs/RADAR.md b/docs/RADAR.md
-index bfcf377..f12f301 100644
-<span class="del">--- a/docs/RADAR.md</span>
-<span class="add">+++ b/docs/RADAR.md</span>
-@@ -1,6 +1,6 @@
- # 🔭 Radar de Vulnerabilidades
- 
-<span class="del">-&gt; Atualizado em: 2026-08-11T11:30:07.816Z</span>
-<span class="add">+&gt; Atualizado em: 2026-08-12T03:22:10.801Z</span>
- 
- ## ✅ Radar Limpo
- Nenhuma vulnerabilidade ativa detectada.
 diff --git a/docs/UI-GUIDE.md b/docs/UI-GUIDE.md
 index e3cf6d5..14780a2 100644
 <span class="del">--- a/docs/UI-GUIDE.md</span>
@@ -281,6 +257,27 @@ index e3cf6d5..14780a2 100644
 <span class="add">+## Tipografia (SF-like)</span>
 <span class="add">+</span>
 <span class="add">+- **Font stack system**: `-apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial` — sem Google Fonts (mais rápido, visual nativo)</span>
+<span class="add">+- **Mono**: `ui-monospace, "SF Mono", Menlo, Monaco, Consolas`</span>
+<span class="add">+- **Sentence case** nos labels (sem ALLCAPS) — `uppercase` removido</span>
+<span class="add">+- Títulos usam `tracking-tight` (letter-spacing -0.02em) + `tabular-nums` em números</span>
+ 
+ ## Grid Responsivo
+ 
+@@ -56,17 +64,10 @@ Dark mode: valores ajustados (ex: `--primary: 222 70% 58%`).
+   &lt;MetricCard /&gt; &lt;MetricCard /&gt;
+ &lt;/div&gt;
+ 
+<span class="del">-{/* ✅ Mini-métricas do hero — sempre 2 col */}</span>
+<span class="del">-&lt;div className="grid grid-cols-2 gap-2"&gt;</span>
+<span class="del">-  &lt;Box /&gt; &lt;Box /&gt;</span>
+<span class="del">-&lt;/div&gt;</span>
+<span class="del">-</span>
+ {/* ❌ Evitar — mais de 2 col */}
+ &lt;div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4"&gt;
+ ```
+ 
+<span class="del">-### Quando usar cada grid</span>
+<span class="del">-</span>
   </div>
 
   <p class="meta center">Gerado por scripts/generate-report.mjs</p>
