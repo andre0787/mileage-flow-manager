@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useData } from "@/contexts/DataContext";
+import { formatDateBR } from "@/lib/dateUtils";
 import { useClientCycleAvailability } from "@/hooks/useClientCycleAvailability";
 
 export default function ControleCPF() {
@@ -302,7 +303,7 @@ export default function ControleCPF() {
                             {row.cycleLabel}
                           </TableCell>
                           <TableCell className="hidden md:table-cell">
-                            {new Date(row.lastSaleDate).toLocaleDateString("pt-BR")}
+                            {formatDateBR(row.lastSaleDate)}
                           </TableCell>
                         </TableRow>
                       ))}
@@ -342,7 +343,7 @@ export default function ControleCPF() {
                         </div>
                         <div>
                           <span className="text-muted-foreground text-xs">Último Uso</span>
-                          <p>{new Date(row.lastSaleDate).toLocaleDateString("pt-BR")}</p>
+                          <p>{formatDateBR(row.lastSaleDate)}</p>
                         </div>
                       </div>
                     </div>

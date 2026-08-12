@@ -28,7 +28,7 @@ import { EmptyState } from "@/components/EmptyState";
 import { SkeletonMetricCard, SkeletonTable } from "@/components/SkeletonLoader";
 import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
-import { formatDateBR } from "@/lib/dateUtils";
+import { formatDateBR, parseDateOnly } from "@/lib/dateUtils";
 import { computeDashboardMetrics, computeMetricHistory } from "@/lib/metrics";
 import type { Account, Sale, PointEntry } from "@/types";
 
@@ -283,7 +283,7 @@ export default function Dashboard() {
     filteredSales
       .filter((s) => s.status !== "cancelado")
       .forEach((s) => {
-        const d = new Date(s.date);
+        const d = parseDateOnly(s.date);
         const key = `${d.getFullYear()}-${String(d.getMonth()).padStart(2, "0")}`;
         const current = monthMap.get(key) ?? { vendas: 0, lucro: 0 };
         current.vendas += s.saleValue;

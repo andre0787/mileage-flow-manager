@@ -9,26 +9,29 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `refactor/blueprint-v4-p1-owners`
-- **Último commit:** `6353842 — Merge pull request #347 from andre0787/docs/blueprint-v4-p1-reconcile-cards`
+- **Branch:** `fix/fuso-308-datas`
+- **Último commit:** `0f390af — Merge pull request #348 from andre0787/refactor/blueprint-v4-p1-alerts`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
-### ✅ Tarefa P3-31 concluída (produção)
-- **PR #341** — `refactor(vendas): migra domínio para RTK Query` **merged** em main (`8a53e70`)
-- **PR #342** — `chore(P3-31): finaliza card done e eventos` **merged** em main (`a7d6767`)
-- Domínio **vendas** migrado de TanStack React Query para **RTK Query** no padrão canônico
-  (`baseApi.injectEndpoints`): `src/features/vendas/` com 5 endpoints
-  (get/add/update/delete/cancelVenda), tags `sales`/`accounts`, barrel
-  `src/hooks/useDatabase/index.ts` reexportando `useSales*` (contrato público preservado),
-  (removido) src/hooks/useDatabase/sales.ts (spec exige).
-- Validações: 71 arquivos/620 testes ✅ | lint 0 erros ✅ | typecheck ✅ |
-  rule:40 ✅ | pre-pr 0 errors ✅ | code review por subagente APPROVE
-  (eventos `coding:done`/`code-review:done` com `subagent:true`).
-- Cards: P3-29/P3-30/P3-31 marcados `done`.
+### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
+- **P3-28 entradas** (`src/features/entradas/`), **P3-29 contas** (`src/features/contas/`),
+  **P3-30 clientes** (`src/features/clientes/`), **P3-31 vendas** (`src/features/vendas/`, PR #341),
+  **P3-32 alerts** (`src/features/alerts/`, PR #348), **P3-33 owners** (`src/features/owners/`, PR #349),
+  **P3-34 programs** (`src/features/programs/`, PR #350), **P3-35 origemTypes**
+  (`src/features/origemTypes/`, PR #351) — todos **merged** em main.
+- Padrão canônico: `baseApi.injectEndpoints` + barrel `index.ts` + wrappers com shape
+  público preservado (`data`/`isPending`/`isError`/`error`/`refetch`/`mutate`/`mutateAsync`
+  + `onSuccess`/`onError`) + tags RTK (`entries`/`accounts`/`sales`/`clients`/`alerts`/`owners`/`programs`/`origem_types`).
+- Módulos legados removidos de `src/hooks/useDatabase/` (restam apenas `index.ts`,
+  `mappers.ts`, `shared.ts`). TanStack React Query ainda presente apenas em
+  DataContext/App (DataProvider) e mutationHooksLifecycle de contas/clientes.
+- Cards P3-27 a P3-35 todos `done`; ROADMAP atualizado.
 
-### 🔄 Próximo passo sugerido
-- Migrar próximos domínios legados de `src/hooks/useDatabase/` para RTK Query
-  (alerts, owners, programs, origemTypes) — mesmo padrão do P3-31.
+### 🔄 Em andamento
+- **Issue #308 (bug de fuso)** — datas ISO date-only (`YYYY-MM-DD`) exibidas com 1 dia a
+  menos em America/Sao_Paulo. Exibição já corrigida com `formatDateBR` (13 usos);
+  correção completa em PR com `parseDateOnly` (agrupamento mensal em metrics/Dashboard/Relatorios,
+  ciclo de passageiros em SaleForm, dia do mês em EntryForm, TWINS em ControleCPF).
 
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -46,7 +49,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 **Objetivo:** verifica output
 **Status:** in_progress
 **Iniciada em:** 2026-08-10T21:06:41.671Z
-**Branch:** `refactor/blueprint-v4-p1-alerts`
+**Branch:** `fix/fuso-308-datas`
 **Último commit:** a18b8e3 — chore(pre-pr): registra validação P3-30
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão

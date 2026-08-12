@@ -33,6 +33,7 @@ import { SearchInput } from "@/components/ui/SearchInput";
 import { useSmartQuery, periodFromFilter } from "@/hooks/useSmartQuery";
 import { calcProfitMargin, calcROI, calcWeightedAverageCost } from "@/lib/metrics";
 import { downloadCSV } from "@/lib/utils";
+import { parseDateOnly } from "@/lib/dateUtils";
 import { PERIOD_OPTIONS } from "@/lib/dates";
 import { describeFilters } from "@/lib/text-to-query";
 import { DataTable } from "@/components/ui";
@@ -86,11 +87,11 @@ export default function Relatorios() {
   }, [selectedPeriod]);
 
   const filteredEntries = useMemo(() => {
-    return entries.filter((e) => new Date(e.date) >= dateCutoff);
+    return entries.filter((e) => parseDateOnly(e.date) >= dateCutoff);
   }, [entries, dateCutoff]);
 
   const filteredSales = useMemo(() => {
-    return sales.filter((s) => new Date(s.date) >= dateCutoff);
+    return sales.filter((s) => parseDateOnly(s.date) >= dateCutoff);
   }, [sales, dateCutoff]);
 
   const ownerReports = useMemo(() => {

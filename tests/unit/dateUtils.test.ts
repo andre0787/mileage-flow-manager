@@ -1,5 +1,5 @@
 import { describe, it, expect, afterAll, beforeAll } from "vitest";
-import { formatDateBR } from "@/lib/dateUtils";
+import { formatDateBR, parseDateOnly } from "@/lib/dateUtils";
 
 const ORIGINAL_TZ = process.env.TZ;
 
@@ -26,5 +26,27 @@ describe("formatDateBR", () => {
     // Sem a correção, em America/Sao_Paulo: new Date("2026-08-05") → 04/08/2026
     expect(formatDateBR("2026-03-01")).toBe("01/03/2026");
     expect(formatDateBR("2026-07-15")).toBe("15/07/2026");
+  });
+});
+
+describe("parseDateOnly", () => {
+  it("preserva o mês/dia para agrupamento mensal em TZ negativa (bug: new Date(date) UTC → mês anterior)", () => {
+    // Sem a correção, em America/Sao_Paulo: new Date("2026-08-01") → 31/07 21h → getMonth() 6
+    const d = parseDateOnly("2026-08-01");
+    expect(d.getMonth()).toBe(7); // agosto
+    expect(d.getFullYear()).toBe(2026);
+    expect(d.getDate()).toBe(1);
+  });
+
+  it("preserva dia 1º de janeiro (rollover de ano)", () => {
+    const d = parseDateOnly("2026-01-01");
+    expect(d.getMonth()).toBe(0);
+    expect(d.getFullYear()).toBe(2026);
+    expect(d.getDate()).toBe(1);
+  });
+
+  it("passa direto strings ISO completas (com hora)", () => {
+    const full = new Date("2026-08-05T15:30:00.000Z");
+    expect(parseDateOnly("2026-08-05T15:30:00.000Z").getTime()).toBe(full.getTime());
   });
 });

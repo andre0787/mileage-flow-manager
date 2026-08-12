@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { FormDrawer } from "@/components/FormDrawer";
 import { formatCPF } from "@/lib/utils";
+import { parseDateOnly } from "@/lib/dateUtils";
 import { calcProfit, calcProfitMargin } from "@/lib/metrics";
 import type { Account, Owner, Program, Client, Sale } from "@/types";
 
@@ -140,12 +141,12 @@ export function SaleForm({
     let relevant = sales.filter((s) => s.program === form.program);
     if (programConfig.passengerCycleType === "anual") {
       const year = new Date().getFullYear();
-      relevant = relevant.filter((s) => new Date(s.date).getFullYear() === year);
+      relevant = relevant.filter((s) => parseDateOnly(s.date).getFullYear() === year);
     } else if (programConfig.passengerCycleType === "dias" && programConfig.passengerCycleDays) {
       const cutoff = new Date();
       cutoff.setDate(cutoff.getDate() - programConfig.passengerCycleDays);
       cutoff.setHours(0, 0, 0, 0);
-      relevant = relevant.filter((s) => new Date(s.date) >= cutoff);
+      relevant = relevant.filter((s) => parseDateOnly(s.date) >= cutoff);
     }
     return relevant.reduce((sum, s) => sum + s.passengers.length, 0);
   }, [sales, form.program, programConfig]);

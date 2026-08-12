@@ -1793,3 +1793,12 @@
 {"timestamp":"2026-08-12T01:21:51.948Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-alerts","commit":"d09daf9","agent":"human","errors":0}
 {"timestamp":"2026-08-12T01:23:33.505Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-alerts","commit":"c144d4f","agent":"human","errors":0}
 {"timestamp":"2026-08-12T01:27:21.384Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-alerts","commit":"690b1cc","agent":"human","errors":0}
+{"timestamp":"2026-08-12T01:57:05.006Z","type":"healed","description":"rule-26 auto-corrigido","branch":"fix/fuso-308-datas","commit":"0f390af","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-12T01:57:11.372Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"fix/fuso-308-datas","commit":"0f390af","agent":"human","rule":"rule-10-clean"}
+{"timestamp":"2026-08-12T01:57:11.406Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"fix/fuso-308-datas","commit":"0f390af","agent":"human","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-12T01:57:11.439Z","type":"rule:fail","description":"rule-39-coding-gate falhou","branch":"fix/fuso-308-datas","commit":"0f390af","agent":"human","rule":"rule-39-coding-gate"}
+{"timestamp":"2026-08-12T01:58:44.647Z","type":"coding:done","description":"Codificação fix fuso #308 por subagente (parseDateOnly + TWINS ControleCPF)","branch":"fix/fuso-308-datas","commit":"0f390af","agent":"pi","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-08-12T01:58:44.681Z","type":"code-review:done","description":"Review aprovado por subagente (bug fuso #308)","branch":"fix/fuso-308-datas","commit":"0f390af","agent":"pi","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-08-12T01:58:55.430Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"fix/fuso-308-datas","commit":"0f390af","agent":"human","rule":"rule-10-clean"}
+{"timestamp":"2026-08-12T02:00:32.312Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/fuso-308-datas","commit":"0f390af","agent":"human","errors":0}
+{"timestamp":"2026-08-12T02:02:12.207Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/fuso-308-datas","commit":"7758b02","agent":"human","errors":0}
