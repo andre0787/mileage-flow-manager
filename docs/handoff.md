@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `e3b63e3 — Merge pull request #358 from andre0787/feat/prepr-rule10-pre-push`
+- **Último commit:** `ee53938 — fix(ui): campos de busca legíveis no dark mode — fundo elevado, borda nítida e micro-interações (#359)`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -69,9 +69,9 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 ## 🎯 Sessão Atual
 **Categoria:** feature
-**Objetivo:** Melhorar campos de pesquisa no dark mode (contraste e design)
+**Objetivo:** Auditoria dark mode: inputs, contraste app-wide, micro-interacoes de busca e testes visuais
 **Status:** in_progress
-**Iniciada em:** 2026-08-12T13:35:29.788Z
-**Branch:** `fix/dark-search-fields`
-**Último commit:** e3b63e3 — Merge pull request #358 from andre0787/feat/prepr-rule10-pre-push
+**Iniciada em:** 2026-08-12T21:17:22.310Z
+**Branch:** `feat/dark-ui-audit`
+**Último commit:** ee53938 — fix(ui): campos de busca legíveis no dark mode — fundo elevado, borda nítida e micro-interações (#359)
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md

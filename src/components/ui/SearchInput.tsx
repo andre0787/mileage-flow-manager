@@ -83,7 +83,7 @@ export function SearchInput({
         </button>
       )}
       {!value && showHotkey && !focused && (
-        <kbd className="absolute right-2 hidden sm:inline-flex items-center gap-0.5 rounded border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+        <kbd className="absolute right-2 hidden sm:inline-flex items-center gap-0.5 rounded border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground dark:bg-black/40 dark:border-border/60">
           <span className="text-xs">⌘</span>K
         </kbd>
       )}

@@ -51,6 +51,14 @@ describe("SearchInput", () => {
     expect(screen.getByText("K")).toBeDefined();
   });
 
+  it("kbd da hotkey usa recesso escuro no dark (TWINS GlobalSearch) para não sumir no campo sólido", () => {
+    const { container } = render(<SearchInput value="" onChange={() => {}} />);
+    const kbd = container.querySelector("kbd");
+    expect(kbd).toBeTruthy();
+    expect(kbd!.className).toContain("dark:bg-black/40");
+    expect(kbd!.className).toContain("dark:border-border/60");
+  });
+
   it("aplica className customizada", () => {
     const { container } = render(
       <SearchInput value="" onChange={() => {}} className="custom-class" />,

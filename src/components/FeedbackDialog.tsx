@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 interface FeedbackDialogProps {
   children: React.ReactNode;
@@ -127,7 +128,7 @@ export function FeedbackDialog({ children }: FeedbackDialogProps) {
                 <Label htmlFor="message">
                   {type === "bug" ? "Descreva o problema" : "Descreva sua sugestão"}
                 </Label>
-                <textarea
+                <Textarea
                   id="message"
                   placeholder={
                     type === "bug"
@@ -138,7 +139,6 @@ export function FeedbackDialog({ children }: FeedbackDialogProps) {
                   onChange={(e) => setMessage(e.target.value)}
                   rows={4}
                   required
-                  className="flex min-h-[80px] w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 />
               </div>
 
