@@ -59,19 +59,31 @@ for (const reportFile of reportFiles) {
   // 3. Valida seções obrigatórias
   const content = readFileSync(resolve(ROOT, reportFile), "utf8");
 
-  const requiredSections = [
-    { name: "🎯 Benefícios", marker: "Benefícios" },
-    { name: "✅ Checklist de Revisão", marker: "Checklist de Revisão" },
-    { name: "📸 Evidências", marker: "Evidências" },
-    { name: "⚡ Consumo de Tokens", marker: "Consumo de Tokens" },
-    { name: "📊 Métricas", marker: "Métricas" },
-    { name: "Breakdown", marker: "Breakdown" },
-  ];
+  // Template executivo (2026-08-12+): deck com kpi-grid / hero-summary.
+  // Template legado: seções do formato anterior. Detecta automaticamente.
+  const isExecutive = content.includes("kpi-grid") || content.includes("hero-summary");
+  const requiredSections = isExecutive
+    ? [
+        { name: "📊 One-pager executivo", marker: "hero-summary" },
+        { name: "📈 KPIs de sessão", marker: "kpi-grid" },
+        { name: "✅ Checklist de revisão", marker: "Checklist" },
+        { name: "📸 Evidências", marker: "Evidências" },
+        { name: "📊 Métricas", marker: "Métricas" },
+        { name: "Breakdown", marker: "Breakdown" },
+      ]
+    : [
+        { name: "🎯 Benefícios", marker: "Benefícios" },
+        { name: "✅ Checklist de Revisão", marker: "Checklist de Revisão" },
+        { name: "📸 Evidências", marker: "Evidências" },
+        { name: "⚡ Consumo de Tokens", marker: "Consumo de Tokens" },
+        { name: "📊 Métricas", marker: "Métricas" },
+        { name: "Breakdown", marker: "Breakdown" },
+      ];
 
   let allSectionsOk = true;
   for (const section of requiredSections) {
     if (content.includes(section.marker)) {
-      ok(`seção "${section.name}" presente em ${filename}`);
+      ok(`seção "${section.name}" presente em ${filename}${isExecutive ? " (executivo)" : ""}`);
     } else {
       err(`seção "${section.name}" ausente no relatório ${filename}`);
       allSectionsOk = false;

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T21:32:11.183Z",
+  "generatedAt": "2026-08-12T22:02:08.600Z",
   "months": [
     {
       "month": "2026-03",
@@ -173,9 +173,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 71.7,
-      "prePrTotal": 353,
-      "prePrPass": 253,
+      "prePrPassRate": 71.9,
+      "prePrTotal": 356,
+      "prePrPass": 256,
       "prePrFail": 100,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -184,7 +184,7 @@
         "twins": 0,
         "auth": 2
       },
-      "avgOutcomeGrade": 92.8,
+      "avgOutcomeGrade": 92.9,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -200,7 +200,7 @@
         },
         {
           "rule": "rule-38-code-review-gate",
-          "count": 22
+          "count": 23
         },
         {
           "rule": "rule-17-new-docs-valid",
@@ -208,7 +208,7 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 42,
+        "rule-26": 43,
         "rule-17-new-docs-valid": 18,
         "rule-02": 1
       },
@@ -216,10 +216,10 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.4,
-      "branchesMerged": 79,
-      "violationsCaught": 397,
-      "healedRate": 15.4,
-      "frictionPerPass": 1.57,
+      "branchesMerged": 80,
+      "violationsCaught": 400,
+      "healedRate": 15.5,
+      "frictionPerPass": 1.56,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,
