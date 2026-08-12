@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { isTransferencia } from "@/lib/utils";
+import { computeTransferCalc } from "@/lib/transferCalc";
 import type { Account, OrigemType, Program, Owner, EntryFormData } from "@/types";
 
 interface TransferFormProps {
@@ -73,9 +74,23 @@ export function TransferForm({
 
   const amountNum = parseFloat(form.amount || "0");
   const cartAmountNum = parseFloat(form.cartAmount || "0");
+  const cartCostNum = parseFloat(form.cartCost || "0");
   const bonusNum = parseFloat(form.bonusPercent || "0");
-  const effectiveMiles = (amountNum + cartAmountNum) * (1 + bonusNum / 100);
+  // Custo da transferência pura (preenche o campo disabled em create).
   const calculatedCost = amountNum * avgCostPerPoint;
+  // Custo por milha/milhar refletem o custo TOTAL (transferência + carrinho).
+  // Histórico: cartCost era ignorado no preview → digitar o valor do carrinho
+  // não alterava os números. Usamos form.amountPaid (não calculatedCost) para que
+  // a edição reflita o custo real armazenado, não o recálculo pelo custo médio atual.
+  const calc = computeTransferCalc({
+    amount: amountNum,
+    cartAmount: cartAmountNum,
+    amountPaid: parseFloat(form.amountPaid || "0"),
+    cartCost: cartAmountNum > 0 ? cartCostNum : 0,
+    conversionRate: 1 + bonusNum / 100,
+    bonusPercent: bonusNum,
+  });
+  const effectiveMiles = calc.milesGenerated;
 
   const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id;
   const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id;
@@ -308,13 +323,7 @@ export function TransferForm({
           <div className="grid grid-cols-2 gap-4 text-xs">
             <div>
               <span className="text-muted-foreground">Custo por milhar:</span>
-              <p className="font-semibold">
-                R${" "}
-                {(
-                  (calculatedCost / (effectiveMiles > 0 ? effectiveMiles : amountNum)) *
-                  1000
-                ).toFixed(2)}
-              </p>
+              <p className="font-semibold">R$ {calc.costPerThousand.toFixed(2)}</p>
             </div>
             <div>
               <span className="text-muted-foreground">Milhas recebidas:</span>
@@ -338,9 +347,16 @@ export function TransferForm({
             </div>
             <div>
               <span className="text-muted-foreground">Custo por milha:</span>
-              <p className="font-semibold">
-                R$ {(calculatedCost / (effectiveMiles > 0 ? effectiveMiles : 1)).toFixed(4)}
-              </p>
+              <p className="font-semibold">R$ {calc.costPerMile.toFixed(4)}</p>
+              {cartAmountNum > 0 && (
+                <div className="mt-1 space-y-0.5 text-[10px] text-muted-foreground border-t border-success/20 pt-1">
+                  <p>Transferência: R$ {parseFloat(form.amountPaid || "0").toFixed(2)}</p>
+                  <p>Carrinho: R$ {cartCostNum.toFixed(2)}</p>
+                  <p className="font-semibold text-foreground">
+                    Total: R$ {calc.totalPaid.toFixed(2)}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
