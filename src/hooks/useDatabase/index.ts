@@ -14,7 +14,7 @@ export {
   useAddProgramMutation,
   useUpdateProgramMutation,
   useDeleteProgramMutation,
-} from "./programs";
+} from "@/features/programs";
 export {
   useOrigemTypesQuery,
   useAddOrigemTypeMutation,

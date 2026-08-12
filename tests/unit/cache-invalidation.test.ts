@@ -6,7 +6,6 @@ const ROOT = resolve(__dirname, "../..");
 const MUTATION_FILES = [
   "src/hooks/useDatabase/origemTypes.ts",
   "src/hooks/useDatabase/owners.ts",
-  "src/hooks/useDatabase/programs.ts",
   "src/hooks/useDatabase/shared.ts",
 ];
 
@@ -31,6 +30,12 @@ const VENDAS_RTK_FILES = [
   "src/features/vendas/updateVenda.ts",
   "src/features/vendas/deleteVenda.ts",
   "src/features/vendas/cancelVenda.ts",
+];
+const PROGRAMS_RTK_FILES = [
+  "src/features/programs/mutationHooksLifecycle.ts",
+  "src/features/programs/addProgram.ts",
+  "src/features/programs/updateProgram.ts",
+  "src/features/programs/deleteProgram.ts",
 ];
 
 describe("atualização do cache após mutations", () => {
@@ -70,6 +75,21 @@ describe("atualização do cache após mutations", () => {
       const source = readFileSync(resolve(ROOT, relativePath), "utf8");
       expect(source, relativePath).toMatch(/sales/);
       expect(source, relativePath).toMatch(/accounts/);
+    }
+  });
+
+  it("invalida programs e origem_types nos wrappers e endpoints de programs migrados", () => {
+    for (const relativePath of PROGRAMS_RTK_FILES) {
+      const source = readFileSync(resolve(ROOT, relativePath), "utf8");
+      if (relativePath.endsWith('mutationHooksLifecycle.ts')) {
+        // This file should have the invalidateTags call and mention both programs and origem_types
+        expect(source, relativePath).toMatch(/invalidateTags/);
+        expect(source, relativePath).toMatch(/["']programs["']/);
+        expect(source, relativePath).toMatch(/["']origem_types["']/);
+      } else {
+        // For the endpoint files, we just check that they contain the word "programs" (to ensure we are testing the right files)
+        expect(source, relativePath).toMatch(/programs/);
+      }
     }
   });
 });
