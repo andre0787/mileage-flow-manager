@@ -1730,3 +1730,4 @@
 {"timestamp":"2026-08-12T00:41:40.440Z","type":"code-review:done","description":"Review aprovado por subagente (domínio origemTypes RTK Query)","branch":"refactor/blueprint-v4-p1-origem-types","commit":"6353842","agent":"pi","subagent":true,"verdict":"approved"}
 {"timestamp":"2026-08-12T00:41:52.055Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"refactor/blueprint-v4-p1-origem-types","commit":"6353842","agent":"human","rule":"rule-10-clean"}
 {"timestamp":"2026-08-12T00:43:43.260Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-origem-types","commit":"6353842","agent":"human","errors":0}
+{"timestamp":"2026-08-12T00:45:18.683Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/blueprint-v4-p1-origem-types","commit":"ae9cc59","agent":"human","errors":0}
