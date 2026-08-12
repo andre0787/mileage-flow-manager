@@ -142,7 +142,7 @@ Workflow acelerado via npm scripts — reduzem consumo de tokens automatizando r
 | `npm run session:start` | Extrai resumo comprimido dos docs de início de sessão | **Início de toda sessão** (substitui leitura de 5 docs) |
 | `npm run llm:route -- resolve --task <ID>` | Resolve profile, modelo, fallbacks e retry safety para um subagente | **Antes de cada `subagent_gate`** |
 | `npm run llm:route:validate` | Valida aliases, profiles, defaults e rotas da configuração ativa | **Antes de dispatch ou alteração da configuração** |
-| `npm run pre-pr` | Gera relatório automático (se não existir) + valida: git status, build, testes, verify-docs, console.log | **Antes de criar PR** (checklist automatizado) |
+| `npm run pre-pr` | Gera relatório automático (se não existir) + valida: git status (aviso em fase de dev — bloqueio real no pre-push), build, testes, verify-docs, console.log | **Antes de criar PR** (checklist automatizado) |
 | `npm run report` | Gera relatório HTML automático do diff | **Antes do PR** (substitui /report manual) |
 | `npm run session:end` | add + commit + handoff + push em 1 comando | **Final da sessão** (substitui 5 passos manuais) |
 | `npm run handoff` | Atualiza docs/handoff.md com estado atual do git | Pós-PR ou pós-merge |
@@ -171,7 +171,8 @@ FIM:      npm run session:end "msg"   → commit + handoff + push
 |--------|-----------|-------|
 | `scripts/session-start.mjs` | Lê HANDOFF + AGENDA, extrai branch/commit/PRs/sprint/bugs | Resumo ~400 tokens no console |
 | `scripts/generate-report.mjs` | Obtém diff, calcula métricas, gera HTML estilizado | `docs/reports/<data>/<prefixo>-<data>-<nome>.html` |
-| `scripts/pre-pr-check.mjs` | Roda git status, build, tests, verify-docs | ✅/❌ por verificação |
+| `scripts/pre-pr-check.mjs` | Roda regras (rule-10 em modo aviso — a garantia de git limpo vive no pre-push hook), build, tests, verify-docs | ✅/❌ por verificação |
+| `.githooks/pre-push` | **Bloqueia push com git status sujo** (regra #3) + exige relatório HTML | 🚫/✅ |
 | `scripts/session-end.mjs` | git add . + commit + update-handoff + push | Confirmação no console |
 | `scripts/update-handoff.mjs` | Atualiza métricas, branch, último commit | docs/handoff.md atualizado |
 | `scripts/check-deploy.mjs` | Consulta último workflow de deploy na main | ✅/❌ status do deploy |
@@ -325,7 +326,7 @@ Antes de criar qualquer PR, executar este checklist:
 - [ ] Relatório HTML gerado em `docs/reports/<PR>-<data>-<nome>.html`?
 
 ### 7. Limpeza
-- [ ] `git status` mostra zero arquivos pendentes?
+- [ ] `git status` mostra zero arquivos pendentes? (o **pre-push hook** bloqueia push com arquivos soltos — regra #3)
 - [ ] Nenhum código morto (exports não importados, funções não chamadas)?
 
 ## Regra de Limpeza

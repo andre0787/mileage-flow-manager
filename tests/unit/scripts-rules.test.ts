@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { execSync } from "child_process";
 import { resolve, join, dirname } from "path";
-import { existsSync, mkdtempSync, mkdirSync, writeFileSync, cpSync, rmSync, readdirSync, symlinkSync } from "fs";
+import { existsSync, mkdtempSync, mkdirSync, writeFileSync, cpSync, rmSync, readdirSync, symlinkSync, chmodSync } from "fs";
 import { tmpdir } from "os";
 
 const ROOT = resolve(__dirname, "../..");
@@ -290,6 +290,118 @@ describe("rule-10-clean", () => {
       const res = runRuleOnFixture("rule-10-clean.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toContain("não commitados");
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve avisar mas NÃO falhar em modo PRE_PR_CONTEXT (fase de desenvolvimento)", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      // Cria arquivo untracked + um modificado
+      writeFileSync(join(tmp, "untracked.txt"), "sujo\n");
+      writeFileSync(join(tmp, "README.md"), "# modificado\n");
+      const res = runRuleOnFixture("rule-10-clean.mjs", tmp, { PRE_PR_CONTEXT: "1" });
+      expect(res.status).toBe(0); // não bloqueia no pre-pr
+      const out = (res.stdout || "") + (res.error || "");
+      expect(out).toContain("aviso");
+      expect(out).toContain("untracked.txt");
+      expect(out).toMatch(/pre-push hook/i);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("deve ignorar arquivos staged (esperados no pre-commit) mesmo em modo bloqueante", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      initGitRepo(tmp);
+      // Arquivo staged (será commitado) NÃO deve ser denunciado
+      writeFileSync(join(tmp, "staged.txt"), "ok\n");
+      gitExec("git add staged.txt", tmp);
+      const res = runRuleOnFixture("rule-10-clean.mjs", tmp);
+      expect(res.status).toBe(0);
+    } finally { cleanTempFixture(tmp); }
+  });
+});
+
+// ─── pre-push hook (regra #3: git status ZERO antes de push) ───────
+
+describe("pre-push hook (git status ZERO antes de push)", () => {
+  const HOOK = resolve(ROOT, ".githooks/pre-push");
+
+  function runPrePushIn(fixture: string, setup: (tmp: string) => void) {
+    const tmp = createTempFixture(fixture);
+    try {
+      initGitRepo(tmp);
+      gitExec("git config core.hooksPath .githooks 2>/dev/null || true", tmp);
+      mkdirSync(join(tmp, ".githooks"), { recursive: true });
+      // Copia o hook real para o fixture e torna executável
+      cpSync(HOOK, join(tmp, ".githooks/pre-push"));
+      chmodSync(join(tmp, ".githooks/pre-push"), 0o755);
+      // Commita o hook para não poluir o git status (a checagem da regra #3
+      // denunciaria .githooks/ como untracked)
+      gitExec("git add -A && git commit -m 'add hook' 2>/dev/null", tmp);
+      setup(tmp);
+      return tmp;
+    } catch (e) {
+      cleanTempFixture(tmp);
+      throw e;
+    }
+  }
+
+  function runPush(tmp: string) {
+    try {
+      execSync("git push origin HEAD 2>&1", {
+        cwd: tmp,
+        encoding: "utf8",
+        timeout: 10000,
+        env: cleanGitEnv({ GIT_ASKPASS: "echo", SSH_ASKPASS: "echo" }),
+      });
+      return { status: 0, out: "" };
+    } catch (e: unknown) {
+      const err = e as { status?: number; stdout?: string; stderr?: string; message?: string };
+      return { status: err.status ?? 1, out: (err.stdout || "") + (err.stderr || "") };
+    }
+  }
+
+  it("bloqueia push quando há arquivos não commitados (regra #3)", () => {
+    const tmp = runPrePushIn("handoff/valid", (t) => {
+      // Cria um remote local para o push ter alvo (sem network)
+      gitExec("git branch -M main", t);
+      gitExec("git checkout -b feat/teste", t);
+      const remote = join(tmpdir(), `remote-${Date.now()}`);
+      mkdirSync(remote, { recursive: true });
+      gitExec(`git init --bare ${remote}`, t);
+      gitExec(`git remote add origin ${remote}`, t);
+      writeFileSync(join(t, "untracked.txt"), "sujo\n");
+    });
+    try {
+      const { status, out } = runPush(tmp);
+      expect(status).not.toBe(0);
+      expect(out).toMatch(/BLOQUEADO/);
+      expect(out).toMatch(/regra #3|não está limpo/);
+    } finally { cleanTempFixture(tmp); }
+  });
+
+  it("permite push quando working tree está limpa", () => {
+    const tmp = runPrePushIn("handoff/valid", (t) => {
+      gitExec("git branch -M main", t);
+      gitExec("git checkout -b feat/teste", t);
+      const remote = join(tmpdir(), `remote-clean-${Date.now()}`);
+      mkdirSync(remote, { recursive: true });
+      gitExec(`git init --bare ${remote}`, t);
+      gitExec(`git remote add origin ${remote}`, t);
+      // Cria relatório HTML para não esbarrar na checagem de relatório do hook
+      const today = new Date().toISOString().slice(0, 10);
+      mkdirSync(join(t, `docs/reports/${today}`), { recursive: true });
+      writeFileSync(join(t, `docs/reports/${today}/PRX-${today}-teste.html`), "<html></html>\n");
+      gitExec("git add -A && git commit -m 'add relatorio' 2>/dev/null", t);
+    });
+    try {
+      const { status, out } = runPush(tmp);
+      // Asserção intencionalmente negativa: não validamos que o push remoto
+      // completou (ambiente de teste sem rede confiável), apenas que o hook
+      // NÃO bloqueou por regra #3 (falso positivo).
+      expect(out).not.toMatch(/BLOQUEADO/);
+      expect(out).not.toMatch(/não está limpo/);
     } finally { cleanTempFixture(tmp); }
   });
 });
