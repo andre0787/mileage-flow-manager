@@ -4,6 +4,7 @@ import KPIChart from "./KPIChart";
 import KPITable from "./KPITable";
 import KPIMonthSelector from "./KPIMonthSelector";
 import LLMRouterKPISection, { type RouterMonthlyKPI } from "./LLMRouterKPISection";
+import GateEfficiencySection from "./GateEfficiencySection";
 
 export interface MonthlyKPI {
   [key: string]: unknown;
@@ -17,8 +18,13 @@ export interface MonthlyKPI {
   gateActivations: { intent: number; twins: number; auth: number };
   avgOutcomeGrade: number | null;
   topViolations: Array<{ rule: string; count: number }>;
+  healedByRule: Record<string, number>;
+  gateBlockedByRule: Record<string, number>;
   avgCycleTimeHours: number | null;
   branchesMerged: number;
+  violationsCaught: number;
+  healedRate: number | null;
+  frictionPerPass: number | null;
   llmRouter?: RouterMonthlyKPI;
 }
 
@@ -142,11 +148,24 @@ export default function KPIDashboard({ data }: { data: KpiData }) {
           ])}
         />
         <KPITable
-          title="⚠️ Top Violações"
-          headers={["Regra", "Falhas"]}
-          rows={current.topViolations.map((v) => [v.rule, String(v.count)])}
+          title="📈 Evolução da Taxa Pre-Pr"
+          headers={["Mês", "Taxa", "Pass/Fail"]}
+          rows={data.months.map((m) => [
+            m.month,
+            `${m.prePrPassRate}%`,
+            `${m.prePrPass}/${m.prePrFail}`,
+          ])}
         />
       </div>
+
+      <GateEfficiencySection
+        violationsCaught={current.violationsCaught}
+        healedRate={current.healedRate}
+        frictionPerPass={current.frictionPerPass}
+        topViolations={current.topViolations}
+        healedByRule={current.healedByRule}
+        gateBlockedByRule={current.gateBlockedByRule}
+      />
 
       <LLMRouterKPISection llmRouter={current.llmRouter ?? LEGACY_ROUTER_KPI} />
     </div>

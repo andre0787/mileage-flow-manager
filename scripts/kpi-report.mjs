@@ -22,7 +22,7 @@ import { computeRouterKPI } from "./lib/router-kpi.mjs";
 
 /** @typedef {{ type: string, timestamp: string, data: Record<string,any> }} KPIEvent */
 
-/** @typedef {{ month: string, prePrPassRate: number, prePrTotal: number, prePrPass: number, prePrFail: number, testCoverageLibs: number|null, testCoverageComponents: number|null, gateActivations: {intent:number, twins:number, auth:number}, avgOutcomeGrade: number|null, topViolations: Array<{rule:string, count:number}>, healedByRule: Record<string, number>, gateBlockedByRule: Record<string, number>, avgCycleTimeHours: number|null, branchesMerged: number }} MonthlyKPI */
+/** @typedef {{ month: string, prePrPassRate: number, prePrTotal: number, prePrPass: number, prePrFail: number, testCoverageLibs: number|null, testCoverageComponents: number|null, gateActivations: {intent:number, twins:number, auth:number}, avgOutcomeGrade: number|null, topViolations: Array<{rule:string, count:number}>, healedByRule: Record<string, number>, gateBlockedByRule: Record<string, number>, avgCycleTimeHours: number|null, branchesMerged: number, violationsCaught: number, healedRate: number|null, frictionPerPass: number|null }} MonthlyKPI */
 
 // ─── Parser ──────────────────────────────────────────────────────────
 
@@ -78,7 +78,9 @@ export function parseReportsForMonth(monthLabel) {
     };
   }
 
-  const lines = readFileSync(qualityPath, "utf8").split("\n").filter((l) => l.trim());
+  const lines = readFileSync(qualityPath, "utf8")
+    .split("\n")
+    .filter((l) => l.trim());
   for (const line of lines) {
     let entry;
     try {
@@ -111,9 +113,7 @@ export function parseReportsForMonth(monthLabel) {
  */
 export function computeCycleTime(events) {
   const sessionEvents = events.filter(
-    (e) =>
-      (e.type === "session" || e.type === "session:start") &&
-      (e.branch || e.data?.branch),
+    (e) => (e.type === "session" || e.type === "session:start") && (e.branch || e.data?.branch),
   );
   /** @type {Record<string, {start?: string, end?: string}>} */
   const branchMap = {};
@@ -125,19 +125,14 @@ export function computeCycleTime(events) {
   }
 
   const prePrPasses = events.filter(
-    (e) =>
-      e.type === "pre-pr" &&
-      isPrePrPass(e) &&
-      (e.branch || e.data?.branch),
+    (e) => e.type === "pre-pr" && isPrePrPass(e) && (e.branch || e.data?.branch),
   );
   for (const ev of prePrPasses) {
     const branch = ev.branch ?? ev.data?.branch;
     if (branchMap[branch]) branchMap[branch].end = ev.timestamp;
   }
 
-  const cycles = Object.values(branchMap).filter(
-    (v) => v.start && v.end,
-  );
+  const cycles = Object.values(branchMap).filter((v) => v.start && v.end);
   if (cycles.length === 0) return null;
 
   // Filtra durações inválidas (end < start): artefatos de eventos antigos/poluídos
@@ -162,11 +157,7 @@ export function computeCycleTime(events) {
  * @param {{description?: string, errors?: number, data?: {result?: string}}} e
  */
 function isPrePrPass(e) {
-  return (
-    e.description?.includes("PASS") ||
-    e.errors === 0 ||
-    e.data?.result === "PASS"
-  );
+  return e.description?.includes("PASS") || e.errors === 0 || e.data?.result === "PASS";
 }
 
 /**
@@ -174,11 +165,7 @@ function isPrePrPass(e) {
  * @param {{description?: string, errors?: number, data?: {result?: string}}} e
  */
 function isPrePrFail(e) {
-  return (
-    e.description?.includes("FAIL") ||
-    (e.errors ?? 0) > 0 ||
-    e.data?.result === "FAIL"
-  );
+  return e.description?.includes("FAIL") || (e.errors ?? 0) > 0 || e.data?.result === "FAIL";
 }
 
 /**
@@ -192,8 +179,7 @@ export function computeMonthlyKPI(events, monthLabel) {
   const total = prePrs.length;
   const passes = prePrs.filter(isPrePrPass).length;
   const fails = prePrs.filter(isPrePrFail).length;
-  const prePrPassRate =
-    total > 0 ? Math.round((passes / total) * 1000) / 10 : 0;
+  const prePrPassRate = total > 0 ? Math.round((passes / total) * 1000) / 10 : 0;
 
   const gates = events.filter((e) => e.type === "gate");
   const gateActivations = {
@@ -202,11 +188,8 @@ export function computeMonthlyKPI(events, monthLabel) {
     auth: gates.filter((e) => e.gate === "auth" || e.data?.gate === "auth").length,
   };
 
-  const {
-    avgOutcomeGrade,
-    testCoverageLibs,
-    testCoverageComponents,
-  } = parseReportsForMonth(monthLabel);
+  const { avgOutcomeGrade, testCoverageLibs, testCoverageComponents } =
+    parseReportsForMonth(monthLabel);
 
   const avgCycleTimeHours = computeCycleTime(events);
 
@@ -243,6 +226,14 @@ export function computeMonthlyKPI(events, monthLabel) {
       .map((e) => e.branch ?? e.data?.branch),
   ).size;
 
+  // Eficiência de gates: violações pegas antes do PR, taxa de auto-correção
+  // e fricção média por entrega (quantas violações para cada pre-pr aprovado).
+  const violationsCaught = events.filter((e) => e.type === "rule:fail").length;
+  const healedTotal = events.filter((e) => e.type === "healed").length;
+  const healedRate =
+    violationsCaught > 0 ? Math.round((healedTotal / violationsCaught) * 1000) / 10 : null;
+  const frictionPerPass = passes > 0 ? Math.round((violationsCaught / passes) * 100) / 100 : null;
+
   return {
     month: monthLabel,
     prePrPassRate,
@@ -258,6 +249,9 @@ export function computeMonthlyKPI(events, monthLabel) {
     gateBlockedByRule,
     avgCycleTimeHours,
     branchesMerged,
+    violationsCaught,
+    healedRate,
+    frictionPerPass,
     llmRouter: computeRouterKPI(events),
   };
 }
@@ -273,8 +267,7 @@ export function generateJSON(months, outputPath) {
   const data = {
     generatedAt: new Date().toISOString(),
     months,
-    currentMonth:
-      months.length > 0 ? months[months.length - 1].month : "",
+    currentMonth: months.length > 0 ? months[months.length - 1].month : "",
   };
   writeFileSync(outputPath, JSON.stringify(data, null, 2), "utf8");
   console.log(`✅ kpi-data.json gerado: ${outputPath}`);
@@ -301,11 +294,7 @@ function main() {
   for (let i = 5; i >= 0; i--) {
     const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
     const label = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
-    const monthEvents = filterByMonth(
-      allEvents,
-      d.getFullYear(),
-      d.getMonth() + 1,
-    );
+    const monthEvents = filterByMonth(allEvents, d.getFullYear(), d.getMonth() + 1);
     months.push(computeMonthlyKPI(monthEvents, label));
   }
 

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T04:09:59.379Z",
+  "generatedAt": "2026-08-12T04:28:28.520Z",
   "months": [
     {
       "month": "2026-03",
@@ -20,6 +20,9 @@
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 0,
+      "violationsCaught": 0,
+      "healedRate": null,
+      "frictionPerPass": null,
       "llmRouter": {
         "resolved": 0,
         "completed": 0,
@@ -51,6 +54,9 @@
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 0,
+      "violationsCaught": 0,
+      "healedRate": null,
+      "frictionPerPass": null,
       "llmRouter": {
         "resolved": 0,
         "completed": 0,
@@ -82,6 +88,9 @@
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 0,
+      "violationsCaught": 0,
+      "healedRate": null,
+      "frictionPerPass": null,
       "llmRouter": {
         "resolved": 0,
         "completed": 0,
@@ -113,6 +122,9 @@
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 0,
+      "violationsCaught": 0,
+      "healedRate": null,
+      "frictionPerPass": null,
       "llmRouter": {
         "resolved": 0,
         "completed": 0,
@@ -144,6 +156,9 @@
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 7,
+      "violationsCaught": 0,
+      "healedRate": null,
+      "frictionPerPass": 0,
       "llmRouter": {
         "resolved": 0,
         "completed": 0,
@@ -158,9 +173,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 70.5,
-      "prePrTotal": 339,
-      "prePrPass": 239,
+      "prePrPassRate": 70.8,
+      "prePrTotal": 343,
+      "prePrPass": 243,
       "prePrFail": 100,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -173,7 +188,7 @@
       "topViolations": [
         {
           "rule": "rule-10-clean",
-          "count": 184
+          "count": 186
         },
         {
           "rule": "rule-26-session-started",
@@ -202,6 +217,9 @@
       },
       "avgCycleTimeHours": 0.4,
       "branchesMerged": 75,
+      "violationsCaught": 395,
+      "healedRate": 14.9,
+      "frictionPerPass": 1.63,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,

@@ -4,7 +4,7 @@
  * Port dos dados embutidos em docs/workflow-demo/workflow-illustrated.html
  * para constantes tipadas consumíveis pelos componentes React.
  *
- * ⚠️ Dados ilustrativos congelados em 2026-08-08 (eventos reais do repo na
+ * ⚠️ Dados ilustrativos congelados em 2026-08-12 (eventos reais do repo na
  * data de geração). Para atualizar, regenerar a partir de docs/tracking/.
  *
  * rule-31: lib com teste unitário (tests/unit/workflow-demo-data.test.ts)
@@ -89,11 +89,11 @@ export interface SimScenario {
   hint: string;
 }
 
-export const DATA_DATE = "2026-08-08";
+export const DATA_DATE = "2026-08-12";
 
 export const HERO_META = [
-  "✅ 39 regras validadas a cada pre-pr",
-  "🛡️ 4 gates de segurança",
+  "✅ 41 regras validadas a cada pre-pr",
+  "🛡️ 6 gates de segurança",
   "📡 telemetria em toda etapa",
   "🔄 ciclo: subagente que codifica + subagente que revisa",
 ];
@@ -117,44 +117,52 @@ export const WHAT_CARDS = [
 ];
 
 export const KPI_STATS: KpiStat[] = [
-  { value: 1394, label: "eventos registrados", sub: "docs/tracking/events.jsonl" },
-  { value: 274, label: "notas de qualidade", sub: "docs/tracking/quality.jsonl" },
-  { value: 39, label: "regras de validação", sub: "auto-executadas no pre-pr" },
-  { value: 503, label: "testes unitários", sub: "56 arquivos de teste" },
-  { value: 23, label: "auto-correções", sub: 'eventos "healed"' },
+  { value: 1850, label: "eventos registrados", sub: "docs/tracking/events.jsonl" },
+  { value: 435, label: "notas de qualidade", sub: "docs/tracking/quality.jsonl" },
+  { value: 41, label: "regras de validação", sub: "auto-executadas no pre-pr" },
+  { value: 711, label: "testes unitários", sub: "287 arquivos de teste" },
+  { value: 59, label: "auto-correções", sub: 'eventos "healed"' },
   { value: 2, label: "novos gates de evidência", sub: "coding + code-review" },
 ];
 
 export const EVENT_TYPES: EventType[] = [
-  { name: "session:start", n: 807, color: "#3b82f6" },
-  { name: "pre-pr", n: 324, color: "#8b5cf6" },
-  { name: "rule:fail", n: 205, color: "#ef4444" },
-  { name: "healed", n: 23, color: "#10b981" },
-  { name: "session:end", n: 12, color: "#f59e0b" },
-  { name: "llm.route.*", n: 18, color: "#14b8a6" },
-  { name: "gate", n: 2, color: "#f43f5e" },
-  { name: "custom", n: 1, color: "#64748b" },
-  { name: "coding:done", n: 1, color: "#22c55e" },
-  { name: "code-review:done", n: 1, color: "#6366f1" },
+  { name: "session:start", n: 819, color: "#3b82f6" },
+  { name: "pre-pr", n: 442, color: "#8b5cf6" },
+  { name: "rule:fail", n: 395, color: "#ef4444" },
+  { name: "healed", n: 59, color: "#10b981" },
+  { name: "llm.route.resolved", n: 39, color: "#14b8a6" },
+  { name: "code-review:done", n: 27, color: "#6366f1" },
+  { name: "coding:done", n: 26, color: "#22c55e" },
+  { name: "session:end", n: 15, color: "#f59e0b" },
+  { name: "llm.route.completed", n: 10, color: "#0ea5e9" },
+  { name: "gate", n: 8, color: "#f43f5e" },
+  { name: "custom", n: 4, color: "#64748b" },
+  { name: "pr:create", n: 3, color: "#f97316" },
+  { name: "pr:merge", n: 2, color: "#16a34a" },
+  { name: "gate:blocked", n: 1, color: "#b91c1c" },
 ];
 
-export const MAX_EVENTS = 807;
+export const MAX_EVENTS = 819;
 
 export const GRADES: GradeBucket[] = [
-  { name: "100% — excelente", n: 206, color: "#10b981" },
-  { name: "80% — aprovado", n: 62, color: "#84cc16" },
-  { name: "60% — abaixo do padrão", n: 6, color: "#ef4444" },
+  { name: "100% — excelente", n: 288, color: "#10b981" },
+  { name: "80% — aprovado", n: 138, color: "#84cc16" },
+  { name: "60% — abaixo do padrão", n: 9, color: "#ef4444" },
 ];
 
-export const MAX_GRADE = 206;
+export const MAX_GRADE = 288;
 
 export const RECENT_TIMELINE: RecentEvent[] = [
-  { t: "2026-08-08 11:13:21", d: "pre-pr", desc: "pre-pr PASS" },
-  { t: "2026-08-08 11:12:46", d: "pre-pr", desc: "pre-pr PASS" },
-  { t: "2026-08-08 11:11:21", d: "rule:fail", desc: "rule-08-report falhou → corrigido" },
-  { t: "2026-08-08 11:10:46", d: "rule:fail", desc: "rule-10-clean falhou → corrigido" },
-  { t: "2026-08-08 11:08:25", d: "rule:fail", desc: "rule-26-session-started falhou → corrigido" },
-  { t: "2026-08-08 11:08:20", d: "rule:fail", desc: "rule-10-clean falhou → corrigido" },
+  {
+    t: "2026-08-12 01:22:47",
+    d: "session:start",
+    desc: "feature: aba Workflow com dados reais + KPIs",
+  },
+  { t: "2026-08-12 01:10:03", d: "pre-pr", desc: "pre-pr PASS" },
+  { t: "2026-08-12 01:09:59", d: "pre-pr", desc: "pre-pr PASS" },
+  { t: "2026-08-12 01:08:14", d: "session:start", desc: "refactor: subida do redesign Apple HIG" },
+  { t: "2026-08-12 01:05:58", d: "rule:fail", desc: "rule-26-session-started falhou → corrigido" },
+  { t: "2026-08-12 01:05:10", d: "code-review:done", desc: "redesign HIG aprovado por subagente" },
 ];
 
 export const JOURNEY_STEPS: JourneyStep[] = [
@@ -223,15 +231,15 @@ export const JOURNEY_STEPS: JourneyStep[] = [
     badge: "quality",
     badgeKind: "tele",
     body: "Testes unitários, build e verificação de docs rodam. A nota de qualidade (outcome grade) é registrada — o padrão mínimo é 80%.",
-    ev: "✅ 503 testes · 56 arquivos\n📊 outcome grade: 100% (206 vezes) · 80% (62) · 60% (6)",
+    ev: "✅ 711 testes · 287 arquivos\n📊 outcome grade: 100% (288) · 80% (138) · 60% (9)",
   },
   {
     dot: "🛂",
     title: "Pre-pr: 39 regras",
     badge: "telemetria",
     badgeKind: "tele",
-    body: "O `npm run pre-pr` valida 39 regras automáticas + gera um relatório HTML. Cada execução fica registrada no events.jsonl. Falhou? Mensagem acionável diz exatamente o que fazer.",
-    ev: "🔍 PRE-PR CHECK — 39 regras\n✅ relatório: docs/reports/<data>/PR<n>-*.html\n📡 eventos: pre-pr (324) · rule:fail (205) · healed (23)",
+    body: "O `npm run pre-pr` valida 41 regras automáticas + gera um relatório HTML. Cada execução fica registrada no events.jsonl. Falhou? Mensagem acionável diz exatamente o que fazer.",
+    ev: "🔍 PRE-PR CHECK — 41 regras\n✅ relatório: docs/reports/<data>/PR<n>-*.html\n📡 eventos: pre-pr (442) · rule:fail (395) · healed (59)",
   },
   {
     dot: "🔐",
@@ -365,7 +373,7 @@ export const FLUXO_ITEMS: FluxoItem[] = [
       time: "Passo 6",
       title: "🧪 Testes + Build",
       desc: "Testes unitários, build e verify-docs. Outcome grade mínimo: 80% (registrado no quality.jsonl).",
-      tag: "📊 503 testes · rule-30/31/32",
+      tag: "📊 711 testes · rule-30/31/32",
       tagKind: "default",
     },
   },
@@ -376,7 +384,7 @@ export const FLUXO_ITEMS: FluxoItem[] = [
       kind: "fail",
       time: "Passo 7",
       title: "🛂 Pre-pr — 39 regras",
-      desc: "Valida todas as regras automáticas + gera relatório HTML. Qualquer falha bloqueia o PR.",
+      desc: "Valida 41 regras automáticas + gera relatório HTML. Qualquer falha bloqueia o PR.",
       tag: "🔒 fail-closed · docs/reports/",
       tagKind: "fail",
     },
@@ -486,18 +494,18 @@ export const MIND: MindBranch[] = [
     label: "🧪 Qualidade",
     color: "#14b8a6",
     detail:
-      "Testes unitários (503), build e verify-docs rodam a cada pre-pr. Outcome grade mínima de 80% — registrada no quality.jsonl.",
+      "Testes unitários (711), build e verify-docs rodam a cada pre-pr. Outcome grade mínima de 80% — registrada no quality.jsonl.",
     ev: '{"rule":"rule-30","outcomeGrade":100} → quality.jsonl',
-    kids: ["503 testes", "build", "outcome grade ≥ 80%", "quality.jsonl"],
+    kids: ["711 testes", "build", "outcome grade ≥ 80%", "quality.jsonl"],
   },
   {
     id: "prepr",
     label: "🛂 Pre-pr",
     color: "#f43f5e",
     detail:
-      "npm run pre-pr valida 39 regras automáticas e gera relatório HTML. Se algo falhar, mensagem acionável mostra como corrigir. Fail-closed.",
-    ev: "pre-pr (324 execuções) · rule:fail (205) · healed (23)",
-    kids: ["39 regras", "relatório HTML", "fail-closed"],
+      "npm run pre-pr valida 41 regras automáticas e gera relatório HTML. Se algo falhar, mensagem acionável mostra como corrigir. Fail-closed.",
+    ev: "pre-pr (442 execuções) · rule:fail (395) · healed (59)",
+    kids: ["41 regras", "relatório HTML", "fail-closed"],
   },
   {
     id: "entrega",
@@ -513,9 +521,9 @@ export const MIND: MindBranch[] = [
     label: "📡 Telemetria",
     color: "#06b6d4",
     detail:
-      "Tudo vira registro auditável: events.jsonl (1394 eventos) e quality.jsonl (274 notas). O rastro é completo de ponta a ponta.",
-    ev: "events.jsonl (1394) · quality.jsonl (274) · docs/reports/*.html",
-    kids: ["events.jsonl (1394)", "quality.jsonl (274)", "docs/reports/*.html"],
+      "Tudo vira registro auditável: events.jsonl (1850 eventos) e quality.jsonl (435 notas). O rastro é completo de ponta a ponta.",
+    ev: "events.jsonl (1850) · quality.jsonl (435) · docs/reports/*.html",
+    kids: ["events.jsonl (1850)", "quality.jsonl (435)", "docs/reports/*.html"],
   },
 ];
 
@@ -609,7 +617,7 @@ export const SIM_SCENARIOS: SimScenario[] = [
     label: "✅ Fluxo completo com evidências",
     lines: [
       { text: "$ npm run pre-pr", kind: "muted" },
-      { text: "🔍 PRE-PR CHECK — 39 regras", kind: "title" },
+      { text: "🔍 PRE-PR CHECK — 41 regras", kind: "title" },
       {
         text: "✅ rule-38: code review por subagente confirmado (evento code-review:done)",
         kind: "ok",
@@ -622,7 +630,7 @@ export const SIM_SCENARIOS: SimScenario[] = [
       { text: "✅ rule-34: TWINS Check referenciado", kind: "ok" },
       { text: "✅ rule-35: AUTH Gate com frase exata", kind: "ok" },
       { text: "✅ rule-37: rtk 0.45.0 >= 0.23.0", kind: "ok" },
-      { text: "✅ test (unit) — 503 testes", kind: "ok" },
+      { text: "✅ test (unit) — 711 testes", kind: "ok" },
       { text: "✅ build · ✅ verify-docs:strict", kind: "ok" },
       { text: "═══════════════════════════════════", kind: "muted" },
       { text: "✅ 0 errors — PR LIBERADO", kind: "ok" },
@@ -636,6 +644,63 @@ export const SIM_SCENARIOS: SimScenario[] = [
     hint: "➡️  Evidência completa + testes verdes + docs consistentes.",
   },
 ];
+
+// ─── Eficiência dos gates (dados reais 2026-08-12) ────────────────
+
+export interface ViolationStat {
+  rule: string;
+  count: number;
+  hint: string;
+}
+
+export interface GateEfficiencyStats {
+  ruleFails: number;
+  healed: number;
+  healedRate: number; // % das violações auto-corrigidas
+  prePrTotal: number;
+  prePrPass: number;
+  prePrPassRate: number; // % de pre-pr aprovados
+  gateBlocked: number;
+  topViolations: ViolationStat[];
+}
+
+export const GATE_EFFICIENCY: GateEfficiencyStats = {
+  // eventos reais em docs/tracking/events.jsonl (2026-08-12)
+  ruleFails: 395,
+  healed: 59,
+  healedRate: 14.9, // 59/395 = 14.9% auto-corrigido pelo próprio pre-pr
+  prePrTotal: 442,
+  prePrPass: 312,
+  prePrPassRate: 70.6, // 312/442 = 70.6%
+  gateBlocked: 2,
+  topViolations: [
+    {
+      rule: "rule-10-clean",
+      count: 186,
+      hint: "git status ZERO antes de PR — quase sempre artefatos gerados não commitados",
+    },
+    {
+      rule: "rule-26-session-started",
+      count: 40,
+      hint: "timestamp de sessão ausente — corrigido com npm run session:start",
+    },
+    {
+      rule: "rule-scope",
+      count: 32,
+      hint: "escopo do diff fora da categoria da branch",
+    },
+    {
+      rule: "rule-38-code-review-gate",
+      count: 22,
+      hint: "faltou evento code-review:done por subagente na branch",
+    },
+    {
+      rule: "rule-17-new-docs-valid",
+      count: 21,
+      hint: "novo doc criado sem validar referências no MAP.md",
+    },
+  ],
+};
 
 export function kpiForId(id: string): KpiStat | undefined {
   return KPI_STATS.find((s) => s.value === Number(id));

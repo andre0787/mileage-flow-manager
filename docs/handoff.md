@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `refactor/apple-design-hig`
-- **Último commit:** `dcfa723 — refactor(apple-design): migra cores raw (blue/red/green) para tokens do design system`
+- **Branch:** `main`
+- **Último commit:** `3154f56 — Merge pull request #355 from andre0787/refactor/apple-design-hig`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -68,10 +68,10 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 
 ## 🎯 Sessão Atual
-**Categoria:** refactor
-**Objetivo:** Subida do redesign Apple HIG para prod (polimento tokens)
+**Categoria:** feature
+**Objetivo:** Atualizar aba Workflow com dados reais + evoluir KPIs de processo (eficiência de gates)
 **Status:** in_progress
-**Iniciada em:** 2026-08-12T04:08:14.840Z
-**Branch:** `refactor/apple-design-hig`
-**Último commit:** dcfa723 — refactor(apple-design): migra cores raw (blue/red/green) para tokens do design system
-**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
+**Iniciada em:** 2026-08-12T04:22:47.017Z
+**Branch:** `feat/workflow-kpis-reais`
+**Último commit:** 3154f56 — Merge pull request #355 from andre0787/refactor/apple-design-hig
+**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
