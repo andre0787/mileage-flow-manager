@@ -10,9 +10,7 @@ describe("SearchInput", () => {
   });
 
   it("renderiza placeholder customizado", () => {
-    render(
-      <SearchInput value="" onChange={() => {}} placeholder="Buscar contas..." />
-    );
+    render(<SearchInput value="" onChange={() => {}} placeholder="Buscar contas..." />);
     expect(screen.getByPlaceholderText("Buscar contas...")).toBeDefined();
   });
 
@@ -55,8 +53,20 @@ describe("SearchInput", () => {
 
   it("aplica className customizada", () => {
     const { container } = render(
-      <SearchInput value="" onChange={() => {}} className="custom-class" />
+      <SearchInput value="" onChange={() => {}} className="custom-class" />,
     );
     expect(container.firstChild).toHaveClass("custom-class");
+  });
+
+  it("usa estilo dark elevado (fundo secondary sólido + borda input) para destacar do fundo preto", () => {
+    const { container } = render(<SearchInput value="" onChange={() => {}} />);
+    const input = container.querySelector("input");
+    expect(input).toBeTruthy();
+    // Fundo sólido no dark (não esmaecido /60 que virava cinza chapado)
+    expect(input!.className).toContain("dark:bg-secondary");
+    // Borda nítida visível no dark
+    expect(input!.className).toContain("dark:border-input");
+    // Micro-interação: hover realça a borda
+    expect(input!.className).toContain("dark:hover:border-ring/50");
   });
 });

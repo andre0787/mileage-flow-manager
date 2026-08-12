@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `5a24a43 — Merge pull request #356 from andre0787/feat/workflow-kpis-reais`
+- **Último commit:** `e3b63e3 — Merge pull request #358 from andre0787/feat/prepr-rule10-pre-push`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -69,9 +69,9 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 ## 🎯 Sessão Atual
 **Categoria:** feature
-**Objetivo:** Reduzir fricção rule-10 no pre-pr + proteção git status no pre-push hook
+**Objetivo:** Melhorar campos de pesquisa no dark mode (contraste e design)
 **Status:** in_progress
-**Iniciada em:** 2026-08-12T13:01:41.707Z
-**Branch:** `feat/prepr-rule10-pre-push`
-**Último commit:** 5a24a43 — Merge pull request #356 from andre0787/feat/workflow-kpis-reais
+**Iniciada em:** 2026-08-12T13:35:29.788Z
+**Branch:** `fix/dark-search-fields`
+**Último commit:** e3b63e3 — Merge pull request #358 from andre0787/feat/prepr-rule10-pre-push
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md

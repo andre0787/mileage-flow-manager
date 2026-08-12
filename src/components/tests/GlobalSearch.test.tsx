@@ -55,4 +55,24 @@ describe("GlobalSearch", () => {
     );
     expect(screen.queryByText(/Nenhum resultado para/)).toBeNull();
   });
+
+  it("usa estilo dark elevado no dropdown e no kbd (legível sobre fundo preto)", () => {
+    const { container } = render(
+      <MemoryRouter>
+        <GlobalSearch />
+      </MemoryRouter>,
+    );
+    const input = container.querySelector("input");
+    // Input herda o tratamento dark do Input base
+    expect(input!.className).toContain("dark:bg-secondary");
+    expect(input!.className).toContain("dark:border-input");
+
+    // Dropdown: card elevado (11%) em vez de preto puro — dispara com query
+    const inputEl = screen.getByPlaceholderText("Buscar…");
+    fireEvent.change(inputEl, { target: { value: "x" } });
+    const dropdown = container.querySelector(".absolute.right-0.top-full");
+    expect(dropdown).toBeTruthy();
+    expect(dropdown!.className).toContain("dark:bg-card");
+    expect(dropdown!.className).toContain("dark:border-border/70");
+  });
 });
