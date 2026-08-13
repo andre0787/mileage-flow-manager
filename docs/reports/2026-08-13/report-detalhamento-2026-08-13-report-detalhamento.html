@@ -162,18 +162,18 @@
       <div class="hero">
         <div class="hero-top">
           <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">report-detalhamento</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
-          <div class="hero-date">2026-08-13 · 21:20 · <span class="mono">feat/report-detalhamento</span></div>
+          <div class="hero-date">2026-08-13 · 21:23 · <span class="mono">feat/report-detalhamento</span></div>
         </div>
         <h1>report detalhamento</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">e54ad14 — docs(process): backfill Detalhamento por item nos relatorios PR362/PR363/PR364 com dados reais (commits, beneficio, impacto, custo token)</div>
+        <div class="hero-meta mono">fac1bd3 — fix(process): parse do Detalhamento imune a pipes/body multilinha (separador %x1f/%x1e) + parseCommitRecord puro testado</div>
       </div>
       
     <div class="kpi-grid">
       <div class="kpi">
         <div class="kpi-value">0</div>
         <div class="kpi-label">entregas em produção</div>
-        <div class="kpi-sub">1 implementações · 1 reviews</div>
+        <div class="kpi-sub">2 implementações · 2 reviews</div>
       </div>
       <div class="kpi">
         <div class="kpi-value">—</div>
@@ -181,7 +181,7 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/3</div>
+        <div class="kpi-value">0/4</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
         <div class="kpi-sub">0 violações · 1 auto-corrigidas</div>
       </div>
@@ -262,7 +262,7 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">3</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">4</span><span class="stat-l">rodadas de validação pré-PR</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">violações de regra encontradas</span></div>
             <div class="stat"><span class="stat-v green">1</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
@@ -287,7 +287,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 240 remoções — 1572 linhas tocadas</td><td>✨ 727 adições — 10 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 241 remoções — 2197 linhas tocadas</td><td>✨ 1346 adições — 11 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -295,23 +295,23 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>10</td></tr>
-            <tr><td>Adições</td><td>+727</td></tr>
-            <tr><td>Remoções</td><td>-240</td></tr>
-            <tr><td>Tokens estimados</td><td>~1179</td></tr>
+            <tr><td>Arquivos alterados</td><td>11</td></tr>
+            <tr><td>Adições</td><td>+1346</td></tr>
+            <tr><td>Remoções</td><td>-241</td></tr>
+            <tr><td>Tokens estimados</td><td>~1648</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:46">+545 add</div>
-        <div class="del" style="flex:15">-180 del</div>
-        <div class="overhead" style="flex:39">~454 ctx</div>
+        <div class="add" style="flex:61">+1010 add</div>
+        <div class="del" style="flex:11">-181 del</div>
+        <div class="overhead" style="flex:28">~457 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+545</td><td>46%</td></tr>
-      <tr><td>Remoções</td><td>-180</td><td>15%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~454</td><td>39%</td></tr>
-      <tr><th>Total</th><th>~1179</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+1010</td><td>61%</td></tr>
+      <tr><td>Remoções</td><td>-181</td><td>11%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~457</td><td>28%</td></tr>
+      <tr><th>Total</th><th>~1648</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
@@ -323,6 +323,7 @@
 <tr><td>M</td><td>docs/reports/2026-08-12/PR362-optimization-2026-08-12-context-optimization.html</td></tr>
 <tr><td>M</td><td>docs/reports/2026-08-12/PR363-efficient-agents-2026-08-12-token-efficient-agents.html</td></tr>
 <tr><td>M</td><td>docs/reports/2026-08-13/PR364-secondary-inputs-2026-08-13-dark-secondary-inputs.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-13/report-detalhamento-2026-08-13-report-detalhamento.html</td></tr>
 <tr><td>M</td><td>docs/tracking/archive/events-2026-08.jsonl</td></tr>
 <tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
 <tr><td>M</td><td>scripts/generate-report.mjs</td></tr>
@@ -341,6 +342,13 @@
         <th style="width:16%">Custo Token</th>
       </tr>
       <tr>
+        <td><strong>fac1bd3</strong></td>
+        <td>fix(process): parse do Detalhamento imune a pipes/body multilinha (separador %x1f/%x1e) + parseCommitRecord puro testado</td>
+        <td>Comportamento corrigido e validado — menos erro e retrabalho</td>
+        <td>Menos risco de erro para o usuário e a operação</td>
+        <td><code>~498</code></td>
+      </tr>
+<tr>
         <td><strong>e54ad14</strong></td>
         <td>docs(process): backfill Detalhamento por item nos relatorios PR362/PR363/PR364 com dados reais (commits, beneficio, impacto, custo token)</td>
         <td>Documentação/processo atualizados — mais rastreabilidade</td>
@@ -349,7 +357,7 @@
       </tr>
 <tr>
         <td><strong>c608d7e</strong></td>
-        <td>feat(process): Detalhamento por item obrigatorio em todo relatorio — derivacao automatica dos commits (Item — Correcao|Beneficio|Impacto|Custo Token), fallback garantido, rule-08 exige a secao, flags --diff-base/--date para backfill|</td>
+        <td>feat(process): Detalhamento por item obrigatorio em todo relatorio — derivacao automatica dos commits (Item|Correcao|Beneficio|Impacto|Custo Token), fallback garantido, rule-08 exige a secao, flags --diff-base/--date para backfill</td>
         <td>Nova capacidade entregue e validada</td>
         <td>Nova alavanca de uso/negócio</td>
         <td><code>~267</code></td>
@@ -481,7 +489,7 @@ index 592801c..5c13119 100644
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-08-13 21:20
+      Gerado por scripts/generate-report.mjs · 2026-08-13 21:23
     </div>
   </div>
 

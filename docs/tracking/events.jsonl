@@ -1204,3 +1204,4 @@
 {"timestamp":"2026-08-13T00:23:19.124Z","type":"coding:done","description":"Detalhamento por item obrigatorio implementado por subagente: derivacao dos commits, fallback, rule-08, backfill 3 relatorios","branch":"feat/report-detalhamento","commit":"e54ad14","agent":"human","subagent":true,"skill":"subagent-driven-development"}
 {"timestamp":"2026-08-13T00:23:19.159Z","type":"code-review:done","description":"Review aprovado: 2 correcoes (separador unitario %x1f/%x1e no parse, parseCommitRecord puro testado)","branch":"feat/report-detalhamento","commit":"e54ad14","agent":"human","subagent":true,"verdict":"approved"}
 {"timestamp":"2026-08-13T00:23:19.577Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/report-detalhamento","commit":"e54ad14","agent":"human","errors":0}
+{"timestamp":"2026-08-13T00:25:08.880Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/report-detalhamento","commit":"fac1bd3","agent":"human","errors":0}
