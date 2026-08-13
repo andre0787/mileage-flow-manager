@@ -68,8 +68,9 @@ function main() {
     if (!existsSync(abs) || !statSync(abs).isFile()) continue; // deletado
 
     const currentLines = countLines(abs);
-    // Versão do arquivo em main (no merge-base)
-    const mainContent = git(`git show ${mergeBase}:${file}`);
+    // Versão do arquivo em main (no merge-base). 2>/dev/null: arquivos novos
+    // não existem no merge-base e o git show imprime fatal no stderr — ruído.
+    const mainContent = git(`git show ${mergeBase}:${file} 2>/dev/null`);
     const mainLines = mainContent ? countLinesFromText(mainContent) : 0;
     // Arquivo é NOVO se o blob não existe no merge-base (git cat-file -e exit != 0).
     // Evita confundir arquivo vazio pré-existente em main com arquivo novo.
