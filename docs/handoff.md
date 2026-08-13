@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `4a32889 — Merge pull request #365 from andre0787/feat/report-detalhamento`
+- **Último commit:** `996a1bd — Merge pull request #366 from andre0787/feat/report-slide-legacy`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -69,9 +69,9 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 ## 🎯 Sessão Atual
 **Categoria:** feature
-**Objetivo:** Slide proprio de Detalhamento por item no deck + migracao dos 15 relatorios legados para o modelo executivo
+**Objetivo:** Dark mode: filtros translucidos (SelectTrigger glass), autofill CSS global, verificacao visual no browser + relatorio executivo (custo real, titulo PR no BLUF, PDF A4)
 **Status:** in_progress
-**Iniciada em:** 2026-08-13T00:41:11.007Z
-**Branch:** `feat/report-slide-legacy`
-**Último commit:** 4a32889 — Merge pull request #365 from andre0787/feat/report-detalhamento
+**Iniciada em:** 2026-08-13T01:03:07.542Z
+**Branch:** `feat/dark-filters-translucent`
+**Último commit:** 996a1bd — Merge pull request #366 from andre0787/feat/report-slide-legacy
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md

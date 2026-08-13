@@ -64,6 +64,7 @@
     "context:trim:dry": "node scripts/trim-tracking.mjs",
     "verify-docs": "node scripts/verify-docs.mjs",
     "verify-docs:strict": "node scripts/verify-docs.mjs --strict",
+    "verify:dark": "node scripts/verify-dark-ui.mjs",
     "handoff:snapshot": "node scripts/handoff-snapshot.mjs --write",
     "metrics:collect": "node scripts/metrics-collect.mjs",
     "migrate:bugs": "node scripts/migrate-bugs.mjs",

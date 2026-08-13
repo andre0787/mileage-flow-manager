@@ -42,6 +42,7 @@ import { execSync } from "child_process";
 import { readFileSync, existsSync, mkdirSync, writeFileSync, readdirSync, renameSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath, pathToFileURL } from "url";
+import { auditContext } from "./context-audit.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
@@ -468,6 +469,7 @@ export function generateHTML({
   impactNegocio,
   impactoProcesso,
   session,
+  contextAudit = null,
 }) {
   const now = new Date();
   const date = REPORT_DATE || now.toISOString().slice(0, 10);
@@ -645,7 +647,10 @@ export function generateHTML({
       : "";
 
   // ── BLUF (slide 1) ─────────────────────────────────────────────
-  const defaultSummary = summary || "Entrega concluída e validada — detalhes técnicos no apêndice.";
+  // Narrativa: sem --summary, usa o título do PR (mais rico que o genérico)
+  const defaultSummary =
+    summary ||
+    (pr && pr.title ? pr.title : "Entrega concluída e validada — detalhes técnicos no apêndice.");
   const blufHtml = `
     <section class="slide" id="s1">
       <div class="hero">
@@ -744,6 +749,13 @@ export function generateHTML({
   </table>`;
 
   // ── Slide Detalhamento por item ───────────────────────────────
+  // Custo real de contexto da sessão (auditContext) — complementa o custo
+  // estimado por commit com a medição real de carga de docs por categoria.
+  const ctxCat = contextAudit?.categories?.feature ?? contextAudit?.categories?.chore ?? null;
+  const ctxNote =
+    contextAudit && ctxCat
+      ? ` · Custo real da sessão (auditContext): ${ctxCat.tokens.toLocaleString("pt-BR")} tokens (feature) · status ${contextAudit.status.label.toLowerCase()}`
+      : "";
   const detailSlide = `
     <section class="slide" id="s3">
       <div class="slide-head">
@@ -752,7 +764,7 @@ export function generateHTML({
       </div>
       <div class="detail-card">
         <div class="detail-scroll">${detailTableHtml}</div>
-        <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits.</p>
+        <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits.${ctxNote}</p>
       </div>
     </section>`;
 
@@ -963,10 +975,12 @@ export function generateHTML({
     .foot{margin:1.4rem auto 2.5rem;text-align:center;font-size:.7rem;color:var(--muted);opacity:.6}
     .foot .scroll-hint{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3rem .9rem;margin-bottom:.8rem}
     /* ── Print (tema claro, one-pager + apêndice) ── */
+    @page{size:A4 landscape;margin:12mm}
     @media print{
-      body{background:#fff;color:#111}
+      html,body{background:#fff!important;color:#111}
       .nav{display:none!important}
-      .slide{min-height:0;page-break-after:always;display:flex!important;border-bottom:0;padding:1.5rem 0}
+      .slide{min-height:0;page-break-after:always;break-after:page;display:flex!important;border-bottom:0;padding:1.5rem 0}
+      .slide:last-child{page-break-after:auto;break-after:auto}
       .hero h1{color:#0b1220}
       .hero-summary,.hero-date,.hero-meta,.kpi-label,.kpi-sub,.bluf-col p,.impact-card p,.tl-time,.tl-label,.stat-l,.checks li,td,th,.foot{color:#334155}
       .kpi,.impact-card,.bluf-col,.ap-card,.stat{background:#fff;border-color:#e2e8f0;box-shadow:none}
@@ -975,6 +989,11 @@ export function generateHTML({
       .bluf-col,.checks li{color:#334155}
       .diff{background:#f8fafc;color:#0f172a;border-color:#e2e8f0}
       .timeline::before{background:linear-gradient(180deg,#3b82f6,#16a34a)}
+      /* Tabelas não quebram no meio da linha no PDF */
+      tr{break-inside:avoid;page-break-inside:avoid}
+      th,td{font-size:.72rem}
+      .detail-scroll table{margin:0}
+      img.evidence{max-height:120mm;object-fit:contain}
     }
   </style>
 </head>
@@ -1132,6 +1151,7 @@ if (IS_MAIN) {
     beforeText: BEFORE_TEXT,
     afterText: AFTER_TEXT,
     summary: SUMMARY,
+    contextAudit: auditContext(),
     impactProduto: IMPACT_PRODUTO,
     impactNegocio: IMPACT_NEGOCIO,
     impactoProcesso: IMPACT_PROCESSO,
