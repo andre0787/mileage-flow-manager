@@ -417,14 +417,14 @@ function estimateTokens(diff) {
 
 // ── Detalhamento por item (auto-derivado dos commits) ─────────────────
 
-const TYPE_BENEFIT = {
+export const TYPE_BENEFIT = {
   fix: "Comportamento corrigido e validado — menos erro e retrabalho",
   feat: "Nova capacidade entregue e validada",
   refactor: "Código mais simples — menor custo de manutenção",
   docs: "Documentação/processo atualizados — mais rastreabilidade",
   chore: "Ajuste de processo validado",
 };
-const TYPE_IMPACT = {
+export const TYPE_IMPACT = {
   fix: "Menos risco de erro para o usuário e a operação",
   feat: "Nova alavanca de uso/negócio",
   refactor: "Menos custo em mudanças futuras",
@@ -434,7 +434,7 @@ const TYPE_IMPACT = {
 const DEFAULT_BENEFIT = "Mudança validada pelo fluxo de qualidade";
 const DEFAULT_IMPACT = "Risco controlado antes da produção";
 
-function typeOf(subject) {
+export function typeOf(subject) {
   // Prefixo de conventional commit, com limite (fixup: não vira fix)
   if (/^fix(\(|\s|:|$)/i.test(subject)) return "fix";
   if (/^feat(\(|\s|:|$)/i.test(subject)) return "feat";

@@ -156,7 +156,7 @@ export function computeCycleTime(events) {
  * Compatível também com formato aninhado legado (data.result).
  * @param {{description?: string, errors?: number, data?: {result?: string}}} e
  */
-function isPrePrPass(e) {
+export function isPrePrPass(e) {
   return e.description?.includes("PASS") || e.errors === 0 || e.data?.result === "PASS";
 }
 
@@ -164,7 +164,7 @@ function isPrePrPass(e) {
  * Verdadeiro se evento pre-pr representa FAIL.
  * @param {{description?: string, errors?: number, data?: {result?: string}}} e
  */
-function isPrePrFail(e) {
+export function isPrePrFail(e) {
   return e.description?.includes("FAIL") || (e.errors ?? 0) > 0 || e.data?.result === "FAIL";
 }
 

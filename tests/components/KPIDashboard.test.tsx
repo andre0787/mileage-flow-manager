@@ -1,8 +1,21 @@
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import KPIDashboard from "../../src/components/KPIDashboard";
+import type { KpiData } from "../../src/types/kpi";
 
-const mockData = {
+vi.mock("../../src/contexts/DataContext", () => ({
+  useData: () => ({
+    owners: [],
+    accounts: [],
+    programs: [],
+    sales: [],
+    entries: [],
+    origemTypes: [],
+    isLoading: true,
+  }),
+}));
+
+const mockData: KpiData = {
   generatedAt: "2026-07-29T23:00:00.000Z",
   currentMonth: "2026-07",
   months: [
@@ -59,17 +72,62 @@ const mockData = {
       frictionPerPass: null,
     },
   ],
+  daily: [
+    {
+      day: "2026-07-29",
+      label: "29/07",
+      prePrTotal: 7,
+      prePrPass: 6,
+      prePrFail: 1,
+      prePrPassRate: 85.7,
+      ruleFails: 3,
+      healed: 1,
+      sessions: 2,
+      merges: 1,
+      friction: 0.5,
+    },
+  ],
+  prs: [
+    {
+      number: 370,
+      title: "feat(process): otimização do workflow",
+      type: "feat",
+      date: "2026-07-29",
+      tokens: 700,
+      benefit: "Nova capacidade entregue e validada",
+      impact: "Nova alavanca de uso/negócio",
+    },
+  ],
+  repo: {
+    components: 82,
+    pages: 16,
+    libs: 17,
+    scripts: 103,
+    testFiles: 179,
+    skills: 26,
+    rules: 41,
+    events: 1203,
+    qualityNotes: 460,
+  },
+  summary: {
+    merges: 5,
+    prs: 2,
+    sessions: 8,
+    violations: 12,
+    healed: 4,
+    prePrPassRate: 85.7,
+  },
 };
 
 describe("KPIDashboard", () => {
-  it("renders page title", () => {
+  it("renders page title (Datadog interno)", () => {
     render(<KPIDashboard data={mockData} />);
-    expect(screen.getByText(/KPIs de Processo/i)).toBeDefined();
+    expect(screen.getByText(/Datadog interno/i)).toBeDefined();
   });
 
   it("shows generated timestamp", () => {
     render(<KPIDashboard data={mockData} />);
-    expect(screen.getByText(/Última atualização.*2026/)).toBeDefined();
+    expect(screen.getByText(/atualizado em.*2026/)).toBeDefined();
   });
 
   it("renders month selector", () => {
@@ -77,7 +135,7 @@ describe("KPIDashboard", () => {
     expect(screen.getByRole("combobox")).toBeDefined();
   });
 
-  it("renders KPI cards with values", () => {
+  it("renders KPI cards with monthly values", () => {
     render(<KPIDashboard data={mockData} />);
     expect(screen.getAllByText("85.7%").length).toBeGreaterThanOrEqual(1);
     expect(screen.getAllByText("90%").length).toBeGreaterThanOrEqual(1);
@@ -87,8 +145,7 @@ describe("KPIDashboard", () => {
 
   it("renders tables with data", () => {
     render(<KPIDashboard data={mockData} />);
-    const months = screen.getAllByText("2026-07");
-    expect(months.length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText("2026-07").length).toBeGreaterThanOrEqual(1);
     expect(screen.getAllByText("2026-06").length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText("1.5h")).toBeDefined();
     expect(screen.getByText("2.1h")).toBeDefined();
@@ -100,5 +157,17 @@ describe("KPIDashboard", () => {
     expect(screen.getByText(/Uso de Fallback/i)).toBeDefined();
     expect(screen.getByText("33.3%")).toBeDefined();
     expect(screen.getAllByText("model/fallback").length).toBeGreaterThanOrEqual(1);
+  });
+
+  it("renders entregas recentes (PrsPanel)", () => {
+    render(<KPIDashboard data={mockData} />);
+    expect(screen.getByText("O que foi entregue")).toBeDefined();
+    expect(screen.getByText("#370")).toBeDefined();
+  });
+
+  it("renders radar diário (ProcessDailySection)", () => {
+    render(<KPIDashboard data={mockData} />);
+    expect(screen.getByText("Radar do workflow")).toBeDefined();
+    expect(screen.getAllByText(/hoje: 7 pre-pr · 1 merges/).length).toBeGreaterThanOrEqual(1);
   });
 });

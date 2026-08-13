@@ -1,38 +1,18 @@
-import { useState } from "react";
-import KPICard from "./KPICard";
-import KPIChart from "./KPIChart";
-import KPITable from "./KPITable";
+import { useMemo, useState } from "react";
 import KPIMonthSelector from "./KPIMonthSelector";
-import LLMRouterKPISection, { type RouterMonthlyKPI } from "./LLMRouterKPISection";
 import GateEfficiencySection from "./GateEfficiencySection";
+import LLMRouterKPISection, { type RouterMonthlyKPI } from "./LLMRouterKPISection";
+import { BusinessPanel } from "./kpi/BusinessPanel";
+import { ProcessDailySection } from "./kpi/ProcessDailySection";
+import { MonthlySection } from "./kpi/MonthlySection";
+import { PrsPanel } from "./kpi/PrsPanel";
+import { useData } from "@/contexts/DataContext";
+import { computeDashboardMetrics } from "@/lib/metrics";
+import { computeDailyBusinessSeries } from "@/lib/businessSeries";
+import { cn } from "@/lib/utils";
+import type { KpiData } from "@/types/kpi";
 
-export interface MonthlyKPI {
-  [key: string]: unknown;
-  month: string;
-  prePrPassRate: number;
-  prePrTotal: number;
-  prePrPass: number;
-  prePrFail: number;
-  testCoverageLibs: number | null;
-  testCoverageComponents: number | null;
-  gateActivations: { intent: number; twins: number; auth: number };
-  avgOutcomeGrade: number | null;
-  topViolations: Array<{ rule: string; count: number }>;
-  healedByRule: Record<string, number>;
-  gateBlockedByRule: Record<string, number>;
-  avgCycleTimeHours: number | null;
-  branchesMerged: number;
-  violationsCaught: number;
-  healedRate: number | null;
-  frictionPerPass: number | null;
-  llmRouter?: RouterMonthlyKPI;
-}
-
-export interface KpiData {
-  generatedAt: string;
-  currentMonth: string;
-  months: MonthlyKPI[];
-}
+const MAX_CPF_PER_OWNER = 22;
 
 const LEGACY_ROUTER_KPI: RouterMonthlyKPI = {
   resolved: 0,
@@ -46,117 +26,97 @@ const LEGACY_ROUTER_KPI: RouterMonthlyKPI = {
   skillsByModel: [],
 };
 
-function calcDelta(current: number, previous: number | null): number | null {
-  if (previous === null || previous === 0) return null;
-  return Math.round(((current - previous) / previous) * 100);
+/** Chips de status "ao vivo" (resumo 30d + hoje) — leitura rápida do radar. */
+function LiveChips({ kpi }: { kpi: KpiData }) {
+  const today = kpi.daily[kpi.daily.length - 1];
+  const s = kpi.summary;
+  const chips: Array<{ label: string; value: string; warn?: boolean }> = [
+    ...(today
+      ? [
+          {
+            label: "hoje",
+            value: `${today.prePrTotal} pre-pr · ${today.merges} merges`,
+            warn: today.ruleFails > 10,
+          },
+        ]
+      : []),
+    { label: "30d taxa pre-pr", value: s.prePrPassRate !== null ? `${s.prePrPassRate}%` : "—" },
+    { label: "30d violações", value: String(s.violations), warn: s.violations > 0 },
+    { label: "30d auto-correções", value: String(s.healed) },
+    { label: "30d merges", value: String(s.merges) },
+    { label: "30d sessões", value: String(s.sessions) },
+  ];
+
+  return (
+    <div className="flex flex-wrap gap-2">
+      {chips.map((c) => (
+        <span
+          key={c.label}
+          className={cn(
+            "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-semibold",
+            c.warn
+              ? "border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-300"
+              : "border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300",
+          )}
+        >
+          <span
+            className={cn("h-1.5 w-1.5 rounded-full", c.warn ? "bg-amber-500" : "bg-emerald-500")}
+          />
+          {c.label}: {c.value}
+        </span>
+      ))}
+    </div>
+  );
 }
 
+/**
+ * KPIDashboard — "Datadog interno": painel consolidado do projeto.
+ * 1) Produto & Negócio (ao vivo) · 2) Radar diário do processo ·
+ * 3) Entregas recentes · 4) Evolução mensal + eficiência de gates + router.
+ */
 export default function KPIDashboard({ data }: { data: KpiData }) {
+  const { owners, accounts, sales, entries, isLoading } = useData();
   const [selectedMonth, setSelectedMonth] = useState(data.currentMonth);
   const current =
     data.months.find((m) => m.month === selectedMonth) ?? data.months[data.months.length - 1];
   const previous = data.months.length > 1 ? data.months[data.months.length - 2] : null;
 
+  const metrics = useMemo(
+    () => computeDashboardMetrics(accounts, sales, entries, owners, MAX_CPF_PER_OWNER),
+    [accounts, sales, entries, owners],
+  );
+  const dailyBusiness = useMemo(
+    () => computeDailyBusinessSeries(sales, entries, 14),
+    [sales, entries],
+  );
+
   return (
-    <div className="space-y-6 p-6 max-w-7xl mx-auto">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold font-display">📊 KPIs de Processo</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Última atualização: {new Date(data.generatedAt).toLocaleString("pt-BR")}
-          </p>
+    <div className="mx-auto max-w-7xl space-y-8 p-6">
+      <header className="flex flex-col gap-4">
+        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+          <div>
+            <h1 className="font-display text-2xl font-bold">📊 Datadog interno</h1>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Processo · Produto · Negócio — atualizado em{" "}
+              {new Date(data.generatedAt).toLocaleString("pt-BR")} (nightly automático)
+            </p>
+          </div>
+          <KPIMonthSelector
+            months={data.months}
+            selected={selectedMonth}
+            onChange={setSelectedMonth}
+          />
         </div>
-        <KPIMonthSelector
-          months={data.months}
-          selected={selectedMonth}
-          onChange={setSelectedMonth}
-        />
-      </div>
+        <LiveChips kpi={data} />
+      </header>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <KPICard
-          label="Taxa Pre-Pr"
-          value={`${current.prePrPassRate}%`}
-          delta={calcDelta(current.prePrPassRate, previous?.prePrPassRate ?? null)}
-          description={`${current.prePrPass} pass / ${current.prePrFail} fail`}
-        />
-        <KPICard
-          label="Cobertura Libs"
-          value={current.testCoverageLibs !== null ? `${current.testCoverageLibs}%` : "—"}
-          delta={calcDelta(current.testCoverageLibs ?? 0, previous?.testCoverageLibs ?? null)}
-        />
-        <KPICard
-          label="Cobertura Componentes"
-          value={
-            current.testCoverageComponents !== null ? `${current.testCoverageComponents}%` : "—"
-          }
-          delta={calcDelta(
-            current.testCoverageComponents ?? 0,
-            previous?.testCoverageComponents ?? null,
-          )}
-        />
-        <KPICard
-          label="Outcome Grade"
-          value={current.avgOutcomeGrade !== null ? `${current.avgOutcomeGrade}%` : "—"}
-          delta={calcDelta(current.avgOutcomeGrade ?? 0, previous?.avgOutcomeGrade ?? null)}
-        />
-      </div>
+      {!isLoading && <BusinessPanel metrics={metrics} daily={dailyBusiness} />}
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <KPIChart
-          title="📈 Taxa de Aprovação (6 meses)"
-          data={data.months}
-          dataKey="prePrPassRate"
-          type="bar"
-          unit="%"
-        />
-        <KPIChart
-          title="📈 Cobertura de Testes (6 meses)"
-          data={data.months}
-          dataKey={["testCoverageLibs", "testCoverageComponents"]}
-          type="line"
-          unit="%"
-          labels={["Libs", "Componentes"]}
-        />
-      </div>
+      <ProcessDailySection daily={data.daily} />
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <KPIChart
-          title="🎯 Outcome Grade (6 meses)"
-          data={data.months}
-          dataKey="avgOutcomeGrade"
-          type="line"
-          unit="%"
-        />
-        <KPIChart
-          title="🔐 Ativação de Gates (6 meses)"
-          data={data.months}
-          dataKey={["gateActivations.intent", "gateActivations.twins", "gateActivations.auth"]}
-          type="bar"
-          labels={["INTENT", "TWINS", "AUTH"]}
-        />
-      </div>
+      <PrsPanel prs={data.prs} />
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <KPITable
-          title="⏱️ Tempo de Ciclo"
-          headers={["Mês", "Média (horas)", "Branches"]}
-          rows={data.months.map((m) => [
-            m.month,
-            m.avgCycleTimeHours !== null ? `${String(m.avgCycleTimeHours)}h` : "—",
-            String(m.branchesMerged),
-          ])}
-        />
-        <KPITable
-          title="📈 Evolução da Taxa Pre-Pr"
-          headers={["Mês", "Taxa", "Pass/Fail"]}
-          rows={data.months.map((m) => [
-            m.month,
-            `${m.prePrPassRate}%`,
-            `${m.prePrPass}/${m.prePrFail}`,
-          ])}
-        />
-      </div>
+      <MonthlySection months={data.months} current={current} previous={previous} />
 
       <GateEfficiencySection
         violationsCaught={current.violationsCaught}

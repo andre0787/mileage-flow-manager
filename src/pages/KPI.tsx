@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import KPIDashboard, { type KpiData } from "@/components/KPIDashboard";
+import KPIDashboard from "@/components/KPIDashboard";
+import type { KpiData } from "@/types/kpi";
 
 export default function KPI() {
   const [data, setData] = useState<KpiData | null>(null);
@@ -42,8 +43,10 @@ export default function KPI() {
           </h2>
           <p className="text-muted-foreground text-sm">
             Execute{" "}
-            <code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">npm run kpi</code> no
-            terminal para gerar os KPIs do mês.
+            <code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">
+              npm run data:refresh
+            </code>{" "}
+            no terminal (ou aguarde o nightly) para gerar os KPIs diários e mensais.
           </p>
         </div>
       </div>

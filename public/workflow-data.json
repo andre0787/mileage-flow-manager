@@ -1,0 +1,256 @@
+{
+  "generatedAt": "2026-08-13T02:54:21.956Z",
+  "dataDate": "2026-08-13",
+  "kpiStats": [
+    {
+      "value": 1201,
+      "label": "eventos registrados",
+      "sub": "docs/tracking/events.jsonl"
+    },
+    {
+      "value": 460,
+      "label": "notas de qualidade",
+      "sub": "docs/tracking/quality.jsonl"
+    },
+    {
+      "value": 41,
+      "label": "regras de validação",
+      "sub": "auto-executadas no pre-pr"
+    },
+    {
+      "value": 179,
+      "label": "arquivos de teste",
+      "sub": "tests/ + tests/unit/"
+    },
+    {
+      "value": 68,
+      "label": "auto-correções (healed)",
+      "sub": "desde o início"
+    },
+    {
+      "value": 38,
+      "label": "branches com gates de evidência",
+      "sub": "coding + code-review por subagente"
+    }
+  ],
+  "eventTypes": [
+    {
+      "name": "session:start",
+      "n": 196,
+      "color": "#3b82f6"
+    },
+    {
+      "name": "pre-pr",
+      "n": 365,
+      "color": "#8b5cf6"
+    },
+    {
+      "name": "rule:fail",
+      "n": 405,
+      "color": "#ef4444"
+    },
+    {
+      "name": "healed",
+      "n": 68,
+      "color": "#10b981"
+    },
+    {
+      "name": "llm.route.resolved",
+      "n": 39,
+      "color": "#14b8a6"
+    },
+    {
+      "name": "code-review:done",
+      "n": 41,
+      "color": "#6366f1"
+    },
+    {
+      "name": "coding:done",
+      "n": 40,
+      "color": "#22c55e"
+    },
+    {
+      "name": "session:end",
+      "n": 15,
+      "color": "#f59e0b"
+    },
+    {
+      "name": "llm.route.completed",
+      "n": 10,
+      "color": "#0ea5e9"
+    },
+    {
+      "name": "gate",
+      "n": 8,
+      "color": "#f43f5e"
+    },
+    {
+      "name": "pr:create",
+      "n": 3,
+      "color": "#f97316"
+    },
+    {
+      "name": "pr:merge",
+      "n": 6,
+      "color": "#16a34a"
+    },
+    {
+      "name": "gate:blocked",
+      "n": 1,
+      "color": "#b91c1c"
+    }
+  ],
+  "grades": [
+    {
+      "name": "100% — excelente",
+      "n": 310,
+      "color": "#10b981"
+    },
+    {
+      "name": "80% — aprovado",
+      "n": 141,
+      "color": "#84cc16"
+    },
+    {
+      "name": "abaixo de 80%",
+      "n": 9,
+      "color": "#ef4444"
+    }
+  ],
+  "recentTimeline": [
+    {
+      "t": "2026-08-13 02:52:37",
+      "d": "session:start",
+      "desc": "feature: Datadog interno: abas KPI (processo diario 14d + produto/negocio ao vivo + entregas por PR) e Workflow (telemetria real + visao geral) com data:refresh + nightly"
+    },
+    {
+      "t": "2026-08-13 02:22:28",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-13 02:22:14",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-13 02:20:25",
+      "d": "session:start",
+      "desc": "feature: Otimizacao do workflow: tail-read da telemetria + skills pre-pr-triage e report-consolidation"
+    },
+    {
+      "t": "2026-08-13 02:18:29",
+      "d": "rule:fail",
+      "desc": "rule-26-session-started falhou"
+    },
+    {
+      "t": "2026-08-13 02:18:29",
+      "d": "rule:fail",
+      "desc": "rule-21-feedback-review falhou"
+    },
+    {
+      "t": "2026-08-13 02:18:29",
+      "d": "rule:fail",
+      "desc": "rule-03-handoff-completeness falhou"
+    },
+    {
+      "t": "2026-08-13 02:18:09",
+      "d": "code-review:done",
+      "desc": "Review aprovado: 1 fix critico (backfill --date com fallback full-read) + 3 testes novos"
+    }
+  ],
+  "gateEfficiency": {
+    "ruleFails": 405,
+    "healed": 68,
+    "healedRate": 16.8,
+    "prePrTotal": 365,
+    "prePrPass": 269,
+    "prePrPassRate": 73.7,
+    "gateBlocked": 1,
+    "topViolations": [
+      {
+        "rule": "rule-10-clean",
+        "count": 187,
+        "hint": "git status ZERO antes de PR — artefatos gerados não commitados"
+      },
+      {
+        "rule": "rule-26-session-started",
+        "count": 42,
+        "hint": "timestamp de sessão ausente — npm run session:start"
+      },
+      {
+        "rule": "rule-scope",
+        "count": 32,
+        "hint": "escopo do diff fora da categoria da branch"
+      },
+      {
+        "rule": "rule-38-code-review-gate",
+        "count": 23,
+        "hint": "faltou evento code-review:done por subagente na branch"
+      },
+      {
+        "rule": "rule-17-new-docs-valid",
+        "count": 21,
+        "hint": "novo doc criado sem validar referências no MAP.md"
+      }
+    ]
+  },
+  "lastPrs": [
+    {
+      "number": 370,
+      "title": "feat(process): otimização do workflow — tail-read da telemetria (−97% tokens por pre-pr) + subagentes pre-pr-triage e report-consolidation",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 767,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 369,
+      "title": "feat(process): Detalhamento por item ao nível de PR (título real + custo agregado) + relatório consolidado por PR (report:consolidate)",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 1574,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 368,
+      "title": "feat(ui): auditoria dark completa — input base translúcido nos forms, autofill protegido no CI, verify:dark nos 2 temas + dialogs",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 1033,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 367,
+      "title": "feat(ui): filtros translúcidos no dark mode + autofill legível + verificação visual no browser (verify:dark)",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 1111,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 366,
+      "title": "feat(process): Detalhamento por item como slide próprio do deck + migração de todos os relatórios legados para o modelo executivo",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 8171,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    }
+  ],
+  "overview": {
+    "components": 82,
+    "pages": 16,
+    "libs": 17,
+    "scripts": 103,
+    "testFiles": 179,
+    "skills": 26,
+    "rules": 41,
+    "events": 1201,
+    "qualityNotes": 460
+  }
+}

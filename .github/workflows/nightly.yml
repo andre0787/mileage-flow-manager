@@ -2,7 +2,7 @@ name: Nightly — Full Check
 
 on:
   schedule:
-    - cron: "0 6 * * *"   # 06:00 UTC daily
+    - cron: "0 6 * * *" # 06:00 UTC daily
   workflow_dispatch:
     inputs:
       run-e2e:
@@ -19,9 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
-      contents: write     # GITHUB_TOKEN é read-only em cron; create-pull-request precisa de push
+      contents: write # GITHUB_TOKEN é read-only em cron; create-pull-request precisa de push
       pull-requests: write # e criar o PR
-      actions: write      # aprovar o run fantasma do CI (approval gate) para destravar o auto-merge
+      actions: write # aprovar o run fantasma do CI (approval gate) para destravar o auto-merge
 
     steps:
       - uses: actions/checkout@v4
@@ -40,6 +40,9 @@ jobs:
       - name: Quality write
         run: npm run quality:write
 
+      - name: Refresh dashboard data (KPIs diários + aba Workflow)
+        run: npm run data:refresh
+
       - name: Disable pre-commit hooks (bot commit — pre-pr não roda no CI)
         run: mkdir -p /tmp/no-hooks && git config core.hooksPath /tmp/no-hooks
 
@@ -53,15 +56,19 @@ jobs:
         continue-on-error: true
         uses: peter-evans/create-pull-request@v7
         with:
-          commit-message: "chore: atualiza QUALITY.md (nightly)"
-          title: "📊 Atualização noturna QUALITY.md"
+          commit-message: "chore: atualiza QUALITY.md + dados de telemetria (nightly)"
+          title: "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)"
           body: |
-            Atualização automática das métricas de qualidade.
-            Gerado pelo workflow nightly (jobs paralelos check + e2e).
+            Atualização automática das métricas de qualidade e dos dados de
+            telemetria consumidos pelas abas KPI (Datadog interno) e Workflow.
+            Gerado pelo workflow nightly.
           branch: chore/quality-nightly-update
           delete-branch: true
           labels: automated, docs
-          add-paths: QUALITY.md
+          add-paths: |
+            QUALITY.md
+            public/kpi-data.json
+            public/workflow-data.json
 
       # ── Destravar merge automático do PR do bot ───────────────────────
       # O PR criado por GITHUB_TOKEN gera um run de CI que nasce

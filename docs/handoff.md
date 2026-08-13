@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `feat/workflow-otimizacao-subagentes`
-- **Último commit:** `1054d2e — feat(process): otimizacao do workflow — readTodayEvents/Quality por tail (fallback full-read p/ backfill), skills pre-pr-triage e report-consolidation, manifest 17 arquivos`
+- **Branch:** `main`
+- **Último commit:** `7f0f19c — Merge pull request #370 from andre0787/feat/workflow-otimizacao-subagentes`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -45,11 +45,11 @@ Nenhum PR aberto.
 
 ## 🎯 Sessão Atual
 **Categoria:** feature
-**Objetivo:** Otimizacao do workflow: tail-read da telemetria + skills pre-pr-triage e report-consolidation
+**Objetivo:** Datadog interno: abas KPI (processo diario 14d + produto/negocio ao vivo + entregas por PR) e Workflow (telemetria real + visao geral) com data:refresh + nightly
 **Status:** in_progress
-**Iniciada em:** 2026-08-13T02:20:25.331Z
-**Branch:** `feat/workflow-otimizacao-subagentes`
-**Último commit:** 1054d2e — feat(process): otimizacao do workflow — readTodayEvents/Quality por tail (fallback full-read p/ backfill), skills pre-pr-triage e report-consolidation, manifest 17 arquivos
+**Iniciada em:** 2026-08-13T02:52:37.575Z
+**Branch:** `feat/datadog-interno-kpis`
+**Último commit:** 7f0f19c — Merge pull request #370 from andre0787/feat/workflow-otimizacao-subagentes
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
