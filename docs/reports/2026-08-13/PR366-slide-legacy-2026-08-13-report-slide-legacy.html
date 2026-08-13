@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>PR354 — carrinho transferencia calc</title>
+  <title>report-slide-legacy — report slide legacy</title>
   <style>
     :root{
       --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;
@@ -156,7 +156,7 @@
 <body>
   <div class="nav" id="deckNav">
     <button id="prevBtn" title="Anterior (←)">←</button>
-    <span class="count" id="slideCount">1/4</span>
+    <span class="count" id="slideCount">1/5</span>
     <button id="nextBtn" title="Próxima (→)">→</button>
     <button id="fsBtn" title="Tela cheia (F)">⛶</button>
     <button id="printBtn" title="Imprimir / PDF (P)">⎙</button>
@@ -168,19 +168,19 @@
     <section class="slide" id="s1">
       <div class="hero">
         <div class="hero-top">
-          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">PR354</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health red" style="color:#f87171">● Precisa atenção</span></div>
-          <div class="hero-date">2026-08-12 · 21:40 · <span class="mono">HEAD</span></div>
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">report-slide-legacy</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
+          <div class="hero-date">2026-08-13 · 21:43 · <span class="mono">feat/report-slide-legacy</span></div>
         </div>
-        <h1>carrinho transferencia calc</h1>
-        <p class="hero-summary">Entrega concluída e validada — detalhes técnicos no apêndice.</p>
-        <div class="hero-meta mono">0d017e2 — style(entradas): formata updateEntry.ts com Prettier (CI format:check)</div>
+        <h1>report slide legacy</h1>
+        <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
+        <div class="hero-meta mono">e41d11d — feat(process): Detalhamento por item como slide proprio do deck (contador de slides corrigido) + migracao dos 15 relatorios legados e recentes para o modelo executivo com a secao</div>
       </div>
       
     <div class="kpi-grid">
       <div class="kpi">
         <div class="kpi-value">0</div>
         <div class="kpi-label">entregas em produção</div>
-        <div class="kpi-sub">4 implementações · 4 reviews</div>
+        <div class="kpi-sub">3 implementações · 3 reviews</div>
       </div>
       <div class="kpi">
         <div class="kpi-value">—</div>
@@ -188,12 +188,12 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/28</div>
+        <div class="kpi-value">0/6</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
-        <div class="kpi-sub">22 violações · 7 auto-corrigidas</div>
+        <div class="kpi-sub">0 violações · 2 auto-corrigidas</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value green">90</div>
+        <div class="kpi-value green">100</div>
         <div class="kpi-label">outcome grade</div>
         <div class="kpi-sub">médio risco da mudança</div>
       </div>
@@ -201,18 +201,38 @@
       <div class="bluf">
         <div class="bluf-col">
           <div class="bluf-label">Decisão & entregas</div>
-          <p>Detalhes no apêndice técnico.</p>
+          <p>Nova capacidade entregue e validada para o produto.</p>
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Impacto esperado</div>
-          <p>Detalhes no apêndice técnico.</p>
+          <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Riscos & trade-offs</div>
-          <p>Médio risco de mudança · outcome grade = 90 · lead time —.</p>
+          <p>Médio risco de mudança · outcome grade = 100 · lead time —.</p>
         </div>
       </div>
-    </section>
+    </section><section class="slide" id="s2">
+        <div class="slide-head">
+          <span class="slide-kicker">Impacto da sessão</span>
+          <h2>O que isso significa para o negócio</h2>
+        </div>
+        <div class="impact-grid">
+          <div class="impact-card blue">
+                <div class="impact-icon">🎯</div>
+                <h3>Impacto de Produto</h3>
+                <p>Nova capacidade entregue e validada para o produto.</p>
+              </div><div class="impact-card gold">
+                <div class="impact-icon">🏢</div>
+                <h3>Impacto de Negócio</h3>
+                <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+              </div><div class="impact-card teal">
+                <div class="impact-icon">🌊</div>
+                <h3>Impacto de Processo</h3>
+                <p>Fluxo completo seguido: sessão → implementação → code review → pré-PR → PR. Detalhes nas métricas automáticas.</p>
+              </div>
+        </div>
+      </section>
     <section class="slide" id="s3">
       <div class="slide-head">
         <span class="slide-kicker">Valor por entrega</span>
@@ -228,53 +248,11 @@
       <th style="width:16%">Custo Token</th>
     </tr>
     <tr>
-      <td><strong>0d017e2</strong></td>
-      <td>style(entradas): formata updateEntry.ts com Prettier (CI format:check)</td>
-      <td>Ajuste de processo validado</td>
-      <td>Processo mais confiável e audável</td>
-      <td><code>~218</code></td>
-    </tr>
-<tr>
-      <td><strong>0720264</strong></td>
-      <td>chore: normalize report prefix to PR354</td>
-      <td>Ajuste de processo validado</td>
-      <td>Processo mais confiável e audável</td>
-      <td><code>—</code></td>
-    </tr>
-<tr>
-      <td><strong>2bf76d2</strong></td>
-      <td>chore(pre-pr): registra validação fix codereview</td>
-      <td>Ajuste de processo validado</td>
-      <td>Processo mais confiável e audável</td>
-      <td><code>~59</code></td>
-    </tr>
-<tr>
-      <td><strong>0edd198</strong></td>
-      <td>chore(pre-pr): ajusta MAP.md (remove spec de outra branch) + .gitignore skills</td>
-      <td>Ajuste de processo validado</td>
-      <td>Processo mais confiável e audável</td>
-      <td><code>~154</code></td>
-    </tr>
-<tr>
-      <td><strong>6c769f6</strong></td>
-      <td>refactor(entradas): extrai helper applyBalance para manter updateEntry ≤150 linhas (rule-41)</td>
-      <td>Código mais simples — menor custo de manutenção</td>
-      <td>Menos custo em mudanças futuras</td>
-      <td><code>~715</code></td>
-    </tr>
-<tr>
-      <td><strong>ed08688</strong></td>
-      <td>fix(codereview): corrige 10 bugs — saldos de transferência, split recorrência, CSV, fuso e UI (#356 #357)</td>
-      <td>Comportamento corrigido e validado — menos erro e retrabalho</td>
-      <td>Menos risco de erro para o usuário e a operação</td>
-      <td><code>~308</code></td>
-    </tr>
-<tr>
-      <td><strong>549c6df</strong></td>
-      <td>chore(verify-docs): ignora diretório .agents (skills) na checagem de órfãos</td>
-      <td>Ajuste de processo validado</td>
-      <td>Processo mais confiável e audável</td>
-      <td><code>~3</code></td>
+      <td><strong>e41d11d</strong></td>
+      <td>feat(process): Detalhamento por item como slide proprio do deck (contador de slides corrigido) + migracao dos 15 relatorios legados e recentes para o modelo executivo com a secao</td>
+      <td>Nova capacidade entregue e validada</td>
+      <td>Nova alavanca de uso/negócio</td>
+      <td><code>~7728</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits.</p>
@@ -290,25 +268,25 @@
         <div class="tl-item session:start">
               <div class="tl-dot"></div>
               <div class="tl-body">
-                <div class="tl-time">03:22</div>
+                <div class="tl-time">00:19</div>
                 <div class="tl-label">Início da sessão</div>
               </div>
             </div><div class="tl-item coding:done">
               <div class="tl-dot"></div>
               <div class="tl-body">
-                <div class="tl-time">00:41</div>
+                <div class="tl-time">00:02</div>
                 <div class="tl-label">Implementação concluída</div>
               </div>
             </div><div class="tl-item code-review:done">
               <div class="tl-dot"></div>
               <div class="tl-body">
-                <div class="tl-time">00:41</div>
+                <div class="tl-time">00:02</div>
                 <div class="tl-label">Code review aprovado</div>
               </div>
             </div><div class="tl-item pre-pr">
               <div class="tl-dot"></div>
               <div class="tl-body">
-                <div class="tl-time">01:14</div>
+                <div class="tl-time">00:04</div>
                 <div class="tl-label">Validação pré-PR</div>
               </div>
             </div>
@@ -316,9 +294,9 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">28</span><span class="stat-l">rodadas de validação pré-PR</span></div>
-            <div class="stat"><span class="stat-v">22</span><span class="stat-l">violações de regra encontradas</span></div>
-            <div class="stat"><span class="stat-v green">7</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
+            <div class="stat"><span class="stat-v">6</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">0</span><span class="stat-l">violações de regra encontradas</span></div>
+            <div class="stat"><span class="stat-v green">2</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
           </div>
         </div>
@@ -333,10 +311,7 @@
         <div class="ap-card">
           <h3>✅ Checklist de revisão</h3>
           <ul class="checks">
-            <li>🖼️ Renderização verificada em desktop e mobile?</li>
-<li>🔌 Hooks testados em tela real?</li>
-<li>📦 Biblioteca testada com casos de borda?</li>
-<li>🧪 Testes manuais realizados?</li>
+            <li>🧪 Testes manuais realizados?</li>
 <li>📋 Regras de validação passam? (npm run pre-pr)</li>
           </ul>
         </div>
@@ -344,7 +319,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 128 remoções — 2084 linhas tocadas</td><td>✨ 1607 adições — 26 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 2540 remoções — 11754 linhas tocadas</td><td>✨ 7818 adições — 27 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -352,185 +327,186 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>26</td></tr>
-            <tr><td>Adições</td><td>+1607</td></tr>
-            <tr><td>Remoções</td><td>-128</td></tr>
-            <tr><td>Tokens estimados</td><td>~1563</td></tr>
+            <tr><td>Arquivos alterados</td><td>27</td></tr>
+            <tr><td>Adições</td><td>+7818</td></tr>
+            <tr><td>Remoções</td><td>-2540</td></tr>
+            <tr><td>Tokens estimados</td><td>~8816</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:77">+1205 add</div>
-        <div class="del" style="flex:6">-96 del</div>
-        <div class="overhead" style="flex:17">~262 ctx</div>
+        <div class="add" style="flex:67">+5864 add</div>
+        <div class="del" style="flex:22">-1905 del</div>
+        <div class="overhead" style="flex:11">~1047 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+1205</td><td>77%</td></tr>
-      <tr><td>Remoções</td><td>-96</td><td>6%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~262</td><td>17%</td></tr>
-      <tr><th>Total</th><th>~1563</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+5864</td><td>67%</td></tr>
+      <tr><td>Remoções</td><td>-1905</td><td>22%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~1047</td><td>11%</td></tr>
+      <tr><th>Total</th><th>~8816</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
           <h3>📁 Arquivos</h3>
           <table>
             <tr><th>Status</th><th>Arquivo</th></tr>
-            <tr><td>M</td><td>.gitignore</td></tr>
-<tr><td>M</td><td>docs/RADAR.md</td></tr>
+            <tr><td>M</td><td>docs/RADAR.md</td></tr>
 <tr><td>M</td><td>docs/handoff.md</td></tr>
-<tr><td>A</td><td>docs/reports/2026-08-12/PR354-2026-08-12-carrinho-transferencia-calc.html</td></tr>
-<tr><td>A</td><td>docs/reports/2026-08-12/PR354-design-2026-08-12-apple-design.html</td></tr>
-<tr><td>A</td><td>docs/reports/2026-08-12/PR354-design-hig-2026-08-12-refactor-apple-design-hig.html</td></tr>
-<tr><td>A</td><td>docs/reports/2026-08-12/PR354-transferencia-calc-2026-08-12-carrinho-transferencia-calc.html</td></tr>
-<tr><td>A</td><td>docs/reports/2026-08-12/codereview-geral-2026-08-12.md</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR348-2026-08-12-refactor-blueprint-v4-p1-alerts.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR349-2026-08-12-refactor-blueprint-v4-p1-owners.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR351-2026-08-12-refactor-blueprint-v4-p1-origem-types.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR352-2026-08-12-fuso-308-datas.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR352-2026-08-12-main.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR353-2026-08-12-carrinho-transferencia-calc.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR354-2026-08-12-carrinho-transferencia-calc.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR354-design-2026-08-12-apple-design.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR354-design-hig-2026-08-12-refactor-apple-design-hig.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR354-transferencia-calc-2026-08-12-carrinho-transferencia-calc.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR356-kpis-reais-2026-08-12-workflow-kpis-reais.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR357-2026-08-12-main.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR358-rule10-pre-push-2026-08-12-prepr-rule10-pre-push.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR359-search-fields-2026-08-12-dark-search-fields.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR360-ui-audit-2026-08-12-dark-ui-audit.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR361-report-2026-08-12-executive-report.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR362-optimization-2026-08-12-context-optimization.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR363-efficient-agents-2026-08-12-token-efficient-agents.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/dark-secondary-inputs-2026-08-12-dark-secondary-inputs.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-13/PR364-secondary-inputs-2026-08-13-dark-secondary-inputs.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-13/PR365-detalhamento-2026-08-13-report-detalhamento.html</td></tr>
+<tr><td>M</td><td>docs/tracking/archive/events-2026-08.jsonl</td></tr>
 <tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
-<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
-<tr><td>M</td><td>public/kpi-data.json</td></tr>
-<tr><td>M</td><td>scripts/verify-docs.mjs</td></tr>
-<tr><td>M</td><td>src/components/EntryForm.tsx</td></tr>
-<tr><td>M</td><td>src/components/SaleForm.tsx</td></tr>
-<tr><td>M</td><td>src/contexts/DataContext.tsx</td></tr>
-<tr><td>M</td><td>src/features/contas/recalcAccount.ts</td></tr>
-<tr><td>M</td><td>src/features/entradas/confirmEntry.ts</td></tr>
-<tr><td>M</td><td>src/features/entradas/updateEntry.ts</td></tr>
-<tr><td>M</td><td>src/hooks/useClientCycleAvailability.ts</td></tr>
-<tr><td>M</td><td>src/lib/metrics.ts</td></tr>
-<tr><td>M</td><td>src/pages/Contas.tsx</td></tr>
-<tr><td>M</td><td>src/pages/Entradas.tsx</td></tr>
-<tr><td>M</td><td>src/pages/Vendas.tsx</td></tr>
-<tr><td>M</td><td>tests/unit/features-contas-api.test.ts</td></tr>
-<tr><td>M</td><td>tests/unit/features-entradas-api.test.ts</td></tr>
-<tr><td>M</td><td>tests/unit/metrics.test.ts</td></tr>
+<tr><td>M</td><td>scripts/generate-report.mjs</td></tr>
+<tr><td>M</td><td>tests/unit/generate-report.test.ts</td></tr>
           </table>
         </div>
       </div>
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
-        diff --git a/.gitignore b/.gitignore
-index 66f9692..f9b37ee 100644
-<span class="del">--- a/.gitignore</span>
-<span class="add">+++ b/.gitignore</span>
-@@ -79,6 +79,11 @@ tests/fluxo-relatorio.md
- # OpenCode AI extension artifacts
- .opencode/
- 
-<span class="add">+# Skills instaladas via npx skills (apple-design, etc.)</span>
-<span class="add">+.agents/</span>
-<span class="add">+skills-lock.json</span>
-<span class="add">+.pi/skills/apple-design</span>
-<span class="add">+</span>
- # pi local config (user-specific)
- .pi/git/
- .pi/themes/
-diff --git a/docs/RADAR.md b/docs/RADAR.md
-index bfcf377..f12f301 100644
+        diff --git a/docs/RADAR.md b/docs/RADAR.md
+index 4c7121c..2169434 100644
 <span class="del">--- a/docs/RADAR.md</span>
 <span class="add">+++ b/docs/RADAR.md</span>
 @@ -1,6 +1,6 @@
  # 🔭 Radar de Vulnerabilidades
  
-<span class="del">-&gt; Atualizado em: 2026-08-11T11:30:07.816Z</span>
-<span class="add">+&gt; Atualizado em: 2026-08-12T03:22:10.801Z</span>
+<span class="del">-&gt; Atualizado em: 2026-08-13T00:19:35.940Z</span>
+<span class="add">+&gt; Atualizado em: 2026-08-13T00:41:10.972Z</span>
  
  ## ✅ Radar Limpo
  Nenhuma vulnerabilidade ativa detectada.
 diff --git a/docs/handoff.md b/docs/handoff.md
-index 700fe91..201e005 100644
+index 91967ce..12d0b33 100644
 <span class="del">--- a/docs/handoff.md</span>
 <span class="add">+++ b/docs/handoff.md</span>
-@@ -9,8 +9,8 @@
- ### 🐞 Bugs Abertos
+@@ -10,7 +10,7 @@
  Consulte as GitHub Issues para a lista atual.
  ## 🧭 Estado Atual
-<span class="del">-- **Branch:** `fix/fuso-308-datas`</span>
-<span class="del">-- **Último commit:** `0f390af — Merge pull request #348 from andre0787/refactor/blueprint-v4-p1-alerts`</span>
-<span class="add">+- **Branch:** `feat/apple-design`</span>
-<span class="add">+- **Último commit:** `ed08688 — fix(codereview): corrige 10 bugs — saldos de transferência, split recorrência, CSV, fuso e UI (#356 #357)`</span>
+ - **Branch:** `main`
+<span class="del">-- **Último commit:** `5906a41 — Merge pull request #364 from andre0787/fix/dark-secondary-inputs`</span>
+<span class="add">+- **Último commit:** `4a32889 — Merge pull request #365 from andre0787/feat/report-detalhamento`</span>
  - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
  
  ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
-@@ -45,13 +45,13 @@ Nenhum PR aberto.
- ---
- _Atualizado automaticamente por `scripts/update-handoff.mjs`_
+@@ -69,9 +69,9 @@ Continue a tarefa ativa ou selecione o próximo task-card.
+ 
  ## 🎯 Sessão Atual
-<span class="del">-**Categoria:** docs</span>
-<span class="del">-**Objetivo:** verifica output</span>
-<span class="add">+**Categoria:** refactor</span>
-<span class="add">+**Objetivo:** Redesign Apple HIG (skill apple-design) — tokens, tipografia, componentes, navegação</span>
+ **Categoria:** feature
+<span class="del">-**Objetivo:** Detalhamento por item obrigatorio em todo relatorio: derivacao automatica dos commits + rule-08 exigindo a secao + backfill dos relatorios recentes</span>
+<span class="add">+**Objetivo:** Slide proprio de Detalhamento por item no deck + migracao dos 15 relatorios legados para o modelo executivo</span>
  **Status:** in_progress
-<span class="del">-**Iniciada em:** 2026-08-10T21:06:41.671Z</span>
-<span class="add">+**Iniciada em:** 2026-08-12T03:22:10.807Z</span>
- **Branch:** `fix/carrinho-transferencia-calc`
-<span class="del">-**Último commit:** a18b8e3 — chore(pre-pr): registra validação P3-30</span>
-<span class="del">-**Docs carregados:** AGENTS.md</span>
-<span class="add">+**Último commit:** ed08688 — fix(codereview): corrige 10 bugs — saldos de transferência, split recorrência, CSV, fuso e UI (#356 #357)</span>
-<span class="add">+**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md</span>
- ## ✅ Última Sessão
- Estado atualizado automaticamente.
- ## 📌 Próxima Sessão
-diff --git a/docs/reports/2026-08-12/PR354-2026-08-12-carrinho-transferencia-calc.html b/docs/reports/2026-08-12/PR354-2026-08-12-carrinho-transferencia-calc.html
-new file mode 100644
-index 0000000..cdcd268
-<span class="del">--- /dev/null</span>
-<span class="add">+++ b/docs/reports/2026-08-12/PR354-2026-08-12-carrinho-transferencia-calc.html</span>
-@@ -0,0 +1,283 @@
-<span class="add">+&lt;!DOCTYPE html&gt;</span>
-<span class="add">+&lt;html lang=&quot;pt-BR&quot;&gt;</span>
-<span class="add">+&lt;head&gt;</span>
-<span class="add">+  &lt;meta charset=&quot;UTF-8&quot;&gt;</span>
-<span class="add">+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;</span>
-<span class="add">+  &lt;title&gt;PR354 — carrinho transferencia calc&lt;/title&gt;</span>
-<span class="add">+  &lt;style&gt;</span>
-<span class="add">+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}</span>
-<span class="add">+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}</span>
-<span class="add">+    h2{font-size:1rem;margin-top:1.5rem;color:#333}</span>
-<span class="add">+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}</span>
-<span class="add">+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}</span>
-<span class="add">+    .badge.pr{background:#dbeafe;color:#1e40af}</span>
-<span class="add">+    .badge.auto{background:#fef3c7;color:#92400e}</span>
-<span class="add">+    .badge.fix{background:#fee2e2;color:#991b1b}</span>
-<span class="add">+    .badge.feat{background:#dcfce7;color:#166534}</span>
-<span class="add">+    .badge.docs{background:#ede9fe;color:#5b21b6}</span>
-<span class="add">+    .badge.chore{background:#f3f4f6;color:#374151}</span>
-<span class="add">+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}</span>
-<span class="add">+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}</span>
-<span class="add">+    th{background:#f3f4f6;font-weight:600}</span>
-<span class="add">+    tr.add{background:#f0fdf4}</span>
-<span class="add">+    tr.del{background:#fef2f2}</span>
-<span class="add">+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}</span>
-<span class="add">+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}</span>
-<span class="add">+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}</span>
-<span class="add">+    .token-bar .add{background:#dcfce7;color:#166534}</span>
-<span class="add">+    .token-bar .del{background:#fee2e2;color:#991b1b}</span>
-<span class="add">+    .token-bar .overhead{background:#f3f4f6;color:#374151}</span>
-<span class="add">+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}</span>
-<span class="add">+    .diff .add{color:#4ade80}</span>
-<span class="add">+    .diff .del{color:#f87171}</span>
-<span class="add">+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}</span>
-<span class="add">+    .center{text-align:center}</span>
-<span class="add">+  &lt;/style&gt;</span>
-<span class="add">+&lt;/head&gt;</span>
-<span class="add">+&lt;body&gt;</span>
-<span class="add">+  &lt;h1&gt;📋 carrinho transferencia calc&lt;/h1&gt;</span>
-<span class="add">+  &lt;p class=&quot;meta&quot;&gt;2026-08-12 00:51 &amp;middot; fix/carrinho-transferencia-calc &amp;middot; 2bf76d2 — chore(pre-pr): registra validação fix codereview&lt;/p&gt;</span>
-<span class="add">+  &lt;p&gt;&lt;span class=&quot;badge pr&quot;&gt;PR #354&lt;/span&gt; &lt;span class=&quot;badge auto&quot;&gt;PR354&lt;/span&gt; &lt;span class=&quot;badge&quot; style=&quot;background:#fef3c7;color:#92400e&quot;&gt;Médio Risco&lt;/span&gt;&lt;/p&gt;</span>
-<span class="add">+</span>
-<span class="add">+  &lt;!-- Status cards --&gt;</span>
-<span class="add">+  &lt;div style=&quot;display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0&quot;&gt;</span>
-<span class="add">+    &lt;div style=&quot;flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center&quot;&gt;</span>
-<span class="add">+      &lt;div style=&quot;font-size:1.5rem;font-weight:700&quot;&gt;25&lt;/div&gt;</span>
-<span class="add">+      &lt;div style=&quot;font-size:.7rem;color:#666&quot;&gt;Arquivos&lt;/div&gt;</span>
-<span class="add">+    &lt;/div&gt;</span>
-<span class="add">+    &lt;div style=&quot;flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center&quot;&gt;</span>
-<span class="add">+      &lt;div style=&quot;font-size:1.5rem;font-weight:700;color:#166534&quot;&gt;+1324&lt;/div&gt;</span>
-<span class="add">+      &lt;div style=&quot;font-size:.7rem;color:#666&quot;&gt;Adições&lt;/div&gt;</span>
-<span class="add">+    &lt;/div&gt;</span>
-<span class="add">+    &lt;div style=&quot;flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center&quot;&gt;</span>
+<span class="del">-**Iniciada em:** 2026-08-13T00:19:35.974Z</span>
+<span class="del">-**Branch:** `feat/report-detalhamento`</span>
+<span class="del">-**Último commit:** 5906a41 — Merge pull request #364 from andre0787/fix/dark-secondary-inputs</span>
+<span class="add">+**Iniciada em:** 2026-08-13T00:41:11.007Z</span>
+<span class="add">+**Branch:** `feat/report-slide-legacy`</span>
+<span class="add">+**Último commit:** 4a32889 — Merge pull request #365 from andre0787/feat/report-detalhamento</span>
+ **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
+\ No newline at end of file
+diff --git a/docs/reports/2026-08-12/PR348-2026-08-12-refactor-blueprint-v4-p1-alerts.html b/docs/reports/2026-08-12/PR348-2026-08-12-refactor-blueprint-v4-p1-alerts.html
+index 535ca1a..09ff1f6 100644
+<span class="del">--- a/docs/reports/2026-08-12/PR348-2026-08-12-refactor-blueprint-v4-p1-alerts.html</span>
+<span class="add">+++ b/docs/reports/2026-08-12/PR348-2026-08-12-refactor-blueprint-v4-p1-alerts.html</span>
+@@ -5,126 +5,370 @@
+   &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;
+   &lt;title&gt;PR348 — refactor blueprint v4 p1 alerts&lt;/title&gt;
+   &lt;style&gt;
+<span class="del">-    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}</span>
+<span class="del">-    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}</span>
+<span class="del">-    h2{font-size:1rem;margin-top:1.5rem;color:#333}</span>
+<span class="del">-    h3{font-size:.9rem;margin-top:1.2rem;color:#555}</span>
+<span class="del">-    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}</span>
+<span class="del">-    .badge.pr{background:#dbeafe;color:#1e40af}</span>
+<span class="del">-    .badge.auto{background:#fef3c7;color:#92400e}</span>
+<span class="del">-    .badge.fix{background:#fee2e2;color:#991b1b}</span>
+<span class="del">-    .badge.feat{background:#dcfce7;color:#166534}</span>
+<span class="del">-    .badge.docs{background:#ede9fe;color:#5b21b6}</span>
+<span class="del">-    .badge.chore{background:#f3f4f6;color:#374151}</span>
+<span class="del">-    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}</span>
+<span class="del">-    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}</span>
+<span class="del">-    th{background:#f3f4f6;font-weight:600}</span>
+<span class="del">-    tr.add{background:#f0fdf4}</span>
+<span class="del">-    tr.del{background:#fef2f2}</span>
+<span class="del">-    .meta{font-size:.8rem;color:#666;margin:.5rem 0}</span>
+<span class="del">-    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}</span>
+<span class="del">-    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}</span>
+<span class="del">-    .token-bar .add{background:#dcfce7;color:#166534}</span>
+<span class="del">-    .token-bar .del{background:#fee2e2;color:#991b1b}</span>
+<span class="del">-    .token-bar .overhead{background:#f3f4f6;color:#374151}</span>
+<span class="del">-    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}</span>
+<span class="add">+    :root{</span>
+<span class="add">+      --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;</span>
+<span class="add">+      --text:#e6edf7;--muted:#8fa3c0;--blue:#3b82f6;--green:#34d399;--amber:#fbbf24;--red:#f87171;--gold:#f59e0b;--teal:#2dd4bf;</span>
+<span class="add">+    }</span>
+<span class="add">+    *{box-sizing:border-box;margin:0;padding:0}</span>
+<span class="add">+    html,body{height:100%}</span>
+<span class="add">+    body{</span>
+<span class="add">+      font-family:ui-sans-serif,system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;</span>
+<span class="add">+      background:radial-gradient(1200px 600px at 15% -10%,#12203f 0%,transparent 55%),radial-gradient(1000px 500px at 110% 20%,#0f2440 0%,transparent 50%),var(--bg);</span>
+<span class="add">+      color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;</span>
+<span class="add">+    }</span>
+<span class="add">+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}</span>
+<span class="add">+    /* ── Deck ── */</span>
+<span class="add">+    .deck{min-height:100vh;display:flex;flex-direction:column}</span>
+<span class="add">+    .slide{</span>
+<span class="add">+      flex:1 0 auto;min-height:100vh;padding:5.5rem clamp(1.25rem,5vw,4.5rem) 3.5rem;</span>
+<span class="add">+      display:flex;flex-direction:column;justify-content:center;gap:1.4rem;</span>
+<span class="add">+      max-width:1180px;margin:0 auto;width:100%;</span>
+<span class="add">+      border-bottom:1px solid var(--line);</span>
+<span class="add">+    }</span>
+<span class="add">+    .deck-mode .slide{display:none}</span>
+<span class="add">+    .deck-mode .slide.active{display:flex}</span>
+<span class="add">+    /* ── Nav deck ── */</span>
+<span class="add">+    .nav{</span>
+<span class="add">+      position:fixed;top:1rem;right:1rem;z-index:60;display:flex;gap:.4rem;align-items:center;</span>
+<span class="add">+      background:rgba(10,15,30,.85);backdrop-filter:blur(8px);border:1px solid var(--line);</span>
+<span class="add">+      border-radius:999px;padding:.35rem .5rem;box-shadow:0 8px 24px rgba(0,0,0,.45);</span>
+<span class="add">+    }</span>
+<span class="add">+    .nav button{</span>
+<span class="add">+      background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:1.05rem;</span>
+<span class="add">+      width:2.1rem;height:2.1rem;border-radius:999px;transition:all .15s;line-height:1;</span>
+<span class="add">+    }</span>
+<span class="add">+    .nav button:hover{background:var(--card2);color:var(--text)}</span>
+<span class="add">+    .nav .count{font-size:.72rem;color:var(--muted);min-width:2.6rem;text-align:center;font-variant-numeric:tabular-nums}</span>
+<span class="add">+    .nav .mode-btn{width:auto;padding:0 .7rem;font-size:.72rem;color:var(--muted)}</span>
+<span class="add">+    /* ── Hero (slide 1) ── */</span>
+<span class="add">+    .hero{display:flex;flex-direction:column;gap:.9rem}</span>
+<span class="add">+    .hero-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}</span>
+<span class="add">+    .hero-badges{display:flex;gap:.5rem;flex-wrap:wrap}</span>
+<span class="add">+    .badge{</span>
+<span class="add">+      display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .7rem;border-radius:999px;</span>
+<span class="add">+      font-size:.72rem;font-weight:700;letter-spacing:.02em;border:1px solid var(--line);color:var(--muted);</span>
+<span class="add">+    }</span>
+<span class="add">+    .badge.pr{color:#93c5fd;border-color:rgba(59,130,246,.4);background:rgba(59,130,246,.12)}</span>
+<span class="add">+    .badge.feat{color:#6ee7b7;border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.1)}</span>
+<span class="add">+    .badge.fix{color:#fca5a5;border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.1)}</span>
+<span class="add">+    .badge.docs{color:#c4b5fd;border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.1)}</span>
+<span class="add">+    .badge.chore,.badge.auto{color:#a7b8d1;border-color:var(--line);background:rgba(255,255,255,.04)}</span>
+<span class="add">+    .badge.risk{border-style:dashed}</span>
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-08-12 21:40
+      Gerado por scripts/generate-report.mjs · 2026-08-13 21:43
     </div>
   </div>
 

@@ -114,6 +114,11 @@
     @media(max-width:860px){.appendix-grid{grid-template-columns:1fr}}
     .ap-card{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}
     .ap-card h3{font-size:.92rem;font-weight:800;margin-bottom:.6rem}
+    /* ── Slide Detalhamento por item ── */
+    .detail-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.2rem;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+    .detail-scroll{max-height:56vh;overflow:auto;border-radius:.8rem}
+    .detail-scroll table{margin:0}
+    .detail-note{font-size:.72rem;color:var(--muted);opacity:.8;margin-top:.7rem}
     .checks{list-style:none;display:flex;flex-direction:column;gap:.35rem}
     .checks li{font-size:.85rem;color:var(--muted)}
     table{width:100%;border-collapse:collapse;font-size:.8rem}
@@ -140,6 +145,8 @@
       .hero h1{color:#0b1220}
       .hero-summary,.hero-date,.hero-meta,.kpi-label,.kpi-sub,.bluf-col p,.impact-card p,.tl-time,.tl-label,.stat-l,.checks li,td,th,.foot{color:#334155}
       .kpi,.impact-card,.bluf-col,.ap-card,.stat{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-card{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-scroll{max-height:none;overflow:visible}
       .bluf-col,.checks li{color:#334155}
       .diff{background:#f8fafc;color:#0f172a;border-color:#e2e8f0}
       .timeline::before{background:linear-gradient(180deg,#3b82f6,#16a34a)}
@@ -149,7 +156,7 @@
 <body>
   <div class="nav" id="deckNav">
     <button id="prevBtn" title="Anterior (←)">←</button>
-    <span class="count" id="slideCount">1/3</span>
+    <span class="count" id="slideCount">1/4</span>
     <button id="nextBtn" title="Próxima (→)">→</button>
     <button id="fsBtn" title="Tela cheia (F)">⛶</button>
     <button id="printBtn" title="Imprimir / PDF (P)">⎙</button>
@@ -161,12 +168,12 @@
     <section class="slide" id="s1">
       <div class="hero">
         <div class="hero-top">
-          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">dark-secondary-inputs</span> <span class="badge risk" style="color:#34d399">Baixo risco</span> <span class="badge health amber" style="color:#fbbf24">● Sob atenção</span></div>
-          <div class="hero-date">2026-08-12 · 20:58 · <span class="mono">fix/dark-secondary-inputs</span></div>
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">dark-secondary-inputs</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health amber" style="color:#fbbf24">● Sob atenção</span></div>
+          <div class="hero-date">2026-08-12 · 21:40 · <span class="mono">HEAD</span></div>
         </div>
         <h1>dark secondary inputs</h1>
-        <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">5ed2922 — Merge pull request #363 from andre0787/feat/token-efficient-agents</div>
+        <p class="hero-summary">Entrega concluída e validada — detalhes técnicos no apêndice.</p>
+        <div class="hero-meta mono">89434f2 — chore: normalize report prefix to PR364</div>
       </div>
       
     <div class="kpi-grid">
@@ -188,45 +195,57 @@
       <div class="kpi">
         <div class="kpi-value green">92</div>
         <div class="kpi-label">outcome grade</div>
-        <div class="kpi-sub">baixo risco da mudança</div>
+        <div class="kpi-sub">médio risco da mudança</div>
       </div>
     </div>
       <div class="bluf">
         <div class="bluf-col">
           <div class="bluf-label">Decisão & entregas</div>
-          <p>Correção de comportamento validada — menos risco de erro para quem usa o produto.</p>
+          <p>Detalhes no apêndice técnico.</p>
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Impacto esperado</div>
-          <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+          <p>Detalhes no apêndice técnico.</p>
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Riscos & trade-offs</div>
-          <p>Baixo risco de mudança · outcome grade = 92 · lead time 19h23m.</p>
+          <p>Médio risco de mudança · outcome grade = 92 · lead time 19h23m.</p>
         </div>
       </div>
-    </section><section class="slide" id="s2">
-        <div class="slide-head">
-          <span class="slide-kicker">Impacto da sessão</span>
-          <h2>O que isso significa para o negócio</h2>
-        </div>
-        <div class="impact-grid">
-          <div class="impact-card blue">
-                <div class="impact-icon">🎯</div>
-                <h3>Impacto de Produto</h3>
-                <p>Correção de comportamento validada — menos risco de erro para quem usa o produto.</p>
-              </div><div class="impact-card gold">
-                <div class="impact-icon">🏢</div>
-                <h3>Impacto de Negócio</h3>
-                <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
-              </div><div class="impact-card teal">
-                <div class="impact-icon">🌊</div>
-                <h3>Impacto de Processo</h3>
-                <p>Fluxo completo seguido: sessão → implementação → code review → pré-PR → PR. Detalhes nas métricas automáticas.</p>
-              </div>
-        </div>
-      </section>
+    </section>
     <section class="slide" id="s3">
+      <div class="slide-head">
+        <span class="slide-kicker">Valor por entrega</span>
+        <h2>Detalhamento por item</h2>
+      </div>
+      <div class="detail-card">
+        <div class="detail-scroll"><table>
+    <tr>
+      <th style="width:16%">Item</th>
+      <th style="width:24%">Correção Efetuada</th>
+      <th style="width:20%">Benefício</th>
+      <th style="width:24%">Impacto no Negócio</th>
+      <th style="width:16%">Custo Token</th>
+    </tr>
+    <tr>
+      <td><strong>89434f2</strong></td>
+      <td>chore: normalize report prefix to PR364</td>
+      <td>Ajuste de processo validado</td>
+      <td>Processo mais confiável e audável</td>
+      <td><code>—</code></td>
+    </tr>
+<tr>
+      <td><strong>676586d</strong></td>
+      <td>fix(dark): causa raiz --secondary sem override no .dark (inputs/selecao quase brancos ilegiveis) + busca translucida estilo iOS + guard de regressao</td>
+      <td>Comportamento corrigido e validado — menos erro e retrabalho</td>
+      <td>Menos risco de erro para o usuário e a operação</td>
+      <td><code>~741</code></td>
+    </tr>
+  </table></div>
+        <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits.</p>
+      </div>
+    </section>
+    <section class="slide" id="s4">
       <div class="slide-head">
         <span class="slide-kicker">Execução</span>
         <h2>Timeline da sessão</h2>
@@ -276,7 +295,7 @@
         </div>
       </div>
     </section>
-    <section class="slide appendix" id="s4">
+    <section class="slide appendix" id="s5">
       <div class="slide-head">
         <span class="slide-kicker">Apêndice técnico</span>
         <h2>Detalhes da implementação</h2>
@@ -285,7 +304,8 @@
         <div class="ap-card">
           <h3>✅ Checklist de revisão</h3>
           <ul class="checks">
-            <li>🧪 Testes manuais realizados?</li>
+            <li>🖼️ Renderização verificada em desktop e mobile?</li>
+<li>🧪 Testes manuais realizados?</li>
 <li>📋 Regras de validação passam? (npm run pre-pr)</li>
           </ul>
         </div>
@@ -293,7 +313,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 0 remoções — 1 linhas tocadas</td><td>✨ 0 adições — 0 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 79 remoções — 1176 linhas tocadas</td><td>✨ 939 adições — 15 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -301,42 +321,174 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>0</td></tr>
-            <tr><td>Adições</td><td>+0</td></tr>
-            <tr><td>Remoções</td><td>-0</td></tr>
-            <tr><td>Tokens estimados</td><td>~1</td></tr>
+            <tr><td>Arquivos alterados</td><td>15</td></tr>
+            <tr><td>Adições</td><td>+939</td></tr>
+            <tr><td>Remoções</td><td>-79</td></tr>
+            <tr><td>Tokens estimados</td><td>~882</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:80">+704 add</div>
+        <div class="del" style="flex:7">-59 del</div>
+        <div class="overhead" style="flex:13">~119 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+704</td><td>80%</td></tr>
+      <tr><td>Remoções</td><td>-59</td><td>7%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~119</td><td>13%</td></tr>
+      <tr><th>Total</th><th>~882</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
           <h3>📁 Arquivos</h3>
           <table>
             <tr><th>Status</th><th>Arquivo</th></tr>
-            
+            <tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>M</td><td>docs/UI-GUIDE.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-12/dark-secondary-inputs-2026-08-12-dark-secondary-inputs.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-13/PR364-secondary-inputs-2026-08-13-dark-secondary-inputs.html</td></tr>
+<tr><td>M</td><td>docs/tracking/archive/events-2026-08.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td></tr>
+<tr><td>M</td><td>src/components/GlobalSearch.tsx</td></tr>
+<tr><td>M</td><td>src/components/tests/GlobalSearch.test.tsx</td></tr>
+<tr><td>M</td><td>src/components/ui/SearchInput.tsx</td></tr>
+<tr><td>M</td><td>src/index.css</td></tr>
+<tr><td>M</td><td>tests/components/SearchInput.test.tsx</td></tr>
+<tr><td>A</td><td>tests/unit/dark-secondary.test.ts</td></tr>
           </table>
         </div>
       </div>
-      
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
-        
+        diff --git a/docs/RADAR.md b/docs/RADAR.md
+index a89443e..95d8144 100644
+<span class="del">--- a/docs/RADAR.md</span>
+<span class="add">+++ b/docs/RADAR.md</span>
+@@ -1,6 +1,6 @@
+ # 🔭 Radar de Vulnerabilidades
+ 
+<span class="del">-&gt; Atualizado em: 2026-08-12T22:28:39.859Z</span>
+<span class="add">+&gt; Atualizado em: 2026-08-12T23:56:26.924Z</span>
+ 
+ ## ✅ Radar Limpo
+ Nenhuma vulnerabilidade ativa detectada.
+diff --git a/docs/UI-GUIDE.md b/docs/UI-GUIDE.md
+index 14780a2..ba65044 100644
+<span class="del">--- a/docs/UI-GUIDE.md</span>
+<span class="add">+++ b/docs/UI-GUIDE.md</span>
+@@ -14,35 +14,47 @@ Definido em `src/index.css`. Camadas de profundidade (light mode, estilo iOS):
+ 
+ ### Cores
+ 
+<span class="del">-| Variável | Valor (light) | Valor (dark) | Uso |</span>
+<span class="del">-|----------|---------------|--------------|-----|</span>
+<span class="del">-| `--primary` | `211 100% 45%` | `211 100% 60%` | **System blue** (Apple), cor principal |</span>
+<span class="del">-| `--gold` | `36 90% 42%` | `36 90% 58%` | Destaques, metas |</span>
+<span class="del">-| `--teal` | `188 60% 42%` | `188 60% 55%` | Aba Pontos |</span>
+<span class="del">-| `--success` | `142 65% 36%` | `142 65% 50%` | Verde positivo |</span>
+<span class="del">-| `--warning` | `32 90% 48%` | `32 90% 58%` | Âmbar |</span>
+<span class="del">-| `--destructive` | `0 72% 50%` | `0 72% 55%` | Vermelho |</span>
+<span class="add">+| Variável        | Valor (light)  | Valor (dark)   | Uso                                    |</span>
+<span class="add">+| --------------- | -------------- | -------------- | -------------------------------------- |</span>
+<span class="add">+| `--primary`     | `211 100% 45%` | `211 100% 60%` | **System blue** (Apple), cor principal |</span>
+<span class="add">+| `--gold`        | `36 90% 42%`   | `36 90% 58%`   | Destaques, metas                       |</span>
+<span class="add">+| `--teal`        | `188 60% 42%`  | `188 60% 55%`  | Aba Pontos                             |</span>
+<span class="add">+| `--success`     | `142 65% 36%`  | `142 65% 50%`  | Verde positivo                         |</span>
+<span class="add">+| `--warning`     | `32 90% 48%`   | `32 90% 58%`   | Âmbar                                  |</span>
+<span class="add">+| `--destructive` | `0 72% 50%`    | `0 72% 55%`    | Vermelho                               |</span>
+ 
+ Dark mode: fundo preto puro (`0 0% 0%`), cards `0 0% 11%` (≈ #1C1C1E), como iOS.
+ 
+<span class="add">+&gt; **⚠️ `--secondary`/`--secondary-foreground` SÃO sobrescritos no `.dark`** (`0 0% 16%` / `0 0% 100%`,</span>
+<span class="add">+&gt; mesma elevação de accent/muted). Sem isso, inputs/selects com `dark:bg-secondary` herdam o</span>
+<span class="add">+&gt; valor claro do light (`220 15% 92%`) e ficam quase brancos com texto branco (ilegível).</span>
+<span class="add">+&gt; Regressão coberta por `tests/unit/dark-secondary.test.ts`.</span>
+<span class="add">+</span>
+<span class="add">+**Campos no dark (hierarquia de legibilidade):**</span>
+<span class="add">+</span>
+<span class="add">+- **Busca** (`SearchInput`, `GlobalSearch`): material translúcido `dark:bg-secondary/60` +</span>
+<span class="add">+  `dark:backdrop-blur-sm` — vidro escuro discreto estilo iOS, quase transparente sobre o fundo preto.</span>
+<span class="add">+- **Formulários** (`Input`, `Select`, `Textarea` base): fundo elevado sólido `dark:bg-secondary`</span>
+<span class="add">+  (16%) + borda `dark:border-input` (26%) — legível em forms longos sobre cards (11%).</span>
+<span class="add">+</span>
+ ### Sombras (iOS-style, suaves)
+ 
+<span class="del">-| Classe | Uso |</span>
+<span class="del">-|--------|-----|</span>
+<span class="del">-| `shadow-sm` / `shadow-card` | Cards padrão (1-2px, opacidade baixa) |</span>
+<span class="del">-| `shadow-md` | Hover de cards |</span>
+<span class="del">-| `shadow-lg` | Modais |</span>
+<span class="del">-| `shadow-elegant` | Glow primary sutil |</span>
+<span class="del">-| `shadow-glow` / `shadow-glow-gold` | Destaques (sem glow exagerado) |</span>
+<span class="add">+| Classe                             | Uso                                   |</span>
+<span class="add">+| ---------------------------------- | ------------------------------------- |</span>
+<span class="add">+| `shadow-sm` / `shadow-card`        | Cards padrão (1-2px, opacidade baixa) |</span>
+<span class="add">+| `shadow-md`                        | Hover de cards                        |</span>
+<span class="add">+| `shadow-lg`                        | Modais                                |</span>
+<span class="add">+| `shadow-elegant`                   | Glow primary sutil                    |</span>
+<span class="add">+| `shadow-glow` / `shadow-glow-gold` | Destaques (sem glow exagerado)        |</span>
+ 
+ ### Gradientes (sóbrios)
+ 
+<span class="del">-| Classe | Onde usar |</span>
+<span class="del">-|--------|-----------|</span>
+<span class="del">-| `bg-gradient-primary` | Botões primários (blue vertical) |</span>
+<span class="del">-| `bg-gradient-gold` | Destaques |</span>
+<span class="del">-| `bg-gradient-hero` | Hero do Dashboard (tint sutil) |</span>
+<span class="del">-| `bg-gradient-hero-teal` | Hero da aba Pontos |</span>
+<span class="add">+| Classe                  | Onde usar                        |</span>
+<span class="add">+| ----------------------- | -------------------------------- |</span>
+<span class="add">+| `bg-gradient-primary`   | Botões primários (blue vertical) |</span>
+<span class="add">+| `bg-gradient-gold`      | Destaques                        |</span>
+<span class="add">+| `bg-gradient-hero`      | Hero do Dashboard (tint sutil)   |</span>
+<span class="add">+| `bg-gradient-hero-teal` | Hero da aba Pontos               |</span>
+ 
+ &gt; HIG: cor é usada com moderação; acentos são sólidos (MetricCard usa barra
+ &gt; superior sólida, não gradiente).
+@@ -68,26 +80,26 @@ Dark mode: fundo preto puro (`0 0% 0%`), cards `0 0% 11%` (≈ #1C1C1E), como iO
+ &lt;div className=&quot;grid gap-4 sm:grid-cols-3 lg:grid-cols-4&quot;&gt;
+ ```
+ 
+<span class="del">-| Contexto | Grid | Motivo |</span>
+<span class="del">-|----------|------|--------|</span>
+<span class="del">-| Mini-métricas (hero) | `grid-cols-2` | Cards compactos |</span>
+<span class="add">+| Contexto              | Grid                         | Motivo                  |</span>
+<span class="add">+| --------------------- | ---------------------------- | ----------------------- |</span>
+<span class="add">+| Mini-métricas (hero)  | `grid-cols-2`                | Cards compactos         |</span>
+ | MetricCards / Summary | `grid-cols-1 sm:grid-cols-2` | 1 no celular, 2 desktop |
+<span class="del">-| Content cards | `grid-cols-1 md:grid-cols-2` | Só 2 em desktop+tablet |</span>
+<span class="del">-| Gráficos | `md:grid-cols-2` | 2 só quando há espaço |</span>
+<span class="add">+| Content cards         | `grid-cols-1 md:grid-cols-2` | Só 2 em desktop+tablet  |</span>
+<span class="add">+| Gráficos              | `md:grid-cols-2`             | 2 só quando há espaço   |</span>
+ 
+ ## Componentes
+ 
+<span class="del">-| Componente | Arquivo | Propósito |</span>
+<span class="del">-|-----------|---------|-----------|</span>
+<span class="del">-| `Button` | `ui/button.tsx` | **rounded-full** (pill), h-11 (44px touch target), active:scale-[0.97] |</span>
+<span class="del">-| `Input` | `ui/input.tsx` | **rounded-xl**, fundo `bg-secondary/60` (filled style iOS), h-11 |</span>
+<span class="del">-| `Card` | `ui/card.tsx` | **rounded-2xl**, borda sutil, hover shadow |</span>
+<span class="del">-| `MetricCard` | `components/MetricCard.tsx` | Barra sólida no topo (cor da variante) |</span>
+<span class="del">-| `AltitudeBar` | `components/AltitudeBar.tsx` | Barra sólida primary (ou cor custom) |</span>
+<span class="del">-| `EmptyState` | `components/EmptyState.tsx` | Estado vazio com CTA |</span>
+<span class="del">-| `SkeletonLoader` | `components/SkeletonLoader.tsx` | 4 variantes de loading |</span>
+<span class="del">-| `DeleteEntryDialog` | `components/DeleteEntryDialog.tsx` | Confirmação de exclusão |</span>
+<span class="del">-| `FlowMap` | `components/FlowMap.tsx` | Fluxo visual de 4 nodes |</span>
+<span class="add">+| Componente          | Arquivo                            | Propósito                                                                                                         |</span>
+<span class="add">+| ------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------- |</span>
+<span class="add">+| `Button`            | `ui/button.tsx`                    | **rounded-full** (pill), h-11 (44px touch target), active:scale-[0.97]                                            |</span>
+<span class="add">+| `Input`             | `ui/input.tsx`                     | **rounded-xl**, fundo `bg-secondary/60` (filled style iOS), h-11; dark sólido 16% (busca: translúcido /60 + blur) |</span>
+<span class="add">+| `Card`              | `ui/card.tsx`                      | **rounded-2xl**, borda sutil, hover shadow                                                                        |</span>
+<span class="add">+| `MetricCard`        | `components/MetricCard.tsx`        | Barra sólida no topo (cor da variante)                                                                            |</span>
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-08-12 20:58
+      Gerado por scripts/generate-report.mjs · 2026-08-12 21:40
     </div>
   </div>
 

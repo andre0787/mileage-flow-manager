@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `5906a41 — Merge pull request #364 from andre0787/fix/dark-secondary-inputs`
+- **Último commit:** `4a32889 — Merge pull request #365 from andre0787/feat/report-detalhamento`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -69,9 +69,9 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 ## 🎯 Sessão Atual
 **Categoria:** feature
-**Objetivo:** Detalhamento por item obrigatorio em todo relatorio: derivacao automatica dos commits + rule-08 exigindo a secao + backfill dos relatorios recentes
+**Objetivo:** Slide proprio de Detalhamento por item no deck + migracao dos 15 relatorios legados para o modelo executivo
 **Status:** in_progress
-**Iniciada em:** 2026-08-13T00:19:35.974Z
-**Branch:** `feat/report-detalhamento`
-**Último commit:** 5906a41 — Merge pull request #364 from andre0787/fix/dark-secondary-inputs
+**Iniciada em:** 2026-08-13T00:41:11.007Z
+**Branch:** `feat/report-slide-legacy`
+**Último commit:** 4a32889 — Merge pull request #365 from andre0787/feat/report-detalhamento
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
