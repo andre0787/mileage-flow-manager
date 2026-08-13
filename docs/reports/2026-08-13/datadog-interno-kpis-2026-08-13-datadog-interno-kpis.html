@@ -176,11 +176,11 @@
       <div class="hero">
         <div class="hero-top">
           <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">datadog-interno-kpis</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
-          <div class="hero-date">2026-08-13 · 23:57 · <span class="mono">feat/datadog-interno-kpis</span></div>
+          <div class="hero-date">2026-08-13 · 23:59 · <span class="mono">feat/datadog-interno-kpis</span></div>
         </div>
         <h1>datadog interno kpis</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">e5fa509 — feat(kpi): Datadog interno — abas KPI e Workflow com dados reais diarios (data:refresh + nightly)</div>
+        <div class="hero-meta mono">ae402a8 — fix(test): mensagem de fallback da aba KPI aponta para npm run data:refresh</div>
       </div>
       
     <div class="kpi-grid">
@@ -259,7 +259,7 @@
       <td>datadog interno kpis</td>
       <td>Nova capacidade entregue e validada para o produto.</td>
       <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
-      <td><code>~3107</code></td>
+      <td><code>~3572</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 6.691 tokens (feature) · status moderado</p>
@@ -329,7 +329,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 292 remoções — 4143 linhas tocadas</td><td>✨ 3263 adições — 37 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 298 remoções — 4762 linhas tocadas</td><td>✨ 3855 adições — 40 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -337,23 +337,23 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>37</td></tr>
-            <tr><td>Adições</td><td>+3263</td></tr>
-            <tr><td>Remoções</td><td>-292</td></tr>
-            <tr><td>Tokens estimados</td><td>~3107</td></tr>
+            <tr><td>Arquivos alterados</td><td>40</td></tr>
+            <tr><td>Adições</td><td>+3855</td></tr>
+            <tr><td>Remoções</td><td>-298</td></tr>
+            <tr><td>Tokens estimados</td><td>~3572</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:79">+2447 add</div>
-        <div class="del" style="flex:7">-219 del</div>
-        <div class="overhead" style="flex:14">~441 ctx</div>
+        <div class="add" style="flex:81">+2891 add</div>
+        <div class="del" style="flex:6">-224 del</div>
+        <div class="overhead" style="flex:13">~457 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+2447</td><td>79%</td></tr>
-      <tr><td>Remoções</td><td>-219</td><td>7%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~441</td><td>14%</td></tr>
-      <tr><th>Total</th><th>~3107</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+2891</td><td>81%</td></tr>
+      <tr><td>Remoções</td><td>-224</td><td>6%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~457</td><td>13%</td></tr>
+      <tr><th>Total</th><th>~3572</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
@@ -364,9 +364,11 @@
 <tr><td>M</td><td>docs/MAP.md</td></tr>
 <tr><td>M</td><td>docs/RADAR.md</td></tr>
 <tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-13/datadog-interno-kpis-2026-08-13-datadog-interno-kpis.html</td></tr>
 <tr><td>A</td><td>docs/reports/2026-08-13/main-2026-08-13-main.html</td></tr>
 <tr><td>M</td><td>docs/tracking/archive/events-2026-08.jsonl</td></tr>
 <tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
 <tr><td>M</td><td>package.json</td></tr>
 <tr><td>M</td><td>public/kpi-data.json</td></tr>
 <tr><td>A</td><td>public/workflow-data.json</td></tr>
@@ -388,8 +390,6 @@
 <tr><td>M</td><td>src/pages/KPI.tsx</td></tr>
 <tr><td>M</td><td>src/pages/Workflow.tsx</td></tr>
 <tr><td>A</td><td>src/types/kpi.ts</td></tr>
-<tr><td>M</td><td>tests/components/KPIDashboard.test.tsx</td></tr>
-<tr><td>A</td><td>tests/unit/BusinessPanel.test.ts</td></tr>
           </table>
         </div>
       </div>
@@ -519,7 +519,7 @@ index 7313580..22b1bdc 100644
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-08-13 23:57
+      Gerado por scripts/generate-report.mjs · 2026-08-13 23:59
     </div>
   </div>
 

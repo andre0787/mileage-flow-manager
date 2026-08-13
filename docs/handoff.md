@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `7f0f19c — Merge pull request #370 from andre0787/feat/workflow-otimizacao-subagentes`
+- **Branch:** `feat/datadog-interno-kpis`
+- **Último commit:** `ae402a8 — fix(test): mensagem de fallback da aba KPI aponta para npm run data:refresh`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -45,11 +45,11 @@ Nenhum PR aberto.
 
 ## 🎯 Sessão Atual
 **Categoria:** feature
-**Objetivo:** Datadog interno: abas KPI (processo diario 14d + produto/negocio ao vivo + entregas por PR) e Workflow (telemetria real + visao geral) com data:refresh + nightly
+**Objetivo:** Datadog interno: abas KPI e Workflow com dados reais diarios
 **Status:** in_progress
-**Iniciada em:** 2026-08-13T02:52:37.575Z
+**Iniciada em:** 2026-08-13T02:58:46.434Z
 **Branch:** `feat/datadog-interno-kpis`
-**Último commit:** 7f0f19c — Merge pull request #370 from andre0787/feat/workflow-otimizacao-subagentes
+**Último commit:** ae402a8 — fix(test): mensagem de fallback da aba KPI aponta para npm run data:refresh
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
