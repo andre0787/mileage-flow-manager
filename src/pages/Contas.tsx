@@ -1,23 +1,11 @@
 import { useMemo, useState } from "react";
-import {
-  Plus,
-  CreditCard,
-  Eye,
-  EyeOff,
-  Edit,
-  Trash2,
-  Filter,
-  Building2,
-  RefreshCw,
-  AlertTriangle,
-  Bell,
-} from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Plus, Filter, Building2, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "@/components/EmptyState";
 import { Pagination } from "@/components/Pagination";
 import { SkeletonMetricCard } from "@/components/SkeletonLoader";
+import { AccountCard } from "@/components/accounts/AccountCard";
+import { AccountsSummary } from "@/components/accounts/AccountsSummary";
 import { useData } from "@/contexts/DataContext";
 import {
   useUpdateAccountMutation,
@@ -28,7 +16,6 @@ import AccountDialog from "@/components/AccountDialog";
 import { AccountAlertsDialog } from "@/components/AccountAlertsDialog";
 import { useAccountAlerts } from "@/hooks/useDatabase";
 import { getLastAccountActivity } from "@/lib/accountActivity";
-import { formatDateBR } from "@/lib/dateUtils";
 import type { Account, PointEntry, Sale } from "@/types";
 
 const ITEMS_PER_PAGE = 20;
@@ -198,153 +185,25 @@ export default function Contas() {
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {paginatedAccounts.map((account) => (
-            <Card
+            <AccountCard
               key={account.id}
-              className="shadow-card hover:shadow-elegant hover:-translate-y-0.5 transition-all duration-200"
-            >
-              <CardHeader className="pb-3 bg-gradient-card">
-                <div className="flex items-start justify-between">
-                  <div className="space-y-1">
-                    <CardTitle className="text-lg">{account.name}</CardTitle>
-                    <p className="text-sm text-muted-foreground">
-                      {programName(account.programId)}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      className="relative inline-flex items-center justify-center rounded-md p-1.5 hover:bg-muted transition-colors"
-                      onClick={() => setAlertsAccount(account)}
-                      aria-label={`Alertas de ${account.name}`}
-                      title="Alertas da conta"
-                    >
-                      <Bell className="h-4 w-4" />
-                      {unreadCount(account.id) > 0 && (
-                        <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-destructive text-[10px] font-semibold text-white px-1">
-                          {unreadCount(account.id)}
-                        </span>
-                      )}
-                    </button>
-                    <Badge variant={account.type === "pontos" ? "secondary" : "default"}>
-                      {account.type === "pontos" ? "Pontos" : "Milhas"}
-                    </Badge>
-                    <Badge variant={account.status === "ativa" ? "default" : "secondary"}>
-                      {account.status === "ativa" ? (
-                        <>
-                          <Eye className="h-3 w-3 mr-1" />
-                          Ativa
-                        </>
-                      ) : (
-                        <>
-                          <EyeOff className="h-3 w-3 mr-1" />
-                          Inativa
-                        </>
-                      )}
-                    </Badge>
-                  </div>
-                </div>
-              </CardHeader>
-
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">Saldo:</span>
-                    <span className="font-semibold">
-                      {(computedBalances.get(account.id) ?? account.balance).toLocaleString(
-                        "pt-BR",
-                      )}
-                    </span>
-                  </div>
-                  {account.averageCostPerMile != null && (
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">Custo/Milha:</span>
-                      <span className="font-semibold">
-                        R$ {account.averageCostPerMile.toFixed(4)}
-                      </span>
-                    </div>
-                  )}
-                  {account.totalInvested != null && (
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">Valor Investido:</span>
-                      <span className="font-semibold text-success">
-                        R$ {account.totalInvested.toLocaleString("pt-BR")}
-                      </span>
-                    </div>
-                  )}
-                  {computedBalances.get(account.id) !== account.balance && (
-                    <div className="flex items-center justify-between text-xs text-amber-600">
-                      <span className="flex items-center gap-1">
-                        <AlertTriangle className="h-3 w-3" />
-                        Saldo registrado:
-                      </span>
-                      <span>{account.balance.toLocaleString("pt-BR")}</span>
-                    </div>
-                  )}
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">Dono:</span>
-                    <span className="text-sm font-medium">{ownerName(account.ownerId)}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">Última entrada:</span>
-                    <span className="text-sm font-medium">
-                      {lastActivityByAccount.get(account.id)?.lastEntry
-                        ? formatDateBR(lastActivityByAccount.get(account.id)!.lastEntry!.date)
-                        : "—"}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">Última venda:</span>
-                    <span className="text-sm font-medium">
-                      {lastActivityByAccount.get(account.id)?.lastSale
-                        ? formatDateBR(lastActivityByAccount.get(account.id)!.lastSale!.date)
-                        : "—"}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 pt-2 border-t">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => toggleAccountStatus(account.id)}
-                    className="flex-1 min-h-[44px]"
-                  >
-                    {account.status === "ativa" ? "Desativar" : "Ativar"}
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="px-3 min-h-[44px] min-w-[44px]"
-                    onClick={() => {
-                      setEditAccount(account);
-                      setIsEditDialogOpen(true);
-                    }}
-                  >
-                    <Edit className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="px-3 min-h-[44px] min-w-[44px]"
-                    onClick={() => recalcAccountM.mutate(account.id)}
-                    disabled={recalcAccountM.isPending}
-                    title="Recalcular saldo (entradas - vendas)"
-                  >
-                    <RefreshCw
-                      className={"h-4 w-4 " + (recalcAccountM.isPending ? "animate-spin" : "")}
-                    />
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="px-3 min-h-[44px] min-w-[44px] text-destructive hover:text-destructive"
-                    onClick={() => deleteAccountM.mutate(account.id)}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+              account={account}
+              computedBalance={computedBalances.get(account.id) ?? account.balance}
+              ownerName={ownerName(account.ownerId)}
+              programName={programName(account.programId)}
+              unreadCount={unreadCount(account.id)}
+              lastEntryDate={lastActivityByAccount.get(account.id)?.lastEntry?.date}
+              lastSaleDate={lastActivityByAccount.get(account.id)?.lastSale?.date}
+              recalcPending={recalcAccountM.isPending}
+              onToggleStatus={() => toggleAccountStatus(account.id)}
+              onEdit={() => {
+                setEditAccount(account);
+                setIsEditDialogOpen(true);
+              }}
+              onRecalc={() => recalcAccountM.mutate(account.id)}
+              onDelete={() => deleteAccountM.mutate(account.id)}
+              onOpenAlerts={() => setAlertsAccount(account)}
+            />
           ))}
         </div>
       )}
@@ -365,46 +224,7 @@ export default function Contas() {
       )}
 
       {/* Summary Card */}
-      <Card className="shadow-card">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <CreditCard className="h-5 w-5 text-primary" />
-            Resumo das Contas
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
-            <div className="text-center p-4 rounded-lg bg-muted/30">
-              <p className="text-2xl font-bold text-foreground">{accounts.length}</p>
-              <p className="text-sm text-muted-foreground">Total de Contas</p>
-            </div>
-            <div className="text-center p-4 rounded-lg bg-success-light">
-              <p className="text-2xl font-bold text-success">
-                {accounts.filter((a) => a.status === "ativa").length}
-              </p>
-              <p className="text-sm text-muted-foreground">Contas Ativas</p>
-            </div>
-            <div className="text-center p-4 rounded-lg bg-muted/30">
-              <p className="text-2xl font-bold text-foreground">
-                {accounts
-                  .filter((a) => a.type === "pontos")
-                  .reduce((s, a) => s + (computedBalances.get(a.id) ?? a.balance), 0)
-                  .toLocaleString("pt-BR")}
-              </p>
-              <p className="text-sm text-muted-foreground">Total Pontos</p>
-            </div>
-            <div className="text-center p-4 rounded-lg bg-success-light">
-              <p className="text-2xl font-bold text-success">
-                {accounts
-                  .filter((a) => a.type === "milhas")
-                  .reduce((s, a) => s + (computedBalances.get(a.id) ?? a.balance), 0)
-                  .toLocaleString("pt-BR")}
-              </p>
-              <p className="text-sm text-muted-foreground">Total Milhas</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <AccountsSummary accounts={accounts} computedBalances={computedBalances} />
 
       {alertsAccount && (
         <AccountAlertsDialog

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>etapa2-hero-dashboard — refactor etapa2 hero dashboard</title>
+  <style>
+    :root{
+      --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;
+      --text:#e6edf7;--muted:#8fa3c0;--blue:#3b82f6;--green:#34d399;--amber:#fbbf24;--red:#f87171;--gold:#f59e0b;--teal:#2dd4bf;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      background:radial-gradient(1200px 600px at 15% -10%,#12203f 0%,transparent 55%),radial-gradient(1000px 500px at 110% 20%,#0f2440 0%,transparent 50%),var(--bg);
+      color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;
+    }
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    /* ── Deck ── */
+    .deck{min-height:100vh;display:flex;flex-direction:column}
+    .slide{
+      flex:1 0 auto;min-height:100vh;padding:5.5rem clamp(1.25rem,5vw,4.5rem) 3.5rem;
+      display:flex;flex-direction:column;justify-content:center;gap:1.4rem;
+      max-width:1180px;margin:0 auto;width:100%;
+      border-bottom:1px solid var(--line);
+    }
+    .deck-mode .slide{display:none}
+    .deck-mode .slide.active{display:flex}
+    /* ── Nav deck ── */
+    .nav{
+      position:fixed;top:1rem;right:1rem;z-index:60;display:flex;gap:.4rem;align-items:center;
+      background:rgba(10,15,30,.85);backdrop-filter:blur(8px);border:1px solid var(--line);
+      border-radius:999px;padding:.35rem .5rem;box-shadow:0 8px 24px rgba(0,0,0,.45);
+    }
+    .nav button{
+      background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:1.05rem;
+      width:2.1rem;height:2.1rem;border-radius:999px;transition:all .15s;line-height:1;
+    }
+    .nav button:hover{background:var(--card2);color:var(--text)}
+    .nav .count{font-size:.72rem;color:var(--muted);min-width:2.6rem;text-align:center;font-variant-numeric:tabular-nums}
+    .nav .mode-btn{width:auto;padding:0 .7rem;font-size:.72rem;color:var(--muted)}
+    /* ── Hero (slide 1) ── */
+    .hero{display:flex;flex-direction:column;gap:.9rem}
+    .hero-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+    .hero-badges{display:flex;gap:.5rem;flex-wrap:wrap}
+    .badge{
+      display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .7rem;border-radius:999px;
+      font-size:.72rem;font-weight:700;letter-spacing:.02em;border:1px solid var(--line);color:var(--muted);
+    }
+    .badge.pr{color:#93c5fd;border-color:rgba(59,130,246,.4);background:rgba(59,130,246,.12)}
+    .badge.feat{color:#6ee7b7;border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.1)}
+    .badge.fix{color:#fca5a5;border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.1)}
+    .badge.docs{color:#c4b5fd;border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.1)}
+    .badge.chore,.badge.auto{color:#a7b8d1;border-color:var(--line);background:rgba(255,255,255,.04)}
+    .badge.risk{border-style:dashed}
+    .badge.health{font-weight:800}
+    .hero-date{font-size:.78rem;color:var(--muted)}
+    h1{font-size:clamp(1.9rem,4.5vw,3.3rem);line-height:1.08;letter-spacing:-.03em;font-weight:800;text-wrap:balance}
+    .hero-summary{font-size:clamp(1rem,1.6vw,1.3rem);color:var(--muted);max-width:62ch;text-wrap:balance}
+    .hero-meta{font-size:.72rem;color:var(--muted);opacity:.8}
+    /* ── KPI cards ── */
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin-top:.4rem}
+    .kpi{
+      background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);
+      border-radius:1rem;padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.2rem;
+      box-shadow:0 10px 30px rgba(0,0,0,.3);
+    }
+    .kpi-value{font-size:clamp(1.9rem,3vw,2.6rem);font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--text)}
+    .kpi-value.green{color:var(--green)}.kpi-value.amber{color:var(--amber)}
+    .kpi-label{font-size:.8rem;color:var(--muted);font-weight:600}
+    .kpi-sub{font-size:.7rem;color:var(--muted);opacity:.75}
+    /* ── BLUF (one-pager) ── */
+    .bluf{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem}
+    .bluf-col{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}
+    .bluf-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-weight:800;margin-bottom:.4rem}
+    .bluf-col p{font-size:.9rem;color:var(--text)}
+    /* ── Slide head ── */
+    .slide-head{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.6rem}
+    .slide-kicker{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);font-weight:800}
+    .slide-head h2{font-size:clamp(1.4rem,3vw,2.1rem);letter-spacing:-.02em;font-weight:800}
+    /* ── Impact grid ── */
+    .impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+    .impact-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.4rem;display:flex;flex-direction:column;gap:.5rem}
+    .impact-icon{font-size:1.6rem}
+    .impact-card h3{font-size:1rem;font-weight:800;letter-spacing:-.01em}
+    .impact-card p{font-size:.9rem;color:var(--muted)}
+    .impact-card.blue{border-top:3px solid var(--blue)}
+    .impact-card.gold{border-top:3px solid var(--gold)}
+    .impact-card.teal{border-top:3px solid var(--teal)}
+    /* ── Timeline ── */
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;align-items:start}
+    @media(max-width:760px){.split{grid-template-columns:1fr}}
+    .timeline{position:relative;padding-left:1.4rem;display:flex;flex-direction:column;gap:1.05rem}
+    .timeline::before{content:"";position:absolute;left:.4rem;top:.3rem;bottom:.3rem;width:2px;background:linear-gradient(180deg,var(--blue),var(--green))}
+    .tl-item{position:relative;display:flex;align-items:center;gap:.9rem}
+    .tl-dot{position:absolute;left:-1.4rem;width:.85rem;height:.85rem;border-radius:50%;background:var(--card);border:2px solid var(--blue)}
+    .tl-item.pr\:merge .tl-dot,.tl-item.pr-merge .tl-dot{border-color:var(--green);background:var(--green)}
+    .tl-item.pre-pr .tl-dot{border-color:var(--amber)}
+    .tl-body{display:flex;flex-direction:column}
+    .tl-time{font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:700}
+    .tl-label{font-size:.92rem;font-weight:600}
+    .tl-total{margin-top:.4rem;font-size:.85rem;color:var(--green);font-weight:700}
+    .empty-note{font-size:.9rem;color:var(--muted);border:1px dashed var(--line);border-radius:1rem;padding:1.2rem}
+    /* ── Stats ── */
+    .stat-list{display:flex;flex-direction:column;gap:.8rem}
+    .stat{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1rem 1.2rem;display:flex;align-items:baseline;gap:.9rem}
+    .stat-v{font-size:1.7rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--blue)}
+    .stat-v.green{color:var(--green)}
+    .stat-l{font-size:.82rem;color:var(--muted)}
+    /* ── Appendix ── */
+    .appendix{justify-content:flex-start}
+    .appendix-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:860px){.appendix-grid{grid-template-columns:1fr}}
+    .ap-card{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}
+    .ap-card h3{font-size:.92rem;font-weight:800;margin-bottom:.6rem}
+    /* ── Slide Detalhamento por item ── */
+    .detail-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.2rem;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+    .detail-scroll{max-height:56vh;overflow:auto;border-radius:.8rem}
+    .detail-scroll table{margin:0}
+    .detail-note{font-size:.72rem;color:var(--muted);opacity:.8;margin-top:.7rem}
+    .checks{list-style:none;display:flex;flex-direction:column;gap:.35rem}
+    .checks li{font-size:.85rem;color:var(--muted)}
+    table{width:100%;border-collapse:collapse;font-size:.8rem}
+    td,th{border:1px solid var(--line);padding:.45rem .6rem;text-align:left;vertical-align:top;color:var(--muted)}
+    th{color:var(--text);font-weight:700;background:rgba(255,255,255,.04)}
+    td code,code{color:#93c5fd;font-family:ui-monospace,Menlo,monospace;font-size:.78rem}
+    .evidence{max-width:100%;border:1px solid var(--line);border-radius:.8rem;margin-top:.7rem}
+    .token-bar{display:flex;border-radius:.6rem;overflow:hidden;margin:.7rem 0;font-size:.7rem}
+    .token-bar div{padding:.3rem .7rem;text-align:center;white-space:nowrap}
+    .token-bar .add{background:rgba(52,211,153,.18);color:#6ee7b7}
+    .token-bar .del{background:rgba(248,113,113,.16);color:#fca5a5}
+    .token-bar .overhead{background:rgba(255,255,255,.07);color:var(--muted)}
+    .diff-title{margin:1.2rem 0 .5rem;font-size:.92rem;font-weight:800}
+    .diff{background:#070b16;color:#c9d6ea;padding:.9rem;border-radius:.8rem;font:.74rem/1.5 ui-monospace,Menlo,monospace;overflow-x:auto;max-height:340px;border:1px solid var(--line)}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .foot{margin:1.4rem auto 2.5rem;text-align:center;font-size:.7rem;color:var(--muted);opacity:.6}
+    .foot .scroll-hint{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3rem .9rem;margin-bottom:.8rem}
+    /* ── Print (tema claro, one-pager + apêndice) ── */
+    @page{size:A4 landscape;margin:12mm}
+    @media print{
+      html,body{background:#fff!important;color:#111}
+      .nav{display:none!important}
+      .slide{min-height:0;page-break-after:always;break-after:page;display:flex!important;border-bottom:0;padding:1.5rem 0}
+      .slide:last-child{page-break-after:auto;break-after:auto}
+      .hero h1{color:#0b1220}
+      .hero-summary,.hero-date,.hero-meta,.kpi-label,.kpi-sub,.bluf-col p,.impact-card p,.tl-time,.tl-label,.stat-l,.checks li,td,th,.foot{color:#334155}
+      .kpi,.impact-card,.bluf-col,.ap-card,.stat{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-card{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-scroll{max-height:none;overflow:visible}
+      .bluf-col,.checks li{color:#334155}
+      .diff{background:#f8fafc;color:#0f172a;border-color:#e2e8f0}
+      .timeline::before{background:linear-gradient(180deg,#3b82f6,#16a34a)}
+      /* Tabelas não quebram no meio da linha no PDF */
+      tr{break-inside:avoid;page-break-inside:avoid}
+      th,td{font-size:.72rem}
+      .detail-scroll table{margin:0}
+      img.evidence{max-height:120mm;object-fit:contain}
+    }
+  </style>
+</head>
+<body>
+  <div class="nav" id="deckNav">
+    <button id="prevBtn" title="Anterior (←)">←</button>
+    <span class="count" id="slideCount">1/5</span>
+    <button id="nextBtn" title="Próxima (→)">→</button>
+    <button id="fsBtn" title="Tela cheia (F)">⛶</button>
+    <button id="printBtn" title="Imprimir / PDF (P)">⎙</button>
+    <button class="mode-btn" id="modeBtn" title="Alternar modo documento">📄</button>
+  </div>
+
+  <div class="deck" id="deck">
+    
+    <section class="slide" id="s1">
+      <div class="hero">
+        <div class="hero-top">
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">etapa2-hero-dashboard</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
+          <div class="hero-date">2026-08-13 · 09:20 · <span class="mono">refactor/etapa2-hero-dashboard</span></div>
+        </div>
+        <h1>refactor etapa2 hero dashboard</h1>
+        <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
+        <div class="hero-meta mono">733a263 — chore(process): alimenta handoff com estado da sessao (etapa 2 refactor em andamento) + telemetria</div>
+      </div>
+      
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-value">0</div>
+        <div class="kpi-label">entregas em produção</div>
+        <div class="kpi-sub">13 implementações · 13 reviews</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value">—</div>
+        <div class="kpi-label">lead time (início → produção)</div>
+        <div class="kpi-sub">da sessão ao deploy</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value">0/40</div>
+        <div class="kpi-label">fricção pré-PR (fail/total)</div>
+        <div class="kpi-sub">6 violações · 9 auto-corrigidas</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value green">98</div>
+        <div class="kpi-label">outcome grade</div>
+        <div class="kpi-sub">médio risco da mudança</div>
+      </div>
+    </div>
+      <div class="bluf">
+        <div class="bluf-col">
+          <div class="bluf-label">Decisão & entregas</div>
+          <p>Alteração validada dentro do fluxo de qualidade do produto.</p>
+        </div>
+        <div class="bluf-col">
+          <div class="bluf-label">Impacto esperado</div>
+          <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+        </div>
+        <div class="bluf-col">
+          <div class="bluf-label">Riscos & trade-offs</div>
+          <p>Médio risco de mudança · outcome grade = 98 · lead time —.</p>
+        </div>
+      </div>
+    </section><section class="slide" id="s2">
+        <div class="slide-head">
+          <span class="slide-kicker">Impacto da sessão</span>
+          <h2>O que isso significa para o negócio</h2>
+        </div>
+        <div class="impact-grid">
+          <div class="impact-card blue">
+                <div class="impact-icon">🎯</div>
+                <h3>Impacto de Produto</h3>
+                <p>Alteração validada dentro do fluxo de qualidade do produto.</p>
+              </div><div class="impact-card gold">
+                <div class="impact-icon">🏢</div>
+                <h3>Impacto de Negócio</h3>
+                <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+              </div><div class="impact-card teal">
+                <div class="impact-icon">🌊</div>
+                <h3>Impacto de Processo</h3>
+                <p>Fluxo completo seguido: sessão → implementação → code review → pré-PR → PR. Detalhes nas métricas automáticas.</p>
+              </div>
+        </div>
+      </section>
+    <section class="slide" id="s3">
+      <div class="slide-head">
+        <span class="slide-kicker">Valor por entrega</span>
+        <h2>Detalhamento por item</h2>
+      </div>
+      <div class="detail-card">
+        <div class="detail-scroll"><table>
+    <tr>
+      <th style="width:16%">Item</th>
+      <th style="width:24%">Correção Efetuada</th>
+      <th style="width:20%">Benefício</th>
+      <th style="width:24%">Impacto no Negócio</th>
+      <th style="width:16%">Custo Token</th>
+    </tr>
+    <tr>
+      <td><strong>Entrega da sessão</strong></td>
+      <td>refactor etapa2 hero dashboard</td>
+      <td>Alteração validada dentro do fluxo de qualidade do produto.</td>
+      <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
+      <td><code>~2532</code></td>
+    </tr>
+  </table></div>
+        <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 6.764 tokens (feature) · status moderado</p>
+      </div>
+    </section>
+    <section class="slide" id="s4">
+      <div class="slide-head">
+        <span class="slide-kicker">Execução</span>
+        <h2>Timeline da sessão</h2>
+      </div>
+      <div class="split">
+        <div class="split-left"><div class="timeline">
+        <div class="tl-item session:start">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">00:19</div>
+                <div class="tl-label">Início da sessão</div>
+              </div>
+            </div><div class="tl-item coding:done">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">00:02</div>
+                <div class="tl-label">Implementação concluída</div>
+              </div>
+            </div><div class="tl-item code-review:done">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">00:02</div>
+                <div class="tl-label">Code review aprovado</div>
+              </div>
+            </div><div class="tl-item pre-pr">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">00:04</div>
+                <div class="tl-label">Validação pré-PR</div>
+              </div>
+            </div>
+        
+      </div></div>
+        <div class="split-right">
+          <div class="stat-list">
+            <div class="stat"><span class="stat-v">40</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">6</span><span class="stat-l">violações de regra encontradas</span></div>
+            <div class="stat"><span class="stat-v green">9</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
+            <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="slide appendix" id="s5">
+      <div class="slide-head">
+        <span class="slide-kicker">Apêndice técnico</span>
+        <h2>Detalhes da implementação</h2>
+      </div>
+      <div class="appendix-grid">
+        <div class="ap-card">
+          <h3>✅ Checklist de revisão</h3>
+          <ul class="checks">
+            <li>🖼️ Renderização verificada em desktop e mobile?</li>
+<li>📦 Biblioteca testada com casos de borda?</li>
+<li>🧪 Testes manuais realizados?</li>
+<li>📋 Regras de validação passam? (npm run pre-pr)</li>
+          </ul>
+        </div>
+        <div class="ap-card">
+          <h3>📸 Evidências — antes & depois</h3>
+          <table>
+            <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 918 remoções — 3376 linhas tocadas</td><td>✨ 2202 adições — 25 arquivo(s) alterado(s)</td></tr>
+          </table>
+          
+        </div>
+        <div class="ap-card">
+          <h3>📊 Métricas da mudança</h3>
+          <table>
+            <tr><th>Métrica</th><th>Valor</th></tr>
+            <tr><td>Arquivos alterados</td><td>25</td></tr>
+            <tr><td>Adições</td><td>+2202</td></tr>
+            <tr><td>Remoções</td><td>-918</td></tr>
+            <tr><td>Tokens estimados</td><td>~2532</td></tr>
+          </table>
+          <div class="token-bar">
+        <div class="add" style="flex:65">+1652 add</div>
+        <div class="del" style="flex:27">-689 del</div>
+        <div class="overhead" style="flex:8">~191 ctx</div>
+      </div>
+          <h3>Breakdown de tokens</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+1652</td><td>65%</td></tr>
+      <tr><td>Remoções</td><td>-689</td><td>27%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~191</td><td>8%</td></tr>
+      <tr><th>Total</th><th>~2532</th><th>100%</th></tr>
+    </table>
+        </div>
+        <div class="ap-card">
+          <h3>📁 Arquivos</h3>
+          <table>
+            <tr><th>Status</th><th>Arquivo</th></tr>
+            <tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-13/etapa2-hero-dashboard-2026-08-13-refactor-etapa2-hero-dashboard.html</td></tr>
+<tr><td>M</td><td>docs/tracking/archive/events-2026-08.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>scripts/rules/rule-41-optimizer.mjs</td></tr>
+<tr><td>A</td><td>src/components/accounts/AccountActions.tsx</td></tr>
+<tr><td>A</td><td>src/components/accounts/AccountCard.tsx</td></tr>
+<tr><td>A</td><td>src/components/accounts/AccountsSummary.tsx</td></tr>
+<tr><td>A</td><td>src/components/dashboard/DashboardHero.tsx</td></tr>
+<tr><td>A</td><td>src/components/dashboard/FinancialMetricCards.tsx</td></tr>
+<tr><td>A</td><td>src/components/dashboard/HeroDecor.tsx</td></tr>
+<tr><td>A</td><td>src/components/dashboard/HeroStatCard.tsx</td></tr>
+<tr><td>A</td><td>src/components/dashboard/HeroStats.tsx</td></tr>
+<tr><td>A</td><td>src/components/dashboard/OwnerStockList.tsx</td></tr>
+<tr><td>A</td><td>src/components/dashboard/RecentSalesList.tsx</td></tr>
+<tr><td>A</td><td>src/components/dashboard/RecentTransfersList.tsx</td></tr>
+<tr><td>A</td><td>src/components/dashboard/StockCards.tsx</td></tr>
+<tr><td>A</td><td>src/lib/entryOperations.ts</td></tr>
+<tr><td>M</td><td>src/pages/Contas.tsx</td></tr>
+<tr><td>M</td><td>src/pages/Dashboard.tsx</td></tr>
+<tr><td>M</td><td>src/pages/Entradas.tsx</td></tr>
+<tr><td>A</td><td>tests/components/dashboard-panels.test.tsx</td></tr>
+<tr><td>A</td><td>tests/unit/entryOperations.test.ts</td></tr>
+          </table>
+        </div>
+      </div>
+      <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
+      <div class="diff">
+        diff --git a/docs/RADAR.md b/docs/RADAR.md
+index 5c60ca9..aa251dd 100644
+<span class="del">--- a/docs/RADAR.md</span>
+<span class="add">+++ b/docs/RADAR.md</span>
+@@ -1,6 +1,6 @@
+ # 🔭 Radar de Vulnerabilidades
+ 
+<span class="del">-&gt; Atualizado em: 2026-08-13T04:58:52.378Z</span>
+<span class="add">+&gt; Atualizado em: 2026-08-13T12:05:37.624Z</span>
+ 
+ ## ✅ Radar Limpo
+ Nenhuma vulnerabilidade ativa detectada.
+diff --git a/docs/handoff.md b/docs/handoff.md
+index 5cf0698..d2fe34d 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -1,89 +1,112 @@
+ # HANDOFF — MilesControl
+<span class="del">-&gt; ⏰ Última atualização: 2026-08-11</span>
+<span class="del">-&gt; Anterior: 2026-08-10</span>
+<span class="add">+&gt; ⏰ Última atualização: 2026-08-13</span>
+<span class="add">+&gt; Anterior: 2026-08-12</span>
+ ---
+ ## 🏗️ Projeto
+ **Stack:** React + Vite + Supabase + Tailwind | pt-BR
+ **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
+<span class="del">-**Workflow:** session:start → categoria → implementação → pre-pr → PR</span>
+<span class="add">+**Workflow:** session:start → categoria → implementação → pre-pr → PR → merge → deploy</span>
+ ### 🐞 Bugs Abertos
+ Consulte as GitHub Issues para a lista atual.
+ ## 🧭 Estado Atual
+<span class="del">-- **Branch:** `main`</span>
+<span class="del">-- **Último commit:** `feb31a9 — Merge pull request #374 from andre0787/chore/otimizacoes-gerais`</span>
+<span class="add">+- **Branch:** `refactor/etapa2-hero-dashboard`</span>
+<span class="add">+- **Último commit:** `b745dd6 — style(hero): compacta HeroDecor (158-&gt;~100 linhas) mantendo drift dots variados`</span>
+ - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
+<span class="del">-</span>
+<span class="del">-### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query</span>
+<span class="del">-- **P3-28 entradas** (`src/features/entradas/`), **P3-29 contas** (`src/features/contas/`),</span>
+<span class="del">-  **P3-30 clientes** (`src/features/clientes/`), **P3-31 vendas** (`src/features/vendas/`, PR #341),</span>
+<span class="del">-  **P3-32 alerts** (`src/features/alerts/`, PR #348), **P3-33 owners** (`src/features/owners/`, PR #349),</span>
+<span class="del">-  **P3-34 programs** (`src/features/programs/`, PR #350), **P3-35 origemTypes**</span>
+<span class="del">-  (`src/features/origemTypes/`, PR #351) — todos **merged** em main.</span>
+<span class="del">-- Padrão canônico: `baseApi.injectEndpoints` + barrel `index.ts` + wrappers com shape</span>
+<span class="del">-  público preservado (`data`/`isPending`/`isError`/`error`/`refetch`/`mutate`/`mutateAsync`</span>
+<span class="del">-  + `onSuccess`/`onError`) + tags RTK (`entries`/`accounts`/`sales`/`clients`/`alerts`/`owners`/`programs`/`origem_types`).</span>
+<span class="del">-- Módulos legados removidos de `src/hooks/useDatabase/` (restam apenas `index.ts`,</span>
+<span class="del">-  `mappers.ts`, `shared.ts`). TanStack React Query ainda presente apenas em</span>
+<span class="del">-  DataContext/App (DataProvider) e mutationHooksLifecycle de contas/clientes.</span>
+<span class="del">-- Cards P3-27 a P3-35 todos `done`; ROADMAP atualizado.</span>
+<span class="del">-</span>
+<span class="del">-### 🔄 Em andamento</span>
+<span class="del">-- **Issue #308 (bug de fuso)** — datas ISO date-only (`YYYY-MM-DD`) exibidas com 1 dia a</span>
+<span class="del">-  menos em America/Sao_Paulo. Exibição já corrigida com `formatDateBR` (13 usos);</span>
+<span class="del">-  correção completa em PR com `parseDateOnly` (agrupamento mensal em metrics/Dashboard/Relatorios,</span>
+<span class="del">-  ciclo de passageiros em SaleForm, dia do mês em EntryForm, TWINS em ControleCPF).</span>
+<span class="del">-</span>
+<span class="del">-### 📋 PRs Abertos</span>
+<span class="del">-Nenhum PR aberto.</span>
+<span class="add">+- **Worktree:** contém arquivos gerados pelo pre-pr aguardando commit (`docs/handoff.md`,</span>
+<span class="add">+  `docs/reports/2026-08-13/etapa2-hero-dashboard-*.html`, `docs/tracking/events.jsonl`,</span>
+<span class="add">+  `docs/tracking/quality.jsonl`)</span>
+<span class="add">+</span>
+<span class="add">+### ✅ Etapa 1 do refactor (PR #375 — merged)</span>
+<span class="add">+- Dashboard 1126→976 linhas e EntryForm 939→909: lógica pura extraída para libs testáveis</span>
+<span class="add">+  (`src/lib/dashboardSelectors.ts`, `dashboardTimeline.ts`, `entryFormValidation.ts`).</span>
+<span class="add">+- Nova **rule-42 (coverage gate ≥75%)**: `scripts/rules/rule-42-coverage-gate.mjs`,</span>
+<span class="add">+  registrada em AGENTS.md/RULES.md/data-refresh/project-audit; nightly roda coverage+gate.</span>
+<span class="add">+</span>
+<span class="add">+### 🚧 EM ANDAMENTO — Etapa 2 do refactor (branch `refactor/etapa2-hero-dashboard`, NÃO mergeada)</span>
+<span class="add">+**Objetivo:** extrair blocos JSX em componentes próprios ≤150 linhas (rule-41).</span>
+<span class="add">+</span>
+<span class="add">+**Já implementado e commitado (3 commits na branch):**</span>
+<span class="add">+- `src/components/dashboard/` (NOVOS): `DashboardHero.tsx` (132L, hero parametrizado</span>
+<span class="add">+  milhas/pontos), `HeroStats.tsx` (102L, 6 stats milhas / 3 pontos), `HeroDecor.tsx` (67L,</span>
+<span class="add">+  drift dots com tamanho/animação variados), `HeroStatCard.tsx` (55L), `StockCards.tsx` (64L),</span>
+<span class="add">+  `FinancialMetricCards.tsx` (57L), `OwnerStockList.tsx` (90L, com showCpfBadge opcional),</span>
+<span class="add">+  `RecentSalesList.tsx` (58L), `RecentTransfersList.tsx` (60L)</span>
+<span class="add">+- `src/components/accounts/` (NOVOS): `AccountCard.tsx` (141L), `AccountActions.tsx` (55L),</span>
+<span class="add">+  `AccountsSummary.tsx` (66L)</span>
+<span class="add">+- `src/lib/entryOperations.ts` (60L): `computeEntryValues` puro (lógica de entrada/</span>
+<span class="add">+  transferência extraída do Entradas — usa isTransferencia + computeTransferCalc)</span>
+<span class="add">+- Refatorados: `Dashboard.tsx` **976→491** (hero/estoque/listas viram componentes),</span>
+<span class="add">+  `Contas.tsx` **420→240** (grid vira AccountCard, resumo vira AccountsSummary),</span>
+<span class="add">+  `Entradas.tsx` **597→562** (computeFromForm inline → computeEntryValues)</span>
+<span class="add">+- Fix menor: `rule-41` silencia stderr ruidoso do `git show` para arquivos novos</span>
+<span class="add">+- Testes novos: `tests/unit/entryOperations.test.ts` (6) + `tests/components/dashboard-panels.test.tsx` (11)</span>
+<span class="add">+</span>
+<span class="add">+**Validação já concluída (verde):**</span>
+<span class="add">+- **867 testes / 108 arquivos** (18 novos) · typecheck · lint 0 · build · budget OK</span>
+<span class="add">+- Rules: 14 ✅ · 31 ✅ (22/22 libs) · 41 ✅ (0 ❌) · 42 ✅ (coverage **81.2%** ≥ 75%)</span>
+<span class="add">+- Code review por subagente APROVADO (aplicou 2 ajustes: AccountCard dividido + HeroDecor</span>
+<span class="add">+  drift dots variados) · `code-review:done` registrado no event-log</span>
+<span class="add">+- Pre-pr: 1ª execução falhou na rule-26 (handoff sem timestamp — foi o próprio pre-pr que</span>
+<span class="add">+  apagou a seção); 2ª execução chegou à fase &quot;Testes&quot; sem erros (0 ❌) mas foi interrompida.</span>
+<span class="add">+</span>
+<span class="add">+**⚠️ PENDENTE (próximos passos):**</span>
+<span class="add">+1. Conferir se o pre-pr concluiu (log `/tmp/prepr-etapa2b.log`) e **rodar pre-pr novamente**</span>
+<span class="add">+   se necessário (`npm run pre-pr`) — hoje o handoff foi reescrito, então a rule-26 deve passar.</span>
+<span class="add">+2. Commit dos artefatos gerados (handoff/report/telemetria).</span>
+<span class="add">+3. `git fetch origin main &amp;&amp; git rebase origin/main`</span>
+<span class="add">+4. `git push -u origin refactor/etapa2-hero-dashboard`</span>
+<span class="add">+5. Criar PR (base main, título sugerido: &quot;refactor(etapa2): hero sections do Dashboard em</span>
+<span class="add">+   componentes próprios + AccountCard/AccountsSummary + lib entryOperations pura&quot;)</span>
+<span class="add">+6. Aguardar CI 100% verde → `gh pr merge --squash --delete-branch`</span>
+<span class="add">+7. Validar deploy Production + smoke e2e em prod</span>
+<span class="add">+8. Sincronizar main local, apagar branch, relatório final de valor por entrega</span>
+<span class="add">+</span>
+<span class="add">+## 📋 PRs Abertos</span>
+<span class="add">+Nenhum PR aberto (branch etapa 2 ainda não pusheada).</span>
+ ### 📊 Métricas (estimativa local)
+ | Métrica | Valor |
+ |---------|-------|
+<span class="del">-| Total testes | 575 |</span>
+<span class="del">-| Docs issues | 0 |</span>
+<span class="del">-| Branch | refactor/blueprint-v4-p1-clientes |</span>
+<span class="del">-</span>
+<span class="del">-</span>
+<span class="del">-</span>
+<span class="del">-</span>
+      </div>
+    </section>
+    <div class="foot">
+      <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
+      Gerado por scripts/generate-report.mjs · 2026-08-13 09:20
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+      var deck = document.getElementById("deck");
+      var count = document.getElementById("slideCount");
+      var nav = document.getElementById("deckNav");
+      var current = 0;
+      var deckMode = true;
+
+      function show(i) {
+        current = Math.max(0, Math.min(slides.length - 1, i));
+        slides.forEach(function (s, idx) {
+          s.classList.toggle("active", idx === current);
+        });
+        count.textContent = (current + 1) + "/" + slides.length;
+        if (deckMode) {
+          window.scrollTo(0, 0);
+        } else {
+          slides[current].scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      function toggleMode() {
+        deckMode = !deckMode;
+        deck.classList.toggle("deck-mode", deckMode);
+        document.body.classList.toggle("deck-mode", deckMode);
+        nav.style.display = deckMode ? "flex" : "none";
+        if (deckMode) show(current);
+      }
+
+      document.getElementById("nextBtn").addEventListener("click", function () { show(current + 1); });
+      document.getElementById("prevBtn").addEventListener("click", function () { show(current - 1); });
+      document.getElementById("fsBtn").addEventListener("click", function () {
+        if (document.fullscreenElement) document.exitFullscreen();
+        else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+      });
+      document.getElementById("printBtn").addEventListener("click", function () { window.print(); });
+      document.getElementById("modeBtn").addEventListener("click", toggleMode);
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); show(current + 1); }
+        else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); show(current - 1); }
+        else if (e.key === "Home") { e.preventDefault(); show(0); }
+        else if (e.key === "End") { e.preventDefault(); show(slides.length - 1); }
+        else if (e.key === "f" || e.key === "F") {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+        }
+        else if (e.key === "p" || e.key === "P") { window.print(); }
+      });
+
+      // Mobile/estreito: começa em modo documento (scroll) para não travar leitura
+      if (window.innerWidth < 640) toggleMode();
+      else { deck.classList.add("deck-mode"); document.body.classList.add("deck-mode"); show(0); }
+    })();
+  </script>
+</body>
+</html>
