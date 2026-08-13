@@ -197,6 +197,19 @@ describe("generateHTML", () => {
     expect(html).toContain(opts.task);
     expect(html).toContain("Campos legíveis no dark mode");
   });
+
+  it("Detalhamento por item é slide próprio do deck (s3), não só apêndice", () => {
+    const html = generateHTML(opts);
+    // Slide dedicado com a tabela em destaque
+    expect(html).toContain('class="slide" id="s3"');
+    expect(html).toContain("detail-card");
+    expect(html).toContain("detail-note");
+    // Timeline vira s4 e apêndice s5 (reordenação do deck)
+    expect(html).toContain('class="slide" id="s4"');
+    expect(html).toContain('class="slide appendix" id="s5"');
+    // Deck com 5 slides quando há impacto (hero, impacto, detalhamento, timeline, apêndice)
+    expect(html).toContain("1/5");
+  });
 });
 
 describe("fallbackTableRow", () => {

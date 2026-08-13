@@ -7,8 +7,9 @@
  * uma apresentação de impacto para líderes:
  *   • Slide 1 — One-Pager Executivo (BLUF): decisão, impacto, trade-offs + KPIs
  *   • Slide 2 — Impacto: Produto / Negócio / Processo (antes → depois)
- *   • Slide 3 — Timeline da sessão + métricas DORA-like
- *   • Slide 4 — Apêndice técnico (checklist, arquivos, diff, tokens)
+ *   • Slide 3 — Detalhamento por item (Item | Correção | Benefício | Impacto | Custo Token)
+ *   • Slide 4 — Timeline da sessão + métricas DORA-like
+ *   • Slide 5 — Apêndice técnico (checklist, arquivos, diff, tokens)
  *
  * Modos de visualização (no próprio HTML):
  *   • Deck: slides fullscreen navegáveis (← → espaço, F fullscreen, P imprimir)
@@ -675,7 +676,7 @@ export function generateHTML({
 
   // ── Slide timeline ─────────────────────────────────────────────
   const timelineSlide = `
-    <section class="slide" id="s3">
+    <section class="slide" id="s4">
       <div class="slide-head">
         <span class="slide-kicker">Execução</span>
         <h2>Timeline da sessão</h2>
@@ -715,34 +716,47 @@ export function generateHTML({
       <tr><th>Total</th><th>~${metrics.tokens}</th><th>100%</th></tr>
     </table>`;
 
-  // Seção SEMPRE presente (garantia rule-08): sem --rows nem commits, entra o fallback
+  // Seção SEMPRE presente (garantia rule-08): sem --rows nem commits, entra o fallback.
+  // Vive em slide próprio do deck (e no print) — não mais só no apêndice técnico.
   const rows =
     tableRows.length > 0
       ? tableRows
       : [fallbackTableRow(task, impactProduto, impactNegocio, metrics)];
-  const tableRowsHtml = `<h3>Detalhamento por item</h3>
-    <table>
-      <tr>
-        <th style="width:16%">Item</th>
-        <th style="width:24%">Correção Efetuada</th>
-        <th style="width:20%">Benefício</th>
-        <th style="width:24%">Impacto no Negócio</th>
-        <th style="width:16%">Custo Token</th>
-      </tr>
-      ${rows
-        .map(
-          (r) => `<tr>
-        <td><strong>${escapeHTML(r.item)}</strong></td>
-        <td>${escapeHTML(r.fix)}</td>
-        <td>${escapeHTML(r.benefit)}</td>
-        <td>${escapeHTML(r.impact)}</td>
-        <td><code>${escapeHTML(r.tokens)}</code></td>
-      </tr>`,
-        )
-        .join("\n")}
-    </table>`;
+  const detailTableHtml = `<table>
+    <tr>
+      <th style="width:16%">Item</th>
+      <th style="width:24%">Correção Efetuada</th>
+      <th style="width:20%">Benefício</th>
+      <th style="width:24%">Impacto no Negócio</th>
+      <th style="width:16%">Custo Token</th>
+    </tr>
+    ${rows
+      .map(
+        (r) => `<tr>
+      <td><strong>${escapeHTML(r.item)}</strong></td>
+      <td>${escapeHTML(r.fix)}</td>
+      <td>${escapeHTML(r.benefit)}</td>
+      <td>${escapeHTML(r.impact)}</td>
+      <td><code>${escapeHTML(r.tokens)}</code></td>
+    </tr>`,
+      )
+      .join("\n")}
+  </table>`;
 
-  // ── Apêndice técnico (slide 4) ─────────────────────────────────
+  // ── Slide Detalhamento por item ───────────────────────────────
+  const detailSlide = `
+    <section class="slide" id="s3">
+      <div class="slide-head">
+        <span class="slide-kicker">Valor por entrega</span>
+        <h2>Detalhamento por item</h2>
+      </div>
+      <div class="detail-card">
+        <div class="detail-scroll">${detailTableHtml}</div>
+        <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits.</p>
+      </div>
+    </section>`;
+
+  // ── Apêndice técnico (slide 5) ─────────────────────────────────
   const defaultBefore =
     beforeText ||
     `🧹 ${metrics.deletions} remoções — ${metrics.tokens > 0 ? `${metrics.lines} linhas tocadas` : "sem alterações"}`;
@@ -750,7 +764,7 @@ export function generateHTML({
     afterText || `✨ ${metrics.additions} adições — ${fileList.length} arquivo(s) alterado(s)`;
 
   const appendixHtml = `
-    <section class="slide appendix" id="s4">
+    <section class="slide appendix" id="s5">
       <div class="slide-head">
         <span class="slide-kicker">Apêndice técnico</span>
         <h2>Detalhes da implementação</h2>
@@ -790,7 +804,6 @@ export function generateHTML({
           </table>
         </div>
       </div>
-      <div class="ap-card">${tableRowsHtml}</div>
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
         ${diff
@@ -805,8 +818,10 @@ export function generateHTML({
       </div>
     </section>`;
 
-  const slides = blufHtml + impactHtml + timelineSlide + appendixHtml;
-  const slideCount = (slides.match(/class="slide"/g) || []).length;
+  const slides = blufHtml + impactHtml + detailSlide + timelineSlide + appendixHtml;
+  // Conta TODOS os slides (o apêndice usa class="slide appendix" — o match
+  // por /class="slide"/g deixava o contador do deck sempre 1 a menos)
+  const slideCount = (slides.match(/<section class="slide/g) || []).length;
 
   return `<!DOCTYPE html>
 <html lang="pt-BR">
@@ -924,6 +939,11 @@ export function generateHTML({
     @media(max-width:860px){.appendix-grid{grid-template-columns:1fr}}
     .ap-card{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}
     .ap-card h3{font-size:.92rem;font-weight:800;margin-bottom:.6rem}
+    /* ── Slide Detalhamento por item ── */
+    .detail-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.2rem;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+    .detail-scroll{max-height:56vh;overflow:auto;border-radius:.8rem}
+    .detail-scroll table{margin:0}
+    .detail-note{font-size:.72rem;color:var(--muted);opacity:.8;margin-top:.7rem}
     .checks{list-style:none;display:flex;flex-direction:column;gap:.35rem}
     .checks li{font-size:.85rem;color:var(--muted)}
     table{width:100%;border-collapse:collapse;font-size:.8rem}
@@ -950,6 +970,8 @@ export function generateHTML({
       .hero h1{color:#0b1220}
       .hero-summary,.hero-date,.hero-meta,.kpi-label,.kpi-sub,.bluf-col p,.impact-card p,.tl-time,.tl-label,.stat-l,.checks li,td,th,.foot{color:#334155}
       .kpi,.impact-card,.bluf-col,.ap-card,.stat{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-card{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-scroll{max-height:none;overflow:visible}
       .bluf-col,.checks li{color:#334155}
       .diff{background:#f8fafc;color:#0f172a;border-color:#e2e8f0}
       .timeline::before{background:linear-gradient(180deg,#3b82f6,#16a34a)}

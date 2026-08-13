@@ -114,6 +114,11 @@
     @media(max-width:860px){.appendix-grid{grid-template-columns:1fr}}
     .ap-card{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}
     .ap-card h3{font-size:.92rem;font-weight:800;margin-bottom:.6rem}
+    /* ── Slide Detalhamento por item ── */
+    .detail-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.2rem;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+    .detail-scroll{max-height:56vh;overflow:auto;border-radius:.8rem}
+    .detail-scroll table{margin:0}
+    .detail-note{font-size:.72rem;color:var(--muted);opacity:.8;margin-top:.7rem}
     .checks{list-style:none;display:flex;flex-direction:column;gap:.35rem}
     .checks li{font-size:.85rem;color:var(--muted)}
     table{width:100%;border-collapse:collapse;font-size:.8rem}
@@ -140,6 +145,8 @@
       .hero h1{color:#0b1220}
       .hero-summary,.hero-date,.hero-meta,.kpi-label,.kpi-sub,.bluf-col p,.impact-card p,.tl-time,.tl-label,.stat-l,.checks li,td,th,.foot{color:#334155}
       .kpi,.impact-card,.bluf-col,.ap-card,.stat{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-card{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-scroll{max-height:none;overflow:visible}
       .bluf-col,.checks li{color:#334155}
       .diff{background:#f8fafc;color:#0f172a;border-color:#e2e8f0}
       .timeline::before{background:linear-gradient(180deg,#3b82f6,#16a34a)}
@@ -149,7 +156,7 @@
 <body>
   <div class="nav" id="deckNav">
     <button id="prevBtn" title="Anterior (←)">←</button>
-    <span class="count" id="slideCount">1/2</span>
+    <span class="count" id="slideCount">1/4</span>
     <button id="nextBtn" title="Próxima (→)">→</button>
     <button id="fsBtn" title="Tela cheia (F)">⛶</button>
     <button id="printBtn" title="Imprimir / PDF (P)">⎙</button>
@@ -162,7 +169,7 @@
       <div class="hero">
         <div class="hero-top">
           <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">PR364</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
-          <div class="hero-date">2026-08-13 · 21:20 · <span class="mono">HEAD</span></div>
+          <div class="hero-date">2026-08-13 · 21:40 · <span class="mono">HEAD</span></div>
         </div>
         <h1>dark secondary inputs</h1>
         <p class="hero-summary">Entrega concluída e validada — detalhes técnicos no apêndice.</p>
@@ -208,6 +215,38 @@
     </section>
     <section class="slide" id="s3">
       <div class="slide-head">
+        <span class="slide-kicker">Valor por entrega</span>
+        <h2>Detalhamento por item</h2>
+      </div>
+      <div class="detail-card">
+        <div class="detail-scroll"><table>
+    <tr>
+      <th style="width:16%">Item</th>
+      <th style="width:24%">Correção Efetuada</th>
+      <th style="width:20%">Benefício</th>
+      <th style="width:24%">Impacto no Negócio</th>
+      <th style="width:16%">Custo Token</th>
+    </tr>
+    <tr>
+      <td><strong>89434f2</strong></td>
+      <td>chore: normalize report prefix to PR364</td>
+      <td>Ajuste de processo validado</td>
+      <td>Processo mais confiável e audável</td>
+      <td><code>—</code></td>
+    </tr>
+<tr>
+      <td><strong>676586d</strong></td>
+      <td>fix(dark): causa raiz --secondary sem override no .dark (inputs/selecao quase brancos ilegiveis) + busca translucida estilo iOS + guard de regressao</td>
+      <td>Comportamento corrigido e validado — menos erro e retrabalho</td>
+      <td>Menos risco de erro para o usuário e a operação</td>
+      <td><code>~741</code></td>
+    </tr>
+  </table></div>
+        <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits.</p>
+      </div>
+    </section>
+    <section class="slide" id="s4">
+      <div class="slide-head">
         <span class="slide-kicker">Execução</span>
         <h2>Timeline da sessão</h2>
       </div>
@@ -244,7 +283,7 @@
         </div>
       </div>
     </section>
-    <section class="slide appendix" id="s4">
+    <section class="slide appendix" id="s5">
       <div class="slide-head">
         <span class="slide-kicker">Apêndice técnico</span>
         <h2>Detalhes da implementação</h2>
@@ -311,30 +350,6 @@
           </table>
         </div>
       </div>
-      <div class="ap-card"><h3>Detalhamento por item</h3>
-    <table>
-      <tr>
-        <th style="width:16%">Item</th>
-        <th style="width:24%">Correção Efetuada</th>
-        <th style="width:20%">Benefício</th>
-        <th style="width:24%">Impacto no Negócio</th>
-        <th style="width:16%">Custo Token</th>
-      </tr>
-      <tr>
-        <td><strong>89434f2</strong></td>
-        <td>chore: normalize report prefix to PR364</td>
-        <td>Ajuste de processo validado</td>
-        <td>Processo mais confiável e audável</td>
-        <td><code>—</code></td>
-      </tr>
-<tr>
-        <td><strong>676586d</strong></td>
-        <td>fix(dark): causa raiz --secondary sem override no .dark (inputs/selecao quase brancos ilegiveis) + busca translucida estilo iOS + guard de regressao</td>
-        <td>Comportamento corrigido e validado — menos erro e retrabalho</td>
-        <td>Menos risco de erro para o usuário e a operação</td>
-        <td><code>~741</code></td>
-      </tr>
-    </table></div>
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
         diff --git a/docs/RADAR.md b/docs/RADAR.md
@@ -461,7 +476,7 @@ index 14780a2..ba65044 100644
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-08-13 21:20
+      Gerado por scripts/generate-report.mjs · 2026-08-13 21:40
     </div>
   </div>
 
