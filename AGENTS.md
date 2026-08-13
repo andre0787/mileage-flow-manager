@@ -9,28 +9,28 @@
 
 ## ⚡ Mapa de Conhecimento
 
-| Doc | Conteúdo | Tamanho |
-|-----|----------|---------|
-| `docs/WORKFLOW-QUICKSTART.md` | **Resumo executivo do workflow** (carregar em sessão feature) | 1.5KB |
-| `docs/STACK.md` | Stack técnica (React, Vite, Supabase, Tailwind) | 2KB |
-| `docs/ARCHITECTURE.md` | Estrutura de pastas e arquitetura | 4.8KB |
-| `docs/CONVENTIONS.md` | Índice dos slices de convenções (ver `docs/conventions/`) | 1KB |
-| `docs/conventions/` | Slices por categoria: `common` (todas), `feature`, `bugfix`, `refactor`, `workflow` | ~30KB total |
-| `docs/WORKFLOW.md` | Processos, scripts, fluxo completo + subagentes | 12.5KB |
-| `docs/UI-GUIDE.md` | Design system, grid, cores, componentes | 3.9KB |
-| `docs/DEBUG.md` | Debug, troubleshooting, logs | 2.1KB |
-| `docs/GIT-WORKFLOW.md` | Git, branch, PR, deploy | 3.1KB |
-| `docs/TESTING.md` | Estratégia de testes | 3.2KB |
-| `docs/MAP.md` | Mapa completo do projeto + skills de subagentes | 5.6KB |
-| `docs/CONTEXT-MANAGEMENT.md` | Estratégia de lazy loading | novo |
-| `docs/fable-gates.md` | Gates INTENT, TWINS e AUTH do Fable Method | novo |
+| Doc                                     | Conteúdo                                                                                             | Tamanho                             |
+| --------------------------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `docs/WORKFLOW-QUICKSTART.md`           | **Resumo executivo do workflow** (carregar em sessão feature)                                        | 1.5KB                               |
+| `docs/STACK.md`                         | Stack técnica (React, Vite, Supabase, Tailwind)                                                      | 2KB                                 |
+| `docs/ARCHITECTURE.md`                  | Estrutura de pastas e arquitetura                                                                    | 4.8KB                               |
+| `docs/CONVENTIONS.md`                   | Índice dos slices de convenções (ver `docs/conventions/`)                                            | 1KB                                 |
+| `docs/conventions/`                     | Slices por categoria: `common` (todas), `feature`, `bugfix`, `refactor`, `workflow`                  | ~30KB total                         |
+| `docs/WORKFLOW.md`                      | Processos, scripts, fluxo completo + subagentes                                                      | 12.5KB                              |
+| `docs/UI-GUIDE.md`                      | Design system, grid, cores, componentes                                                              | 3.9KB                               |
+| `docs/DEBUG.md`                         | Debug, troubleshooting, logs                                                                         | 2.1KB                               |
+| `docs/GIT-WORKFLOW.md`                  | Git, branch, PR, deploy                                                                              | 3.1KB                               |
+| `docs/TESTING.md`                       | Estratégia de testes                                                                                 | 3.2KB                               |
+| `docs/MAP.md`                           | Mapa completo do projeto + skills de subagentes                                                      | 5.6KB                               |
+| `docs/CONTEXT-MANAGEMENT.md`            | Estratégia de lazy loading                                                                           | novo                                |
+| `docs/fable-gates.md`                   | Gates INTENT, TWINS e AUTH do Fable Method                                                           | novo                                |
 | `.pi/skills/code-review-graph/SKILL.md` | Mapeamento estrutural do código (CLI CRG v2.3.7, pipx): architecture, dead-code, communities, impact | nova — usar em auditorias e reviews |
 
 ### Roteamento de subagentes
 
 Antes de cada `subagent_gate`, resolva a tarefa com `npm run llm:route`. Use exatamente `model`, `fallbackModels` e `retrySafety` retornados; não escolha modelo inline nem omita `model` em uma tarefa roteada. Registre conclusão somente com metadados sanitizados. Consulte [`docs/LLM-ROUTER.md`](docs/LLM-ROUTER.md) para o contrato operacional.
 
-**Delegação econômica (obrigatória em toda delegação):** siga `compact-delegation` — contexto mínimo (task de 1-3 frases, sem histórico), retorno estruturado de campos-chave (nunca eco de arquivos/logs), sem herança de contexto. Para escopo estreito use `bounded-scout` (file|line|finding), para entender diffs use `diff-miner` (impact|risk|files), para falhas de teste use `test-triage` (cause|fix|evidence). Subagentes mecânicos → perfil `efficient` via router.
+**Delegação econômica (obrigatória em toda delegação):** siga `compact-delegation` — contexto mínimo (task de 1-3 frases, sem histórico), retorno estruturado de campos-chave (nunca eco de arquivos/logs), sem herança de contexto. Para escopo estreito use `bounded-scout` (file|line|finding), para entender diffs use `diff-miner` (impact|risk|files), para falhas de teste use `test-triage` (cause|fix|evidence), para falhas do `pre-pr` use `pre-pr-triage` (rule|file|fix, só `❌` conta). Para resumo de entregas de um período (dia/semana), use `report-consolidation` → `npm run report:consolidate` (1 linha por PR, nunca commits). Subagentes mecânicos → perfil `efficient` via router.
 
 ## 🔥 Regras Essenciais (7)
 
@@ -42,31 +42,31 @@ Antes de cada `subagent_gate`, resolva a tarefa com `npm run llm:route`. Use exa
 6. **Sem duplicatas > 75%** em componentes. Valida: `rule-15`.
 7. **Todo script em `scripts/` tem atalho npm**. Valida: `rule-16`.
 8. **Skills do workflow e subagentes existem em `.pi/skills/`** — sem symlink quebrado ou skill faltando. Skills de subagente (`subagent-driven-development`, `dispatching-parallel-agents`) estão disponíveis para execução paralela e delegada. Valida: `rule-23`.
-26. **`npm run session:start` obrigatório no início de toda sessão** — marcador de timestamp validado. Valida: `rule-26`.
-27. **Council obrigatório no workflow feature** — veredito em `docs/council/`. Valida: `rule-27`.
-28. **Spec técnica obrigatória no workflow refactor** — spec em `docs/superpowers/specs/`. Valida: `rule-28`.
-29. **Prompt versioning** — todo prompt/skill modificado tem hash atualizado no manifesto. Valida: `rule-29`.
-30. **Outcome grade ≥ 80%** — diff deve passar quality gates (console.log, tests, protegidos). Valida: `rule-30`.
-31. **Toda lib em `src/lib/` tem test unitário** — exceções: db.ts, supabase.ts. Valida: `rule-31`.
-32. **Todo componente customizado tem teste** — aplica a `src/components/ui/` custom e hooks. Valida: `rule-32`.
-33. **🧠 INTENT Gate** — antes de qualquer mudança de comportamento, declare `INTENT: código faz X; teste espera Y; spec diz Z`. Se divergirem, não edite — reporte. Aplicado em `council-to-superpowers` e `writing-plans`. Valida: `rule-33`.
-34. **🔁 TWINS Check** — ao corrigir um bug, busque o mesmo padrão no projeto todo e corrija todas as ocorrências. Declare `TWINS: searched <padrão> — found <N> locais`. Aplicado em `systematic-debugging`. Valida: `rule-34`.
-35. **🔐 AUTH Gate** — antes de push/merge/deploy irreversível, exija as palavras exatas do usuário. Declare `AUTH: usuário disse "<citação>"`. Sem citação, não aja. Aplicado em `finishing-a-development-branch`. Valida: `rule-35`.
-36. **Integração RTK ativa** — a extensão `.pi/extensions/rtk.ts` deve existir (versionada) e o binário `rtk` local deve ser >= 0.23.0; ausência do binário é skip não-falho (fail-open). Valida: `rule-37`.
-37. **🔎 Code Review Gate** — todo PR exige revisão de código feita por **subagente especializado** (evidência: evento `code-review:done` com `subagent:true` na branch atual). Sem evidência, o pre-pr falha. Aplicado em `requesting-code-review`. Valida: `rule-38`.
-38. **🛠️ Coding Gate** — toda mudança de código (src/, scripts/, tests/, .pi/) exige execução por **subagente especializado** (evidência: evento `coding:done` com `subagent:true` na branch atual). Sem evidência, o pre-pr falha. Aplicado em `subagent-driven-development` / `dispatching-parallel-agents`. Valida: `rule-39`.
-40. **📐 Architect Gate** — estrutura Feature-First: módulos em `src/features/[feature]` com barrel `index.ts` e RLS verificado (`CREATE POLICY` com `USING (auth.uid())` em `supabase/migrations/`); vacuous se `src/features/` não existe. Valida: `rule-40`.
-41. **🧹 Optimizer Gate** — hard limit de 150 linhas por arquivo em `src/` (diff-scoped contra main); arquivos novos grandes e arquivos que passam do limite falham; legados já grandes são grandfathered (warning). Aplicado no workflow refactor. Valida: `rule-41`.
+9. **`npm run session:start` obrigatório no início de toda sessão** — marcador de timestamp validado. Valida: `rule-26`.
+10. **Council obrigatório no workflow feature** — veredito em `docs/council/`. Valida: `rule-27`.
+11. **Spec técnica obrigatória no workflow refactor** — spec em `docs/superpowers/specs/`. Valida: `rule-28`.
+12. **Prompt versioning** — todo prompt/skill modificado tem hash atualizado no manifesto. Valida: `rule-29`.
+13. **Outcome grade ≥ 80%** — diff deve passar quality gates (console.log, tests, protegidos). Valida: `rule-30`.
+14. **Toda lib em `src/lib/` tem test unitário** — exceções: db.ts, supabase.ts. Valida: `rule-31`.
+15. **Todo componente customizado tem teste** — aplica a `src/components/ui/` custom e hooks. Valida: `rule-32`.
+16. **🧠 INTENT Gate** — antes de qualquer mudança de comportamento, declare `INTENT: código faz X; teste espera Y; spec diz Z`. Se divergirem, não edite — reporte. Aplicado em `council-to-superpowers` e `writing-plans`. Valida: `rule-33`.
+17. **🔁 TWINS Check** — ao corrigir um bug, busque o mesmo padrão no projeto todo e corrija todas as ocorrências. Declare `TWINS: searched <padrão> — found <N> locais`. Aplicado em `systematic-debugging`. Valida: `rule-34`.
+18. **🔐 AUTH Gate** — antes de push/merge/deploy irreversível, exija as palavras exatas do usuário. Declare `AUTH: usuário disse "<citação>"`. Sem citação, não aja. Aplicado em `finishing-a-development-branch`. Valida: `rule-35`.
+19. **Integração RTK ativa** — a extensão `.pi/extensions/rtk.ts` deve existir (versionada) e o binário `rtk` local deve ser >= 0.23.0; ausência do binário é skip não-falho (fail-open). Valida: `rule-37`.
+20. **🔎 Code Review Gate** — todo PR exige revisão de código feita por **subagente especializado** (evidência: evento `code-review:done` com `subagent:true` na branch atual). Sem evidência, o pre-pr falha. Aplicado em `requesting-code-review`. Valida: `rule-38`.
+21. **🛠️ Coding Gate** — toda mudança de código (src/, scripts/, tests/, .pi/) exige execução por **subagente especializado** (evidência: evento `coding:done` com `subagent:true` na branch atual). Sem evidência, o pre-pr falha. Aplicado em `subagent-driven-development` / `dispatching-parallel-agents`. Valida: `rule-39`.
+22. **📐 Architect Gate** — estrutura Feature-First: módulos em `src/features/[feature]` com barrel `index.ts` e RLS verificado (`CREATE POLICY` com `USING (auth.uid())` em `supabase/migrations/`); vacuous se `src/features/` não existe. Valida: `rule-40`.
+23. **🧹 Optimizer Gate** — hard limit de 150 linhas por arquivo em `src/` (diff-scoped contra main); arquivos novos grandes e arquivos que passam do limite falham; legados já grandes são grandfathered (warning). Aplicado no workflow refactor. Valida: `rule-41`.
 
 ## 🎯 Sistema de Categorias (LAZY LOADING)
 
-| Tipo | Carregar | Workflow |
-|------|----------|----------|
-| **feature** | `WORKFLOW-QUICKSTART.md` + `conventions/common.md` + `conventions/feature.md` (`WORKFLOW.md` só on-demand — 5.5K tokens) | council → build → pre-pr → PR |
-| **bugfix** | `DEBUG.md` + `conventions/common.md` + `conventions/bugfix.md` | triagem → fix → pre-pr → PR |
-| **docs** | (só este AGENTS.md) | editar → pre-pr → PR |
-| **refactor** | `conventions/common.md` + `conventions/refactor.md` + `ARCHITECTURE.md` | spec → build → pre-pr → PR |
-| **chore** | (só este AGENTS.md) | executar → pre-pr → PR |
+| Tipo         | Carregar                                                                                                                 | Workflow                      |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------ | ----------------------------- |
+| **feature**  | `WORKFLOW-QUICKSTART.md` + `conventions/common.md` + `conventions/feature.md` (`WORKFLOW.md` só on-demand — 5.5K tokens) | council → build → pre-pr → PR |
+| **bugfix**   | `DEBUG.md` + `conventions/common.md` + `conventions/bugfix.md`                                                           | triagem → fix → pre-pr → PR   |
+| **docs**     | (só este AGENTS.md)                                                                                                      | editar → pre-pr → PR          |
+| **refactor** | `conventions/common.md` + `conventions/refactor.md` + `ARCHITECTURE.md`                                                  | spec → build → pre-pr → PR    |
+| **chore**    | (só este AGENTS.md)                                                                                                      | executar → pre-pr → PR        |
 
 ## ⚠️ REGRA DOURADA: NÃO PRÉ-CARREGUE DOCS
 
@@ -96,6 +96,7 @@ O snapshot do projeto no topo do handoff.md é gerado automaticamente pelo
 ## ⚡ AUTO-INICIALIZAÇÃO
 
 Ao iniciar uma nova sessão:
+
 1. Execute `npm run session:start` (GATILHO AUTOMÁTICO)
 2. Leia `docs/handoff.md` (já contém snapshot + estado)
 3. Informe a categoria da tarefa

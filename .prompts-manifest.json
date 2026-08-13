@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-12T22:27:43.008Z",
+  "updatedAt": "2026-08-13T02:16:50.977Z",
   "prompts": {
     ".pi/skills/code-review-graph/SKILL.md": "sha256-b0a1a323e4979fac77f70da66b364098252dc2c9623688a95a9ef2e39fa0963b",
     ".pi/skills/council-to-superpowers/SKILL.md": "sha256-424faade51fe07225ad5e4958685daf4181be98cbb5d98d2a07ec8e9aecbb69a",
@@ -11,7 +11,9 @@
     ".pi/skills/bounded-scout/SKILL.md": "sha256-77f6a73a0873da2204d10af1ce52fc289967f142b94cee075aefafbcc38b6e70",
     ".pi/skills/diff-miner/SKILL.md": "sha256-a6a6853afce8d3f76e8a0a96e7f03fd08f9a80fb41f849afdd5a77fa694551b6",
     ".pi/skills/test-triage/SKILL.md": "sha256-46fd0238e8059ad983034c2e4995cce8827c50271523ba0032dd59c4b99ef9a4",
-    "AGENTS.md": "sha256-47e8e4fc8b2104731b2ccaa0f5296a33450d9512587fd7895f491e0641839b87",
+    ".pi/skills/pre-pr-triage/SKILL.md": "sha256-67713243d559bf106ea796e02c2a560f9efcdd6491e6ce650cda5bc61c1744ab",
+    ".pi/skills/report-consolidation/SKILL.md": "sha256-c3fb9ec64a8e3175a660a43b75e18a1f19ed624ede76551790899bae00ba59b2",
+    "AGENTS.md": "sha256-bdc50f54f7f88a548b0f09acd4e22f83a8e7603222d53a7892eb38c0d460afa9",
     "CLAUDE.md": "sha256-051e5599efd15f4e716edf63dcb3b1da2d23fdcd3728e80831e8adaabab68d87",
     "docs/tasks/AGENTS.override.md": "sha256-28738b9893ae399d5d2dc6fa55c0ce6e0d1e40d38166b54e5e30dbe0def11f5e",
     "docs/CONTEXT-MANAGEMENT.md": "sha256-9711e3381ed5661bee1f55454614844a3ea65377ed0881b8f787ebd86a90c3ea",

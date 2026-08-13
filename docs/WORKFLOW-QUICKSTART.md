@@ -8,13 +8,13 @@
 1. `npm run session:start` → snapshot + pergunta a **categoria**
 2. Carregue APENAS os docs da categoria (lazy loading):
 
-| Categoria | Docs |
-|-----------|------|
-| feature | `WORKFLOW-QUICKSTART.md` + `conventions/common.md` + `conventions/feature.md` |
-| bugfix | `DEBUG.md` + `conventions/common.md` + `conventions/bugfix.md` |
-| docs | (só AGENTS.md) |
-| refactor | `conventions/common.md` + `conventions/refactor.md` + `ARCHITECTURE.md` |
-| chore | (só AGENTS.md) |
+| Categoria | Docs                                                                          |
+| --------- | ----------------------------------------------------------------------------- |
+| feature   | `WORKFLOW-QUICKSTART.md` + `conventions/common.md` + `conventions/feature.md` |
+| bugfix    | `DEBUG.md` + `conventions/common.md` + `conventions/bugfix.md`                |
+| docs      | (só AGENTS.md)                                                                |
+| refactor  | `conventions/common.md` + `conventions/refactor.md` + `ARCHITECTURE.md`       |
+| chore     | (só AGENTS.md)                                                                |
 
 > ⚠️ **REGRA DOURADA:** não pré-carregue docs fora da categoria. `WORKFLOW.md`/`MAP.md`
 > só on-demand (são os mais pesados).
@@ -31,15 +31,16 @@
 
 ## Scripts essenciais
 
-| Script | Uso |
-|--------|-----|
-| `npm run check:fast` | Loop local: typecheck + lint + format + test + docs |
-| `npm run check:pr` | Réplica do CI (check:fast + build) |
-| `npm run pre-pr` | Valida tudo + gera relatório automático |
-| `npm run report "desc" --impact-produto "..." --write` | Briefing executivo (deck de slides) |
-| `npm run context:audit` | Mede consumo de tokens do workflow |
-| `npm run context:trim` | Rota telemetria (events/quality) — mantém ágil |
-| `npm run session:end "msg"` | commit + handoff + push em 1 comando |
+| Script                                                                    | Uso                                                                  |
+| ------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `npm run check:fast`                                                      | Loop local: typecheck + lint + format + test + docs                  |
+| `npm run check:pr`                                                        | Réplica do CI (check:fast + build)                                   |
+| `npm run pre-pr`                                                          | Valida tudo + gera relatório automático (falha → `pre-pr-triage`)    |
+| `npm run report "desc" --impact-produto "..." --write`                    | Briefing executivo (deck de slides)                                  |
+| `npm run report:consolidate -- --from AAAA-MM-DD --to AAAA-MM-DD --write` | Resumo executivo por PR de um período (`report-consolidation`)       |
+| `npm run context:audit`                                                   | Mede consumo de tokens do workflow (telemetria lida por tail — ágil) |
+| `npm run context:trim`                                                    | Rota telemetria (events/quality) — mantém ágil                       |
+| `npm run session:end "msg"`                                               | commit + handoff + push em 1 comando                                 |
 
 ## Gates essenciais (não puláveis)
 
@@ -72,4 +73,5 @@ O título vira o nome do workflow no CI — sem padrão, o CI fica ilegível.
 - Skills de contexto: `.pi/skills/context-window-management/` (referência de padrões)
 
 ---
-*Quickstart — para o fluxo completo consulte `WORKFLOW.md`. Para definições autoritativas, `WORKFLOW-MANIFEST.md`.*
+
+_Quickstart — para o fluxo completo consulte `WORKFLOW.md`. Para definições autoritativas, `WORKFLOW-MANIFEST.md`._
