@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T03:31:21.462Z",
+  "generatedAt": "2026-08-13T03:53:27.368Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,10 +174,10 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 74,
-      "prePrTotal": 369,
-      "prePrPass": 273,
-      "prePrFail": 96,
+      "prePrPassRate": 74.5,
+      "prePrTotal": 373,
+      "prePrPass": 278,
+      "prePrFail": 95,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -209,7 +209,7 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 51,
+        "rule-26": 52,
         "rule-17-new-docs-valid": 18,
         "rule-02": 1
       },
@@ -217,10 +217,10 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.4,
-      "branchesMerged": 91,
+      "branchesMerged": 92,
       "violationsCaught": 405,
-      "healedRate": 17.3,
-      "frictionPerPass": 1.48,
+      "healedRate": 17.5,
+      "frictionPerPass": 1.46,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,
@@ -239,6 +239,214 @@
   ],
   "daily": [
     {
+      "day": "2026-07-15",
+      "label": "15/07",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-07-16",
+      "label": "16/07",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-07-17",
+      "label": "17/07",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-07-18",
+      "label": "18/07",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-07-19",
+      "label": "19/07",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-07-20",
+      "label": "20/07",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-07-21",
+      "label": "21/07",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-07-22",
+      "label": "22/07",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-07-23",
+      "label": "23/07",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-07-24",
+      "label": "24/07",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-07-25",
+      "label": "25/07",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-07-26",
+      "label": "26/07",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-07-27",
+      "label": "27/07",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-07-28",
+      "label": "28/07",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-07-29",
+      "label": "29/07",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-07-30",
+      "label": "30/07",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
       "day": "2026-07-31",
       "label": "31/07",
       "prePrTotal": 0,
@@ -254,13 +462,13 @@
     {
       "day": "2026-08-01",
       "label": "01/08",
-      "prePrTotal": 53,
+      "prePrTotal": 52,
       "prePrPass": 33,
-      "prePrFail": 20,
-      "prePrPassRate": 62.3,
+      "prePrFail": 19,
+      "prePrPassRate": 63.5,
       "ruleFails": 24,
       "healed": 0,
-      "sessions": 127,
+      "sessions": 123,
       "merges": 7,
       "friction": 0.73
     },
@@ -410,18 +618,27 @@
     {
       "day": "2026-08-13",
       "label": "13/08",
-      "prePrTotal": 27,
-      "prePrPass": 27,
+      "prePrTotal": 32,
+      "prePrPass": 32,
       "prePrFail": 0,
       "prePrPassRate": 100,
       "ruleFails": 5,
-      "healed": 7,
-      "sessions": 11,
-      "merges": 9,
-      "friction": 0.19
+      "healed": 8,
+      "sessions": 12,
+      "merges": 10,
+      "friction": 0.16
     }
   ],
   "prs": [
+    {
+      "number": 372,
+      "title": "fix(process): pre-pr roda data:refresh em vez de kpi — kpi-data.json completo sem regressão",
+      "type": "fix",
+      "date": "2026-08-13",
+      "tokens": 923,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação"
+    },
     {
       "number": 371,
       "title": "feat(kpi): Datadog interno — abas KPI e Workflow com dados reais diários (data:refresh + nightly)",
@@ -502,34 +719,25 @@
       "tokens": 572,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 362,
-      "title": "feat(process): otimização de contexto — quickstart enxuto, telemetria com rotação e auditoria de tokens",
-      "type": "feat",
-      "date": "2026-08-12",
-      "tokens": 1764,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "repo": {
-    "components": 87,
+    "components": 89,
     "pages": 16,
     "libs": 19,
     "scripts": 104,
-    "testFiles": 195,
+    "testFiles": 199,
     "skills": 26,
     "rules": 41,
-    "events": 1204,
-    "qualityNotes": 463
+    "events": 1208,
+    "qualityNotes": 464
   },
   "summary": {
-    "merges": 91,
+    "merges": 92,
     "prs": 6,
-    "sessions": 189,
+    "sessions": 186,
     "violations": 405,
-    "healed": 70,
-    "prePrPassRate": 74
+    "healed": 71,
+    "prePrPassRate": 74.5
   }
 }

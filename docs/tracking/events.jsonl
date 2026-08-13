@@ -1204,3 +1204,5 @@
 {"timestamp":"2026-08-13T03:49:51.349Z","type":"coding:done","description":"4 sugestoes do painel implementadas por subagente: ProcessAlerts, BusinessBreakdown, seletor 7/14/30d, lazy-loading React.lazy","branch":"feat/kpi-sugestoes-painel","commit":"82da4f6","agent":"human","subagent":true,"skill":"subagent-driven-development"}
 {"timestamp":"2026-08-13T03:50:53.612Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-sugestoes-painel","commit":"82da4f6","agent":"human","errors":0}
 {"timestamp":"2026-08-13T03:51:20.756Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-sugestoes-painel","commit":"53d645f","agent":"human","errors":0}
+{"timestamp":"2026-08-13T03:51:25.352Z","type":"code-review:done","description":"Review aprovado: fix CPFs vazios no breakdown + constante LIVE_SERIES_DAYS + Suspense/ErrorBoundary verificado","branch":"feat/kpi-sugestoes-painel","commit":"2e90a73","agent":"human","subagent":true,"verdict":"approved","skill":"requesting-code-review"}
+{"timestamp":"2026-08-13T03:53:27.252Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-sugestoes-painel","commit":"2e90a73","agent":"human","errors":0}
