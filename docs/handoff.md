@@ -67,11 +67,3 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 
 
-## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** Detalhamento por item ao nivel de PR (titulo real + custo agregado) + relatorio consolidado por PR (report:consolidate)
-**Status:** in_progress
-**Iniciada em:** 2026-08-13T01:56:16.624Z
-**Branch:** `feat/report-por-pr`
-**Último commit:** 6bdcca6 — Merge pull request #368 from andre0787/feat/dark-surfaces-audit
-**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md

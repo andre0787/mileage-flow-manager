@@ -1205,3 +1205,4 @@
 {"timestamp":"2026-08-13T01:56:17.224Z","type":"code-review:done","description":"Review aprovado: 4 ajustes (import morto removido, numstatLines exportado e reusado, guard numerico --prs, PR corrente sempre anexado)","branch":"feat/report-por-pr","commit":"51ece56","agent":"human","subagent":true,"verdict":"approved"}
 {"timestamp":"2026-08-13T01:58:03.916Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/report-por-pr","commit":"51ece56","agent":"human","errors":0}
 {"timestamp":"2026-08-13T01:59:07.972Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/report-por-pr","commit":"51ece56","agent":"human","errors":0}
+{"timestamp":"2026-08-13T01:59:47.287Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/report-por-pr","commit":"0f06ae7","agent":"human","errors":0}

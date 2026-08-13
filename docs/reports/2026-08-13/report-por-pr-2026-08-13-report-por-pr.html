@@ -176,11 +176,11 @@
       <div class="hero">
         <div class="hero-top">
           <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">report-por-pr</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
-          <div class="hero-date">2026-08-13 · 22:56 · <span class="mono">feat/report-por-pr</span></div>
+          <div class="hero-date">2026-08-13 · 22:59 · <span class="mono">feat/report-por-pr</span></div>
         </div>
         <h1>report por pr</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">51ece56 — feat(process): Detalhamento por item ao nivel de PR — derivePrRows com titulo real e custo agregado por merge, buildPrRow puro, consolidate-report.mjs (npm run report:consolidate) para relatorios executivos por PR</div>
+        <div class="hero-meta mono">0f06ae7 — fix(process): Detalhamento nunca lista commits — sem PR aberto usa linha unica da sessao (fallback)</div>
       </div>
       
     <div class="kpi-grid">
@@ -195,7 +195,7 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/14</div>
+        <div class="kpi-value">0/16</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
         <div class="kpi-sub">0 violações · 5 auto-corrigidas</div>
       </div>
@@ -255,11 +255,11 @@
       <th style="width:16%">Custo Token</th>
     </tr>
     <tr>
-      <td><strong>51ece56</strong></td>
-      <td>feat(process): Detalhamento por item ao nivel de PR — derivePrRows com titulo real e custo agregado por merge, buildPrRow puro, consolidate-report.mjs (npm run report:consolidate) para relatorios executivos por PR</td>
-      <td>Nova capacidade entregue e validada</td>
-      <td>Nova alavanca de uso/negócio</td>
-      <td><code>~1098</code></td>
+      <td><strong>Entrega da sessão</strong></td>
+      <td>report por pr</td>
+      <td>Nova capacidade entregue e validada para o produto.</td>
+      <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
+      <td><code>~1673</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 5.743 tokens (feature) · status moderado</p>
@@ -301,7 +301,7 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">14</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">16</span><span class="stat-l">rodadas de validação pré-PR</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">violações de regra encontradas</span></div>
             <div class="stat"><span class="stat-v green">5</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
@@ -326,7 +326,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 27 remoções — 1600 linhas tocadas</td><td>✨ 1457 adições — 10 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 39 remoções — 2231 linhas tocadas</td><td>✨ 2036 adições — 13 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -334,23 +334,23 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>10</td></tr>
-            <tr><td>Adições</td><td>+1457</td></tr>
-            <tr><td>Remoções</td><td>-27</td></tr>
-            <tr><td>Tokens estimados</td><td>~1200</td></tr>
+            <tr><td>Arquivos alterados</td><td>13</td></tr>
+            <tr><td>Adições</td><td>+2036</td></tr>
+            <tr><td>Remoções</td><td>-39</td></tr>
+            <tr><td>Tokens estimados</td><td>~1673</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:91">+1093 add</div>
-        <div class="del" style="flex:2">-20 del</div>
-        <div class="overhead" style="flex:7">~87 ctx</div>
+        <div class="add" style="flex:91">+1527 add</div>
+        <div class="del" style="flex:2">-29 del</div>
+        <div class="overhead" style="flex:7">~117 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+1093</td><td>91%</td></tr>
-      <tr><td>Remoções</td><td>-20</td><td>2%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~87</td><td>7%</td></tr>
-      <tr><th>Total</th><th>~1200</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+1527</td><td>91%</td></tr>
+      <tr><td>Remoções</td><td>-29</td><td>2%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~117</td><td>7%</td></tr>
+      <tr><th>Total</th><th>~1673</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
@@ -361,9 +361,12 @@
 <tr><td>M</td><td>docs/handoff.md</td></tr>
 <tr><td>A</td><td>docs/reports/2026-08-13/PR-CONSOLIDADO-2026-08-12-2026-08-13-consolidado-de-entregas-2026-08-12-2026-08-13.html</td></tr>
 <tr><td>A</td><td>docs/reports/2026-08-13/main-2026-08-13-main.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-13/report-por-pr-2026-08-13-report-por-pr.html</td></tr>
 <tr><td>M</td><td>docs/tracking/archive/events-2026-08.jsonl</td></tr>
 <tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
 <tr><td>M</td><td>package.json</td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td></tr>
 <tr><td>A</td><td>scripts/consolidate-report.mjs</td></tr>
 <tr><td>M</td><td>scripts/generate-report.mjs</td></tr>
 <tr><td>M</td><td>tests/unit/generate-report.test.ts</td></tr>
@@ -496,7 +499,7 @@ index 0000000..dd00e60
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-08-13 22:56
+      Gerado por scripts/generate-report.mjs · 2026-08-13 22:59
     </div>
   </div>
 
