@@ -175,19 +175,19 @@
     <section class="slide" id="s1">
       <div class="hero">
         <div class="hero-top">
-          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">otimizacoes-gerais</span> <span class="badge risk" style="color:#34d399">Baixo risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
-          <div class="hero-date">2026-08-13 · 01:12 · <span class="mono">chore/otimizacoes-gerais</span></div>
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">otimizacoes-gerais</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
+          <div class="hero-date">2026-08-13 · 01:14 · <span class="mono">chore/otimizacoes-gerais</span></div>
         </div>
         <h1>otimizacoes gerais</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">a0a4716 — Merge pull request #373 from andre0787/feat/kpi-sugestoes-painel</div>
+        <div class="hero-meta mono">2d5f06a — chore(process): testes paralelos (1m40s-&gt;18s), lint 0 warnings, coverage config (78.8%)</div>
       </div>
       
     <div class="kpi-grid">
       <div class="kpi">
         <div class="kpi-value">0</div>
         <div class="kpi-label">entregas em produção</div>
-        <div class="kpi-sub">10 implementações · 10 reviews</div>
+        <div class="kpi-sub">11 implementações · 11 reviews</div>
       </div>
       <div class="kpi">
         <div class="kpi-value">—</div>
@@ -195,14 +195,14 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/32</div>
+        <div class="kpi-value">0/33</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
         <div class="kpi-sub">5 violações · 8 auto-corrigidas</div>
       </div>
       <div class="kpi">
         <div class="kpi-value green">100</div>
         <div class="kpi-label">outcome grade</div>
-        <div class="kpi-sub">baixo risco da mudança</div>
+        <div class="kpi-sub">médio risco da mudança</div>
       </div>
     </div>
       <div class="bluf">
@@ -216,7 +216,7 @@
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Riscos & trade-offs</div>
-          <p>Baixo risco de mudança · outcome grade = 100 · lead time —.</p>
+          <p>Médio risco de mudança · outcome grade = 100 · lead time —.</p>
         </div>
       </div>
     </section><section class="slide" id="s2">
@@ -259,7 +259,7 @@
       <td>otimizacoes gerais</td>
       <td>Alteração validada dentro do fluxo de qualidade do produto.</td>
       <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
-      <td><code>~1</code></td>
+      <td><code>~1031</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 6.691 tokens (feature) · status moderado</p>
@@ -301,7 +301,7 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">32</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">33</span><span class="stat-l">rodadas de validação pré-PR</span></div>
             <div class="stat"><span class="stat-v">5</span><span class="stat-l">violações de regra encontradas</span></div>
             <div class="stat"><span class="stat-v green">8</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
@@ -326,7 +326,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 0 remoções — 1 linhas tocadas</td><td>✨ 0 adições — 0 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 61 remoções — 1375 linhas tocadas</td><td>✨ 1120 adições — 12 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -334,41 +334,171 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>0</td></tr>
-            <tr><td>Adições</td><td>+0</td></tr>
-            <tr><td>Remoções</td><td>-0</td></tr>
-            <tr><td>Tokens estimados</td><td>~1</td></tr>
+            <tr><td>Arquivos alterados</td><td>12</td></tr>
+            <tr><td>Adições</td><td>+1120</td></tr>
+            <tr><td>Remoções</td><td>-61</td></tr>
+            <tr><td>Tokens estimados</td><td>~1031</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:81">+840 add</div>
+        <div class="del" style="flex:4">-46 del</div>
+        <div class="overhead" style="flex:15">~145 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+840</td><td>81%</td></tr>
+      <tr><td>Remoções</td><td>-46</td><td>4%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~145</td><td>15%</td></tr>
+      <tr><th>Total</th><th>~1031</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
           <h3>📁 Arquivos</h3>
           <table>
             <tr><th>Status</th><th>Arquivo</th></tr>
-            
+            <tr><td>M</td><td>.gitignore</td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-13/main-2026-08-13-main.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-13/otimizacoes-gerais-2026-08-13-otimizacoes-gerais.html</td></tr>
+<tr><td>M</td><td>docs/tracking/archive/events-2026-08.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>eslint.config.js</td></tr>
+<tr><td>M</td><td>package-lock.json</td></tr>
+<tr><td>M</td><td>package.json</td></tr>
+<tr><td>M</td><td>scripts/twins-check.mjs</td></tr>
+<tr><td>M</td><td>vite.config.ts</td></tr>
           </table>
         </div>
       </div>
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
-        
+        diff --git a/.gitignore b/.gitignore
+index 62fbfcc..46884f0 100644
+<span class="del">--- a/.gitignore</span>
+<span class="add">+++ b/.gitignore</span>
+@@ -70,6 +70,9 @@ playwright-report/
+ tests/screenshots/
+ tests/fluxo-relatorio.md
+ 
+<span class="add">+# Vitest coverage</span>
+<span class="add">+coverage/</span>
+<span class="add">+</span>
+ # Subagent artifacts
+ .pi-subagents/
+ 
+diff --git a/docs/RADAR.md b/docs/RADAR.md
+index aead836..624a56d 100644
+<span class="del">--- a/docs/RADAR.md</span>
+<span class="add">+++ b/docs/RADAR.md</span>
+@@ -1,6 +1,6 @@
+ # 🔭 Radar de Vulnerabilidades
+ 
+<span class="del">-&gt; Atualizado em: 2026-08-13T03:49:46.775Z</span>
+<span class="add">+&gt; Atualizado em: 2026-08-13T04:10:04.132Z</span>
+ 
+ ## ✅ Radar Limpo
+ Nenhuma vulnerabilidade ativa detectada.
+diff --git a/docs/handoff.md b/docs/handoff.md
+index 641084f..f203301 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -9,8 +9,8 @@
+ ### 🐞 Bugs Abertos
+ Consulte as GitHub Issues para a lista atual.
+ ## 🧭 Estado Atual
+<span class="del">-- **Branch:** `main`</span>
+<span class="del">-- **Último commit:** `953b148 — Merge pull request #372 from andre0787/fix/prepr-data-refresh`</span>
+<span class="add">+- **Branch:** `chore/otimizacoes-gerais`</span>
+<span class="add">+- **Último commit:** `a0a4716 — Merge pull request #373 from andre0787/feat/kpi-sugestoes-painel`</span>
+ - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
+ 
+ ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
+@@ -43,14 +43,24 @@ Nenhum PR aberto.
+ | Branch | refactor/blueprint-v4-p1-clientes |
+ 
+ 
+<span class="add">+</span>
+<span class="add">+</span>
+<span class="add">+</span>
+<span class="add">+</span>
+<span class="add">+</span>
+<span class="add">+</span>
+<span class="add">+</span>
+<span class="add">+</span>
+<span class="add">+</span>
+<span class="add">+</span>
+ ## 🎯 Sessão Atual
+<span class="del">-**Categoria:** feature</span>
+<span class="del">-**Objetivo:** 4 sugestoes do painel KPI: serie 30d com seletor, alertas de processo, breakdown por dono/programa, lazy-loading das paginas (bundle 750-&gt;397KB)</span>
+<span class="add">+**Categoria:** chore</span>
+<span class="add">+**Objetivo:** segunda chore</span>
+ **Status:** in_progress
+<span class="del">-**Iniciada em:** 2026-08-13T03:49:46.808Z</span>
+<span class="del">-**Branch:** `feat/kpi-sugestoes-painel`</span>
+<span class="del">-**Último commit:** 953b148 — Merge pull request #372 from andre0787/fix/prepr-data-refresh</span>
+<span class="del">-**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md</span>
+<span class="add">+**Iniciada em:** 2026-08-13T04:11:46.539Z</span>
+<span class="add">+**Branch:** `chore/otimizacoes-gerais`</span>
+<span class="add">+**Último commit:** a0a4716 — Merge pull request #373 from andre0787/feat/kpi-sugestoes-painel</span>
+<span class="add">+**Docs carregados:** AGENTS.md</span>
+ ---
+ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
+ 
+@@ -76,3 +86,4 @@ Continue a tarefa ativa ou selecione o próximo task-card.
+ 
+ 
+ 
+<span class="add">+</span>
+diff --git a/docs/reports/2026-08-13/main-2026-08-13-main.html b/docs/reports/2026-08-13/main-2026-08-13-main.html
+new file mode 100644
+index 0000000..7f6c3a4
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/reports/2026-08-13/main-2026-08-13-main.html</span>
+@@ -0,0 +1,432 @@
+<span class="add">+&lt;!DOCTYPE html&gt;</span>
+<span class="add">+&lt;html lang=&quot;pt-BR&quot;&gt;</span>
+<span class="add">+&lt;head&gt;</span>
+<span class="add">+  &lt;meta charset=&quot;UTF-8&quot;&gt;</span>
+<span class="add">+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;</span>
+<span class="add">+  &lt;title&gt;main — main&lt;/title&gt;</span>
+<span class="add">+  &lt;style&gt;</span>
+<span class="add">+    :root{</span>
+<span class="add">+      --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;</span>
+<span class="add">+      --text:#e6edf7;--muted:#8fa3c0;--blue:#3b82f6;--green:#34d399;--amber:#fbbf24;--red:#f87171;--gold:#f59e0b;--teal:#2dd4bf;</span>
+<span class="add">+    }</span>
+<span class="add">+    *{box-sizing:border-box;margin:0;padding:0}</span>
+<span class="add">+    html,body{height:100%}</span>
+<span class="add">+    body{</span>
+<span class="add">+      font-family:ui-sans-serif,system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;</span>
+<span class="add">+      background:radial-gradient(1200px 600px at 15% -10%,#12203f 0%,transparent 55%),radial-gradient(1000px 500px at 110% 20%,#0f2440 0%,transparent 50%),var(--bg);</span>
+<span class="add">+      color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;</span>
+<span class="add">+    }</span>
+<span class="add">+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}</span>
+<span class="add">+    /* ── Deck ── */</span>
+<span class="add">+    .deck{min-height:100vh;display:flex;flex-direction:column}</span>
+<span class="add">+    .slide{</span>
+<span class="add">+      flex:1 0 auto;min-height:100vh;padding:5.5rem clamp(1.25rem,5vw,4.5rem) 3.5rem;</span>
+<span class="add">+      display:flex;flex-direction:column;justify-content:center;gap:1.4rem;</span>
+<span class="add">+      max-width:1180px;margin:0 auto;width:100%;</span>
+<span class="add">+      border-bottom:1px solid var(--line);</span>
+<span class="add">+    }</span>
+<span class="add">+    .deck-mode .slide{display:none}</span>
+<span class="add">+    .deck-mode .slide.active{display:flex}</span>
+<span class="add">+    /* ── Nav deck ── */</span>
+<span class="add">+    .nav{</span>
+<span class="add">+      position:fixed;top:1rem;right:1rem;z-index:60;display:flex;gap:.4rem;align-items:center;</span>
+<span class="add">+      background:rgba(10,15,30,.85);backdrop-filter:blur(8px);border:1px solid var(--line);</span>
+<span class="add">+      border-radius:999px;padding:.35rem .5rem;box-shadow:0 8px 24px rgba(0,0,0,.45);</span>
+<span class="add">+    }</span>
+<span class="add">+    .nav button{</span>
+<span class="add">+      background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:1.05rem;</span>
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-08-13 01:12
+      Gerado por scripts/generate-report.mjs · 2026-08-13 01:14
     </div>
   </div>
 

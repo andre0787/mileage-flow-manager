@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-13T03:53:30.612Z",
+  "generatedAt": "2026-08-13T04:15:00.452Z",
   "dataDate": "2026-08-13",
   "kpiStats": [
     {
-      "value": 1208,
+      "value": 1205,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 464,
+      "value": 465,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -28,7 +28,7 @@
       "sub": "desde o início"
     },
     {
-      "value": 41,
+      "value": 42,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,12 +36,12 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 186,
+      "n": 180,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 373,
+      "n": 374,
       "color": "#8b5cf6"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 44,
+      "n": 45,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 43,
+      "n": 44,
       "color": "#22c55e"
     },
     {
@@ -103,7 +103,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 314,
+      "n": 315,
       "color": "#10b981"
     },
     {
@@ -119,6 +119,31 @@
   ],
   "recentTimeline": [
     {
+      "t": "2026-08-13 04:14:57",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-13 04:14:24",
+      "d": "code-review:done",
+      "desc": "Review aprovado: paralelizacao validada 3x (828/828), sem refs obsoletas; override eslint cirurgico; coverage nas areas de negocio"
+    },
+    {
+      "t": "2026-08-13 04:13:10",
+      "d": "coding:done",
+      "desc": "Otimizacoes gerais implementadas por subagente: testes paralelos, lint limpo, coverage v8"
+    },
+    {
+      "t": "2026-08-13 04:13:10",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-13 04:10:04",
+      "d": "session:start",
+      "desc": "chore: Otimizacoes gerais: testes paralelos (1m40s->18s), lint 0 warnings, coverage config"
+    },
+    {
       "t": "2026-08-13 03:53:27",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
@@ -132,40 +157,15 @@
       "t": "2026-08-13 03:51:20",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-13 03:50:53",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-13 03:49:51",
-      "d": "coding:done",
-      "desc": "4 sugestoes do painel implementadas por subagente: ProcessAlerts, BusinessBreakdown, seletor 7/14/30d, lazy-loading React.lazy"
-    },
-    {
-      "t": "2026-08-13 03:49:51",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-13 03:49:50",
-      "d": "healed",
-      "desc": "rule-26 auto-corrigido"
-    },
-    {
-      "t": "2026-08-13 03:49:46",
-      "d": "session:start",
-      "desc": "feature: 4 sugestoes do painel KPI: serie 30d com seletor, alertas de processo, breakdown por dono/programa, lazy-loading das paginas (bundle 750->397KB)"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 405,
     "healed": 71,
     "healedRate": 17.5,
-    "prePrTotal": 373,
-    "prePrPass": 278,
-    "prePrPassRate": 74.5,
+    "prePrTotal": 374,
+    "prePrPass": 279,
+    "prePrPassRate": 74.6,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -196,6 +196,15 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 373,
+      "title": "feat(kpi): painel KPI — 30d com seletor, alertas de processo, breakdown por dono/programa e lazy-loading (−47% bundle)",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 1712,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 372,
       "title": "fix(process): pre-pr roda data:refresh em vez de kpi — kpi-data.json completo sem regressão",
@@ -231,15 +240,6 @@
       "tokens": 1574,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 368,
-      "title": "feat(ui): auditoria dark completa — input base translúcido nos forms, autofill protegido no CI, verify:dark nos 2 temas + dialogs",
-      "type": "feat",
-      "date": "2026-08-13",
-      "tokens": 1033,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "overview": {
@@ -250,7 +250,7 @@
     "testFiles": 199,
     "skills": 26,
     "rules": 41,
-    "events": 1208,
-    "qualityNotes": 464
+    "events": 1205,
+    "qualityNotes": 465
   }
 }
