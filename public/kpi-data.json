@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T03:29:11.466Z",
+  "generatedAt": "2026-08-13T03:31:21.462Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,9 +174,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 73.8,
-      "prePrTotal": 367,
-      "prePrPass": 271,
+      "prePrPassRate": 74,
+      "prePrTotal": 369,
+      "prePrPass": 273,
       "prePrFail": 96,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -209,7 +209,7 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 50,
+        "rule-26": 51,
         "rule-17-new-docs-valid": 18,
         "rule-02": 1
       },
@@ -217,10 +217,10 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.4,
-      "branchesMerged": 90,
+      "branchesMerged": 91,
       "violationsCaught": 405,
-      "healedRate": 17,
-      "frictionPerPass": 1.49,
+      "healedRate": 17.3,
+      "frictionPerPass": 1.48,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,
@@ -260,7 +260,7 @@
       "prePrPassRate": 62.3,
       "ruleFails": 24,
       "healed": 0,
-      "sessions": 129,
+      "sessions": 127,
       "merges": 7,
       "friction": 0.73
     },
@@ -410,15 +410,15 @@
     {
       "day": "2026-08-13",
       "label": "13/08",
-      "prePrTotal": 25,
-      "prePrPass": 25,
+      "prePrTotal": 27,
+      "prePrPass": 27,
       "prePrFail": 0,
       "prePrPassRate": 100,
       "ruleFails": 5,
-      "healed": 6,
-      "sessions": 10,
-      "merges": 8,
-      "friction": 0.2
+      "healed": 7,
+      "sessions": 11,
+      "merges": 9,
+      "friction": 0.19
     }
   ],
   "prs": [
@@ -521,15 +521,15 @@
     "testFiles": 195,
     "skills": 26,
     "rules": 41,
-    "events": 1200,
-    "qualityNotes": 462
+    "events": 1204,
+    "qualityNotes": 463
   },
   "summary": {
-    "merges": 90,
+    "merges": 91,
     "prs": 6,
-    "sessions": 190,
+    "sessions": 189,
     "violations": 405,
-    "healed": 69,
-    "prePrPassRate": 73.8
+    "healed": 70,
+    "prePrPassRate": 74
   }
 }

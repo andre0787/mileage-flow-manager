@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-13T03:29:14.799Z",
+  "generatedAt": "2026-08-13T03:31:24.998Z",
   "dataDate": "2026-08-13",
   "kpiStats": [
     {
-      "value": 1200,
+      "value": 1204,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 462,
+      "value": 463,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 69,
+      "value": 70,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 39,
+      "value": 40,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,12 +36,12 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 190,
+      "n": 189,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 367,
+      "n": 369,
       "color": "#8b5cf6"
     },
     {
@@ -51,7 +51,7 @@
     },
     {
       "name": "healed",
-      "n": 69,
+      "n": 70,
       "color": "#10b981"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 42,
+      "n": 43,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 41,
+      "n": 42,
       "color": "#22c55e"
     },
     {
@@ -103,7 +103,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 312,
+      "n": 313,
       "color": "#10b981"
     },
     {
@@ -119,6 +119,36 @@
   ],
   "recentTimeline": [
     {
+      "t": "2026-08-13 03:31:21",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-13 03:29:23",
+      "d": "code-review:done",
+      "desc": "Review aprovado: causa raiz (npm run kpi regredia kpi-data.json) + TWINS (unico uso automatizado) + fix em pre-pr-check.mjs"
+    },
+    {
+      "t": "2026-08-13 03:29:23",
+      "d": "coding:done",
+      "desc": "Fix aplicado por subagente: pre-pr-check usa data:refresh"
+    },
+    {
+      "t": "2026-08-13 03:29:23",
+      "d": "session:start",
+      "desc": "bugfix: pre-pr roda data:refresh em vez de kpi (kpi-data.json sem regressao)"
+    },
+    {
+      "t": "2026-08-13 03:29:15",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-13 03:29:14",
+      "d": "healed",
+      "desc": "rule-26 auto-corrigido"
+    },
+    {
       "t": "2026-08-13 03:03:06",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
@@ -127,45 +157,15 @@
       "t": "2026-08-13 03:00:43",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-13 02:58:46",
-      "d": "session:start",
-      "desc": "feature: Datadog interno: abas KPI e Workflow com dados reais diarios"
-    },
-    {
-      "t": "2026-08-13 02:54:37",
-      "d": "code-review:done",
-      "desc": "Review aprovado: 2 fixes de UX (mensagem data:refresh, nota rule-10 condicional) + reuso numstatLines e comentarios de sincronia"
-    },
-    {
-      "t": "2026-08-13 02:54:37",
-      "d": "coding:done",
-      "desc": "Datadog interno (KPIs + Workflow) implementado por subagente: data-refresh, daily 14d, painel negocio ao vivo, entregas por PR, telemetria real"
-    },
-    {
-      "t": "2026-08-13 02:54:37",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-13 02:54:36",
-      "d": "healed",
-      "desc": "rule-26 auto-corrigido"
-    },
-    {
-      "t": "2026-08-13 02:52:37",
-      "d": "session:start",
-      "desc": "feature: Datadog interno: abas KPI (processo diario 14d + produto/negocio ao vivo + entregas por PR) e Workflow (telemetria real + visao geral) com data:refresh + nightly"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 405,
-    "healed": 69,
-    "healedRate": 17,
-    "prePrTotal": 367,
-    "prePrPass": 271,
-    "prePrPassRate": 73.8,
+    "healed": 70,
+    "healedRate": 17.3,
+    "prePrTotal": 369,
+    "prePrPass": 273,
+    "prePrPassRate": 74,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -250,7 +250,7 @@
     "testFiles": 195,
     "skills": 26,
     "rules": 41,
-    "events": 1200,
-    "qualityNotes": 462
+    "events": 1204,
+    "qualityNotes": 463
   }
 }

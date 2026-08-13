@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `feat/datadog-interno-kpis`
-- **Último commit:** `ae402a8 — fix(test): mensagem de fallback da aba KPI aponta para npm run data:refresh`
+- **Branch:** `fix/prepr-data-refresh`
+- **Último commit:** `a7513fa — fix(process): pre-pr roda data:refresh em vez de kpi — kpi-data.json completo (daily+prs+repo) sem regressao`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -44,13 +44,13 @@ Nenhum PR aberto.
 
 
 ## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** Datadog interno: abas KPI e Workflow com dados reais diarios
+**Categoria:** bugfix
+**Objetivo:** pre-pr roda data:refresh em vez de kpi (kpi-data.json sem regressao)
 **Status:** in_progress
-**Iniciada em:** 2026-08-13T02:58:46.434Z
+**Iniciada em:** 2026-08-13T03:29:23.246Z
 **Branch:** `fix/prepr-data-refresh`
-**Último commit:** ae402a8 — fix(test): mensagem de fallback da aba KPI aponta para npm run data:refresh
-**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
+**Último commit:** a7513fa — fix(process): pre-pr roda data:refresh em vez de kpi — kpi-data.json completo (daily+prs+repo) sem regressao
+**Docs carregados:** DEBUG.md, conventions/common.md, conventions/bugfix.md
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
