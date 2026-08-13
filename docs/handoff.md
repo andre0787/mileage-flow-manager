@@ -53,14 +53,7 @@ Nenhum PR aberto.
 
 
 
-## 🎯 Sessão Atual
-**Categoria:** refactor
-**Objetivo:** Etapa 1 refactor Dashboard/EntryForm + Coverage Gate (rule-42): extrai logica pura para libs testaveis, gate de cobertura >=75% no pre-pr/nightly
-**Status:** in_progress
-**Iniciada em:** 2026-08-13T04:58:52.411Z
-**Branch:** `refactor/dashboard-coverage-gate`
-**Último commit:** feb31a9 — Merge pull request #374 from andre0787/chore/otimizacoes-gerais
-**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
+
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
@@ -82,6 +75,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
 - **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
+
 
 
 
