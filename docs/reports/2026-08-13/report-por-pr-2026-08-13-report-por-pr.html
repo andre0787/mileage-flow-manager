@@ -176,11 +176,11 @@
       <div class="hero">
         <div class="hero-top">
           <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">report-por-pr</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
-          <div class="hero-date">2026-08-13 · 22:59 · <span class="mono">feat/report-por-pr</span></div>
+          <div class="hero-date">2026-08-13 · 23:02 · <span class="mono">feat/report-por-pr</span></div>
         </div>
         <h1>report por pr</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">0f06ae7 — fix(process): Detalhamento nunca lista commits — sem PR aberto usa linha unica da sessao (fallback)</div>
+        <div class="hero-meta mono">fde1e4f — fix(process): Detalhamento nunca lista commits — sem PR aberto usa linha unica da sessao (fallback)</div>
       </div>
       
     <div class="kpi-grid">
@@ -195,9 +195,9 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/16</div>
+        <div class="kpi-value">0/17</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
-        <div class="kpi-sub">0 violações · 5 auto-corrigidas</div>
+        <div class="kpi-sub">2 violações · 5 auto-corrigidas</div>
       </div>
       <div class="kpi">
         <div class="kpi-value green">100</div>
@@ -259,7 +259,7 @@
       <td>report por pr</td>
       <td>Nova capacidade entregue e validada para o produto.</td>
       <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
-      <td><code>~1673</code></td>
+      <td><code>~1676</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 5.743 tokens (feature) · status moderado</p>
@@ -301,8 +301,8 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">16</span><span class="stat-l">rodadas de validação pré-PR</span></div>
-            <div class="stat"><span class="stat-v">0</span><span class="stat-l">violações de regra encontradas</span></div>
+            <div class="stat"><span class="stat-v">17</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">2</span><span class="stat-l">violações de regra encontradas</span></div>
             <div class="stat"><span class="stat-v green">5</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
           </div>
@@ -326,7 +326,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 39 remoções — 2231 linhas tocadas</td><td>✨ 2036 adições — 13 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 43 remoções — 2234 linhas tocadas</td><td>✨ 2037 adições — 13 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -335,22 +335,22 @@
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
             <tr><td>Arquivos alterados</td><td>13</td></tr>
-            <tr><td>Adições</td><td>+2036</td></tr>
-            <tr><td>Remoções</td><td>-39</td></tr>
-            <tr><td>Tokens estimados</td><td>~1673</td></tr>
+            <tr><td>Adições</td><td>+2037</td></tr>
+            <tr><td>Remoções</td><td>-43</td></tr>
+            <tr><td>Tokens estimados</td><td>~1676</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:91">+1527 add</div>
-        <div class="del" style="flex:2">-29 del</div>
-        <div class="overhead" style="flex:7">~117 ctx</div>
+        <div class="add" style="flex:91">+1528 add</div>
+        <div class="del" style="flex:2">-32 del</div>
+        <div class="overhead" style="flex:7">~116 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+1527</td><td>91%</td></tr>
-      <tr><td>Remoções</td><td>-29</td><td>2%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~117</td><td>7%</td></tr>
-      <tr><th>Total</th><th>~1673</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+1528</td><td>91%</td></tr>
+      <tr><td>Remoções</td><td>-32</td><td>2%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~116</td><td>7%</td></tr>
+      <tr><th>Total</th><th>~1676</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
@@ -388,7 +388,7 @@ index 882da68..73f91be 100644
  ## ✅ Radar Limpo
  Nenhuma vulnerabilidade ativa detectada.
 diff --git a/docs/handoff.md b/docs/handoff.md
-index d71c9b0..3cf809c 100644
+index d71c9b0..68b4cb9 100644
 <span class="del">--- a/docs/handoff.md</span>
 <span class="add">+++ b/docs/handoff.md</span>
 @@ -10,7 +10,7 @@
@@ -400,20 +400,18 @@ index d71c9b0..3cf809c 100644
  - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
  
  ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
-@@ -69,9 +69,9 @@ Continue a tarefa ativa ou selecione o próximo task-card.
+@@ -67,11 +67,3 @@ Continue a tarefa ativa ou selecione o próximo task-card.
  
- ## 🎯 Sessão Atual
- **Categoria:** feature
+ 
+ 
+<span class="del">-## 🎯 Sessão Atual</span>
+<span class="del">-**Categoria:** feature</span>
 <span class="del">-**Objetivo:** Auditoria dark completa: input base translucido, autofill no bundle, verify:dark nos 2 temas + dialogs, spec de superficies</span>
-<span class="add">+**Objetivo:** Detalhamento por item ao nivel de PR (titulo real + custo agregado) + relatorio consolidado por PR (report:consolidate)</span>
- **Status:** in_progress
+<span class="del">-**Status:** in_progress</span>
 <span class="del">-**Iniciada em:** 2026-08-13T01:37:11.743Z</span>
 <span class="del">-**Branch:** `feat/dark-surfaces-audit`</span>
 <span class="del">-**Último commit:** 1fabaf1 — Merge pull request #367 from andre0787/feat/dark-filters-translucent</span>
-<span class="add">+**Iniciada em:** 2026-08-13T01:56:16.624Z</span>
-<span class="add">+**Branch:** `feat/report-por-pr`</span>
-<span class="add">+**Último commit:** 6bdcca6 — Merge pull request #368 from andre0787/feat/dark-surfaces-audit</span>
- **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
+<span class="del">-**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md</span>
 \ No newline at end of file
 diff --git a/docs/reports/2026-08-13/PR-CONSOLIDADO-2026-08-12-2026-08-13-consolidado-de-entregas-2026-08-12-2026-08-13.html b/docs/reports/2026-08-13/PR-CONSOLIDADO-2026-08-12-2026-08-13-consolidado-de-entregas-2026-08-12-2026-08-13.html
 new file mode 100644
@@ -495,11 +493,13 @@ index 0000000..dd00e60
 <span class="add">+    .kpi-sub{font-size:.7rem;color:var(--muted);opacity:.75}</span>
 <span class="add">+    /* ── BLUF (one-pager) ── */</span>
 <span class="add">+    .bluf{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem}</span>
+<span class="add">+    .bluf-col{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}</span>
+<span class="add">+    .bluf-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-weight:800;margin-bottom:.4rem}</span>
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-08-13 22:59
+      Gerado por scripts/generate-report.mjs · 2026-08-13 23:02
     </div>
   </div>
 

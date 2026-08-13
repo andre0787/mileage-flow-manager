@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `6bdcca6 — Merge pull request #368 from andre0787/feat/dark-surfaces-audit`
+- **Branch:** `feat/report-por-pr`
+- **Último commit:** `fde1e4f — fix(process): Detalhamento nunca lista commits — sem PR aberto usa linha unica da sessao (fallback)`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -41,6 +41,17 @@ Nenhum PR aberto.
 | Total testes | 575 |
 | Docs issues | 0 |
 | Branch | refactor/blueprint-v4-p1-clientes |
+
+
+## 🎯 Sessão Atual
+**Categoria:** feature
+**Objetivo:** Detalhamento por item ao nivel de PR (titulo real + custo agregado) + relatorio consolidado por PR (report:consolidate)
+**Status:** in_progress
+**Iniciada em:** 2026-08-13T02:01:46.780Z
+**Branch:** `feat/report-por-pr`
+**Último commit:** fde1e4f — fix(process): Detalhamento nunca lista commits — sem PR aberto usa linha unica da sessao (fallback)
+**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
+
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
