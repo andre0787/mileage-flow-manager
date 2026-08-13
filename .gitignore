@@ -70,6 +70,9 @@ playwright-report/
 tests/screenshots/
 tests/fluxo-relatorio.md
 
+# Vitest coverage
+coverage/
+
 # Subagent artifacts
 .pi-subagents/
 

@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `953b148 — Merge pull request #372 from andre0787/fix/prepr-data-refresh`
+- **Branch:** `chore/otimizacoes-gerais`
+- **Último commit:** `a0a4716 — Merge pull request #373 from andre0787/feat/kpi-sugestoes-painel`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -43,14 +43,24 @@ Nenhum PR aberto.
 | Branch | refactor/blueprint-v4-p1-clientes |
 
 
+
+
+
+
+
+
+
+
+
+
 ## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** 4 sugestoes do painel KPI: serie 30d com seletor, alertas de processo, breakdown por dono/programa, lazy-loading das paginas (bundle 750->397KB)
+**Categoria:** chore
+**Objetivo:** segunda chore
 **Status:** in_progress
-**Iniciada em:** 2026-08-13T03:49:46.808Z
-**Branch:** `feat/kpi-sugestoes-painel`
-**Último commit:** 953b148 — Merge pull request #372 from andre0787/fix/prepr-data-refresh
-**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
+**Iniciada em:** 2026-08-13T04:11:46.539Z
+**Branch:** `chore/otimizacoes-gerais`
+**Último commit:** a0a4716 — Merge pull request #373 from andre0787/feat/kpi-sugestoes-painel
+**Docs carregados:** AGENTS.md
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
@@ -72,6 +82,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
 - **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
+
 
 
 

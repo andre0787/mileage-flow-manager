@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-/* eslint-disable */
 /**
  * twins-check.mjs — Busca automatizada de padrão para TWINS gate.
  *
@@ -44,10 +43,17 @@ try {
   }
 } catch (e) {
   // grep exit code 1 = no matches
-  if (e && typeof e === "object" && "status" in e && (/** @type {{status?:number}}*/(e)).status === 1) {
+  if (
+    e &&
+    typeof e === "object" &&
+    "status" in e &&
+    /** @type {{status?:number}}*/ (e).status === 1
+  ) {
     console.log(`TWINS: searched "${pattern}" in ${glob} — found 0 other locations.`);
     process.exit(0);
   }
-  console.error(`TWINS: erro ao buscar — ${e && typeof e === "object" && "message" in e ? e.message : String(e)}`);
+  console.error(
+    `TWINS: erro ao buscar — ${e && typeof e === "object" && "message" in e ? e.message : String(e)}`,
+  );
   process.exit(1);
 }

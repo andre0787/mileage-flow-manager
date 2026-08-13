@@ -121,3 +121,11 @@
 {"timestamp":"2026-08-01T03:44:20.677Z","type":"session:start","description":"chore: Remoção do package superpowers e materialização das skills em .pi/skills","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
 {"timestamp":"2026-08-01T03:44:34.729Z","type":"session:start","description":"docs: teste docs","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
 {"timestamp":"2026-08-01T03:44:35.070Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"bugfix"}
+{"timestamp":"2026-08-01T03:44:35.247Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":0}
+{"timestamp":"2026-08-01T03:44:35.430Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"refactor"}
+{"timestamp":"2026-08-01T03:44:35.710Z","type":"session:start","description":"feature: primeira feature","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"feature"}
+{"timestamp":"2026-08-01T03:44:35.959Z","type":"session:start","description":"chore: segunda chore","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:44:36.140Z","type":"session:start","description":"docs: continuacao","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:44:41.404Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:44:43.957Z","type":"session:start","description":"docs: verifica output","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:44:57.513Z","type":"session:start","description":"docs: teste docs","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
