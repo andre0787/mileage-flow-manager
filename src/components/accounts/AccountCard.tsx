@@ -126,7 +126,8 @@ export function AccountCard({
               {lastSaleDate ? formatDateBR(lastSaleDate) : "—"}
             </span>
           </div>
-        </div>        <AccountActions
+        </div>{" "}
+        <AccountActions
           isActive={account.status === "ativa"}
           recalcPending={recalcPending}
           onToggleStatus={onToggleStatus}

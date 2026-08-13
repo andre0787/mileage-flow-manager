@@ -21,12 +21,7 @@ export function AccountActions({
 }: AccountActionsProps) {
   return (
     <div className="flex items-center gap-2 pt-2 border-t">
-      <Button
-        size="sm"
-        variant="outline"
-        onClick={onToggleStatus}
-        className="flex-1 min-h-[44px]"
-      >
+      <Button size="sm" variant="outline" onClick={onToggleStatus} className="flex-1 min-h-[44px]">
         {isActive ? "Desativar" : "Ativar"}
       </Button>
       <Button

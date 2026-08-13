@@ -1,74 +1,63 @@
 import { Plane } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface DriftDot {
-  sizeClass: string;
-  animClass: string;
-  colorClass: string;
-  positionClass: string;
-  delay: string;
-}
+// [size, anim, color, position, delay]
+type Dot = [string, string, string, string, string];
 
-const DRIFTS: Record<"milhas" | "pontos", DriftDot[]> = {
+const DRIFTS: Record<"milhas" | "pontos", Dot[]> = {
   milhas: [
-    { sizeClass: "w-2 h-2", animClass: "animate-drift", colorClass: "bg-primary/30", positionClass: "top-[15%] left-[10%]", delay: "" },
-    { sizeClass: "w-1.5 h-1.5", animClass: "animate-drift-slow", colorClass: "bg-gold/40", positionClass: "top-[25%] right-[20%]", delay: "-2s" },
-    { sizeClass: "w-1 h-1", animClass: "animate-drift", colorClass: "bg-teal/30", positionClass: "top-[60%] left-[30%]", delay: "-3s" },
-    { sizeClass: "w-2.5 h-2.5", animClass: "animate-drift-slow", colorClass: "bg-primary/20", positionClass: "bottom-[20%] right-[15%]", delay: "-1s" },
-    { sizeClass: "w-1.5 h-1.5", animClass: "animate-drift", colorClass: "bg-gold/25", positionClass: "top-[70%] right-[40%]", delay: "-4s" },
-    { sizeClass: "w-1 h-1", animClass: "animate-drift-slow", colorClass: "bg-white/20", positionClass: "top-[40%] left-[60%]", delay: "-5s" },
+    ["w-2 h-2", "animate-drift", "bg-primary/30", "top-[15%] left-[10%]", ""],
+    ["w-1.5 h-1.5", "animate-drift-slow", "bg-gold/40", "top-[25%] right-[20%]", "-2s"],
+    ["w-1 h-1", "animate-drift", "bg-teal/30", "top-[60%] left-[30%]", "-3s"],
+    ["w-2.5 h-2.5", "animate-drift-slow", "bg-primary/20", "bottom-[20%] right-[15%]", "-1s"],
+    ["w-1.5 h-1.5", "animate-drift", "bg-gold/25", "top-[70%] right-[40%]", "-4s"],
+    ["w-1 h-1", "animate-drift-slow", "bg-white/20", "top-[40%] left-[60%]", "-5s"],
   ],
   pontos: [
-    { sizeClass: "w-2 h-2", animClass: "animate-drift", colorClass: "bg-teal/40", positionClass: "top-[15%] left-[10%]", delay: "" },
-    { sizeClass: "w-1.5 h-1.5", animClass: "animate-drift-slow", colorClass: "bg-gold/30", positionClass: "top-[25%] right-[20%]", delay: "-2s" },
-    { sizeClass: "w-1 h-1", animClass: "animate-drift", colorClass: "bg-teal/40", positionClass: "top-[60%] left-[30%]", delay: "-3s" },
-    { sizeClass: "w-2.5 h-2.5", animClass: "animate-drift-slow", colorClass: "bg-teal/30", positionClass: "bottom-[20%] right-[15%]", delay: "-1s" },
-    { sizeClass: "w-1.5 h-1.5", animClass: "animate-drift", colorClass: "bg-gold/20", positionClass: "top-[70%] right-[40%]", delay: "-4s" },
-    { sizeClass: "w-1 h-1", animClass: "animate-drift-slow", colorClass: "bg-white/10", positionClass: "top-[40%] left-[60%]", delay: "-5s" },
+    ["w-2 h-2", "animate-drift", "bg-teal/40", "top-[15%] left-[10%]", ""],
+    ["w-1.5 h-1.5", "animate-drift-slow", "bg-gold/30", "top-[25%] right-[20%]", "-2s"],
+    ["w-1 h-1", "animate-drift", "bg-teal/40", "top-[60%] left-[30%]", "-3s"],
+    ["w-2.5 h-2.5", "animate-drift-slow", "bg-teal/30", "bottom-[20%] right-[15%]", "-1s"],
+    ["w-1.5 h-1.5", "animate-drift", "bg-gold/20", "top-[70%] right-[40%]", "-4s"],
+    ["w-1 h-1", "animate-drift-slow", "bg-white/10", "top-[40%] left-[60%]", "-5s"],
   ],
 };
 
-const BLOSS: Record<"milhas" | "pontos", { blob1: string; blob2: string; planeClass: string }> = {
-  milhas: { blob1: "bg-primary/[0.06]", blob2: "bg-gold/[0.05]", planeClass: "text-foreground/[0.025]" },
-  pontos: { blob1: "bg-teal/[0.10]", blob2: "bg-gold/[0.04]", planeClass: "text-foreground/[0.02]" },
+const BLOSS: Record<"milhas" | "pontos", [string, string, string]> = {
+  milhas: ["bg-primary/[0.06]", "bg-gold/[0.05]", "text-foreground/[0.025]"],
+  pontos: ["bg-teal/[0.10]", "bg-gold/[0.04]", "text-foreground/[0.02]"],
 };
 
 export function HeroDecor({ variant }: { variant: "milhas" | "pontos" }) {
-  const blobs = BLOSS[variant];
+  const [blob1, blob2, planeClass] = BLOSS[variant];
 
   return (
     <>
       <div className="hidden sm:block absolute inset-0 overflow-hidden pointer-events-none">
-        {DRIFTS[variant].map((d, i) => (
+        {DRIFTS[variant].map(([size, anim, color, pos, delay], i) => (
           <div
             key={i}
-            className={cn(
-              "absolute rounded-full",
-              d.sizeClass,
-              d.animClass,
-              d.colorClass,
-              d.positionClass,
-            )}
-            style={d.delay ? { animationDelay: d.delay } : undefined}
+            className={cn("absolute rounded-full", size, anim, color, pos)}
+            style={delay ? { animationDelay: delay } : undefined}
           />
         ))}
       </div>
       <div
         className={cn(
           "hidden sm:block absolute top-0 right-1/4 w-72 h-72 rounded-full blur-3xl",
-          blobs.blob1,
+          blob1,
         )}
       />
       <div
         className={cn(
           "hidden sm:block absolute bottom-0 left-1/3 w-96 h-96 rounded-full blur-3xl",
-          blobs.blob2,
+          blob2,
         )}
       />
       <div
         className={cn(
           "hidden sm:block absolute right-6 bottom-4 pointer-events-none select-none",
-          blobs.planeClass,
+          planeClass,
         )}
       >
         <Plane className="w-32 h-32 md:w-48 md:h-48" />
