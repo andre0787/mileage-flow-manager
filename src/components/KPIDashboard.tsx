@@ -35,7 +35,6 @@ const LEGACY_ROUTER_KPI: RouterMonthlyKPI = {
   skillsByModel: [],
 };
 
-/* Chips de status "ao vivo" (resumo 30d + hoje). */
 function LiveChips({ kpi }: { kpi: KpiData }) {
   const today = kpi.daily[kpi.daily.length - 1];
   const s = kpi.summary;

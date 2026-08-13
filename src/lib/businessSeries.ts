@@ -70,7 +70,6 @@ export function businessDayLabel(day: string): string {
   return d && m ? `${d}/${m}` : day;
 }
 
-/** Estoque/investimento por dono (CPFs usados). Visão de alocação, não de conciliação. */
 export function computeOwnersBreakdown(
   owners: BreakdownOwner[],
   accounts: BreakdownAccount[],
