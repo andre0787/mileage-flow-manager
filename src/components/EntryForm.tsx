@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FormDrawer } from "@/components/FormDrawer";
+import { EntryCreateDrawers } from "@/components/entry/EntryCreateDrawers";
 import { isTransferencia } from "@/lib/utils";
 import { parseDateOnly } from "@/lib/dateUtils";
 import { parseOrigemTypeDescription, filterToCleanOrigemTypes } from "@/lib/origemTypes";
@@ -67,26 +67,7 @@ export function EntryForm({
   const [form, setForm] = useState<EntryFormData>({ ...emptyEntryForm, ...initialData });
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
   const [isOrigemTypeOpen, setIsOrigemTypeOpen] = useState(false);
-  const [newOT, setNewOT] = useState({ name: "", color: "#10b981", hasRecurrence: false });
-  const [isCreatingOrigemType, setIsCreatingOrigemType] = useState(false);
-  const [otErrors, setOtErrors] = useState<Partial<Record<string, string>>>({});
   const [isAccountOpen, setIsAccountOpen] = useState(false);
-  const [newAccount, setNewAccount] = useState({ name: "", ownerId: "", programId: "" });
-  const [isCreatingAccount, setIsCreatingAccount] = useState(false);
-  const [accountErrors, setAccountErrors] = useState<Partial<Record<string, string>>>({});
-
-  const [isOwnerOpen, setIsOwnerOpen] = useState(false);
-  const [newOwner, setNewOwner] = useState({ name: "", cpf: "", phone: "" });
-  const [isCreatingOwner, setIsCreatingOwner] = useState(false);
-  const [ownerErrors, setOwnerErrors] = useState<Record<string, string>>({});
-
-  const [isProgramOpen, setIsProgramOpen] = useState(false);
-  const [newProgram, setNewProgram] = useState<{ name: string; type: "pontos" | "milhas" }>({
-    name: "",
-    type: "pontos",
-  });
-  const [isCreatingProgram, setIsCreatingProgram] = useState(false);
-  const [programErrors, setProgramErrors] = useState<Record<string, string>>({});
 
   const set = (patch: Partial<EntryFormData>) => setForm((prev) => ({ ...prev, ...patch }));
   const clearErr = (field: string) => setErrors((prev) => ({ ...prev, [field]: "" }));
@@ -115,95 +96,6 @@ export function EntryForm({
   const handleSubmit = () => {
     if (!validate()) return;
     onSubmit(form);
-  };
-
-  const handleCreateOrigemType = async () => {
-    const errs: typeof otErrors = {};
-    if (!newOT.name.trim()) errs.name = "Nome é obrigatório";
-    setOtErrors(errs);
-    if (Object.keys(errs).length > 0) return;
-
-    setIsCreatingOrigemType(true);
-    try {
-      const id = await onCreateOrigemType?.({
-        name: newOT.name.trim(),
-        color: newOT.color,
-        hasRecurrence: newOT.hasRecurrence,
-      });
-      if (id) set({ origemTypeId: id });
-      setNewOT({ name: "", color: "#10b981", hasRecurrence: false });
-      setOtErrors({});
-      setIsOrigemTypeOpen(false);
-    } finally {
-      setIsCreatingOrigemType(false);
-    }
-  };
-
-  const handleCreateOwner = async () => {
-    const errs: Record<string, string> = {};
-    if (!newOwner.name.trim()) errs.name = "Nome é obrigatório";
-    setOwnerErrors(errs);
-    if (Object.keys(errs).length > 0) return;
-
-    setIsCreatingOwner(true);
-    try {
-      const id = await onCreateOwner?.({
-        name: newOwner.name.trim(),
-        cpf: newOwner.cpf.trim() || undefined,
-        phone: newOwner.phone.trim() || undefined,
-      });
-      if (id) setNewAccount((p) => ({ ...p, ownerId: id }));
-      setNewOwner({ name: "", cpf: "", phone: "" });
-      setOwnerErrors({});
-      setIsOwnerOpen(false);
-    } finally {
-      setIsCreatingOwner(false);
-    }
-  };
-
-  const handleCreateProgram = async () => {
-    const errs: Record<string, string> = {};
-    if (!newProgram.name.trim()) errs.name = "Nome é obrigatório";
-    setProgramErrors(errs);
-    if (Object.keys(errs).length > 0) return;
-
-    setIsCreatingProgram(true);
-    try {
-      const id = await onCreateProgram?.({
-        name: newProgram.name.trim(),
-        type: newProgram.type,
-      });
-      if (id) setNewAccount((p) => ({ ...p, programId: id }));
-      setNewProgram({ name: "", type: "pontos" });
-      setProgramErrors({});
-      setIsProgramOpen(false);
-    } finally {
-      setIsCreatingProgram(false);
-    }
-  };
-
-  const handleCreateAccount = async () => {
-    const errs: typeof accountErrors = {};
-    if (!newAccount.name.trim()) errs.name = "Nome é obrigatório";
-    if (!newAccount.ownerId) errs.ownerId = "Selecione um dono";
-    if (!newAccount.programId) errs.programId = "Selecione um programa";
-    setAccountErrors(errs);
-    if (Object.keys(errs).length > 0) return;
-
-    setIsCreatingAccount(true);
-    try {
-      const id = await onCreateAccount?.({
-        name: newAccount.name.trim(),
-        ownerId: newAccount.ownerId,
-        programId: newAccount.programId,
-      });
-      if (id) set({ accountId: id });
-      setNewAccount({ name: "", ownerId: "", programId: "" });
-      setAccountErrors({});
-      setIsAccountOpen(false);
-    } finally {
-      setIsCreatingAccount(false);
-    }
   };
 
   const amountNum = parseFloat(form.amount || "0");
@@ -251,256 +143,6 @@ export function EntryForm({
           )}
         </div>
         {errors.accountId && <p className="text-xs text-destructive">{errors.accountId}</p>}
-        <FormDrawer
-          open={isAccountOpen}
-          onOpenChange={(open) => {
-            setIsAccountOpen(open);
-            if (!open) setAccountErrors({});
-          }}
-          title="Nova Conta"
-        >
-          <div className="grid gap-4 py-4">
-            <div className="space-y-2">
-              <Label>Nome da Conta</Label>
-              <Input
-                value={newAccount.name}
-                onChange={(e) => {
-                  setNewAccount((p) => ({ ...p, name: e.target.value }));
-                  setAccountErrors((p) => ({ ...p, name: "" }));
-                }}
-                placeholder="Ex: Conta Principal LATAM"
-              />
-              {accountErrors.name && (
-                <p className="text-xs text-destructive">{accountErrors.name}</p>
-              )}
-            </div>
-            <div className="space-y-2">
-              <Label>Dono</Label>
-              <div className="flex gap-2">
-                <div className="flex-1">
-                  <Select
-                    value={newAccount.ownerId}
-                    onValueChange={(v) => {
-                      setNewAccount((p) => ({ ...p, ownerId: v }));
-                      setAccountErrors((p) => ({ ...p, ownerId: "" }));
-                    }}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selecione o dono" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {owners.map((o) => (
-                        <SelectItem key={o.id} value={o.id}>
-                          {o.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                {onCreateOwner && (
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="shrink-0"
-                    onClick={() => setIsOwnerOpen(true)}
-                  >
-                    <Plus className="h-4 w-4" />
-                  </Button>
-                )}
-              </div>
-              {accountErrors.ownerId && (
-                <p className="text-xs text-destructive">{accountErrors.ownerId}</p>
-              )}
-            </div>
-            <div className="space-y-2">
-              <Label>Programa</Label>
-              <div className="flex gap-2">
-                <div className="flex-1">
-                  <Select
-                    value={newAccount.programId}
-                    onValueChange={(v) => {
-                      setNewAccount((p) => ({ ...p, programId: v }));
-                      setAccountErrors((p) => ({ ...p, programId: "" }));
-                    }}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selecione o programa" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {programs.map((p) => (
-                        <SelectItem key={p.id} value={p.id}>
-                          {p.name} ({p.type === "pontos" ? "Pontos" : "Milhas"})
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                {onCreateProgram && (
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="shrink-0"
-                    onClick={() => setIsProgramOpen(true)}
-                  >
-                    <Plus className="h-4 w-4" />
-                  </Button>
-                )}
-              </div>
-              {accountErrors.programId && (
-                <p className="text-xs text-destructive">{accountErrors.programId}</p>
-              )}
-            </div>
-            {newAccount.programId && (
-              <div className="p-3 bg-muted/30 rounded-lg text-sm">
-                <span className="text-muted-foreground">Tipo da conta: </span>
-                <span className="font-medium">
-                  {programs.find((p) => p.id === newAccount.programId)?.type === "pontos"
-                    ? "Pontos"
-                    : "Milhas"}
-                </span>
-              </div>
-            )}
-          </div>
-          <div className="flex justify-end gap-2 mt-4">
-            <Button
-              variant="outline"
-              onClick={() => {
-                setIsAccountOpen(false);
-                setAccountErrors({});
-              }}
-            >
-              Cancelar
-            </Button>
-            <Button
-              onClick={handleCreateAccount}
-              disabled={isCreatingAccount}
-              className="bg-gradient-primary hover:opacity-90"
-            >
-              {isCreatingAccount ? "Salvando..." : "Cadastrar"}
-            </Button>
-          </div>
-        </FormDrawer>
-
-        {/* Owner creation drawer */}
-        <FormDrawer
-          open={isOwnerOpen}
-          onOpenChange={(open) => {
-            setIsOwnerOpen(open);
-            if (!open) setOwnerErrors({});
-          }}
-          title="Novo Dono"
-        >
-          <div className="grid gap-4 py-4">
-            <div className="space-y-2">
-              <Label>Nome</Label>
-              <Input
-                value={newOwner.name}
-                onChange={(e) => {
-                  setNewOwner((p) => ({ ...p, name: e.target.value }));
-                  setOwnerErrors((p) => ({ ...p, name: "" }));
-                }}
-                placeholder="Ex: João Silva"
-              />
-              {ownerErrors.name && <p className="text-xs text-destructive">{ownerErrors.name}</p>}
-            </div>
-            <div className="space-y-2">
-              <Label>CPF (opcional)</Label>
-              <Input
-                value={newOwner.cpf}
-                onChange={(e) => setNewOwner((p) => ({ ...p, cpf: e.target.value }))}
-                placeholder="000.000.000-00"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label>Telefone (opcional)</Label>
-              <Input
-                value={newOwner.phone}
-                onChange={(e) => setNewOwner((p) => ({ ...p, phone: e.target.value }))}
-                placeholder="(11) 99999-8888"
-              />
-            </div>
-          </div>
-          <div className="flex justify-end gap-2 mt-4">
-            <Button
-              variant="outline"
-              onClick={() => {
-                setIsOwnerOpen(false);
-                setOwnerErrors({});
-              }}
-            >
-              Cancelar
-            </Button>
-            <Button
-              onClick={handleCreateOwner}
-              disabled={isCreatingOwner}
-              className="bg-gradient-primary hover:opacity-90"
-            >
-              {isCreatingOwner ? "Salvando..." : "Cadastrar"}
-            </Button>
-          </div>
-        </FormDrawer>
-
-        {/* Program creation drawer */}
-        <FormDrawer
-          open={isProgramOpen}
-          onOpenChange={(open) => {
-            setIsProgramOpen(open);
-            if (!open) setProgramErrors({});
-          }}
-          title="Novo Programa"
-        >
-          <div className="grid gap-4 py-4">
-            <div className="space-y-2">
-              <Label>Nome</Label>
-              <Input
-                value={newProgram.name}
-                onChange={(e) => {
-                  setNewProgram((p) => ({ ...p, name: e.target.value }));
-                  setProgramErrors((p) => ({ ...p, name: "" }));
-                }}
-                placeholder="Ex: LATAM Pass"
-              />
-              {programErrors.name && (
-                <p className="text-xs text-destructive">{programErrors.name}</p>
-              )}
-            </div>
-            <div className="space-y-2">
-              <Label>Tipo</Label>
-              <Select
-                value={newProgram.type}
-                onValueChange={(v) =>
-                  setNewProgram((p) => ({ ...p, type: v as "pontos" | "milhas" }))
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione o tipo" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="pontos">Pontos</SelectItem>
-                  <SelectItem value="milhas">Milhas</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-          <div className="flex justify-end gap-2 mt-4">
-            <Button
-              variant="outline"
-              onClick={() => {
-                setIsProgramOpen(false);
-                setProgramErrors({});
-              }}
-            >
-              Cancelar
-            </Button>
-            <Button
-              onClick={handleCreateProgram}
-              disabled={isCreatingProgram}
-              className="bg-gradient-primary hover:opacity-90"
-            >
-              {isCreatingProgram ? "Salvando..." : "Cadastrar"}
-            </Button>
-          </div>
-        </FormDrawer>
       </div>
 
       {/* Tipo de Origem */}
@@ -545,72 +187,14 @@ export function EntryForm({
             </Select>
           </div>
           {mode === "create" && onCreateOrigemType && (
-            <>
-              <Button
-                variant="outline"
-                size="icon"
-                className="shrink-0"
-                onClick={() => setIsOrigemTypeOpen(true)}
-              >
-                <Plus className="h-4 w-4" />
-              </Button>
-              <FormDrawer
-                open={isOrigemTypeOpen}
-                onOpenChange={(open) => {
-                  setIsOrigemTypeOpen(open);
-                  if (!open) setOtErrors({});
-                }}
-                title="Novo Tipo de Origem"
-              >
-                <div className="grid gap-4 py-4">
-                  <div className="space-y-2">
-                    <Label>Nome</Label>
-                    <Input
-                      value={newOT.name}
-                      onChange={(e) => {
-                        setNewOT((p) => ({ ...p, name: e.target.value }));
-                        setOtErrors((p) => ({ ...p, name: "" }));
-                      }}
-                      placeholder={`Ex: ${type === "milhas" ? "Compra Direta" : "Cashback"}`}
-                    />
-                    {otErrors.name && <p className="text-xs text-destructive">{otErrors.name}</p>}
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Cor</Label>
-                    <div className="flex items-center gap-2">
-                      <div
-                        className="w-8 h-8 rounded-full border"
-                        style={{ backgroundColor: newOT.color }}
-                      />
-                      <Input
-                        type="color"
-                        value={newOT.color}
-                        onChange={(e) => setNewOT((p) => ({ ...p, color: e.target.value }))}
-                        className="w-full h-10 p-1"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-end gap-2 mt-4">
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      setIsOrigemTypeOpen(false);
-                      setOtErrors({});
-                    }}
-                  >
-                    Cancelar
-                  </Button>
-                  <Button
-                    onClick={handleCreateOrigemType}
-                    disabled={isCreatingOrigemType}
-                    className="bg-gradient-primary hover:opacity-90"
-                  >
-                    {isCreatingOrigemType ? "Salvando..." : "Cadastrar"}
-                  </Button>
-                </div>
-              </FormDrawer>
-            </>
+            <Button
+              variant="outline"
+              size="icon"
+              className="shrink-0"
+              onClick={() => setIsOrigemTypeOpen(true)}
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
           )}
         </div>
         {errors.origemTypeId && <p className="text-xs text-destructive">{errors.origemTypeId}</p>}
@@ -904,6 +488,24 @@ export function EntryForm({
           {mode === "create" ? "Registrar Entrada" : "Salvar Alterações"}
         </Button>
       </div>
+
+      {/* Drawers de criação (Conta, Dono, Programa, Tipo de Origem) */}
+      <EntryCreateDrawers
+        type={type}
+        origemTypes={origemTypes}
+        owners={owners}
+        programs={programs}
+        origemTypeOpen={isOrigemTypeOpen}
+        onOrigemTypeOpenChange={setIsOrigemTypeOpen}
+        accountOpen={isAccountOpen}
+        onAccountOpenChange={setIsAccountOpen}
+        onOrigemTypeCreated={(id) => set({ origemTypeId: id })}
+        onAccountCreated={(id) => set({ accountId: id })}
+        onCreateOrigemType={onCreateOrigemType}
+        onCreateAccount={onCreateAccount}
+        onCreateOwner={onCreateOwner}
+        onCreateProgram={onCreateProgram}
+      />
     </div>
   );
 }

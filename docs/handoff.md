@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `feb31a9 — Merge pull request #374 from andre0787/chore/otimizacoes-gerais`
+- **Último commit:** `e22a5b3 — refactor(etapa2): hero sections do Dashboard em componentes próprios (976→491) + AccountCard/AccountsSummary + lib entryOperations (#377)`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -52,6 +52,17 @@ Nenhum PR aberto.
 
 
 
+
+
+
+## 🎯 Sessão Atual
+**Categoria:** refactor
+**Objetivo:** Etapa 3 refactor: extrai blocos JSX restantes do Dashboard (491L) e EntryForm (909L) em componentes proprios
+**Status:** in_progress
+**Iniciada em:** 2026-08-13T12:29:11.759Z
+**Branch:** `refactor/etapa3-dashboard-entryform`
+**Último commit:** e22a5b3 — refactor(etapa2): hero sections do Dashboard em componentes próprios (976→491) + AccountCard/AccountsSummary + lib entryOperations (#377)
+**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 
 
 ---
