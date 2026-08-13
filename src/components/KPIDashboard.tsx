@@ -3,12 +3,18 @@ import KPIMonthSelector from "./KPIMonthSelector";
 import GateEfficiencySection from "./GateEfficiencySection";
 import LLMRouterKPISection, { type RouterMonthlyKPI } from "./LLMRouterKPISection";
 import { BusinessPanel } from "./kpi/BusinessPanel";
+import { BusinessBreakdown } from "./kpi/BusinessBreakdown";
 import { ProcessDailySection } from "./kpi/ProcessDailySection";
+import { ProcessAlerts } from "./kpi/ProcessAlerts";
 import { MonthlySection } from "./kpi/MonthlySection";
 import { PrsPanel } from "./kpi/PrsPanel";
 import { useData } from "@/contexts/DataContext";
 import { computeDashboardMetrics } from "@/lib/metrics";
-import { computeDailyBusinessSeries } from "@/lib/businessSeries";
+import {
+  computeDailyBusinessSeries,
+  computeOwnersBreakdown,
+  computeProgramsBreakdown,
+} from "@/lib/businessSeries";
 import { cn } from "@/lib/utils";
 import type { KpiData } from "@/types/kpi";
 
@@ -75,7 +81,7 @@ function LiveChips({ kpi }: { kpi: KpiData }) {
  * 3) Entregas recentes · 4) Evolução mensal + eficiência de gates + router.
  */
 export default function KPIDashboard({ data }: { data: KpiData }) {
-  const { owners, accounts, sales, entries, isLoading } = useData();
+  const { owners, accounts, programs, sales, entries, isLoading } = useData();
   const [selectedMonth, setSelectedMonth] = useState(data.currentMonth);
   const current =
     data.months.find((m) => m.month === selectedMonth) ?? data.months[data.months.length - 1];
@@ -88,6 +94,14 @@ export default function KPIDashboard({ data }: { data: KpiData }) {
   const dailyBusiness = useMemo(
     () => computeDailyBusinessSeries(sales, entries, 14),
     [sales, entries],
+  );
+  const ownersBreakdown = useMemo(
+    () => computeOwnersBreakdown(owners, accounts, sales),
+    [owners, accounts, sales],
+  );
+  const programsBreakdown = useMemo(
+    () => computeProgramsBreakdown(programs, accounts),
+    [programs, accounts],
   );
 
   return (
@@ -110,7 +124,11 @@ export default function KPIDashboard({ data }: { data: KpiData }) {
         <LiveChips kpi={data} />
       </header>
 
+      <ProcessAlerts daily={data.daily} summary={data.summary} />
+
       {!isLoading && <BusinessPanel metrics={metrics} daily={dailyBusiness} />}
+
+      {!isLoading && <BusinessBreakdown owners={ownersBreakdown} programs={programsBreakdown} />}
 
       <ProcessDailySection daily={data.daily} />
 

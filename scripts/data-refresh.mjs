@@ -403,7 +403,7 @@ function main() {
   }
   const events = parseEvents(readFileSync(eventsPath, "utf8"));
   const quality = readJsonl(resolve(ROOT, "docs/tracking/quality.jsonl"));
-  const days = Number(arg("days") ?? 14);
+  const days = Number(arg("days") ?? 30);
   const prsLimit = Number(arg("prs") ?? 10);
 
   const months = [];
@@ -416,7 +416,7 @@ function main() {
   }
 
   const daily = computeDailySeries(events, days);
-  const summary = computeSummary(events, 30);
+  const summary = computeSummary(events, days >= 30 ? 30 : days);
   const prs = fetchPrs(prsLimit);
   const repo = computeRepoFacts(events, quality);
 

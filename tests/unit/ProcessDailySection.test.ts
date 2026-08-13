@@ -49,4 +49,12 @@ describe("ProcessDailySection", () => {
     expect(screen.getByText("📡 Taxa de pre-pr por dia")).toBeTruthy();
     expect(screen.getByText("🛡️ Fricção: violações × auto-correções")).toBeTruthy();
   });
+
+  it("expõe o seletor de janela 7/14/30 dias", () => {
+    render(createElement(ProcessDailySection, { daily: DAILY }));
+
+    expect(screen.getByText("7d")).toBeTruthy();
+    expect(screen.getByText("14d")).toBeTruthy();
+    expect(screen.getByText("30d")).toBeTruthy();
+  });
 });

@@ -116,3 +116,8 @@
 {"timestamp":"2026-08-01T03:43:29.957Z","type":"session:start","description":"chore: segunda chore","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
 {"timestamp":"2026-08-01T03:43:30.192Z","type":"session:start","description":"docs: continuacao","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
 {"timestamp":"2026-08-01T03:43:35.477Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:43:38.047Z","type":"session:start","description":"docs: verifica output","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:43:38.172Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":2}
+{"timestamp":"2026-08-01T03:44:20.677Z","type":"session:start","description":"chore: Remoção do package superpowers e materialização das skills em .pi/skills","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
+{"timestamp":"2026-08-01T03:44:34.729Z","type":"session:start","description":"docs: teste docs","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
+{"timestamp":"2026-08-01T03:44:35.070Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"bugfix"}

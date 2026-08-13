@@ -1,8 +1,3 @@
-{"timestamp":"2026-08-01T03:43:38.047Z","type":"session:start","description":"docs: verifica output","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
-{"timestamp":"2026-08-01T03:43:38.172Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":2}
-{"timestamp":"2026-08-01T03:44:20.677Z","type":"session:start","description":"chore: Remoção do package superpowers e materialização das skills em .pi/skills","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
-{"timestamp":"2026-08-01T03:44:34.729Z","type":"session:start","description":"docs: teste docs","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
-{"timestamp":"2026-08-01T03:44:35.070Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"bugfix"}
 {"timestamp":"2026-08-01T03:44:35.247Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":0}
 {"timestamp":"2026-08-01T03:44:35.430Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"refactor"}
 {"timestamp":"2026-08-01T03:44:35.710Z","type":"session:start","description":"feature: primeira feature","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"feature"}
@@ -1203,3 +1198,6 @@
 {"timestamp":"2026-08-13T03:29:23.341Z","type":"code-review:done","description":"Review aprovado: causa raiz (npm run kpi regredia kpi-data.json) + TWINS (unico uso automatizado) + fix em pre-pr-check.mjs","branch":"fix/prepr-data-refresh","commit":"a7513fa","agent":"human","subagent":true,"verdict":"approved","skill":"requesting-code-review"}
 {"timestamp":"2026-08-13T03:31:21.340Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/prepr-data-refresh","commit":"a7513fa","agent":"human","errors":0}
 {"timestamp":"2026-08-13T03:31:38.010Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/prepr-data-refresh","commit":"a7513fa","agent":"human","errors":0}
+{"timestamp":"2026-08-13T03:49:46.834Z","type":"session:start","description":"feature: 4 sugestoes do painel KPI: serie 30d com seletor, alertas de processo, breakdown por dono/programa, lazy-loading das paginas (bundle 750->397KB)","branch":"main","commit":"953b148","agent":"human","categoria":"feature"}
+{"timestamp":"2026-08-13T03:49:50.941Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/kpi-sugestoes-painel","commit":"953b148","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-13T03:49:51.289Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-sugestoes-painel","commit":"953b148","agent":"human","errors":0}

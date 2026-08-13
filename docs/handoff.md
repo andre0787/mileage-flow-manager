@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `fix/prepr-data-refresh`
-- **Último commit:** `a7513fa — fix(process): pre-pr roda data:refresh em vez de kpi — kpi-data.json completo (daily+prs+repo) sem regressao`
+- **Branch:** `main`
+- **Último commit:** `953b148 — Merge pull request #372 from andre0787/fix/prepr-data-refresh`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -44,13 +44,13 @@ Nenhum PR aberto.
 
 
 ## 🎯 Sessão Atual
-**Categoria:** bugfix
-**Objetivo:** pre-pr roda data:refresh em vez de kpi (kpi-data.json sem regressao)
+**Categoria:** feature
+**Objetivo:** 4 sugestoes do painel KPI: serie 30d com seletor, alertas de processo, breakdown por dono/programa, lazy-loading das paginas (bundle 750->397KB)
 **Status:** in_progress
-**Iniciada em:** 2026-08-13T03:29:23.246Z
-**Branch:** `fix/prepr-data-refresh`
-**Último commit:** a7513fa — fix(process): pre-pr roda data:refresh em vez de kpi — kpi-data.json completo (daily+prs+repo) sem regressao
-**Docs carregados:** DEBUG.md, conventions/common.md, conventions/bugfix.md
+**Iniciada em:** 2026-08-13T03:49:46.808Z
+**Branch:** `feat/kpi-sugestoes-painel`
+**Último commit:** 953b148 — Merge pull request #372 from andre0787/fix/prepr-data-refresh
+**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
