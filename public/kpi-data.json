@@ -1,5 +1,6 @@
 {
-  "generatedAt": "2026-08-13T03:00:43.561Z",
+  "generatedAt": "2026-08-13T03:31:21.462Z",
+  "currentMonth": "2026-08",
   "months": [
     {
       "month": "2026-03",
@@ -173,9 +174,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 73.8,
-      "prePrTotal": 367,
-      "prePrPass": 271,
+      "prePrPassRate": 74,
+      "prePrTotal": 369,
+      "prePrPass": 273,
       "prePrFail": 96,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -208,7 +209,7 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 50,
+        "rule-26": 51,
         "rule-17-new-docs-valid": 18,
         "rule-02": 1
       },
@@ -216,10 +217,10 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.4,
-      "branchesMerged": 90,
+      "branchesMerged": 91,
       "violationsCaught": 405,
-      "healedRate": 17,
-      "frictionPerPass": 1.49,
+      "healedRate": 17.3,
+      "frictionPerPass": 1.48,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,
@@ -236,5 +237,299 @@
       }
     }
   ],
-  "currentMonth": "2026-08"
+  "daily": [
+    {
+      "day": "2026-07-31",
+      "label": "31/07",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-08-01",
+      "label": "01/08",
+      "prePrTotal": 53,
+      "prePrPass": 33,
+      "prePrFail": 20,
+      "prePrPassRate": 62.3,
+      "ruleFails": 24,
+      "healed": 0,
+      "sessions": 127,
+      "merges": 7,
+      "friction": 0.73
+    },
+    {
+      "day": "2026-08-02",
+      "label": "02/08",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-08-03",
+      "label": "03/08",
+      "prePrTotal": 36,
+      "prePrPass": 35,
+      "prePrFail": 1,
+      "prePrPassRate": 97.2,
+      "ruleFails": 41,
+      "healed": 0,
+      "sessions": 7,
+      "merges": 8,
+      "friction": 1.17
+    },
+    {
+      "day": "2026-08-04",
+      "label": "04/08",
+      "prePrTotal": 26,
+      "prePrPass": 8,
+      "prePrFail": 18,
+      "prePrPassRate": 30.8,
+      "ruleFails": 41,
+      "healed": 0,
+      "sessions": 6,
+      "merges": 4,
+      "friction": 5.13
+    },
+    {
+      "day": "2026-08-05",
+      "label": "05/08",
+      "prePrTotal": 21,
+      "prePrPass": 13,
+      "prePrFail": 8,
+      "prePrPassRate": 61.9,
+      "ruleFails": 23,
+      "healed": 2,
+      "sessions": 12,
+      "merges": 10,
+      "friction": 1.77
+    },
+    {
+      "day": "2026-08-06",
+      "label": "06/08",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-08-07",
+      "label": "07/08",
+      "prePrTotal": 31,
+      "prePrPass": 25,
+      "prePrFail": 6,
+      "prePrPassRate": 80.6,
+      "ruleFails": 18,
+      "healed": 16,
+      "sessions": 5,
+      "merges": 13,
+      "friction": 0.72
+    },
+    {
+      "day": "2026-08-08",
+      "label": "08/08",
+      "prePrTotal": 51,
+      "prePrPass": 16,
+      "prePrFail": 35,
+      "prePrPassRate": 31.4,
+      "ruleFails": 79,
+      "healed": 6,
+      "sessions": 4,
+      "merges": 6,
+      "friction": 4.94
+    },
+    {
+      "day": "2026-08-09",
+      "label": "09/08",
+      "prePrTotal": 26,
+      "prePrPass": 19,
+      "prePrFail": 7,
+      "prePrPassRate": 73.1,
+      "ruleFails": 27,
+      "healed": 10,
+      "sessions": 5,
+      "merges": 9,
+      "friction": 1.42
+    },
+    {
+      "day": "2026-08-10",
+      "label": "10/08",
+      "prePrTotal": 32,
+      "prePrPass": 31,
+      "prePrFail": 1,
+      "prePrPassRate": 96.9,
+      "ruleFails": 61,
+      "healed": 9,
+      "sessions": 3,
+      "merges": 8,
+      "friction": 1.97
+    },
+    {
+      "day": "2026-08-11",
+      "label": "11/08",
+      "prePrTotal": 14,
+      "prePrPass": 14,
+      "prePrFail": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 54,
+      "healed": 8,
+      "sessions": 0,
+      "merges": 7,
+      "friction": 3.86
+    },
+    {
+      "day": "2026-08-12",
+      "label": "12/08",
+      "prePrTotal": 52,
+      "prePrPass": 52,
+      "prePrFail": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 32,
+      "healed": 12,
+      "sessions": 9,
+      "merges": 14,
+      "friction": 0.62
+    },
+    {
+      "day": "2026-08-13",
+      "label": "13/08",
+      "prePrTotal": 27,
+      "prePrPass": 27,
+      "prePrFail": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 5,
+      "healed": 7,
+      "sessions": 11,
+      "merges": 9,
+      "friction": 0.19
+    }
+  ],
+  "prs": [
+    {
+      "number": 371,
+      "title": "feat(kpi): Datadog interno — abas KPI e Workflow com dados reais diários (data:refresh + nightly)",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 3287,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 370,
+      "title": "feat(process): otimização do workflow — tail-read da telemetria (−97% tokens por pre-pr) + subagentes pre-pr-triage e report-consolidation",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 767,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 369,
+      "title": "feat(process): Detalhamento por item ao nível de PR (título real + custo agregado) + relatório consolidado por PR (report:consolidate)",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 1574,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 368,
+      "title": "feat(ui): auditoria dark completa — input base translúcido nos forms, autofill protegido no CI, verify:dark nos 2 temas + dialogs",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 1033,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 367,
+      "title": "feat(ui): filtros translúcidos no dark mode + autofill legível + verificação visual no browser (verify:dark)",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 1111,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 366,
+      "title": "feat(process): Detalhamento por item como slide próprio do deck + migração de todos os relatórios legados para o modelo executivo",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 8171,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 365,
+      "title": "feat(process): Detalhamento por item obrigatório em todo relatório (auto-derivado dos commits + rule-08) + backfill dos relatórios recentes",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 1195,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 364,
+      "title": "fix(dark): campos de busca/seleção legíveis no dark (causa raiz --secondary) + busca translúcida estilo iOS",
+      "type": "fix",
+      "date": "2026-08-13",
+      "tokens": 741,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação"
+    },
+    {
+      "number": 363,
+      "title": "feat(process): skills de delegação econômica — contexto mínimo e retorno compacto por subagente",
+      "type": "feat",
+      "date": "2026-08-12",
+      "tokens": 572,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 362,
+      "title": "feat(process): otimização de contexto — quickstart enxuto, telemetria com rotação e auditoria de tokens",
+      "type": "feat",
+      "date": "2026-08-12",
+      "tokens": 1764,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    }
+  ],
+  "repo": {
+    "components": 87,
+    "pages": 16,
+    "libs": 19,
+    "scripts": 104,
+    "testFiles": 195,
+    "skills": 26,
+    "rules": 41,
+    "events": 1204,
+    "qualityNotes": 463
+  },
+  "summary": {
+    "merges": 91,
+    "prs": 6,
+    "sessions": 189,
+    "violations": 405,
+    "healed": 70,
+    "prePrPassRate": 74
+  }
 }

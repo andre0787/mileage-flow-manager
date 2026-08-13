@@ -29,13 +29,31 @@ import { stageGeneratedArtifacts } from "./lib/generated-artifacts.mjs";
  */
 function gitExec(cmd, opts = {}) {
   const env = { ...process.env };
-  for (const key of ["GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_COMMON_DIR", "GIT_PREFIX"]) {
+  for (const key of [
+    "GIT_DIR",
+    "GIT_WORK_TREE",
+    "GIT_INDEX_FILE",
+    "GIT_COMMON_DIR",
+    "GIT_PREFIX",
+  ]) {
     delete env[key];
   }
-  return execSync(cmd, { cwd: ROOT, encoding: "utf8", timeout: 5000, ...opts, env: { ...env, ...(opts.env || {}) } });
+  return execSync(cmd, {
+    cwd: ROOT,
+    encoding: "utf8",
+    timeout: 5000,
+    ...opts,
+    env: { ...env, ...(opts.env || {}) },
+  });
 }
 
-const GIT_CONTEXT_KEYS = ["GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_COMMON_DIR", "GIT_PREFIX"];
+const GIT_CONTEXT_KEYS = [
+  "GIT_DIR",
+  "GIT_WORK_TREE",
+  "GIT_INDEX_FILE",
+  "GIT_COMMON_DIR",
+  "GIT_PREFIX",
+];
 
 /** Retorna env sem contexto Git herdado de hooks (índice temporário do commit). */
 function cleanGitEnv() {
@@ -52,7 +70,7 @@ let errors = 0;
 const logger = {
   log: console.log,
   warn: console.warn,
-  error: console.error
+  error: console.error,
 };
 
 // Gates de julgamento (council 2026-08-05): NUNCA auto-corrigem. Quando falham,
@@ -64,16 +82,23 @@ const GATE_RULES = new Map([
   ["rule-35-auth-gate", "auth"],
 ]);
 
-function ok(label) { logger.log(`  ✅ ${label}`); }
-function fail(label) { logger.log(`  ❌ ${label}`); errors++; }
+function ok(label) {
+  logger.log(`  ✅ ${label}`);
+}
+function fail(label) {
+  logger.log(`  ❌ ${label}`);
+  errors++;
+}
 
 logger.log("\n🔍 PRE-PR CHECK\n");
 
 // ── Lista ────────────────────────────────────────────────────────────
 if (process.argv.includes("--list")) {
-  const files = readdirSync(RULES_DIR).filter(f => f.endsWith(".mjs")).sort();
+  const files = readdirSync(RULES_DIR)
+    .filter((f) => f.endsWith(".mjs"))
+    .sort();
   logger.log("Regras disponíveis:");
-  files.forEach(f => logger.log(`  scripts/rules/${f}`));
+  files.forEach((f) => logger.log(`  scripts/rules/${f}`));
   process.exit(0);
 }
 
@@ -94,17 +119,18 @@ if (!process.argv.includes("--no-report")) {
 
     // Se apenas docs/reports/ foi alterado, pula relatório (ex: rename de relatórios)
     // MAS se houver PR aberto, renomeia os reports com prefixo correto
-    const diffOnlyReports = changedFiles.every(f => f.startsWith("docs/reports/"));
+    const diffOnlyReports = changedFiles.every((f) => f.startsWith("docs/reports/"));
 
     if (diffOnlyReports) {
       // Tenta detectar PR e renomear relatórios se necessário
       let prNum = null;
       try {
-        const prJson = execSync(
-          `gh pr list --head "${branch}" --json number 2>/dev/null || true`,
-          { cwd: ROOT, encoding: "utf8", timeout: 5000 }
-        ).trim();
-        const prs = JSON.parse(prJson || '[]');
+        const prJson = execSync(`gh pr list --head "${branch}" --json number 2>/dev/null || true`, {
+          cwd: ROOT,
+          encoding: "utf8",
+          timeout: 5000,
+        }).trim();
+        const prs = JSON.parse(prJson || "[]");
         if (prs.length > 0) prNum = prs[0].number;
       } catch {}
 
@@ -112,7 +138,9 @@ if (!process.argv.includes("--no-report")) {
         const prefix = `PR${prNum}`;
         const reportsDir = resolve(ROOT, `docs/reports/${today}`);
         if (existsSync(reportsDir)) {
-          const reportFiles = readdirSync(reportsDir).filter(f => f.endsWith(".html") && !/^PR\d+-/.test(f));
+          const reportFiles = readdirSync(reportsDir).filter(
+            (f) => f.endsWith(".html") && !/^PR\d+-/.test(f),
+          );
           for (const file of reportFiles) {
             // Substitui o prefixo original (até a data YYYY-MM-DD) pelo prefixo PR<num>
             const newName = file.replace(/^(.+?)-(\d{4}-\d{2}-\d{2})/, `${prefix}-$2`);
@@ -122,7 +150,11 @@ if (!process.argv.includes("--no-report")) {
           }
           if (reportFiles.length > 0) {
             logger.log(`  ✅ ${reportFiles.length} relatório(s) renomeado(s) para ${prefix}`);
-            execSync(`git add -A docs/reports/${today}/ 2>/dev/null || true`, { cwd: ROOT, env: cleanGitEnv(), timeout: 3000 });
+            execSync(`git add -A docs/reports/${today}/ 2>/dev/null || true`, {
+              cwd: ROOT,
+              env: cleanGitEnv(),
+              timeout: 3000,
+            });
           }
         }
         logger.log("  ⏭️  apenas docs/reports/ alterados");
@@ -130,45 +162,53 @@ if (!process.argv.includes("--no-report")) {
         logger.log("  ⏭️  apenas docs/reports/ alterados, pulando geração (evita ciclo de rename)");
       }
     } else {
+      // Verifica PR aberto pra branch (para nomear relatório corretamente)
+      let prNum = null;
+      try {
+        const prJson = execSync(`gh pr list --head "${branch}" --json number 2>/dev/null || true`, {
+          cwd: ROOT,
+          encoding: "utf8",
+          timeout: 5000,
+        }).trim();
+        const prs = JSON.parse(prJson || "[]");
+        if (prs.length > 0) prNum = prs[0].number;
+      } catch {}
 
-    // Verifica PR aberto pra branch (para nomear relatório corretamente)
-    let prNum = null;
-    try {
-      const prJson = execSync(
-        `gh pr list --head "${branch}" --json number 2>/dev/null || true`,
-        { cwd: ROOT, encoding: "utf8", timeout: 5000 }
-      ).trim();
-      const prs = JSON.parse(prJson || '[]');
-      if (prs.length > 0) prNum = prs[0].number;
-    } catch {}
+      const prefix = prNum ? `PR${prNum}` : branch.replace(/^[a-z]+\//, "");
+      const taskName = branch.replace(/^(feat\/|fix\/|chore\/|docs\/)/, "").replace(/[-_/]/g, " ");
+      // Narrativa automática por tipo de mudança (o agente pode refinar depois com
+      // npm run report "desc" --impact-produto "..." --impact-negocio "..." --write)
+      const taskType = branch.replace(/^([a-z]+)\/.*/, "$1");
+      const defaultImpactProduto =
+        taskType === "fix"
+          ? "Correção de comportamento validada — menos risco de erro para quem usa o produto."
+          : taskType === "feat"
+            ? "Nova capacidade entregue e validada para o produto."
+            : "Alteração validada dentro do fluxo de qualidade do produto.";
+      const cmd =
+        `node scripts/generate-report.mjs "${taskName}"` +
+        ` --prefix "${prefix}"` +
+        ` --summary "Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório."` +
+        ` --impact-produto "${defaultImpactProduto}"` +
+        ` --impact-negocio "Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção."` +
+        ` --impact-processo "Fluxo completo seguido: sessão → implementação → code review → pré-PR → PR. Detalhes nas métricas automáticas."` +
+        ` --write 2>&1`;
 
-    const prefix = prNum ? `PR${prNum}` : branch.replace(/^[a-z]+\//, "");
-    const taskName = branch.replace(/^(feat\/|fix\/|chore\/|docs\/)/, "").replace(/[-_/]/g, " ");
-    // Narrativa automática por tipo de mudança (o agente pode refinar depois com
-    // npm run report "desc" --impact-produto "..." --impact-negocio "..." --write)
-    const taskType = branch.replace(/^([a-z]+)\/.*/, "$1");
-    const defaultImpactProduto = taskType === "fix"
-      ? "Correção de comportamento validada — menos risco de erro para quem usa o produto."
-      : taskType === "feat"
-        ? "Nova capacidade entregue e validada para o produto."
-        : "Alteração validada dentro do fluxo de qualidade do produto.";
-    const cmd = `node scripts/generate-report.mjs "${taskName}"`
-      + ` --prefix "${prefix}"`
-      + ` --summary "Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório."`
-      + ` --impact-produto "${defaultImpactProduto}"`
-      + ` --impact-negocio "Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção."`
-      + ` --impact-processo "Fluxo completo seguido: sessão → implementação → code review → pré-PR → PR. Detalhes nas métricas automáticas."`
-      + ` --write 2>&1`;
+      const out = execSync(cmd, { cwd: ROOT, encoding: "utf8", timeout: 15000 }).trim();
+      if (out) logger.log(`  ${out}`);
 
-    const out = execSync(cmd, { cwd: ROOT, encoding: "utf8", timeout: 15000 }).trim();
-    if (out) logger.log(`  ${out}`);
-
-    // Staging o relatório gerado para não quebrar a regra #10
-    execSync(`git add -A docs/reports/${today}/ 2>/dev/null || true`, { cwd: ROOT, env: cleanGitEnv(), timeout: 3000 });
+      // Staging o relatório gerado para não quebrar a regra #10
+      execSync(`git add -A docs/reports/${today}/ 2>/dev/null || true`, {
+        cwd: ROOT,
+        env: cleanGitEnv(),
+        timeout: 3000,
+      });
     }
   } catch (e) {
     logger.log(`  ❌ relatório automático FALHOU: ${e.message.slice(0, 100)}`);
-    logger.log("     Dica: gere manualmente com: npm run report \"descrição\" --benefits \"...\" --impact \"...\" --write");
+    logger.log(
+      '     Dica: gere manualmente com: npm run report "descrição" --benefits "..." --impact "..." --write',
+    );
     process.exit(1);
   }
 }
@@ -181,7 +221,9 @@ try {
   const healed = [...healSession(ROOT), ...healMapDocs(ROOT)];
   for (const rule of healed) {
     if (rule === "rule-17-new-docs-valid") {
-      logger.log("  🔧 auto-heal: rule-17-new-docs-valid — docs novos registrados no MAP.md (seção auto)");
+      logger.log(
+        "  🔧 auto-heal: rule-17-new-docs-valid — docs novos registrados no MAP.md (seção auto)",
+      );
     } else {
       logger.log(`  🔧 auto-heal: ${rule} corrigido (sessão)`);
     }
@@ -197,7 +239,9 @@ try {
 
 // ── Regras ───────────────────────────────────────────────────────────
 logger.log("── Regras ──");
-let ruleFiles = readdirSync(RULES_DIR).filter(f => f.endsWith(".mjs")).sort();
+let ruleFiles = readdirSync(RULES_DIR)
+  .filter((f) => f.endsWith(".mjs"))
+  .sort();
 
 // Stageia os artefatos gerados conhecidos ANTES do loop de regras para
 // não criar falso-positivo na rule-10-clean (ex: kpi-data.json fresco).
@@ -208,8 +252,8 @@ try {
 }
 
 if (process.env.PRE_PR_ONLY_RULE) {
-  const allowedRules = process.env.PRE_PR_ONLY_RULE.split(",").map(r => r.trim());
-  ruleFiles = ruleFiles.filter(f => allowedRules.some(allowed => f.includes(allowed)));
+  const allowedRules = process.env.PRE_PR_ONLY_RULE.split(",").map((r) => r.trim());
+  ruleFiles = ruleFiles.filter((f) => allowedRules.some((allowed) => f.includes(allowed)));
 }
 
 const pendingEvents = [];
@@ -223,7 +267,12 @@ for (const file of ruleFiles) {
   const env = { ...process.env };
   if (file === "rule-10-clean.mjs") env.PRE_PR_CONTEXT = "1";
   try {
-    const out = execSync(`node "${rulePath}"`, { cwd: ROOT, encoding: "utf8", timeout: 15000, env });
+    const out = execSync(`node "${rulePath}"`, {
+      cwd: ROOT,
+      encoding: "utf8",
+      timeout: 15000,
+      env,
+    });
     if (out) process.stdout.write(out + "\n");
   } catch (e) {
     errors++;
@@ -236,11 +285,11 @@ for (const file of ruleFiles) {
     if (gate) {
       logger.log(`  🔐 gate:blocked — ${ruleName} (${gate}): julgamento humano requerido`);
       pendingEvents.push(
-        `node scripts/event-log.mjs gate:blocked "${ruleName} bloqueado pelo gate ${gate}" --meta '{"rule":"${ruleName}","gate":"${gate}","branch":"${gitExec("git rev-parse --abbrev-ref HEAD").trim()}"}'`
+        `node scripts/event-log.mjs gate:blocked "${ruleName} bloqueado pelo gate ${gate}" --meta '{"rule":"${ruleName}","gate":"${gate}","branch":"${gitExec("git rev-parse --abbrev-ref HEAD").trim()}"}'`,
       );
     } else {
       pendingEvents.push(
-        `node scripts/event-log.mjs rule:fail "${ruleName} falhou" --meta '{"rule":"${ruleName}"}'`
+        `node scripts/event-log.mjs rule:fail "${ruleName} falhou" --meta '{"rule":"${ruleName}"}'`,
       );
     }
   }
@@ -250,11 +299,15 @@ for (const file of ruleFiles) {
 for (const cmd of pendingEvents) {
   try {
     execSync(`${cmd} 2>/dev/null || true`, { cwd: ROOT, encoding: "utf8", timeout: 5000 });
-  } catch { /* não bloqueante */ }
+  } catch {
+    /* não bloqueante */
+  }
 }
 try {
   stageGeneratedArtifacts(ROOT);
-} catch { /* não bloqueante */ }
+} catch {
+  /* não bloqueante */
+}
 
 // ── logger.log esquecido ───────────────────────────────────────────
 
@@ -264,7 +317,9 @@ if (!process.env.PRE_PR_ONLY_RULES) {
   try {
     execSync("npm run build 2>&1", { cwd: ROOT, encoding: "utf8", timeout: 60000 });
     ok("build");
-  } catch (e) { fail(`build: ${e.stderr?.slice(0, 200) || e.message}`); }
+  } catch (e) {
+    fail(`build: ${e.stderr?.slice(0, 200) || e.message}`);
+  }
 }
 
 // ── Testes ───────────────────────────────────────────────────────────
@@ -273,7 +328,9 @@ if (!process.env.PRE_PR_ONLY_RULES) {
   try {
     execSync("npm test 2>&1", { cwd: ROOT, encoding: "utf8", timeout: 120000 });
     ok("test (unit)");
-  } catch (e) { fail(`test: ${e.stderr?.slice(0, 200) || e.message}`); }
+  } catch (e) {
+    fail(`test: ${e.stderr?.slice(0, 200) || e.message}`);
+  }
 }
 
 // ── Docs ─────────────────────────────────────────────────────────────
@@ -284,7 +341,9 @@ if (!process.env.PRE_PR_ONLY_RULES || process.env.PRE_PR_DOCS) {
     try {
       execSync(`node "${verifyScript}" --strict`, { cwd: ROOT, encoding: "utf8", timeout: 30000 });
       ok("verify-docs:strict");
-    } catch (e) { fail(`verify-docs: ${e.stderr?.slice(0, 200) || e.message}`); }
+    } catch (e) {
+      fail(`verify-docs: ${e.stderr?.slice(0, 200) || e.message}`);
+    }
   } else {
     logger.log("  ⚠️  verify-docs.mjs não encontrado, pulando");
   }
@@ -299,20 +358,36 @@ if (errors > 0 && process.argv.includes("--strict")) process.exit(1);
 
 // Event log — não bloqueante
 try {
-  const branch = execSync("git rev-parse --abbrev-ref HEAD", { cwd: ROOT, encoding: "utf8", timeout: 3000 }).trim();
-  execSync(`node scripts/event-log.mjs pre-pr "pre-pr ${errors > 0 ? 'FAIL' : 'PASS'}" --meta '{"errors":${errors},"branch":"${branch}"}' 2>/dev/null || true`, { cwd: ROOT, encoding: 'utf8', timeout: 5000 });
-} catch { /* non-blocking */ }
+  const branch = execSync("git rev-parse --abbrev-ref HEAD", {
+    cwd: ROOT,
+    encoding: "utf8",
+    timeout: 3000,
+  }).trim();
+  execSync(
+    `node scripts/event-log.mjs pre-pr "pre-pr ${errors > 0 ? "FAIL" : "PASS"}" --meta '{"errors":${errors},"branch":"${branch}"}' 2>/dev/null || true`,
+    { cwd: ROOT, encoding: "utf8", timeout: 5000 },
+  );
+} catch {
+  /* non-blocking */
+}
 
-// Regenera KPIs — não bloqueante (mantém public/kpi-data.json fresco a cada pre-pr)
+// Regenera dados de telemetria — não bloqueante (mantém public/kpi-data.json e
+// public/workflow-data.json frescos a cada pre-pr). data:refresh gera o formato
+// COMPLETO (months + daily + prs + repo + summary); o antigo `npm run kpi` só
+// meses e regredia o arquivo quando o formato novo já estava em uso.
 // Pula em modo de teste (PRE_PR_ONLY_RULES / VITEST) para não sujar a working tree
 if (!process.env.PRE_PR_ONLY_RULES && !process.env.VITEST) {
   try {
-    execSync("npm run kpi 2>/dev/null", { cwd: ROOT, encoding: "utf8", timeout: 15000 });
-  } catch { /* non-blocking */ }
+    execSync("npm run data:refresh 2>/dev/null", { cwd: ROOT, encoding: "utf8", timeout: 30000 });
+  } catch {
+    /* non-blocking */
+  }
 }
 // Stage final: garante que events.jsonl (com o evento pre-pr recém-logado) e
 // demais artefatos gerados fiquem stageados — sem isso o próximo pre-pr
 // falharia no rule-10-clean com árvore suja.
 try {
   stageGeneratedArtifacts(ROOT);
-} catch { /* non-blocking */ }
+} catch {
+  /* non-blocking */
+}

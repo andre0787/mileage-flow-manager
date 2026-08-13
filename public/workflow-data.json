@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-13T02:54:21.956Z",
+  "generatedAt": "2026-08-13T03:31:24.998Z",
   "dataDate": "2026-08-13",
   "kpiStats": [
     {
-      "value": 1201,
+      "value": 1204,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 460,
+      "value": 463,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,17 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 179,
+      "value": 195,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 68,
+      "value": 70,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 38,
+      "value": 40,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,12 +36,12 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 196,
+      "n": 189,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 365,
+      "n": 369,
       "color": "#8b5cf6"
     },
     {
@@ -51,7 +51,7 @@
     },
     {
       "name": "healed",
-      "n": 68,
+      "n": 70,
       "color": "#10b981"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 41,
+      "n": 43,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 40,
+      "n": 42,
       "color": "#22c55e"
     },
     {
@@ -103,7 +103,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 310,
+      "n": 313,
       "color": "#10b981"
     },
     {
@@ -119,53 +119,53 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-13 02:52:37",
-      "d": "session:start",
-      "desc": "feature: Datadog interno: abas KPI (processo diario 14d + produto/negocio ao vivo + entregas por PR) e Workflow (telemetria real + visao geral) com data:refresh + nightly"
-    },
-    {
-      "t": "2026-08-13 02:22:28",
+      "t": "2026-08-13 03:31:21",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-13 02:22:14",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-13 02:20:25",
-      "d": "session:start",
-      "desc": "feature: Otimizacao do workflow: tail-read da telemetria + skills pre-pr-triage e report-consolidation"
-    },
-    {
-      "t": "2026-08-13 02:18:29",
-      "d": "rule:fail",
-      "desc": "rule-26-session-started falhou"
-    },
-    {
-      "t": "2026-08-13 02:18:29",
-      "d": "rule:fail",
-      "desc": "rule-21-feedback-review falhou"
-    },
-    {
-      "t": "2026-08-13 02:18:29",
-      "d": "rule:fail",
-      "desc": "rule-03-handoff-completeness falhou"
-    },
-    {
-      "t": "2026-08-13 02:18:09",
+      "t": "2026-08-13 03:29:23",
       "d": "code-review:done",
-      "desc": "Review aprovado: 1 fix critico (backfill --date com fallback full-read) + 3 testes novos"
+      "desc": "Review aprovado: causa raiz (npm run kpi regredia kpi-data.json) + TWINS (unico uso automatizado) + fix em pre-pr-check.mjs"
+    },
+    {
+      "t": "2026-08-13 03:29:23",
+      "d": "coding:done",
+      "desc": "Fix aplicado por subagente: pre-pr-check usa data:refresh"
+    },
+    {
+      "t": "2026-08-13 03:29:23",
+      "d": "session:start",
+      "desc": "bugfix: pre-pr roda data:refresh em vez de kpi (kpi-data.json sem regressao)"
+    },
+    {
+      "t": "2026-08-13 03:29:15",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-13 03:29:14",
+      "d": "healed",
+      "desc": "rule-26 auto-corrigido"
+    },
+    {
+      "t": "2026-08-13 03:03:06",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-13 03:00:43",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 405,
-    "healed": 68,
-    "healedRate": 16.8,
-    "prePrTotal": 365,
-    "prePrPass": 269,
-    "prePrPassRate": 73.7,
+    "healed": 70,
+    "healedRate": 17.3,
+    "prePrTotal": 369,
+    "prePrPass": 273,
+    "prePrPassRate": 74,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -196,6 +196,15 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 371,
+      "title": "feat(kpi): Datadog interno — abas KPI e Workflow com dados reais diários (data:refresh + nightly)",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 3287,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 370,
       "title": "feat(process): otimização do workflow — tail-read da telemetria (−97% tokens por pre-pr) + subagentes pre-pr-triage e report-consolidation",
@@ -231,26 +240,17 @@
       "tokens": 1111,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 366,
-      "title": "feat(process): Detalhamento por item como slide próprio do deck + migração de todos os relatórios legados para o modelo executivo",
-      "type": "feat",
-      "date": "2026-08-13",
-      "tokens": 8171,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "overview": {
-    "components": 82,
+    "components": 87,
     "pages": 16,
-    "libs": 17,
-    "scripts": 103,
-    "testFiles": 179,
+    "libs": 19,
+    "scripts": 104,
+    "testFiles": 195,
     "skills": 26,
     "rules": 41,
-    "events": 1201,
-    "qualityNotes": 460
+    "events": 1204,
+    "qualityNotes": 463
   }
 }
