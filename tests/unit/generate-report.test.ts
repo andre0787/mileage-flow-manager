@@ -10,6 +10,7 @@ import {
   sessionHealth,
   escapeHTML,
   generateHTML,
+  fallbackTableRow,
 } from "../../scripts/generate-report.mjs";
 
 const baseMetrics = {
@@ -69,7 +70,9 @@ describe("computeSessionMetrics", () => {
   });
 
   it("retorna null para lead time quando não há sessão ou merge", () => {
-    const m = computeSessionMetrics([{ type: "pre-pr", timestamp: "2026-08-12T14:00:00Z", errors: 0 }]);
+    const m = computeSessionMetrics([
+      { type: "pre-pr", timestamp: "2026-08-12T14:00:00Z", errors: 0 },
+    ]);
     expect(m.leadTimeMin).toBeNull();
   });
 });
@@ -102,7 +105,13 @@ describe("generateHTML", () => {
     pr: { number: 360, title: "t" },
     metrics: baseMetrics,
     tableRows: [
-      { item: "Dark mode", fix: "bg elevado", benefit: "legível", impact: "menos erro", tokens: "~200" },
+      {
+        item: "Dark mode",
+        fix: "bg elevado",
+        benefit: "legível",
+        impact: "menos erro",
+        tokens: "~200",
+      },
     ],
     evidenceUrl: "",
     beforeText: "",
@@ -173,5 +182,38 @@ describe("generateHTML", () => {
     });
     expect(html).not.toContain("Impacto de Produto");
     expect(html).toContain('id="s1"');
+  });
+
+  it("SEMPRE inclui 'Detalhamento por item' mesmo sem rows (garantia rule-08)", () => {
+    const html = generateHTML({ ...opts, tableRows: [] });
+    // Seção presente com as 5 colunas
+    expect(html).toContain("Detalhamento por item");
+    expect(html).toContain("Correção Efetuada");
+    expect(html).toContain("Impacto no Negócio");
+    expect(html).toContain("Custo Token");
+    // Fallback de 1 linha derivada da task + impactos
+    expect(html).toContain("Entrega da sessão");
+    expect(html).toContain(opts.task);
+    expect(html).toContain("Campos legíveis no dark mode");
+  });
+});
+
+describe("fallbackTableRow", () => {
+  it("usa impactos da sessão e tokens do diff", () => {
+    const row = fallbackTableRow("Fix dark", "UX legível", "Menos erro", {
+      tokens: 420,
+    });
+    expect(row.item).toBe("Entrega da sessão");
+    expect(row.fix).toBe("Fix dark");
+    expect(row.benefit).toBe("UX legível");
+    expect(row.impact).toBe("Menos erro");
+    expect(row.tokens).toBe("~420");
+  });
+
+  it("tem defaults sensatos quando não há narrativa nem tokens", () => {
+    const row = fallbackTableRow("Sessão", "", "", null);
+    expect(row.benefit).toContain("qualidade");
+    expect(row.impact).toContain("Risco");
+    expect(row.tokens).toBe("—");
   });
 });

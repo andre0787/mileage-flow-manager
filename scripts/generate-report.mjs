@@ -23,22 +23,22 @@
  *   node scripts/generate-report.mjs "Nome" --impact-produto "texto"     # impacto produto
  *   node scripts/generate-report.mjs "Nome" --impact-negocio "texto"     # impacto negócio
  *   node scripts/generate-report.mjs "Nome" --impact-processo "texto"    # impacto processo
- *   node scripts/generate-report.mjs "Nome" --rows "Item|Fix|Beneficio|Impacto|~200"
+ *   node scripts/generate-report.mjs "Nome" --rows "Item|Fix|Beneficio|Impacto|~200"  # manual
  *   node scripts/generate-report.mjs "Nome" --tests 734 --write
+ *   node scripts/generate-report.mjs "Nome" --diff-base <ref> --date YYYY-MM-DD --write  # backfill histórico
  *   npm run report --rename PR103
+ *
+ * A seção "Detalhamento por item" (Item | Correção Efetuada | Benefício |
+ * Impacto no Negócio | Custo Token) é SEMPRE renderizada: quando --rows não é
+ * passado, as linhas são derivadas dos commits da branch (git log base..HEAD)
+ * com benefício/impacto por tipo e custo de token por diff de cada commit;
+ * sem commits, entra um fallback de 1 linha com os impactos da sessão.
  *
  * ponytail: template string + execSync, zero deps
  */
 
 import { execSync } from "child_process";
-import {
-  readFileSync,
-  existsSync,
-  mkdirSync,
-  writeFileSync,
-  readdirSync,
-  renameSync,
-} from "fs";
+import { readFileSync, existsSync, mkdirSync, writeFileSync, readdirSync, renameSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath, pathToFileURL } from "url";
 
@@ -61,7 +61,9 @@ Flags:
   --impact-processo <texto> Impacto no processo de desenvolvimento
   --benefits <texto>   (alias) Benefícios — usado como impacto de produto
   --impact <texto>     (alias) Impacto no negócio
-  --rows <linha>       Tabela: item|correção|benefício|impacto|token (múltiplo)
+  --rows <linha>       Tabela: item|correção|benefício|impacto|token (múltiplo); se omitido, deriva dos commits
+  --diff-base <ref>    Base do diff para commits/linhas (padrão: merge-base com origin/main)
+  --date YYYY-MM-DD    Data dos eventos/telemetria e do diretório de saída (padrão: hoje)
   --evidence <URL>     URL de screenshot — inline no relatório
   --tests <N>          Total de testes (card de qualidade); auto se omitido
   --before <texto>     Descrição do estado anterior
@@ -83,6 +85,15 @@ const PREFIX = (() => {
   return idx !== -1 ? process.argv[idx + 1] || "auto" : "auto";
 })();
 const SHOULD_WRITE = process.argv.includes("--write");
+// Backfill de relatórios históricos: base do diff e data de referência customizáveis
+const DIFF_BASE = (() => {
+  const idx = process.argv.indexOf("--diff-base");
+  return idx !== -1 ? process.argv[idx + 1] || null : null;
+})();
+const REPORT_DATE = (() => {
+  const idx = process.argv.indexOf("--date");
+  return idx !== -1 ? process.argv[idx + 1] || null : null;
+})();
 
 function collectArgs(flag) {
   const idx = process.argv.indexOf(flag);
@@ -116,7 +127,13 @@ const TABLE_ROWS = (() => {
     if (process.argv[i].startsWith("--")) break;
     const parts = process.argv[i].split("|").map((s) => s.trim());
     if (parts.length >= 5) {
-      rows.push({ item: parts[0], fix: parts[1], benefit: parts[2], impact: parts[3], tokens: parts[4] });
+      rows.push({
+        item: parts[0],
+        fix: parts[1],
+        benefit: parts[2],
+        impact: parts[3],
+        tokens: parts[4],
+      });
     }
   }
   return rows;
@@ -133,13 +150,17 @@ function git(cmd) {
 // ── Obtém diff ───────────────────────────────────────────────────────
 
 function getDiff() {
-  const mergeBase = git("git merge-base HEAD origin/main 2>/dev/null || git rev-list --max-parents=0 HEAD");
+  const mergeBase =
+    DIFF_BASE ||
+    git("git merge-base HEAD origin/main 2>/dev/null || git rev-list --max-parents=0 HEAD");
   const diff = git(`git diff ${mergeBase}..HEAD`);
   return diff !== "n/a" ? diff : git("git diff HEAD~1..HEAD");
 }
 
 function getChangedFiles() {
-  const mergeBase = git("git merge-base HEAD origin/main 2>/dev/null || git rev-list --max-parents=0 HEAD");
+  const mergeBase =
+    DIFF_BASE ||
+    git("git merge-base HEAD origin/main 2>/dev/null || git rev-list --max-parents=0 HEAD");
   const out = git(`git diff ${mergeBase}..HEAD --name-status`);
   if (out === "n/a") return git("git diff HEAD~1..HEAD --name-status");
   return out;
@@ -173,7 +194,7 @@ function getPR() {
 export function readTodayEvents(now = new Date()) {
   if (!existsSync(EVENTS_FILE)) return [];
   try {
-    const today = now.toISOString().slice(0, 10);
+    const today = REPORT_DATE || now.toISOString().slice(0, 10);
     return readFileSync(EVENTS_FILE, "utf8")
       .split("\n")
       .filter(Boolean)
@@ -195,7 +216,7 @@ export function readTodayEvents(now = new Date()) {
 export function readTodayQuality(now = new Date()) {
   if (!existsSync(QUALITY_FILE)) return [];
   try {
-    const today = now.toISOString().slice(0, 10);
+    const today = REPORT_DATE || now.toISOString().slice(0, 10);
     return readFileSync(QUALITY_FILE, "utf8")
       .split("\n")
       .filter(Boolean)
@@ -220,7 +241,9 @@ export function readTodayQuality(now = new Date()) {
  */
 export function computeSessionMetrics(events, quality = [], tests = null) {
   const prePr = events.filter((e) => e.type === "pre-pr");
-  const prePrPass = prePr.filter((e) => (e.description || "").includes("PASS") || e.errors === 0).length;
+  const prePrPass = prePr.filter(
+    (e) => (e.description || "").includes("PASS") || e.errors === 0,
+  ).length;
   const prePrFail = prePr.length - prePrPass;
   const ruleFails = events.filter((e) => e.type === "rule:fail").length;
   const healed = events.filter((e) => e.type === "healed").length;
@@ -233,13 +256,15 @@ export function computeSessionMetrics(events, quality = [], tests = null) {
     .sort((a, b) => String(a.timestamp).localeCompare(String(b.timestamp)));
   const prMergeAt = prMerges.length > 0 ? prMerges[prMerges.length - 1].timestamp : null;
   const firstStart = events.find((e) => e.type === "session:start")?.timestamp || null;
-  const leadTimeMin = firstStart && prMergeAt
-    ? Math.max(1, Math.round((new Date(prMergeAt) - new Date(firstStart)) / 60000))
-    : null;
+  const leadTimeMin =
+    firstStart && prMergeAt
+      ? Math.max(1, Math.round((new Date(prMergeAt) - new Date(firstStart)) / 60000))
+      : null;
 
-  const avgGrade = quality.length > 0
-    ? Math.round(quality.reduce((s, q) => s + q.outcomeGrade, 0) / quality.length)
-    : null;
+  const avgGrade =
+    quality.length > 0
+      ? Math.round(quality.reduce((s, q) => s + q.outcomeGrade, 0) / quality.length)
+      : null;
 
   // Timeline narrativa: pontos principais com timestamps reais
   const picks = [
@@ -252,7 +277,9 @@ export function computeSessionMetrics(events, quality = [], tests = null) {
   ];
   const timeline = [];
   for (const pick of picks) {
-    const found = events.find((e) => e.type === pick.type && (!pick.match || pick.match(e.description || "")));
+    const found = events.find(
+      (e) => e.type === pick.type && (!pick.match || pick.match(e.description || "")),
+    );
     if (found) {
       timeline.push({
         label: pick.label,
@@ -283,7 +310,8 @@ export function computeSessionMetrics(events, quality = [], tests = null) {
 export function sessionHealth(m) {
   // Desconta violações auto-corrigidas (healed): o que importa é o que sobrou
   const net = (m.ruleFails || 0) - (m.healed || 0);
-  if (m.prMerges === 0 && net > 10) return { label: "Precisa atenção", color: "#f87171", tone: "red" };
+  if (m.prMerges === 0 && net > 10)
+    return { label: "Precisa atenção", color: "#f87171", tone: "red" };
   if (m.prePrFail > 3 || net > 8) return { label: "Sob atenção", color: "#fbbf24", tone: "amber" };
   return { label: "Saudável", color: "#34d399", tone: "green" };
 }
@@ -299,6 +327,83 @@ function estimateTokens(diff) {
   const delTokens = Math.round(deletions * 0.75);
   const overheadTokens = totalTokens - addTokens - delTokens;
   return { lines, additions, deletions, tokens: totalTokens, addTokens, delTokens, overheadTokens };
+}
+
+// ── Detalhamento por item (auto-derivado dos commits) ─────────────────
+
+const TYPE_BENEFIT = {
+  fix: "Comportamento corrigido e validado — menos erro e retrabalho",
+  feat: "Nova capacidade entregue e validada",
+  refactor: "Código mais simples — menor custo de manutenção",
+  docs: "Documentação/processo atualizados — mais rastreabilidade",
+  chore: "Ajuste de processo validado",
+};
+const TYPE_IMPACT = {
+  fix: "Menos risco de erro para o usuário e a operação",
+  feat: "Nova alavanca de uso/negócio",
+  refactor: "Menos custo em mudanças futuras",
+  docs: "Menos fricção e melhor governança",
+  chore: "Processo mais confiável e audável",
+};
+const DEFAULT_BENEFIT = "Mudança validada pelo fluxo de qualidade";
+const DEFAULT_IMPACT = "Risco controlado antes da produção";
+
+function typeOf(subject) {
+  if (/^fix/i.test(subject)) return "fix";
+  if (/^feat/i.test(subject)) return "feat";
+  if (/^refactor/i.test(subject)) return "refactor";
+  if (/^docs/i.test(subject)) return "docs";
+  if (/^(chore|style|build)/i.test(subject)) return "chore";
+  return "auto";
+}
+
+/**
+ * Deriva linhas do "Detalhamento por item" dos commits da branch
+ * (git log <base>..HEAD): cada commit vira uma linha com custo de token
+ * estimado pelo diff do commit (linhas × 0.75, mesma heurística do diff geral).
+ * Retorna [] quando não há dados de git (import em testes).
+ */
+export function deriveTableRows(baseRef = null) {
+  const base =
+    baseRef ||
+    DIFF_BASE ||
+    git("git merge-base HEAD origin/main 2>/dev/null || git rev-list --max-parents=0 HEAD");
+  const logOut = git(`git log --no-merges ${base}..HEAD --format='%h|%s|%b'`);
+  if (logOut === "n/a" || !logOut || logOut === "") return [];
+  const rows = [];
+  for (const line of logOut.split("\n")) {
+    if (!line.trim()) continue;
+    const [sha, subject = "", ...rest] = line.split("|");
+    if (!sha || !subject) continue;
+    const body = rest.join("|").split("\n")[0].trim();
+    const type = typeOf(subject);
+    const fix = body ? `${subject} — ${body}` : subject;
+    let lines = 0;
+    const numstat = git(`git show --numstat --format= ${sha}`);
+    for (const nl of numstat.split("\n")) {
+      const m = nl.match(/^(\d+)\s+(\d+)/);
+      if (m) lines += parseInt(m[1], 10) + parseInt(m[2], 10);
+    }
+    rows.push({
+      item: sha,
+      fix,
+      benefit: TYPE_BENEFIT[type] || DEFAULT_BENEFIT,
+      impact: TYPE_IMPACT[type] || DEFAULT_IMPACT,
+      tokens: lines > 0 ? `~${Math.round(lines * 0.75)}` : "—",
+    });
+  }
+  return rows;
+}
+
+/** Linha de fallback quando não há commits nem --rows (seção nunca fica vazia). */
+export function fallbackTableRow(task, impactProduto, impactNegocio, metrics) {
+  return {
+    item: "Entrega da sessão",
+    fix: task,
+    benefit: impactProduto || DEFAULT_BENEFIT,
+    impact: impactNegocio || DEFAULT_IMPACT,
+    tokens: metrics && metrics.tokens > 0 ? `~${metrics.tokens}` : "—",
+  };
 }
 
 // ── Gera HTML ─────────────────────────────────────────────────────────
@@ -342,7 +447,7 @@ export function generateHTML({
   session,
 }) {
   const now = new Date();
-  const date = now.toISOString().slice(0, 10);
+  const date = REPORT_DATE || now.toISOString().slice(0, 10);
   const time = now.toTimeString().slice(0, 5);
   const safeName = task
     .toLowerCase()
@@ -381,30 +486,47 @@ export function generateHTML({
   // ── Nível de Risco (auto-detectado dos arquivos) ──────────────
   const fileList = changedFiles.split("\n").filter((l) => l.trim());
   const filePaths = fileList.map((l) => l.replace(/^\S+\s+/, ""));
-  const hasMigration = filePaths.some((p) => p.includes("migration") || p.includes("supabase/migrations"));
+  const hasMigration = filePaths.some(
+    (p) => p.includes("migration") || p.includes("supabase/migrations"),
+  );
   const hasSchema = filePaths.some((p) => p.includes("supabase-types") || p.includes("schema"));
   const hasCoreLib = filePaths.some((p) => p.startsWith("src/lib/") && !p.includes("logger"));
-  const hasOnlyDocs = filePaths.every((p) => p.startsWith("docs/") || p.startsWith("scripts/") || p.startsWith(".pi/") || p.includes(".md"));
+  const hasOnlyDocs = filePaths.every(
+    (p) =>
+      p.startsWith("docs/") ||
+      p.startsWith("scripts/") ||
+      p.startsWith(".pi/") ||
+      p.includes(".md"),
+  );
   let riskLevel, riskColor;
   if (hasMigration || hasSchema) {
-    riskLevel = "Alto"; riskColor = "#f87171";
+    riskLevel = "Alto";
+    riskColor = "#f87171";
   } else if (hasOnlyDocs) {
-    riskLevel = "Baixo"; riskColor = "#34d399";
+    riskLevel = "Baixo";
+    riskColor = "#34d399";
   } else {
-    riskLevel = "Médio"; riskColor = "#fbbf24";
+    riskLevel = "Médio";
+    riskColor = "#fbbf24";
   }
   const riskBadge = `<span class="badge risk" style="color:${riskColor}">${riskLevel} risco</span>`;
 
   // ── Checklist automático (apêndice) ────────────────────────────
   const checks = [];
   if (hasMigration || hasSchema) checks.push("🔷 Migração de banco aplicada?");
-  if (filePaths.some((p) => p.startsWith("src/components/") || p.startsWith("src/pages/"))) checks.push("🖼️ Renderização verificada em desktop e mobile?");
-  if (filePaths.some((p) => p.startsWith("src/hooks/"))) checks.push("🔌 Hooks testados em tela real?");
+  if (filePaths.some((p) => p.startsWith("src/components/") || p.startsWith("src/pages/")))
+    checks.push("🖼️ Renderização verificada em desktop e mobile?");
+  if (filePaths.some((p) => p.startsWith("src/hooks/")))
+    checks.push("🔌 Hooks testados em tela real?");
   if (hasCoreLib) checks.push("📦 Biblioteca testada com casos de borda?");
-  if (filePaths.some((p) => p.includes("FeedbackDialog") || p.includes("feedback"))) checks.push("📬 Feedback flow testado (anon + auth)?");
-  if (filePaths.some((p) => p.includes(".github/"))) checks.push("🤖 CI workflow válido? (sintaxe YAML)");
-  if (filePaths.some((p) => p.endsWith(".test.") || p.endsWith(".spec."))) checks.push("🧪 Testes existentes passam?");
-  if (!filePaths.some((p) => p.endsWith(".test.") || p.endsWith(".spec."))) checks.push("🧪 Testes manuais realizados?");
+  if (filePaths.some((p) => p.includes("FeedbackDialog") || p.includes("feedback")))
+    checks.push("📬 Feedback flow testado (anon + auth)?");
+  if (filePaths.some((p) => p.includes(".github/")))
+    checks.push("🤖 CI workflow válido? (sintaxe YAML)");
+  if (filePaths.some((p) => p.endsWith(".test.") || p.endsWith(".spec.")))
+    checks.push("🧪 Testes existentes passam?");
+  if (!filePaths.some((p) => p.endsWith(".test.") || p.endsWith(".spec.")))
+    checks.push("🧪 Testes manuais realizados?");
   checks.push("📋 Regras de validação passam? (npm run pre-pr)");
 
   // ── Métricas da sessão ─────────────────────────────────────────
@@ -416,16 +538,13 @@ export function generateHTML({
     sm.leadTimeMin != null && sm.leadTimeMin > 480
       ? "janela de entrega (dia)"
       : "lead time (início → produção)";
-  const friction = sm.prePrTotal > 0
-    ? `${sm.prePrFail}/${sm.prePrTotal}`
-    : "—";
-  const qualityCard = sm.tests != null
-    ? `${sm.tests}`
-    : sm.outcomeGrade != null
-      ? `${sm.outcomeGrade}`
-      : "—";
-  const qualityLabel = sm.tests != null ? "testes ✅" : sm.outcomeGrade != null ? "outcome grade" : "qualidade";
-  const qualityTone = sm.tests != null || (sm.outcomeGrade != null && sm.outcomeGrade >= 80) ? "green" : "amber";
+  const friction = sm.prePrTotal > 0 ? `${sm.prePrFail}/${sm.prePrTotal}` : "—";
+  const qualityCard =
+    sm.tests != null ? `${sm.tests}` : sm.outcomeGrade != null ? `${sm.outcomeGrade}` : "—";
+  const qualityLabel =
+    sm.tests != null ? "testes ✅" : sm.outcomeGrade != null ? "outcome grade" : "qualidade";
+  const qualityTone =
+    sm.tests != null || (sm.outcomeGrade != null && sm.outcomeGrade >= 80) ? "green" : "amber";
 
   const kpiCards = `
     <div class="kpi-grid">
@@ -452,8 +571,9 @@ export function generateHTML({
     </div>`;
 
   // ── Timeline ───────────────────────────────────────────────────
-  const timelineHtml = sm.timeline && sm.timeline.length > 0
-    ? `<div class="timeline">
+  const timelineHtml =
+    sm.timeline && sm.timeline.length > 0
+      ? `<div class="timeline">
         ${sm.timeline
           .map(
             (t) => `<div class="tl-item ${t.type}">
@@ -465,11 +585,13 @@ export function generateHTML({
             </div>`,
           )
           .join("")}
-        ${sm.leadTimeMin != null
-          ? `<div class="tl-total">⏱ ${leadTime} do início à produção</div>`
-          : ""}
+        ${
+          sm.leadTimeMin != null
+            ? `<div class="tl-total">⏱ ${leadTime} do início à produção</div>`
+            : ""
+        }
       </div>`
-    : `<div class="empty-note">Sem eventos de telemetria para hoje nesta branch — rode <code>npm run session:start</code> no início das sessões.</div>`;
+      : `<div class="empty-note">Sem eventos de telemetria para hoje nesta branch — rode <code>npm run session:start</code> no início das sessões.</div>`;
 
   // ── Impacto (slides 2) ─────────────────────────────────────────
   const impactBlocks = [
@@ -478,8 +600,9 @@ export function generateHTML({
     { icon: "🌊", title: "Impacto de Processo", text: impactoProcesso, tone: "teal" },
   ].filter((b) => b.text);
 
-  const impactHtml = impactBlocks.length > 0
-    ? `<section class="slide" id="s2">
+  const impactHtml =
+    impactBlocks.length > 0
+      ? `<section class="slide" id="s2">
         <div class="slide-head">
           <span class="slide-kicker">Impacto da sessão</span>
           <h2>O que isso significa para o negócio</h2>
@@ -496,7 +619,7 @@ export function generateHTML({
             .join("")}
         </div>
       </section>`
-    : "";
+      : "";
 
   // ── BLUF (slide 1) ─────────────────────────────────────────────
   const defaultSummary = summary || "Entrega concluída e validada — detalhes técnicos no apêndice.";
@@ -570,9 +693,12 @@ export function generateHTML({
       <tr><th>Total</th><th>~${metrics.tokens}</th><th>100%</th></tr>
     </table>`;
 
-  const tableRowsHtml =
+  // Seção SEMPRE presente (garantia rule-08): sem --rows nem commits, entra o fallback
+  const rows =
     tableRows.length > 0
-      ? `<h3>Detalhamento por item</h3>
+      ? tableRows
+      : [fallbackTableRow(task, impactProduto, impactNegocio, metrics)];
+  const tableRowsHtml = `<h3>Detalhamento por item</h3>
     <table>
       <tr>
         <th style="width:16%">Item</th>
@@ -581,19 +707,25 @@ export function generateHTML({
         <th style="width:24%">Impacto no Negócio</th>
         <th style="width:16%">Custo Token</th>
       </tr>
-      ${tableRows.map((r) => `<tr>
+      ${rows
+        .map(
+          (r) => `<tr>
         <td><strong>${escapeHTML(r.item)}</strong></td>
         <td>${escapeHTML(r.fix)}</td>
         <td>${escapeHTML(r.benefit)}</td>
         <td>${escapeHTML(r.impact)}</td>
         <td><code>${escapeHTML(r.tokens)}</code></td>
-      </tr>`).join("\n")}
-    </table>`
-      : "";
+      </tr>`,
+        )
+        .join("\n")}
+    </table>`;
 
   // ── Apêndice técnico (slide 4) ─────────────────────────────────
-  const defaultBefore = beforeText || `🧹 ${metrics.deletions} remoções — ${metrics.tokens > 0 ? `${metrics.lines} linhas tocadas` : "sem alterações"}`;
-  const defaultAfter = afterText || `✨ ${metrics.additions} adições — ${fileList.length} arquivo(s) alterado(s)`;
+  const defaultBefore =
+    beforeText ||
+    `🧹 ${metrics.deletions} remoções — ${metrics.tokens > 0 ? `${metrics.lines} linhas tocadas` : "sem alterações"}`;
+  const defaultAfter =
+    afterText || `✨ ${metrics.additions} adições — ${fileList.length} arquivo(s) alterado(s)`;
 
   const appendixHtml = `
     <section class="slide appendix" id="s4">
@@ -636,7 +768,7 @@ export function generateHTML({
           </table>
         </div>
       </div>
-      ${tableRowsHtml ? `<div class="ap-card">${tableRowsHtml}</div>` : ""}
+      <div class="ap-card">${tableRowsHtml}</div>
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
         ${diff
@@ -938,7 +1070,8 @@ if (IS_MAIN) {
   const session = computeSessionMetrics(
     events,
     quality,
-    TESTS_FLAG ?? (process.env.REPORT_TESTS ? parseInt(process.env.REPORT_TESTS, 10) || null : null),
+    TESTS_FLAG ??
+      (process.env.REPORT_TESTS ? parseInt(process.env.REPORT_TESTS, 10) || null : null),
   );
 
   const html = generateHTML({
@@ -949,7 +1082,8 @@ if (IS_MAIN) {
     commit,
     pr,
     metrics,
-    tableRows: TABLE_ROWS,
+    // --rows manual vence; senão deriva dos commits da branch (garantia da seção)
+    tableRows: TABLE_ROWS.length > 0 ? TABLE_ROWS : deriveTableRows(),
     evidenceUrl: EVIDENCE_URL,
     beforeText: BEFORE_TEXT,
     afterText: AFTER_TEXT,
@@ -961,7 +1095,7 @@ if (IS_MAIN) {
   });
 
   if (SHOULD_WRITE) {
-    const date = new Date().toISOString().slice(0, 10);
+    const date = REPORT_DATE || new Date().toISOString().slice(0, 10);
     const safeName = TASK.toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")

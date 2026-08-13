@@ -1,8 +1,3 @@
-{"timestamp":"2026-08-01T01:31:13.035Z","type":"session:start","description":"chore: segunda chore","branch":"fix/kpi-report-formato-plano","commit":"001db9c","categoria":"chore"}
-{"timestamp":"2026-08-01T01:31:13.314Z","type":"session:start","description":"docs: continuacao","branch":"fix/kpi-report-formato-plano","commit":"001db9c","categoria":"docs"}
-{"timestamp":"2026-08-01T01:31:18.838Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/kpi-report-formato-plano","commit":"001db9c","categoria":"chore"}
-{"timestamp":"2026-08-01T01:31:21.506Z","type":"session:start","description":"docs: verifica output","branch":"fix/kpi-report-formato-plano","commit":"001db9c","categoria":"docs"}
-{"timestamp":"2026-08-01T01:31:21.632Z","type":"pre-pr","description":"pre-pr FAIL","branch":"fix/kpi-report-formato-plano","commit":"001db9c","errors":1}
 {"timestamp":"2026-08-01T01:31:37.612Z","type":"session:start","description":"docs: teste docs","branch":"fix/kpi-report-formato-plano","commit":"001db9c","categoria":"docs"}
 {"timestamp":"2026-08-01T01:31:37.958Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/kpi-report-formato-plano","commit":"001db9c","categoria":"bugfix"}
 {"timestamp":"2026-08-01T01:31:38.325Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/kpi-report-formato-plano","commit":"001db9c","categoria":"refactor"}
@@ -1203,3 +1198,6 @@
 {"timestamp":"2026-08-13T00:02:54.955Z","type":"code-review:done","description":"Review aprovado: raiz confirmada, 2 ajustes (expect em beforeAll, prettier, UI-GUIDE)","branch":"fix/dark-secondary-inputs","commit":"5ed2922","agent":"human","subagent":true,"verdict":"approved"}
 {"timestamp":"2026-08-13T00:04:45.225Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/dark-secondary-inputs","commit":"5ed2922","agent":"human","errors":0}
 {"timestamp":"2026-08-13T00:04:56.893Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/dark-secondary-inputs","commit":"5ed2922","agent":"human","errors":0}
+{"timestamp":"2026-08-13T00:19:35.998Z","type":"session:start","description":"feature: Detalhamento por item obrigatorio em todo relatorio: derivacao automatica dos commits + rule-08 exigindo a secao + backfill dos relatorios recentes","branch":"main","commit":"5906a41","agent":"human","categoria":"feature"}
+{"timestamp":"2026-08-13T00:19:36.134Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/report-detalhamento","commit":"5906a41","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-13T00:19:36.476Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/report-detalhamento","commit":"5906a41","agent":"human","errors":0}
