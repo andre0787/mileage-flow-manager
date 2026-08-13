@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-13T03:31:24.998Z",
+  "generatedAt": "2026-08-13T03:53:30.612Z",
   "dataDate": "2026-08-13",
   "kpiStats": [
     {
-      "value": 1204,
+      "value": 1208,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 463,
+      "value": 464,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,17 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 195,
+      "value": 199,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 70,
+      "value": 71,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 40,
+      "value": 41,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,12 +36,12 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 189,
+      "n": 186,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 369,
+      "n": 373,
       "color": "#8b5cf6"
     },
     {
@@ -51,7 +51,7 @@
     },
     {
       "name": "healed",
-      "n": 70,
+      "n": 71,
       "color": "#10b981"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 43,
+      "n": 44,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 42,
+      "n": 43,
       "color": "#22c55e"
     },
     {
@@ -103,7 +103,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 313,
+      "n": 314,
       "color": "#10b981"
     },
     {
@@ -119,53 +119,53 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-13 03:31:21",
+      "t": "2026-08-13 03:53:27",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-13 03:29:23",
+      "t": "2026-08-13 03:51:25",
       "d": "code-review:done",
-      "desc": "Review aprovado: causa raiz (npm run kpi regredia kpi-data.json) + TWINS (unico uso automatizado) + fix em pre-pr-check.mjs"
+      "desc": "Review aprovado: fix CPFs vazios no breakdown + constante LIVE_SERIES_DAYS + Suspense/ErrorBoundary verificado"
     },
     {
-      "t": "2026-08-13 03:29:23",
-      "d": "coding:done",
-      "desc": "Fix aplicado por subagente: pre-pr-check usa data:refresh"
-    },
-    {
-      "t": "2026-08-13 03:29:23",
-      "d": "session:start",
-      "desc": "bugfix: pre-pr roda data:refresh em vez de kpi (kpi-data.json sem regressao)"
-    },
-    {
-      "t": "2026-08-13 03:29:15",
+      "t": "2026-08-13 03:51:20",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-13 03:29:14",
+      "t": "2026-08-13 03:50:53",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-13 03:49:51",
+      "d": "coding:done",
+      "desc": "4 sugestoes do painel implementadas por subagente: ProcessAlerts, BusinessBreakdown, seletor 7/14/30d, lazy-loading React.lazy"
+    },
+    {
+      "t": "2026-08-13 03:49:51",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-13 03:49:50",
       "d": "healed",
       "desc": "rule-26 auto-corrigido"
     },
     {
-      "t": "2026-08-13 03:03:06",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-13 03:00:43",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "t": "2026-08-13 03:49:46",
+      "d": "session:start",
+      "desc": "feature: 4 sugestoes do painel KPI: serie 30d com seletor, alertas de processo, breakdown por dono/programa, lazy-loading das paginas (bundle 750->397KB)"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 405,
-    "healed": 70,
-    "healedRate": 17.3,
-    "prePrTotal": 369,
-    "prePrPass": 273,
-    "prePrPassRate": 74,
+    "healed": 71,
+    "healedRate": 17.5,
+    "prePrTotal": 373,
+    "prePrPass": 278,
+    "prePrPassRate": 74.5,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -196,6 +196,15 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 372,
+      "title": "fix(process): pre-pr roda data:refresh em vez de kpi — kpi-data.json completo sem regressão",
+      "type": "fix",
+      "date": "2026-08-13",
+      "tokens": 923,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação"
+    },
     {
       "number": 371,
       "title": "feat(kpi): Datadog interno — abas KPI e Workflow com dados reais diários (data:refresh + nightly)",
@@ -231,26 +240,17 @@
       "tokens": 1033,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 367,
-      "title": "feat(ui): filtros translúcidos no dark mode + autofill legível + verificação visual no browser (verify:dark)",
-      "type": "feat",
-      "date": "2026-08-13",
-      "tokens": 1111,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "overview": {
-    "components": 87,
+    "components": 89,
     "pages": 16,
     "libs": 19,
     "scripts": 104,
-    "testFiles": 195,
+    "testFiles": 199,
     "skills": 26,
     "rules": 41,
-    "events": 1204,
-    "qualityNotes": 463
+    "events": 1208,
+    "qualityNotes": 464
   }
 }

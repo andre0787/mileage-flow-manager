@@ -1,9 +1,4 @@
-/**
- * businessSeries.ts — Séries de negócio diárias para o painel KPI
- * (Datadog interno). Funções PURAS (sem React/Supabase).
- *
- * regra-31: lib com teste unitário (tests/unit/businessSeries.test.ts)
- */
+/** Séries de negócio diárias (Datadog interno). Funções PURAS — regra-31: tests/unit/businessSeries.test.ts */
 
 export interface DailyBusinessPoint {
   day: string;
@@ -30,6 +25,42 @@ interface SeriesEntry {
   entryStatus?: string;
 }
 
+export interface OwnerBreakdown {
+  name: string;
+  totalMiles: number;
+  totalInvested: number;
+  cpfCount: number;
+}
+
+export interface ProgramBreakdown {
+  name: string;
+  balance: number;
+}
+
+interface BreakdownOwner {
+  id: string;
+  name: string;
+}
+
+interface BreakdownAccount {
+  id: string;
+  ownerId: string;
+  programId: string;
+  balance: number;
+  totalInvested?: number;
+}
+
+interface BreakdownProgram {
+  id: string;
+  name: string;
+}
+
+interface BreakdownSale {
+  accountId?: string | null;
+  status?: string;
+  passengers?: Array<{ cpf?: string }>;
+}
+
 /**
  * "2026-08-13" → "13/08" (client). Espelho de formatDayLabel em
  * scripts/data-refresh.mjs — mantenha em sincronia.
@@ -37,6 +68,46 @@ interface SeriesEntry {
 export function businessDayLabel(day: string): string {
   const [, m, d] = day.split("-");
   return d && m ? `${d}/${m}` : day;
+}
+
+export function computeOwnersBreakdown(
+  owners: BreakdownOwner[],
+  accounts: BreakdownAccount[],
+  sales: BreakdownSale[],
+): OwnerBreakdown[] {
+  return owners
+    .map((owner) => {
+      const ownerAccounts = accounts.filter((a) => a.ownerId === owner.id);
+      const ownerAccountIds = new Set(ownerAccounts.map((a) => a.id));
+      const ownerSales = sales.filter(
+        (s) => s.status !== "cancelado" && s.accountId != null && ownerAccountIds.has(s.accountId),
+      );
+      return {
+        name: owner.name,
+        totalMiles: ownerAccounts.reduce((sum, a) => sum + a.balance, 0),
+        totalInvested: ownerAccounts.reduce((sum, a) => sum + (a.totalInvested ?? 0), 0),
+        cpfCount: new Set(
+          ownerSales.flatMap((s) => (s.passengers ?? []).map((p) => p.cpf ?? "").filter(Boolean)),
+        ).size,
+      };
+    })
+    .filter((o) => o.totalMiles > 0 || o.totalInvested > 0)
+    .sort((a, b) => b.totalMiles - a.totalMiles);
+}
+
+/** Saldo por programa. */
+export function computeProgramsBreakdown(
+  programs: BreakdownProgram[],
+  accounts: BreakdownAccount[],
+): ProgramBreakdown[] {
+  const byProgram = new Map<string, number>();
+  for (const a of accounts) {
+    byProgram.set(a.programId, (byProgram.get(a.programId) ?? 0) + a.balance);
+  }
+  return programs
+    .map((p) => ({ name: p.name, balance: byProgram.get(p.id) ?? 0 }))
+    .filter((p) => p.balance > 0)
+    .sort((a, b) => b.balance - a.balance);
 }
 
 /**

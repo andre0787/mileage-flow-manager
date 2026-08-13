@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { store } from "@/features/store";
 import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router";
+import { lazy, Suspense } from "react";
 import { ThemeProvider } from "next-themes";
 import { AppSidebar } from "@/components/AppSidebar";
 import { BottomTabBar } from "@/components/BottomTabBar";
@@ -22,19 +23,22 @@ import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
-import Dashboard from "./pages/Dashboard";
-import Contas from "./pages/Contas";
-import Clientes from "./pages/Clientes";
-import Entradas from "./pages/Entradas";
-import Vendas from "./pages/Vendas";
-import ControleCPF from "./pages/ControleCPF";
-import Relatorios from "./pages/Relatorios";
-import Configuracoes from "./pages/Configuracoes";
-import Perfil from "./pages/Perfil";
-import AdminEventos from "./pages/AdminEventos";
-import KPI from "./pages/KPI";
-import Workflow from "./pages/Workflow";
-import NotFound from "./pages/NotFound";
+
+// Lazy loading das páginas protegidas: cada rota vira um chunk próprio,
+// reduzindo o bundle inicial (index). Fallback: spinner leve via Suspense.
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Contas = lazy(() => import("./pages/Contas"));
+const Clientes = lazy(() => import("./pages/Clientes"));
+const Entradas = lazy(() => import("./pages/Entradas"));
+const Vendas = lazy(() => import("./pages/Vendas"));
+const ControleCPF = lazy(() => import("./pages/ControleCPF"));
+const Relatorios = lazy(() => import("./pages/Relatorios"));
+const Configuracoes = lazy(() => import("./pages/Configuracoes"));
+const Perfil = lazy(() => import("./pages/Perfil"));
+const AdminEventos = lazy(() => import("./pages/AdminEventos"));
+const KPI = lazy(() => import("./pages/KPI"));
+const Workflow = lazy(() => import("./pages/Workflow"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,140 +49,148 @@ const queryClient = new QueryClient({
   },
 });
 
+const PageFallback = () => (
+  <div className="flex items-center justify-center py-24">
+    <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+  </div>
+);
+
 const AnimatedRoutes = () => {
   const location = useLocation();
 
   return (
-    <Routes location={location} key={location.pathname}>
-      <Route
-        path="/"
-        element={
-          <ErrorBoundary>
+    <Suspense fallback={<PageFallback />}>
+      <Routes location={location} key={location.pathname}>
+        <Route
+          path="/"
+          element={
+            <ErrorBoundary>
+              <div className="animate-appear">
+                <Dashboard />
+              </div>
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/contas"
+          element={
+            <ErrorBoundary>
+              <div className="animate-appear">
+                <Contas />
+              </div>
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/clientes"
+          element={
+            <ErrorBoundary>
+              <div className="animate-appear">
+                <Clientes />
+              </div>
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/entradas"
+          element={
+            <ErrorBoundary>
+              <div className="animate-appear">
+                <Entradas />
+              </div>
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/vendas"
+          element={
+            <ErrorBoundary>
+              <div className="animate-appear">
+                <Vendas />
+              </div>
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/cpf"
+          element={
+            <ErrorBoundary>
+              <div className="animate-appear">
+                <ControleCPF />
+              </div>
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/relatorios"
+          element={
+            <ErrorBoundary>
+              <div className="animate-appear">
+                <Relatorios />
+              </div>
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/configuracoes"
+          element={
+            <ErrorBoundary>
+              <div className="animate-appear">
+                <Configuracoes />
+              </div>
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/perfil"
+          element={
+            <ErrorBoundary>
+              <div className="animate-appear">
+                <Perfil />
+              </div>
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/kpi"
+          element={
+            <ErrorBoundary>
+              <div className="animate-appear">
+                <KPI />
+              </div>
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/admin/eventos"
+          element={
+            <ErrorBoundary>
+              <div className="animate-appear">
+                <AdminEventos />
+              </div>
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/workflow"
+          element={
+            <ErrorBoundary>
+              <div className="animate-appear">
+                <Workflow />
+              </div>
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="*"
+          element={
             <div className="animate-appear">
-              <Dashboard />
+              <NotFound />
             </div>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/contas"
-        element={
-          <ErrorBoundary>
-            <div className="animate-appear">
-              <Contas />
-            </div>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/clientes"
-        element={
-          <ErrorBoundary>
-            <div className="animate-appear">
-              <Clientes />
-            </div>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/entradas"
-        element={
-          <ErrorBoundary>
-            <div className="animate-appear">
-              <Entradas />
-            </div>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/vendas"
-        element={
-          <ErrorBoundary>
-            <div className="animate-appear">
-              <Vendas />
-            </div>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/cpf"
-        element={
-          <ErrorBoundary>
-            <div className="animate-appear">
-              <ControleCPF />
-            </div>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/relatorios"
-        element={
-          <ErrorBoundary>
-            <div className="animate-appear">
-              <Relatorios />
-            </div>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/configuracoes"
-        element={
-          <ErrorBoundary>
-            <div className="animate-appear">
-              <Configuracoes />
-            </div>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/perfil"
-        element={
-          <ErrorBoundary>
-            <div className="animate-appear">
-              <Perfil />
-            </div>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/kpi"
-        element={
-          <ErrorBoundary>
-            <div className="animate-appear">
-              <KPI />
-            </div>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/admin/eventos"
-        element={
-          <ErrorBoundary>
-            <div className="animate-appear">
-              <AdminEventos />
-            </div>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/workflow"
-        element={
-          <ErrorBoundary>
-            <div className="animate-appear">
-              <Workflow />
-            </div>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="*"
-        element={
-          <div className="animate-appear">
-            <NotFound />
-          </div>
-        }
-      />
-    </Routes>
+          }
+        />
+      </Routes>
+    </Suspense>
   );
 };
 
