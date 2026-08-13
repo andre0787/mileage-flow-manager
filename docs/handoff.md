@@ -48,7 +48,7 @@ Nenhum PR aberto.
 **Objetivo:** Datadog interno: abas KPI e Workflow com dados reais diarios
 **Status:** in_progress
 **Iniciada em:** 2026-08-13T02:58:46.434Z
-**Branch:** `feat/datadog-interno-kpis`
+**Branch:** `fix/prepr-data-refresh`
 **Último commit:** ae402a8 — fix(test): mensagem de fallback da aba KPI aponta para npm run data:refresh
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 ---
