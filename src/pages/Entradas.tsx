@@ -20,7 +20,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
 import { calculateRecurrence } from "@/lib/recurrence";
-import { computeTransferCalc } from "@/lib/transferCalc";
+import { computeEntryValues } from "@/lib/entryOperations";
 import { serializeOrigemTypeDescription } from "@/lib/origemTypes";
 import { formatDateBR } from "@/lib/dateUtils";
 import { toast } from "sonner";
@@ -61,43 +61,8 @@ export default function Entradas() {
   const [editingEntry, setEditingEntry] = useState<PointEntry | null>(null);
   const [isTransferDialogOpen, setIsTransferDialogOpen] = useState(false);
 
-  const computeFromForm = (form: EntryFormData) => {
-    const ot = origemTypes.find((ot) => ot.id === form.origemTypeId);
-    const isTransfer = ot ? isTransferencia(ot) : false;
-    const amount = parseFloat(form.amount);
-    const cartAmount = parseFloat(form.cartAmount || "0");
-    const amountPaid = parseFloat(form.amountPaid);
-    const cartCost = parseFloat(form.cartCost || "0");
-    const conversionRate = parseFloat(form.conversionRate || "1");
-    const bonusPercent = isTransfer ? parseFloat(form.bonusPercent || "0") : undefined;
-    // Carrinho só participa quando há pontos extras (cartAmount > 0).
-    // Em não-transferências (EntryForm) cartAmount/cartCost são sempre 0.
-    const c = computeTransferCalc({
-      amount,
-      cartAmount: isTransfer ? cartAmount : 0,
-      amountPaid,
-      cartCost: isTransfer && cartAmount > 0 ? cartCost : 0,
-      conversionRate,
-      bonusPercent,
-    });
-    return {
-      isTransfer,
-      amount,
-      cartAmount,
-      amountPaid,
-      cartCost,
-      conversionRate,
-      bonusPercent,
-      totalAmount: c.totalAmount,
-      totalPaid: c.totalPaid,
-      milesGenerated: c.milesGenerated,
-      costPerThousand: c.costPerThousand,
-      costPerMile: c.costPerMile,
-    };
-  };
-
   const handleCreateEntry = (form: EntryFormData) => {
-    const c = computeFromForm(form);
+    const c = computeEntryValues(form, origemTypes);
     const isSplit =
       form.isRecurrent && form.recurrenceValueMode === "split" && form.recurrenceCount > 1;
     const divisor = isSplit ? form.recurrenceCount : 1;
@@ -153,7 +118,7 @@ export default function Entradas() {
 
   const handleUpdateEntry = (form: EntryFormData) => {
     if (!editingEntry) return;
-    const c = computeFromForm(form);
+    const c = computeEntryValues(form, origemTypes);
 
     // Determine recurrence settings
     let recurrenceFields: Record<string, unknown> = {};
