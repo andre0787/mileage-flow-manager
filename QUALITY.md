@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-08-12
-> Último commit: 5a24a43-Merge pull request #356 from andre0787/feat/workflow-kpis-reais
+> Gerado em: 2026-08-13
+> Último commit: 7b6ee1b-Merge pull request #375 from andre0787/refactor/dashboard-coverage-gate
 
 ## Pipeline
 
@@ -15,21 +15,21 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 619 |
-| E2E  | 72 |
-| **Total** | **691** |
+| Unit | 739 |
+| E2E  | 82 |
+| **Total** | **821** |
 
 ## Bundle
 
 | Métrica | Valor |
 |---------|-------|
-| Tamanho (dist) | 1735kB |
+| Tamanho (dist) | 1769kB |
 
 ## Documentação
 
 | Métrica | Valor |
 |---------|-------|
-| Arquivos .md | 192 |
+| Arquivos .md | 193 |
 | Arquivados | 46 |
 | Issues (verify-docs) | 0 |
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-08-12 | ✅ | 691 | 1735kB | 0 issues |
+| 2026-08-13 | ✅ | 821 | 1769kB | 0 issues |
 
 ---
 

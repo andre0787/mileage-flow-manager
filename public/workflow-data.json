@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T05:00:24.595Z",
+  "generatedAt": "2026-08-13T07:20:12.473Z",
   "dataDate": "2026-08-13",
   "kpiStats": [
     {
@@ -195,53 +195,7 @@
       }
     ]
   },
-  "lastPrs": [
-    {
-      "number": 374,
-      "title": "chore(process): testes 5.6x mais rápidos, lint 0 warnings e métrica de cobertura (78.8%)",
-      "type": "chore",
-      "date": "2026-08-13",
-      "tokens": 1075,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável"
-    },
-    {
-      "number": 373,
-      "title": "feat(kpi): painel KPI — 30d com seletor, alertas de processo, breakdown por dono/programa e lazy-loading (−47% bundle)",
-      "type": "feat",
-      "date": "2026-08-13",
-      "tokens": 1712,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 372,
-      "title": "fix(process): pre-pr roda data:refresh em vez de kpi — kpi-data.json completo sem regressão",
-      "type": "fix",
-      "date": "2026-08-13",
-      "tokens": 923,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação"
-    },
-    {
-      "number": 371,
-      "title": "feat(kpi): Datadog interno — abas KPI e Workflow com dados reais diários (data:refresh + nightly)",
-      "type": "feat",
-      "date": "2026-08-13",
-      "tokens": 3287,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 370,
-      "title": "feat(process): otimização do workflow — tail-read da telemetria (−97% tokens por pre-pr) + subagentes pre-pr-triage e report-consolidation",
-      "type": "feat",
-      "date": "2026-08-13",
-      "tokens": 767,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    }
-  ],
+  "lastPrs": [],
   "overview": {
     "components": 89,
     "pages": 16,
