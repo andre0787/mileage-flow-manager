@@ -1421,13 +1421,25 @@ describe("rule-42-coverage-gate (gate de cobertura)", () => {
       cleanTempFixture(tmp);
     }
   });
-
   it("deve ser skip (fail-open: sem relatório de coverage)", () => {
     const tmp = createTempFixture("handoff/valid");
     try {
       const res = runRuleOnFixture("rule-42-coverage-gate.mjs", tmp);
       expect(res.status).toBe(0);
       expect(res.stdout).toMatch(/⏭️/);
+    } finally {
+      cleanTempFixture(tmp);
+    }
+  });
+
+  it("deve falhar com JSON malformado ou sem total.lines", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      mkdirSync(join(tmp, "coverage"), { recursive: true });
+      writeFileSync(join(tmp, "coverage/coverage-summary.json"), "{ inválido");
+      const res = runRuleOnFixture("rule-42-coverage-gate.mjs", tmp);
+      expect(res.status).not.toBe(0);
+      expect((res.stdout || "") + (res.error || "")).toContain("inválido");
     } finally {
       cleanTempFixture(tmp);
     }
