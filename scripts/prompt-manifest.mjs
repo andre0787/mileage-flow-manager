@@ -31,6 +31,8 @@ const PROMPT_FILES = [
   ".pi/skills/bounded-scout/SKILL.md",
   ".pi/skills/diff-miner/SKILL.md",
   ".pi/skills/test-triage/SKILL.md",
+  ".pi/skills/pre-pr-triage/SKILL.md",
+  ".pi/skills/report-consolidation/SKILL.md",
   // Docs de configuração do agente
   "AGENTS.md",
   "CLAUDE.md",
@@ -74,7 +76,9 @@ function generateManifest() {
 function writeManifest() {
   const manifest = generateManifest();
   writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2) + "\n", "utf8");
-  console.log(`✅ .prompts-manifest.json atualizado (${Object.keys(manifest.prompts).length} arquivos)`);
+  console.log(
+    `✅ .prompts-manifest.json atualizado (${Object.keys(manifest.prompts).length} arquivos)`,
+  );
   return manifest;
 }
 
@@ -86,7 +90,9 @@ function checkManifest() {
   }
 
   if (manifest.version !== MANIFEST_VERSION) {
-    console.error(`❌ Versão do manifesto desatualizada (${manifest.version}). Execute: npm run prompt:manifest`);
+    console.error(
+      `❌ Versão do manifesto desatualizada (${manifest.version}). Execute: npm run prompt:manifest`,
+    );
     process.exit(1);
   }
 
@@ -139,7 +145,9 @@ function checkManifest() {
     console.log(`  ⚠️  ${warnings} warning(s) — manifesto pode precisar de atualização`);
   }
 
-  console.log(`  ✅ prompt:manifest — ${Object.keys(manifest.prompts).length} arquivos, todos íntegros`);
+  console.log(
+    `  ✅ prompt:manifest — ${Object.keys(manifest.prompts).length} arquivos, todos íntegros`,
+  );
 }
 
 function listFiles() {

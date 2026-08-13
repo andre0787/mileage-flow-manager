@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `feat/report-por-pr`
-- **Último commit:** `fde1e4f — fix(process): Detalhamento nunca lista commits — sem PR aberto usa linha unica da sessao (fallback)`
+- **Branch:** `main`
+- **Último commit:** `7983f67 — Merge pull request #369 from andre0787/feat/report-por-pr`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -42,15 +42,6 @@ Nenhum PR aberto.
 | Docs issues | 0 |
 | Branch | refactor/blueprint-v4-p1-clientes |
 
-
-## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** Detalhamento por item ao nivel de PR (titulo real + custo agregado) + relatorio consolidado por PR (report:consolidate)
-**Status:** in_progress
-**Iniciada em:** 2026-08-13T02:01:46.780Z
-**Branch:** `feat/report-por-pr`
-**Último commit:** fde1e4f — fix(process): Detalhamento nunca lista commits — sem PR aberto usa linha unica da sessao (fallback)
-**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 
 
 ---

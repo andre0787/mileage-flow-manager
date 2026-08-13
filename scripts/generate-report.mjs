@@ -42,7 +42,18 @@
  */
 
 import { execSync } from "child_process";
-import { readFileSync, existsSync, mkdirSync, writeFileSync, readdirSync, renameSync } from "fs";
+import {
+  readFileSync,
+  statSync,
+  openSync,
+  readSync,
+  closeSync,
+  existsSync,
+  mkdirSync,
+  writeFileSync,
+  readdirSync,
+  renameSync,
+} from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath, pathToFileURL } from "url";
 import { auditContext } from "./context-audit.mjs";
@@ -219,48 +230,94 @@ export function numstatLines(numstat) {
 
 // ── Auto-métricas da sessão ──────────────────────────────────────────
 
-/** Lê docs/tracking/events.jsonl e devolve eventos do dia atual (ordem cronológica). */
-export function readTodayEvents(now = new Date()) {
-  if (!existsSync(EVENTS_FILE)) return [];
+/**
+ * Lê apenas as últimas ~maxLines do final de um arquivo JSONL (tail).
+ * Os arquivos de tracking são append-only com timestamp — os eventos do dia
+ * atual estão SEMPRE no fim, então ler o arquivo inteiro (que já chegou a
+ * 61K tokens de events.jsonl) era desperdício puro em todo pre-pr/relatório.
+ * Um read de ~300KB no fim cobre milhares de linhas recentes.
+ *
+ * ⚠️ Backfill (--date explícito): datas históricas podem ficar FORA do tail
+ * — nesse caso as funções de leitura fazem fallback para leitura completa.
+ */
+function readTailLines(filePath, maxLines = 6000) {
   try {
-    const today = REPORT_DATE || now.toISOString().slice(0, 10);
-    return readFileSync(EVENTS_FILE, "utf8")
-      .split("\n")
-      .filter(Boolean)
-      .map((l) => {
-        try {
-          return JSON.parse(l);
-        } catch {
-          return null;
-        }
-      })
-      .filter(Boolean)
-      .filter((e) => (e.timestamp || "").startsWith(today));
+    const size = statSync(filePath).size;
+    const chunkBytes = Math.min(size, 300 * 1024); // 300KB → ~milhares de linhas
+    const fd = openSync(filePath, "r");
+    const buf = Buffer.alloc(chunkBytes);
+    readSync(fd, buf, 0, chunkBytes, size - chunkBytes);
+    closeSync(fd);
+    const lines = buf.toString("utf8").split("\n").filter(Boolean);
+    // 1ª linha pode estar cortada no meio (chunk começou no meio de uma linha)
+    const start = lines.length > maxLines ? lines.length - maxLines : 0;
+    return lines.slice(start);
   } catch {
     return [];
   }
 }
 
-/** Lê docs/tracking/quality.jsonl e devolve outcomeGrades do dia. */
-export function readTodayQuality(now = new Date()) {
-  if (!existsSync(QUALITY_FILE)) return [];
+/** Lê o arquivo inteiro (fallback para backfill com --date fora do tail). */
+function readFullLines(filePath) {
   try {
-    const today = REPORT_DATE || now.toISOString().slice(0, 10);
-    return readFileSync(QUALITY_FILE, "utf8")
-      .split("\n")
-      .filter(Boolean)
-      .map((l) => {
-        try {
-          return JSON.parse(l);
-        } catch {
-          return null;
-        }
-      })
-      .filter(Boolean)
-      .filter((e) => (e.timestamp || "").startsWith(today) && typeof e.outcomeGrade === "number");
+    return readFileSync(filePath, "utf8").split("\n").filter(Boolean);
   } catch {
     return [];
   }
+}
+
+/** Parseia linhas JSONL em objetos (null-safe). */
+function parseJsonLines(lines) {
+  return lines
+    .map((l) => {
+      try {
+        return JSON.parse(l);
+      } catch {
+        return null;
+      }
+    })
+    .filter(Boolean);
+}
+
+/**
+ * Lê as linhas de um JSONL filtrando por data: tail otimizado por padrão;
+ * leitura completa quando a data-alvo não aparece no tail (backfill histórico
+ * com --date fora dos últimos 300KB) ou quando REPORT_DATE foi explícito.
+ */
+export function readJsonLinesByDate(filePath, today, withGrade = false) {
+  if (!existsSync(filePath)) return [];
+  try {
+    // Backfill (--date explícito) pode mirar datas fora do tail → leitura completa
+    const useTail = !REPORT_DATE;
+    const lines = useTail ? readTailLines(filePath) : readFullLines(filePath);
+    let parsed = parseJsonLines(lines);
+    if (withGrade) parsed = parsed.filter((e) => typeof e.outcomeGrade === "number");
+    const filtered = parsed.filter((e) => (e.timestamp || "").startsWith(today));
+    // Fallback: tail não continha a data-alvo (ex.: dia cheio > 300KB) → full read
+    if (filtered.length === 0 && useTail) {
+      const full = parseJsonLines(readFullLines(filePath));
+      return withGrade
+        ? full.filter(
+            (e) => typeof e.outcomeGrade === "number" && (e.timestamp || "").startsWith(today),
+          )
+        : full.filter((e) => (e.timestamp || "").startsWith(today));
+    }
+    return filtered;
+  } catch {
+    return [];
+  }
+}
+
+/** Lê docs/tracking/events.jsonl e devolve eventos do dia atual (ordem cronológica). */
+export function readTodayEvents(now = new Date()) {
+  const today = REPORT_DATE || now.toISOString().slice(0, 10);
+  return readJsonLinesByDate(EVENTS_FILE, today);
+}
+
+/** Lê docs/tracking/quality.jsonl e devolve outcomeGrades do dia. */
+export function readTodayQuality(now = new Date()) {
+  const today = REPORT_DATE || now.toISOString().slice(0, 10);
+  return readJsonLinesByDate(QUALITY_FILE, today, true);
 }
 
 /**

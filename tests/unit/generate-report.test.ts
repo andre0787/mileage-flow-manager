@@ -13,6 +13,7 @@ import {
   fallbackTableRow,
   parseCommitRecord,
   buildPrRow,
+  readJsonLinesByDate,
 } from "../../scripts/generate-report.mjs";
 
 const baseMetrics = {
@@ -268,6 +269,50 @@ describe("fallbackTableRow", () => {
     expect(row.benefit).toContain("qualidade");
     expect(row.impact).toContain("Risco");
     expect(row.tokens).toBe("—");
+  });
+});
+
+describe("readJsonLinesByDate (tail otimizado com fallback)", () => {
+  // REPORT_DATE não é setado em testes → usa o caminho tail; arquivo inexistente → []
+  it("arquivo inexistente retorna [] sem lançar", () => {
+    expect(readJsonLinesByDate("/tmp/nao-existe-xyz.jsonl", "2026-08-13")).toEqual([]);
+  });
+
+  it("parseia linhas JSONL válidas e filtra por data (null-safe)", () => {
+    const file = "/tmp/tail-test-events.jsonl";
+    const { writeFileSync } = require("fs");
+    writeFileSync(
+      file,
+      [
+        JSON.stringify({ timestamp: "2026-08-12T10:00:00Z", type: "old" }),
+        "linha inválida",
+        JSON.stringify({ timestamp: "2026-08-13T10:00:00Z", type: "new" }),
+      ].join("\n"),
+    );
+    const result = readJsonLinesByDate(file, "2026-08-13");
+    expect(result).toHaveLength(1);
+    expect(result[0].type).toBe("new");
+    try {
+      writeFileSync(file, "");
+    } catch {}
+  });
+
+  it("withGrade=true filtra apenas registros com outcomeGrade numérico", () => {
+    const file = "/tmp/tail-test-quality.jsonl";
+    const { writeFileSync } = require("fs");
+    writeFileSync(
+      file,
+      [
+        JSON.stringify({ timestamp: "2026-08-13T10:00:00Z", outcomeGrade: 85 }),
+        JSON.stringify({ timestamp: "2026-08-13T10:01:00Z", tipo: "sem-grade" }),
+      ].join("\n"),
+    );
+    const result = readJsonLinesByDate(file, "2026-08-13", true);
+    expect(result).toHaveLength(1);
+    expect(result[0].outcomeGrade).toBe(85);
+    try {
+      writeFileSync(file, "");
+    } catch {}
   });
 });
 
