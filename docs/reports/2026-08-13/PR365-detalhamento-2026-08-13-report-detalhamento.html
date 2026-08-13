@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>PR363 — token efficient agents</title>
+  <title>report-detalhamento — report detalhamento</title>
   <style>
     :root{
       --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;
@@ -149,7 +149,7 @@
 <body>
   <div class="nav" id="deckNav">
     <button id="prevBtn" title="Anterior (←)">←</button>
-    <span class="count" id="slideCount">1/2</span>
+    <span class="count" id="slideCount">1/3</span>
     <button id="nextBtn" title="Próxima (→)">→</button>
     <button id="fsBtn" title="Tela cheia (F)">⛶</button>
     <button id="printBtn" title="Imprimir / PDF (P)">⎙</button>
@@ -161,32 +161,32 @@
     <section class="slide" id="s1">
       <div class="hero">
         <div class="hero-top">
-          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">PR363</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health amber" style="color:#fbbf24">● Sob atenção</span></div>
-          <div class="hero-date">2026-08-12 · 21:20 · <span class="mono">HEAD</span></div>
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">report-detalhamento</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
+          <div class="hero-date">2026-08-13 · 21:23 · <span class="mono">feat/report-detalhamento</span></div>
         </div>
-        <h1>token efficient agents</h1>
-        <p class="hero-summary">Entrega concluída e validada — detalhes técnicos no apêndice.</p>
-        <div class="hero-meta mono">b35a530 — chore: normalize report prefix to PR363</div>
+        <h1>report detalhamento</h1>
+        <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
+        <div class="hero-meta mono">fac1bd3 — fix(process): parse do Detalhamento imune a pipes/body multilinha (separador %x1f/%x1e) + parseCommitRecord puro testado</div>
       </div>
       
     <div class="kpi-grid">
       <div class="kpi">
-        <div class="kpi-value">3</div>
+        <div class="kpi-value">0</div>
         <div class="kpi-label">entregas em produção</div>
-        <div class="kpi-sub">12 implementações · 12 reviews</div>
+        <div class="kpi-sub">2 implementações · 2 reviews</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">18h17m</div>
-        <div class="kpi-label">janela de entrega (dia)</div>
+        <div class="kpi-value">—</div>
+        <div class="kpi-label">lead time (início → produção)</div>
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/52</div>
+        <div class="kpi-value">0/4</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
-        <div class="kpi-sub">32 violações · 12 auto-corrigidas</div>
+        <div class="kpi-sub">0 violações · 1 auto-corrigidas</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value green">92</div>
+        <div class="kpi-value green">100</div>
         <div class="kpi-label">outcome grade</div>
         <div class="kpi-sub">médio risco da mudança</div>
       </div>
@@ -194,18 +194,38 @@
       <div class="bluf">
         <div class="bluf-col">
           <div class="bluf-label">Decisão & entregas</div>
-          <p>Detalhes no apêndice técnico.</p>
+          <p>Nova capacidade entregue e validada para o produto.</p>
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Impacto esperado</div>
-          <p>Detalhes no apêndice técnico.</p>
+          <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Riscos & trade-offs</div>
-          <p>Médio risco de mudança · outcome grade = 92 · lead time 18h17m.</p>
+          <p>Médio risco de mudança · outcome grade = 100 · lead time —.</p>
         </div>
       </div>
-    </section>
+    </section><section class="slide" id="s2">
+        <div class="slide-head">
+          <span class="slide-kicker">Impacto da sessão</span>
+          <h2>O que isso significa para o negócio</h2>
+        </div>
+        <div class="impact-grid">
+          <div class="impact-card blue">
+                <div class="impact-icon">🎯</div>
+                <h3>Impacto de Produto</h3>
+                <p>Nova capacidade entregue e validada para o produto.</p>
+              </div><div class="impact-card gold">
+                <div class="impact-icon">🏢</div>
+                <h3>Impacto de Negócio</h3>
+                <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+              </div><div class="impact-card teal">
+                <div class="impact-icon">🌊</div>
+                <h3>Impacto de Processo</h3>
+                <p>Fluxo completo seguido: sessão → implementação → code review → pré-PR → PR. Detalhes nas métricas automáticas.</p>
+              </div>
+        </div>
+      </section>
     <section class="slide" id="s3">
       <div class="slide-head">
         <span class="slide-kicker">Execução</span>
@@ -216,41 +236,35 @@
         <div class="tl-item session:start">
               <div class="tl-dot"></div>
               <div class="tl-body">
-                <div class="tl-time">03:22</div>
+                <div class="tl-time">00:19</div>
                 <div class="tl-label">Início da sessão</div>
               </div>
             </div><div class="tl-item coding:done">
               <div class="tl-dot"></div>
               <div class="tl-body">
-                <div class="tl-time">00:41</div>
+                <div class="tl-time">00:02</div>
                 <div class="tl-label">Implementação concluída</div>
               </div>
             </div><div class="tl-item code-review:done">
               <div class="tl-dot"></div>
               <div class="tl-body">
-                <div class="tl-time">00:41</div>
+                <div class="tl-time">00:02</div>
                 <div class="tl-label">Code review aprovado</div>
               </div>
             </div><div class="tl-item pre-pr">
               <div class="tl-dot"></div>
               <div class="tl-body">
-                <div class="tl-time">01:14</div>
+                <div class="tl-time">00:04</div>
                 <div class="tl-label">Validação pré-PR</div>
               </div>
-            </div><div class="tl-item pr:merge">
-              <div class="tl-dot"></div>
-              <div class="tl-body">
-                <div class="tl-time">21:38</div>
-                <div class="tl-label">Merge em produção</div>
-              </div>
             </div>
-        <div class="tl-total">⏱ 18h17m do início à produção</div>
+        
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">52</span><span class="stat-l">rodadas de validação pré-PR</span></div>
-            <div class="stat"><span class="stat-v">32</span><span class="stat-l">violações de regra encontradas</span></div>
-            <div class="stat"><span class="stat-v green">12</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
+            <div class="stat"><span class="stat-v">4</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">0</span><span class="stat-l">violações de regra encontradas</span></div>
+            <div class="stat"><span class="stat-v green">1</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
           </div>
         </div>
@@ -273,7 +287,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 40 remoções — 969 linhas tocadas</td><td>✨ 761 adições — 19 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 241 remoções — 2197 linhas tocadas</td><td>✨ 1346 adições — 11 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -281,48 +295,40 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>19</td></tr>
-            <tr><td>Adições</td><td>+761</td></tr>
-            <tr><td>Remoções</td><td>-40</td></tr>
-            <tr><td>Tokens estimados</td><td>~727</td></tr>
+            <tr><td>Arquivos alterados</td><td>11</td></tr>
+            <tr><td>Adições</td><td>+1346</td></tr>
+            <tr><td>Remoções</td><td>-241</td></tr>
+            <tr><td>Tokens estimados</td><td>~1648</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:79">+571 add</div>
-        <div class="del" style="flex:4">-30 del</div>
-        <div class="overhead" style="flex:17">~126 ctx</div>
+        <div class="add" style="flex:61">+1010 add</div>
+        <div class="del" style="flex:11">-181 del</div>
+        <div class="overhead" style="flex:28">~457 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+571</td><td>79%</td></tr>
-      <tr><td>Remoções</td><td>-30</td><td>4%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~126</td><td>17%</td></tr>
-      <tr><th>Total</th><th>~727</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+1010</td><td>61%</td></tr>
+      <tr><td>Remoções</td><td>-181</td><td>11%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~457</td><td>28%</td></tr>
+      <tr><th>Total</th><th>~1648</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
           <h3>📁 Arquivos</h3>
           <table>
             <tr><th>Status</th><th>Arquivo</th></tr>
-            <tr><td>A</td><td>.pi/skills/bounded-scout/SKILL.md</td></tr>
-<tr><td>A</td><td>.pi/skills/compact-delegation/SKILL.md</td></tr>
-<tr><td>A</td><td>.pi/skills/diff-miner/SKILL.md</td></tr>
-<tr><td>A</td><td>.pi/skills/test-triage/SKILL.md</td></tr>
-<tr><td>M</td><td>.prompts-manifest.json</td></tr>
-<tr><td>M</td><td>AGENTS.md</td></tr>
-<tr><td>M</td><td>docs/MAP.md</td></tr>
-<tr><td>M</td><td>docs/RADAR.md</td></tr>
+            <tr><td>M</td><td>docs/RADAR.md</td></tr>
 <tr><td>M</td><td>docs/handoff.md</td></tr>
-<tr><td>A</td><td>docs/reports/2026-08-12/PR363-efficient-agents-2026-08-12-token-efficient-agents.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR362-optimization-2026-08-12-context-optimization.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-12/PR363-efficient-agents-2026-08-12-token-efficient-agents.html</td></tr>
+<tr><td>M</td><td>docs/reports/2026-08-13/PR364-secondary-inputs-2026-08-13-dark-secondary-inputs.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-13/report-detalhamento-2026-08-13-report-detalhamento.html</td></tr>
 <tr><td>M</td><td>docs/tracking/archive/events-2026-08.jsonl</td></tr>
 <tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
-<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
-<tr><td>M</td><td>public/kpi-data.json</td></tr>
-<tr><td>M</td><td>scripts/prompt-manifest.mjs</td></tr>
-<tr><td>M</td><td>scripts/rules/rule-23-skill-orphans.mjs</td></tr>
-<tr><td>M</td><td>scripts/rules/rule-29-prompt-version.mjs</td></tr>
-<tr><td>A</td><td>tests/unit/delegation-skills.test.ts</td></tr>
-<tr><td>M</td><td>tests/unit/scripts-rules.test.ts</td></tr>
+<tr><td>M</td><td>scripts/generate-report.mjs</td></tr>
+<tr><td>M</td><td>scripts/rules/rule-08-report.mjs</td></tr>
+<tr><td>M</td><td>tests/unit/generate-report.test.ts</td></tr>
           </table>
         </div>
       </div>
@@ -336,147 +342,154 @@
         <th style="width:16%">Custo Token</th>
       </tr>
       <tr>
-        <td><strong>b35a530</strong></td>
-        <td>chore: normalize report prefix to PR363</td>
-        <td>Ajuste de processo validado</td>
-        <td>Processo mais confiável e audável</td>
-        <td><code>—</code></td>
+        <td><strong>fac1bd3</strong></td>
+        <td>fix(process): parse do Detalhamento imune a pipes/body multilinha (separador %x1f/%x1e) + parseCommitRecord puro testado</td>
+        <td>Comportamento corrigido e validado — menos erro e retrabalho</td>
+        <td>Menos risco de erro para o usuário e a operação</td>
+        <td><code>~498</code></td>
       </tr>
 <tr>
-        <td><strong>272ec4e</strong></td>
-        <td>feat(process): skills de delegacao economica — contexto minimo e retorno compacto por subagente (compact-delegation, bounded-scout, diff-miner, test-triage)</td>
+        <td><strong>e54ad14</strong></td>
+        <td>docs(process): backfill Detalhamento por item nos relatorios PR362/PR363/PR364 com dados reais (commits, beneficio, impacto, custo token)</td>
+        <td>Documentação/processo atualizados — mais rastreabilidade</td>
+        <td>Menos fricção e melhor governança</td>
+        <td><code>~443</code></td>
+      </tr>
+<tr>
+        <td><strong>c608d7e</strong></td>
+        <td>feat(process): Detalhamento por item obrigatorio em todo relatorio — derivacao automatica dos commits (Item|Correcao|Beneficio|Impacto|Custo Token), fallback garantido, rule-08 exige a secao, flags --diff-base/--date para backfill</td>
         <td>Nova capacidade entregue e validada</td>
         <td>Nova alavanca de uso/negócio</td>
-        <td><code>~572</code></td>
+        <td><code>~267</code></td>
       </tr>
     </table></div>
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
-        diff --git a/.pi/skills/bounded-scout/SKILL.md b/.pi/skills/bounded-scout/SKILL.md
-new file mode 100644
-index 0000000..6b26b97
-<span class="del">--- /dev/null</span>
-<span class="add">+++ b/.pi/skills/bounded-scout/SKILL.md</span>
-@@ -0,0 +1,54 @@
-<span class="add">+---</span>
-<span class="add">+name: bounded-scout</span>
-<span class="add">+description: Use when exploring code with a narrow scope — dispatch a scout subagent bound to specific files/dirs that returns only file|line|finding rows instead of reading whole files into context</span>
-<span class="add">+---</span>
-<span class="add">+</span>
-<span class="add">+# Bounded Scout</span>
-<span class="add">+</span>
-<span class="add">+## Overview</span>
-<span class="add">+</span>
-<span class="add">+Most exploration reads whole files into the coordinator's context, then discards most of it. A bounded scout subagent explores the narrow area in its own context and returns only the relevant rows.</span>
-<span class="add">+</span>
-<span class="add">+**Core principle:** delegate exploration to an isolated scout that reports `file | line | finding` — you never see the files, only the hits.</span>
-<span class="add">+</span>
-<span class="add">+## When to Use</span>
-<span class="add">+</span>
-<span class="add">+- Locating where a symbol is defined/used across a module</span>
-<span class="add">+- Checking whether a pattern/antipattern exists in an area (TWINS checks)</span>
-<span class="add">+- Auditing a component/page for a specific concern (dark mode, accessibility, error states)</span>
-<span class="add">+- Answering &quot;what does this area do&quot; before modifying it</span>
-<span class="add">+</span>
-<span class="add">+**Don't use** for: searching the whole repo (`code_searcher` handles that cheaper), or reading 1-2 files the coordinator needs in full.</span>
-<span class="add">+</span>
-<span class="add">+## Dispatch Template</span>
-<span class="add">+</span>
-<span class="add">+```</span>
-<span class="add">+Scout &lt;dir-or-files&gt; for &lt;concern&gt;.</span>
-<span class="add">+Return only rows: file | line | finding (max 8 rows).</span>
-<span class="add">+No code blocks. No narrative. If nothing found: &quot;none&quot;.</span>
-<span class="add">+```</span>
-<span class="add">+</span>
-<span class="add">+### Examples</span>
-<span class="add">+</span>
-<span class="add">+```</span>
-<span class="add">+Scout src/components/SaleForm.tsx + EntryForm.tsx for mutation-without-inverse patterns.</span>
-<span class="add">+Return only: file | line | finding (max 8 rows). No code. If none: &quot;none&quot;.</span>
-<span class="add">+```</span>
-<span class="add">+</span>
-<span class="add">+```</span>
-<span class="add">+Scout src/pages for hardcoded pt-BR strings outside i18n t().</span>
-<span class="add">+Return only: file | line | finding (max 8 rows). No code. If none: &quot;none&quot;.</span>
-<span class="add">+```</span>
-<span class="add">+</span>
-<span class="add">+## TWINS Integration</span>
-<span class="add">+</span>
-<span class="add">+For TWINS checks (rule-34), dispatch ONE scout per area in parallel, all with the same concern. Each returns hits only — you aggregate the `found N locais` count without ever loading the files.</span>
-<span class="add">+</span>
-<span class="add">+## Common Mistakes</span>
-<span class="add">+</span>
-<span class="add">+| Mistake | Cost | Fix |</span>
-<span class="add">+|---------|------|-----|</span>
-<span class="add">+| Scout returns matching code lines | Code bloat re-enters context | &quot;No code blocks&quot; in prompt |</span>
-<span class="add">+| Unbounded scope (&quot;look at everything&quot;) | Full repo exploration | Bind to explicit files/dirs |</span>
-<span class="add">+| Re-reading files after scout report | Double cost | Trust the structured rows; read only the 1-2 files that need full context |</span>
-<span class="add">+| No row cap | 50-row dump | `max 8 rows` hard cap in template |</span>
-diff --git a/.pi/skills/compact-delegation/SKILL.md b/.pi/skills/compact-delegation/SKILL.md
-new file mode 100644
-index 0000000..846ea5c
-<span class="del">--- /dev/null</span>
-<span class="add">+++ b/.pi/skills/compact-delegation/SKILL.md</span>
-@@ -0,0 +1,64 @@
-<span class="add">+---</span>
-<span class="add">+name: compact-delegation</span>
-<span class="add">+description: Use when delegating any task to a subagent — the universal contract that minimizes tokens per dispatch (minimal context, compact structured return, no history inheritance)</span>
-<span class="add">+---</span>
-<span class="add">+</span>
-<span class="add">+# Compact Delegation</span>
-<span class="add">+</span>
-<span class="add">+## Overview</span>
-<span class="add">+</span>
-<span class="add">+Every subagent dispatch has a fixed overhead (~4-5K tokens system + tools). The only lever you control is what you **pass in** and what they **return**. This contract minimizes both.</span>
-<span class="add">+</span>
-<span class="add">+**Core principle:** pass only the minimum context needed; demand a structured return of key fields only — never full files, logs, or reasoning.</span>
-<span class="add">+</span>
-<span class="add">+## When to Use</span>
-<span class="add">+</span>
-<span class="add">+- Dispatching ANY subagent (`scout`, `researcher`, `reviewer`, `worker`, `delegate`, `oracle`)</span>
-<span class="add">+- Before reading a file, searching, or running tests — ask: &quot;can a subagent do this and return 5 lines?&quot;</span>
-<span class="add">+- When a subagent would otherwise echo file contents or explain its reasoning path</span>
-<span class="add">+</span>
-<span class="add">+**Don't use** for: single quick `read_files`/`glob` calls the coordinator does directly (dispatch overhead &gt; saved tokens).</span>
-<span class="add">+</span>
-<span class="add">+## Contract — Input (what you pass)</span>
-<span class="add">+</span>
-<span class="add">+| Do | Don't |</span>
-<span class="add">+|----|-------|</span>
-<span class="add">+| Task in 1-3 sentences with explicit output shape | Paste session history or prior turns |</span>
-<span class="add">+| Exact paths/patterns/commands to run | Send whole conversation &quot;for context&quot; |</span>
-<span class="add">+| The exact return format required | Boilerplate &quot;you are an expert&quot; preambles |</span>
-<span class="add">+| Named files + line ranges when relevant | Summarize docs the subagent can read itself |</span>
-<span class="add">+</span>
-<span class="add">+The subagent gets a clean context: system prompt + your compact instruction only. **Never inherit your session's context or history** — construct exactly what they need.</span>
-<span class="add">+</span>
-<span class="add">+## Contract — Output (what you demand)</span>
-<span class="add">+</span>
-<span class="add">+Require ONE of these shapes in your prompt; the subagent must not add more:</span>
-<span class="add">+</span>
-<span class="add">+- **Research/scout:** `file | line | finding` (max 5 rows) — no code echo</span>
-<span class="add">+- **Failure triage:** `cause | fix | evidence` (2-3 lines total)</span>
-<span class="add">+- **Review:** `verdict | issues (≤3) | must-fix?` — no restated spec</span>
-<span class="add">+- **Diff analysis:** `impact | risk | files (≤5)` — no re-pasted diff</span>
-<span class="add">+</span>
-<span class="add">+Add the exact sentence: **&quot;Return only: &lt;fields&gt;. No code blocks unless explicitly requested. No reasoning narrative.&quot;**</span>
-<span class="add">+</span>
-<span class="add">+## Turn Budgets</span>
-<span class="add">+</span>
-<span class="add">+- Cap exploration subagents at ~15-20 tool turns (thrashing = repeated reads = waste)</span>
-<span class="add">+- Prefer a single targeted pass over iterative refinement</span>
-<span class="add">+- If a subagent is looping, abort and re-dispatch with tighter scope</span>
-<span class="add">+</span>
-<span class="add">+## Routing</span>
-<span class="add">+</span>
-<span class="add">+- Mechanical subagents (search, triage, diff) → **efficient** profile (cheap model)</span>
-<span class="add">+- Use `npm run llm:route -- resolve --context '{&quot;category&quot;:&quot;...&quot;,&quot;capability&quot;:&quot;...&quot;}'` — never pick a model inline for routed tasks</span>
-<span class="add">+- Only reasoning/review-heavy work earns the expensive model</span>
+        diff --git a/docs/RADAR.md b/docs/RADAR.md
+index 95d8144..4c7121c 100644
+<span class="del">--- a/docs/RADAR.md</span>
+<span class="add">+++ b/docs/RADAR.md</span>
+@@ -1,6 +1,6 @@
+ # 🔭 Radar de Vulnerabilidades
+ 
+<span class="del">-&gt; Atualizado em: 2026-08-12T23:56:26.924Z</span>
+<span class="add">+&gt; Atualizado em: 2026-08-13T00:19:35.940Z</span>
+ 
+ ## ✅ Radar Limpo
+ Nenhuma vulnerabilidade ativa detectada.
+diff --git a/docs/handoff.md b/docs/handoff.md
+index a9d5aa8..91967ce 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -9,8 +9,8 @@
+ ### 🐞 Bugs Abertos
+ Consulte as GitHub Issues para a lista atual.
+ ## 🧭 Estado Atual
+<span class="del">-- **Branch:** `feat/token-efficient-agents`</span>
+<span class="del">-- **Último commit:** `272ec4e — feat(process): skills de delegacao economica — contexto minimo e retorno compacto por subagente (compact-delegation, bounded-scout, diff-miner, test-triage)`</span>
+<span class="add">+- **Branch:** `main`</span>
+<span class="add">+- **Último commit:** `5906a41 — Merge pull request #364 from andre0787/fix/dark-secondary-inputs`</span>
+ - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
+ 
+ ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
+@@ -68,10 +68,10 @@ Continue a tarefa ativa ou selecione o próximo task-card.
+ 
+ 
+ ## 🎯 Sessão Atual
+<span class="del">-**Categoria:** bugfix</span>
+<span class="del">-**Objetivo:** Dark mode: inputs/selecao com fundo claro ilegivel — causa raiz --secondary sem override no .dark; busca translucida estilo iOS</span>
+<span class="add">+**Categoria:** feature</span>
+<span class="add">+**Objetivo:** Detalhamento por item obrigatorio em todo relatorio: derivacao automatica dos commits + rule-08 exigindo a secao + backfill dos relatorios recentes</span>
+ **Status:** in_progress
+<span class="del">-**Iniciada em:** 2026-08-12T23:56:26.960Z</span>
+<span class="del">-**Branch:** `fix/dark-secondary-inputs`</span>
+<span class="del">-**Último commit:** 272ec4e — feat(process): skills de delegacao economica — contexto minimo e retorno compacto por subagente (compact-delegation, bounded-scout, diff-miner, test-triage)</span>
+<span class="del">-**Docs carregados:** DEBUG.md, conventions/common.md, conventions/bugfix.md</span>
+\ No newline at end of file
+<span class="add">+**Iniciada em:** 2026-08-13T00:19:35.974Z</span>
+<span class="add">+**Branch:** `feat/report-detalhamento`</span>
+<span class="add">+**Último commit:** 5906a41 — Merge pull request #364 from andre0787/fix/dark-secondary-inputs</span>
+<span class="add">+**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md</span>
+\ No newline at end of file
+diff --git a/docs/reports/2026-08-12/PR362-optimization-2026-08-12-context-optimization.html b/docs/reports/2026-08-12/PR362-optimization-2026-08-12-context-optimization.html
+index 592801c..5c13119 100644
+<span class="del">--- a/docs/reports/2026-08-12/PR362-optimization-2026-08-12-context-optimization.html</span>
+<span class="add">+++ b/docs/reports/2026-08-12/PR362-optimization-2026-08-12-context-optimization.html</span>
+@@ -3,7 +3,7 @@
+ &lt;head&gt;
+   &lt;meta charset=&quot;UTF-8&quot;&gt;
+   &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;
+<span class="del">-  &lt;title&gt;context-optimization — context optimization&lt;/title&gt;</span>
+<span class="add">+  &lt;title&gt;PR362 — context optimization&lt;/title&gt;</span>
+   &lt;style&gt;
+     :root{
+       --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;
+@@ -149,7 +149,7 @@
+ &lt;body&gt;
+   &lt;div class=&quot;nav&quot; id=&quot;deckNav&quot;&gt;
+     &lt;button id=&quot;prevBtn&quot; title=&quot;Anterior (←)&quot;&gt;←&lt;/button&gt;
+<span class="del">-    &lt;span class=&quot;count&quot; id=&quot;slideCount&quot;&gt;1/3&lt;/span&gt;</span>
+<span class="add">+    &lt;span class=&quot;count&quot; id=&quot;slideCount&quot;&gt;1/2&lt;/span&gt;</span>
+     &lt;button id=&quot;nextBtn&quot; title=&quot;Próxima (→)&quot;&gt;→&lt;/button&gt;
+     &lt;button id=&quot;fsBtn&quot; title=&quot;Tela cheia (F)&quot;&gt;⛶&lt;/button&gt;
+     &lt;button id=&quot;printBtn&quot; title=&quot;Imprimir / PDF (P)&quot;&gt;⎙&lt;/button&gt;
+@@ -161,12 +161,12 @@
+     &lt;section class=&quot;slide&quot; id=&quot;s1&quot;&gt;
+       &lt;div class=&quot;hero&quot;&gt;
+         &lt;div class=&quot;hero-top&quot;&gt;
+<span class="del">-          &lt;div class=&quot;hero-badges&quot;&gt;&lt;span class=&quot;badge auto&quot;&gt;auto&lt;/span&gt; &lt;span class=&quot;badge auto&quot;&gt;context-optimization&lt;/span&gt; &lt;span class=&quot;badge risk&quot; style=&quot;color:#fbbf24&quot;&gt;Médio risco&lt;/span&gt; &lt;span class=&quot;badge health amber&quot; style=&quot;color:#fbbf24&quot;&gt;● Sob atenção&lt;/span&gt;&lt;/div&gt;</span>
+<span class="del">-          &lt;div class=&quot;hero-date&quot;&gt;2026-08-12 · 19:13 · &lt;span class=&quot;mono&quot;&gt;feat/context-optimization&lt;/span&gt;&lt;/div&gt;</span>
+<span class="add">+          &lt;div class=&quot;hero-badges&quot;&gt;&lt;span class=&quot;badge auto&quot;&gt;auto&lt;/span&gt; &lt;span class=&quot;badge auto&quot;&gt;PR362&lt;/span&gt; &lt;span class=&quot;badge risk&quot; style=&quot;color:#fbbf24&quot;&gt;Médio risco&lt;/span&gt; &lt;span class=&quot;badge health amber&quot; style=&quot;color:#fbbf24&quot;&gt;● Sob atenção&lt;/span&gt;&lt;/div&gt;</span>
+<span class="add">+          &lt;div class=&quot;hero-date&quot;&gt;2026-08-12 · 21:20 · &lt;span class=&quot;mono&quot;&gt;HEAD&lt;/span&gt;&lt;/div&gt;</span>
+         &lt;/div&gt;
+         &lt;h1&gt;context optimization&lt;/h1&gt;
+<span class="del">-        &lt;p class=&quot;hero-summary&quot;&gt;Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.&lt;/p&gt;</span>
+<span class="del">-        &lt;div class=&quot;hero-meta mono&quot;&gt;436002a — chore(process): correcoes do review — guard CI no trim, path canonico da skill, labels do auditor&lt;/div&gt;</span>
+<span class="add">+        &lt;p class=&quot;hero-summary&quot;&gt;Entrega concluída e validada — detalhes técnicos no apêndice.&lt;/p&gt;</span>
+<span class="add">+        &lt;div class=&quot;hero-meta mono&quot;&gt;5922750 — chore: normalize report prefix to PR362&lt;/div&gt;</span>
+       &lt;/div&gt;
+       
+     &lt;div class=&quot;kpi-grid&quot;&gt;
+@@ -181,7 +181,7 @@
+         &lt;div class=&quot;kpi-sub&quot;&gt;da sessão ao deploy&lt;/div&gt;
+       &lt;/div&gt;
+       &lt;div class=&quot;kpi&quot;&gt;
+<span class="del">-        &lt;div class=&quot;kpi-value&quot;&gt;0/49&lt;/div&gt;</span>
+<span class="add">+        &lt;div class=&quot;kpi-value&quot;&gt;0/50&lt;/div&gt;</span>
+         &lt;div class=&quot;kpi-label&quot;&gt;fricção pré-PR (fail/total)&lt;/div&gt;
+         &lt;div class=&quot;kpi-sub&quot;&gt;32 violações · 12 auto-corrigidas&lt;/div&gt;
+       &lt;/div&gt;
+@@ -194,38 +194,18 @@
+       &lt;div class=&quot;bluf&quot;&gt;
+         &lt;div class=&quot;bluf-col&quot;&gt;
+           &lt;div class=&quot;bluf-label&quot;&gt;Decisão &amp; entregas&lt;/div&gt;
+<span class="del">-          &lt;p&gt;Nova capacidade entregue e validada para o produto.&lt;/p&gt;</span>
+<span class="add">+          &lt;p&gt;Detalhes no apêndice técnico.&lt;/p&gt;</span>
+         &lt;/div&gt;
+         &lt;div class=&quot;bluf-col&quot;&gt;
+           &lt;div class=&quot;bluf-label&quot;&gt;Impacto esperado&lt;/div&gt;
+<span class="del">-          &lt;p&gt;Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.&lt;/p&gt;</span>
+<span class="add">+          &lt;p&gt;Detalhes no apêndice técnico.&lt;/p&gt;</span>
+         &lt;/div&gt;
+         &lt;div class=&quot;bluf-col&quot;&gt;
+           &lt;div class=&quot;bluf-label&quot;&gt;Riscos &amp; trade-offs&lt;/div&gt;
+           &lt;p&gt;Médio risco de mudança · outcome grade = 92 · lead time 18h17m.&lt;/p&gt;
+         &lt;/div&gt;
+       &lt;/div&gt;
+<span class="del">-    &lt;/section&gt;&lt;section class=&quot;slide&quot; id=&quot;s2&quot;&gt;</span>
+<span class="del">-        &lt;div class=&quot;slide-head&quot;&gt;</span>
+<span class="del">-          &lt;span class=&quot;slide-kicker&quot;&gt;Impacto da sessão&lt;/span&gt;</span>
+<span class="del">-          &lt;h2&gt;O que isso significa para o negócio&lt;/h2&gt;</span>
+<span class="del">-        &lt;/div&gt;</span>
+<span class="del">-        &lt;div class=&quot;impact-grid&quot;&gt;</span>
+<span class="del">-          &lt;div class=&quot;impact-card blue&quot;&gt;</span>
+<span class="del">-                &lt;div class=&quot;impact-icon&quot;&gt;🎯&lt;/div&gt;</span>
+<span class="del">-                &lt;h3&gt;Impacto de Produto&lt;/h3&gt;</span>
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-08-12 21:20
+      Gerado por scripts/generate-report.mjs · 2026-08-13 21:23
     </div>
   </div>
 

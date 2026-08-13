@@ -20,12 +20,14 @@ const { branch, prNum } = repoInfo();
 const changedFiles = getDiffFiles();
 
 // Filtra relatórios HTML existentes no diff
-const reportFiles = changedFiles.filter(f => /^docs\/reports\/.*\.html$/.test(f) && existsSync(resolve(ROOT, f)));
+const reportFiles = changedFiles.filter(
+  (f) => /^docs\/reports\/.*\.html$/.test(f) && existsSync(resolve(ROOT, f)),
+);
 
 if (reportFiles.length === 0) {
   err(`nenhum relatório encontrado no diff (regra #8)`);
   err("  Toda alteração DEVE ter relatório HTML antes do PR");
-  err("  Dica: npm run report \"descrição\" --write");
+  err('  Dica: npm run report "descrição" --write');
   process.exit(1);
 }
 
@@ -35,7 +37,7 @@ const prefix = prNum ? `PR${prNum}` : null;
 let hasValidReport = false;
 for (const reportFile of reportFiles) {
   const filename = reportFile.split("/").pop() || "";
-  
+
   if (prefix) {
     // 2. Se temos PR, valida nomenclatura com prefixo
     // Padrão: PR<num>-YYYY-MM-DD-<nome>.html
@@ -70,6 +72,9 @@ for (const reportFile of reportFiles) {
         { name: "📸 Evidências", marker: "Evidências" },
         { name: "📊 Métricas", marker: "Métricas" },
         { name: "Breakdown", marker: "Breakdown" },
+        // Obrigatório em todo relatório executivo: Detalhamento por item
+        // (Item | Correção Efetuada | Benefício | Impacto no Negócio | Custo Token)
+        { name: "📋 Detalhamento por item", marker: "Detalhamento por item" },
       ]
     : [
         { name: "🎯 Benefícios", marker: "Benefícios" },

@@ -10,6 +10,8 @@ import {
   sessionHealth,
   escapeHTML,
   generateHTML,
+  fallbackTableRow,
+  parseCommitRecord,
 } from "../../scripts/generate-report.mjs";
 
 const baseMetrics = {
@@ -69,7 +71,9 @@ describe("computeSessionMetrics", () => {
   });
 
   it("retorna null para lead time quando não há sessão ou merge", () => {
-    const m = computeSessionMetrics([{ type: "pre-pr", timestamp: "2026-08-12T14:00:00Z", errors: 0 }]);
+    const m = computeSessionMetrics([
+      { type: "pre-pr", timestamp: "2026-08-12T14:00:00Z", errors: 0 },
+    ]);
     expect(m.leadTimeMin).toBeNull();
   });
 });
@@ -102,7 +106,13 @@ describe("generateHTML", () => {
     pr: { number: 360, title: "t" },
     metrics: baseMetrics,
     tableRows: [
-      { item: "Dark mode", fix: "bg elevado", benefit: "legível", impact: "menos erro", tokens: "~200" },
+      {
+        item: "Dark mode",
+        fix: "bg elevado",
+        benefit: "legível",
+        impact: "menos erro",
+        tokens: "~200",
+      },
     ],
     evidenceUrl: "",
     beforeText: "",
@@ -173,5 +183,85 @@ describe("generateHTML", () => {
     });
     expect(html).not.toContain("Impacto de Produto");
     expect(html).toContain('id="s1"');
+  });
+
+  it("SEMPRE inclui 'Detalhamento por item' mesmo sem rows (garantia rule-08)", () => {
+    const html = generateHTML({ ...opts, tableRows: [] });
+    // Seção presente com as 5 colunas
+    expect(html).toContain("Detalhamento por item");
+    expect(html).toContain("Correção Efetuada");
+    expect(html).toContain("Impacto no Negócio");
+    expect(html).toContain("Custo Token");
+    // Fallback de 1 linha derivada da task + impactos
+    expect(html).toContain("Entrega da sessão");
+    expect(html).toContain(opts.task);
+    expect(html).toContain("Campos legíveis no dark mode");
+  });
+});
+
+describe("fallbackTableRow", () => {
+  it("usa impactos da sessão e tokens do diff", () => {
+    const row = fallbackTableRow("Fix dark", "UX legível", "Menos erro", {
+      tokens: 420,
+    });
+    expect(row.item).toBe("Entrega da sessão");
+    expect(row.fix).toBe("Fix dark");
+    expect(row.benefit).toBe("UX legível");
+    expect(row.impact).toBe("Menos erro");
+    expect(row.tokens).toBe("~420");
+  });
+
+  it("tem defaults sensatos quando não há narrativa nem tokens", () => {
+    const row = fallbackTableRow("Sessão", "", "", null);
+    expect(row.benefit).toContain("qualidade");
+    expect(row.impact).toContain("Risco");
+    expect(row.tokens).toBe("—");
+  });
+});
+
+describe("parseCommitRecord (parsing imune a pipes e body multilinha)", () => {
+  it("converte registro padrão em linha da tabela", () => {
+    const row = parseCommitRecord("\x1fabc1234\x1ffix(dark): corrige contraste\x1fDetalhes\x1e");
+    expect(row).not.toBeNull();
+    expect(row!.item).toBe("abc1234");
+    expect(row!.fix).toBe("fix(dark): corrige contraste — Detalhes");
+    expect(row!.benefit).toContain("corrigido");
+    expect(row!.impact).toContain("risco");
+  });
+
+  it("NÃO cria linha falsa quando o body contém pipe (bug antigo do split por |)", () => {
+    const row = parseCommitRecord(
+      "\x1fdef5678\x1ffeat(x): adiciona rota\x1fURL com a|b e mais\nlinha 2\x1e",
+    );
+    expect(row).not.toBeNull();
+    expect(row!.fix).toBe("feat(x): adiciona rota — URL com a|b e mais");
+    // O pipe permanece no body sem virar campo novo
+    expect(row!.fix).toContain("a|b");
+  });
+
+  it("usa só a primeira linha não-vazia do body multilinha", () => {
+    const row = parseCommitRecord(
+      "\x1fabc9999\x1fdocs: atualiza guia\x1f\n\nPrimeira linha\nSegunda\x1e",
+    );
+    expect(row!.fix).toBe("docs: atualiza guia — Primeira linha");
+    expect(row!.benefit).toMatch(/documenta/i);
+  });
+
+  it("ignora registros vazios ou sem subject (linhas soltas)", () => {
+    expect(parseCommitRecord("")).toBeNull();
+    expect(parseCommitRecord("\x1f\x1f\x1e")).toBeNull();
+    expect(parseCommitRecord("\x1f\x1f\x1f\x1e")).toBeNull();
+  });
+
+  it("mapeia benefício/impacto por tipo e usa defaults para tipo desconhecido", () => {
+    const fixRow = parseCommitRecord("\x1fa1\x1ffix: x\x1e")!;
+    expect(fixRow.benefit).toContain("corrigido");
+    const choreRow = parseCommitRecord("\x1fa2\x1fchore: x\x1e")!;
+    expect(choreRow.impact).toContain("audável");
+    const autoRow = parseCommitRecord("\x1fa3\x1ftítulo solto\x1e")!;
+    expect(autoRow.benefit).toBe("Mudança validada pelo fluxo de qualidade");
+    // fixup: NÃO é fix (limite do prefixo)
+    const fixupRow = parseCommitRecord("\x1fa4\x1ffixup! coisa\x1e")!;
+    expect(fixupRow.benefit).toBe("Mudança validada pelo fluxo de qualidade");
   });
 });
