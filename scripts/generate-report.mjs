@@ -8,6 +8,7 @@
  *   • Slide 1 — One-Pager Executivo (BLUF): decisão, impacto, trade-offs + KPIs
  *   • Slide 2 — Impacto: Produto / Negócio / Processo (antes → depois)
  *   • Slide 3 — Detalhamento por item (Item | Correção | Benefício | Impacto | Custo Token)
+ *     — 1 linha por PR (título real do PR + custo agregado); sem PR, por commit
  *   • Slide 4 — Timeline da sessão + métricas DORA-like
  *   • Slide 5 — Apêndice técnico (checklist, arquivos, diff, tokens)
  *
@@ -30,10 +31,12 @@
  *   npm run report --rename PR103
  *
  * A seção "Detalhamento por item" (Item | Correção Efetuada | Benefício |
- * Impacto no Negócio | Custo Token) é SEMPRE renderizada: quando --rows não é
- * passado, as linhas são derivadas dos commits da branch (git log base..HEAD)
- * com benefício/impacto por tipo e custo de token por diff de cada commit;
- * sem commits, entra um fallback de 1 linha com os impactos da sessão.
+ * Impacto no Negócio | Custo Token) é SEMPRE renderizada e o nível de
+ * agregação é PR (não commit): quando --rows não é passado, cada PR merged
+ * no range base..HEAD vira 1 linha (título real via gh + custo de token
+ * agregado do diff do merge); na branch corrente, o PR aberto vira 1 linha;
+ * sem merges nem PR aberto (pré-push), entra 1 linha fallback com a task da
+ * sessão — nunca lista commits no Detalhamento executivo.
  *
  * ponytail: template string + execSync, zero deps
  */
@@ -188,6 +191,30 @@ function getPR() {
     if (list.length > 0) return { number: list[0].number, title: list[0].title };
   } catch {}
   return null;
+}
+
+/** Título real de um PR pelo número via gh (null se indisponível). */
+function prTitle(number) {
+  try {
+    const out = execSync(`gh pr view ${number} --json title --jq .title 2>/dev/null`, {
+      cwd: ROOT,
+      encoding: "utf8",
+      timeout: 5_000,
+    });
+    return out.trim() || null;
+  } catch {
+    return null;
+  }
+}
+
+/** Soma linhas (add+del) do numstat de um git diff (renames/binary '-' ignorados). */
+export function numstatLines(numstat) {
+  let lines = 0;
+  for (const nl of String(numstat).split("\n")) {
+    const m = nl.match(/^(\d+)\s+(\d+)/);
+    if (m) lines += parseInt(m[1], 10) + parseInt(m[2], 10);
+  }
+  return lines;
 }
 
 // ── Auto-métricas da sessão ──────────────────────────────────────────
@@ -428,6 +455,60 @@ export function fallbackTableRow(task, impactProduto, impactNegocio, metrics) {
     impact: impactNegocio || DEFAULT_IMPACT,
     tokens: metrics && metrics.tokens > 0 ? `~${metrics.tokens}` : "—",
   };
+}
+
+/** Monta a linha do Detalhamento ao nível de PR (função pura, testável). */
+export function buildPrRow({ number, title, lines }) {
+  const type = typeOf(title || "");
+  return {
+    item: number ? `PR #${number}` : "PR",
+    fix: title,
+    benefit: TYPE_BENEFIT[type] || DEFAULT_BENEFIT,
+    impact: TYPE_IMPACT[type] || DEFAULT_IMPACT,
+    tokens: lines > 0 ? `~${Math.round(lines * 0.75)}` : "—",
+  };
+}
+
+/**
+ * Deriva linhas do "Detalhamento por item" ao nível de PR (não de commit):
+ * cada PR merged no range base..HEAD vira UMA linha com o título real do PR
+ * e custo de token agregado (diff do merge). Sem merges no range (branch
+ * corrente), usa o PR aberto da branch (getPR) — 1 linha por PR. Sem PR,
+ * cai para a derivação por commits (branch ainda sem PR).
+ */
+export function derivePrRows(baseRef = null) {
+  const base =
+    baseRef ||
+    DIFF_BASE ||
+    git("git merge-base HEAD origin/main 2>/dev/null || git rev-list --max-parents=0 HEAD");
+  const rows = [];
+
+  // 1. PRs merged no range (backfill/histórico)
+  const mergesOut = git(`git log --merges ${base}..HEAD --format='%h|%s'`);
+  if (mergesOut && mergesOut !== "n/a" && mergesOut !== "") {
+    for (const line of mergesOut.split("\n")) {
+      const [sha, subject] = line.split("|");
+      const prNum = (subject || "").match(/Merge pull request #(\d+)/)?.[1];
+      if (!prNum) continue;
+      const title = prTitle(prNum) || subject;
+      const lines = numstatLines(git(`git diff ${sha}^1..${sha} --numstat`));
+      rows.push(buildPrRow({ number: prNum, title, lines }));
+    }
+  }
+
+  // 2. PR aberto da branch corrente (pre-pr normal) — 1 linha por PR.
+  // Sempre anexa (mesmo com merges no range) para a entrega corrente nunca
+  // sumir do Detalhamento em branches que mergearam main.
+  const current = getPR();
+  if (current) {
+    const lines = numstatLines(git(`git diff ${base}..HEAD --numstat`));
+    rows.push(buildPrRow({ number: current.number, title: current.title, lines }));
+  }
+
+  // 3. Fallback: sem merges nem PR aberto (pré-push/pre-pr) → [] para o
+  // fallbackTableRow gerar 1 linha única da sessão (nunca listar commits:
+  // o Detalhamento é executivo, ao nível de PR)
+  return rows;
 }
 
 // ── Gera HTML ─────────────────────────────────────────────────────────
@@ -1145,8 +1226,9 @@ if (IS_MAIN) {
     commit,
     pr,
     metrics,
-    // --rows manual vence; senão deriva dos commits da branch (garantia da seção)
-    tableRows: TABLE_ROWS.length > 0 ? TABLE_ROWS : deriveTableRows(),
+    // --rows manual vence; senão deriva por PR (1 linha por PR — título real
+    // + custo agregado) e, sem PR, por commits (garantia da seção)
+    tableRows: TABLE_ROWS.length > 0 ? TABLE_ROWS : derivePrRows(),
     evidenceUrl: EVIDENCE_URL,
     beforeText: BEFORE_TEXT,
     afterText: AFTER_TEXT,
