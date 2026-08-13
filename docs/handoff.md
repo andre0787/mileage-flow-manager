@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `7983f67 — Merge pull request #369 from andre0787/feat/report-por-pr`
+- **Branch:** `feat/workflow-otimizacao-subagentes`
+- **Último commit:** `1054d2e — feat(process): otimizacao do workflow — readTodayEvents/Quality por tail (fallback full-read p/ backfill), skills pre-pr-triage e report-consolidation, manifest 17 arquivos`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -43,7 +43,14 @@ Nenhum PR aberto.
 | Branch | refactor/blueprint-v4-p1-clientes |
 
 
-
+## 🎯 Sessão Atual
+**Categoria:** feature
+**Objetivo:** Otimizacao do workflow: tail-read da telemetria + skills pre-pr-triage e report-consolidation
+**Status:** in_progress
+**Iniciada em:** 2026-08-13T02:20:25.331Z
+**Branch:** `feat/workflow-otimizacao-subagentes`
+**Último commit:** 1054d2e — feat(process): otimizacao do workflow — readTodayEvents/Quality por tail (fallback full-read p/ backfill), skills pre-pr-triage e report-consolidation, manifest 17 arquivos
+**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
