@@ -20,6 +20,9 @@ import type { KpiData } from "@/types/kpi";
 
 const MAX_CPF_PER_OWNER = 22;
 
+/* Série ao vivo do BusinessPanel; o seletor 7/14/30d usa o JSON nightly (até 30d). */
+const LIVE_SERIES_DAYS = 14;
+
 const LEGACY_ROUTER_KPI: RouterMonthlyKPI = {
   resolved: 0,
   completed: 0,
@@ -32,7 +35,7 @@ const LEGACY_ROUTER_KPI: RouterMonthlyKPI = {
   skillsByModel: [],
 };
 
-/** Chips de status "ao vivo" (resumo 30d + hoje) — leitura rápida do radar. */
+/* Chips de status "ao vivo" (resumo 30d + hoje). */
 function LiveChips({ kpi }: { kpi: KpiData }) {
   const today = kpi.daily[kpi.daily.length - 1];
   const s = kpi.summary;
@@ -75,11 +78,8 @@ function LiveChips({ kpi }: { kpi: KpiData }) {
   );
 }
 
-/**
- * KPIDashboard — "Datadog interno": painel consolidado do projeto.
- * 1) Produto & Negócio (ao vivo) · 2) Radar diário do processo ·
- * 3) Entregas recentes · 4) Evolução mensal + eficiência de gates + router.
- */
+/* KPIDashboard — "Datadog interno": produto & negócio (ao vivo), radar diário do
+ * processo, entregas recentes, mensal + gates + router. */
 export default function KPIDashboard({ data }: { data: KpiData }) {
   const { owners, accounts, programs, sales, entries, isLoading } = useData();
   const [selectedMonth, setSelectedMonth] = useState(data.currentMonth);
@@ -92,7 +92,7 @@ export default function KPIDashboard({ data }: { data: KpiData }) {
     [accounts, sales, entries, owners],
   );
   const dailyBusiness = useMemo(
-    () => computeDailyBusinessSeries(sales, entries, 14),
+    () => computeDailyBusinessSeries(sales, entries, LIVE_SERIES_DAYS),
     [sales, entries],
   );
   const ownersBreakdown = useMemo(

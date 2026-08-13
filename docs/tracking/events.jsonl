@@ -1201,3 +1201,5 @@
 {"timestamp":"2026-08-13T03:49:46.834Z","type":"session:start","description":"feature: 4 sugestoes do painel KPI: serie 30d com seletor, alertas de processo, breakdown por dono/programa, lazy-loading das paginas (bundle 750->397KB)","branch":"main","commit":"953b148","agent":"human","categoria":"feature"}
 {"timestamp":"2026-08-13T03:49:50.941Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/kpi-sugestoes-painel","commit":"953b148","agent":"human","rule":"rule-26"}
 {"timestamp":"2026-08-13T03:49:51.289Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-sugestoes-painel","commit":"953b148","agent":"human","errors":0}
+{"timestamp":"2026-08-13T03:49:51.349Z","type":"coding:done","description":"4 sugestoes do painel implementadas por subagente: ProcessAlerts, BusinessBreakdown, seletor 7/14/30d, lazy-loading React.lazy","branch":"feat/kpi-sugestoes-painel","commit":"82da4f6","agent":"human","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-08-13T03:50:53.612Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-sugestoes-painel","commit":"82da4f6","agent":"human","errors":0}

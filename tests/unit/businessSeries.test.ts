@@ -92,6 +92,15 @@ describe("computeOwnersBreakdown", () => {
     const rows = computeOwnersBreakdown(owners, [], []);
     expect(rows).toEqual([]);
   });
+
+  it("ignora passageiros sem CPF na contagem", () => {
+    const salesNoCpf = [
+      { accountId: "a1", status: "concluido", passengers: [{}, {}, { cpf: "" }] },
+      { accountId: "a1", status: "concluido", passengers: [{ cpf: "555" }] },
+    ];
+    const rows = computeOwnersBreakdown(owners, accounts, salesNoCpf);
+    expect(rows.find((r) => r.name === "Ana")?.cpfCount).toBe(1); // só o 555
+  });
 });
 
 describe("computeProgramsBreakdown", () => {

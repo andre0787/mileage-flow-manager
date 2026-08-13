@@ -87,8 +87,9 @@ export function computeOwnersBreakdown(
         name: owner.name,
         totalMiles: ownerAccounts.reduce((sum, a) => sum + a.balance, 0),
         totalInvested: ownerAccounts.reduce((sum, a) => sum + (a.totalInvested ?? 0), 0),
-        cpfCount: new Set(ownerSales.flatMap((s) => s.passengers?.map((p) => p.cpf ?? "") ?? []))
-          .size,
+        cpfCount: new Set(
+          ownerSales.flatMap((s) => (s.passengers ?? []).map((p) => p.cpf ?? "").filter(Boolean)),
+        ).size,
       };
     })
     .filter((o) => o.totalMiles > 0 || o.totalInvested > 0)
