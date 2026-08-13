@@ -4,6 +4,7 @@
  * Uso: npx vitest run tests/unit/generate-report.test.ts -v
  */
 
+import { writeFileSync } from "fs";
 import { describe, it, expect } from "vitest";
 import {
   computeSessionMetrics,
@@ -280,7 +281,6 @@ describe("readJsonLinesByDate (tail otimizado com fallback)", () => {
 
   it("parseia linhas JSONL válidas e filtra por data (null-safe)", () => {
     const file = "/tmp/tail-test-events.jsonl";
-    const { writeFileSync } = require("fs");
     writeFileSync(
       file,
       [
@@ -292,14 +292,11 @@ describe("readJsonLinesByDate (tail otimizado com fallback)", () => {
     const result = readJsonLinesByDate(file, "2026-08-13");
     expect(result).toHaveLength(1);
     expect(result[0].type).toBe("new");
-    try {
-      writeFileSync(file, "");
-    } catch {}
+    writeFileSync(file, "");
   });
 
   it("withGrade=true filtra apenas registros com outcomeGrade numérico", () => {
     const file = "/tmp/tail-test-quality.jsonl";
-    const { writeFileSync } = require("fs");
     writeFileSync(
       file,
       [
@@ -310,9 +307,7 @@ describe("readJsonLinesByDate (tail otimizado com fallback)", () => {
     const result = readJsonLinesByDate(file, "2026-08-13", true);
     expect(result).toHaveLength(1);
     expect(result[0].outcomeGrade).toBe(85);
-    try {
-      writeFileSync(file, "");
-    } catch {}
+    writeFileSync(file, "");
   });
 });
 
