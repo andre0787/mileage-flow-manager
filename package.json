@@ -85,6 +85,7 @@
     "rule:37": "node scripts/rules/rule-37-rtk.mjs",
     "rule:40": "node scripts/rules/rule-40-architect.mjs",
     "rule:41": "node scripts/rules/rule-41-optimizer.mjs",
+    "rule:42": "node scripts/rules/rule-42-coverage-gate.mjs",
     "graph:generate": "node scripts/generate-graph.mjs",
     "map:sync": "node scripts/sync-map.mjs",
     "rtk:sim": "node scripts/rtk-benefits-sim.mjs",

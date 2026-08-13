@@ -1,13 +1,29 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { execSync } from "child_process";
 import { resolve, join, dirname } from "path";
-import { existsSync, mkdtempSync, mkdirSync, writeFileSync, cpSync, rmSync, readdirSync, symlinkSync, chmodSync } from "fs";
+import {
+  existsSync,
+  mkdtempSync,
+  mkdirSync,
+  writeFileSync,
+  cpSync,
+  rmSync,
+  readdirSync,
+  symlinkSync,
+  chmodSync,
+} from "fs";
 import { tmpdir } from "os";
 
 const ROOT = resolve(__dirname, "../..");
 const RULES_DIR = resolve(ROOT, "scripts/rules");
 const FIXTURES_DIR = resolve(RULES_DIR, "__fixtures__");
-const GIT_CONTEXT_KEYS = ["GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_COMMON_DIR", "GIT_PREFIX"];
+const GIT_CONTEXT_KEYS = [
+  "GIT_DIR",
+  "GIT_WORK_TREE",
+  "GIT_INDEX_FILE",
+  "GIT_COMMON_DIR",
+  "GIT_PREFIX",
+];
 
 // ─── Helpers ─────────────────────────────────────────────────────────
 
@@ -27,7 +43,11 @@ function gitExec(command: string, cwd: string) {
 }
 
 /** Roda uma rule num fixture via MOCK_ROOT, retorna { stdout, status, error } */
-function runRuleOnFixture(ruleName: string, fixturePath: string, extraEnv: NodeJS.ProcessEnv = {}): { stdout: string; status: number; error: string } {
+function runRuleOnFixture(
+  ruleName: string,
+  fixturePath: string,
+  extraEnv: NodeJS.ProcessEnv = {},
+): { stdout: string; status: number; error: string } {
   const ruleScript = resolve(RULES_DIR, ruleName);
   const env = cleanGitEnv({ MOCK_ROOT: fixturePath, ...extraEnv });
   try {
@@ -49,7 +69,10 @@ function runRuleOnFixture(ruleName: string, fixturePath: string, extraEnv: NodeJ
 }
 
 /** Roda uma rule normalmente (no repo real) */
-function runRule(ruleName: string, extraEnv: NodeJS.ProcessEnv = {}): { stdout: string; status: number; error: string } {
+function runRule(
+  ruleName: string,
+  extraEnv: NodeJS.ProcessEnv = {},
+): { stdout: string; status: number; error: string } {
   const ruleScript = resolve(RULES_DIR, ruleName);
   try {
     const stdout = execSync(`node "${ruleScript}" 2>&1`, {
@@ -81,7 +104,11 @@ function createTempFixture(fixtureSubdir: string): string {
 
 /** Limpa um diretório temporário */
 function cleanTempFixture(tmpPath: string) {
-  try { rmSync(tmpPath, { recursive: true, force: true }); } catch { /* ignora erro se já foi limpo */ }
+  try {
+    rmSync(tmpPath, { recursive: true, force: true });
+  } catch {
+    /* ignora erro se já foi limpo */
+  }
 }
 
 /** Inicializa git num diretório e faz commit inicial */
@@ -107,7 +134,9 @@ describe("rule-02-category-loading", () => {
       const res = runRuleOnFixture("rule-02-category-loading.mjs", tmp);
       expect(res.status).toBe(0);
       expect(res.stdout).toMatch(/✅|⏭️/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar (fixture negativa: docs carregados incompatíveis com categoria)", () => {
@@ -116,7 +145,9 @@ describe("rule-02-category-loading", () => {
       const res = runRuleOnFixture("rule-02-category-loading.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toMatch(/❌|fora da categoria/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -129,7 +160,9 @@ describe("rule-03-handoff-completeness", () => {
       const res = runRuleOnFixture("rule-03-handoff-completeness.mjs", tmp);
       expect(res.status).toBe(0);
       expect(res.stdout).toMatch(/✅|⏭️/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar (fixture negativa: handoff sem seções obrigatórias)", () => {
@@ -138,7 +171,9 @@ describe("rule-03-handoff-completeness", () => {
       const res = runRuleOnFixture("rule-03-handoff-completeness.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toContain("seções ausentes");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -157,11 +192,16 @@ describe("rule-02-grid", () => {
       // Cria um .tsx com grid-cols-3 no staged
       const badFile = join(tmp, "src/components/Bad.tsx");
       mkdirSync(join(tmp, "src/components"), { recursive: true });
-      writeFileSync(badFile, 'export function Bad() { return <div className="grid-cols-3">x</div>; }\n');
+      writeFileSync(
+        badFile,
+        'export function Bad() { return <div className="grid-cols-3">x</div>; }\n',
+      );
       gitExec("git add src/components/Bad.tsx", tmp);
       const res = runRuleOnFixture("rule-02-grid.mjs", tmp);
       expect(res.status).not.toBe(0);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -175,7 +215,9 @@ describe("rule-04-branch", () => {
       gitExec("git checkout -b feat/test-branch", tmp);
       const res = runRuleOnFixture("rule-04-branch.mjs", tmp);
       expect(res.status).toBe(0);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar (negativa: branch é main)", () => {
@@ -187,7 +229,9 @@ describe("rule-04-branch", () => {
       const res = runRuleOnFixture("rule-04-branch.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toContain("não permitida");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -205,7 +249,9 @@ describe("rule-05-ci-workflows", () => {
       const res = runRuleOnFixture("rule-05-ci-workflows.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toContain("Workflow faltando");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -223,14 +269,16 @@ describe("rule-07-ptbr", () => {
       initGitRepo(tmp);
       const badFile = join(tmp, "src/components/Teste.tsx");
       mkdirSync(join(tmp, "src/components"), { recursive: true });
-      writeFileSync(badFile, 'export function T() { return <div>Save</div>; }\n');
+      writeFileSync(badFile, "export function T() { return <div>Save</div>; }\n");
       gitExec("git add -A && git commit -m 'add english' 2>/dev/null", tmp);
       // Agora modifica com string em inglês (no working tree)
       writeFileSync(badFile, 'export function T() { return <div>{"Cancel"}</div>; }\n');
       const res = runRuleOnFixture("rule-07-ptbr.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toContain("Strings em inglês");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -245,7 +293,9 @@ describe("rule-08-report", () => {
       const res = runRuleOnFixture("rule-08-report.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toContain("nenhum relatório");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -266,7 +316,9 @@ describe("rule-09-handoff", () => {
       const res = runRuleOnFixture("rule-09-handoff.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toContain("handoff.md não encontrado");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -290,7 +342,9 @@ describe("rule-10-clean", () => {
       const res = runRuleOnFixture("rule-10-clean.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toContain("não commitados");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve avisar mas NÃO falhar em modo PRE_PR_CONTEXT (fase de desenvolvimento)", () => {
@@ -306,7 +360,9 @@ describe("rule-10-clean", () => {
       expect(out).toContain("aviso");
       expect(out).toContain("untracked.txt");
       expect(out).toMatch(/pre-push hook/i);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve ignorar arquivos staged (esperados no pre-commit) mesmo em modo bloqueante", () => {
@@ -318,7 +374,9 @@ describe("rule-10-clean", () => {
       gitExec("git add staged.txt", tmp);
       const res = runRuleOnFixture("rule-10-clean.mjs", tmp);
       expect(res.status).toBe(0);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -378,7 +436,9 @@ describe("pre-push hook (git status ZERO antes de push)", () => {
       expect(status).not.toBe(0);
       expect(out).toMatch(/BLOQUEADO/);
       expect(out).toMatch(/regra #3|não está limpo/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("permite push quando working tree está limpa", () => {
@@ -402,7 +462,9 @@ describe("pre-push hook (git status ZERO antes de push)", () => {
       // NÃO bloqueou por regra #3 (falso positivo).
       expect(out).not.toMatch(/BLOQUEADO/);
       expect(out).not.toMatch(/não está limpo/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -425,7 +487,9 @@ describe("rule-11-bug-registry", () => {
       const res = runRuleOnFixture("rule-11-bug-registry.mjs", tmp);
       // Rule 11 não faz exit(1) — é warn apenas
       expect(res.stdout || "").toContain("AGENDA.md não foi modificado");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -446,7 +510,9 @@ describe("rule-13-validations", () => {
       // Rule 13 setava hasError mas não chamava exit(1) — agora corrigido
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toContain("SEM script");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -462,13 +528,24 @@ describe("rule-14-orphan-files", () => {
     const tmp = mkdtempSync(join(tmpdir(), "rule-orphan-relative-"));
     try {
       mkdirSync(join(tmp, "src/components"), { recursive: true });
-      writeFileSync(join(tmp, "src/main.tsx"), 'import Parent from "./components/Parent";\nvoid Parent;\n');
-      writeFileSync(join(tmp, "src/components/Parent.tsx"), 'import Child from "./Child";\nexport default Child;\n');
-      writeFileSync(join(tmp, "src/components/Child.tsx"), "const Child = () => null;\nexport default Child;\n");
+      writeFileSync(
+        join(tmp, "src/main.tsx"),
+        'import Parent from "./components/Parent";\nvoid Parent;\n',
+      );
+      writeFileSync(
+        join(tmp, "src/components/Parent.tsx"),
+        'import Child from "./Child";\nexport default Child;\n',
+      );
+      writeFileSync(
+        join(tmp, "src/components/Child.tsx"),
+        "const Child = () => null;\nexport default Child;\n",
+      );
 
       const res = runRuleOnFixture("rule-14-orphan-files.mjs", tmp);
       expect(res.status).toBe(0);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar (negativa: arquivo órfão em src/)", () => {
@@ -477,7 +554,9 @@ describe("rule-14-orphan-files", () => {
       const res = runRuleOnFixture("rule-14-orphan-files.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toContain("Arquivo órfão");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -495,7 +574,9 @@ describe("rule-15-duplicate-code", () => {
       const res = runRuleOnFixture("rule-15-duplicate-code.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toContain("Duplicatas");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -513,7 +594,9 @@ describe("rule-16-orphan-scripts", () => {
       const res = runRuleOnFixture("rule-16-orphan-scripts.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toContain("sem atalho");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -550,7 +633,9 @@ describe("rule-18-no-duplicate-root-docs", () => {
       const res = runRuleOnFixture("rule-18-no-duplicate-root-docs.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toContain("DUPLICADO");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -573,7 +658,9 @@ describe("rule-19-stock-validation", () => {
       expect(res.status).not.toBe(0);
       // Rule 19.1: verifica invalidateQueries sem refetchType
       expect(res.stdout || res.error).toContain("sem refetchType");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -591,7 +678,9 @@ describe("rule-20-no-agenda-load", () => {
       const res = runRuleOnFixture("rule-20-no-agenda-load.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toContain("AGENDA.md");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -601,7 +690,9 @@ describe("rule-22-pr-naming", () => {
   it("deve passar (positiva: título válido)", () => {
     const ruleScript = resolve(RULES_DIR, "rule-22-pr-naming.mjs");
     const out = execSync(`node "${ruleScript}" --title "fix: corrige cache" 2>&1`, {
-      cwd: ROOT, encoding: "utf8", timeout: 5000,
+      cwd: ROOT,
+      encoding: "utf8",
+      timeout: 5000,
     });
     expect(out).toMatch(/✅|⏭️/);
   });
@@ -610,7 +701,9 @@ describe("rule-22-pr-naming", () => {
     const ruleScript = resolve(RULES_DIR, "rule-22-pr-naming.mjs");
     try {
       execSync(`node "${ruleScript}" --title "titulo qualquer" 2>&1`, {
-        cwd: ROOT, encoding: "utf8", timeout: 5000,
+        cwd: ROOT,
+        encoding: "utf8",
+        timeout: 5000,
       });
       expect("deveria ter falhado").toBe("não falhou");
     } catch (e: unknown) {
@@ -627,13 +720,24 @@ describe("rule-23-skill-orphans", () => {
   // ponytail: .pi/skills/ tem symlinks absolutos que quebram no CI.
   // Criamos fixture com TODAS as 18 skills referenciadas.
   const REF_SKILLS = [
-    "llm-council", "brainstorming", "writing-plans", "using-git-worktrees",
-    "test-driven-development", "subagent-driven-development", "executing-plans",
-    "requesting-code-review", "finishing-a-development-branch",
-    "systematic-debugging", "verification-before-completion",
-    "dispatching-parallel-agents", "receiving-code-review",
-    "small-model-execution", "compact-delegation", "bounded-scout",
-    "diff-miner", "test-triage",
+    "llm-council",
+    "brainstorming",
+    "writing-plans",
+    "using-git-worktrees",
+    "test-driven-development",
+    "subagent-driven-development",
+    "executing-plans",
+    "requesting-code-review",
+    "finishing-a-development-branch",
+    "systematic-debugging",
+    "verification-before-completion",
+    "dispatching-parallel-agents",
+    "receiving-code-review",
+    "small-model-execution",
+    "compact-delegation",
+    "bounded-scout",
+    "diff-miner",
+    "test-triage",
   ];
 
   it("deve passar (positiva: fixture com todas as skills)", () => {
@@ -646,7 +750,9 @@ describe("rule-23-skill-orphans", () => {
       }
       const res = runRuleOnFixture("rule-23-skill-orphans.mjs", tmp);
       expect(res.status).toBe(0);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar (negativa: skill referenciada não existe)", () => {
@@ -661,7 +767,9 @@ describe("rule-23-skill-orphans", () => {
       const res = runRuleOnFixture("rule-23-skill-orphans.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect(res.stdout || res.error).toContain("Skill referenciada");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -737,7 +845,9 @@ describe("rule-27-council-veredict (mensagens acionáveis — Trava D)", () => {
       const out = (res.stdout || "") + (res.error || "");
       expect(out).toContain("council-to-superpowers");
       expect(out).toContain(".pi/skills/council-to-superpowers");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar listando as seções obrigatórias + dica de correção", () => {
@@ -756,7 +866,9 @@ describe("rule-27-council-veredict (mensagens acionáveis — Trava D)", () => {
       expect(out).toContain("## Advisors");
       expect(out).toContain("## Síntese do Chairman");
       expect(out).toMatch(/Adicione as seções/i);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -773,7 +885,9 @@ describe("rule-37-rtk (integração RTK)", () => {
       const out = (res.stdout || "") + (res.error || "");
       expect(out).toContain(".pi/extensions/rtk.ts");
       expect(out).toMatch(/rtk init --agent pi/i);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve passar quando a extensão existe e rtk está no PATH (≥0.23.0)", () => {
@@ -787,7 +901,9 @@ describe("rule-37-rtk (integração RTK)", () => {
         PATH: `${process.env.HOME}/.local/bin:${process.env.PATH}`,
       });
       expect(res.status).toBe(0);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve ser não-falho quando rtk não está no PATH (skip informativo)", () => {
@@ -805,7 +921,9 @@ describe("rule-37-rtk (integração RTK)", () => {
       expect(res.status).toBe(0);
       const out = (res.stdout || "") + (res.error || "");
       expect(out).toMatch(/não encontrado|skip|ausente/i);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -837,7 +955,9 @@ describe("rule-38-code-review-gate (revisão por subagente)", () => {
       const out = (res.stdout || "") + (res.error || "");
       expect(out).toMatch(/code-review:done/);
       expect(out).toMatch(/requesting-code-review/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve passar quando existe evento code-review:done com subagent:true na branch", () => {
@@ -850,7 +970,9 @@ describe("rule-38-code-review-gate (revisão por subagente)", () => {
       expect(res.status).toBe(0);
       const out = (res.stdout || "") + (res.error || "");
       expect(out).toMatch(/✅/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar quando o evento code-review:done não é de subagente", () => {
@@ -861,7 +983,9 @@ describe("rule-38-code-review-gate (revisão por subagente)", () => {
       writeEvents(tmp, "feat/teste", "code-review:done", false);
       const res = runRuleOnFixture("rule-38-code-review-gate.mjs", tmp);
       expect(res.status).not.toBe(0);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar quando o evento code-review:done é de outra branch", () => {
@@ -872,7 +996,9 @@ describe("rule-38-code-review-gate (revisão por subagente)", () => {
       writeEvents(tmp, "feat/outra", "code-review:done", true);
       const res = runRuleOnFixture("rule-38-code-review-gate.mjs", tmp);
       expect(res.status).not.toBe(0);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar quando events.jsonl não existe", () => {
@@ -884,7 +1010,9 @@ describe("rule-38-code-review-gate (revisão por subagente)", () => {
       expect(res.status).not.toBe(0);
       const out = (res.stdout || "") + (res.error || "");
       expect(out).toMatch(/events.jsonl/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve ser skip em main/master", () => {
@@ -895,7 +1023,9 @@ describe("rule-38-code-review-gate (revisão por subagente)", () => {
       expect(res.status).toBe(0);
       const out = (res.stdout || "") + (res.error || "");
       expect(out).toMatch(/main|master/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -926,7 +1056,9 @@ describe("rule-39-coding-gate (codificação por subagente)", () => {
       expect(res.status).toBe(0);
       const out = (res.stdout || "") + (res.error || "");
       expect(out).toMatch(/sem mudanças de código|⏭️/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar com mudança de código e sem evento coding:done", () => {
@@ -940,7 +1072,9 @@ describe("rule-39-coding-gate (codificação por subagente)", () => {
       expect(res.status).not.toBe(0);
       const out = (res.stdout || "") + (res.error || "");
       expect(out).toMatch(/coding:done/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve passar com mudança de código e evento coding:done subagent:true", () => {
@@ -955,7 +1089,9 @@ describe("rule-39-coding-gate (codificação por subagente)", () => {
       expect(res.status).toBe(0);
       const out = (res.stdout || "") + (res.error || "");
       expect(out).toMatch(/✅/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar quando o evento coding:done não é de subagente", () => {
@@ -968,7 +1104,9 @@ describe("rule-39-coding-gate (codificação por subagente)", () => {
       writeEvents(tmp, "feat/teste", "coding:done", false);
       const res = runRuleOnFixture("rule-39-coding-gate.mjs", tmp);
       expect(res.status).not.toBe(0);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar quando o evento coding:done é de outra branch", () => {
@@ -981,7 +1119,9 @@ describe("rule-39-coding-gate (codificação por subagente)", () => {
       writeEvents(tmp, "feat/outra", "coding:done", true);
       const res = runRuleOnFixture("rule-39-coding-gate.mjs", tmp);
       expect(res.status).not.toBe(0);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar quando events.jsonl não existe e há mudança de código", () => {
@@ -995,7 +1135,9 @@ describe("rule-39-coding-gate (codificação por subagente)", () => {
       expect(res.status).not.toBe(0);
       const out = (res.stdout || "") + (res.error || "");
       expect(out).toMatch(/events.jsonl/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve ser skip em main/master", () => {
@@ -1006,7 +1148,9 @@ describe("rule-39-coding-gate (codificação por subagente)", () => {
       expect(res.status).toBe(0);
       const out = (res.stdout || "") + (res.error || "");
       expect(out).toMatch(/main|master/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -1044,7 +1188,9 @@ Nada feito ainda.
       expect(res.status).toBe(0);
       const out = (res.stdout || "") + (res.error || "");
       expect(out).toMatch(/done/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar (exit 1) quando Status: in_progress e branch da sessão difere da branch git atual", () => {
@@ -1057,7 +1203,9 @@ Nada feito ainda.
       expect(res.status).not.toBe(0);
       const out = (res.stdout || "") + (res.error || "");
       expect(out).toMatch(/difere da branch atual/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -1070,7 +1218,9 @@ describe("rule-40-architect (Feature-First)", () => {
       const res = runRuleOnFixture("rule-40-architect.mjs", tmp);
       expect(res.status).toBe(0);
       expect(res.stdout).toMatch(/✅/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar (fixture negativa: feature sem barrel + tabela sem RLS)", () => {
@@ -1081,7 +1231,9 @@ describe("rule-40-architect (Feature-First)", () => {
       const out = (res.stdout || "") + (res.error || "");
       expect(out).toContain("sem barrel");
       expect(out).toContain("tabela_sem_policy");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar quando policy sem auth.uid() está no mesmo arquivo que outra com auth.uid() (falso positivo do regex global)", () => {
@@ -1093,8 +1245,10 @@ describe("rule-40-architect (Feature-First)", () => {
       // t2 (USING (true)) DEVE falhar — não pode herdar o auth.uid() da policy da t1
       expect(out).toContain('"t2"');
       // t1 (auth.uid() no próprio bloco) continua passando
-      expect(out).toContain('public.t1');
-    } finally { cleanTempFixture(tmp); }
+      expect(out).toContain("public.t1");
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve passar (vacuous: src/features/ não existe)", () => {
@@ -1103,7 +1257,9 @@ describe("rule-40-architect (Feature-First)", () => {
       const res = runRuleOnFixture("rule-40-architect.mjs", tmp);
       expect(res.status).toBe(0);
       expect(res.stdout).toMatch(/não existe|vacuous/i);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });
 
@@ -1121,7 +1277,9 @@ describe("rule-41-optimizer (hard limit 150 linhas)", () => {
       gitExec("git add -A && git commit -m 'novo pequeno' 2>/dev/null", tmp);
       const res = runRuleOnFixture("rule-41-optimizer.mjs", tmp);
       expect(res.status).toBe(0);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar (negativa: arquivo novo >150 linhas)", () => {
@@ -1138,7 +1296,9 @@ describe("rule-41-optimizer (hard limit 150 linhas)", () => {
       const res = runRuleOnFixture("rule-41-optimizer.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect((res.stdout || "") + (res.error || "")).toContain("150");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve falhar (negativa: arquivo modificado passa de 150; main tinha <=150)", () => {
@@ -1161,7 +1321,9 @@ describe("rule-41-optimizer (hard limit 150 linhas)", () => {
       const res = runRuleOnFixture("rule-41-optimizer.mjs", tmp);
       expect(res.status).not.toBe(0);
       expect((res.stdout || "") + (res.error || "")).toContain("passou de");
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve warnar (legado >150 em main é grandfathered, não bloqueia)", () => {
@@ -1182,7 +1344,9 @@ describe("rule-41-optimizer (hard limit 150 linhas)", () => {
       const res = runRuleOnFixture("rule-41-optimizer.mjs", tmp);
       expect(res.status).toBe(0);
       expect(res.stdout).toMatch(/grandfathered|legado/i);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve passar (vazio: sem mudanças em src/ no diff)", () => {
@@ -1194,7 +1358,9 @@ describe("rule-41-optimizer (hard limit 150 linhas)", () => {
       const res = runRuleOnFixture("rule-41-optimizer.mjs", tmp);
       expect(res.status).toBe(0);
       expect(res.stdout).toMatch(/nenhum arquivo src|✅/);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 
   it("deve ser skip sem repo git (fail-open)", () => {
@@ -1203,6 +1369,67 @@ describe("rule-41-optimizer (hard limit 150 linhas)", () => {
       const res = runRuleOnFixture("rule-41-optimizer.mjs", tmp);
       expect(res.status).toBe(0);
       expect(res.stdout).toMatch(/⏭️|merge-base/i);
-    } finally { cleanTempFixture(tmp); }
+    } finally {
+      cleanTempFixture(tmp);
+    }
+  });
+});
+
+// ─── rule-42-coverage-gate (gate de cobertura de testes) ───────────
+describe("rule-42-coverage-gate (gate de cobertura)", () => {
+  function withCoverage(tmp: string, pct: number) {
+    mkdirSync(join(tmp, "coverage"), { recursive: true });
+    writeFileSync(
+      join(tmp, "coverage/coverage-summary.json"),
+      JSON.stringify({ total: { lines: { pct } } }),
+    );
+  }
+
+  it("deve passar (positiva: cobertura acima do limite)", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      withCoverage(tmp, 78.8);
+      const res = runRuleOnFixture("rule-42-coverage-gate.mjs", tmp);
+      expect(res.status).toBe(0);
+      expect(res.stdout).toMatch(/✅ rule-42/);
+    } finally {
+      cleanTempFixture(tmp);
+    }
+  });
+
+  it("deve falhar (negativa: cobertura abaixo do limite)", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      withCoverage(tmp, 40);
+      const res = runRuleOnFixture("rule-42-coverage-gate.mjs", tmp);
+      expect(res.status).not.toBe(0);
+      expect((res.stdout || "") + (res.error || "")).toContain("40.0%");
+    } finally {
+      cleanTempFixture(tmp);
+    }
+  });
+
+  it("deve falhar com limite customizado (COVERAGE_MIN_PCT)", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      withCoverage(tmp, 60);
+      const res = runRuleOnFixture("rule-42-coverage-gate.mjs", tmp, {
+        COVERAGE_MIN_PCT: "80",
+      });
+      expect(res.status).not.toBe(0);
+    } finally {
+      cleanTempFixture(tmp);
+    }
+  });
+
+  it("deve ser skip (fail-open: sem relatório de coverage)", () => {
+    const tmp = createTempFixture("handoff/valid");
+    try {
+      const res = runRuleOnFixture("rule-42-coverage-gate.mjs", tmp);
+      expect(res.status).toBe(0);
+      expect(res.stdout).toMatch(/⏭️/);
+    } finally {
+      cleanTempFixture(tmp);
+    }
   });
 });

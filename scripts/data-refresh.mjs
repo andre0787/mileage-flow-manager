@@ -62,6 +62,7 @@ const RULE_HINTS = {
   "rule-02-category-loading": "docs da categoria não carregados",
   "rule-31-lib-tests": "lib sem teste unitário",
   "rule-41-optimizer": "arquivo acima do limite de 150 linhas",
+  "rule-42-coverage-gate": "cobertura de testes abaixo do limite de 75%",
 };
 
 // ─── Utilidades ──────────────────────────────────────────────────────

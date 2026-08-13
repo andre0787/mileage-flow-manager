@@ -37,6 +37,11 @@ jobs:
       - name: Check (fast + build + budget)
         run: npm run check:pr
 
+      - name: Coverage + gate (rule-42)
+        # Cobertura das áreas de negócio (src/lib, kpi, workflow) com gate
+        # rule-42 (≥75% de linhas). coverage/ é gitignored — não polui o PR.
+        run: npm run coverage > /tmp/coverage.log 2>&1; tail -6 /tmp/coverage.log; npm run rule:42
+
       - name: Quality write
         run: npm run quality:write
 
