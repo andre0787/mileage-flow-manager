@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T04:14:57.307Z",
+  "generatedAt": "2026-08-13T05:00:21.227Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,9 +174,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 74.6,
-      "prePrTotal": 374,
-      "prePrPass": 279,
+      "prePrPassRate": 74.7,
+      "prePrTotal": 375,
+      "prePrPass": 280,
       "prePrFail": 95,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -185,7 +185,7 @@
         "twins": 0,
         "auth": 2
       },
-      "avgOutcomeGrade": 93.2,
+      "avgOutcomeGrade": 93.1,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -209,7 +209,7 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 52,
+        "rule-26": 53,
         "rule-17-new-docs-valid": 18,
         "rule-02": 1
       },
@@ -217,9 +217,9 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.4,
-      "branchesMerged": 93,
+      "branchesMerged": 94,
       "violationsCaught": 405,
-      "healedRate": 17.5,
+      "healedRate": 17.8,
       "frictionPerPass": 1.45,
       "llmRouter": {
         "resolved": 39,
@@ -462,15 +462,15 @@
     {
       "day": "2026-08-01",
       "label": "01/08",
-      "prePrTotal": 51,
-      "prePrPass": 32,
+      "prePrTotal": 50,
+      "prePrPass": 31,
       "prePrFail": 19,
-      "prePrPassRate": 62.7,
+      "prePrPassRate": 62,
       "ruleFails": 24,
       "healed": 0,
-      "sessions": 116,
+      "sessions": 112,
       "merges": 7,
-      "friction": 0.75
+      "friction": 0.77
     },
     {
       "day": "2026-08-02",
@@ -618,18 +618,27 @@
     {
       "day": "2026-08-13",
       "label": "13/08",
-      "prePrTotal": 34,
-      "prePrPass": 34,
+      "prePrTotal": 36,
+      "prePrPass": 36,
       "prePrFail": 0,
       "prePrPassRate": 100,
       "ruleFails": 5,
-      "healed": 8,
-      "sessions": 13,
-      "merges": 11,
-      "friction": 0.15
+      "healed": 9,
+      "sessions": 14,
+      "merges": 12,
+      "friction": 0.14
     }
   ],
   "prs": [
+    {
+      "number": 374,
+      "title": "chore(process): testes 5.6x mais rápidos, lint 0 warnings e métrica de cobertura (78.8%)",
+      "type": "chore",
+      "date": "2026-08-13",
+      "tokens": 1075,
+      "benefit": "Ajuste de processo validado",
+      "impact": "Processo mais confiável e audável"
+    },
     {
       "number": 373,
       "title": "feat(kpi): painel KPI — 30d com seletor, alertas de processo, breakdown por dono/programa e lazy-loading (−47% bundle)",
@@ -710,34 +719,25 @@
       "tokens": 1195,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 364,
-      "title": "fix(dark): campos de busca/seleção legíveis no dark (causa raiz --secondary) + busca translúcida estilo iOS",
-      "type": "fix",
-      "date": "2026-08-13",
-      "tokens": 741,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação"
     }
   ],
   "repo": {
     "components": 89,
     "pages": 16,
-    "libs": 19,
-    "scripts": 104,
-    "testFiles": 199,
+    "libs": 22,
+    "scripts": 105,
+    "testFiles": 205,
     "skills": 26,
-    "rules": 41,
-    "events": 1205,
-    "qualityNotes": 465
+    "rules": 42,
+    "events": 1206,
+    "qualityNotes": 466
   },
   "summary": {
-    "merges": 93,
+    "merges": 94,
     "prs": 6,
-    "sessions": 180,
+    "sessions": 177,
     "violations": 405,
-    "healed": 71,
-    "prePrPassRate": 74.6
+    "healed": 72,
+    "prePrPassRate": 74.7
   }
 }

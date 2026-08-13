@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `chore/otimizacoes-gerais`
-- **Último commit:** `a0a4716 — Merge pull request #373 from andre0787/feat/kpi-sugestoes-painel`
+- **Branch:** `main`
+- **Último commit:** `feb31a9 — Merge pull request #374 from andre0787/chore/otimizacoes-gerais`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -54,13 +54,13 @@ Nenhum PR aberto.
 
 
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** segunda chore
+**Categoria:** refactor
+**Objetivo:** Etapa 1 refactor Dashboard/EntryForm + Coverage Gate (rule-42): extrai logica pura para libs testaveis, gate de cobertura >=75% no pre-pr/nightly
 **Status:** in_progress
-**Iniciada em:** 2026-08-13T04:11:46.539Z
-**Branch:** `chore/otimizacoes-gerais`
-**Último commit:** a0a4716 — Merge pull request #373 from andre0787/feat/kpi-sugestoes-painel
-**Docs carregados:** AGENTS.md
+**Iniciada em:** 2026-08-13T04:58:52.411Z
+**Branch:** `refactor/dashboard-coverage-gate`
+**Último commit:** feb31a9 — Merge pull request #374 from andre0787/chore/otimizacoes-gerais
+**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 

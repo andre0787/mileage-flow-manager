@@ -15,6 +15,7 @@ import { isTransferencia } from "@/lib/utils";
 import { parseDateOnly } from "@/lib/dateUtils";
 import { parseOrigemTypeDescription, filterToCleanOrigemTypes } from "@/lib/origemTypes";
 import { classifyByText, categoryLabel, categoryColor } from "@/lib/auto-classify";
+import { emptyEntryForm, validateEntryForm } from "@/lib/entryFormValidation";
 import type { Account, OrigemType, Program, Owner, EntryFormData } from "@/types";
 
 interface EntryFormProps {
@@ -48,26 +49,6 @@ interface EntryFormProps {
   }) => Promise<string | undefined>;
 }
 
-const emptyForm: EntryFormData = {
-  accountId: "",
-  origemTypeId: "",
-  amount: "",
-  amountPaid: "",
-  conversionRate: "",
-  sourceAccountId: "",
-  bonusPercent: "",
-  cartAmount: "",
-  cartCost: "",
-  date: "",
-  isClube: false,
-  clubeMeses: "",
-  isRecurrent: false,
-  recurrenceType: "monthly",
-  recurrenceCount: 1,
-  startDate: "",
-  recurrenceValueMode: "split",
-};
-
 export function EntryForm({
   type,
   mode,
@@ -83,7 +64,7 @@ export function EntryForm({
   onCreateOwner,
   onCreateProgram,
 }: EntryFormProps) {
-  const [form, setForm] = useState<EntryFormData>({ ...emptyForm, ...initialData });
+  const [form, setForm] = useState<EntryFormData>({ ...emptyEntryForm, ...initialData });
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
   const [isOrigemTypeOpen, setIsOrigemTypeOpen] = useState(false);
   const [newOT, setNewOT] = useState({ name: "", color: "#10b981", hasRecurrence: false });
@@ -126,18 +107,7 @@ export function EntryForm({
   const label = type === "milhas" ? "Milhas" : "Pontos";
 
   const validate = (): boolean => {
-    const errs: typeof errors = {};
-    if (!form.accountId) errs.accountId = "Selecione uma conta";
-    if (!form.origemTypeId) errs.origemTypeId = "Selecione o tipo de origem";
-    if (!form.amount || parseFloat(form.amount) <= 0) errs.amount = "Informe a quantidade";
-    if (!form.amountPaid || parseFloat(form.amountPaid) <= 0)
-      errs.amountPaid = "Informe o valor pago";
-    if (!form.date) errs.date = "Selecione a data";
-    if (form.isRecurrent) {
-      if (form.recurrenceCount < 2)
-        errs.recurrenceCount = "Mínimo de 2 parcelas para gerar recorrência";
-      if (!form.startDate) errs.startDate = "Selecione a data de início";
-    }
+    const errs = validateEntryForm(form);
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };

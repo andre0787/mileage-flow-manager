@@ -57,6 +57,7 @@ Antes de cada `subagent_gate`, resolva a tarefa com `npm run llm:route`. Use exa
 21. **🛠️ Coding Gate** — toda mudança de código (src/, scripts/, tests/, .pi/) exige execução por **subagente especializado** (evidência: evento `coding:done` com `subagent:true` na branch atual). Sem evidência, o pre-pr falha. Aplicado em `subagent-driven-development` / `dispatching-parallel-agents`. Valida: `rule-39`.
 22. **📐 Architect Gate** — estrutura Feature-First: módulos em `src/features/[feature]` com barrel `index.ts` e RLS verificado (`CREATE POLICY` com `USING (auth.uid())` em `supabase/migrations/`); vacuous se `src/features/` não existe. Valida: `rule-40`.
 23. **🧹 Optimizer Gate** — hard limit de 150 linhas por arquivo em `src/` (diff-scoped contra main); arquivos novos grandes e arquivos que passam do limite falham; legados já grandes são grandfathered (warning). Aplicado no workflow refactor. Valida: `rule-41`.
+24. **📊 Coverage Gate** — todo relatório de cobertura gerado (`npm run coverage`, provider v8) precisa ter ≥ 75% de linhas nas áreas de negócio (src/lib, kpi, workflow); relatório ausente é skip (fail-open — o nightly roda coverage + gate). Aplicado no pre-pr e nightly. Valida: `rule-42`.
 
 ## 🎯 Sistema de Categorias (LAZY LOADING)
 

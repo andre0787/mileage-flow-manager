@@ -9,7 +9,13 @@ const CLI = resolve(__dirname, "../../scripts/project-audit.mjs");
 function makeRepo(files: Record<string, string>) {
   const dir = mkdtempSync(join(tmpdir(), "project-audit-"));
   const env = { ...process.env };
-  for (const key of ["GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_COMMON_DIR", "GIT_PREFIX"]) {
+  for (const key of [
+    "GIT_DIR",
+    "GIT_WORK_TREE",
+    "GIT_INDEX_FILE",
+    "GIT_COMMON_DIR",
+    "GIT_PREFIX",
+  ]) {
     delete env[key];
   }
   execFileSync("git", ["init", "-q"], { cwd: dir, env });
@@ -28,7 +34,13 @@ function makeRepo(files: Record<string, string>) {
 function runAudit(root: string, args: string[] = []) {
   try {
     const env = { ...process.env, MOCK_ROOT: root };
-    for (const key of ["GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_COMMON_DIR", "GIT_PREFIX"]) {
+    for (const key of [
+      "GIT_DIR",
+      "GIT_WORK_TREE",
+      "GIT_INDEX_FILE",
+      "GIT_COMMON_DIR",
+      "GIT_PREFIX",
+    ]) {
       delete env[key];
     }
     const stdout = execFileSync(process.execPath, [CLI, ...args], {
@@ -51,9 +63,13 @@ describe("project-audit CLI", () => {
       "docs/handoff.md": "# h\n",
     });
 
-    const before = new Set(execFileSync("git", ["ls-files"], { cwd: dir, encoding: "utf8" }).trim().split("\n"));
+    const before = new Set(
+      execFileSync("git", ["ls-files"], { cwd: dir, encoding: "utf8" }).trim().split("\n"),
+    );
     const result = runAudit(dir, ["--json"]);
-    const after = new Set(execFileSync("git", ["ls-files"], { cwd: dir, encoding: "utf8" }).trim().split("\n"));
+    const after = new Set(
+      execFileSync("git", ["ls-files"], { cwd: dir, encoding: "utf8" }).trim().split("\n"),
+    );
 
     expect(result.status).toBe(0);
     expect([...after].sort()).toEqual([...before].sort());
@@ -103,7 +119,9 @@ describe("project-audit CLI", () => {
     expect(result.status).toBe(0);
     expect(result.stdout).not.toContain("SECRET-CONTENT-123");
     const parsed = JSON.parse(result.stdout);
-    expect(parsed.findings.some((f: { path: string }) => f.path === "playwright-report/index.html")).toBe(true);
+    expect(
+      parsed.findings.some((f: { path: string }) => f.path === "playwright-report/index.html"),
+    ).toBe(true);
   });
 
   it("arquivo ignorado local não aparece como finding rastreado", () => {
@@ -115,7 +133,9 @@ describe("project-audit CLI", () => {
 
     const result = runAudit(dir, ["--json"]);
     const parsed = JSON.parse(result.stdout);
-    expect(parsed.findings.some((f: { path: string }) => f.path.includes("fluxo-relatorio"))).toBe(false);
+    expect(parsed.findings.some((f: { path: string }) => f.path.includes("fluxo-relatorio"))).toBe(
+      false,
+    );
     expect(existsSync(join(dir, "tests/fluxo-relatorio/nota.md"))).toBe(true);
   });
 
@@ -135,6 +155,7 @@ describe("project-audit CLI", () => {
       "rule-23-skill-orphans",
       "rule-31-lib-test-coverage",
       "rule-32-component-test-coverage",
+      "rule-42-coverage-gate",
       "verify-docs",
     ]) {
       expect(names).toContain(expected);

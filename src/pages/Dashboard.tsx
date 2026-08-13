@@ -27,12 +27,25 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { EmptyState } from "@/components/EmptyState";
 import { SkeletonMetricCard, SkeletonTable } from "@/components/SkeletonLoader";
 import { useData } from "@/contexts/DataContext";
-import { isTransferencia } from "@/lib/utils";
-import { formatDateBR, parseDateOnly } from "@/lib/dateUtils";
+import { formatDateBR } from "@/lib/dateUtils";
 import { computeDashboardMetrics, computeMetricHistory } from "@/lib/metrics";
-import type { Account, Sale, PointEntry } from "@/types";
-
-const MAX_CPF_PER_OWNER = 22;
+import {
+  MAX_CPF_PER_OWNER,
+  accountsByOwner,
+  accountsOfType,
+  computeOwnerData,
+  computeProgramData,
+  entriesByOwner,
+  entriesOfAccountType,
+  salesByOwner,
+  salesOfAccountType,
+} from "@/lib/dashboardSelectors";
+import {
+  computeMonthlySales,
+  computeRecentEntries,
+  computeRecentSales,
+  computeRecentTransfers,
+} from "@/lib/dashboardTimeline";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -53,11 +66,10 @@ export default function Dashboard() {
     [pendingEntries, today],
   );
 
-  const milhasAccounts = useMemo(() => accounts.filter((a) => a.type === "milhas"), [accounts]);
-  const pontosAccounts = useMemo(() => accounts.filter((a) => a.type === "pontos"), [accounts]);
+  const milhasAccounts = useMemo(() => accountsOfType(accounts, "milhas"), [accounts]);
+  const pontosAccounts = useMemo(() => accountsOfType(accounts, "pontos"), [accounts]);
   const filteredPontosAccounts = useMemo(
-    () =>
-      !selectedOwner ? pontosAccounts : pontosAccounts.filter((a) => a.ownerId === selectedOwner),
+    () => accountsByOwner(pontosAccounts, selectedOwner),
     [pontosAccounts, selectedOwner],
   );
   const totalPontosBalance = useMemo(
@@ -70,12 +82,7 @@ export default function Dashboard() {
   );
 
   const milhasSales = useMemo(
-    () =>
-      sales.filter((s) => {
-        if (!s.accountId) return false;
-        const acct = accounts.find((a) => a.id === s.accountId);
-        return acct?.type === "milhas";
-      }),
+    () => salesOfAccountType(sales, accounts, "milhas"),
     [sales, accounts],
   );
 
@@ -83,20 +90,11 @@ export default function Dashboard() {
   const pontosSales = useMemo(() => [], []);
 
   const milhasEntries = useMemo(
-    () =>
-      entries.filter((e) => {
-        const acct = accounts.find((a) => a.id === e.accountId);
-        return acct?.type === "milhas";
-      }),
+    () => entriesOfAccountType(entries, accounts, "milhas"),
     [entries, accounts],
   );
-
   const pontosEntries = useMemo(
-    () =>
-      entries.filter((e) => {
-        const acct = accounts.find((a) => a.id === e.accountId);
-        return acct?.type === "pontos";
-      }),
+    () => entriesOfAccountType(entries, accounts, "pontos"),
     [entries, accounts],
   );
 
@@ -106,30 +104,15 @@ export default function Dashboard() {
   const unitLabel = activeTab === "milhas" ? "Milhas" : "Pontos";
 
   const filteredAccounts = useMemo(
-    () =>
-      !selectedOwner ? currentAccounts : currentAccounts.filter((a) => a.ownerId === selectedOwner),
+    () => accountsByOwner(currentAccounts, selectedOwner),
     [currentAccounts, selectedOwner],
   );
-
   const filteredSales = useMemo(
-    () =>
-      !selectedOwner
-        ? currentSales
-        : currentSales.filter((s) => {
-            const acct = accounts.find((a) => a.id === s.accountId);
-            return acct?.ownerId === selectedOwner;
-          }),
+    () => salesByOwner(currentSales, accounts, selectedOwner),
     [currentSales, selectedOwner, accounts],
   );
-
   const filteredEntries = useMemo(
-    () =>
-      !selectedOwner
-        ? currentEntries
-        : currentEntries.filter((e) => {
-            const acct = accounts.find((a) => a.id === e.accountId);
-            return acct?.ownerId === selectedOwner;
-          }),
+    () => entriesByOwner(currentEntries, accounts, selectedOwner),
     [currentEntries, selectedOwner, accounts],
   );
 
@@ -146,30 +129,15 @@ export default function Dashboard() {
   );
 
   const filteredMilhasAccounts = useMemo(
-    () =>
-      !selectedOwner ? milhasAccounts : milhasAccounts.filter((a) => a.ownerId === selectedOwner),
+    () => accountsByOwner(milhasAccounts, selectedOwner),
     [milhasAccounts, selectedOwner],
   );
-
   const filteredMilhasSales = useMemo(
-    () =>
-      !selectedOwner
-        ? milhasSales
-        : milhasSales.filter((s) => {
-            const acct = accounts.find((a) => a.id === s.accountId);
-            return acct?.ownerId === selectedOwner;
-          }),
+    () => salesByOwner(milhasSales, accounts, selectedOwner),
     [milhasSales, selectedOwner, accounts],
   );
-
   const filteredMilhasEntries = useMemo(
-    () =>
-      !selectedOwner
-        ? milhasEntries
-        : milhasEntries.filter((e) => {
-            const acct = accounts.find((a) => a.id === e.accountId);
-            return acct?.ownerId === selectedOwner;
-          }),
+    () => entriesByOwner(milhasEntries, accounts, selectedOwner),
     [milhasEntries, selectedOwner, accounts],
   );
 
@@ -195,147 +163,29 @@ export default function Dashboard() {
     [filteredMilhasSales, filteredMilhasEntries],
   );
 
-  const ownerData = useMemo(() => {
-    return owners
-      .map((owner) => {
-        const ownerAccounts = filteredAccounts.filter((a) => a.ownerId === owner.id);
-        const ownerAccountIds = ownerAccounts.map((a) => a.id);
-        const totalMiles = ownerAccounts.reduce((sum, a) => sum + a.balance, 0);
-        const totalInvested = ownerAccounts.reduce((sum, a) => sum + (a.totalInvested ?? 0), 0);
-        const programIds = [...new Set(ownerAccounts.map((a) => a.programId))];
-        const programNames = programIds.map((id) => programs.find((p) => p.id === id)?.name ?? id);
-        const ownerSales = filteredSales.filter(
-          (s) => s.status !== "cancelado" && ownerAccountIds.includes(s.accountId ?? ""),
-        );
-        const usedCpfs = new Set(ownerSales.flatMap((s) => s.passengers.map((p) => p.cpf)));
-        const avgCost = totalMiles > 0 ? totalInvested / totalMiles : 0;
-        return {
-          owner: owner.name,
-          programs: programNames,
-          totalMiles,
-          totalInvested,
-          avgCost,
-          cpfCount: usedCpfs.size,
-          maxCpf: MAX_CPF_PER_OWNER,
-        };
-      })
-      .filter((o) => o.totalMiles > 0 || o.totalInvested > 0);
-  }, [owners, filteredAccounts, programs, filteredSales]);
+  const ownerData = useMemo(
+    () => computeOwnerData(owners, filteredAccounts, programs, filteredSales, MAX_CPF_PER_OWNER),
+    [owners, filteredAccounts, programs, filteredSales],
+  );
 
-  const recentSales = useMemo(() => {
-    return [...filteredSales]
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      .slice(0, 6)
-      .map((s) => ({
-        id: s.id,
-        owner: s.ownerName,
-        client: s.clientName,
-        program: s.program,
-        miles: s.milesUsed,
-        value: s.saleValue,
-        status:
-          s.status === "concluido"
-            ? "Concluído"
-            : s.status === "pago"
-              ? "Pago"
-              : s.status === "cancelado"
-                ? "Cancelado"
-                : "Pendente",
-        statusColor: (s.status === "concluido"
-          ? "default"
-          : s.status === "pago"
-            ? "secondary"
-            : s.status === "cancelado"
-              ? "destructive"
-              : "outline") as "default" | "destructive" | "outline" | "secondary",
-      }));
-  }, [filteredSales]);
+  const recentSales = useMemo(() => computeRecentSales(filteredSales), [filteredSales]);
 
-  const programData = useMemo(() => {
-    const programMap = new Map<string, number>();
-    filteredAccounts.forEach((a) => {
-      const progName = programs.find((p) => p.id === a.programId)?.name ?? "Desconhecido";
-      programMap.set(progName, (programMap.get(progName) ?? 0) + a.balance);
-    });
-    return Array.from(programMap.entries()).map(([name, value]) => ({
-      name,
-      value,
-      color: "hsl(211 100% 45%)",
-    }));
-  }, [filteredAccounts, programs]);
+  const programData = useMemo(
+    () => computeProgramData(filteredAccounts, programs),
+    [filteredAccounts, programs],
+  );
 
-  const monthlySales = useMemo(() => {
-    const monthMap = new Map<string, { vendas: number; lucro: number }>();
-    const monthNames = [
-      "Jan",
-      "Fev",
-      "Mar",
-      "Abr",
-      "Mai",
-      "Jun",
-      "Jul",
-      "Ago",
-      "Set",
-      "Out",
-      "Nov",
-      "Dez",
-    ];
-    filteredSales
-      .filter((s) => s.status !== "cancelado")
-      .forEach((s) => {
-        const d = parseDateOnly(s.date);
-        const key = `${d.getFullYear()}-${String(d.getMonth()).padStart(2, "0")}`;
-        const current = monthMap.get(key) ?? { vendas: 0, lucro: 0 };
-        current.vendas += s.saleValue;
-        current.lucro += s.profit;
-        monthMap.set(key, current);
-      });
-    return Array.from(monthMap.entries())
-      .sort(([a], [b]) => a.localeCompare(b))
-      .slice(-12)
-      .map(([key, data]) => {
-        const [yearStr, monthStr] = key.split("-");
-        return {
-          month: `${monthNames[parseInt(monthStr)]}/${yearStr.slice(2)}`,
-          vendas: data.vendas,
-          lucro: data.lucro,
-        };
-      });
-  }, [filteredSales]);
+  const monthlySales = useMemo(() => computeMonthlySales(filteredSales), [filteredSales]);
 
-  const recentEntries = useMemo(() => {
-    return [...filteredEntries]
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      .slice(0, 6)
-      .map((e) => ({
-        id: e.id,
-        amount: e.amount,
-        accountName: accounts.find((a) => a.id === e.accountId)?.name ?? "",
-      }));
-  }, [filteredEntries, accounts]);
+  const recentEntries = useMemo(
+    () => computeRecentEntries(filteredEntries, accounts),
+    [filteredEntries, accounts],
+  );
 
-  const recentTransfers = useMemo(() => {
-    const transferOrigemIds = new Set(
-      origemTypes.filter((ot) => isTransferencia(ot)).map((ot) => ot.id),
-    );
-    return [...filteredEntries]
-      .filter((e) => e.sourceAccountId && transferOrigemIds.has(e.origemTypeId))
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      .slice(0, 8)
-      .map((e) => {
-        const srcAccount = accounts.find((a) => a.id === e.sourceAccountId);
-        const dstAccount = accounts.find((a) => a.id === e.accountId);
-        return {
-          id: e.id,
-          date: e.date,
-          sourceAccountName: srcAccount?.name ?? "",
-          pointsDebited: e.amount,
-          bonusPercent: e.bonusPercent,
-          milesReceived: e.milesGenerated ?? e.amount,
-          destAccountName: dstAccount?.name ?? "",
-        };
-      });
-  }, [filteredEntries, accounts, origemTypes]);
+  const recentTransfers = useMemo(
+    () => computeRecentTransfers(filteredEntries, accounts, origemTypes),
+    [filteredEntries, accounts, origemTypes],
+  );
 
   // ── Loading state (after all hooks) ──
   if (isLoading) {

@@ -31,6 +31,7 @@ const AUDIT_RULES = [
   "rule-23-skill-orphans.mjs",
   "rule-31-lib-test-coverage.mjs",
   "rule-32-component-test-coverage.mjs",
+  "rule-42-coverage-gate.mjs",
 ];
 
 function runDocsVerifier() {
@@ -42,11 +43,16 @@ function runDocsVerifier() {
       timeout: 30000,
       env: { ...process.env, MOCK_ROOT: ROOT },
     });
-    return { rule: "verify-docs", status: "pass", summary: stdout.trim().split("\n").filter(Boolean).pop() || "" };
+    return {
+      rule: "verify-docs",
+      status: "pass",
+      summary: stdout.trim().split("\n").filter(Boolean).pop() || "",
+    };
   } catch (error) {
     const e = error;
     const stdout = e.stdout ? String(e.stdout) : "";
-    const summary = stdout.trim().split("\n").filter(Boolean).pop() || e.message?.slice(0, 120) || "";
+    const summary =
+      stdout.trim().split("\n").filter(Boolean).pop() || e.message?.slice(0, 120) || "";
     return { rule: "verify-docs", status: "fail", summary };
   }
 }
@@ -56,7 +62,7 @@ function dependencyPolicyCheck() {
     const pkg = JSON.parse(readFileSync(resolve(ROOT, "package.json"), "utf8"));
     const findings = checkDependencyPolicy(pkg);
     const severityRank = { critical: 0, warning: 1, info: 2 };
-    const worst = (severityRank[findings.map((f) => f.severity).sort()[0]] ?? 2) ?? 2;
+    const worst = severityRank[findings.map((f) => f.severity).sort()[0]] ?? 2 ?? 2;
     return {
       rule: "dependency-policy",
       status: findings.length === 0 ? "pass" : "fail",
@@ -85,11 +91,16 @@ function runRule(ruleFile) {
       timeout: 15000,
       env: { ...process.env, MOCK_ROOT: ROOT },
     });
-    return { rule: ruleFile.replace(/\.mjs$/, ""), status: "pass", summary: stdout.trim().split("\n").pop() || "" };
+    return {
+      rule: ruleFile.replace(/\.mjs$/, ""),
+      status: "pass",
+      summary: stdout.trim().split("\n").pop() || "",
+    };
   } catch (error) {
     const e = error;
     const stdout = e.stdout ? String(e.stdout) : "";
-    const summary = stdout.trim().split("\n").filter(Boolean).pop() || e.message?.slice(0, 120) || "";
+    const summary =
+      stdout.trim().split("\n").filter(Boolean).pop() || e.message?.slice(0, 120) || "";
     return { rule: ruleFile.replace(/\.mjs$/, ""), status: "fail", summary };
   }
 }
@@ -114,7 +125,10 @@ function main() {
   const strictMode = args.includes("--strict");
 
   const checks = [...AUDIT_RULES.map(runRule), dependencyPolicyCheck(), runDocsVerifier()];
-  const findings = [...classifyTrackedArtifacts(trackedPaths()), ...dependencyPolicyCheck().findings];
+  const findings = [
+    ...classifyTrackedArtifacts(trackedPaths()),
+    ...dependencyPolicyCheck().findings,
+  ];
 
   const criticalFindings = findings.filter((f) => f.severity === "critical");
   const failedChecks = checks.filter((c) => c.status === "fail");
@@ -147,11 +161,14 @@ function main() {
     console.log("  Nenhum achado.");
   } else {
     for (const finding of findings) {
-      const icon = finding.severity === "critical" ? "🚨" : finding.severity === "warning" ? "⚠️" : "ℹ️";
+      const icon =
+        finding.severity === "critical" ? "🚨" : finding.severity === "warning" ? "⚠️" : "ℹ️";
       console.log(`  ${icon} [${finding.severity}] ${finding.path} — ${finding.reason}`);
     }
   }
-  console.log(`\nResumo: ${checks.length} checks, ${failedChecks.length} falha(s); ${findings.length} achado(s), ${criticalFindings.length} crítico(s).`);
+  console.log(
+    `\nResumo: ${checks.length} checks, ${failedChecks.length} falha(s); ${findings.length} achado(s), ${criticalFindings.length} crítico(s).`,
+  );
   process.exit(exitCode);
 }
 
