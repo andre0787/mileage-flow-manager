@@ -1206,3 +1206,4 @@
 {"timestamp":"2026-08-13T12:15:16.868Z","type":"code-review:done","description":"Review aprovado com 2 ajustes aplicados: AccountCard dividido (171->141 + AccountActions 55L) e HeroDecor preserva drift dots variados; fix stderr ruidoso da rule-41","branch":"refactor/etapa2-hero-dashboard","commit":"b745dd6","agent":"human","subagent":true,"verdict":"approved","skill":"requesting-code-review"}
 {"timestamp":"2026-08-13T12:15:30.577Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"refactor/etapa2-hero-dashboard","commit":"b745dd6","agent":"human","rule":"rule-26-session-started"}
 {"timestamp":"2026-08-13T12:18:16.948Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/etapa2-hero-dashboard","commit":"b745dd6","agent":"human","errors":0}
+{"timestamp":"2026-08-13T12:20:18.692Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/etapa2-hero-dashboard","commit":"733a263","agent":"human","errors":0}

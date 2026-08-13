@@ -20,7 +20,13 @@ export default defineConfig(({ mode }) => ({
     coverage: {
       provider: "v8",
       reporter: ["text", "json-summary"],
-      include: ["src/lib/**", "src/components/kpi/**", "src/components/workflow/**"],
+      include: [
+        "src/lib/**",
+        "src/components/kpi/**",
+        "src/components/workflow/**",
+        "src/components/dashboard/**",
+        "src/components/accounts/**",
+      ],
       exclude: ["src/**/index.ts", "src/lib/supabase.ts", "src/lib/db.ts"],
     },
   },

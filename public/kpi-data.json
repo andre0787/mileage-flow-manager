@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "generatedAt": "2026-08-13T07:20:12.419Z",
+=======
+  "generatedAt": "2026-08-13T12:20:18.806Z",
+>>>>>>> 0f73b1b (chore(process): relatorio da sessao (etapa 2 refactor + coverage 81.9%) + telemetria)
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,10 +178,10 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 74.7,
-      "prePrTotal": 375,
-      "prePrPass": 280,
-      "prePrFail": 95,
+      "prePrPassRate": 75.2,
+      "prePrTotal": 379,
+      "prePrPass": 285,
+      "prePrFail": 94,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -193,7 +197,7 @@
         },
         {
           "rule": "rule-26-session-started",
-          "count": 42
+          "count": 43
         },
         {
           "rule": "rule-scope",
@@ -217,10 +221,10 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.4,
-      "branchesMerged": 94,
-      "violationsCaught": 405,
-      "healedRate": 17.8,
-      "frictionPerPass": 1.45,
+      "branchesMerged": 95,
+      "violationsCaught": 406,
+      "healedRate": 17.7,
+      "frictionPerPass": 1.42,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,
@@ -462,13 +466,13 @@
     {
       "day": "2026-08-01",
       "label": "01/08",
-      "prePrTotal": 50,
+      "prePrTotal": 49,
       "prePrPass": 31,
-      "prePrFail": 19,
-      "prePrPassRate": 62,
+      "prePrFail": 18,
+      "prePrPassRate": 63.3,
       "ruleFails": 24,
       "healed": 0,
-      "sessions": 112,
+      "sessions": 107,
       "merges": 7,
       "friction": 0.77
     },
@@ -618,35 +622,130 @@
     {
       "day": "2026-08-13",
       "label": "13/08",
-      "prePrTotal": 36,
-      "prePrPass": 36,
+      "prePrTotal": 41,
+      "prePrPass": 41,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 5,
+      "ruleFails": 6,
       "healed": 9,
-      "sessions": 14,
-      "merges": 12,
-      "friction": 0.14
+      "sessions": 15,
+      "merges": 13,
+      "friction": 0.15
     }
   ],
+<<<<<<< HEAD
   "prs": [],
+=======
+  "prs": [
+    {
+      "number": 375,
+      "title": "refactor(dashboard): etapa 1 — lógica pura extraída (Dashboard 1126→976, EntryForm 939→909) + coverage gate rule-42 (≥75%)",
+      "type": "refactor",
+      "date": "2026-08-13",
+      "tokens": 2081,
+      "benefit": "Código mais simples — menor custo de manutenção",
+      "impact": "Menos custo em mudanças futuras"
+    },
+    {
+      "number": 374,
+      "title": "chore(process): testes 5.6x mais rápidos, lint 0 warnings e métrica de cobertura (78.8%)",
+      "type": "chore",
+      "date": "2026-08-13",
+      "tokens": 1075,
+      "benefit": "Ajuste de processo validado",
+      "impact": "Processo mais confiável e audável"
+    },
+    {
+      "number": 373,
+      "title": "feat(kpi): painel KPI — 30d com seletor, alertas de processo, breakdown por dono/programa e lazy-loading (−47% bundle)",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 1712,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 372,
+      "title": "fix(process): pre-pr roda data:refresh em vez de kpi — kpi-data.json completo sem regressão",
+      "type": "fix",
+      "date": "2026-08-13",
+      "tokens": 923,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação"
+    },
+    {
+      "number": 371,
+      "title": "feat(kpi): Datadog interno — abas KPI e Workflow com dados reais diários (data:refresh + nightly)",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 3287,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 370,
+      "title": "feat(process): otimização do workflow — tail-read da telemetria (−97% tokens por pre-pr) + subagentes pre-pr-triage e report-consolidation",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 767,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 369,
+      "title": "feat(process): Detalhamento por item ao nível de PR (título real + custo agregado) + relatório consolidado por PR (report:consolidate)",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 1574,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 368,
+      "title": "feat(ui): auditoria dark completa — input base translúcido nos forms, autofill protegido no CI, verify:dark nos 2 temas + dialogs",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 1033,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 367,
+      "title": "feat(ui): filtros translúcidos no dark mode + autofill legível + verificação visual no browser (verify:dark)",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 1111,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 366,
+      "title": "feat(process): Detalhamento por item como slide próprio do deck + migração de todos os relatórios legados para o modelo executivo",
+      "type": "feat",
+      "date": "2026-08-13",
+      "tokens": 8171,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    }
+  ],
+>>>>>>> 0f73b1b (chore(process): relatorio da sessao (etapa 2 refactor + coverage 81.9%) + telemetria)
   "repo": {
-    "components": 89,
+    "components": 101,
     "pages": 16,
-    "libs": 22,
+    "libs": 23,
     "scripts": 105,
-    "testFiles": 205,
+    "testFiles": 207,
     "skills": 26,
     "rules": 42,
-    "events": 1206,
-    "qualityNotes": 466
+    "events": 1209,
+    "qualityNotes": 469
   },
   "summary": {
-    "merges": 94,
+    "merges": 95,
     "prs": 6,
-    "sessions": 177,
-    "violations": 405,
+    "sessions": 173,
+    "violations": 406,
     "healed": 72,
-    "prePrPassRate": 74.7
+    "prePrPassRate": 75.2
   }
 }
