@@ -1201,3 +1201,7 @@
 {"timestamp":"2026-08-13T01:56:16.646Z","type":"session:start","description":"feature: Detalhamento por item ao nivel de PR (titulo real + custo agregado) + relatorio consolidado por PR (report:consolidate)","branch":"main","commit":"6bdcca6","agent":"human","categoria":"feature"}
 {"timestamp":"2026-08-13T01:56:16.779Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/report-por-pr","commit":"6bdcca6","agent":"human","rule":"rule-26"}
 {"timestamp":"2026-08-13T01:56:17.125Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/report-por-pr","commit":"6bdcca6","agent":"human","errors":0}
+{"timestamp":"2026-08-13T01:56:17.190Z","type":"coding:done","description":"Detalhamento por PR + consolidado implementados por subagente","branch":"feat/report-por-pr","commit":"51ece56","agent":"human","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-08-13T01:56:17.224Z","type":"code-review:done","description":"Review aprovado: 4 ajustes (import morto removido, numstatLines exportado e reusado, guard numerico --prs, PR corrente sempre anexado)","branch":"feat/report-por-pr","commit":"51ece56","agent":"human","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-08-13T01:58:03.916Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/report-por-pr","commit":"51ece56","agent":"human","errors":0}
+{"timestamp":"2026-08-13T01:59:07.972Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/report-por-pr","commit":"51ece56","agent":"human","errors":0}

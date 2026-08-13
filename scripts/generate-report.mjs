@@ -31,11 +31,12 @@
  *   npm run report --rename PR103
  *
  * A seção "Detalhamento por item" (Item | Correção Efetuada | Benefício |
- * Impacto no Negócio | Custo Token) é SEMPRE renderizada: quando --rows não é
- * passado, as linhas são derivadas ao nível de PR — cada PR merged no range
- * vira 1 linha (título real via gh + custo de token agregado do diff); na
- * branch corrente, o PR aberto vira 1 linha; sem PR, cai para os commits;
- * sem nada, entra um fallback de 1 linha com os impactos da sessão.
+ * Impacto no Negócio | Custo Token) é SEMPRE renderizada e o nível de
+ * agregação é PR (não commit): quando --rows não é passado, cada PR merged
+ * no range base..HEAD vira 1 linha (título real via gh + custo de token
+ * agregado do diff do merge); na branch corrente, o PR aberto vira 1 linha;
+ * sem merges nem PR aberto (pré-push), entra 1 linha fallback com a task da
+ * sessão — nunca lista commits no Detalhamento executivo.
  *
  * ponytail: template string + execSync, zero deps
  */
@@ -504,8 +505,9 @@ export function derivePrRows(baseRef = null) {
     rows.push(buildPrRow({ number: current.number, title: current.title, lines }));
   }
 
-  // 3. Fallback: sem merges nem PR aberto → commits (branch ainda sem PR)
-  if (rows.length === 0) return deriveTableRows(baseRef);
+  // 3. Fallback: sem merges nem PR aberto (pré-push/pre-pr) → [] para o
+  // fallbackTableRow gerar 1 linha única da sessão (nunca listar commits:
+  // o Detalhamento é executivo, ao nível de PR)
   return rows;
 }
 
