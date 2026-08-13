@@ -180,14 +180,14 @@
         </div>
         <h1>refactor etapa3 dashboard entryform</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">b878039 — refactor(etapa3): extrai drawers de criacao do EntryForm (909-&gt;511) e blocos restantes do Dashboard (491-&gt;386); 8 testes novos</div>
+        <div class="hero-meta mono">dca21f9 — refactor(entry): aplica ajustes do review — remove prop morta origemTypes, condiciona botoes + a callbacks, coverage inclui entry/ (78.9%)</div>
       </div>
       
     <div class="kpi-grid">
       <div class="kpi">
         <div class="kpi-value">0</div>
         <div class="kpi-label">entregas em produção</div>
-        <div class="kpi-sub">14 implementações · 13 reviews</div>
+        <div class="kpi-sub">14 implementações · 14 reviews</div>
       </div>
       <div class="kpi">
         <div class="kpi-value">—</div>
@@ -195,7 +195,7 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/42</div>
+        <div class="kpi-value">0/43</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
         <div class="kpi-sub">6 violações · 10 auto-corrigidas</div>
       </div>
@@ -259,7 +259,7 @@
       <td>refactor etapa3 dashboard entryform</td>
       <td>Alteração validada dentro do fluxo de qualidade do produto.</td>
       <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
-      <td><code>~1689</code></td>
+      <td><code>~1808</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 6.764 tokens (feature) · status moderado</p>
@@ -301,7 +301,7 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">42</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">43</span><span class="stat-l">rodadas de validação pré-PR</span></div>
             <div class="stat"><span class="stat-v">6</span><span class="stat-l">violações de regra encontradas</span></div>
             <div class="stat"><span class="stat-v green">10</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
@@ -327,7 +327,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 576 remoções — 2252 linhas tocadas</td><td>✨ 1496 adições — 18 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 577 remoções — 2410 linhas tocadas</td><td>✨ 1644 adições — 19 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -335,23 +335,23 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>18</td></tr>
-            <tr><td>Adições</td><td>+1496</td></tr>
-            <tr><td>Remoções</td><td>-576</td></tr>
-            <tr><td>Tokens estimados</td><td>~1689</td></tr>
+            <tr><td>Arquivos alterados</td><td>19</td></tr>
+            <tr><td>Adições</td><td>+1644</td></tr>
+            <tr><td>Remoções</td><td>-577</td></tr>
+            <tr><td>Tokens estimados</td><td>~1808</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:66">+1122 add</div>
-        <div class="del" style="flex:26">-432 del</div>
-        <div class="overhead" style="flex:8">~135 ctx</div>
+        <div class="add" style="flex:68">+1233 add</div>
+        <div class="del" style="flex:24">-433 del</div>
+        <div class="overhead" style="flex:8">~142 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+1122</td><td>66%</td></tr>
-      <tr><td>Remoções</td><td>-432</td><td>26%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~135</td><td>8%</td></tr>
-      <tr><th>Total</th><th>~1689</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+1233</td><td>68%</td></tr>
+      <tr><td>Remoções</td><td>-433</td><td>24%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~142</td><td>8%</td></tr>
+      <tr><th>Total</th><th>~1808</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
@@ -376,6 +376,7 @@
 <tr><td>A</td><td>src/components/entry/EntryProgramDrawer.tsx</td></tr>
 <tr><td>M</td><td>src/pages/Dashboard.tsx</td></tr>
 <tr><td>A</td><td>tests/components/entry-drawers.test.tsx</td></tr>
+<tr><td>M</td><td>vite.config.ts</td></tr>
           </table>
         </div>
       </div>
@@ -426,10 +427,10 @@ index 97a9d39..5d53adb 100644
  
 diff --git a/docs/reports/2026-08-13/etapa3-dashboard-entryform-2026-08-13-refactor-etapa3-dashboard-entryform.html b/docs/reports/2026-08-13/etapa3-dashboard-entryform-2026-08-13-refactor-etapa3-dashboard-entryform.html
 new file mode 100644
-index 0000000..6efc4c5
+index 0000000..9d8e6e7
 <span class="del">--- /dev/null</span>
 <span class="add">+++ b/docs/reports/2026-08-13/etapa3-dashboard-entryform-2026-08-13-refactor-etapa3-dashboard-entryform.html</span>
-@@ -0,0 +1,432 @@
+@@ -0,0 +1,569 @@
 <span class="add">+&lt;!DOCTYPE html&gt;</span>
 <span class="add">+&lt;html lang=&quot;pt-BR&quot;&gt;</span>
 <span class="add">+&lt;head&gt;</span>

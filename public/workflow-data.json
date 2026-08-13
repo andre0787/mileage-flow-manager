@@ -1,18 +1,14 @@
 {
-<<<<<<< HEAD
-  "generatedAt": "2026-08-13T07:20:12.473Z",
-=======
-  "generatedAt": "2026-08-13T12:20:22.467Z",
->>>>>>> 0f73b1b (chore(process): relatorio da sessao (etapa 2 refactor + coverage 81.9%) + telemetria)
+  "generatedAt": "2026-08-13T12:38:59.556Z",
   "dataDate": "2026-08-13",
   "kpiStats": [
     {
-      "value": 1209,
+      "value": 1207,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 469,
+      "value": 470,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -27,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 72,
+      "value": 73,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 44,
+      "value": 45,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -40,12 +36,12 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 173,
+      "n": 167,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 379,
+      "n": 380,
       "color": "#8b5cf6"
     },
     {
@@ -55,7 +51,7 @@
     },
     {
       "name": "healed",
-      "n": 72,
+      "n": 73,
       "color": "#10b981"
     },
     {
@@ -65,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 47,
+      "n": 48,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 46,
+      "n": 47,
       "color": "#22c55e"
     },
     {
@@ -107,7 +103,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 317,
+      "n": 318,
       "color": "#10b981"
     },
     {
@@ -123,53 +119,53 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-13 12:20:18",
+      "t": "2026-08-13 12:38:55",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-13 12:18:16",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-13 12:15:30",
-      "d": "rule:fail",
-      "desc": "rule-26-session-started falhou"
-    },
-    {
-      "t": "2026-08-13 12:15:16",
+      "t": "2026-08-13 12:38:23",
       "d": "code-review:done",
-      "desc": "Review aprovado com 2 ajustes aplicados: AccountCard dividido (171->141 + AccountActions 55L) e HeroDecor preserva drift dots variados; fix stderr ruidoso da rule-41"
+      "desc": "Review aprovado com 3 ajustes: prop morta removida (origemTypes), botoes + condicionais (AccountDrawerFields), coverage inclui entry/"
     },
     {
-      "t": "2026-08-13 12:15:09",
+      "t": "2026-08-13 12:38:23",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-13 12:14:24",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-13 12:12:18",
+      "t": "2026-08-13 12:36:19",
       "d": "coding:done",
-      "desc": "Etapa 2 refactor implementada por subagente: DashboardHero+HeroStats+HeroDecor+HeroStatCard+StockCards+FinancialMetricCards+OwnerStockList+RecentSalesList+RecentTransfersList (Dashboard 976->491), AccountCard+AccountsSummary (Contas 420->240), lib entryOperations pura (Entradas 597->562), 18 testes novos"
+      "desc": "Etapa 3 refactor implementada por subagente: Dashboard 491->386 (AlertBanners/SecondaryMetrics/Skeleton), EntryForm 909->511 (EntryCreateDrawers + 6 componentes entry/), 8 testes novos"
     },
     {
-      "t": "2026-08-13 12:12:18",
+      "t": "2026-08-13 12:36:19",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-13 12:36:18",
+      "d": "healed",
+      "desc": "rule-26 auto-corrigido"
+    },
+    {
+      "t": "2026-08-13 12:29:11",
+      "d": "session:start",
+      "desc": "refactor: Etapa 3 refactor: extrai blocos JSX restantes do Dashboard (491L) e EntryForm (909L) em componentes proprios"
+    },
+    {
+      "t": "2026-08-13 12:20:18",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 406,
-    "healed": 72,
-    "healedRate": 17.7,
-    "prePrTotal": 379,
-    "prePrPass": 285,
-    "prePrPassRate": 75.2,
+    "healed": 73,
+    "healedRate": 18,
+    "prePrTotal": 380,
+    "prePrPass": 287,
+    "prePrPassRate": 75.5,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -199,10 +195,16 @@
       }
     ]
   },
-<<<<<<< HEAD
-  "lastPrs": [],
-=======
   "lastPrs": [
+    {
+      "number": 376,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-08-13",
+      "tokens": 452,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção"
+    },
     {
       "number": 375,
       "title": "refactor(dashboard): etapa 1 — lógica pura extraída (Dashboard 1126→976, EntryForm 939→909) + coverage gate rule-42 (≥75%)",
@@ -238,27 +240,17 @@
       "tokens": 923,
       "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
       "impact": "Menos risco de erro para o usuário e a operação"
-    },
-    {
-      "number": 371,
-      "title": "feat(kpi): Datadog interno — abas KPI e Workflow com dados reais diários (data:refresh + nightly)",
-      "type": "feat",
-      "date": "2026-08-13",
-      "tokens": 3287,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
->>>>>>> 0f73b1b (chore(process): relatorio da sessao (etapa 2 refactor + coverage 81.9%) + telemetria)
   "overview": {
-    "components": 101,
+    "components": 111,
     "pages": 16,
     "libs": 23,
     "scripts": 105,
     "testFiles": 207,
     "skills": 26,
     "rules": 42,
-    "events": 1209,
-    "qualityNotes": 469
+    "events": 1207,
+    "qualityNotes": 470
   }
 }
