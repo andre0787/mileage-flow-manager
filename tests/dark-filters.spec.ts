@@ -110,6 +110,34 @@ test.describe("Dark Mode — filtros translúcidos", () => {
     expect(diff).toBeGreaterThan(100);
   });
 
+  test("autofill: bloco CSS -webkit-autofill está no bundle compilado", async ({ page }) => {
+    // Garantia contra remoção acidental do CSS de autofill (PR #367): se o
+    // bloco sumir do index.css, este teste falha no CI.
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+
+    // Lê as regras reais do bundle; o navegador normaliza -webkit-box-shadow
+    // para box-shadow no cssText, então a checagem foca na regra do autofill.
+    const rules = await page.evaluate(() => {
+      const out: string[] = [];
+      for (const sheet of Array.from(document.styleSheets)) {
+        try {
+          for (const rule of Array.from(sheet.cssRules)) out.push(rule.cssText);
+        } catch {
+          /* cross-origin sheet — ignora */
+        }
+      }
+      return out;
+    });
+
+    const autofillRule = rules.find((r) => r.includes("-webkit-autofill"));
+    expect(autofillRule, "regra -webkit-autofill deve existir no bundle").toBeDefined();
+    expect(autofillRule!).toContain("-webkit-text-fill-color");
+    // \s* tolera CSS minificado em produção (sem espaço após o colon)
+    expect(autofillRule!).toMatch(/box-shadow:\s*0 0 0 1000px/);
+    expect(autofillRule!).toContain("caret-color");
+  });
+
   test("light: filtros mantêm o estilo filled/borderless (sem regressão)", async ({ page }) => {
     await ensureTheme(page, "light");
 
