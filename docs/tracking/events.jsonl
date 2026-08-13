@@ -1201,3 +1201,6 @@
 {"timestamp":"2026-08-13T00:41:11.030Z","type":"session:start","description":"feature: Slide proprio de Detalhamento por item no deck + migracao dos 15 relatorios legados para o modelo executivo","branch":"main","commit":"4a32889","agent":"human","categoria":"feature"}
 {"timestamp":"2026-08-13T00:41:11.180Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/report-slide-legacy","commit":"4a32889","agent":"human","rule":"rule-26"}
 {"timestamp":"2026-08-13T00:41:11.525Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/report-slide-legacy","commit":"4a32889","agent":"human","errors":0}
+{"timestamp":"2026-08-13T00:43:05.915Z","type":"coding:done","description":"Slide Detalhamento por item + migracao 15 legados implementados por subagente","branch":"feat/report-slide-legacy","commit":"e41d11d","agent":"human","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-08-13T00:43:05.948Z","type":"code-review:done","description":"Review aprovado: sem bloqueios (ids de slide cosmeticos, 1/5 intencional)","branch":"feat/report-slide-legacy","commit":"e41d11d","agent":"human","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-08-13T00:44:51.971Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/report-slide-legacy","commit":"e41d11d","agent":"human","errors":0}
