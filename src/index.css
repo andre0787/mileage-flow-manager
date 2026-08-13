@@ -208,8 +208,11 @@
 
   /* ── Autofill: Chrome pinta o campo com cor própria (branco/azul) que
      ignora background-color. O box-shadow inset repinta por cima com a cor
-     do card do tema e o text-fill-color garante texto legível — sem fundo
-     branco chapado no dark com texto escuro ilegível. (#PR dark filters) ── */
+     elevada do tema e o text-fill-color garante texto legível — sem fundo
+     branco chapado no dark com texto escuro ilegível. (#PR dark filters)
+     Usa --secondary (não --card): no dark #292929 ≈ o composto translúcido
+     dos campos (secondary/60 sobre preto ≈ #191919) — transição visual
+     quase imperceptível ao autofillar, mantendo a legibilidade. ── */
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
@@ -220,7 +223,7 @@
   select:-webkit-autofill:hover,
   select:-webkit-autofill:focus {
     -webkit-text-fill-color: hsl(var(--foreground));
-    -webkit-box-shadow: 0 0 0 1000px hsl(var(--card)) inset;
+    -webkit-box-shadow: 0 0 0 1000px hsl(var(--secondary)) inset;
     caret-color: hsl(var(--foreground));
     transition: background-color 9999s ease-in-out 0s;
   }
