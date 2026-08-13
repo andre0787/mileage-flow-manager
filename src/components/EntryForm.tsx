@@ -492,7 +492,6 @@ export function EntryForm({
       {/* Drawers de criação (Conta, Dono, Programa, Tipo de Origem) */}
       <EntryCreateDrawers
         type={type}
-        origemTypes={origemTypes}
         owners={owners}
         programs={programs}
         origemTypeOpen={isOrigemTypeOpen}

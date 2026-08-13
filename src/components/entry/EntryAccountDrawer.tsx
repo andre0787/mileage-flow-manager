@@ -93,6 +93,8 @@ export function EntryAccountDrawer({
           errors={errors}
           owners={owners}
           programs={programs}
+          canCreateOwner={!!onCreateOwner}
+          canCreateProgram={!!onCreateProgram}
           onOpenOwner={() => setIsOwnerOpen(true)}
           onOpenProgram={() => setIsProgramOpen(true)}
         />

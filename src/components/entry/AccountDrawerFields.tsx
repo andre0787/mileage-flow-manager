@@ -23,6 +23,8 @@ interface AccountDrawerFieldsProps {
   errors: Partial<Record<string, string>>;
   owners: Owner[];
   programs: Program[];
+  canCreateOwner: boolean;
+  canCreateProgram: boolean;
   onOpenOwner: () => void;
   onOpenProgram: () => void;
 }
@@ -33,6 +35,8 @@ export function AccountDrawerFields({
   errors,
   owners,
   programs,
+  canCreateOwner,
+  canCreateProgram,
   onOpenOwner,
   onOpenProgram,
 }: AccountDrawerFieldsProps) {
@@ -66,9 +70,11 @@ export function AccountDrawerFields({
               </SelectContent>
             </Select>
           </div>
-          <Button variant="outline" size="icon" className="shrink-0" onClick={onOpenOwner}>
-            <Plus className="h-4 w-4" />
-          </Button>
+          {canCreateOwner && (
+            <Button variant="outline" size="icon" className="shrink-0" onClick={onOpenOwner}>
+              <Plus className="h-4 w-4" />
+            </Button>
+          )}
         </div>
         {errors.ownerId && <p className="text-xs text-destructive">{errors.ownerId}</p>}
       </div>
@@ -89,9 +95,11 @@ export function AccountDrawerFields({
               </SelectContent>
             </Select>
           </div>
-          <Button variant="outline" size="icon" className="shrink-0" onClick={onOpenProgram}>
-            <Plus className="h-4 w-4" />
-          </Button>
+          {canCreateProgram && (
+            <Button variant="outline" size="icon" className="shrink-0" onClick={onOpenProgram}>
+              <Plus className="h-4 w-4" />
+            </Button>
+          )}
         </div>
         {errors.programId && <p className="text-xs text-destructive">{errors.programId}</p>}
       </div>

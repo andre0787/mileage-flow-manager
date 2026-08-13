@@ -1,10 +1,9 @@
 import { EntryAccountDrawer } from "@/components/entry/EntryAccountDrawer";
 import { EntryOrigemTypeDrawer } from "@/components/entry/EntryOrigemTypeDrawer";
-import type { OrigemType, Owner, Program } from "@/types";
+import type { Owner, Program } from "@/types";
 
 interface EntryCreateDrawersProps {
   type: "milhas" | "pontos";
-  origemTypes: OrigemType[];
   owners: Owner[];
   programs: Program[];
   origemTypeOpen: boolean;
@@ -36,7 +35,6 @@ interface EntryCreateDrawersProps {
 
 export function EntryCreateDrawers({
   type,
-  origemTypes,
   owners,
   programs,
   origemTypeOpen,

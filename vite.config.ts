@@ -26,6 +26,7 @@ export default defineConfig(({ mode }) => ({
         "src/components/workflow/**",
         "src/components/dashboard/**",
         "src/components/accounts/**",
+        "src/components/entry/**",
       ],
       exclude: ["src/**/index.ts", "src/lib/supabase.ts", "src/lib/db.ts"],
     },
