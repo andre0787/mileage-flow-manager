@@ -1,19 +1,19 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router";
-import { AlertTriangle, CreditCard, Target, TrendingDown, TrendingUp, Users } from "lucide-react";
-import { MetricCard } from "@/components/MetricCard";
+import { TrendingDown, TrendingUp, Users } from "lucide-react";
 import { DashboardCharts } from "@/components/DashboardCharts";
 import { FlowMap } from "@/components/FlowMap";
+import { DashboardAlertBanners } from "@/components/dashboard/DashboardAlertBanners";
 import { DashboardHero } from "@/components/dashboard/DashboardHero";
+import { DashboardSecondaryMetrics } from "@/components/dashboard/DashboardSecondaryMetrics";
+import { DashboardSkeleton } from "@/components/dashboard/DashboardSkeleton";
 import { FinancialMetricCards } from "@/components/dashboard/FinancialMetricCards";
 import { OwnerStockList } from "@/components/dashboard/OwnerStockList";
 import { RecentSalesList } from "@/components/dashboard/RecentSalesList";
 import { RecentTransfersList } from "@/components/dashboard/RecentTransfersList";
 import { StockCards } from "@/components/dashboard/StockCards";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { SkeletonMetricCard, SkeletonTable } from "@/components/SkeletonLoader";
 import { useData } from "@/contexts/DataContext";
 import { computeDashboardMetrics, computeMetricHistory } from "@/lib/metrics";
 import {
@@ -175,35 +175,7 @@ export default function Dashboard() {
 
   // ── Loading state (after all hooks) ──
   if (isLoading) {
-    return (
-      <div className="space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div className="flex-1 space-y-4">
-            <div className="h-8 w-48 bg-muted rounded animate-pulse" />
-            <div className="h-12 w-72 bg-muted rounded animate-pulse" />
-            <div className="grid grid-cols-3 gap-4">
-              <div className="h-16 bg-muted rounded-xl animate-pulse" />
-              <div className="h-16 bg-muted rounded-xl animate-pulse" />
-              <div className="h-16 bg-muted rounded-xl animate-pulse" />
-            </div>
-          </div>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
-          <SkeletonMetricCard />
-          <SkeletonMetricCard />
-          <SkeletonMetricCard />
-          <SkeletonMetricCard />
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
-          <div className="rounded-xl border border-border p-6 space-y-4">
-            <SkeletonTable rows={4} cols={3} />
-          </div>
-          <div className="rounded-xl border border-border p-6 space-y-4">
-            <SkeletonTable rows={4} cols={3} />
-          </div>
-        </div>
-      </div>
-    );
+    return <DashboardSkeleton />;
   }
 
   return (
@@ -243,62 +215,12 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Entradas atrasadas */}
-        {overdueEntries.length > 0 && (
-          <div
-            className="rounded-lg border border-red-400/30 bg-red-50 dark:bg-red-950/20 p-3 sm:p-4 flex items-start gap-3 animate-appear"
-            onClick={() => navigate("/entradas")}
-          >
-            <AlertTriangle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-red-800 dark:text-red-300">
-                {overdueEntries.length} entrada{overdueEntries.length > 1 ? "s" : ""} atrasada
-                {overdueEntries.length > 1 ? "s" : ""} — confirmação vencida
-              </p>
-              <p className="text-xs text-red-700 dark:text-red-400 mt-0.5">
-                Clube de {activeTab === "milhas" ? "Milhas" : "Pontos"} — regularize em Entradas
-                para atualizar o saldo
-              </p>
-            </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="shrink-0 text-red-700 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30"
-              asChild
-            >
-              <a href="/entradas">Ver →</a>
-            </Button>
-          </div>
-        )}
-
-        {/* Entradas pendentes no prazo */}
-        {activePendingEntries.length > 0 && (
-          <div
-            className="rounded-lg border border-amber-400/30 bg-amber-50 dark:bg-amber-950/20 p-3 sm:p-4 flex items-start gap-3 animate-appear"
-            onClick={() => navigate("/entradas")}
-          >
-            <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-amber-800 dark:text-amber-300">
-                {activePendingEntries.length} entrada{activePendingEntries.length > 1 ? "s" : ""}{" "}
-                pendente
-                {activePendingEntries.length > 1 ? "s" : ""} de confirmação
-              </p>
-              <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
-                Clube de {activeTab === "milhas" ? "Milhas" : "Pontos"} — confirme em Entradas para
-                atualizar o saldo
-              </p>
-            </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="shrink-0 text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/30"
-              asChild
-            >
-              <a href="/entradas">Ver →</a>
-            </Button>
-          </div>
-        )}
+        <DashboardAlertBanners
+          overdueCount={overdueEntries.length}
+          pendingCount={activePendingEntries.length}
+          activeTab={activeTab}
+          onViewEntries={() => navigate("/entradas")}
+        />
 
         {/* ═══════════════════════════════════════════ */}
         {/* MILHAS TAB */}
@@ -387,30 +309,11 @@ export default function Dashboard() {
           </div>
 
           {/* SECONDARY METRICS */}
-          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 animate-appear animate-delay-800">
-            <MetricCard
-              title="Contas Ativas"
-              value={currentMetrics.activeAccounts}
-              subtitle="Contas operacionais"
-              icon={CreditCard}
-              variant="teal"
-              sparklineData={metricHistory.milesIn}
-            />
-            <MetricCard
-              title="Vendas Pendentes"
-              value={currentMetrics.pendingSales}
-              subtitle="Aguardando processamento"
-              icon={Target}
-              variant="default"
-            />
-            <MetricCard
-              title="Alertas CPF"
-              value={currentMetrics.cpfAlerts}
-              subtitle="Próximo ao limite"
-              icon={AlertTriangle}
-              variant="warning"
-            />
-          </div>
+          <DashboardSecondaryMetrics
+            metrics={currentMetrics}
+            metricHistory={metricHistory}
+            variant="milhas"
+          />
 
           {/* OWNER + SALES */}
           <div
@@ -457,15 +360,7 @@ export default function Dashboard() {
           </div>
 
           {/* SECONDARY METRICS */}
-          <div className="animate-appear animate-delay-800">
-            <MetricCard
-              title="Contas Ativas (Pontos)"
-              value={currentMetrics.activeAccounts}
-              subtitle="Contas de pontos operacionais"
-              icon={CreditCard}
-              variant="teal"
-            />
-          </div>
+          <DashboardSecondaryMetrics metrics={currentMetrics} variant="pontos" />
 
           {/* OWNER + TRANSFERS */}
           <div

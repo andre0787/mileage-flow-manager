@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "generatedAt": "2026-08-13T07:20:12.419Z",
-=======
-  "generatedAt": "2026-08-13T12:20:18.806Z",
->>>>>>> 0f73b1b (chore(process): relatorio da sessao (etapa 2 refactor + coverage 81.9%) + telemetria)
+  "generatedAt": "2026-08-13T12:38:56.083Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -178,10 +174,10 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 75.2,
-      "prePrTotal": 379,
-      "prePrPass": 285,
-      "prePrFail": 94,
+      "prePrPassRate": 75.5,
+      "prePrTotal": 380,
+      "prePrPass": 287,
+      "prePrFail": 93,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -213,7 +209,7 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 53,
+        "rule-26": 54,
         "rule-17-new-docs-valid": 18,
         "rule-02": 1
       },
@@ -221,10 +217,10 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.4,
-      "branchesMerged": 95,
+      "branchesMerged": 96,
       "violationsCaught": 406,
-      "healedRate": 17.7,
-      "frictionPerPass": 1.42,
+      "healedRate": 18,
+      "frictionPerPass": 1.41,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,
@@ -466,15 +462,15 @@
     {
       "day": "2026-08-01",
       "label": "01/08",
-      "prePrTotal": 49,
-      "prePrPass": 31,
-      "prePrFail": 18,
-      "prePrPassRate": 63.3,
+      "prePrTotal": 47,
+      "prePrPass": 30,
+      "prePrFail": 17,
+      "prePrPassRate": 63.8,
       "ruleFails": 24,
       "healed": 0,
-      "sessions": 107,
+      "sessions": 100,
       "merges": 7,
-      "friction": 0.77
+      "friction": 0.8
     },
     {
       "day": "2026-08-02",
@@ -622,21 +618,27 @@
     {
       "day": "2026-08-13",
       "label": "13/08",
-      "prePrTotal": 41,
-      "prePrPass": 41,
+      "prePrTotal": 44,
+      "prePrPass": 44,
       "prePrFail": 0,
       "prePrPassRate": 100,
       "ruleFails": 6,
-      "healed": 9,
-      "sessions": 15,
-      "merges": 13,
-      "friction": 0.15
+      "healed": 10,
+      "sessions": 16,
+      "merges": 14,
+      "friction": 0.14
     }
   ],
-<<<<<<< HEAD
-  "prs": [],
-=======
   "prs": [
+    {
+      "number": 376,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-08-13",
+      "tokens": 452,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção"
+    },
     {
       "number": 375,
       "title": "refactor(dashboard): etapa 1 — lógica pura extraída (Dashboard 1126→976, EntryForm 939→909) + coverage gate rule-42 (≥75%)",
@@ -717,35 +719,25 @@
       "tokens": 1111,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 366,
-      "title": "feat(process): Detalhamento por item como slide próprio do deck + migração de todos os relatórios legados para o modelo executivo",
-      "type": "feat",
-      "date": "2026-08-13",
-      "tokens": 8171,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
->>>>>>> 0f73b1b (chore(process): relatorio da sessao (etapa 2 refactor + coverage 81.9%) + telemetria)
   "repo": {
-    "components": 101,
+    "components": 111,
     "pages": 16,
     "libs": 23,
     "scripts": 105,
     "testFiles": 207,
     "skills": 26,
     "rules": 42,
-    "events": 1209,
-    "qualityNotes": 469
+    "events": 1207,
+    "qualityNotes": 470
   },
   "summary": {
-    "merges": 95,
+    "merges": 96,
     "prs": 6,
-    "sessions": 173,
+    "sessions": 167,
     "violations": 406,
-    "healed": 72,
-    "prePrPassRate": 75.2
+    "healed": 73,
+    "prePrPassRate": 75.5
   }
 }
