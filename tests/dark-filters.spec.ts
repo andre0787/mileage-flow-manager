@@ -123,7 +123,9 @@ test.describe("Dark Mode — filtros translúcidos", () => {
       for (const sheet of Array.from(document.styleSheets)) {
         try {
           for (const rule of Array.from(sheet.cssRules)) out.push(rule.cssText);
-        } catch {}
+        } catch {
+          /* cross-origin sheet — ignora */
+        }
       }
       return out;
     });
