@@ -23,9 +23,9 @@ describe("KPI Page", () => {
     expect(fallback).toBeDefined();
   });
 
-  it("mentions npm run kpi in fallback", async () => {
+  it("mentions npm run data:refresh in fallback", async () => {
     render(<KPI />);
-    const kpiHint = await screen.findByText(/npm run kpi/);
+    const kpiHint = await screen.findByText(/npm run data:refresh/);
     expect(kpiHint).toBeDefined();
   });
 });

@@ -1,17 +1,8 @@
 import KPICard from "./KPICard";
 import KPITable from "./KPITable";
+import type { RouterMonthlyKPI } from "@/types/kpi";
 
-export interface RouterMonthlyKPI {
-  resolved: number;
-  completed: number;
-  failed: number;
-  unobserved: number;
-  fallbackUsed: number;
-  completionRate: number | null;
-  fallbackRate: number | null;
-  models: string[];
-  skillsByModel: Array<{ skill: string; model: string }>;
-}
+export type { RouterMonthlyKPI };
 
 function formatPercent(value: number | null): string {
   if (value === null || value === undefined) return "—";

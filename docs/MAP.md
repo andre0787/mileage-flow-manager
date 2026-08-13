@@ -147,6 +147,11 @@ Artefatos de sprints/features concluídos foram movidos para `docs/archive/`:
 ```tree
 src/
 ├── components/
+│   ├── kpi/
+│   │   ├── BusinessPanel.tsx
+│   │   ├── MonthlySection.tsx
+│   │   ├── ProcessDailySection.tsx
+│   │   └── PrsPanel.tsx
 │   ├── tests/
 │   │   ├── AccountAlertsDialog.test.tsx
 │   │   ├── AccountDialog.test.tsx
@@ -178,12 +183,15 @@ src/
 │   │   ├── switch.tsx
 │   │   ├── table.tsx
 │   │   ├── tabs.tsx
+│   │   ├── textarea.tsx
 │   │   └── tooltip.tsx
 │   ├── workflow/
+│   │   ├── WorkflowEfficiency.tsx
 │   │   ├── WorkflowGates.tsx
 │   │   ├── WorkflowHero.tsx
 │   │   ├── WorkflowJourney.tsx
 │   │   ├── WorkflowMindMap.tsx
+│   │   ├── WorkflowOverview.tsx
 │   │   ├── WorkflowSimulator.tsx
 │   │   ├── WorkflowTelemetry.tsx
 │   │   └── WorkflowTimeline.tsx
@@ -206,6 +214,7 @@ src/
 │   ├── FeedbackDialog.tsx
 │   ├── FlowMap.tsx
 │   ├── FormDrawer.tsx
+│   ├── GateEfficiencySection.tsx
 │   ├── GlobalSearch.tsx
 │   ├── KeyboardShortcutsHelp.tsx
 │   ├── KPICard.tsx
@@ -235,6 +244,14 @@ src/
 │   ├── I18nContext.tsx
 │   └── OnlineContext.tsx
 ├── features/
+│   ├── alerts/
+│   │   ├── addAccountAlert.ts
+│   │   ├── alertsApi.ts
+│   │   ├── getAccountAlerts.ts
+│   │   ├── hooks.ts
+│   │   ├── index.ts
+│   │   ├── shared.ts
+│   │   └── toggleAccountAlert.ts
 │   ├── api/
 │   │   ├── baseApi.ts
 │   │   └── index.ts
@@ -277,16 +294,53 @@ src/
 │   │   ├── mutationHooksLifecycle.ts
 │   │   ├── shared.ts
 │   │   └── updateEntry.ts
+│   ├── origemTypes/
+│   │   ├── addOrigemType.ts
+│   │   ├── deleteOrigemType.ts
+│   │   ├── getOrigemTypes.ts
+│   │   ├── hooks.ts
+│   │   ├── index.ts
+│   │   ├── mutationHooksLifecycle.ts
+│   │   ├── origemTypesApi.ts
+│   │   ├── shared.ts
+│   │   └── updateOrigemType.ts
+│   ├── owners/
+│   │   ├── addOwner.ts
+│   │   ├── deleteOwner.ts
+│   │   ├── getOwners.ts
+│   │   ├── hooks.ts
+│   │   ├── index.ts
+│   │   ├── mutationHooksLifecycle.ts
+│   │   ├── ownersApi.ts
+│   │   ├── shared.ts
+│   │   └── updateOwner.ts
+│   ├── programs/
+│   │   ├── addProgram.ts
+│   │   ├── deleteProgram.ts
+│   │   ├── getPrograms.ts
+│   │   ├── hooks.ts
+│   │   ├── index.ts
+│   │   ├── mutationHooksLifecycle.ts
+│   │   ├── programsApi.ts
+│   │   ├── shared.ts
+│   │   └── updateProgram.ts
+│   ├── vendas/
+│   │   ├── addVenda.ts
+│   │   ├── cancelVenda.ts
+│   │   ├── deleteVenda.ts
+│   │   ├── getVendas.ts
+│   │   ├── hooks.ts
+│   │   ├── index.ts
+│   │   ├── mutationHooksBasic.ts
+│   │   ├── mutationHooksLifecycle.ts
+│   │   ├── shared.ts
+│   │   ├── updateVenda.ts
+│   │   └── vendasApi.ts
 │   └── store.ts
 ├── hooks/
 │   ├── useDatabase/
-│   │   ├── alerts.ts
 │   │   ├── index.ts
 │   │   ├── mappers.ts
-│   │   ├── origemTypes.ts
-│   │   ├── owners.ts
-│   │   ├── programs.ts
-│   │   ├── sales.ts
 │   │   └── shared.ts
 │   ├── use-mobile.tsx
 │   ├── useClientCycleAvailability.ts
@@ -299,6 +353,7 @@ src/
 │   ├── accountActivity.ts
 │   ├── accounts.ts
 │   ├── auto-classify.ts
+│   ├── businessSeries.ts
 │   ├── dates.ts
 │   ├── dateUtils.ts
 │   ├── i18n.ts
@@ -310,7 +365,9 @@ src/
 │   ├── supabase-types.ts
 │   ├── supabase.ts
 │   ├── text-to-query.ts
+│   ├── transferCalc.ts
 │   ├── utils.ts
+│   ├── workflowData.ts
 │   └── workflowDemoData.ts
 ├── pages/
 │   ├── AdminEventos.tsx
@@ -330,7 +387,8 @@ src/
 │   ├── Vendas.tsx
 │   └── Workflow.tsx
 ├── types/
-│   └── index.ts
+│   ├── index.ts
+│   └── kpi.ts
 ├── App.tsx
 ├── main.tsx
 └── vite-env.d.ts

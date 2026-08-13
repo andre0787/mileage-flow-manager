@@ -19,6 +19,8 @@ interface KPIChartProps<T> {
   type: "bar" | "line";
   unit?: string;
   labels?: string[];
+  /** Chave do eixo X (padrão "month"). Use "label" para séries diárias. */
+  xKey?: string;
 }
 
 const COLORS = ["hsl(var(--primary))", "hsl(173 80% 40%)", "hsl(43 96% 46%)", "hsl(0 73% 52%)"];
@@ -43,6 +45,7 @@ export default function KPIChart<T extends Record<string, unknown>>({
   type,
   unit,
   labels,
+  xKey = "month",
 }: KPIChartProps<T>) {
   const keys = Array.isArray(dataKey) ? dataKey : [dataKey];
   const chartLabels = labels ?? keys;
@@ -68,7 +71,7 @@ export default function KPIChart<T extends Record<string, unknown>>({
             {type === "bar" ? (
               <BarChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-                <XAxis dataKey="month" className="text-xs" tick={{ fontSize: 11 }} />
+                <XAxis dataKey={xKey} className="text-xs" tick={{ fontSize: 11 }} />
                 <YAxis className="text-xs" tick={{ fontSize: 11 }} unit={unit} />
                 <Tooltip
                   contentStyle={{
@@ -91,7 +94,7 @@ export default function KPIChart<T extends Record<string, unknown>>({
             ) : (
               <LineChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-                <XAxis dataKey="month" className="text-xs" tick={{ fontSize: 11 }} />
+                <XAxis dataKey={xKey} className="text-xs" tick={{ fontSize: 11 }} />
                 <YAxis className="text-xs" tick={{ fontSize: 11 }} unit={unit} domain={[0, 100]} />
                 <Tooltip
                   contentStyle={{

@@ -6,7 +6,8 @@ import { WorkflowGates } from "@/components/workflow/WorkflowGates";
 import { WorkflowTelemetry } from "@/components/workflow/WorkflowTelemetry";
 import { WorkflowEfficiency } from "@/components/workflow/WorkflowEfficiency";
 import { WorkflowSimulator } from "@/components/workflow/WorkflowSimulator";
-import { DATA_DATE } from "@/lib/workflowDemoData";
+import { WorkflowOverview } from "@/components/workflow/WorkflowOverview";
+import { useWorkflowData } from "@/lib/workflowData";
 
 /**
  * Workflow — página "Workflow" (aba no webapp).
@@ -16,11 +17,16 @@ import { DATA_DATE } from "@/lib/workflowDemoData";
  * hero → jornada → linha do tempo → mapa mental → gates → telemetria → simulador.
  */
 export default function Workflow() {
+  const { dataDate } = useWorkflowData();
   const today = new Date().toLocaleDateString("pt-BR");
 
   return (
     <div className="max-w-5xl mx-auto space-y-12 pb-8">
       <WorkflowHero />
+
+      <section className="border-t pt-8" aria-label="Visão geral do projeto">
+        <WorkflowOverview />
+      </section>
 
       <section className="border-t pt-8" aria-label="A jornada">
         <WorkflowJourney />
@@ -56,7 +62,7 @@ export default function Workflow() {
         </p>
         <p className="mt-1 text-xs text-muted-foreground">
           Dados de telemetria extraídos de docs/tracking/ · números reais do repositório em{" "}
-          {DATA_DATE} · gerado em {today}
+          {dataDate} · gerado em {today}
         </p>
       </footer>
     </div>

@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `feat/workflow-otimizacao-subagentes`
-- **Último commit:** `1054d2e — feat(process): otimizacao do workflow — readTodayEvents/Quality por tail (fallback full-read p/ backfill), skills pre-pr-triage e report-consolidation, manifest 17 arquivos`
+- **Branch:** `feat/datadog-interno-kpis`
+- **Último commit:** `ae402a8 — fix(test): mensagem de fallback da aba KPI aponta para npm run data:refresh`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -45,11 +45,11 @@ Nenhum PR aberto.
 
 ## 🎯 Sessão Atual
 **Categoria:** feature
-**Objetivo:** Otimizacao do workflow: tail-read da telemetria + skills pre-pr-triage e report-consolidation
+**Objetivo:** Datadog interno: abas KPI e Workflow com dados reais diarios
 **Status:** in_progress
-**Iniciada em:** 2026-08-13T02:20:25.331Z
-**Branch:** `feat/workflow-otimizacao-subagentes`
-**Último commit:** 1054d2e — feat(process): otimizacao do workflow — readTodayEvents/Quality por tail (fallback full-read p/ backfill), skills pre-pr-triage e report-consolidation, manifest 17 arquivos
+**Iniciada em:** 2026-08-13T02:58:46.434Z
+**Branch:** `feat/datadog-interno-kpis`
+**Último commit:** ae402a8 — fix(test): mensagem de fallback da aba KPI aponta para npm run data:refresh
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
