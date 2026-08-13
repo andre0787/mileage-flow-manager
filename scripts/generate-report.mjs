@@ -349,12 +349,42 @@ const DEFAULT_BENEFIT = "Mudança validada pelo fluxo de qualidade";
 const DEFAULT_IMPACT = "Risco controlado antes da produção";
 
 function typeOf(subject) {
-  if (/^fix/i.test(subject)) return "fix";
-  if (/^feat/i.test(subject)) return "feat";
-  if (/^refactor/i.test(subject)) return "refactor";
-  if (/^docs/i.test(subject)) return "docs";
-  if (/^(chore|style|build)/i.test(subject)) return "chore";
+  // Prefixo de conventional commit, com limite (fixup: não vira fix)
+  if (/^fix(\(|\s|:|$)/i.test(subject)) return "fix";
+  if (/^feat(\(|\s|:|$)/i.test(subject)) return "feat";
+  if (/^refactor(\(|\s|:|$)/i.test(subject)) return "refactor";
+  if (/^docs(\(|\s|:|$)/i.test(subject)) return "docs";
+  if (/^(chore|style|build)(\(|\s|:|$)/i.test(subject)) return "chore";
   return "auto";
+}
+
+/**
+ * Converte UM registro de commit (git log --format='%x1f…%x1e') em linha da
+ * tabela. Função pura (sem git) para ser testável — o parsing usa separador
+ * unitário (%x1f) e registro (%x1e), imune a pipes/novas linhas no body.
+ * Retorna null quando o registro não é um commit válido.
+ */
+export function parseCommitRecord(record) {
+  const clean = String(record).replace(/\x1e+$/, ""); // remove separador de registro final
+  const parts = clean.split("\x1f");
+  const sha = (parts[1] || "").trim();
+  const subject = (parts[2] || "").trim();
+  if (!sha || !subject) return null;
+  const body =
+    parts
+      .slice(3)
+      .join("\x1f")
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(Boolean)[0] || "";
+  const type = typeOf(subject);
+  return {
+    item: sha,
+    fix: body ? `${subject} — ${body}` : subject,
+    benefit: TYPE_BENEFIT[type] || DEFAULT_BENEFIT,
+    impact: TYPE_IMPACT[type] || DEFAULT_IMPACT,
+    tokens: null, // preenchido depois pelo numstat (por linhas do diff do commit)
+  };
 }
 
 /**
@@ -362,35 +392,27 @@ function typeOf(subject) {
  * (git log <base>..HEAD): cada commit vira uma linha com custo de token
  * estimado pelo diff do commit (linhas × 0.75, mesma heurística do diff geral).
  * Retorna [] quando não há dados de git (import em testes).
- */
-export function deriveTableRows(baseRef = null) {
+ */ export function deriveTableRows(baseRef = null) {
   const base =
     baseRef ||
     DIFF_BASE ||
     git("git merge-base HEAD origin/main 2>/dev/null || git rev-list --max-parents=0 HEAD");
-  const logOut = git(`git log --no-merges ${base}..HEAD --format='%h|%s|%b'`);
+  // Registros separados por \x1e, campos por \x1f: imune a pipes e
+  // bodies multilinha (o split por \n de %b era um bug real de parsing).
+  const logOut = git(`git log --no-merges ${base}..HEAD --format='%x1f%h%x1f%s%x1f%b%x1e'`);
   if (logOut === "n/a" || !logOut || logOut === "") return [];
   const rows = [];
-  for (const line of logOut.split("\n")) {
-    if (!line.trim()) continue;
-    const [sha, subject = "", ...rest] = line.split("|");
-    if (!sha || !subject) continue;
-    const body = rest.join("|").split("\n")[0].trim();
-    const type = typeOf(subject);
-    const fix = body ? `${subject} — ${body}` : subject;
+  for (const record of logOut.split("\x1e")) {
+    const row = parseCommitRecord(record);
+    if (!row) continue;
+    // Custo de token por commit: linhas do diff do commit (renames/binary são '-' → ignorados)
     let lines = 0;
-    const numstat = git(`git show --numstat --format= ${sha}`);
+    const numstat = git(`git show --numstat --format= ${row.item}`);
     for (const nl of numstat.split("\n")) {
       const m = nl.match(/^(\d+)\s+(\d+)/);
       if (m) lines += parseInt(m[1], 10) + parseInt(m[2], 10);
     }
-    rows.push({
-      item: sha,
-      fix,
-      benefit: TYPE_BENEFIT[type] || DEFAULT_BENEFIT,
-      impact: TYPE_IMPACT[type] || DEFAULT_IMPACT,
-      tokens: lines > 0 ? `~${Math.round(lines * 0.75)}` : "—",
-    });
+    rows.push({ ...row, tokens: lines > 0 ? `~${Math.round(lines * 0.75)}` : "—" });
   }
   return rows;
 }

@@ -11,6 +11,7 @@ import {
   escapeHTML,
   generateHTML,
   fallbackTableRow,
+  parseCommitRecord,
 } from "../../scripts/generate-report.mjs";
 
 const baseMetrics = {
@@ -215,5 +216,52 @@ describe("fallbackTableRow", () => {
     expect(row.benefit).toContain("qualidade");
     expect(row.impact).toContain("Risco");
     expect(row.tokens).toBe("—");
+  });
+});
+
+describe("parseCommitRecord (parsing imune a pipes e body multilinha)", () => {
+  it("converte registro padrão em linha da tabela", () => {
+    const row = parseCommitRecord("\x1fabc1234\x1ffix(dark): corrige contraste\x1fDetalhes\x1e");
+    expect(row).not.toBeNull();
+    expect(row!.item).toBe("abc1234");
+    expect(row!.fix).toBe("fix(dark): corrige contraste — Detalhes");
+    expect(row!.benefit).toContain("corrigido");
+    expect(row!.impact).toContain("risco");
+  });
+
+  it("NÃO cria linha falsa quando o body contém pipe (bug antigo do split por |)", () => {
+    const row = parseCommitRecord(
+      "\x1fdef5678\x1ffeat(x): adiciona rota\x1fURL com a|b e mais\nlinha 2\x1e",
+    );
+    expect(row).not.toBeNull();
+    expect(row!.fix).toBe("feat(x): adiciona rota — URL com a|b e mais");
+    // O pipe permanece no body sem virar campo novo
+    expect(row!.fix).toContain("a|b");
+  });
+
+  it("usa só a primeira linha não-vazia do body multilinha", () => {
+    const row = parseCommitRecord(
+      "\x1fabc9999\x1fdocs: atualiza guia\x1f\n\nPrimeira linha\nSegunda\x1e",
+    );
+    expect(row!.fix).toBe("docs: atualiza guia — Primeira linha");
+    expect(row!.benefit).toMatch(/documenta/i);
+  });
+
+  it("ignora registros vazios ou sem subject (linhas soltas)", () => {
+    expect(parseCommitRecord("")).toBeNull();
+    expect(parseCommitRecord("\x1f\x1f\x1e")).toBeNull();
+    expect(parseCommitRecord("\x1f\x1f\x1f\x1e")).toBeNull();
+  });
+
+  it("mapeia benefício/impacto por tipo e usa defaults para tipo desconhecido", () => {
+    const fixRow = parseCommitRecord("\x1fa1\x1ffix: x\x1e")!;
+    expect(fixRow.benefit).toContain("corrigido");
+    const choreRow = parseCommitRecord("\x1fa2\x1fchore: x\x1e")!;
+    expect(choreRow.impact).toContain("audável");
+    const autoRow = parseCommitRecord("\x1fa3\x1ftítulo solto\x1e")!;
+    expect(autoRow.benefit).toBe("Mudança validada pelo fluxo de qualidade");
+    // fixup: NÃO é fix (limite do prefixo)
+    const fixupRow = parseCommitRecord("\x1fa4\x1ffixup! coisa\x1e")!;
+    expect(fixupRow.benefit).toBe("Mudança validada pelo fluxo de qualidade");
   });
 });
