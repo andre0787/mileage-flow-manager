@@ -66,12 +66,13 @@ describe("SearchInput", () => {
     expect(container.firstChild).toHaveClass("custom-class");
   });
 
-  it("usa estilo dark elevado (fundo secondary sólido + borda input) para destacar do fundo preto", () => {
+  it("usa material translúcido no dark (bg-secondary/60 + blur) — legível porque --secondary agora é escuro", () => {
     const { container } = render(<SearchInput value="" onChange={() => {}} />);
     const input = container.querySelector("input");
     expect(input).toBeTruthy();
-    // Fundo sólido no dark (não esmaecido /60 que virava cinza chapado)
-    expect(input!.className).toContain("dark:bg-secondary");
+    // Material translúcido estilo iOS (quase transparente sobre o fundo preto)
+    expect(input!.className).toContain("dark:bg-secondary/60");
+    expect(input!.className).toContain("dark:backdrop-blur-sm");
     // Borda nítida visível no dark
     expect(input!.className).toContain("dark:border-input");
     // Micro-interação: hover realça a borda

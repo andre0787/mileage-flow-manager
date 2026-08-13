@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `799e786 — Merge pull request #362 from andre0787/feat/context-optimization`
+- **Branch:** `feat/token-efficient-agents`
+- **Último commit:** `272ec4e — feat(process): skills de delegacao economica — contexto minimo e retorno compacto por subagente (compact-delegation, bounded-scout, diff-miner, test-triage)`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -68,10 +68,10 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 
 ## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** Skills de delegacao economica: subagentes com contexto minimo e retorno compacto
+**Categoria:** bugfix
+**Objetivo:** Dark mode: inputs/selecao com fundo claro ilegivel — causa raiz --secondary sem override no .dark; busca translucida estilo iOS
 **Status:** in_progress
-**Iniciada em:** 2026-08-12T22:28:39.896Z
-**Branch:** `feat/token-efficient-agents`
-**Último commit:** 799e786 — Merge pull request #362 from andre0787/feat/context-optimization
-**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
+**Iniciada em:** 2026-08-12T23:56:26.960Z
+**Branch:** `fix/dark-secondary-inputs`
+**Último commit:** 272ec4e — feat(process): skills de delegacao economica — contexto minimo e retorno compacto por subagente (compact-delegation, bounded-scout, diff-miner, test-triage)
+**Docs carregados:** DEBUG.md, conventions/common.md, conventions/bugfix.md

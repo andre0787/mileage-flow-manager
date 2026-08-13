@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T22:37:52.138Z",
+  "generatedAt": "2026-08-13T00:04:45.346Z",
   "months": [
     {
       "month": "2026-03",
@@ -173,10 +173,10 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 71.8,
+      "prePrPassRate": 72,
       "prePrTotal": 354,
-      "prePrPass": 254,
-      "prePrFail": 100,
+      "prePrPass": 255,
+      "prePrFail": 99,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -216,7 +216,7 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.4,
-      "branchesMerged": 82,
+      "branchesMerged": 83,
       "violationsCaught": 400,
       "healedRate": 15.8,
       "frictionPerPass": 1.57,

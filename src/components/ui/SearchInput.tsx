@@ -70,7 +70,10 @@ export function SearchInput({
         autoFocus={autoFocus}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className="pl-9 pr-8 h-9 text-sm transition-shadow focus-visible:shadow-elegant"
+        // Dark: material translúcido (bg-secondary/60 + blur) — a causa raiz era
+        // --secondary sem override no .dark; com a variável corrigida o /60
+        // vira um vidro escuro discreto estilo iOS, quase transparente.
+        className="pl-9 pr-8 h-9 text-sm transition-shadow focus-visible:shadow-elegant dark:bg-secondary/60 dark:backdrop-blur-sm"
       />
       {value && (
         <button

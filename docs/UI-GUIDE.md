@@ -14,35 +14,47 @@ Definido em `src/index.css`. Camadas de profundidade (light mode, estilo iOS):
 
 ### Cores
 
-| Variável | Valor (light) | Valor (dark) | Uso |
-|----------|---------------|--------------|-----|
-| `--primary` | `211 100% 45%` | `211 100% 60%` | **System blue** (Apple), cor principal |
-| `--gold` | `36 90% 42%` | `36 90% 58%` | Destaques, metas |
-| `--teal` | `188 60% 42%` | `188 60% 55%` | Aba Pontos |
-| `--success` | `142 65% 36%` | `142 65% 50%` | Verde positivo |
-| `--warning` | `32 90% 48%` | `32 90% 58%` | Âmbar |
-| `--destructive` | `0 72% 50%` | `0 72% 55%` | Vermelho |
+| Variável        | Valor (light)  | Valor (dark)   | Uso                                    |
+| --------------- | -------------- | -------------- | -------------------------------------- |
+| `--primary`     | `211 100% 45%` | `211 100% 60%` | **System blue** (Apple), cor principal |
+| `--gold`        | `36 90% 42%`   | `36 90% 58%`   | Destaques, metas                       |
+| `--teal`        | `188 60% 42%`  | `188 60% 55%`  | Aba Pontos                             |
+| `--success`     | `142 65% 36%`  | `142 65% 50%`  | Verde positivo                         |
+| `--warning`     | `32 90% 48%`   | `32 90% 58%`   | Âmbar                                  |
+| `--destructive` | `0 72% 50%`    | `0 72% 55%`    | Vermelho                               |
 
 Dark mode: fundo preto puro (`0 0% 0%`), cards `0 0% 11%` (≈ #1C1C1E), como iOS.
 
+> **⚠️ `--secondary`/`--secondary-foreground` SÃO sobrescritos no `.dark`** (`0 0% 16%` / `0 0% 100%`,
+> mesma elevação de accent/muted). Sem isso, inputs/selects com `dark:bg-secondary` herdam o
+> valor claro do light (`220 15% 92%`) e ficam quase brancos com texto branco (ilegível).
+> Regressão coberta por `tests/unit/dark-secondary.test.ts`.
+
+**Campos no dark (hierarquia de legibilidade):**
+
+- **Busca** (`SearchInput`, `GlobalSearch`): material translúcido `dark:bg-secondary/60` +
+  `dark:backdrop-blur-sm` — vidro escuro discreto estilo iOS, quase transparente sobre o fundo preto.
+- **Formulários** (`Input`, `Select`, `Textarea` base): fundo elevado sólido `dark:bg-secondary`
+  (16%) + borda `dark:border-input` (26%) — legível em forms longos sobre cards (11%).
+
 ### Sombras (iOS-style, suaves)
 
-| Classe | Uso |
-|--------|-----|
-| `shadow-sm` / `shadow-card` | Cards padrão (1-2px, opacidade baixa) |
-| `shadow-md` | Hover de cards |
-| `shadow-lg` | Modais |
-| `shadow-elegant` | Glow primary sutil |
-| `shadow-glow` / `shadow-glow-gold` | Destaques (sem glow exagerado) |
+| Classe                             | Uso                                   |
+| ---------------------------------- | ------------------------------------- |
+| `shadow-sm` / `shadow-card`        | Cards padrão (1-2px, opacidade baixa) |
+| `shadow-md`                        | Hover de cards                        |
+| `shadow-lg`                        | Modais                                |
+| `shadow-elegant`                   | Glow primary sutil                    |
+| `shadow-glow` / `shadow-glow-gold` | Destaques (sem glow exagerado)        |
 
 ### Gradientes (sóbrios)
 
-| Classe | Onde usar |
-|--------|-----------|
-| `bg-gradient-primary` | Botões primários (blue vertical) |
-| `bg-gradient-gold` | Destaques |
-| `bg-gradient-hero` | Hero do Dashboard (tint sutil) |
-| `bg-gradient-hero-teal` | Hero da aba Pontos |
+| Classe                  | Onde usar                        |
+| ----------------------- | -------------------------------- |
+| `bg-gradient-primary`   | Botões primários (blue vertical) |
+| `bg-gradient-gold`      | Destaques                        |
+| `bg-gradient-hero`      | Hero do Dashboard (tint sutil)   |
+| `bg-gradient-hero-teal` | Hero da aba Pontos               |
 
 > HIG: cor é usada com moderação; acentos são sólidos (MetricCard usa barra
 > superior sólida, não gradiente).
@@ -68,26 +80,26 @@ Dark mode: fundo preto puro (`0 0% 0%`), cards `0 0% 11%` (≈ #1C1C1E), como iO
 <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
 ```
 
-| Contexto | Grid | Motivo |
-|----------|------|--------|
-| Mini-métricas (hero) | `grid-cols-2` | Cards compactos |
+| Contexto              | Grid                         | Motivo                  |
+| --------------------- | ---------------------------- | ----------------------- |
+| Mini-métricas (hero)  | `grid-cols-2`                | Cards compactos         |
 | MetricCards / Summary | `grid-cols-1 sm:grid-cols-2` | 1 no celular, 2 desktop |
-| Content cards | `grid-cols-1 md:grid-cols-2` | Só 2 em desktop+tablet |
-| Gráficos | `md:grid-cols-2` | 2 só quando há espaço |
+| Content cards         | `grid-cols-1 md:grid-cols-2` | Só 2 em desktop+tablet  |
+| Gráficos              | `md:grid-cols-2`             | 2 só quando há espaço   |
 
 ## Componentes
 
-| Componente | Arquivo | Propósito |
-|-----------|---------|-----------|
-| `Button` | `ui/button.tsx` | **rounded-full** (pill), h-11 (44px touch target), active:scale-[0.97] |
-| `Input` | `ui/input.tsx` | **rounded-xl**, fundo `bg-secondary/60` (filled style iOS), h-11 |
-| `Card` | `ui/card.tsx` | **rounded-2xl**, borda sutil, hover shadow |
-| `MetricCard` | `components/MetricCard.tsx` | Barra sólida no topo (cor da variante) |
-| `AltitudeBar` | `components/AltitudeBar.tsx` | Barra sólida primary (ou cor custom) |
-| `EmptyState` | `components/EmptyState.tsx` | Estado vazio com CTA |
-| `SkeletonLoader` | `components/SkeletonLoader.tsx` | 4 variantes de loading |
-| `DeleteEntryDialog` | `components/DeleteEntryDialog.tsx` | Confirmação de exclusão |
-| `FlowMap` | `components/FlowMap.tsx` | Fluxo visual de 4 nodes |
+| Componente          | Arquivo                            | Propósito                                                                                                         |
+| ------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `Button`            | `ui/button.tsx`                    | **rounded-full** (pill), h-11 (44px touch target), active:scale-[0.97]                                            |
+| `Input`             | `ui/input.tsx`                     | **rounded-xl**, fundo `bg-secondary/60` (filled style iOS), h-11; dark sólido 16% (busca: translúcido /60 + blur) |
+| `Card`              | `ui/card.tsx`                      | **rounded-2xl**, borda sutil, hover shadow                                                                        |
+| `MetricCard`        | `components/MetricCard.tsx`        | Barra sólida no topo (cor da variante)                                                                            |
+| `AltitudeBar`       | `components/AltitudeBar.tsx`       | Barra sólida primary (ou cor custom)                                                                              |
+| `EmptyState`        | `components/EmptyState.tsx`        | Estado vazio com CTA                                                                                              |
+| `SkeletonLoader`    | `components/SkeletonLoader.tsx`    | 4 variantes de loading                                                                                            |
+| `DeleteEntryDialog` | `components/DeleteEntryDialog.tsx` | Confirmação de exclusão                                                                                           |
+| `FlowMap`           | `components/FlowMap.tsx`           | Fluxo visual de 4 nodes                                                                                           |
 
 ## Navegação
 

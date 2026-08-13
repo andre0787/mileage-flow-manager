@@ -74,8 +74,9 @@ describe("GlobalSearch", () => {
       </MemoryRouter>,
     );
     const input = container.querySelector("input");
-    // Input herda o tratamento dark do Input base
-    expect(input!.className).toContain("dark:bg-secondary");
+    // Input usa material translúcido no dark (causa raiz: --secondary escuro corrigido)
+    expect(input!.className).toContain("dark:bg-secondary/60");
+    expect(input!.className).toContain("dark:backdrop-blur-sm");
     expect(input!.className).toContain("dark:border-input");
 
     // Dropdown: card elevado (11%) em vez de preto puro — dispara com query
