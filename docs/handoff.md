@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `1fabaf1 — Merge pull request #367 from andre0787/feat/dark-filters-translucent`
+- **Último commit:** `6bdcca6 — Merge pull request #368 from andre0787/feat/dark-surfaces-audit`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -69,9 +69,9 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 ## 🎯 Sessão Atual
 **Categoria:** feature
-**Objetivo:** Auditoria dark completa: input base translucido, autofill no bundle, verify:dark nos 2 temas + dialogs, spec de superficies
+**Objetivo:** Detalhamento por item ao nivel de PR (titulo real + custo agregado) + relatorio consolidado por PR (report:consolidate)
 **Status:** in_progress
-**Iniciada em:** 2026-08-13T01:37:11.743Z
-**Branch:** `feat/dark-surfaces-audit`
-**Último commit:** 1fabaf1 — Merge pull request #367 from andre0787/feat/dark-filters-translucent
+**Iniciada em:** 2026-08-13T01:56:16.624Z
+**Branch:** `feat/report-por-pr`
+**Último commit:** 6bdcca6 — Merge pull request #368 from andre0787/feat/dark-surfaces-audit
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md

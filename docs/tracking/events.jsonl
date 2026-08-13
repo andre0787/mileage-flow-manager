@@ -1,9 +1,3 @@
-{"timestamp":"2026-08-01T01:33:16.828Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/kpi-report-formato-plano","commit":"1820e03","categoria":"bugfix"}
-{"timestamp":"2026-08-01T01:33:17.202Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/kpi-report-formato-plano","commit":"1820e03","categoria":"refactor"}
-{"timestamp":"2026-08-01T01:33:17.357Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/kpi-report-formato-plano","commit":"1820e03","errors":0}
-{"timestamp":"2026-08-01T01:33:17.530Z","type":"session:start","description":"feature: primeira feature","branch":"fix/kpi-report-formato-plano","commit":"1820e03","categoria":"feature"}
-{"timestamp":"2026-08-01T01:33:17.860Z","type":"session:start","description":"chore: segunda chore","branch":"fix/kpi-report-formato-plano","commit":"1820e03","categoria":"chore"}
-{"timestamp":"2026-08-01T01:33:18.148Z","type":"session:start","description":"docs: continuacao","branch":"fix/kpi-report-formato-plano","commit":"1820e03","categoria":"docs"}
 {"timestamp":"2026-08-01T01:33:23.722Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/kpi-report-formato-plano","commit":"1820e03","categoria":"chore"}
 {"timestamp":"2026-08-01T01:33:26.344Z","type":"session:start","description":"docs: verifica output","branch":"fix/kpi-report-formato-plano","commit":"1820e03","categoria":"docs"}
 {"timestamp":"2026-08-01T01:33:26.471Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/kpi-report-formato-plano","commit":"1820e03","errors":0}
@@ -1204,3 +1198,6 @@
 {"timestamp":"2026-08-13T01:37:12.312Z","type":"coding:done","description":"Auditoria dark superficies implementada por subagente: input translucido, autofill bundle test, verify:dark 2 temas, spec dialogs","branch":"feat/dark-surfaces-audit","commit":"9154d3e","agent":"human","subagent":true,"skill":"subagent-driven-development"}
 {"timestamp":"2026-08-13T01:37:12.347Z","type":"code-review:done","description":"Review aprovado: 1 ajuste (regex box-shadow \\s* p/ CSS minificado em prod)","branch":"feat/dark-surfaces-audit","commit":"9154d3e","agent":"human","subagent":true,"verdict":"approved"}
 {"timestamp":"2026-08-13T01:38:58.428Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/dark-surfaces-audit","commit":"9154d3e","agent":"human","errors":0}
+{"timestamp":"2026-08-13T01:56:16.646Z","type":"session:start","description":"feature: Detalhamento por item ao nivel de PR (titulo real + custo agregado) + relatorio consolidado por PR (report:consolidate)","branch":"main","commit":"6bdcca6","agent":"human","categoria":"feature"}
+{"timestamp":"2026-08-13T01:56:16.779Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/report-por-pr","commit":"6bdcca6","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-13T01:56:17.125Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/report-por-pr","commit":"6bdcca6","agent":"human","errors":0}

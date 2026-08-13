@@ -12,6 +12,7 @@ import {
   generateHTML,
   fallbackTableRow,
   parseCommitRecord,
+  buildPrRow,
 } from "../../scripts/generate-report.mjs";
 
 const baseMetrics = {
@@ -267,6 +268,26 @@ describe("fallbackTableRow", () => {
     expect(row.benefit).toContain("qualidade");
     expect(row.impact).toContain("Risco");
     expect(row.tokens).toBe("—");
+  });
+});
+
+describe("buildPrRow (Detalhamento ao nível de PR)", () => {
+  it("monta linha com título real do PR e custo agregado por linhas", () => {
+    const row = buildPrRow({ number: 367, title: "feat(ui): filtros translúcidos", lines: 420 });
+    expect(row.item).toBe("PR #367");
+    expect(row.fix).toBe("feat(ui): filtros translúcidos");
+    expect(row.benefit).toContain("Nova capacidade");
+    expect(row.impact).toContain("alavanca");
+    expect(row.tokens).toBe("~315");
+  });
+
+  it("mapeia benefício/impacto pelo tipo do título do PR", () => {
+    const fix = buildPrRow({ number: 352, title: "fix(dates): corrige fuso", lines: 80 });
+    expect(fix.benefit).toContain("corrigido");
+    expect(fix.impact).toContain("risco");
+    const chore = buildPrRow({ number: 348, title: "chore: migra domínio", lines: 0 });
+    expect(chore.benefit).toContain("processo");
+    expect(chore.tokens).toBe("—");
   });
 });
 

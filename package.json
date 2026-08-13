@@ -24,6 +24,7 @@
     "session:start": "node scripts/session-start.mjs",
     "session:end": "node scripts/session-end.mjs",
     "report": "node scripts/generate-report.mjs",
+    "report:consolidate": "node scripts/consolidate-report.mjs",
     "report:help": "node scripts/generate-report.mjs --help",
     "report:rename": "node scripts/generate-report.mjs --rename",
     "post-pr": "node scripts/post-pr.mjs",
