@@ -210,6 +210,44 @@ describe("generateHTML", () => {
     // Deck com 5 slides quando há impacto (hero, impacto, detalhamento, timeline, apêndice)
     expect(html).toContain("1/5");
   });
+
+  it("usa o título do PR como narrativa do BLUF quando não há --summary", () => {
+    const html = generateHTML({ ...opts, summary: "" });
+    expect(html).toContain(opts.pr!.title);
+    expect(html).not.toContain("Entrega concluída e validada — detalhes técnicos no apêndice.");
+  });
+
+  it("--summary explícito vence o título do PR no BLUF", () => {
+    const html = generateHTML(opts); // opts.summary = "Entrega validada — UX dark legível"
+    expect(html).toContain("Entrega validada — UX dark legível");
+    // Título curto "t" não vaza como narrativa
+    expect(html).not.toContain('<p class="hero-summary">t</p>');
+  });
+
+  it("nota do Detalhamento inclui custo real da sessão quando auditContext existe", () => {
+    const html = generateHTML({
+      ...opts,
+      contextAudit: {
+        categories: { feature: { tokens: 5600 }, chore: { tokens: 700 } },
+        status: { label: "Enxuto" },
+      },
+    });
+    expect(html).toContain("Custo real da sessão (auditContext): 5.600 tokens (feature)");
+    expect(html).toContain("status enxuto");
+  });
+
+  it("nota do Detalhamento não quebra sem auditContext", () => {
+    const html = generateHTML(opts); // contextAudit default null
+    expect(html).toContain("Linhas derivadas automaticamente dos commits.");
+    expect(html).not.toContain("auditContext");
+  });
+
+  it("print é otimizado para PDF executivo (A4 landscape, quebras de página)", () => {
+    const html = generateHTML(opts);
+    expect(html).toContain("@page{size:A4 landscape");
+    expect(html).toContain("break-after:page");
+    expect(html).toContain("tr{break-inside:avoid");
+  });
 });
 
 describe("fallbackTableRow", () => {

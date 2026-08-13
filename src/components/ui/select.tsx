@@ -18,8 +18,9 @@ const SelectTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       "flex h-10 w-full items-center justify-between rounded-md border border-transparent bg-secondary/60 px-3 py-2 text-base md:text-sm ring-offset-background transition-[color,background-color,border-color,box-shadow] duration-200 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
-      // Dark: fundo elevado (sólido) + borda nítida — mesmo tratamento do Input (#359)
-      "dark:bg-secondary dark:border-input dark:hover:border-ring/50 dark:focus-visible:border-ring",
+      // Dark: vidro translúcido (bg-secondary/60 + blur) + borda nítida — mesmo
+      // tratamento do SearchInput/GlobalSearch (#359); hover levanta a opacidade
+      "dark:bg-secondary/60 dark:backdrop-blur-sm dark:border-input/70 dark:hover:bg-secondary/80 dark:hover:border-ring/50 dark:focus-visible:border-ring",
       className,
     )}
     {...props}
