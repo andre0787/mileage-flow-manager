@@ -1,11 +1,3 @@
-{"timestamp":"2026-08-01T01:32:15.891Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/kpi-report-formato-plano","commit":"001db9c","categoria":"refactor"}
-{"timestamp":"2026-08-01T01:32:16.269Z","type":"session:start","description":"feature: primeira feature","branch":"fix/kpi-report-formato-plano","commit":"001db9c","categoria":"feature"}
-{"timestamp":"2026-08-01T01:32:16.611Z","type":"session:start","description":"chore: segunda chore","branch":"fix/kpi-report-formato-plano","commit":"001db9c","categoria":"chore"}
-{"timestamp":"2026-08-01T01:32:16.853Z","type":"session:start","description":"docs: continuacao","branch":"fix/kpi-report-formato-plano","commit":"001db9c","categoria":"docs"}
-{"timestamp":"2026-08-01T01:32:22.348Z","type":"session:start","description":"chore: descrição concisa","branch":"fix/kpi-report-formato-plano","commit":"001db9c","categoria":"chore"}
-{"timestamp":"2026-08-01T01:32:24.992Z","type":"session:start","description":"docs: verifica output","branch":"fix/kpi-report-formato-plano","commit":"001db9c","categoria":"docs"}
-{"timestamp":"2026-08-01T01:32:25.116Z","type":"pre-pr","description":"pre-pr FAIL","branch":"fix/kpi-report-formato-plano","commit":"001db9c","errors":1}
-{"timestamp":"2026-08-01T01:33:16.492Z","type":"session:start","description":"docs: teste docs","branch":"fix/kpi-report-formato-plano","commit":"1820e03","categoria":"docs"}
 {"timestamp":"2026-08-01T01:33:16.828Z","type":"session:start","description":"bugfix: corrige bug","branch":"fix/kpi-report-formato-plano","commit":"1820e03","categoria":"bugfix"}
 {"timestamp":"2026-08-01T01:33:17.202Z","type":"session:start","description":"refactor: refatora modulo","branch":"fix/kpi-report-formato-plano","commit":"1820e03","categoria":"refactor"}
 {"timestamp":"2026-08-01T01:33:17.357Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/kpi-report-formato-plano","commit":"1820e03","errors":0}
@@ -1206,3 +1198,6 @@
 {"timestamp":"2026-08-13T01:04:03.901Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/dark-filters-translucent","commit":"f356633","agent":"human","errors":0}
 {"timestamp":"2026-08-13T01:04:28.417Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/dark-filters-translucent","commit":"8dc9cfa","agent":"human","errors":0}
 {"timestamp":"2026-08-13T01:06:17.113Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/dark-filters-translucent","commit":"912c371","agent":"human","errors":0}
+{"timestamp":"2026-08-13T01:37:11.767Z","type":"session:start","description":"feature: Auditoria dark completa: input base translucido, autofill no bundle, verify:dark nos 2 temas + dialogs, spec de superficies","branch":"main","commit":"1fabaf1","agent":"human","categoria":"feature"}
+{"timestamp":"2026-08-13T01:37:11.905Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/dark-surfaces-audit","commit":"1fabaf1","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-13T01:37:12.252Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/dark-surfaces-audit","commit":"1fabaf1","agent":"human","errors":0}

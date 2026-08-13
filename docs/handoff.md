@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `996a1bd — Merge pull request #366 from andre0787/feat/report-slide-legacy`
+- **Último commit:** `1fabaf1 — Merge pull request #367 from andre0787/feat/dark-filters-translucent`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -69,9 +69,9 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 ## 🎯 Sessão Atual
 **Categoria:** feature
-**Objetivo:** Dark mode: filtros translucidos (SelectTrigger glass), autofill CSS global, verificacao visual no browser + relatorio executivo (custo real, titulo PR no BLUF, PDF A4)
+**Objetivo:** Auditoria dark completa: input base translucido, autofill no bundle, verify:dark nos 2 temas + dialogs, spec de superficies
 **Status:** in_progress
-**Iniciada em:** 2026-08-13T01:03:07.542Z
-**Branch:** `feat/dark-filters-translucent`
-**Último commit:** 996a1bd — Merge pull request #366 from andre0787/feat/report-slide-legacy
+**Iniciada em:** 2026-08-13T01:37:11.743Z
+**Branch:** `feat/dark-surfaces-audit`
+**Último commit:** 1fabaf1 — Merge pull request #367 from andre0787/feat/dark-filters-translucent
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
