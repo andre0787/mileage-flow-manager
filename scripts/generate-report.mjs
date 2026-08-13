@@ -750,7 +750,8 @@ export function generateHTML({
 
   // ── Slide Detalhamento por item ───────────────────────────────
   // Custo real de contexto da sessão (auditContext) — complementa o custo
-  // estimado por commit com a medição real de carga de docs por categoria.  const ctxCat = contextAudit?.categories?.feature ?? contextAudit?.categories?.chore ?? null;
+  // estimado por commit com a medição real de carga de docs por categoria.
+  const ctxCat = contextAudit?.categories?.feature ?? contextAudit?.categories?.chore ?? null;
   const ctxNote =
     contextAudit && ctxCat
       ? ` · Custo real da sessão (auditContext): ${ctxCat.tokens.toLocaleString("pt-BR")} tokens (feature) · status ${contextAudit.status.label.toLowerCase()}`
