@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-08-13
-> Último commit: 7b6ee1b-Merge pull request #375 from andre0787/refactor/dashboard-coverage-gate
+> Gerado em: 2026-08-14
+> Último commit: e117e43-Merge pull request #380 from andre0787/feat/blueprint-v9-governanca
 
 ## Pipeline
 
@@ -15,21 +15,21 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 739 |
+| Unit | 757 |
 | E2E  | 82 |
-| **Total** | **821** |
+| **Total** | **839** |
 
 ## Bundle
 
 | Métrica | Valor |
 |---------|-------|
-| Tamanho (dist) | 1769kB |
+| Tamanho (dist) | 1773kB |
 
 ## Documentação
 
 | Métrica | Valor |
 |---------|-------|
-| Arquivos .md | 193 |
+| Arquivos .md | 196 |
 | Arquivados | 46 |
 | Issues (verify-docs) | 0 |
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-08-13 | ✅ | 821 | 1769kB | 0 issues |
+| 2026-08-14 | ✅ | 839 | 1773kB | 0 issues |
 
 ---
 
