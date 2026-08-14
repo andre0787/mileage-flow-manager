@@ -1,36 +1,36 @@
-# AI Session State - 2026-08-14T01:45:00.000Z
+# AI Session State - 2026-08-14T18:30:00.000Z
 
 ## Última Task
 
-- Blueprint v9.0 (Persistent Memory & Governance): **Concluído (Fases A+B+C)**. Fase A: governança (regras 43-48, extensões .pi, ADR, AI-SESSION-STATE) + telemetria ai_telemetry (migration aplicada no remoto com RLS) + KPI "Custo por Funcionalidade". Fase B: createEntityAdapter nas 8 coleções. Fase C: React 19 (useActionState + useFormStatus) nos forms de transação. PR #380 aberto aguardando merge.
+- Blueprint v9.0 (Persistent Memory & Governance): **Concluído (Fases A+B+C+D)**. Fase A: governança (regras 43-48, extensões .pi, ADR-001, AI-SESSION-STATE) + telemetria. Fase B: createEntityAdapter nas 8 coleções (rule-44). Fase C: React 19 (useActionState + useFormStatus) nos forms de transação. Fase D: endurecimento rule-44/45 para hard-fail + migração dos 4 forms restantes (Login, ForgotPassword, ResetPassword, FeedbackDialog) + policy RLS p/ registros de sistema + telemetria real persistida.
 
 ## Estado dos Testes & Qualidade
 
-- **Playwright E2E:** Fail parcial (58 passed / 3 failed — ambientais: auth no Supabase remoto, sem relação com o diff)
-- **RTK Integrity:** Checked — createEntityAdapter nas 8 coleções (rule-44 verde)
-- **Vendas/Contas Logic:** Checked — pre-pr 0 errors, **891 testes unit** (112 files), coverage 78.9%
+- **Playwright E2E:** Fail parcial (55 passed / 3 failed — ambientais: auth no Supabase remoto, sem relação com o diff)
+- **RTK Integrity:** Checked — 8/8 coleções com adapter (rule-44 hard-fail verde)
+- **Vendas/Contas Logic:** Checked — pre-pr 0 errors, **892 testes unit** (114 files); fix flake CI (testTimeout 5s→20s) validado no CI real dos PRs #382/#384
 
 ## Arquivos Modificados & Impacto
 
 - `AGENTS.md`, `.prompts-manifest.json` (regras 43-48 + hashes; impacto: governança)
-- `scripts/rules/rule-43..48-*.mjs` (validadores no pre-pr; impacto: 6 gates novos)
+- `scripts/rules/rule-43..48-*.mjs` (validadores no pre-pr; rule-44/45 endurecidas p/ hard-fail)
 - `.pi/extensions/{token-sentinel,mcp-bridge,telemetry-auditor}.ts` (extensões fail-open)
-- `supabase/migrations/20260814000000_add_ai_telemetry.sql` (Schema Drift: Sim — aplicada no remoto)
+- `supabase/migrations/20260814000000_add_ai_telemetry.sql` + `20260814190000_ai_telemetry_select_system.sql` (aplicadas no remoto; SELECT inclui registros de sistema)
 - `src/lib/aiTelemetry.ts`, `src/lib/collectionAdapter.ts` (+ testes) (libs novas rule-31)
 - `src/features/*/adapter.ts` + queries/hooks (normalização RTK; shape público preservado)
-- `src/components/FormSubmitButton.tsx`, `src/components/EntryForm.tsx`, `src/components/SaleForm.tsx`, `src/components/TransferForm.tsx` (React 19 forms)
-- `src/components/kpi/AiCostSection.tsx` + `KPIDashboard.tsx` (KPI custo por área)
+- `src/components/FormSubmitButton.tsx` + EntryForm/SaleForm/TransferForm + Login/ForgotPassword/ResetPassword/FeedbackDialog (todos os 7 forms com useActionState/useFormStatus)
+- `src/components/kpi/AiCostSection.tsx` + `KPIDashboard.tsx` (KPI custo por área — dados reais)
+- `vite.config.ts` (testTimeout 20s — flake rule-08 no CI)
 - `docs/council/`, `docs/adr/`, `docs/AI-SESSION-STATE.md` (governança nova)
 
 ## Pendências Imediatas (Next Step)
 
-1. Merge do PR #380 (aguarda autorização explícita do usuário — AUTH gate).
-2. Opcional: migrar forms não-transacionais (FeedbackDialog, ForgotPassword) para useActionState — avisos da rule-45.
-3. Opcional: `workflowData.ts` — substituir fetch em useEffect por use()/query (aviso rule-45).
-4. Débito: `update-handoff.mjs --write` varre seções manuais do handoff — avaliar preservação.
+1. Merge do PR #387 (endurecimento + forms) — aguarda autorização do usuário (AUTH gate).
+2. Opcional: `workflowData.ts`/`KPI.tsx` — fetch de JSON estático em useEffect (aviso rule-45, legítimo).
+3. Opcional: telemetria automática no nightly (telemetry:record + costPerArea no kpi-data).
 
 ## Governança de Contexto
 
-- **Tokens Utilizados:** ~15K acumulado (heurística telemetry:audit)
+- **Tokens Utilizados:** ~9.5K (registro real na ai_telemetry: workflow + vendas, $0.0574 total)
 - **Poda (Pruning):** 0 linhas removidas no último turno
-- **Branch Atual:** feat/blueprint-v9-governanca
+- **Branch Atual:** main (PRs #380/#383/#384 merged; #387 aberto)
