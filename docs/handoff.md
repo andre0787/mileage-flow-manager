@@ -54,14 +54,7 @@ Nenhum PR aberto.
 
 
 
-## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** Blueprint v9.0 — governança: regras 43-48, ai_telemetry, ADR, AI-SESSION-STATE, refactors RTK/React19
-**Status:** in_progress
-**Iniciada em:** 2026-08-14T04:06:56.949Z
-**Branch:** `feat/blueprint-v9-governanca`
-**Último commit:** 4afeb12 — refactor(etapa3): drawers de criação do EntryForm em componentes (909→511) + blocos restantes do Dashboard (491→386) (#378)
-**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
+
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
@@ -83,6 +76,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
 - **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
+
 
 
 
