@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Plus, Filter, Building2, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { OwnerFilter, ALL_OWNERS } from "@/components/ui";
 import { EmptyState } from "@/components/EmptyState";
 import { Pagination } from "@/components/Pagination";
 import { SkeletonMetricCard } from "@/components/SkeletonLoader";
@@ -26,14 +27,18 @@ export default function Contas() {
   const deleteAccountM = useDeleteAccountMutation();
   const recalcAccountM = useRecalcAccountMutation();
   const [filterType, setFilterType] = useState<"todas" | "pontos" | "milhas">("todas");
+  const [ownerFilter, setOwnerFilter] = useState<string>(ALL_OWNERS);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [editAccount, setEditAccount] = useState<Account | undefined>(undefined);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [alertsAccount, setAlertsAccount] = useState<Account | null>(null);
 
-  const filteredAccounts =
-    filterType === "todas" ? accounts : accounts.filter((a) => a.type === filterType);
+  const filteredAccounts = useMemo(() => {
+    const byType =
+      filterType === "todas" ? accounts : accounts.filter((a) => a.type === filterType);
+    return ownerFilter === ALL_OWNERS ? byType : byType.filter((a) => a.ownerId === ownerFilter);
+  }, [accounts, filterType, ownerFilter]);
 
   const totalPages = Math.ceil(filteredAccounts.length / ITEMS_PER_PAGE);
   const paginatedAccounts = filteredAccounts.slice(
@@ -156,7 +161,7 @@ export default function Contas() {
       />
 
       {/* Filter */}
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <Filter className="h-4 w-4 text-muted-foreground" />
         {(["todas", "pontos", "milhas"] as const).map((t) => (
           <Button
@@ -169,6 +174,15 @@ export default function Contas() {
             {t === "todas" ? "Todas" : t === "pontos" ? "Pontos" : "Milhas"}
           </Button>
         ))}
+        <OwnerFilter
+          owners={owners}
+          value={ownerFilter}
+          onChange={(v) => {
+            setOwnerFilter(v);
+            setCurrentPage(1);
+          }}
+          className="w-full sm:w-44"
+        />
       </div>
 
       {/* Accounts Grid */}

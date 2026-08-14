@@ -1218,5 +1218,9 @@
 {"timestamp":"2026-08-14T23:07:12.720Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-custom-color","commit":"ebacdfb","agent":"human","errors":0}
 {"timestamp":"2026-08-14T23:07:21.253Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-custom-color","commit":"ebacdfb","agent":"human","errors":0}
 {"timestamp":"2026-08-14T23:12:29.906Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-custom-color","commit":"d030c5a","agent":"human","errors":0}
-{"timestamp":"2026-08-14T23:19:06.491Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/ai-session-state-owner-custom-color","commit":"7a2b431","agent":"human","rule":"rule-26"}
-{"timestamp":"2026-08-14T23:19:06.898Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/ai-session-state-owner-custom-color","commit":"7a2b431","agent":"human","errors":0}
+{"timestamp":"2026-08-14T23:20:25.130Z","type":"coding:done","description":"Filtro por dono na aba Contas (OwnerFilter + filtro combinado com tipo)","branch":"feat/contas-filtro-dono","commit":"7a2b431","agent":"human","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-08-14T23:20:25.164Z","type":"code-review:done","description":"Review por subagente aprovado — filtro por dono em Contas","branch":"feat/contas-filtro-dono","commit":"7a2b431","agent":"human","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-08-14T23:20:29.013Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/contas-filtro-dono","commit":"7a2b431","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-14T23:20:59.713Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/contas-filtro-dono","commit":"7a2b431","agent":"human","errors":0}
+{"timestamp":"2026-08-14T23:21:07.701Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/contas-filtro-dono","commit":"7a2b431","agent":"human","errors":0}
+{"timestamp":"2026-08-14T23:27:07.821Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/contas-filtro-dono","commit":"39ff6af","agent":"human","errors":0}
