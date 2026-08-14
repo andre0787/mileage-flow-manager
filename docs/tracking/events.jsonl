@@ -1207,3 +1207,5 @@
 {"timestamp":"2026-08-14T22:24:03.490Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-colors-visual","commit":"0f56929","agent":"human","errors":0}
 {"timestamp":"2026-08-14T22:24:24.755Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-colors-visual","commit":"0f56929","agent":"human","errors":0}
 {"timestamp":"2026-08-14T22:29:50.334Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-colors-visual","commit":"3555576","agent":"human","errors":0}
+{"timestamp":"2026-08-14T22:34:03.325Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/ai-session-state-owner-colors","commit":"ebacdfb","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-14T22:34:03.733Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/ai-session-state-owner-colors","commit":"ebacdfb","agent":"human","errors":0}
