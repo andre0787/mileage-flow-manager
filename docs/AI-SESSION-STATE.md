@@ -1,32 +1,34 @@
-# AI Session State - 2026-08-14T23:00:00.000Z
+# AI Session State - 2026-08-14T23:30:00.000Z
 
 ## Última Task
 
-- Feature **cores por dono de conta** (PR #397): **Concluído** — visualização por cor dos itens de cada dono (Contas + Entradas + Vendas), cor derivada deterministicamente do nome (hash FNV-1a sobre paleta fixa curada), sem migration. Council em `docs/council/2026-08-14-owner-colors-veredito.md`.
+- Feature **cor customizada por dono** (PR #401): **Concluído** — seletor de cor no cadastro/edição de donos (OwnerSection), campo `owners.color` persistido (migration `20260814230000` aplicada no remoto via `supabase db push`), fallback para hash FNV-1a quando ausente. Cor aplicada nas 3 superfícies (AccountCard, EntryTable, SaleTable). Council em `docs/council/2026-08-14-owner-custom-color-veredito.md`.
 
 ## Estado dos Testes & Qualidade
 
-- **Playwright E2E:** e2e-smoke ✅ no CI do PR #397; e2e completo sujeito a rate-limit do Supabase real (padrão conhecido)
+- **Playwright E2E:** e2e-smoke ✅ no CI do PR #401; e2e completo sujeito a rate-limit do Supabase real (padrão conhecido)
 - **RTK Integrity:** Checked — 8/8 coleções com adapter (rule-44)
-- **Vendas/Contas Logic:** Checked — **915 testes unit** (114 files), typecheck/lint/format ✓, pre-pr 0 errors
+- **Vendas/Contas Logic:** Checked — **919 testes unit** (114 files), typecheck/lint/format ✓, pre-pr 0 errors
 
 ## Arquivos Modificados & Impacto
 
-- `src/lib/ownerColors.ts` (novo — ownerColor/Soft/Border + paleta 12 cores, hash FNV-1a)
-- `tests/unit/ownerColors.test.ts` (novo — 12 testes: estabilidade, distribuição, contraste, alpha)
-- `src/components/accounts/AccountCard.tsx` (borda superior + chip de cor do dono)
-- `src/components/EntryTable.tsx` (dono colorido desktop + chip mobile)
-- `src/components/SaleTable.tsx` (chip de cor do dono desktop + mobile)
-- `tests/components/dashboard-panels.test.tsx` (assert do dono: 2 ocorrências — chip + linha)
-- `docs/council/2026-08-14-owner-colors-veredito.md` (veredito council)
-- Histórico: Blueprint v9.0 completo (Fases A-F), telemetria nightly, use()/Suspense
+- `supabase/migrations/20260814230000_owners_color.sql` (novo — `ALTER TABLE owners ADD COLUMN color text`, aplicada no remoto)
+- `src/lib/ownerColors.ts` (`ownerColor(name, custom)` — custom hex tem precedência; fallback hash; `isValidHex`)
+- `src/components/OwnerSection.tsx` (seletor `input type=color` + preview + reset "cor automática")
+- `src/types/index.ts` + `src/lib/supabase-types.ts` (Owner.color)
+- `src/hooks/useDatabase/mappers.ts` + `src/features/owners/addOwner.ts` + `updateOwner.ts` (color no insert/update)
+- `src/components/accounts/AccountCard.tsx` + `src/pages/Contas.tsx` (borda + chip com cor custom)
+- `src/components/EntryTable.tsx` (dono colorido desktop + chip mobile com cor custom)
+- `src/components/SaleTable.tsx` + `src/pages/Vendas.tsx` (chip com cor custom via `ownerCustomColors`)
+- `tests/unit/ownerColors.test.ts` (+4: precedência custom > hash, isValidHex) e `tests/unit/features-owners-api.test.ts` (+1 insert com color)
+- `docs/council/2026-08-14-owner-custom-color-veredito.md` (veredito council)
 
 ## Pendências Imediatas (Next Step)
 
-1. Nenhum bloqueante. Ideias futuras: estender a cor por dono para Relatorios.tsx e KPI (BusinessBreakdown) — a lib `ownerColors` já está pronta para isso; opcionalmente permitir cor customizada por dono no futuro (trocar a fonte do hash por campo persistido).
+1. Nenhum bloqueante. Ideias futuras: estender a cor por dono para Relatorios.tsx e KPI (BusinessBreakdown) — a lib `ownerColors` já aceita custom; OwnerFilter poderia ganhar chip de cor também.
 
 ## Governança de Contexto
 
-- **Tokens Utilizados:** ~11K acumulado (ai_telemetry)
+- **Tokens Utilizados:** ~13K acumulado (ai_telemetry)
 - **Poda (Pruning):** 0 linhas removidas no último turno
-- **Branch Atual:** main (PRs #380..#397 merged — nenhum aberto)
+- **Branch Atual:** main (PRs #380..#401 merged — nenhum aberto)
