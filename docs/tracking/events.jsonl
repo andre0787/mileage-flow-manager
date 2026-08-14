@@ -1206,3 +1206,5 @@
 {"timestamp":"2026-08-14T10:33:02.584Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/blueprint-v9-fase-c-react19","commit":"df61fc7","agent":"human","errors":0}
 {"timestamp":"2026-08-14T10:33:09.592Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/blueprint-v9-fase-c-react19","commit":"df61fc7","agent":"human","errors":0}
 {"timestamp":"2026-08-14T17:59:16.405Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/blueprint-v9-fase-c-react19","commit":"7e03aa3","agent":"human","errors":0}
+{"timestamp":"2026-08-14T17:59:39.088Z","type":"coding:done","description":"Fix flake CI: testTimeout 5s->20s no vite.config (rule-08 spawns git+node)","branch":"feat/blueprint-v9-fase-c-react19","commit":"3ac48e9","agent":"human","subagent":true}
+{"timestamp":"2026-08-14T17:59:39.121Z","type":"code-review:done","description":"Review diff do merge + fix timeout vite.config","branch":"feat/blueprint-v9-fase-c-react19","commit":"3ac48e9","agent":"human","subagent":true}
