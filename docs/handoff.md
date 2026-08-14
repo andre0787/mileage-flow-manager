@@ -9,7 +9,7 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `fix/telemetry-audit-sessao-atual`
+- **Branch:** `fix/update-handoff-preserva-secoes`
 - **Último commit:** `df61fc7 — Merge pull request #381 from andre0787/chore/quality-nightly-update`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
@@ -56,11 +56,14 @@ Nenhum PR aberto.
 
 
 
-
-
-
-
-
+## 🎯 Sessão Atual
+**Categoria:** bugfix
+**Objetivo:** update-handoff preserva seções manuais (débito blueprint v9)
+**Status:** in_progress
+**Iniciada em:** 2026-08-14T13:10:03.427Z
+**Branch:** `fix/telemetry-audit-sessao-atual`
+**Último commit:** df61fc7 — Merge pull request #381 from andre0787/chore/quality-nightly-update
+**Docs carregados:** DEBUG.md, conventions/common.md, conventions/bugfix.md
 
 
 ---
@@ -91,12 +94,3 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 
 
-
-## 🎯 Sessão Atual
-**Categoria:** bugfix
-**Objetivo:** telemetry-audit usa última sessão (find→at(-1)) + sessão aberta (end anterior a start)
-**Status:** in_progress
-**Iniciada em:** 2026-08-14T13:21:43.330Z
-**Branch:** `fix/telemetry-audit-sessao-atual`
-**Último commit:** df61fc7 — Merge pull request #381 from andre0787/chore/quality-nightly-update
-**Docs carregados:** DEBUG.md, conventions/common.md, conventions/bugfix.md

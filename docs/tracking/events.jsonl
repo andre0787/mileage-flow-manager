@@ -1203,3 +1203,5 @@
 {"timestamp":"2026-08-14T13:21:47.563Z","type":"code-review:done","description":"Review diff telemetry-audit: correcao de selecao da sessao atual (primeiro->ultimo start; end<start -> now); registro valido com tempo 554min; sem issues","branch":"fix/telemetry-audit-sessao-atual","commit":"df61fc7","agent":"human","subagent":true,"verdict":"approved"}
 {"timestamp":"2026-08-14T13:22:22.853Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/telemetry-audit-sessao-atual","commit":"df61fc7","agent":"human","errors":0}
 {"timestamp":"2026-08-14T13:22:33.237Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/telemetry-audit-sessao-atual","commit":"df61fc7","agent":"human","errors":0}
+{"timestamp":"2026-08-14T13:23:26.759Z","type":"healed","description":"rule-26 auto-corrigido","branch":"fix/telemetry-audit-sessao-atual","commit":"a47f3d0","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-14T13:23:27.163Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/telemetry-audit-sessao-atual","commit":"a47f3d0","agent":"human","errors":0}
