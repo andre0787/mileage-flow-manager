@@ -1,36 +1,31 @@
-# AI Session State - 2026-08-14T18:30:00.000Z
+# AI Session State - 2026-08-14T19:00:00.000Z
 
 ## Última Task
 
-- Blueprint v9.0 (Persistent Memory & Governance): **Concluído (Fases A+B+C+D)**. Fase A: governança (regras 43-48, extensões .pi, ADR-001, AI-SESSION-STATE) + telemetria. Fase B: createEntityAdapter nas 8 coleções (rule-44). Fase C: React 19 (useActionState + useFormStatus) nos forms de transação. Fase D: endurecimento rule-44/45 para hard-fail + migração dos 4 forms restantes (Login, ForgotPassword, ResetPassword, FeedbackDialog) + policy RLS p/ registros de sistema + telemetria real persistida.
+- Blueprint v9.0 (Persistent Memory & Governance): **Concluído (Fases A+B+C+D+E)**. Fase A: governança (regras 43-48, extensões .pi, ADR-001) + telemetria. Fase B: createEntityAdapter nas 8 coleções (rule-44). Fase C: React 19 (useActionState + useFormStatus) nos forms. Fase D: endurecimento rule-44/45 (hard-fail) + forms restantes + policy RLS + telemetria real. Fase E: fetches de JSON estático (workflowData, KPI) migrados de useEffect para use()/Suspense — **rule-45 100% verde** (zero avisos).
 
 ## Estado dos Testes & Qualidade
 
 - **Playwright E2E:** Fail parcial (55 passed / 3 failed — ambientais: auth no Supabase remoto, sem relação com o diff)
 - **RTK Integrity:** Checked — 8/8 coleções com adapter (rule-44 hard-fail verde)
-- **Vendas/Contas Logic:** Checked — pre-pr 0 errors, **892 testes unit** (114 files); fix flake CI (testTimeout 5s→20s) validado no CI real dos PRs #382/#384
+- **Vendas/Contas Logic:** Checked — pre-pr 0 errors, **896 testes unit** (114 files); rule-45 sem avisos de fetch em useEffect
 
 ## Arquivos Modificados & Impacto
 
-- `AGENTS.md`, `.prompts-manifest.json` (regras 43-48 + hashes; impacto: governança)
-- `scripts/rules/rule-43..48-*.mjs` (validadores no pre-pr; rule-44/45 endurecidas p/ hard-fail)
-- `.pi/extensions/{token-sentinel,mcp-bridge,telemetry-auditor}.ts` (extensões fail-open)
-- `supabase/migrations/20260814000000_add_ai_telemetry.sql` + `20260814190000_ai_telemetry_select_system.sql` (aplicadas no remoto; SELECT inclui registros de sistema)
-- `src/lib/aiTelemetry.ts`, `src/lib/collectionAdapter.ts` (+ testes) (libs novas rule-31)
-- `src/features/*/adapter.ts` + queries/hooks (normalização RTK; shape público preservado)
-- `src/components/FormSubmitButton.tsx` + EntryForm/SaleForm/TransferForm + Login/ForgotPassword/ResetPassword/FeedbackDialog (todos os 7 forms com useActionState/useFormStatus)
-- `src/components/kpi/AiCostSection.tsx` + `KPIDashboard.tsx` (KPI custo por área — dados reais)
-- `vite.config.ts` (testTimeout 20s — flake rule-08 no CI)
-- `docs/council/`, `docs/adr/`, `docs/AI-SESSION-STATE.md` (governança nova)
+- `src/lib/workflowData.ts` (resource `loadWorkflowData()` cacheado + `use()`; falha → fallback ilustrativo)
+- `src/pages/KPI.tsx` (`use(loadKpiData())` + Suspense; UI de loading/erro preservada)
+- `src/pages/Workflow.tsx` (Suspense boundaries com skeleton nas seções de dados reais)
+- `src/components/workflow/WorkflowDataFooter.tsx` (novo — dataDate via use(), suspende só o campo)
+- `tests/unit/workflowData.test.ts` (+4 testes de resource), `tests/unit/WorkflowEfficiency.test.ts` (mock do hook)
+- Histórico: AGENTS.md/manifest, rule-43..48, extensões .pi, migrations ai_telemetry (2), libs aiTelemetry/collectionAdapter, adapters 8 features, FormSubmitButton + 7 forms, AiCostSection, vite.config
 
 ## Pendências Imediatas (Next Step)
 
-1. Merge do PR #387 (endurecimento + forms) — aguarda autorização do usuário (AUTH gate).
-2. Opcional: `workflowData.ts`/`KPI.tsx` — fetch de JSON estático em useEffect (aviso rule-45, legítimo).
-3. Opcional: telemetria automática no nightly (telemetry:record + costPerArea no kpi-data).
+1. Opcional: telemetria automática no nightly (telemetry:record + costPerArea no kpi-data).
+2. Opcional: E2E do fluxo KPI/Workflow com os novos Suspense boundaries.
 
 ## Governança de Contexto
 
-- **Tokens Utilizados:** ~9.5K (registro real na ai_telemetry: workflow + vendas, $0.0574 total)
+- **Tokens Utilizados:** ~10K acumulado (ai_telemetry: workflow + vendas, $0.0574)
 - **Poda (Pruning):** 0 linhas removidas no último turno
-- **Branch Atual:** main (PRs #380/#383/#384 merged; #387 aberto)
+- **Branch Atual:** main (PRs #380/#382/#383/#384/#387/#389 merged — nenhum aberto)
