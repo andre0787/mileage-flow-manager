@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-14T13:22:26.330Z",
+  "generatedAt": "2026-08-14T10:33:06.130Z",
   "dataDate": "2026-08-14",
   "kpiStats": [
     {
-      "value": 1204,
+      "value": 1206,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 481,
+      "value": 484,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -36,7 +36,7 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 142,
+      "n": 138,
       "color": "#3b82f6"
     },
     {
@@ -46,7 +46,7 @@
     },
     {
       "name": "rule:fail",
-      "n": 419,
+      "n": 425,
       "color": "#ef4444"
     },
     {
@@ -103,12 +103,12 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 319,
+      "n": 318,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 153,
+      "n": 157,
       "color": "#84cc16"
     },
     {
@@ -119,50 +119,50 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-14 13:22:22",
+      "t": "2026-08-14 10:33:02",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-14 13:21:47",
+      "t": "2026-08-14 10:32:26",
       "d": "code-review:done",
-      "desc": "Review diff telemetry-audit: correcao de selecao da sessao atual (primeiro->ultimo start; end<start -> now); registro valido com tempo 554min; sem issues"
+      "desc": "Review do diff Fase C (EntryForm/SaleForm/TransferForm/FormSubmitButton): migração form action + useActionState preserva onSubmit; typecheck+tests 891 verdes; sem issues"
     },
     {
-      "t": "2026-08-14 13:21:47",
+      "t": "2026-08-14 10:32:26",
       "d": "coding:done",
-      "desc": "Fix telemetry-audit.mjs: session:start usa ultimo evento (at(-1)) + sessao aberta usa Date.now() quando end anterior ao start"
+      "desc": "Blueprint v9 Fase C — forms React 19 (useActionState + useFormStatus via FormSubmitButton) — evidência: commits 5416d29 (replicados) + testes 891 verdes"
     },
     {
-      "t": "2026-08-14 13:21:43",
-      "d": "session:start",
-      "desc": "bugfix: telemetry-audit usa última sessão (find→at(-1)) + sessão aberta (end anterior a start)"
-    },
-    {
-      "t": "2026-08-14 04:31:36",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-14 04:30:32",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-14 04:30:19",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-14 04:28:48",
+      "t": "2026-08-14 10:31:05",
       "d": "rule:fail",
-      "desc": "rule-22-pr-naming falhou"
+      "desc": "rule-39-coding-gate falhou"
+    },
+    {
+      "t": "2026-08-14 10:31:05",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
+    },
+    {
+      "t": "2026-08-14 10:30:54",
+      "d": "session:start",
+      "desc": "feature: Fase C — React 19 forms (continuação Blueprint v9)"
+    },
+    {
+      "t": "2026-08-14 10:30:01",
+      "d": "rule:fail",
+      "desc": "rule-39-coding-gate falhou"
+    },
+    {
+      "t": "2026-08-14 10:30:01",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 419,
+    "ruleFails": 425,
     "healed": 75,
-    "healedRate": 17.9,
+    "healedRate": 17.6,
     "prePrTotal": 381,
     "prePrPass": 289,
     "prePrPassRate": 75.9,
@@ -175,7 +175,7 @@
       },
       {
         "rule": "rule-26-session-started",
-        "count": 43,
+        "count": 44,
         "hint": "timestamp de sessão ausente — npm run session:start"
       },
       {
@@ -185,7 +185,7 @@
       },
       {
         "rule": "rule-38-code-review-gate",
-        "count": 25,
+        "count": 27,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
@@ -243,14 +243,14 @@
     }
   ],
   "overview": {
-    "components": 112,
+    "components": 113,
     "pages": 16,
     "libs": 25,
     "scripts": 112,
     "testFiles": 211,
     "skills": 26,
     "rules": 48,
-    "events": 1204,
-    "qualityNotes": 481
+    "events": 1206,
+    "qualityNotes": 484
   }
 }

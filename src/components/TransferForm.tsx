@@ -1,5 +1,6 @@
-import { useState, useMemo } from "react";
+import { useActionState, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { FormSubmitButton } from "@/components/FormSubmitButton";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -107,22 +108,28 @@ export function TransferForm({
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = () => {
-    if (!validate()) return;
-    // Fill in defaults for EntryFormData fields not used by TransferForm
-    onSubmit({
-      ...form,
-      origemTypeId: transferType?.id ?? form.origemTypeId,
-      conversionRate: "",
-      isClube: false,
-      clubeMeses: "",
-      isRecurrent: false,
-      recurrenceType: "monthly",
-      recurrenceCount: 1,
-      startDate: "",
-      recurrenceValueMode: "split",
-    });
-  };
+  // React 19 form action (rule-45): submit via <form action> — o botão deriva
+  // pending de useFormStatus, sem estado de carregamento manual.
+  const [, formAction] = useActionState(
+    async () => {
+      if (!validate()) return { ok: false };
+      // Fill in defaults for EntryFormData fields not used by TransferForm
+      onSubmit({
+        ...form,
+        origemTypeId: transferType?.id ?? form.origemTypeId,
+        conversionRate: "",
+        isClube: false,
+        clubeMeses: "",
+        isRecurrent: false,
+        recurrenceType: "monthly",
+        recurrenceCount: 1,
+        startDate: "",
+        recurrenceValueMode: "split",
+      });
+      return { ok: true };
+    },
+    { ok: false },
+  );
 
   if (!transferType) {
     return (
@@ -134,7 +141,7 @@ export function TransferForm({
   }
 
   return (
-    <div className="grid gap-4 py-4">
+    <form className="grid gap-4 py-4" action={formAction}>
       {/* Conta de Origem (Pontos) */}
       <div className="space-y-2">
         <Label htmlFor="transferSource">Conta de Origem (Pontos)</Label>
@@ -367,10 +374,10 @@ export function TransferForm({
         <Button variant="outline" onClick={onCancel}>
           Cancelar
         </Button>
-        <Button onClick={handleSubmit} className="bg-gradient-primary hover:opacity-90">
+        <FormSubmitButton className="bg-gradient-primary hover:opacity-90">
           {mode === "create" ? "Registrar Transferência" : "Salvar Alterações"}
-        </Button>
+        </FormSubmitButton>
       </div>
-    </div>
+    </form>
   );
 }
