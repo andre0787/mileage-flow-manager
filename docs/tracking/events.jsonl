@@ -1205,3 +1205,4 @@
 {"timestamp":"2026-08-14T18:37:28.317Z","type":"rule:fail","description":"rule-30-outcome-grade falhou","branch":"feat/telemetria-nightly-kpi","commit":"a671835","agent":"human","rule":"rule-30-outcome-grade"}
 {"timestamp":"2026-08-14T18:39:18.288Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetria-nightly-kpi","commit":"a671835","agent":"human","errors":0}
 {"timestamp":"2026-08-14T18:39:32.293Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetria-nightly-kpi","commit":"a671835","agent":"human","errors":0}
+{"timestamp":"2026-08-14T18:59:09.649Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetria-nightly-kpi","commit":"c48744f","agent":"human","errors":0}
