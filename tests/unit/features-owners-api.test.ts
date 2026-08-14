@@ -18,6 +18,7 @@ const makeOwner = (): Owner => ({
   name: "André Luiz",
   cpf: "123.456.789-00",
   phone: "(11) 99999-0000",
+  color: "#ff0000",
 });
 
 function makeStore() {
@@ -83,6 +84,7 @@ describe("ownersApi — addOwner", () => {
         name: "André Luiz",
         cpf: "123.456.789-00",
         phone: "(11) 99999-0000",
+        color: "#ff0000",
       }),
     );
   });

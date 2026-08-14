@@ -10,6 +10,8 @@ interface AccountCardProps {
   account: Account;
   computedBalance: number;
   ownerName: string;
+  /** Cor customizada do dono (hex) — null/undefined → derivada por hash do nome. */
+  ownerColor?: string | null;
   programName: string;
   unreadCount: number;
   lastEntryDate?: string;
@@ -26,6 +28,7 @@ export function AccountCard({
   account,
   computedBalance,
   ownerName,
+  ownerColor: customColor,
   programName,
   unreadCount,
   lastEntryDate,
@@ -38,9 +41,9 @@ export function AccountCard({
   onOpenAlerts,
 }: AccountCardProps) {
   const balanceMismatch = computedBalance !== account.balance;
-  const donoColor = ownerColor(ownerName);
-  const donoSoft = ownerColorSoft(ownerName);
-  const donoBorder = ownerColorBorder(ownerName);
+  const donoColor = ownerColor(ownerName, customColor);
+  const donoSoft = ownerColorSoft(ownerName, customColor);
+  const donoBorder = ownerColorBorder(ownerName, customColor);
 
   return (
     <Card

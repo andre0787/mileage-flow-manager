@@ -61,9 +61,9 @@ Nenhum PR aberto.
 **Objetivo:** Visualização por cor dos itens por dono de conta
 **Status:** in_progress
 **Iniciada em:** 2026-08-14T19:21:09.957Z
-**Branch:** `feat/owner-colors-visual`
+**Branch:** `feat/owner-custom-color`
 **Último commit:** 0f56929 — Merge pull request #393 from andre0787/feat/telemetria-nightly-kpi
-**Council:** docs/council/2026-08-14-owner-colors-veredito.md (veredito: Faça — paleta fixa, cor como reforço)
+**Council:** docs/council/2026-08-14-owner-custom-color-veredito.md (veredito: Faça — seletor de cor no cadastro/edição, fallback hash)
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_

@@ -3,7 +3,13 @@ import { parseDescription } from "@/types";
 import type { Database } from "@/lib/supabase-types";
 
 export function mapOwner(row: Database["public"]["Tables"]["owners"]["Row"]): Owner {
-  return { id: row.id, name: row.name, cpf: row.cpf ?? "", phone: row.phone ?? "" };
+  return {
+    id: row.id,
+    name: row.name,
+    cpf: row.cpf ?? "",
+    phone: row.phone ?? "",
+    color: row.color ?? null,
+  };
 }
 
 export function mapProgram(row: Database["public"]["Tables"]["programs"]["Row"]): Program {

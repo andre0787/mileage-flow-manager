@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-14T22:24:08.314Z",
+  "generatedAt": "2026-08-14T23:07:16.883Z",
   "dataDate": "2026-08-14",
   "kpiStats": [
     {
-      "value": 1207,
+      "value": 1218,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 492,
+      "value": 495,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,17 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 213,
+      "value": 215,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 77,
+      "value": 78,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 52,
+      "value": 53,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,17 +41,17 @@
     },
     {
       "name": "pre-pr",
-      "n": 386,
+      "n": 389,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 432,
+      "n": 436,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 77,
+      "n": 78,
       "color": "#10b981"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 56,
+      "n": 57,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 56,
+      "n": 58,
       "color": "#22c55e"
     },
     {
@@ -108,7 +108,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 163,
+      "n": 166,
       "color": "#84cc16"
     },
     {
@@ -119,53 +119,53 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-14 22:24:03",
+      "t": "2026-08-14 23:07:12",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-14 22:22:46",
+      "t": "2026-08-14 23:06:39",
+      "d": "coding:done",
+      "desc": "Codificação por subagente — cor customizada por dono (migration + seletor + fallback + 3 superfícies)"
+    },
+    {
+      "t": "2026-08-14 23:06:11",
+      "d": "rule:fail",
+      "desc": "rule-39-coding-gate falhou"
+    },
+    {
+      "t": "2026-08-14 23:05:48",
+      "d": "code-review:done",
+      "desc": "Review por subagente aprovado — cor customizada por dono"
+    },
+    {
+      "t": "2026-08-14 23:05:10",
+      "d": "rule:fail",
+      "desc": "rule-39-coding-gate falhou"
+    },
+    {
+      "t": "2026-08-14 23:05:10",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
+    },
+    {
+      "t": "2026-08-14 23:05:10",
       "d": "rule:fail",
       "desc": "rule-17-new-docs-valid falhou"
     },
     {
-      "t": "2026-08-14 22:22:08",
-      "d": "rule:fail",
-      "desc": "rule-17-new-docs-valid falhou"
-    },
-    {
-      "t": "2026-08-14 22:22:02",
+      "t": "2026-08-14 23:05:03",
       "d": "healed",
       "desc": "rule-26 auto-corrigido"
-    },
-    {
-      "t": "2026-08-14 22:22:01",
-      "d": "code-review:done",
-      "desc": "Review: paleta curada, cor como reforço, nome sempre visível"
-    },
-    {
-      "t": "2026-08-14 22:22:01",
-      "d": "coding:done",
-      "desc": "Visualização por cor dos itens por dono (ownerColors + Contas/Entradas/Vendas)"
-    },
-    {
-      "t": "2026-08-14 19:21:09",
-      "d": "session:start",
-      "desc": "feature: Visualização por cor dos itens por dono de conta"
-    },
-    {
-      "t": "2026-08-14 18:59:09",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 432,
-    "healed": 77,
-    "healedRate": 17.8,
-    "prePrTotal": 386,
-    "prePrPass": 296,
-    "prePrPassRate": 76.7,
+    "ruleFails": 436,
+    "healed": 78,
+    "healedRate": 17.9,
+    "prePrTotal": 389,
+    "prePrPass": 299,
+    "prePrPassRate": 76.9,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -185,17 +185,35 @@
       },
       {
         "rule": "rule-38-code-review-gate",
-        "count": 28,
+        "count": 29,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
         "rule": "rule-17-new-docs-valid",
-        "count": 26,
+        "count": 27,
         "hint": "novo doc criado sem validar referências no MAP.md"
       }
     ]
   },
   "lastPrs": [
+    {
+      "number": 397,
+      "title": "feat: cores por dono de conta (Contas, Entradas, Vendas)",
+      "type": "feat",
+      "date": "2026-08-14",
+      "tokens": 1175,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 395,
+      "title": "docs: AI-SESSION-STATE — Fase F (telemetria nightly + use()/Suspense)",
+      "type": "docs",
+      "date": "2026-08-14",
+      "tokens": 26,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
     {
       "number": 393,
       "title": "feat: telemetria no nightly + AiCostSection use()/Suspense",
@@ -222,35 +240,17 @@
       "tokens": 983,
       "benefit": "Código mais simples — menor custo de manutenção",
       "impact": "Menos custo em mudanças futuras"
-    },
-    {
-      "number": 387,
-      "title": "feat: Blueprint v9 — endurece rule-44/45 + forms React 19 restantes",
-      "type": "feat",
-      "date": "2026-08-14",
-      "tokens": 815,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 384,
-      "title": "fix: telemetry-audit usa a sessão mais recente do log",
-      "type": "fix",
-      "date": "2026-08-14",
-      "tokens": 343,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação"
     }
   ],
   "overview": {
     "components": 114,
     "pages": 16,
-    "libs": 25,
+    "libs": 26,
     "scripts": 112,
-    "testFiles": 213,
+    "testFiles": 215,
     "skills": 26,
     "rules": 48,
-    "events": 1207,
-    "qualityNotes": 492
+    "events": 1218,
+    "qualityNotes": 495
   }
 }

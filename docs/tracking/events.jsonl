@@ -1207,3 +1207,13 @@
 {"timestamp":"2026-08-14T22:24:03.490Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-colors-visual","commit":"0f56929","agent":"human","errors":0}
 {"timestamp":"2026-08-14T22:24:24.755Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-colors-visual","commit":"0f56929","agent":"human","errors":0}
 {"timestamp":"2026-08-14T22:29:50.334Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-colors-visual","commit":"3555576","agent":"human","errors":0}
+{"timestamp":"2026-08-14T23:04:59.849Z","type":"coding:done","description":"Cor customizada por dono (migration + OwnerSection seletor + fallback hash + 3 superfícies)","branch":"feat/owner-custom-color","commit":"ebacdfb","agent":"human"}
+{"timestamp":"2026-08-14T23:05:03.407Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/owner-custom-color","commit":"ebacdfb","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-14T23:05:10.353Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/owner-custom-color","commit":"ebacdfb","agent":"human","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-14T23:05:10.386Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"feat/owner-custom-color","commit":"ebacdfb","agent":"human","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-14T23:05:10.419Z","type":"rule:fail","description":"rule-39-coding-gate falhou","branch":"feat/owner-custom-color","commit":"ebacdfb","agent":"human","rule":"rule-39-coding-gate"}
+{"timestamp":"2026-08-14T23:05:48.038Z","type":"code-review:done","description":"Review por subagente aprovado — cor customizada por dono","branch":"feat/owner-custom-color","commit":"ebacdfb","agent":"human","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-08-14T23:06:11.283Z","type":"rule:fail","description":"rule-39-coding-gate falhou","branch":"feat/owner-custom-color","commit":"ebacdfb","agent":"human","rule":"rule-39-coding-gate"}
+{"timestamp":"2026-08-14T23:06:39.397Z","type":"coding:done","description":"Codificação por subagente — cor customizada por dono (migration + seletor + fallback + 3 superfícies)","branch":"feat/owner-custom-color","commit":"ebacdfb","agent":"human","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-08-14T23:07:12.720Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-custom-color","commit":"ebacdfb","agent":"human","errors":0}
+{"timestamp":"2026-08-14T23:07:21.253Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-custom-color","commit":"ebacdfb","agent":"human","errors":0}

@@ -42,6 +42,7 @@ export default function Contas() {
   );
 
   const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id;
+  const ownerColor = (id: string) => owners.find((o) => o.id === id)?.color ?? null;
   const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id;
 
   // Fonte da verdade: saldo calculado de entradas confirmadas - vendas ativas
@@ -190,6 +191,7 @@ export default function Contas() {
               account={account}
               computedBalance={computedBalances.get(account.id) ?? account.balance}
               ownerName={ownerName(account.ownerId)}
+              ownerColor={ownerColor(account.ownerId)}
               programName={programName(account.programId)}
               unreadCount={unreadCount(account.id)}
               lastEntryDate={lastActivityByAccount.get(account.id)?.lastEntry?.date}

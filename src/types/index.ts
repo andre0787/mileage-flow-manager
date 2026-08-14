@@ -38,6 +38,8 @@ export interface Owner {
   name: string;
   cpf: string;
   phone: string;
+  /** Cor customizada (hex) — null/undefined → cor derivada por hash do nome. */
+  color?: string | null;
 }
 
 export interface Program {
