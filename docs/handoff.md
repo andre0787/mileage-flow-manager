@@ -1,6 +1,6 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-08-11
-> Anterior: 2026-08-10
+> ⏰ Última atualização: 2026-08-14
+> Anterior: 2026-08-11
 ---
 ## 🏗️ Projeto
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
@@ -9,65 +9,37 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `e22a5b3 — refactor(etapa2): hero sections do Dashboard em componentes próprios (976→491) + AccountCard/AccountsSummary + lib entryOperations (#377)`
-- **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
+- **Branch:** `docs/fuso-308-concluido`
+- **Último commit:** `c001ad9` — docs(fuso): fecha issue #308 no handoff — auditoria de datas + telemetria
+- **Remote:** no remote
 
-### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
-- **P3-28 entradas** (`src/features/entradas/`), **P3-29 contas** (`src/features/contas/`),
-  **P3-30 clientes** (`src/features/clientes/`), **P3-31 vendas** (`src/features/vendas/`, PR #341),
-  **P3-32 alerts** (`src/features/alerts/`, PR #348), **P3-33 owners** (`src/features/owners/`, PR #349),
-  **P3-34 programs** (`src/features/programs/`, PR #350), **P3-35 origemTypes**
-  (`src/features/origemTypes/`, PR #351) — todos **merged** em main.
-- Padrão canônico: `baseApi.injectEndpoints` + barrel `index.ts` + wrappers com shape
-  público preservado (`data`/`isPending`/`isError`/`error`/`refetch`/`mutate`/`mutateAsync`
-  + `onSuccess`/`onError`) + tags RTK (`entries`/`accounts`/`sales`/`clients`/`alerts`/`owners`/`programs`/`origem_types`).
-- Módulos legados removidos de `src/hooks/useDatabase/` (restam apenas `index.ts`,
-  `mappers.ts`, `shared.ts`). TanStack React Query ainda presente apenas em
-  DataContext/App (DataProvider) e mutationHooksLifecycle de contas/clientes.
-- Cards P3-27 a P3-35 todos `done`; ROADMAP atualizado.
-
-### 🔄 Em andamento
-- **Issue #308 (bug de fuso)** — datas ISO date-only (`YYYY-MM-DD`) exibidas com 1 dia a
-  menos em America/Sao_Paulo. Exibição já corrigida com `formatDateBR` (13 usos);
-  correção completa em PR com `parseDateOnly` (agrupamento mensal em metrics/Dashboard/Relatorios,
-  ciclo de passageiros em SaleForm, dia do mês em EntryForm, TWINS em ControleCPF).
+### ✅ Concluído
+- **Issue #308 (bug de fuso)** — **resolvida.** Exibição com `formatDateBR` (13 usos,
+  timezone-safe via `parseDateOnly`) + cálculos com `parseDateOnly` (metrics, dashboardTimeline,
+  Relatorios, SaleForm, EntryForm, useClientCycleAvailability) + TWINS em ControleCPF confirmado.
+  Auditoria final 2026-08-13: nenhum `new Date("YYYY-MM-DD")` com risco restante — recorrências
+  (recurrence.ts, useDatabase/shared.ts, origemTypes.ts) usam aritmética UTC consistente e
+  sorts (EntryTable/SaleTable/dashboardTimeline) e diffs (Entradas clubeMeses) são shift-invariant.
 
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 575 |
+| Total testes | 827 |
 | Docs issues | 0 |
-| Branch | refactor/blueprint-v4-p1-clientes |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 🎯 Sessão Atual
-**Categoria:** refactor
-**Objetivo:** Etapa 3 refactor: extrai blocos JSX restantes do Dashboard (491L) e EntryForm (909L) em componentes proprios
-**Status:** in_progress
-**Iniciada em:** 2026-08-13T12:29:11.759Z
-**Branch:** `refactor/etapa3-dashboard-entryform`
-**Último commit:** e22a5b3 — refactor(etapa2): hero sections do Dashboard em componentes próprios (976→491) + AccountCard/AccountsSummary + lib entryOperations (#377)
-**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
-
+| Branch | docs/fuso-308-concluido |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-
+## 🎯 Sessão Atual
+**Categoria:** refactor
+**Objetivo:** Etapa 3 refactor: extrai blocos JSX restantes do Dashboard (491L) e EntryForm (909L) em componentes proprios
+**Status:** done
+**Iniciada em:** 2026-08-13T12:29:11.759Z
+**Branch:** `docs/fuso-308-concluido`
+**Último commit:** e22a5b3 — refactor(etapa2): hero sections do Dashboard em componentes próprios (976→491) + AccountCard/AccountsSummary + lib entryOperations (#377)
+**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
@@ -86,6 +58,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
 - **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
+
 
 
 
