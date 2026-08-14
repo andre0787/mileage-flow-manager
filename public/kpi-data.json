@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T13:10:38.760Z",
+  "generatedAt": "2026-08-14T10:33:02.705Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -185,7 +185,7 @@
         "twins": 0,
         "auth": 2
       },
-      "avgOutcomeGrade": 92.9,
+      "avgOutcomeGrade": 92.8,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -201,7 +201,7 @@
         },
         {
           "rule": "rule-38-code-review-gate",
-          "count": 26
+          "count": 27
         },
         {
           "rule": "rule-17-new-docs-valid",
@@ -218,9 +218,9 @@
       },
       "avgCycleTimeHours": 0.4,
       "branchesMerged": 98,
-      "violationsCaught": 423,
-      "healedRate": 17.7,
-      "frictionPerPass": 1.46,
+      "violationsCaught": 425,
+      "healedRate": 17.6,
+      "frictionPerPass": 1.47,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,
@@ -622,11 +622,11 @@
       "prePrPass": 7,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 17,
+      "ruleFails": 19,
       "healed": 2,
       "sessions": 2,
       "merges": 2,
-      "friction": 2.43
+      "friction": 2.71
     }
   ],
   "prs": [
@@ -722,21 +722,21 @@
     }
   ],
   "repo": {
-    "components": 112,
+    "components": 113,
     "pages": 16,
     "libs": 25,
     "scripts": 112,
     "testFiles": 211,
     "skills": 26,
     "rules": 48,
-    "events": 1204,
-    "qualityNotes": 482
+    "events": 1206,
+    "qualityNotes": 484
   },
   "summary": {
     "merges": 98,
     "prs": 6,
     "sessions": 138,
-    "violations": 423,
+    "violations": 425,
     "healed": 75,
     "prePrPassRate": 75.9
   }

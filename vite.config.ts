@@ -9,6 +9,10 @@ export default defineConfig(({ mode }) => ({
   test: {
     globals: true,
     environment: "jsdom",
+    // Regras git-dependentes (scripts-rules.test.ts) spawnam git + node
+    // subprocessos e estouram o default de 5s em CI lento.
+    testTimeout: 20000,
+    hookTimeout: 20000,
     passWithNoTests: true,
     include: [
       "tests/**/*.test.ts",

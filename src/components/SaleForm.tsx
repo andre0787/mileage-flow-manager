@@ -1,6 +1,7 @@
-import { useState, useMemo } from "react";
+import { useActionState, useMemo, useState } from "react";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { FormSubmitButton } from "@/components/FormSubmitButton";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -169,11 +170,17 @@ export function SaleForm({
 
   const update = (partial: Partial<SaleFormData>) => setForm((prev) => ({ ...prev, ...partial }));
 
-  const handleSubmit = () => {
-    // Preenche costPerMile automaticamente do estoque selecionado
-    onSubmit({ ...form, costPerMile: selectedProgramStock?.averageCostPerMile ?? 0 });
-    setForm(emptyForm);
-  };
+  // React 19 form action (rule-45): submit via <form action> — o botão deriva
+  // pending de useFormStatus, sem estado de carregamento manual.
+  const [, formAction] = useActionState(
+    async () => {
+      // Preenche costPerMile automaticamente do estoque selecionado
+      onSubmit({ ...form, costPerMile: selectedProgramStock?.averageCostPerMile ?? 0 });
+      setForm(emptyForm);
+      return { ok: true };
+    },
+    { ok: false },
+  );
 
   const handleCreateClient = async () => {
     if (!newClient.name.trim()) {
@@ -212,7 +219,7 @@ export function SaleForm({
         }}
         title={mode === "edit" ? "Editar Venda" : "Registrar Nova Venda"}
       >
-        <div className="grid gap-4 py-4">
+        <form className="grid gap-4 py-4" action={formAction}>
           {/* Owner + Account */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
@@ -560,20 +567,19 @@ export function SaleForm({
               {usedPassengersInCycle + form.passengers.filter((p) => p.name.trim()).length}
             </p>
           )}
-        </div>
 
-        <div className="flex justify-end gap-2 mt-4">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
-            Cancelar
-          </Button>
-          <Button
-            onClick={handleSubmit}
-            className="bg-gradient-primary hover:opacity-90"
-            disabled={!canSubmit || !!passengerLimitExceeded}
-          >
-            {mode === "edit" ? "Atualizar Venda" : "Registrar Venda"}
-          </Button>
-        </div>
+          <div className="flex justify-end gap-2 mt-4">
+            <Button variant="outline" onClick={() => onOpenChange(false)}>
+              Cancelar
+            </Button>
+            <FormSubmitButton
+              className="bg-gradient-primary hover:opacity-90"
+              disabled={!canSubmit || !!passengerLimitExceeded}
+            >
+              {mode === "edit" ? "Atualizar Venda" : "Registrar Venda"}
+            </FormSubmitButton>
+          </div>
+        </form>
       </FormDrawer>
 
       {/* Client creation dialog */}

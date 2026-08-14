@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-14T13:10:42.028Z",
+  "generatedAt": "2026-08-14T10:33:06.130Z",
   "dataDate": "2026-08-14",
   "kpiStats": [
     {
-      "value": 1204,
+      "value": 1206,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 482,
+      "value": 484,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -46,7 +46,7 @@
     },
     {
       "name": "rule:fail",
-      "n": 423,
+      "n": 425,
       "color": "#ef4444"
     },
     {
@@ -103,12 +103,12 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 320,
+      "n": 318,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 153,
+      "n": 157,
       "color": "#84cc16"
     },
     {
@@ -119,50 +119,50 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-14 13:10:38",
+      "t": "2026-08-14 10:33:02",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-14 13:10:03",
+      "t": "2026-08-14 10:32:26",
       "d": "code-review:done",
-      "desc": "Review diff fix/update-handoff: preservacao de secoes manuais antes da secao automatica PRs Abertos; teste com fixture em tmpdir via HANDOFF_PATH; 890 testes verdes; sem issues"
+      "desc": "Review do diff Fase C (EntryForm/SaleForm/TransferForm/FormSubmitButton): migração form action + useActionState preserva onSubmit; typecheck+tests 891 verdes; sem issues"
     },
     {
-      "t": "2026-08-14 13:10:03",
+      "t": "2026-08-14 10:32:26",
       "d": "coding:done",
-      "desc": "Fix update-handoff.mjs: preserva subsecoes manuais do Estado Atual (extractEstadoManual) + HANDOFF_PATH via env + teste de regressao"
+      "desc": "Blueprint v9 Fase C — forms React 19 (useActionState + useFormStatus via FormSubmitButton) — evidência: commits 5416d29 (replicados) + testes 891 verdes"
     },
     {
-      "t": "2026-08-14 13:10:03",
-      "d": "session:start",
-      "desc": "bugfix: update-handoff preserva seções manuais (débito blueprint v9)"
-    },
-    {
-      "t": "2026-08-14 13:09:31",
+      "t": "2026-08-14 10:31:05",
       "d": "rule:fail",
       "desc": "rule-39-coding-gate falhou"
     },
     {
-      "t": "2026-08-14 13:09:31",
+      "t": "2026-08-14 10:31:05",
       "d": "rule:fail",
       "desc": "rule-38-code-review-gate falhou"
     },
     {
-      "t": "2026-08-14 13:09:31",
-      "d": "rule:fail",
-      "desc": "rule-26-session-started falhou"
+      "t": "2026-08-14 10:30:54",
+      "d": "session:start",
+      "desc": "feature: Fase C — React 19 forms (continuação Blueprint v9)"
     },
     {
-      "t": "2026-08-14 13:09:31",
+      "t": "2026-08-14 10:30:01",
       "d": "rule:fail",
-      "desc": "rule-03-handoff-completeness falhou"
+      "desc": "rule-39-coding-gate falhou"
+    },
+    {
+      "t": "2026-08-14 10:30:01",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 423,
+    "ruleFails": 425,
     "healed": 75,
-    "healedRate": 17.7,
+    "healedRate": 17.6,
     "prePrTotal": 381,
     "prePrPass": 289,
     "prePrPassRate": 75.9,
@@ -185,7 +185,7 @@
       },
       {
         "rule": "rule-38-code-review-gate",
-        "count": 26,
+        "count": 27,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
@@ -243,14 +243,14 @@
     }
   ],
   "overview": {
-    "components": 112,
+    "components": 113,
     "pages": 16,
     "libs": 25,
     "scripts": 112,
     "testFiles": 211,
     "skills": 26,
     "rules": 48,
-    "events": 1204,
-    "qualityNotes": 482
+    "events": 1206,
+    "qualityNotes": 484
   }
 }

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { FormSubmitButton } from "@/components/FormSubmitButton";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -93,10 +94,16 @@ export function EntryForm({
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = () => {
-    if (!validate()) return;
-    onSubmit(form);
-  };
+  // React 19 form action (rule-45): submit via <form action> — o botão deriva
+  // pending de useFormStatus, sem estado de carregamento manual.
+  const [, formAction] = useActionState(
+    async () => {
+      if (!validate()) return { ok: false };
+      onSubmit(form);
+      return { ok: true };
+    },
+    { ok: false },
+  );
 
   const amountNum = parseFloat(form.amount || "0");
   const amountPaidNum = parseFloat(form.amountPaid || "0");
@@ -106,7 +113,7 @@ export function EntryForm({
   const costPerThousand = amountNum > 0 ? (amountPaidNum / amountNum) * 1000 : 0;
 
   return (
-    <div className="grid gap-4 py-4">
+    <form className="grid gap-4 py-4" action={formAction}>
       {/* Conta */}
       <div className="space-y-2">
         <Label htmlFor="entryAccount">Conta</Label>
@@ -484,9 +491,9 @@ export function EntryForm({
         <Button variant="outline" onClick={onCancel}>
           Cancelar
         </Button>
-        <Button onClick={handleSubmit} className="bg-gradient-primary hover:opacity-90">
+        <FormSubmitButton className="bg-gradient-primary hover:opacity-90">
           {mode === "create" ? "Registrar Entrada" : "Salvar Alterações"}
-        </Button>
+        </FormSubmitButton>
       </div>
 
       {/* Drawers de criação (Conta, Dono, Programa, Tipo de Origem) */}
@@ -505,6 +512,6 @@ export function EntryForm({
         onCreateOwner={onCreateOwner}
         onCreateProgram={onCreateProgram}
       />
-    </div>
+    </form>
   );
 }
