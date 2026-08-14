@@ -12,6 +12,15 @@ Consulte as GitHub Issues para a lista atual.
 - **Branch:** `docs/fuso-308-concluido`
 - **Último commit:** `c001ad9` — docs(fuso): fecha issue #308 no handoff — auditoria de datas + telemetria
 - **Remote:** no remote
+
+### ✅ Concluído
+- **Issue #308 (bug de fuso)** — **resolvida.** Exibição com `formatDateBR` (13 usos,
+  timezone-safe via `parseDateOnly`) + cálculos com `parseDateOnly` (metrics, dashboardTimeline,
+  Relatorios, SaleForm, EntryForm, useClientCycleAvailability) + TWINS em ControleCPF confirmado.
+  Auditoria final 2026-08-13: nenhum `new Date("YYYY-MM-DD")` com risco restante — recorrências
+  (recurrence.ts, useDatabase/shared.ts, origemTypes.ts) usam aritmética UTC consistente e
+  sorts (EntryTable/SaleTable/dashboardTimeline) e diffs (Entradas clubeMeses) são shift-invariant.
+
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
