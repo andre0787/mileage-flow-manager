@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `feat/blueprint-v9-endurecimento`
-- **Último commit:** `5245734 — Merge pull request #384 from andre0787/fix/telemetry-audit-sessao-atual`
+- **Branch:** `refactor/react19-use-suspense`
+- **Último commit:** `4f83e9d — Merge pull request #387 from andre0787/feat/blueprint-v9-endurecimento`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -57,13 +57,13 @@ Nenhum PR aberto.
 
 
 ## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** Endurecimento rule-44/45 + forms React 19 restantes
+**Categoria:** refactor
+**Objetivo:** Migrar fetches de JSON estático para use()/Suspense
 **Status:** in_progress
-**Iniciada em:** 2026-08-14T18:07:37.237Z
-**Branch:** `feat/blueprint-v9-endurecimento`
-**Último commit:** 5245734 — Merge pull request #384 from andre0787/fix/telemetry-audit-sessao-atual
-**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
+**Iniciada em:** 2026-08-14T18:20:41.329Z
+**Branch:** `refactor/react19-use-suspense`
+**Último commit:** 4f83e9d — Merge pull request #387 from andre0787/feat/blueprint-v9-endurecimento
+**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
