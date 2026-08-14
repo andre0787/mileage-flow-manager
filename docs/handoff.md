@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `feat/telemetria-nightly-kpi`
-- **Último commit:** `a671835 — Merge pull request #389 from andre0787/refactor/react19-use-suspense`
+- **Branch:** `main`
+- **Último commit:** `0f56929 — Merge pull request #393 from andre0787/feat/telemetria-nightly-kpi`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -58,11 +58,12 @@ Nenhum PR aberto.
 
 ## 🎯 Sessão Atual
 **Categoria:** feature
-**Objetivo:** Telemetria no nightly + AiCostSection use()
+**Objetivo:** Visualização por cor dos itens por dono de conta
 **Status:** in_progress
-**Iniciada em:** 2026-08-14T18:36:33.432Z
-**Branch:** `feat/telemetria-nightly-kpi`
-**Último commit:** a671835 — Merge pull request #389 from andre0787/refactor/react19-use-suspense
+**Iniciada em:** 2026-08-14T19:21:09.957Z
+**Branch:** `feat/owner-colors-visual`
+**Último commit:** 0f56929 — Merge pull request #393 from andre0787/feat/telemetria-nightly-kpi
+**Council:** docs/council/2026-08-14-owner-colors-veredito.md (veredito: Faça — paleta fixa, cor como reforço)
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_

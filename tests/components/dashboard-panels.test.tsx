@@ -221,7 +221,8 @@ describe("AccountCard", () => {
     );
     expect(screen.getAllByText("LATAM Pass")).toHaveLength(2); // nome + programa
     expect(screen.getByText("9.000")).toBeDefined();
-    expect(screen.getByText("Ana")).toBeDefined();
+    // Dono aparece no chip de cor (header) e na linha "Dono:" (reforço visual)
+    expect(screen.getAllByText("Ana")).toHaveLength(2);
     expect(screen.getByText("Desativar")).toBeDefined();
     expect(screen.getByText("2")).toBeDefined(); // badge de alertas
   });

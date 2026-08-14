@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T18:39:18.418Z",
+  "generatedAt": "2026-08-14T22:24:03.608Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,9 +174,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 76.6,
-      "prePrTotal": 384,
-      "prePrPass": 294,
+      "prePrPassRate": 76.7,
+      "prePrTotal": 386,
+      "prePrPass": 296,
       "prePrFail": 90,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -185,7 +185,7 @@
         "twins": 0,
         "auth": 2
       },
-      "avgOutcomeGrade": 92.6,
+      "avgOutcomeGrade": 92.5,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -205,11 +205,11 @@
         },
         {
           "rule": "rule-17-new-docs-valid",
-          "count": 24
+          "count": 26
         }
       ],
       "healedByRule": {
-        "rule-26": 56,
+        "rule-26": 57,
         "rule-17-new-docs-valid": 19,
         "rule-02": 1
       },
@@ -218,8 +218,8 @@
       },
       "avgCycleTimeHours": 0.6,
       "branchesMerged": 101,
-      "violationsCaught": 430,
-      "healedRate": 17.7,
+      "violationsCaught": 432,
+      "healedRate": 17.8,
       "frictionPerPass": 1.46,
       "llmRouter": {
         "resolved": 39,
@@ -449,15 +449,15 @@
     {
       "day": "2026-08-01",
       "label": "01/08",
-      "prePrTotal": 35,
-      "prePrPass": 21,
+      "prePrTotal": 34,
+      "prePrPass": 20,
       "prePrFail": 14,
-      "prePrPassRate": 60,
+      "prePrPassRate": 58.8,
       "ruleFails": 24,
       "healed": 0,
-      "sessions": 48,
-      "merges": 6,
-      "friction": 1.14
+      "sessions": 41,
+      "merges": 5,
+      "friction": 1.2
     },
     {
       "day": "2026-08-02",
@@ -618,18 +618,36 @@
     {
       "day": "2026-08-14",
       "label": "14/08",
-      "prePrTotal": 16,
-      "prePrPass": 16,
+      "prePrTotal": 19,
+      "prePrPass": 19,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 24,
-      "healed": 3,
-      "sessions": 5,
-      "merges": 6,
-      "friction": 1.5
+      "ruleFails": 26,
+      "healed": 4,
+      "sessions": 6,
+      "merges": 7,
+      "friction": 1.37
     }
   ],
   "prs": [
+    {
+      "number": 393,
+      "title": "feat: telemetria no nightly + AiCostSection use()/Suspense",
+      "type": "feat",
+      "date": "2026-08-14",
+      "tokens": 800,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 390,
+      "title": "docs: AI-SESSION-STATE — Fase E (use()/Suspense)",
+      "type": "docs",
+      "date": "2026-08-14",
+      "tokens": 26,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
     {
       "number": 389,
       "title": "refactor: migra fetches de JSON estático para use()/Suspense (rule-45 100%)",
@@ -701,24 +719,6 @@
       "tokens": 485,
       "benefit": "Documentação/processo atualizados — mais rastreabilidade",
       "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 376,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-08-13",
-      "tokens": 452,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção"
-    },
-    {
-      "number": 375,
-      "title": "refactor(dashboard): etapa 1 — lógica pura extraída (Dashboard 1126→976, EntryForm 939→909) + coverage gate rule-42 (≥75%)",
-      "type": "refactor",
-      "date": "2026-08-13",
-      "tokens": 2081,
-      "benefit": "Código mais simples — menor custo de manutenção",
-      "impact": "Menos custo em mudanças futuras"
     }
   ],
   "repo": {
@@ -729,16 +729,16 @@
     "testFiles": 213,
     "skills": 26,
     "rules": 48,
-    "events": 1206,
-    "qualityNotes": 489
+    "events": 1207,
+    "qualityNotes": 492
   },
   "summary": {
     "merges": 101,
     "prs": 6,
-    "sessions": 120,
-    "violations": 430,
-    "healed": 76,
-    "prePrPassRate": 76.6
+    "sessions": 114,
+    "violations": 432,
+    "healed": 77,
+    "prePrPassRate": 76.7
   },
   "telemetry": []
 }
