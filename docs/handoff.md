@@ -27,11 +27,10 @@ Consulte as GitHub Issues para a lista atual.
   DataContext/App (DataProvider) e mutationHooksLifecycle de contas/clientes.
 - Cards P3-27 a P3-35 todos `done`; ROADMAP atualizado.
 
-### 🔄 Em andamento
-- **Issue #308 (bug de fuso)** — datas ISO date-only (`YYYY-MM-DD`) exibidas com 1 dia a
-  menos em America/Sao_Paulo. Exibição já corrigida com `formatDateBR` (13 usos);
-  correção completa em PR com `parseDateOnly` (agrupamento mensal em metrics/Dashboard/Relatorios,
-  ciclo de passageiros em SaleForm, dia do mês em EntryForm, TWINS em ControleCPF).
+### ✅ Concluído
+- **Issue #308 (bug de fuso)** — **resolvida** (PR #379 merged). Exibição com `formatDateBR`
+  (timezone-safe via `parseDateOnly`) + cálculos com `parseDateOnly` + TWINS em ControleCPF;
+  auditoria 2026-08-13 sem risco restante.
 
 ### 📋 PRs Abertos
 Nenhum PR aberto.

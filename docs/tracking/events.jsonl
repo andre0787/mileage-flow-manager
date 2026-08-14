@@ -1223,3 +1223,4 @@
 {"timestamp":"2026-08-14T04:28:48.163Z","type":"rule:fail","description":"rule-22-pr-naming falhou","branch":"feat/blueprint-v9-governanca","commit":"6b4aa52","agent":"human","rule":"rule-22-pr-naming"}
 {"timestamp":"2026-08-14T04:30:19.045Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/blueprint-v9-governanca","commit":"6b4aa52","agent":"human","errors":0}
 {"timestamp":"2026-08-14T04:30:32.445Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/blueprint-v9-governanca","commit":"6b4aa52","agent":"human","errors":0}
+{"timestamp":"2026-08-14T04:31:36.010Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/blueprint-v9-governanca","commit":"6136f5d","agent":"human","errors":0}
