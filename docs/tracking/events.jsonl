@@ -1205,3 +1205,5 @@
 {"timestamp":"2026-08-14T13:22:33.237Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/telemetry-audit-sessao-atual","commit":"df61fc7","agent":"human","errors":0}
 {"timestamp":"2026-08-14T13:23:26.759Z","type":"healed","description":"rule-26 auto-corrigido","branch":"fix/telemetry-audit-sessao-atual","commit":"a47f3d0","agent":"human","rule":"rule-26"}
 {"timestamp":"2026-08-14T13:23:27.163Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/telemetry-audit-sessao-atual","commit":"a47f3d0","agent":"human","errors":0}
+{"timestamp":"2026-08-14T18:00:32.303Z","type":"coding:done","description":"Fix flake CI rule-08: testTimeout 5s->20s (vite.config)","branch":"fix/telemetry-audit-sessao-atual","commit":"40f243f","agent":"human","subagent":true}
+{"timestamp":"2026-08-14T18:00:32.337Z","type":"code-review:done","description":"Review: fix timeout + merge origin/main","branch":"fix/telemetry-audit-sessao-atual","commit":"40f243f","agent":"human","subagent":true}
