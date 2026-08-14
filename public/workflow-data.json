@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-14T07:18:41.790Z",
+  "generatedAt": "2026-08-14T13:22:26.330Z",
   "dataDate": "2026-08-14",
   "kpiStats": [
     {
-      "value": 1226,
+      "value": 1204,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 480,
+      "value": 481,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -28,7 +28,7 @@
       "sub": "desde o início"
     },
     {
-      "value": 46,
+      "value": 47,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,12 +36,12 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 162,
+      "n": 142,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 385,
+      "n": 381,
       "color": "#8b5cf6"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 50,
+      "n": 51,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 49,
+      "n": 50,
       "color": "#22c55e"
     },
     {
@@ -103,7 +103,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 318,
+      "n": 319,
       "color": "#10b981"
     },
     {
@@ -118,6 +118,26 @@
     }
   ],
   "recentTimeline": [
+    {
+      "t": "2026-08-14 13:22:22",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-14 13:21:47",
+      "d": "code-review:done",
+      "desc": "Review diff telemetry-audit: correcao de selecao da sessao atual (primeiro->ultimo start; end<start -> now); registro valido com tempo 554min; sem issues"
+    },
+    {
+      "t": "2026-08-14 13:21:47",
+      "d": "coding:done",
+      "desc": "Fix telemetry-audit.mjs: session:start usa ultimo evento (at(-1)) + sessao aberta usa Date.now() quando end anterior ao start"
+    },
+    {
+      "t": "2026-08-14 13:21:43",
+      "d": "session:start",
+      "desc": "bugfix: telemetry-audit usa última sessão (find→at(-1)) + sessão aberta (end anterior a start)"
+    },
     {
       "t": "2026-08-14 04:31:36",
       "d": "pre-pr",
@@ -137,35 +157,15 @@
       "t": "2026-08-14 04:28:48",
       "d": "rule:fail",
       "desc": "rule-22-pr-naming falhou"
-    },
-    {
-      "t": "2026-08-14 04:28:11",
-      "d": "rule:fail",
-      "desc": "rule-22-pr-naming falhou"
-    },
-    {
-      "t": "2026-08-14 04:26:55",
-      "d": "rule:fail",
-      "desc": "rule-41-optimizer falhou"
-    },
-    {
-      "t": "2026-08-14 04:26:55",
-      "d": "rule:fail",
-      "desc": "rule-22-pr-naming falhou"
-    },
-    {
-      "t": "2026-08-14 04:26:55",
-      "d": "rule:fail",
-      "desc": "rule-17-new-docs-valid falhou"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 419,
     "healed": 75,
     "healedRate": 17.9,
-    "prePrTotal": 385,
-    "prePrPass": 292,
-    "prePrPassRate": 75.8,
+    "prePrTotal": 381,
+    "prePrPass": 289,
+    "prePrPassRate": 75.9,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -195,7 +195,53 @@
       }
     ]
   },
-  "lastPrs": [],
+  "lastPrs": [
+    {
+      "number": 381,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-08-14",
+      "tokens": 496,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção"
+    },
+    {
+      "number": 380,
+      "title": "feat: Blueprint v9 — governança, telemetria, KPI e adapters RTK",
+      "type": "feat",
+      "date": "2026-08-14",
+      "tokens": 1970,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 379,
+      "title": "docs: encerra issue #308 (bug de fuso) — handoff + auditoria de datas",
+      "type": "docs",
+      "date": "2026-08-14",
+      "tokens": 485,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
+    {
+      "number": 376,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-08-13",
+      "tokens": 452,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção"
+    },
+    {
+      "number": 375,
+      "title": "refactor(dashboard): etapa 1 — lógica pura extraída (Dashboard 1126→976, EntryForm 939→909) + coverage gate rule-42 (≥75%)",
+      "type": "refactor",
+      "date": "2026-08-13",
+      "tokens": 2081,
+      "benefit": "Código mais simples — menor custo de manutenção",
+      "impact": "Menos custo em mudanças futuras"
+    }
+  ],
   "overview": {
     "components": 112,
     "pages": 16,
@@ -204,7 +250,7 @@
     "testFiles": 211,
     "skills": 26,
     "rules": 48,
-    "events": 1226,
-    "qualityNotes": 480
+    "events": 1204,
+    "qualityNotes": 481
   }
 }

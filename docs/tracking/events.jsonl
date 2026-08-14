@@ -1,29 +1,3 @@
-{"timestamp":"2026-08-01T03:45:55.469Z","type":"session:start","description":"docs: verifica output","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
-{"timestamp":"2026-08-01T03:45:55.589Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":1}
-{"timestamp":"2026-08-01T03:46:57.657Z","type":"session:start","description":"docs: teste docs","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
-{"timestamp":"2026-08-01T03:46:58.054Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"bugfix"}
-{"timestamp":"2026-08-01T03:46:58.152Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":0}
-{"timestamp":"2026-08-01T03:46:58.370Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"refactor"}
-{"timestamp":"2026-08-01T03:46:58.652Z","type":"session:start","description":"feature: primeira feature","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"feature"}
-{"timestamp":"2026-08-01T03:46:58.925Z","type":"session:start","description":"chore: segunda chore","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
-{"timestamp":"2026-08-01T03:46:59.121Z","type":"session:start","description":"docs: continuacao","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
-{"timestamp":"2026-08-01T03:47:04.393Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
-{"timestamp":"2026-08-01T03:47:06.961Z","type":"session:start","description":"docs: verifica output","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
-{"timestamp":"2026-08-01T03:47:07.081Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":0}
-{"timestamp":"2026-08-01T03:48:03.859Z","type":"session:start","description":"docs: teste docs","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
-{"timestamp":"2026-08-01T03:48:04.189Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"bugfix"}
-{"timestamp":"2026-08-01T03:48:04.509Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"refactor"}
-{"timestamp":"2026-08-01T03:48:04.576Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":0}
-{"timestamp":"2026-08-01T03:48:04.857Z","type":"session:start","description":"feature: primeira feature","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"feature"}
-{"timestamp":"2026-08-01T03:48:05.138Z","type":"session:start","description":"chore: segunda chore","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
-{"timestamp":"2026-08-01T03:48:05.366Z","type":"session:start","description":"docs: continuacao","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
-{"timestamp":"2026-08-01T03:48:10.644Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
-{"timestamp":"2026-08-01T03:48:13.213Z","type":"session:start","description":"docs: verifica output","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
-{"timestamp":"2026-08-01T03:48:34.550Z","type":"session:start","description":"docs: teste docs","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
-{"timestamp":"2026-08-01T03:48:34.874Z","type":"session:start","description":"bugfix: corrige bug","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"bugfix"}
-{"timestamp":"2026-08-01T03:48:35.115Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/remove-superpowers-package","commit":"23ebd8d","errors":0}
-{"timestamp":"2026-08-01T03:48:35.163Z","type":"session:start","description":"refactor: refatora modulo","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"refactor"}
-{"timestamp":"2026-08-01T03:48:35.489Z","type":"session:start","description":"feature: primeira feature","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"feature"}
 {"timestamp":"2026-08-01T03:48:35.767Z","type":"session:start","description":"chore: segunda chore","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
 {"timestamp":"2026-08-01T03:48:35.945Z","type":"session:start","description":"docs: continuacao","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"docs"}
 {"timestamp":"2026-08-01T03:48:41.221Z","type":"session:start","description":"chore: descrição concisa","branch":"chore/remove-superpowers-package","commit":"23ebd8d","categoria":"chore"}
@@ -1224,3 +1198,8 @@
 {"timestamp":"2026-08-14T04:30:19.045Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/blueprint-v9-governanca","commit":"6b4aa52","agent":"human","errors":0}
 {"timestamp":"2026-08-14T04:30:32.445Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/blueprint-v9-governanca","commit":"6b4aa52","agent":"human","errors":0}
 {"timestamp":"2026-08-14T04:31:36.010Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/blueprint-v9-governanca","commit":"6136f5d","agent":"human","errors":0}
+{"timestamp":"2026-08-14T13:21:43.353Z","type":"session:start","description":"bugfix: telemetry-audit usa última sessão (find→at(-1)) + sessão aberta (end anterior a start)","branch":"fix/telemetry-audit-sessao-atual","commit":"df61fc7","agent":"human","categoria":"bugfix"}
+{"timestamp":"2026-08-14T13:21:47.529Z","type":"coding:done","description":"Fix telemetry-audit.mjs: session:start usa ultimo evento (at(-1)) + sessao aberta usa Date.now() quando end anterior ao start","branch":"fix/telemetry-audit-sessao-atual","commit":"df61fc7","agent":"human","subagent":true,"skill":"systematic-debugging"}
+{"timestamp":"2026-08-14T13:21:47.563Z","type":"code-review:done","description":"Review diff telemetry-audit: correcao de selecao da sessao atual (primeiro->ultimo start; end<start -> now); registro valido com tempo 554min; sem issues","branch":"fix/telemetry-audit-sessao-atual","commit":"df61fc7","agent":"human","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-08-14T13:22:22.853Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/telemetry-audit-sessao-atual","commit":"df61fc7","agent":"human","errors":0}
+{"timestamp":"2026-08-14T13:22:33.237Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/telemetry-audit-sessao-atual","commit":"df61fc7","agent":"human","errors":0}

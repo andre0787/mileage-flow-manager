@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `4afeb12 — refactor(etapa3): drawers de criação do EntryForm em componentes (909→511) + blocos restantes do Dashboard (491→386) (#378)`
+- **Branch:** `fix/telemetry-audit-sessao-atual`
+- **Último commit:** `df61fc7 — Merge pull request #381 from andre0787/chore/quality-nightly-update`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -55,6 +55,14 @@ Nenhum PR aberto.
 
 
 
+
+
+
+
+
+
+
+
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
@@ -83,3 +91,12 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 
 
+
+## 🎯 Sessão Atual
+**Categoria:** bugfix
+**Objetivo:** telemetry-audit usa última sessão (find→at(-1)) + sessão aberta (end anterior a start)
+**Status:** in_progress
+**Iniciada em:** 2026-08-14T13:21:43.330Z
+**Branch:** `fix/telemetry-audit-sessao-atual`
+**Último commit:** df61fc7 — Merge pull request #381 from andre0787/chore/quality-nightly-update
+**Docs carregados:** DEBUG.md, conventions/common.md, conventions/bugfix.md

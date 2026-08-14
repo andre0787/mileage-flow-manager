@@ -50,11 +50,15 @@ function readEvents() {
 
 // ── Resumo da sessão ───────────────────────────────────────────────────
 const events = readEvents();
-const sessionStart = events.find((e) => e.type === "session:start");
+// Último session:start (o log acumula sessões — o find() pegaria a primeira)
+const sessionStart = [...events].reverse().find((e) => e.type === "session:start");
 const sessionEnd = events.filter((e) => e.type === "session:end").at(-1);
 
 const startTs = sessionStart ? new Date(sessionStart.timestamp).getTime() : null;
-const endTs = sessionEnd ? new Date(sessionEnd.timestamp).getTime() : Date.now();
+// Sessão ainda aberta (último end anterior ao start) → usa agora
+const lastEndTs = sessionEnd ? new Date(sessionEnd.timestamp).getTime() : null;
+const endTs =
+  startTs !== null && lastEndTs !== null && lastEndTs >= startTs ? lastEndTs : Date.now();
 const elapsedMs = startTs ? Math.max(0, endTs - startTs) : 0;
 
 console.log("── TELEMETRY AUDIT ──");
