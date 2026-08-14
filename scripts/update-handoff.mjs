@@ -16,7 +16,8 @@ import { readFileSync, writeFileSync, existsSync } from "fs";
 import { resolve, join } from "path";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const HANDOFF_PATH = join(ROOT, "docs/handoff.md");
+// Path sobrescrevível via env (testes usam fixture em tmpdir)
+const HANDOFF_PATH = process.env.HANDOFF_PATH || join(ROOT, "docs/handoff.md");
 
 function git(cmd) {
   try {
@@ -146,19 +147,45 @@ function build() {
 
 const result = await build();
 
+/**
+ * Extrai subseções manuais do bloco "Estado Atual" do handoff anterior
+ * (ex.: "### ✅ Concluído", "### 🔄 Em andamento") — tudo entre o bullet
+ * "Remote" e a seção automática "### 📋 PRs Abertos". O template regenera
+ * os bullets (Branch/commit/Remote) mas NÃO as subseções manuais.
+ */
+function extractEstadoManual(content) {
+  const m = (content || "").match(/## 🧭 Estado Atual[\s\S]*?(?=\n## |\n---|$)/);
+  if (!m) return null;
+  const secao = m[0];
+  const remoteIdx = secao.indexOf("- **Remote:**");
+  const prsIdx = secao.indexOf("### 📋 PRs Abertos");
+  if (remoteIdx < 0 || prsIdx <= remoteIdx) return null;
+  const fimRemote = secao.indexOf("\n", remoteIdx);
+  const manual = secao.slice(fimRemote + 1, prsIdx).trim();
+  return manual || null;
+}
+
 function writeHandoff() {
-  // Preserva notas manuais (tudo após "## 🧠 Notas da Sessão Atual")
+  // Preserva notas manuais (tudo após "## 🧠 Notas da Sessão Atual") e
+  // subseções manuais do "Estado Atual" (Blueprint, Concluído, Em andamento)
   const oldContent = readCurrent();
   if (oldContent) {
     const notesMatch = oldContent.match(/## 🧠 Notas da Sessão Atual[\s\S]*/);
     const sessionMatch = oldContent.match(/## 🎯 Sessão Atual[\s\S]*?(?=\n## |\n---|$)/);
-    const personalized = sessionMatch
+    const estadoManual = extractEstadoManual(oldContent);
+    let personalized = sessionMatch
       ? result.replace(/## 🎯 Sessão Atual[\s\S]*?(?=\n## ✅ Última Sessão)/, sessionMatch[0].trim())
       : result;
+    if (estadoManual) {
+      personalized = personalized.replace(
+        /(### 📋 PRs Abertos)/,
+        estadoManual + "\n\n" + "$1"
+      );
+    }
     if (notesMatch) {
       const newAuto = personalized.replace(/\n## 🧠 Notas da Sessão Atual[\s\S]*$/, "");
       writeFileSync(HANDOFF_PATH, newAuto + "\n" + notesMatch[0] + "\n");
-      console.log("✅ docs/handoff.md atualizado (notas preservadas)");
+      console.log("✅ docs/handoff.md atualizado (notas + seções manuais preservadas)");
       return;
     }
   }
