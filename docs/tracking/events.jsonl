@@ -1218,3 +1218,5 @@
 {"timestamp":"2026-08-14T23:07:12.720Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-custom-color","commit":"ebacdfb","agent":"human","errors":0}
 {"timestamp":"2026-08-14T23:07:21.253Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-custom-color","commit":"ebacdfb","agent":"human","errors":0}
 {"timestamp":"2026-08-14T23:12:29.906Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-custom-color","commit":"d030c5a","agent":"human","errors":0}
+{"timestamp":"2026-08-14T23:19:06.491Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/ai-session-state-owner-custom-color","commit":"7a2b431","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-14T23:19:06.898Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/ai-session-state-owner-custom-color","commit":"7a2b431","agent":"human","errors":0}
