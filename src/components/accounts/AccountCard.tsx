@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AccountActions } from "@/components/accounts/AccountActions";
 import { formatDateBR } from "@/lib/dateUtils";
+import { ownerColor, ownerColorBorder, ownerColorSoft } from "@/lib/ownerColors";
 import type { Account } from "@/types";
 
 interface AccountCardProps {
@@ -37,10 +38,24 @@ export function AccountCard({
   onOpenAlerts,
 }: AccountCardProps) {
   const balanceMismatch = computedBalance !== account.balance;
+  const donoColor = ownerColor(ownerName);
+  const donoSoft = ownerColorSoft(ownerName);
+  const donoBorder = ownerColorBorder(ownerName);
 
   return (
-    <Card className="shadow-card hover:shadow-elegant hover:-translate-y-0.5 transition-all duration-200">
+    <Card
+      className="shadow-card hover:shadow-elegant hover:-translate-y-0.5 transition-all duration-200"
+      style={{ borderTopColor: donoColor, borderTopWidth: 3 }}
+    >
       <CardHeader className="pb-3 bg-gradient-card">
+        {/* Chip de cor do dono (reforço visual — o nome segue visível abaixo) */}
+        <div
+          className="mb-2 inline-flex w-fit items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] font-semibold"
+          style={{ backgroundColor: donoSoft, color: donoColor, border: `1px solid ${donoBorder}` }}
+        >
+          <span className="h-2 w-2 rounded-full" style={{ backgroundColor: donoColor }} />
+          {ownerName}
+        </div>
         <div className="flex items-start justify-between">
           <div className="space-y-1">
             <CardTitle className="text-lg">{account.name}</CardTitle>
@@ -112,7 +127,10 @@ export function AccountCard({
           )}
           <div className="flex items-center justify-between">
             <span className="text-sm text-muted-foreground">Dono:</span>
-            <span className="text-sm font-medium">{ownerName}</span>
+            <span className="flex items-center gap-1.5 text-sm font-medium">
+              <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: donoColor }} />
+              {ownerName}
+            </span>
           </div>
           <div className="flex items-center justify-between">
             <span className="text-sm text-muted-foreground">Última entrada:</span>

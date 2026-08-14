@@ -6,6 +6,7 @@ import { StatusBadge } from "@/components/ui/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { SortableHeader } from "@/components/ui/SortableHeader";
 import { formatDateBR } from "@/lib/dateUtils";
+import { ownerColor, ownerColorSoft } from "@/lib/ownerColors";
 import { sortByKey, type SortState } from "@/lib/sort";
 import {
   Select,
@@ -181,6 +182,19 @@ export function SaleTable({
                     <TableCell>
                       <p className="font-medium">{sale.ownerName}</p>
                       <p className="text-xs text-muted-foreground">{sale.program}</p>
+                      <span
+                        className="mt-1 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold"
+                        style={{
+                          backgroundColor: ownerColorSoft(sale.ownerName),
+                          color: ownerColor(sale.ownerName),
+                        }}
+                      >
+                        <span
+                          className="h-1.5 w-1.5 rounded-full"
+                          style={{ backgroundColor: ownerColor(sale.ownerName) }}
+                        />
+                        {sale.ownerName}
+                      </span>
                     </TableCell>
                     <TableCell>
                       <p className="font-medium">{sale.clientName}</p>
@@ -277,7 +291,20 @@ export function SaleTable({
                   <div className="min-w-0 flex-1">
                     <p className="font-semibold truncate">{sale.program}</p>
                     <p className="text-xs text-muted-foreground truncate">
-                      {sale.ownerName} • {formatDateBR(sale.date)}
+                      <span
+                        className="inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold"
+                        style={{
+                          backgroundColor: ownerColorSoft(sale.ownerName),
+                          color: ownerColor(sale.ownerName),
+                        }}
+                      >
+                        <span
+                          className="h-1.5 w-1.5 rounded-full"
+                          style={{ backgroundColor: ownerColor(sale.ownerName) }}
+                        />
+                        {sale.ownerName}
+                      </span>{" "}
+                      • {formatDateBR(sale.date)}
                     </p>
                   </div>
                   {sale.status === "cancelado" ? (
