@@ -144,7 +144,7 @@ export default function KPIDashboard({ data }: { data: KpiData }) {
 
       <LLMRouterKPISection llmRouter={current.llmRouter ?? LEGACY_ROUTER_KPI} />
 
-      <AiCostSection />
+      <AiCostSection records={data.telemetry} />
     </div>
   );
 }

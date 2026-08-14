@@ -90,6 +90,16 @@ export interface KpiData {
   prs: PrRow[];
   repo: RepoFacts;
   summary: Summary30;
+  /** Custo por funcionalidade (rule-48) — agregado da ai_telemetry no nightly. */
+  telemetry?: AiTelemetryAreaCost[];
+}
+
+/** Custo por área agregado (espelho do output de src/lib/aiTelemetry.ts costPerArea). */
+export interface AiTelemetryAreaCost {
+  area: string;
+  cost: number;
+  executions: number;
+  avgExecutionMs: number;
 }
 
 // ─── Aba Workflow ───

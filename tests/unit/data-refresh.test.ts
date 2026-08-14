@@ -3,7 +3,7 @@
  * abas KPI (Datadog interno) e Workflow (scripts/data-refresh.mjs).
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import {
   computeDailyKPI,
   computeDailySeries,
@@ -17,6 +17,7 @@ import {
   formatDayLabel,
   eventsInWindow,
   buildWorkflowData,
+  fetchTelemetryCost,
 } from "../../scripts/data-refresh.mjs";
 
 describe("formatDayLabel", () => {
@@ -275,5 +276,68 @@ describe("eventsInWindow / buildWorkflowData", () => {
     expect(data.kpiStats[0].label).toContain("eventos");
     expect(data.eventTypes.some((t) => t.name === "pre-pr")).toBe(true);
     expect(data.recentTimeline.length).toBeGreaterThan(0);
+  });
+});
+
+describe("fetchTelemetryCost (Custo por Funcionalidade — rule-48)", () => {
+  const realFetch = globalThis.fetch;
+  const realEnv = { ...process.env };
+
+  afterEach(() => {
+    globalThis.fetch = realFetch;
+    process.env = { ...realEnv };
+  });
+
+  function setEnv(key: string | null) {
+    delete process.env.SUPABASE_URL;
+    delete process.env.SUPABASE_ANON_KEY;
+    delete process.env.SUPABASE_SERVICE_KEY;
+    delete process.env.VITE_SUPABASE_ANON_KEY;
+    if (key) process.env.SUPABASE_SERVICE_KEY = key;
+  }
+
+  it("agrega custo por área a partir dos registros da ai_telemetry", async () => {
+    setEnv("service-key");
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => [
+        { area: "vendas", cost_estimate: 0.006, total_execution_time_ms: 2000 },
+        { area: "contas", cost_estimate: 0.003, total_execution_time_ms: 10000 },
+        { area: "vendas", cost_estimate: 0.006, total_execution_time_ms: 4000 },
+      ],
+    }) as unknown as typeof fetch;
+
+    const result = await fetchTelemetryCost();
+    expect(result).toEqual([
+      { area: "vendas", cost: 0.012, executions: 2, avgExecutionMs: 3000 },
+      { area: "contas", cost: 0.003, executions: 1, avgExecutionMs: 10000 },
+    ]);
+    expect(globalThis.fetch).toHaveBeenCalledTimes(1);
+  });
+
+  it("retorna [] quando a resposta não é ok (fail-open)", async () => {
+    setEnv("service-key");
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 401,
+    }) as unknown as typeof fetch;
+    await expect(fetchTelemetryCost()).resolves.toEqual([]);
+  });
+
+  it("retorna [] quando a resposta não é um array", async () => {
+    setEnv("service-key");
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ error: "x" }),
+    }) as unknown as typeof fetch;
+    await expect(fetchTelemetryCost()).resolves.toEqual([]);
+  });
+
+  it("retorna [] sem credenciais (fail-open)", async () => {
+    setEnv(null);
+    const spy = vi.fn();
+    globalThis.fetch = spy as unknown as typeof fetch;
+    await expect(fetchTelemetryCost()).resolves.toEqual([]);
+    expect(spy).not.toHaveBeenCalled();
   });
 });
