@@ -58,6 +58,12 @@ Antes de cada `subagent_gate`, resolva a tarefa com `npm run llm:route`. Use exa
 22. **📐 Architect Gate** — estrutura Feature-First: módulos em `src/features/[feature]` com barrel `index.ts` e RLS verificado (`CREATE POLICY` com `USING (auth.uid())` em `supabase/migrations/`); vacuous se `src/features/` não existe. Valida: `rule-40`.
 23. **🧹 Optimizer Gate** — hard limit de 150 linhas por arquivo em `src/` (diff-scoped contra main); arquivos novos grandes e arquivos que passam do limite falham; legados já grandes são grandfathered (warning). Aplicado no workflow refactor. Valida: `rule-41`.
 24. **📊 Coverage Gate** — todo relatório de cobertura gerado (`npm run coverage`, provider v8) precisa ter ≥ 75% de linhas nas áreas de negócio (src/lib, kpi, workflow); relatório ausente é skip (fail-open — o nightly roda coverage + gate). Aplicado no pre-pr e nightly. Valida: `rule-42`.
+25. **🗄️ Migration Gate** — migrations Supabase são **imutáveis** (nenhuma migration existente pode ser modificada na branch — diff-scoped contra main) e toda `CREATE TABLE` exige política RLS com `auth.uid()`. Previne schema drift. Valida: `rule-43`.
+26. **🗃️ RTK Auditor** — coleções de dados (contas, clientes, vendas, entradas, alerts, owners, programs, origem_types) usam `createEntityAdapter` como normalização de cache com seletores memoizados; sem `any` em slices. Valida: `rule-44`.
+27. **⚛️ React 19 Compliance** — priorizar `use()` (promises/context) sobre `useEffect` boilerplate e `useActionState`/`useFormStatus` em forms de transação; `any` é falha crítica; tipos espelhados do schema Supabase. Valida: `rule-45`.
+28. **🧠 Token Sentinel** — todo turno de trabalho atualiza `docs/AI-SESSION-STATE.md` (estrutura obrigatória, ≤50 linhas) como último ato; hard-fail: estrutura ausente/inválida e arquivos `src/` >150 linhas na branch (diff-scoped). Valida: `rule-46`.
+29. **🔌 MCP Bridge** — interface MCP documentada e versionada: config (`SERENA_MCP_URL` / `.mcp.json`) ou skill/script presente; extensão `mcp-bridge` em `.pi/extensions/`. Valida: `rule-47`.
+30. **📡 Telemetry Auditor** — eficiência da IA registrada ao finalizar task (evento `telemetry:record`/`session:end`); lib `src/lib/aiTelemetry.ts` e tabela `ai_telemetry` íntegras (RLS). Valida: `rule-48`.
 
 ## 🎯 Sistema de Categorias (LAZY LOADING)
 

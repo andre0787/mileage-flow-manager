@@ -15,6 +15,19 @@ vi.mock("../../src/contexts/DataContext", () => ({
   }),
 }));
 
+// AiCostSection busca ai_telemetry no Supabase — mock retorna vazio (sem rede)
+vi.mock("../../src/lib/supabase", () => ({
+  supabase: {
+    from: () => ({
+      select: () => ({
+        order: () => ({
+          limit: () => Promise.resolve({ data: [], error: null }),
+        }),
+      }),
+    }),
+  },
+}));
+
 const mockData: KpiData = {
   generatedAt: "2026-07-29T23:00:00.000Z",
   currentMonth: "2026-07",

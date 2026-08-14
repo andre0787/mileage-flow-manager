@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-13T12:38:59.556Z",
-  "dataDate": "2026-08-13",
+  "generatedAt": "2026-08-14T04:17:16.370Z",
+  "dataDate": "2026-08-14",
   "kpiStats": [
     {
-      "value": 1207,
+      "value": 1209,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 470,
+      "value": 474,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 73,
+      "value": 75,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 45,
+      "value": 46,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,22 +36,22 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 167,
+      "n": 162,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 380,
+      "n": 381,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 406,
+      "n": 408,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 73,
+      "n": 75,
       "color": "#10b981"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 48,
+      "n": 49,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 47,
+      "n": 48,
       "color": "#22c55e"
     },
     {
@@ -108,7 +108,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 143,
+      "n": 147,
       "color": "#84cc16"
     },
     {
@@ -119,53 +119,53 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-13 12:38:55",
+      "t": "2026-08-14 04:17:12",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-13 12:38:23",
+      "t": "2026-08-14 04:16:34",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-14 04:16:01",
       "d": "code-review:done",
-      "desc": "Review aprovado com 3 ajustes: prop morta removida (origemTypes), botoes + condicionais (AccountDrawerFields), coverage inclui entry/"
+      "desc": "Review aprovado por subagente — Blueprint v9.0 Fase A"
     },
     {
-      "t": "2026-08-13 12:38:23",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "t": "2026-08-14 04:15:10",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
     },
     {
-      "t": "2026-08-13 12:36:19",
-      "d": "coding:done",
-      "desc": "Etapa 3 refactor implementada por subagente: Dashboard 491->386 (AlertBanners/SecondaryMetrics/Skeleton), EntryForm 909->511 (EntryCreateDrawers + 6 componentes entry/), 8 testes novos"
+      "t": "2026-08-14 04:14:34",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
     },
     {
-      "t": "2026-08-13 12:36:19",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "t": "2026-08-14 04:14:28",
+      "d": "healed",
+      "desc": "rule-17-new-docs-valid auto-corrigido"
     },
     {
-      "t": "2026-08-13 12:36:18",
+      "t": "2026-08-14 04:14:28",
       "d": "healed",
       "desc": "rule-26 auto-corrigido"
     },
     {
-      "t": "2026-08-13 12:29:11",
-      "d": "session:start",
-      "desc": "refactor: Etapa 3 refactor: extrai blocos JSX restantes do Dashboard (491L) e EntryForm (909L) em componentes proprios"
-    },
-    {
-      "t": "2026-08-13 12:20:18",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "t": "2026-08-14 04:13:36",
+      "d": "coding:done",
+      "desc": "Blueprint v9.0 Fase A — regras 43-48, extensões, telemetria + KPI (subagente)"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 406,
-    "healed": 73,
-    "healedRate": 18,
-    "prePrTotal": 380,
-    "prePrPass": 287,
-    "prePrPassRate": 75.5,
+    "ruleFails": 408,
+    "healed": 75,
+    "healedRate": 18.4,
+    "prePrTotal": 381,
+    "prePrPass": 288,
+    "prePrPassRate": 75.6,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -185,7 +185,7 @@
       },
       {
         "rule": "rule-38-code-review-gate",
-        "count": 23,
+        "count": 25,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
@@ -250,7 +250,7 @@
     "testFiles": 207,
     "skills": 26,
     "rules": 42,
-    "events": 1207,
-    "qualityNotes": 470
+    "events": 1209,
+    "qualityNotes": 474
   }
 }

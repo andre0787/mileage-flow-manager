@@ -102,7 +102,9 @@
     "crg:impact": "code-review-graph impact",
     "crg:detect-changes": "code-review-graph detect-changes",
     "crg:wiki": "code-review-graph wiki",
-    "nav:gate": "node scripts/navigation-gate.mjs"
+    "nav:gate": "node scripts/navigation-gate.mjs",
+    "telemetry:audit": "node scripts/telemetry-audit.mjs",
+    "telemetry:record": "node scripts/telemetry-audit.mjs --record"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.1",

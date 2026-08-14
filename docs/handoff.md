@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `e22a5b3 — refactor(etapa2): hero sections do Dashboard em componentes próprios (976→491) + AccountCard/AccountsSummary + lib entryOperations (#377)`
+- **Último commit:** `4afeb12 — refactor(etapa3): drawers de criação do EntryForm em componentes (909→511) + blocos restantes do Dashboard (491→386) (#378)`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -56,15 +56,13 @@ Nenhum PR aberto.
 
 
 ## 🎯 Sessão Atual
-**Categoria:** refactor
-**Objetivo:** Etapa 3 refactor: extrai blocos JSX restantes do Dashboard (491L) e EntryForm (909L) em componentes proprios
+**Categoria:** feature
+**Objetivo:** Blueprint v9.0 — governança: regras 43-48, ai_telemetry, ADR, AI-SESSION-STATE, refactors RTK/React19
 **Status:** in_progress
-**Iniciada em:** 2026-08-13T12:29:11.759Z
-**Branch:** `refactor/etapa3-dashboard-entryform`
-**Último commit:** e22a5b3 — refactor(etapa2): hero sections do Dashboard em componentes próprios (976→491) + AccountCard/AccountsSummary + lib entryOperations (#377)
-**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
-
-
+**Iniciada em:** 2026-08-14T04:06:56.949Z
+**Branch:** `feat/blueprint-v9-governanca`
+**Último commit:** 4afeb12 — refactor(etapa3): drawers de criação do EntryForm em componentes (909→511) + blocos restantes do Dashboard (491→386) (#378)
+**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
