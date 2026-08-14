@@ -1,39 +1,30 @@
-import { useEffect, useState } from "react";
+import { Suspense, use } from "react";
 import KPIDashboard from "@/components/KPIDashboard";
 import type { KpiData } from "@/types/kpi";
 
-export default function KPI() {
-  const [data, setData] = useState<KpiData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+let kpiPromise: Promise<KpiData | null> | null = null;
 
-  useEffect(() => {
-    fetch("/kpi-data.json")
+/**
+ * Resource dos KPIs: /kpi-data.json (gerado por `npm run data:refresh`/nightly).
+ * Promise cacheada em módulo — em falha resolve com null (a página mostra a
+ * UI de "nenhum dado disponível" com a dica de gerar os dados).
+ */
+function loadKpiData(): Promise<KpiData | null> {
+  if (!kpiPromise) {
+    kpiPromise = fetch("/kpi-data.json")
       .then((r) => {
         if (!r.ok) throw new Error("Dados não encontrados");
-        return r.json();
+        return r.json() as Promise<KpiData>;
       })
-      .then((d: KpiData) => {
-        setData(d);
-        setLoading(false);
-      })
-      .catch((e) => {
-        setError(e.message);
-        setLoading(false);
-      });
-  }, []);
+      .catch(() => null);
+  }
+  return kpiPromise;
+}
 
-  if (loading)
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-center">
-          <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4" />
-          <p className="text-muted-foreground">Carregando KPIs...</p>
-        </div>
-      </div>
-    );
+function KpiContent() {
+  const data = use(loadKpiData());
 
-  if (error || !data) {
+  if (!data) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center max-w-md">
@@ -54,4 +45,21 @@ export default function KPI() {
   }
 
   return <KPIDashboard data={data} />;
+}
+
+export default function KPI() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4" />
+            <p className="text-muted-foreground">Carregando KPIs...</p>
+          </div>
+        </div>
+      }
+    >
+      <KpiContent />
+    </Suspense>
+  );
 }

@@ -1,8 +1,42 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { createElement } from "react";
 import { render, screen } from "@testing-library/react";
 import { WorkflowEfficiency } from "@/components/workflow/WorkflowEfficiency";
-import { GATE_EFFICIENCY } from "@/lib/workflowDemoData";
+import { GATE_EFFICIENCY, DATA_DATE } from "@/lib/workflowDemoData";
+
+// O hook usa React 19 use() (suspende) — mockamos para render síncrono.
+vi.mock("@/lib/workflowData", () => ({
+  useWorkflowData: vi.fn(),
+}));
+
+import { useWorkflowData } from "@/lib/workflowData";
+
+const mockUseWorkflowData = vi.mocked(useWorkflowData);
+
+beforeEach(() => {
+  vi.clearAllMocks();
+  mockUseWorkflowData.mockReturnValue({
+    generatedAt: new Date().toISOString(),
+    dataDate: DATA_DATE,
+    kpiStats: [],
+    eventTypes: [],
+    grades: [],
+    recentTimeline: [],
+    gateEfficiency: GATE_EFFICIENCY,
+    lastPrs: [],
+    overview: {
+      components: 0,
+      pages: 0,
+      libs: 0,
+      scripts: 0,
+      testFiles: 0,
+      skills: 0,
+      rules: 0,
+      events: 0,
+      qualityNotes: 0,
+    },
+  });
+});
 
 describe("WorkflowEfficiency (rule-32)", () => {
   it("renderiza a seção com dados reais de eficiência", () => {

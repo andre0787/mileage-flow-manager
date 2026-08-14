@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { WorkflowHero } from "@/components/workflow/WorkflowHero";
 import { WorkflowJourney } from "@/components/workflow/WorkflowJourney";
 import { WorkflowTimeline } from "@/components/workflow/WorkflowTimeline";
@@ -7,7 +8,15 @@ import { WorkflowTelemetry } from "@/components/workflow/WorkflowTelemetry";
 import { WorkflowEfficiency } from "@/components/workflow/WorkflowEfficiency";
 import { WorkflowSimulator } from "@/components/workflow/WorkflowSimulator";
 import { WorkflowOverview } from "@/components/workflow/WorkflowOverview";
-import { useWorkflowData } from "@/lib/workflowData";
+import { WorkflowDataFooter } from "@/components/workflow/WorkflowDataFooter";
+
+/** Skeleton enquanto o JSON de dados reais carrega (use() suspende). */
+const DataSkeleton = () => (
+  <div className="animate-pulse space-y-3">
+    <div className="h-4 w-40 rounded bg-muted" />
+    <div className="h-24 rounded-xl bg-muted" />
+  </div>
+);
 
 /**
  * Workflow — página "Workflow" (aba no webapp).
@@ -15,9 +24,10 @@ import { useWorkflowData } from "@/lib/workflowData";
  * Port do relatório ilustrativo docs/workflow-demo/workflow-illustrated.html
  * para React + Tailwind + shadcn. Mantém as 7 seções do relatório:
  * hero → jornada → linha do tempo → mapa mental → gates → telemetria → simulador.
+ * Seções com dados reais (Overview/Telemetry/Efficiency/Footer) resolvem o
+ * JSON via use() — o Suspense mostra o skeleton enquanto carrega.
  */
 export default function Workflow() {
-  const { dataDate } = useWorkflowData();
   const today = new Date().toLocaleDateString("pt-BR");
 
   return (
@@ -25,7 +35,9 @@ export default function Workflow() {
       <WorkflowHero />
 
       <section className="border-t pt-8" aria-label="Visão geral do projeto">
-        <WorkflowOverview />
+        <Suspense fallback={<DataSkeleton />}>
+          <WorkflowOverview />
+        </Suspense>
       </section>
 
       <section className="border-t pt-8" aria-label="A jornada">
@@ -45,11 +57,15 @@ export default function Workflow() {
       </section>
 
       <section className="border-t pt-8" aria-label="A telemetria">
-        <WorkflowTelemetry />
+        <Suspense fallback={<DataSkeleton />}>
+          <WorkflowTelemetry />
+        </Suspense>
       </section>
 
       <section className="border-t pt-8" aria-label="Eficiência dos gates">
-        <WorkflowEfficiency />
+        <Suspense fallback={<DataSkeleton />}>
+          <WorkflowEfficiency />
+        </Suspense>
       </section>
 
       <section className="border-t pt-8" aria-label="Experimente">
@@ -62,7 +78,14 @@ export default function Workflow() {
         </p>
         <p className="mt-1 text-xs text-muted-foreground">
           Dados de telemetria extraídos de docs/tracking/ · números reais do repositório em{" "}
-          {dataDate} · gerado em {today}
+          <Suspense
+            fallback={
+              <span className="inline-block h-3 w-16 animate-pulse rounded bg-muted align-middle" />
+            }
+          >
+            <WorkflowDataFooter />
+          </Suspense>{" "}
+          · gerado em {today}
         </p>
       </footer>
     </div>

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T18:09:15.103Z",
+  "generatedAt": "2026-08-14T18:21:19.220Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,10 +174,10 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 76.2,
-      "prePrTotal": 382,
-      "prePrPass": 291,
-      "prePrFail": 91,
+      "prePrPassRate": 76.5,
+      "prePrTotal": 383,
+      "prePrPass": 293,
+      "prePrFail": 90,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -217,10 +217,10 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.6,
-      "branchesMerged": 99,
+      "branchesMerged": 100,
       "violationsCaught": 428,
       "healedRate": 17.8,
-      "frictionPerPass": 1.47,
+      "frictionPerPass": 1.46,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,
@@ -449,15 +449,15 @@
     {
       "day": "2026-08-01",
       "label": "01/08",
-      "prePrTotal": 38,
-      "prePrPass": 23,
-      "prePrFail": 15,
-      "prePrPassRate": 60.5,
+      "prePrTotal": 36,
+      "prePrPass": 22,
+      "prePrFail": 14,
+      "prePrPassRate": 61.1,
       "ruleFails": 24,
       "healed": 0,
-      "sessions": 59,
+      "sessions": 52,
       "merges": 6,
-      "friction": 1.04
+      "friction": 1.09
     },
     {
       "day": "2026-08-02",
@@ -618,18 +618,27 @@
     {
       "day": "2026-08-14",
       "label": "14/08",
-      "prePrTotal": 11,
-      "prePrPass": 11,
+      "prePrTotal": 14,
+      "prePrPass": 14,
       "prePrFail": 0,
       "prePrPassRate": 100,
       "ruleFails": 22,
       "healed": 3,
-      "sessions": 3,
-      "merges": 4,
-      "friction": 2
+      "sessions": 4,
+      "merges": 5,
+      "friction": 1.57
     }
   ],
   "prs": [
+    {
+      "number": 387,
+      "title": "feat: Blueprint v9 — endurece rule-44/45 + forms React 19 restantes",
+      "type": "feat",
+      "date": "2026-08-14",
+      "tokens": 815,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 384,
       "title": "fix: telemetry-audit usa a sessão mais recente do log",
@@ -710,15 +719,6 @@
       "tokens": 1075,
       "benefit": "Ajuste de processo validado",
       "impact": "Processo mais confiável e audável"
-    },
-    {
-      "number": 373,
-      "title": "feat(kpi): painel KPI — 30d com seletor, alertas de processo, breakdown por dono/programa e lazy-loading (−47% bundle)",
-      "type": "feat",
-      "date": "2026-08-13",
-      "tokens": 1712,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "repo": {
@@ -729,15 +729,15 @@
     "testFiles": 213,
     "skills": 26,
     "rules": 48,
-    "events": 1207,
-    "qualityNotes": 485
+    "events": 1204,
+    "qualityNotes": 486
   },
   "summary": {
-    "merges": 99,
+    "merges": 100,
     "prs": 6,
-    "sessions": 129,
+    "sessions": 123,
     "violations": 428,
     "healed": 76,
-    "prePrPassRate": 76.2
+    "prePrPassRate": 76.5
   }
 }

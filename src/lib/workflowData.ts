@@ -5,9 +5,13 @@
  * e usa os dados ilustrativos congelados (workflowDemoData) como fallback —
  * a primeira renderização já exibe conteúdo e o real chega em seguida.
  *
+ * React 19 (rule-45): em vez de useEffect + useState, a lib expõe um resource
+ * (promise cacheada em módulo) resolvido com `use()` — o Suspense mais próximo
+ * mostra o fallback ilustrativo enquanto o JSON real carrega.
+ *
  * regra-31: lib com teste unitário (tests/unit/workflowData.test.ts)
  */
-import { useEffect, useState } from "react";
+import { use } from "react";
 import {
   DATA_DATE,
   EVENT_TYPES as DEMO_EVENT_TYPES,
@@ -43,30 +47,30 @@ export function fallbackWorkflowData(): WorkflowData {
   };
 }
 
+let workflowPromise: Promise<WorkflowData> | null = null;
+
+/**
+ * Resource de dados reais do workflow: uma única promise cacheada em módulo.
+ * Em falha (JSON ausente), resolve com o fallback ilustrativo — o componente
+ * nunca suspende por erro, apenas enquanto o fetch está pendente.
+ */
+export function loadWorkflowData(): Promise<WorkflowData> {
+  if (!workflowPromise) {
+    workflowPromise = fetch("/workflow-data.json")
+      .then((res) => {
+        if (!res.ok) throw new Error("workflow-data indisponível");
+        return res.json() as Promise<WorkflowData>;
+      })
+      .catch(() => fallbackWorkflowData());
+  }
+  return workflowPromise;
+}
+
 /**
  * Hook de dados reais do workflow. Retorna sempre um WorkflowData válido:
- * os dados reais quando /workflow-data.json está disponível, o fallback
- * ilustrativo enquanto carrega ou se a busca falhar.
+ * suspende via `use()` até o JSON real chegar (fallback ilustrativo exibido
+ * pelo Suspense), ou resolve com o fallback se a busca falhar.
  */
 export function useWorkflowData(): WorkflowData {
-  const [data, setData] = useState<WorkflowData | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch("/workflow-data.json");
-        if (!res.ok) throw new Error("workflow-data indisponível");
-        const json = (await res.json()) as WorkflowData;
-        if (!cancelled) setData(json);
-      } catch {
-        // fallback: mantém null → componentes usam os dados ilustrativos
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  return data ?? fallbackWorkflowData();
+  return use(loadWorkflowData());
 }
