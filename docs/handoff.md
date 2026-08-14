@@ -61,7 +61,7 @@ Nenhum PR aberto.
 **Objetivo:** Telemetria no nightly + AiCostSection use()
 **Status:** in_progress
 **Iniciada em:** 2026-08-14T18:36:33.432Z
-**Branch:** `feat/telemetria-nightly-kpi`
+**Branch:** `docs/ai-session-state-fase-f`
 **Último commit:** a671835 — Merge pull request #389 from andre0787/refactor/react19-use-suspense
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 ---

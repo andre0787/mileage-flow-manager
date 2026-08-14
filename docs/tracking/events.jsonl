@@ -1206,3 +1206,5 @@
 {"timestamp":"2026-08-14T18:39:18.288Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetria-nightly-kpi","commit":"a671835","agent":"human","errors":0}
 {"timestamp":"2026-08-14T18:39:32.293Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetria-nightly-kpi","commit":"a671835","agent":"human","errors":0}
 {"timestamp":"2026-08-14T18:59:09.649Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetria-nightly-kpi","commit":"c48744f","agent":"human","errors":0}
+{"timestamp":"2026-08-14T19:20:09.588Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/ai-session-state-fase-f","commit":"0f56929","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-14T19:20:09.994Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/ai-session-state-fase-f","commit":"0f56929","agent":"human","errors":0}
