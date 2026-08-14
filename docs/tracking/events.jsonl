@@ -1217,3 +1217,4 @@
 {"timestamp":"2026-08-14T23:06:39.397Z","type":"coding:done","description":"Codificação por subagente — cor customizada por dono (migration + seletor + fallback + 3 superfícies)","branch":"feat/owner-custom-color","commit":"ebacdfb","agent":"human","subagent":true,"skill":"subagent-driven-development"}
 {"timestamp":"2026-08-14T23:07:12.720Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-custom-color","commit":"ebacdfb","agent":"human","errors":0}
 {"timestamp":"2026-08-14T23:07:21.253Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-custom-color","commit":"ebacdfb","agent":"human","errors":0}
+{"timestamp":"2026-08-14T23:12:29.906Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-custom-color","commit":"d030c5a","agent":"human","errors":0}
