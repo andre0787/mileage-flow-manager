@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { readFileSync } from "node:fs";
 import { baseApi } from "@/features/api/baseApi";
 import { contasApi } from "@/features/contas/contasApi";
+import { selectAllAccounts } from "@/features/contas/adapter";
 import type { Account } from "@/types";
 
 const mockFrom = vi.fn();
@@ -56,7 +57,7 @@ describe("contasApi — query", () => {
     const store = makeStore();
     const first = await store.dispatch(contasApi.endpoints.getAccounts.initiate("user-1"));
     const second = await store.dispatch(contasApi.endpoints.getAccounts.initiate("user-2"));
-    expect(first.data?.[0]).toMatchObject(account);
+    expect(selectAllAccounts(first.data!)[0]).toMatchObject(account);
     expect(second.data).toEqual(first.data);
     expect(mockFrom).toHaveBeenCalledTimes(2);
   });

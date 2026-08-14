@@ -82,7 +82,10 @@ describe("AuthProvider + useAuth", () => {
       const last = results[results.length - 1] as { loading?: boolean };
       expect(last?.loading).toBe(false);
     });
-    const last = results[results.length - 1] as { user?: { email?: string }; session?: { access_token?: string } };
+    const last = results[results.length - 1] as {
+      user?: { email?: string };
+      session?: { access_token?: string };
+    };
     expect(last.user?.email).toBe("user@example.com");
     expect(last.session?.access_token).toBe("token");
   });

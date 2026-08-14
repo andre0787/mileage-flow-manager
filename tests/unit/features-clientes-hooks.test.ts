@@ -139,7 +139,9 @@ describe("wrappers de compatibilidade de clientes", () => {
     const addSuccessIndex = events.indexOf("add-success");
     const updateIndex = events.indexOf("update");
     const updateSuccessIndex = events.indexOf("update-success");
-    const addRefetchIndex = events.findIndex((event, index) => index > addIndex && event === "select");
+    const addRefetchIndex = events.findIndex(
+      (event, index) => index > addIndex && event === "select",
+    );
     const updateRefetchIndex = events.findIndex(
       (event, index) => index > updateIndex && event === "select",
     );

@@ -1,7 +1,9 @@
+import { useMemo } from "react";
 import { toast } from "sonner";
 import { useAppDispatch } from "@/features/store";
 import { logError } from "@/lib/logger";
 import { baseApi } from "@/features/api/baseApi";
+import { selectAllAlerts, selectAlertEntities } from "./adapter";
 import { useUserId } from "@/hooks/useDatabase/shared";
 import { alertsApi } from "./alertsApi";
 
@@ -14,11 +16,16 @@ interface MutateOptions {
 
 export function useAccountAlerts() {
   const userId = useUserId();
-  const { data, isLoading, isError, error, refetch } = alertsApi.useGetAccountAlertsQuery(
-    userId ?? "",
-    { skip: !userId },
-  );
-  return { data, isPending: isLoading, isError, error, refetch };
+  const {
+    data: entityState,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = alertsApi.useGetAccountAlertsQuery(userId ?? "", { skip: !userId });
+  const data = useMemo(() => (entityState ? selectAllAlerts(entityState) : []), [entityState]);
+  const byId = useMemo(() => (entityState ? selectAlertEntities(entityState) : {}), [entityState]);
+  return { data, byId, isPending: isLoading, isError, error, refetch };
 }
 
 export function useAddAccountAlertMutation() {

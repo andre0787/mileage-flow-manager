@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "@/features/api/baseApi";
 import { entradasApi } from "@/features/entradas/entradasApi";
+import { selectAllEntries } from "@/features/entradas/adapter";
 import type { PointEntry } from "@/types";
 
 // ─── Mock de @/lib/supabase ──────────────────────────────────────────
@@ -78,9 +79,9 @@ describe("entradasApi — getEntries", () => {
 
     const store = makeStore();
     const result = await store.dispatch(entradasApi.endpoints.getEntries.initiate("user-1"));
-    expect(result.data).toHaveLength(1);
-    expect(result.data![0].id).toBe("e1");
-    expect(result.data![0].accountId).toBe("acc-1");
+    expect(selectAllEntries(result.data!)).toHaveLength(1);
+    expect(selectAllEntries(result.data!)[0].id).toBe("e1");
+    expect(selectAllEntries(result.data!)[0].accountId).toBe("acc-1");
     expect(mockFrom).toHaveBeenCalledWith("entries");
   });
 

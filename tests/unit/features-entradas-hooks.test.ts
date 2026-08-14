@@ -6,11 +6,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 import { baseApi } from "@/features/api/baseApi";
 import { authReducer } from "@/features/auth/authSlice";
-import {
-  useEntriesQuery,
-  useAddEntryMutation,
-  useDeleteEntryMutation,
-} from "@/features/entradas";
+import { useEntriesQuery, useAddEntryMutation, useDeleteEntryMutation } from "@/features/entradas";
 import type { PointEntry } from "@/types";
 
 // ─── Mocks ───────────────────────────────────────────────────────────
@@ -32,7 +28,9 @@ vi.mock("@/lib/supabase", () => ({
         return { select: mockSelect, delete: mockDelete };
       }
       return {
-        select: () => ({ eq: () => ({ single: () => Promise.resolve({ data: null, error: null }) }) }),
+        select: () => ({
+          eq: () => ({ single: () => Promise.resolve({ data: null, error: null }) }),
+        }),
         delete: mockDelete,
       };
     },

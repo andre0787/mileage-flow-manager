@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "@/features/api/baseApi";
 import { vendasApi } from "@/features/vendas/vendasApi";
+import { selectAllSales } from "@/features/vendas/adapter";
 import type { Sale } from "@/types";
 
 const mockFrom = vi.fn();
@@ -71,8 +72,8 @@ describe("vendasApi — getVendas", () => {
     mockFrom.mockReturnValue({ select: () => Promise.resolve({ data: rows, error: null }) });
 
     const result = await makeStore().dispatch(vendasApi.endpoints.getVendas.initiate("user-1"));
-    expect(result.data).toHaveLength(1);
-    expect(result.data![0]).toMatchObject({
+    expect(selectAllSales(result.data!)).toHaveLength(1);
+    expect(selectAllSales(result.data!)[0]).toMatchObject({
       accountId: "acc-1",
       clientName: "Cliente Azul",
       milesUsed: 10000,
@@ -101,7 +102,10 @@ describe("vendasApi — addVenda", () => {
       select: () => ({
         eq: () => ({
           single: () =>
-            Promise.resolve({ data: { balance: 5000, total_invested: 0, average_cost_per_mile: 0 }, error: null }),
+            Promise.resolve({
+              data: { balance: 5000, total_invested: 0, average_cost_per_mile: 0 },
+              error: null,
+            }),
         }),
       }),
       update,
@@ -130,7 +134,12 @@ describe("vendasApi — updateVenda", () => {
         eq: () => ({
           single: () =>
             Promise.resolve({
-              data: { miles_used: 10000, status: "pendente", account_id: null, cost_per_mile: 0.05 },
+              data: {
+                miles_used: 10000,
+                status: "pendente",
+                account_id: null,
+                cost_per_mile: 0.05,
+              },
               error: null,
             }),
         }),
@@ -147,7 +156,9 @@ describe("vendasApi — updateVenda", () => {
 
   it("propaga erro quando a venda não existe", async () => {
     mockFrom.mockReturnValue({
-      select: () => ({ eq: () => ({ single: () => Promise.resolve({ data: null, error: null }) }) }),
+      select: () => ({
+        eq: () => ({ single: () => Promise.resolve({ data: null, error: null }) }),
+      }),
     });
     const result = await makeStore().dispatch(
       vendasApi.endpoints.updateVenda.initiate({ id: "missing", saleValue: 1 }),
@@ -185,7 +196,10 @@ describe("vendasApi — deleteVenda / cancelVenda", () => {
         select: () => ({
           eq: () => ({
             single: () =>
-              Promise.resolve({ data: { balance: 5000, total_invested: 0, average_cost_per_mile: 0 }, error: null }),
+              Promise.resolve({
+                data: { balance: 5000, total_invested: 0, average_cost_per_mile: 0 },
+                error: null,
+              }),
           }),
         }),
         update,
@@ -211,7 +225,12 @@ describe("vendasApi — deleteVenda / cancelVenda", () => {
               eq: () => ({
                 single: () =>
                   Promise.resolve({
-                    data: { id: "sale-1", account_id: "acc-1", miles_used: 10000, cost_per_mile: 0.05 },
+                    data: {
+                      id: "sale-1",
+                      account_id: "acc-1",
+                      miles_used: 10000,
+                      cost_per_mile: 0.05,
+                    },
                     error: null,
                   }),
               }),
@@ -223,7 +242,8 @@ describe("vendasApi — deleteVenda / cancelVenda", () => {
       return {
         select: () => ({
           eq: () => ({
-            single: () => Promise.resolve({ data: { balance: 5000, total_invested: 0 }, error: null }),
+            single: () =>
+              Promise.resolve({ data: { balance: 5000, total_invested: 0 }, error: null }),
           }),
         }),
         update: updAcc,

@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "@/features/api/baseApi";
 import { alertsApi } from "@/features/alerts/alertsApi";
+import { selectAllAlerts } from "@/features/alerts/adapter";
 
 const mockFrom = vi.fn();
 vi.mock("@/lib/supabase", () => ({
@@ -37,8 +38,10 @@ describe("alertsApi — getAccountAlerts", () => {
         order: () => Promise.resolve({ data: [ALERT_ROW], error: null }),
       }),
     });
-    const result = await makeStore().dispatch(alertsApi.endpoints.getAccountAlerts.initiate("user-1"));
-    expect(result.data).toEqual([
+    const result = await makeStore().dispatch(
+      alertsApi.endpoints.getAccountAlerts.initiate("user-1"),
+    );
+    expect(selectAllAlerts(result.data!)).toEqual([
       {
         id: "al-1",
         accountId: "acc-1",
@@ -61,7 +64,7 @@ describe("alertsApi — getAccountAlerts", () => {
 
   it("retorna vazio quando não há usuário", async () => {
     const result = await makeStore().dispatch(alertsApi.endpoints.getAccountAlerts.initiate(""));
-    expect(result.data).toEqual([]);
+    expect(selectAllAlerts(result.data!)).toEqual([]);
     expect(mockFrom).not.toHaveBeenCalled();
   });
 
@@ -71,7 +74,9 @@ describe("alertsApi — getAccountAlerts", () => {
         order: () => Promise.resolve({ data: null, error: { message: "boom" } }),
       }),
     });
-    const result = await makeStore().dispatch(alertsApi.endpoints.getAccountAlerts.initiate("user-1"));
+    const result = await makeStore().dispatch(
+      alertsApi.endpoints.getAccountAlerts.initiate("user-1"),
+    );
     expect(result.error).toBeDefined();
   });
 });

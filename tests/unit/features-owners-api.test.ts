@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "@/features/api/baseApi";
 import { ownersApi } from "@/features/owners/ownersApi";
+import { selectAllOwners } from "@/features/owners/adapter";
 import type { Owner } from "@/types";
 
 const mockFrom = vi.fn();
@@ -31,13 +32,19 @@ describe("ownersApi — getOwners", () => {
 
   it("mapeia as linhas de owners via mapOwner", async () => {
     const rows = [
-      { id: "owner-1", user_id: "user-1", name: "André Luiz", cpf: "123.456.789-00", phone: "(11) 99999-0000" },
+      {
+        id: "owner-1",
+        user_id: "user-1",
+        name: "André Luiz",
+        cpf: "123.456.789-00",
+        phone: "(11) 99999-0000",
+      },
     ];
     mockFrom.mockReturnValue({ select: () => Promise.resolve({ data: rows, error: null }) });
 
     const result = await makeStore().dispatch(ownersApi.endpoints.getOwners.initiate("user-1"));
-    expect(result.data).toHaveLength(1);
-    expect(result.data![0]).toMatchObject({
+    expect(selectAllOwners(result.data!)).toHaveLength(1);
+    expect(selectAllOwners(result.data!)[0]).toMatchObject({
       id: "owner-1",
       name: "André Luiz",
       cpf: "123.456.789-00",
@@ -48,7 +55,7 @@ describe("ownersApi — getOwners", () => {
 
   it("retorna lista vazia sem userId", async () => {
     const result = await makeStore().dispatch(ownersApi.endpoints.getOwners.initiate(""));
-    expect(result.data).toEqual([]);
+    expect(selectAllOwners(result.data!)).toEqual([]);
   });
 
   it("propaga erro do supabase", async () => {

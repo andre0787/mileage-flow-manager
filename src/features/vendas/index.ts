@@ -6,3 +6,4 @@ export {
   useCancelSaleMutation,
 } from "./hooks";
 export { vendasApi } from "./vendasApi";
+export * from "./adapter";

@@ -203,7 +203,7 @@ describe("wrappers de compatibilidade de vendas", () => {
           return Promise.resolve({ data: [], error: null }).then(onFulfilled);
         },
         eq: () => ({ single: () => Promise.resolve({ data: null, error: null }) }),
-      } as unknown);
+      }) as unknown;
     mockFrom.mockImplementation((table: string) => {
       if (table === "sales") {
         return {

@@ -138,7 +138,10 @@ describe("wrappers de compatibilidade de alerts", () => {
     const latest = () => results[results.length - 1] as HookResult;
     const onSuccess = vi.fn();
 
-    latest().addM.mutate({ accountId: "acc-1", date: "2026-08-10", observation: "Renovar" }, { onSuccess });
+    latest().addM.mutate(
+      { accountId: "acc-1", date: "2026-08-10", observation: "Renovar" },
+      { onSuccess },
+    );
     await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
   });
 
@@ -154,7 +157,11 @@ describe("wrappers de compatibilidade de alerts", () => {
   it("add emite toast.success 'Alerta adicionado'", async () => {
     const { results } = renderHarness();
     const latest = () => results[results.length - 1] as HookResult;
-    await latest().addM.mutateAsync({ accountId: "acc-1", date: "2026-08-10", observation: "Renovar" });
+    await latest().addM.mutateAsync({
+      accountId: "acc-1",
+      date: "2026-08-10",
+      observation: "Renovar",
+    });
 
     await waitFor(() => {
       expect(toast.success).toHaveBeenCalledWith("Alerta adicionado");

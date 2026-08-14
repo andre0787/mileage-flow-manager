@@ -8,6 +8,7 @@ import { ProcessDailySection } from "./kpi/ProcessDailySection";
 import { ProcessAlerts } from "./kpi/ProcessAlerts";
 import { MonthlySection } from "./kpi/MonthlySection";
 import { PrsPanel } from "./kpi/PrsPanel";
+import { AiCostSection } from "./kpi/AiCostSection";
 import { useData } from "@/contexts/DataContext";
 import { computeDashboardMetrics } from "@/lib/metrics";
 import {
@@ -17,12 +18,9 @@ import {
 } from "@/lib/businessSeries";
 import { cn } from "@/lib/utils";
 import type { KpiData } from "@/types/kpi";
-
 const MAX_CPF_PER_OWNER = 22;
-
 /* Série ao vivo do BusinessPanel; o seletor 7/14/30d usa o JSON nightly (até 30d). */
 const LIVE_SERIES_DAYS = 14;
-
 const LEGACY_ROUTER_KPI: RouterMonthlyKPI = {
   resolved: 0,
   completed: 0,
@@ -145,6 +143,8 @@ export default function KPIDashboard({ data }: { data: KpiData }) {
       />
 
       <LLMRouterKPISection llmRouter={current.llmRouter ?? LEGACY_ROUTER_KPI} />
+
+      <AiCostSection />
     </div>
   );
 }

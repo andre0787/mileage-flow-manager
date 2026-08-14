@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "@/features/api/baseApi";
 import { clientesApi } from "@/features/clientes/clientesApi";
+import { selectAllClients } from "@/features/clientes/adapter";
 import type { Client } from "@/types";
 
 const mockFrom = vi.fn();
@@ -51,7 +52,7 @@ describe("clientesApi", () => {
         }),
     });
     const result = await makeStore().dispatch(clientesApi.endpoints.getClients.initiate("user-1"));
-    expect(result.data?.[0]).toMatchObject({
+    expect(selectAllClients(result.data!)[0]).toMatchObject({
       ...client,
       cpf: "",
       email: "",

@@ -6,3 +6,4 @@ export {
   useDeleteEntryMutation,
 } from "./hooks";
 export { entradasApi } from "./entradasApi";
+export * from "./adapter";
