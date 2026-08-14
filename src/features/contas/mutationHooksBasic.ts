@@ -21,7 +21,9 @@ export function useAddAccountMutation() {
     userId
       ? dispatch(
           contasApi.util.updateQueryData("getAccounts", userId, (draft) => {
-            if (!draft.some((item) => item.id === account.id)) draft.push(account);
+            // cache normalizado (rule-44): upsert no mapa de entidades
+            draft.entities[account.id] = account;
+            if (!draft.ids.includes(account.id)) draft.ids.push(account.id);
           }),
         )
       : undefined;
@@ -66,7 +68,7 @@ export function useUpdateAccountMutation() {
     const patch = userId
       ? dispatch(
           contasApi.util.updateQueryData("getAccounts", userId, (draft) => {
-            const account = draft.find((item) => item.id === input.id);
+            const account = draft.entities[input.id];
             if (account) Object.assign(account, input);
           }),
         )
@@ -86,7 +88,7 @@ export function useUpdateAccountMutation() {
     const patch = userId
       ? dispatch(
           contasApi.util.updateQueryData("getAccounts", userId, (draft) => {
-            const account = draft.find((item) => item.id === input.id);
+            const account = draft.entities[input.id];
             if (account) Object.assign(account, input);
           }),
         )

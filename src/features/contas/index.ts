@@ -6,3 +6,4 @@ export {
   useRecalcAccountMutation,
 } from "./hooks";
 export { contasApi } from "./contasApi";
+export * from "./adapter";

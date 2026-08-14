@@ -5,3 +5,4 @@ export {
   useDeleteOwnerMutation,
 } from "./hooks";
 export { ownersApi } from "./ownersApi";
+export * from "./adapter";

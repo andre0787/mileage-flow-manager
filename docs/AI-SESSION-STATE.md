@@ -15,7 +15,7 @@
 - `supabase/migrations/20260814000000_add_ai_telemetry.sql` (Schema Drift: Sim — tabela nova + RLS, aplicada no remoto)
 - `src/lib/aiTelemetry.ts` + `tests/unit/aiTelemetry.test.ts` (lib pura de custo/agregação)
 - `src/components/kpi/AiCostSection.tsx` + `KPIDashboard.tsx` (KPI "Custo por Funcionalidade")
-- `docs/council/`, `docs/adr/`, `docs/AI-SESSION-STATE.md` (governança nova)
+- `docs/council/2026-08-14-blueprint-v9-governanca-veredito.md`, `docs/adr/`, `docs/AI-SESSION-STATE.md` (governança nova)
 
 ## Pendências Imediatas (Next Step)
 1. Merge do PR da Fase A (aguardando autorização explícita do usuário).

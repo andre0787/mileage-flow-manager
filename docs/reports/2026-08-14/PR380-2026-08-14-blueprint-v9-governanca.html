@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>blueprint-v9-governanca — blueprint v9 governanca</title>
+  <title>PR380 — blueprint v9 governanca</title>
   <style>
     :root{
       --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;
@@ -175,19 +175,19 @@
     <section class="slide" id="s1">
       <div class="hero">
         <div class="hero-top">
-          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">blueprint-v9-governanca</span> <span class="badge risk" style="color:#34d399">Baixo risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
-          <div class="hero-date">2026-08-14 · 01:17 · <span class="mono">feat/blueprint-v9-governanca</span></div>
+          <div class="hero-badges"><span class="badge pr">PR #380</span> <span class="badge auto">PR380</span> <span class="badge risk" style="color:#f87171">Alto risco</span> <span class="badge health red" style="color:#f87171">● Precisa atenção</span></div>
+          <div class="hero-date">2026-08-14 · 01:30 · <span class="mono">feat/blueprint-v9-governanca</span></div>
         </div>
         <h1>blueprint v9 governanca</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">4afeb12 — refactor(etapa3): drawers de criação do EntryForm em componentes (909→511) + blocos restantes do Dashboard (491→386) (#378)</div>
+        <div class="hero-meta mono">6b4aa52 — chore: normalize report prefix to PR380</div>
       </div>
       
     <div class="kpi-grid">
       <div class="kpi">
         <div class="kpi-value">0</div>
         <div class="kpi-label">entregas em produção</div>
-        <div class="kpi-sub">1 implementações · 1 reviews</div>
+        <div class="kpi-sub">2 implementações · 2 reviews</div>
       </div>
       <div class="kpi">
         <div class="kpi-value">—</div>
@@ -195,14 +195,14 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/1</div>
+        <div class="kpi-value">0/3</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
-        <div class="kpi-sub">2 violações · 2 auto-corrigidas</div>
+        <div class="kpi-sub">13 violações · 2 auto-corrigidas</div>
       </div>
       <div class="kpi">
         <div class="kpi-value green">80</div>
         <div class="kpi-label">outcome grade</div>
-        <div class="kpi-sub">baixo risco da mudança</div>
+        <div class="kpi-sub">alto risco da mudança</div>
       </div>
     </div>
       <div class="bluf">
@@ -216,7 +216,7 @@
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Riscos & trade-offs</div>
-          <p>Baixo risco de mudança · outcome grade = 80 · lead time —.</p>
+          <p>Alto risco de mudança · outcome grade = 80 · lead time —.</p>
         </div>
       </div>
     </section><section class="slide" id="s2">
@@ -255,11 +255,11 @@
       <th style="width:16%">Custo Token</th>
     </tr>
     <tr>
-      <td><strong>Entrega da sessão</strong></td>
-      <td>blueprint v9 governanca</td>
-      <td>Nova capacidade entregue e validada para o produto.</td>
-      <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
-      <td><code>~1</code></td>
+      <td><strong>PR #380</strong></td>
+      <td>feat: Blueprint v9 — governança, telemetria, KPI e adapters RTK</td>
+      <td>Nova capacidade entregue e validada</td>
+      <td>Nova alavanca de uso/negócio</td>
+      <td><code>~1358</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.110 tokens (feature) · status moderado</p>
@@ -301,8 +301,8 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">1</span><span class="stat-l">rodadas de validação pré-PR</span></div>
-            <div class="stat"><span class="stat-v">2</span><span class="stat-l">violações de regra encontradas</span></div>
+            <div class="stat"><span class="stat-v">3</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">13</span><span class="stat-l">violações de regra encontradas</span></div>
             <div class="stat"><span class="stat-v green">2</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
           </div>
@@ -318,7 +318,10 @@
         <div class="ap-card">
           <h3>✅ Checklist de revisão</h3>
           <ul class="checks">
-            <li>🧪 Testes manuais realizados?</li>
+            <li>🔷 Migração de banco aplicada?</li>
+<li>🖼️ Renderização verificada em desktop e mobile?</li>
+<li>📦 Biblioteca testada com casos de borda?</li>
+<li>🧪 Testes manuais realizados?</li>
 <li>📋 Regras de validação passam? (npm run pre-pr)</li>
           </ul>
         </div>
@@ -326,7 +329,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 0 remoções — 1 linhas tocadas</td><td>✨ 0 adições — 0 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 132 remoções — 2240 linhas tocadas</td><td>✨ 1742 adições — 32 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -334,41 +337,189 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>0</td></tr>
-            <tr><td>Adições</td><td>+0</td></tr>
-            <tr><td>Remoções</td><td>-0</td></tr>
-            <tr><td>Tokens estimados</td><td>~1</td></tr>
+            <tr><td>Arquivos alterados</td><td>32</td></tr>
+            <tr><td>Adições</td><td>+1742</td></tr>
+            <tr><td>Remoções</td><td>-132</td></tr>
+            <tr><td>Tokens estimados</td><td>~1680</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:78">+1307 add</div>
+        <div class="del" style="flex:6">-99 del</div>
+        <div class="overhead" style="flex:16">~274 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+1307</td><td>78%</td></tr>
+      <tr><td>Remoções</td><td>-99</td><td>6%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~274</td><td>16%</td></tr>
+      <tr><th>Total</th><th>~1680</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
           <h3>📁 Arquivos</h3>
           <table>
             <tr><th>Status</th><th>Arquivo</th></tr>
-            
+            <tr><td>A</td><td>.pi/extensions/mcp-bridge.ts</td></tr>
+<tr><td>A</td><td>.pi/extensions/telemetry-auditor.ts</td></tr>
+<tr><td>A</td><td>.pi/extensions/token-sentinel.ts</td></tr>
+<tr><td>M</td><td>.prompts-manifest.json</td></tr>
+<tr><td>M</td><td>AGENTS.md</td></tr>
+<tr><td>A</td><td>docs/AI-SESSION-STATE.md</td></tr>
+<tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>A</td><td>docs/adr/ADR-001-blueprint-v9-governanca.md</td></tr>
+<tr><td>A</td><td>docs/council/2026-08-14-blueprint-v9-governanca-veredito.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-14/PR380-2026-08-14-blueprint-v9-governanca.html</td></tr>
+<tr><td>M</td><td>docs/tracking/archive/events-2026-08.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>package.json</td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td></tr>
+<tr><td>M</td><td>public/workflow-data.json</td></tr>
+<tr><td>A</td><td>scripts/rules/rule-43-migration-gate.mjs</td></tr>
+<tr><td>A</td><td>scripts/rules/rule-44-rtk-auditor.mjs</td></tr>
+<tr><td>A</td><td>scripts/rules/rule-45-react19-compliance.mjs</td></tr>
+<tr><td>A</td><td>scripts/rules/rule-46-token-sentinel.mjs</td></tr>
+<tr><td>A</td><td>scripts/rules/rule-47-mcp-bridge.mjs</td></tr>
+<tr><td>A</td><td>scripts/rules/rule-48-telemetry-auditor.mjs</td></tr>
+<tr><td>A</td><td>scripts/telemetry-audit.mjs</td></tr>
+<tr><td>M</td><td>src/components/KPIDashboard.tsx</td></tr>
+<tr><td>A</td><td>src/components/kpi/AiCostSection.tsx</td></tr>
+<tr><td>A</td><td>src/lib/aiTelemetry.ts</td></tr>
+<tr><td>A</td><td>supabase/migrations/20260814000000_add_ai_telemetry.sql</td></tr>
+<tr><td>M</td><td>tests/components/KPIDashboard.test.tsx</td></tr>
           </table>
         </div>
       </div>
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
-        
+        diff --git a/.pi/extensions/mcp-bridge.ts b/.pi/extensions/mcp-bridge.ts
+new file mode 100644
+index 0000000..8e6750d
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/.pi/extensions/mcp-bridge.ts</span>
+@@ -0,0 +1,34 @@
+<span class="add">+// MCP Bridge — pi extension (Blueprint v9.0, rule-47).</span>
+<span class="add">+//</span>
+<span class="add">+// Interface com o Model Context Protocol documentada e versionada.</span>
+<span class="add">+// Ativação: inicialização. Diagnósticos em stderr (fail-open).</span>
+<span class="add">+//</span>
+<span class="add">+// Contrato:</span>
+<span class="add">+//   - Descobre config MCP externa: SERENA_MCP_URL (ex: VS Code) ou .mcp.json.</span>
+<span class="add">+//   - Quando ativa, o agente pode usar ferramentas MCP (serena_get_* etc.).</span>
+<span class="add">+//   - Sem servidor MCP externo, a bridge permanece documental — nunca bloqueia.</span>
+<span class="add">+</span>
+<span class="add">+import type { ExtensionAPI } from &quot;@earendil-works/pi-coding-agent&quot;</span>
+<span class="add">+import { existsSync } from &quot;node:fs&quot;</span>
+<span class="add">+import { resolve } from &quot;node:path&quot;</span>
+<span class="add">+</span>
+<span class="add">+function note(msg: string) {</span>
+<span class="add">+  process.stderr.write(`[mcp-bridge] ${msg}\n`)</span>
+<span class="add">+}</span>
+<span class="add">+</span>
+<span class="add">+export default async function (pi: ExtensionAPI) {</span>
+<span class="add">+  try {</span>
+<span class="add">+    const serenaUrl = process.env.SERENA_MCP_URL</span>
+<span class="add">+    const mcpConfig = resolve(process.cwd(), &quot;.mcp.json&quot;)</span>
+<span class="add">+</span>
+<span class="add">+    if (serenaUrl) {</span>
+<span class="add">+      note(`MCP ativa via SERENA_MCP_URL (${serenaUrl})`)</span>
+<span class="add">+    } else if (existsSync(mcpConfig)) {</span>
+<span class="add">+      note(&quot;MCP ativa via .mcp.json&quot;)</span>
+<span class="add">+    } else {</span>
+<span class="add">+      note(&quot;sem config MCP externa (SERENA_MCP_URL/.mcp.json) — bridge documental&quot;)</span>
+<span class="add">+    }</span>
+<span class="add">+  } catch (err) {</span>
+<span class="add">+    note(`desativada (fail-open): ${String(err)}`)</span>
+<span class="add">+  }</span>
+<span class="add">+}</span>
+diff --git a/.pi/extensions/telemetry-auditor.ts b/.pi/extensions/telemetry-auditor.ts
+new file mode 100644
+index 0000000..651cb2b
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/.pi/extensions/telemetry-auditor.ts</span>
+@@ -0,0 +1,44 @@
+<span class="add">+// Telemetry Auditor — pi extension (Blueprint v9.0, rule-48).</span>
+<span class="add">+//</span>
+<span class="add">+// Registro compulsório de métricas de eficiência da IA ao finalizar task.</span>
+<span class="add">+// Ativação: finalização de task. Diagnósticos em stderr (fail-open).</span>
+<span class="add">+//</span>
+<span class="add">+// Contrato:</span>
+<span class="add">+//   - A lib src/lib/aiTelemetry.ts + tabela ai_telemetry (RLS) são a fonte</span>
+<span class="add">+//     de verdade; o script `npm run telemetry:record` persiste o registro.</span>
+<span class="add">+//   - A extensão apenas orienta o agente a executar o registro no fechamento</span>
+<span class="add">+//     da task — nunca bloqueia e nunca escreve no banco por conta própria.</span>
+<span class="add">+</span>
+<span class="add">+import type { ExtensionAPI } from &quot;@earendil-works/pi-coding-agent&quot;</span>
+<span class="add">+import { existsSync } from &quot;node:fs&quot;</span>
+<span class="add">+import { resolve } from &quot;node:path&quot;</span>
+<span class="add">+</span>
+<span class="add">+function note(msg: string) {</span>
+<span class="add">+  process.stderr.write(`[telemetry-auditor] ${msg}\n`)</span>
+<span class="add">+}</span>
+<span class="add">+</span>
+<span class="add">+export default async function (pi: ExtensionAPI) {</span>
+<span class="add">+  try {</span>
+<span class="add">+    const libPath = resolve(process.cwd(), &quot;src/lib/aiTelemetry.ts&quot;)</span>
+<span class="add">+    if (!existsSync(libPath)) {</span>
+<span class="add">+      note(&quot;src/lib/aiTelemetry.ts ausente — telemetria indisponível (rule-48)&quot;)</span>
+<span class="add">+      return</span>
+<span class="add">+    }</span>
+<span class="add">+</span>
+<span class="add">+    // Hook de tool_call: a cada comando relevante, lembra do registro final.</span>
+<span class="add">+    pi.on(&quot;tool_call&quot;, async (event) =&gt; {</span>
+<span class="add">+      try {</span>
+<span class="add">+        const isBash = event.type === &quot;bash&quot; || event.input?.tool === &quot;bash&quot;</span>
+<span class="add">+        if (!isBash) return</span>
+<span class="add">+        const cmd = String(event.input?.command ?? &quot;&quot;)</span>
+<span class="add">+        if (/session:end|telemetry:record|telemetry-audit/.test(cmd)) {</span>
+<span class="add">+          note(&quot;registro de telemetria detectado (session:end/telemetry:record) ✓&quot;)</span>
+<span class="add">+        }</span>
+<span class="add">+      } catch {</span>
+<span class="add">+        /* fail open */</span>
+<span class="add">+      }</span>
+<span class="add">+    })</span>
+<span class="add">+  } catch (err) {</span>
+<span class="add">+    note(`desativada (fail-open): ${String(err)}`)</span>
+<span class="add">+  }</span>
+<span class="add">+}</span>
+diff --git a/.pi/extensions/token-sentinel.ts b/.pi/extensions/token-sentinel.ts
+new file mode 100644
+index 0000000..bc14999
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/.pi/extensions/token-sentinel.ts</span>
+@@ -0,0 +1,48 @@
+<span class="add">+// Token Sentinel — pi extension (Blueprint v9.0, rule-46).</span>
+<span class="add">+//</span>
+<span class="add">+// Higiene de contexto e persistência de sessão entre turnos de IA.</span>
+<span class="add">+// Ativação: inicialização da sessão. Diagnósticos em stderr (fail-open,</span>
+<span class="add">+// sem console.* no diff — rule-30). Nunca bloqueia execução.</span>
+<span class="add">+//</span>
+<span class="add">+// Contrato:</span>
+<span class="add">+//   - Exige docs/AI-SESSION-STATE.md (estrutura do Blueprint v9.0) como</span>
+<span class="add">+//     protocolo de transferência entre agentes.</span>
+<span class="add">+//   - Lembra o checklist de check-in (rule-46): arquivos src/ &gt;150 linhas</span>
+<span class="add">+//     são cobertos pela rule-41; poda ≥20% de ruído é diretriz subjetiva.</span>
+<span class="add">+</span>
+<span class="add">+import type { ExtensionAPI } from &quot;@earendil-works/pi-coding-agent&quot;</span>
+<span class="add">+import { existsSync, readFileSync } from &quot;node:fs&quot;</span>
+<span class="add">+import { resolve } from &quot;node:path&quot;</span>
+<span class="add">+</span>
+<span class="add">+function note(msg: string) {</span>
+<span class="add">+  process.stderr.write(`[token-sentinel] ${msg}\n`)</span>
+<span class="add">+}</span>
+<span class="add">+</span>
+<span class="add">+export default async function (pi: ExtensionAPI) {</span>
+<span class="add">+  try {</span>
+<span class="add">+    const statePath = resolve(process.cwd(), &quot;docs/AI-SESSION-STATE.md&quot;)</span>
+<span class="add">+    if (!existsSync(statePath)) {</span>
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-08-14 01:17
+      Gerado por scripts/generate-report.mjs · 2026-08-14 01:30
     </div>
   </div>
 

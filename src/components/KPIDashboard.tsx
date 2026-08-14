@@ -18,12 +18,9 @@ import {
 } from "@/lib/businessSeries";
 import { cn } from "@/lib/utils";
 import type { KpiData } from "@/types/kpi";
-
 const MAX_CPF_PER_OWNER = 22;
-
 /* Série ao vivo do BusinessPanel; o seletor 7/14/30d usa o JSON nightly (até 30d). */
 const LIVE_SERIES_DAYS = 14;
-
 const LEGACY_ROUTER_KPI: RouterMonthlyKPI = {
   resolved: 0,
   completed: 0,

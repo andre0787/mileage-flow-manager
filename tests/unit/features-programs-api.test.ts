@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "@/features/api/baseApi";
 import { programsApi } from "@/features/programs/programsApi";
+import { selectAllPrograms } from "@/features/programs/adapter";
 import type { Program } from "@/types";
 import { supabase } from "@/lib/supabase";
 
@@ -38,7 +39,7 @@ describe("programsApi — getPrograms", () => {
 
   it("returns empty array when no user", async () => {
     const result = await makeStore().dispatch(programsApi.endpoints.getPrograms.initiate(""));
-    expect(result.data).toEqual([]);
+    expect(selectAllPrograms(result.data!)).toEqual([]);
   });
 
   it("maps the rows via mapProgram", async () => {
@@ -56,8 +57,8 @@ describe("programsApi — getPrograms", () => {
     mockFrom.mockReturnValue({ select: () => Promise.resolve({ data: rows, error: null }) });
 
     const result = await makeStore().dispatch(programsApi.endpoints.getPrograms.initiate("user-1"));
-    expect(result.data).toHaveLength(1);
-    expect(result.data![0]).toMatchObject({
+    expect(selectAllPrograms(result.data!)).toHaveLength(1);
+    expect(selectAllPrograms(result.data!)[0]).toMatchObject({
       id: "prog-1",
       name: "Programa Teste",
       type: "milhas",
@@ -94,9 +95,13 @@ describe("programsApi — addProgram", () => {
     });
 
     const programWithPontos = { ...makeProgram(), type: "pontos" };
-    const result = await makeStore().dispatch(programsApi.endpoints.addProgram.initiate(programWithPontos));
+    const result = await makeStore().dispatch(
+      programsApi.endpoints.addProgram.initiate(programWithPontos),
+    );
     expect(result.data).toBeNull();
-    expect(insert).toHaveBeenCalledWith(expect.objectContaining({ user_id: "user-1", type: "pontos" }));
+    expect(insert).toHaveBeenCalledWith(
+      expect.objectContaining({ user_id: "user-1", type: "pontos" }),
+    );
     expect(upsert).toHaveBeenCalledWith(
       expect.objectContaining({
         id: "prog-1",
@@ -105,7 +110,7 @@ describe("programsApi — addProgram", () => {
         account_type: "pontos",
         color: "#3b82f6",
       }),
-      { onConflict: "id" }
+      { onConflict: "id" },
     );
   });
 
@@ -123,15 +128,21 @@ describe("programsApi — addProgram", () => {
     });
 
     const programWithMilhas = { ...makeProgram(), type: "milhas" };
-    const result = await makeStore().dispatch(programsApi.endpoints.addProgram.initiate(programWithMilhas));
+    const result = await makeStore().dispatch(
+      programsApi.endpoints.addProgram.initiate(programWithMilhas),
+    );
     expect(result.data).toBeNull();
-    expect(insert).toHaveBeenCalledWith(expect.objectContaining({ user_id: "user-1", type: "milhas" }));
+    expect(insert).toHaveBeenCalledWith(
+      expect.objectContaining({ user_id: "user-1", type: "milhas" }),
+    );
     expect(upsert).not.toHaveBeenCalled();
   });
 
   it("propagates insertion error", async () => {
     mockFrom.mockReturnValue({ insert: () => Promise.resolve({ error: { message: "db down" } }) });
-    const result = await makeStore().dispatch(programsApi.endpoints.addProgram.initiate(makeProgram()));
+    const result = await makeStore().dispatch(
+      programsApi.endpoints.addProgram.initiate(makeProgram()),
+    );
     expect(result.error).toBeDefined();
   });
 
@@ -149,7 +160,9 @@ describe("programsApi — addProgram", () => {
     });
 
     const programWithPontos = { ...makeProgram(), type: "pontos" };
-    const result = await makeStore().dispatch(programsApi.endpoints.addProgram.initiate(programWithPontos));
+    const result = await makeStore().dispatch(
+      programsApi.endpoints.addProgram.initiate(programWithPontos),
+    );
     expect(result.error).toBeDefined();
   });
 });
@@ -196,14 +209,20 @@ describe("programsApi — deleteProgram", () => {
       return {};
     });
 
-    const result = await makeStore().dispatch(programsApi.endpoints.deleteProgram.initiate("prog-1"));
+    const result = await makeStore().dispatch(
+      programsApi.endpoints.deleteProgram.initiate("prog-1"),
+    );
     expect(result.data).toBeNull();
     expect(del).toHaveBeenCalled();
   });
 
   it("propagates deletion error", async () => {
-    mockFrom.mockReturnValue({ delete: () => Promise.resolve({ error: { message: "delete failed" } }) });
-    const result = await makeStore().dispatch(programsApi.endpoints.deleteProgram.initiate("prog-1"));
+    mockFrom.mockReturnValue({
+      delete: () => Promise.resolve({ error: { message: "delete failed" } }),
+    });
+    const result = await makeStore().dispatch(
+      programsApi.endpoints.deleteProgram.initiate("prog-1"),
+    );
     expect(result.error).toBeDefined();
   });
 });

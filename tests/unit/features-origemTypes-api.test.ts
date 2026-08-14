@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "@/features/api/baseApi";
 import { origemTypesApi } from "@/features/origemTypes/origemTypesApi";
+import { selectAllOrigemTypes } from "@/features/origemTypes/adapter";
 import type { OrigemType } from "@/types";
 
 const mockFrom = vi.fn();
@@ -35,7 +36,7 @@ describe("origemTypesApi — getOrigemTypes", () => {
 
   it("returns empty array when no user", async () => {
     const result = await makeStore().dispatch(origemTypesApi.endpoints.getOrigemTypes.initiate(""));
-    expect(result.data).toEqual([]);
+    expect(selectAllOrigemTypes(result.data!)).toEqual([]);
   });
 
   it("maps the rows via mapOrigemType", async () => {
@@ -53,8 +54,8 @@ describe("origemTypesApi — getOrigemTypes", () => {
     const result = await makeStore().dispatch(
       origemTypesApi.endpoints.getOrigemTypes.initiate("user-1"),
     );
-    expect(result.data).toHaveLength(1);
-    expect(result.data![0]).toMatchObject({
+    expect(selectAllOrigemTypes(result.data!)).toHaveLength(1);
+    expect(selectAllOrigemTypes(result.data!)[0]).toMatchObject({
       id: "ot-1",
       name: "Compra de pontos",
       accountType: "pontos",

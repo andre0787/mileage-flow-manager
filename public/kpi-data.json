@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T04:17:12.918Z",
+  "generatedAt": "2026-08-14T04:30:19.167Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,9 +174,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 75.6,
-      "prePrTotal": 381,
-      "prePrPass": 288,
+      "prePrPassRate": 75.7,
+      "prePrTotal": 383,
+      "prePrPass": 290,
       "prePrFail": 93,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -185,7 +185,7 @@
         "twins": 0,
         "auth": 2
       },
-      "avgOutcomeGrade": 93,
+      "avgOutcomeGrade": 92.9,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -205,7 +205,7 @@
         },
         {
           "rule": "rule-17-new-docs-valid",
-          "count": 21
+          "count": 24
         }
       ],
       "healedByRule": {
@@ -218,9 +218,9 @@
       },
       "avgCycleTimeHours": 0.4,
       "branchesMerged": 97,
-      "violationsCaught": 408,
-      "healedRate": 18.4,
-      "frictionPerPass": 1.42,
+      "violationsCaught": 419,
+      "healedRate": 17.9,
+      "frictionPerPass": 1.44,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,
@@ -618,15 +618,15 @@
     {
       "day": "2026-08-14",
       "label": "14/08",
-      "prePrTotal": 2,
-      "prePrPass": 2,
+      "prePrTotal": 4,
+      "prePrPass": 4,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 2,
+      "ruleFails": 13,
       "healed": 2,
       "sessions": 1,
       "merges": 1,
-      "friction": 1
+      "friction": 3.25
     }
   ],
   "prs": [
@@ -722,22 +722,22 @@
     }
   ],
   "repo": {
-    "components": 111,
+    "components": 112,
     "pages": 16,
-    "libs": 23,
-    "scripts": 105,
-    "testFiles": 207,
+    "libs": 24,
+    "scripts": 112,
+    "testFiles": 209,
     "skills": 26,
-    "rules": 42,
-    "events": 1209,
-    "qualityNotes": 474
+    "rules": 48,
+    "events": 1224,
+    "qualityNotes": 480
   },
   "summary": {
     "merges": 97,
     "prs": 6,
     "sessions": 162,
-    "violations": 408,
+    "violations": 419,
     "healed": 75,
-    "prePrPassRate": 75.6
+    "prePrPassRate": 75.7
   }
 }

@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-08-14T04:17:16.370Z",
+  "generatedAt": "2026-08-14T04:30:22.550Z",
   "dataDate": "2026-08-14",
   "kpiStats": [
     {
-      "value": 1209,
+      "value": 1224,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 474,
+      "value": 480,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
     {
-      "value": 42,
+      "value": 48,
       "label": "regras de validação",
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 207,
+      "value": 209,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
@@ -41,12 +41,12 @@
     },
     {
       "name": "pre-pr",
-      "n": 381,
+      "n": 383,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 408,
+      "n": 419,
       "color": "#ef4444"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 49,
+      "n": 50,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 48,
+      "n": 49,
       "color": "#22c55e"
     },
     {
@@ -108,7 +108,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 147,
+      "n": 153,
       "color": "#84cc16"
     },
     {
@@ -119,53 +119,53 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-14 04:17:12",
+      "t": "2026-08-14 04:30:19",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-14 04:16:34",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-14 04:16:01",
-      "d": "code-review:done",
-      "desc": "Review aprovado por subagente — Blueprint v9.0 Fase A"
-    },
-    {
-      "t": "2026-08-14 04:15:10",
+      "t": "2026-08-14 04:28:48",
       "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
+      "desc": "rule-22-pr-naming falhou"
     },
     {
-      "t": "2026-08-14 04:14:34",
+      "t": "2026-08-14 04:28:11",
       "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
+      "desc": "rule-22-pr-naming falhou"
     },
     {
-      "t": "2026-08-14 04:14:28",
-      "d": "healed",
-      "desc": "rule-17-new-docs-valid auto-corrigido"
+      "t": "2026-08-14 04:26:55",
+      "d": "rule:fail",
+      "desc": "rule-41-optimizer falhou"
     },
     {
-      "t": "2026-08-14 04:14:28",
-      "d": "healed",
-      "desc": "rule-26 auto-corrigido"
+      "t": "2026-08-14 04:26:55",
+      "d": "rule:fail",
+      "desc": "rule-22-pr-naming falhou"
     },
     {
-      "t": "2026-08-14 04:13:36",
-      "d": "coding:done",
-      "desc": "Blueprint v9.0 Fase A — regras 43-48, extensões, telemetria + KPI (subagente)"
+      "t": "2026-08-14 04:26:55",
+      "d": "rule:fail",
+      "desc": "rule-17-new-docs-valid falhou"
+    },
+    {
+      "t": "2026-08-14 04:25:52",
+      "d": "rule:fail",
+      "desc": "rule-41-optimizer falhou"
+    },
+    {
+      "t": "2026-08-14 04:25:52",
+      "d": "rule:fail",
+      "desc": "rule-22-pr-naming falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 408,
+    "ruleFails": 419,
     "healed": 75,
-    "healedRate": 18.4,
-    "prePrTotal": 381,
-    "prePrPass": 288,
-    "prePrPassRate": 75.6,
+    "healedRate": 17.9,
+    "prePrTotal": 383,
+    "prePrPass": 290,
+    "prePrPassRate": 75.7,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -190,7 +190,7 @@
       },
       {
         "rule": "rule-17-new-docs-valid",
-        "count": 21,
+        "count": 24,
         "hint": "novo doc criado sem validar referências no MAP.md"
       }
     ]
@@ -243,14 +243,14 @@
     }
   ],
   "overview": {
-    "components": 111,
+    "components": 112,
     "pages": 16,
-    "libs": 23,
-    "scripts": 105,
-    "testFiles": 207,
+    "libs": 24,
+    "scripts": 112,
+    "testFiles": 209,
     "skills": 26,
-    "rules": 42,
-    "events": 1209,
-    "qualityNotes": 474
+    "rules": 48,
+    "events": 1224,
+    "qualityNotes": 480
   }
 }
