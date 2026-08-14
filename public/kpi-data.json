@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T12:38:56.083Z",
+  "generatedAt": "2026-08-14T03:09:37.163Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -185,7 +185,7 @@
         "twins": 0,
         "auth": 2
       },
-      "avgOutcomeGrade": 93.1,
+      "avgOutcomeGrade": 93.2,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -201,7 +201,7 @@
         },
         {
           "rule": "rule-38-code-review-gate",
-          "count": 23
+          "count": 24
         },
         {
           "rule": "rule-17-new-docs-valid",
@@ -209,7 +209,7 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 54,
+        "rule-26": 55,
         "rule-17-new-docs-valid": 18,
         "rule-02": 1
       },
@@ -217,10 +217,10 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.4,
-      "branchesMerged": 96,
-      "violationsCaught": 406,
-      "healedRate": 18,
-      "frictionPerPass": 1.41,
+      "branchesMerged": 97,
+      "violationsCaught": 407,
+      "healedRate": 18.2,
+      "frictionPerPass": 1.42,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,
@@ -238,19 +238,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-07-15",
-      "label": "15/07",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-07-16",
       "label": "16/07",
@@ -462,15 +449,15 @@
     {
       "day": "2026-08-01",
       "label": "01/08",
-      "prePrTotal": 47,
-      "prePrPass": 30,
+      "prePrTotal": 46,
+      "prePrPass": 29,
       "prePrFail": 17,
-      "prePrPassRate": 63.8,
+      "prePrPassRate": 63,
       "ruleFails": 24,
       "healed": 0,
-      "sessions": 100,
+      "sessions": 94,
       "merges": 7,
-      "friction": 0.8
+      "friction": 0.83
     },
     {
       "day": "2026-08-02",
@@ -627,6 +614,19 @@
       "sessions": 16,
       "merges": 14,
       "friction": 0.14
+    },
+    {
+      "day": "2026-08-14",
+      "label": "14/08",
+      "prePrTotal": 1,
+      "prePrPass": 1,
+      "prePrFail": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 1,
+      "healed": 1,
+      "sessions": 0,
+      "merges": 1,
+      "friction": 1
     }
   ],
   "prs": [
@@ -729,15 +729,15 @@
     "testFiles": 207,
     "skills": 26,
     "rules": 42,
-    "events": 1207,
-    "qualityNotes": 470
+    "events": 1204,
+    "qualityNotes": 472
   },
   "summary": {
-    "merges": 96,
+    "merges": 97,
     "prs": 6,
-    "sessions": 167,
-    "violations": 406,
-    "healed": 73,
+    "sessions": 161,
+    "violations": 407,
+    "healed": 74,
     "prePrPassRate": 75.5
   }
 }

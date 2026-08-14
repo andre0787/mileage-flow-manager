@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `e22a5b3 — refactor(etapa2): hero sections do Dashboard em componentes próprios (976→491) + AccountCard/AccountsSummary + lib entryOperations (#377)`
+- **Último commit:** `4afeb12 — refactor(etapa3): drawers de criação do EntryForm em componentes (909→511) + blocos restantes do Dashboard (491→386) (#378)`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -27,11 +27,13 @@ Consulte as GitHub Issues para a lista atual.
   DataContext/App (DataProvider) e mutationHooksLifecycle de contas/clientes.
 - Cards P3-27 a P3-35 todos `done`; ROADMAP atualizado.
 
-### 🔄 Em andamento
-- **Issue #308 (bug de fuso)** — datas ISO date-only (`YYYY-MM-DD`) exibidas com 1 dia a
-  menos em America/Sao_Paulo. Exibição já corrigida com `formatDateBR` (13 usos);
-  correção completa em PR com `parseDateOnly` (agrupamento mensal em metrics/Dashboard/Relatorios,
-  ciclo de passageiros em SaleForm, dia do mês em EntryForm, TWINS em ControleCPF).
+### ✅ Concluído
+- **Issue #308 (bug de fuso)** — **resolvida.** Exibição com `formatDateBR` (13 usos,
+  timezone-safe via `parseDateOnly`) + cálculos com `parseDateOnly` (metrics, dashboardTimeline,
+  Relatorios, SaleForm, EntryForm, useClientCycleAvailability) + TWINS em ControleCPF confirmado.
+  Auditoria final 2026-08-13: nenhum `new Date("YYYY-MM-DD")` com risco restante — recorrências
+  (recurrence.ts, useDatabase/shared.ts, origemTypes.ts) usam aritmética UTC consistente e
+  sorts (EntryTable/SaleTable/dashboardTimeline) e diffs (Entradas clubeMeses) são shift-invariant.
 
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -60,7 +62,7 @@ Nenhum PR aberto.
 **Objetivo:** Etapa 3 refactor: extrai blocos JSX restantes do Dashboard (491L) e EntryForm (909L) em componentes proprios
 **Status:** in_progress
 **Iniciada em:** 2026-08-13T12:29:11.759Z
-**Branch:** `refactor/etapa3-dashboard-entryform`
+**Branch:** `docs/fuso-308-concluido`
 **Último commit:** e22a5b3 — refactor(etapa2): hero sections do Dashboard em componentes próprios (976→491) + AccountCard/AccountsSummary + lib entryOperations (#377)
 **Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 
