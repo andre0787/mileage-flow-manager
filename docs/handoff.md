@@ -61,7 +61,7 @@ Nenhum PR aberto.
 **Objetivo:** Fase C — React 19 forms (continuação Blueprint v9)
 **Status:** in_progress
 **Iniciada em:** 2026-08-14T10:30:54.607Z
-**Branch:** `feat/blueprint-v9-fase-c-react19`
+**Branch:** `fix/telemetry-audit-sessao-atual`
 **Último commit:** df61fc7 — Merge pull request #381 from andre0787/chore/quality-nightly-update
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 

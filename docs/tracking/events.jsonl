@@ -1208,3 +1208,6 @@
 {"timestamp":"2026-08-14T17:59:16.405Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/blueprint-v9-fase-c-react19","commit":"7e03aa3","agent":"human","errors":0}
 {"timestamp":"2026-08-14T17:59:39.088Z","type":"coding:done","description":"Fix flake CI: testTimeout 5s->20s no vite.config (rule-08 spawns git+node)","branch":"feat/blueprint-v9-fase-c-react19","commit":"3ac48e9","agent":"human","subagent":true}
 {"timestamp":"2026-08-14T17:59:39.121Z","type":"code-review:done","description":"Review diff do merge + fix timeout vite.config","branch":"feat/blueprint-v9-fase-c-react19","commit":"3ac48e9","agent":"human","subagent":true}
+{"timestamp":"2026-08-14T18:03:10.904Z","type":"healed","description":"rule-26 auto-corrigido","branch":"fix/telemetry-audit-sessao-atual","commit":"c56ebe4","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-14T18:03:11.320Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/telemetry-audit-sessao-atual","commit":"c56ebe4","agent":"human","errors":0}
+{"timestamp":"2026-08-14T18:03:25.636Z","type":"coding:done","description":"Migration incremental ai_telemetry SELECT de registros de sistema","branch":"fix/telemetry-audit-sessao-atual","commit":"827b379","agent":"human","subagent":true}
