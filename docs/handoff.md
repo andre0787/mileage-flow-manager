@@ -61,7 +61,7 @@ Nenhum PR aberto.
 **Objetivo:** Migrar fetches de JSON estático para use()/Suspense
 **Status:** in_progress
 **Iniciada em:** 2026-08-14T18:20:41.329Z
-**Branch:** `refactor/react19-use-suspense`
+**Branch:** `docs/ai-session-state-fase-e`
 **Último commit:** 4f83e9d — Merge pull request #387 from andre0787/feat/blueprint-v9-endurecimento
 **Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 ---
