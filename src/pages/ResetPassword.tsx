@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/features/auth";
 import { Button } from "@/components/ui/button";
+import { FormSubmitButton } from "@/components/FormSubmitButton";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,10 +15,9 @@ export default function ResetPassword() {
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
   const [verifying, setVerifying] = useState(true);
+  const [linkError, setLinkError] = useState<string | null>(null);
 
   useEffect(() => {
     // Supabase appends #access_token=... to the URL after the user clicks the magic link
@@ -33,7 +33,7 @@ export default function ResetPassword() {
       // Check if already authenticated via magic link
       const timer = setTimeout(() => {
         if (!user) {
-          setError("Link inválido ou expirado. Solicite um novo link de recuperação.");
+          setLinkError("Link inválido ou expirado. Solicite um novo link de recuperação.");
         }
         setVerifying(false);
       }, 3000);
@@ -41,31 +41,22 @@ export default function ResetPassword() {
     }
   }, [user]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-
-    if (password.length < 6) {
-      setError("A senha deve ter no mínimo 6 caracteres.");
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      setError("As senhas não conferem.");
-      return;
-    }
-
-    setLoading(true);
-    const errMsg = await updatePassword(password);
-    setLoading(false);
-
-    if (errMsg) {
-      setError(errMsg);
-    } else {
+  // React 19 form action (rule-45): submit via <form action> — o botão deriva
+  // pending de useFormStatus, sem estado de carregamento manual.
+  const [error, formAction] = useActionState<{ message: string | null }, FormData>(
+    async (_prev, formData) => {
+      const pw = String(formData.get("password") ?? "");
+      const cf = String(formData.get("confirmPassword") ?? "");
+      if (pw.length < 6) return { message: "A senha deve ter no mínimo 6 caracteres." };
+      if (pw !== cf) return { message: "As senhas não conferem." };
+      const errMsg = await updatePassword(pw);
+      if (errMsg) return { message: errMsg };
       setDone(true);
       setTimeout(() => navigate("/login"), 3000);
-    }
-  };
+      return { message: null };
+    },
+    { message: null },
+  );
 
   if (verifying) {
     return (
@@ -94,7 +85,7 @@ export default function ResetPassword() {
     );
   }
 
-  if (!user && error) {
+  if (!user && linkError) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-background via-background to-primary/[0.03] p-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid opacity-[0.08] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)]" />
@@ -108,7 +99,7 @@ export default function ResetPassword() {
                 <AlertCircle className="w-6 h-6 text-destructive" />
               </div>
               <CardTitle className="text-lg font-display">Link inválido</CardTitle>
-              <CardDescription className="text-sm">{error}</CardDescription>
+              <CardDescription className="text-sm">{linkError}</CardDescription>
             </CardHeader>
             <CardContent>
               <Button asChild className="w-full">
@@ -144,13 +135,14 @@ export default function ResetPassword() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form action={formAction} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="password" className="text-xs font-medium">
                   Nova senha
                 </Label>
                 <Input
                   id="password"
+                  name="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -167,6 +159,7 @@ export default function ResetPassword() {
                 </Label>
                 <Input
                   id="confirmPassword"
+                  name="confirmPassword"
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
@@ -177,22 +170,16 @@ export default function ResetPassword() {
                 />
               </div>
 
-              {error && (
+              {error?.message && (
                 <div className="text-sm text-destructive bg-destructive/5 rounded-lg px-3 py-2 font-medium">
-                  {error}
+                  {error.message}
                 </div>
               )}
 
-              <Button type="submit" className="w-full h-11 gap-2" disabled={loading}>
-                {loading ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <>
-                    <Key className="w-4 h-4" />
-                    Redefinir senha
-                  </>
-                )}
-              </Button>
+              <FormSubmitButton className="w-full h-11 gap-2" pendingLabel="Redefinindo...">
+                <Key className="w-4 h-4" />
+                Redefinir senha
+              </FormSubmitButton>
             </form>
           </CardContent>
         </Card>

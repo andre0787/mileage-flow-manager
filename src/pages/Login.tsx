@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import { useNavigate, Link } from "react-router";
 import { useAuth } from "@/features/auth";
 import { useI18n } from "@/contexts/I18nContext";
 import { Button } from "@/components/ui/button";
+import { FormSubmitButton } from "@/components/FormSubmitButton";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plane, Loader2, ArrowRight } from "lucide-react";
+import { Plane, ArrowRight } from "lucide-react";
 import { logError } from "@/lib/logger";
 
 function mapAuthError(errMsg: string, t: (key: string) => string): string {
@@ -29,25 +30,24 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setLoading(true);
-
-    const errMsg =
-      mode === "login" ? await signIn(email, password) : await signUp(email, password, name);
-
-    setLoading(false);
-    if (errMsg) {
-      logError(`auth_${mode}`, errMsg);
-      setError(mapAuthError(errMsg, t));
-    } else {
+  // React 19 form action (rule-45): submit via <form action> — o botão deriva
+  // pending de useFormStatus, sem estado de carregamento manual.
+  const [error, formAction] = useActionState<{ message: string | null }, FormData>(
+    async (_prev, formData) => {
+      const em = String(formData.get("email") ?? "");
+      const pw = String(formData.get("password") ?? "");
+      const nm = String(formData.get("name") ?? "");
+      const errMsg = mode === "login" ? await signIn(em, pw) : await signUp(em, pw, nm);
+      if (errMsg) {
+        logError(`auth_${mode}`, errMsg);
+        return { message: mapAuthError(errMsg, t) };
+      }
       navigate("/");
-    }
-  };
+      return { message: null };
+    },
+    { message: null },
+  );
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-background via-background to-primary/[0.03] p-4 relative overflow-hidden">
@@ -80,7 +80,7 @@ export default function Login() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form action={formAction} className="space-y-4">
               {mode === "register" && (
                 <div className="space-y-2">
                   <Label htmlFor="name" className="text-xs font-medium">
@@ -88,6 +88,7 @@ export default function Login() {
                   </Label>
                   <Input
                     id="name"
+                    name="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Seu nome"
@@ -103,6 +104,7 @@ export default function Login() {
                 </Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -128,6 +130,7 @@ export default function Login() {
                 </div>
                 <Input
                   id="password"
+                  name="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -137,22 +140,16 @@ export default function Login() {
                 />
               </div>
 
-              {error && (
+              {error?.message && (
                 <div className="text-sm text-destructive bg-destructive/5 rounded-lg px-3 py-2 font-medium">
-                  {error}
+                  {error.message}
                 </div>
               )}
 
-              <Button type="submit" className="w-full h-11 gap-2" disabled={loading}>
-                {loading ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <>
-                    {mode === "login" ? "Entrar" : "Criar conta"}
-                    <ArrowRight className="w-4 h-4" />
-                  </>
-                )}
-              </Button>
+              <FormSubmitButton className="w-full h-11 gap-2" pendingLabel="Aguarde...">
+                {mode === "login" ? "Entrar" : "Criar conta"}
+                <ArrowRight className="w-4 h-4" />
+              </FormSubmitButton>
 
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
@@ -170,10 +167,7 @@ export default function Login() {
                     <button
                       type="button"
                       className="text-primary hover:text-primary/80 font-medium transition-colors min-h-[44px] inline-flex items-center"
-                      onClick={() => {
-                        setMode("register");
-                        setError(null);
-                      }}
+                      onClick={() => setMode("register")}
                     >
                       Cadastre-se
                     </button>
@@ -184,10 +178,7 @@ export default function Login() {
                     <button
                       type="button"
                       className="text-primary hover:text-primary/80 font-medium transition-colors min-h-[44px] inline-flex items-center"
-                      onClick={() => {
-                        setMode("login");
-                        setError(null);
-                      }}
+                      onClick={() => setMode("login")}
                     >
                       Entrar
                     </button>

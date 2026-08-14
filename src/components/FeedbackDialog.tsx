@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { Bug, Lightbulb, Send, Loader2 } from "lucide-react";
+import { useActionState, useState } from "react";
+import { Bug, Lightbulb, Send } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/features/auth";
+import { logError } from "@/lib/logger";
 import {
   Dialog,
   DialogContent,
@@ -11,6 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { FormSubmitButton } from "@/components/FormSubmitButton";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,37 +28,40 @@ export function FeedbackDialog({ children }: FeedbackDialogProps) {
   const [type, setType] = useState<"bug" | "suggestion">("bug");
   const [message, setMessage] = useState("");
   const [email, setEmail] = useState("");
-  const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!message.trim()) return;
-    setSending(true);
+  // React 19 form action (rule-45): submit via <form action> — o botão deriva
+  // pending de useFormStatus, sem estado de carregamento manual.
+  const [submitError, formAction] = useActionState<{ message: string | null }, FormData>(
+    async (_prev, formData) => {
+      const msg = String(formData.get("message") ?? "").trim();
+      if (!msg) return { message: null };
 
-    // Captura logs de debug do localStorage
-    let logs: string | null = null;
-    try {
-      const raw = localStorage.getItem("mc_debug_logs");
-      if (raw) logs = raw;
-    } catch {
-      /* localStorage pode falhar em alguns contextos */
-    }
+      // Captura logs de debug do localStorage
+      let logs: string | null = null;
+      try {
+        const raw = localStorage.getItem("mc_debug_logs");
+        if (raw) logs = raw;
+      } catch {
+        /* localStorage pode falhar em alguns contextos */
+      }
 
-    const { error } = await supabase.from("feedback").insert({
-      user_id: user?.id ?? null,
-      type,
-      message: message.trim(),
-      email: email.trim() || null,
-      logs,
-    });
-    if (error) {
-      console.error("Feedback error:", error);
-    } else {
+      const { error } = await supabase.from("feedback").insert({
+        user_id: user?.id ?? null,
+        type,
+        message: msg,
+        email: String(formData.get("email") ?? "").trim() || null,
+        logs,
+      });
+      if (error) {
+        logError("feedback_submit", error);
+        return { message: "Não foi possível enviar. Tente novamente." };
+      }
       setSent(true);
-    }
-    setSending(false);
-  };
+      return { message: null };
+    },
+    { message: null },
+  );
 
   const handleClose = () => {
     setOpen(false);
@@ -94,7 +99,7 @@ export function FeedbackDialog({ children }: FeedbackDialogProps) {
                 Compartilhe sua experiência — bugs, ideias ou sugestões.
               </DialogDescription>
             </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form action={formAction} className="space-y-4">
               {/* Type selector */}
               <div className="flex gap-2">
                 <button
@@ -130,6 +135,7 @@ export function FeedbackDialog({ children }: FeedbackDialogProps) {
                 </Label>
                 <Textarea
                   id="message"
+                  name="message"
                   placeholder={
                     type === "bug"
                       ? "O que aconteceu? O que você esperava?"
@@ -149,6 +155,7 @@ export function FeedbackDialog({ children }: FeedbackDialogProps) {
                 </Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="seu@email.com"
                   value={email}
@@ -156,15 +163,17 @@ export function FeedbackDialog({ children }: FeedbackDialogProps) {
                 />
               </div>
 
+              {submitError?.message && (
+                <div className="text-sm text-destructive bg-destructive/5 rounded-lg px-3 py-2 font-medium">
+                  {submitError.message}
+                </div>
+              )}
+
               {/* Submit */}
-              <Button type="submit" className="w-full gap-2" disabled={sending || !message.trim()}>
-                {sending ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <Send className="w-4 h-4" />
-                )}
-                {sending ? "Enviando..." : "Enviar"}
-              </Button>
+              <FormSubmitButton className="w-full gap-2" pendingLabel="Enviando...">
+                <Send className="w-4 h-4" />
+                Enviar
+              </FormSubmitButton>
             </form>
           </>
         )}

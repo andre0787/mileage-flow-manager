@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T10:33:02.705Z",
+  "generatedAt": "2026-08-14T18:09:15.103Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,10 +174,10 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 75.9,
-      "prePrTotal": 381,
-      "prePrPass": 289,
-      "prePrFail": 92,
+      "prePrPassRate": 76.2,
+      "prePrTotal": 382,
+      "prePrPass": 291,
+      "prePrFail": 91,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -185,7 +185,7 @@
         "twins": 0,
         "auth": 2
       },
-      "avgOutcomeGrade": 92.8,
+      "avgOutcomeGrade": 92.7,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -201,7 +201,7 @@
         },
         {
           "rule": "rule-38-code-review-gate",
-          "count": 27
+          "count": 28
         },
         {
           "rule": "rule-17-new-docs-valid",
@@ -209,17 +209,17 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 55,
+        "rule-26": 56,
         "rule-17-new-docs-valid": 19,
         "rule-02": 1
       },
       "gateBlockedByRule": {
         "rule-27-council-veredict": 1
       },
-      "avgCycleTimeHours": 0.4,
-      "branchesMerged": 98,
-      "violationsCaught": 425,
-      "healedRate": 17.6,
+      "avgCycleTimeHours": 0.6,
+      "branchesMerged": 99,
+      "violationsCaught": 428,
+      "healedRate": 17.8,
       "frictionPerPass": 1.47,
       "llmRouter": {
         "resolved": 39,
@@ -449,15 +449,15 @@
     {
       "day": "2026-08-01",
       "label": "01/08",
-      "prePrTotal": 41,
-      "prePrPass": 25,
-      "prePrFail": 16,
-      "prePrPassRate": 61,
+      "prePrTotal": 38,
+      "prePrPass": 23,
+      "prePrFail": 15,
+      "prePrPassRate": 60.5,
       "ruleFails": 24,
       "healed": 0,
-      "sessions": 69,
-      "merges": 7,
-      "friction": 0.96
+      "sessions": 59,
+      "merges": 6,
+      "friction": 1.04
     },
     {
       "day": "2026-08-02",
@@ -618,18 +618,45 @@
     {
       "day": "2026-08-14",
       "label": "14/08",
-      "prePrTotal": 7,
-      "prePrPass": 7,
+      "prePrTotal": 11,
+      "prePrPass": 11,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 19,
-      "healed": 2,
-      "sessions": 2,
-      "merges": 2,
-      "friction": 2.71
+      "ruleFails": 22,
+      "healed": 3,
+      "sessions": 3,
+      "merges": 4,
+      "friction": 2
     }
   ],
   "prs": [
+    {
+      "number": 384,
+      "title": "fix: telemetry-audit usa a sessão mais recente do log",
+      "type": "fix",
+      "date": "2026-08-14",
+      "tokens": 343,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação"
+    },
+    {
+      "number": 382,
+      "title": "feat: Blueprint v9 Fase C — forms React 19 (useActionState + useFormStatus)",
+      "type": "feat",
+      "date": "2026-08-14",
+      "tokens": 579,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 383,
+      "title": "fix: update-handoff preserva seções manuais do handoff",
+      "type": "fix",
+      "date": "2026-08-14",
+      "tokens": 685,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação"
+    },
     {
       "number": 381,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -692,33 +719,6 @@
       "tokens": 1712,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 372,
-      "title": "fix(process): pre-pr roda data:refresh em vez de kpi — kpi-data.json completo sem regressão",
-      "type": "fix",
-      "date": "2026-08-13",
-      "tokens": 923,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação"
-    },
-    {
-      "number": 371,
-      "title": "feat(kpi): Datadog interno — abas KPI e Workflow com dados reais diários (data:refresh + nightly)",
-      "type": "feat",
-      "date": "2026-08-13",
-      "tokens": 3287,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 370,
-      "title": "feat(process): otimização do workflow — tail-read da telemetria (−97% tokens por pre-pr) + subagentes pre-pr-triage e report-consolidation",
-      "type": "feat",
-      "date": "2026-08-13",
-      "tokens": 767,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "repo": {
@@ -726,18 +726,18 @@
     "pages": 16,
     "libs": 25,
     "scripts": 112,
-    "testFiles": 211,
+    "testFiles": 213,
     "skills": 26,
     "rules": 48,
-    "events": 1206,
-    "qualityNotes": 484
+    "events": 1207,
+    "qualityNotes": 485
   },
   "summary": {
-    "merges": 98,
+    "merges": 99,
     "prs": 6,
-    "sessions": 138,
-    "violations": 425,
-    "healed": 75,
-    "prePrPassRate": 75.9
+    "sessions": 129,
+    "violations": 428,
+    "healed": 76,
+    "prePrPassRate": 76.2
   }
 }

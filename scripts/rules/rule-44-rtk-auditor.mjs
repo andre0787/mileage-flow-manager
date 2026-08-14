@@ -7,8 +7,8 @@
  * - HARD FAIL: `any` em src/features/ (slices/adapters) — falha crítica de tipagem.
  * - HARD FAIL: coleção (pasta em src/features/, exceto auth/api) SEM adapter
  *   createEntityAdapter (via createCollectionAdapter) — normalização obrigatória.
- * - AVISO (não bloqueia): createSlice em coleção sem adapter (ex: auth é slice
- *   de sessão, não coleção — isento).
+ * - HARD FAIL: createSlice em coleção (pasta de dados) — toda coleção DEVE usar
+ *   createEntityAdapter; slices só são permitidos para estado de sessão (auth).
  *
  * Regra #44: "Coleções usam createEntityAdapter (normalização de cache) com
  * seletores memoizados; sem any em slices."
@@ -51,7 +51,6 @@ function main() {
     .filter((d) => !NON_COLLECTIONS.has(d));
 
   let hasError = false;
-  let slicesSemAdapter = 0;
 
   for (const dir of collectionDirs) {
     const files = walk(join(FEATURES_DIR, dir));
@@ -75,22 +74,16 @@ function main() {
         hasError = true;
       }
       if (/createSlice/.test(content) && !ADAPTER_RE.test(content)) {
-        slicesSemAdapter++;
-        console.log(
-          `  ⚠️  rule-44: ${rel} usa createSlice sem createEntityAdapter (sessão, não coleção?)`,
+        console.error(
+          `❌ rule-44: ${rel} usa createSlice em coleção sem createEntityAdapter — toda coleção deve normalizar via adapter (auth/api são isentos)`,
         );
+        hasError = true;
       }
     }
   }
 
   if (hasError) process.exit(1);
-  if (slicesSemAdapter > 0) {
-    console.log(
-      `  ⚠️  rule-44: ${slicesSemAdapter} slice(s) sem createEntityAdapter (aviso — não bloqueia)`,
-    );
-  } else {
-    console.log("  ✅ rule-44: slices com createEntityAdapter (ou sessão/auth isento)");
-  }
+  console.log("  ✅ rule-44: slices com createEntityAdapter (ou sessão/auth isento)");
   console.log("  ✅ rule-44: rtk auditor ok");
 }
 

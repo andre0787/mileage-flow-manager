@@ -5,9 +5,11 @@
  *
  * Conformidade com React 19:
  * - HARD FAIL: `any` em src/ (ts/tsx) — falha crítica de tipagem.
- * - AVISO (não bloqueia): `<form>` sem `useActionState`/`useFormStatus`;
- *   `useEffect` com `fetch(` inline (prefira `use()` / data-fetching do router);
- *   `useState` + `useEffect` para espelhar props (prefira `use()`/derivação).
+ * - HARD FAIL: `<form>` sem `useActionState`/`useFormStatus` — todo submit de
+ *   form deve usar form action (feedback instantâneo sem loading manual).
+ * - AVISO (não bloqueia): `useEffect` com `fetch(` de JSON estático gerado
+ *   (kpi-data/workflow-data — assets de build, não APIs); `useState` + `useEffect`
+ *   para espelhar props (prefira `use()`/derivação).
  *
  * Regra #45: "Priorizar use() (promises/context) sobre useEffect boilerplate e
  * useActionState/useFormStatus em forms; any é falha crítica; tipos espelhados
@@ -61,28 +63,23 @@ function main() {
 
     if (FORM_RE.test(content) && !ACTION_STATE_RE.test(content)) {
       formsSemActionState++;
-      console.log(
-        `  ⚠️  rule-45: ${rel} renderiza <form> sem useActionState/useFormStatus (Fase C)`,
+      console.error(
+        `❌ rule-45: ${rel} renderiza <form> sem useActionState/useFormStatus — migre para form action (useActionState + FormSubmitButton/useFormStatus)`,
       );
+      hasError = true;
     }
 
     if (/useEffect[\s\S]{0,400}?fetch\s*\(/.test(content)) {
       effectsComFetch++;
-      console.log(`  ⚠️  rule-45: ${rel} usa fetch() dentro de useEffect (prefira use()/query)`);
+      console.log(`  ⚠️  rule-45: ${rel} usa fetch() dentro de useEffect (JSON estático — aviso)`);
     }
   }
 
   if (hasError) process.exit(1);
-  if (formsSemActionState > 0) {
-    console.log(
-      `  ⚠️  rule-45: ${formsSemActionState} form(s) sem useActionState (aviso — não bloqueia)`,
-    );
-  } else {
-    console.log("  ✅ rule-45: forms com useActionState/useFormStatus");
-  }
+  console.log("  ✅ rule-45: forms com useActionState/useFormStatus");
   if (effectsComFetch > 0) {
     console.log(
-      `  ⚠️  rule-45: ${effectsComFetch} useEffect(s) com fetch inline (aviso — não bloqueia)`,
+      `  ⚠️  rule-45: ${effectsComFetch} useEffect(s) com fetch de JSON estático (aviso — não bloqueia)`,
     );
   }
   console.log("  ✅ rule-45: react19 compliance ok");
