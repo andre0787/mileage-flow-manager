@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-14T07:18:41.790Z",
+  "generatedAt": "2026-08-14T10:33:06.130Z",
   "dataDate": "2026-08-14",
   "kpiStats": [
     {
-      "value": 1226,
+      "value": 1206,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 480,
+      "value": 484,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -28,7 +28,7 @@
       "sub": "desde o início"
     },
     {
-      "value": 46,
+      "value": 47,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,17 +36,17 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 162,
+      "n": 138,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 385,
+      "n": 381,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 419,
+      "n": 425,
       "color": "#ef4444"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 50,
+      "n": 51,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 49,
+      "n": 50,
       "color": "#22c55e"
     },
     {
@@ -108,7 +108,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 153,
+      "n": 157,
       "color": "#84cc16"
     },
     {
@@ -119,53 +119,53 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-14 04:31:36",
+      "t": "2026-08-14 10:33:02",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-14 04:30:32",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "t": "2026-08-14 10:32:26",
+      "d": "code-review:done",
+      "desc": "Review do diff Fase C (EntryForm/SaleForm/TransferForm/FormSubmitButton): migração form action + useActionState preserva onSubmit; typecheck+tests 891 verdes; sem issues"
     },
     {
-      "t": "2026-08-14 04:30:19",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "t": "2026-08-14 10:32:26",
+      "d": "coding:done",
+      "desc": "Blueprint v9 Fase C — forms React 19 (useActionState + useFormStatus via FormSubmitButton) — evidência: commits 5416d29 (replicados) + testes 891 verdes"
     },
     {
-      "t": "2026-08-14 04:28:48",
+      "t": "2026-08-14 10:31:05",
       "d": "rule:fail",
-      "desc": "rule-22-pr-naming falhou"
+      "desc": "rule-39-coding-gate falhou"
     },
     {
-      "t": "2026-08-14 04:28:11",
+      "t": "2026-08-14 10:31:05",
       "d": "rule:fail",
-      "desc": "rule-22-pr-naming falhou"
+      "desc": "rule-38-code-review-gate falhou"
     },
     {
-      "t": "2026-08-14 04:26:55",
-      "d": "rule:fail",
-      "desc": "rule-41-optimizer falhou"
+      "t": "2026-08-14 10:30:54",
+      "d": "session:start",
+      "desc": "feature: Fase C — React 19 forms (continuação Blueprint v9)"
     },
     {
-      "t": "2026-08-14 04:26:55",
+      "t": "2026-08-14 10:30:01",
       "d": "rule:fail",
-      "desc": "rule-22-pr-naming falhou"
+      "desc": "rule-39-coding-gate falhou"
     },
     {
-      "t": "2026-08-14 04:26:55",
+      "t": "2026-08-14 10:30:01",
       "d": "rule:fail",
-      "desc": "rule-17-new-docs-valid falhou"
+      "desc": "rule-38-code-review-gate falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 419,
+    "ruleFails": 425,
     "healed": 75,
-    "healedRate": 17.9,
-    "prePrTotal": 385,
-    "prePrPass": 292,
-    "prePrPassRate": 75.8,
+    "healedRate": 17.6,
+    "prePrTotal": 381,
+    "prePrPass": 289,
+    "prePrPassRate": 75.9,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -175,7 +175,7 @@
       },
       {
         "rule": "rule-26-session-started",
-        "count": 43,
+        "count": 44,
         "hint": "timestamp de sessão ausente — npm run session:start"
       },
       {
@@ -185,7 +185,7 @@
       },
       {
         "rule": "rule-38-code-review-gate",
-        "count": 25,
+        "count": 27,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
@@ -195,16 +195,62 @@
       }
     ]
   },
-  "lastPrs": [],
+  "lastPrs": [
+    {
+      "number": 381,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-08-14",
+      "tokens": 496,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção"
+    },
+    {
+      "number": 380,
+      "title": "feat: Blueprint v9 — governança, telemetria, KPI e adapters RTK",
+      "type": "feat",
+      "date": "2026-08-14",
+      "tokens": 1970,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 379,
+      "title": "docs: encerra issue #308 (bug de fuso) — handoff + auditoria de datas",
+      "type": "docs",
+      "date": "2026-08-14",
+      "tokens": 485,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
+    {
+      "number": 376,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-08-13",
+      "tokens": 452,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção"
+    },
+    {
+      "number": 375,
+      "title": "refactor(dashboard): etapa 1 — lógica pura extraída (Dashboard 1126→976, EntryForm 939→909) + coverage gate rule-42 (≥75%)",
+      "type": "refactor",
+      "date": "2026-08-13",
+      "tokens": 2081,
+      "benefit": "Código mais simples — menor custo de manutenção",
+      "impact": "Menos custo em mudanças futuras"
+    }
+  ],
   "overview": {
-    "components": 112,
+    "components": 113,
     "pages": 16,
     "libs": 25,
     "scripts": 112,
     "testFiles": 211,
     "skills": 26,
     "rules": 48,
-    "events": 1226,
-    "qualityNotes": 480
+    "events": 1206,
+    "qualityNotes": 484
   }
 }
