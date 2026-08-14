@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T22:24:03.608Z",
+  "generatedAt": "2026-08-14T23:07:12.836Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,9 +174,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 76.7,
-      "prePrTotal": 386,
-      "prePrPass": 296,
+      "prePrPassRate": 76.9,
+      "prePrTotal": 389,
+      "prePrPass": 299,
       "prePrFail": 90,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -185,7 +185,7 @@
         "twins": 0,
         "auth": 2
       },
-      "avgOutcomeGrade": 92.5,
+      "avgOutcomeGrade": 92.4,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -201,15 +201,15 @@
         },
         {
           "rule": "rule-38-code-review-gate",
-          "count": 28
+          "count": 29
         },
         {
           "rule": "rule-17-new-docs-valid",
-          "count": 26
+          "count": 27
         }
       ],
       "healedByRule": {
-        "rule-26": 57,
+        "rule-26": 58,
         "rule-17-new-docs-valid": 19,
         "rule-02": 1
       },
@@ -217,9 +217,9 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.6,
-      "branchesMerged": 101,
-      "violationsCaught": 432,
-      "healedRate": 17.8,
+      "branchesMerged": 102,
+      "violationsCaught": 436,
+      "healedRate": 17.9,
       "frictionPerPass": 1.46,
       "llmRouter": {
         "resolved": 39,
@@ -618,18 +618,36 @@
     {
       "day": "2026-08-14",
       "label": "14/08",
-      "prePrTotal": 19,
-      "prePrPass": 19,
+      "prePrTotal": 22,
+      "prePrPass": 22,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 26,
-      "healed": 4,
+      "ruleFails": 30,
+      "healed": 5,
       "sessions": 6,
-      "merges": 7,
-      "friction": 1.37
+      "merges": 8,
+      "friction": 1.36
     }
   ],
   "prs": [
+    {
+      "number": 397,
+      "title": "feat: cores por dono de conta (Contas, Entradas, Vendas)",
+      "type": "feat",
+      "date": "2026-08-14",
+      "tokens": 1175,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 395,
+      "title": "docs: AI-SESSION-STATE — Fase F (telemetria nightly + use()/Suspense)",
+      "type": "docs",
+      "date": "2026-08-14",
+      "tokens": 26,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
     {
       "number": 393,
       "title": "feat: telemetria no nightly + AiCostSection use()/Suspense",
@@ -701,44 +719,26 @@
       "tokens": 496,
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção"
-    },
-    {
-      "number": 380,
-      "title": "feat: Blueprint v9 — governança, telemetria, KPI e adapters RTK",
-      "type": "feat",
-      "date": "2026-08-14",
-      "tokens": 1970,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 379,
-      "title": "docs: encerra issue #308 (bug de fuso) — handoff + auditoria de datas",
-      "type": "docs",
-      "date": "2026-08-14",
-      "tokens": 485,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
     }
   ],
   "repo": {
     "components": 114,
     "pages": 16,
-    "libs": 25,
+    "libs": 26,
     "scripts": 112,
-    "testFiles": 213,
+    "testFiles": 215,
     "skills": 26,
     "rules": 48,
-    "events": 1207,
-    "qualityNotes": 492
+    "events": 1218,
+    "qualityNotes": 495
   },
   "summary": {
-    "merges": 101,
+    "merges": 102,
     "prs": 6,
     "sessions": 114,
-    "violations": 432,
-    "healed": 77,
-    "prePrPassRate": 76.7
+    "violations": 436,
+    "healed": 78,
+    "prePrPassRate": 76.9
   },
   "telemetry": []
 }

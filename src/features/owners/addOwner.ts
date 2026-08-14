@@ -14,6 +14,7 @@ export const addOwnerEndpoint = (builder: OwnersBuilder) => ({
         name: owner.name,
         cpf: owner.cpf,
         phone: owner.phone,
+        color: owner.color ?? null,
       });
       if (error) return { error: toQueryError(error) };
 

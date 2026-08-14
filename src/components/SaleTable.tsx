@@ -40,6 +40,8 @@ import type { Sale } from "@/types";
 
 interface SaleTableProps {
   sales: Sale[];
+  /** Mapa nome do dono → cor customizada (hex) ou null (fallback por hash). */
+  ownerCustomColors?: Record<string, string | null>;
   onCancel?: (saleId: string) => void;
   onStatusChange?: (saleId: string, status: "pendente" | "pago" | "concluido") => void;
   onCreateClick?: () => void;
@@ -50,12 +52,14 @@ const ITEMS_PER_PAGE = 20;
 
 export function SaleTable({
   sales,
+  ownerCustomColors,
   onCancel,
   onStatusChange,
   onCreateClick,
   onEdit,
 }: SaleTableProps) {
   const { isOnline } = useOnlineStatus();
+  const customColor = (ownerName: string) => ownerCustomColors?.[ownerName] ?? null;
   const [cancelConfirmId, setCancelConfirmId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [sort, setSort] = useState<SortState>({ key: "Data", dir: "desc" });
@@ -185,13 +189,21 @@ export function SaleTable({
                       <span
                         className="mt-1 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold"
                         style={{
-                          backgroundColor: ownerColorSoft(sale.ownerName),
-                          color: ownerColor(sale.ownerName),
+                          backgroundColor: ownerColorSoft(
+                            sale.ownerName,
+                            customColor(sale.ownerName),
+                          ),
+                          color: ownerColor(sale.ownerName, customColor(sale.ownerName)),
                         }}
                       >
                         <span
                           className="h-1.5 w-1.5 rounded-full"
-                          style={{ backgroundColor: ownerColor(sale.ownerName) }}
+                          style={{
+                            backgroundColor: ownerColor(
+                              sale.ownerName,
+                              customColor(sale.ownerName),
+                            ),
+                          }}
                         />
                         {sale.ownerName}
                       </span>
@@ -294,13 +306,21 @@ export function SaleTable({
                       <span
                         className="inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold"
                         style={{
-                          backgroundColor: ownerColorSoft(sale.ownerName),
-                          color: ownerColor(sale.ownerName),
+                          backgroundColor: ownerColorSoft(
+                            sale.ownerName,
+                            customColor(sale.ownerName),
+                          ),
+                          color: ownerColor(sale.ownerName, customColor(sale.ownerName)),
                         }}
                       >
                         <span
                           className="h-1.5 w-1.5 rounded-full"
-                          style={{ backgroundColor: ownerColor(sale.ownerName) }}
+                          style={{
+                            backgroundColor: ownerColor(
+                              sale.ownerName,
+                              customColor(sale.ownerName),
+                            ),
+                          }}
                         />
                         {sale.ownerName}
                       </span>{" "}

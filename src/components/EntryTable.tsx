@@ -49,6 +49,7 @@ export function EntryTable({
   const { isOnline } = useOnlineStatus();
   const [currentPage, setCurrentPage] = useState(1);
   const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id;
+  const donoCustomColor = (id: string) => owners.find((o) => o.id === id)?.color ?? null;
   const origemTypeName = (id: string) => {
     const ot = origemTypes.find((ot) => ot.id === id);
     if (ot) return ot.name;
@@ -182,8 +183,9 @@ export function EntryTable({
   const renderMobileCard = (entry: PointEntry) => {
     const account = accounts.find((a) => a.id === entry.accountId);
     const dono = ownerName(account?.ownerId ?? "");
-    const donoColor = ownerColor(dono);
-    const donoSoft = ownerColorSoft(dono);
+    const custom = donoCustomColor(account?.ownerId ?? "");
+    const donoColor = ownerColor(dono, custom);
+    const donoSoft = ownerColorSoft(dono, custom);
     return (
       <div key={entry.id} className="border rounded-lg p-4 space-y-2">
         <div className="flex items-center justify-between">
@@ -334,6 +336,9 @@ export function EntryTable({
                       style={{
                         color: ownerColor(
                           ownerName(accounts.find((a) => a.id === entry.accountId)?.ownerId ?? ""),
+                          donoCustomColor(
+                            accounts.find((a) => a.id === entry.accountId)?.ownerId ?? "",
+                          ),
                         ),
                       }}
                     >

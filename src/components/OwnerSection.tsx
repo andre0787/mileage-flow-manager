@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Plus, Edit, Trash2, User } from "lucide-react";
+import { Plus, Edit, Trash2, User, RotateCcw } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ownerColor, isValidHex } from "@/lib/ownerColors";
 import {
   Dialog,
   DialogContent,
@@ -23,11 +24,19 @@ import { DeleteConfirmDialog } from "@/components/DeleteConfirmDialog";
 import { formatCPF } from "@/lib/utils";
 import type { Owner, Account } from "@/types";
 
+interface OwnerFormData {
+  id: string;
+  name: string;
+  cpf: string;
+  phone: string;
+  color: string | null;
+}
+
 interface OwnerSectionProps {
   owners: Owner[];
   accounts: Account[];
-  onAdd: (data: { id: string; name: string; cpf: string; phone: string }) => void;
-  onUpdate: (data: { id: string; name: string; cpf: string; phone: string }) => void;
+  onAdd: (data: OwnerFormData) => void;
+  onUpdate: (data: OwnerFormData) => void;
   onDelete: (id: string) => void;
 }
 
@@ -38,14 +47,19 @@ export default function OwnerSection({
   onUpdate,
   onDelete,
 }: OwnerSectionProps) {
-  const [newOwner, setNewOwner] = useState({ name: "", cpf: "", phone: "" });
+  const [newOwner, setNewOwner] = useState({
+    name: "",
+    cpf: "",
+    phone: "",
+    color: "" as string,
+  });
   const [editingOwner, setEditingOwner] = useState<Owner | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [error, setError] = useState("");
   const [deletingOwner, setDeletingOwner] = useState<Owner | null>(null);
 
   const resetDialog = () => {
-    setNewOwner({ name: "", cpf: "", phone: "" });
+    setNewOwner({ name: "", cpf: "", phone: "", color: "" });
     setEditingOwner(null);
     setError("");
     setIsDialogOpen(false);
@@ -56,17 +70,25 @@ export default function OwnerSection({
       setError("Nome é obrigatório");
       return;
     }
+    // Cor customizada: hex válido salvo; vazio → null (fallback por hash)
+    const color = isValidHex(newOwner.color) ? newOwner.color.trim() : null;
     if (editingOwner) {
-      onUpdate({ id: editingOwner.id, ...newOwner });
+      onUpdate({ id: editingOwner.id, ...newOwner, color });
     } else {
-      onAdd({ id: crypto.randomUUID(), ...newOwner });
+      onAdd({ id: crypto.randomUUID(), ...newOwner, color });
     }
     resetDialog();
   };
 
   const handleEdit = (owner: Owner) => {
     setEditingOwner(owner);
-    setNewOwner({ name: owner.name, cpf: owner.cpf ?? "", phone: owner.phone ?? "" });
+    setNewOwner({
+      name: owner.name,
+      cpf: owner.cpf ?? "",
+      phone: owner.phone ?? "",
+      // Pré-seleciona a cor atual: customizada ou derivada por hash do nome
+      color: isValidHex(owner.color) ? owner.color : ownerColor(owner.name),
+    });
     setIsDialogOpen(true);
   };
 
@@ -123,6 +145,36 @@ export default function OwnerSection({
                   placeholder="(11) 99999-9999"
                 />
               </div>
+              <div className="space-y-2">
+                <Label>Cor de identificação</Label>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="color"
+                    aria-label="Cor do dono"
+                    value={newOwner.color || "#4361EE"}
+                    onChange={(e) => setNewOwner({ ...newOwner, color: e.target.value })}
+                    className="h-10 w-14 cursor-pointer rounded-md border border-border bg-transparent p-1"
+                  />
+                  <span
+                    className="h-8 w-8 rounded-full border"
+                    style={{ backgroundColor: newOwner.color || ownerColor(newOwner.name) }}
+                    aria-hidden
+                  />
+                  <span className="text-xs text-muted-foreground">
+                    Cor usada nas contas, entradas e vendas deste dono.
+                  </span>
+                </div>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="gap-1.5 text-xs"
+                  onClick={() => setNewOwner({ ...newOwner, color: "" })}
+                >
+                  <RotateCcw className="h-3 w-3" />
+                  Usar cor automática (por nome)
+                </Button>
+              </div>
             </div>
             <div className="flex justify-end gap-2">
               <Button variant="outline" onClick={resetDialog}>
@@ -157,7 +209,16 @@ export default function OwnerSection({
               <TableBody>
                 {owners.map((owner) => (
                   <TableRow key={owner.id}>
-                    <TableCell className="hidden md:table-cell font-medium">{owner.name}</TableCell>
+                    <TableCell className="hidden md:table-cell font-medium">
+                      <span className="inline-flex items-center gap-2">
+                        <span
+                          className="h-3 w-3 rounded-full"
+                          style={{ backgroundColor: ownerColor(owner.name, owner.color) }}
+                          aria-hidden
+                        />
+                        {owner.name}
+                      </span>
+                    </TableCell>
                     <TableCell className="hidden md:table-cell font-mono">{owner.cpf}</TableCell>
                     <TableCell className="hidden md:table-cell">{owner.phone}</TableCell>
                     <TableCell className="hidden md:table-cell">

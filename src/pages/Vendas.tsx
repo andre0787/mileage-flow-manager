@@ -312,6 +312,7 @@ export default function Vendas() {
       {/* Tabela de vendas */}
       <SaleTable
         sales={filteredSales}
+        ownerCustomColors={Object.fromEntries(owners.map((o) => [o.name, o.color ?? null]))}
         onCancel={handleCancelSale}
         onStatusChange={handleStatusChange}
         onCreateClick={() => setIsCreateDialogOpen(true)}

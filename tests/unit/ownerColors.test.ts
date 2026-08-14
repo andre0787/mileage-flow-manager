@@ -5,6 +5,7 @@ import {
   ownerColorBorder,
   hashString,
   withAlpha,
+  isValidHex,
   OWNER_COLOR_PALETTE,
 } from "@/lib/ownerColors";
 
@@ -19,6 +20,20 @@ describe("hashString", () => {
 });
 
 describe("ownerColor", () => {
+  it("usa a cor customizada quando informada (precedência)", () => {
+    expect(ownerColor("João Silva", "#ff0000")).toBe("#ff0000");
+    expect(ownerColor("Ana", "#00ff00")).toBe("#00ff00");
+  });
+
+  it("ignora cor customizada inválida e cai no hash (fallback)", () => {
+    const fallback = ownerColor("João Silva");
+    expect(ownerColor("João Silva", "vermelho")).toBe(fallback);
+    expect(ownerColor("João Silva", "#ff00")).toBe(fallback);
+    expect(ownerColor("João Silva", null)).toBe(fallback);
+    expect(ownerColor("João Silva", undefined)).toBe(fallback);
+    expect(ownerColor("João Silva", "")).toBe(fallback);
+  });
+
   it("retorna a mesma cor para o mesmo nome (determinístico)", () => {
     expect(ownerColor("João Silva")).toBe(ownerColor("João Silva"));
   });
@@ -86,6 +101,19 @@ describe("paleta (contraste entre cores)", () => {
   });
 });
 
+describe("isValidHex", () => {
+  it("aceita apenas hex #rrggbb", () => {
+    expect(isValidHex("#ff0000")).toBe(true);
+    expect(isValidHex("#FF0000")).toBe(true);
+    expect(isValidHex("#000000")).toBe(true);
+    expect(isValidHex("red")).toBe(false);
+    expect(isValidHex("#ff00")).toBe(false);
+    expect(isValidHex("#fff")).toBe(false);
+    expect(isValidHex(null)).toBe(false);
+    expect(isValidHex(undefined)).toBe(false);
+  });
+});
+
 describe("withAlpha / soft / border", () => {
   it("converte hex para rgba com alpha", () => {
     expect(withAlpha("#5B72C4", 0.5)).toBe("rgba(91,114,196,0.5)");
@@ -106,5 +134,10 @@ describe("withAlpha / soft / border", () => {
     const rgb = `${(v >> 16) & 0xff},${(v >> 8) & 0xff},${v & 0xff}`;
     expect(ownerColorSoft("Ana")).toBe(`rgba(${rgb},0.13)`);
     expect(ownerColorBorder("Ana")).toBe(`rgba(${rgb},0.5)`);
+  });
+
+  it("soft/border usam a cor customizada com precedência", () => {
+    expect(ownerColorSoft("Ana", "#ff0000")).toBe("rgba(255,0,0,0.13)");
+    expect(ownerColorBorder("Ana", "#ff0000")).toBe("rgba(255,0,0,0.5)");
   });
 });
