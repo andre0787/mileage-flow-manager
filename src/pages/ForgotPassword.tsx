@@ -1,34 +1,33 @@
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import { Link } from "react-router";
 import { useAuth } from "@/features/auth";
 import { Button } from "@/components/ui/button";
+import { FormSubmitButton } from "@/components/FormSubmitButton";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plane, Loader2, ArrowLeft, Mail, CheckCircle2 } from "lucide-react";
+import { Plane, ArrowLeft, Mail, CheckCircle2 } from "lucide-react";
 
 export default function ForgotPassword() {
   const { resetPassword } = useAuth();
 
   const [email, setEmail] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setLoading(true);
-
-    const errMsg = await resetPassword(email);
-    setLoading(false);
-
-    if (errMsg) {
-      setError(errMsg);
-    } else {
+  // React 19 form action (rule-45): submit via <form action> — o botão deriva
+  // pending de useFormStatus, sem estado de carregamento manual.
+  const [error, formAction] = useActionState<{ message: string | null }, FormData>(
+    async (_prev, formData) => {
+      const em = String(formData.get("email") ?? "");
+      const errMsg = await resetPassword(em);
+      if (errMsg) {
+        return { message: errMsg };
+      }
       setSent(true);
-    }
-  };
+      return { message: null };
+    },
+    { message: null },
+  );
 
   if (sent) {
     return (
@@ -98,13 +97,14 @@ export default function ForgotPassword() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form action={formAction} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-xs font-medium">
                   Email
                 </Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -114,22 +114,16 @@ export default function ForgotPassword() {
                 />
               </div>
 
-              {error && (
+              {error?.message && (
                 <div className="text-sm text-destructive bg-destructive/5 rounded-lg px-3 py-2 font-medium">
-                  {error}
+                  {error.message}
                 </div>
               )}
 
-              <Button type="submit" className="w-full h-11 gap-2" disabled={loading}>
-                {loading ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <>
-                    <Mail className="w-4 h-4" />
-                    Enviar link de recuperação
-                  </>
-                )}
-              </Button>
+              <FormSubmitButton className="w-full h-11 gap-2" pendingLabel="Enviando...">
+                <Mail className="w-4 h-4" />
+                Enviar link de recuperação
+              </FormSubmitButton>
 
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
