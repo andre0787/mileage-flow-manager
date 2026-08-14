@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-14T18:21:22.682Z",
+  "generatedAt": "2026-08-14T18:39:22.789Z",
   "dataDate": "2026-08-14",
   "kpiStats": [
     {
-      "value": 1204,
+      "value": 1206,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 486,
+      "value": 489,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -28,7 +28,7 @@
       "sub": "desde o início"
     },
     {
-      "value": 50,
+      "value": 51,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,17 +36,17 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 123,
+      "n": 120,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 383,
+      "n": 384,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 428,
+      "n": 430,
       "color": "#ef4444"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 54,
+      "n": 55,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 54,
+      "n": 55,
       "color": "#22c55e"
     },
     {
@@ -108,64 +108,64 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 159,
+      "n": 160,
       "color": "#84cc16"
     },
     {
       "name": "abaixo de 80%",
-      "n": 9,
+      "n": 11,
       "color": "#ef4444"
     }
   ],
   "recentTimeline": [
     {
+      "t": "2026-08-14 18:39:18",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-14 18:37:28",
+      "d": "rule:fail",
+      "desc": "rule-30-outcome-grade falhou"
+    },
+    {
+      "t": "2026-08-14 18:36:44",
+      "d": "rule:fail",
+      "desc": "rule-30-outcome-grade falhou"
+    },
+    {
+      "t": "2026-08-14 18:36:37",
+      "d": "code-review:done",
+      "desc": "Review: resource telemetria + snapshot KpiData + nightly"
+    },
+    {
+      "t": "2026-08-14 18:36:37",
+      "d": "coding:done",
+      "desc": "Telemetria no nightly (telemetry:record + costPerArea no kpi-data) + AiCostSection use()/Suspense"
+    },
+    {
+      "t": "2026-08-14 18:36:33",
+      "d": "session:start",
+      "desc": "feature: Telemetria no nightly + AiCostSection use()"
+    },
+    {
+      "t": "2026-08-14 18:21:27",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
       "t": "2026-08-14 18:21:19",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-14 18:20:45",
-      "d": "code-review:done",
-      "desc": "Review: resources cacheados + Suspense boundaries + testes"
-    },
-    {
-      "t": "2026-08-14 18:20:45",
-      "d": "coding:done",
-      "desc": "Migra fetches JSON estático (workflowData, KPI) de useEffect para use()/Suspense (rule-45)"
-    },
-    {
-      "t": "2026-08-14 18:20:41",
-      "d": "session:start",
-      "desc": "refactor: Migrar fetches de JSON estático para use()/Suspense"
-    },
-    {
-      "t": "2026-08-14 18:10:11",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-14 18:09:25",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-14 18:09:14",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-14 18:08:39",
-      "d": "code-review:done",
-      "desc": "Review do diff: forms React 19 + regras endurecidas + policy RLS"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 428,
+    "ruleFails": 430,
     "healed": 76,
-    "healedRate": 17.8,
-    "prePrTotal": 383,
-    "prePrPass": 293,
-    "prePrPassRate": 76.5,
+    "healedRate": 17.7,
+    "prePrTotal": 384,
+    "prePrPass": 294,
+    "prePrPassRate": 76.6,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -196,6 +196,15 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 389,
+      "title": "refactor: migra fetches de JSON estático para use()/Suspense (rule-45 100%)",
+      "type": "refactor",
+      "date": "2026-08-14",
+      "tokens": 983,
+      "benefit": "Código mais simples — menor custo de manutenção",
+      "impact": "Menos custo em mudanças futuras"
+    },
     {
       "number": 387,
       "title": "feat: Blueprint v9 — endurece rule-44/45 + forms React 19 restantes",
@@ -231,26 +240,17 @@
       "tokens": 685,
       "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
       "impact": "Menos risco de erro para o usuário e a operação"
-    },
-    {
-      "number": 381,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-08-14",
-      "tokens": 496,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção"
     }
   ],
   "overview": {
-    "components": 113,
+    "components": 114,
     "pages": 16,
     "libs": 25,
     "scripts": 112,
     "testFiles": 213,
     "skills": 26,
     "rules": 48,
-    "events": 1204,
-    "qualityNotes": 486
+    "events": 1206,
+    "qualityNotes": 489
   }
 }

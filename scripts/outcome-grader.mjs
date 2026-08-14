@@ -70,6 +70,15 @@ function findTestFile(srcFile) {
   // Convenção da rule-31: libs de src/lib/ têm teste em tests/unit/<name>.test.ts
   const unitPath = resolve(ROOT, "tests", "unit", `${name}${TEST_EXTENSIONS[0]}`);
   if (existsSync(unitPath)) return unitPath;
+  // Componentes: teste em tests/components/<subdir?>/<name>.test.tsx — o caminho
+  // relativo dentro de src/components/ é preservado em tests/components/.
+  if (srcFile.startsWith("src/components/")) {
+    const rel = srcFile.slice("src/components/".length).replace(/\.(ts|tsx)$/, "");
+    for (const ext of TEST_EXTENSIONS) {
+      const compTest = resolve(ROOT, "tests", "components", `${rel}${ext}`);
+      if (existsSync(compTest)) return compTest;
+    }
+  }
   return null;
 }
 

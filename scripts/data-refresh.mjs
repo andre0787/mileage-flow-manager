@@ -388,6 +388,54 @@ export function buildWorkflowData({ events, quality, prs, repo }) {
   };
 }
 
+// ─── Telemetria da IA (Custo por Funcionalidade) ─────────────────────
+
+/**
+ * Busca a tabela ai_telemetry via Supabase REST e agrega por área
+ * (espelha src/lib/aiTelemetry.ts costPerArea). Fail-open: sem credenciais
+ * ou em falha, retorna array vazio — o KPI mostra empty state.
+ *
+ * Env: SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_KEY (opcional).
+ */
+export async function fetchTelemetryCost() {
+  const url = process.env.SUPABASE_URL || "https://ohyplfpcwxzakujjfwdf.supabase.co";
+  const key =
+    process.env.SUPABASE_SERVICE_KEY ||
+    process.env.SUPABASE_ANON_KEY ||
+    process.env.VITE_SUPABASE_ANON_KEY;
+  if (!key) return [];
+  try {
+    const res = await fetch(
+      `${url}/rest/v1/ai_telemetry?select=area,cost_estimate,total_execution_time_ms&limit=500`,
+      {
+        headers: { apikey: key, Authorization: `Bearer ${key}` },
+      },
+    );
+    if (!res.ok) return [];
+    const rows = await res.json();
+    if (!Array.isArray(rows)) return [];
+    const byArea = new Map();
+    for (const r of rows) {
+      const area = String(r.area ?? "").trim() || "geral";
+      const prev = byArea.get(area) ?? { cost: 0, executions: 0, totalMs: 0 };
+      prev.cost += Number(r.cost_estimate ?? 0);
+      prev.executions += 1;
+      prev.totalMs += Number(r.total_execution_time_ms ?? 0);
+      byArea.set(area, prev);
+    }
+    return Array.from(byArea.entries())
+      .map(([area, v]) => ({
+        area,
+        cost: Math.round(v.cost * 100000) / 100000,
+        executions: v.executions,
+        avgExecutionMs: v.executions > 0 ? Math.round(v.totalMs / v.executions) : 0,
+      }))
+      .sort((a, b) => b.cost - a.cost);
+  } catch {
+    return [];
+  }
+}
+
 // ─── Main ────────────────────────────────────────────────────────────
 
 function arg(name) {
@@ -395,7 +443,7 @@ function arg(name) {
   return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : null;
 }
 
-function main() {
+async function main() {
   const ROOT = resolve(import.meta.dirname, "..");
   const eventsPath = resolve(ROOT, "docs/tracking/events.jsonl");
   if (!existsSync(eventsPath)) {
@@ -421,6 +469,9 @@ function main() {
   const prs = fetchPrs(prsLimit);
   const repo = computeRepoFacts(events, quality);
 
+  // Custo por funcionalidade (rule-48) — fail-open (sem credenciais → []).
+  const telemetry = await fetchTelemetryCost();
+
   writeFileSync(
     resolve(ROOT, "public/kpi-data.json"),
     JSON.stringify(
@@ -432,12 +483,13 @@ function main() {
         prs,
         repo,
         summary,
+        telemetry,
       },
       null,
       2,
     ),
   );
-  console.log("✅ public/kpi-data.json gerado");
+  console.log(`✅ public/kpi-data.json gerado (telemetria: ${telemetry.length} área(s))`);
 
   writeFileSync(
     resolve(ROOT, "public/workflow-data.json"),
@@ -450,5 +502,8 @@ function main() {
 }
 
 if (process.argv[1] === import.meta.filename) {
-  main();
+  main().catch((err) => {
+    console.error("❌ data-refresh falhou:", err?.message ?? err);
+    process.exit(1);
+  });
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T18:21:19.220Z",
+  "generatedAt": "2026-08-14T18:39:18.418Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,9 +174,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 76.5,
-      "prePrTotal": 383,
-      "prePrPass": 293,
+      "prePrPassRate": 76.6,
+      "prePrTotal": 384,
+      "prePrPass": 294,
       "prePrFail": 90,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -185,7 +185,7 @@
         "twins": 0,
         "auth": 2
       },
-      "avgOutcomeGrade": 92.7,
+      "avgOutcomeGrade": 92.6,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -217,9 +217,9 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.6,
-      "branchesMerged": 100,
-      "violationsCaught": 428,
-      "healedRate": 17.8,
+      "branchesMerged": 101,
+      "violationsCaught": 430,
+      "healedRate": 17.7,
       "frictionPerPass": 1.46,
       "llmRouter": {
         "resolved": 39,
@@ -449,15 +449,15 @@
     {
       "day": "2026-08-01",
       "label": "01/08",
-      "prePrTotal": 36,
-      "prePrPass": 22,
+      "prePrTotal": 35,
+      "prePrPass": 21,
       "prePrFail": 14,
-      "prePrPassRate": 61.1,
+      "prePrPassRate": 60,
       "ruleFails": 24,
       "healed": 0,
-      "sessions": 52,
+      "sessions": 48,
       "merges": 6,
-      "friction": 1.09
+      "friction": 1.14
     },
     {
       "day": "2026-08-02",
@@ -618,18 +618,27 @@
     {
       "day": "2026-08-14",
       "label": "14/08",
-      "prePrTotal": 14,
-      "prePrPass": 14,
+      "prePrTotal": 16,
+      "prePrPass": 16,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 22,
+      "ruleFails": 24,
       "healed": 3,
-      "sessions": 4,
-      "merges": 5,
-      "friction": 1.57
+      "sessions": 5,
+      "merges": 6,
+      "friction": 1.5
     }
   ],
   "prs": [
+    {
+      "number": 389,
+      "title": "refactor: migra fetches de JSON estático para use()/Suspense (rule-45 100%)",
+      "type": "refactor",
+      "date": "2026-08-14",
+      "tokens": 983,
+      "benefit": "Código mais simples — menor custo de manutenção",
+      "impact": "Menos custo em mudanças futuras"
+    },
     {
       "number": 387,
       "title": "feat: Blueprint v9 — endurece rule-44/45 + forms React 19 restantes",
@@ -710,34 +719,26 @@
       "tokens": 2081,
       "benefit": "Código mais simples — menor custo de manutenção",
       "impact": "Menos custo em mudanças futuras"
-    },
-    {
-      "number": 374,
-      "title": "chore(process): testes 5.6x mais rápidos, lint 0 warnings e métrica de cobertura (78.8%)",
-      "type": "chore",
-      "date": "2026-08-13",
-      "tokens": 1075,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável"
     }
   ],
   "repo": {
-    "components": 113,
+    "components": 114,
     "pages": 16,
     "libs": 25,
     "scripts": 112,
     "testFiles": 213,
     "skills": 26,
     "rules": 48,
-    "events": 1204,
-    "qualityNotes": 486
+    "events": 1206,
+    "qualityNotes": 489
   },
   "summary": {
-    "merges": 100,
+    "merges": 101,
     "prs": 6,
-    "sessions": 123,
-    "violations": 428,
+    "sessions": 120,
+    "violations": 430,
     "healed": 76,
-    "prePrPassRate": 76.5
-  }
+    "prePrPassRate": 76.6
+  },
+  "telemetry": []
 }

@@ -46,6 +46,11 @@ jobs:
       - name: Quality write
         run: npm run quality:write
 
+      - name: Registrar telemetria da sessão (rule-48, fail-open)
+        # Registra o consumo da última sessão na ai_telemetry; sem credenciais
+        # Supabase no runner, apenas imprime o registro (fail-open).
+        run: npm run telemetry:record
+
       - name: Refresh dashboard data (KPIs diários + aba Workflow)
         run: npm run data:refresh
 
