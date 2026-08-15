@@ -440,3 +440,6 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/adr/ADR-001-blueprint-v9-governanca.md` (auto) | 2026-08-14 |
 | `docs/GRAPH-INTELLIGENCE.md` (auto) | 2026-08-15 |
 | `docs/p11-baseline.md` (auto) | 2026-08-15 |
+| `docs/P12-REAL-WORLD-EVIDENCE-REPORT.md` (auto) | 2026-08-15 |
+| `docs/P13-EVIDENCE-DRIVEN-ROADMAP.md` (auto) | 2026-08-15 |
+| `docs/p12-baseline.md` (auto) | 2026-08-15 |

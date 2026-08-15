@@ -1,0 +1,20 @@
+{
+  "version": "P12",
+  "status": "in_progress",
+  "phase": "P12-04",
+  "runsCompleted": 162,
+  "tasksCompleted": 24,
+  "blockedTasks": 0,
+  "lastAnalysis": null,
+  "recommendations": [],
+  "updatedAt": "2026-08-15T17:06:00.000Z",
+  "completedPhases": ["P12-00", "P12-01", "P12-02", "P12-03", "P12-04"],
+  "dataset": {
+    "tasks": 24,
+    "runs": 162,
+    "strategies": ["single", "multi", "graph+multi"],
+    "model": "gpt-4o-mini",
+    "repeatImportant": 3,
+    "repositoryState": "registrado por run (commit/branch/working tree)"
+  }
+}

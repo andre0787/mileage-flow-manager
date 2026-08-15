@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `feat/exec-run-real-domain-knowledge`
-- **Último commit:** `ecb0eb1 — Merge pull request #435 from andre0787/feat/exec-p8-domain-scout`
+- **Branch:** `main`
+- **Último commit:** `b1b05b0 — Merge pull request #443 from andre0787/docs/roadmap-p11`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -77,15 +77,13 @@ Nenhum PR aberto.
 
 
 ## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** Runner TS real + Domain Knowledge — completar sugestões da Spec v5
+**Categoria:** docs
+**Objetivo:** verifica output
 **Status:** in_progress
-**Iniciada em:** 2026-08-15T13:07:14.162Z
-**Branch:** `docs/roadmap-p11`
-**Último commit:** ecb0eb1 — Merge pull request #435 from andre0787/feat/exec-p8-domain-scout
-**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
-
-
+**Iniciada em:** 2026-08-15T19:51:39.933Z
+**Branch:** `feat/p12-real-world-validation`
+**Último commit:** b1b05b0 — Merge pull request #443 from andre0787/docs/roadmap-p11
+**Docs carregados:** AGENTS.md
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
