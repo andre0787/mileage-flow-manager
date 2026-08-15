@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>agent-execution-core — agent execution core</title>
+  <title>PR425 — agent execution core</title>
   <style>
     :root{
       --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;
@@ -175,12 +175,12 @@
     <section class="slide" id="s1">
       <div class="hero">
         <div class="hero-top">
-          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">agent-execution-core</span> <span class="badge risk" style="color:#34d399">Baixo risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
-          <div class="hero-date">2026-08-15 · 00:53 · <span class="mono">feat/agent-execution-core</span></div>
+          <div class="hero-badges"><span class="badge pr">PR #425</span> <span class="badge auto">PR425</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
+          <div class="hero-date">2026-08-15 · 01:01 · <span class="mono">feat/agent-execution-core</span></div>
         </div>
         <h1>agent execution core</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">f147fcb — Merge pull request #423 from andre0787/docs/ai-session-state-p7</div>
+        <div class="hero-meta mono">b7ce6ee — chore: normalize report prefix to PR425</div>
       </div>
       
     <div class="kpi-grid">
@@ -195,14 +195,14 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/13</div>
+        <div class="kpi-value">0/15</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
         <div class="kpi-sub">7 violações · 8 auto-corrigidas</div>
       </div>
       <div class="kpi">
         <div class="kpi-value green">85</div>
         <div class="kpi-label">outcome grade</div>
-        <div class="kpi-sub">baixo risco da mudança</div>
+        <div class="kpi-sub">médio risco da mudança</div>
       </div>
     </div>
       <div class="bluf">
@@ -216,7 +216,7 @@
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Riscos & trade-offs</div>
-          <p>Baixo risco de mudança · outcome grade = 85 · lead time —.</p>
+          <p>Médio risco de mudança · outcome grade = 85 · lead time —.</p>
         </div>
       </div>
     </section><section class="slide" id="s2">
@@ -255,11 +255,11 @@
       <th style="width:16%">Custo Token</th>
     </tr>
     <tr>
-      <td><strong>Entrega da sessão</strong></td>
-      <td>agent execution core</td>
-      <td>Nova capacidade entregue e validada para o produto.</td>
-      <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
-      <td><code>~1</code></td>
+      <td><strong>PR #425</strong></td>
+      <td>feat(ai): Agent Execution Core (spec v5) — papéis de execução</td>
+      <td>Nova capacidade entregue e validada</td>
+      <td>Nova alavanca de uso/negócio</td>
+      <td><code>~1229</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.110 tokens (feature) · status moderado</p>
@@ -295,7 +295,7 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">13</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">15</span><span class="stat-l">rodadas de validação pré-PR</span></div>
             <div class="stat"><span class="stat-v">7</span><span class="stat-l">violações de regra encontradas</span></div>
             <div class="stat"><span class="stat-v green">8</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
@@ -320,7 +320,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 0 remoções — 1 linhas tocadas</td><td>✨ 0 adições — 0 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 113 remoções — 1974 linhas tocadas</td><td>✨ 1559 adições — 17 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -328,41 +328,176 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>0</td></tr>
-            <tr><td>Adições</td><td>+0</td></tr>
-            <tr><td>Remoções</td><td>-0</td></tr>
-            <tr><td>Tokens estimados</td><td>~1</td></tr>
+            <tr><td>Arquivos alterados</td><td>17</td></tr>
+            <tr><td>Adições</td><td>+1559</td></tr>
+            <tr><td>Remoções</td><td>-113</td></tr>
+            <tr><td>Tokens estimados</td><td>~1481</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:79">+1169 add</div>
+        <div class="del" style="flex:6">-85 del</div>
+        <div class="overhead" style="flex:15">~227 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+1169</td><td>79%</td></tr>
+      <tr><td>Remoções</td><td>-85</td><td>6%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~227</td><td>15%</td></tr>
+      <tr><th>Total</th><th>~1481</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
           <h3>📁 Arquivos</h3>
           <table>
             <tr><th>Status</th><th>Arquivo</th></tr>
-            
+            <tr><td>A</td><td>docs/council/2026-08-15-agent-execution-core-veredito.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-15/PR425-2026-08-15-agent-execution-core.html</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>package.json</td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td></tr>
+<tr><td>M</td><td>public/workflow-data.json</td></tr>
+<tr><td>A</td><td>scripts/exec-intel.mjs</td></tr>
+<tr><td>A</td><td>src/ai/execution/architect.ts</td></tr>
+<tr><td>A</td><td>src/ai/execution/final-validator.ts</td></tr>
+<tr><td>A</td><td>src/ai/execution/graph-freshness.ts</td></tr>
+<tr><td>A</td><td>src/ai/execution/sanitize.ts</td></tr>
+<tr><td>A</td><td>src/ai/execution/scouts.ts</td></tr>
+<tr><td>A</td><td>src/ai/execution/subagent-result.ts</td></tr>
+<tr><td>M</td><td>src/ai/index.ts</td></tr>
+<tr><td>A</td><td>tests/unit/ai/execution.test.ts</td></tr>
           </table>
         </div>
       </div>
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
-        
+        diff --git a/docs/council/2026-08-15-agent-execution-core-veredito.md b/docs/council/2026-08-15-agent-execution-core-veredito.md
+new file mode 100644
+index 0000000..3bf6cca
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/council/2026-08-15-agent-execution-core-veredito.md</span>
+@@ -0,0 +1,76 @@
+<span class="add">+# Veredito — Agent Execution Core (spec v5: papéis de execução)</span>
+<span class="add">+</span>
+<span class="add">+**Tema:** Implementar os itens de código da **Agent Execution Spec v5** (`02-Agent-Execution-Spec-MilesControl-v5.md`) que ainda não existem: resultado estruturado de subagente (§14), Graph/Domain/Test Scouts (§15-17), Architect (§18), Final Validator (§21/§26), sanitização de secrets (§12) e graph freshness (§22).</span>
+<span class="add">+**Data:** 2026-08-15</span>
+<span class="add">+**Sessão:** feature — Agent Execution Core</span>
+<span class="add">+**Base:** `src/ai/` (PRs #413/#417/#421 — contratos core, orchestration, telemetry v5), CRG CLI, workflow do pre-pr.</span>
+<span class="add">+</span>
+<span class="add">+## Gap analysis (spec vs. código existente)</span>
+<span class="add">+</span>
+<span class="add">+| Spec                           | Existe?    | Onde                                           |</span>
+<span class="add">+| ------------------------------ | ---------- | ---------------------------------------------- |</span>
+<span class="add">+| §2 adapter no core             | ✅         | `src/ai/adapters/`                             |</span>
+<span class="add">+| §6 ContextPacket               | ✅         | `src/ai/core/context-packet.ts`                |</span>
+<span class="add">+| §8 paralelismo writeScope      | ✅         | `src/ai/core/task-contract.ts` (conflictsWith) |</span>
+<span class="add">+| §9-10 routing/degradacão       | ✅         | planner/scheduler                              |</span>
+<span class="add">+| §11 telemetria                 | ✅         | envelope.ts + persist.ts (P7)                  |</span>
+<span class="add">+| §13 budget                     | ✅         | `src/ai/orchestration/budget.ts`               |</span>
+<span class="add">+| §14 SubagentResult estruturado | ❌         | —                                              |</span>
+<span class="add">+| §15 Graph Scout                | ❌         | —                                              |</span>
+<span class="add">+| §16 Domain Scout               | ❌         | —                                              |</span>
+<span class="add">+| §17 Test Scout                 | ❌         | —                                              |</span>
+<span class="add">+| §18 Architect (findings→plano) | ⚠️ parcial | planner (task→plan, sem findings de scouts)    |</span>
+<span class="add">+| §21/§26 Final Validator        | ❌         | pre-pr cobre parte, sem check unificado        |</span>
+<span class="add">+| §12 sanitização de secrets     | ❌         | —                                              |</span>
+<span class="add">+| §22 graph freshness            | ❌         | CRG tem update, sem check no fluxo             |</span>
+<span class="add">+</span>
+<span class="add">+## Advisors</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Contrarian</span>
+<span class="add">+</span>
+<span class="add">+**Análise:** Riscos: (1) scouts que &quot;consultam o grafo&quot; não podem depender do CRG instalado — fail-open sempre (CRG ausente → resultado vazio com available:false, nunca crash); (2) o `impact --json` do CRG tem sintaxe própria e mudou — os scouts devem tratar a saída como não-confiável e normalizar; (3) sanitização de secrets não pode ter falso-negativo que vaze CPF — regex de CPF + chaves + senhas com teste negativo.</span>
+<span class="add">+**Veredito:** Faça — fail-open + normalização defensiva + testes de sanitização.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: First Principles Thinker</span>
+<span class="add">+</span>
+<span class="add">+**Análise:** A spec §14 define o contrato de retorno do subagente (status/summary/findings/files/risks/recommendations/confidence/nextAction) e exige &quot;parse → validate → normalize&quot; para texto livre. Isso é o coração: `src/ai/execution/subagent-result.ts` com `parseSubagentResult` (JSON ou texto → contrato válido). Os scouts são funções puras que produzem esses resultados a partir do GraphQueryResult — sem tocar em agente nenhum.</span>
+<span class="add">+**Veredito:** Faça — contrato + parse/normalize + scouts puros.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Expansionist</span>
+<span class="add">+</span>
+<span class="add">+**Análise:** Vale incluir no mesmo PR: (1) `graph-freshness.ts` — compara built_at_commit vs HEAD e reporta stale (usado no Final Validator); (2) `sanitize.ts` — redação de CPF/keys/senhas/emails antes de qualquer envelope de telemetria; (3) Final Validator como checklist unificado (typecheck/lint/testes/gates/freshness/telemetry/budget) que o pre-pr pode chamar; (4) CLI `exec:scout &lt;target&gt;` e `exec:validate` (dry-run, fail-open). Não incluir: execução real de agentes (fica para adapter pi).</span>
+<span class="add">+**Veredito:** Faça — módulos puros + CLI fail-open, sem execução de agente.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Outsider</span>
+<span class="add">+</span>
+<span class="add">+**Análise:** Para o dev, o ganho é o fluxo §3 executável: `exec:scout &lt;target&gt;` responde &quot;o que essa mudança toca e quais testes existem&quot; sem ler o projeto; `exec:validate` responde &quot;code+tests+graph+telemetry+gates coerentes?&quot; (§26). Isso prova a meta do §27 (mais qualidade, menos contexto) com métricas.</span>
+<span class="add">+**Veredito:** Faça — CLI de scout/validate com output estruturado.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Executor</span>
+<span class="add">+</span>
+<span class="add">+**Análise:** Viabilidade: 1 PR com ~6 módulos em `src/ai/execution/` + CLI + testes. Rule-41 (&lt;150 linhas): subagent-result e sanitize são pequenos; final-validator pode passar de 150 → split em checks separados. Rule-31: todos com teste. Escopo: NÃO criar adapters de agente reais (pi execute real) — isso é outra fase.</span>
+<span class="add">+**Veredito:** Faça — 1 PR, TDD, pre-pr ao final.</span>
+<span class="add">+</span>
+<span class="add">+### Peer Review (anônimo)</span>
+<span class="add">+</span>
+<span class="add">+- **Reforço:** Consenso em módulos puros fail-open, parse/normalize do §14, sanitização com teste negativo de CPF.</span>
+<span class="add">+- **Ajuste:** Executor: `final-validator.ts` deve ser um agregador de checks individuais (cada um &lt; 150 linhas ou importado) para não estourar rule-41. Contrarian: `sanitize.ts` deve aceitar lista de patterns customizável, default cobrindo CPF (formato BR), chaves (key/token/secret), senhas (password/senha) e e-mails.</span>
+<span class="add">+</span>
+<span class="add">+## Síntese do Chairman</span>
+<span class="add">+</span>
+<span class="add">+**Consenso:** Implementar Agent Execution Core:</span>
+<span class="add">+</span>
+<span class="add">+1. **`src/ai/execution/subagent-result.ts`** — `SubagentResult` (spec §14) + `parseSubagentResult` (JSON/texto → contrato, fail-open) + `validateSubagentResult`.</span>
+<span class="add">+2. **`src/ai/execution/scouts.ts`** — `graphScout(target)` (impactScore/dependencies/dependents/tests/features/risks/recommendedFiles §15), `domainScout`, `testScout` — puros, fail-open sobre CRG.</span>
+<span class="add">+3. **`src/ai/execution/architect.ts`** — `architectFromScouts(scouts, task)` → ExecutionPlan com write-set (usa planner existente).</span>
+<span class="add">+4. **`src/ai/execution/sanitize.ts`** — `sanitizeText`/`sanitizeEnvelope` (redação CPF/chaves/senhas/emails; patterns customizáveis).</span>
+<span class="add">+5. **`src/ai/execution/graph-freshness.ts`** — `checkGraphFreshness()` (built_at_commit vs HEAD).</span>
+<span class="add">+6. **`src/ai/execution/final-validator.ts`** — agregador de checks (§21/§26): typecheck/lint/testes/freshness/telemetry/budget — cada check importado de módulo pequeno.</span>
+<span class="add">+7. **CLI** `scripts/exec-intel.mjs` — `exec:scout &lt;target&gt;`, `exec:validate` (fail-open, dry-run).</span>
+<span class="add">+8. **Testes** unit por módulo + docs + council.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito Final:** Faça — 1 PR, TDD, pre-pr ao final.</span>
+<span class="add">+</span>
+<span class="add">+**Próximos Passos:** encaminhar para Superpowers — branch `feat/agent-execution-core`, TDD, CLI + package.json, docs, pre-pr + PR.</span>
+<span class="add">+</span>
+<span class="add">+**Extended Thinking Usado:** sim — Contrarian (fail-open e sanitização) e Executor (split final-validator para rule-41).</span>
+diff --git a/docs/handoff.md b/docs/handoff.md
+index 0d9d683..d3a77d1 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -108,10 +108,10 @@ Continue a tarefa ativa ou selecione o próximo task-card.
+ 
+ ## 🎯 Sessão Atual
+ **Categoria:** feature
+<span class="del">-**Objetivo:** P7 Telemetry v5 (envelopes na ai_telemetry)</span>
+<span class="add">+**Objetivo:** Agent Execution Core (spec v5 — papéis de execução)</span>
+ **Status:** in_progress
+<span class="del">-**Iniciada em:** 2026-08-15T03:15:00.000Z</span>
+<span class="del">-**Branch:** `docs/ai-session-state-p7`</span>
+<span class="del">-**Council:** docs/council/2026-08-15-telemetry-v5-veredito.md (veredito: Faça — conversão pura + migration additive + insert fail-open)</span>
+<span class="add">+**Iniciada em:** 2026-08-15T03:50:00.000Z</span>
+<span class="add">+**Branch:** `feat/agent-execution-core`</span>
+<span class="add">+**Council:** docs/council/2026-08-15-agent-execution-core-veredito.md (veredito: Faça — módulos puros fail-open + sanitização + freshness)</span>
+ **Último commit:** dbb6c6e — Merge pull request #409 from andre0787/feat/owner-color-chips-filtros-kpi
+ **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
+\ No newline at end of file
+diff --git a/docs/reports/2026-08-15/PR425-2026-08-15-agent-execution-core.html b/docs/reports/2026-08-15/PR425-2026-08-15-agent-execution-core.html
+new file mode 100644
+index 0000000..657efce
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/reports/2026-08-15/PR425-2026-08-15-agent-execution-core.html</span>
+@@ -0,0 +1,426 @@
+<span class="add">+&lt;!DOCTYPE html&gt;</span>
+<span class="add">+&lt;html lang=&quot;pt-BR&quot;&gt;</span>
+<span class="add">+&lt;head&gt;</span>
+<span class="add">+  &lt;meta charset=&quot;UTF-8&quot;&gt;</span>
+<span class="add">+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;</span>
+<span class="add">+  &lt;title&gt;agent-execution-core — agent execution core&lt;/title&gt;</span>
+<span class="add">+  &lt;style&gt;</span>
+<span class="add">+    :root{</span>
+<span class="add">+      --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;</span>
+<span class="add">+      --text:#e6edf7;--muted:#8fa3c0;--blue:#3b82f6;--green:#34d399;--amber:#fbbf24;--red:#f87171;--gold:#f59e0b;--teal:#2dd4bf;</span>
+<span class="add">+    }</span>
+<span class="add">+    *{box-sizing:border-box;margin:0;padding:0}</span>
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-08-15 00:53
+      Gerado por scripts/generate-report.mjs · 2026-08-15 01:01
     </div>
   </div>
 

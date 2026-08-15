@@ -128,10 +128,10 @@ describe("sanitize (§12)", () => {
 });
 
 describe("graph-freshness (§22)", () => {
-  it("fail-open: nunca lança e reporta estado", () => {
+  it("fail-open: nunca lança e reporta estado (stale pode ser undefined sem grafo)", () => {
     const r = checkGraphFreshness();
     expect(typeof r.fresh).toBe("boolean");
-    expect(typeof r.stale).toBe("boolean");
+    expect(r.stale === undefined || typeof r.stale === "boolean").toBe(true);
   });
 });
 

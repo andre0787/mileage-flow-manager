@@ -104,10 +104,18 @@ export function finalValidate(opts?: {
   testsOk?: boolean;
   envelopeCount?: number;
   budgetState?: Parameters<typeof checkBudgetCompliance>[0];
+  /** Injeta o resultado do grafo (testes determinísticos; default: check real). */
+  graphOk?: boolean;
+  /** Injeta o resultado de freshness (default: check real). */
+  freshnessOk?: boolean;
 }): FinalValidation {
   const checks: ValidationCheck[] = [
-    checkGraphAvailable(),
-    checkFreshness(),
+    opts?.graphOk !== undefined
+      ? { name: "graph-available", status: opts.graphOk ? "pass" : "fail" }
+      : checkGraphAvailable(),
+    opts?.freshnessOk !== undefined
+      ? { name: "graph-freshness", status: opts.freshnessOk ? "pass" : "fail" }
+      : checkFreshness(),
     checkTelemetryCompleteness(opts?.envelopeCount),
     checkBudgetCompliance(opts?.budgetState),
   ];
