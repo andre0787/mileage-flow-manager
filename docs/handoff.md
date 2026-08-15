@@ -81,7 +81,7 @@ Nenhum PR aberto.
 **Objetivo:** Runner TS real + Domain Knowledge — completar sugestões da Spec v5
 **Status:** in_progress
 **Iniciada em:** 2026-08-15T13:07:14.162Z
-**Branch:** `feat/p11-01-real-agent-foundation`
+**Branch:** `docs/roadmap-p11`
 **Último commit:** ecb0eb1 — Merge pull request #435 from andre0787/feat/exec-p8-domain-scout
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 

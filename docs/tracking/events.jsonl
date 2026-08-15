@@ -1239,3 +1239,8 @@
 {"timestamp":"2026-08-15T15:50:48.804Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p11-01-real-agent-foundation","commit":"d14210a","agent":"human","errors":0}
 {"timestamp":"2026-08-15T15:51:33.285Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p11-01-real-agent-foundation","commit":"d14210a","agent":"human","errors":0}
 {"timestamp":"2026-08-15T15:52:05.381Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p11-01-real-agent-foundation","commit":"dd3dea4","agent":"human","errors":0}
+{"timestamp":"2026-08-15T15:58:35.401Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/roadmap-p11","commit":"dcd80c8","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-15T15:58:41.669Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"docs/roadmap-p11","commit":"dcd80c8","agent":"human","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-15T15:59:14.486Z","type":"code-review:done","description":"Review do ROADMAP P11 aprovado","branch":"docs/roadmap-p11","commit":"dcd80c8","agent":"human","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-08-15T15:59:53.720Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/roadmap-p11","commit":"dcd80c8","agent":"human","errors":0}
+{"timestamp":"2026-08-15T16:00:01.494Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/roadmap-p11","commit":"dcd80c8","agent":"human","errors":0}
