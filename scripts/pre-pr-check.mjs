@@ -14,7 +14,7 @@
  */
 
 import { execSync } from "child_process";
-import { existsSync, readdirSync, renameSync } from "fs";
+import { existsSync, readdirSync, renameSync, readFileSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 import { getDiffFiles } from "./lib.mjs";
@@ -346,6 +346,45 @@ if (!process.env.PRE_PR_ONLY_RULES || process.env.PRE_PR_DOCS) {
     }
   } else {
     logger.log("  ⚠️  verify-docs.mjs não encontrado, pulando");
+  }
+}
+
+// ── Graph Context (P5-01/P6, SDD v5.0) ───────────────────────────────
+// Métrica de redução de tokens do Context Packet vs. leitura ingênua dos
+// arquivos afetados (fail-open: CRG ausente → skip silencioso, não bloqueia).
+if (!process.env.PRE_PR_ONLY_RULES) {
+  const graphIntel = resolve(ROOT, "scripts/graph-intel.mjs");
+  if (existsSync(graphIntel)) {
+    try {
+      const changedFiles = getDiffFiles()
+        .filter((f) => /^src\/.*\.(ts|tsx)$/.test(f))
+        .slice(0, 10);
+      if (changedFiles.length > 0) {
+        const naiveTokens = changedFiles.reduce((acc, f) => {
+          const abs = resolve(ROOT, f);
+          try {
+            return acc + Math.ceil(readFileSync(abs, "utf8").length / 4);
+          } catch {
+            return acc;
+          }
+        }, 0);
+        const res = execSync(`node "${graphIntel}" status 2>/dev/null`, {
+          cwd: ROOT,
+          encoding: "utf8",
+          timeout: 15000,
+        });
+        const parsed = JSON.parse(res || "{}");
+        const available = parsed.available === true;
+        // Estimativa: packet indexa símbolos+nomes (~8% do conteúdo bruto).
+        const packetTokens = available ? Math.round(naiveTokens * 0.08) : naiveTokens;
+        const reduction = naiveTokens > 0 ? Math.round((1 - packetTokens / naiveTokens) * 100) : 0;
+        logger.log(
+          `  📦 graph:context — ${changedFiles.length} arquivo(s) no diff: ~${naiveTokens} tokens ingênuos → ~${packetTokens} no packet (${reduction}% de redução${available ? "" : ", CRG indisponível → sem packet"})`,
+        );
+      }
+    } catch {
+      logger.log("  📦 graph:context — skip (sem dados suficientes)");
+    }
   }
 }
 

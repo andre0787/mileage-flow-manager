@@ -100,6 +100,53 @@ function query(selector) {
   );
 }
 
+function plan(taskId) {
+  // Dry-run do ExecutionPlan (P6): mostra o pipeline de papéis sem executar.
+  // Fail-open: sempre imprime o plano lógico de referência.
+  if (!taskId) {
+    console.error("Uso: npm run graph:plan -- <taskId>");
+    process.exitCode = 1;
+    return;
+  }
+  const roles = [
+    { id: "graph-scout", role: "graph-scout", parallelGroup: 1 },
+    { id: "test-scout", role: "test-scout", parallelGroup: 1 },
+    {
+      id: "architect",
+      role: "architect",
+      parallelGroup: 2,
+      dependsOn: ["graph-scout", "test-scout"],
+    },
+    { id: "implementer", role: "implementer", parallelGroup: 3, dependsOn: ["architect"] },
+    { id: "tester", role: "tester", parallelGroup: 4, dependsOn: ["implementer"] },
+    { id: "reviewer", role: "reviewer", parallelGroup: 5, dependsOn: ["tester"] },
+  ];
+  console.log(
+    JSON.stringify(
+      {
+        planId: "dry-run",
+        taskId,
+        agent: "pi",
+        model: "unset",
+        steps: roles,
+        budget: {
+          maxAgents: 8,
+          maxParallel: 4,
+          maxTurns: 60,
+          maxToolCalls: 150,
+          maxTokens: 100000,
+          maxCost: 2.0,
+          maxDurationMs: 900000,
+        },
+        createdAt: new Date().toISOString(),
+        dryRun: true,
+      },
+      null,
+      2,
+    ),
+  );
+}
+
 function neo4jReadiness() {
   const st = runCrg(["status", "--json"]);
   const available = st.ok && st.stdout.trim();
@@ -153,13 +200,16 @@ switch (cmd) {
   case "query":
     query(rest[0]);
     break;
+  case "plan":
+    plan(rest[0]);
+    break;
   case "neo4j-readiness":
     neo4jReadiness();
     break;
   default:
     console.error(`Comando desconhecido: ${cmd ?? "(vazio)"}`);
     console.error(
-      "Uso: status | build | update | impact <alvo> | context <alvo> | query [seletor] | neo4j-readiness",
+      "Uso: status | build | update | impact <alvo> | context <alvo> | query [seletor] | plan <task> | neo4j-readiness",
     );
     process.exitCode = 1;
 }

@@ -118,12 +118,32 @@ Sem dados → score 0 (P4: sem evidência, fica no Supabase/Postgres).
 
 ## Testes
 
-`tests/unit/ai/` — 30 testes (parsers fail-open, packet builder/hash, contratos,
-readiness/band). Regra-31: toda lib em `src/lib` (e `src/ai`) tem teste unitário.
+`tests/unit/ai/` — 48 testes (parsers fail-open, packet builder/hash, contratos,
+readiness/band, registry, planner, scheduler, dependency-resolver, budget,
+dispatcher). Regra-31: toda lib em `src/lib` (e `src/ai`) tem teste unitário.
+
+## P5-P6 — Adapters & Orchestration (SDD §8-18)
+
+- **`src/ai/adapters/registry.ts`** — `registerAdapter`/`resolveAdapter`; o
+  core importa só o registry (P1: nunca um adapter concreto).
+- **`src/ai/adapters/pi.ts`** — adapter de referência (capabilities completas §9).
+- **`src/ai/adapters/generic.ts`** — adapter degradado (tudo false §9) — caso de
+  teste do fallback.
+- **`src/ai/orchestration/planner.ts`** — task → ExecutionPlan via capability
+  matching (`pickAdapter` + `rankModels`); papéis padrão §12.
+- **`src/ai/orchestration/dependency-resolver.ts`** — ordem topológica + ciclo.
+- **`src/ai/orchestration/scheduler.ts`** — batches por `parallelGroup`;
+  degrada para serial sem paralelismo (§14/§17).
+- **`src/ai/orchestration/budget.ts`** — guarda maxAgents/maxParallel/maxTokens/
+  maxCost/maxDurationMs/maxToolCalls antes de cada dispatch (§18).
+- **`src/ai/orchestration/dispatcher.ts`** — executa batches via `execute`
+  injetável, emite telemetry envelope (§19), fail-open.
+- **CLI**: `npm run graph:plan <task>` — dry-run do plano (sem executar).
+- **pre-pr**: roda `graph:context` e reporta a redução estimada de tokens do
+  diff (fail-open — CRG ausente → skip).
 
 ## Roadmap (SDD seção 28)
 
 P0-P4 (Foundation→Domain/Workflow Graphs) em fases futuras; **P5 Agent
-Contracts** (este PR, tipos) → **P6 Multi-Agent Orchestration**
-(planner/dispatcher/scheduler) → P7 Telemetry v5 → P8 Optimization →
-P9/P10 Neo4j (somente se `graph:neo4j-readiness` acionar).
+Contracts** e **P6 Multi-Agent Orchestration** (este PR) → P7 Telemetry v5 →
+P8 Optimization → P9/P10 Neo4j (somente se `graph:neo4j-readiness` acionar).

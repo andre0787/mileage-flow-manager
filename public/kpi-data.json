@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T02:18:36.263Z",
+  "generatedAt": "2026-08-15T02:54:34.916Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,9 +174,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 77.1,
-      "prePrTotal": 393,
-      "prePrPass": 303,
+      "prePrPassRate": 77.3,
+      "prePrTotal": 397,
+      "prePrPass": 307,
       "prePrFail": 90,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -185,7 +185,7 @@
         "twins": 0,
         "auth": 2
       },
-      "avgOutcomeGrade": 92.4,
+      "avgOutcomeGrade": 92.3,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -200,16 +200,16 @@
           "count": 32
         },
         {
-          "rule": "rule-38-code-review-gate",
+          "rule": "rule-17-new-docs-valid",
           "count": 29
         },
         {
-          "rule": "rule-17-new-docs-valid",
-          "count": 27
+          "rule": "rule-38-code-review-gate",
+          "count": 29
         }
       ],
       "healedByRule": {
-        "rule-26": 60,
+        "rule-26": 62,
         "rule-17-new-docs-valid": 20,
         "rule-02": 1
       },
@@ -217,10 +217,10 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.6,
-      "branchesMerged": 105,
-      "violationsCaught": 439,
-      "healedRate": 18.5,
-      "frictionPerPass": 1.45,
+      "branchesMerged": 107,
+      "violationsCaught": 441,
+      "healedRate": 18.8,
+      "frictionPerPass": 1.44,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,
@@ -631,6 +631,33 @@
   ],
   "prs": [
     {
+      "number": 415,
+      "title": "docs: AI-SESSION-STATE — P5-01 Graph Intelligence Foundation (PR #413)",
+      "type": "docs",
+      "date": "2026-08-15",
+      "tokens": 32,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
+    {
+      "number": 413,
+      "title": "feat(ai): P5-01 Graph Intelligence Foundation (SDD v5.0)",
+      "type": "feat",
+      "date": "2026-08-15",
+      "tokens": 1670,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 411,
+      "title": "docs: AI-SESSION-STATE — chips de cor em filtros/KPI/Relatórios (PR #409)",
+      "type": "docs",
+      "date": "2026-08-15",
+      "tokens": 11,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
+    {
       "number": 409,
       "title": "feat(owners): chip de cor no OwnerFilter + cor do dono no KPI e Relatórios",
       "type": "feat",
@@ -692,53 +719,26 @@
       "tokens": 1175,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 395,
-      "title": "docs: AI-SESSION-STATE — Fase F (telemetria nightly + use()/Suspense)",
-      "type": "docs",
-      "date": "2026-08-14",
-      "tokens": 26,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 393,
-      "title": "feat: telemetria no nightly + AiCostSection use()/Suspense",
-      "type": "feat",
-      "date": "2026-08-14",
-      "tokens": 800,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 390,
-      "title": "docs: AI-SESSION-STATE — Fase E (use()/Suspense)",
-      "type": "docs",
-      "date": "2026-08-14",
-      "tokens": 26,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
     }
   ],
   "repo": {
     "components": 114,
     "pages": 16,
     "libs": 26,
-    "scripts": 112,
-    "testFiles": 215,
+    "scripts": 113,
+    "testFiles": 225,
     "skills": 26,
     "rules": 48,
-    "events": 1201,
-    "qualityNotes": 500
+    "events": 1211,
+    "qualityNotes": 503
   },
   "summary": {
-    "merges": 105,
+    "merges": 107,
     "prs": 6,
     "sessions": 81,
-    "violations": 439,
-    "healed": 81,
-    "prePrPassRate": 77.1
+    "violations": 441,
+    "healed": 83,
+    "prePrPassRate": 77.3
   },
   "telemetry": []
 }
