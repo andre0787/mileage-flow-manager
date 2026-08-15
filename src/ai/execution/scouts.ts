@@ -1,0 +1,125 @@
+/**
+ * scouts.ts — Graph / Domain / Test Scouts (Agent Execution Spec §15-17).
+ *
+ * Scouts são READ-ONLY: produzem análise estruturada a partir do
+ * GraphQueryResult (ou fallback vazio) — nunca modificam código.
+ * Fail-open: CRG ausente → available:false com resultado vazio.
+ */
+
+import { graphImpact, graphQuery } from "@/ai/graph/engine";
+import type { GraphQueryResult } from "@/ai/core/graph-types";
+
+export interface GraphScoutResult {
+  target: string;
+  impactScore: number; // 0..1 (densidade de dependentes)
+  directDependencies: string[];
+  directDependents: string[];
+  tests: string[];
+  features: string[];
+  risks: string[];
+  recommendedFiles: string[];
+  available: boolean;
+}
+
+export interface DomainScoutResult {
+  entities: string[];
+  relations: string[];
+  tables: string[];
+  businessRules: string[];
+  dataImpacts: string[];
+  available: boolean;
+}
+
+export interface TestScoutResult {
+  existingTests: string[];
+  gaps: string[];
+  suites: string[];
+  neededTests: string[];
+  available: boolean;
+}
+
+const TYPE_LABEL: Record<string, string> = {
+  test: "tests",
+  domain: "domainEntities",
+  file: "files",
+  symbol: "symbols",
+};
+
+function classify(result: GraphQueryResult): {
+  tests: string[];
+  domain: string[];
+  files: string[];
+  symbols: string[];
+} {
+  const out = { tests: [], domain: [], files: [], symbols: [] } as {
+    tests: string[];
+    domain: string[];
+    files: string[];
+    symbols: string[];
+  };
+  for (const n of result.nodes) {
+    const bucket = TYPE_LABEL[n.type];
+    if (bucket && bucket in out) (out as Record<string, string[]>)[bucket].push(n.label);
+  }
+  return out;
+}
+
+/** Graph Scout (§15): análise de impacto de um alvo. */
+export function graphScout(target: string): GraphScoutResult {
+  const result = graphImpact(target);
+  const { tests, domain, files } = classify(result);
+  const directDependents = result.reachable?.length
+    ? result.reachable
+    : [...new Set(result.edges.map((e) => e.source))];
+  const directDependencies = [...new Set(result.edges.map((e) => e.target))];
+  const impactScore = Math.min(1, directDependents.length / 10);
+
+  return {
+    target,
+    impactScore,
+    directDependencies,
+    directDependents,
+    tests,
+    features: domain,
+    risks: result.nodes.length === 0 ? ["grafo indisponível ou alvo sem cobertura"] : [],
+    recommendedFiles: [...new Set([...files, ...tests])].slice(0, 10),
+    available: result.nodes.length > 0 || result.edges.length > 0,
+  };
+}
+
+/** Domain Scout (§16): entidades e relações de domínio (falta mapear tabelas/regras). */
+export function domainScout(target?: string): DomainScoutResult {
+  const result = target ? graphImpact(target) : graphQuery();
+  const { domain } = classify(result);
+  const relations = [
+    ...new Set(
+      result.edges.filter((e) => e.type === "references").map((e) => `${e.source}→${e.target}`),
+    ),
+  ];
+  return {
+    entities: domain,
+    relations,
+    tables: [],
+    businessRules: [],
+    dataImpacts: [],
+    available: domain.length > 0 || relations.length > 0,
+  };
+}
+
+/** Test Scout (§17): testes existentes e gaps. */
+export function testScout(target?: string): TestScoutResult {
+  const result = target ? graphImpact(target) : graphQuery();
+  const { tests } = classify(result);
+  const files = result.nodes.filter((n) => n.type === "file").map((n) => n.label);
+  const gapCount = files.length - tests.length;
+  return {
+    existingTests: tests,
+    gaps: gapCount > 0 ? [`${gapCount} arquivo(s) sem teste direto no grafo`] : [],
+    suites: [...new Set(tests.map((t) => t.split("/").slice(0, -1).join("/") || "(root)"))],
+    neededTests:
+      gapCount > 0
+        ? files.slice(0, gapCount).map((f) => `${f} → ${f.replace(/\.(ts|tsx)$/, ".test.$1")}`)
+        : [],
+    available: tests.length > 0 || files.length > 0,
+  };
+}

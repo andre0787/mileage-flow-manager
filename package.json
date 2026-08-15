@@ -113,7 +113,11 @@
     "nav:gate": "node scripts/navigation-gate.mjs",
     "telemetry:audit": "node scripts/telemetry-audit.mjs",
     "telemetry:record": "node scripts/telemetry-audit.mjs --record",
-    "telemetry:persist": "node scripts/telemetry-persist.mjs"
+    "telemetry:persist": "node scripts/telemetry-persist.mjs",
+    "exec:scout": "node scripts/exec-intel.mjs scout",
+    "exec:domain": "node scripts/exec-intel.mjs domain",
+    "exec:test": "node scripts/exec-intel.mjs test",
+    "exec:validate": "node scripts/exec-intel.mjs validate"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.1",

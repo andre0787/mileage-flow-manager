@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T03:24:15.598Z",
+  "generatedAt": "2026-08-15T03:54:08.015Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,9 +174,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 77.5,
-      "prePrTotal": 400,
-      "prePrPass": 310,
+      "prePrPassRate": 77.7,
+      "prePrTotal": 403,
+      "prePrPass": 313,
       "prePrFail": 90,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -185,7 +185,7 @@
         "twins": 0,
         "auth": 2
       },
-      "avgOutcomeGrade": 92.3,
+      "avgOutcomeGrade": 92.2,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -201,7 +201,7 @@
         },
         {
           "rule": "rule-17-new-docs-valid",
-          "count": 30
+          "count": 31
         },
         {
           "rule": "rule-38-code-review-gate",
@@ -209,7 +209,7 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 64,
+        "rule-26": 66,
         "rule-17-new-docs-valid": 20,
         "rule-02": 1
       },
@@ -217,10 +217,10 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.6,
-      "branchesMerged": 109,
-      "violationsCaught": 442,
-      "healedRate": 19.2,
-      "frictionPerPass": 1.43,
+      "branchesMerged": 111,
+      "violationsCaught": 443,
+      "healedRate": 19.6,
+      "frictionPerPass": 1.42,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,
@@ -618,18 +618,36 @@
     {
       "day": "2026-08-15",
       "label": "15/08",
-      "prePrTotal": 11,
-      "prePrPass": 11,
+      "prePrTotal": 14,
+      "prePrPass": 14,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 6,
-      "healed": 6,
+      "ruleFails": 7,
+      "healed": 8,
       "sessions": 0,
-      "merges": 6,
-      "friction": 0.55
+      "merges": 8,
+      "friction": 0.5
     }
   ],
   "prs": [
+    {
+      "number": 423,
+      "title": "docs: AI-SESSION-STATE — P7 Telemetry v5 (PR #421)",
+      "type": "docs",
+      "date": "2026-08-15",
+      "tokens": 26,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
+    {
+      "number": 421,
+      "title": "feat(ai): P7 Telemetry v5 — envelopes na ai_telemetry",
+      "type": "feat",
+      "date": "2026-08-15",
+      "tokens": 744,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 419,
       "title": "docs: AI-SESSION-STATE — P5-P6 Graph Orchestration (PR #417)",
@@ -701,44 +719,26 @@
       "tokens": 485,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 403,
-      "title": "docs: AI-SESSION-STATE — cor customizada por dono (PR #401)",
-      "type": "docs",
-      "date": "2026-08-14",
-      "tokens": 27,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 401,
-      "title": "feat(owners): cor customizada por dono com fallback para hash",
-      "type": "feat",
-      "date": "2026-08-14",
-      "tokens": 1024,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "repo": {
     "components": 114,
     "pages": 16,
     "libs": 26,
-    "scripts": 113,
-    "testFiles": 227,
+    "scripts": 114,
+    "testFiles": 229,
     "skills": 26,
     "rules": 48,
-    "events": 1219,
-    "qualityNotes": 505
+    "events": 1227,
+    "qualityNotes": 508
   },
   "summary": {
-    "merges": 109,
+    "merges": 111,
     "prs": 6,
     "sessions": 81,
-    "violations": 442,
-    "healed": 85,
-    "prePrPassRate": 77.5
+    "violations": 443,
+    "healed": 87,
+    "prePrPassRate": 77.7
   },
   "telemetry": []
 }

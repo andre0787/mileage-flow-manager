@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-15T03:24:19.734Z",
+  "generatedAt": "2026-08-15T03:54:12.215Z",
   "dataDate": "2026-08-15",
   "kpiStats": [
     {
-      "value": 1219,
+      "value": 1227,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 505,
+      "value": 508,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,17 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 227,
+      "value": 229,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 85,
+      "value": 87,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 58,
+      "value": 59,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,17 +41,17 @@
     },
     {
       "name": "pre-pr",
-      "n": 400,
+      "n": 403,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 442,
+      "n": 443,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 85,
+      "n": 87,
       "color": "#10b981"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 62,
+      "n": 63,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 63,
+      "n": 64,
       "color": "#22c55e"
     },
     {
@@ -108,7 +108,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 173,
+      "n": 176,
       "color": "#84cc16"
     },
     {
@@ -119,53 +119,53 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-15 03:24:15",
+      "t": "2026-08-15 03:54:07",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-15 03:22:56",
+      "t": "2026-08-15 03:48:51",
       "d": "rule:fail",
       "desc": "rule-17-new-docs-valid falhou"
     },
     {
-      "t": "2026-08-15 03:22:50",
+      "t": "2026-08-15 03:48:45",
       "d": "healed",
       "desc": "rule-26 auto-corrigido"
     },
     {
-      "t": "2026-08-15 03:22:44",
+      "t": "2026-08-15 03:48:41",
       "d": "code-review:done",
-      "desc": "Review por subagente aprovado — Telemetry v5 (P7)"
+      "desc": "Review por subagente aprovado — Agent Execution Core"
     },
     {
-      "t": "2026-08-15 03:22:44",
+      "t": "2026-08-15 03:48:41",
       "d": "coding:done",
-      "desc": "P7 Telemetry v5 — envelopeToRecord puro + migration additive + telemetry:persist"
+      "desc": "Agent Execution Core — subagent-result/scouts/architect/sanitize/freshness/final-validator + CLI exec:*"
     },
     {
-      "t": "2026-08-15 03:02:28",
+      "t": "2026-08-15 03:32:06",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-15 03:02:27",
+      "t": "2026-08-15 03:32:06",
       "d": "healed",
       "desc": "rule-26 auto-corrigido"
     },
     {
-      "t": "2026-08-15 02:54:44",
+      "t": "2026-08-15 03:24:25",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 442,
-    "healed": 85,
-    "healedRate": 19.2,
-    "prePrTotal": 400,
-    "prePrPass": 310,
-    "prePrPassRate": 77.5,
+    "ruleFails": 443,
+    "healed": 87,
+    "healedRate": 19.6,
+    "prePrTotal": 403,
+    "prePrPass": 313,
+    "prePrPassRate": 77.7,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -185,7 +185,7 @@
       },
       {
         "rule": "rule-17-new-docs-valid",
-        "count": 30,
+        "count": 31,
         "hint": "novo doc criado sem validar referências no MAP.md"
       },
       {
@@ -196,6 +196,24 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 423,
+      "title": "docs: AI-SESSION-STATE — P7 Telemetry v5 (PR #421)",
+      "type": "docs",
+      "date": "2026-08-15",
+      "tokens": 26,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
+    {
+      "number": 421,
+      "title": "feat(ai): P7 Telemetry v5 — envelopes na ai_telemetry",
+      "type": "feat",
+      "date": "2026-08-15",
+      "tokens": 744,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 419,
       "title": "docs: AI-SESSION-STATE — P5-P6 Graph Orchestration (PR #417)",
@@ -222,35 +240,17 @@
       "tokens": 32,
       "benefit": "Documentação/processo atualizados — mais rastreabilidade",
       "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 413,
-      "title": "feat(ai): P5-01 Graph Intelligence Foundation (SDD v5.0)",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 1670,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 411,
-      "title": "docs: AI-SESSION-STATE — chips de cor em filtros/KPI/Relatórios (PR #409)",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 11,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
     }
   ],
   "overview": {
     "components": 114,
     "pages": 16,
     "libs": 26,
-    "scripts": 113,
-    "testFiles": 227,
+    "scripts": 114,
+    "testFiles": 229,
     "skills": 26,
     "rules": 48,
-    "events": 1219,
-    "qualityNotes": 505
+    "events": 1227,
+    "qualityNotes": 508
   }
 }
