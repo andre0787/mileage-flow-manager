@@ -4,7 +4,7 @@ import {
   graphQuery,
   graphSearch,
   graphStatus,
-  readinessBand,
+  readinessBandLegacy as readinessBand,
 } from "@/ai/graph/engine";
 
 describe("computeReadinessScore", () => {
