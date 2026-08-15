@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-15T21:17:18.066Z",
+  "generatedAt": "2026-08-15T23:27:22.514Z",
   "dataDate": "2026-08-15",
   "kpiStats": [
     {
-      "value": 1221,
+      "value": 1215,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 561,
+      "value": 566,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,17 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 251,
+      "value": 253,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 99,
+      "value": 101,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 69,
+      "value": 71,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,22 +36,22 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 70,
+      "n": 71,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 395,
+      "n": 387,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 444,
+      "n": 439,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 99,
+      "n": 101,
       "color": "#10b981"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 75,
+      "n": 77,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 71,
+      "n": 73,
       "color": "#22c55e"
     },
     {
@@ -103,7 +103,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 189,
+      "n": 194,
       "color": "#84cc16"
     },
     {
@@ -114,68 +114,68 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-15 21:17:14",
+      "t": "2026-08-15 23:27:17",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-15 21:16:34",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "t": "2026-08-15 23:26:37",
+      "d": "coding:done",
+      "desc": "Coding P12.5 via subagente — 18 módulos src/ai/e2e + CLI + score + 45 testes"
     },
     {
-      "t": "2026-08-15 21:15:51",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-15 21:14:56",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-15 21:14:19",
+      "t": "2026-08-15 23:26:37",
       "d": "code-review:done",
-      "desc": "Review aprovado por subagente"
+      "desc": "Review P12.5 via subagente — demo tenant, gate, lifecycle, limits, adapter, scenarios, evidence, qa/triage/fix, regression, kpi, security, score 10.0"
     },
     {
-      "t": "2026-08-15 21:13:47",
+      "t": "2026-08-15 23:25:58",
+      "d": "rule:fail",
+      "desc": "rule-39-coding-gate falhou"
+    },
+    {
+      "t": "2026-08-15 23:25:58",
       "d": "rule:fail",
       "desc": "rule-38-code-review-gate falhou"
     },
     {
-      "t": "2026-08-15 21:13:40",
-      "d": "healed",
-      "desc": "rule-26 auto-corrigido"
+      "t": "2026-08-15 23:25:58",
+      "d": "rule:fail",
+      "desc": "rule-30-outcome-grade falhou"
     },
     {
-      "t": "2026-08-15 21:01:21",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "t": "2026-08-15 23:25:18",
+      "d": "rule:fail",
+      "desc": "rule-39-coding-gate falhou"
+    },
+    {
+      "t": "2026-08-15 23:25:18",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 444,
-    "healed": 99,
-    "healedRate": 22.3,
-    "prePrTotal": 395,
-    "prePrPass": 320,
-    "prePrPassRate": 81,
+    "ruleFails": 439,
+    "healed": 101,
+    "healedRate": 23,
+    "prePrTotal": 387,
+    "prePrPass": 313,
+    "prePrPassRate": 80.9,
     "gateBlocked": 1,
     "topViolations": [
       {
         "rule": "rule-10-clean",
-        "count": 162,
+        "count": 151,
         "hint": "git status ZERO antes de PR — artefatos gerados não commitados"
       },
       {
         "rule": "rule-38-code-review-gate",
-        "count": 48,
+        "count": 52,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
         "rule": "rule-26-session-started",
-        "count": 35,
+        "count": 34,
         "hint": "timestamp de sessão ausente — npm run session:start"
       },
       {
@@ -184,13 +184,22 @@
         "hint": "escopo do diff fora da categoria da branch"
       },
       {
-        "rule": "rule-17-new-docs-valid",
-        "count": 31,
-        "hint": "novo doc criado sem validar referências no MAP.md"
+        "rule": "rule-39-coding-gate",
+        "count": 29,
+        "hint": "faltou evento coding:done por subagente na branch"
       }
     ]
   },
   "lastPrs": [
+    {
+      "number": 450,
+      "title": "chore: limpeza do repositório — branches órfãs e fable-gates no MAP",
+      "type": "chore",
+      "date": "2026-08-15",
+      "tokens": 560,
+      "benefit": "Ajuste de processo validado",
+      "impact": "Processo mais confiável e audável"
+    },
     {
       "number": 448,
       "title": "docs: auditoria geral — docs atualizadas para P11/P12",
@@ -226,26 +235,17 @@
       "tokens": 517,
       "benefit": "Documentação/processo atualizados — mais rastreabilidade",
       "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 441,
-      "title": "feat(ai): P11 Master Implementation Plan completo — 11 fases + certificação 10.0",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 4193,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "overview": {
     "components": 122,
     "pages": 16,
     "libs": 33,
-    "scripts": 116,
-    "testFiles": 251,
+    "scripts": 117,
+    "testFiles": 253,
     "skills": 26,
     "rules": 48,
-    "events": 1221,
-    "qualityNotes": 561
+    "events": 1215,
+    "qualityNotes": 566
   }
 }

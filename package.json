@@ -122,7 +122,9 @@
     "exec:run:real": "tsx scripts/exec-run-real.ts",
     "exec:validate": "node scripts/exec-intel.mjs validate",
     "ai:p11:score": "node scripts/ai-p11-score.mjs",
-    "p12:validate": "tsx scripts/p12-validate.ts"
+    "p12:validate": "tsx scripts/p12-validate.ts",
+    "p12.5:validate": "tsx scripts/p12.5-validate.ts",
+    "ai:p12.5:score": "node scripts/ai-p12.5-score.mjs"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.1",

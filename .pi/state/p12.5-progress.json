@@ -1,0 +1,42 @@
+{
+  "version": "P12.5",
+  "status": "complete",
+  "phase": "P12.5-13",
+  "completedPhases": [
+    "P12.5-00",
+    "P12.5-01",
+    "P12.5-02",
+    "P12.5-03",
+    "P12.5-04",
+    "P12.5-05",
+    "P12.5-06",
+    "P12.5-07",
+    "P12.5-08",
+    "P12.5-09",
+    "P12.5-10",
+    "P12.5-11",
+    "P12.5-12",
+    "P12.5-13"
+  ],
+  "autonomyLevel": 3,
+  "autonomyCapped": true,
+  "publicDemoEnabled": false,
+  "demoTenantId": "__demo__",
+  "e2eTenantId": "__e2e__",
+  "qaAgentRole": "e2e-qa",
+  "scenarios": 8,
+  "findingsSimulated": 2,
+  "securityCertification": "PASS",
+  "qualityScore": 9.7,
+  "deliverables": [
+    "docs/P12.5-BASELINE.md",
+    "docs/P12.5-THREAT-MODEL.md",
+    "docs/P12.5-EVIDENCE-REPORT.md",
+    "src/ai/e2e/* (14 módulos + barrel)",
+    "scripts/p12.5-validate.ts",
+    "scripts/p12.5-report-generator.ts",
+    "scripts/ai-p12.5-score.mjs",
+    "tests/unit/ai/p125-e2e.test.ts"
+  ],
+  "updatedAt": "2026-08-15T20:12:00.000Z"
+}

@@ -15,6 +15,8 @@
 
 ### 🐞 Bugs Abertos
 
+- [#451](https://github.com/andre0787/mileage-flow-manager/issues/451) — 🚨 Smoke de produção falhou após deploy ab9377a94703d6c766b679f33c1038caf85722a3
+- [#449](https://github.com/andre0787/mileage-flow-manager/issues/449) — 🚨 Smoke de produção falhou após deploy 2da3dab2501aac54bbe290afdfa7a7f6e1a0272a
 - [#446](https://github.com/andre0787/mileage-flow-manager/issues/446) — 🚨 Smoke de produção falhou após deploy ef5b4b59e94a591b7661f255174ed565421b7a59
 - [#444](https://github.com/andre0787/mileage-flow-manager/issues/444) — 🚨 Smoke de produção falhou após deploy b1b05b0df5a7a45c6a5a1107343f7d31f0ce39e9
 - [#442](https://github.com/andre0787/mileage-flow-manager/issues/442) — 🚨 Smoke de produção falhou após deploy dcd80c8c62732c3912c8f4c0758378c725df88de
@@ -23,20 +25,18 @@
 - [#436](https://github.com/andre0787/mileage-flow-manager/issues/436) — 🚨 Smoke de produção falhou após deploy ecb0eb14c5fae84bc46bf14d934ccc658d80ff08
 - [#434](https://github.com/andre0787/mileage-flow-manager/issues/434) — 🚨 Smoke de produção falhou após deploy 299719d16b13b8aac24592d512e57bbb29eacbd5
 - [#432](https://github.com/andre0787/mileage-flow-manager/issues/432) — 🚨 Smoke de produção falhou após deploy 9a131eda4bdd7b03050bae65329cf48b492ab6f8
-- [#430](https://github.com/andre0787/mileage-flow-manager/issues/430) — 🚨 Smoke de produção falhou após deploy 5fcc59871aea01a1bcf540cc6e3a1dcd6ab7a5b9
-- [#429](https://github.com/andre0787/mileage-flow-manager/issues/429) — 🚨 Smoke de produção falhou após deploy 35c8fd335517c9d401476d4e95fc551192cde2e0
 
 ### 📋 Commits Recentes
 
 ```
-c7ed0f6 Merge pull request #447 from andre0787/docs/roadmap-p12
-e358f65 chore: normalize report prefix to PR447
-7349357 docs: marca P12 Master Real-World Validation como concluído no ROADMAP
+ab9377a Merge pull request #450 from andre0787/chore/cleanup-orphan-branches
+b11ef59 chore: normalize report prefix to PR450
+a8dc247 chore: limpeza do repositório — branches órfãs + fable-gates no MAP
 ```
 
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `c7ed0f6 — Merge pull request #447 from andre0787/docs/roadmap-p12`
+- **Branch:** `feat/p12.5-public-demo-agentic-e2e`
+- **Último commit:** `ab9377a — Merge pull request #450 from andre0787/chore/cleanup-orphan-branches`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -102,14 +102,26 @@ Nenhum PR aberto.
 
 
 
+
+
+
+
+
+
+
+
+
+
 ## 🎯 Sessão Atual
-**Categoria:** docs
-**Objetivo:** Auditoria de docs do projeto
+**Categoria:** feature
+**Objetivo:** P12.5 Public Demo Agentic E2E — implementar as 14 fases
 **Status:** in_progress
-**Iniciada em:** 2026-08-15T20:53:08.636Z
-**Branch:** `chore/cleanup-orphan-branches`
-**Último commit:** c7ed0f6 — Merge pull request #447 from andre0787/docs/roadmap-p12
-**Docs carregados:** AGENTS.md
+**Iniciada em:** 2026-08-15T23:22:53.442Z
+**Branch:** `feat/p125-public-demo-agentic-e2e`
+**Último commit:** ab9377a — Merge pull request #450 from andre0787/chore/cleanup-orphan-branches
+**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
+
+
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 

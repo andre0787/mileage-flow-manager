@@ -65,6 +65,11 @@ export interface TelemetryEnvelope {
   toolCalls?: number;
   /** Custo estimado (USD) da execução (P11-03). */
   cost?: number;
+  /** Campos E2E (P12.5 §4) — correlacionam execução E2E à telemetry. */
+  browserSessionId?: string;
+  scenarioId?: string;
+  findingId?: string;
+  artifactId?: string;
   success: boolean;
   errorCode?: string | null;
 }

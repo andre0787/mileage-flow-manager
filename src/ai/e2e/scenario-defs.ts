@@ -1,0 +1,142 @@
+/**
+ * scenario-defs.ts — Definições dos cenários (P12.5-06).
+ *
+ * Dados dos cenários reutilizáveis; extraído de scenarios.ts (rule-41).
+ * Metadata: scenarioId, version, risk, priority, preconditions, steps,
+ * assertions, expectedArtifacts, cleanup.
+ */
+
+import type { Scenario } from "./scenarios";
+
+export const SCENARIOS: Scenario[] = [
+  {
+    scenarioId: "demo-access",
+    version: "1.0.0",
+    name: "Anonymous demo access",
+    risk: "high",
+    priority: "P0",
+    preconditions: ["PUBLIC_DEMO_ENABLED=true", "demo fixtures loaded"],
+    steps: [{ action: "open", url: "http://localhost:8080/demo" }],
+    assertions: [{ type: "url", pattern: "/demo" }],
+    expectedArtifacts: ["screenshot", "console", "network"],
+    cleanup: ["end demo session"],
+  },
+  {
+    scenarioId: "create-mileage-entry",
+    version: "1.0.0",
+    name: "Create mileage entry",
+    risk: "medium",
+    priority: "P1",
+    preconditions: ["demo account exists", "demo fixtures loaded"],
+    steps: [
+      { action: "open", url: "http://localhost:8080/demo" },
+      { action: "click", selector: "#open-mileage-form" },
+      { action: "select", selector: "#program", value: "Smiles" },
+      { action: "fill", selector: "#miles", value: "1500" },
+      { action: "fill", selector: "#description", value: "Demo entry" },
+      { action: "click", selector: "#submit-entry" },
+      { action: "wait", condition: { type: "selector", selector: "#entry-list" } },
+    ],
+    assertions: [
+      { type: "count", selector: "#entry-list tr", expected: 4 },
+      { type: "text", selector: "#dashboard-total", expected: "25.000" },
+    ],
+    expectedArtifacts: ["screenshot", "domSnapshot", "trace", "console", "network"],
+    cleanup: ["demo reset"],
+  },
+  {
+    scenarioId: "edit-mileage-entry",
+    version: "1.0.0",
+    name: "Edit mileage entry",
+    risk: "medium",
+    priority: "P1",
+    preconditions: ["demo entry exists"],
+    steps: [
+      { action: "open", url: "http://localhost:8080/demo" },
+      { action: "click", selector: "#edit-entry-1" },
+      { action: "fill", selector: "#miles", value: "900" },
+      { action: "click", selector: "#save-entry" },
+    ],
+    assertions: [{ type: "text", selector: "#entry-1-miles", expected: "900" }],
+    expectedArtifacts: ["screenshot", "console", "network"],
+    cleanup: ["demo reset"],
+  },
+  {
+    scenarioId: "delete-mileage-entry",
+    version: "1.0.0",
+    name: "Delete mileage entry",
+    risk: "low",
+    priority: "P2",
+    preconditions: ["demo entry exists"],
+    steps: [
+      { action: "open", url: "http://localhost:8080/demo" },
+      { action: "click", selector: "#delete-entry-1" },
+      { action: "click", selector: "#confirm-delete" },
+    ],
+    assertions: [{ type: "count", selector: "#entry-list tr", expected: 2 }],
+    expectedArtifacts: ["screenshot", "network"],
+    cleanup: ["demo reset"],
+  },
+  {
+    scenarioId: "dashboard-totals",
+    version: "1.0.0",
+    name: "Dashboard totals",
+    risk: "low",
+    priority: "P1",
+    preconditions: ["demo fixtures loaded"],
+    steps: [{ action: "open", url: "http://localhost:8080/demo" }],
+    assertions: [{ type: "text", selector: "#dashboard-total", expected: "25.000" }],
+    expectedArtifacts: ["screenshot", "console"],
+    cleanup: [],
+  },
+  {
+    scenarioId: "demo-reset",
+    version: "1.0.0",
+    name: "Demo reset restores fixture",
+    risk: "high",
+    priority: "P1",
+    preconditions: ["demo fixtures loaded", "mutations applied"],
+    steps: [
+      { action: "open", url: "http://localhost:8080/demo" },
+      { action: "click", selector: "#reset-demo" },
+    ],
+    assertions: [
+      { type: "count", selector: "#entry-list tr", expected: 3 },
+      { type: "text", selector: "#dashboard-total", expected: "25.000" },
+    ],
+    expectedArtifacts: ["screenshot", "console", "network"],
+    cleanup: [],
+  },
+  {
+    scenarioId: "search-filters",
+    version: "1.0.0",
+    name: "Search and filters",
+    risk: "low",
+    priority: "P2",
+    preconditions: ["demo fixtures loaded"],
+    steps: [
+      { action: "open", url: "http://localhost:8080/demo" },
+      { action: "fill", selector: "#global-search", value: "Demo vôo" },
+    ],
+    assertions: [{ type: "count", selector: "#search-results", expected: 1 }],
+    expectedArtifacts: ["screenshot"],
+    cleanup: [],
+  },
+  {
+    scenarioId: "form-validation",
+    version: "1.0.0",
+    name: "Form validation",
+    risk: "medium",
+    priority: "P1",
+    preconditions: ["demo fixtures loaded"],
+    steps: [
+      { action: "open", url: "http://localhost:8080/demo" },
+      { action: "click", selector: "#open-mileage-form" },
+      { action: "fill", selector: "#miles", value: "-5" },
+      { action: "click", selector: "#submit-entry" },
+    ],
+    assertions: [{ type: "text", selector: "#validation-error", expected: "milhas inválidas" }],
+    expectedArtifacts: ["screenshot", "console"],
+    cleanup: [],
+  },
+];
