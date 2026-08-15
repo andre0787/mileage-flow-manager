@@ -1218,3 +1218,5 @@
 {"timestamp":"2026-08-15T03:22:56.850Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/telemetry-v5","commit":"200b640","agent":"human","rule":"rule-17-new-docs-valid"}
 {"timestamp":"2026-08-15T03:24:15.478Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetry-v5","commit":"200b640","agent":"human","errors":0}
 {"timestamp":"2026-08-15T03:24:25.262Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetry-v5","commit":"200b640","agent":"human","errors":0}
+{"timestamp":"2026-08-15T03:32:06.208Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/ai-session-state-p7","commit":"eb5d04e","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-15T03:32:06.645Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/ai-session-state-p7","commit":"eb5d04e","agent":"human","errors":0}

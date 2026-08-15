@@ -111,7 +111,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 **Objetivo:** P7 Telemetry v5 (envelopes na ai_telemetry)
 **Status:** in_progress
 **Iniciada em:** 2026-08-15T03:15:00.000Z
-**Branch:** `feat/telemetry-v5`
+**Branch:** `docs/ai-session-state-p7`
 **Council:** docs/council/2026-08-15-telemetry-v5-veredito.md (veredito: Faça — conversão pura + migration additive + insert fail-open)
 **Último commit:** dbb6c6e — Merge pull request #409 from andre0787/feat/owner-color-chips-filtros-kpi
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
