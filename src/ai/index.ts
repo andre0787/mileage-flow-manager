@@ -29,6 +29,8 @@ export * from "./execution/architect";
 export * from "./execution/implementer";
 export * from "./execution/domain-knowledge";
 export * from "./execution/command-runner";
+export * from "./execution/failure-taxonomy";
+export * from "./execution/retry";
 export * from "./execution/sanitize";
 export * from "./execution/graph-freshness";
 export * from "./execution/final-validator";

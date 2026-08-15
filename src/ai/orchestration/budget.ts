@@ -91,3 +91,26 @@ export function consumeBudget(
     agentsDispatched: state.agentsDispatched + 1,
   };
 }
+
+/**
+ * Soma apenas recursos mensuráveis (tokens/custo/duração/toolCalls), SEM
+ * contar agents/turns — usado quando a reserva já os contabilizou
+ * (P11-02: reserva atômica no dispatcher evita dupla contagem).
+ */
+export function consumeResources(
+  state: BudgetState,
+  result: {
+    inputTokens?: number;
+    cost?: number;
+    durationMs?: number;
+    toolCalls?: number;
+  },
+): BudgetState {
+  return {
+    ...state,
+    tokensUsed: state.tokensUsed + (result.inputTokens ?? 0),
+    costUsed: state.costUsed + (result.cost ?? 0),
+    durationMsUsed: state.durationMsUsed + (result.durationMs ?? 0),
+    toolCallsUsed: state.toolCallsUsed + (result.toolCalls ?? 0),
+  };
+}
