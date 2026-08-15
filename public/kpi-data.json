@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T12:56:58.191Z",
+  "generatedAt": "2026-08-15T13:07:53.041Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,10 +174,10 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 80,
-      "prePrTotal": 405,
-      "prePrPass": 324,
-      "prePrFail": 81,
+      "prePrPassRate": 80.5,
+      "prePrTotal": 390,
+      "prePrPass": 314,
+      "prePrFail": 76,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -185,15 +185,15 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 92.1,
+      "avgOutcomeGrade": 92,
       "topViolations": [
         {
           "rule": "rule-10-clean",
-          "count": 177
+          "count": 173
         },
         {
           "rule": "rule-26-session-started",
-          "count": 40
+          "count": 39
         },
         {
           "rule": "rule-17-new-docs-valid",
@@ -209,7 +209,7 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 68,
+        "rule-26": 69,
         "rule-17-new-docs-valid": 20,
         "rule-02": 1
       },
@@ -217,10 +217,10 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.6,
-      "branchesMerged": 111,
-      "violationsCaught": 435,
-      "healedRate": 20.5,
-      "frictionPerPass": 1.34,
+      "branchesMerged": 110,
+      "violationsCaught": 430,
+      "healedRate": 20.9,
+      "frictionPerPass": 1.37,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,
@@ -436,15 +436,15 @@
     {
       "day": "2026-08-01",
       "label": "01/08",
-      "prePrTotal": 18,
-      "prePrPass": 13,
-      "prePrFail": 5,
-      "prePrPassRate": 72.2,
-      "ruleFails": 7,
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
       "healed": 0,
-      "sessions": 2,
-      "merges": 3,
-      "friction": 0.54
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     },
     {
       "day": "2026-08-02",
@@ -618,18 +618,45 @@
     {
       "day": "2026-08-15",
       "label": "15/08",
-      "prePrTotal": 27,
-      "prePrPass": 27,
+      "prePrTotal": 30,
+      "prePrPass": 30,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 16,
-      "healed": 10,
-      "sessions": 0,
-      "merges": 10,
-      "friction": 0.59
+      "ruleFails": 18,
+      "healed": 11,
+      "sessions": 1,
+      "merges": 12,
+      "friction": 0.6
     }
   ],
   "prs": [
+    {
+      "number": 435,
+      "title": "feat: Spec v5 completa — implementer, maxTurns, historyScout, graph update",
+      "type": "feat",
+      "date": "2026-08-15",
+      "tokens": 1379,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 433,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-08-15",
+      "tokens": 515,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção"
+    },
+    {
+      "number": 431,
+      "title": "docs: AI-SESSION-STATE — Agent Execution Spec v5 completa (PR #428)",
+      "type": "docs",
+      "date": "2026-08-15",
+      "tokens": 25,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
     {
       "number": 428,
       "title": "feat(ai): Agent Execution Spec v5 completo — reviewer, domain tables, exec:run",
@@ -692,33 +719,6 @@
       "tokens": 1589,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 415,
-      "title": "docs: AI-SESSION-STATE — P5-01 Graph Intelligence Foundation (PR #413)",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 32,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 413,
-      "title": "feat(ai): P5-01 Graph Intelligence Foundation (SDD v5.0)",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 1670,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 411,
-      "title": "docs: AI-SESSION-STATE — chips de cor em filtros/KPI/Relatórios (PR #409)",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 11,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
     }
   ],
   "repo": {
@@ -729,16 +729,16 @@
     "testFiles": 233,
     "skills": 26,
     "rules": 48,
-    "events": 1221,
-    "qualityNotes": 521
+    "events": 1202,
+    "qualityNotes": 523
   },
   "summary": {
-    "merges": 111,
+    "merges": 110,
     "prs": 6,
-    "sessions": 75,
-    "violations": 435,
-    "healed": 89,
-    "prePrPassRate": 80
+    "sessions": 74,
+    "violations": 430,
+    "healed": 90,
+    "prePrPassRate": 80.5
   },
   "telemetry": []
 }

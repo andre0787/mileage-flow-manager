@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-15T12:57:02.027Z",
+  "generatedAt": "2026-08-15T13:07:59.093Z",
   "dataDate": "2026-08-15",
   "kpiStats": [
     {
-      "value": 1221,
+      "value": 1202,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 521,
+      "value": 523,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 89,
+      "value": 90,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 61,
+      "value": 62,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,22 +36,22 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 75,
+      "n": 74,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 405,
+      "n": 390,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 435,
+      "n": 430,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 89,
+      "n": 90,
       "color": "#10b981"
     },
     {
@@ -61,17 +61,17 @@
     },
     {
       "name": "code-review:done",
-      "n": 66,
+      "n": 67,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 67,
+      "n": 68,
       "color": "#22c55e"
     },
     {
       "name": "session:end",
-      "n": 15,
+      "n": 14,
       "color": "#f59e0b"
     },
     {
@@ -108,7 +108,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 184,
+      "n": 186,
       "color": "#84cc16"
     },
     {
@@ -119,63 +119,63 @@
   ],
   "recentTimeline": [
     {
+      "t": "2026-08-15 13:07:52",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-15 13:07:14",
+      "d": "session:start",
+      "desc": "feature: Runner TS real + Domain Knowledge — completar sugestões da Spec v5"
+    },
+    {
+      "t": "2026-08-15 13:06:22",
+      "d": "rule:fail",
+      "desc": "rule-26-session-started falhou"
+    },
+    {
+      "t": "2026-08-15 13:06:22",
+      "d": "rule:fail",
+      "desc": "rule-03-handoff-completeness falhou"
+    },
+    {
+      "t": "2026-08-15 13:06:10",
+      "d": "code-review:done",
+      "desc": "Review por subagente aprovado — runner real + domain knowledge"
+    },
+    {
+      "t": "2026-08-15 13:06:10",
+      "d": "coding:done",
+      "desc": "Runner TS real (exec:run:real — pipeline §3 com dispatcher) + Domain Knowledge (§16 regras/impactos)"
+    },
+    {
+      "t": "2026-08-15 12:59:27",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
       "t": "2026-08-15 12:56:58",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-15 12:56:05",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-15 12:55:50",
-      "d": "code-review:done",
-      "desc": "Review por subagente aprovado — Spec v5 completa (Domain Scout real + pipeline integrado)"
-    },
-    {
-      "t": "2026-08-15 12:55:50",
-      "d": "coding:done",
-      "desc": "Spec v5 100% — Domain Scout real v2.3.7 + pipeline §3 integrado (planner→dispatcher→persist→validator)"
-    },
-    {
-      "t": "2026-08-15 12:55:42",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-15 12:45:41",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-15 12:45:24",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-15 12:42:10",
-      "d": "rule:fail",
-      "desc": "rule-22-pr-naming falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 435,
-    "healed": 89,
-    "healedRate": 20.5,
-    "prePrTotal": 405,
-    "prePrPass": 324,
-    "prePrPassRate": 80,
+    "ruleFails": 430,
+    "healed": 90,
+    "healedRate": 20.9,
+    "prePrTotal": 390,
+    "prePrPass": 314,
+    "prePrPassRate": 80.5,
     "gateBlocked": 1,
     "topViolations": [
       {
         "rule": "rule-10-clean",
-        "count": 177,
+        "count": 173,
         "hint": "git status ZERO antes de PR — artefatos gerados não commitados"
       },
       {
         "rule": "rule-26-session-started",
-        "count": 40,
+        "count": 39,
         "hint": "timestamp de sessão ausente — npm run session:start"
       },
       {
@@ -197,6 +197,33 @@
   },
   "lastPrs": [
     {
+      "number": 435,
+      "title": "feat: Spec v5 completa — implementer, maxTurns, historyScout, graph update",
+      "type": "feat",
+      "date": "2026-08-15",
+      "tokens": 1379,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 433,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-08-15",
+      "tokens": 515,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção"
+    },
+    {
+      "number": 431,
+      "title": "docs: AI-SESSION-STATE — Agent Execution Spec v5 completa (PR #428)",
+      "type": "docs",
+      "date": "2026-08-15",
+      "tokens": 25,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
+    {
       "number": 428,
       "title": "feat(ai): Agent Execution Spec v5 completo — reviewer, domain tables, exec:run",
       "type": "feat",
@@ -213,33 +240,6 @@
       "tokens": 26,
       "benefit": "Documentação/processo atualizados — mais rastreabilidade",
       "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 425,
-      "title": "feat(ai): Agent Execution Core (spec v5) — papéis de execução",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 1343,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 423,
-      "title": "docs: AI-SESSION-STATE — P7 Telemetry v5 (PR #421)",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 26,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 421,
-      "title": "feat(ai): P7 Telemetry v5 — envelopes na ai_telemetry",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 744,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "overview": {
@@ -250,7 +250,7 @@
     "testFiles": 233,
     "skills": 26,
     "rules": 48,
-    "events": 1221,
-    "qualityNotes": 521
+    "events": 1202,
+    "qualityNotes": 523
   }
 }

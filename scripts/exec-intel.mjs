@@ -99,6 +99,26 @@ function graphScout(target) {
   }
 }
 
+// Regras de negócio por tabela (espelha src/ai/execution/domain-knowledge.ts).
+const DOMAIN_BUSINESS_RULES = {
+  accounts: [
+    "Toda operação que altera saldo de conta DEVE ter inversão espelhada testada",
+    "Reversão de transferência usa custo proporcional (calcProportionalCost)",
+    "totalMiles calculado de entradas - transferências - vendas (não do balance denormalizado)",
+  ],
+  entries: [
+    "Entradas 'aguardando' não contam para milhas totais",
+    "Transferências movem milhas entre contas e não criam milhas novas",
+  ],
+  sales: ["Vendas canceladas excluídas de receita/lucro", "Lucro = valorVenda - milhas × custo - custosAdicionais"],
+  owners: ["Alerta de CPF quando nº de CPFs por owner atinge o limite"],
+};
+const DOMAIN_DATA_IMPACTS = {
+  accounts: ["balance", "total_invested", "average_cost_per_mile"],
+  entries: ["accounts.balance", "accounts.total_invested", "totalMiles (dashboard)"],
+  sales: ["accounts.balance", "totalMiles (dashboard)", "CPF por owner"],
+};
+
 function domainScout() {
   // Espelha src/ai/execution/scouts.ts (§16): tables via parse de migrations
   // (fail-open) + entidades reais via CRG v2.3.7 `search --kind Class`.
@@ -134,17 +154,24 @@ function domainScout() {
       }
     }
   }
+  const businessRules = [
+    ...new Set(tables.flatMap((t) => DOMAIN_BUSINESS_RULES[t] ?? [])),
+  ].slice(0, 12);
+  const dataImpacts = [...new Set(tables.flatMap((t) => DOMAIN_DATA_IMPACTS[t] ?? []))].slice(
+    0,
+    12,
+  );
   console.log(
     JSON.stringify(
       {
         entities: [...entities],
         relations: [...relations].slice(0, 20),
         tables,
-        businessRules: [],
-        dataImpacts: [],
+        businessRules,
+        dataImpacts,
         available: entities.size > 0 || relations.size > 0 || tables.length > 0,
         note: tables.length
-          ? `${tables.length} tabela(s) via migrations + ${entities.size} entidade(s) via grafo; regras de negócio não inferíveis do schema`
+          ? `${tables.length} tabela(s) via migrations + ${entities.size} entidade(s) via grafo + ${businessRules.length} regra(s) de negócio`
           : "grafo indisponível ou sem dados de domínio — rode graph:update",
       },
       null,
