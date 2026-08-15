@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T01:54:53.765Z",
+  "generatedAt": "2026-08-15T02:18:36.263Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,9 +174,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 77.2,
-      "prePrTotal": 395,
-      "prePrPass": 305,
+      "prePrPassRate": 77.1,
+      "prePrTotal": 393,
+      "prePrPass": 303,
       "prePrFail": 90,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -193,7 +193,7 @@
         },
         {
           "rule": "rule-26-session-started",
-          "count": 44
+          "count": 45
         },
         {
           "rule": "rule-scope",
@@ -210,17 +210,17 @@
       ],
       "healedByRule": {
         "rule-26": 60,
-        "rule-17-new-docs-valid": 19,
+        "rule-17-new-docs-valid": 20,
         "rule-02": 1
       },
       "gateBlockedByRule": {
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.6,
-      "branchesMerged": 104,
-      "violationsCaught": 436,
-      "healedRate": 18.3,
-      "frictionPerPass": 1.43,
+      "branchesMerged": 105,
+      "violationsCaught": 439,
+      "healedRate": 18.5,
+      "frictionPerPass": 1.45,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,
@@ -449,15 +449,15 @@
     {
       "day": "2026-08-01",
       "label": "01/08",
-      "prePrTotal": 34,
-      "prePrPass": 20,
+      "prePrTotal": 29,
+      "prePrPass": 15,
       "prePrFail": 14,
-      "prePrPassRate": 58.8,
+      "prePrPassRate": 51.7,
       "ruleFails": 24,
       "healed": 0,
-      "sessions": 41,
+      "sessions": 8,
       "merges": 5,
-      "friction": 1.2
+      "friction": 1.6
     },
     {
       "day": "2026-08-02",
@@ -631,6 +631,24 @@
   ],
   "prs": [
     {
+      "number": 409,
+      "title": "feat(owners): chip de cor no OwnerFilter + cor do dono no KPI e Relatórios",
+      "type": "feat",
+      "date": "2026-08-15",
+      "tokens": 934,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 407,
+      "title": "docs: AI-SESSION-STATE — filtro por dono em Contas (PR #404)",
+      "type": "docs",
+      "date": "2026-08-14",
+      "tokens": 9,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
+    {
       "number": 404,
       "title": "feat(contas): filtro por dono na aba de Contas",
       "type": "feat",
@@ -701,24 +719,6 @@
       "tokens": 26,
       "benefit": "Documentação/processo atualizados — mais rastreabilidade",
       "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 389,
-      "title": "refactor: migra fetches de JSON estático para use()/Suspense (rule-45 100%)",
-      "type": "refactor",
-      "date": "2026-08-14",
-      "tokens": 983,
-      "benefit": "Código mais simples — menor custo de manutenção",
-      "impact": "Menos custo em mudanças futuras"
-    },
-    {
-      "number": 387,
-      "title": "feat: Blueprint v9 — endurece rule-44/45 + forms React 19 restantes",
-      "type": "feat",
-      "date": "2026-08-14",
-      "tokens": 815,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "repo": {
@@ -729,16 +729,16 @@
     "testFiles": 215,
     "skills": 26,
     "rules": 48,
-    "events": 1230,
-    "qualityNotes": 497
+    "events": 1201,
+    "qualityNotes": 500
   },
   "summary": {
-    "merges": 104,
+    "merges": 105,
     "prs": 6,
-    "sessions": 114,
-    "violations": 436,
-    "healed": 80,
-    "prePrPassRate": 77.2
+    "sessions": 81,
+    "violations": 439,
+    "healed": 81,
+    "prePrPassRate": 77.1
   },
   "telemetry": []
 }

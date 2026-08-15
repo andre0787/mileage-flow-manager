@@ -438,3 +438,4 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/WORKFLOW-QUICKSTART.md` (auto) | 2026-08-12 |
 | `docs/AI-SESSION-STATE.md` (auto) | 2026-08-14 |
 | `docs/adr/ADR-001-blueprint-v9-governanca.md` (auto) | 2026-08-14 |
+| `docs/GRAPH-INTELLIGENCE.md` (auto) | 2026-08-15 |

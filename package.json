@@ -102,6 +102,13 @@
     "crg:impact": "code-review-graph impact",
     "crg:detect-changes": "code-review-graph detect-changes",
     "crg:wiki": "code-review-graph wiki",
+    "graph:status": "node scripts/graph-intel.mjs status",
+    "graph:build": "node scripts/graph-intel.mjs build",
+    "graph:update": "node scripts/graph-intel.mjs update",
+    "graph:impact": "node scripts/graph-intel.mjs impact",
+    "graph:context": "node scripts/graph-intel.mjs context",
+    "graph:query": "node scripts/graph-intel.mjs query",
+    "graph:neo4j-readiness": "node scripts/graph-intel.mjs neo4j-readiness",
     "nav:gate": "node scripts/navigation-gate.mjs",
     "telemetry:audit": "node scripts/telemetry-audit.mjs",
     "telemetry:record": "node scripts/telemetry-audit.mjs --record"
