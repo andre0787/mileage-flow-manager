@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `feat/graph-intelligence-foundation`
-- **Último commit:** `dbb6c6e — Merge pull request #409 from andre0787/feat/owner-color-chips-filtros-kpi`
+- **Branch:** `feat/exec-run-real-domain-knowledge`
+- **Último commit:** `ecb0eb1 — Merge pull request #435 from andre0787/feat/exec-p8-domain-scout`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -73,6 +73,17 @@ Nenhum PR aberto.
 
 
 
+
+
+
+## 🎯 Sessão Atual
+**Categoria:** feature
+**Objetivo:** Runner TS real + Domain Knowledge — completar sugestões da Spec v5
+**Status:** in_progress
+**Iniciada em:** 2026-08-15T13:07:14.162Z
+**Branch:** `feat/exec-run-real-domain-knowledge`
+**Último commit:** ecb0eb1 — Merge pull request #435 from andre0787/feat/exec-p8-domain-scout
+**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 
 
 ---

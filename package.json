@@ -119,6 +119,7 @@
     "exec:test": "node scripts/exec-intel.mjs test",
     "exec:review": "node scripts/exec-intel.mjs review",
     "exec:run": "node scripts/exec-intel.mjs run",
+    "exec:run:real": "tsx scripts/exec-run-real.ts",
     "exec:validate": "node scripts/exec-intel.mjs validate"
   },
   "dependencies": {
@@ -176,6 +177,7 @@
     "postcss": "^8.4.47",
     "prettier": "^3.9.4",
     "tailwindcss": "^3.4.11",
+    "tsx": "^4.23.12",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^6.0.0",

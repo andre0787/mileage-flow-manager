@@ -18,6 +18,7 @@ import {
 import { reviewDiff, expectedTestFile, hasTestCoverage } from "@/ai/execution/reviewer";
 import { domainScout, historyScout, listDomainTables } from "@/ai/execution/scouts";
 import { implementFromPlan } from "@/ai/execution/implementer";
+import { businessRulesForTable, dataImpactsForTable } from "@/ai/execution/domain-knowledge";
 import { piAdapter } from "@/ai/adapters/pi";
 
 describe("subagent-result (§14)", () => {
@@ -188,6 +189,30 @@ describe("domain scout tables (§16)", () => {
     const r = domainScout();
     expect(Array.isArray(r.tables)).toBe(true);
     expect(Array.isArray(r.entities)).toBe(true);
+  });
+});
+
+describe("domain knowledge (§16 businessRules/dataImpacts)", () => {
+  it("businessRulesForTable retorna regras financeiras para accounts", () => {
+    const rules = businessRulesForTable("accounts");
+    expect(rules.length).toBeGreaterThan(0);
+    expect(rules.some((r) => r.rule.includes("inversão espelhada"))).toBe(true);
+  });
+
+  it("dataImpactsForTable aponta campos afetados", () => {
+    const impacts = dataImpactsForTable("entries");
+    expect(impacts).toContain("accounts.balance");
+  });
+
+  it("fail-open: tabela desconhecida → vazio", () => {
+    expect(businessRulesForTable("nao_existe")).toEqual([]);
+    expect(dataImpactsForTable("nao_existe")).toEqual([]);
+  });
+
+  it("domainScout inclui businessRules preenchidas", () => {
+    const r = domainScout();
+    expect(Array.isArray(r.businessRules)).toBe(true);
+    expect(Array.isArray(r.dataImpacts)).toBe(true);
   });
 });
 

@@ -7,6 +7,7 @@
  */
 
 import { graphImpact, graphQuery, graphSearch } from "@/ai/graph/engine";
+import { businessRulesForTable, dataImpactsForTable } from "./domain-knowledge";
 import type { GraphQueryResult } from "@/ai/core/graph-types";
 import { readdirSync, readFileSync, existsSync } from "node:fs";
 import { resolve, join } from "node:path";
@@ -124,12 +125,16 @@ export function domainScout(target?: string): DomainScoutResult {
     }
   }
   const entities = [...new Set([...domain, ...files, ...byTable])];
+  const businessRules = [
+    ...new Set(tables.flatMap((t) => businessRulesForTable(t).map((r) => r.rule))),
+  ].slice(0, 12);
+  const dataImpacts = [...new Set(tables.flatMap((t) => dataImpactsForTable(t)))].slice(0, 12);
   return {
     entities,
     relations,
     tables,
-    businessRules: [],
-    dataImpacts: [],
+    businessRules,
+    dataImpacts,
     available: entities.length > 0 || relations.length > 0 || tables.length > 0,
   };
 }

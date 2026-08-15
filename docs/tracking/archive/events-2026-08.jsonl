@@ -291,3 +291,31 @@
 {"timestamp":"2026-08-01T13:24:20.126Z","type":"session:start","description":"chore: adiciona @firstpick/pi-package-webui ao projeto para /remote funcionar","branch":"chore/add-pi-package-webui-project","commit":"8f69505","categoria":"chore"}
 {"timestamp":"2026-08-01T13:24:25.243Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/add-pi-package-webui-project","commit":"a29e632","rule":"rule-10-clean"}
 {"timestamp":"2026-08-01T13:24:46.550Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/add-pi-package-webui-project","commit":"a29e632","errors":1}
+{"timestamp":"2026-08-01T13:24:50.123Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/add-pi-package-webui-project","commit":"a29e632","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T13:25:10.240Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/add-pi-package-webui-project","commit":"a29e632","errors":1}
+{"timestamp":"2026-08-01T13:25:13.252Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/add-pi-package-webui-project","commit":"a29e632","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T13:25:26.981Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/add-pi-package-webui-project","commit":"a29e632","errors":2}
+{"timestamp":"2026-08-01T13:25:29.878Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/add-pi-package-webui-project","commit":"a29e632","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T13:25:50.314Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/add-pi-package-webui-project","commit":"a29e632","errors":1}
+{"timestamp":"2026-08-01T13:26:09.586Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/add-pi-package-webui-project","commit":"a29e632","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T13:26:30.058Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/add-pi-package-webui-project","commit":"a29e632","errors":1}
+{"timestamp":"2026-08-01T13:28:48.941Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/add-pi-package-webui-project","commit":"a29e632","errors":0}
+{"timestamp":"2026-08-01T13:29:20.614Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/add-pi-package-webui-project","commit":"926b7be","errors":0}
+{"timestamp":"2026-08-01T13:58:07.946Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-package-webui","commit":"4be7b77","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-01T13:58:26.805Z","type":"pre-pr","description":"pre-pr FAIL","branch":"docs/session-end-package-webui","commit":"4be7b77","errors":1}
+{"timestamp":"2026-08-01T13:58:48.028Z","type":"session:start","description":"docs: session-end do chore package-webui (PR #241) + handoff","branch":"docs/session-end-package-webui","commit":"4be7b77","categoria":"docs"}
+{"timestamp":"2026-08-01T13:59:25.956Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-package-webui","commit":"5223258","errors":0}
+{"timestamp":"2026-08-01T14:50:10.845Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"feat/llm-model-router","commit":"152b82a","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-01T14:51:00.668Z","type":"session:start","description":"feature: definir router declarativo de modelos LLM","branch":"feat/llm-model-router","commit":"152b82a","categoria":"feature"}
+{"timestamp":"2026-08-01T14:51:47.607Z","type":"rule:fail","description":"rule-27-council-veredict falhou","branch":"feat/llm-model-router","commit":"152b82a","rule":"rule-27-council-veredict"}
+{"timestamp":"2026-08-01T14:52:39.612Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/llm-model-router","commit":"152b82a","errors":0}
+{"timestamp":"2026-08-01T15:12:15.633Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/llm-model-router","commit":"fe0b9cd","errors":0}
+{"timestamp":"2026-08-01T15:16:15.270Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/llm-model-router","commit":"a804fd7","errors":0}
+{"timestamp":"2026-08-01T15:26:44.677Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/llm-model-router","commit":"41e6a86","errors":0}
+{"timestamp":"2026-08-01T15:52:25.328Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/llm-model-router","commit":"3012591","errors":0}
+{"timestamp":"2026-08-01T15:58:20.301Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/llm-model-router","commit":"d63cec4","errors":0}
+{"timestamp":"2026-08-01T16:03:17.211Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/llm-model-router","commit":"c2b17f8","errors":0}
+{"timestamp":"2026-08-01T16:06:49.890Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/llm-model-router","commit":"5550119","errors":0}
+{"timestamp":"2026-08-01T16:08:50.402Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/llm-model-router","commit":"fe1bda2","errors":0}
+{"timestamp":"2026-08-01T21:40:32.231Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/llm-model-router","commit":"8e23484","errors":0}
+{"timestamp":"2026-08-01T21:53:24.288Z","type":"session:end","description":"handoff atualizado","branch":"feat/llm-model-router","commit":"07fc58d"}
