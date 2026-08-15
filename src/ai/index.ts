@@ -13,6 +13,7 @@ export * from "./core/model-contract";
 export * from "./core/task-contract";
 export * from "./core/execution-plan";
 export * from "./telemetry/envelope";
+export * from "./telemetry/persist";
 export * from "./graph/engine";
 export * from "./adapters/registry";
 export * from "./adapters/pi";

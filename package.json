@@ -112,7 +112,8 @@
     "graph:neo4j-readiness": "node scripts/graph-intel.mjs neo4j-readiness",
     "nav:gate": "node scripts/navigation-gate.mjs",
     "telemetry:audit": "node scripts/telemetry-audit.mjs",
-    "telemetry:record": "node scripts/telemetry-audit.mjs --record"
+    "telemetry:record": "node scripts/telemetry-audit.mjs --record",
+    "telemetry:persist": "node scripts/telemetry-persist.mjs"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.1",

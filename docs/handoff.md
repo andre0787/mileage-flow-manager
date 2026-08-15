@@ -108,10 +108,10 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 ## 🎯 Sessão Atual
 **Categoria:** feature
-**Objetivo:** P5-P6 Graph Orchestration (adapters + orchestrator)
+**Objetivo:** P7 Telemetry v5 (envelopes na ai_telemetry)
 **Status:** in_progress
-**Iniciada em:** 2026-08-15T02:40:00.000Z
-**Branch:** `docs/ai-session-state-p5-p6`
-**Council:** docs/council/2026-08-15-graph-orchestration-veredito.md (veredito: Faça — registry sem acoplamento, orchestrator lógico, pre-pr fail-open)
+**Iniciada em:** 2026-08-15T03:15:00.000Z
+**Branch:** `feat/telemetry-v5`
+**Council:** docs/council/2026-08-15-telemetry-v5-veredito.md (veredito: Faça — conversão pura + migration additive + insert fail-open)
 **Último commit:** dbb6c6e — Merge pull request #409 from andre0787/feat/owner-color-chips-filtros-kpi
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
