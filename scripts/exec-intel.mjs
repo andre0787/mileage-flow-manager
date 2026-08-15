@@ -13,13 +13,16 @@
  */
 
 import { spawnSync } from "node:child_process";
-import { readFileSync, existsSync } from "fs";
-import { resolve, dirname } from "path";
+import { readFileSync, existsSync, appendFileSync, readdirSync } from "fs";
+import { resolve, dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 const EVENTS_PATH = resolve(ROOT, "docs/tracking/events.jsonl");
+/** Envelopes §19 em arquivo próprio — events.jsonl é process log (schema rule-36). */
+const ENVELOPES_PATH = resolve(ROOT, "docs/tracking/envelopes.jsonl");
+const MIGRATIONS_DIR = resolve(ROOT, "supabase/migrations");
 
 function runCrg(args) {
   try {
@@ -80,21 +83,69 @@ function graphScout(target) {
 }
 
 function domainScout() {
+  // Espelha src/ai/execution/scouts.ts (§16): tables via parse de migrations
+  // (fail-open), entities/relations via CRG quando disponível.
+  let entities = [];
+  let relations = [];
+  const st = runCrg(["status", "--json"]);
+  const graphAvailable = st.ok && st.stdout.trim();
+  if (graphAvailable) {
+    const arch = runCrg(["architecture", "--json"]);
+    if (arch.ok && arch.stdout.trim()) {
+      try {
+        const p = JSON.parse(arch.stdout);
+        const nodes = Array.isArray(p.nodes) ? p.nodes : [];
+        const edges = Array.isArray(p.edges) ? p.edges : [];
+        entities = [...new Set(nodes.filter((n) => n.type === "domainEntities").map((n) => n.label))];
+        relations = [
+          ...new Set(
+            edges
+              .filter((e) => e.type === "references")
+              .map((e) => `${e.source}→${e.target}`),
+          ),
+        ];
+      } catch {
+        /* fail-open: JSON inválido → vazio */
+      }
+    }
+  }
+  const tables = listDomainTables();
   console.log(
     JSON.stringify(
       {
-        entities: [],
-        relations: [],
-        tables: [],
+        entities,
+        relations,
+        tables,
         businessRules: [],
         dataImpacts: [],
-        available: false,
-        note: "Domain Scout puro em src/ai/execution (grafo de domínio ainda não indexado)",
+        available: entities.length > 0 || relations.length > 0 || tables.length > 0,
+        note: tables.length
+          ? `${tables.length} tabela(s) via migrations; regras de negócio não inferíveis do schema`
+          : "grafo indisponível ou sem dados de domínio — rode graph:update",
       },
       null,
       2,
     ),
   );
+}
+
+/** Tabelas de domínio via parse de `CREATE TABLE public.xxx` nas migrations (fail-open). */
+function listDomainTables() {
+  if (!existsSync(MIGRATIONS_DIR)) return [];
+  const tables = new Set();
+  try {
+    for (const f of readdirSync(MIGRATIONS_DIR).filter((f) => f.endsWith(".sql"))) {
+      const content = readFileSync(join(MIGRATIONS_DIR, f), "utf8");
+      for (const m of content.matchAll(
+        /CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?(?:public\.)?([a-z_]+)/gi,
+      )) {
+        tables.add(m[1]);
+      }
+    }
+  } catch {
+    /* fail-open */
+  }
+  return [...tables].sort();
 }
 
 function testScout(target) {
@@ -164,9 +215,29 @@ function review(target) {
   );
 }
 
+/** Lê eventIds já presentes em envelopes.jsonl (dedupe na persistência). */
+function readExistingEventIds() {
+  const ids = new Set();
+  try {
+    if (!existsSync(ENVELOPES_PATH)) return ids;
+    for (const line of readFileSync(ENVELOPES_PATH, "utf8").split("\n").filter(Boolean)) {
+      try {
+        const e = JSON.parse(line);
+        if (e.eventId) ids.add(e.eventId);
+      } catch {
+        /* linha inválida */
+      }
+    }
+  } catch {
+    /* fail-open */
+  }
+  return ids;
+}
+
 function run(taskId) {
   // Pipeline §3 real (P8): planner → scheduler → dispatcher com telemetria.
-  // Sem TELEMETRY_PERSIST=1 roda dry-run (imprime envelopes, não persiste).
+  // TELEMETRY_PERSIST=1 grava envelopes §19 em envelopes.jsonl (dedupe por eventId)
+  // — depois `npm run telemetry:persist` insere na ai_telemetry. Sem env: dry-run.
   const persist = process.env.TELEMETRY_PERSIST === "1";
   const plan = {
     planId: "run-" + (taskId ?? "unknown"),
@@ -201,22 +272,24 @@ function run(taskId) {
   const now = () => new Date().toISOString();
   for (const step of plan.steps) {
     envelopes.push({
-      eventId: `env-${step.id}`,
+      eventId: `env-${step.id}-${plan.planId}`,
       eventType: "agent.started",
       timestamp: now(),
       taskId: plan.taskId,
       executionId: plan.planId,
+      sessionId: process.env.TELEMETRY_SESSION_ID,
       agentAdapter: "pi",
       agentRole: step.role,
       model: "unset",
       success: true,
     });
     envelopes.push({
-      eventId: `env-${step.id}-done`,
+      eventId: `env-${step.id}-done-${plan.planId}`,
       eventType: "agent.completed",
       timestamp: now(),
       taskId: plan.taskId,
       executionId: plan.planId,
+      sessionId: process.env.TELEMETRY_SESSION_ID,
       agentAdapter: "pi",
       agentRole: step.role,
       model: "unset",
@@ -226,25 +299,53 @@ function run(taskId) {
       success: true,
     });
   }
+
+  let appended = 0;
+  let skipped = 0;
+  if (persist) {
+    const existing = readExistingEventIds();
+    const fresh = envelopes.filter((e) => !existing.has(e.eventId));
+    skipped = envelopes.length - fresh.length;
+    try {
+      if (fresh.length > 0) {
+        appendFileSync(
+          ENVELOPES_PATH,
+          fresh.map((e) => JSON.stringify(e)).join("\n") + "\n",
+          "utf8",
+        );
+      }
+      appended = fresh.length;
+    } catch (err) {
+      console.log(`⚠️  falha ao gravar envelopes.jsonl (${err.message}) — fail-open`);
+    }
+  }
+
   console.log(
     JSON.stringify(
-      { plan, envelopes: envelopes.length, persisted: persist, mode: persist ? "real" : "dry-run" },
+      {
+        plan,
+        envelopes: envelopes.length,
+        persisted: persist,
+        mode: persist ? "real" : "dry-run",
+        appended,
+        skipped,
+        nextStep: persist
+          ? "rode npm run telemetry:persist para inserir na ai_telemetry"
+          : "rode com TELEMETRY_PERSIST=1 para gravar envelopes §19 em docs/tracking/envelopes.jsonl",
+      },
       null,
       2,
     ),
   );
-  if (persist)
-    console.log(
-      "⚠️  persistência real requer o dispatcher TS — rode npm run telemetry:persist para inserir envelopes do events.jsonl",
-    );
 }
 
 function finalValidate() {
-  // Telemetria: conta envelopes §19 em events.jsonl
+  // Telemetria: conta envelopes §19 em envelopes.jsonl (fallback events.jsonl)
   let envelopeCount = 0;
+  const source = existsSync(ENVELOPES_PATH) ? ENVELOPES_PATH : EVENTS_PATH;
   try {
-    if (existsSync(EVENTS_PATH)) {
-      const lines = readFileSync(EVENTS_PATH, "utf8").split("\n").filter(Boolean);
+    if (existsSync(source)) {
+      const lines = readFileSync(source, "utf8").split("\n").filter(Boolean);
       for (const line of lines) {
         try {
           const e = JSON.parse(line);

@@ -255,3 +255,39 @@
 {"timestamp":"2026-08-01T04:30:38.696Z","type":"session:start","description":"refactor: refatora modulo","branch":"docs/session-end-handoff","commit":"8cdad8a","categoria":"refactor"}
 {"timestamp":"2026-08-01T04:30:38.752Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-handoff","commit":"8cdad8a","errors":0}
 {"timestamp":"2026-08-01T04:30:39.035Z","type":"session:start","description":"feature: primeira feature","branch":"docs/session-end-handoff","commit":"8cdad8a","categoria":"feature"}
+{"timestamp":"2026-08-01T04:30:39.291Z","type":"session:start","description":"chore: segunda chore","branch":"docs/session-end-handoff","commit":"8cdad8a","categoria":"chore"}
+{"timestamp":"2026-08-01T04:30:39.557Z","type":"session:start","description":"docs: continuacao","branch":"docs/session-end-handoff","commit":"8cdad8a","categoria":"docs"}
+{"timestamp":"2026-08-01T04:30:44.949Z","type":"session:start","description":"chore: descrição concisa","branch":"docs/session-end-handoff","commit":"8cdad8a","categoria":"chore"}
+{"timestamp":"2026-08-01T04:30:47.552Z","type":"session:start","description":"docs: verifica output","branch":"docs/session-end-handoff","commit":"8cdad8a","categoria":"docs"}
+{"timestamp":"2026-08-01T04:30:47.673Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-handoff","commit":"8cdad8a","errors":0}
+{"timestamp":"2026-08-01T05:00:14.688Z","type":"gate","description":"INTENT declarado antes das edições","branch":"feat/kpi-dados-reais","commit":"5e3833d","gate":"intent","target":"scripts/*.mjs, KPIDashboard, fable-gates"}
+{"timestamp":"2026-08-01T05:00:14.718Z","type":"gate","description":"AUTH concedido pelo usuário para merge+deploy","branch":"feat/kpi-dados-reais","commit":"5e3833d","gate":"auth","target":"merge main + deploy prod"}
+{"timestamp":"2026-08-01T05:02:03.266Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/kpi-dados-reais","commit":"5e3833d","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T05:02:05.367Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"feat/kpi-dados-reais","commit":"5e3833d","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-01T05:02:23.523Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-dados-reais","commit":"5e3833d","errors":2}
+{"timestamp":"2026-08-01T05:02:27.848Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/kpi-dados-reais","commit":"5e3833d","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T05:02:29.962Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"feat/kpi-dados-reais","commit":"5e3833d","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-01T05:02:48.287Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-dados-reais","commit":"5e3833d","errors":2}
+{"timestamp":"2026-08-01T05:02:54.403Z","type":"session:start","description":"feature: KPIs de Processo: dados reais (gates, quality.jsonl, frescor no pre-pr)","branch":"feat/kpi-dados-reais","commit":"5e3833d","categoria":"feature"}
+{"timestamp":"2026-08-01T05:02:57.475Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/kpi-dados-reais","commit":"5e3833d","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T05:02:59.646Z","type":"rule:fail","description":"rule-27-council-veredict falhou","branch":"feat/kpi-dados-reais","commit":"5e3833d","rule":"rule-27-council-veredict"}
+{"timestamp":"2026-08-01T05:03:17.937Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-dados-reais","commit":"5e3833d","errors":2}
+{"timestamp":"2026-08-01T05:03:22.000Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/kpi-dados-reais","commit":"5e3833d","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T05:03:24.173Z","type":"rule:fail","description":"rule-27-council-veredict falhou","branch":"feat/kpi-dados-reais","commit":"5e3833d","rule":"rule-27-council-veredict"}
+{"timestamp":"2026-08-01T05:03:42.510Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-dados-reais","commit":"5e3833d","errors":2}
+{"timestamp":"2026-08-01T05:03:52.664Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/kpi-dados-reais","commit":"5e3833d","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T05:04:12.966Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-dados-reais","commit":"5e3833d","errors":1}
+{"timestamp":"2026-08-01T05:04:17.342Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/kpi-dados-reais","commit":"5e3833d","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T05:04:37.755Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-dados-reais","commit":"5e3833d","errors":1}
+{"timestamp":"2026-08-01T05:04:43.861Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/kpi-dados-reais","commit":"5e3833d","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T05:05:04.424Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-dados-reais","commit":"5e3833d","errors":1}
+{"timestamp":"2026-08-01T05:05:32.258Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/kpi-dados-reais","commit":"5e3833d","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T05:05:52.732Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/kpi-dados-reais","commit":"5e3833d","errors":1}
+{"timestamp":"2026-08-01T05:06:59.558Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/kpi-dados-reais","commit":"5e3833d","errors":0}
+{"timestamp":"2026-08-01T05:37:05.529Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-restore-remote","commit":"292eae3","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-01T05:37:30.864Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-restore-remote","commit":"292eae3","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-01T05:38:09.836Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-restore-remote","commit":"292eae3","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-01T05:38:36.261Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"docs/session-end-restore-remote","commit":"292eae3","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T13:24:20.126Z","type":"session:start","description":"chore: adiciona @firstpick/pi-package-webui ao projeto para /remote funcionar","branch":"chore/add-pi-package-webui-project","commit":"8f69505","categoria":"chore"}
+{"timestamp":"2026-08-01T13:24:25.243Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/add-pi-package-webui-project","commit":"a29e632","rule":"rule-10-clean"}
+{"timestamp":"2026-08-01T13:24:46.550Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/add-pi-package-webui-project","commit":"a29e632","errors":1}

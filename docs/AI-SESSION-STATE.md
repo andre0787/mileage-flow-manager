@@ -1,32 +1,31 @@
-# AI Session State - 2026-08-15T04:15:00.000Z
+# AI Session State - 2026-08-15T12:30:00.000Z
 
 ## Última Task
 
-- Feature **Agent Execution Core** (PR #425, 02-Agent-Execution-Spec v5): **Concluído** — papéis de execução em `src/ai/execution/`: subagent-result (§14 parse/normalize), scouts (§15-17 graph/domain/test, fail-open), architect (§18 findings→plan com write-set), sanitize (§12 redação CPF/chaves/senhas/emails/JWT), graph-freshness (§22), final-validator (§21/§26 checklist unificado) + CLI `exec:scout/domain/test/validate`. Council em `docs/council/2026-08-15-agent-execution-core-veredito.md`.
-- (Antes) **P7 Telemetry v5** (#421), **P5-P6 Graph Orchestration** (#417), **P5-01 Graph Intelligence** (#413).
+- Feature **P8 envelopes §19 + Domain Scout CLI** (branch `feat/exec-p8-domain-scout`): **Concluído** — `exec:domain` agora retorna `tables` reais via parse de `supabase/migrations` (fail-open, 11 tabelas), espelhando `listDomainTables` do TS; `exec:run` com `TELEMETRY_PERSIST=1` grava envelopes §19 em `docs/tracking/envelopes.jsonl` (arquivo próprio — events.jsonl é process log rule-36) com dedupe por eventId; `exec:validate` conta envelopes do novo arquivo e `telemetry-completeness` passa; `telemetry:persist` lê envelopes.jsonl (canônico) + events.jsonl (legado).
+- Base: PRs #413/#417/#421/#425/#428 (Agent Execution Spec v5).
 
 ## Estado dos Testes & Qualidade
 
-- **Playwright E2E:** e2e-smoke ✅ no CI do PR #425
-- **RTK Integrity:** Checked — 8/8 coleções com adapter (rule-44)
-- **Vendas/Contas Logic:** Checked — **991 testes unit** (123 files, +17 em `tests/unit/ai/execution.test.ts`), typecheck/lint/format ✓, pre-pr 0 errors
+- **check:fast:** typecheck/lint/format/test/verify-docs ✅
+- **pre-pr:** 0 errors (rule-36 válido, gates 38/39 com evidência subagente)
+- **exec:validate:** `ok: true` — graph-available ✅, graph-freshness ✅, telemetry-completeness ✅ (12 envelopes)
+- **Testes:** 991 unit (incl. 24 em tests/unit/ai/execution.test.ts)
 
 ## Arquivos Modificados & Impacto
 
-- `src/ai/execution/` (novo — subagent-result, scouts, architect, sanitize, graph-freshness, final-validator)
-- `src/ai/index.ts` (barrel + execution)
-- `scripts/exec-intel.mjs` (novo — CLI exec:*) + `package.json` (4 atalhos)
-- `tests/unit/ai/execution.test.ts` (17 testes)
-- `docs/council/2026-08-15-agent-execution-core-veredito.md`
-- Graph atualizado após o merge (spec §22): `graph:update` rodado, freshness pass
+- `scripts/exec-intel.mjs` — domainScout com tables (migrations) + run persist env-gated + validate lê envelopes.jsonl
+- `scripts/telemetry-persist.mjs` — lê envelopes.jsonl (canônico) + events.jsonl (legado), dedupe
+- `docs/tracking/envelopes.jsonl` (novo — envelopes §19) + events.jsonl (events gates) + quality.jsonl
+- Relatório pre-pr: `docs/reports/2026-08-15/exec-p8-domain-scout-2026-08-15-exec-p8-domain-scout.html`
 
 ## Pendências Imediatas (Next Step)
 
-1. Fase P8: emitir envelopes §19 de verdade — conectar o `onTelemetry` do dispatcher ao `telemetry:persist` (env-gated) para popular a ai_telemetry e o `exec:validate` passar no check telemetry-completeness.
-2. Domain Scout completo: mapear entidades/tabelas/regras do domínio (hoje entities via grafo, tables/businessRules vazios).
+1. Conectar o dispatcher TS real (`src/ai/orchestration/dispatcher.ts`) ao `exec:run` (hoje o CLI espelha a lógica — envelopes simulados; o pipeline real com `onTelemetry`→persist fica para a próxima fase).
+2. Domain entities/relations via CRG: hoje o `architecture --json` não expõe `nodes`/`edges` no formato esperado — avaliar query de domínio no CRG.
 
 ## Governança de Contexto
 
 - **Tokens Utilizados:** ~22K acumulado (ai_telemetry)
 - **Poda (Pruning):** 0 linhas removidas no último turno
-- **Branch Atual:** main (PRs #380..#425 merged — nenhum aberto)
+- **Branch Atual:** feat/exec-p8-domain-scout (main em 5fcc598, PR #428 merged)
