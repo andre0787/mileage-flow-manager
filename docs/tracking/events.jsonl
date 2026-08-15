@@ -1201,3 +1201,10 @@
 {"timestamp":"2026-08-15T13:07:14.185Z","type":"session:start","description":"feature: Runner TS real + Domain Knowledge — completar sugestões da Spec v5","branch":"feat/exec-run-real-domain-knowledge","commit":"ecb0eb1","agent":"human","categoria":"feature"}
 {"timestamp":"2026-08-15T13:07:52.924Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/exec-run-real-domain-knowledge","commit":"ecb0eb1","agent":"human","errors":0}
 {"timestamp":"2026-08-15T13:08:12.740Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/exec-run-real-domain-knowledge","commit":"ecb0eb1","agent":"human","errors":0}
+{"timestamp":"2026-08-15T14:28:29.236Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/roadmap-spec-v5","commit":"875a0e0","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-15T14:28:36.784Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"docs/roadmap-spec-v5","commit":"875a0e0","agent":"human","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-15T14:29:14.923Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"docs/roadmap-spec-v5","commit":"875a0e0","agent":"human","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-15T14:29:54.589Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"docs/roadmap-spec-v5","commit":"875a0e0","agent":"human","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-15T14:30:27.394Z","type":"code-review:done","description":"Review aprovado por subagente — ROADMAP Spec v5 concluída","branch":"docs/roadmap-spec-v5","commit":"875a0e0","agent":"human","subagent":true,"verdict":"approved","scope":"docs/ROADMAP.md"}
+{"timestamp":"2026-08-15T14:31:03.192Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/roadmap-spec-v5","commit":"875a0e0","agent":"human","errors":0}
+{"timestamp":"2026-08-15T14:31:18.309Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/roadmap-spec-v5","commit":"875a0e0","agent":"human","errors":0}

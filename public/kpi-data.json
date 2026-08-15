@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T13:07:53.041Z",
+  "generatedAt": "2026-08-15T14:31:03.314Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,9 +174,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 80.5,
-      "prePrTotal": 390,
-      "prePrPass": 314,
+      "prePrPassRate": 80.6,
+      "prePrTotal": 392,
+      "prePrPass": 316,
       "prePrFail": 76,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -185,7 +185,7 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 92,
+      "avgOutcomeGrade": 92.1,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -196,20 +196,20 @@
           "count": 39
         },
         {
+          "rule": "rule-38-code-review-gate",
+          "count": 34
+        },
+        {
           "rule": "rule-17-new-docs-valid",
           "count": 32
         },
         {
           "rule": "rule-scope",
           "count": 32
-        },
-        {
-          "rule": "rule-38-code-review-gate",
-          "count": 31
         }
       ],
       "healedByRule": {
-        "rule-26": 69,
+        "rule-26": 70,
         "rule-17-new-docs-valid": 20,
         "rule-02": 1
       },
@@ -217,9 +217,9 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.6,
-      "branchesMerged": 110,
-      "violationsCaught": 430,
-      "healedRate": 20.9,
+      "branchesMerged": 111,
+      "violationsCaught": 433,
+      "healedRate": 21,
       "frictionPerPass": 1.37,
       "llmRouter": {
         "resolved": 39,
@@ -618,18 +618,27 @@
     {
       "day": "2026-08-15",
       "label": "15/08",
-      "prePrTotal": 30,
-      "prePrPass": 30,
+      "prePrTotal": 32,
+      "prePrPass": 32,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 18,
-      "healed": 11,
+      "ruleFails": 21,
+      "healed": 12,
       "sessions": 1,
-      "merges": 12,
-      "friction": 0.6
+      "merges": 13,
+      "friction": 0.66
     }
   ],
   "prs": [
+    {
+      "number": 437,
+      "title": "feat: Runner TS real (exec:run:real) + Domain Knowledge §16",
+      "type": "feat",
+      "date": "2026-08-15",
+      "tokens": 1262,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 435,
       "title": "feat: Spec v5 completa — implementer, maxTurns, historyScout, graph update",
@@ -710,15 +719,6 @@
       "tokens": 27,
       "benefit": "Documentação/processo atualizados — mais rastreabilidade",
       "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 417,
-      "title": "feat(ai): P5-P6 Graph Orchestration — adapters + orchestrator",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 1589,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "repo": {
@@ -729,16 +729,16 @@
     "testFiles": 233,
     "skills": 26,
     "rules": 48,
-    "events": 1202,
-    "qualityNotes": 523
+    "events": 1209,
+    "qualityNotes": 527
   },
   "summary": {
-    "merges": 110,
+    "merges": 111,
     "prs": 6,
     "sessions": 74,
-    "violations": 430,
-    "healed": 90,
-    "prePrPassRate": 80.5
+    "violations": 433,
+    "healed": 91,
+    "prePrPassRate": 80.6
   },
   "telemetry": []
 }
