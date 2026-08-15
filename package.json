@@ -117,6 +117,8 @@
     "exec:scout": "node scripts/exec-intel.mjs scout",
     "exec:domain": "node scripts/exec-intel.mjs domain",
     "exec:test": "node scripts/exec-intel.mjs test",
+    "exec:review": "node scripts/exec-intel.mjs review",
+    "exec:run": "node scripts/exec-intel.mjs run",
     "exec:validate": "node scripts/exec-intel.mjs validate"
   },
   "dependencies": {

@@ -8,6 +8,8 @@
 
 import { graphImpact, graphQuery } from "@/ai/graph/engine";
 import type { GraphQueryResult } from "@/ai/core/graph-types";
+import { readdirSync, readFileSync, existsSync } from "node:fs";
+import { resolve, join } from "node:path";
 
 export interface GraphScoutResult {
   target: string;
@@ -87,7 +89,11 @@ export function graphScout(target: string): GraphScoutResult {
   };
 }
 
-/** Domain Scout (§16): entidades e relações de domínio (falta mapear tabelas/regras). */
+/**
+ * Domain Scout (§16): entidades e relações de domínio + tabelas reais
+ * (parse fail-open das migrations `CREATE TABLE public.xxx`).
+ * Regras de negócio não são inferíveis do schema — ficam como nota.
+ */
 export function domainScout(target?: string): DomainScoutResult {
   const result = target ? graphImpact(target) : graphQuery();
   const { domain } = classify(result);
@@ -96,14 +102,35 @@ export function domainScout(target?: string): DomainScoutResult {
       result.edges.filter((e) => e.type === "references").map((e) => `${e.source}→${e.target}`),
     ),
   ];
+  const tables = listDomainTables();
   return {
     entities: domain,
     relations,
-    tables: [],
+    tables,
     businessRules: [],
     dataImpacts: [],
-    available: domain.length > 0 || relations.length > 0,
+    available: domain.length > 0 || relations.length > 0 || tables.length > 0,
   };
+}
+
+/** Tabelas de domínio via parse de `CREATE TABLE public.xxx` nas migrations (fail-open). */
+export function listDomainTables(migrationsDir?: string): string[] {
+  const dir = migrationsDir ?? resolve(process.cwd(), "supabase/migrations");
+  if (!existsSync(dir)) return [];
+  const tables = new Set<string>();
+  try {
+    for (const f of readdirSync(dir).filter((f) => f.endsWith(".sql"))) {
+      const content = readFileSync(join(dir, f), "utf8");
+      for (const m of content.matchAll(
+        /CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?(?:public\.)?([a-z_]+)/gi,
+      )) {
+        tables.add(m[1]);
+      }
+    }
+  } catch {
+    /* fail-open */
+  }
+  return [...tables].sort();
 }
 
 /** Test Scout (§17): testes existentes e gaps. */

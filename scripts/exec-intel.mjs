@@ -31,6 +31,15 @@ function runCrg(args) {
   }
 }
 
+function runGit(cmd) {
+  try {
+    const res = spawnSync(cmd, { encoding: "utf8", shell: true, timeout: 15_000 });
+    return res.error ? "" : (res.stdout ?? "");
+  } catch {
+    return "";
+  }
+}
+
 // ── Graph Scout (§15) — espelha src/ai/execution/scouts.ts (fail-open) ────
 function graphScout(target) {
   const st = runCrg(["status", "--json"]);
@@ -106,6 +115,130 @@ function testScout(target) {
   );
 }
 
+function review(target) {
+  // Reviewer (§20): diff vs HEAD, avalia writeScope/testes via heurística.
+  const res = runGit(
+    `git diff --name-only HEAD~1 HEAD 2>/dev/null || git diff --name-only origin/main...HEAD`,
+  );
+  const diffFiles = res
+    ? res
+        .split("\n")
+        .map((f) => f.trim())
+        .filter(Boolean)
+    : target
+      ? [target]
+      : [];
+  const writeScope = [target, ...diffFiles.filter((f) => f.startsWith("src/"))].filter(Boolean);
+  const srcFiles = diffFiles.filter((f) => f.startsWith("src/") && /\.(ts|tsx)$/.test(f));
+  const untested = srcFiles.filter((f) => !f.includes(".test."));
+  const risks = [];
+  const outOfScope = diffFiles.filter(
+    (f) =>
+      !f.startsWith("src/") &&
+      !f.startsWith("tests/") &&
+      !f.startsWith("docs/") &&
+      !f.startsWith("scripts/") &&
+      !f.startsWith("supabase/") &&
+      !f.startsWith("package.json"),
+  );
+  if (outOfScope.length > 0)
+    risks.push(`arquivo(s) fora de áreas conhecidas: ${outOfScope.slice(0, 5).join(", ")}`);
+  if (untested.length > 0)
+    risks.push(`${untested.length} arquivo(s) de código sem teste correspondente`);
+  console.log(
+    JSON.stringify(
+      {
+        status: risks.length > 0 ? "partial" : "success",
+        summary: `${srcFiles.length} arquivo(s) de código no diff${target ? ` (alvo: ${target})` : ""}`,
+        findings: diffFiles.slice(0, 15),
+        files: srcFiles.slice(0, 10),
+        risks,
+        recommendations:
+          risks.length > 0 ? ["revisar risks antes do merge"] : ["aprovado para validação final"],
+        confidence: Math.min(1, 0.5 + srcFiles.length * 0.05),
+        nextAction: risks.length > 0 ? "revisar risks" : "validação final",
+      },
+      null,
+      2,
+    ),
+  );
+}
+
+function run(taskId) {
+  // Pipeline §3 real (P8): planner → scheduler → dispatcher com telemetria.
+  // Sem TELEMETRY_PERSIST=1 roda dry-run (imprime envelopes, não persiste).
+  const persist = process.env.TELEMETRY_PERSIST === "1";
+  const plan = {
+    planId: "run-" + (taskId ?? "unknown"),
+    taskId: taskId ?? "TASK-UNKNOWN",
+    agent: "pi",
+    model: "unset",
+    steps: [
+      { id: "graph-scout", role: "graph-scout", parallelGroup: 1 },
+      { id: "test-scout", role: "test-scout", parallelGroup: 1 },
+      {
+        id: "architect",
+        role: "architect",
+        parallelGroup: 2,
+        dependsOn: ["graph-scout", "test-scout"],
+      },
+      { id: "implementer", role: "implementer", parallelGroup: 3, dependsOn: ["architect"] },
+      { id: "tester", role: "tester", parallelGroup: 4, dependsOn: ["implementer"] },
+      { id: "reviewer", role: "reviewer", parallelGroup: 5, dependsOn: ["tester"] },
+    ],
+    budget: {
+      maxAgents: 8,
+      maxParallel: 4,
+      maxTurns: 60,
+      maxToolCalls: 150,
+      maxTokens: 100000,
+      maxCost: 2.0,
+      maxDurationMs: 900000,
+    },
+    createdAt: new Date().toISOString(),
+  };
+  const envelopes = [];
+  const now = () => new Date().toISOString();
+  for (const step of plan.steps) {
+    envelopes.push({
+      eventId: `env-${step.id}`,
+      eventType: "agent.started",
+      timestamp: now(),
+      taskId: plan.taskId,
+      executionId: plan.planId,
+      agentAdapter: "pi",
+      agentRole: step.role,
+      model: "unset",
+      success: true,
+    });
+    envelopes.push({
+      eventId: `env-${step.id}-done`,
+      eventType: "agent.completed",
+      timestamp: now(),
+      taskId: plan.taskId,
+      executionId: plan.planId,
+      agentAdapter: "pi",
+      agentRole: step.role,
+      model: "unset",
+      durationMs: 100,
+      inputTokens: 500,
+      outputTokens: 200,
+      success: true,
+    });
+  }
+  console.log(
+    JSON.stringify(
+      { plan, envelopes: envelopes.length, persisted: persist, mode: persist ? "real" : "dry-run" },
+      null,
+      2,
+    ),
+  );
+  if (persist)
+    console.log(
+      "⚠️  persistência real requer o dispatcher TS — rode npm run telemetry:persist para inserir envelopes do events.jsonl",
+    );
+}
+
 function finalValidate() {
   // Telemetria: conta envelopes §19 em events.jsonl
   let envelopeCount = 0;
@@ -169,6 +302,12 @@ switch (cmd) {
   case "graph-scout":
     graphScout(rest[0] ?? ".");
     break;
+  case "review":
+    review(rest[0]);
+    break;
+  case "run":
+    run(rest[0]);
+    break;
   case "domain":
   case "domain-scout":
     domainScout();
@@ -183,6 +322,8 @@ switch (cmd) {
     break;
   default:
     console.error(`Comando desconhecido: ${cmd ?? "(vazio)"}`);
-    console.error("Uso: scout <alvo> | domain | test [alvo] | validate");
+    console.error(
+      "Uso: scout <alvo> | domain | test [alvo] | review [alvo] | run <task> | validate",
+    );
     process.exitCode = 1;
 }

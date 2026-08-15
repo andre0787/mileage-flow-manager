@@ -15,6 +15,8 @@ import {
   checkTelemetryCompleteness,
   finalValidate,
 } from "@/ai/execution/final-validator";
+import { reviewDiff, expectedTestFile, hasTestCoverage } from "@/ai/execution/reviewer";
+import { domainScout, listDomainTables } from "@/ai/execution/scouts";
 import { piAdapter } from "@/ai/adapters/pi";
 
 describe("subagent-result (§14)", () => {
@@ -124,6 +126,67 @@ describe("sanitize (§12)", () => {
     expect(containsSecrets("senha=abc123def456")).toBe(true);
     expect(containsSecrets("token=eyJhbGciOiJIUzI1NiJ9")).toBe(true);
     expect(containsSecrets("texto limpo sem segredo")).toBe(false);
+  });
+});
+
+describe("reviewer (§20)", () => {
+  it("marca arquivo fora do writeScope como risk", () => {
+    const r = reviewDiff({
+      diffFiles: ["src/lib/a.ts", "supabase/migrations/x.sql"],
+      writeScope: ["src/lib/a.ts"],
+    });
+    expect(r.status).toBe("partial");
+    expect(r.risks.some((x) => x.includes("fora do writeScope"))).toBe(true);
+    expect(r.findings.some((x) => x.includes("migration"))).toBe(true);
+  });
+
+  it("aponta arquivos sem teste", () => {
+    const r = reviewDiff({
+      diffFiles: ["src/lib/b.ts"],
+      writeScope: ["src/lib/b.ts"],
+      testsByFile: {},
+    });
+    expect(r.status).toBe("partial");
+    expect(r.recommendations.some((x) => x.includes("cobrir"))).toBe(true);
+  });
+
+  it("aprova diff limpo dentro do escopo com testes", () => {
+    const r = reviewDiff({
+      diffFiles: ["src/lib/c.ts"],
+      writeScope: ["src/lib/c.ts"],
+      testsByFile: { "src/lib/c.ts": ["tests/unit/c.test.ts"] },
+      impactScore: 0.1,
+    });
+    expect(r.status).toBe("success");
+    expect(r.risks).toEqual([]);
+  });
+
+  it("expectedTestFile gera nome correto", () => {
+    expect(expectedTestFile("src/lib/x.ts")).toBe("src/lib/x.test.ts");
+    expect(expectedTestFile("src/lib/x.test.ts")).toBeUndefined();
+    expect(expectedTestFile("scripts/a.mjs")).toBeUndefined();
+  });
+
+  it("hasTestCoverage respeita mapeamento", () => {
+    expect(hasTestCoverage("src/lib/x.ts", { "src/lib/x.ts": ["t.test.ts"] })).toBe(true);
+    expect(hasTestCoverage("src/lib/y.ts", {})).toBe(false);
+  });
+});
+
+describe("domain scout tables (§16)", () => {
+  it("listDomainTables parseia CREATE TABLE das migrations (fail-open)", () => {
+    const tables = listDomainTables();
+    expect(Array.isArray(tables)).toBe(true);
+    if (tables.length > 0) {
+      expect(tables).toContain("owners");
+      expect(tables).toContain("accounts");
+    }
+  });
+
+  it("domainScout inclui tables e available", () => {
+    const r = domainScout();
+    expect(Array.isArray(r.tables)).toBe(true);
+    expect(Array.isArray(r.entities)).toBe(true);
   });
 });
 

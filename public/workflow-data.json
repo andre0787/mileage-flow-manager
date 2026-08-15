@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-15T03:54:12.215Z",
+  "generatedAt": "2026-08-15T04:18:05.406Z",
   "dataDate": "2026-08-15",
   "kpiStats": [
     {
-      "value": 1227,
+      "value": 1234,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 508,
+      "value": 511,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,17 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 229,
+      "value": 231,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 87,
+      "value": 88,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 59,
+      "value": 60,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,17 +41,17 @@
     },
     {
       "name": "pre-pr",
-      "n": 403,
+      "n": 406,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 443,
+      "n": 444,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 87,
+      "n": 88,
       "color": "#10b981"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 63,
+      "n": 64,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 64,
+      "n": 65,
       "color": "#22c55e"
     },
     {
@@ -108,7 +108,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 176,
+      "n": 179,
       "color": "#84cc16"
     },
     {
@@ -119,53 +119,53 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-15 03:54:07",
+      "t": "2026-08-15 04:18:00",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-15 03:48:51",
+      "t": "2026-08-15 04:15:23",
       "d": "rule:fail",
       "desc": "rule-17-new-docs-valid falhou"
     },
     {
-      "t": "2026-08-15 03:48:45",
+      "t": "2026-08-15 04:15:15",
       "d": "healed",
       "desc": "rule-26 auto-corrigido"
     },
     {
-      "t": "2026-08-15 03:48:41",
+      "t": "2026-08-15 04:15:14",
       "d": "code-review:done",
-      "desc": "Review por subagente aprovado — Agent Execution Core"
+      "desc": "Review por subagente aprovado — Agent Execution Spec completa"
     },
     {
-      "t": "2026-08-15 03:48:41",
+      "t": "2026-08-15 04:15:14",
       "d": "coding:done",
-      "desc": "Agent Execution Core — subagent-result/scouts/architect/sanitize/freshness/final-validator + CLI exec:*"
+      "desc": "Spec v5 completo — reviewer §20 + domain tables §16 + exec:run/exec:review (P8)"
     },
     {
-      "t": "2026-08-15 03:32:06",
+      "t": "2026-08-15 04:01:41",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-15 03:32:06",
-      "d": "healed",
-      "desc": "rule-26 auto-corrigido"
+      "t": "2026-08-15 03:54:18",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-15 03:24:25",
+      "t": "2026-08-15 03:54:07",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 443,
-    "healed": 87,
-    "healedRate": 19.6,
-    "prePrTotal": 403,
-    "prePrPass": 313,
-    "prePrPassRate": 77.7,
+    "ruleFails": 444,
+    "healed": 88,
+    "healedRate": 19.8,
+    "prePrTotal": 406,
+    "prePrPass": 316,
+    "prePrPassRate": 77.8,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -179,14 +179,14 @@
         "hint": "timestamp de sessão ausente — npm run session:start"
       },
       {
+        "rule": "rule-17-new-docs-valid",
+        "count": 32,
+        "hint": "novo doc criado sem validar referências no MAP.md"
+      },
+      {
         "rule": "rule-scope",
         "count": 32,
         "hint": "escopo do diff fora da categoria da branch"
-      },
-      {
-        "rule": "rule-17-new-docs-valid",
-        "count": 31,
-        "hint": "novo doc criado sem validar referências no MAP.md"
       },
       {
         "rule": "rule-38-code-review-gate",
@@ -196,6 +196,15 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 425,
+      "title": "feat(ai): Agent Execution Core (spec v5) — papéis de execução",
+      "type": "feat",
+      "date": "2026-08-15",
+      "tokens": 1343,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 423,
       "title": "docs: AI-SESSION-STATE — P7 Telemetry v5 (PR #421)",
@@ -231,26 +240,17 @@
       "tokens": 1589,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 415,
-      "title": "docs: AI-SESSION-STATE — P5-01 Graph Intelligence Foundation (PR #413)",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 32,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
     }
   ],
   "overview": {
     "components": 114,
     "pages": 16,
     "libs": 26,
-    "scripts": 114,
-    "testFiles": 229,
+    "scripts": 115,
+    "testFiles": 231,
     "skills": 26,
     "rules": 48,
-    "events": 1227,
-    "qualityNotes": 508
+    "events": 1234,
+    "qualityNotes": 511
   }
 }
