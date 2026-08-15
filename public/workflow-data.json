@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-15T12:31:48.707Z",
+  "generatedAt": "2026-08-15T12:45:29.410Z",
   "dataDate": "2026-08-15",
   "kpiStats": [
     {
-      "value": 1211,
+      "value": 1215,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 515,
+      "value": 519,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -41,12 +41,12 @@
     },
     {
       "name": "pre-pr",
-      "n": 399,
+      "n": 401,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 433,
+      "n": 435,
       "color": "#ef4444"
     },
     {
@@ -108,7 +108,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 179,
+      "n": 183,
       "color": "#84cc16"
     },
     {
@@ -118,6 +118,26 @@
     }
   ],
   "recentTimeline": [
+    {
+      "t": "2026-08-15 12:45:24",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-15 12:42:10",
+      "d": "rule:fail",
+      "desc": "rule-22-pr-naming falhou"
+    },
+    {
+      "t": "2026-08-15 12:41:00",
+      "d": "rule:fail",
+      "desc": "rule-22-pr-naming falhou"
+    },
+    {
+      "t": "2026-08-15 12:35:32",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
     {
       "t": "2026-08-15 12:31:44",
       "d": "pre-pr",
@@ -137,35 +157,15 @@
       "t": "2026-08-15 12:29:30",
       "d": "coding:done",
       "desc": "P8 envelopes §19 + Domain Scout — exec:domain com tables reais (migrations) + exec:run persist env-gated (envelopes.jsonl)"
-    },
-    {
-      "t": "2026-08-15 12:27:35",
-      "d": "rule:fail",
-      "desc": "rule-39-coding-gate falhou"
-    },
-    {
-      "t": "2026-08-15 12:27:35",
-      "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
-    },
-    {
-      "t": "2026-08-15 12:27:35",
-      "d": "rule:fail",
-      "desc": "rule-36-process-evidence falhou"
-    },
-    {
-      "t": "2026-08-15 12:27:00",
-      "d": "rule:fail",
-      "desc": "rule-39-coding-gate falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 433,
+    "ruleFails": 435,
     "healed": 89,
-    "healedRate": 20.6,
-    "prePrTotal": 399,
-    "prePrPass": 318,
-    "prePrPassRate": 79.7,
+    "healedRate": 20.5,
+    "prePrTotal": 401,
+    "prePrPass": 320,
+    "prePrPassRate": 79.8,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -250,7 +250,7 @@
     "testFiles": 231,
     "skills": 26,
     "rules": 48,
-    "events": 1211,
-    "qualityNotes": 515
+    "events": 1215,
+    "qualityNotes": 519
   }
 }

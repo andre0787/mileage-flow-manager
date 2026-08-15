@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T12:31:44.688Z",
+  "generatedAt": "2026-08-15T12:45:25.013Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,9 +174,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 79.7,
-      "prePrTotal": 399,
-      "prePrPass": 318,
+      "prePrPassRate": 79.8,
+      "prePrTotal": 401,
+      "prePrPass": 320,
       "prePrFail": 81,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -185,7 +185,7 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 92.2,
+      "avgOutcomeGrade": 92.1,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -218,8 +218,8 @@
       },
       "avgCycleTimeHours": 0.6,
       "branchesMerged": 111,
-      "violationsCaught": 433,
-      "healedRate": 20.6,
+      "violationsCaught": 435,
+      "healedRate": 20.5,
       "frictionPerPass": 1.36,
       "llmRouter": {
         "resolved": 39,
@@ -618,15 +618,15 @@
     {
       "day": "2026-08-15",
       "label": "15/08",
-      "prePrTotal": 21,
-      "prePrPass": 21,
+      "prePrTotal": 23,
+      "prePrPass": 23,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 14,
+      "ruleFails": 16,
       "healed": 10,
       "sessions": 0,
       "merges": 10,
-      "friction": 0.67
+      "friction": 0.7
     }
   ],
   "prs": [
@@ -729,16 +729,16 @@
     "testFiles": 231,
     "skills": 26,
     "rules": 48,
-    "events": 1211,
-    "qualityNotes": 515
+    "events": 1215,
+    "qualityNotes": 519
   },
   "summary": {
     "merges": 111,
     "prs": 6,
     "sessions": 75,
-    "violations": 433,
+    "violations": 435,
     "healed": 89,
-    "prePrPassRate": 79.7
+    "prePrPassRate": 79.8
   },
   "telemetry": []
 }

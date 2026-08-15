@@ -10,6 +10,7 @@ import { graphImpact, graphQuery } from "@/ai/graph/engine";
 import type { GraphQueryResult } from "@/ai/core/graph-types";
 import { readdirSync, readFileSync, existsSync } from "node:fs";
 import { resolve, join } from "node:path";
+import { spawnSync } from "node:child_process";
 
 export interface GraphScoutResult {
   target: string;
@@ -37,6 +38,13 @@ export interface TestScoutResult {
   gaps: string[];
   suites: string[];
   neededTests: string[];
+  available: boolean;
+}
+
+export interface HistoryScoutResult {
+  relatedTasks: string[];
+  recentChanges: string[];
+  lastScopes: string[];
   available: boolean;
 }
 
@@ -148,5 +156,61 @@ export function testScout(target?: string): TestScoutResult {
         ? files.slice(0, gapCount).map((f) => `${f} → ${f.replace(/\.(ts|tsx)$/, ".test.$1")}`)
         : [],
     available: tests.length > 0 || files.length > 0,
+  };
+}
+
+/**
+ * History Scout (§7): contexto histórico da task — tasks relacionadas no
+ * event log + commits recentes que tocaram o alvo. Fail-open: sem event log
+ * ou sem git → available:false com arrays vazios (nunca lança).
+ */
+export function historyScout(target?: string): HistoryScoutResult {
+  const relatedTasks: string[] = [];
+  const recentChanges: string[] = [];
+  try {
+    const eventsPath = resolve(process.cwd(), "docs/tracking/events.jsonl");
+    if (existsSync(eventsPath)) {
+      const lines = readFileSync(eventsPath, "utf8").split("\n").filter(Boolean).slice(-400);
+      for (const line of lines) {
+        try {
+          const e = JSON.parse(line) as {
+            type?: string;
+            description?: string;
+            branch?: string;
+          };
+          if (
+            (e.type === "session:start" || e.type === "commit") &&
+            e.description &&
+            (!target ||
+              e.description.toLowerCase().includes(target.toLowerCase()) ||
+              e.branch?.toLowerCase().includes(target.toLowerCase()))
+          ) {
+            relatedTasks.push(e.description);
+          }
+        } catch {
+          /* linha inválida */
+        }
+      }
+    }
+  } catch {
+    /* fail-open */
+  }
+  try {
+    const git = spawnSync("git", ["log", "--oneline", "-10", ...(target ? [`--`, target] : [])], {
+      encoding: "utf8",
+      timeout: 10_000,
+    });
+    if (!git.error && git.status === 0 && git.stdout) {
+      recentChanges.push(...git.stdout.trim().split("\n").filter(Boolean));
+    }
+  } catch {
+    /* fail-open */
+  }
+  const lastScopes = [...new Set(relatedTasks.map((t) => t.split(":")[0]?.trim()).filter(Boolean))];
+  return {
+    relatedTasks: [...new Set(relatedTasks)].slice(0, 10),
+    recentChanges: recentChanges.slice(0, 10),
+    lastScopes: lastScopes.slice(0, 5),
+    available: relatedTasks.length > 0 || recentChanges.length > 0,
   };
 }

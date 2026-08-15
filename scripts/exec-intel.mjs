@@ -320,6 +320,17 @@ function run(taskId) {
     }
   }
 
+  // §22 — nunca concluir task estrutural sem atualizar o grafo (fail-open).
+  let graphUpdated = false;
+  let graphNote = "";
+  if (persist) {
+    const up = runCrg(["update"]);
+    graphUpdated = up.ok;
+    graphNote = up.ok
+      ? "grafo atualizado (graph:update)"
+      : `grafo não atualizado (${up.error ?? "falha"}) — rode npm run graph:update`;
+  }
+
   console.log(
     JSON.stringify(
       {
@@ -329,9 +340,11 @@ function run(taskId) {
         mode: persist ? "real" : "dry-run",
         appended,
         skipped,
+        graphUpdated,
+        graphNote,
         nextStep: persist
           ? "rode npm run telemetry:persist para inserir na ai_telemetry"
-          : "rode com TELEMETRY_PERSIST=1 para gravar envelopes §19 em docs/tracking/envelopes.jsonl",
+          : "rode com TELEMETRY_PERSIST=1 para gravar envelopes §19 e atualizar o grafo (§22)",
       },
       null,
       2,

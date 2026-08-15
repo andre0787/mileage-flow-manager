@@ -1210,3 +1210,7 @@
 {"timestamp":"2026-08-15T12:30:09.010Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/exec-p8-domain-scout","commit":"5fcc598","agent":"human","errors":0}
 {"timestamp":"2026-08-15T12:31:44.575Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/exec-p8-domain-scout","commit":"5fcc598","agent":"human","errors":0}
 {"timestamp":"2026-08-15T12:35:32.274Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/exec-p8-domain-scout","commit":"5fcc598","agent":"human","errors":0}
+{"timestamp":"2026-08-15T12:41:00.241Z","type":"rule:fail","description":"rule-22-pr-naming falhou","branch":"feat/exec-p8-domain-scout","commit":"3c0c76f","agent":"human","rule":"rule-22-pr-naming"}
+{"timestamp":"2026-08-15T12:42:10.669Z","type":"rule:fail","description":"rule-22-pr-naming falhou","branch":"feat/exec-p8-domain-scout","commit":"3c0c76f","agent":"human","rule":"rule-22-pr-naming"}
+{"timestamp":"2026-08-15T12:45:24.896Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/exec-p8-domain-scout","commit":"3c0c76f","agent":"human","errors":0}
+{"timestamp":"2026-08-15T12:45:41.843Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/exec-p8-domain-scout","commit":"3c0c76f","agent":"human","errors":0}
