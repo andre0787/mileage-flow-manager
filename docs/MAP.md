@@ -146,12 +146,116 @@ Artefatos de sprints/features concluídos foram movidos para `docs/archive/`:
 <!-- STRUCTURE-START -->
 ```tree
 src/
+├── ai/
+│   ├── adapters/
+│   │   ├── generic.ts
+│   │   ├── pi.ts
+│   │   └── registry.ts
+│   ├── benchmark/
+│   │   ├── compare.ts
+│   │   ├── dataset.ts
+│   │   ├── profiles.ts
+│   │   ├── runner.ts
+│   │   └── scoring.ts
+│   ├── core/
+│   │   ├── agent-contract.ts
+│   │   ├── context-packet.ts
+│   │   ├── execution-plan.ts
+│   │   ├── graph-types.ts
+│   │   ├── model-contract.ts
+│   │   └── task-contract.ts
+│   ├── execution/
+│   │   ├── architect.ts
+│   │   ├── command-runner.ts
+│   │   ├── domain-knowledge.ts
+│   │   ├── failure-taxonomy.ts
+│   │   ├── final-validator.ts
+│   │   ├── graph-freshness.ts
+│   │   ├── implementer.ts
+│   │   ├── retry.ts
+│   │   ├── reviewer.ts
+│   │   ├── sanitize.ts
+│   │   ├── scouts.ts
+│   │   ├── step-executor.ts
+│   │   └── subagent-result.ts
+│   ├── graph/
+│   │   ├── engine.ts
+│   │   ├── graph-value.ts
+│   │   ├── metrics.ts
+│   │   ├── readiness-config.ts
+│   │   └── readiness.ts
+│   ├── orchestration/
+│   │   ├── adaptive-planner.ts
+│   │   ├── budget.ts
+│   │   ├── classifier.ts
+│   │   ├── dependency-resolver.ts
+│   │   ├── dispatcher.ts
+│   │   ├── explainability.ts
+│   │   ├── planner.ts
+│   │   └── scheduler.ts
+│   ├── telemetry/
+│   │   ├── completeness.ts
+│   │   ├── envelope.ts
+│   │   └── persist.ts
+│   ├── validation/
+│   │   ├── agent-model-role.ts
+│   │   ├── dataset-base.ts
+│   │   ├── dataset-extra.ts
+│   │   ├── dataset-extra2.ts
+│   │   ├── dataset-mid.ts
+│   │   ├── dataset.ts
+│   │   ├── graph-roi.ts
+│   │   ├── index.ts
+│   │   ├── reliability-triggers.ts
+│   │   ├── reliability.ts
+│   │   ├── role-stats.ts
+│   │   ├── runner-constants.ts
+│   │   ├── runner-model.ts
+│   │   ├── runner.ts
+│   │   ├── strategy-effects.ts
+│   │   ├── task-class-map.ts
+│   │   ├── types.ts
+│   │   ├── workflow-efficiency.ts
+│   │   └── workflow-roles.ts
+│   └── index.ts
 ├── components/
+│   ├── accounts/
+│   │   ├── AccountActions.tsx
+│   │   ├── AccountCard.tsx
+│   │   └── AccountsSummary.tsx
+│   ├── dashboard/
+│   │   ├── DashboardAlertBanners.tsx
+│   │   ├── DashboardHero.tsx
+│   │   ├── DashboardSecondaryMetrics.tsx
+│   │   ├── DashboardSkeleton.tsx
+│   │   ├── FinancialMetricCards.tsx
+│   │   ├── HeroDecor.tsx
+│   │   ├── HeroStatCard.tsx
+│   │   ├── HeroStats.tsx
+│   │   ├── OwnerStockList.tsx
+│   │   ├── RecentSalesList.tsx
+│   │   ├── RecentTransfersList.tsx
+│   │   └── StockCards.tsx
+│   ├── entry/
+│   │   ├── AccountDrawerFields.tsx
+│   │   ├── DrawerFooter.tsx
+│   │   ├── EntryAccountDrawer.tsx
+│   │   ├── EntryCreateDrawers.tsx
+│   │   ├── EntryOrigemTypeDrawer.tsx
+│   │   ├── EntryOwnerDrawer.tsx
+│   │   └── EntryProgramDrawer.tsx
 │   ├── kpi/
+│   │   ├── AiCostSection.tsx
+│   │   ├── AiEngineeringCommandCenter.tsx
+│   │   ├── BottlenecksPanel.tsx
+│   │   ├── BusinessBreakdown.tsx
 │   │   ├── BusinessPanel.tsx
+│   │   ├── GraphRoiNeo4jPanel.tsx
 │   │   ├── MonthlySection.tsx
+│   │   ├── ProcessAlerts.tsx
 │   │   ├── ProcessDailySection.tsx
-│   │   └── PrsPanel.tsx
+│   │   ├── PrsPanel.tsx
+│   │   └── WorkflowEfficiencyPanel.tsx
 │   ├── tests/
 │   │   ├── AccountAlertsDialog.test.tsx
 │   │   ├── AccountDialog.test.tsx
@@ -186,12 +290,18 @@ src/
 │   │   ├── textarea.tsx
 │   │   └── tooltip.tsx
 │   ├── workflow/
+│   │   ├── AgentBadge.tsx
+│   │   ├── pipeline-definition.ts
+│   │   ├── PipelineNodeInspector.tsx
+│   │   ├── PipelineTimeline.tsx
+│   │   ├── WorkflowDataFooter.tsx
 │   │   ├── WorkflowEfficiency.tsx
 │   │   ├── WorkflowGates.tsx
 │   │   ├── WorkflowHero.tsx
 │   │   ├── WorkflowJourney.tsx
 │   │   ├── WorkflowMindMap.tsx
 │   │   ├── WorkflowOverview.tsx
+│   │   ├── WorkflowPipelineDag.tsx
 │   │   ├── WorkflowSimulator.tsx
 │   │   ├── WorkflowTelemetry.tsx
 │   │   └── WorkflowTimeline.tsx
@@ -214,6 +324,7 @@ src/
 │   ├── FeedbackDialog.tsx
 │   ├── FlowMap.tsx
 │   ├── FormDrawer.tsx
+│   ├── FormSubmitButton.tsx
 │   ├── GateEfficiencySection.tsx
 │   ├── GlobalSearch.tsx
 │   ├── KeyboardShortcutsHelp.tsx
@@ -245,6 +356,7 @@ src/
 │   └── OnlineContext.tsx
 ├── features/
 │   ├── alerts/
+│   │   ├── adapter.ts
 │   │   ├── addAccountAlert.ts
 │   │   ├── alertsApi.ts
 │   │   ├── getAccountAlerts.ts
@@ -260,6 +372,7 @@ src/
 │   │   ├── authSlice.ts
 │   │   └── index.ts
 │   ├── clientes/
+│   │   ├── adapter.ts
 │   │   ├── addClient.ts
 │   │   ├── clientesApi.ts
 │   │   ├── deleteClient.ts
@@ -271,6 +384,7 @@ src/
 │   │   ├── shared.ts
 │   │   └── updateClient.ts
 │   ├── contas/
+│   │   ├── adapter.ts
 │   │   ├── addAccount.ts
 │   │   ├── contasApi.ts
 │   │   ├── deleteAccount.ts
@@ -283,6 +397,7 @@ src/
 │   │   ├── shared.ts
 │   │   └── updateAccount.ts
 │   ├── entradas/
+│   │   ├── adapter.ts
 │   │   ├── addEntry.ts
 │   │   ├── confirmEntry.ts
 │   │   ├── deleteEntry.ts
@@ -295,6 +410,7 @@ src/
 │   │   ├── shared.ts
 │   │   └── updateEntry.ts
 │   ├── origemTypes/
+│   │   ├── adapter.ts
 │   │   ├── addOrigemType.ts
 │   │   ├── deleteOrigemType.ts
 │   │   ├── getOrigemTypes.ts
@@ -305,6 +421,7 @@ src/
 │   │   ├── shared.ts
 │   │   └── updateOrigemType.ts
 │   ├── owners/
+│   │   ├── adapter.ts
 │   │   ├── addOwner.ts
 │   │   ├── deleteOwner.ts
 │   │   ├── getOwners.ts
@@ -315,6 +432,7 @@ src/
 │   │   ├── shared.ts
 │   │   └── updateOwner.ts
 │   ├── programs/
+│   │   ├── adapter.ts
 │   │   ├── addProgram.ts
 │   │   ├── deleteProgram.ts
 │   │   ├── getPrograms.ts
@@ -325,6 +443,7 @@ src/
 │   │   ├── shared.ts
 │   │   └── updateProgram.ts
 │   ├── vendas/
+│   │   ├── adapter.ts
 │   │   ├── addVenda.ts
 │   │   ├── cancelVenda.ts
 │   │   ├── deleteVenda.ts
@@ -350,16 +469,31 @@ src/
 │   ├── useKeyboardShortcuts.ts
 │   └── useSmartQuery.ts
 ├── lib/
+│   ├── ai-engineering/
+│   │   ├── agents.ts
+│   │   ├── bottlenecks.ts
+│   │   ├── executive.ts
+│   │   ├── graph-roi.ts
+│   │   ├── phases.ts
+│   │   └── shared.ts
 │   ├── accountActivity.ts
 │   ├── accounts.ts
+│   ├── aiEngineering.ts
+│   ├── aiTelemetry.ts
 │   ├── auto-classify.ts
 │   ├── businessSeries.ts
+│   ├── collectionAdapter.ts
+│   ├── dashboardSelectors.ts
+│   ├── dashboardTimeline.ts
 │   ├── dates.ts
 │   ├── dateUtils.ts
+│   ├── entryFormValidation.ts
+│   ├── entryOperations.ts
 │   ├── i18n.ts
 │   ├── logger.ts
 │   ├── metrics.ts
 │   ├── origemTypes.ts
+│   ├── ownerColors.ts
 │   ├── recurrence.ts
 │   ├── sort.ts
 │   ├── supabase-types.ts

@@ -365,3 +365,28 @@
 {"timestamp":"2026-08-03T14:23:30.190Z","type":"rule:fail","description":"rule-36-process-evidence falhou","branch":"feat/process-kpi-observability-impl","commit":"8adbddf","rule":"rule-36-process-evidence"}
 {"timestamp":"2026-08-03T14:24:01.067Z","type":"rule:fail","description":"rule-36-process-evidence falhou","branch":"feat/process-kpi-observability-impl","commit":"8adbddf","rule":"rule-36-process-evidence"}
 {"timestamp":"2026-08-03T14:24:31.687Z","type":"rule:fail","description":"rule-36-process-evidence falhou","branch":"feat/process-kpi-observability-impl","commit":"8adbddf","rule":"rule-36-process-evidence"}
+{"timestamp":"2026-08-03T14:25:33.039Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"8adbddf","errors":0}
+{"timestamp":"2026-08-03T14:27:38.293Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"e0d1acc","errors":0}
+{"timestamp":"2026-08-03T14:30:22.600Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"ebaece0","errors":0}
+{"timestamp":"2026-08-03T14:33:19.558Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"4049ae5","errors":0}
+{"timestamp":"2026-08-03T14:36:34.913Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"bc7beb4","errors":0}
+{"timestamp":"2026-08-03T14:38:19.837Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"7b6788d","errors":0}
+{"timestamp":"2026-08-03T14:40:40.035Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"b3172a5","errors":0}
+{"timestamp":"2026-08-03T14:45:25.657Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"45834d6","errors":0}
+{"timestamp":"2026-08-03T14:47:11.332Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"8b69afd","errors":0}
+{"timestamp":"2026-08-03T14:59:37.421Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"bbba146","errors":0}
+{"timestamp":"2026-08-03T15:01:59.086Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"bbba146","errors":0}
+{"timestamp":"2026-08-03T15:05:01.024Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"bbba146","errors":0}
+{"timestamp":"2026-08-03T15:06:19.891Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"89aaec2","errors":0}
+{"timestamp":"2026-08-03T15:07:01.141Z","type":"llm.route.resolved","description":"LLM route resolved","branch":"feat/process-kpi-observability-impl","commit":"84835ee","taskId":"process-kpis-review-final","category":"refactor","capability":"review","profile":"coding","model":"openai-codex/gpt-5.4-mini","fallbackModels":["opencode/deepseek-v4-flash-free"],"source":"category-default","retrySafety":"read-only","configVersion":1,"skills":[]}
+{"timestamp":"2026-08-03T15:07:59.863Z","type":"llm.route.completed","description":"LLM route completed","branch":"feat/process-kpi-observability-impl","commit":"84835ee","taskId":"process-kpis-review-final","model":"openai-codex/gpt-5.4-mini","resolvedModel":"openai-codex/gpt-5.4-mini","provider":"openai-codex","attempt":2,"status":"failed","failureKind":"subagent_prelaunch"}
+{"timestamp":"2026-08-03T15:42:48.062Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"4f558bb","errors":0}
+{"timestamp":"2026-08-03T16:41:45.906Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/process-kpi-observability-impl","commit":"043537d","errors":0}
+{"timestamp":"2026-08-03T19:23:15.990Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-process-kpi","commit":"08d1886","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-03T19:23:45.569Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-process-kpi","commit":"08d1886","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-03T19:24:36.548Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"docs/session-end-process-kpi","commit":"08d1886","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-03T19:26:11.190Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-process-kpi","commit":"08d1886","errors":0}
+{"timestamp":"2026-08-03T19:26:51.164Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/session-end-process-kpi","commit":"c0780ff","errors":0}
+{"timestamp":"2026-08-03T20:41:03.381Z","type":"session:start","description":"bugfix: fix normalize PR report skip-ci","branch":"fix/normalize-pr-no-skip-ci","commit":"943d267","categoria":"bugfix"}
+{"timestamp":"2026-08-03T20:45:51.336Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"fix/normalize-pr-no-skip-ci","commit":"943d267","rule":"rule-10-clean"}
+{"timestamp":"2026-08-03T20:47:11.544Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"fix/normalize-pr-no-skip-ci","commit":"943d267","rule":"rule-10-clean"}

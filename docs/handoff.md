@@ -3,14 +3,40 @@
 > Anterior: 2026-08-10
 ---
 ## 🏗️ Projeto
+
+> ⏰ Snapshot atualizado em: 2026-08-15
+
+### 🏗️ Projeto
+
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
-**Workflow:** session:start → categoria → implementação → pre-pr → PR
+**Regras críticas:** branch obrigatória, pre-pr c/ relatório, git status ZERO, lazy loading por categoria
+**Workflow:** session:start → categoria → carregar docs → council (se feature) → build → pre-pr → PR
+
 ### 🐞 Bugs Abertos
-Consulte as GitHub Issues para a lista atual.
+
+- [#446](https://github.com/andre0787/mileage-flow-manager/issues/446) — 🚨 Smoke de produção falhou após deploy ef5b4b59e94a591b7661f255174ed565421b7a59
+- [#444](https://github.com/andre0787/mileage-flow-manager/issues/444) — 🚨 Smoke de produção falhou após deploy b1b05b0df5a7a45c6a5a1107343f7d31f0ce39e9
+- [#442](https://github.com/andre0787/mileage-flow-manager/issues/442) — 🚨 Smoke de produção falhou após deploy dcd80c8c62732c3912c8f4c0758378c725df88de
+- [#440](https://github.com/andre0787/mileage-flow-manager/issues/440) — 🚨 Smoke de produção falhou após deploy b237e4c55dbbac286db11075357ead7193f59840
+- [#438](https://github.com/andre0787/mileage-flow-manager/issues/438) — 🚨 Smoke de produção falhou após deploy 875a0e0baf94885ba9edf6ada2a6fe6eccc1a8e2
+- [#436](https://github.com/andre0787/mileage-flow-manager/issues/436) — 🚨 Smoke de produção falhou após deploy ecb0eb14c5fae84bc46bf14d934ccc658d80ff08
+- [#434](https://github.com/andre0787/mileage-flow-manager/issues/434) — 🚨 Smoke de produção falhou após deploy 299719d16b13b8aac24592d512e57bbb29eacbd5
+- [#432](https://github.com/andre0787/mileage-flow-manager/issues/432) — 🚨 Smoke de produção falhou após deploy 9a131eda4bdd7b03050bae65329cf48b492ab6f8
+- [#430](https://github.com/andre0787/mileage-flow-manager/issues/430) — 🚨 Smoke de produção falhou após deploy 5fcc59871aea01a1bcf540cc6e3a1dcd6ab7a5b9
+- [#429](https://github.com/andre0787/mileage-flow-manager/issues/429) — 🚨 Smoke de produção falhou após deploy 35c8fd335517c9d401476d4e95fc551192cde2e0
+
+### 📋 Commits Recentes
+
+```
+c7ed0f6 Merge pull request #447 from andre0787/docs/roadmap-p12
+e358f65 chore: normalize report prefix to PR447
+7349357 docs: marca P12 Master Real-World Validation como concluído no ROADMAP
+```
+
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `b1b05b0 — Merge pull request #443 from andre0787/docs/roadmap-p11`
+- **Último commit:** `c7ed0f6 — Merge pull request #447 from andre0787/docs/roadmap-p12`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -78,11 +104,11 @@ Nenhum PR aberto.
 
 ## 🎯 Sessão Atual
 **Categoria:** docs
-**Objetivo:** verifica output
+**Objetivo:** Auditoria de docs do projeto
 **Status:** in_progress
-**Iniciada em:** 2026-08-15T19:51:39.933Z
-**Branch:** `docs/roadmap-p12`
-**Último commit:** b1b05b0 — Merge pull request #443 from andre0787/docs/roadmap-p11
+**Iniciada em:** 2026-08-15T20:53:08.636Z
+**Branch:** `docs/audit-docs-p11-p12`
+**Último commit:** c7ed0f6 — Merge pull request #447 from andre0787/docs/roadmap-p12
 **Docs carregados:** AGENTS.md
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
