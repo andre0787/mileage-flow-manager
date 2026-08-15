@@ -26,6 +26,7 @@ export * from "./orchestration/dispatcher";
 export * from "./execution/subagent-result";
 export * from "./execution/scouts";
 export * from "./execution/architect";
+export * from "./execution/implementer";
 export * from "./execution/sanitize";
 export * from "./execution/graph-freshness";
 export * from "./execution/final-validator";

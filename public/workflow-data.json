@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-15T06:29:50.001Z",
+  "generatedAt": "2026-08-15T12:57:02.027Z",
   "dataDate": "2026-08-15",
   "kpiStats": [
     {
-      "value": 1238,
+      "value": 1221,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 511,
+      "value": 521,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,7 +18,7 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 231,
+      "value": 233,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
@@ -28,7 +28,7 @@
       "sub": "desde o início"
     },
     {
-      "value": 60,
+      "value": 61,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,17 +36,17 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 81,
+      "n": 75,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 409,
+      "n": 405,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 444,
+      "n": 435,
       "color": "#ef4444"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 64,
+      "n": 66,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 65,
+      "n": 67,
       "color": "#22c55e"
     },
     {
@@ -81,7 +81,7 @@
     },
     {
       "name": "gate",
-      "n": 8,
+      "n": 6,
       "color": "#f43f5e"
     },
     {
@@ -103,12 +103,12 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 321,
+      "n": 326,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 179,
+      "n": 184,
       "color": "#84cc16"
     },
     {
@@ -119,63 +119,63 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-15 04:30:15",
+      "t": "2026-08-15 12:56:58",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-15 04:30:15",
-      "d": "healed",
-      "desc": "rule-26 auto-corrigido"
-    },
-    {
-      "t": "2026-08-15 04:24:35",
+      "t": "2026-08-15 12:56:05",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-15 04:18:10",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-15 04:18:00",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-15 04:15:23",
-      "d": "rule:fail",
-      "desc": "rule-17-new-docs-valid falhou"
-    },
-    {
-      "t": "2026-08-15 04:15:15",
-      "d": "healed",
-      "desc": "rule-26 auto-corrigido"
-    },
-    {
-      "t": "2026-08-15 04:15:14",
+      "t": "2026-08-15 12:55:50",
       "d": "code-review:done",
-      "desc": "Review por subagente aprovado — Agent Execution Spec completa"
+      "desc": "Review por subagente aprovado — Spec v5 completa (Domain Scout real + pipeline integrado)"
+    },
+    {
+      "t": "2026-08-15 12:55:50",
+      "d": "coding:done",
+      "desc": "Spec v5 100% — Domain Scout real v2.3.7 + pipeline §3 integrado (planner→dispatcher→persist→validator)"
+    },
+    {
+      "t": "2026-08-15 12:55:42",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-15 12:45:41",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-15 12:45:24",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-15 12:42:10",
+      "d": "rule:fail",
+      "desc": "rule-22-pr-naming falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 444,
+    "ruleFails": 435,
     "healed": 89,
-    "healedRate": 20,
-    "prePrTotal": 409,
-    "prePrPass": 319,
-    "prePrPassRate": 78,
+    "healedRate": 20.5,
+    "prePrTotal": 405,
+    "prePrPass": 324,
+    "prePrPassRate": 80,
     "gateBlocked": 1,
     "topViolations": [
       {
         "rule": "rule-10-clean",
-        "count": 187,
+        "count": 177,
         "hint": "git status ZERO antes de PR — artefatos gerados não commitados"
       },
       {
         "rule": "rule-26-session-started",
-        "count": 45,
+        "count": 40,
         "hint": "timestamp de sessão ausente — npm run session:start"
       },
       {
@@ -190,21 +190,67 @@
       },
       {
         "rule": "rule-38-code-review-gate",
-        "count": 29,
+        "count": 31,
         "hint": "faltou evento code-review:done por subagente na branch"
       }
     ]
   },
-  "lastPrs": [],
+  "lastPrs": [
+    {
+      "number": 428,
+      "title": "feat(ai): Agent Execution Spec v5 completo — reviewer, domain tables, exec:run",
+      "type": "feat",
+      "date": "2026-08-15",
+      "tokens": 747,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 427,
+      "title": "docs: AI-SESSION-STATE — Agent Execution Core (PR #425)",
+      "type": "docs",
+      "date": "2026-08-15",
+      "tokens": 26,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
+    {
+      "number": 425,
+      "title": "feat(ai): Agent Execution Core (spec v5) — papéis de execução",
+      "type": "feat",
+      "date": "2026-08-15",
+      "tokens": 1343,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 423,
+      "title": "docs: AI-SESSION-STATE — P7 Telemetry v5 (PR #421)",
+      "type": "docs",
+      "date": "2026-08-15",
+      "tokens": 26,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
+    {
+      "number": 421,
+      "title": "feat(ai): P7 Telemetry v5 — envelopes na ai_telemetry",
+      "type": "feat",
+      "date": "2026-08-15",
+      "tokens": 744,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    }
+  ],
   "overview": {
     "components": 114,
     "pages": 16,
     "libs": 26,
     "scripts": 115,
-    "testFiles": 231,
+    "testFiles": 233,
     "skills": 26,
     "rules": 48,
-    "events": 1238,
-    "qualityNotes": 511
+    "events": 1221,
+    "qualityNotes": 521
   }
 }

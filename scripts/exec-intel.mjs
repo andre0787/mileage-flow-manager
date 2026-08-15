@@ -13,13 +13,16 @@
  */
 
 import { spawnSync } from "node:child_process";
-import { readFileSync, existsSync } from "fs";
-import { resolve, dirname } from "path";
+import { readFileSync, existsSync, appendFileSync, readdirSync } from "fs";
+import { resolve, dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 const EVENTS_PATH = resolve(ROOT, "docs/tracking/events.jsonl");
+/** Envelopes §19 em arquivo próprio — events.jsonl é process log (schema rule-36). */
+const ENVELOPES_PATH = resolve(ROOT, "docs/tracking/envelopes.jsonl");
+const MIGRATIONS_DIR = resolve(ROOT, "supabase/migrations");
 
 function runCrg(args) {
   try {
@@ -59,19 +62,90 @@ function graphScout(target) {
     console.log(JSON.stringify(base, null, 2));
     return;
   }
-  // Impact real do CRG (sem --json: usa `impact <target>` text; best-effort)
-  const imp = runCrg(["impact", target]);
-  const lines = (imp.ok ? imp.stdout : "")
-    .split("\n")
-    .map((l) => l.trim())
-    .filter(Boolean);
+  // Impact real do CRG v2.3.7: `impact --files <target>` retorna JSON com
+  // changed_nodes/impacted_nodes/impacted_files/edges.
+  const imp = runCrg(["impact", "--files", target]);
+  if (!imp.ok || !imp.stdout.trim()) {
+    console.log(JSON.stringify({ ...base, risks: ["impact não retornou dados"] }, null, 2));
+    return;
+  }
+  try {
+    const p = JSON.parse(imp.stdout);
+    const changed = Array.isArray(p.changed_nodes) ? p.changed_nodes : [];
+    const impacted = Array.isArray(p.impacted_nodes) ? p.impacted_nodes : [];
+    const edges = Array.isArray(p.edges) ? p.edges : [];
+    const impactedFiles = Array.isArray(p.impacted_files) ? p.impacted_files : [];
+    const tests = [...new Set([...changed, ...impacted].filter((n) => n?.kind === "Test").map((n) => n.name))];
+    const deps = [...new Set(edges.map((e) => e.target).filter(Boolean))];
+    const dependents = [...new Set(edges.map((e) => e.source).filter(Boolean))];
+    console.log(
+      JSON.stringify(
+        {
+          ...base,
+          impactScore: Math.min(1, dependents.length / 10),
+          directDependencies: deps.slice(0, 10),
+          directDependents: dependents.slice(0, 10),
+          tests,
+          features: impactedFiles.slice(0, 5).map((f) => f.split("/").pop()),
+          recommendedFiles: impactedFiles.slice(0, 10),
+          available: true,
+        },
+        null,
+        2,
+      ),
+    );
+  } catch {
+    console.log(JSON.stringify({ ...base, risks: ["impact JSON não parseável"] }, null, 2));
+  }
+}
+
+function domainScout() {
+  // Espelha src/ai/execution/scouts.ts (§16): tables via parse de migrations
+  // (fail-open) + entidades reais via CRG v2.3.7 `search --kind Class`.
+  const tables = listDomainTables();
+  const entities = new Set();
+  const relations = new Set();
+  const st = runCrg(["status", "--json"]);
+  const graphAvailable = st.ok && st.stdout.trim();
+  if (graphAvailable) {
+    // Entidades por tabela de domínio (fail-open).
+    for (const t of tables) {
+      const s = runCrg(["search", "--kind", "Class", "--limit", "5", t]);
+      if (!s.ok || !s.stdout.trim()) continue;
+      try {
+        const p = JSON.parse(s.stdout);
+        for (const r of Array.isArray(p.results) ? p.results : []) {
+          if (r?.name) entities.add(String(r.name).replace(/^class\s+/i, ""));
+        }
+      } catch {
+        /* fail-open */
+      }
+    }
+    // Relações via impacto de um arquivo de domínio (best-effort).
+    const imp = runCrg(["impact", "--files", "src/lib/metrics.ts"]);
+    if (imp.ok && imp.stdout.trim()) {
+      try {
+        const p = JSON.parse(imp.stdout);
+        for (const e of Array.isArray(p.edges) ? p.edges : []) {
+          if (e?.source && e?.target) relations.add(`${e.source.split("/").pop()}→${e.target.split("/").pop()}`);
+        }
+      } catch {
+        /* fail-open */
+      }
+    }
+  }
   console.log(
     JSON.stringify(
       {
-        ...base,
-        directDependents: lines.slice(0, 10),
-        impactScore: Math.min(1, lines.length / 10),
-        available: true,
+        entities: [...entities],
+        relations: [...relations].slice(0, 20),
+        tables,
+        businessRules: [],
+        dataImpacts: [],
+        available: entities.size > 0 || relations.size > 0 || tables.length > 0,
+        note: tables.length
+          ? `${tables.length} tabela(s) via migrations + ${entities.size} entidade(s) via grafo; regras de negócio não inferíveis do schema`
+          : "grafo indisponível ou sem dados de domínio — rode graph:update",
       },
       null,
       2,
@@ -79,40 +153,74 @@ function graphScout(target) {
   );
 }
 
-function domainScout() {
-  console.log(
-    JSON.stringify(
-      {
-        entities: [],
-        relations: [],
-        tables: [],
-        businessRules: [],
-        dataImpacts: [],
-        available: false,
-        note: "Domain Scout puro em src/ai/execution (grafo de domínio ainda não indexado)",
-      },
-      null,
-      2,
-    ),
-  );
+/** Tabelas de domínio via parse de `CREATE TABLE public.xxx` nas migrations (fail-open). */
+function listDomainTables() {
+  if (!existsSync(MIGRATIONS_DIR)) return [];
+  const tables = new Set();
+  try {
+    for (const f of readdirSync(MIGRATIONS_DIR).filter((f) => f.endsWith(".sql"))) {
+      const content = readFileSync(join(MIGRATIONS_DIR, f), "utf8");
+      for (const m of content.matchAll(
+        /CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?(?:public\.)?([a-z_]+)/gi,
+      )) {
+        tables.add(m[1]);
+      }
+    }
+  } catch {
+    /* fail-open */
+  }
+  return [...tables].sort();
 }
 
 function testScout(target) {
   const st = runCrg(["status", "--json"]);
   const available = st.ok && st.stdout.trim();
-  console.log(
-    JSON.stringify(
-      {
-        existingTests: [],
-        gaps: available ? [] : ["grafo indisponível"],
-        suites: [],
-        neededTests: [],
-        available: !!available,
-      },
-      null,
-      2,
-    ),
-  );
+  if (!available) {
+    console.log(
+      JSON.stringify(
+        {
+          existingTests: [],
+          gaps: ["grafo indisponível"],
+          suites: [],
+          neededTests: [],
+          available: false,
+        },
+        null,
+        2,
+      ),
+    );
+    return;
+  }
+  // v2.3.7: impacto real do alvo → nós Test + arquivos sem teste.
+  const imp = target ? runCrg(["impact", "--files", target]) : runCrg(["impact"]);
+  const out = { existingTests: [], gaps: [], suites: [], neededTests: [], available: true };
+  if (imp.ok && imp.stdout.trim()) {
+    try {
+      const p = JSON.parse(imp.stdout);
+      const changed = Array.isArray(p.changed_nodes) ? p.changed_nodes : [];
+      const impacted = Array.isArray(p.impacted_nodes) ? p.impacted_nodes : [];
+      const all = [...changed, ...impacted];
+      const tests = [...new Set(all.filter((n) => n?.kind === "Test").map((n) => n.name))];
+      const files = [
+        ...new Set(
+          all
+            .filter((n) => n?.kind === "File" && !n.name.includes(".test."))
+            .map((n) => n.name.split("/").pop())
+            .filter(Boolean),
+        ),
+      ];
+      const needed = target
+        ? files.slice(0, 5).map((f) => `${target} → ${f.replace(/\.(ts|tsx)$/, ".test.$1")}`)
+        : [];
+      out.existingTests = tests.slice(0, 20);
+      out.suites = [...new Set(tests.map((t) => t.split(":")[0]))].slice(0, 10);
+      out.neededTests = needed;
+      if (files.length > 0 && tests.length === 0) out.gaps.push("arquivos de código sem teste no impacto");
+    } catch {
+      out.gaps.push("impact JSON não parseável");
+    }
+  }
+  console.log(JSON.stringify(out, null, 2));
 }
 
 function review(target) {
@@ -164,9 +272,29 @@ function review(target) {
   );
 }
 
+/** Lê eventIds já presentes em envelopes.jsonl (dedupe na persistência). */
+function readExistingEventIds() {
+  const ids = new Set();
+  try {
+    if (!existsSync(ENVELOPES_PATH)) return ids;
+    for (const line of readFileSync(ENVELOPES_PATH, "utf8").split("\n").filter(Boolean)) {
+      try {
+        const e = JSON.parse(line);
+        if (e.eventId) ids.add(e.eventId);
+      } catch {
+        /* linha inválida */
+      }
+    }
+  } catch {
+    /* fail-open */
+  }
+  return ids;
+}
+
 function run(taskId) {
   // Pipeline §3 real (P8): planner → scheduler → dispatcher com telemetria.
-  // Sem TELEMETRY_PERSIST=1 roda dry-run (imprime envelopes, não persiste).
+  // TELEMETRY_PERSIST=1 grava envelopes §19 em envelopes.jsonl (dedupe por eventId)
+  // — depois `npm run telemetry:persist` insere na ai_telemetry. Sem env: dry-run.
   const persist = process.env.TELEMETRY_PERSIST === "1";
   const plan = {
     planId: "run-" + (taskId ?? "unknown"),
@@ -201,22 +329,24 @@ function run(taskId) {
   const now = () => new Date().toISOString();
   for (const step of plan.steps) {
     envelopes.push({
-      eventId: `env-${step.id}`,
+      eventId: `env-${step.id}-${plan.planId}`,
       eventType: "agent.started",
       timestamp: now(),
       taskId: plan.taskId,
       executionId: plan.planId,
+      sessionId: process.env.TELEMETRY_SESSION_ID,
       agentAdapter: "pi",
       agentRole: step.role,
       model: "unset",
       success: true,
     });
     envelopes.push({
-      eventId: `env-${step.id}-done`,
+      eventId: `env-${step.id}-done-${plan.planId}`,
       eventType: "agent.completed",
       timestamp: now(),
       taskId: plan.taskId,
       executionId: plan.planId,
+      sessionId: process.env.TELEMETRY_SESSION_ID,
       agentAdapter: "pi",
       agentRole: step.role,
       model: "unset",
@@ -226,25 +356,66 @@ function run(taskId) {
       success: true,
     });
   }
+
+  let appended = 0;
+  let skipped = 0;
+  if (persist) {
+    const existing = readExistingEventIds();
+    const fresh = envelopes.filter((e) => !existing.has(e.eventId));
+    skipped = envelopes.length - fresh.length;
+    try {
+      if (fresh.length > 0) {
+        appendFileSync(
+          ENVELOPES_PATH,
+          fresh.map((e) => JSON.stringify(e)).join("\n") + "\n",
+          "utf8",
+        );
+      }
+      appended = fresh.length;
+    } catch (err) {
+      console.log(`⚠️  falha ao gravar envelopes.jsonl (${err.message}) — fail-open`);
+    }
+  }
+
+  // §22 — nunca concluir task estrutural sem atualizar o grafo (fail-open).
+  let graphUpdated = false;
+  let graphNote = "";
+  if (persist) {
+    const up = runCrg(["update"]);
+    graphUpdated = up.ok;
+    graphNote = up.ok
+      ? "grafo atualizado (graph:update)"
+      : `grafo não atualizado (${up.error ?? "falha"}) — rode npm run graph:update`;
+  }
+
   console.log(
     JSON.stringify(
-      { plan, envelopes: envelopes.length, persisted: persist, mode: persist ? "real" : "dry-run" },
+      {
+        plan,
+        envelopes: envelopes.length,
+        persisted: persist,
+        mode: persist ? "real" : "dry-run",
+        appended,
+        skipped,
+        graphUpdated,
+        graphNote,
+        nextStep: persist
+          ? "rode npm run telemetry:persist para inserir na ai_telemetry"
+          : "rode com TELEMETRY_PERSIST=1 para gravar envelopes §19 e atualizar o grafo (§22)",
+      },
       null,
       2,
     ),
   );
-  if (persist)
-    console.log(
-      "⚠️  persistência real requer o dispatcher TS — rode npm run telemetry:persist para inserir envelopes do events.jsonl",
-    );
 }
 
 function finalValidate() {
-  // Telemetria: conta envelopes §19 em events.jsonl
+  // Telemetria: conta envelopes §19 em envelopes.jsonl (fallback events.jsonl)
   let envelopeCount = 0;
+  const source = existsSync(ENVELOPES_PATH) ? ENVELOPES_PATH : EVENTS_PATH;
   try {
-    if (existsSync(EVENTS_PATH)) {
-      const lines = readFileSync(EVENTS_PATH, "utf8").split("\n").filter(Boolean);
+    if (existsSync(source)) {
+      const lines = readFileSync(source, "utf8").split("\n").filter(Boolean);
       for (const line of lines) {
         try {
           const e = JSON.parse(line);

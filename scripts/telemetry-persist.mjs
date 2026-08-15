@@ -3,8 +3,9 @@
 /**
  * telemetry-persist.mjs — Persiste envelopes de telemetria (P7, SDD §19-21).
  *
- * Lê docs/tracking/events.jsonl, filtra envelopes persistíveis
- * (eventos execution, agent e graph.query) e insere na ai_telemetry via REST.
+ * Lê docs/tracking/envelopes.jsonl (canônico) + events.jsonl (legado), filtra
+ * envelopes persistíveis (eventos execution, agent e graph.query) e insere na
+ * ai_telemetry via REST.
  * Fail-open: sem credenciais ou falha de rede → imprime e sai com 0.
  *
  * Uso:
@@ -23,6 +24,8 @@ import { execSync } from "child_process";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 const EVENTS_PATH = resolve(ROOT, "docs/tracking/events.jsonl");
+// Envelopes §19 vivem em arquivo próprio (events.jsonl é process log — rule-36).
+const ENVELOPES_PATH = resolve(ROOT, "docs/tracking/envelopes.jsonl");
 const DRY_RUN = process.argv.includes("--dry-run");
 const SESSION_ID = process.env.TELEMETRY_SESSION_ID;
 
@@ -35,18 +38,20 @@ function git(cmd) {
 }
 
 function readEvents() {
-  if (!existsSync(EVENTS_PATH)) return [];
-  return readFileSync(EVENTS_PATH, "utf8")
-    .split("\n")
-    .filter(Boolean)
-    .map((line) => {
+  // Lê envelopes.jsonl (canônico) + events.jsonl (legado/process log) — dedupe por eventId.
+  const paths = [ENVELOPES_PATH, EVENTS_PATH].filter((p) => existsSync(p));
+  const byId = new Map();
+  for (const p of paths) {
+    for (const line of readFileSync(p, "utf8").split("\n").filter(Boolean)) {
       try {
-        return JSON.parse(line);
+        const e = JSON.parse(line);
+        if (e?.eventId) byId.set(e.eventId, e);
       } catch {
-        return null;
+        /* linha inválida */
       }
-    })
-    .filter(Boolean);
+    }
+  }
+  return [...byId.values()];
 }
 
 // ── Espelha src/ai/telemetry/persist.ts (conversão pura) ─────────────────

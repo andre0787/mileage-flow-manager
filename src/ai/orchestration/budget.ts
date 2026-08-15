@@ -12,6 +12,7 @@ export interface BudgetState {
   costUsed: number;
   durationMsUsed: number;
   toolCallsUsed: number;
+  turnsUsed: number;
   agentsDispatched: number;
   parallelActive: number;
 }
@@ -22,6 +23,7 @@ export function initialBudgetState(): BudgetState {
     costUsed: 0,
     durationMsUsed: 0,
     toolCallsUsed: 0,
+    turnsUsed: 0,
     agentsDispatched: 0,
     parallelActive: 0,
   };
@@ -36,7 +38,13 @@ export interface BudgetCheck {
 export function checkBudget(
   budget: ExecutionBudget,
   state: BudgetState,
-  next: { inputTokens?: number; cost?: number; durationMs?: number; toolCalls?: number },
+  next: {
+    inputTokens?: number;
+    cost?: number;
+    durationMs?: number;
+    toolCalls?: number;
+    turns?: number;
+  },
 ): BudgetCheck {
   if (state.agentsDispatched + 1 > budget.maxAgents) {
     return { ok: false, reason: `maxAgents (${budget.maxAgents}) excedido` };
@@ -56,13 +64,22 @@ export function checkBudget(
   if (state.toolCallsUsed + (next.toolCalls ?? 0) > budget.maxToolCalls) {
     return { ok: false, reason: `maxToolCalls (${budget.maxToolCalls}) excedido` };
   }
+  if (state.turnsUsed + (next.turns ?? 1) > budget.maxTurns) {
+    return { ok: false, reason: `maxTurns (${budget.maxTurns}) excedido` };
+  }
   return { ok: true };
 }
 
 /** Acumula o resultado de um step no estado do budget. */
 export function consumeBudget(
   state: BudgetState,
-  result: { inputTokens?: number; cost?: number; durationMs?: number; toolCalls?: number },
+  result: {
+    inputTokens?: number;
+    cost?: number;
+    durationMs?: number;
+    toolCalls?: number;
+    turns?: number;
+  },
 ): BudgetState {
   return {
     ...state,
@@ -70,6 +87,7 @@ export function consumeBudget(
     costUsed: state.costUsed + (result.cost ?? 0),
     durationMsUsed: state.durationMsUsed + (result.durationMs ?? 0),
     toolCallsUsed: state.toolCallsUsed + (result.toolCalls ?? 0),
+    turnsUsed: state.turnsUsed + (result.turns ?? 1),
     agentsDispatched: state.agentsDispatched + 1,
   };
 }

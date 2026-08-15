@@ -16,7 +16,8 @@ import {
   finalValidate,
 } from "@/ai/execution/final-validator";
 import { reviewDiff, expectedTestFile, hasTestCoverage } from "@/ai/execution/reviewer";
-import { domainScout, listDomainTables } from "@/ai/execution/scouts";
+import { domainScout, historyScout, listDomainTables } from "@/ai/execution/scouts";
+import { implementFromPlan } from "@/ai/execution/implementer";
 import { piAdapter } from "@/ai/adapters/pi";
 
 describe("subagent-result (§14)", () => {
@@ -187,6 +188,80 @@ describe("domain scout tables (§16)", () => {
     const r = domainScout();
     expect(Array.isArray(r.tables)).toBe(true);
     expect(Array.isArray(r.entities)).toBe(true);
+  });
+});
+
+describe("history scout (§7)", () => {
+  it("fail-open: estrutura completa sem nunca lançar", () => {
+    const r = historyScout();
+    expect(Array.isArray(r.relatedTasks)).toBe(true);
+    expect(Array.isArray(r.recentChanges)).toBe(true);
+    expect(Array.isArray(r.lastScopes)).toBe(true);
+  });
+});
+
+describe("implementer (§19)", () => {
+  it("gera plano a partir de task + writeScope", () => {
+    const r = implementFromPlan({
+      taskId: "T1",
+      intent: "refatorar accounts",
+      files: ["src/lib/accounts.ts"],
+      writeScope: ["src/lib/accounts.ts"],
+      validation: ["npm run typecheck"],
+    });
+    expect(r.status).toBe("success");
+    expect(r.files).toContain("src/lib/accounts.ts");
+    expect(r.recommendations).toContain("npm run typecheck");
+    expect(r.nextAction).toBe("executar validação e testes");
+  });
+
+  it("marca arquivo fora do writeScope como risk (§8)", () => {
+    const r = implementFromPlan({
+      taskId: "T2",
+      intent: "x",
+      files: ["src/lib/a.ts", "src/pages/Contas.tsx"],
+      writeScope: ["src/lib/a.ts"],
+    });
+    expect(r.status).toBe("partial");
+    expect(r.risks.some((x) => x.includes("fora do writeScope"))).toBe(true);
+  });
+
+  it("nenhum arquivo no escopo → partial com risk e baixa confiança", () => {
+    const r = implementFromPlan({
+      taskId: "T3",
+      intent: "x",
+      files: ["src/lib/z.ts"],
+      writeScope: [],
+    });
+    expect(r.status).toBe("partial");
+    expect(r.confidence).toBeLessThan(0.5);
+  });
+
+  it("reforça aguardar tester quando o plano tem step tester", () => {
+    const r = implementFromPlan({
+      taskId: "T4",
+      intent: "x",
+      files: ["src/lib/a.ts"],
+      writeScope: ["src/lib/a.ts"],
+      plan: {
+        planId: "p",
+        taskId: "T4",
+        agent: "pi",
+        model: "m",
+        createdAt: "",
+        budget: {
+          maxAgents: 8,
+          maxParallel: 4,
+          maxTurns: 60,
+          maxToolCalls: 150,
+          maxTokens: 100000,
+          maxCost: 2,
+          maxDurationMs: 900000,
+        },
+        steps: [{ id: "tester", role: "tester" }],
+      },
+    });
+    expect(r.recommendations.some((x) => x.includes("tester"))).toBe(true);
   });
 });
 

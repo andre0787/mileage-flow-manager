@@ -151,6 +151,21 @@ describe("budget", () => {
     const check = checkBudget(defaultBudget(), initialBudgetState(), { inputTokens: 10 });
     expect(check.ok).toBe(true);
   });
+
+  it("bloqueia quando maxTurns é excedido", () => {
+    const budget = { ...defaultBudget(), maxTurns: 2 };
+    const state = consumeBudget(consumeBudget(initialBudgetState(), {}), {});
+    const check = checkBudget(budget, state, {});
+    expect(check.ok).toBe(false);
+    expect(check.reason).toContain("maxTurns");
+  });
+
+  it("maxTurns default (60) não bloqueia sessões normais", () => {
+    const budget = defaultBudget();
+    const state = consumeBudget(initialBudgetState(), {});
+    const check = checkBudget(budget, state, {});
+    expect(check.ok).toBe(true);
+  });
 });
 
 describe("dispatcher", () => {
