@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-15T15:51:37.773Z",
+  "generatedAt": "2026-08-15T15:59:57.504Z",
   "dataDate": "2026-08-15",
   "kpiStats": [
     {
-      "value": 1240,
+      "value": 1245,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 533,
+      "value": 535,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,17 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 247,
+      "value": 249,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 93,
+      "value": 94,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 64,
+      "value": 65,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,17 +41,17 @@
     },
     {
       "name": "pre-pr",
-      "n": 405,
+      "n": 407,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 447,
+      "n": 448,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 93,
+      "n": 94,
       "color": "#10b981"
     },
     {
@@ -61,7 +61,7 @@
     },
     {
       "name": "code-review:done",
-      "n": 69,
+      "n": 70,
       "color": "#6366f1"
     },
     {
@@ -103,7 +103,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 334,
+      "n": 336,
       "color": "#10b981"
     },
     {
@@ -119,6 +119,31 @@
   ],
   "recentTimeline": [
     {
+      "t": "2026-08-15 15:59:53",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-15 15:59:14",
+      "d": "code-review:done",
+      "desc": "Review do ROADMAP P11 aprovado"
+    },
+    {
+      "t": "2026-08-15 15:58:41",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
+    },
+    {
+      "t": "2026-08-15 15:58:35",
+      "d": "healed",
+      "desc": "rule-26 auto-corrigido"
+    },
+    {
+      "t": "2026-08-15 15:52:05",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
       "t": "2026-08-15 15:51:33",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
@@ -132,40 +157,15 @@
       "t": "2026-08-15 15:50:00",
       "d": "code-review:done",
       "desc": "Review dos splits rule-41 + scorecard P11 aprovado"
-    },
-    {
-      "t": "2026-08-15 15:50:00",
-      "d": "coding:done",
-      "desc": "P11-10 finalização — splits rule-41 (7 arquivos), scorecard PASS 10.0"
-    },
-    {
-      "t": "2026-08-15 15:42:36",
-      "d": "rule:fail",
-      "desc": "rule-41-optimizer falhou"
-    },
-    {
-      "t": "2026-08-15 15:42:36",
-      "d": "rule:fail",
-      "desc": "rule-39-coding-gate falhou"
-    },
-    {
-      "t": "2026-08-15 15:42:36",
-      "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
-    },
-    {
-      "t": "2026-08-15 15:41:56",
-      "d": "rule:fail",
-      "desc": "rule-41-optimizer falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 447,
-    "healed": 93,
-    "healedRate": 20.8,
-    "prePrTotal": 405,
-    "prePrPass": 329,
-    "prePrPassRate": 81.2,
+    "ruleFails": 448,
+    "healed": 94,
+    "healedRate": 21,
+    "prePrTotal": 407,
+    "prePrPass": 331,
+    "prePrPassRate": 81.3,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -180,7 +180,7 @@
       },
       {
         "rule": "rule-38-code-review-gate",
-        "count": 38,
+        "count": 39,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
@@ -196,6 +196,24 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 441,
+      "title": "feat(ai): P11 Master Implementation Plan completo — 11 fases + certificação 10.0",
+      "type": "feat",
+      "date": "2026-08-15",
+      "tokens": 4193,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 439,
+      "title": "docs: ROADMAP — Spec v5 (Agent Execution §1-27) concluída",
+      "type": "docs",
+      "date": "2026-08-15",
+      "tokens": 474,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
     {
       "number": 437,
       "title": "feat: Runner TS real (exec:run:real) + Domain Knowledge §16",
@@ -222,35 +240,17 @@
       "tokens": 515,
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção"
-    },
-    {
-      "number": 431,
-      "title": "docs: AI-SESSION-STATE — Agent Execution Spec v5 completa (PR #428)",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 25,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 428,
-      "title": "feat(ai): Agent Execution Spec v5 completo — reviewer, domain tables, exec:run",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 747,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "overview": {
-    "components": 116,
+    "components": 122,
     "pages": 16,
-    "libs": 27,
-    "scripts": 115,
-    "testFiles": 247,
+    "libs": 33,
+    "scripts": 116,
+    "testFiles": 249,
     "skills": 26,
     "rules": 48,
-    "events": 1240,
-    "qualityNotes": 533
+    "events": 1245,
+    "qualityNotes": 535
   }
 }
