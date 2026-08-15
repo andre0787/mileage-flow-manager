@@ -1,32 +1,32 @@
-# AI Session State - 2026-08-15T03:35:00.000Z
+# AI Session State - 2026-08-15T04:15:00.000Z
 
 ## Última Task
 
-- Feature **P7 Telemetry v5** (PR #421, SDD §19-21): **Concluído** — envelopes de execução/agente persistidos na `ai_telemetry` com agentAdapter/agentRole/model em colunas separadas (§21). `src/ai/telemetry/persist.ts` (envelopeToRecord puro), migration additive `20260815020000` (aplicada no remoto via supabase db push), script `telemetry:persist` (varre events.jsonl, insert REST fail-open). Council em `docs/council/2026-08-15-telemetry-v5-veredito.md`.
-- (Antes) **P5-P6 Graph Orchestration** (PR #417): adapters (registry/pi/generic) + orchestrator (planner/scheduler/resolver/budget/dispatcher) + `graph:plan` + métrica graph:context no pre-pr (92% redução).
-- (Antes) **P5-01 Graph Intelligence Foundation** (PR #413): `src/ai/` agnóstico de agente + Graph Engine fail-open + CLI `graph:*`.
+- Feature **Agent Execution Core** (PR #425, 02-Agent-Execution-Spec v5): **Concluído** — papéis de execução em `src/ai/execution/`: subagent-result (§14 parse/normalize), scouts (§15-17 graph/domain/test, fail-open), architect (§18 findings→plan com write-set), sanitize (§12 redação CPF/chaves/senhas/emails/JWT), graph-freshness (§22), final-validator (§21/§26 checklist unificado) + CLI `exec:scout/domain/test/validate`. Council em `docs/council/2026-08-15-agent-execution-core-veredito.md`.
+- (Antes) **P7 Telemetry v5** (#421), **P5-P6 Graph Orchestration** (#417), **P5-01 Graph Intelligence** (#413).
 
 ## Estado dos Testes & Qualidade
 
-- **Playwright E2E:** e2e-smoke ✅ no CI dos PRs #413/#417/#421
+- **Playwright E2E:** e2e-smoke ✅ no CI do PR #425
 - **RTK Integrity:** Checked — 8/8 coleções com adapter (rule-44)
-- **Vendas/Contas Logic:** Checked — **974 testes unit** (117 files, +7 em `tests/unit/ai/telemetry-persist.test.ts`), typecheck/lint/format ✓, pre-pr 0 errors
+- **Vendas/Contas Logic:** Checked — **991 testes unit** (123 files, +17 em `tests/unit/ai/execution.test.ts`), typecheck/lint/format ✓, pre-pr 0 errors
 
 ## Arquivos Modificados & Impacto
 
-- `src/ai/telemetry/persist.ts` (novo — envelopeToRecord, isPersistableEnvelope)
-- `supabase/migrations/20260815020000_ai_telemetry_envelope_fields.sql` (novo — 8 colunas additive, aplicada no remoto)
-- `scripts/telemetry-persist.mjs` (novo) + `package.json` (atalho `telemetry:persist`)
-- `src/ai/index.ts` (barrel + persist)
-- `tests/unit/ai/telemetry-persist.test.ts` (7 testes) + `docs/council/2026-08-15-telemetry-v5-veredito.md`
+- `src/ai/execution/` (novo — subagent-result, scouts, architect, sanitize, graph-freshness, final-validator)
+- `src/ai/index.ts` (barrel + execution)
+- `scripts/exec-intel.mjs` (novo — CLI exec:*) + `package.json` (4 atalhos)
+- `tests/unit/ai/execution.test.ts` (17 testes)
+- `docs/council/2026-08-15-agent-execution-core-veredito.md`
+- Graph atualizado após o merge (spec §22): `graph:update` rodado, freshness pass
 
 ## Pendências Imediatas (Next Step)
 
-1. Fase P8+: emitir envelopes §19 de verdade no fluxo — o dispatcher já tem `onTelemetry`; conectar ao `telemetry:persist` (env-gated) para popular a ai_telemetry por papel.
-2. Datadog interno (abas KPI/Workflow) pode ganhar corte por papel/modelo (colunas novas prontas).
+1. Fase P8: emitir envelopes §19 de verdade — conectar o `onTelemetry` do dispatcher ao `telemetry:persist` (env-gated) para popular a ai_telemetry e o `exec:validate` passar no check telemetry-completeness.
+2. Domain Scout completo: mapear entidades/tabelas/regras do domínio (hoje entities via grafo, tables/businessRules vazios).
 
 ## Governança de Contexto
 
-- **Tokens Utilizados:** ~19K acumulado (ai_telemetry)
+- **Tokens Utilizados:** ~22K acumulado (ai_telemetry)
 - **Poda (Pruning):** 0 linhas removidas no último turno
-- **Branch Atual:** main (PRs #380..#421 merged — nenhum aberto)
+- **Branch Atual:** main (PRs #380..#425 merged — nenhum aberto)
