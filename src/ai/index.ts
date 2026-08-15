@@ -15,6 +15,8 @@ export * from "./core/execution-plan";
 export * from "./telemetry/envelope";
 export * from "./telemetry/persist";
 export * from "./graph/engine";
+export * from "./graph/metrics";
+export * from "./graph/graph-value";
 export * from "./adapters/registry";
 export * from "./adapters/pi";
 export * from "./adapters/generic";

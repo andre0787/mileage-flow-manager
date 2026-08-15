@@ -1,10 +1,10 @@
 {
   "version": "P11",
-  "currentPhase": "P11-03",
+  "currentPhase": "P11-04",
   "status": "in_progress",
-  "completedPhases": ["P11-00", "P11-01", "P11-02"],
+  "completedPhases": ["P11-00", "P11-01", "P11-02", "P11-03"],
   "blockedPhases": [],
-  "lastValidation": "P11-02 passed — retry classificado + cancelamento + failure taxonomy (14) + budget atômico sob concorrência; 17 testes reliability",
+  "lastValidation": "P11-03 passed — envelope completo (runId/planId/stepId/cost) + model identity obrigatória + completeness checker (≥99,5%); 134 testes",
   "lastScore": null,
-  "updatedAt": "2026-08-15T14:10:00.000Z"
+  "updatedAt": "2026-08-15T14:12:00.000Z"
 }
