@@ -1,16 +1,32 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { ownerColor } from "@/lib/ownerColors";
 import type { OwnerBreakdown, ProgramBreakdown } from "@/lib/businessSeries";
 
 interface BusinessBreakdownProps {
   owners: OwnerBreakdown[];
   programs: ProgramBreakdown[];
+  /** Mapa nome do dono → cor customizada (hex) ou null (fallback por hash). */
+  ownerColorsByName?: Record<string, string | null>;
 }
 
-function Bar({ value, max, colorClass }: { value: number; max: number; colorClass: string }) {
+function Bar({
+  value,
+  max,
+  colorClass,
+  style,
+}: {
+  value: number;
+  max: number;
+  colorClass?: string;
+  style?: React.CSSProperties;
+}) {
   const pct = max > 0 ? Math.min(100, Math.round((value / max) * 100)) : 0;
   return (
     <div className="h-2 overflow-hidden rounded-full bg-muted">
-      <div className={`h-full rounded-full ${colorClass}`} style={{ width: `${pct}%` }} />
+      <div
+        className={`h-full rounded-full ${colorClass ?? ""}`}
+        style={{ ...style, width: `${pct}%` }}
+      />
     </div>
   );
 }
@@ -19,7 +35,7 @@ function Bar({ value, max, colorClass }: { value: number; max: number; colorClas
  * BusinessBreakdown — alocação por dono e por programa (estoque/investido).
  * Complementa o BusinessPanel com a visão "quem/quem guarda as milhas".
  */
-export function BusinessBreakdown({ owners, programs }: BusinessBreakdownProps) {
+export function BusinessBreakdown({ owners, programs, ownerColorsByName }: BusinessBreakdownProps) {
   const maxOwnerMiles = Math.max(...owners.map((o) => o.totalMiles), 1);
   const maxProgramBalance = Math.max(...programs.map((p) => p.balance), 1);
 
@@ -36,20 +52,34 @@ export function BusinessBreakdown({ owners, programs }: BusinessBreakdownProps) 
               <p className="mt-3 text-xs text-muted-foreground">Sem donos com estoque.</p>
             ) : (
               <div className="mt-3 space-y-3">
-                {owners.slice(0, 5).map((o) => (
-                  <div key={o.name}>
-                    <div className="flex items-baseline justify-between gap-3 text-xs">
-                      <span className="truncate font-semibold text-foreground">{o.name}</span>
-                      <span className="shrink-0 font-bold text-foreground tabular-nums">
-                        {o.totalMiles.toLocaleString("pt-BR")} milhas
-                      </span>
+                {owners.slice(0, 5).map((o) => {
+                  const color = ownerColor(o.name, ownerColorsByName?.[o.name]);
+                  return (
+                    <div key={o.name}>
+                      <div className="flex items-baseline justify-between gap-3 text-xs">
+                        <span className="flex min-w-0 items-center gap-1.5">
+                          <span
+                            className="h-2 w-2 shrink-0 rounded-full"
+                            style={{ backgroundColor: color }}
+                            aria-hidden
+                          />
+                          <span className="truncate font-semibold text-foreground">{o.name}</span>
+                        </span>
+                        <span className="shrink-0 font-bold text-foreground tabular-nums">
+                          {o.totalMiles.toLocaleString("pt-BR")} milhas
+                        </span>
+                      </div>
+                      <Bar
+                        value={o.totalMiles}
+                        max={maxOwnerMiles}
+                        style={{ backgroundColor: color }}
+                      />
+                      <p className="mt-0.5 text-[10.5px] text-muted-foreground">
+                        R$ {o.totalInvested.toLocaleString("pt-BR")} · {o.cpfCount} CPFs usados
+                      </p>
                     </div>
-                    <Bar value={o.totalMiles} max={maxOwnerMiles} colorClass="bg-primary" />
-                    <p className="mt-0.5 text-[10.5px] text-muted-foreground">
-                      R$ {o.totalInvested.toLocaleString("pt-BR")} · {o.cpfCount} CPFs usados
-                    </p>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </CardContent>

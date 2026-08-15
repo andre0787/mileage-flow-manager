@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-14T23:21:04.217Z",
-  "dataDate": "2026-08-14",
+  "generatedAt": "2026-08-15T01:54:57.341Z",
+  "dataDate": "2026-08-15",
   "kpiStats": [
     {
-      "value": 1224,
+      "value": 1230,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 496,
+      "value": 497,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 79,
+      "value": 80,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 54,
+      "value": 55,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 392,
+      "n": 395,
       "color": "#8b5cf6"
     },
     {
@@ -51,7 +51,7 @@
     },
     {
       "name": "healed",
-      "n": 79,
+      "n": 80,
       "color": "#10b981"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 58,
+      "n": 59,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 59,
+      "n": 60,
       "color": "#22c55e"
     },
     {
@@ -108,7 +108,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 167,
+      "n": 168,
       "color": "#84cc16"
     },
     {
@@ -119,6 +119,36 @@
   ],
   "recentTimeline": [
     {
+      "t": "2026-08-15 01:54:53",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-15 01:54:19",
+      "d": "healed",
+      "desc": "rule-26 auto-corrigido"
+    },
+    {
+      "t": "2026-08-15 01:54:18",
+      "d": "code-review:done",
+      "desc": "Review por subagente aprovado — chips de cor em filtros/KPI/Relatórios"
+    },
+    {
+      "t": "2026-08-15 01:54:18",
+      "d": "coding:done",
+      "desc": "Chip de cor no OwnerFilter + cor do dono no BusinessBreakdown (KPI) e Relatórios"
+    },
+    {
+      "t": "2026-08-14 23:27:07",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-14 23:21:07",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
       "t": "2026-08-14 23:20:59",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
@@ -127,45 +157,15 @@
       "t": "2026-08-14 23:20:29",
       "d": "healed",
       "desc": "rule-26 auto-corrigido"
-    },
-    {
-      "t": "2026-08-14 23:20:25",
-      "d": "code-review:done",
-      "desc": "Review por subagente aprovado — filtro por dono em Contas"
-    },
-    {
-      "t": "2026-08-14 23:20:25",
-      "d": "coding:done",
-      "desc": "Filtro por dono na aba Contas (OwnerFilter + filtro combinado com tipo)"
-    },
-    {
-      "t": "2026-08-14 23:12:29",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-14 23:07:21",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-14 23:07:12",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-14 23:06:39",
-      "d": "coding:done",
-      "desc": "Codificação por subagente — cor customizada por dono (migration + seletor + fallback + 3 superfícies)"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 436,
-    "healed": 79,
-    "healedRate": 18.1,
-    "prePrTotal": 392,
-    "prePrPass": 302,
-    "prePrPassRate": 77,
+    "healed": 80,
+    "healedRate": 18.3,
+    "prePrTotal": 395,
+    "prePrPass": 305,
+    "prePrPassRate": 77.2,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -197,6 +197,24 @@
   },
   "lastPrs": [
     {
+      "number": 404,
+      "title": "feat(contas): filtro por dono na aba de Contas",
+      "type": "feat",
+      "date": "2026-08-14",
+      "tokens": 485,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 403,
+      "title": "docs: AI-SESSION-STATE — cor customizada por dono (PR #401)",
+      "type": "docs",
+      "date": "2026-08-14",
+      "tokens": 27,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
+    {
       "number": 401,
       "title": "feat(owners): cor customizada por dono com fallback para hash",
       "type": "feat",
@@ -222,24 +240,6 @@
       "tokens": 1175,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 395,
-      "title": "docs: AI-SESSION-STATE — Fase F (telemetria nightly + use()/Suspense)",
-      "type": "docs",
-      "date": "2026-08-14",
-      "tokens": 26,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 393,
-      "title": "feat: telemetria no nightly + AiCostSection use()/Suspense",
-      "type": "feat",
-      "date": "2026-08-14",
-      "tokens": 800,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "overview": {
@@ -250,7 +250,7 @@
     "testFiles": 215,
     "skills": 26,
     "rules": 48,
-    "events": 1224,
-    "qualityNotes": 496
+    "events": 1230,
+    "qualityNotes": 497
   }
 }
