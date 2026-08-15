@@ -1,8 +1,9 @@
-# AI Session State - 2026-08-14T23:45:00.000Z
+# AI Session State - 2026-08-15T02:10:00.000Z
 
 ## Última Task
 
-- Feature **filtro por dono na aba Contas** (PR #404): **Concluído** — OwnerFilter na barra de filtros de Contas, combina com o filtro de tipo (Todas/Pontos/Milhas), reset da paginação ao trocar dono. Mesmo padrão de Entradas/Vendas/Relatórios.
+- Feature **chip de cor do dono em filtros/KPI/Relatórios** (PR #409): **Concluído** — bolinha de cor ao lado do nome de cada dono no OwnerFilter (todas as abas); BusinessBreakdown do KPI com bolinha + barra de progresso colorida; Relatórios com bolinha no nome (tabela desktop + cards mobile). Cor respeita a customizada com fallback hash.
+- (Antes) Feature **filtro por dono na aba Contas** (PR #404): **Concluído** — OwnerFilter na barra de filtros de Contas, combina com o filtro de tipo (Todas/Pontos/Milhas), reset da paginação ao trocar dono. Mesmo padrão de Entradas/Vendas/Relatórios.
 - (Antes) Feature **cor customizada por dono** (PR #401): **Concluído** — seletor de cor no cadastro/edição de donos (OwnerSection), campo `owners.color` persistido (migration `20260814230000` aplicada no remoto via `supabase db push`), fallback para hash FNV-1a quando ausente. Cor aplicada nas 3 superfícies (AccountCard, EntryTable, SaleTable). Council em `docs/council/2026-08-14-owner-custom-color-veredito.md`.
 
 ## Estado dos Testes & Qualidade
@@ -24,6 +25,9 @@
 - `tests/unit/ownerColors.test.ts` (+4: precedência custom > hash, isValidHex) e `tests/unit/features-owners-api.test.ts` (+1 insert com color)
 - `docs/council/2026-08-14-owner-custom-color-veredito.md` (veredito council)
 - `src/pages/Contas.tsx` (PR #404 — OwnerFilter na barra de filtros, combina com tipo, reset de página)
+- `src/components/ui/OwnerFilter.tsx` (PR #409 — bolinha de cor ao lado do nome no dropdown)
+- `src/components/kpi/BusinessBreakdown.tsx` + `src/components/KPIDashboard.tsx` (PR #409 — bolinha + barra colorida por dono)
+- `src/pages/Relatorios.tsx` (PR #409 — bolinha de cor no nome do dono, desktop + mobile)
 
 ## Pendências Imediatas (Next Step)
 
@@ -33,4 +37,4 @@
 
 - **Tokens Utilizados:** ~13K acumulado (ai_telemetry)
 - **Poda (Pruning):** 0 linhas removidas no último turno
-- **Branch Atual:** main (PRs #380..#404 merged — nenhum aberto)
+- **Branch Atual:** main (PRs #380..#409 merged — nenhum aberto)
