@@ -1,0 +1,10 @@
+{
+  "version": "P11",
+  "currentPhase": "P11-01",
+  "status": "in_progress",
+  "completedPhases": ["P11-00"],
+  "blockedPhases": [],
+  "lastValidation": "P11-00 baseline criada (docs/p11-baseline.md)",
+  "lastScore": null,
+  "updatedAt": "2026-08-15T14:06:00.000Z"
+}
