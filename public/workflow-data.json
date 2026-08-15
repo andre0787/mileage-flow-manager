@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-15T13:07:59.093Z",
+  "generatedAt": "2026-08-15T14:31:08.596Z",
   "dataDate": "2026-08-15",
   "kpiStats": [
     {
-      "value": 1202,
+      "value": 1209,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 523,
+      "value": 527,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 90,
+      "value": 91,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 62,
+      "value": 63,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,17 +41,17 @@
     },
     {
       "name": "pre-pr",
-      "n": 390,
+      "n": 392,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 430,
+      "n": 433,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 90,
+      "n": 91,
       "color": "#10b981"
     },
     {
@@ -61,7 +61,7 @@
     },
     {
       "name": "code-review:done",
-      "n": 67,
+      "n": 68,
       "color": "#6366f1"
     },
     {
@@ -103,7 +103,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 326,
+      "n": 330,
       "color": "#10b981"
     },
     {
@@ -119,53 +119,53 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-15 13:07:52",
+      "t": "2026-08-15 14:31:03",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-15 13:07:14",
-      "d": "session:start",
-      "desc": "feature: Runner TS real + Domain Knowledge — completar sugestões da Spec v5"
-    },
-    {
-      "t": "2026-08-15 13:06:22",
-      "d": "rule:fail",
-      "desc": "rule-26-session-started falhou"
-    },
-    {
-      "t": "2026-08-15 13:06:22",
-      "d": "rule:fail",
-      "desc": "rule-03-handoff-completeness falhou"
-    },
-    {
-      "t": "2026-08-15 13:06:10",
+      "t": "2026-08-15 14:30:27",
       "d": "code-review:done",
-      "desc": "Review por subagente aprovado — runner real + domain knowledge"
+      "desc": "Review aprovado por subagente — ROADMAP Spec v5 concluída"
     },
     {
-      "t": "2026-08-15 13:06:10",
-      "d": "coding:done",
-      "desc": "Runner TS real (exec:run:real — pipeline §3 com dispatcher) + Domain Knowledge (§16 regras/impactos)"
+      "t": "2026-08-15 14:29:54",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
     },
     {
-      "t": "2026-08-15 12:59:27",
+      "t": "2026-08-15 14:29:14",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
+    },
+    {
+      "t": "2026-08-15 14:28:36",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
+    },
+    {
+      "t": "2026-08-15 14:28:29",
+      "d": "healed",
+      "desc": "rule-26 auto-corrigido"
+    },
+    {
+      "t": "2026-08-15 13:08:12",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-15 12:56:58",
+      "t": "2026-08-15 13:07:52",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 430,
-    "healed": 90,
-    "healedRate": 20.9,
-    "prePrTotal": 390,
-    "prePrPass": 314,
-    "prePrPassRate": 80.5,
+    "ruleFails": 433,
+    "healed": 91,
+    "healedRate": 21,
+    "prePrTotal": 392,
+    "prePrPass": 316,
+    "prePrPassRate": 80.6,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -179,6 +179,11 @@
         "hint": "timestamp de sessão ausente — npm run session:start"
       },
       {
+        "rule": "rule-38-code-review-gate",
+        "count": 34,
+        "hint": "faltou evento code-review:done por subagente na branch"
+      },
+      {
         "rule": "rule-17-new-docs-valid",
         "count": 32,
         "hint": "novo doc criado sem validar referências no MAP.md"
@@ -187,15 +192,19 @@
         "rule": "rule-scope",
         "count": 32,
         "hint": "escopo do diff fora da categoria da branch"
-      },
-      {
-        "rule": "rule-38-code-review-gate",
-        "count": 31,
-        "hint": "faltou evento code-review:done por subagente na branch"
       }
     ]
   },
   "lastPrs": [
+    {
+      "number": 437,
+      "title": "feat: Runner TS real (exec:run:real) + Domain Knowledge §16",
+      "type": "feat",
+      "date": "2026-08-15",
+      "tokens": 1262,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 435,
       "title": "feat: Spec v5 completa — implementer, maxTurns, historyScout, graph update",
@@ -231,15 +240,6 @@
       "tokens": 747,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 427,
-      "title": "docs: AI-SESSION-STATE — Agent Execution Core (PR #425)",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 26,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
     }
   ],
   "overview": {
@@ -250,7 +250,7 @@
     "testFiles": 233,
     "skills": 26,
     "rules": 48,
-    "events": 1202,
-    "qualityNotes": 523
+    "events": 1209,
+    "qualityNotes": 527
   }
 }
