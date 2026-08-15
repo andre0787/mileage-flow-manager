@@ -148,8 +148,14 @@ describe("final-validator (§21/§26)", () => {
     expect(checkBudgetCompliance({ maxAgents: 4, agentsDispatched: 5 }).status).toBe("fail");
   });
 
-  it("finalValidate agrega checks e ok=false com falha", () => {
-    const v = finalValidate({ envelopeCount: 0, typecheckOk: true, testsOk: true });
+  it("finalValidate agrega checks e ok=false com falha (injetando graph/freshness)", () => {
+    const v = finalValidate({
+      envelopeCount: 0,
+      typecheckOk: true,
+      testsOk: true,
+      graphOk: true,
+      freshnessOk: true,
+    });
     expect(v.ok).toBe(false);
     expect(v.checks.map((c) => c.name)).toContain("telemetry-completeness");
     const good = finalValidate({
@@ -157,6 +163,8 @@ describe("final-validator (§21/§26)", () => {
       typecheckOk: true,
       lintOk: true,
       testsOk: true,
+      graphOk: true,
+      freshnessOk: true,
     });
     expect(good.ok).toBe(true);
   });
