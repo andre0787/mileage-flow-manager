@@ -24,6 +24,8 @@ export * from "./orchestration/planner";
 export * from "./orchestration/classifier";
 export * from "./orchestration/adaptive-planner";
 export * from "./orchestration/explainability";
+export * from "./benchmark/dataset";
+export * from "./benchmark/runner";
 export * from "./orchestration/scheduler";
 export * from "./orchestration/dependency-resolver";
 export * from "./orchestration/budget";
