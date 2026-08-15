@@ -1218,3 +1218,8 @@
 {"timestamp":"2026-08-15T20:08:52.010Z","type":"rule:fail","description":"rule-41-optimizer falhou","branch":"feat/p12-real-world-validation","commit":"ad64043","agent":"human","rule":"rule-41-optimizer"}
 {"timestamp":"2026-08-15T20:10:52.259Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p12-real-world-validation","commit":"ad64043","agent":"human","errors":0}
 {"timestamp":"2026-08-15T20:13:12.944Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p12-real-world-validation","commit":"ad64043","agent":"human","errors":0}
+{"timestamp":"2026-08-15T20:39:53.396Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/roadmap-p12","commit":"ef5b4b5","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-15T20:39:59.949Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"docs/roadmap-p12","commit":"ef5b4b5","agent":"human","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-15T20:40:33.631Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"docs/roadmap-p12","commit":"ef5b4b5","agent":"human","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-08-15T20:41:11.453Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/roadmap-p12","commit":"ef5b4b5","agent":"human","errors":0}
+{"timestamp":"2026-08-15T20:41:21.296Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/roadmap-p12","commit":"ef5b4b5","agent":"human","errors":0}

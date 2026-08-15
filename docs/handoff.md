@@ -81,7 +81,7 @@ Nenhum PR aberto.
 **Objetivo:** verifica output
 **Status:** in_progress
 **Iniciada em:** 2026-08-15T19:51:39.933Z
-**Branch:** `feat/p12-real-world-validation`
+**Branch:** `docs/roadmap-p12`
 **Último commit:** b1b05b0 — Merge pull request #443 from andre0787/docs/roadmap-p11
 **Docs carregados:** AGENTS.md
 ---
