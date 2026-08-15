@@ -31,6 +31,17 @@ export interface ContextPacket {
   decisions: string[];
   risks: string[];
   constraints: string[];
+  /** P11-04: contextos especializados do Context Assembler. */
+  graphContext?: string[];
+  domainContext?: string[];
+  historyContext?: string[];
+  testContext?: string[];
+  /** P11-04: confiança 0..1 do contexto (fail-open → 0). */
+  confidence?: number;
+  /** P11-04: freshness do grafo (fresh/stale/unknown). */
+  freshness?: "fresh" | "stale" | "unknown";
+  /** P11-04: quantidade de fontes que alimentaram o packet. */
+  source_count?: number;
 }
 
 /** Estimativa grosseira de tokens: ~4 chars/token no conteúdo textual. */
@@ -54,6 +65,15 @@ export function buildContextPacket(
     intent?: Record<string, unknown>;
     commit?: string;
     prunedItems?: number;
+    /** P11-04: contextos especializados (graph/domain/history/test). */
+    graphContext?: string[];
+    domainContext?: string[];
+    historyContext?: string[];
+    testContext?: string[];
+    /** P11-04: confiança 0..1 do contexto. */
+    confidence?: number;
+    /** P11-04: freshness do grafo. */
+    freshness?: "fresh" | "stale" | "unknown";
   },
 ): ContextPacket {
   const affectedFiles = result.nodes.filter((n) => n.type === "file").map((n) => n.label);
@@ -69,6 +89,16 @@ export function buildContextPacket(
   const items = unique([...affectedFiles, ...symbols, ...tests, ...domainEntities]);
   const text = items.join("\n");
   const prunedItems = opts?.prunedItems ?? 0;
+  const specialized = [
+    ...(opts?.graphContext ?? []),
+    ...(opts?.domainContext ?? []),
+    ...(opts?.historyContext ?? []),
+    ...(opts?.testContext ?? []),
+  ];
+  const sourceCount = new Set([
+    ...(items.length > 0 ? ["graph"] : []),
+    ...(specialized.length > 0 ? ["assembler"] : []),
+  ]).size;
 
   return {
     packet_id: randomUUID(),
@@ -90,5 +120,12 @@ export function buildContextPacket(
     decisions: [],
     risks: [],
     constraints: [],
+    graphContext: opts?.graphContext,
+    domainContext: opts?.domainContext,
+    historyContext: opts?.historyContext,
+    testContext: opts?.testContext,
+    confidence: opts?.confidence,
+    freshness: opts?.freshness,
+    source_count: sourceCount,
   };
 }

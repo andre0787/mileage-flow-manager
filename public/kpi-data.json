@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T14:31:03.314Z",
+  "generatedAt": "2026-08-15T15:51:33.419Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,9 +174,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 80.6,
-      "prePrTotal": 392,
-      "prePrPass": 316,
+      "prePrPassRate": 81.2,
+      "prePrTotal": 405,
+      "prePrPass": 329,
       "prePrFail": 76,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -197,7 +197,7 @@
         },
         {
           "rule": "rule-38-code-review-gate",
-          "count": 34
+          "count": 38
         },
         {
           "rule": "rule-17-new-docs-valid",
@@ -209,18 +209,18 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 70,
-        "rule-17-new-docs-valid": 20,
+        "rule-26": 71,
+        "rule-17-new-docs-valid": 21,
         "rule-02": 1
       },
       "gateBlockedByRule": {
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.6,
-      "branchesMerged": 111,
-      "violationsCaught": 433,
-      "healedRate": 21,
-      "frictionPerPass": 1.37,
+      "branchesMerged": 112,
+      "violationsCaught": 447,
+      "healedRate": 20.8,
+      "frictionPerPass": 1.36,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,
@@ -618,15 +618,15 @@
     {
       "day": "2026-08-15",
       "label": "15/08",
-      "prePrTotal": 32,
-      "prePrPass": 32,
+      "prePrTotal": 45,
+      "prePrPass": 45,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 21,
-      "healed": 12,
+      "ruleFails": 35,
+      "healed": 14,
       "sessions": 1,
-      "merges": 13,
-      "friction": 0.66
+      "merges": 14,
+      "friction": 0.78
     }
   ],
   "prs": [
@@ -722,23 +722,23 @@
     }
   ],
   "repo": {
-    "components": 114,
+    "components": 116,
     "pages": 16,
-    "libs": 26,
+    "libs": 27,
     "scripts": 115,
-    "testFiles": 233,
+    "testFiles": 247,
     "skills": 26,
     "rules": 48,
-    "events": 1209,
-    "qualityNotes": 527
+    "events": 1240,
+    "qualityNotes": 533
   },
   "summary": {
-    "merges": 111,
+    "merges": 112,
     "prs": 6,
     "sessions": 74,
-    "violations": 433,
-    "healed": 91,
-    "prePrPassRate": 80.6
+    "violations": 447,
+    "healed": 93,
+    "prePrPassRate": 81.2
   },
   "telemetry": []
 }

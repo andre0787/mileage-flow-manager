@@ -40,11 +40,25 @@ export interface AgentExecutionResult {
   toolCalls?: number;
 }
 
-/** Contrato que todo adapter deve implementar. */
+/** Estado de saúde de um adapter (P11-01 — health check). */
+export interface AgentHealth {
+  ok: boolean;
+  adapter: string;
+  version: string;
+  model?: string;
+  latencyMs?: number;
+  error?: string;
+}
+
+/** Contrato que todo adapter deve implementar (P11-01: health + version). */
 export interface AgentAdapter {
   id: string;
+  /** Versão do adapter (ex.: "pi-cli-1.0.0"). Nunca "unset" sem justificativa. */
+  version(): string;
   capabilities(): AgentCapabilities;
   execute(request: AgentExecutionRequest): Promise<AgentExecutionResult>;
+  /** Health check real (ex.: binário presente, versão resolvida). Fail-open. */
+  health(): Promise<AgentHealth>;
   cancel?(executionId: string): Promise<void>;
 }
 

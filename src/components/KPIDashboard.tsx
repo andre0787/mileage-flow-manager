@@ -9,6 +9,8 @@ import { ProcessAlerts } from "./kpi/ProcessAlerts";
 import { MonthlySection } from "./kpi/MonthlySection";
 import { PrsPanel } from "./kpi/PrsPanel";
 import { AiCostSection } from "./kpi/AiCostSection";
+import AiEngineeringCommandCenter from "./kpi/AiEngineeringCommandCenter";
+import type { TelemetryEnvelope } from "@/ai/telemetry/envelope";
 import { useData } from "@/contexts/DataContext";
 import { computeDashboardMetrics } from "@/lib/metrics";
 import {
@@ -151,6 +153,13 @@ export default function KPIDashboard({ data }: { data: KpiData }) {
       <LLMRouterKPISection llmRouter={current.llmRouter ?? LEGACY_ROUTER_KPI} />
 
       <AiCostSection records={data.telemetry} />
+
+      {/* P11-08: AI Engineering Command Center — telemetria de agentes §19.
+       * Consome envelopes (exec:run:real grava em docs/tracking/envelopes.jsonl);
+       * quando o feed ainda não está conectado, renderiza vazio (fail-open). */}
+      <AiEngineeringCommandCenter
+        envelopes={(data.telemetry as unknown as TelemetryEnvelope[]) ?? []}
+      />
     </div>
   );
 }

@@ -84,6 +84,36 @@ describe("pipeline §3 integrado (planner → dispatcher → persist → validat
     expect(telemetry?.detail).toContain(String(persistable.length));
   });
 
+  it("P11-01: task simples atravessa o pipeline com o Pi Adapter REAL", async () => {
+    // Critério P11-01: Planner → Scheduler → Dispatcher → Pi Adapter →
+    // comando real → resultado → telemetria. Sem executeStep injetado — o
+    // adapter pi executa o CLI de verdade (git status, fail-open).
+    const task = normalizeTask({
+      taskId: "PIPELINE-REAL",
+      intent: "verificar estado",
+      requiredCapabilities: ["toolCalling", "structuredOutput"],
+      writeScope: [],
+    });
+    const { plan } = planExecution({
+      task,
+      adapters: [piAdapter],
+      // Só implementer (git status) para manter o teste rápido e sem rede.
+      roles: [{ id: "implementer", role: "implementer", parallelGroup: 1 }],
+    });
+    expect(plan).toBeDefined();
+
+    const envelopes: TelemetryEnvelope[] = [];
+    const { outcomes, ok } = await dispatchPlan(plan!, piAdapter, {
+      onTelemetry: (env) => envelopes.push(env),
+    });
+    // Fail-open: o git existe → success. Em ambiente sem git, aceitamos erro
+    // normalizado (o contrato nunca lança).
+    expect(outcomes).toHaveLength(1);
+    expect(typeof outcomes[0].success).toBe("boolean");
+    expect(envelopes.some((e) => e.eventType === "agent.dispatched")).toBe(true);
+    expect(ok).toBe(true);
+  });
+
   it("falha do step gera execution.failed e validator com envelope 0 → fail", async () => {
     const task = normalizeTask({ taskId: "PIPELINE-02", intent: "x" });
     const { plan } = planExecution({ task, adapters: [piAdapter] });

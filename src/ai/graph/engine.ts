@@ -61,7 +61,7 @@ function runCrg(args: string[]): { ok: boolean; stdout: string; stderr: string; 
 }
 
 /** Classifica o score de readiness em banda (SDD seção 25). */
-export function readinessBand(score: number): Neo4jReadiness["band"] {
+export function readinessBandLegacy(score: number): Neo4jReadiness["band"] {
   if (score < 0.4) return "local/postgres";
   if (score < 0.6) return "observe";
   if (score < 0.75) return "prepare-poc";
@@ -283,7 +283,7 @@ export function graphNeo4jReadiness(): Neo4jReadiness {
   const score = computeReadinessScore(metrics);
   return {
     score,
-    band: readinessBand(score),
+    band: readinessBandLegacy(score),
     metrics,
     rationale: `${metrics.nodes} nós / ${metrics.edges} arestas — grafos pequenos vivem bem em Postgres/Supabase (P4).`,
   };
