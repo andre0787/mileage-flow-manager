@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-15T20:10:56.824Z",
+  "generatedAt": "2026-08-15T20:41:16.985Z",
   "dataDate": "2026-08-15",
   "kpiStats": [
     {
-      "value": 1219,
+      "value": 1224,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 546,
+      "value": 548,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 96,
+      "value": 97,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 66,
+      "value": 67,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,17 +41,17 @@
     },
     {
       "name": "pre-pr",
-      "n": 400,
+      "n": 402,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 441,
+      "n": 442,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 96,
+      "n": 97,
       "color": "#10b981"
     },
     {
@@ -61,7 +61,7 @@
     },
     {
       "name": "code-review:done",
-      "n": 72,
+      "n": 73,
       "color": "#6366f1"
     },
     {
@@ -103,7 +103,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 346,
+      "n": 348,
       "color": "#10b981"
     },
     {
@@ -119,6 +119,31 @@
   ],
   "recentTimeline": [
     {
+      "t": "2026-08-15 20:41:11",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-15 20:40:33",
+      "d": "code-review:done",
+      "desc": "Review aprovado por subagente"
+    },
+    {
+      "t": "2026-08-15 20:39:59",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
+    },
+    {
+      "t": "2026-08-15 20:39:53",
+      "d": "healed",
+      "desc": "rule-26 auto-corrigido"
+    },
+    {
+      "t": "2026-08-15 20:13:12",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
       "t": "2026-08-15 20:10:52",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
@@ -132,39 +157,14 @@
       "t": "2026-08-15 20:08:10",
       "d": "rule:fail",
       "desc": "rule-41-optimizer falhou"
-    },
-    {
-      "t": "2026-08-15 20:06:57",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-15 20:06:56",
-      "d": "healed",
-      "desc": "rule-17-new-docs-valid auto-corrigido"
-    },
-    {
-      "t": "2026-08-15 19:55:49",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-15 19:55:13",
-      "d": "coding:done",
-      "desc": "Coding aprovado por subagente"
-    },
-    {
-      "t": "2026-08-15 19:55:10",
-      "d": "code-review:done",
-      "desc": "Review aprovado por subagente"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 441,
-    "healed": 96,
-    "healedRate": 21.8,
-    "prePrTotal": 400,
-    "prePrPass": 325,
+    "ruleFails": 442,
+    "healed": 97,
+    "healedRate": 21.9,
+    "prePrTotal": 402,
+    "prePrPass": 327,
     "prePrPassRate": 81.3,
     "gateBlocked": 1,
     "topViolations": [
@@ -175,7 +175,7 @@
       },
       {
         "rule": "rule-38-code-review-gate",
-        "count": 43,
+        "count": 44,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
@@ -196,6 +196,15 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 445,
+      "title": "feat: P12 Real-World Validation — dataset real, estratégias, evidências e roadmap P13",
+      "type": "feat",
+      "date": "2026-08-15",
+      "tokens": 3074,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 443,
       "title": "docs: ROADMAP — P11 Master Implementation Plan marcado como concluído",
@@ -231,15 +240,6 @@
       "tokens": 1262,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 435,
-      "title": "feat: Spec v5 completa — implementer, maxTurns, historyScout, graph update",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 1379,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "overview": {
@@ -250,7 +250,7 @@
     "testFiles": 251,
     "skills": 26,
     "rules": 48,
-    "events": 1219,
-    "qualityNotes": 546
+    "events": 1224,
+    "qualityNotes": 548
   }
 }

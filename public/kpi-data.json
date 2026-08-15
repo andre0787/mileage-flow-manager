@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T20:10:52.376Z",
+  "generatedAt": "2026-08-15T20:41:11.584Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -175,8 +175,8 @@
     {
       "month": "2026-08",
       "prePrPassRate": 81.3,
-      "prePrTotal": 400,
-      "prePrPass": 325,
+      "prePrTotal": 402,
+      "prePrPass": 327,
       "prePrFail": 75,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -193,7 +193,7 @@
         },
         {
           "rule": "rule-38-code-review-gate",
-          "count": 43
+          "count": 44
         },
         {
           "rule": "rule-26-session-started",
@@ -209,7 +209,7 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 73,
+        "rule-26": 74,
         "rule-17-new-docs-valid": 22,
         "rule-02": 1
       },
@@ -217,10 +217,10 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.6,
-      "branchesMerged": 112,
-      "violationsCaught": 441,
-      "healedRate": 21.8,
-      "frictionPerPass": 1.36,
+      "branchesMerged": 113,
+      "violationsCaught": 442,
+      "healedRate": 21.9,
+      "frictionPerPass": 1.35,
       "llmRouter": {
         "resolved": 35,
         "completed": 0,
@@ -617,18 +617,27 @@
     {
       "day": "2026-08-15",
       "label": "15/08",
-      "prePrTotal": 51,
-      "prePrPass": 51,
+      "prePrTotal": 53,
+      "prePrPass": 53,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 45,
-      "healed": 17,
+      "ruleFails": 46,
+      "healed": 18,
       "sessions": 2,
-      "merges": 16,
-      "friction": 0.88
+      "merges": 17,
+      "friction": 0.87
     }
   ],
   "prs": [
+    {
+      "number": 445,
+      "title": "feat: P12 Real-World Validation — dataset real, estratégias, evidências e roadmap P13",
+      "type": "feat",
+      "date": "2026-08-15",
+      "tokens": 3074,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 443,
       "title": "docs: ROADMAP — P11 Master Implementation Plan marcado como concluído",
@@ -709,15 +718,6 @@
       "tokens": 26,
       "benefit": "Documentação/processo atualizados — mais rastreabilidade",
       "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 425,
-      "title": "feat(ai): Agent Execution Core (spec v5) — papéis de execução",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 1343,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "repo": {
@@ -728,15 +728,15 @@
     "testFiles": 251,
     "skills": 26,
     "rules": 48,
-    "events": 1219,
-    "qualityNotes": 546
+    "events": 1224,
+    "qualityNotes": 548
   },
   "summary": {
-    "merges": 112,
+    "merges": 113,
     "prs": 6,
     "sessions": 70,
-    "violations": 441,
-    "healed": 96,
+    "violations": 442,
+    "healed": 97,
     "prePrPassRate": 81.3
   },
   "telemetry": []
