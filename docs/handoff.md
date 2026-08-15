@@ -111,7 +111,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 **Objetivo:** Agent Execution Core (spec v5 — papéis de execução)
 **Status:** in_progress
 **Iniciada em:** 2026-08-15T03:50:00.000Z
-**Branch:** `feat/agent-execution-complete`
+**Branch:** `docs/ai-session-state-spec-complete`
 **Council:** docs/council/2026-08-15-agent-execution-complete-veredito.md (veredito: Faça — reviewer §20 + domain tables + exec:run env-gated)
 **Último commit:** dbb6c6e — Merge pull request #409 from andre0787/feat/owner-color-chips-filtros-kpi
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
