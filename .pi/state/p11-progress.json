@@ -1,10 +1,10 @@
 {
   "version": "P11",
-  "currentPhase": "P11-01",
+  "currentPhase": "P11-02",
   "status": "in_progress",
-  "completedPhases": ["P11-00"],
+  "completedPhases": ["P11-00", "P11-01"],
   "blockedPhases": [],
-  "lastValidation": "P11-00 baseline criada (docs/p11-baseline.md)",
+  "lastValidation": "P11-01 passed — adapter contract (health/version) + command-runner real + adapter-contract.test.ts (15) + pipeline com Pi real",
   "lastScore": null,
-  "updatedAt": "2026-08-15T14:06:00.000Z"
+  "updatedAt": "2026-08-15T14:08:00.000Z"
 }

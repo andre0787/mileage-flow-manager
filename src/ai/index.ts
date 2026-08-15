@@ -28,6 +28,7 @@ export * from "./execution/scouts";
 export * from "./execution/architect";
 export * from "./execution/implementer";
 export * from "./execution/domain-knowledge";
+export * from "./execution/command-runner";
 export * from "./execution/sanitize";
 export * from "./execution/graph-freshness";
 export * from "./execution/final-validator";
