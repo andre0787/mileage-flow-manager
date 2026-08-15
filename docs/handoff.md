@@ -111,6 +111,6 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 **Objetivo:** P5-01 Graph Intelligence Foundation (SDD v5.0)
 **Status:** in_progress
 **Iniciada em:** 2026-08-15T02:17:02.480Z
-**Branch:** `feat/graph-intelligence-foundation`
+**Branch:** `docs/ai-session-state-p5-01`
 **Último commit:** dbb6c6e — Merge pull request #409 from andre0787/feat/owner-color-chips-filtros-kpi
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md

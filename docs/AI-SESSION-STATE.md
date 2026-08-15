@@ -1,40 +1,33 @@
-# AI Session State - 2026-08-15T02:10:00.000Z
+# AI Session State - 2026-08-15T02:30:00.000Z
 
 ## Última Task
 
-- Feature **chip de cor do dono em filtros/KPI/Relatórios** (PR #409): **Concluído** — bolinha de cor ao lado do nome de cada dono no OwnerFilter (todas as abas); BusinessBreakdown do KPI com bolinha + barra de progresso colorida; Relatórios com bolinha no nome (tabela desktop + cards mobile). Cor respeita a customizada com fallback hash.
-- (Antes) Feature **filtro por dono na aba Contas** (PR #404): **Concluído** — OwnerFilter na barra de filtros de Contas, combina com o filtro de tipo (Todas/Pontos/Milhas), reset da paginação ao trocar dono. Mesmo padrão de Entradas/Vendas/Relatórios.
-- (Antes) Feature **cor customizada por dono** (PR #401): **Concluído** — seletor de cor no cadastro/edição de donos (OwnerSection), campo `owners.color` persistido (migration `20260814230000` aplicada no remoto via `supabase db push`), fallback para hash FNV-1a quando ausente. Cor aplicada nas 3 superfícies (AccountCard, EntryTable, SaleTable). Council em `docs/council/2026-08-14-owner-custom-color-veredito.md`.
+- Feature **P5-01 Graph Intelligence Foundation** (PR #413, SDD v5.0): **Concluído** — `src/ai/` agnóstico de agente: barrel público + contratos (GraphNode/Edge/QueryResult, ContextPacket, AgentAdapter/Capabilities, ModelCapabilities, TaskContract, ExecutionPlan/Budget) + envelope de telemetria + Graph Engine (status/build/update/query/impact/context/neo4jReadiness com fail-open sobre CRG) + CLI `npm run graph:*`. Council em `docs/council/2026-08-15-graph-intelligence-foundation-veredito.md`.
 
 ## Estado dos Testes & Qualidade
 
-- **Playwright E2E:** e2e-smoke ✅ no CI do PR #401; e2e completo sujeito a rate-limit do Supabase real (padrão conhecido)
+- **Playwright E2E:** e2e-smoke ✅ no CI do PR #413
 - **RTK Integrity:** Checked — 8/8 coleções com adapter (rule-44)
-- **Vendas/Contas Logic:** Checked — **919 testes unit** (114 files), typecheck/lint/format ✓, pre-pr 0 errors
+- **Vendas/Contas Logic:** Checked — **949 testes unit** (115 files, +30 em `tests/unit/ai/`), typecheck/lint/format ✓, pre-pr 0 errors
 
 ## Arquivos Modificados & Impacto
 
-- `supabase/migrations/20260814230000_owners_color.sql` (novo — `ALTER TABLE owners ADD COLUMN color text`, aplicada no remoto)
-- `src/lib/ownerColors.ts` (`ownerColor(name, custom)` — custom hex tem precedência; fallback hash; `isValidHex`)
-- `src/components/OwnerSection.tsx` (seletor `input type=color` + preview + reset "cor automática")
-- `src/types/index.ts` + `src/lib/supabase-types.ts` (Owner.color)
-- `src/hooks/useDatabase/mappers.ts` + `src/features/owners/addOwner.ts` + `updateOwner.ts` (color no insert/update)
-- `src/components/accounts/AccountCard.tsx` + `src/pages/Contas.tsx` (borda + chip com cor custom)
-- `src/components/EntryTable.tsx` (dono colorido desktop + chip mobile com cor custom)
-- `src/components/SaleTable.tsx` + `src/pages/Vendas.tsx` (chip com cor custom via `ownerCustomColors`)
-- `tests/unit/ownerColors.test.ts` (+4: precedência custom > hash, isValidHex) e `tests/unit/features-owners-api.test.ts` (+1 insert com color)
-- `docs/council/2026-08-14-owner-custom-color-veredito.md` (veredito council)
-- `src/pages/Contas.tsx` (PR #404 — OwnerFilter na barra de filtros, combina com tipo, reset de página)
-- `src/components/ui/OwnerFilter.tsx` (PR #409 — bolinha de cor ao lado do nome no dropdown)
-- `src/components/kpi/BusinessBreakdown.tsx` + `src/components/KPIDashboard.tsx` (PR #409 — bolinha + barra colorida por dono)
-- `src/pages/Relatorios.tsx` (PR #409 — bolinha de cor no nome do dono, desktop + mobile)
+- `src/ai/index.ts` (novo — barrel público da lib, entry point)
+- `src/ai/core/` (novo — graph-types, context-packet, agent-contract, model-contract, task-contract, execution-plan)
+- `src/ai/telemetry/envelope.ts` (novo — TelemetryEnvelope, adapter/role/model separados)
+- `src/ai/graph/engine.ts` (novo — status/impact/context/query/neo4jReadiness fail-open)
+- `scripts/graph-intel.mjs` (novo — CLI graph:*) + `package.json` (7 atalhos `graph:*`)
+- `scripts/rules/rule-14-orphan-files.mjs` (exceção documentada para barrel de lib de infra `ai/index.ts`)
+- `tests/unit/ai/` (novo — 30 testes: parsers, packet, contratos, envelope, engine)
+- `docs/GRAPH-INTELLIGENCE.md` (novo) + `docs/council/2026-08-15-graph-intelligence-foundation-veredito.md`
 
 ## Pendências Imediatas (Next Step)
 
-1. Nenhum bloqueante. Ideias futuras: estender a cor por dono para Relatorios.tsx e KPI (BusinessBreakdown) — a lib `ownerColors` já aceita custom; OwnerFilter poderia ganhar chip de cor também.
+1. SDD v5.0 fase P5-P6: adapters concretos (pi/codex/claude-code implementando AgentAdapter) e Multi-Agent Orchestration (planner/dispatcher/scheduler) — contratos já prontos em `src/ai/core/`.
+2. Opcional: consumir `graph:impact`/`graph:context` no workflow de desenvolvimento (meta >=30% redução de tokens).
 
 ## Governança de Contexto
 
-- **Tokens Utilizados:** ~13K acumulado (ai_telemetry)
+- **Tokens Utilizados:** ~15K acumulado (ai_telemetry)
 - **Poda (Pruning):** 0 linhas removidas no último turno
-- **Branch Atual:** main (PRs #380..#409 merged — nenhum aberto)
+- **Branch Atual:** main (PRs #380..#413 merged — nenhum aberto)
