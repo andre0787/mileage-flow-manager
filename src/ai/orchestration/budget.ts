@@ -114,3 +114,34 @@ export function consumeResources(
     toolCallsUsed: state.toolCallsUsed + (result.toolCalls ?? 0),
   };
 }
+
+/**
+ * Portão de budget serializado (P11-02): check+reserve atômicos mesmo com
+ * Promise.all no batch — um step reserva, o outro vê o limite excedido.
+ * Extraído do dispatcher (rule-41 — hard limit de 150 linhas).
+ */
+export function createBudgetGate(budget: ExecutionBudget, initial: BudgetState) {
+  let state = initial;
+  let gate: Promise<void> = Promise.resolve();
+  return {
+    /** Reserva agents/turns antes de executar um step. */
+    reserve: (): Promise<{ ok: boolean; reason?: string }> => {
+      const p = gate.then(() => {
+        const check = checkBudget(budget, state, {});
+        if (!check.ok) return { ok: false, reason: check.reason };
+        state = consumeBudget(state, {});
+        return { ok: true };
+      });
+      // Encadeia sem referenciar p (evita ciclo de promise).
+      gate = p.then(
+        () => undefined,
+        () => undefined,
+      );
+      return p;
+    },
+    getState: () => state,
+    setState: (next: BudgetState) => {
+      state = next;
+    },
+  };
+}

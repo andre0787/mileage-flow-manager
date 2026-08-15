@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-15T14:31:08.596Z",
+  "generatedAt": "2026-08-15T15:51:37.773Z",
   "dataDate": "2026-08-15",
   "kpiStats": [
     {
-      "value": 1209,
+      "value": 1240,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 527,
+      "value": 533,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,17 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 233,
+      "value": 247,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 91,
+      "value": 93,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 63,
+      "value": 64,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,17 +41,17 @@
     },
     {
       "name": "pre-pr",
-      "n": 392,
+      "n": 405,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 433,
+      "n": 447,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 91,
+      "n": 93,
       "color": "#10b981"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 68,
+      "n": 69,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 68,
+      "n": 69,
       "color": "#22c55e"
     },
     {
@@ -103,12 +103,12 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 330,
+      "n": 334,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 186,
+      "n": 188,
       "color": "#84cc16"
     },
     {
@@ -119,53 +119,53 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-15 14:31:03",
+      "t": "2026-08-15 15:51:33",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-15 14:30:27",
+      "t": "2026-08-15 15:50:48",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-15 15:50:00",
       "d": "code-review:done",
-      "desc": "Review aprovado por subagente — ROADMAP Spec v5 concluída"
+      "desc": "Review dos splits rule-41 + scorecard P11 aprovado"
     },
     {
-      "t": "2026-08-15 14:29:54",
+      "t": "2026-08-15 15:50:00",
+      "d": "coding:done",
+      "desc": "P11-10 finalização — splits rule-41 (7 arquivos), scorecard PASS 10.0"
+    },
+    {
+      "t": "2026-08-15 15:42:36",
+      "d": "rule:fail",
+      "desc": "rule-41-optimizer falhou"
+    },
+    {
+      "t": "2026-08-15 15:42:36",
+      "d": "rule:fail",
+      "desc": "rule-39-coding-gate falhou"
+    },
+    {
+      "t": "2026-08-15 15:42:36",
       "d": "rule:fail",
       "desc": "rule-38-code-review-gate falhou"
     },
     {
-      "t": "2026-08-15 14:29:14",
+      "t": "2026-08-15 15:41:56",
       "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
-    },
-    {
-      "t": "2026-08-15 14:28:36",
-      "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
-    },
-    {
-      "t": "2026-08-15 14:28:29",
-      "d": "healed",
-      "desc": "rule-26 auto-corrigido"
-    },
-    {
-      "t": "2026-08-15 13:08:12",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-15 13:07:52",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "desc": "rule-41-optimizer falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 433,
-    "healed": 91,
-    "healedRate": 21,
-    "prePrTotal": 392,
-    "prePrPass": 316,
-    "prePrPassRate": 80.6,
+    "ruleFails": 447,
+    "healed": 93,
+    "healedRate": 20.8,
+    "prePrTotal": 405,
+    "prePrPass": 329,
+    "prePrPassRate": 81.2,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -180,7 +180,7 @@
       },
       {
         "rule": "rule-38-code-review-gate",
-        "count": 34,
+        "count": 38,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
@@ -243,14 +243,14 @@
     }
   ],
   "overview": {
-    "components": 114,
+    "components": 116,
     "pages": 16,
-    "libs": 26,
+    "libs": 27,
     "scripts": 115,
-    "testFiles": 233,
+    "testFiles": 247,
     "skills": 26,
     "rules": 48,
-    "events": 1209,
-    "qualityNotes": 527
+    "events": 1240,
+    "qualityNotes": 533
   }
 }
