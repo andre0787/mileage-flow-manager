@@ -29,3 +29,4 @@ export * from "./execution/architect";
 export * from "./execution/sanitize";
 export * from "./execution/graph-freshness";
 export * from "./execution/final-validator";
+export * from "./execution/reviewer";
