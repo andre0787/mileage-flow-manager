@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-08-14
-> Último commit: e117e43-Merge pull request #380 from andre0787/feat/blueprint-v9-governanca
+> Gerado em: 2026-08-15
+> Último commit: 9a131ed-Merge pull request #431 from andre0787/docs/ai-session-state-spec-complete
 
 ## Pipeline
 
@@ -15,21 +15,21 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 757 |
+| Unit | 861 |
 | E2E  | 82 |
-| **Total** | **839** |
+| **Total** | **943** |
 
 ## Bundle
 
 | Métrica | Valor |
 |---------|-------|
-| Tamanho (dist) | 1773kB |
+| Tamanho (dist) | 1780kB |
 
 ## Documentação
 
 | Métrica | Valor |
 |---------|-------|
-| Arquivos .md | 196 |
+| Arquivos .md | 204 |
 | Arquivados | 46 |
 | Issues (verify-docs) | 0 |
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-08-14 | ✅ | 839 | 1773kB | 0 issues |
+| 2026-08-15 | ✅ | 943 | 1780kB | 0 issues |
 
 ---
 
