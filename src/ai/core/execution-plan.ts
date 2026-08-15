@@ -10,6 +10,8 @@ export interface ExecutionStep {
   role: string; // "graph-scout" | "architect" | "implementer" | ...
   parallelGroup?: number;
   dependsOn?: string[];
+  /** Marca steps que o adapter não desempenha (degradação §14). */
+  skipped?: boolean;
 }
 
 export interface ExecutionBudget {

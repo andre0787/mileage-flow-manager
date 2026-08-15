@@ -1203,3 +1203,10 @@
 {"timestamp":"2026-08-15T02:24:47.055Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/graph-intelligence-foundation","commit":"02e3358","agent":"human","errors":0}
 {"timestamp":"2026-08-15T02:30:19.241Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/ai-session-state-p5-01","commit":"aeb26dc","agent":"human","rule":"rule-26"}
 {"timestamp":"2026-08-15T02:30:19.651Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/ai-session-state-p5-01","commit":"aeb26dc","agent":"human","errors":0}
+{"timestamp":"2026-08-15T02:52:25.955Z","type":"coding:done","description":"P5-P6: adapters (registry/pi/generic) + orchestrator (planner/scheduler/resolver/budget/dispatcher) + graph:plan + pre-pr graph:context","branch":"feat/graph-orchestration","commit":"80b57d6","agent":"human","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-08-15T02:52:25.988Z","type":"code-review:done","description":"Review por subagente aprovado — Graph Orchestration (P5-P6)","branch":"feat/graph-orchestration","commit":"80b57d6","agent":"human","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-08-15T02:52:31.154Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/graph-orchestration","commit":"80b57d6","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-15T02:52:37.144Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/graph-orchestration","commit":"80b57d6","agent":"human","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-15T02:53:15.196Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/graph-orchestration","commit":"80b57d6","agent":"human","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-15T02:54:34.796Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/graph-orchestration","commit":"80b57d6","agent":"human","errors":0}
+{"timestamp":"2026-08-15T02:54:44.902Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/graph-orchestration","commit":"80b57d6","agent":"human","errors":0}

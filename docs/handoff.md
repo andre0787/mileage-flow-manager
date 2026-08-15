@@ -108,9 +108,10 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 ## 🎯 Sessão Atual
 **Categoria:** feature
-**Objetivo:** P5-01 Graph Intelligence Foundation (SDD v5.0)
+**Objetivo:** P5-P6 Graph Orchestration (adapters + orchestrator)
 **Status:** in_progress
-**Iniciada em:** 2026-08-15T02:17:02.480Z
-**Branch:** `docs/ai-session-state-p5-01`
+**Iniciada em:** 2026-08-15T02:40:00.000Z
+**Branch:** `feat/graph-orchestration`
+**Council:** docs/council/2026-08-15-graph-orchestration-veredito.md (veredito: Faça — registry sem acoplamento, orchestrator lógico, pre-pr fail-open)
 **Último commit:** dbb6c6e — Merge pull request #409 from andre0787/feat/owner-color-chips-filtros-kpi
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
