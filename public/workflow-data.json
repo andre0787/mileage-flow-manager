@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-15T12:55:46.808Z",
+  "generatedAt": "2026-08-15T12:57:02.027Z",
   "dataDate": "2026-08-15",
   "kpiStats": [
     {
-      "value": 1217,
+      "value": 1221,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 520,
+      "value": 521,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,7 +18,7 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 231,
+      "value": 233,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 403,
+      "n": 405,
       "color": "#8b5cf6"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 65,
+      "n": 66,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 66,
+      "n": 67,
       "color": "#22c55e"
     },
     {
@@ -103,7 +103,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 325,
+      "n": 326,
       "color": "#10b981"
     },
     {
@@ -118,6 +118,26 @@
     }
   ],
   "recentTimeline": [
+    {
+      "t": "2026-08-15 12:56:58",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-15 12:56:05",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-15 12:55:50",
+      "d": "code-review:done",
+      "desc": "Review por subagente aprovado — Spec v5 completa (Domain Scout real + pipeline integrado)"
+    },
+    {
+      "t": "2026-08-15 12:55:50",
+      "d": "coding:done",
+      "desc": "Spec v5 100% — Domain Scout real v2.3.7 + pipeline §3 integrado (planner→dispatcher→persist→validator)"
+    },
     {
       "t": "2026-08-15 12:55:42",
       "d": "pre-pr",
@@ -137,35 +157,15 @@
       "t": "2026-08-15 12:42:10",
       "d": "rule:fail",
       "desc": "rule-22-pr-naming falhou"
-    },
-    {
-      "t": "2026-08-15 12:41:00",
-      "d": "rule:fail",
-      "desc": "rule-22-pr-naming falhou"
-    },
-    {
-      "t": "2026-08-15 12:35:32",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-15 12:31:44",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-15 12:30:09",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 435,
     "healed": 89,
     "healedRate": 20.5,
-    "prePrTotal": 403,
-    "prePrPass": 322,
-    "prePrPassRate": 79.9,
+    "prePrTotal": 405,
+    "prePrPass": 324,
+    "prePrPassRate": 80,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -247,10 +247,10 @@
     "pages": 16,
     "libs": 26,
     "scripts": 115,
-    "testFiles": 231,
+    "testFiles": 233,
     "skills": 26,
     "rules": 48,
-    "events": 1217,
-    "qualityNotes": 520
+    "events": 1221,
+    "qualityNotes": 521
   }
 }
