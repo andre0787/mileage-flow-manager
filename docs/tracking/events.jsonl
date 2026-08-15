@@ -1214,3 +1214,7 @@
 {"timestamp":"2026-08-15T19:55:49.869Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p12-real-world-validation","commit":"b1b05b0","agent":"human","errors":0}
 {"timestamp":"2026-08-15T20:06:56.612Z","type":"healed","description":"rule-17-new-docs-valid auto-corrigido","branch":"feat/p12-real-world-validation","commit":"b1b05b0","agent":"human","rule":"rule-17-new-docs-valid"}
 {"timestamp":"2026-08-15T20:06:57.083Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p12-real-world-validation","commit":"b1b05b0","agent":"human","errors":0}
+{"timestamp":"2026-08-15T20:08:10.263Z","type":"rule:fail","description":"rule-41-optimizer falhou","branch":"feat/p12-real-world-validation","commit":"ad64043","agent":"human","rule":"rule-41-optimizer"}
+{"timestamp":"2026-08-15T20:08:52.010Z","type":"rule:fail","description":"rule-41-optimizer falhou","branch":"feat/p12-real-world-validation","commit":"ad64043","agent":"human","rule":"rule-41-optimizer"}
+{"timestamp":"2026-08-15T20:10:52.259Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p12-real-world-validation","commit":"ad64043","agent":"human","errors":0}
+{"timestamp":"2026-08-15T20:13:12.944Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p12-real-world-validation","commit":"ad64043","agent":"human","errors":0}

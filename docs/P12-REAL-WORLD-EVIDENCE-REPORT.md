@@ -1,6 +1,6 @@
 # P12 — Real-World Evidence Report
 
-> Gerado automaticamente em 2026-08-15T20:06:31.021Z (branch `feat/p12-real-world-validation`, commit `b1b05b0df5a7a45c6a5a1107343f7d31f0ce39e9`, working tree sujo).
+> Gerado automaticamente em 2026-08-15T20:11:00.030Z (branch `feat/p12-real-world-validation`, commit `ad640432715f62829296fab2836a7a879cd5b96d`, working tree sujo).
 > Dataset: 24 tasks reais × 3 estratégias = 162 runs.
 
 ## 1. Executive Summary

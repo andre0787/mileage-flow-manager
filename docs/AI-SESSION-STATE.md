@@ -1,27 +1,35 @@
-# AI Session State - 2026-08-15T13:30:00.000Z
+# AI Session State - 2026-08-15T17:08:00.000Z
 
 ## Última Task
 
-- **P11 Master Implementation Plan — 100% completo e mergeado** (PR #441 → main `dcd80c8`): 11 fases implementadas, certificação `npm run ai:p11:score` → **OVERALL 10.00 / PASS**, rule-41 aplicada (7 arquivos > 150 linhas divididos), 1109 testes, pre-pr 0 errors.
-- **ROADMAP.md:** adicionada entrada #5 na seção ✅ Concluído — **P11 — Master Implementation Plan completo (11 fases)** com referência ao PR #441 (branch `docs/roadmap-p11`).
+- **P12 Real-World Validation — implementado na branch `feat/p12-real-world-validation`** (base main `b1b05b0`): infraestrutura completa de medição (P12-00..10) sem alterar Planner/Scheduler/Graph/Context (spec §5 — mudanças viram recomendações P13).
+- **P12-00 Baseline:** `docs/p12-baseline.md` + `.pi/state/p12-progress.json`; gates check:fast ✅, pre-pr 0 errors, ai:p11:score 10.00 PASS.
+- **P12-01 Dataset real:** 24 tasks (R1-R24) ancoradas em bugs/issues reais e módulos existentes, com os 12 campos obrigatórios da spec.
+- **P12-02/03/04 Runner:** 162 runs (24 tasks × 3 estratégias), controle de variáveis (task/modelo/repo fixos — varia só strategy), repeat ≥ 3 em medium+, mean/median/variance + confidence.
+- **P12-05..08 Análises:** reliability + triggers, bottlenecks (agent 60%), matrizes agent/model/role, graph ROI (graph **prejudicial** em tiny/small, **benéfico** em large), workflow efficiency com role_value_score.
+- **P12-09/10 Entregáveis:** `docs/P12-REAL-WORLD-EVIDENCE-REPORT.md` + `docs/P13-EVIDENCE-DRIVEN-ROADMAP.md` via `npm run p12:validate` — 4 recomendações P13 (P13-01..03 IMPLEMENT, P13-05 WATCH).
 
 ## Estado dos Testes & Qualidade
 
 - **check:fast:** ✅ (typecheck/lint/format/test/verify-docs)
-- **Testes:** 1109 unit passando (132 files)
-- **pre-pr:** pendente rodar após AI-SESSION-STATE (branch docs)
+- **Testes:** 198 unit de AI passando (16 files) + validation.test.ts 20/20; total projeto ~1129
+- **pre-pr:** pendente rodar após AI-SESSION-STATE
 
 ## Arquivos Modificados & Impacto
 
-- `docs/ROADMAP.md` — entrada #5 na seção ✅ Concluído (P11, PR #441)
-- `docs/AI-SESSION-STATE.md` — este estado
+- `src/ai/validation/*` (14 arquivos) — dataset, runner, reliability, agent-model-role, graph-roi, workflow-efficiency
+- `scripts/p12-validate.ts` + `scripts/p12-report-generator.ts` — CLI de validação (`npm run p12:validate`)
+- `src/ai/index.ts` — barrel exporta `./validation`
+- `docs/p12-baseline.md`, `docs/P12-REAL-WORLD-EVIDENCE-REPORT.md`, `docs/P13-EVIDENCE-DRIVEN-ROADMAP.md`
+- `.pi/state/p12-progress.json` — estado persistente (complete)
+- `package.json` — script `p12:validate`
 
 ## Pendências Imediatas (Next Step)
 
-- pre-pr (0 errors) → commit + push + PR docs/roadmap-p11 → merge
+- pre-pr (0 errors) → commit → push → PR `feat/p12-real-world-validation` → merge
 
 ## Governança de Contexto
 
-- **Tokens Utilizados:** ~70K acumulado (ai_telemetry)
+- **Tokens Utilizados:** ~80K acumulado (ai_telemetry)
 - **Poda (Pruning):** 0 linhas removidas no último turno
-- **Branch Atual:** docs/roadmap-p11 (main em dcd80c8, PR #441 merged)
+- **Branch Atual:** feat/p12-real-world-validation (main em b1b05b0)

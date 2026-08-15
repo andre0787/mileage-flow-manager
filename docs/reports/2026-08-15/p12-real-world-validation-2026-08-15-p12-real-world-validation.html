@@ -175,12 +175,12 @@
     <section class="slide" id="s1">
       <div class="hero">
         <div class="hero-top">
-          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">p12-real-world-validation</span> <span class="badge risk" style="color:#34d399">Baixo risco</span> <span class="badge health red" style="color:#f87171">● Precisa atenção</span></div>
-          <div class="hero-date">2026-08-15 · 16:55 · <span class="mono">feat/p12-real-world-validation</span></div>
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">p12-real-world-validation</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health red" style="color:#f87171">● Precisa atenção</span></div>
+          <div class="hero-date">2026-08-15 · 17:12 · <span class="mono">feat/p12-real-world-validation</span></div>
         </div>
         <h1>p12 real world validation</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">b1b05b0 — Merge pull request #443 from andre0787/docs/roadmap-p11</div>
+        <div class="hero-meta mono">ad64043 — feat(ai): P12 Real-World Validation — infraestrutura de medição (P12-00..04)</div>
       </div>
       
     <div class="kpi-grid">
@@ -195,14 +195,14 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/48</div>
+        <div class="kpi-value">0/51</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
-        <div class="kpi-sub">43 violações · 16 auto-corrigidas</div>
+        <div class="kpi-sub">45 violações · 17 auto-corrigidas</div>
       </div>
       <div class="kpi">
         <div class="kpi-value green">91</div>
         <div class="kpi-label">outcome grade</div>
-        <div class="kpi-sub">baixo risco da mudança</div>
+        <div class="kpi-sub">médio risco da mudança</div>
       </div>
     </div>
       <div class="bluf">
@@ -216,7 +216,7 @@
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Riscos & trade-offs</div>
-          <p>Baixo risco de mudança · outcome grade = 91 · lead time —.</p>
+          <p>Médio risco de mudança · outcome grade = 91 · lead time —.</p>
         </div>
       </div>
     </section><section class="slide" id="s2">
@@ -259,7 +259,7 @@
       <td>p12 real world validation</td>
       <td>Nova capacidade entregue e validada para o produto.</td>
       <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
-      <td><code>~1</code></td>
+      <td><code>~3212</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.110 tokens (feature) · status moderado</p>
@@ -301,9 +301,9 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">48</span><span class="stat-l">rodadas de validação pré-PR</span></div>
-            <div class="stat"><span class="stat-v">43</span><span class="stat-l">violações de regra encontradas</span></div>
-            <div class="stat"><span class="stat-v green">16</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
+            <div class="stat"><span class="stat-v">51</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">45</span><span class="stat-l">violações de regra encontradas</span></div>
+            <div class="stat"><span class="stat-v green">17</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
           </div>
         </div>
@@ -326,7 +326,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 0 remoções — 1 linhas tocadas</td><td>✨ 0 adições — 0 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 211 remoções — 4282 linhas tocadas</td><td>✨ 3677 adições — 36 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -334,41 +334,189 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>0</td></tr>
-            <tr><td>Adições</td><td>+0</td></tr>
-            <tr><td>Remoções</td><td>-0</td></tr>
-            <tr><td>Tokens estimados</td><td>~1</td></tr>
+            <tr><td>Arquivos alterados</td><td>36</td></tr>
+            <tr><td>Adições</td><td>+3677</td></tr>
+            <tr><td>Remoções</td><td>-211</td></tr>
+            <tr><td>Tokens estimados</td><td>~3212</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:86">+2758 add</div>
+        <div class="del" style="flex:5">-158 del</div>
+        <div class="overhead" style="flex:9">~296 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+2758</td><td>86%</td></tr>
+      <tr><td>Remoções</td><td>-158</td><td>5%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~296</td><td>9%</td></tr>
+      <tr><th>Total</th><th>~3212</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
           <h3>📁 Arquivos</h3>
           <table>
             <tr><th>Status</th><th>Arquivo</th></tr>
-            
+            <tr><td>A</td><td>.pi/state/p12-progress.json</td></tr>
+<tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>A</td><td>docs/P12-REAL-WORLD-EVIDENCE-REPORT.md</td></tr>
+<tr><td>A</td><td>docs/P13-EVIDENCE-DRIVEN-ROADMAP.md</td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/p12-baseline.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-15/main-2026-08-15-main.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-15/p12-real-world-validation-2026-08-15-p12-real-world-validation.html</td></tr>
+<tr><td>M</td><td>docs/tracking/archive/events-2026-08.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>package.json</td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td></tr>
+<tr><td>M</td><td>public/workflow-data.json</td></tr>
+<tr><td>A</td><td>scripts/p12-report-generator.ts</td></tr>
+<tr><td>A</td><td>scripts/p12-validate.ts</td></tr>
+<tr><td>M</td><td>src/ai/index.ts</td></tr>
+<tr><td>A</td><td>src/ai/validation/agent-model-role.ts</td></tr>
+<tr><td>A</td><td>src/ai/validation/dataset-base.ts</td></tr>
+<tr><td>A</td><td>src/ai/validation/dataset-extra.ts</td></tr>
+<tr><td>A</td><td>src/ai/validation/dataset-extra2.ts</td></tr>
+<tr><td>A</td><td>src/ai/validation/dataset-mid.ts</td></tr>
+<tr><td>A</td><td>src/ai/validation/dataset.ts</td></tr>
+<tr><td>A</td><td>src/ai/validation/graph-roi.ts</td></tr>
+<tr><td>A</td><td>src/ai/validation/index.ts</td></tr>
+<tr><td>A</td><td>src/ai/validation/reliability.ts</td></tr>
+<tr><td>A</td><td>src/ai/validation/runner-constants.ts</td></tr>
+<tr><td>A</td><td>src/ai/validation/runner-model.ts</td></tr>
+<tr><td>A</td><td>src/ai/validation/runner.ts</td></tr>
           </table>
         </div>
       </div>
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
-        
+        diff --git a/.pi/state/p12-progress.json b/.pi/state/p12-progress.json
+new file mode 100644
+index 0000000..1aabb32
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/.pi/state/p12-progress.json</span>
+@@ -0,0 +1,20 @@
+<span class="add">+{</span>
+<span class="add">+  &quot;version&quot;: &quot;P12&quot;,</span>
+<span class="add">+  &quot;status&quot;: &quot;in_progress&quot;,</span>
+<span class="add">+  &quot;phase&quot;: &quot;P12-04&quot;,</span>
+<span class="add">+  &quot;runsCompleted&quot;: 162,</span>
+<span class="add">+  &quot;tasksCompleted&quot;: 24,</span>
+<span class="add">+  &quot;blockedTasks&quot;: 0,</span>
+<span class="add">+  &quot;lastAnalysis&quot;: null,</span>
+<span class="add">+  &quot;recommendations&quot;: [],</span>
+<span class="add">+  &quot;updatedAt&quot;: &quot;2026-08-15T17:06:00.000Z&quot;,</span>
+<span class="add">+  &quot;completedPhases&quot;: [&quot;P12-00&quot;, &quot;P12-01&quot;, &quot;P12-02&quot;, &quot;P12-03&quot;, &quot;P12-04&quot;],</span>
+<span class="add">+  &quot;dataset&quot;: {</span>
+<span class="add">+    &quot;tasks&quot;: 24,</span>
+<span class="add">+    &quot;runs&quot;: 162,</span>
+<span class="add">+    &quot;strategies&quot;: [&quot;single&quot;, &quot;multi&quot;, &quot;graph+multi&quot;],</span>
+<span class="add">+    &quot;model&quot;: &quot;gpt-4o-mini&quot;,</span>
+<span class="add">+    &quot;repeatImportant&quot;: 3,</span>
+<span class="add">+    &quot;repositoryState&quot;: &quot;registrado por run (commit/branch/working tree)&quot;</span>
+<span class="add">+  }</span>
+<span class="add">+}</span>
+diff --git a/docs/MAP.md b/docs/MAP.md
+index 6ca57c5..4314d26 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -440,3 +440,6 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
+ | `docs/adr/ADR-001-blueprint-v9-governanca.md` (auto) | 2026-08-14 |
+ | `docs/GRAPH-INTELLIGENCE.md` (auto) | 2026-08-15 |
+ | `docs/p11-baseline.md` (auto) | 2026-08-15 |
+<span class="add">+| `docs/P12-REAL-WORLD-EVIDENCE-REPORT.md` (auto) | 2026-08-15 |</span>
+<span class="add">+| `docs/P13-EVIDENCE-DRIVEN-ROADMAP.md` (auto) | 2026-08-15 |</span>
+<span class="add">+| `docs/p12-baseline.md` (auto) | 2026-08-15 |</span>
+diff --git a/docs/P12-REAL-WORLD-EVIDENCE-REPORT.md b/docs/P12-REAL-WORLD-EVIDENCE-REPORT.md
+new file mode 100644
+index 0000000..ccc9846
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/P12-REAL-WORLD-EVIDENCE-REPORT.md</span>
+@@ -0,0 +1,118 @@
+<span class="add">+# P12 — Real-World Evidence Report</span>
+<span class="add">+</span>
+<span class="add">+&gt; Gerado automaticamente em 2026-08-15T20:06:31.021Z (branch `feat/p12-real-world-validation`, commit `b1b05b0df5a7a45c6a5a1107343f7d31f0ce39e9`, working tree sujo).</span>
+<span class="add">+&gt; Dataset: 24 tasks reais × 3 estratégias = 162 runs.</span>
+<span class="add">+</span>
+<span class="add">+## 1. Executive Summary</span>
+<span class="add">+</span>
+<span class="add">+A P12 executou o dataset real (bugs, features e refactors reais do repositório) nas 3 estratégias com controle de variáveis (mesma task, mesmo modelo `gpt-4o-mini`, mesmo estado do repositório — variando apenas a estratégia).</span>
+<span class="add">+</span>
+<span class="add">+- **O que funcionou:** multi-agent melhora qualidade e reduz retrabalho em tasks medium+; graph+multi agrega valor em tasks com alto risco de grafo.</span>
+<span class="add">+- **O que não funcionou:** graph+multi é **prejudicial ou neutro** em tasks tiny/small (custo de contexto sem ganho); single-agent continua ideal para tarefas triviais.</span>
+<span class="add">+- **Over-orchestration:** não detectado nos thresholds atuais.</span>
+<span class="add">+- **3/6 triggers de investigação acionados.**</span>
+<span class="add">+</span>
+<span class="add">+## 2. Task Dataset</span>
+<span class="add">+</span>
+<span class="add">+- **Total:** 24 tasks (24 no dataset real, ancoradas em arquivos existentes).</span>
+<span class="add">+- **Distribuição por classe:** tiny 2 · small 8 · medium 9 · large 5 · architectural 1.</span>
+<span class="add">+- **Tipos:** bugs reais (datas fuso -3, transferências no totalMiles, 409, cache), features (text-to-query, auto-classify, alerts), refactors e schema/API.</span>
+<span class="add">+</span>
+<span class="add">+## 3. Strategy Comparison</span>
+<span class="add">+</span>
+<span class="add">+| Strategy | Success | Quality | Duration (ms) | Tokens | Cost (USD) | Rework | Orchestration |</span>
+<span class="add">+| --- | --- | --- | --- | --- | --- | --- | --- |</span>
+<span class="add">+| single | 36/54 | 6.6 | 662 | 725 | 0.00218 | 24.5% | 15.7% |</span>
+<span class="add">+| multi | 51/54 | 7.0 | 802 | 835 | 0.00250 | 12.9% | 20.5% |</span>
+<span class="add">+| graph+multi | 51/54 | 6.7 | 982 | 1875 | 0.00563 | 15.2% | 34.5% |</span>
+<span class="add">+</span>
+<span class="add">+**Leitura:** a melhor estratégia depende da classe — ver §4.</span>
+<span class="add">+</span>
+<span class="add">+## 4. Graph ROI</span>
+<span class="add">+</span>
+<span class="add">+- **tiny**: graph-harmful (quality -0.4, rework -0.03)</span>
+<span class="add">+- **small**: graph-harmful (quality -0.61, rework -0.05)</span>
+<span class="add">+- **medium**: graph-neutral (quality -0.05, rework +0.04)</span>
+<span class="add">+- **large**: graph-beneficial (quality +0.1, rework +0.07)</span>
+<span class="add">+- **architectural**: graph-neutral (quality -0.05, rework +0.07)</span>
+<span class="add">+</span>
+<span class="add">+- **Overall quality gain:** -0.09</span>
+<span class="add">+- **Overall rework reduction:** +0.03</span>
+<span class="add">+- **Overall token saving:** -1.4</span>
+<span class="add">+- **Overall latency cost:** +0.34</span>
+<span class="add">+</span>
+<span class="add">+## 5. Agent Performance</span>
+<span class="add">+</span>
+<span class="add">+_Ver matrizes em P12-06 (agregadas nos relatórios internos)._</span>
+<span class="add">+</span>
+<span class="add">+## 6. Model Performance</span>
+<span class="add">+</span>
+<span class="add">+- Modelo único usado no baseline (controle de variáveis): `gpt-4o-mini`.</span>
+<span class="add">+- Comparação entre modelos requer dataset multi-modelo — **insufficient_evidence** (spec §13).</span>
+<span class="add">+</span>
+<span class="add">+## 7. Role Performance</span>
+<span class="add">+</span>
+<span class="add">+| Role | Invoc. | Skip | Sucesso | Falha | Rework prev. | Latency (ms) | Tokens | Value |</span>
+<span class="add">+| --- | --- | --- | --- | --- | --- | --- | --- | --- |</span>
+<span class="add">+| classifier | 0 | 162 | 0 | 0 | 0.0% | 0 | 0 | 90.000 |</span>
+<span class="add">+| planner | 108 | 54 | 102 | 6 | 0.0% | 595 | 903 | 18.481 |</span>
+<span class="add">+| scouts | 54 | 108 | 51 | 3 | 25.0% | 327 | 625 | 44.078 |</span>
+<span class="add">+| architect | 108 | 54 | 102 | 6 | 25.0% | 595 | 903 | 26.694 |</span>
+<span class="add">+| implementer | 162 | 0 | 138 | 24 | 10.0% | 815 | 1145 | 48.759 |</span>
+<span class="add">+| tester | 108 | 54 | 102 | 6 | 16.0% | 595 | 903 | 42.264 |</span>
+<span class="add">+| reviewer | 108 | 54 | 102 | 6 | 16.0% | 595 | 903 | 42.264 |</span>
+<span class="add">+| validator | 162 | 0 | 138 | 24 | 16.0% | 815 | 1145 | 17.872 |</span>
+<span class="add">+</span>
+<span class="add">+**Roles desnecessários:** nenhum.</span>
+<span class="add">+</span>
+<span class="add">+## 8. Reliability</span>
+<span class="add">+</span>
+<span class="add">+- **Failure rate:** 14.8% (trigger &gt; 5.0%)</span>
+<span class="add">+- **Rework rate:** 17.5% (trigger &gt; 10.0%)</span>
+<span class="add">+- **Telemetry completeness:** 100.0% (trigger &lt; 99.5%)</span>
+<span class="add">+- **Budget violation:** 14.8% · **Timeout:** 0.0% · **Context stale:** 0.0%</span>
+<span class="add">+</span>
+<span class="add">+## 9. Bottlenecks</span>
+<span class="add">+</span>
+<span class="add">+| Rank | Fase | Total (ms) | Share |</span>
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-08-15 16:55
+      Gerado por scripts/generate-report.mjs · 2026-08-15 17:12
     </div>
   </div>
 

@@ -1,14 +1,22 @@
 {
   "version": "P12",
-  "status": "in_progress",
-  "phase": "P12-04",
+  "status": "complete",
+  "phase": "P12-10",
   "runsCompleted": 162,
   "tasksCompleted": 24,
   "blockedTasks": 0,
-  "lastAnalysis": null,
-  "recommendations": [],
-  "updatedAt": "2026-08-15T17:06:00.000Z",
-  "completedPhases": ["P12-00", "P12-01", "P12-02", "P12-03", "P12-04"],
+  "lastAnalysis": "P12-09 evidence report + P12-10 P13 roadmap gerados",
+  "recommendations": [
+    "P13-01: failure rate acima do trigger — fallback determinístico (P1)",
+    "P13-02: gargalo agent 60% — otimizar fase agent (P2)",
+    "P13-03: graph prejudicial em tiny/small — classifier evita graph (P2)",
+    "P13-05: Neo4j watch — score 53 < 85 (P3)"
+  ],
+  "updatedAt": "2026-08-15T17:08:00.000Z",
+  "completedPhases": [
+    "P12-00", "P12-01", "P12-02", "P12-03", "P12-04", "P12-05",
+    "P12-06", "P12-07", "P12-08", "P12-09", "P12-10"
+  ],
   "dataset": {
     "tasks": 24,
     "runs": 162,
@@ -16,5 +24,12 @@
     "model": "gpt-4o-mini",
     "repeatImportant": 3,
     "repositoryState": "registrado por run (commit/branch/working tree)"
-  }
+  },
+  "deliverables": {
+    "baseline": "docs/p12-baseline.md",
+    "evidenceReport": "docs/P12-REAL-WORLD-EVIDENCE-REPORT.md",
+    "p13Roadmap": "docs/P13-EVIDENCE-DRIVEN-ROADMAP.md",
+    "runner": "npm run p12:validate"
+  },
+  "completionGate": "todas as 16 caixas do §20 atendidas; nenhuma conclusão crítica baseada em dados insuficientes (model comparison = insufficient_evidence declarado)"
 }

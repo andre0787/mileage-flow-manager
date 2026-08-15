@@ -1,6 +1,6 @@
 # P13 — Evidence-Driven Roadmap
 
-> Gerado automaticamente em 2026-08-15T20:06:31.022Z a partir do Evidence Report P12.
+> Gerado automaticamente em 2026-08-15T20:11:00.030Z a partir do Evidence Report P12.
 > Princípio: **a próxima melhoria não nasce de uma ideia, nasce de uma evidência.**
 
 ## Matriz de decisão
