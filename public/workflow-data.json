@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-15T02:54:39.321Z",
+  "generatedAt": "2026-08-15T03:24:19.734Z",
   "dataDate": "2026-08-15",
   "kpiStats": [
     {
-      "value": 1211,
+      "value": 1219,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 503,
+      "value": 505,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,17 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 225,
+      "value": 227,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 83,
+      "value": 85,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 57,
+      "value": 58,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,17 +41,17 @@
     },
     {
       "name": "pre-pr",
-      "n": 397,
+      "n": 400,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 441,
+      "n": 442,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 83,
+      "n": 85,
       "color": "#10b981"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 61,
+      "n": 62,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 62,
+      "n": 63,
       "color": "#22c55e"
     },
     {
@@ -108,7 +108,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 171,
+      "n": 173,
       "color": "#84cc16"
     },
     {
@@ -119,53 +119,53 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-15 02:54:34",
+      "t": "2026-08-15 03:24:15",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-15 02:53:15",
+      "t": "2026-08-15 03:22:56",
       "d": "rule:fail",
       "desc": "rule-17-new-docs-valid falhou"
     },
     {
-      "t": "2026-08-15 02:52:37",
-      "d": "rule:fail",
-      "desc": "rule-17-new-docs-valid falhou"
-    },
-    {
-      "t": "2026-08-15 02:52:31",
+      "t": "2026-08-15 03:22:50",
       "d": "healed",
       "desc": "rule-26 auto-corrigido"
     },
     {
-      "t": "2026-08-15 02:52:25",
+      "t": "2026-08-15 03:22:44",
       "d": "code-review:done",
-      "desc": "Review por subagente aprovado — Graph Orchestration (P5-P6)"
+      "desc": "Review por subagente aprovado — Telemetry v5 (P7)"
     },
     {
-      "t": "2026-08-15 02:52:25",
+      "t": "2026-08-15 03:22:44",
       "d": "coding:done",
-      "desc": "P5-P6: adapters (registry/pi/generic) + orchestrator (planner/scheduler/resolver/budget/dispatcher) + graph:plan + pre-pr graph:context"
+      "desc": "P7 Telemetry v5 — envelopeToRecord puro + migration additive + telemetry:persist"
     },
     {
-      "t": "2026-08-15 02:30:19",
+      "t": "2026-08-15 03:02:28",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-15 02:30:19",
+      "t": "2026-08-15 03:02:27",
       "d": "healed",
       "desc": "rule-26 auto-corrigido"
+    },
+    {
+      "t": "2026-08-15 02:54:44",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 441,
-    "healed": 83,
-    "healedRate": 18.8,
-    "prePrTotal": 397,
-    "prePrPass": 307,
-    "prePrPassRate": 77.3,
+    "ruleFails": 442,
+    "healed": 85,
+    "healedRate": 19.2,
+    "prePrTotal": 400,
+    "prePrPass": 310,
+    "prePrPassRate": 77.5,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -185,7 +185,7 @@
       },
       {
         "rule": "rule-17-new-docs-valid",
-        "count": 29,
+        "count": 30,
         "hint": "novo doc criado sem validar referências no MAP.md"
       },
       {
@@ -196,6 +196,24 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 419,
+      "title": "docs: AI-SESSION-STATE — P5-P6 Graph Orchestration (PR #417)",
+      "type": "docs",
+      "date": "2026-08-15",
+      "tokens": 27,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
+    {
+      "number": 417,
+      "title": "feat(ai): P5-P6 Graph Orchestration — adapters + orchestrator",
+      "type": "feat",
+      "date": "2026-08-15",
+      "tokens": 1589,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 415,
       "title": "docs: AI-SESSION-STATE — P5-01 Graph Intelligence Foundation (PR #413)",
@@ -222,24 +240,6 @@
       "tokens": 11,
       "benefit": "Documentação/processo atualizados — mais rastreabilidade",
       "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 409,
-      "title": "feat(owners): chip de cor no OwnerFilter + cor do dono no KPI e Relatórios",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 934,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 407,
-      "title": "docs: AI-SESSION-STATE — filtro por dono em Contas (PR #404)",
-      "type": "docs",
-      "date": "2026-08-14",
-      "tokens": 9,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
     }
   ],
   "overview": {
@@ -247,10 +247,10 @@
     "pages": 16,
     "libs": 26,
     "scripts": 113,
-    "testFiles": 225,
+    "testFiles": 227,
     "skills": 26,
     "rules": 48,
-    "events": 1211,
-    "qualityNotes": 503
+    "events": 1219,
+    "qualityNotes": 505
   }
 }
