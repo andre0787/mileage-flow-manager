@@ -1,8 +1,9 @@
-# AI Session State - 2026-08-14T23:30:00.000Z
+# AI Session State - 2026-08-14T23:45:00.000Z
 
 ## Última Task
 
-- Feature **cor customizada por dono** (PR #401): **Concluído** — seletor de cor no cadastro/edição de donos (OwnerSection), campo `owners.color` persistido (migration `20260814230000` aplicada no remoto via `supabase db push`), fallback para hash FNV-1a quando ausente. Cor aplicada nas 3 superfícies (AccountCard, EntryTable, SaleTable). Council em `docs/council/2026-08-14-owner-custom-color-veredito.md`.
+- Feature **filtro por dono na aba Contas** (PR #404): **Concluído** — OwnerFilter na barra de filtros de Contas, combina com o filtro de tipo (Todas/Pontos/Milhas), reset da paginação ao trocar dono. Mesmo padrão de Entradas/Vendas/Relatórios.
+- (Antes) Feature **cor customizada por dono** (PR #401): **Concluído** — seletor de cor no cadastro/edição de donos (OwnerSection), campo `owners.color` persistido (migration `20260814230000` aplicada no remoto via `supabase db push`), fallback para hash FNV-1a quando ausente. Cor aplicada nas 3 superfícies (AccountCard, EntryTable, SaleTable). Council em `docs/council/2026-08-14-owner-custom-color-veredito.md`.
 
 ## Estado dos Testes & Qualidade
 
@@ -22,6 +23,7 @@
 - `src/components/SaleTable.tsx` + `src/pages/Vendas.tsx` (chip com cor custom via `ownerCustomColors`)
 - `tests/unit/ownerColors.test.ts` (+4: precedência custom > hash, isValidHex) e `tests/unit/features-owners-api.test.ts` (+1 insert com color)
 - `docs/council/2026-08-14-owner-custom-color-veredito.md` (veredito council)
+- `src/pages/Contas.tsx` (PR #404 — OwnerFilter na barra de filtros, combina com tipo, reset de página)
 
 ## Pendências Imediatas (Next Step)
 
@@ -31,4 +33,4 @@
 
 - **Tokens Utilizados:** ~13K acumulado (ai_telemetry)
 - **Poda (Pruning):** 0 linhas removidas no último turno
-- **Branch Atual:** main (PRs #380..#401 merged — nenhum aberto)
+- **Branch Atual:** main (PRs #380..#404 merged — nenhum aberto)
