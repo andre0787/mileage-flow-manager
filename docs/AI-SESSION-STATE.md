@@ -1,27 +1,34 @@
-# AI Session State - 2026-08-15T17:30:00.000Z
+# AI Session State - 2026-08-15T18:10:00.000Z
 
 ## Última Task
 
-- **P12 Real-World Validation mergeado** (PR #445 → main `ef5b4b5`): 11 fases implementadas (dataset real 24 tasks, runner 162 runs × 3 estratégias, reliability/bottlenecks, matrizes agent/model/role, Graph ROI honesto, workflow efficiency), Evidence Report + P13 Roadmap gerados via `npm run p12:validate`, 1129 testes, pre-pr 0 errors.
-- **ROADMAP.md:** adicionada entrada **#6 na seção ✅ Concluído** — **P12 — Real-World Validation completo (11 fases)** com referência ao PR #445 (branch `docs/roadmap-p12`).
+- **Auditoria de docs do projeto** (branch `docs/audit-docs-p11-p12`): todas as docs atualizadas para refletir P11/P12:
+  - `docs/MAP.md` — seção STRUCTURE regenerada via `map:sync` (agora inclui `src/ai/`, `features/`, `ai-engineering`)
+  - `docs/ARCHITECTURE.md` — camada AI Core (core/adapters/orchestration/execution/telemetry/graph/benchmark/validation), Feature-First, KPI/observabilidade
+  - `docs/STACK.md` — comandos P11/P12 (`ai:p11:score`, `p12:validate`, `exec:run:real`, `map:sync`) + deps (tsx, CRG)
+  - `docs/GRAPH-INTELLIGENCE.md` — seções P11-04 (metrics/graph-value/context) e P12-07 (readiness 0..100, ROI)
+  - `docs/RULES.md` — regras 43-48 adicionadas
+  - `docs/WORKFLOW-MANIFEST.md` — histórico 2026-08-15 (P11 + P12) + prompt:manifest
+  - `docs/WORKFLOW-QUICKSTART.md` — scripts novos na tabela
+  - `docs/handoff.md` — snapshot regenerado
 
 ## Estado dos Testes & Qualidade
 
-- **check:fast:** ✅ (typecheck/lint/format/test/verify-docs)
-- **Testes:** 1129 unit passando (133 files)
-- **pre-pr:** pendente rodar após AI-SESSION-STATE (branch docs)
+- **check:fast:** ✅ · **verify-docs:strict:** ✅
+- **pre-pr:** ✅ 0 errors (rule-29 prompt:manifest ok, rule-38 evento registrado)
+- **Testes:** 1129 unit passando
 
 ## Arquivos Modificados & Impacto
 
-- `docs/ROADMAP.md` — entrada #6 na seção ✅ Concluído (P12, PR #445)
-- `docs/AI-SESSION-STATE.md` — este estado
+- docs: MAP, ARCHITECTURE, STACK, GRAPH-INTELLIGENCE, RULES, WORKFLOW-MANIFEST, WORKFLOW-QUICKSTART, handoff, AI-SESSION-STATE
+- `.prompts-manifest.json` (rule-29)
 
 ## Pendências Imediatas (Next Step)
 
-- pre-pr (0 errors) → commit → push + PR docs/roadmap-p12 → merge
+- commit → push + PR docs/audit-docs-p11-p12 → merge
 
 ## Governança de Contexto
 
-- **Tokens Utilizados:** ~90K acumulado (ai_telemetry)
+- **Tokens Utilizados:** ~95K acumulado (ai_telemetry)
 - **Poda (Pruning):** 0 linhas removidas no último turno
-- **Branch Atual:** docs/roadmap-p12 (main em ef5b4b5, PR #445 merged)
+- **Branch Atual:** docs/audit-docs-p11-p12 (main em c7ed0f6)

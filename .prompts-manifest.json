@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-14T04:13:32.092Z",
+  "updatedAt": "2026-08-15T20:57:40.361Z",
   "prompts": {
     ".pi/skills/code-review-graph/SKILL.md": "sha256-b0a1a323e4979fac77f70da66b364098252dc2c9623688a95a9ef2e39fa0963b",
     ".pi/skills/council-to-superpowers/SKILL.md": "sha256-424faade51fe07225ad5e4958685daf4181be98cbb5d98d2a07ec8e9aecbb69a",
@@ -17,7 +17,7 @@
     "CLAUDE.md": "sha256-051e5599efd15f4e716edf63dcb3b1da2d23fdcd3728e80831e8adaabab68d87",
     "docs/tasks/AGENTS.override.md": "sha256-28738b9893ae399d5d2dc6fa55c0ce6e0d1e40d38166b54e5e30dbe0def11f5e",
     "docs/CONTEXT-MANAGEMENT.md": "sha256-9711e3381ed5661bee1f55454614844a3ea65377ed0881b8f787ebd86a90c3ea",
-    "docs/WORKFLOW-MANIFEST.md": "sha256-26f2ee9302c7719c18f7f3322486c968a6839650f3dd125bf00fa6504fd99a93",
+    "docs/WORKFLOW-MANIFEST.md": "sha256-3da3674f2eff3dc2c0e13cc71c7ab922f0dbeba02c10297a005e34c4fb348c1b",
     "docs/WORKFLOW.md": "sha256-d03dbaed8acfac548bd63e9f6ae560da1fd01df583ac824de83959c3560ed2ec"
   }
 }

@@ -41,6 +41,10 @@
 | `npm run context:audit`                                                   | Mede consumo de tokens do workflow (telemetria lida por tail — ágil) |
 | `npm run context:trim`                                                    | Rota telemetria (events/quality) — mantém ágil                       |
 | `npm run session:end "msg"`                                               | commit + handoff + push em 1 comando                                 |
+| `npm run ai:p11:score`                                                    | Certificação P11 (15 eixos ≥ 9,5) — gate de arquitetura AI           |
+| `npm run p12:validate`                                                    | P12: roda 162 runs reais e regenera Evidence Report + P13 Roadmap    |
+| `npm run exec:run:real <taskId>`                                          | Pipeline §3 real via dispatcher TS (telemetria persistível)          |
+| `npm run map:sync`                                                        | Regenera a seção de estrutura do `docs/MAP.md`                       |
 
 ## Gates essenciais (não puláveis)
 

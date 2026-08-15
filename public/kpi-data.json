@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T20:41:11.584Z",
+  "generatedAt": "2026-08-15T21:01:17.032Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,9 +174,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 81.3,
-      "prePrTotal": 402,
-      "prePrPass": 327,
+      "prePrPassRate": 80.8,
+      "prePrTotal": 390,
+      "prePrPass": 315,
       "prePrFail": 75,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -185,19 +185,19 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 92.3,
+      "avgOutcomeGrade": 92.4,
       "topViolations": [
         {
           "rule": "rule-10-clean",
-          "count": 164
+          "count": 162
         },
         {
           "rule": "rule-38-code-review-gate",
-          "count": 44
+          "count": 47
         },
         {
           "rule": "rule-26-session-started",
-          "count": 38
+          "count": 35
         },
         {
           "rule": "rule-scope",
@@ -209,7 +209,7 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 74,
+        "rule-26": 75,
         "rule-17-new-docs-valid": 22,
         "rule-02": 1
       },
@@ -217,21 +217,19 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.6,
-      "branchesMerged": 113,
-      "violationsCaught": 442,
-      "healedRate": 21.9,
-      "frictionPerPass": 1.35,
+      "branchesMerged": 112,
+      "violationsCaught": 443,
+      "healedRate": 22.1,
+      "frictionPerPass": 1.41,
       "llmRouter": {
-        "resolved": 35,
+        "resolved": 34,
         "completed": 0,
-        "failed": 1,
+        "failed": 0,
         "unobserved": 26,
         "fallbackUsed": 0,
         "completionRate": 0,
         "fallbackRate": null,
-        "models": [
-          "openai-codex/gpt-5.4-mini"
-        ],
+        "models": [],
         "skillsByModel": []
       }
     }
@@ -461,15 +459,15 @@
     {
       "day": "2026-08-03",
       "label": "03/08",
-      "prePrTotal": 25,
-      "prePrPass": 25,
+      "prePrTotal": 8,
+      "prePrPass": 8,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 25,
+      "ruleFails": 20,
       "healed": 0,
-      "sessions": 2,
-      "merges": 6,
-      "friction": 1
+      "sessions": 1,
+      "merges": 4,
+      "friction": 2.5
     },
     {
       "day": "2026-08-04",
@@ -617,18 +615,27 @@
     {
       "day": "2026-08-15",
       "label": "15/08",
-      "prePrTotal": 53,
-      "prePrPass": 53,
+      "prePrTotal": 58,
+      "prePrPass": 58,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 46,
-      "healed": 18,
-      "sessions": 2,
-      "merges": 17,
-      "friction": 0.87
+      "ruleFails": 52,
+      "healed": 19,
+      "sessions": 3,
+      "merges": 18,
+      "friction": 0.9
     }
   ],
   "prs": [
+    {
+      "number": 447,
+      "title": "docs: ROADMAP — P12 Master Real-World Validation concluído",
+      "type": "docs",
+      "date": "2026-08-15",
+      "tokens": 465,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
     {
       "number": 445,
       "title": "feat: P12 Real-World Validation — dataset real, estratégias, evidências e roadmap P13",
@@ -709,15 +716,6 @@
       "tokens": 747,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 427,
-      "title": "docs: AI-SESSION-STATE — Agent Execution Core (PR #425)",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 26,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
     }
   ],
   "repo": {
@@ -728,16 +726,16 @@
     "testFiles": 251,
     "skills": 26,
     "rules": 48,
-    "events": 1224,
-    "qualityNotes": 548
+    "events": 1213,
+    "qualityNotes": 556
   },
   "summary": {
-    "merges": 113,
+    "merges": 112,
     "prs": 6,
     "sessions": 70,
-    "violations": 442,
-    "healed": 97,
-    "prePrPassRate": 81.3
+    "violations": 443,
+    "healed": 98,
+    "prePrPassRate": 80.8
   },
   "telemetry": []
 }

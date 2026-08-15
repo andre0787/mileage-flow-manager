@@ -203,3 +203,4 @@ Este manifesto é referenciado por:
 |------|---------|
 | 2026-07-18 | Criação — consolida WORKFLOW.md, AGENTS.md, README.md |
 | 2026-08-10 | Blueprint v4.0 P0 (PR #333) — infraestrutura Feature-First: `graph:generate` (dependency-graph.json), `map:sync`, rules 40/41 (Architect/Optimizer) com validação; P1 (features/ + RTK Query) vira cards por domínio |
+| 2026-08-15 | P11 (PR #441) — Master Implementation Plan 11 fases: adapters reais, reliability, telemetry E2E, graph metrics, adaptive orchestration, benchmark, Neo4j readiness, KPI/Workflow UIs, certificação `ai:p11:score` 10.00; gates rule-41..48 adicionados. P12 (PR #445) — Real-World Validation: dataset real 24 tasks, runner 162 runs × 3 estratégias, Evidence Report + P13 Roadmap (`p12:validate`); princípio "não otimizar antes de medir" (mudanças → recomendações P13) |

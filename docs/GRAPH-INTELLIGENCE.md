@@ -142,8 +142,32 @@ dispatcher). Regra-31: toda lib em `src/lib` (e `src/ai`) tem teste unitário.
 - **pre-pr**: roda `graph:context` e reporta a redução estimada de tokens do
   diff (fail-open — CRG ausente → skip).
 
+## P11-04 — Graph & Context Intelligence (P11, PR #441)
+
+- **`src/ai/graph/metrics.ts`** — p50/p95/p99 de query, cache hit rate, multi-hop
+  ratio (análise de latência do graph engine).
+- **`src/ai/graph/graph-value.ts`** — comparativo graph-assisted vs non-graph
+  (quality/rework/tokens/latency) para decidir quando o graph agrega.
+- **`src/ai/core/context-packet.ts`** — estendido com contextos específicos
+  (graph/domain/history/test), `confidence`, `freshness` e `source_count`.
+
+## P11-07 / P12-07 — Neo4j Readiness & ROI (P11 + P12, PRs #441/#445)
+
+- **`src/ai/graph/readiness.ts`** — score **0..100** composto por workload real
+  (multi-hop ratio, query p95, volume de runs) + histórico persistido
+  (`readiness-config.ts` com thresholds configuráveis). O score legado 0..1
+  continua exportado do engine como `legacyReadinessBand`.
+- **Recomendação PoC** apenas quando `score >= 85` de forma persistente — nunca
+  migra automaticamente (P4).
+- **P12-07** — `analyzeGraphRoi` (em `src/ai/validation/graph-roi.ts`) mede
+  graph_quality_gain / rework_reduction / token_saving / latency_cost por classe
+  de task. Resultado P12: graph **benéfico em large**, **prejudicial em
+  tiny/small**; Neo4j score 53 → WATCH (ver `docs/P12-REAL-WORLD-EVIDENCE-REPORT.md`).
+
 ## Roadmap (SDD seção 28)
 
 P0-P4 (Foundation→Domain/Workflow Graphs) em fases futuras; **P5 Agent
 Contracts** e **P6 Multi-Agent Orchestration** (este PR) → P7 Telemetry v5 →
 P8 Optimization → P9/P10 Neo4j (somente se `graph:neo4j-readiness` acionar).
+A P12 (measure) registrou que graph+multi só compensa em tasks medium/large
+com alto graphRisk — melhorias de graph na P13 devem nascer dessa evidência.

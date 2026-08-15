@@ -27,6 +27,20 @@ npx playwright test --reporter=list --workers=1  # E2E
 vercel --prod                         # Deploy manual
 ```
 
+### Comandos do AI Core (SDD v5.0 — P11/P12)
+
+```bash
+npm run check:fast                    # typecheck + lint + format + test + verify-docs
+npm run pre-pr                        # relatório obrigatório antes de todo PR
+npm run ai:p11:score                  # certificação P11 (15 eixos ≥ 9,5)
+npm run p12:validate                  # P12: roda 162 runs e gera Evidence Report + P13 Roadmap
+npm run exec:run:real <taskId>        # pipeline §3 real via dispatcher TS (tsx)
+TELEMETRY_PERSIST=1 npm run exec:run:real <taskId>  # grava envelopes.jsonl
+npm run graph:status                  # estado do grafo (CRG --json)
+npm run graph:impact <alvo>           # nós alcançáveis a partir de um arquivo/símbolo
+npm run map:sync                      # regenera seção STRUCTURE do docs/MAP.md
+```
+
 ## Variáveis de Ambiente
 
 | Variável | Obrigatória | Descrição |
@@ -51,6 +65,8 @@ vercel --prod                         # Deploy manual
 - `typescript` — type checking
 - `eslint` — linting
 - `tailwindcss` — CSS utility-first
+- `tsx` — runner de scripts TS com alias `@/` (exec:run:real, p12:validate)
+- `code-review-graph` (CLI, v2.3.7+) — grafo estrutural tree-sitter (graph:status/impact/…)
 
 ## Agente (pi / opencode)
 

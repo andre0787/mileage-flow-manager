@@ -51,4 +51,10 @@
 | 40     | Estrutura Feature-First (barrel + RLS)            | `rule-40-architect.mjs`                                 | automática               |
 | 41     | Hard limit 150 linhas (diff-scoped)               | `rule-41-optimizer.mjs`                                 | automática               |
 | 42     | Cobertura de testes ≥ 75% de linhas (gate)        | `rule-42-coverage-gate.mjs`                             | automática               |
+| 43     | Migrations imutáveis + RLS auth.uid()             | `rule-43-migration-gate.mjs`                            | automática               |
+| 44     | RTK createEntityAdapter sem `any` em slices       | `rule-44-rtk-auditor.mjs`                               | automática               |
+| 45     | React 19 Compliance (use()/useActionState, sem any)| `rule-45-react19-compliance.mjs`                        | automática               |
+| 46     | Token Sentinel (AI-SESSION-STATE ≤ 50 linhas)     | `rule-46-token-sentinel.mjs`                            | automática               |
+| 47     | MCP Bridge (config/skill + extensão versionada)   | `rule-47-mcp-bridge.mjs`                                | automática               |
+| 48     | Telemetry Auditor (aiTelemetry + RLS)             | `rule-48-telemetry-auditor.mjs`                         | automática               |
 | escopo | Diff dentro de `arquivosPermitidos` do card ativo | `rule-scope.mjs`                                        | automática               |
