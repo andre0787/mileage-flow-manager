@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T21:17:14.324Z",
+  "generatedAt": "2026-08-15T23:27:17.597Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,10 +174,10 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 81,
-      "prePrTotal": 395,
-      "prePrPass": 320,
-      "prePrFail": 75,
+      "prePrPassRate": 80.9,
+      "prePrTotal": 387,
+      "prePrPass": 313,
+      "prePrFail": 74,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -185,42 +185,42 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 92.5,
+      "avgOutcomeGrade": 92.4,
       "topViolations": [
         {
           "rule": "rule-10-clean",
-          "count": 162
+          "count": 151
         },
         {
           "rule": "rule-38-code-review-gate",
-          "count": 48
+          "count": 52
         },
         {
           "rule": "rule-26-session-started",
-          "count": 35
+          "count": 34
         },
         {
           "rule": "rule-scope",
           "count": 32
         },
         {
-          "rule": "rule-17-new-docs-valid",
-          "count": 31
+          "rule": "rule-39-coding-gate",
+          "count": 29
         }
       ],
       "healedByRule": {
-        "rule-26": 76,
-        "rule-17-new-docs-valid": 22,
+        "rule-26": 77,
+        "rule-17-new-docs-valid": 23,
         "rule-02": 1
       },
       "gateBlockedByRule": {
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.6,
-      "branchesMerged": 113,
-      "violationsCaught": 444,
-      "healedRate": 22.3,
-      "frictionPerPass": 1.39,
+      "branchesMerged": 110,
+      "violationsCaught": 439,
+      "healedRate": 23,
+      "frictionPerPass": 1.4,
       "llmRouter": {
         "resolved": 34,
         "completed": 0,
@@ -459,28 +459,28 @@
     {
       "day": "2026-08-03",
       "label": "03/08",
-      "prePrTotal": 8,
-      "prePrPass": 8,
+      "prePrTotal": 0,
+      "prePrPass": 0,
       "prePrFail": 0,
-      "prePrPassRate": 100,
-      "ruleFails": 20,
+      "prePrPassRate": null,
+      "ruleFails": 0,
       "healed": 0,
-      "sessions": 1,
-      "merges": 4,
-      "friction": 2.5
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     },
     {
       "day": "2026-08-04",
       "label": "04/08",
-      "prePrTotal": 26,
+      "prePrTotal": 25,
       "prePrPass": 8,
-      "prePrFail": 18,
-      "prePrPassRate": 30.8,
-      "ruleFails": 41,
+      "prePrFail": 17,
+      "prePrPassRate": 32,
+      "ruleFails": 38,
       "healed": 0,
       "sessions": 6,
       "merges": 4,
-      "friction": 5.13
+      "friction": 4.75
     },
     {
       "day": "2026-08-05",
@@ -615,18 +615,27 @@
     {
       "day": "2026-08-15",
       "label": "15/08",
-      "prePrTotal": 63,
-      "prePrPass": 63,
+      "prePrTotal": 64,
+      "prePrPass": 64,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 53,
-      "healed": 20,
-      "sessions": 3,
-      "merges": 19,
-      "friction": 0.84
+      "ruleFails": 71,
+      "healed": 22,
+      "sessions": 5,
+      "merges": 20,
+      "friction": 1.11
     }
   ],
   "prs": [
+    {
+      "number": 450,
+      "title": "chore: limpeza do repositório — branches órfãs e fable-gates no MAP",
+      "type": "chore",
+      "date": "2026-08-15",
+      "tokens": 560,
+      "benefit": "Ajuste de processo validado",
+      "impact": "Processo mais confiável e audável"
+    },
     {
       "number": 448,
       "title": "docs: auditoria geral — docs atualizadas para P11/P12",
@@ -707,35 +716,26 @@
       "tokens": 515,
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção"
-    },
-    {
-      "number": 431,
-      "title": "docs: AI-SESSION-STATE — Agent Execution Spec v5 completa (PR #428)",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 25,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
     }
   ],
   "repo": {
     "components": 122,
     "pages": 16,
     "libs": 33,
-    "scripts": 116,
-    "testFiles": 251,
+    "scripts": 117,
+    "testFiles": 253,
     "skills": 26,
     "rules": 48,
-    "events": 1221,
-    "qualityNotes": 561
+    "events": 1215,
+    "qualityNotes": 566
   },
   "summary": {
-    "merges": 113,
+    "merges": 110,
     "prs": 6,
-    "sessions": 70,
-    "violations": 444,
-    "healed": 99,
-    "prePrPassRate": 81
+    "sessions": 71,
+    "violations": 439,
+    "healed": 101,
+    "prePrPassRate": 80.9
   },
   "telemetry": []
 }

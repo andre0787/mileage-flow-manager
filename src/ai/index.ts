@@ -44,3 +44,4 @@ export * from "./execution/graph-freshness";
 export * from "./execution/final-validator";
 export * from "./execution/reviewer";
 export * from "./validation";
+export * from "./e2e";

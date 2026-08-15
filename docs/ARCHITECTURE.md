@@ -83,6 +83,7 @@ P12 (measure):
 - **`src/pages/Workflow.tsx`** — DAG do pipeline real (`WorkflowPipelineDag`) com inspeção
   por node e Why? (explicabilidade da orquestração).
 - **Relatórios P12:** `docs/P12-REAL-WORLD-EVIDENCE-REPORT.md` + `docs/P13-EVIDENCE-DRIVEN-ROADMAP.md`
+- **P12.5 (Public Demo / Agentic E2E):** módulo `src/ai/e2e/` (demo tenant, access gate, lifecycle, limits, browser adapter, scenarios, evidence, QA/Triage/Fix agents, regression, KPI, security) + docs [P12.5-BASELINE](P12.5-BASELINE.md), [P12.5-THREAT-MODEL](P12.5-THREAT-MODEL.md), [P12.5-EVIDENCE-REPORT](P12.5-EVIDENCE-REPORT.md). Comandos: `npm run p12.5:validate` e `npm run ai:p12.5:score`. Autonomia capped no Level 3.
   gerados por `npm run p12:validate`.
 
 ## Rotas

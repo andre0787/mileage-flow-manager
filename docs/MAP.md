@@ -578,3 +578,6 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/P12-REAL-WORLD-EVIDENCE-REPORT.md` (auto) | 2026-08-15 |
 | `docs/P13-EVIDENCE-DRIVEN-ROADMAP.md` (auto) | 2026-08-15 |
 | `docs/p12-baseline.md` (auto) | 2026-08-15 |
+| `docs/P12.5-BASELINE.md` (auto) | 2026-08-15 |
+| `docs/P12.5-EVIDENCE-REPORT.md` (auto) | 2026-08-15 |
+| `docs/P12.5-THREAT-MODEL.md` (auto) | 2026-08-15 |
