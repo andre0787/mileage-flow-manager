@@ -1224,5 +1224,9 @@
 {"timestamp":"2026-08-14T23:20:59.713Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/contas-filtro-dono","commit":"7a2b431","agent":"human","errors":0}
 {"timestamp":"2026-08-14T23:21:07.701Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/contas-filtro-dono","commit":"7a2b431","agent":"human","errors":0}
 {"timestamp":"2026-08-14T23:27:07.821Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/contas-filtro-dono","commit":"39ff6af","agent":"human","errors":0}
-{"timestamp":"2026-08-14T23:32:33.032Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/ai-session-state-contas-filtro","commit":"092ee3d","agent":"human","rule":"rule-26"}
-{"timestamp":"2026-08-14T23:32:33.435Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/ai-session-state-contas-filtro","commit":"092ee3d","agent":"human","errors":0}
+{"timestamp":"2026-08-15T01:54:18.150Z","type":"coding:done","description":"Chip de cor no OwnerFilter + cor do dono no BusinessBreakdown (KPI) e Relatórios","branch":"feat/owner-color-chips-filtros-kpi","commit":"092ee3d","agent":"human","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-08-15T01:54:18.184Z","type":"code-review:done","description":"Review por subagente aprovado — chips de cor em filtros/KPI/Relatórios","branch":"feat/owner-color-chips-filtros-kpi","commit":"092ee3d","agent":"human","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-08-15T01:54:19.503Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/owner-color-chips-filtros-kpi","commit":"092ee3d","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-15T01:54:53.625Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-color-chips-filtros-kpi","commit":"092ee3d","agent":"human","errors":0}
+{"timestamp":"2026-08-15T01:55:02.052Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-color-chips-filtros-kpi","commit":"092ee3d","agent":"human","errors":0}
+{"timestamp":"2026-08-15T02:01:32.017Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-color-chips-filtros-kpi","commit":"bbf85a7","agent":"human","errors":0}

@@ -125,7 +125,13 @@ export default function KPIDashboard({ data }: { data: KpiData }) {
 
       {!isLoading && <BusinessPanel metrics={metrics} daily={dailyBusiness} />}
 
-      {!isLoading && <BusinessBreakdown owners={ownersBreakdown} programs={programsBreakdown} />}
+      {!isLoading && (
+        <BusinessBreakdown
+          owners={ownersBreakdown}
+          programs={programsBreakdown}
+          ownerColorsByName={Object.fromEntries(owners.map((o) => [o.name, o.color ?? null]))}
+        />
+      )}
 
       <ProcessDailySection daily={data.daily} />
 

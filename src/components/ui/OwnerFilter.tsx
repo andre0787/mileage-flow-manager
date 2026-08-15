@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ownerColor } from "@/lib/ownerColors";
 import type { Owner } from "@/types";
 
 interface OwnerFilterProps {
@@ -36,7 +37,14 @@ export function OwnerFilter({ owners, value, onChange, className = "" }: OwnerFi
         <SelectItem value={ALL_OWNERS}>Todos os Donos</SelectItem>
         {owners.map((owner) => (
           <SelectItem key={owner.id} value={owner.id}>
-            {owner.name}
+            <span className="flex items-center gap-2">
+              <span
+                className="h-2.5 w-2.5 rounded-full shrink-0"
+                style={{ backgroundColor: ownerColor(owner.name, owner.color) }}
+                aria-hidden
+              />
+              {owner.name}
+            </span>
           </SelectItem>
         ))}
       </SelectContent>

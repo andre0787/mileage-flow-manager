@@ -32,6 +32,7 @@ import { toast } from "sonner";
 import { SearchInput } from "@/components/ui/SearchInput";
 import { useSmartQuery, periodFromFilter } from "@/hooks/useSmartQuery";
 import { calcProfitMargin, calcROI, calcWeightedAverageCost } from "@/lib/metrics";
+import { ownerColor } from "@/lib/ownerColors";
 import { downloadCSV } from "@/lib/utils";
 import { parseDateOnly } from "@/lib/dateUtils";
 import { PERIOD_OPTIONS } from "@/lib/dates";
@@ -449,88 +450,114 @@ export default function Relatorios() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredOwnerReports.map((report) => (
-                  <TableRow key={report.ownerName}>
-                    <TableCell className="hidden md:table-cell font-medium">
-                      {report.ownerName}
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      {report.totalPointsAcquired.toLocaleString("pt-BR")}
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      R$ {report.totalAmountInvested.toLocaleString("pt-BR")}
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      {report.totalMilesGenerated.toLocaleString("pt-BR")}
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      R$ {report.totalRevenue.toLocaleString("pt-BR")}
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell font-semibold text-success">
-                      R$ {report.totalProfit.toLocaleString("pt-BR")}
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      <Badge variant="outline">{report.profitMargin.toFixed(1)}%</Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      <Badge variant={report.roi >= 20 ? "default" : "secondary"}>
-                        {report.roi.toFixed(1)}%
-                      </Badge>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {filteredOwnerReports.map((report) => {
+                  const reportOwnerColor = ownerColor(
+                    report.ownerName,
+                    owners.find((o) => o.name === report.ownerName)?.color ?? null,
+                  );
+                  return (
+                    <TableRow key={report.ownerName}>
+                      <TableCell className="hidden md:table-cell font-medium">
+                        <span className="inline-flex items-center gap-2">
+                          <span
+                            className="h-2.5 w-2.5 rounded-full shrink-0"
+                            style={{ backgroundColor: reportOwnerColor }}
+                            aria-hidden
+                          />
+                          {report.ownerName}
+                        </span>
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {report.totalPointsAcquired.toLocaleString("pt-BR")}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        R$ {report.totalAmountInvested.toLocaleString("pt-BR")}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {report.totalMilesGenerated.toLocaleString("pt-BR")}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        R$ {report.totalRevenue.toLocaleString("pt-BR")}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell font-semibold text-success">
+                        R$ {report.totalProfit.toLocaleString("pt-BR")}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        <Badge variant="outline">{report.profitMargin.toFixed(1)}%</Badge>
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        <Badge variant={report.roi >= 20 ? "default" : "secondary"}>
+                          {report.roi.toFixed(1)}%
+                        </Badge>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </div>
 
           {/* Mobile card list - Owner Performance */}
           <div className="md:hidden space-y-3 mt-4">
-            {filteredOwnerReports.map((report) => (
-              <div key={report.ownerName} className="border rounded-lg p-4 space-y-3">
-                <div className="flex items-center justify-between">
-                  <p className="font-semibold text-base">{report.ownerName}</p>
-                  <Badge variant={report.roi >= 20 ? "default" : "secondary"}>
-                    ROI {report.roi.toFixed(1)}%
-                  </Badge>
+            {filteredOwnerReports.map((report) => {
+              const reportOwnerColor = ownerColor(
+                report.ownerName,
+                owners.find((o) => o.name === report.ownerName)?.color ?? null,
+              );
+              return (
+                <div key={report.ownerName} className="border rounded-lg p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <p className="flex items-center gap-2 font-semibold text-base">
+                      <span
+                        className="h-2.5 w-2.5 rounded-full shrink-0"
+                        style={{ backgroundColor: reportOwnerColor }}
+                        aria-hidden
+                      />
+                      {report.ownerName}
+                    </p>
+                    <Badge variant={report.roi >= 20 ? "default" : "secondary"}>
+                      ROI {report.roi.toFixed(1)}%
+                    </Badge>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <div>
+                      <span className="text-muted-foreground text-xs">Pontos Adquiridos:</span>
+                      <p className="font-semibold">
+                        {report.totalPointsAcquired.toLocaleString("pt-BR")}
+                      </p>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground text-xs">Investimento:</span>
+                      <p className="font-semibold">
+                        R$ {report.totalAmountInvested.toLocaleString("pt-BR")}
+                      </p>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground text-xs">Milhas Geradas:</span>
+                      <p className="font-semibold">
+                        {report.totalMilesGenerated.toLocaleString("pt-BR")}
+                      </p>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground text-xs">Faturamento:</span>
+                      <p className="font-semibold">
+                        R$ {report.totalRevenue.toLocaleString("pt-BR")}
+                      </p>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground text-xs">Lucro:</span>
+                      <p className="font-semibold text-success">
+                        R$ {report.totalProfit.toLocaleString("pt-BR")}
+                      </p>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground text-xs">Margem:</span>
+                      <p className="font-semibold">{report.profitMargin.toFixed(1)}%</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-sm">
-                  <div>
-                    <span className="text-muted-foreground text-xs">Pontos Adquiridos:</span>
-                    <p className="font-semibold">
-                      {report.totalPointsAcquired.toLocaleString("pt-BR")}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground text-xs">Investimento:</span>
-                    <p className="font-semibold">
-                      R$ {report.totalAmountInvested.toLocaleString("pt-BR")}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground text-xs">Milhas Geradas:</span>
-                    <p className="font-semibold">
-                      {report.totalMilesGenerated.toLocaleString("pt-BR")}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground text-xs">Faturamento:</span>
-                    <p className="font-semibold">
-                      R$ {report.totalRevenue.toLocaleString("pt-BR")}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground text-xs">Lucro:</span>
-                    <p className="font-semibold text-success">
-                      R$ {report.totalProfit.toLocaleString("pt-BR")}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground text-xs">Margem:</span>
-                    <p className="font-semibold">{report.profitMargin.toFixed(1)}%</p>
-                  </div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
             {filteredOwnerReports.length === 0 && (
               <div className="text-center py-8 text-muted-foreground">
                 Nenhum relatório encontrado para os filtros selecionados
