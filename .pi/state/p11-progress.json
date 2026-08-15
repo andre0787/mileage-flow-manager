@@ -1,10 +1,10 @@
 {
   "version": "P11",
-  "currentPhase": "P11-04",
+  "currentPhase": "P11-05",
   "status": "in_progress",
-  "completedPhases": ["P11-00", "P11-01", "P11-02", "P11-03"],
+  "completedPhases": ["P11-00", "P11-01", "P11-02", "P11-03", "P11-04"],
   "blockedPhases": [],
-  "lastValidation": "P11-03 passed — envelope completo (runId/planId/stepId/cost) + model identity obrigatória + completeness checker (≥99,5%); 134 testes",
+  "lastValidation": "P11-04 passed — graph metrics (p50/p95/p99, cache, multi-hop) + graph value comparator + Context Packet estendido; 144 testes",
   "lastScore": null,
-  "updatedAt": "2026-08-15T14:12:00.000Z"
+  "updatedAt": "2026-08-15T14:13:00.000Z"
 }
