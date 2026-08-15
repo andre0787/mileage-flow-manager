@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-08-15T04:18:05.406Z",
+  "generatedAt": "2026-08-15T06:29:50.001Z",
   "dataDate": "2026-08-15",
   "kpiStats": [
     {
-      "value": 1234,
+      "value": 1238,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
@@ -23,7 +23,7 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 88,
+      "value": 89,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 406,
+      "n": 409,
       "color": "#8b5cf6"
     },
     {
@@ -51,7 +51,7 @@
     },
     {
       "name": "healed",
-      "n": 88,
+      "n": 89,
       "color": "#10b981"
     },
     {
@@ -119,6 +119,26 @@
   ],
   "recentTimeline": [
     {
+      "t": "2026-08-15 04:30:15",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-15 04:30:15",
+      "d": "healed",
+      "desc": "rule-26 auto-corrigido"
+    },
+    {
+      "t": "2026-08-15 04:24:35",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-15 04:18:10",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
       "t": "2026-08-15 04:18:00",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
@@ -137,35 +157,15 @@
       "t": "2026-08-15 04:15:14",
       "d": "code-review:done",
       "desc": "Review por subagente aprovado — Agent Execution Spec completa"
-    },
-    {
-      "t": "2026-08-15 04:15:14",
-      "d": "coding:done",
-      "desc": "Spec v5 completo — reviewer §20 + domain tables §16 + exec:run/exec:review (P8)"
-    },
-    {
-      "t": "2026-08-15 04:01:41",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-15 03:54:18",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-15 03:54:07",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 444,
-    "healed": 88,
-    "healedRate": 19.8,
-    "prePrTotal": 406,
-    "prePrPass": 316,
-    "prePrPassRate": 77.8,
+    "healed": 89,
+    "healedRate": 20,
+    "prePrTotal": 409,
+    "prePrPass": 319,
+    "prePrPassRate": 78,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -195,53 +195,7 @@
       }
     ]
   },
-  "lastPrs": [
-    {
-      "number": 425,
-      "title": "feat(ai): Agent Execution Core (spec v5) — papéis de execução",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 1343,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 423,
-      "title": "docs: AI-SESSION-STATE — P7 Telemetry v5 (PR #421)",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 26,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 421,
-      "title": "feat(ai): P7 Telemetry v5 — envelopes na ai_telemetry",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 744,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 419,
-      "title": "docs: AI-SESSION-STATE — P5-P6 Graph Orchestration (PR #417)",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 27,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 417,
-      "title": "feat(ai): P5-P6 Graph Orchestration — adapters + orchestrator",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 1589,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    }
-  ],
+  "lastPrs": [],
   "overview": {
     "components": 114,
     "pages": 16,
@@ -250,7 +204,7 @@
     "testFiles": 231,
     "skills": 26,
     "rules": 48,
-    "events": 1234,
+    "events": 1238,
     "qualityNotes": 511
   }
 }

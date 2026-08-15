@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T04:18:00.832Z",
+  "generatedAt": "2026-08-15T06:29:49.953Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,9 +174,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 77.8,
-      "prePrTotal": 406,
-      "prePrPass": 316,
+      "prePrPassRate": 78,
+      "prePrTotal": 409,
+      "prePrPass": 319,
       "prePrFail": 90,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -209,7 +209,7 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 67,
+        "rule-26": 68,
         "rule-17-new-docs-valid": 20,
         "rule-02": 1
       },
@@ -217,10 +217,10 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.6,
-      "branchesMerged": 112,
+      "branchesMerged": 113,
       "violationsCaught": 444,
-      "healedRate": 19.8,
-      "frictionPerPass": 1.41,
+      "healedRate": 20,
+      "frictionPerPass": 1.39,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,
@@ -618,109 +618,18 @@
     {
       "day": "2026-08-15",
       "label": "15/08",
-      "prePrTotal": 17,
-      "prePrPass": 17,
+      "prePrTotal": 20,
+      "prePrPass": 20,
       "prePrFail": 0,
       "prePrPassRate": 100,
       "ruleFails": 8,
-      "healed": 9,
+      "healed": 10,
       "sessions": 0,
-      "merges": 9,
-      "friction": 0.47
+      "merges": 10,
+      "friction": 0.4
     }
   ],
-  "prs": [
-    {
-      "number": 425,
-      "title": "feat(ai): Agent Execution Core (spec v5) — papéis de execução",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 1343,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 423,
-      "title": "docs: AI-SESSION-STATE — P7 Telemetry v5 (PR #421)",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 26,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 421,
-      "title": "feat(ai): P7 Telemetry v5 — envelopes na ai_telemetry",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 744,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 419,
-      "title": "docs: AI-SESSION-STATE — P5-P6 Graph Orchestration (PR #417)",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 27,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 417,
-      "title": "feat(ai): P5-P6 Graph Orchestration — adapters + orchestrator",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 1589,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 415,
-      "title": "docs: AI-SESSION-STATE — P5-01 Graph Intelligence Foundation (PR #413)",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 32,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 413,
-      "title": "feat(ai): P5-01 Graph Intelligence Foundation (SDD v5.0)",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 1670,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 411,
-      "title": "docs: AI-SESSION-STATE — chips de cor em filtros/KPI/Relatórios (PR #409)",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 11,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 409,
-      "title": "feat(owners): chip de cor no OwnerFilter + cor do dono no KPI e Relatórios",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 934,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 407,
-      "title": "docs: AI-SESSION-STATE — filtro por dono em Contas (PR #404)",
-      "type": "docs",
-      "date": "2026-08-14",
-      "tokens": 9,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    }
-  ],
+  "prs": [],
   "repo": {
     "components": 114,
     "pages": 16,
@@ -729,16 +638,16 @@
     "testFiles": 231,
     "skills": 26,
     "rules": 48,
-    "events": 1234,
+    "events": 1238,
     "qualityNotes": 511
   },
   "summary": {
-    "merges": 112,
+    "merges": 113,
     "prs": 6,
     "sessions": 81,
     "violations": 444,
-    "healed": 88,
-    "prePrPassRate": 77.8
+    "healed": 89,
+    "prePrPassRate": 78
   },
   "telemetry": []
 }
