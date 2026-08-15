@@ -26,6 +26,8 @@ export interface ExecutionBudget {
 
 export interface ExecutionPlan {
   planId: string;
+  /** Identificador do run (uma execução completa) — P11-03. Default: planId. */
+  runId?: string;
   taskId: string;
   agent: string;
   model: string;

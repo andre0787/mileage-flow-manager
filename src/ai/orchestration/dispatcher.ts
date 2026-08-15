@@ -23,6 +23,7 @@ import {
 import { schedulePlan } from "./scheduler";
 import { classifyFailure, type FailureCategory } from "@/ai/execution/failure-taxonomy";
 import { shouldRetry, type RetryPolicy } from "@/ai/execution/retry";
+import { estimateCost } from "@/lib/aiTelemetry";
 
 export interface StepOutcome {
   stepId: string;
@@ -99,12 +100,15 @@ export async function dispatchPlan(
   let failures = 0;
   let cancelled = false;
 
+  const runId = plan.runId ?? plan.planId;
   const emit = (type: Parameters<typeof createTelemetryEnvelope>[0], p: object, success = true) =>
     onTelemetry(
       createTelemetryEnvelope(
         type,
         {
           taskId: plan.taskId,
+          runId,
+          planId: plan.planId,
           executionId: plan.planId,
           agentAdapter: adapter.id,
           model: plan.model,
@@ -172,7 +176,7 @@ export async function dispatchPlan(
             failureCategory: "cancellation",
           } satisfies StepOutcome;
         }
-        emit("agent.dispatched", { agentRole: step.role });
+        emit("agent.dispatched", { agentRole: step.role, stepId: step.id });
 
         // P11-02: execução com retry (quando policy presente).
         let outcome: StepOutcome;
@@ -200,10 +204,12 @@ export async function dispatchPlan(
           failed ? "agent.failed" : "agent.completed",
           {
             agentRole: step.role,
+            stepId: step.id,
             durationMs: outcome.durationMs,
             inputTokens: outcome.inputTokens,
             outputTokens: outcome.outputTokens,
             toolCalls: outcome.toolCalls,
+            cost: estimateCost((outcome.inputTokens ?? 0) + (outcome.outputTokens ?? 0)),
             ...(failed ? { errorCode: outcome.errorCode } : {}),
           },
           !failed,

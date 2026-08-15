@@ -1,10 +1,10 @@
 {
   "version": "P11",
-  "currentPhase": "P11-02",
+  "currentPhase": "P11-03",
   "status": "in_progress",
-  "completedPhases": ["P11-00", "P11-01"],
+  "completedPhases": ["P11-00", "P11-01", "P11-02"],
   "blockedPhases": [],
-  "lastValidation": "P11-01 passed — adapter contract (health/version) + command-runner real + adapter-contract.test.ts (15) + pipeline com Pi real",
+  "lastValidation": "P11-02 passed — retry classificado + cancelamento + failure taxonomy (14) + budget atômico sob concorrência; 17 testes reliability",
   "lastScore": null,
-  "updatedAt": "2026-08-15T14:08:00.000Z"
+  "updatedAt": "2026-08-15T14:10:00.000Z"
 }
