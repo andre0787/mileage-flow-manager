@@ -9,7 +9,7 @@
 
 - **check:fast:** ✅ (typecheck/lint/format/test/verify-docs)
 - **Testes:** 1010 unit (8 graph-engine + 2 pipeline-execution + 29 execution + 20 orchestration + restante)
-- **pre-pr:** pendente rodar após AI-SESSION-STATE
+- **pre-pr:** 0 errors
 
 ## Arquivos Modificados & Impacto
 
@@ -29,4 +29,4 @@ Nenhuma pendência de código da Spec v5. Próximas fases possíveis (fora do es
 
 - **Tokens Utilizados:** ~28K acumulado (ai_telemetry)
 - **Poda (Pruning):** 0 linhas removidas no último turno
-- **Branch Atual:** feat/exec-p8-domain-scout (PR #435 aberto)
+- **Branch Atual:** feat/exec-p8-domain-scout (PR #435 em merge)
