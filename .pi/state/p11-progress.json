@@ -1,10 +1,10 @@
 {
   "version": "P11",
-  "currentPhase": "P11-07",
+  "currentPhase": "P11-08",
   "status": "in_progress",
-  "completedPhases": ["P11-00", "P11-01", "P11-02", "P11-03", "P11-04", "P11-05", "P11-06"],
+  "completedPhases": ["P11-00", "P11-01", "P11-02", "P11-03", "P11-04", "P11-05", "P11-06", "P11-07"],
   "blockedPhases": [],
-  "lastValidation": "P11-06 passed — benchmark T1-T8 × A/B/C com relatório (tiny/small→single, medium/large→graph); 166 testes",
+  "lastValidation": "P11-07 passed — readiness 0-100 com thresholds configuráveis + trend + histórico + recomendação; 178 testes",
   "lastScore": null,
-  "updatedAt": "2026-08-15T14:15:00.000Z"
+  "updatedAt": "2026-08-15T14:16:00.000Z"
 }
