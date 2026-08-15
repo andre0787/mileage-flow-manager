@@ -1212,3 +1212,10 @@
 {"timestamp":"2026-08-15T21:00:25.188Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/audit-docs-p11-p12","commit":"c7ed0f6","agent":"human","errors":0}
 {"timestamp":"2026-08-15T21:01:16.905Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/audit-docs-p11-p12","commit":"c7ed0f6","agent":"human","errors":0}
 {"timestamp":"2026-08-15T21:01:21.752Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/audit-docs-p11-p12","commit":"c7ed0f6","agent":"human","errors":0}
+{"timestamp":"2026-08-15T21:13:40.356Z","type":"healed","description":"rule-26 auto-corrigido","branch":"chore/cleanup-orphan-branches","commit":"2da3dab","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-15T21:13:47.357Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"chore/cleanup-orphan-branches","commit":"2da3dab","agent":"human","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-15T21:14:19.881Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"chore/cleanup-orphan-branches","commit":"2da3dab","agent":"human","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-08-15T21:14:56.894Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/cleanup-orphan-branches","commit":"2da3dab","agent":"human","errors":0}
+{"timestamp":"2026-08-15T21:15:51.967Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/cleanup-orphan-branches","commit":"2da3dab","agent":"human","errors":0}
+{"timestamp":"2026-08-15T21:16:34.817Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/cleanup-orphan-branches","commit":"2053568","agent":"human","errors":0}
+{"timestamp":"2026-08-15T21:17:14.198Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/cleanup-orphan-branches","commit":"2053568","agent":"human","errors":0}

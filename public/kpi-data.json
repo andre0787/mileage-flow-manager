@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T21:01:17.032Z",
+  "generatedAt": "2026-08-15T21:17:14.324Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,9 +174,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 80.8,
-      "prePrTotal": 390,
-      "prePrPass": 315,
+      "prePrPassRate": 81,
+      "prePrTotal": 395,
+      "prePrPass": 320,
       "prePrFail": 75,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -185,7 +185,7 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 92.4,
+      "avgOutcomeGrade": 92.5,
       "topViolations": [
         {
           "rule": "rule-10-clean",
@@ -193,7 +193,7 @@
         },
         {
           "rule": "rule-38-code-review-gate",
-          "count": 47
+          "count": 48
         },
         {
           "rule": "rule-26-session-started",
@@ -209,7 +209,7 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 75,
+        "rule-26": 76,
         "rule-17-new-docs-valid": 22,
         "rule-02": 1
       },
@@ -217,10 +217,10 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.6,
-      "branchesMerged": 112,
-      "violationsCaught": 443,
-      "healedRate": 22.1,
-      "frictionPerPass": 1.41,
+      "branchesMerged": 113,
+      "violationsCaught": 444,
+      "healedRate": 22.3,
+      "frictionPerPass": 1.39,
       "llmRouter": {
         "resolved": 34,
         "completed": 0,
@@ -615,18 +615,27 @@
     {
       "day": "2026-08-15",
       "label": "15/08",
-      "prePrTotal": 58,
-      "prePrPass": 58,
+      "prePrTotal": 63,
+      "prePrPass": 63,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 52,
-      "healed": 19,
+      "ruleFails": 53,
+      "healed": 20,
       "sessions": 3,
-      "merges": 18,
-      "friction": 0.9
+      "merges": 19,
+      "friction": 0.84
     }
   ],
   "prs": [
+    {
+      "number": 448,
+      "title": "docs: auditoria geral — docs atualizadas para P11/P12",
+      "type": "docs",
+      "date": "2026-08-15",
+      "tokens": 812,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
     {
       "number": 447,
       "title": "docs: ROADMAP — P12 Master Real-World Validation concluído",
@@ -707,15 +716,6 @@
       "tokens": 25,
       "benefit": "Documentação/processo atualizados — mais rastreabilidade",
       "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 428,
-      "title": "feat(ai): Agent Execution Spec v5 completo — reviewer, domain tables, exec:run",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 747,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "repo": {
@@ -726,16 +726,16 @@
     "testFiles": 251,
     "skills": 26,
     "rules": 48,
-    "events": 1213,
-    "qualityNotes": 556
+    "events": 1221,
+    "qualityNotes": 561
   },
   "summary": {
-    "merges": 112,
+    "merges": 113,
     "prs": 6,
     "sessions": 70,
-    "violations": 443,
-    "healed": 98,
-    "prePrPassRate": 80.8
+    "violations": 444,
+    "healed": 99,
+    "prePrPassRate": 81
   },
   "telemetry": []
 }

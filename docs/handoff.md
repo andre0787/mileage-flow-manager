@@ -107,7 +107,7 @@ Nenhum PR aberto.
 **Objetivo:** Auditoria de docs do projeto
 **Status:** in_progress
 **Iniciada em:** 2026-08-15T20:53:08.636Z
-**Branch:** `docs/audit-docs-p11-p12`
+**Branch:** `chore/cleanup-orphan-branches`
 **Último commit:** c7ed0f6 — Merge pull request #447 from andre0787/docs/roadmap-p12
 **Docs carregados:** AGENTS.md
 ---

@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-15T21:01:21.132Z",
+  "generatedAt": "2026-08-15T21:17:18.066Z",
   "dataDate": "2026-08-15",
   "kpiStats": [
     {
-      "value": 1213,
+      "value": 1221,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 556,
+      "value": 561,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 98,
+      "value": 99,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 68,
+      "value": 69,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,17 +41,17 @@
     },
     {
       "name": "pre-pr",
-      "n": 390,
+      "n": 395,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 443,
+      "n": 444,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 98,
+      "n": 99,
       "color": "#10b981"
     },
     {
@@ -61,7 +61,7 @@
     },
     {
       "name": "code-review:done",
-      "n": 74,
+      "n": 75,
       "color": "#6366f1"
     },
     {
@@ -98,7 +98,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 356,
+      "n": 361,
       "color": "#10b981"
     },
     {
@@ -114,53 +114,53 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-15 21:01:16",
+      "t": "2026-08-15 21:17:14",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-15 21:00:25",
+      "t": "2026-08-15 21:16:34",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-15 20:59:41",
+      "t": "2026-08-15 21:15:51",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-15 20:58:55",
+      "t": "2026-08-15 21:14:56",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-15 20:57:40",
+      "t": "2026-08-15 21:14:19",
       "d": "code-review:done",
       "desc": "Review aprovado por subagente"
     },
     {
-      "t": "2026-08-15 20:57:07",
+      "t": "2026-08-15 21:13:47",
       "d": "rule:fail",
       "desc": "rule-38-code-review-gate falhou"
     },
     {
-      "t": "2026-08-15 20:57:07",
-      "d": "rule:fail",
-      "desc": "rule-29-prompt-version falhou"
+      "t": "2026-08-15 21:13:40",
+      "d": "healed",
+      "desc": "rule-26 auto-corrigido"
     },
     {
-      "t": "2026-08-15 20:56:26",
-      "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
+      "t": "2026-08-15 21:01:21",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 443,
-    "healed": 98,
-    "healedRate": 22.1,
-    "prePrTotal": 390,
-    "prePrPass": 315,
-    "prePrPassRate": 80.8,
+    "ruleFails": 444,
+    "healed": 99,
+    "healedRate": 22.3,
+    "prePrTotal": 395,
+    "prePrPass": 320,
+    "prePrPassRate": 81,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -170,7 +170,7 @@
       },
       {
         "rule": "rule-38-code-review-gate",
-        "count": 47,
+        "count": 48,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
@@ -191,6 +191,15 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 448,
+      "title": "docs: auditoria geral — docs atualizadas para P11/P12",
+      "type": "docs",
+      "date": "2026-08-15",
+      "tokens": 812,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança"
+    },
     {
       "number": 447,
       "title": "docs: ROADMAP — P12 Master Real-World Validation concluído",
@@ -226,15 +235,6 @@
       "tokens": 4193,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 439,
-      "title": "docs: ROADMAP — Spec v5 (Agent Execution §1-27) concluída",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 474,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
     }
   ],
   "overview": {
@@ -245,7 +245,7 @@
     "testFiles": 251,
     "skills": 26,
     "rules": 48,
-    "events": 1213,
-    "qualityNotes": 556
+    "events": 1221,
+    "qualityNotes": 561
   }
 }
