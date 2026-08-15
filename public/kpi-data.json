@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T12:55:42.507Z",
+  "generatedAt": "2026-08-15T12:56:58.191Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,9 +174,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 79.9,
-      "prePrTotal": 403,
-      "prePrPass": 322,
+      "prePrPassRate": 80,
+      "prePrTotal": 405,
+      "prePrPass": 324,
       "prePrFail": 81,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -220,7 +220,7 @@
       "branchesMerged": 111,
       "violationsCaught": 435,
       "healedRate": 20.5,
-      "frictionPerPass": 1.35,
+      "frictionPerPass": 1.34,
       "llmRouter": {
         "resolved": 39,
         "completed": 0,
@@ -618,15 +618,15 @@
     {
       "day": "2026-08-15",
       "label": "15/08",
-      "prePrTotal": 25,
-      "prePrPass": 25,
+      "prePrTotal": 27,
+      "prePrPass": 27,
       "prePrFail": 0,
       "prePrPassRate": 100,
       "ruleFails": 16,
       "healed": 10,
       "sessions": 0,
       "merges": 10,
-      "friction": 0.64
+      "friction": 0.59
     }
   ],
   "prs": [
@@ -726,11 +726,11 @@
     "pages": 16,
     "libs": 26,
     "scripts": 115,
-    "testFiles": 231,
+    "testFiles": 233,
     "skills": 26,
     "rules": 48,
-    "events": 1217,
-    "qualityNotes": 520
+    "events": 1221,
+    "qualityNotes": 521
   },
   "summary": {
     "merges": 111,
@@ -738,7 +738,7 @@
     "sessions": 75,
     "violations": 435,
     "healed": 89,
-    "prePrPassRate": 79.9
+    "prePrPassRate": 80
   },
   "telemetry": []
 }

@@ -1218,3 +1218,4 @@
 {"timestamp":"2026-08-15T12:55:50.721Z","type":"coding:done","description":"Spec v5 100% — Domain Scout real v2.3.7 + pipeline §3 integrado (planner→dispatcher→persist→validator)","branch":"feat/exec-p8-domain-scout","commit":"6d5eaa4","agent":"human","subagent":true,"skill":"subagent-driven-development"}
 {"timestamp":"2026-08-15T12:55:50.752Z","type":"code-review:done","description":"Review por subagente aprovado — Spec v5 completa (Domain Scout real + pipeline integrado)","branch":"feat/exec-p8-domain-scout","commit":"6d5eaa4","agent":"human","subagent":true,"verdict":"approved"}
 {"timestamp":"2026-08-15T12:56:05.036Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/exec-p8-domain-scout","commit":"6d5eaa4","agent":"human","errors":0}
+{"timestamp":"2026-08-15T12:56:58.073Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/exec-p8-domain-scout","commit":"c332e4f","agent":"human","errors":0}
