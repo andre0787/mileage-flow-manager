@@ -1201,3 +1201,5 @@
 {"timestamp":"2026-08-15T02:18:36.134Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/graph-intelligence-foundation","commit":"dbb6c6e","agent":"human","errors":0}
 {"timestamp":"2026-08-15T02:18:47.684Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/graph-intelligence-foundation","commit":"dbb6c6e","agent":"human","errors":0}
 {"timestamp":"2026-08-15T02:24:47.055Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/graph-intelligence-foundation","commit":"02e3358","agent":"human","errors":0}
+{"timestamp":"2026-08-15T02:30:19.241Z","type":"healed","description":"rule-26 auto-corrigido","branch":"docs/ai-session-state-p5-01","commit":"aeb26dc","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-15T02:30:19.651Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/ai-session-state-p5-01","commit":"aeb26dc","agent":"human","errors":0}
