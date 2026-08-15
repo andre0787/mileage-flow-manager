@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { computeReadinessScore, graphStatus, readinessBand } from "@/ai/graph/engine";
+import {
+  computeReadinessScore,
+  graphQuery,
+  graphSearch,
+  graphStatus,
+  readinessBand,
+} from "@/ai/graph/engine";
 
 describe("computeReadinessScore", () => {
   it("grafo vazio → 0 (P4: sem evidência)", () => {
@@ -58,5 +64,31 @@ describe("graphStatus", () => {
     if (!status.available) {
       expect(status.error).toBeTruthy();
     }
+  });
+});
+
+describe("graphSearch (v2.3.7)", () => {
+  it("fail-open: nunca lança e devolve estrutura válida (com ou sem CRG)", () => {
+    const r = graphSearch("owners", "Class");
+    expect(Array.isArray(r.nodes)).toBe(true);
+    expect(Array.isArray(r.edges)).toBe(true);
+    expect(typeof r.queriedAt).toBe("string");
+  });
+
+  it("devolve nodes com id/label quando o CRG responde", () => {
+    const r = graphSearch("owners");
+    if (r.nodes.length > 0) {
+      expect(r.nodes[0].id).toBeTruthy();
+      expect(r.nodes[0].label).toBeTruthy();
+    }
+  });
+});
+
+describe("graphQuery (v2.3.7)", () => {
+  it("fail-open: nunca lança e devolve estrutura válida", () => {
+    const r = graphQuery();
+    expect(Array.isArray(r.nodes)).toBe(true);
+    expect(Array.isArray(r.edges)).toBe(true);
+    expect(r.reachable === undefined || Array.isArray(r.reachable)).toBe(true);
   });
 });

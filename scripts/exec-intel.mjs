@@ -62,65 +62,89 @@ function graphScout(target) {
     console.log(JSON.stringify(base, null, 2));
     return;
   }
-  // Impact real do CRG (sem --json: usa `impact <target>` text; best-effort)
-  const imp = runCrg(["impact", target]);
-  const lines = (imp.ok ? imp.stdout : "")
-    .split("\n")
-    .map((l) => l.trim())
-    .filter(Boolean);
-  console.log(
-    JSON.stringify(
-      {
-        ...base,
-        directDependents: lines.slice(0, 10),
-        impactScore: Math.min(1, lines.length / 10),
-        available: true,
-      },
-      null,
-      2,
-    ),
-  );
+  // Impact real do CRG v2.3.7: `impact --files <target>` retorna JSON com
+  // changed_nodes/impacted_nodes/impacted_files/edges.
+  const imp = runCrg(["impact", "--files", target]);
+  if (!imp.ok || !imp.stdout.trim()) {
+    console.log(JSON.stringify({ ...base, risks: ["impact não retornou dados"] }, null, 2));
+    return;
+  }
+  try {
+    const p = JSON.parse(imp.stdout);
+    const changed = Array.isArray(p.changed_nodes) ? p.changed_nodes : [];
+    const impacted = Array.isArray(p.impacted_nodes) ? p.impacted_nodes : [];
+    const edges = Array.isArray(p.edges) ? p.edges : [];
+    const impactedFiles = Array.isArray(p.impacted_files) ? p.impacted_files : [];
+    const tests = [...new Set([...changed, ...impacted].filter((n) => n?.kind === "Test").map((n) => n.name))];
+    const deps = [...new Set(edges.map((e) => e.target).filter(Boolean))];
+    const dependents = [...new Set(edges.map((e) => e.source).filter(Boolean))];
+    console.log(
+      JSON.stringify(
+        {
+          ...base,
+          impactScore: Math.min(1, dependents.length / 10),
+          directDependencies: deps.slice(0, 10),
+          directDependents: dependents.slice(0, 10),
+          tests,
+          features: impactedFiles.slice(0, 5).map((f) => f.split("/").pop()),
+          recommendedFiles: impactedFiles.slice(0, 10),
+          available: true,
+        },
+        null,
+        2,
+      ),
+    );
+  } catch {
+    console.log(JSON.stringify({ ...base, risks: ["impact JSON não parseável"] }, null, 2));
+  }
 }
 
 function domainScout() {
   // Espelha src/ai/execution/scouts.ts (§16): tables via parse de migrations
-  // (fail-open), entities/relations via CRG quando disponível.
-  let entities = [];
-  let relations = [];
+  // (fail-open) + entidades reais via CRG v2.3.7 `search --kind Class`.
+  const tables = listDomainTables();
+  const entities = new Set();
+  const relations = new Set();
   const st = runCrg(["status", "--json"]);
   const graphAvailable = st.ok && st.stdout.trim();
   if (graphAvailable) {
-    const arch = runCrg(["architecture", "--json"]);
-    if (arch.ok && arch.stdout.trim()) {
+    // Entidades por tabela de domínio (fail-open).
+    for (const t of tables) {
+      const s = runCrg(["search", "--kind", "Class", "--limit", "5", t]);
+      if (!s.ok || !s.stdout.trim()) continue;
       try {
-        const p = JSON.parse(arch.stdout);
-        const nodes = Array.isArray(p.nodes) ? p.nodes : [];
-        const edges = Array.isArray(p.edges) ? p.edges : [];
-        entities = [...new Set(nodes.filter((n) => n.type === "domainEntities").map((n) => n.label))];
-        relations = [
-          ...new Set(
-            edges
-              .filter((e) => e.type === "references")
-              .map((e) => `${e.source}→${e.target}`),
-          ),
-        ];
+        const p = JSON.parse(s.stdout);
+        for (const r of Array.isArray(p.results) ? p.results : []) {
+          if (r?.name) entities.add(String(r.name).replace(/^class\s+/i, ""));
+        }
       } catch {
-        /* fail-open: JSON inválido → vazio */
+        /* fail-open */
+      }
+    }
+    // Relações via impacto de um arquivo de domínio (best-effort).
+    const imp = runCrg(["impact", "--files", "src/lib/metrics.ts"]);
+    if (imp.ok && imp.stdout.trim()) {
+      try {
+        const p = JSON.parse(imp.stdout);
+        for (const e of Array.isArray(p.edges) ? p.edges : []) {
+          if (e?.source && e?.target) relations.add(`${e.source.split("/").pop()}→${e.target.split("/").pop()}`);
+        }
+      } catch {
+        /* fail-open */
       }
     }
   }
-  const tables = listDomainTables();
   console.log(
     JSON.stringify(
       {
-        entities,
-        relations,
+        entities: [...entities],
+        relations: [...relations].slice(0, 20),
         tables,
         businessRules: [],
         dataImpacts: [],
-        available: entities.length > 0 || relations.length > 0 || tables.length > 0,
+        available: entities.size > 0 || relations.size > 0 || tables.length > 0,
         note: tables.length
-          ? `${tables.length} tabela(s) via migrations; regras de negócio não inferíveis do schema`
+          ? `${tables.length} tabela(s) via migrations + ${entities.size} entidade(s) via grafo; regras de negócio não inferíveis do schema`
           : "grafo indisponível ou sem dados de domínio — rode graph:update",
       },
       null,
@@ -151,19 +175,52 @@ function listDomainTables() {
 function testScout(target) {
   const st = runCrg(["status", "--json"]);
   const available = st.ok && st.stdout.trim();
-  console.log(
-    JSON.stringify(
-      {
-        existingTests: [],
-        gaps: available ? [] : ["grafo indisponível"],
-        suites: [],
-        neededTests: [],
-        available: !!available,
-      },
-      null,
-      2,
-    ),
-  );
+  if (!available) {
+    console.log(
+      JSON.stringify(
+        {
+          existingTests: [],
+          gaps: ["grafo indisponível"],
+          suites: [],
+          neededTests: [],
+          available: false,
+        },
+        null,
+        2,
+      ),
+    );
+    return;
+  }
+  // v2.3.7: impacto real do alvo → nós Test + arquivos sem teste.
+  const imp = target ? runCrg(["impact", "--files", target]) : runCrg(["impact"]);
+  const out = { existingTests: [], gaps: [], suites: [], neededTests: [], available: true };
+  if (imp.ok && imp.stdout.trim()) {
+    try {
+      const p = JSON.parse(imp.stdout);
+      const changed = Array.isArray(p.changed_nodes) ? p.changed_nodes : [];
+      const impacted = Array.isArray(p.impacted_nodes) ? p.impacted_nodes : [];
+      const all = [...changed, ...impacted];
+      const tests = [...new Set(all.filter((n) => n?.kind === "Test").map((n) => n.name))];
+      const files = [
+        ...new Set(
+          all
+            .filter((n) => n?.kind === "File" && !n.name.includes(".test."))
+            .map((n) => n.name.split("/").pop())
+            .filter(Boolean),
+        ),
+      ];
+      const needed = target
+        ? files.slice(0, 5).map((f) => `${target} → ${f.replace(/\.(ts|tsx)$/, ".test.$1")}`)
+        : [];
+      out.existingTests = tests.slice(0, 20);
+      out.suites = [...new Set(tests.map((t) => t.split(":")[0]))].slice(0, 10);
+      out.neededTests = needed;
+      if (files.length > 0 && tests.length === 0) out.gaps.push("arquivos de código sem teste no impacto");
+    } catch {
+      out.gaps.push("impact JSON não parseável");
+    }
+  }
+  console.log(JSON.stringify(out, null, 2));
 }
 
 function review(target) {

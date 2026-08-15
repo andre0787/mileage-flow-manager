@@ -1,32 +1,32 @@
-# AI Session State - 2026-08-15T12:45:00.000Z
+# AI Session State - 2026-08-15T13:00:00.000Z
 
 ## Última Task
 
-- Feature **Spec v5 completa** (branch `feat/exec-p8-domain-scout`): **Concluído** — auditoria da `02-Agent-Execution-Spec-MilesControl-v5.md` §1-27 vs código; **4 gaps fechados**: (§19) `implementer.ts` — `implementFromPlan` (task + ContextPacket + plan + writeScope, risk de isolamento §8); (§13) `maxTurns` validado no `checkBudget` (BudgetState.turnsUsed, default 60); (§7) `historyScout` (events.jsonl + git log, fail-open); (§22) `exec:run` real chama `graph:update` ao final (fail-open). Barrel atualizado.
-- (Antes) PR #435 — P8 envelopes §19 + Domain Scout CLI.
+- Feature **Spec v5 100%** (branch `feat/exec-p8-domain-scout`): **Concluído** — auditoria da `02-Agent-Execution-Spec-MilesControl-v5.md` §1-27: todos os itens de código entregues. Fechados agora: **Domain Scout real** (engine CRG v2.3.7 — `impact --files`/`search --kind Class`; `domainScout` retorna 9 entidades + 11 tabelas; graphScout/testScout com dados reais) e **pipeline §3 integrado** (teste `pipeline-execution.test.ts`: planner→scheduler→dispatcher com onTelemetry→persist→validator, provando §19/§21/§26/§27).
+- (Antes) §19 implementer, §13 maxTurns, §7 historyScout, §22 graph:update no exec:run.
 
 ## Estado dos Testes & Qualidade
 
-- **check:fast:** typecheck/lint/format/test/verify-docs ✅
-- **Testes:** 1002 unit (29 em execution.test.ts + 20 em orchestration.test.ts — incl. implementer, historyScout, maxTurns)
+- **check:fast:** ✅ (typecheck/lint/format/test/verify-docs)
+- **Testes:** 1010 unit (8 graph-engine + 2 pipeline-execution + 29 execution + 20 orchestration + restante)
 - **pre-pr:** pendente rodar após AI-SESSION-STATE
 
 ## Arquivos Modificados & Impacto
 
-- `src/ai/execution/implementer.ts` (novo — §19)
-- `src/ai/execution/scouts.ts` (+historyScout §7)
-- `src/ai/orchestration/budget.ts` (+turnsUsed/maxTurns §13)
-- `src/ai/index.ts` (barrel + implementer)
-- `scripts/exec-intel.mjs` (+graph:update no run real §22)
-- `tests/unit/ai/execution.test.ts` (+implementer/historyScout) · `tests/unit/ai/orchestration.test.ts` (+maxTurns)
+- `src/ai/graph/engine.ts` — interface v2.3.7 (normalizeCrgNode/Edge, graphQuery via impact, graphImpact `--files`, graphSearch novo)
+- `src/ai/execution/scouts.ts` — domainScout com entidades reais via graphSearch
+- `scripts/exec-intel.mjs` — domainScout/graphScout/testScout com sintaxe v2.3.7
+- `tests/unit/ai/pipeline-execution.test.ts` (novo) + `graph-engine.test.ts` (+graphSearch/graphQuery)
+- (anteriores) implementer.ts, budget maxTurns, historyScout, exec:run graph:update
 
 ## Pendências Imediatas (Next Step)
 
-1. Conectar o dispatcher TS real (`src/ai/orchestration/dispatcher.ts`) ao `exec:run` — hoje o CLI espelha a lógica (envelopes simulados); o pipeline real com `onTelemetry`→persist fica para a próxima fase.
-2. Domain entities/relations via CRG: `architecture --json` não expõe `nodes`/`edges` no formato esperado — avaliar query de domínio no CRG.
+Nenhuma pendência de código da Spec v5. Próximas fases possíveis (fora do escopo da spec):
+- Conectar o `exec:run` do CLI ao pipeline TS real via runner (hoje o CLI espelha; o pipeline real é provado por teste de integração).
+- Alimentar `businessRules`/`dataImpacts` do Domain Scout a partir de documentação do domínio (não inferíveis do schema).
 
 ## Governança de Contexto
 
-- **Tokens Utilizados:** ~24K acumulado (ai_telemetry)
+- **Tokens Utilizados:** ~28K acumulado (ai_telemetry)
 - **Poda (Pruning):** 0 linhas removidas no último turno
-- **Branch Atual:** feat/exec-p8-domain-scout (main em 5fcc598, PR #435 aberto)
+- **Branch Atual:** feat/exec-p8-domain-scout (PR #435 aberto)

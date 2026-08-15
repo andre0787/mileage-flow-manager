@@ -6,7 +6,7 @@
  * Fail-open: CRG ausente → available:false com resultado vazio.
  */
 
-import { graphImpact, graphQuery } from "@/ai/graph/engine";
+import { graphImpact, graphQuery, graphSearch } from "@/ai/graph/engine";
 import type { GraphQueryResult } from "@/ai/core/graph-types";
 import { readdirSync, readFileSync, existsSync } from "node:fs";
 import { resolve, join } from "node:path";
@@ -100,24 +100,37 @@ export function graphScout(target: string): GraphScoutResult {
 /**
  * Domain Scout (§16): entidades e relações de domínio + tabelas reais
  * (parse fail-open das migrations `CREATE TABLE public.xxx`).
- * Regras de negócio não são inferíveis do schema — ficam como nota.
+ * Entidades: classes/arquivos do grafo relacionados ao alvo + busca por
+ * cada tabela de domínio (CRG v2.3.7 `search --kind Class`). Regras de
+ * negócio não são inferíveis do schema — ficam como nota.
  */
 export function domainScout(target?: string): DomainScoutResult {
   const result = target ? graphImpact(target) : graphQuery();
-  const { domain } = classify(result);
+  const { domain, files } = classify(result);
   const relations = [
     ...new Set(
       result.edges.filter((e) => e.type === "references").map((e) => `${e.source}→${e.target}`),
     ),
   ];
   const tables = listDomainTables();
+
+  // Busca entidades reais por tabela de domínio (fail-open, v2.3.7 search).
+  const byTable: string[] = [];
+  for (const t of tables) {
+    const found = graphSearch(t, "Class");
+    for (const n of found.nodes) {
+      const label = n.label.replace(/^class\s+/i, "");
+      if (!byTable.includes(label)) byTable.push(label);
+    }
+  }
+  const entities = [...new Set([...domain, ...files, ...byTable])];
   return {
-    entities: domain,
+    entities,
     relations,
     tables,
     businessRules: [],
     dataImpacts: [],
-    available: domain.length > 0 || relations.length > 0 || tables.length > 0,
+    available: entities.length > 0 || relations.length > 0 || tables.length > 0,
   };
 }
 

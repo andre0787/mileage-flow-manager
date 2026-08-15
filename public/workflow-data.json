@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-15T12:45:29.410Z",
+  "generatedAt": "2026-08-15T12:55:46.808Z",
   "dataDate": "2026-08-15",
   "kpiStats": [
     {
-      "value": 1215,
+      "value": 1217,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 519,
+      "value": 520,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 401,
+      "n": 403,
       "color": "#8b5cf6"
     },
     {
@@ -108,7 +108,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 183,
+      "n": 184,
       "color": "#84cc16"
     },
     {
@@ -118,6 +118,16 @@
     }
   ],
   "recentTimeline": [
+    {
+      "t": "2026-08-15 12:55:42",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-15 12:45:41",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
     {
       "t": "2026-08-15 12:45:24",
       "d": "pre-pr",
@@ -147,25 +157,15 @@
       "t": "2026-08-15 12:30:09",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-15 12:29:30",
-      "d": "code-review:done",
-      "desc": "Review por subagente aprovado — P8 envelopes + Domain Scout CLI"
-    },
-    {
-      "t": "2026-08-15 12:29:30",
-      "d": "coding:done",
-      "desc": "P8 envelopes §19 + Domain Scout — exec:domain com tables reais (migrations) + exec:run persist env-gated (envelopes.jsonl)"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 435,
     "healed": 89,
     "healedRate": 20.5,
-    "prePrTotal": 401,
-    "prePrPass": 320,
-    "prePrPassRate": 79.8,
+    "prePrTotal": 403,
+    "prePrPass": 322,
+    "prePrPassRate": 79.9,
     "gateBlocked": 1,
     "topViolations": [
       {
@@ -250,7 +250,7 @@
     "testFiles": 231,
     "skills": 26,
     "rules": 48,
-    "events": 1215,
-    "qualityNotes": 519
+    "events": 1217,
+    "qualityNotes": 520
   }
 }
