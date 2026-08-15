@@ -1,34 +1,28 @@
-# AI Session State - 2026-08-15T18:10:00.000Z
+# AI Session State - 2026-08-15T18:40:00.000Z
 
 ## Última Task
 
-- **Auditoria de docs do projeto** (branch `docs/audit-docs-p11-p12`): todas as docs atualizadas para refletir P11/P12:
-  - `docs/MAP.md` — seção STRUCTURE regenerada via `map:sync` (agora inclui `src/ai/`, `features/`, `ai-engineering`)
-  - `docs/ARCHITECTURE.md` — camada AI Core (core/adapters/orchestration/execution/telemetry/graph/benchmark/validation), Feature-First, KPI/observabilidade
-  - `docs/STACK.md` — comandos P11/P12 (`ai:p11:score`, `p12:validate`, `exec:run:real`, `map:sync`) + deps (tsx, CRG)
-  - `docs/GRAPH-INTELLIGENCE.md` — seções P11-04 (metrics/graph-value/context) e P12-07 (readiness 0..100, ROI)
-  - `docs/RULES.md` — regras 43-48 adicionadas
-  - `docs/WORKFLOW-MANIFEST.md` — histórico 2026-08-15 (P11 + P12) + prompt:manifest
-  - `docs/WORKFLOW-QUICKSTART.md` — scripts novos na tabela
-  - `docs/handoff.md` — snapshot regenerado
+- **Limpeza do repositório** (branch `chore/cleanup-orphan-branches`):
+  - **12 branches remotas órfãs deletadas** (já mergeadas via squash, não detectadas pelo `--merged`): `chore/audit-fixes` (#318), `feat/blueprint-v9-governanca` (#380), `refactor/blueprint-v4-p0` (#333), `refactor/blueprint-v4-p1` (#335), `refactor/etapa3-dashboard-entryform` (#378), `refactor/audit-p1-conventions`, `docs/roadmap-*`, `feat/p11-01*`, `feat/p12*` — prune local (`git fetch --prune`)
+  - **`docs/MAP.md`**: `fable-gates.md` adicionado à tabela curada (era referenciado no AGENTS.md mas não listado)
+  - Auditoria: 0 temporários, 0 órfãos em src/ (rule-14), 0 duplicatas (rule-15/18), 0 docs órfãs, relatórios todos com prefixo PR
 
 ## Estado dos Testes & Qualidade
 
-- **check:fast:** ✅ · **verify-docs:strict:** ✅
-- **pre-pr:** ✅ 0 errors (rule-29 prompt:manifest ok, rule-38 evento registrado)
-- **Testes:** 1129 unit passando
+- **pre-pr:** ✅ 0 errors
+- **check:fast:** ✅ · **Testes:** 1129 unit
+- **Git:** branches remotas agora só `origin/main` (limpas)
 
 ## Arquivos Modificados & Impacto
 
-- docs: MAP, ARCHITECTURE, STACK, GRAPH-INTELLIGENCE, RULES, WORKFLOW-MANIFEST, WORKFLOW-QUICKSTART, handoff, AI-SESSION-STATE
-- `.prompts-manifest.json` (rule-29)
+- `docs/MAP.md` — entrada fable-gates.md
 
 ## Pendências Imediatas (Next Step)
 
-- commit → push + PR docs/audit-docs-p11-p12 → merge
+- commit → push + PR chore/cleanup-orphan-branches → merge
 
 ## Governança de Contexto
 
-- **Tokens Utilizados:** ~95K acumulado (ai_telemetry)
+- **Tokens Utilizados:** ~100K acumulado (ai_telemetry)
 - **Poda (Pruning):** 0 linhas removidas no último turno
-- **Branch Atual:** docs/audit-docs-p11-p12 (main em c7ed0f6)
+- **Branch Atual:** chore/cleanup-orphan-branches (main em 2da3dab)
