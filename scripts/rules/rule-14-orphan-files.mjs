@@ -109,6 +109,9 @@ for (const { rel } of allFiles) {
   // Skip known entry points and type defs
   if (rel === "main.tsx" || rel === "vite-env.d.ts") continue;
   if (rel.endsWith(".d.ts")) continue;
+  // Barrels públicos de libs de infra (src/ai/index.ts) — entry points consumidos
+  // por scripts/CLI e testes (fail-open: libs de processo não têm consumidor em src/).
+  if (rel === "ai/index.ts") continue;
   // Skip co-located tests (src/**/tests/*.test.ts(x)) — carregados pelo vitest via glob, não por import
   if (rel.includes("/tests/") && (rel.endsWith(".test.ts") || rel.endsWith(".test.tsx"))) continue;
 

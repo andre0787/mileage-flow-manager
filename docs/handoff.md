@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `0f56929 — Merge pull request #393 from andre0787/feat/telemetria-nightly-kpi`
+- **Branch:** `feat/graph-intelligence-foundation`
+- **Último commit:** `dbb6c6e — Merge pull request #409 from andre0787/feat/owner-color-chips-filtros-kpi`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -56,15 +56,25 @@ Nenhum PR aberto.
 
 
 
-## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** Visualização por cor dos itens por dono de conta
-**Status:** in_progress
-**Iniciada em:** 2026-08-14T19:21:09.957Z
-**Branch:** `feat/owner-color-chips-filtros-kpi`
-**Último commit:** 0f56929 — Merge pull request #393 from andre0787/feat/telemetria-nightly-kpi
-**Council:** docs/council/2026-08-14-owner-custom-color-veredito.md (veredito: Faça — seletor de cor no cadastro/edição, fallback hash)
-**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
@@ -93,3 +103,14 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 
 
+
+
+
+## 🎯 Sessão Atual
+**Categoria:** feature
+**Objetivo:** P5-01 Graph Intelligence Foundation (SDD v5.0)
+**Status:** in_progress
+**Iniciada em:** 2026-08-15T02:17:02.480Z
+**Branch:** `feat/graph-intelligence-foundation`
+**Último commit:** dbb6c6e — Merge pull request #409 from andre0787/feat/owner-color-chips-filtros-kpi
+**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
