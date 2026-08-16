@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-08-15
-> Último commit: 9a131ed-Merge pull request #431 from andre0787/docs/ai-session-state-spec-complete
+> Gerado em: 2026-08-16
+> Último commit: 6b85584-Merge pull request #454 from andre0787/feat/p125-demo-e2e-real
 
 ## Pipeline
 
@@ -15,21 +15,21 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 861 |
-| E2E  | 82 |
-| **Total** | **943** |
+| Unit | 1039 |
+| E2E  | 86 |
+| **Total** | **1125** |
 
 ## Bundle
 
 | Métrica | Valor |
 |---------|-------|
-| Tamanho (dist) | 1780kB |
+| Tamanho (dist) | 1805kB |
 
 ## Documentação
 
 | Métrica | Valor |
 |---------|-------|
-| Arquivos .md | 204 |
+| Arquivos .md | 211 |
 | Arquivados | 46 |
 | Issues (verify-docs) | 0 |
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-08-15 | ✅ | 943 | 1780kB | 0 issues |
+| 2026-08-16 | ✅ | 1125 | 1805kB | 0 issues |
 
 ---
 

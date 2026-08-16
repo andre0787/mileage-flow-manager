@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T00:06:40.775Z",
+  "generatedAt": "2026-08-16T06:32:24.349Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -175,8 +175,8 @@
     {
       "month": "2026-08",
       "prePrPassRate": 81.7,
-      "prePrTotal": 382,
-      "prePrPass": 312,
+      "prePrTotal": 383,
+      "prePrPass": 313,
       "prePrFail": 70,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -220,7 +220,7 @@
       "branchesMerged": 109,
       "violationsCaught": 446,
       "healedRate": 22.6,
-      "frictionPerPass": 1.43,
+      "frictionPerPass": 1.42,
       "llmRouter": {
         "resolved": 34,
         "completed": 0,
@@ -235,19 +235,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-07-17",
-      "label": "17/07",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-07-18",
       "label": "18/07",
@@ -624,100 +611,22 @@
       "sessions": 6,
       "merges": 20,
       "friction": 1.23
+    },
+    {
+      "day": "2026-08-16",
+      "label": "16/08",
+      "prePrTotal": 2,
+      "prePrPass": 2,
+      "prePrFail": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 4,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 1,
+      "friction": 2
     }
   ],
-  "prs": [
-    {
-      "number": 452,
-      "title": "feat(ai): P12.5 — Public Demo, Agentic E2E & Evidence-to-Fix Loop",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 3553,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 450,
-      "title": "chore: limpeza do repositório — branches órfãs e fable-gates no MAP",
-      "type": "chore",
-      "date": "2026-08-15",
-      "tokens": 560,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável"
-    },
-    {
-      "number": 448,
-      "title": "docs: auditoria geral — docs atualizadas para P11/P12",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 812,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 447,
-      "title": "docs: ROADMAP — P12 Master Real-World Validation concluído",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 465,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 445,
-      "title": "feat: P12 Real-World Validation — dataset real, estratégias, evidências e roadmap P13",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 3074,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 443,
-      "title": "docs: ROADMAP — P11 Master Implementation Plan marcado como concluído",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 517,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 441,
-      "title": "feat(ai): P11 Master Implementation Plan completo — 11 fases + certificação 10.0",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 4193,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 439,
-      "title": "docs: ROADMAP — Spec v5 (Agent Execution §1-27) concluída",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 474,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 437,
-      "title": "feat: Runner TS real (exec:run:real) + Domain Knowledge §16",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 1262,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 435,
-      "title": "feat: Spec v5 completa — implementer, maxTurns, historyScout, graph update",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 1379,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    }
-  ],
+  "prs": [],
   "repo": {
     "components": 122,
     "pages": 17,
@@ -726,7 +635,7 @@
     "testFiles": 260,
     "skills": 26,
     "rules": 48,
-    "events": 1217,
+    "events": 1218,
     "qualityNotes": 572
   },
   "summary": {
