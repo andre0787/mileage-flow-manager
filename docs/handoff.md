@@ -4,7 +4,7 @@
 ---
 ## 🏗️ Projeto
 
-> ⏰ Snapshot atualizado em: 2026-08-15
+> ⏰ Snapshot atualizado em: 2026-08-16
 
 ### 🏗️ Projeto
 
@@ -15,6 +15,8 @@
 
 ### 🐞 Bugs Abertos
 
+- [#455](https://github.com/andre0787/mileage-flow-manager/issues/455) — 🚨 Smoke de produção falhou após deploy 6b855843ad3b34008c8fea7c85cf3def9ccaeb9d
+- [#453](https://github.com/andre0787/mileage-flow-manager/issues/453) — 🚨 Smoke de produção falhou após deploy 78ac88350b19f833864a7a406885959a643e4913
 - [#451](https://github.com/andre0787/mileage-flow-manager/issues/451) — 🚨 Smoke de produção falhou após deploy ab9377a94703d6c766b679f33c1038caf85722a3
 - [#449](https://github.com/andre0787/mileage-flow-manager/issues/449) — 🚨 Smoke de produção falhou após deploy 2da3dab2501aac54bbe290afdfa7a7f6e1a0272a
 - [#446](https://github.com/andre0787/mileage-flow-manager/issues/446) — 🚨 Smoke de produção falhou após deploy ef5b4b59e94a591b7661f255174ed565421b7a59
@@ -23,15 +25,13 @@
 - [#440](https://github.com/andre0787/mileage-flow-manager/issues/440) — 🚨 Smoke de produção falhou após deploy b237e4c55dbbac286db11075357ead7193f59840
 - [#438](https://github.com/andre0787/mileage-flow-manager/issues/438) — 🚨 Smoke de produção falhou após deploy 875a0e0baf94885ba9edf6ada2a6fe6eccc1a8e2
 - [#436](https://github.com/andre0787/mileage-flow-manager/issues/436) — 🚨 Smoke de produção falhou após deploy ecb0eb14c5fae84bc46bf14d934ccc658d80ff08
-- [#434](https://github.com/andre0787/mileage-flow-manager/issues/434) — 🚨 Smoke de produção falhou após deploy 299719d16b13b8aac24592d512e57bbb29eacbd5
-- [#432](https://github.com/andre0787/mileage-flow-manager/issues/432) — 🚨 Smoke de produção falhou após deploy 9a131eda4bdd7b03050bae65329cf48b492ab6f8
 
 ### 📋 Commits Recentes
 
 ```
-ab9377a Merge pull request #450 from andre0787/chore/cleanup-orphan-branches
-b11ef59 chore: normalize report prefix to PR450
-a8dc247 chore: limpeza do repositório — branches órfãs + fable-gates no MAP
+ca37462 chore(tracking): atualiza relatórios, eventos e dados de qualidade pós-validação
+999e9e7 chore: register code-review evidence for feat/continue-p125
+6b85584 Merge pull request #454 from andre0787/feat/p125-demo-e2e-real
 ```
 
 ## 🧭 Estado Atual
