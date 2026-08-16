@@ -14,7 +14,6 @@ export * from "./access-gate";
 export * from "./lifecycle";
 export * from "./limits";
 export * from "./browser-adapter";
-export * from "./playwright-adapter";
 export * from "./fake-browser";
 export * from "./scenarios";
 export * from "./scenario-defs";

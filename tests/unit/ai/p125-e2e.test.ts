@@ -361,7 +361,7 @@ describe("P12.5 QA Agent", () => {
   it("cenário que passa gera finding sem erro", async () => {
     const scenario = getScenario("dashboard-totals")!;
     const page = createFakePage({
-      textBySelector: new Map([["#dashboard-total", "25.000"]]),
+      textBySelector: new Map([["#dashboard-total", "41.400"]]),
       visibleSelectors: new Set(["#dashboard-total"]),
     });
     const adapter = new FakeBrowserAdapter(page);

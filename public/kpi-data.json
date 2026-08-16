@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T23:27:17.597Z",
+  "generatedAt": "2026-08-16T00:06:40.775Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,10 +174,10 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 80.9,
-      "prePrTotal": 387,
-      "prePrPass": 313,
-      "prePrFail": 74,
+      "prePrPassRate": 81.7,
+      "prePrTotal": 382,
+      "prePrPass": 312,
+      "prePrFail": 70,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -185,27 +185,27 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 92.4,
+      "avgOutcomeGrade": 92.1,
       "topViolations": [
         {
           "rule": "rule-10-clean",
-          "count": 151
+          "count": 148
         },
         {
           "rule": "rule-38-code-review-gate",
-          "count": 52
+          "count": 57
+        },
+        {
+          "rule": "rule-39-coding-gate",
+          "count": 34
         },
         {
           "rule": "rule-26-session-started",
-          "count": 34
+          "count": 33
         },
         {
           "rule": "rule-scope",
           "count": 32
-        },
-        {
-          "rule": "rule-39-coding-gate",
-          "count": 29
         }
       ],
       "healedByRule": {
@@ -217,10 +217,10 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.6,
-      "branchesMerged": 110,
-      "violationsCaught": 439,
-      "healedRate": 23,
-      "frictionPerPass": 1.4,
+      "branchesMerged": 109,
+      "violationsCaught": 446,
+      "healedRate": 22.6,
+      "frictionPerPass": 1.43,
       "llmRouter": {
         "resolved": 34,
         "completed": 0,
@@ -472,15 +472,15 @@
     {
       "day": "2026-08-04",
       "label": "04/08",
-      "prePrTotal": 25,
-      "prePrPass": 8,
-      "prePrFail": 17,
-      "prePrPassRate": 32,
-      "ruleFails": 38,
+      "prePrTotal": 18,
+      "prePrPass": 5,
+      "prePrFail": 13,
+      "prePrPassRate": 27.8,
+      "ruleFails": 32,
       "healed": 0,
-      "sessions": 6,
-      "merges": 4,
-      "friction": 4.75
+      "sessions": 4,
+      "merges": 2,
+      "friction": 6.4
     },
     {
       "day": "2026-08-05",
@@ -615,18 +615,27 @@
     {
       "day": "2026-08-15",
       "label": "15/08",
-      "prePrTotal": 64,
-      "prePrPass": 64,
+      "prePrTotal": 65,
+      "prePrPass": 65,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 71,
+      "ruleFails": 80,
       "healed": 22,
-      "sessions": 5,
+      "sessions": 6,
       "merges": 20,
-      "friction": 1.11
+      "friction": 1.23
     }
   ],
   "prs": [
+    {
+      "number": 452,
+      "title": "feat(ai): P12.5 — Public Demo, Agentic E2E & Evidence-to-Fix Loop",
+      "type": "feat",
+      "date": "2026-08-15",
+      "tokens": 3553,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 450,
       "title": "chore: limpeza do repositório — branches órfãs e fable-gates no MAP",
@@ -707,35 +716,26 @@
       "tokens": 1379,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 433,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-08-15",
-      "tokens": 515,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção"
     }
   ],
   "repo": {
     "components": 122,
-    "pages": 16,
+    "pages": 17,
     "libs": 33,
     "scripts": 117,
-    "testFiles": 253,
+    "testFiles": 260,
     "skills": 26,
     "rules": 48,
-    "events": 1215,
-    "qualityNotes": 566
+    "events": 1217,
+    "qualityNotes": 572
   },
   "summary": {
-    "merges": 110,
+    "merges": 109,
     "prs": 6,
-    "sessions": 71,
-    "violations": 439,
+    "sessions": 70,
+    "violations": 446,
     "healed": 101,
-    "prePrPassRate": 80.9
+    "prePrPassRate": 81.7
   },
   "telemetry": []
 }

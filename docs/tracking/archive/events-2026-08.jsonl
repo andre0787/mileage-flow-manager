@@ -423,3 +423,19 @@
 {"timestamp":"2026-08-04T00:36:35.855Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"chore/roadmap-p3-done","commit":"7a8a1c9","rule":"rule-17-new-docs-valid"}
 {"timestamp":"2026-08-04T00:36:37.821Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"chore/roadmap-p3-done","commit":"7a8a1c9","rule":"rule-26-session-started"}
 {"timestamp":"2026-08-04T00:36:57.452Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/roadmap-p3-done","commit":"7a8a1c9","errors":3}
+{"timestamp":"2026-08-04T00:37:02.458Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/roadmap-p3-done","commit":"7a8a1c9","rule":"rule-10-clean"}
+{"timestamp":"2026-08-04T00:37:03.022Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"chore/roadmap-p3-done","commit":"7a8a1c9","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-04T00:37:05.046Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"chore/roadmap-p3-done","commit":"7a8a1c9","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-04T00:37:24.882Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/roadmap-p3-done","commit":"7a8a1c9","errors":3}
+{"timestamp":"2026-08-04T00:38:43.902Z","type":"session:start","description":"chore: finalizar roadmap P3 (housekeeping): limpar thoughts stale + exclude .worktrees do verify-docs","branch":"chore/roadmap-p3-done","commit":"7a8a1c9","categoria":"chore"}
+{"timestamp":"2026-08-04T00:38:48.544Z","type":"rule:fail","description":"rule-08-report falhou","branch":"chore/roadmap-p3-done","commit":"7a8a1c9","rule":"rule-08-report"}
+{"timestamp":"2026-08-04T00:38:48.647Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/roadmap-p3-done","commit":"7a8a1c9","rule":"rule-10-clean"}
+{"timestamp":"2026-08-04T00:39:10.800Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/roadmap-p3-done","commit":"7a8a1c9","errors":3}
+{"timestamp":"2026-08-04T00:39:54.435Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"chore/roadmap-p3-done","commit":"7a8a1c9","rule":"rule-10-clean"}
+{"timestamp":"2026-08-04T00:40:16.403Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/roadmap-p3-done","commit":"7a8a1c9","errors":1}
+{"timestamp":"2026-08-04T00:48:16.068Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/roadmap-p3-done","commit":"7a8a1c9","errors":0}
+{"timestamp":"2026-08-04T00:48:43.180Z","type":"pre-pr","description":"pre-pr FAIL","branch":"chore/roadmap-p3-done","commit":"a1558ce","errors":1}
+{"timestamp":"2026-08-04T00:50:25.686Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/roadmap-p3-done","commit":"cf787bc","errors":0}
+{"timestamp":"2026-08-04T02:12:22.951Z","type":"session:end","description":"handoff atualizado","branch":"docs/session-end-handoff","commit":"bc33245"}
+{"timestamp":"2026-08-04T02:35:18.226Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/handoff-cleanup","commit":"da89e84","errors":0}
+{"timestamp":"2026-08-04T02:55:31.989Z","type":"session:start","description":"feature: UX melhorias: filtro por dono em entradas/vendas, scroll por mouse, sanitizar tipos de origem, ordenacao de colunas","branch":"main","commit":"afd4907","categoria":"feature"}

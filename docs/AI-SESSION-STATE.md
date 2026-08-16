@@ -1,38 +1,39 @@
-# AI Session State - 2026-08-15T20:17:00.000Z
+# AI Session State - 2026-08-15T21:00:00.000Z
 
 ## Última Task
 
-- **P12.5 — Public Demo, Agentic E2E & Evidence-to-Fix Loop** (branch `feat/p12.5-public-demo-agentic-e2e`):
-  - **P12.5-00** Baseline (`docs/P12.5-BASELINE.md`) + Threat Model (23 ameaças T1-T23 em `docs/P12.5-THREAT-MODEL.md`)
-  - **P12.5-01/02** Demo Tenant `__demo__` + Anonymous Access Gate (`src/ai/e2e/context*.ts`, `demo-tenant.ts`, `demo-fixture.ts`, `access-gate.ts`)
-  - **P12.5-03/04** Lifecycle determinístico (fixture/seed/snapshot/reset + TTL) + Limits (rate limits + budgets tokens/duration/tool calls/concurrent/runs)
-  - **P12.5-05** BrowserAdapter (interface + `PlaywrightBrowserAdapter` lazy + `FakeBrowserAdapter` para testes) com sandbox SSRF
-  - **P12.5-06** Scenario Registry: 8 cenários reais (create/edit/delete entry, dashboard, reset, search, validation, demo-access)
-  - **P12.5-07** Evidence Pack com redaction de secrets + retention
-  - **P12.5-08/09** E2E QA Agent (black-box, não edita código) + Failure Triage (confidence ≥ 0.90 → fix; < 0.70 → manual review)
-  - **P12.5-10/11** Controlled Fix Workflow (Level 3 capped, sem auto-merge) + Regression Loop (repeat + flaky_score)
-  - **P12.5-12/13** KPI E2E (pass/failure/flaky/fix success/regression rates) + Security Certification (16 checks)
-  - Telemetry: campos `browserSessionId/scenarioId/findingId/artifactId` no envelope (sem telemetry paralela)
-  - CLI `npm run p12.5:validate` → `docs/P12.5-EVIDENCE-REPORT.md` · `npm run ai:p12.5:score` → **OVERALL 10.00 / PASS** (15 eixos ≥ 9,5)
+- **P12.5 itens 1-2** (branch `feat/p125-demo-e2e-real`):
+  - **Item 2 — Demo real + Playwright E2E:**
+    - `src/pages/Demo.tsx` — rota `/demo` anônima fora do auth (P12.5-02/03 na prática): DemoAccessGate + DemoLifecycle + addDemoEntry, selectors `#dashboard-total`/`#entry-list`/`#program`/`#miles`/`#submit-entry`/`#reset-demo`/`#validation-error`, flag `VITE_PUBLIC_DEMO_ENABLED`
+    - `src/App.tsx` — rota `/demo` fora do ProtectedRoute (lazy)
+    - `tests/demo-e2e.spec.ts` — spec Playwright real: acesso anônimo, create-mileage-entry (4 itens de validação), reset; skip quando sem env
+    - `vite.config.ts` — `optimizeDeps.exclude` + `build.rollupOptions.external` p/ playwright-core (nunca no bundle do client)
+    - `src/ai/e2e/playwright-adapter.ts` — `@vite-ignore` no import dinâmico
+    - `src/ai/e2e/index.ts` — playwright-adapter fora do barrel do client
+    - `src/ai/e2e/scenario-defs.ts` — assertions alinhadas ao demo real (41.400/42.900)
+    - `package.json` — `test:e2e:demo` (VITE_PUBLIC_DEMO_ENABLED=true playwright test tests/demo-e2e.spec.ts)
+  - **Item 1 — ROADMAP:** entrada #7 na seção ✅ Concluído (P12.5, PR #452)
+  - **Resultado E2E real:** 4/4 passando (anon access, create entry 42.900, validação, reset)
 
 ## Estado dos Testes & Qualidade
 
-- **pre-pr:** em andamento · **check:fast:** ✅ · **Testes:** 1174 unit (45 novos p125-e2e)
-- **Score P12.5:** 10.00 PASS (15 eixos) · rule-41 respeitado (arquivos divididos)
-- **Git:** branch `feat/p12.5-public-demo-agentic-e2e`
+- **pre-pr:** em andamento · **Testes:** 1174 unit + 4 E2E demo (reais)
+- **Smoke CI:** ✅ 2 passed / 1 skipped (spec demo não interfere)
+- **Git:** branch `feat/p125-demo-e2e-real` (main em 78ac883)
 
 ## Arquivos Modificados & Impacto
 
-- `src/ai/e2e/*` (18 módulos + barrel), `src/ai/telemetry/envelope.ts` (campos E2E), `src/ai/index.ts`
-- `scripts/p12.5-validate.ts`, `scripts/p12.5-report-generator.ts`, `scripts/ai-p12.5-score.mjs`
-- `tests/unit/ai/p125-e2e.test.ts` (45 testes), `docs/P12.5-*.md` (3), `docs/ARCHITECTURE.md`, `.pi/state/p12.5-progress.json`
+- `src/pages/Demo.tsx` (novo), `src/App.tsx` (rota /demo), `tests/demo-e2e.spec.ts` (novo)
+- `vite.config.ts` (playwright-core external), `src/ai/e2e/playwright-adapter.ts`, `src/ai/e2e/index.ts`
+- `src/ai/e2e/scenario-defs.ts`, `scripts/p12.5-validate.ts`, `tests/unit/ai/p125-e2e.test.ts`
+- `docs/ROADMAP.md` (entrada #7), `package.json` (test:e2e:demo)
 
 ## Pendências Imediatas (Next Step)
 
-- evento rule-38/39 → pre-pr 0 errors → commit → push → PR → merge
+- pre-pr 0 errors → commit → push → PR → merge
 
 ## Governança de Contexto
 
 - **Tokens Utilizados:** ~100K acumulado (ai_telemetry)
 - **Poda (Pruning):** 0 linhas removidas no último turno
-- **Branch Atual:** feat/p12.5-public-demo-agentic-e2e (main em ab9377a)
+- **Branch Atual:** feat/p125-demo-e2e-real (main em 78ac883)

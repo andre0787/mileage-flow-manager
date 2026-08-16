@@ -70,6 +70,9 @@ function findTestFile(srcFile) {
   // Convenção da rule-31: libs de src/lib/ têm teste em tests/unit/<name>.test.ts
   const unitPath = resolve(ROOT, "tests", "unit", `${name}${TEST_EXTENSIONS[0]}`);
   if (existsSync(unitPath)) return unitPath;
+  // Módulos de src/ai/: testes em tests/unit/ai/<name>.test.ts (espelho da pasta)
+  const aiUnitPath = resolve(ROOT, "tests", "unit", "ai", `${name}${TEST_EXTENSIONS[0]}`);
+  if (srcFile.startsWith("src/ai/") && existsSync(aiUnitPath)) return aiUnitPath;
   // Componentes: teste em tests/components/<subdir?>/<name>.test.tsx — o caminho
   // relativo dentro de src/components/ é preservado em tests/components/.
   if (srcFile.startsWith("src/components/")) {
@@ -153,6 +156,7 @@ function gradeDiff(checklistMode = false) {
       if (file.includes(".test.") || file.includes(".spec.")) continue;
       if (file.includes("/ui/") || file.includes("/types/")) continue;
       if (file === "src/App.tsx" || file === "src/main.tsx") continue; // entry points (rule-14)
+      if (file.endsWith("/index.ts") || file.endsWith("/index.tsx")) continue; // barrels: re-exports, sem lógica própria
 
       const testFile = findTestFile(file);
       if (!testFile) {
