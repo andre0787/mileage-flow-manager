@@ -124,7 +124,8 @@
     "ai:p11:score": "node scripts/ai-p11-score.mjs",
     "p12:validate": "tsx scripts/p12-validate.ts",
     "p12.5:validate": "tsx scripts/p12.5-validate.ts",
-    "ai:p12.5:score": "node scripts/ai-p12.5-score.mjs"
+    "ai:p12.5:score": "node scripts/ai-p12.5-score.mjs",
+    "test:e2e:demo": "VITE_PUBLIC_DEMO_ENABLED=true playwright test tests/demo-e2e.spec.ts"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.1",

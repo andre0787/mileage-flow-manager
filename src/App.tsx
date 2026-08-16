@@ -38,6 +38,7 @@ const Perfil = lazy(() => import("./pages/Perfil"));
 const AdminEventos = lazy(() => import("./pages/AdminEventos"));
 const KPI = lazy(() => import("./pages/KPI"));
 const Workflow = lazy(() => import("./pages/Workflow"));
+const Demo = lazy(() => import("./pages/Demo"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient({
@@ -274,6 +275,14 @@ const App = () => (
                   <Route path="/login" element={<Login />} />
                   <Route path="/forgot-password" element={<ForgotPassword />} />
                   <Route path="/reset-password" element={<ResetPassword />} />
+                  <Route
+                    path="/demo"
+                    element={
+                      <Suspense fallback={<PageFallback />}>
+                        <Demo />
+                      </Suspense>
+                    }
+                  />
                   <Route
                     path="/*"
                     element={

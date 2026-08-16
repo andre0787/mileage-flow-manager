@@ -39,7 +39,7 @@ export const SCENARIOS: Scenario[] = [
     ],
     assertions: [
       { type: "count", selector: "#entry-list tr", expected: 4 },
-      { type: "text", selector: "#dashboard-total", expected: "25.000" },
+      { type: "text", selector: "#dashboard-total", expected: "42.900" },
     ],
     expectedArtifacts: ["screenshot", "domSnapshot", "trace", "console", "network"],
     cleanup: ["demo reset"],
@@ -85,7 +85,7 @@ export const SCENARIOS: Scenario[] = [
     priority: "P1",
     preconditions: ["demo fixtures loaded"],
     steps: [{ action: "open", url: "http://localhost:8080/demo" }],
-    assertions: [{ type: "text", selector: "#dashboard-total", expected: "25.000" }],
+    assertions: [{ type: "text", selector: "#dashboard-total", expected: "41.400" }],
     expectedArtifacts: ["screenshot", "console"],
     cleanup: [],
   },
@@ -102,7 +102,7 @@ export const SCENARIOS: Scenario[] = [
     ],
     assertions: [
       { type: "count", selector: "#entry-list tr", expected: 3 },
-      { type: "text", selector: "#dashboard-total", expected: "25.000" },
+      { type: "text", selector: "#dashboard-total", expected: "41.400" },
     ],
     expectedArtifacts: ["screenshot", "console", "network"],
     cleanup: [],

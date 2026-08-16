@@ -43,6 +43,12 @@ export default defineConfig(({ mode }) => ({
       strict: false,
     },
   },
+  // playwright-core é lib Node-only usada só pelo PlaywrightBrowserAdapter
+  // (import dinâmico com @vite-ignore, P12.5-05) — nunca vai ao bundle do
+  // client nem ao pre-bundle do dev server.
+  optimizeDeps: {
+    exclude: ["playwright-core"],
+  },
   plugins: [
     react(),
     mode === "development" && componentTagger(),
@@ -76,6 +82,8 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     rollupOptions: {
+      // playwright-core nunca entra no bundle do client (P12.5-05)
+      external: ["playwright-core"],
       output: {
         manualChunks: (id) => {
           if (id.includes("node_modules/react") || id.includes("node_modules/scheduler"))

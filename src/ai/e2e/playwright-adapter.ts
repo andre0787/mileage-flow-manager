@@ -33,8 +33,10 @@ export class PlaywrightBrowserAdapter implements BrowserAdapter {
   /** Lazy bootstrap do Playwright (chromium headless). */
   private async ensureBrowser(): Promise<Page> {
     if (this.page) return this.page;
-    // Import dinâmico: mantém o core livre de dependência de browser.
-    const { chromium } = await import("playwright-core");
+    // Import dinâmico com @vite-ignore: mantém o core livre de dependência
+    // de browser e impede o Vite de pré-bundlar playwright-core (lib
+    // Node-only) no bundle do client (P12.5-05).
+    const { chromium } = await import(/* @vite-ignore */ "playwright-core");
     this.browser = await chromium.launch({ headless: true });
     this.page = await this.browser.newPage();
     return this.page;

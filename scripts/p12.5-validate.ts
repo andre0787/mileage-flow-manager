@@ -101,13 +101,16 @@ async function main() {
     }
     const pass = simulateScenarioOutcome(scenario);
     scenarioOutcomes[scenario.scenarioId] = [pass, pass, pass];
-    const runId = `run_demo_${scenario.scenarioId}`;
-
-    // Estado do fake page por cenário: só os cenários intencionais falham.
+    const runId = `run_demo_${scenario.scenarioId}`; // Estado do fake page por cenário: só os cenários intencionais falham.
     const counts = new Map<string, number>([["#entry-list tr", pass ? 4 : 0]]);
-    const texts = new Map<string, string>([["#dashboard-total", pass ? "25.000" : "error"]]);
+    const texts = new Map<string, string>([["#dashboard-total", pass ? "42.900" : "error"]]);
     if (scenario.scenarioId === "delete-mileage-entry") counts.set("#entry-list tr", pass ? 2 : 0);
-    if (scenario.scenarioId === "demo-reset") counts.set("#entry-list tr", pass ? 3 : 0);
+    if (scenario.scenarioId === "dashboard-totals")
+      texts.set("#dashboard-total", pass ? "41.400" : "error");
+    if (scenario.scenarioId === "demo-reset") {
+      counts.set("#entry-list tr", pass ? 3 : 0);
+      texts.set("#dashboard-total", pass ? "41.400" : "error");
+    }
     if (scenario.scenarioId === "search-filters") counts.set("#search-results", pass ? 1 : 0);
     if (scenario.scenarioId === "edit-mileage-entry")
       texts.set("#entry-1-miles", pass ? "900" : "0");

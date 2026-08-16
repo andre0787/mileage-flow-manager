@@ -45,3 +45,7 @@ export * from "./execution/final-validator";
 export * from "./execution/reviewer";
 export * from "./validation";
 export * from "./e2e";
+// PlaywrightBrowserAdapter: consumido por scripts/CLI (Node-only). Fora do
+// barrel e2e (client) para não arrastar playwright-core ao bundle do Vite;
+// re-exportado aqui, o barrel público do AI Core (regra #14).
+export * from "./e2e/playwright-adapter";
