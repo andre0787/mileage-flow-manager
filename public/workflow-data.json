@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-08-16T00:06:45.405Z",
+  "generatedAt": "2026-08-16T06:32:24.397Z",
   "dataDate": "2026-08-16",
   "kpiStats": [
     {
-      "value": 1217,
+      "value": 1218,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 382,
+      "n": 383,
       "color": "#8b5cf6"
     },
     {
@@ -114,6 +114,11 @@
   ],
   "recentTimeline": [
     {
+      "t": "2026-08-16 00:06:55",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
       "t": "2026-08-16 00:06:40",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
@@ -147,19 +152,14 @@
       "t": "2026-08-16 00:04:06",
       "d": "rule:fail",
       "desc": "rule-38-code-review-gate falhou"
-    },
-    {
-      "t": "2026-08-15 23:58:20",
-      "d": "rule:fail",
-      "desc": "rule-39-coding-gate falhou"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 446,
     "healed": 101,
     "healedRate": 22.6,
-    "prePrTotal": 382,
-    "prePrPass": 312,
+    "prePrTotal": 383,
+    "prePrPass": 313,
     "prePrPassRate": 81.7,
     "gateBlocked": 1,
     "topViolations": [
@@ -190,53 +190,7 @@
       }
     ]
   },
-  "lastPrs": [
-    {
-      "number": 452,
-      "title": "feat(ai): P12.5 — Public Demo, Agentic E2E & Evidence-to-Fix Loop",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 3553,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 450,
-      "title": "chore: limpeza do repositório — branches órfãs e fable-gates no MAP",
-      "type": "chore",
-      "date": "2026-08-15",
-      "tokens": 560,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável"
-    },
-    {
-      "number": 448,
-      "title": "docs: auditoria geral — docs atualizadas para P11/P12",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 812,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 447,
-      "title": "docs: ROADMAP — P12 Master Real-World Validation concluído",
-      "type": "docs",
-      "date": "2026-08-15",
-      "tokens": 465,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 445,
-      "title": "feat: P12 Real-World Validation — dataset real, estratégias, evidências e roadmap P13",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 3074,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    }
-  ],
+  "lastPrs": [],
   "overview": {
     "components": 122,
     "pages": 17,
@@ -245,7 +199,7 @@
     "testFiles": 260,
     "skills": 26,
     "rules": 48,
-    "events": 1217,
+    "events": 1218,
     "qualityNotes": 572
   }
 }

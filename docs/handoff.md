@@ -112,14 +112,7 @@ Nenhum PR aberto.
 
 
 
-## 🎯 Sessão Atual
-**Categoria:** feature
-**Objetivo:** P12.5 itens 1-2: ROADMAP + demo real /demo + Playwright E2E
-**Status:** in_progress
-**Iniciada em:** 2026-08-15T23:53:27.231Z
-**Branch:** `feat/p125-demo-e2e-real`
-**Último commit:** 78ac883 — Merge pull request #452 from andre0787/feat/p125-public-demo-agentic-e2e
-**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
+
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
@@ -141,6 +134,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
 - **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
+
 
 
 
