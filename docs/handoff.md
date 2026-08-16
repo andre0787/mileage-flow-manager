@@ -1,44 +1,17 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-08-11
-> Anterior: 2026-08-10
+> ⏰ Última atualização: 2026-08-16
+> Anterior: 2026-08-11
 ---
 ## 🏗️ Projeto
-
-> ⏰ Snapshot atualizado em: 2026-08-16
-
-### 🏗️ Projeto
-
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
-**Regras críticas:** branch obrigatória, pre-pr c/ relatório, git status ZERO, lazy loading por categoria
-**Workflow:** session:start → categoria → carregar docs → council (se feature) → build → pre-pr → PR
-
+**Workflow:** session:start → categoria → implementação → pre-pr → PR
 ### 🐞 Bugs Abertos
-
-- [#455](https://github.com/andre0787/mileage-flow-manager/issues/455) — 🚨 Smoke de produção falhou após deploy 6b855843ad3b34008c8fea7c85cf3def9ccaeb9d
-- [#453](https://github.com/andre0787/mileage-flow-manager/issues/453) — 🚨 Smoke de produção falhou após deploy 78ac88350b19f833864a7a406885959a643e4913
-- [#451](https://github.com/andre0787/mileage-flow-manager/issues/451) — 🚨 Smoke de produção falhou após deploy ab9377a94703d6c766b679f33c1038caf85722a3
-- [#449](https://github.com/andre0787/mileage-flow-manager/issues/449) — 🚨 Smoke de produção falhou após deploy 2da3dab2501aac54bbe290afdfa7a7f6e1a0272a
-- [#446](https://github.com/andre0787/mileage-flow-manager/issues/446) — 🚨 Smoke de produção falhou após deploy ef5b4b59e94a591b7661f255174ed565421b7a59
-- [#444](https://github.com/andre0787/mileage-flow-manager/issues/444) — 🚨 Smoke de produção falhou após deploy b1b05b0df5a7a45c6a5a1107343f7d31f0ce39e9
-- [#442](https://github.com/andre0787/mileage-flow-manager/issues/442) — 🚨 Smoke de produção falhou após deploy dcd80c8c62732c3912c8f4c0758378c725df88de
-- [#440](https://github.com/andre0787/mileage-flow-manager/issues/440) — 🚨 Smoke de produção falhou após deploy b237e4c55dbbac286db11075357ead7193f59840
-- [#438](https://github.com/andre0787/mileage-flow-manager/issues/438) — 🚨 Smoke de produção falhou após deploy 875a0e0baf94885ba9edf6ada2a6fe6eccc1a8e2
-- [#436](https://github.com/andre0787/mileage-flow-manager/issues/436) — 🚨 Smoke de produção falhou após deploy ecb0eb14c5fae84bc46bf14d934ccc658d80ff08
-
-### 📋 Commits Recentes
-
-```
-ca37462 chore(tracking): atualiza relatórios, eventos e dados de qualidade pós-validação
-999e9e7 chore: register code-review evidence for feat/continue-p125
-6b85584 Merge pull request #454 from andre0787/feat/p125-demo-e2e-real
-```
-
+Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `feat/continue-p125`
-- **Último commit:** `6b85584 — Merge pull request #454 from andre0787/feat/p125-demo-e2e-real`
-- **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
-
+- **Último commit:** `0189060` — docs(handoff): snapshot atualizado da sessão
+- **Remote:** no remote
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
 - **P3-28 entradas** (`src/features/entradas/`), **P3-29 contas** (`src/features/contas/`),
   **P3-30 clientes** (`src/features/clientes/`), **P3-31 vendas** (`src/features/vendas/`, PR #341),
@@ -63,66 +36,20 @@ Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 575 |
+| Total testes | 1125 |
 | Docs issues | 0 |
-| Branch | refactor/blueprint-v4-p1-clientes |
+| Branch | feat/continue-p125 |
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---
+_Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** feature
 **Objetivo:** P12.5 itens 1-2: ROADMAP + demo real /demo + Playwright E2E
-**Status:** in_progress
+**Status:** done
 **Iniciada em:** 2026-08-15T23:53:27.231Z
 **Branch:** `feat/continue-p125`
 **Último commit:** 78ac883 — Merge pull request #452 from andre0787/feat/p125-public-demo-agentic-e2e
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
----
-_Atualizado automaticamente por `scripts/update-handoff.mjs`_
-
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
@@ -141,6 +68,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
 - **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
+
 
 
 
