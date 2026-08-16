@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-16T00:06:45.405Z",
+  "generatedAt": "2026-08-16T05:34:44.559Z",
   "dataDate": "2026-08-16",
   "kpiStats": [
     {
-      "value": 1217,
+      "value": 1206,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 572,
+      "value": 580,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 101,
+      "value": 102,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 72,
+      "value": 73,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,32 +36,32 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 70,
+      "n": 69,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 382,
+      "n": 378,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 446,
+      "n": 437,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 101,
+      "n": 102,
       "color": "#10b981"
     },
     {
       "name": "llm.route.resolved",
-      "n": 34,
+      "n": 35,
       "color": "#14b8a6"
     },
     {
       "name": "code-review:done",
-      "n": 78,
+      "n": 79,
       "color": "#6366f1"
     },
     {
@@ -98,7 +98,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 361,
+      "n": 369,
       "color": "#10b981"
     },
     {
@@ -114,63 +114,63 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-16 00:06:40",
+      "t": "2026-08-16 05:34:41",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-16 00:05:59",
-      "d": "coding:done",
-      "desc": "Coding P12.5 demo real via subagente — Demo.tsx + demo-e2e.spec + external playwright-core"
+      "t": "2026-08-16 05:23:09",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-16 00:05:59",
+      "t": "2026-08-16 05:23:09",
       "d": "code-review:done",
-      "desc": "Review P12.5 demo real via subagente — Demo.tsx, rota /demo, spec Playwright, vite config"
+      "desc": "Review aprovado por subagente — continue-p125"
     },
     {
-      "t": "2026-08-16 00:04:47",
-      "d": "rule:fail",
-      "desc": "rule-39-coding-gate falhou"
+      "t": "2026-08-16 05:21:25",
+      "d": "llm.route.resolved",
+      "desc": "LLM route resolved"
     },
     {
-      "t": "2026-08-16 00:04:47",
-      "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
-    },
-    {
-      "t": "2026-08-16 00:04:06",
-      "d": "rule:fail",
-      "desc": "rule-39-coding-gate falhou"
-    },
-    {
-      "t": "2026-08-16 00:04:06",
+      "t": "2026-08-16 05:20:09",
       "d": "rule:fail",
       "desc": "rule-38-code-review-gate falhou"
     },
     {
-      "t": "2026-08-15 23:58:20",
+      "t": "2026-08-16 05:04:09",
       "d": "rule:fail",
-      "desc": "rule-39-coding-gate falhou"
+      "desc": "rule-38-code-review-gate falhou"
+    },
+    {
+      "t": "2026-08-16 05:02:22",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
+    },
+    {
+      "t": "2026-08-16 05:01:43",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 446,
-    "healed": 101,
-    "healedRate": 22.6,
-    "prePrTotal": 382,
-    "prePrPass": 312,
-    "prePrPassRate": 81.7,
+    "ruleFails": 437,
+    "healed": 102,
+    "healedRate": 23.3,
+    "prePrTotal": 378,
+    "prePrPass": 315,
+    "prePrPassRate": 83.3,
     "gateBlocked": 1,
     "topViolations": [
       {
         "rule": "rule-10-clean",
-        "count": 148,
+        "count": 141,
         "hint": "git status ZERO antes de PR — artefatos gerados não commitados"
       },
       {
         "rule": "rule-38-code-review-gate",
-        "count": 57,
+        "count": 62,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
@@ -179,18 +179,27 @@
         "hint": "faltou evento coding:done por subagente na branch"
       },
       {
-        "rule": "rule-26-session-started",
-        "count": 33,
-        "hint": "timestamp de sessão ausente — npm run session:start"
-      },
-      {
         "rule": "rule-scope",
         "count": 32,
         "hint": "escopo do diff fora da categoria da branch"
+      },
+      {
+        "rule": "rule-26-session-started",
+        "count": 31,
+        "hint": "timestamp de sessão ausente — npm run session:start"
       }
     ]
   },
   "lastPrs": [
+    {
+      "number": 454,
+      "title": "feat(demo): rota /demo anônima real + Playwright E2E + ROADMAP P12.5",
+      "type": "feat",
+      "date": "2026-08-16",
+      "tokens": 1199,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 452,
       "title": "feat(ai): P12.5 — Public Demo, Agentic E2E & Evidence-to-Fix Loop",
@@ -226,15 +235,6 @@
       "tokens": 465,
       "benefit": "Documentação/processo atualizados — mais rastreabilidade",
       "impact": "Menos fricção e melhor governança"
-    },
-    {
-      "number": 445,
-      "title": "feat: P12 Real-World Validation — dataset real, estratégias, evidências e roadmap P13",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 3074,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "overview": {
@@ -245,7 +245,7 @@
     "testFiles": 260,
     "skills": 26,
     "rules": 48,
-    "events": 1217,
-    "qualityNotes": 572
+    "events": 1206,
+    "qualityNotes": 580
   }
 }

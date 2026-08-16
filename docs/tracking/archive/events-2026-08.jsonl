@@ -439,3 +439,27 @@
 {"timestamp":"2026-08-04T02:12:22.951Z","type":"session:end","description":"handoff atualizado","branch":"docs/session-end-handoff","commit":"bc33245"}
 {"timestamp":"2026-08-04T02:35:18.226Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/handoff-cleanup","commit":"da89e84","errors":0}
 {"timestamp":"2026-08-04T02:55:31.989Z","type":"session:start","description":"feature: UX melhorias: filtro por dono em entradas/vendas, scroll por mouse, sanitizar tipos de origem, ordenacao de colunas","branch":"main","commit":"afd4907","categoria":"feature"}
+{"timestamp":"2026-08-04T15:57:32.863Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/ux-entradas-vendas","commit":"afd4907","rule":"rule-10-clean"}
+{"timestamp":"2026-08-04T15:57:33.841Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/ux-entradas-vendas","commit":"afd4907","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-04T15:57:36.049Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"feat/ux-entradas-vendas","commit":"afd4907","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-04T15:57:36.111Z","type":"rule:fail","description":"rule-27-council-veredict falhou","branch":"feat/ux-entradas-vendas","commit":"afd4907","rule":"rule-27-council-veredict"}
+{"timestamp":"2026-08-04T15:57:56.197Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/ux-entradas-vendas","commit":"afd4907","errors":5}
+{"timestamp":"2026-08-04T15:58:22.671Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/ux-entradas-vendas","commit":"afd4907","rule":"rule-10-clean"}
+{"timestamp":"2026-08-04T15:58:23.116Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/ux-entradas-vendas","commit":"afd4907","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-04T15:58:25.038Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"feat/ux-entradas-vendas","commit":"afd4907","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-04T15:58:25.104Z","type":"rule:fail","description":"rule-27-council-veredict falhou","branch":"feat/ux-entradas-vendas","commit":"afd4907","rule":"rule-27-council-veredict"}
+{"timestamp":"2026-08-04T15:58:44.157Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/ux-entradas-vendas","commit":"afd4907","errors":5}
+{"timestamp":"2026-08-04T16:01:09.607Z","type":"session:start","description":"feature: UX melhorias: filtro por dono em entradas/vendas, scroll por mouse, sanitizar tipos de origem, ordenacao de colunas","branch":"feat/ux-entradas-vendas","commit":"afd4907","categoria":"feature"}
+{"timestamp":"2026-08-04T16:01:13.216Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/ux-entradas-vendas","commit":"afd4907","rule":"rule-10-clean"}
+{"timestamp":"2026-08-04T16:01:13.663Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/ux-entradas-vendas","commit":"afd4907","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-04T16:01:34.774Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/ux-entradas-vendas","commit":"afd4907","errors":2}
+{"timestamp":"2026-08-04T16:01:48.168Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/ux-entradas-vendas","commit":"afd4907","rule":"rule-10-clean"}
+{"timestamp":"2026-08-04T16:01:48.612Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/ux-entradas-vendas","commit":"afd4907","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-04T16:02:09.574Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/ux-entradas-vendas","commit":"afd4907","errors":2}
+{"timestamp":"2026-08-04T16:02:35.896Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/ux-entradas-vendas","commit":"afd4907","rule":"rule-10-clean"}
+{"timestamp":"2026-08-04T16:02:36.346Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/ux-entradas-vendas","commit":"afd4907","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-08-04T16:02:57.442Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/ux-entradas-vendas","commit":"afd4907","errors":2}
+{"timestamp":"2026-08-04T16:05:49.609Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/ux-entradas-vendas","commit":"afd4907","rule":"rule-10-clean"}
+{"timestamp":"2026-08-04T16:06:10.914Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/ux-entradas-vendas","commit":"afd4907","errors":1}
+{"timestamp":"2026-08-04T16:06:31.688Z","type":"rule:fail","description":"rule-10-clean falhou","branch":"feat/ux-entradas-vendas","commit":"afd4907","rule":"rule-10-clean"}
+{"timestamp":"2026-08-04T16:06:58.366Z","type":"pre-pr","description":"pre-pr FAIL","branch":"feat/ux-entradas-vendas","commit":"afd4907","errors":1}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T00:06:40.775Z",
+  "generatedAt": "2026-08-16T05:34:41.213Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -174,10 +174,10 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 81.7,
-      "prePrTotal": 382,
-      "prePrPass": 312,
-      "prePrFail": 70,
+      "prePrPassRate": 83.3,
+      "prePrTotal": 378,
+      "prePrPass": 315,
+      "prePrFail": 63,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
       "gateActivations": {
@@ -185,31 +185,31 @@
         "twins": 0,
         "auth": 1
       },
-      "avgOutcomeGrade": 92.1,
+      "avgOutcomeGrade": 92.2,
       "topViolations": [
         {
           "rule": "rule-10-clean",
-          "count": 148
+          "count": 141
         },
         {
           "rule": "rule-38-code-review-gate",
-          "count": 57
+          "count": 62
         },
         {
           "rule": "rule-39-coding-gate",
           "count": 34
         },
         {
-          "rule": "rule-26-session-started",
-          "count": 33
-        },
-        {
           "rule": "rule-scope",
           "count": 32
+        },
+        {
+          "rule": "rule-26-session-started",
+          "count": 31
         }
       ],
       "healedByRule": {
-        "rule-26": 77,
+        "rule-26": 78,
         "rule-17-new-docs-valid": 23,
         "rule-02": 1
       },
@@ -217,15 +217,15 @@
         "rule-27-council-veredict": 1
       },
       "avgCycleTimeHours": 0.6,
-      "branchesMerged": 109,
-      "violationsCaught": 446,
-      "healedRate": 22.6,
-      "frictionPerPass": 1.43,
+      "branchesMerged": 110,
+      "violationsCaught": 437,
+      "healedRate": 23.3,
+      "frictionPerPass": 1.39,
       "llmRouter": {
-        "resolved": 34,
+        "resolved": 35,
         "completed": 0,
         "failed": 0,
-        "unobserved": 26,
+        "unobserved": 27,
         "fallbackUsed": 0,
         "completionRate": 0,
         "fallbackRate": null,
@@ -235,19 +235,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-07-17",
-      "label": "17/07",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-07-18",
       "label": "18/07",
@@ -472,15 +459,15 @@
     {
       "day": "2026-08-04",
       "label": "04/08",
-      "prePrTotal": 18,
+      "prePrTotal": 11,
       "prePrPass": 5,
-      "prePrFail": 13,
-      "prePrPassRate": 27.8,
-      "ruleFails": 32,
+      "prePrFail": 6,
+      "prePrPassRate": 45.5,
+      "ruleFails": 16,
       "healed": 0,
-      "sessions": 4,
+      "sessions": 3,
       "merges": 2,
-      "friction": 6.4
+      "friction": 3.2
     },
     {
       "day": "2026-08-05",
@@ -624,9 +611,31 @@
       "sessions": 6,
       "merges": 20,
       "friction": 1.23
+    },
+    {
+      "day": "2026-08-16",
+      "label": "16/08",
+      "prePrTotal": 4,
+      "prePrPass": 4,
+      "prePrFail": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 11,
+      "healed": 1,
+      "sessions": 0,
+      "merges": 2,
+      "friction": 2.75
     }
   ],
   "prs": [
+    {
+      "number": 454,
+      "title": "feat(demo): rota /demo anônima real + Playwright E2E + ROADMAP P12.5",
+      "type": "feat",
+      "date": "2026-08-16",
+      "tokens": 1199,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 452,
       "title": "feat(ai): P12.5 — Public Demo, Agentic E2E & Evidence-to-Fix Loop",
@@ -707,15 +716,6 @@
       "tokens": 1262,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 435,
-      "title": "feat: Spec v5 completa — implementer, maxTurns, historyScout, graph update",
-      "type": "feat",
-      "date": "2026-08-15",
-      "tokens": 1379,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "repo": {
@@ -726,16 +726,16 @@
     "testFiles": 260,
     "skills": 26,
     "rules": 48,
-    "events": 1217,
-    "qualityNotes": 572
+    "events": 1206,
+    "qualityNotes": 580
   },
   "summary": {
-    "merges": 109,
+    "merges": 110,
     "prs": 6,
-    "sessions": 70,
-    "violations": 446,
-    "healed": 101,
-    "prePrPassRate": 81.7
+    "sessions": 69,
+    "violations": 437,
+    "healed": 102,
+    "prePrPassRate": 83.3
   },
   "telemetry": []
 }
