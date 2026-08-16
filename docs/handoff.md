@@ -35,8 +35,8 @@ a8dc247 chore: limpeza do repositório — branches órfãs + fable-gates no MAP
 ```
 
 ## 🧭 Estado Atual
-- **Branch:** `feat/p125-demo-e2e-real`
-- **Último commit:** `78ac883 — Merge pull request #452 from andre0787/feat/p125-public-demo-agentic-e2e`
+- **Branch:** `feat/continue-p125`
+- **Último commit:** `6b85584 — Merge pull request #454 from andre0787/feat/p125-demo-e2e-real`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -117,7 +117,7 @@ Nenhum PR aberto.
 **Objetivo:** P12.5 itens 1-2: ROADMAP + demo real /demo + Playwright E2E
 **Status:** in_progress
 **Iniciada em:** 2026-08-15T23:53:27.231Z
-**Branch:** `feat/p125-demo-e2e-real`
+**Branch:** `feat/continue-p125`
 **Último commit:** 78ac883 — Merge pull request #452 from andre0787/feat/p125-public-demo-agentic-e2e
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 ---
