@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-08-16
-> Último commit: 6b85584-Merge pull request #454 from andre0787/feat/p125-demo-e2e-real
+> Gerado em: 2026-08-17
+> Último commit: 467bc4e-Merge pull request #456 from andre0787/chore/quality-nightly-update
 
 ## Pipeline
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-08-16 | ✅ | 1125 | 1805kB | 0 issues |
+| 2026-08-17 | ✅ | 1125 | 1805kB | 0 issues |
 
 ---
 
