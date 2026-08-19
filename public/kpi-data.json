@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T06:35:48.380Z",
+  "generatedAt": "2026-08-19T06:36:36.190Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -235,19 +235,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-07-20",
-      "label": "20/07",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-07-21",
       "label": "21/07",
@@ -615,6 +602,19 @@
     {
       "day": "2026-08-18",
       "label": "18/08",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-08-19",
+      "label": "19/08",
       "prePrTotal": 0,
       "prePrPass": 0,
       "prePrFail": 0,
