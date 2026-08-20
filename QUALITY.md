@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-08-19
-> Último commit: 2be3aac-Merge pull request #460 from andre0787/chore/quality-nightly-update
+> Gerado em: 2026-08-20
+> Último commit: 6cce006-Merge pull request #462 from andre0787/chore/quality-nightly-update
 
 ## Pipeline
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-08-19 | ✅ | 1125 | 1805kB | 0 issues |
+| 2026-08-20 | ✅ | 1125 | 1805kB | 0 issues |
 
 ---
 
