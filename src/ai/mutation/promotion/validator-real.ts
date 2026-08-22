@@ -25,14 +25,14 @@ export type ValidatorConfidenceLevel = "HIGH" | "MEDIUM" | "LOW";
 export interface ValidationCheckResult {
   name: string;
   passed: boolean;
-  confidence: ConfidenceLevel;
+  confidence: ValidatorConfidenceLevel;
   detail: string;
   severity: "info" | "warning" | "error" | "critical";
 }
 
 export interface PromotionValidationResult {
   promotionId: string;
-  overallConfidence: ConfidenceLevel;
+  overallConfidence: ValidatorConfidenceLevel;
   checks: ValidationCheckResult[];
   passed: boolean;
   validatedAt: string;
@@ -99,7 +99,7 @@ export class PromotionValidatorReal {
     const errors = checks.filter((c) => !c.passed && c.severity === "error");
     const warningCount = checks.filter((c) => !c.passed && c.severity === "warning").length;
 
-    let overallConfidence: ConfidenceLevel;
+    let overallConfidence: ValidatorConfidenceLevel;
     if (criticalFailures.length > 0) {
       overallConfidence = "LOW";
     } else if (errors.length > 0) {
