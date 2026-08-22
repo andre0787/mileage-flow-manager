@@ -14,6 +14,7 @@ import type {
   ConfidenceLevel,
   PromotionStatus,
 } from "../../ai/mutation/promotion/types";
+export { promotionsAdapter, promotionSelectors } from "./adapter";
 
 // ─── Promotion Types ───────────────────────────────────────────
 

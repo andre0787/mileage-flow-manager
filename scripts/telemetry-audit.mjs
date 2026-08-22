@@ -15,7 +15,7 @@
  * ponytail: stdlib, zero deps.
  */
 
-import { readFileSync, existsSync } from "fs";
+import { readFileSync, writeFileSync, existsSync, openSync, closeSync, unlinkSync, statSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 import { execSync } from "child_process";
@@ -24,6 +24,30 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 const EVENTS_PATH = resolve(ROOT, "docs/tracking/events.jsonl");
 const RECORD = process.argv.includes("--record");
+const USER_ID = process.env.TELEMETRY_USER_ID || process.env.SUPABASE_USER_ID;
+const RECORD_MARKER = resolve(ROOT, "docs/tracking/telemetry-audit-recorded.json");
+const RECORD_LOCK = resolve(ROOT, "docs/tracking/.telemetry-audit.lock");
+let recordLockFd = null;
+function releaseRecordLock() {
+  if (recordLockFd === null) return;
+  closeSync(recordLockFd);
+  recordLockFd = null;
+  try { if (existsSync(RECORD_LOCK)) unlinkSync(RECORD_LOCK); } catch { /* fail-open */ }
+}
+function acquireRecordLock() {
+  try {
+    if (existsSync(RECORD_LOCK)) {
+      if (Date.now() - statSync(RECORD_LOCK).mtimeMs < 3_600_000) return false;
+      unlinkSync(RECORD_LOCK);
+    }
+    recordLockFd = openSync(RECORD_LOCK, "wx");
+    writeFileSync(recordLockFd, `${process.pid}:${Date.now()}\n`);
+    process.on("exit", releaseRecordLock);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 function git(cmd) {
   try {
@@ -76,11 +100,37 @@ if (!RECORD) {
   process.exit(0);
 }
 
+if (!USER_ID) {
+  console.log("⚠️ TELEMETRY_USER_ID ausente — nada persistido (fail-open)");
+  process.exit(0);
+}
+if (!acquireRecordLock()) {
+  console.log("ℹ️ outro registro está em andamento — nada enviado");
+  process.exit(0);
+}
+
+let recorded = new Set();
+if (existsSync(RECORD_MARKER)) {
+  try {
+    const ids = JSON.parse(readFileSync(RECORD_MARKER, "utf8"));
+    recorded = new Set(Array.isArray(ids) ? ids : []);
+  } catch {
+    recorded = new Set();
+  }
+}
+const sessionId = sessionStart?.sessionId ?? sessionStart?.timestamp ?? git("git rev-parse --abbrev-ref HEAD");
+const recordKey = `${USER_ID}:${sessionId}`;
+if (recorded.has(recordKey)) {
+  console.log("ℹ️ sessão já registrada — nada persistido");
+  process.exit(0);
+}
+
 // ── Monta registro (espelha src/lib/aiTelemetry.ts) ─────────────────────
 const costPer1k = 0.003;
 const costEstimate = Math.round(((tokensUsed / 1000) * costPer1k) * 100000) / 100000;
 const record = {
-  session_id: sessionStart?.branch ?? git("git rev-parse --abbrev-ref HEAD"),
+  user_id: USER_ID,
+  session_id: sessionId,
   area: process.env.TELEMETRY_AREA || "workflow",
   tokens_used: tokensUsed,
   prompt_tokens_saved_by_pruning: 0,
@@ -105,6 +155,7 @@ try {
     body: JSON.stringify(record),
   });
   if (res.ok) {
+    writeFileSync(RECORD_MARKER, JSON.stringify([...recorded, recordKey], null, 2) + "\n");
     console.log("✅ registro ai_telemetry inserido no Supabase");
   } else {
     console.log(`⚠️  insert falhou (${res.status}) — registro não persistido (fail-open)`);

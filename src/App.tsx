@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { store } from "@/features/store";
 import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { ThemeProvider } from "next-themes";
 import { AppSidebar } from "@/components/AppSidebar";
 import { BottomTabBar } from "@/components/BottomTabBar";
@@ -263,6 +263,15 @@ const PageHeader = () => {
 
 const AppLayout = () => {
   useKeyboardShortcuts();
+
+  useEffect(() => {
+    const flush = () => {
+      void import("@/lib/telemetryQueue").then(({ flushTelemetryQueue }) => flushTelemetryQueue());
+    };
+    flush();
+    window.addEventListener("online", flush);
+    return () => window.removeEventListener("online", flush);
+  }, []);
 
   return (
     <OnlineProvider>

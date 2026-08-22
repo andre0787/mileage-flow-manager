@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { JOURNEY_STEPS } from "@/lib/workflowDemoData";
+import { JOURNEY_STEPS } from "@/lib/workflowStaticData";
 import { cn } from "@/lib/utils";
 
 /**

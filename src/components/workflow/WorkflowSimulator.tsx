@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SIM_SCENARIOS } from "@/lib/workflowDemoData";
+import { SIM_SCENARIOS } from "@/lib/workflowStaticData";
 import { cn } from "@/lib/utils";
 
 /**

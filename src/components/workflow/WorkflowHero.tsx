@@ -1,4 +1,4 @@
-import { WHAT_CARDS, HERO_META } from "@/lib/workflowDemoData";
+import { WHAT_CARDS, HERO_META } from "@/lib/workflowStaticData";
 import { Card, CardContent } from "@/components/ui/card";
 
 /**

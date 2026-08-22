@@ -1,0 +1,788 @@
+{
+  "DATA_DATE": "2026-08-12",
+  "HERO_META": [
+    "✅ 41 regras validadas a cada pre-pr",
+    "🛡️ 6 gates de segurança",
+    "📡 telemetria em toda etapa",
+    "🔄 ciclo: subagente que codifica + subagente que revisa"
+  ],
+  "WHAT_CARDS": [
+    {
+      "emoji": "📦",
+      "title": "Uma ideia entra",
+      "body": "Uma nova funcionalidade, um bug para corrigir ou uma melhoria. Tudo começa com uma tarefa classificada em uma categoria."
+    },
+    {
+      "emoji": "⚙️",
+      "title": "Gates verificam",
+      "body": "No caminho, 4 portões (gates) checam intenção, consistência, autorização e evidência. Se algo faltar, o fluxo para — de propósito."
+    },
+    {
+      "emoji": "📤",
+      "title": "Entrega sai",
+      "body": "Com tudo validado, a mudança vira um Pull Request revisado por um subagente especializado e segue para produção com rastro completo."
+    }
+  ],
+  "KPI_STATS": [
+    {
+      "value": 1850,
+      "label": "eventos registrados",
+      "sub": "docs/tracking/events.jsonl"
+    },
+    {
+      "value": 435,
+      "label": "notas de qualidade",
+      "sub": "docs/tracking/quality.jsonl"
+    },
+    {
+      "value": 41,
+      "label": "regras de validação",
+      "sub": "auto-executadas no pre-pr"
+    },
+    {
+      "value": 711,
+      "label": "testes unitários",
+      "sub": "287 arquivos de teste"
+    },
+    {
+      "value": 59,
+      "label": "auto-correções",
+      "sub": "eventos \"healed\""
+    },
+    {
+      "value": 2,
+      "label": "novos gates de evidência",
+      "sub": "coding + code-review"
+    }
+  ],
+  "EVENT_TYPES": [
+    {
+      "name": "session:start",
+      "n": 819,
+      "color": "#3b82f6"
+    },
+    {
+      "name": "pre-pr",
+      "n": 442,
+      "color": "#8b5cf6"
+    },
+    {
+      "name": "rule:fail",
+      "n": 395,
+      "color": "#ef4444"
+    },
+    {
+      "name": "healed",
+      "n": 59,
+      "color": "#10b981"
+    },
+    {
+      "name": "llm.route.resolved",
+      "n": 39,
+      "color": "#14b8a6"
+    },
+    {
+      "name": "code-review:done",
+      "n": 27,
+      "color": "#6366f1"
+    },
+    {
+      "name": "coding:done",
+      "n": 26,
+      "color": "#22c55e"
+    },
+    {
+      "name": "session:end",
+      "n": 15,
+      "color": "#f59e0b"
+    },
+    {
+      "name": "llm.route.completed",
+      "n": 10,
+      "color": "#0ea5e9"
+    },
+    {
+      "name": "gate",
+      "n": 8,
+      "color": "#f43f5e"
+    },
+    {
+      "name": "custom",
+      "n": 4,
+      "color": "#64748b"
+    },
+    {
+      "name": "pr:create",
+      "n": 3,
+      "color": "#f97316"
+    },
+    {
+      "name": "pr:merge",
+      "n": 2,
+      "color": "#16a34a"
+    },
+    {
+      "name": "gate:blocked",
+      "n": 1,
+      "color": "#b91c1c"
+    }
+  ],
+  "MAX_EVENTS": 819,
+  "GRADES": [
+    {
+      "name": "100% — excelente",
+      "n": 288,
+      "color": "#10b981"
+    },
+    {
+      "name": "80% — aprovado",
+      "n": 138,
+      "color": "#84cc16"
+    },
+    {
+      "name": "60% — abaixo do padrão",
+      "n": 9,
+      "color": "#ef4444"
+    }
+  ],
+  "MAX_GRADE": 288,
+  "RECENT_TIMELINE": [
+    {
+      "t": "2026-08-12 01:22:47",
+      "d": "session:start",
+      "desc": "feature: aba Workflow com dados reais + KPIs"
+    },
+    {
+      "t": "2026-08-12 01:10:03",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-12 01:09:59",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-12 01:08:14",
+      "d": "session:start",
+      "desc": "refactor: subida do redesign Apple HIG"
+    },
+    {
+      "t": "2026-08-12 01:05:58",
+      "d": "rule:fail",
+      "desc": "rule-26-session-started falhou → corrigido"
+    },
+    {
+      "t": "2026-08-12 01:05:10",
+      "d": "code-review:done",
+      "desc": "redesign HIG aprovado por subagente"
+    }
+  ],
+  "JOURNEY_STEPS": [
+    {
+      "dot": "🚀",
+      "title": "Sessão começa",
+      "badge": "rule-26",
+      "badgeKind": "gate",
+      "body": "Toda sessão de trabalho inicia com `npm run session:start`. O sistema registra um marcador de tempo e carrega o contexto da última sessão (handoff).",
+      "ev": "{\"type\":\"session:start\",\"description\":\"sessão iniciada\",\"branch\":\"feat/minha-mudanca\"}\n📄 docs/handoff.md atualizado automaticamente",
+      "done": true
+    },
+    {
+      "dot": "🗂️",
+      "title": "Categoria da tarefa",
+      "badge": "docs certos",
+      "badgeKind": "tele",
+      "body": "Cada tarefa tem uma categoria (feature, bugfix, docs, refactor, chore). Ela define quais documentos o agente deve ler — sem leitura desnecessária.",
+      "ev": "feature → WORKFLOW.md + CONVENTIONS.md\nbugfix  → DEBUG.md + CONVENTIONS.md\ndocs    → apenas AGENTS.md"
+    },
+    {
+      "dot": "🧠",
+      "title": "INTENT Gate",
+      "badge": "rule-33",
+      "badgeKind": "gate",
+      "body": "Antes de qualquer edição, o agente declara: \"o código faz X; o teste espera Y; a spec diz Z\". Se os três não baterem, ele não edita — reporta.",
+      "ev": "INTENT: código faz X; teste espera Y; spec diz Z\n→ se divergirem: NÃO editar, reportar"
+    },
+    {
+      "dot": "🔁",
+      "title": "TWINS Check",
+      "badge": "rule-34",
+      "badgeKind": "gate",
+      "body": "Ao corrigir um bug, o agente busca o mesmo padrão no projeto todo e corrige todas as ocorrências — não só a que apareceu.",
+      "ev": "TWINS: searched <padrão> — found N locais"
+    },
+    {
+      "dot": "🎯",
+      "title": "Decisão estratégica",
+      "badge": "rule-27/28",
+      "badgeKind": "gate",
+      "body": "Features passam por um Conselho de LLMs (5 perspectivas + síntese) com veredito em docs/council/. Refactors exigem uma spec técnica.",
+      "ev": "feature  → council-to-superpowers → docs/council/veredito\nrefactor → spec técnica em docs/superpowers/specs/"
+    },
+    {
+      "dot": "🛠️",
+      "title": "Codificação por subagente",
+      "badge": "rule-39",
+      "badgeKind": "gate",
+      "body": "A implementação é executada por um subagente especializado (coder). Ao concluir, um evento coding:done com a marca subagent:true é registrado — é a evidência do gate.",
+      "ev": "{\"type\":\"coding:done\",\"description\":\"Codificação por subagente concluída\",\n \"branch\":\"chore/code-review-gate\",\"subagent\":true,\n \"skill\":\"subagent-driven-development\"}",
+      "done": true
+    },
+    {
+      "dot": "🔎",
+      "title": "Code Review por subagente",
+      "badge": "rule-38",
+      "badgeKind": "gate",
+      "body": "Antes do PR, um subagente revisor audita o diff de forma independente (read-only), com veredito explícito. O evento code-review:done prova que a revisão aconteceu.",
+      "ev": "{\"type\":\"code-review:done\",\"description\":\"Review aprovado por subagente\",\n \"branch\":\"chore/code-review-gate\",\"subagent\":true,\n \"verdict\":\"approved\",\"skill\":\"requesting-code-review\"}",
+      "done": true
+    },
+    {
+      "dot": "🧪",
+      "title": "Testes + Build",
+      "badge": "quality",
+      "badgeKind": "tele",
+      "body": "Testes unitários, build e verificação de docs rodam. A nota de qualidade (outcome grade) é registrada — o padrão mínimo é 80%.",
+      "ev": "✅ 711 testes · 287 arquivos\n📊 outcome grade: 100% (288) · 80% (138) · 60% (9)"
+    },
+    {
+      "dot": "🛂",
+      "title": "Pre-pr: 39 regras",
+      "badge": "telemetria",
+      "badgeKind": "tele",
+      "body": "O `npm run pre-pr` valida 41 regras automáticas + gera um relatório HTML. Cada execução fica registrada no events.jsonl. Falhou? Mensagem acionável diz exatamente o que fazer.",
+      "ev": "🔍 PRE-PR CHECK — 41 regras\n✅ relatório: docs/reports/<data>/PR<n>-*.html\n📡 eventos: pre-pr (442) · rule:fail (395) · healed (59)"
+    },
+    {
+      "dot": "🔐",
+      "title": "AUTH Gate",
+      "badge": "rule-35",
+      "badgeKind": "gate",
+      "body": "Push, merge e deploy são irreversíveis. Por isso, exigem a palavra exata do usuário (\"manda bala\", \"autorizo\"...). Sem a citação, o agente não age.",
+      "ev": "AUTH: usuário disse \"<citação exata>\"\n→ sem citação: não agir"
+    },
+    {
+      "dot": "📤",
+      "title": "PR → review → merge",
+      "badge": "entrega",
+      "badgeKind": "tele",
+      "body": "O Pull Request nasce com relatório anexado, os checks de CI rodam (check-pr, e2e-smoke, Vercel) e, aprovado, é mergeado na main.",
+      "ev": "branch → PR (base: main) → checks CI → merge → deploy"
+    },
+    {
+      "dot": "🏁",
+      "title": "Sessão encerra",
+      "badge": "rule-26",
+      "badgeKind": "tele",
+      "body": "`npm run session:end` registra o evento final, atualiza o handoff e preserva o contexto para a próxima sessão.",
+      "ev": "{\"type\":\"session:end\",\"description\":\"sessão encerrada\"}\n📄 handoff.md salvo para a próxima sessão"
+    },
+    {
+      "dot": "🚫",
+      "title": "E se eu pular um gate?",
+      "badge": "fail-closed",
+      "badgeKind": "tele",
+      "body": "Os gates são fail-closed: sem evidência, o pre-pr falha (exit 1) e mostra a mensagem de como corrigir. Não dá para \"empurrar com a barriga\" — o sistema prefere parar a liberar.",
+      "ev": "❌ rule-38: nenhum evento code-review:done na branch feat/x\n   Dica: node scripts/event-log.mjs code-review:done \\\n     \"Review aprovado por subagente\" --meta '{\"subagent\":true}'",
+      "blocked": true
+    }
+  ],
+  "FLUXO_ITEMS": [
+    {
+      "type": "phase",
+      "phase": {
+        "label": "⏱️ Fase 1 · Início"
+      }
+    },
+    {
+      "type": "step",
+      "step": {
+        "side": "left",
+        "kind": "step",
+        "time": "Passo 1",
+        "title": "🚀 Sessão inicia",
+        "desc": "`npm run session:start` registra o timestamp (rule-26) e carrega o handoff da sessão anterior.",
+        "tag": "📡 session:start",
+        "tagKind": "default"
+      }
+    },
+    {
+      "type": "step",
+      "step": {
+        "side": "right",
+        "kind": "step",
+        "time": "Passo 2",
+        "title": "🗂️ Categoria da tarefa",
+        "desc": "Feature, bugfix, docs, refactor ou chore — define quais docs o agente lê. Sem leitura preventiva.",
+        "tag": "feature → council · bugfix → DEBUG.md",
+        "tagKind": "default"
+      }
+    },
+    {
+      "type": "phase",
+      "phase": {
+        "label": "⏱️ Fase 2 · Planejamento"
+      }
+    },
+    {
+      "type": "step",
+      "step": {
+        "side": "left",
+        "kind": "gate",
+        "time": "⚖️ Gate",
+        "title": "🧠 INTENT",
+        "desc": "Código, teste e spec contam a mesma história? Divergiu? Não edita — reporta.",
+        "tag": "⛔ rule-33 · fail-closed",
+        "tagKind": "warn"
+      }
+    },
+    {
+      "type": "step",
+      "step": {
+        "side": "right",
+        "kind": "gate",
+        "time": "⚖️ Gate",
+        "title": "🔁 TWINS",
+        "desc": "Mesmo bug em outro lugar? Corrige todas as ocorrências, não só a visível.",
+        "tag": "⛔ rule-34 · fail-closed",
+        "tagKind": "warn"
+      }
+    },
+    {
+      "type": "step",
+      "step": {
+        "side": "left",
+        "kind": "step",
+        "time": "Passo 3",
+        "title": "🎯 Decisão estratégica",
+        "desc": "Feature → council de LLMs (veredito em docs/council/). Refactor → spec técnica. Demais seguem direto.",
+        "tag": "rule-27 · rule-28",
+        "tagKind": "default"
+      }
+    },
+    {
+      "type": "phase",
+      "phase": {
+        "label": "⏱️ Fase 3 · Execução"
+      }
+    },
+    {
+      "type": "step",
+      "step": {
+        "side": "right",
+        "kind": "step",
+        "time": "Passo 4",
+        "title": "🛠️ Codificação por subagente",
+        "desc": "O coder (subagente especializado) implementa. Ao concluir, registra a evidência.",
+        "tag": "📡 coding:done · subagent:true · rule-39",
+        "tagKind": "default"
+      }
+    },
+    {
+      "type": "step",
+      "step": {
+        "side": "left",
+        "kind": "step",
+        "time": "Passo 5",
+        "title": "🔎 Code Review por subagente",
+        "desc": "O reviewer (subagente read-only) audita o diff e dá veredito explícito (approved / changes-requested).",
+        "tag": "📡 code-review:done · subagent:true · rule-38",
+        "tagKind": "default"
+      }
+    },
+    {
+      "type": "phase",
+      "phase": {
+        "label": "⏱️ Fase 4 · Verificação"
+      }
+    },
+    {
+      "type": "step",
+      "step": {
+        "side": "right",
+        "kind": "step",
+        "time": "Passo 6",
+        "title": "🧪 Testes + Build",
+        "desc": "Testes unitários, build e verify-docs. Outcome grade mínimo: 80% (registrado no quality.jsonl).",
+        "tag": "📊 711 testes · rule-30/31/32",
+        "tagKind": "default"
+      }
+    },
+    {
+      "type": "step",
+      "step": {
+        "side": "left",
+        "kind": "fail",
+        "time": "Passo 7",
+        "title": "🛂 Pre-pr — 39 regras",
+        "desc": "Valida 41 regras automáticas + gera relatório HTML. Qualquer falha bloqueia o PR.",
+        "tag": "🔒 fail-closed · docs/reports/",
+        "tagKind": "fail"
+      }
+    },
+    {
+      "type": "phase",
+      "phase": {
+        "label": "⏱️ Fase 5 · Entrega"
+      }
+    },
+    {
+      "type": "step",
+      "step": {
+        "side": "right",
+        "kind": "gate",
+        "time": "🔐 Gate",
+        "title": "AUTH",
+        "desc": "Push, merge e deploy são irreversíveis → exigem a palavra exata do usuário (\"autorizo\", \"manda bala\"...). Sem citação, nada acontece.",
+        "tag": "⛔ rule-35 · bloqueia ação",
+        "tagKind": "warn"
+      }
+    },
+    {
+      "type": "step",
+      "step": {
+        "side": "left",
+        "kind": "step",
+        "time": "Passo 8",
+        "title": "📤 PR → CI → merge → deploy",
+        "desc": "PR com base em main; checks (check-pr, e2e-smoke, Vercel) rodam; merge na main → deploy automático.",
+        "tag": "📤 post-pr renomeia relatório",
+        "tagKind": "default"
+      }
+    },
+    {
+      "type": "step",
+      "step": {
+        "side": "right",
+        "kind": "step",
+        "time": "Passo 9",
+        "title": "🏁 Sessão encerra",
+        "desc": "`npm run session:end` registra o evento final e preserva o contexto no handoff para a próxima sessão.",
+        "tag": "📡 session:end",
+        "tagKind": "default"
+      }
+    }
+  ],
+  "FLUXO_LOOP": {
+    "failArrow": "❌ falhou? ⤵",
+    "title": "Corrigir → rodar pre-pr de novo",
+    "desc": "A mensagem diz exatamente o que corrigir. O ciclo repete até 0 errors.",
+    "tag": "fail-closed",
+    "okArrow": "✅ 0 errors ⤴ continua"
+  },
+  "MIND": [
+    {
+      "id": "sessao",
+      "label": "🚀 Sessão",
+      "color": "#3b82f6",
+      "detail": "Toda sessão começa com `npm run session:start` (rule-26) e termina com `session:end`. O docs/handoff.md preserva o contexto entre sessões.",
+      "ev": "{\"type\":\"session:start\",\"branch\":\"feat/x\"}\n📄 handoff.md atualizado automaticamente",
+      "kids": [
+        "session:start (rule-26)",
+        "handoff.md",
+        "session:end"
+      ]
+    },
+    {
+      "id": "categoria",
+      "label": "🗂️ Categoria",
+      "color": "#8b5cf6",
+      "detail": "Cada tarefa tem uma categoria (feature, bugfix, docs, refactor, chore) que define quais docs o agente lê — sem leitura preventiva.",
+      "ev": "feature → WORKFLOW.md + CONVENTIONS.md\nbugfix → DEBUG.md · docs → AGENTS.md",
+      "kids": [
+        "feature → council",
+        "bugfix → DEBUG.md",
+        "refactor → spec",
+        "docs/chore → AGENTS.md"
+      ]
+    },
+    {
+      "id": "gates",
+      "label": "🧠 Gates",
+      "color": "#f59e0b",
+      "detail": "Os portões de segurança: INTENT (intenção), TWINS (consistência), AUTH (autorização) e Evidence (codificação/revisão por subagente). Todos fail-closed.",
+      "ev": "INTENT · TWINS · AUTH · coding:done · code-review:done",
+      "kids": [
+        "INTENT (rule-33)",
+        "TWINS (rule-34)",
+        "AUTH (rule-35)",
+        "Evidence (rule-38/39)",
+        "Council (rule-27)",
+        "RTK (rule-37)"
+      ]
+    },
+    {
+      "id": "coding",
+      "label": "🛠️ Codificação",
+      "color": "#22c55e",
+      "detail": "A implementação é executada por um subagente especializado (coder). Evidência: evento coding:done com subagent:true na branch.",
+      "ev": "{\"type\":\"coding:done\",\"subagent\":true,\"skill\":\"subagent-driven-development\"}",
+      "kids": [
+        "subagente coder",
+        "coding:done (rule-39)"
+      ]
+    },
+    {
+      "id": "review",
+      "label": "🔎 Review",
+      "color": "#6366f1",
+      "detail": "Antes do PR, um subagente revisor audita o diff de forma independente (read-only) e emite veredito. Evidência: code-review:done.",
+      "ev": "{\"type\":\"code-review:done\",\"subagent\":true,\"verdict\":\"approved\"}",
+      "kids": [
+        "subagente reviewer",
+        "code-review:done (rule-38)"
+      ]
+    },
+    {
+      "id": "qualidade",
+      "label": "🧪 Qualidade",
+      "color": "#14b8a6",
+      "detail": "Testes unitários (711), build e verify-docs rodam a cada pre-pr. Outcome grade mínima de 80% — registrada no quality.jsonl.",
+      "ev": "{\"rule\":\"rule-30\",\"outcomeGrade\":100} → quality.jsonl",
+      "kids": [
+        "711 testes",
+        "build",
+        "outcome grade ≥ 80%",
+        "quality.jsonl"
+      ]
+    },
+    {
+      "id": "prepr",
+      "label": "🛂 Pre-pr",
+      "color": "#f43f5e",
+      "detail": "npm run pre-pr valida 41 regras automáticas e gera relatório HTML. Se algo falhar, mensagem acionável mostra como corrigir. Fail-closed.",
+      "ev": "pre-pr (442 execuções) · rule:fail (395) · healed (59)",
+      "kids": [
+        "41 regras",
+        "relatório HTML",
+        "fail-closed"
+      ]
+    },
+    {
+      "id": "entrega",
+      "label": "📤 Entrega",
+      "color": "#f97316",
+      "detail": "PR com base em main → checks de CI (check-pr, e2e-smoke, Vercel) → merge → deploy automático na Vercel.",
+      "ev": "branch → PR → checks CI → merge → main → Vercel",
+      "kids": [
+        "PR (base main)",
+        "checks CI",
+        "merge → main",
+        "deploy Vercel"
+      ]
+    },
+    {
+      "id": "telemetria",
+      "label": "📡 Telemetria",
+      "color": "#06b6d4",
+      "detail": "Tudo vira registro auditável: events.jsonl (1850 eventos) e quality.jsonl (435 notas). O rastro é completo de ponta a ponta.",
+      "ev": "events.jsonl (1850) · quality.jsonl (435) · docs/reports/*.html",
+      "kids": [
+        "events.jsonl (1850)",
+        "quality.jsonl (435)",
+        "docs/reports/*.html"
+      ]
+    }
+  ],
+  "GATES": [
+    {
+      "emoji": "🧠",
+      "title": "INTENT Gate",
+      "question": "o código, o teste e a spec contam a mesma história?",
+      "how": "antes de editar, o agente declara os três em uma frase. Se divergirem, reporta em vez de editar.",
+      "rule": "rule-33",
+      "state": "fail-closed",
+      "stateKind": "ok"
+    },
+    {
+      "emoji": "🔁",
+      "title": "TWINS Check",
+      "question": "o bug existe em outro lugar do projeto?",
+      "how": "ao corrigir, o agente varre o código buscando o mesmo padrão e corrige todas as ocorrências.",
+      "rule": "rule-34",
+      "state": "fail-closed",
+      "stateKind": "ok"
+    },
+    {
+      "emoji": "🔐",
+      "title": "AUTH Gate",
+      "question": "o usuário autorizou com as palavras exatas?",
+      "how": "push/merge/deploy exigem citação literal do usuário. Sem ela, nenhuma ação irreversível.",
+      "rule": "rule-35",
+      "state": "bloqueia ação",
+      "stateKind": "fail"
+    },
+    {
+      "emoji": "🛂",
+      "title": "Evidence Gates",
+      "question": "a codificação e a revisão foram feitas por subagentes?",
+      "how": "eventos coding:done e code-review:done com subagent:true na branch são exigidos antes do PR.",
+      "rule": "rule-38 + rule-39",
+      "state": "fail-closed",
+      "stateKind": "ok"
+    },
+    {
+      "emoji": "🎯",
+      "title": "Council / Spec",
+      "question": "a decisão estratégica foi debatida?",
+      "how": "features passam por conselho de LLMs (5 visões + síntese); refactors exigem spec técnica versionada.",
+      "rule": "rule-27 / rule-28",
+      "state": "por categoria",
+      "stateKind": "ok"
+    },
+    {
+      "emoji": "🤖",
+      "title": "RTK ativo",
+      "question": "a análise estrutural de código está disponível?",
+      "how": "extensão .pi/extensions/rtk.ts versionada + binário ≥ 0.23.0 garantem auditorias por Tree-sitter.",
+      "rule": "rule-37",
+      "state": "fail-open",
+      "stateKind": "warn"
+    }
+  ],
+  "GATE_EFFICIENCY": {
+    "ruleFails": 395,
+    "healed": 59,
+    "healedRate": 14.9,
+    "prePrTotal": 442,
+    "prePrPass": 312,
+    "prePrPassRate": 70.6,
+    "gateBlocked": 2,
+    "topViolations": [
+      {
+        "rule": "rule-10-clean",
+        "count": 186,
+        "hint": "git status ZERO antes de PR — quase sempre artefatos gerados não commitados"
+      },
+      {
+        "rule": "rule-26-session-started",
+        "count": 40,
+        "hint": "timestamp de sessão ausente — corrigido com npm run session:start"
+      },
+      {
+        "rule": "rule-scope",
+        "count": 32,
+        "hint": "escopo do diff fora da categoria da branch"
+      },
+      {
+        "rule": "rule-38-code-review-gate",
+        "count": 22,
+        "hint": "faltou evento code-review:done por subagente na branch"
+      },
+      {
+        "rule": "rule-17-new-docs-valid",
+        "count": 21,
+        "hint": "novo doc criado sem validar referências no MAP.md"
+      }
+    ]
+  },
+  "SIM_SCENARIOS": [
+    {
+      "id": "fail",
+      "label": "🛠️ Enviar PR sem evidência de review",
+      "lines": [
+        {
+          "text": "$ npm run pre-pr",
+          "kind": "muted"
+        },
+        {
+          "text": "🔍 PRE-PR CHECK",
+          "kind": "title"
+        },
+        {
+          "text": "❌ rule-38: nenhum evento code-review:done na branch feat/x",
+          "kind": "fail"
+        },
+        {
+          "text": "❌   Dica: node scripts/event-log.mjs code-review:done \\\n  \"Review aprovado por subagente\" --meta '{\"subagent\":true}'",
+          "kind": "fail"
+        },
+        {
+          "text": "❌ rule-39: nenhum evento coding:done na branch feat/x",
+          "kind": "fail"
+        },
+        {
+          "text": "⚠️  arquivos não commitados (unstaged/untracked)",
+          "kind": "muted"
+        },
+        {
+          "text": "═══════════════════════════════════",
+          "kind": "muted"
+        },
+        {
+          "text": "❌ 3 errors — PR BLOQUEADO (fail-closed)",
+          "kind": "fail"
+        },
+        {
+          "text": "➡️  O sistema não libera: falta evidência. Sem \"empurrar com a barriga\".",
+          "kind": "muted"
+        }
+      ],
+      "summary": "❌ 3 errors — PR BLOQUEADO (fail-closed)",
+      "summaryKind": "fail",
+      "hint": "➡️  O sistema não libera: falta evidência. Sem \"empurrar com a barriga\"."
+    },
+    {
+      "id": "ok",
+      "label": "✅ Fluxo completo com evidências",
+      "lines": [
+        {
+          "text": "$ npm run pre-pr",
+          "kind": "muted"
+        },
+        {
+          "text": "🔍 PRE-PR CHECK — 41 regras",
+          "kind": "title"
+        },
+        {
+          "text": "✅ rule-38: code review por subagente confirmado (evento code-review:done)",
+          "kind": "ok"
+        },
+        {
+          "text": "✅ rule-39: codificação por subagente confirmada (evento coding:done)",
+          "kind": "ok"
+        },
+        {
+          "text": "✅ rule-33: INTENT Gate documentado",
+          "kind": "ok"
+        },
+        {
+          "text": "✅ rule-34: TWINS Check referenciado",
+          "kind": "ok"
+        },
+        {
+          "text": "✅ rule-35: AUTH Gate com frase exata",
+          "kind": "ok"
+        },
+        {
+          "text": "✅ rule-37: rtk 0.45.0 >= 0.23.0",
+          "kind": "ok"
+        },
+        {
+          "text": "✅ test (unit) — 711 testes",
+          "kind": "ok"
+        },
+        {
+          "text": "✅ build · ✅ verify-docs:strict",
+          "kind": "ok"
+        },
+        {
+          "text": "═══════════════════════════════════",
+          "kind": "muted"
+        },
+        {
+          "text": "✅ 0 errors — PR LIBERADO",
+          "kind": "ok"
+        },
+        {
+          "text": "➡️  Evidência completa + testes verdes + docs consistentes.",
+          "kind": "muted"
+        }
+      ],
+      "summary": "✅ 0 errors — PR LIBERADO",
+      "summaryKind": "ok",
+      "hint": "➡️  Evidência completa + testes verdes + docs consistentes."
+    }
+  ]
+}

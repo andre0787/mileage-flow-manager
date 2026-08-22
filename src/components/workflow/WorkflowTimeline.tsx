@@ -1,4 +1,4 @@
-import { FLUXO_ITEMS, FLUXO_LOOP } from "@/lib/workflowDemoData";
+import { FLUXO_ITEMS, FLUXO_LOOP } from "@/lib/workflowStaticData";
 import { cn } from "@/lib/utils";
 
 /**

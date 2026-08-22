@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
-import { MIND } from "@/lib/workflowDemoData";
+import { MIND } from "@/lib/workflowStaticData";
 import { cn } from "@/lib/utils";
 
 /**
