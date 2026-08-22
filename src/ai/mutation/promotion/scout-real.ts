@@ -23,13 +23,13 @@ export interface ScoutResult {
   expired: number;
   removed: number;
   unchanged: number;
-  candidates: ScoutCandidate[];
+  candidates: RealScoutCandidate[];
   duration: number;
   timestamp: string;
   error?: string;
 }
 
-export interface ScoutCandidate {
+export interface RealScoutCandidate {
   id: string;
   sourceId: string;
   title: string;
@@ -76,7 +76,7 @@ export class PromotionScoutReal {
    */
   async scoutSource(source: PromotionSource): Promise<ScoutResult> {
     const startTime = Date.now();
-    const candidates: ScoutCandidate[] = [];
+    const candidates: RealScoutCandidate[] = [];
 
     emitTelemetryEvent("promotion.scouted", {
       sourceId: source.sourceId,

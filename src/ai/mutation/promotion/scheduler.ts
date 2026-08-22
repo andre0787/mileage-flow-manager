@@ -235,7 +235,17 @@ export class PromotionScheduler {
       agent: "promotion-scheduler",
       status: sourcesFailed === 0 ? "success" : "failure",
       latencyMs: duration,
-      metadata: runResult,
+      metadata: {
+        runId: runResult.runId,
+        duration: runResult.duration,
+        sourcesScouted: runResult.sourcesScouted,
+        sourcesSucceeded: runResult.sourcesSucceeded,
+        sourcesFailed: runResult.sourcesFailed,
+        totalPromotions: runResult.totalPromotions,
+        newPromotions: runResult.newPromotions,
+        updatedPromotions: runResult.updatedPromotions,
+        expiredPromotions: runResult.expiredPromotions,
+      },
     });
 
     this.onRun?.(runResult);

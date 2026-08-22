@@ -3,27 +3,27 @@
  *
  * Eventos: created, updated, expiring, expired, rejected
  * Cada evento gera telemetry real via emitTelemetryEvent.
+ *
+ * Nomes prefixados para evitar conflito com types.ts:
+ *   AlertEventType → PromotionAlertType
+ *   PromotionAlert → AlertEntry
  */
 
 import type { Promotion } from "./types";
-import {
-  emitTelemetryEvent,
-  type MutationTelemetryEvent,
-  type MutationTelemetryEventType,
-} from "../telemetry-events";
+import { emitTelemetryEvent, type MutationTelemetryEvent } from "../telemetry-events";
 
 // ─── Alert Types ───────────────────────────────────────────────
 
-export type AlertEventType =
+export type PromotionAlertType =
   | "promotion.created"
   | "promotion.updated"
   | "promotion.expiring"
   | "promotion.expired"
   | "promotion.rejected";
 
-export interface PromotionAlert {
+export interface AlertEntry {
   alertId: string;
-  eventId: AlertEventType;
+  eventId: PromotionAlertType;
   promotionId: string;
   sourceId: string;
   timestamp: string;
@@ -36,21 +36,21 @@ export interface PromotionAlert {
 // ─── Alert Engine ──────────────────────────────────────────────
 
 export class AlertEngineReal {
-  private alerts: PromotionAlert[] = [];
+  private alerts: AlertEntry[] = [];
   private emittedEvents: MutationTelemetryEvent[] = [];
 
   /**
    * Process a promotion and generate alerts if needed.
    */
-  processPromotion(promotion: Promotion, previousVersion?: Partial<Promotion>): PromotionAlert[] {
-    const newAlerts: PromotionAlert[] = [];
+  processPromotion(promotion: Promotion, previousVersion?: Partial<Promotion>): AlertEntry[] {
+    const newAlerts: AlertEntry[] = [];
 
     if (!previousVersion) {
       // New promotion
       const alert = this.createAlert(
         "promotion.created",
         promotion.id,
-        promotion.sourceId,
+        promotion.source.sourceId,
         `New promotion: ${promotion.title}`,
         promotion.confidence,
       );
@@ -63,7 +63,7 @@ export class AlertEngineReal {
         const alert = this.createAlert(
           "promotion.updated",
           promotion.id,
-          promotion.sourceId,
+          promotion.source.sourceId,
           `Promotion updated: ${changedFields.join(", ")}`,
           promotion.confidence,
           changedFields,
@@ -81,7 +81,7 @@ export class AlertEngineReal {
           const alert = this.createAlert(
             "promotion.expired",
             promotion.id,
-            promotion.sourceId,
+            promotion.source.sourceId,
             `Promotion expired on ${promotion.endDate}`,
             "HIGH",
           );
@@ -90,7 +90,7 @@ export class AlertEngineReal {
           const alert = this.createAlert(
             "promotion.expiring",
             promotion.id,
-            promotion.sourceId,
+            promotion.source.sourceId,
             `Promotion expires in ${daysLeft} days`,
             "MEDIUM",
           );
@@ -103,7 +103,7 @@ export class AlertEngineReal {
         const alert = this.createAlert(
           "promotion.rejected",
           promotion.id,
-          promotion.sourceId,
+          promotion.source.sourceId,
           `Promotion rejected`,
           "HIGH",
         );
@@ -118,21 +118,21 @@ export class AlertEngineReal {
   /**
    * Get all alerts.
    */
-  getAlerts(): PromotionAlert[] {
+  getAlerts(): AlertEntry[] {
     return [...this.alerts];
   }
 
   /**
    * Get alerts by event type.
    */
-  getAlertsByType(eventType: AlertEventType): PromotionAlert[] {
+  getAlertsByType(eventType: PromotionAlertType): AlertEntry[] {
     return this.alerts.filter((a) => a.eventId === eventType);
   }
 
   /**
    * Get unread alerts.
    */
-  getUnreadAlerts(): PromotionAlert[] {
+  getUnreadAlerts(): AlertEntry[] {
     return this.alerts.filter((a) => !a.read);
   }
 
@@ -174,14 +174,14 @@ export class AlertEngineReal {
   // ─── Private ──────────────────────────────────────────────
 
   private createAlert(
-    eventId: AlertEventType,
+    eventId: PromotionAlertType,
     promotionId: string,
     sourceId: string,
     message: string,
     confidence: string,
     changedFields?: string[],
-  ): PromotionAlert {
-    const alert: PromotionAlert = {
+  ): AlertEntry {
+    const alert: AlertEntry = {
       alertId: `alert-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
       eventId,
       promotionId,
@@ -194,7 +194,7 @@ export class AlertEngineReal {
     };
 
     // Emit telemetry event (P12.6-13)
-    const telemetryEvent = emitTelemetryEvent(eventId as MutationTelemetryEventType, {
+    const telemetryEvent = emitTelemetryEvent(eventId as MutationTelemetryEvent["event"], {
       promotionId,
       sourceId,
       agent: "alert-engine",

@@ -20,7 +20,7 @@ import { emitTelemetryEvent } from "../telemetry-events";
 
 // ─── Validation Types ──────────────────────────────────────────
 
-export type ConfidenceLevel = "HIGH" | "MEDIUM" | "LOW";
+export type ValidatorConfidenceLevel = "HIGH" | "MEDIUM" | "LOW";
 
 export interface ValidationCheckResult {
   name: string;
