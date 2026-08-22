@@ -95,7 +95,7 @@ export interface DetectionFinding {
   severity: MutationSeverity;
   target: string;
   description: string;
-  evidence: EvidencePack;
+  evidence: MutationEvidencePack;
   confidence: number;
   detectedAt: string;
   detectionMode: "guided" | "exploratory" | "hybrid";
@@ -115,7 +115,7 @@ export interface DetectionResult {
 
 // ─── Evidence ──────────────────────────────────────────────────
 
-export interface EvidencePack {
+export interface MutationEvidencePack {
   screenshot?: string;
   dom?: string;
   trace?: string;
@@ -155,11 +155,11 @@ export interface TelemetryStep {
 
 // ─── Triage ────────────────────────────────────────────────────
 
-export type TriageClassification = "correct" | "partially_correct" | "incorrect" | "unknown";
+export type MutationTriageClassification = "correct" | "partially_correct" | "incorrect" | "unknown";
 
-export interface TriageResult {
+export interface MutationTriageResult {
   rootCauseHypothesis: string;
-  classification: TriageClassification;
+  classification: MutationTriageClassification;
   severity: MutationSeverity;
   confidence: number;
   filesIdentified: string[];

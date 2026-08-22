@@ -7,8 +7,8 @@
 
 import type {
   DetectionResult,
-  EvidencePack,
-  TriageClassification,
+  MutationEvidencePack,
+  MutationTriageClassification,
   MutationCategory,
 } from "./types";
 
@@ -65,7 +65,7 @@ export interface EvidenceMetrics {
   missingFields: string[];
 }
 
-const EVIDENCE_FIELDS: (keyof EvidencePack)[] = [
+const EVIDENCE_FIELDS: (keyof MutationEvidencePack)[] = [
   "screenshot",
   "dom",
   "trace",
@@ -79,7 +79,7 @@ const EVIDENCE_FIELDS: (keyof EvidencePack)[] = [
   "scenarioId",
 ];
 
-export function computeEvidenceMetrics(evidence: EvidencePack): EvidenceMetrics {
+export function computeEvidenceMetrics(evidence: MutationEvidencePack): EvidenceMetrics {
   const populated = EVIDENCE_FIELDS.filter((f) => {
     const val = evidence[f];
     if (val === undefined || val === null) return false;
@@ -124,7 +124,7 @@ export interface TriageMetrics {
 }
 
 export interface TriageEval {
-  classification: TriageClassification;
+  classification: MutationTriageClassification;
   severityCorrect: boolean;
   rootCauseCorrect: boolean;
   confidence: number;

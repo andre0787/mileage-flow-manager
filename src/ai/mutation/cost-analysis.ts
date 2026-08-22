@@ -58,7 +58,7 @@ export interface StrategyComparison {
   tokenEfficiency: number; // quality / tokens * 1000
 }
 
-export function compareStrategies(runs: StrategyRun[]): StrategyComparison[] {
+export function compareMutationStrategies(runs: StrategyRun[]): StrategyComparison[] {
   const grouped = new Map<AgentStrategy, StrategyRun[]>();
   for (const run of runs) {
     const group = grouped.get(run.strategy) || [];
@@ -139,7 +139,7 @@ export function generateEfficiencyReport(
   runs: StrategyRun[],
   budget: CostBudget = DEFAULT_BUDGET,
 ): EfficiencyReport {
-  const byStrategy = compareStrategies(runs);
+  const byStrategy = compareMutationStrategies(runs);
 
   // Group by complexity
   const byComplexity: Record<ComplexityTier, StrategyRun[]> = {
@@ -154,11 +154,11 @@ export function generateEfficiencyReport(
   }
 
   const byComplexityComparisons: Record<ComplexityTier, StrategyComparison[]> = {
-    tiny: compareStrategies(byComplexity.tiny),
-    small: compareStrategies(byComplexity.small),
-    medium: compareStrategies(byComplexity.medium),
-    large: compareStrategies(byComplexity.large),
-    architectural: compareStrategies(byComplexity.architectural),
+    tiny: compareMutationStrategies(byComplexity.tiny),
+    small: compareMutationStrategies(byComplexity.small),
+    medium: compareMutationStrategies(byComplexity.medium),
+    large: compareMutationStrategies(byComplexity.large),
+    architectural: compareMutationStrategies(byComplexity.architectural),
   };
 
   // Generate recommendations

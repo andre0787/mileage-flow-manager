@@ -18,8 +18,8 @@
 
 import type {
   DetectionFinding,
-  EvidencePack,
-  TriageResult,
+  MutationEvidencePack,
+  MutationTriageResult,
   FixResult,
   RegressionResult,
   CostMetrics,
@@ -30,8 +30,8 @@ import type {
 
 export interface FixAgentContext {
   finding: DetectionFinding;
-  evidence: EvidencePack;
-  triage: TriageResult;
+  evidence: MutationEvidencePack;
+  triage: MutationTriageResult;
   repositoryContext: RepositoryContext;
 }
 

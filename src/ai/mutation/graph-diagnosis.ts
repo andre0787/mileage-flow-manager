@@ -25,12 +25,12 @@ export interface GraphExperimentConfig {
 }
 
 export interface GraphContextData {
-  nodes: GraphNode[];
-  edges: GraphEdge[];
+  nodes: MutationGraphNode[];
+  edges: MutationGraphEdge[];
   query?: string;
 }
 
-export interface GraphNode {
+export interface MutationGraphNode {
   id: string;
   type: "file" | "function" | "component" | "api" | "type" | "data" | "config";
   label: string;
@@ -38,7 +38,7 @@ export interface GraphNode {
   dependencies?: string[];
 }
 
-export interface GraphEdge {
+export interface MutationGraphEdge {
   from: string;
   to: string;
   type: "imports" | "calls" | "extends" | "uses" | "defines" | "mutates" | "reads";
@@ -139,9 +139,9 @@ export function compareGraphStrategies(
  */
 export function buildConceptualGraph(
   files: Array<{ path: string; imports?: string[]; exports?: string[] }>,
-): { nodes: GraphNode[]; edges: GraphEdge[] } {
-  const nodes: GraphNode[] = [];
-  const edges: GraphEdge[] = [];
+): { nodes: MutationGraphNode[]; edges: MutationGraphEdge[] } {
+  const nodes: MutationGraphNode[] = [];
+  const edges: MutationGraphEdge[] = [];
 
   for (const file of files) {
     const nodeId = file.path;
@@ -176,10 +176,10 @@ export function buildConceptualGraph(
  * Find relevant subgraph for a given mutation target.
  */
 export function findRelevantSubgraph(
-  graph: { nodes: GraphNode[]; edges: GraphEdge[] },
+  graph: { nodes: MutationGraphNode[]; edges: MutationGraphEdge[] },
   targetFile: string,
   depth: number = 2,
-): { nodes: GraphNode[]; edges: GraphEdge[] } {
+): { nodes: MutationGraphNode[]; edges: MutationGraphEdge[] } {
   const relevantNodes = new Set<string>();
   const queue: Array<{ id: string; currentDepth: number }> = [];
 

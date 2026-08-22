@@ -24,13 +24,13 @@ export interface ValidationResult {
   validationId: string;
   promotionId: string;
   overallConfidence: ConfidenceLevel;
-  checks: ValidationCheck[];
+  checks: PromotionValidationCheck[];
   passed: boolean;
   validatedAt: string;
   warnings: string[];
 }
 
-export interface ValidationCheck {
+export interface PromotionValidationCheck {
   name: string;
   passed: boolean;
   confidence: ConfidenceLevel;
@@ -48,7 +48,7 @@ export class PromotionValidator {
     promotion: Partial<Promotion>,
     source: PromotionSource,
   ): ValidationResult {
-    const checks: ValidationCheck[] = [];
+    const checks: PromotionValidationCheck[] = [];
     const warnings: string[] = [];
     const validationId = `val-${promotion.id || "unknown"}-${Date.now()}`;
 
@@ -111,7 +111,7 @@ export class PromotionValidator {
 
   // ─── Individual Checks ──────────────────────────────────────
 
-  private checkExists(promotion: Partial<Promotion>): ValidationCheck {
+  private checkExists(promotion: Partial<Promotion>): PromotionValidationCheck {
     const exists = !!promotion.id && !!promotion.title;
     return {
       name: "promotion_exists",
@@ -124,7 +124,7 @@ export class PromotionValidator {
     };
   }
 
-  private checkDates(promotion: Partial<Promotion>): ValidationCheck {
+  private checkDates(promotion: Partial<Promotion>): PromotionValidationCheck {
     const hasStart = !!promotion.startDate;
     const hasEnd = !!promotion.endDate;
 
@@ -163,7 +163,7 @@ export class PromotionValidator {
     };
   }
 
-  private checkActive(promotion: Partial<Promotion>): ValidationCheck {
+  private checkActive(promotion: Partial<Promotion>): PromotionValidationCheck {
     const now = new Date();
     const endDate = promotion.endDate ? new Date(promotion.endDate) : null;
     const startDate = promotion.startDate ? new Date(promotion.startDate) : null;
@@ -197,7 +197,7 @@ export class PromotionValidator {
     };
   }
 
-  private checkSourceTrust(source: PromotionSource): ValidationCheck {
+  private checkSourceTrust(source: PromotionSource): PromotionValidationCheck {
     const trustLevel = getSourceTrustLevel(source);
     const isTrusted = trustLevel <= 1;
 
@@ -210,7 +210,7 @@ export class PromotionValidator {
     };
   }
 
-  private checkTerms(promotion: Partial<Promotion>): ValidationCheck {
+  private checkTerms(promotion: Partial<Promotion>): PromotionValidationCheck {
     const hasTerms = !!promotion.terms && promotion.terms.length > 10;
 
     return {
@@ -224,7 +224,7 @@ export class PromotionValidator {
     };
   }
 
-  private checkProgram(promotion: Partial<Promotion>): ValidationCheck {
+  private checkProgram(promotion: Partial<Promotion>): PromotionValidationCheck {
     const validPrograms = ["Livelo", "Smiles", "LATAM Pass", "Azul Fidelidade", "Esfera"];
     const isCorrect = !!promotion.program && validPrograms.includes(promotion.program);
 
@@ -239,7 +239,7 @@ export class PromotionValidator {
     };
   }
 
-  private checkBonusConsistency(promotion: Partial<Promotion>): ValidationCheck {
+  private checkBonusConsistency(promotion: Partial<Promotion>): PromotionValidationCheck {
     const hasBonus =
       promotion.bonusPercentage !== undefined && promotion.bonusPercentage !== null;
     const bonusValid = hasBonus && promotion.bonusPercentage! >= 0 && promotion.bonusPercentage! <= 500;
@@ -257,7 +257,7 @@ export class PromotionValidator {
     };
   }
 
-  private checkEligibility(promotion: Partial<Promotion>): ValidationCheck {
+  private checkEligibility(promotion: Partial<Promotion>): PromotionValidationCheck {
     const hasEligibility =
       promotion.eligibility && promotion.eligibility.length > 0;
 
