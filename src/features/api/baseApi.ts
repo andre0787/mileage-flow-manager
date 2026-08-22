@@ -17,6 +17,9 @@ export const baseApi = createApi({
     "owners",
     "programs",
     "origem_types",
+    "promotions",
+    "promotion_sources",
+    "promotion_alerts",
   ],
   endpoints: () => ({}),
 });
