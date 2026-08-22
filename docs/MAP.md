@@ -581,3 +581,9 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/P12.5-BASELINE.md` (auto) | 2026-08-15 |
 | `docs/P12.5-EVIDENCE-REPORT.md` (auto) | 2026-08-15 |
 | `docs/P12.5-THREAT-MODEL.md` (auto) | 2026-08-15 |
+| `docs/P12.6-AGENT-QA-SCORECARD.md` (auto) | 2026-08-22 |
+| `docs/P12.6-BASELINE.md` (auto) | 2026-08-22 |
+| `docs/P12.6-EVIDENCE-REPORT.md` (auto) | 2026-08-22 |
+| `docs/P12.6-GOLDEN-SCENARIOS.md` (auto) | 2026-08-22 |
+| `docs/P12.6-PROMOTION-EVIDENCE-REPORT.md` (auto) | 2026-08-22 |
+| `docs/P12.6-PROMOTION-SOURCES.md` (auto) | 2026-08-22 |

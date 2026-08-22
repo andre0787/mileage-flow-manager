@@ -95,3 +95,6 @@ skills-lock.json
 # pi local config (user-specific)
 .pi/git/
 .pi/themes/
+
+# Freebuff tool config
+.freebuff/

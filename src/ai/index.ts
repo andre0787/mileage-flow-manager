@@ -43,6 +43,7 @@ export * from "./execution/sanitize";
 export * from "./execution/graph-freshness";
 export * from "./execution/final-validator";
 export * from "./execution/reviewer";
+export * from "./mutation";
 export * from "./validation";
 export * from "./e2e";
 // PlaywrightBrowserAdapter: consumido por scripts/CLI (Node-only). Fora do

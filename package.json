@@ -125,6 +125,8 @@
     "p12:validate": "tsx scripts/p12-validate.ts",
     "p12.5:validate": "tsx scripts/p12.5-validate.ts",
     "ai:p12.5:score": "node scripts/ai-p12.5-score.mjs",
+    "p12.6:validate": "node scripts/p12.6-validate.mjs",
+    "ai:p12.6:score": "node scripts/p12.6-validate.mjs",
     "test:e2e:demo": "VITE_PUBLIC_DEMO_ENABLED=true playwright test tests/demo-e2e.spec.ts"
   },
   "dependencies": {
