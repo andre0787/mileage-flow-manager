@@ -11,6 +11,7 @@
  */
 
 import { useState, useMemo } from "react";
+import { getDefaultSourceUrl } from "@/ai/mutation/promotion/source-registry";
 import { promotionsApi } from "@/features/promotions";
 
 // ─── Types (local copies to avoid circular deps) ───────────────
@@ -43,6 +44,14 @@ const TYPES = ["Todos", "Transferência", "Compra", "Bônus", "Resgate"] as cons
 const SORT_OPTIONS = ["Mais recentes", "Maior bônus", "Expira primeiro"] as const;
 
 type SortOption = (typeof SORT_OPTIONS)[number];
+
+const TYPE_FILTER_MAP: Record<string, PromotionType | null> = {
+  Todos: null,
+  Transferência: "transferencia",
+  Compra: "compra",
+  Bônus: "bonus",
+  Resgate: "resgate",
+};
 
 // ─── Status Badge ──────────────────────────────────────────────
 
@@ -209,7 +218,9 @@ export default function Promocoes() {
         confidence: "HIGH",
         status: "active",
         freshness: "FRESH",
-        sourceUrl: "https://www.voegol.com.br/azulfidelidade",
+        sourceUrl:
+          getDefaultSourceUrl("Azul Fidelidade") ??
+          "https://www.voeazul.com.br/br/pt/programa-fidelidade",
       },
       {
         id: "5",
@@ -236,6 +247,11 @@ export default function Promocoes() {
       result = result.filter((p) => p.program === selectedProgram);
     }
 
+    const selectedPromotionType = TYPE_FILTER_MAP[selectedType];
+    if (selectedPromotionType) {
+      result = result.filter((p) => p.promotionType === selectedPromotionType);
+    }
+
     switch (sortBy) {
       case "Maior bônus":
         result.sort((a, b) => (b.bonusPercentage || 0) - (a.bonusPercentage || 0));
@@ -257,7 +273,7 @@ export default function Promocoes() {
     }
 
     return result;
-  }, [promotions, selectedProgram, sortBy]);
+  }, [promotions, selectedProgram, selectedType, sortBy]);
 
   const activePromotions = filteredPromotions.filter(
     (p) => p.status === "active" && p.freshness !== "OFFLINE",

@@ -1,4 +1,12 @@
-import { createContext, useContext, useEffect, useRef, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  type ReactNode,
+} from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/features/auth";
@@ -10,8 +18,8 @@ import {
   useEntriesQuery,
   useClientsQuery,
   useSalesQuery,
+  useClearAccountDataMutation,
 } from "@/hooks/useDatabase";
-import { useClearAccountDataMutation } from "@/hooks/useDatabase";
 import { isTransferencia } from "@/lib/utils";
 import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
 
@@ -33,7 +41,6 @@ const DataContext = createContext<DataContextType | null>(null);
 export function DataProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
   const queryClient = useQueryClient();
-
   const ownersQ = useOwnersQuery();
   const programsQ = useProgramsQuery();
   const origemTypesQ = useOrigemTypesQuery();
@@ -59,78 +66,74 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const clients = clientsQ.data ?? [];
   const sales = salesQ.data ?? [];
 
-  // Ensure built-in TRANSFERENCIA type exists for every user
   const creatingTransferencia = useRef(false);
   useEffect(() => {
     if (!user || creatingTransferencia.current) return;
-    const hasBuiltin = origemTypes.some((ot) => isTransferencia(ot));
-    if (!hasBuiltin) {
-      creatingTransferencia.current = true;
-      // ponytail: Supabase Insert type expects optional fields, cast needed for runtime safety
-      supabase
-        .from("origem_types")
-        .insert({
-          id: crypto.randomUUID(),
-          user_id: user.id,
-          name: "Transferência",
-          account_type: "milhas",
-          color: "#8b5cf6",
-        })
-        // .insert retorna PromiseLike (thenable) — sem .catch/.finally no tipo.
-        .then(
-          () => {
-            queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: "all" });
-          },
-          (err) => {
-            console.error("[DataContext] falha ao criar tipo Transferência:", err);
-          },
-        )
-        // ponytail: sempre libera o lock — sem isso, uma falha de rede/RLS
-        // impedia qualquer tentativa futura de recriar o tipo.
-        .then(() => {
-          creatingTransferencia.current = false;
-        });
-    }
-  }, [user, origemTypes]);
+    if (origemTypes.some((ot) => isTransferencia(ot))) return;
+    creatingTransferencia.current = true;
+    supabase
+      .from("origem_types")
+      .insert({
+        id: crypto.randomUUID(),
+        user_id: user.id,
+        name: "Transferência",
+        account_type: "milhas",
+        color: "#8b5cf6",
+      })
+      .then(
+        () => queryClient.invalidateQueries({ queryKey: ["origem_types"], refetchType: "all" }),
+        (err) => console.error("[DataContext] falha ao criar tipo Transferência:", err),
+      )
+      .then(() => {
+        creatingTransferencia.current = false;
+      });
+  }, [user, origemTypes, queryClient]);
 
   const clearAccountM = useClearAccountDataMutation();
-
-  const clearCache = () => {
-    const keys = Object.keys(localStorage).filter(
-      (k) => k.startsWith("mc-") || k === "mc-migrated",
-    );
-    keys.forEach((k) => localStorage.removeItem(k));
-    // ponytail: reload descarta cache in-memory, queryClient.clear() só causava re-render com erro
+  const clearCache = useCallback(() => {
+    Object.keys(localStorage)
+      .filter((k) => k.startsWith("mc-") || k === "mc-migrated")
+      .forEach((k) => localStorage.removeItem(k));
     window.location.reload();
-  };
+  }, []);
 
-  const clearAccountData = () => {
+  const clearAccountData = useCallback(() => {
     clearAccountM.mutate(undefined, {
       onSuccess: () => {
         queryClient.clear();
-        clearCache(); // também limpa localStorage (mc-debug-logs, etc)
+        clearCache();
       },
     });
-  };
+  }, [clearAccountM, clearCache, queryClient]);
 
-  return (
-    <DataContext.Provider
-      value={{
-        owners,
-        programs,
-        origemTypes,
-        accounts,
-        entries,
-        sales,
-        clients,
-        isLoading,
-        clearCache,
-        clearAccountData,
-      }}
-    >
-      {children}
-    </DataContext.Provider>
+  const value = useMemo(
+    () => ({
+      owners,
+      programs,
+      origemTypes,
+      accounts,
+      entries,
+      sales,
+      clients,
+      isLoading,
+      clearCache,
+      clearAccountData,
+    }),
+    [
+      owners,
+      programs,
+      origemTypes,
+      accounts,
+      entries,
+      sales,
+      clients,
+      isLoading,
+      clearCache,
+      clearAccountData,
+    ],
   );
+
+  return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }
 
 export function useData(): DataContextType {

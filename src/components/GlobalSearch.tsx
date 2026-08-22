@@ -37,17 +37,22 @@ export function GlobalSearch() {
   const navigate = useNavigate();
   const { entries, sales, clients, accounts, programs, origemTypes } = useData();
 
+  const accountById = useMemo(() => new Map(accounts.map((a) => [a.id, a])), [accounts]);
+  const origemTypeById = useMemo(
+    () => new Map(origemTypes.map((ot) => [ot.id, ot])),
+    [origemTypes],
+  );
+  const programById = useMemo(() => new Map(programs.map((p) => [p.id, p])), [programs]);
+
   const results = useMemo(() => {
     if (!query.trim()) return [];
     const q = query.toLowerCase();
     const items: SearchResult[] = [];
 
     entries.forEach((e) => {
-      const account = accounts.find((a) => a.id === e.accountId);
+      const account = accountById.get(e.accountId);
       const origem =
-        origemTypes.find((ot) => ot.id === e.origemTypeId)?.name ??
-        programs.find((p) => p.id === e.origemTypeId)?.name ??
-        "";
+        origemTypeById.get(e.origemTypeId)?.name ?? programById.get(e.origemTypeId)?.name ?? "";
       const text = `${account?.name ?? ""} ${origem} ${formatDateBR(e.date)}`.toLowerCase();
       if (text.includes(q)) {
         items.push({
@@ -101,7 +106,7 @@ export function GlobalSearch() {
     });
 
     return items.slice(0, 20);
-  }, [query, entries, sales, clients, accounts, programs, origemTypes]);
+  }, [query, entries, sales, clients, accounts, accountById, origemTypeById, programById]);
 
   const grouped = useMemo(() => {
     const map = new Map<string, SearchResult[]>();

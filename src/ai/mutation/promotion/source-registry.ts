@@ -73,7 +73,7 @@ export const DEFAULT_SOURCES: PromotionSource[] = [
     sourceId: "azul-fidelidade-official",
     program: "Azul Fidelidade",
     type: "official",
-    officialUrl: "https://www.voegol.com.br/azul-fidelidade",
+    officialUrl: "https://www.voeazul.com.br/br/pt/programa-fidelidade",
     collectionMethod: "scrape",
     collectionFrequency: "12h",
     enabled: true,
@@ -109,6 +109,10 @@ export const DEFAULT_SOURCES: PromotionSource[] = [
     freshnessTarget: 12,
   },
 ];
+
+export function getDefaultSourceUrl(program: string): string | undefined {
+  return DEFAULT_SOURCES.find((source) => source.program === program)?.officialUrl;
+}
 
 // ─── Source Registry Manager ───────────────────────────────────
 
