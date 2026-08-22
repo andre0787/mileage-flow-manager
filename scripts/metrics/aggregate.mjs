@@ -2,7 +2,7 @@
 // metrics/aggregate.mjs — Junta dados GitHub + events.jsonl e computa métricas.
 // Reusa parseProcessEvents (process-events) e computeCycleTime (kpi-report).
 
-import { readFileSync } from "fs";
+import { readFileSync, existsSync } from "fs";
 import { resolve } from "path";
 import { parseProcessEvents } from "../lib/process-events.mjs";
 import { computeCycleTime } from "../kpi-report.mjs";
@@ -17,6 +17,7 @@ import {
 /** Carrega e parseia docs/tracking/events.jsonl. */
 export function loadLocalEvents() {
   const p = resolve(import.meta.dirname, "../../docs/tracking/events.jsonl");
+  if (!existsSync(p)) return { events: [], coverageSince: null };
   const events = parseProcessEvents(readFileSync(p, "utf8"));
   return { events, coverageSince: events[0]?.timestamp ?? null };
 }

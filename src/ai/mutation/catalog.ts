@@ -147,7 +147,7 @@ export const MUTATION_CATALOG: MutationCase[] = [
       file: "src/features/vendas/index.ts",
       after: "data",
       inject:
-        "\n// MUTATION: double the value field\n.map((v: any) => ({ ...v, valor: v.valor * 2 }))",
+        "\n// MUTATION: double the value field\n.map((v: Record<string, unknown>) => ({ ...v, valor: Number(v.valor) * 2 }))",
     },
     cleanup: { type: "git_checkout", file: "src/features/vendas/index.ts" },
     tags: ["data", "transformation", "wrong-value", "vendas"],

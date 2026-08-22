@@ -5,24 +5,26 @@
 
 import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
 import { fallbackWorkflowData } from "@/lib/workflowData";
-import {
-  DATA_DATE,
-  EVENT_TYPES,
-  GATE_EFFICIENCY,
-  GRADES,
-  KPI_STATS,
-  RECENT_TIMELINE,
-} from "@/lib/workflowDemoData";
+import { GATE_EFFICIENCY } from "@/lib/workflowStaticData";
 
 describe("fallbackWorkflowData", () => {
-  it("usa os dados ilustrativos congelados como fallback", () => {
+  it("retorna uma estrutura vazia segura", () => {
     const data = fallbackWorkflowData();
-    expect(data.dataDate).toBe(DATA_DATE);
-    expect(data.kpiStats).toEqual(KPI_STATS);
-    expect(data.eventTypes).toEqual(EVENT_TYPES);
-    expect(data.grades).toEqual(GRADES);
-    expect(data.recentTimeline).toEqual(RECENT_TIMELINE);
-    expect(data.gateEfficiency).toEqual(GATE_EFFICIENCY);
+    expect(data.dataDate).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(data.kpiStats).toEqual([]);
+    expect(data.eventTypes).toEqual([]);
+    expect(data.grades).toEqual([]);
+    expect(data.recentTimeline).toEqual([]);
+    expect(data.gateEfficiency).toEqual({
+      ruleFails: 0,
+      healed: 0,
+      healedRate: 0,
+      prePrTotal: 0,
+      prePrPass: 0,
+      prePrPassRate: 0,
+      gateBlocked: 0,
+      topViolations: [],
+    });
     expect(data.lastPrs).toEqual([]);
     expect(data.overview.components).toBe(0);
   });
@@ -32,7 +34,7 @@ describe("fallbackWorkflowData", () => {
     expect(data.generatedAt).toBeTruthy();
     expect(data.overview).toHaveProperty("events");
     expect(data.overview).toHaveProperty("rules");
-    expect(data.gateEfficiency.topViolations[0]).toHaveProperty("hint");
+    expect(data.gateEfficiency.topViolations).toEqual([]);
   });
 });
 
@@ -64,7 +66,7 @@ describe("loadWorkflowData (resource React 19)", () => {
     globalThis.fetch = vi.fn().mockRejectedValue(new Error("network")) as unknown as typeof fetch;
     const { loadWorkflowData: load } = await import("@/lib/workflowData");
     const data = await load();
-    expect(data.dataDate).toBe(DATA_DATE);
+    expect(data.dataDate).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     expect(data.overview.components).toBe(0);
   });
 
@@ -75,7 +77,7 @@ describe("loadWorkflowData (resource React 19)", () => {
     }) as unknown as typeof fetch;
     const { loadWorkflowData: load } = await import("@/lib/workflowData");
     const data = await load();
-    expect(data.dataDate).toBe(DATA_DATE);
+    expect(data.dataDate).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   });
 
   it("cacheia a promise entre chamadas (1 fetch apenas)", async () => {

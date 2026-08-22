@@ -33,7 +33,7 @@ Incluir o relatório ilustrativo educacional do workflow (construído em `docs/w
 **Veredito:** Faça. Constantes tipadas em `src/lib/`, componente MindMap dedicado, 7 seções preservadas.
 
 ### Advisor: The Expansionist
-**Análise:** Oportunidades: (a) a aba vira referência viva de "como o MilesControl funciona por dentro" para novos devs; (b) o MindMap pode virar componente reutilizável para outras visualizações; (c) dark mode de graça via tokens; (d) posicionamento: grupo **Controle** com "Workflow" (ícone GitBranch/Workflow) ao lado de KPIs — coerente com dados de processo; mobile: fica acessível via menu do sidebar (BottomTabBar mantém 5 itens principais, sem sobrecarregar). (e) telemetria embutida vs dinâmica: embutida agora (ilustrativo); evolução futura possível via JSON gerado por script.
+**Análise:** Oportunidades: (a) a aba vira referência viva de "como o MilesControl funciona por dentro" para novos devs; (b) o MindMap pode virar componente reutilizável para outras visualizações; (c) dark mode de graça via tokens; (d) posicionamento: grupo **Controle** com "Workflow" (ícone GitBranch/Workflow) ao lado de KPIs — coerente com dados de processo; mobile: fica acessível via menu do sidebar (BottomTabBar mantém 5 itens principais, sem sobrecarregar). (e) telemetria estática vs dinâmica: estática agora (ilustrativo); evolução futura possível via JSON gerado por script.
 **Veredito:** Faça. Grupo Controle, ícone Workflow, sem tocar no BottomTabBar.
 
 ### Advisor: The Outsider
@@ -41,7 +41,7 @@ Incluir o relatório ilustrativo educacional do workflow (construído em `docs/w
 **Veredito:** Faça. Rota protegida padrão, port nativo, rótulo de dados ilustrativos, fallback clique sem arrasto.
 
 ### Advisor: The Executor
-**Análise:** Plano: (1) branch `feat/workflow-tab`; (2) `src/lib/workflowDemoData.ts` — constantes tipadas (KPIs, fases, nós do mapa, gates, telemetria, cenários) — recomendado sobre JSON em public/ (sem fetch, tipado, tree-shakeable, testes unitários rule-31); (3) componentes em `src/components/workflow/`: `WorkflowHero`, `WorkflowTimeline`, `WorkflowMindMap` (SVG + pointer events + ref p/ posição + estimativa de largura de texto), `WorkflowGates`, `WorkflowTelemetry`, `WorkflowSimulator`; (4) página `src/pages/Workflow.tsx` monta as seções (Card shadcn + tokens); (5) rota `/workflow` + PAGE_TITLES + item no AppSidebar (grupo Controle, ícone Workflow do lucide); (6) testes: 1 por componente customizado (rule-32) + lib (rule-31); (7) pre-pr → PR. Maior risco: MindMap — mitigar com estimativa de largura, posição em ref, drag com limiar.
+**Análise:** Plano: (1) branch `feat/workflow-tab`; (2) `src/lib/workflowStaticData.ts` — dados tipados do Workflow, com fallback JSON e testes unitários rule-31; (3) componentes em `src/components/workflow/`: `WorkflowHero`, `WorkflowTimeline`, `WorkflowMindMap` (SVG + pointer events + ref p/ posição + estimativa de largura de texto), `WorkflowGates`, `WorkflowTelemetry`, `WorkflowSimulator`; (4) página `src/pages/Workflow.tsx` monta as seções (Card shadcn + tokens); (5) rota `/workflow` + PAGE_TITLES + item no AppSidebar (grupo Controle, ícone Workflow do lucide); (6) testes: 1 por componente customizado (rule-32) + lib (rule-31); (7) pre-pr → PR. Maior risco: MindMap — mitigar com estimativa de largura, posição em ref, drag com limiar.
 **Veredito:** Faça. Ordem: lib → componentes → página → rota/sidebar → testes → pre-pr → PR.
 
 ## Peer Review
@@ -54,7 +54,7 @@ Incluir o relatório ilustrativo educacional do workflow (construído em `docs/w
 
 ## Síntese do Chairman
 
-**Consenso:** Faça. Portar o relatório para React nativo: `src/lib/workflowDemoData.ts` (constantes tipadas + rótulo de dados ilustrativos), componentes por seção em `src/components/workflow/` com tokens Tailwind/shadcn (dark mode automático), `src/pages/Workflow.tsx` montando as 7 seções (hero, jornada, linha do tempo conectada, mapa mental interativo com drag&drop, gates, telemetria, simulador), rota `/workflow` + PAGE_TITLES + item "Workflow" no AppSidebar (grupo Controle, ícone Workflow), rota protegida padrão, testes por componente + lib, pre-pr → PR. MindMap: posição em ref, largura por estimativa, drag com limiar, fallback clique. Não tocar BottomTabBar.
+**Consenso:** Faça. Portar o relatório para React nativo: `src/lib/workflowStaticData.ts` (dados tipados + fallback JSON), componentes por seção em `src/components/workflow/` com tokens Tailwind/shadcn (dark mode automático), `src/pages/Workflow.tsx` montando as 7 seções (hero, jornada, linha do tempo conectada, mapa mental interativo com drag&drop, gates, telemetria, simulador), rota `/workflow` + PAGE_TITLES + item "Workflow" no AppSidebar (grupo Controle, ícone Workflow), rota protegida padrão, testes por componente + lib, pre-pr → PR. MindMap: posição em ref, largura por estimativa, drag com limiar, fallback clique. Não tocar BottomTabBar.
 
 **Veredito Final:** Faça
 

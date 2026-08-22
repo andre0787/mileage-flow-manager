@@ -128,6 +128,9 @@
     "p12.6:validate": "node scripts/p12.6-validate.mjs",
     "p12.6:experiment": "node scripts/p12.6-experiment.mjs",
     "ai:p12.6:score": "node scripts/p12.6-validate.mjs",
+    "p12:report": "tsx scripts/p12-report-generator.ts",
+    "p12.5:report": "tsx scripts/p12.5-report-generator.ts",
+    "scripts:lib": "node scripts/lib.mjs",
     "test:e2e:demo": "VITE_PUBLIC_DEMO_ENABLED=true playwright test tests/demo-e2e.spec.ts"
   },
   "dependencies": {

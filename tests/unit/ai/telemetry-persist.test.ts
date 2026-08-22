@@ -9,6 +9,7 @@ function env(partial: Partial<TelemetryEnvelope>): TelemetryEnvelope {
     timestamp: new Date().toISOString(),
     success: true,
     errorCode: null,
+    model: "test-model",
     ...partial,
   };
 }
@@ -66,7 +67,7 @@ describe("envelopeToRecord", () => {
   });
 
   it("fail-open: campos ausentes viram null/0", () => {
-    const record = envelopeToRecord(env({}), { sessionId: "s" });
+    const record = envelopeToRecord(env({ model: undefined }), { sessionId: "s" });
     expect(record.model).toBeNull();
     expect(record.tokens_used).toBe(0);
     expect(record.area).toBeNull();
@@ -85,5 +86,10 @@ describe("isPersistableEnvelope", () => {
     expect(isPersistableEnvelope(env({ eventType: "context.created" }))).toBe(false);
     expect(isPersistableEnvelope(env({ eventType: "gate.completed" }))).toBe(false);
     expect(isPersistableEnvelope(createTelemetryEnvelope("tool.started"))).toBe(false);
+  });
+
+  it("rejeita persistência sem identidade de modelo válida", () => {
+    expect(isPersistableEnvelope(env({ model: undefined }))).toBe(false);
+    expect(isPersistableEnvelope(env({ model: "unset" }))).toBe(false);
   });
 });

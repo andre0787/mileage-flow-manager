@@ -1,4 +1,4 @@
-import { GATES } from "@/lib/workflowDemoData";
+import { GATES } from "@/lib/workflowStaticData";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 

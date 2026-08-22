@@ -10,6 +10,7 @@
  */
 
 import type { TelemetryEnvelope } from "./envelope";
+import { hasValidModelIdentity } from "./completeness";
 import { estimateCost } from "@/lib/aiTelemetry";
 
 export interface TelemetryRecord {
@@ -45,13 +46,13 @@ export function envelopeToRecord(
 ): TelemetryRecord {
   const tokensUsed = (env.inputTokens ?? 0) + (env.outputTokens ?? 0);
   return {
-    session_id: opts.sessionId,
+    session_id: opts.sessionId || env.sessionId || "unknown",
     area: env.agentRole ?? env.agentAdapter ?? null,
     tokens_used: tokensUsed,
     prompt_tokens_saved_by_pruning: env.tokensSaved ?? 0,
     total_execution_time_ms: env.durationMs ?? 0,
     cost_estimate: estimateCost(tokensUsed, opts.costPer1kTokens),
-    success_rate: env.success ? 1 : 0,
+    success_rate: env.success === false ? 0 : 1,
     event_type: env.eventType,
     task_id: env.taskId ?? null,
     execution_id: env.executionId ?? null,
@@ -66,8 +67,9 @@ export function envelopeToRecord(
 /** Filtra envelopes que merecem persistência (execução/agente, SDD §19). */
 export function isPersistableEnvelope(env: TelemetryEnvelope): boolean {
   return (
-    env.eventType.startsWith("execution.") ||
-    env.eventType.startsWith("agent.") ||
-    env.eventType.startsWith("graph.query.")
+    hasValidModelIdentity(env) &&
+    (env.eventType.startsWith("execution.") ||
+      env.eventType.startsWith("agent.") ||
+      env.eventType.startsWith("graph.query."))
   );
 }

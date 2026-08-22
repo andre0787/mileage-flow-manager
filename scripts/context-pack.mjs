@@ -24,6 +24,26 @@ const TASKS_DIR = resolve(ROOT, "docs/tasks");
 const CONVENTIONS_DIR = resolve(ROOT, "docs/conventions");
 const ARCHITECTURE_PATH = resolve(ROOT, "docs/ARCHITECTURE.md");
 const STACK_PATH = resolve(ROOT, "docs/STACK.md");
+const MAX_CONTEXT_FILE_BYTES = 15 * 1024;
+const EXCLUDED_CONTEXT_PATTERNS = [
+  /(^|\/)public\/mock\//,
+  /(^|\/)docs\/reports\//,
+  /(^|\/)docs\/tracking\/(archive\/)?/,
+  /(^|\/)dist\//,
+  /(^|\/)node_modules\//,
+  /(^|\/)coverage\//,
+];
+
+/** Política única para arquivos auxiliares solicitados por futuros collectors. */
+export function shouldIncludeContextFile(relativePath, explicit = false) {
+  if (EXCLUDED_CONTEXT_PATTERNS.some((pattern) => pattern.test(relativePath))) return false;
+  if (explicit) return true;
+  try {
+    return readFileSync(resolve(ROOT, relativePath)).length <= MAX_CONTEXT_FILE_BYTES;
+  } catch {
+    return false;
+  }
+}
 
 // ── Lê todos os slices de docs/conventions/ e agrega ──
 function readConventions() {

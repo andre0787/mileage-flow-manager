@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+// @llm-context: skip-unless-requested — gerador grande, usado apenas para refresh de dados.
 /**
  * data-refresh.mjs — Refresh dos dados consumidos pelas abas KPI e Workflow.
  *

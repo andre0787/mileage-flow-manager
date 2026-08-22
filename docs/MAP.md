@@ -587,3 +587,8 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/P12.6-GOLDEN-SCENARIOS.md` (auto) | 2026-08-22 |
 | `docs/P12.6-PROMOTION-EVIDENCE-REPORT.md` (auto) | 2026-08-22 |
 | `docs/P12.6-PROMOTION-SOURCES.md` (auto) | 2026-08-22 |
+| `docs/ROADMAP-REFACTORY.md` (auto) | 2026-08-22 |
+| `docs/audit/deduplication.md` (auto) | 2026-08-22 |
+| `docs/audit/dead-exports.md` (auto) | 2026-08-22 |
+| `docs/audit/context-optimization.md` (auto) | 2026-08-22 |
+| `docs/audit/npm-scripts-added.md` (auto) | 2026-08-22 |

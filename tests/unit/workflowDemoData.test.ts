@@ -14,7 +14,7 @@ import {
   RECENT_TIMELINE,
   GATE_EFFICIENCY,
   kpiForId,
-} from "@/lib/workflowDemoData";
+} from "@/lib/workflowStaticData";
 
 describe("workflowDemoData (rule-31)", () => {
   it("expõe a data de geração dos dados ilustrativos", () => {

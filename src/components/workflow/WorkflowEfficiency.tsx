@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { useWorkflowData } from "@/lib/workflowData";
+import { useWorkflowMetrics } from "@/hooks/useWorkflowMetrics";
 
 /**
  * WorkflowEfficiency — "Os gates estão pegando bugs?" Dados REAIS dos
@@ -59,7 +59,20 @@ function ViolationRow({ rule, count, hint }: { rule: string; count: number; hint
 }
 
 export function WorkflowEfficiency() {
-  const data = useWorkflowData();
+  const { workflow } = useWorkflowMetrics();
+  const data = workflow ?? {
+    dataDate: "—",
+    gateEfficiency: {
+      ruleFails: 0,
+      healed: 0,
+      healedRate: 0,
+      prePrTotal: 0,
+      prePrPass: 0,
+      prePrPassRate: 0,
+      gateBlocked: 0,
+      topViolations: [],
+    },
+  };
   const { dataDate, gateEfficiency } = data;
   const {
     ruleFails,
