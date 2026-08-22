@@ -79,13 +79,11 @@ export function compareGraphStrategies(
   qualityThreshold: number = 0.1, // 10% improvement needed
   costThreshold: number = 1.5, // 50% more tokens is "significant"
 ): GraphComparison {
-  const rootCauseAccuracyDelta =
-    strategyB.rootCauseAccuracy - strategyA.rootCauseAccuracy;
+  const rootCauseAccuracyDelta = strategyB.rootCauseAccuracy - strategyA.rootCauseAccuracy;
   const timeDelta = strategyA.timeToDiagnosis - strategyB.timeToDiagnosis;
   const tokenDelta = strategyB.tokens - strategyA.tokens;
   const costDelta = strategyB.cost - strategyA.cost;
-  const filesChangedDelta =
-    strategyB.filesChanged.length - strategyA.filesChanged.length;
+  const filesChangedDelta = strategyB.filesChanged.length - strategyA.filesChanged.length;
   const fixSuccessDelta = strategyB.fixSuccess && !strategyA.fixSuccess;
   const regressionDelta = strategyB.regression && !strategyA.regression;
   const confidenceDelta = strategyB.confidence - strategyA.confidence;
@@ -109,9 +107,7 @@ export function compareGraphStrategies(
   } else if (qualityImproved && costIncreased) {
     // Quality improved but at higher cost — neutral if marginal
     recommendation =
-      rootCauseAccuracyDelta > qualityThreshold * 2
-        ? "graph_beneficial"
-        : "graph_neutral";
+      rootCauseAccuracyDelta > qualityThreshold * 2 ? "graph_beneficial" : "graph_neutral";
   } else if (regressionDelta) {
     recommendation = "graph_harmful";
   } else {
@@ -197,8 +193,7 @@ export function findRelevantSubgraph(
 
     // Find connected nodes
     for (const edge of graph.edges) {
-      const neighbor =
-        edge.from === id ? edge.to : edge.to === id ? edge.from : null;
+      const neighbor = edge.from === id ? edge.to : edge.to === id ? edge.from : null;
       if (neighbor && !relevantNodes.has(neighbor)) {
         relevantNodes.add(neighbor);
         queue.push({ id: neighbor, currentDepth: currentDepth + 1 });
@@ -208,8 +203,6 @@ export function findRelevantSubgraph(
 
   return {
     nodes: graph.nodes.filter((n) => relevantNodes.has(n.id)),
-    edges: graph.edges.filter(
-      (e) => relevantNodes.has(e.from) && relevantNodes.has(e.to),
-    ),
+    edges: graph.edges.filter((e) => relevantNodes.has(e.from) && relevantNodes.has(e.to)),
   };
 }

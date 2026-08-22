@@ -144,8 +144,7 @@ export class MutationLifecycle {
       }
 
       run.completedAt = new Date().toISOString();
-      run.duration =
-        new Date(run.completedAt).getTime() - new Date(run.startedAt).getTime();
+      run.duration = new Date(run.completedAt).getTime() - new Date(run.startedAt).getTime();
     } catch (error) {
       run.state = "error";
       run.completedAt = new Date().toISOString();
@@ -159,9 +158,7 @@ export class MutationLifecycle {
    * Get all runs for a mutation.
    */
   getRuns(mutationId: string): MutationRun[] {
-    return Array.from(this.runs.values()).filter(
-      (r) => r.mutationId === mutationId,
-    );
+    return Array.from(this.runs.values()).filter((r) => r.mutationId === mutationId);
   }
 
   /**

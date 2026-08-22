@@ -84,9 +84,7 @@ const NORMALIZATION_RULES: NormalizationRule[] = [
     field: "promotionType",
     normalize: (v) => normalizePromotionType(v),
     validate: (v) =>
-      ["transferencia", "compra", "bonus", "resgate", "parceria", "cashback"].includes(
-        v as string,
-      ),
+      ["transferencia", "compra", "bonus", "resgate", "parceria", "cashback"].includes(v as string),
   },
 ];
 
@@ -203,9 +201,7 @@ export class PromotionExtractor {
         const normalized = rule.normalize(rawValue);
         if (normalized !== undefined) {
           if (rule.validate && !rule.validate(normalized)) {
-            warnings.push(
-              `Field '${rule.field}' failed validation: ${JSON.stringify(normalized)}`,
-            );
+            warnings.push(`Field '${rule.field}' failed validation: ${JSON.stringify(normalized)}`);
             fieldsMissing.push(rule.field);
           } else {
             (promotion as Record<string, unknown>)[rule.field] = normalized;
@@ -228,11 +224,7 @@ export class PromotionExtractor {
     promotion.sourceUrl = sourceUrl;
     promotion.collectedAt = new Date().toISOString();
 
-    const confidence = assessConfidence(
-      fieldsExtracted,
-      fieldsMissing,
-      sourceReliability,
-    );
+    const confidence = assessConfidence(fieldsExtracted, fieldsMissing, sourceReliability);
 
     return {
       extractionId,
@@ -274,14 +266,14 @@ export class PromotionExtractor {
       /(?:de|from|até|until|válido|valid)\s*(?:\d{2}\/\d{2}\/\d{4}|\d{4}-\d{2}-\d{2})/gi,
     );
     if (dateMatch) {
-      const dates = dateMatch.map((d) => normalizeDate(d.replace(/^(de|from|até|until|válido|valid)\s*/i, "")));
+      const dates = dateMatch.map((d) =>
+        normalizeDate(d.replace(/^(de|from|até|until|válido|valid)\s*/i, "")),
+      );
       if (dates[0]) result.startDate = dates[0];
       if (dates[1]) result.endDate = dates[1];
     }
 
-    const programMatch = rawContent.match(
-      /(livelo|smiles|latam\s*pass|azul\s*fidelidade|esfera)/i,
-    );
+    const programMatch = rawContent.match(/(livelo|smiles|latam\s*pass|azul\s*fidelidade|esfera)/i);
     if (programMatch) result.program = programMatch[1];
 
     // Detect promotion type

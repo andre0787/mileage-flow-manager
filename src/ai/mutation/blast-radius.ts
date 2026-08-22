@@ -61,10 +61,7 @@ export function computeBlastRadius(input: BlastRadiusInput): BlastRadius {
     changedLines,
     modulesTouched,
     testsAdded: input.testsAdded?.length || 0,
-    dependenciesChanged: [
-      ...(input.dependenciesAdded || []),
-      ...(input.dependenciesRemoved || []),
-    ],
+    dependenciesChanged: [...(input.dependenciesAdded || []), ...(input.dependenciesRemoved || [])],
     configChanged: input.configChanged || false,
     divergenceLevel,
   };

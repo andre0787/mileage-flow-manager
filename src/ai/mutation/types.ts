@@ -155,7 +155,8 @@ export interface TelemetryStep {
 
 // ─── Triage ────────────────────────────────────────────────────
 
-export type MutationTriageClassification = "correct" | "partially_correct" | "incorrect" | "unknown";
+export type MutationTriageClassification =
+  "correct" | "partially_correct" | "incorrect" | "unknown";
 
 export interface MutationTriageResult {
   rootCauseHypothesis: string;
@@ -222,7 +223,8 @@ export interface CostMetrics {
 
 // ─── Graph Diagnosis ───────────────────────────────────────────
 
-export type GraphBenefit = "graph_beneficial" | "graph_neutral" | "graph_harmful" | "graph_unnecessary";
+export type GraphBenefit =
+  "graph_beneficial" | "graph_neutral" | "graph_harmful" | "graph_unnecessary";
 
 export interface GraphDiagnosisResult {
   strategy: "evidence_llm" | "evidence_llm_graph";

@@ -46,7 +46,13 @@ type SortOption = (typeof SORT_OPTIONS)[number];
 
 // ─── Status Badge ──────────────────────────────────────────────
 
-function StatusBadge({ confidence, freshness }: { confidence: ConfidenceLevel; freshness: SourceHealth }) {
+function StatusBadge({
+  confidence,
+  freshness,
+}: {
+  confidence: ConfidenceLevel;
+  freshness: SourceHealth;
+}) {
   const getStatusIcon = () => {
     if (freshness === "OFFLINE") return "🔴";
     if (confidence === "HIGH" && freshness === "FRESH") return "🟢";
@@ -94,9 +100,7 @@ function PromotionCard({ promo }: { promo: PromotionItem }) {
 
           <h3 className="font-medium text-gray-900">{promo.title}</h3>
 
-          {promo.description && (
-            <p className="text-sm text-gray-600 mt-1">{promo.description}</p>
-          )}
+          {promo.description && <p className="text-sm text-gray-600 mt-1">{promo.description}</p>}
 
           <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
             {promo.startDate && promo.endDate && (
@@ -164,7 +168,8 @@ export default function Promocoes() {
         status: "active",
         freshness: "FRESH",
         sourceUrl: "https://www.livelo.com.br/promocoes",
-        terms: "Válido para transferências acima de 5.000 pontos. Limite de 100.000 pontos bônus por membro.",
+        terms:
+          "Válido para transferências acima de 5.000 pontos. Limite de 100.000 pontos bônus por membro.",
       },
       {
         id: "2",
@@ -262,9 +267,7 @@ export default function Promocoes() {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900">Promoções</h1>
-        <p className="text-gray-600 mt-1">
-          Central de promoções de programas de pontos e milhas
-        </p>
+        <p className="text-gray-600 mt-1">Central de promoções de programas de pontos e milhas</p>
       </div>
 
       {/* Filters */}

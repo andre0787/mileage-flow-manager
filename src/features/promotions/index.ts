@@ -37,12 +37,15 @@ interface PromotionAlertListResponse {
 export const promotionsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // ── Promotions ──
-    getPromotions: builder.query<PromotionListResponse, {
-      program?: string;
-      status?: PromotionStatus;
-      confidence?: ConfidenceLevel;
-      sort?: "recent" | "bonus" | "expiry";
-    }>({
+    getPromotions: builder.query<
+      PromotionListResponse,
+      {
+        program?: string;
+        status?: PromotionStatus;
+        confidence?: ConfidenceLevel;
+        sort?: "recent" | "bonus" | "expiry";
+      }
+    >({
       query: (params) => ({
         url: "/promotions",
         params,
@@ -70,10 +73,7 @@ export const promotionsApi = baseApi.injectEndpoints({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: (_result, _error, { id }) => [
-        { type: "promotions", id },
-        "promotions",
-      ],
+      invalidatesTags: (_result, _error, { id }) => [{ type: "promotions", id }, "promotions"],
     }),
 
     deletePromotion: builder.mutation<void, string>({
@@ -92,9 +92,7 @@ export const promotionsApi = baseApi.injectEndpoints({
 
     getSourceHealth: builder.query<SourceHealth, string>({
       query: (sourceId) => `/promotions/sources/${sourceId}/health`,
-      providesTags: (_result, _error, sourceId) => [
-        { type: "promotion_sources", id: sourceId },
-      ],
+      providesTags: (_result, _error, sourceId) => [{ type: "promotion_sources", id: sourceId }],
     }),
 
     triggerCollection: builder.mutation<void, string>({
@@ -106,10 +104,13 @@ export const promotionsApi = baseApi.injectEndpoints({
     }),
 
     // ── Alerts ──
-    getPromotionAlerts: builder.query<PromotionAlertListResponse, {
-      unacknowledged?: boolean;
-      promotionId?: string;
-    }>({
+    getPromotionAlerts: builder.query<
+      PromotionAlertListResponse,
+      {
+        unacknowledged?: boolean;
+        promotionId?: string;
+      }
+    >({
       query: (params) => ({
         url: "/promotions/alerts",
         params,
@@ -126,12 +127,15 @@ export const promotionsApi = baseApi.injectEndpoints({
     }),
 
     // ── Deduplication ──
-    getDeduplicationGroups: builder.query<{
-      groupId: string;
-      canonicalPromotionId: string;
-      sourcePromotionIds: string[];
-      similarity: number;
-    }[], void>({
+    getDeduplicationGroups: builder.query<
+      {
+        groupId: string;
+        canonicalPromotionId: string;
+        sourcePromotionIds: string[];
+        similarity: number;
+      }[],
+      void
+    >({
       query: () => "/promotions/dedup-groups",
       providesTags: ["promotions"],
     }),

@@ -33,10 +33,7 @@ export class ChangeDetector {
   /**
    * Detect changes between previous and current state of a promotion.
    */
-  detectChanges(
-    promotionId: string,
-    current: Promotion,
-  ): PromotionChange[] {
+  detectChanges(promotionId: string, current: Promotion): PromotionChange[] {
     const previous = this.previousSnapshots.get(promotionId);
     const detectedChanges: PromotionChange[] = [];
 
@@ -63,7 +60,14 @@ export class ChangeDetector {
       // Check for expiry
       if (previous.status === "active" && current.status === "expired") {
         detectedChanges.push(
-          this.createChange(promotionId, "expired", "status", "active", "expired", current.sourceUrl),
+          this.createChange(
+            promotionId,
+            "expired",
+            "status",
+            "active",
+            "expired",
+            current.sourceUrl,
+          ),
         );
       }
     }

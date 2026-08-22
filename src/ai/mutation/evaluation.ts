@@ -215,8 +215,8 @@ export const DEFAULT_THRESHOLDS: ScoreThresholds = {
     detectionRecall: 0.95,
     detectionPrecision: 0.95,
     evidenceReproducibility: 0.95,
-    triageAccuracy: 0.90,
-    fixSuccess: 0.90,
+    triageAccuracy: 0.9,
+    fixSuccess: 0.9,
     regressionRate: 0.05,
   },
   excellent: {
@@ -293,7 +293,7 @@ export function computeScorecard(params: {
   if (avgScore >= 0.95) overallGrade = "A";
   else if (avgScore >= 0.85) overallGrade = "B";
   else if (avgScore >= 0.75) overallGrade = "C";
-  else if (avgScore >= 0.60) overallGrade = "D";
+  else if (avgScore >= 0.6) overallGrade = "D";
   else overallGrade = "F";
 
   return {

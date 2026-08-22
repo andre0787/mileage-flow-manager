@@ -58,11 +58,7 @@ export class FixEvaluator {
   /**
    * Evaluate a fix attempt.
    */
-  evaluate(
-    finding: DetectionFinding,
-    fixResult: FixResult,
-    cost: CostMetrics,
-  ): FixEvaluation {
+  evaluate(finding: DetectionFinding, fixResult: FixResult, cost: CostMetrics): FixEvaluation {
     const failureReasons: string[] = [];
 
     if (!fixResult.mutationRemoved) {
@@ -201,20 +197,14 @@ export class RegressionEvaluator {
     allWithinTarget: boolean;
     results: RegressionEvaluation[];
   } {
-    const results = evaluations.map((e) =>
-      this.evaluate(e.fixId, e.original, e.related, e.full),
-    );
+    const results = evaluations.map((e) => this.evaluate(e.fixId, e.original, e.related, e.full));
 
     const avgRegressionRate =
       results.length > 0
-        ? results.reduce((sum, r) => sum + r.overallRegressionRate, 0) /
-          results.length
+        ? results.reduce((sum, r) => sum + r.overallRegressionRate, 0) / results.length
         : 0;
 
-    const worstRegressionRate = Math.max(
-      ...results.map((r) => r.overallRegressionRate),
-      0,
-    );
+    const worstRegressionRate = Math.max(...results.map((r) => r.overallRegressionRate), 0);
 
     return {
       avgRegressionRate,

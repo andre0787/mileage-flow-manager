@@ -10,12 +10,7 @@
  * Promoções de baixa confiança não são apresentadas como fato confirmado.
  */
 
-import type {
-  Promotion,
-  ConfidenceLevel,
-  PromotionSource,
-  PromotionStatus,
-} from "./types";
+import type { Promotion, ConfidenceLevel, PromotionSource, PromotionStatus } from "./types";
 import { getSourceTrustLevel } from "./types";
 
 // ─── Validation Result ─────────────────────────────────────────
@@ -44,10 +39,7 @@ export class PromotionValidator {
   /**
    * Validate a promotion before publication.
    */
-  validate(
-    promotion: Partial<Promotion>,
-    source: PromotionSource,
-  ): ValidationResult {
+  validate(promotion: Partial<Promotion>, source: PromotionSource): ValidationResult {
     const checks: PromotionValidationCheck[] = [];
     const warnings: string[] = [];
     const validationId = `val-${promotion.id || "unknown"}-${Date.now()}`;
@@ -82,7 +74,14 @@ export class PromotionValidator {
     const passRate = totalChecks > 0 ? passedChecks.length / totalChecks : 0;
 
     const sourceTrustScore = getSourceTrustLevel(source);
-    const trustFactor = sourceTrustScore === 0 ? 1.0 : sourceTrustScore === 1 ? 0.9 : sourceTrustScore === 2 ? 0.7 : 0.5;
+    const trustFactor =
+      sourceTrustScore === 0
+        ? 1.0
+        : sourceTrustScore === 1
+          ? 0.9
+          : sourceTrustScore === 2
+            ? 0.7
+            : 0.5;
 
     const overallScore = passRate * 0.7 + trustFactor * 0.3;
 
@@ -93,7 +92,11 @@ export class PromotionValidator {
 
     // Collect warnings
     for (const check of checks) {
-      if (check.severity === "warning" || check.severity === "error" || check.severity === "critical") {
+      if (
+        check.severity === "warning" ||
+        check.severity === "error" ||
+        check.severity === "critical"
+      ) {
         warnings.push(`${check.name}: ${check.detail}`);
       }
     }
@@ -240,9 +243,9 @@ export class PromotionValidator {
   }
 
   private checkBonusConsistency(promotion: Partial<Promotion>): PromotionValidationCheck {
-    const hasBonus =
-      promotion.bonusPercentage !== undefined && promotion.bonusPercentage !== null;
-    const bonusValid = hasBonus && promotion.bonusPercentage! >= 0 && promotion.bonusPercentage! <= 500;
+    const hasBonus = promotion.bonusPercentage !== undefined && promotion.bonusPercentage !== null;
+    const bonusValid =
+      hasBonus && promotion.bonusPercentage! >= 0 && promotion.bonusPercentage! <= 500;
 
     return {
       name: "bonus_consistent",
@@ -258,8 +261,7 @@ export class PromotionValidator {
   }
 
   private checkEligibility(promotion: Partial<Promotion>): PromotionValidationCheck {
-    const hasEligibility =
-      promotion.eligibility && promotion.eligibility.length > 0;
+    const hasEligibility = promotion.eligibility && promotion.eligibility.length > 0;
 
     return {
       name: "eligibility_understood",

@@ -8,12 +8,7 @@
  * Passageiro de Primeira como fonte agregadora primária de descoberta.
  */
 
-import type {
-  PromotionSource,
-  SourceHealth,
-  SourceType,
-  CollectionMethod,
-} from "./types";
+import type { PromotionSource, SourceHealth, SourceType, CollectionMethod } from "./types";
 
 // ─── Default Sources ───────────────────────────────────────────
 
@@ -52,7 +47,7 @@ export const DEFAULT_SOURCES: PromotionSource[] = [
     collectionMethod: "passageiro_de_primeira",
     collectionFrequency: "12h",
     enabled: true,
-    reliability: 0.90,
+    reliability: 0.9,
     health: "FRESH",
     priority: 2,
     freshnessTarget: 48,
@@ -106,11 +101,7 @@ export class SourceRegistry {
   /**
    * Update source health after a collection run.
    */
-  updateHealth(
-    sourceId: string,
-    health: SourceHealth,
-    error?: string,
-  ): void {
+  updateHealth(sourceId: string, health: SourceHealth, error?: string): void {
     const source = this.sources.get(sourceId);
     if (!source) return;
 
@@ -150,9 +141,7 @@ export class SourceRegistry {
    * Get sources by program.
    */
   getSourcesByProgram(program: string): PromotionSource[] {
-    return Array.from(this.sources.values()).filter(
-      (s) => s.program === program,
-    );
+    return Array.from(this.sources.values()).filter((s) => s.program === program);
   }
 
   /**

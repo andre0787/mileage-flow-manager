@@ -144,10 +144,16 @@ export class PromotionDeduplicator {
    */
   private computeTitleSimilarity(a: string, b: string): number {
     const wordsA = new Set(
-      a.toLowerCase().split(/\s+/).filter((w) => w.length > 2),
+      a
+        .toLowerCase()
+        .split(/\s+/)
+        .filter((w) => w.length > 2),
     );
     const wordsB = new Set(
-      b.toLowerCase().split(/\s+/).filter((w) => w.length > 2),
+      b
+        .toLowerCase()
+        .split(/\s+/)
+        .filter((w) => w.length > 2),
     );
 
     if (wordsA.size === 0 || wordsB.size === 0) return 0;
@@ -221,11 +227,7 @@ export class PromotionDeduplicator {
   /**
    * Add a duplicate to a group.
    */
-  private addToGroup(
-    groupId: string,
-    promotionId: string,
-    sourceUrl: string,
-  ): void {
+  private addToGroup(groupId: string, promotionId: string, sourceUrl: string): void {
     const group = this.groups.get(groupId);
     if (group && !group.sourcePromotionIds.includes(promotionId)) {
       group.sourcePromotionIds.push(promotionId);

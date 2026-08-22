@@ -32,22 +32,12 @@ export interface PromotionSource {
 
 // ─── Promotion ─────────────────────────────────────────────────
 
-export type PromotionStatus =
-  | "candidate"
-  | "active"
-  | "updated"
-  | "expired"
-  | "rejected";
+export type PromotionStatus = "candidate" | "active" | "updated" | "expired" | "rejected";
 
 export type ConfidenceLevel = "HIGH" | "MEDIUM" | "LOW";
 
 export type PromotionType =
-  | "transferencia"
-  | "compra"
-  | "bonus"
-  | "resgate"
-  | "parceria"
-  | "cashback";
+  "transferencia" | "compra" | "bonus" | "resgate" | "parceria" | "cashback";
 
 export interface Promotion {
   id: string;
@@ -197,12 +187,7 @@ export interface PromotionChange {
 
 // ─── Source Trust Hierarchy ────────────────────────────────────
 
-export const SOURCE_TRUST_ORDER: SourceType[] = [
-  "official",
-  "partner",
-  "secondary",
-  "community",
-];
+export const SOURCE_TRUST_ORDER: SourceType[] = ["official", "partner", "secondary", "community"];
 
 export function getSourceTrustLevel(source: PromotionSource): number {
   return SOURCE_TRUST_ORDER.indexOf(source.type);

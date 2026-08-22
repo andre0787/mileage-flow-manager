@@ -193,8 +193,7 @@ export class QACampaign {
 // ─── Mode-Specific Instructions ────────────────────────────────
 
 export const MODE_INSTRUCTIONS: Record<QAMode, string> = {
-  guided:
-    "Execute each scenario step by step. Report any deviations from expected behavior.",
+  guided: "Execute each scenario step by step. Report any deviations from expected behavior.",
   exploratory:
     "Explore the application freely. Try to find bugs by testing edge cases, boundary conditions, and unusual interactions.",
   hybrid:

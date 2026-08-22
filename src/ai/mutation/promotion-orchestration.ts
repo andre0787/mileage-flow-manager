@@ -109,11 +109,7 @@ export class PromotionOrchestrator {
         processed = promotions.length;
         break;
       case "pipeline":
-        agentsUsed = [
-          "promotion-scout",
-          "promotion-extractor",
-          "promotion-validator",
-        ];
+        agentsUsed = ["promotion-scout", "promotion-extractor", "promotion-validator"];
         processed = promotions.length;
         break;
       case "full_pipeline":
@@ -234,23 +230,19 @@ export class PromotionOrchestrator {
     recommendation: "graph_beneficial" | "graph_neutral" | "graph_harmful" | "graph_unnecessary";
     analysis: string;
   } {
-    const withoutGraph = this.graphExperiments.find(
-      (e) => e.strategy === "without_graph",
-    );
-    const withGraph = this.graphExperiments.find(
-      (e) => e.strategy === "with_graph",
-    );
+    const withoutGraph = this.graphExperiments.find((e) => e.strategy === "without_graph");
+    const withGraph = this.graphExperiments.find((e) => e.strategy === "with_graph");
 
-    let recommendation: "graph_beneficial" | "graph_neutral" | "graph_harmful" | "graph_unnecessary" = "graph_unnecessary";
+    let recommendation:
+      "graph_beneficial" | "graph_neutral" | "graph_harmful" | "graph_unnecessary" =
+      "graph_unnecessary";
     let analysis = "No graph experiment results.";
 
     if (withoutGraph && withGraph) {
       const qualityImprovement =
-        withGraph.results.deduplicationAccuracy -
-        withoutGraph.results.deduplicationAccuracy;
+        withGraph.results.deduplicationAccuracy - withoutGraph.results.deduplicationAccuracy;
 
-      const costIncrease =
-        withGraph.results.cost > withoutGraph.results.cost * 1.5;
+      const costIncrease = withGraph.results.cost > withoutGraph.results.cost * 1.5;
 
       if (qualityImprovement > 0.1 && !costIncrease) {
         recommendation = "graph_beneficial";

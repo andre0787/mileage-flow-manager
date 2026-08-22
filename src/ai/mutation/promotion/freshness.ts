@@ -11,12 +11,7 @@
  * verificada recentemente.
  */
 
-import type {
-  PromotionSource,
-  SourceHealth,
-  FreshnessReport,
-  CollectionRun,
-} from "./types";
+import type { PromotionSource, SourceHealth, FreshnessReport, CollectionRun } from "./types";
 
 // ─── Freshness Calculator ──────────────────────────────────────
 
@@ -45,8 +40,10 @@ export class FreshnessTracker {
 
     const report: FreshnessReport = {
       sourceId: source.sourceId,
-      lastSuccessfulCollection: run.status === "success" ? lastRun : source.lastSuccessfulRun || lastRun,
-      nextScheduledCollection: source.nextScheduledRun || new Date(now + source.freshnessTarget * 3600000).toISOString(),
+      lastSuccessfulCollection:
+        run.status === "success" ? lastRun : source.lastSuccessfulRun || lastRun,
+      nextScheduledCollection:
+        source.nextScheduledRun || new Date(now + source.freshnessTarget * 3600000).toISOString(),
       ageOfCurrentData: ageHours,
       freshnessStatus: status,
       dataAgeDescription: formatAgeDescription(ageHours),
@@ -82,9 +79,7 @@ export class FreshnessTracker {
    * Get offline sources.
    */
   getOfflineSources(): FreshnessReport[] {
-    return this.getAllReports().filter(
-      (r) => r.freshnessStatus === "OFFLINE",
-    );
+    return this.getAllReports().filter((r) => r.freshnessStatus === "OFFLINE");
   }
 
   /**
@@ -101,10 +96,7 @@ export class FreshnessTracker {
       OFFLINE: 0,
     };
 
-    const totalScore = reports.reduce(
-      (sum, r) => sum + scoreMap[r.freshnessStatus],
-      0,
-    );
+    const totalScore = reports.reduce((sum, r) => sum + scoreMap[r.freshnessStatus], 0);
 
     return totalScore / reports.length;
   }
@@ -166,9 +158,7 @@ export class SourceHealthMonitor {
   /**
    * Get health summary for dashboard.
    */
-  getHealthDashboard(
-    sources: PromotionSource[],
-  ): Array<{
+  getHealthDashboard(sources: PromotionSource[]): Array<{
     program: string;
     sourceId: string;
     health: SourceHealth;

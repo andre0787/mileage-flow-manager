@@ -9,11 +9,7 @@
  * Evitar alertas duplicados.
  */
 
-import type {
-  Promotion,
-  PromotionAlert,
-  AlertEventType,
-} from "./types";
+import type { Promotion, PromotionAlert, AlertEventType } from "./types";
 
 // ─── Alert Engine ──────────────────────────────────────────────
 
@@ -50,10 +46,7 @@ export class AlertEngine {
   /**
    * Generate alert for an updated promotion.
    */
-  onPromotionUpdated(
-    promotion: Promotion,
-    changes: string[],
-  ): PromotionAlert | null {
+  onPromotionUpdated(promotion: Promotion, changes: string[]): PromotionAlert | null {
     const reason = `Promoção atualizada: ${promotion.title}. Alterações: ${changes.join(", ")}`;
     return this.createAlert({
       promotionId: promotion.id,
@@ -68,9 +61,7 @@ export class AlertEngine {
    */
   onPromotionExpiring(promotion: Promotion): PromotionAlert | null {
     const daysLeft = promotion.endDate
-      ? Math.ceil(
-          (new Date(promotion.endDate).getTime() - Date.now()) / 86400000,
-        )
+      ? Math.ceil((new Date(promotion.endDate).getTime() - Date.now()) / 86400000)
       : -1;
 
     return this.createAlert({
@@ -96,10 +87,7 @@ export class AlertEngine {
   /**
    * Generate alert for a rejected promotion.
    */
-  onPromotionRejected(
-    promotion: Promotion,
-    reason: string,
-  ): PromotionAlert | null {
+  onPromotionRejected(promotion: Promotion, reason: string): PromotionAlert | null {
     return this.createAlert({
       promotionId: promotion.id,
       eventType: "promotion.rejected",
@@ -145,8 +133,7 @@ export class AlertEngine {
       (a) =>
         a.promotionId === params.promotionId &&
         a.eventType === params.eventType &&
-        Date.now() - new Date(a.timestamp).getTime() <
-          this.config.deduplicateWindowMs,
+        Date.now() - new Date(a.timestamp).getTime() < this.config.deduplicateWindowMs,
     );
 
     if (recentDuplicate) return null;

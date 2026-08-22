@@ -18,7 +18,8 @@ export const MUTATION_CATALOG: MutationCase[] = [
     category: "ui",
     severity: "high",
     target: "src/pages/Dashboard.tsx",
-    description: "Dashboard exibe total de entradas incorreto — valor hardcoded em vez de calculado",
+    description:
+      "Dashboard exibe total de entradas incorreto — valor hardcoded em vez de calculado",
     expectedBehavior: "Dashboard mostra soma real das entradas do usuário",
     mutatedBehavior: "Dashboard mostra valor fixo hardcoded (ex: 0 ou 99999)",
     activation: {
@@ -145,7 +146,8 @@ export const MUTATION_CATALOG: MutationCase[] = [
       type: "file_inject",
       file: "src/features/vendas/index.ts",
       after: "data",
-      inject: "\n// MUTATION: double the value field\n.map((v: any) => ({ ...v, valor: v.valor * 2 }))",
+      inject:
+        "\n// MUTATION: double the value field\n.map((v: any) => ({ ...v, valor: v.valor * 2 }))",
     },
     cleanup: { type: "git_checkout", file: "src/features/vendas/index.ts" },
     tags: ["data", "transformation", "wrong-value", "vendas"],
@@ -198,7 +200,8 @@ export const MUTATION_CATALOG: MutationCase[] = [
     category: "authorization",
     severity: "critical",
     target: "src/features/auth/authSlice.ts",
-    description: "Verificação de autorização exposta — dados de admin visíveis para usuários comuns",
+    description:
+      "Verificação de autorização exposta — dados de admin visíveis para usuários comuns",
     expectedBehavior: "Dados sensíveis não são expostos no client-side",
     mutatedBehavior: "Dados admin expostos no state global do Redux",
     activation: {
@@ -239,9 +242,7 @@ export function getMutationsBySeverity(severity: MutationSeverity): MutationCase
 /**
  * Get mutations by difficulty.
  */
-export function getMutationsByDifficulty(
-  difficulty: "easy" | "medium" | "hard",
-): MutationCase[] {
+export function getMutationsByDifficulty(difficulty: "easy" | "medium" | "hard"): MutationCase[] {
   return MUTATION_CATALOG.filter((m) => m.estimatedDetectionDifficulty === difficulty);
 }
 

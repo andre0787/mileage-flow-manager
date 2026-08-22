@@ -106,7 +106,10 @@ export const DEFAULT_BUDGET: CostBudget = {
   maxRetries: 3,
 };
 
-export function isWithinBudget(metrics: CostMetrics, budget: CostBudget): {
+export function isWithinBudget(
+  metrics: CostMetrics,
+  budget: CostBudget,
+): {
   withinBudget: boolean;
   violations: string[];
 } {

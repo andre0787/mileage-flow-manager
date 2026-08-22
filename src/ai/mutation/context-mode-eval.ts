@@ -216,7 +216,12 @@ export function analyzeABResults(results: ABExperimentResult[]): ABComparison {
               qualityDelta(baseline.metrics, contextModeMetrics),
             ),
           }
-        : { tokenReduction: 0, costReduction: 0, qualityDelta: 0, recommendation: "REJECT" as const },
+        : {
+            tokenReduction: 0,
+            costReduction: 0,
+            qualityDelta: 0,
+            recommendation: "REJECT" as const,
+          },
       cavemanBenefit: cavemanMetrics
         ? {
             tokenReduction: tokenReduction(baseline.metrics, cavemanMetrics),
@@ -228,7 +233,12 @@ export function analyzeABResults(results: ABExperimentResult[]): ABComparison {
               qualityDelta(baseline.metrics, cavemanMetrics),
             ),
           }
-        : { tokenReduction: 0, costReduction: 0, qualityDelta: 0, recommendation: "REJECT" as const },
+        : {
+            tokenReduction: 0,
+            costReduction: 0,
+            qualityDelta: 0,
+            recommendation: "REJECT" as const,
+          },
       combinedBenefit: combinedMetrics
         ? {
             tokenReduction: tokenReduction(baseline.metrics, combinedMetrics),
@@ -240,7 +250,12 @@ export function analyzeABResults(results: ABExperimentResult[]): ABComparison {
               qualityDelta(baseline.metrics, combinedMetrics),
             ),
           }
-        : { tokenReduction: 0, costReduction: 0, qualityDelta: 0, recommendation: "REJECT" as const },
+        : {
+            tokenReduction: 0,
+            costReduction: 0,
+            qualityDelta: 0,
+            recommendation: "REJECT" as const,
+          },
     },
   };
 }

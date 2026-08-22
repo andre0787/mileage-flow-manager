@@ -13,11 +13,7 @@ import type { PromotionSource } from "./types";
 // ─── Scout Types ───────────────────────────────────────────────
 
 export type ScoutDiscoveryType =
-  | "new_promotion"
-  | "updated_promotion"
-  | "expired_promotion"
-  | "removed_promotion"
-  | "no_change";
+  "new_promotion" | "updated_promotion" | "expired_promotion" | "removed_promotion" | "no_change";
 
 export interface ScoutCandidate {
   candidateId: string;
@@ -104,27 +100,19 @@ export class PromotionScout {
   /**
    * Collect candidates from a source using its collection method.
    */
-  private async collectFromSource(
-    source: PromotionSource,
-  ): Promise<ScoutCandidate[]> {
+  private async collectFromSource(source: PromotionSource): Promise<ScoutCandidate[]> {
     const candidates: ScoutCandidate[] = [];
 
     switch (source.collectionMethod) {
       case "passageiro_de_primeira":
         // Primary aggregator discovery
-        candidates.push(
-          ...(await this.collectFromAggregator(source)),
-        );
+        candidates.push(...(await this.collectFromAggregator(source)));
         break;
       case "api":
-        candidates.push(
-          ...(await this.collectFromAPI(source)),
-        );
+        candidates.push(...(await this.collectFromAPI(source)));
         break;
       case "feed":
-        candidates.push(
-          ...(await this.collectFromFeed(source)),
-        );
+        candidates.push(...(await this.collectFromFeed(source)));
         break;
       default:
         // Manual or unsupported — return empty
@@ -137,9 +125,7 @@ export class PromotionScout {
   /**
    * Collect from Passageiro de Primeira aggregator.
    */
-  private async collectFromAggregator(
-    source: PromotionSource,
-  ): Promise<ScoutCandidate[]> {
+  private async collectFromAggregator(source: PromotionSource): Promise<ScoutCandidate[]> {
     // Conceptual implementation — in production this would
     // fetch from the aggregator and parse results
     const candidates: ScoutCandidate[] = [];
@@ -165,9 +151,7 @@ export class PromotionScout {
   /**
    * Collect from official API.
    */
-  private async collectFromAPI(
-    source: PromotionSource,
-  ): Promise<ScoutCandidate[]> {
+  private async collectFromAPI(source: PromotionSource): Promise<ScoutCandidate[]> {
     const candidates: ScoutCandidate[] = [];
     const rawContent = await this.fetchContent(source.officialUrl);
 
@@ -188,9 +172,7 @@ export class PromotionScout {
   /**
    * Collect from RSS/Atom feed.
    */
-  private async collectFromFeed(
-    source: PromotionSource,
-  ): Promise<ScoutCandidate[]> {
+  private async collectFromFeed(source: PromotionSource): Promise<ScoutCandidate[]> {
     const candidates: ScoutCandidate[] = [];
     const rawContent = await this.fetchContent(source.officialUrl);
 
@@ -229,9 +211,7 @@ export class PromotionScout {
       } catch (error) {
         lastError = error as Error;
         // Exponential backoff
-        await new Promise((r) =>
-          setTimeout(r, Math.pow(2, attempt) * 1000),
-        );
+        await new Promise((r) => setTimeout(r, Math.pow(2, attempt) * 1000));
       }
     }
 
