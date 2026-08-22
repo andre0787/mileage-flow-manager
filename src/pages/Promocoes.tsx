@@ -270,6 +270,41 @@ export default function Promocoes() {
         <p className="text-gray-600 mt-1">Central de promoções de programas de pontos e milhas</p>
       </div>
 
+      {/* Source Health Observatory (P12.6-22) */}
+      <div className="mb-6 p-4 bg-gray-50 rounded-lg border">
+        <h2 className="text-sm font-semibold text-gray-700 mb-3">📡 Source Health</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+          {[
+            { name: "Livelo", health: "FRESH" as SourceHealth, lastRun: "2h ago" },
+            { name: "Smiles", health: "FRESH" as SourceHealth, lastRun: "3h ago" },
+            { name: "LATAM Pass", health: "STALE" as SourceHealth, lastRun: "14h ago" },
+            { name: "Azul", health: "FRESH" as SourceHealth, lastRun: "6h ago" },
+            { name: "Esfera", health: "FRESH" as SourceHealth, lastRun: "5h ago" },
+            { name: "PdP", health: "FRESH" as SourceHealth, lastRun: "1h ago" },
+          ].map((s) => (
+            <div key={s.name} className="flex items-center gap-2 text-xs">
+              <span
+                className={
+                  s.health === "FRESH"
+                    ? "text-green-500"
+                    : s.health === "STALE"
+                      ? "text-yellow-500"
+                      : s.health === "DEGRADED"
+                        ? "text-orange-500"
+                        : "text-red-500"
+                }
+              >
+                ●
+              </span>
+              <div>
+                <div className="font-medium text-gray-700">{s.name}</div>
+                <div className="text-gray-500">{s.lastRun}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Filters */}
       <div className="flex flex-wrap gap-4 mb-6">
         <div>
