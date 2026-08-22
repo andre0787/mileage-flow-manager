@@ -45,3 +45,7 @@ export * from "./promotion/deduplication";
 export * from "./promotion/alerts";
 export * from "./promotion/freshness";
 export * from "./promotion/change-detection";
+export * from "./promotion/scout-real";
+export * from "./promotion/scheduler";
+export * from "./promotion/validator-real";
+export * from "./promotion/alerts-real";
