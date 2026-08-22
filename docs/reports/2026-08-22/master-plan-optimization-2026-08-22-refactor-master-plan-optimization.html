@@ -162,12 +162,12 @@
     <section class="slide" id="s1">
       <div class="hero">
         <div class="hero-top">
-          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">master-plan-optimization</span> <span class="badge risk" style="color:#34d399">Baixo risco</span> <span class="badge health red" style="color:#f87171">● Precisa atenção</span></div>
-          <div class="hero-date">2026-08-22 · 18:03 · <span class="mono">refactor/master-plan-optimization</span></div>
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">master-plan-optimization</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health red" style="color:#f87171">● Precisa atenção</span></div>
+          <div class="hero-date">2026-08-22 · 18:04 · <span class="mono">refactor/master-plan-optimization</span></div>
         </div>
         <h1>refactor master plan optimization</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">293ccb1 — Merge pull request #480 from andre0787/feat/refactor-report-modularization</div>
+        <div class="hero-meta mono">613312b — refactor: implementa otimização do master plan</div>
       </div>
       
     <div class="kpi-grid">
@@ -182,14 +182,14 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/13</div>
+        <div class="kpi-value">0/14</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
         <div class="kpi-sub">22 violações · 2 auto-corrigidas</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value green">80</div>
+        <div class="kpi-value green">82</div>
         <div class="kpi-label">outcome grade</div>
-        <div class="kpi-sub">baixo risco da mudança</div>
+        <div class="kpi-sub">médio risco da mudança</div>
       </div>
     </div>
       <div class="bluf">
@@ -203,7 +203,7 @@
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Riscos & trade-offs</div>
-          <p>Baixo risco de mudança · outcome grade = 80 · lead time —.</p>
+          <p>Médio risco de mudança · outcome grade = 82 · lead time —.</p>
         </div>
       </div>
     </section><section class="slide" id="s2">
@@ -246,7 +246,7 @@
       <td>refactor master plan optimization</td>
       <td>Alteração validada dentro do fluxo de qualidade do produto.</td>
       <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
-      <td><code>~1</code></td>
+      <td><code>~2863</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.259 tokens (feature) · status pesado — tracking</p>
@@ -288,7 +288,7 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">13</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">14</span><span class="stat-l">rodadas de validação pré-PR</span></div>
             <div class="stat"><span class="stat-v">22</span><span class="stat-l">violações de regra encontradas</span></div>
             <div class="stat"><span class="stat-v green">2</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
@@ -305,7 +305,10 @@
         <div class="ap-card">
           <h3>✅ Checklist de revisão</h3>
           <ul class="checks">
-            <li>🧪 Testes manuais realizados?</li>
+            <li>🖼️ Renderização verificada em desktop e mobile?</li>
+<li>🔌 Hooks testados em tela real?</li>
+<li>📦 Biblioteca testada com casos de borda?</li>
+<li>🧪 Testes manuais realizados?</li>
 <li>📋 Regras de validação passam? (npm run pre-pr)</li>
           </ul>
         </div>
@@ -313,7 +316,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 0 remoções — 1 linhas tocadas</td><td>✨ 0 adições — 0 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 922 remoções — 3817 linhas tocadas</td><td>✨ 2341 adições — 48 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -321,41 +324,189 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>0</td></tr>
-            <tr><td>Adições</td><td>+0</td></tr>
-            <tr><td>Remoções</td><td>-0</td></tr>
-            <tr><td>Tokens estimados</td><td>~1</td></tr>
+            <tr><td>Arquivos alterados</td><td>48</td></tr>
+            <tr><td>Adições</td><td>+2341</td></tr>
+            <tr><td>Remoções</td><td>-922</td></tr>
+            <tr><td>Tokens estimados</td><td>~2863</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:61">+1756 add</div>
+        <div class="del" style="flex:24">-692 del</div>
+        <div class="overhead" style="flex:15">~415 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+1756</td><td>61%</td></tr>
+      <tr><td>Remoções</td><td>-692</td><td>24%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~415</td><td>15%</td></tr>
+      <tr><th>Total</th><th>~2863</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
           <h3>📁 Arquivos</h3>
           <table>
             <tr><th>Status</th><th>Arquivo</th></tr>
-            
+            <tr><td>M</td><td>docs/AI-SESSION-STATE.md</td></tr>
+<tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td></tr>
+<tr><td>A</td><td>docs/ROADMAP-REFACTORY.md</td></tr>
+<tr><td>A</td><td>docs/audit/context-optimization.md</td></tr>
+<tr><td>A</td><td>docs/audit/dead-exports.md</td></tr>
+<tr><td>A</td><td>docs/audit/deduplication.md</td></tr>
+<tr><td>A</td><td>docs/audit/npm-scripts-added.md</td></tr>
+<tr><td>M</td><td>docs/council/2026-08-08-workflow-tab-veredito.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-22/master-plan-optimization-2026-08-22-refactor-master-plan-optimization.html</td></tr>
+<tr><td>M</td><td>docs/tracking/archive/events-2026-08.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/archive/quality-2026-08.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>package.json</td></tr>
+<tr><td>A</td><td>public/mock/workflow-fallback.json</td></tr>
+<tr><td>M</td><td>scripts/context-pack.mjs</td></tr>
+<tr><td>M</td><td>scripts/data-refresh.mjs</td></tr>
+<tr><td>M</td><td>scripts/metrics/aggregate.mjs</td></tr>
+<tr><td>M</td><td>scripts/telemetry-audit.mjs</td></tr>
+<tr><td>M</td><td>scripts/telemetry-persist.mjs</td></tr>
+<tr><td>M</td><td>src/App.tsx</td></tr>
+<tr><td>M</td><td>src/ai/mutation/catalog.ts</td></tr>
+<tr><td>M</td><td>src/ai/orchestration/dispatcher.ts</td></tr>
+<tr><td>M</td><td>src/ai/telemetry/persist.ts</td></tr>
+<tr><td>M</td><td>src/components/workflow/WorkflowEfficiency.tsx</td></tr>
+<tr><td>M</td><td>src/components/workflow/WorkflowGates.tsx</td></tr>
+<tr><td>M</td><td>src/components/workflow/WorkflowHero.tsx</td></tr>
+<tr><td>M</td><td>src/components/workflow/WorkflowJourney.tsx</td></tr>
           </table>
         </div>
       </div>
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
-        
+        diff --git a/docs/AI-SESSION-STATE.md b/docs/AI-SESSION-STATE.md
+index 8d85921..0a4d9d7 100644
+<span class="del">--- a/docs/AI-SESSION-STATE.md</span>
+<span class="add">+++ b/docs/AI-SESSION-STATE.md</span>
+@@ -1,47 +1,30 @@
+<span class="del">-# AI Session State - 2026-08-22T13:35:00.000Z</span>
+<span class="add">+# AI Session State - 2026-08-22T20:40:00.000Z</span>
+ 
+ ## Última Task
+<span class="del">-</span>
+<span class="del">-- **Refactor/bugfix — plano LLM menor + higiene P12.6 aplicado** na branch `arena/01a02942-mileage-flow-manager`.</span>
+<span class="del">-- Base atualizada por fast-forward para `93fdc55` antes da implementação.</span>
+<span class="del">-- Principais mudanças:</span>
+<span class="del">-  - `scripts/p12.6-experiment.mjs`: cleanup com remoção de `.p126-backup`, `try/finally`, `--no-report`, exports para testes e aviso explícito de detecção simulada.</span>
+<span class="del">-  - `.pi/skills/context-window-management/SKILL.md`: substitui symlink quebrado por skill repo-local curta.</span>
+<span class="del">-  - `src/ai/mutation/promotion/source-registry.ts` + `src/pages/Promocoes.tsx`: URL oficial da Azul corrigida e centralizada; filtro por tipo em promoções ativado.</span>
+<span class="del">-  - `src/pages/AgentLab.tsx` foi quebrado em `src/components/agent-lab/*` e consome último relatório P12.6 via `src/lib/agentLabData.ts`.</span>
+<span class="del">-  - `src/App.tsx` + `src/components/AppSidebar.tsx`: Agent Lab protegido por `VITE_AGENT_LAB_ENABLED=true`.</span>
+<span class="del">-  - `src/contexts/DataContext.tsx`: Provider value memoizado; ações com `useCallback`.</span>
+<span class="del">-  - `src/components/GlobalSearch.tsx`: índices `Map` para reduzir `find` repetido.</span>
+<span class="del">-  - `scripts/trim-tracking.mjs` + `scripts/context-audit.mjs`: budgets por bytes e status sensível a tracking; tracking ativo reduzido.</span>
+<span class="del">-  - `scripts/context-pack.mjs`: opção `--compact` para modelos menores.</span>
+<span class="del">-  - `src/lib/logger.ts`: debug log passa a ser opt-in (`VITE_ENABLE_DEBUG_LOG=true`) e busca correta do userId Supabase.</span>
+<span class="add">+- **Refactor Master Plan — Fases A–E implementadas** na branch `refactor/master-plan-optimization`.</span>
+<span class="add">+- Workflow migrou dados estáticos para `public/mock/workflow-fallback.json` e `src/lib/workflowStaticData.ts`.</span>
+<span class="add">+- Telemetria ganhou fila local, retry limitado, validação, locks e persistência fail-open.</span>
+<span class="add">+- Context-pack, scripts, auditorias e hook de métricas foram atualizados.</span>
+ 
+ ## Estado dos Testes &amp; Qualidade
+<span class="del">-</span>
+ - ✅ `npm run typecheck`
+ - ✅ `npm run lint`
+<span class="del">-- ✅ `npm test` — 141 files / 1202 tests</span>
+<span class="del">-- ✅ `npm run build &amp;&amp; npm run budget:check`</span>
+<span class="del">-- ✅ `npm run format:check`</span>
+<span class="del">-- ✅ `npm run project:audit -- --json` — rule-23 passou</span>
+<span class="del">-- ✅ `npm run verify-docs &amp;&amp; npm run task:validate`</span>
+<span class="del">-- ✅ `npm run p12.6:experiment -- --no-report` — sem backups restantes</span>
+<span class="del">-</span>
+<span class="del">-## Arquivos Modificados &amp; Impacto</span>
+<span class="add">+- ✅ testes direcionados: 4 arquivos / 8 testes</span>
+<span class="add">+- ✅ `npm run build`</span>
+<span class="add">+- ⚠️ `npm run pre-pr`: requer revisão aprovada e nova verificação documental.</span>
+ 
+<span class="del">-- Scripts: `p12.6-experiment`, `trim-tracking`, `context-audit`, `context-pack`.</span>
+<span class="del">-- UI/runtime: `App`, `AppSidebar`, `GlobalSearch`, `DataContext`, `Promocoes`.</span>
+<span class="del">-- AI/promo: `source-registry`.</span>
+<span class="del">-- Docs/tracking: rotação ativa de `events.jsonl`/`quality.jsonl` para reduzir overhead de contexto.</span>
+<span class="del">-- Testes novos: higiene do experimento P12.6 e source registry.</span>
+<span class="add">+## Pendências Imediatas</span>
+<span class="add">+- Obter revisão read-only aprovada e registrar rule-38.</span>
+<span class="add">+- Rodar `npm run verify-docs:strict` e `npm run pre-pr` novamente.</span>
+<span class="add">+- Organizar commits atômicos e seguir fluxo PR; não fazer push direto na main.</span>
+<span class="add">+- Deploy aguarda CI e merge aprovado.</span>
+ 
+<span class="del">-## Pendências Imediatas (Next Step)</span>
+<span class="del">-</span>
+<span class="del">-- Revisar se queremos expor `/agent-lab` em algum ambiente definindo `VITE_AGENT_LAB_ENABLED=true`.</span>
+<span class="del">-- Revisar se queremos expor `/agent-lab` em algum ambiente definindo `VITE_AGENT_LAB_ENABLED=true`.</span>
+<span class="add">+## Arquivos Modificados &amp; Impacto</span>
+<span class="add">+- Workflow, telemetria, scripts, auditorias e testes foram atualizados; sem migrations novas.</span>
+<span class="add">+- Impacto: fallback estático, fila resiliente e métricas reais sem dados demo na UI.</span>
+ 
+ ## Governança de Contexto
+<span class="del">-</span>
+<span class="del">-- **Tokens Utilizados:** reduzidos no tracking ativo; `context:audit` agora mostra events≈19.9K tok e quality≈10K tok.</span>
+<span class="del">-- **Poda (Pruning):** `context:trim` aplicado com budgets 80KB/40KB.</span>
+<span class="del">-- **Branch Atual:** `arena/01a02942-mileage-flow-manager` em `93fdc55` + alterações locais.</span>
+<span class="add">+- Branch: `refactor/master-plan-optimization` com alterações locais.</span>
+<span class="add">+- AUTH: usuário autorizou “autorizo o deploy em produção”; deploy somente após gates.</span>
+<span class="add">+- Riscos: locks fail-safe e descarte após tentativas máximas.</span>
+<span class="add">+- Context-pack otimizado; manter tracking resumido e estado abaixo de 50 linhas.</span>
+diff --git a/docs/MAP.md b/docs/MAP.md
+index 81d2420..608a2a9 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -587,3 +587,8 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
+ | `docs/P12.6-GOLDEN-SCENARIOS.md` (auto) | 2026-08-22 |
+ | `docs/P12.6-PROMOTION-EVIDENCE-REPORT.md` (auto) | 2026-08-22 |
+ | `docs/P12.6-PROMOTION-SOURCES.md` (auto) | 2026-08-22 |
+<span class="add">+| `docs/ROADMAP-REFACTORY.md` (auto) | 2026-08-22 |</span>
+<span class="add">+| `docs/audit/deduplication.md` (auto) | 2026-08-22 |</span>
+<span class="add">+| `docs/audit/dead-exports.md` (auto) | 2026-08-22 |</span>
+<span class="add">+| `docs/audit/context-optimization.md` (auto) | 2026-08-22 |</span>
+<span class="add">+| `docs/audit/npm-scripts-added.md` (auto) | 2026-08-22 |</span>
+diff --git a/docs/RADAR.md b/docs/RADAR.md
+index 55a35e5..ba413d5 100644
+<span class="del">--- a/docs/RADAR.md</span>
+<span class="add">+++ b/docs/RADAR.md</span>
+@@ -1,6 +1,6 @@
+ # 🔭 Radar de Vulnerabilidades
+ 
+<span class="del">-&gt; Atualizado em: 2026-08-22T05:33:04.105Z</span>
+<span class="add">+&gt; Atualizado em: 2026-08-22T19:37:13.358Z</span>
+ 
+ ## ✅ Radar Limpo
+ Nenhuma vulnerabilidade ativa detectada.
+diff --git a/docs/ROADMAP-REFACTORY.md b/docs/ROADMAP-REFACTORY.md
+new file mode 100644
+index 0000000..c16ee8b
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/ROADMAP-REFACTORY.md</span>
+@@ -0,0 +1,74 @@
+<span class="add">+# 🗺️ ROADMAP DE REFATORAÇÃO E OTIMIZAÇÃO</span>
+<span class="add">+</span>
+<span class="add">+Plano mestre de execução detalhado em tarefas atômicas para as Fases A até E.</span>
+<span class="add">+</span>
+<span class="add">+---</span>
+<span class="add">+</span>
+<span class="add">+## 📋 Checklist Geral</span>
+<span class="add">+</span>
+<span class="add">+- [x] **Setup Inicial**</span>
+<span class="add">+  - [x] Iniciar sessão com `npm run session:start`</span>
+<span class="add">+  - [x] Criar branch de trabalho `refactor/master-plan-optimization`</span>
+<span class="add">+  - [x] Documentar Roadmap em `docs/ROADMAP-REFACTORY.md`</span>
+<span class="add">+</span>
+<span class="add">+---</span>
+<span class="add">+</span>
+<span class="add">+## 📋 FASE A: Otimização de Dados Estáticos (`workflowStaticData.ts`)</span>
+<span class="add">+**Objetivo:** Manter os dados de Workflow fora do bundle TypeScript, carregando JSON estático sob demanda.</span>
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-08-22 18:03
+      Gerado por scripts/generate-report.mjs · 2026-08-22 18:04
     </div>
   </div>
 
