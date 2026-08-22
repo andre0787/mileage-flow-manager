@@ -165,6 +165,55 @@ describe("dispatcher reliability (P11-02)", () => {
     expect(calls).toBe(1);
     expect(outcomes[0].failureCategory).toBe("agent_failure");
   });
+
+  it("P13-01: fallback determinístico — tenta modelo alternativo quando primário falha", async () => {
+    const plan = makePlan([{ id: "s1", role: "implementer" }]);
+    const attemptedModels: string[] = [];
+    const { outcomes, ok } = await dispatchPlan(plan, piAdapter, {
+      executeStep: async (_adp, step, p) => {
+        attemptedModels.push(p.model);
+        // Modelo primário (m1) falha; fallback funciona
+        if (p.model === "m1") {
+          return { stepId: step.id, role: step.role, success: false, errorCode: "model_failure" };
+        }
+        // Modelos fallback funcionam
+        return { stepId: step.id, role: step.role, success: true, inputTokens: 50 };
+      },
+      fallbackModels: ["fallback-a", "fallback-b"],
+    });
+    expect(ok).toBe(true);
+    expect(attemptedModels).toContain("m1");
+    expect(attemptedModels).toContain("fallback-a");
+  });
+
+  it("P13-01: fallback aguenta quando todos os modelos falham", async () => {
+    const plan = makePlan([{ id: "s1", role: "implementer" }]);
+    const { ok, outcomes } = await dispatchPlan(plan, piAdapter, {
+      executeStep: async (_adp, step, _p) => ({
+        stepId: step.id,
+        role: step.role,
+        success: false,
+        errorCode: "model_failure",
+      }),
+      fallbackModels: ["fallback-a"],
+    });
+    expect(ok).toBe(false);
+    // classifyFailure("model_failure", "agent") retorna "agent_failure"
+    expect(outcomes[0].failureCategory).toBe("agent_failure");
+  });
+
+  it("P13-01: sem fallbackModels não tenta alternativas", async () => {
+    const plan = makePlan([{ id: "s1", role: "implementer" }]);
+    let calls = 0;
+    const { ok } = await dispatchPlan(plan, piAdapter, {
+      executeStep: async (_adp, step) => {
+        calls += 1;
+        return { stepId: step.id, role: step.role, success: false, errorCode: "model_failure" };
+      },
+    });
+    expect(ok).toBe(false);
+    expect(calls).toBe(1);
+  });
 });
 
 describe("budget edges (P11-02: below/at/above)", () => {

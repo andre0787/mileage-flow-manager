@@ -381,3 +381,5 @@
 {"timestamp":"2026-08-22T14:36:48.888Z","type":"rule:fail","description":"rule-39-coding-gate falhou","branch":"arena/01a02942-mileage-flow-manager","commit":"8836ce3","agent":"human","rule":"rule-39-coding-gate"}
 {"timestamp":"2026-08-22T14:36:48.932Z","type":"rule:fail","description":"rule-44-rtk-auditor falhou","branch":"arena/01a02942-mileage-flow-manager","commit":"8836ce3","agent":"human","rule":"rule-44-rtk-auditor"}
 {"timestamp":"2026-08-22T14:36:48.977Z","type":"rule:fail","description":"rule-45-react19-compliance falhou","branch":"arena/01a02942-mileage-flow-manager","commit":"8836ce3","agent":"human","rule":"rule-45-react19-compliance"}
+{"timestamp":"2026-08-22T18:28:44.311Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/refactor-report-modularization","commit":"c5524a4","agent":"human","errors":0}
+{"timestamp":"2026-08-22T18:30:33.338Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/refactor-report-modularization","commit":"a7897f9","agent":"human","errors":0}

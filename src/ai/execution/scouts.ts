@@ -9,6 +9,7 @@
 import { graphImpact, graphQuery, graphSearch } from "@/ai/graph/engine";
 import { businessRulesForTable, dataImpactsForTable } from "./domain-knowledge";
 import type { GraphQueryResult } from "@/ai/core/graph-types";
+import { globalScoutCache } from "./scout-cache";
 import { readdirSync, readFileSync, existsSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { spawnSync } from "node:child_process";
@@ -75,8 +76,10 @@ function classify(result: GraphQueryResult): {
   return out;
 }
 
-/** Graph Scout (§15): análise de impacto de um alvo. */
+/** Graph Scout (§15): análise de impacto de um alvo (P13-02: cached). */
 export function graphScout(target: string): GraphScoutResult {
+  const cached = globalScoutCache.get("graph-scout", target);
+  if (cached) return cached as GraphScoutResult;
   const result = graphImpact(target);
   const { tests, domain, files } = classify(result);
   const directDependents = result.reachable?.length
@@ -85,7 +88,7 @@ export function graphScout(target: string): GraphScoutResult {
   const directDependencies = [...new Set(result.edges.map((e) => e.target))];
   const impactScore = Math.min(1, directDependents.length / 10);
 
-  return {
+  const scoutResult: GraphScoutResult = {
     target,
     impactScore,
     directDependencies,
@@ -96,6 +99,8 @@ export function graphScout(target: string): GraphScoutResult {
     recommendedFiles: [...new Set([...files, ...tests])].slice(0, 10),
     available: result.nodes.length > 0 || result.edges.length > 0,
   };
+  globalScoutCache.set("graph-scout", target, scoutResult);
+  return scoutResult;
 }
 
 /**
@@ -104,8 +109,11 @@ export function graphScout(target: string): GraphScoutResult {
  * Entidades: classes/arquivos do grafo relacionados ao alvo + busca por
  * cada tabela de domínio (CRG v2.3.7 `search --kind Class`). Regras de
  * negócio não são inferíveis do schema — ficam como nota.
+ * P13-02: resultado cacheado para reduzir chamadas ao grafo.
  */
 export function domainScout(target?: string): DomainScoutResult {
+  const cached = globalScoutCache.get("domain-scout", target);
+  if (cached) return cached as DomainScoutResult;
   const result = target ? graphImpact(target) : graphQuery();
   const { domain, files } = classify(result);
   const relations = [
@@ -129,7 +137,7 @@ export function domainScout(target?: string): DomainScoutResult {
     ...new Set(tables.flatMap((t) => businessRulesForTable(t).map((r) => r.rule))),
   ].slice(0, 12);
   const dataImpacts = [...new Set(tables.flatMap((t) => dataImpactsForTable(t)))].slice(0, 12);
-  return {
+  const scoutResult: DomainScoutResult = {
     entities,
     relations,
     tables,
@@ -137,6 +145,8 @@ export function domainScout(target?: string): DomainScoutResult {
     dataImpacts,
     available: entities.length > 0 || relations.length > 0 || tables.length > 0,
   };
+  globalScoutCache.set("domain-scout", target, scoutResult);
+  return scoutResult;
 }
 
 /** Tabelas de domínio via parse de `CREATE TABLE public.xxx` nas migrations (fail-open). */
@@ -159,13 +169,15 @@ export function listDomainTables(migrationsDir?: string): string[] {
   return [...tables].sort();
 }
 
-/** Test Scout (§17): testes existentes e gaps. */
+/** Test Scout (§17): testes existentes e gaps (P13-02: cached). */
 export function testScout(target?: string): TestScoutResult {
+  const cached = globalScoutCache.get("test-scout", target);
+  if (cached) return cached as TestScoutResult;
   const result = target ? graphImpact(target) : graphQuery();
   const { tests } = classify(result);
   const files = result.nodes.filter((n) => n.type === "file").map((n) => n.label);
   const gapCount = files.length - tests.length;
-  return {
+  const scoutResult: TestScoutResult = {
     existingTests: tests,
     gaps: gapCount > 0 ? [`${gapCount} arquivo(s) sem teste direto no grafo`] : [],
     suites: [...new Set(tests.map((t) => t.split("/").slice(0, -1).join("/") || "(root)"))],
@@ -175,14 +187,19 @@ export function testScout(target?: string): TestScoutResult {
         : [],
     available: tests.length > 0 || files.length > 0,
   };
+  globalScoutCache.set("test-scout", target, scoutResult);
+  return scoutResult;
 }
 
 /**
  * History Scout (§7): contexto histórico da task — tasks relacionadas no
  * event log + commits recentes que tocaram o alvo. Fail-open: sem event log
  * ou sem git → available:false com arrays vazios (nunca lança).
+ * P13-02: resultado cacheado para reduzir chamadas repetidas.
  */
 export function historyScout(target?: string): HistoryScoutResult {
+  const cached = globalScoutCache.get("history-scout", target);
+  if (cached) return cached as HistoryScoutResult;
   const relatedTasks: string[] = [];
   const recentChanges: string[] = [];
   try {
@@ -225,10 +242,12 @@ export function historyScout(target?: string): HistoryScoutResult {
     /* fail-open */
   }
   const lastScopes = [...new Set(relatedTasks.map((t) => t.split(":")[0]?.trim()).filter(Boolean))];
-  return {
+  const scoutResult: HistoryScoutResult = {
     relatedTasks: [...new Set(relatedTasks)].slice(0, 10),
     recentChanges: recentChanges.slice(0, 10),
     lastScopes: lastScopes.slice(0, 5),
     available: relatedTasks.length > 0 || recentChanges.length > 0,
   };
+  globalScoutCache.set("history-scout", target, scoutResult);
+  return scoutResult;
 }
