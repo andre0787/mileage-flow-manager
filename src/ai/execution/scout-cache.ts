@@ -7,7 +7,12 @@
  * normalmente.
  */
 
-import type { GraphScoutResult, DomainScoutResult, TestScoutResult, HistoryScoutResult } from "./scouts";
+import type {
+  GraphScoutResult,
+  DomainScoutResult,
+  TestScoutResult,
+  HistoryScoutResult,
+} from "./scouts";
 
 type ScoutResult = GraphScoutResult | DomainScoutResult | TestScoutResult | HistoryScoutResult;
 
