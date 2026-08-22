@@ -21,7 +21,7 @@ import {
   checkEvidenceCompleteness,
   type EvidenceConfig,
 } from "./evidence-generator";
-import { emitTelemetryEvent, type TelemetryEvent } from "./telemetry-events";
+import { emitTelemetryEvent, type MutationTelemetryEvent } from "./telemetry-events";
 import { readFileSync, writeFileSync, existsSync } from "fs";
 import { join } from "path";
 
@@ -49,7 +49,7 @@ export interface ExperimentResult {
   evidenceCompleteness: number;
   resolvableCount: number;
   skippedCount: number;
-  telemetryEvents: TelemetryEvent[];
+  telemetryEvents: MutationTelemetryEvent[];
 }
 
 // ─── Runner ────────────────────────────────────────────────────

@@ -3,6 +3,9 @@
  *
  * Eventos obrigatórios e schema mínimo para toda execução AI.
  * Reutiliza infraestrutura existente (src/lib/aiTelemetry.ts).
+ *
+ * Nomes prefixados com 'Mutation' para evitar conflito com
+ * src/ai/telemetry/envelope.ts (TelemetryEvent/TelemetryEventType).
  */
 
 // ─── Event Types ───────────────────────────────────────────────
@@ -36,15 +39,15 @@ export type PromotionEvent =
 export type GraphEvent =
   "graph.experiment.started" | "graph.experiment.completed" | "graph.recommendation.generated";
 
-export type TelemetryEventType =
+export type MutationTelemetryEventType =
   AgentEvent | MutationEvent | ExperimentEvent | ContextEvent | PromotionEvent | GraphEvent;
 
 // ─── Schema Mínimo (P12.6-24) ─────────────────────────────────
 
-export interface TelemetryEvent {
+export interface MutationTelemetryEvent {
   eventId: string;
   timestamp: string;
-  event: TelemetryEventType;
+  event: MutationTelemetryEventType;
   experimentId?: string;
   runId?: string;
   agent?: string;
@@ -68,16 +71,16 @@ export interface TelemetryEvent {
 
 // ─── Event Buffer (in-memory para sessão) ──────────────────────
 
-const eventBuffer: TelemetryEvent[] = [];
+const eventBuffer: MutationTelemetryEvent[] = [];
 
 let eventCounter = 0;
 
 export function emitTelemetryEvent(
-  event: TelemetryEventType,
-  data: Partial<TelemetryEvent> = {},
-): TelemetryEvent {
+  event: MutationTelemetryEventType,
+  data: Partial<MutationTelemetryEvent> = {},
+): MutationTelemetryEvent {
   eventCounter++;
-  const telemetryEvent: TelemetryEvent = {
+  const telemetryEvent: MutationTelemetryEvent = {
     eventId: `evt-${Date.now()}-${eventCounter}`,
     timestamp: new Date().toISOString(),
     event,
@@ -103,7 +106,7 @@ export function emitTelemetryEvent(
   return telemetryEvent;
 }
 
-export function getEventBuffer(): readonly TelemetryEvent[] {
+export function getEventBuffer(): readonly MutationTelemetryEvent[] {
   return eventBuffer;
 }
 
@@ -112,21 +115,21 @@ export function clearEventBuffer(): void {
   eventCounter = 0;
 }
 
-export function getEventsByType(type: TelemetryEventType): TelemetryEvent[] {
+export function getEventsByType(type: MutationTelemetryEventType): MutationTelemetryEvent[] {
   return eventBuffer.filter((e) => e.event === type);
 }
 
-export function getEventsByExperiment(experimentId: string): TelemetryEvent[] {
+export function getEventsByExperiment(experimentId: string): MutationTelemetryEvent[] {
   return eventBuffer.filter((e) => e.experimentId === experimentId);
 }
 
-export function getEventsByMutation(mutationId: string): TelemetryEvent[] {
+export function getEventsByMutation(mutationId: string): MutationTelemetryEvent[] {
   return eventBuffer.filter((e) => e.mutationId === mutationId);
 }
 
 // ─── Aggregations ──────────────────────────────────────────────
 
-export interface TelemetrySummary {
+export interface MutationTelemetrySummary {
   totalEvents: number;
   totalTokens: number;
   totalCost: number;
@@ -139,7 +142,7 @@ export interface TelemetrySummary {
   byStatus: Record<string, number>;
 }
 
-export function summarizeEvents(events?: TelemetryEvent[]): TelemetrySummary {
+export function summarizeEvents(events?: MutationTelemetryEvent[]): MutationTelemetrySummary {
   const data = events || eventBuffer;
   const total = data.length;
   if (total === 0) {
