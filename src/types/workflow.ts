@@ -51,9 +51,7 @@ export interface FluxoPhase {
   label: string;
 }
 
-export type FluxoItem =
-  | { type: "phase"; phase: FluxoPhase }
-  | { type: "step"; step: FluxoTStep };
+export type FluxoItem = { type: "phase"; phase: FluxoPhase } | { type: "step"; step: FluxoTStep };
 
 export interface MindBranch {
   id: string;

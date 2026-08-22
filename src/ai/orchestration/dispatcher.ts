@@ -59,9 +59,10 @@ export async function dispatchPlan(
   const runId = plan.runId ?? plan.planId;
   // Envelopes persistíveis exigem identidade de modelo. Planos legados podem
   // carregar "unset"; o adapter fornece um identificador local determinístico.
-  const model = typeof plan.model === "string" && plan.model.length > 0 && plan.model !== "unset"
-    ? plan.model
-    : `${adapter.id}-local`;
+  const model =
+    typeof plan.model === "string" && plan.model.length > 0 && plan.model !== "unset"
+      ? plan.model
+      : `${adapter.id}-local`;
   const emit = (type: Parameters<typeof createTelemetryEnvelope>[0], p: object, success = true) =>
     onTelemetry(
       createTelemetryEnvelope(

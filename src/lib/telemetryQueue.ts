@@ -22,34 +22,34 @@ function isQueueItem(value: unknown): value is QueueItem {
   const successRate = payload?.success_rate;
   return Boolean(
     typeof item.id === "string" &&
-      typeof attempts === "number" &&
-      Number.isInteger(attempts) &&
-      attempts >= 0 &&
-      attempts < MAX_ATTEMPTS &&
-      typeof item.queuedAt === "string" &&
-      payload &&
-      (payload.area === undefined || typeof payload.area === "string") &&
-      typeof payload.user_id === "string" &&
-      payload.user_id.length > 0 &&
-      typeof payload.session_id === "string" &&
-      payload.session_id.length > 0 &&
-      typeof tokens === "number" &&
-      Number.isFinite(tokens) &&
-      tokens >= 0 &&
-      typeof cost === "number" &&
-      Number.isFinite(cost) &&
-      cost >= 0 &&
-      typeof duration === "number" &&
-      Number.isFinite(duration) &&
-      duration >= 0 &&
-      typeof successRate === "number" &&
-      Number.isFinite(successRate) &&
-      successRate >= 0 &&
-      successRate <= 1 &&
-      typeof payload.prompt_tokens_saved_by_pruning === "number" &&
-      Number.isFinite(payload.prompt_tokens_saved_by_pruning) &&
-      payload.prompt_tokens_saved_by_pruning >= 0 &&
-      !Number.isNaN(Date.parse(item.queuedAt)),
+    typeof attempts === "number" &&
+    Number.isInteger(attempts) &&
+    attempts >= 0 &&
+    attempts < MAX_ATTEMPTS &&
+    typeof item.queuedAt === "string" &&
+    payload &&
+    (payload.area === undefined || typeof payload.area === "string") &&
+    typeof payload.user_id === "string" &&
+    payload.user_id.length > 0 &&
+    typeof payload.session_id === "string" &&
+    payload.session_id.length > 0 &&
+    typeof tokens === "number" &&
+    Number.isFinite(tokens) &&
+    tokens >= 0 &&
+    typeof cost === "number" &&
+    Number.isFinite(cost) &&
+    cost >= 0 &&
+    typeof duration === "number" &&
+    Number.isFinite(duration) &&
+    duration >= 0 &&
+    typeof successRate === "number" &&
+    Number.isFinite(successRate) &&
+    successRate >= 0 &&
+    successRate <= 1 &&
+    typeof payload.prompt_tokens_saved_by_pruning === "number" &&
+    Number.isFinite(payload.prompt_tokens_saved_by_pruning) &&
+    payload.prompt_tokens_saved_by_pruning >= 0 &&
+    !Number.isNaN(Date.parse(item.queuedAt)),
   );
 }
 
@@ -106,23 +106,44 @@ async function flushWithFallbackLock(): Promise<void> {
   if (typeof localStorage === "undefined") return;
   const token = `${Date.now()}:${Math.random()}`;
   try {
-    const current = JSON.parse(localStorage.getItem(FALLBACK_LOCK_KEY) ?? "null") as { startedAt?: number } | null;
+    const current = JSON.parse(localStorage.getItem(FALLBACK_LOCK_KEY) ?? "null") as {
+      startedAt?: number;
+    } | null;
     if (current?.startedAt && Date.now() - current.startedAt < 3_600_000) return;
     localStorage.setItem(FALLBACK_LOCK_KEY, JSON.stringify({ token, startedAt: Date.now() }));
-    const acquired = JSON.parse(localStorage.getItem(FALLBACK_LOCK_KEY) ?? "null") as { token?: string } | null;
+    const acquired = JSON.parse(localStorage.getItem(FALLBACK_LOCK_KEY) ?? "null") as {
+      token?: string;
+    } | null;
     if (acquired?.token !== token) return;
     await flushQueueOnce();
   } finally {
     try {
-      const owner = JSON.parse(localStorage.getItem(FALLBACK_LOCK_KEY) ?? "null") as { token?: string } | null;
+      const owner = JSON.parse(localStorage.getItem(FALLBACK_LOCK_KEY) ?? "null") as {
+        token?: string;
+      } | null;
       if (owner?.token === token) localStorage.removeItem(FALLBACK_LOCK_KEY);
-    } catch { /* fail-open */ }
+    } catch {
+      /* fail-open */
+    }
   }
 }
 
 export function flushTelemetryQueue(): Promise<void> {
   if (!flushPromise) {
-    const locks = typeof navigator !== "undefined" ? (navigator as Navigator & { locks?: { request: (name: string, options: { mode: "exclusive" }, callback: () => Promise<void>) => Promise<void> } }).locks : undefined;
+    const locks =
+      typeof navigator !== "undefined"
+        ? (
+            navigator as Navigator & {
+              locks?: {
+                request: (
+                  name: string,
+                  options: { mode: "exclusive" },
+                  callback: () => Promise<void>,
+                ) => Promise<void>;
+              };
+            }
+          ).locks
+        : undefined;
     const run = locks
       ? locks.request(STORAGE_KEY, { mode: "exclusive" }, flushQueueOnce)
       : flushWithFallbackLock();
