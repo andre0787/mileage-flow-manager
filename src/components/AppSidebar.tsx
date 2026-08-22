@@ -15,6 +15,7 @@ import {
   RotateCcw,
   Workflow as WorkflowIcon,
   Flame,
+  FlaskConical,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { FeedbackDialog } from "./FeedbackDialog";
@@ -62,6 +63,7 @@ const menuGroups: { label: string; items: NavItem[] }[] = [
       { title: "KPIs de Processo", url: "/kpi", icon: TrendingUp },
       { title: "Workflow", url: "/workflow", icon: WorkflowIcon },
       { title: "Promoções", url: "/promocoes", icon: Flame },
+      { title: "Agent Lab", url: "/agent-lab", icon: FlaskConical },
     ],
   },
 ];

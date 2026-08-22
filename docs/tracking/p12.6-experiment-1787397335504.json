@@ -1,0 +1,82 @@
+{
+  "experimentId": "exp-1787397335504",
+  "timestamp": "2026-08-22T11:15:35.504Z",
+  "mode": "dry-run",
+  "mutationsTotal": 10,
+  "resolvable": 2,
+  "detected": 2,
+  "missed": 0,
+  "skipped": 8,
+  "recall": 100,
+  "precision": 100,
+  "fpr": 0,
+  "fnr": 0,
+  "results": [
+    {
+      "id": "M01",
+      "status": "skipped",
+      "error": "Search string not found: \"variant=\"default\"\""
+    },
+    {
+      "id": "M02",
+      "status": "skipped",
+      "error": "Search string not found: \".eq(\""
+    },
+    {
+      "id": "M03",
+      "status": "skipped",
+      "error": "Search string not found: \"\"Concluído\"\""
+    },
+    {
+      "id": "M04",
+      "status": "skipped",
+      "error": "File not found: src/lib/validation.ts"
+    },
+    {
+      "id": "M05",
+      "category": "state",
+      "severity": "medium",
+      "status": "detected",
+      "confidence": 0.7,
+      "detectionMode": "guided",
+      "triage": "correct",
+      "rootCause": "State management middleware bypassed",
+      "evidenceId": "ev-M05-1787397335503",
+      "duration": 0,
+      "matchCount": 1
+    },
+    {
+      "id": "M06",
+      "status": "skipped",
+      "error": "Search string not found: \"entryStatus\""
+    },
+    {
+      "id": "M07",
+      "status": "skipped",
+      "error": "Search string not found: \"isAuthenticated\""
+    },
+    {
+      "id": "M08",
+      "category": "ui",
+      "severity": "low",
+      "status": "detected",
+      "confidence": 0.7,
+      "detectionMode": "guided",
+      "triage": "correct",
+      "rootCause": "Component variant prop incorrectly modified",
+      "evidenceId": "ev-M08-1787397335503",
+      "duration": 0,
+      "matchCount": 1
+    },
+    {
+      "id": "M09",
+      "status": "skipped",
+      "error": "Search string not found: \"providesTags\""
+    },
+    {
+      "id": "M10",
+      "status": "skipped",
+      "error": "Search string not found: \"ascending\""
+    }
+  ]
+}

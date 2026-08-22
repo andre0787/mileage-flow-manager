@@ -39,6 +39,7 @@ const AdminEventos = lazy(() => import("./pages/AdminEventos"));
 const KPI = lazy(() => import("./pages/KPI"));
 const Workflow = lazy(() => import("./pages/Workflow"));
 const Promocoes = lazy(() => import("./pages/Promocoes"));
+const AgentLab = lazy(() => import("./pages/AgentLab"));
 const Demo = lazy(() => import("./pages/Demo"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -194,6 +195,16 @@ const AnimatedRoutes = () => {
           }
         />
         <Route
+          path="/agent-lab"
+          element={
+            <ErrorBoundary>
+              <div className="animate-appear">
+                <AgentLab />
+              </div>
+            </ErrorBoundary>
+          }
+        />
+        <Route
           path="*"
           element={
             <div className="animate-appear">
@@ -220,6 +231,7 @@ const PAGE_TITLES: Record<string, string> = {
   "/admin/eventos": "Observabilidade",
   "/workflow": "Workflow",
   "/promocoes": "Promoções",
+  "/agent-lab": "Agent Lab",
 };
 
 const PageHeader = () => {

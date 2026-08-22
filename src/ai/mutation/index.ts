@@ -26,6 +26,10 @@ export * from "./blind-qa";
 export * from "./fix-evaluation";
 export * from "./promotion-mutation-lab";
 export * from "./promotion-orchestration";
+export * from "./telemetry-events";
+export * from "./target-resolver";
+export * from "./evidence-generator";
+export * from "./experiment-runner";
 
 // ─── Trilha B — Promotion Intelligence ─────────────────────────
 
