@@ -14,7 +14,7 @@ import { emitTelemetryEvent } from "./telemetry-events";
 
 // ─── Types ─────────────────────────────────────────────────────
 
-export type OrchestrationStrategy = "single" | "pipeline" | "full_pipeline";
+export type OrchE2EStrategy = "single" | "pipeline" | "full_pipeline";
 
 export interface OrchestrationExperimentConfig {
   projectRoot: string;
@@ -25,12 +25,12 @@ export interface OrchestrationExperimentResult {
   experimentId: string;
   startedAt: string;
   completedAt: string;
-  strategies: OrchestrationStrategyResult[];
+  strategies: OrchE2EStrategyResult[];
   recommendation: OrchestrationRecommendation;
 }
 
-export interface OrchestrationStrategyResult {
-  strategy: OrchestrationStrategy;
+export interface OrchE2EStrategyResult {
+  strategy: OrchE2EStrategy;
   metrics: OrchestrationMetrics;
 }
 
@@ -47,7 +47,7 @@ export interface OrchestrationMetrics {
 }
 
 export interface OrchestrationRecommendation {
-  bestStrategy: OrchestrationStrategy;
+  bestStrategy: OrchE2EStrategy;
   reasoning: string;
   tokenSavings: number;
   costSavings: number;
@@ -68,7 +68,7 @@ export function runOrchestrationExperiment(
     status: "success",
   });
 
-  const strategies: OrchestrationStrategyResult[] = [
+  const strategies: OrchE2EStrategyResult[] = [
     { strategy: "single", metrics: simulateSingle(config.promotionCount) },
     { strategy: "pipeline", metrics: simulatePipeline(config.promotionCount) },
     { strategy: "full_pipeline", metrics: simulateFullPipeline(config.promotionCount) },
@@ -138,13 +138,15 @@ function simulateFullPipeline(n: number): OrchestrationMetrics {
   };
 }
 
-function computeRecommendation(
-  strategies: OrchestrationStrategyResult[],
-): OrchestrationRecommendation {
+function computeRecommendation(strategies: OrchE2EStrategyResult[]): OrchestrationRecommendation {
   // Find best accuracy/cost ratio
   const scored = strategies.map((s) => ({
     ...s,
-    score: s.metrics.accuracy * 0.4 + s.metrics.validationQuality * 0.3 + (1 - s.metrics.duplicateRate) * 0.2 + s.metrics.coverage * 0.1,
+    score:
+      s.metrics.accuracy * 0.4 +
+      s.metrics.validationQuality * 0.3 +
+      (1 - s.metrics.duplicateRate) * 0.2 +
+      s.metrics.coverage * 0.1,
   }));
 
   scored.sort((a, b) => b.score - a.score);

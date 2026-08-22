@@ -13,7 +13,7 @@ import { emitTelemetryEvent } from "./telemetry-events";
 
 // ─── Types ─────────────────────────────────────────────────────
 
-export interface GraphExperimentConfig {
+export interface GraphABExperimentConfig {
   projectRoot: string;
   tasks: GraphTask[];
 }
@@ -25,14 +25,14 @@ export interface GraphTask {
   expectedRootCause: string;
 }
 
-export interface GraphExperimentResult {
+export interface GraphABExperimentResult {
   experimentId: string;
   startedAt: string;
   completedAt: string;
   strategyA: GraphStrategyResult;
   strategyB: GraphStrategyResult;
-  comparison: GraphComparison;
-  recommendation: GraphBenefit;
+  comparison: GraphABComparison;
+  recommendation: GraphABBenefit;
 }
 
 export interface GraphStrategyResult {
@@ -63,7 +63,7 @@ export interface GraphAggregateMetrics {
   regressionRate: number;
 }
 
-export interface GraphComparison {
+export interface GraphABComparison {
   rootCauseAccuracyDelta: number;
   timeDelta: number;
   tokenDelta: number;
@@ -73,17 +73,11 @@ export interface GraphComparison {
   regressionDelta: boolean;
 }
 
-export type GraphBenefit =
-  | "beneficial"
-  | "neutral"
-  | "harmful"
-  | "unnecessary";
+export type GraphABBenefit = "beneficial" | "neutral" | "harmful" | "unnecessary";
 
 // ─── Runner ────────────────────────────────────────────────────
 
-export function runGraphExperiment(
-  config: GraphExperimentConfig,
-): GraphExperimentResult {
+export function runGraphExperiment(config: GraphABExperimentConfig): GraphABExperimentResult {
   const experimentId = `graph-${Date.now()}`;
   const startedAt = new Date().toISOString();
 
@@ -101,8 +95,8 @@ export function runGraphExperiment(
 
   const completedAt = new Date().toISOString();
 
-  const comparison = computeGraphComparison(strategyA.aggregate, strategyB.aggregate);
-  const recommendation = classifyGraphBenefit(comparison);
+  const comparison = computeGraphABComparison(strategyA.aggregate, strategyB.aggregate);
+  const recommendation = classifyGraphABBenefit(comparison);
 
   emitTelemetryEvent("graph.experiment.completed", {
     experimentId,
@@ -158,10 +152,7 @@ function runStrategy(
   };
 }
 
-function simulateTaskExecution(
-  task: GraphTask,
-  useGraph: boolean,
-): GraphTaskResult {
+function simulateTaskExecution(task: GraphTask, useGraph: boolean): GraphTaskResult {
   // Graph improves root cause accuracy by ~10-15% for complex tasks
   // but adds ~20-30% more tokens and latency
   const baseAccuracy = 0.75;
@@ -172,7 +163,7 @@ function simulateTaskExecution(
 
   return {
     taskId: task.id,
-    rootCauseAccuracy: Math.min(1, baseAccuracy + graphBonus + (Math.random() * 0.05)),
+    rootCauseAccuracy: Math.min(1, baseAccuracy + graphBonus + Math.random() * 0.05),
     timeToDiagnosis: Math.round(baseLatency * graphOverhead * (0.8 + Math.random() * 0.4)),
     tokens: Math.round(baseTokens * graphOverhead * (0.9 + Math.random() * 0.2)),
     cost: Math.round(baseTokens * graphOverhead * 0.000002 * 10000) / 10000,
@@ -183,10 +174,10 @@ function simulateTaskExecution(
   };
 }
 
-function computeGraphComparison(
+function computeGraphABComparison(
   a: GraphAggregateMetrics,
   b: GraphAggregateMetrics,
-): GraphComparison {
+): GraphABComparison {
   return {
     rootCauseAccuracyDelta: b.avgRootCauseAccuracy - a.avgRootCauseAccuracy,
     timeDelta: b.avgTimeToDiagnosis - a.avgTimeToDiagnosis,
@@ -198,7 +189,7 @@ function computeGraphComparison(
   };
 }
 
-function classifyGraphBenefit(comparison: GraphComparison): GraphBenefit {
+function classifyGraphABBenefit(comparison: GraphABComparison): GraphABBenefit {
   const accuracyGain = comparison.rootCauseAccuracyDelta;
   const costPenalty = comparison.costDelta;
 

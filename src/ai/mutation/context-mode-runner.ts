@@ -212,21 +212,12 @@ function simulateContextModeExecution(
 
   const baseLatency = 5000;
   const latencyMs = Math.round(
-    baseLatency *
-      (config.mode === "baseline"
-        ? 1
-        : config.mode === "context_mode"
-          ? 0.7
-          : 0.5),
+    baseLatency * (config.mode === "baseline" ? 1 : config.mode === "context_mode" ? 0.7 : 0.5),
   );
 
   // Quality metrics (caveman may slightly reduce quality)
   const qualityPenalty =
-    config.mode === "baseline"
-      ? 0
-      : config.mode === "context_mode"
-        ? 0.02
-        : 0.05;
+    config.mode === "baseline" ? 0 : config.mode === "context_mode" ? 0.02 : 0.05;
 
   return {
     mode: config.mode,
@@ -269,19 +260,23 @@ function computeComparison(results: ContextModeResult[]): ContextModeComparison 
 
   return {
     baselineVsContext: {
-      tokenReduction: baseTokens > 0 ? ((baseTokens - avgTokens(contextMode)) / baseTokens) * 100 : 0,
+      tokenReduction:
+        baseTokens > 0 ? ((baseTokens - avgTokens(contextMode)) / baseTokens) * 100 : 0,
       costReduction: baseCost > 0 ? ((baseCost - avgCost(contextMode)) / baseCost) * 100 : 0,
-      latencyChange: baseLatency > 0 ? ((avgLatency(contextMode) - baseLatency) / baseLatency) * 100 : 0,
+      latencyChange:
+        baseLatency > 0 ? ((avgLatency(contextMode) - baseLatency) / baseLatency) * 100 : 0,
     },
     baselineVsCaveman: {
       tokenReduction: baseTokens > 0 ? ((baseTokens - avgTokens(caveman)) / baseTokens) * 100 : 0,
       costReduction: baseCost > 0 ? ((baseCost - avgCost(caveman)) / baseCost) * 100 : 0,
-      latencyChange: baseLatency > 0 ? ((avgLatency(caveman) - baseLatency) / baseLatency) * 100 : 0,
+      latencyChange:
+        baseLatency > 0 ? ((avgLatency(caveman) - baseLatency) / baseLatency) * 100 : 0,
     },
     baselineVsCombined: {
       tokenReduction: baseTokens > 0 ? ((baseTokens - avgTokens(combined)) / baseTokens) * 100 : 0,
       costReduction: baseCost > 0 ? ((baseCost - avgCost(combined)) / baseCost) * 100 : 0,
-      latencyChange: baseLatency > 0 ? ((avgLatency(combined) - baseLatency) / baseLatency) * 100 : 0,
+      latencyChange:
+        baseLatency > 0 ? ((avgLatency(combined) - baseLatency) / baseLatency) * 100 : 0,
     },
     qualityImpact: {
       recallDelta: 0,
