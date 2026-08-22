@@ -9,7 +9,7 @@
  * Uso: node scripts/p12.6-experiment.mjs [--dry-run] [--mutation M01]
  */
 
-import { existsSync, readFileSync, writeFileSync, mkdirSync } from "fs";
+import { existsSync, readFileSync, writeFileSync, mkdirSync, unlinkSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -20,7 +20,9 @@ const PROJECT_ROOT = join(__dirname, "..");
 
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
+const noReport = args.includes("--no-report");
 const specificMutation = args.find((a) => a.startsWith("M") && /^\d+$/.test(a.slice(1)));
+const detectionMode = "simulated";
 
 // ─── Mutation Catalog (from catalog.ts, replicated for script) ──
 
@@ -61,8 +63,8 @@ const MUTATIONS = [
     severity: "high",
     target: "src/lib/i18n.ts",
     description: "Disable email validation messages",
-    search: 'auth.invalidEmail',
-    replace: '/* auth.invalidEmail',
+    search: "auth.invalidEmail",
+    replace: "/* auth.invalidEmail",
     file: "src/lib/i18n.ts",
   },
   {
@@ -91,8 +93,8 @@ const MUTATIONS = [
     severity: "critical",
     target: "src/features/auth/AuthProvider.tsx",
     description: "Bypass signIn error handling",
-    search: 'const signIn = async (email: string, password: string)',
-    replace: 'const signIn = async (_email: string, _password: string)',
+    search: "const signIn = async (email: string, password: string)",
+    replace: "const signIn = async (_email: string, _password: string)",
     file: "src/features/auth/AuthProvider.tsx",
   },
   {
@@ -121,15 +123,15 @@ const MUTATIONS = [
     severity: "high",
     target: "src/features/alerts/getAccountAlerts.ts",
     description: "Invert alert sort order",
-    search: '{ ascending: false }',
-    replace: '{ ascending: true }',
+    search: "{ ascending: false }",
+    replace: "{ ascending: true }",
     file: "src/features/alerts/getAccountAlerts.ts",
   },
 ];
 
 // ─── Target Resolution ─────────────────────────────────────────
 
-function resolveTarget(mutation) {
+export function resolveTarget(mutation) {
   const filePath = join(PROJECT_ROOT, mutation.file);
 
   if (!existsSync(filePath)) {
@@ -146,7 +148,7 @@ function resolveTarget(mutation) {
   return { resolved: true, filePath, content, matchCount };
 }
 
-function countOccurrences(text, search) {
+export function countOccurrences(text, search) {
   let count = 0;
   let pos = 0;
   while ((pos = text.indexOf(search, pos)) !== -1) {
@@ -158,7 +160,7 @@ function countOccurrences(text, search) {
 
 // ─── Mutation Activation ───────────────────────────────────────
 
-function activateMutation(mutation, resolution) {
+export function activateMutation(mutation, resolution) {
   if (dryRun) {
     return { activated: true, backup: null };
   }
@@ -180,16 +182,17 @@ function activateMutation(mutation, resolution) {
   return { activated: true, backup: backupPath };
 }
 
-function cleanupMutation(mutation, resolution, backupPath) {
+export function cleanupMutation(mutation, resolution, backupPath) {
   if (dryRun || !backupPath) return;
 
   const backupContent = readFileSync(backupPath, "utf-8");
   writeFileSync(resolution.filePath, backupContent, "utf-8");
+  if (existsSync(backupPath)) unlinkSync(backupPath);
 }
 
 // ─── Evidence Collection ───────────────────────────────────────
 
-function collectEvidence(mutation, resolution, startTime) {
+export function collectEvidence(mutation, resolution, startTime) {
   const evidenceId = `ev-${mutation.id}-${Date.now()}`;
   const endTime = Date.now();
 
@@ -223,7 +226,7 @@ function collectEvidence(mutation, resolution, startTime) {
 
 // ─── Detection Simulation ──────────────────────────────────────
 
-function simulateDetection(mutation, evidence) {
+export function simulateDetection(mutation, evidence) {
   // Simulate QA agent detection based on category and evidence
   const detectionMethods = {
     ui: ["visual_regression", "component_test", "screenshot_compare"],
@@ -236,7 +239,8 @@ function simulateDetection(mutation, evidence) {
   };
 
   const methods = detectionMethods[mutation.category] || ["general_test"];
-  const confidence = mutation.severity === "critical" ? 0.95 : mutation.severity === "high" ? 0.85 : 0.7;
+  const confidence =
+    mutation.severity === "critical" ? 0.95 : mutation.severity === "high" ? 0.85 : 0.7;
 
   return {
     detected: true,
@@ -248,7 +252,7 @@ function simulateDetection(mutation, evidence) {
 
 // ─── Triage Simulation ─────────────────────────────────────────
 
-function simulateTriage(mutation) {
+export function simulateTriage(mutation) {
   const rootCauseMap = {
     ui: "Component variant prop incorrectly modified",
     api: "API query operator changed",
@@ -270,10 +274,11 @@ function simulateTriage(mutation) {
 
 // ─── Main Runner ───────────────────────────────────────────────
 
-function main() {
+export function main() {
   console.log("\n🧪 P12.6 — Experimental Validation");
   console.log("═".repeat(50));
   console.log(`Mode: ${dryRun ? "DRY RUN" : "LIVE"}`);
+  console.log(`Detection: ${detectionMode.toUpperCase()} (no real test/agent execution)`);
   console.log(`Mutations: ${specificMutation ? specificMutation : "ALL"}`);
   console.log(`Project: ${PROJECT_ROOT}\n`);
 
@@ -316,42 +321,47 @@ function main() {
       continue;
     }
 
-    console.log(`   🔧 Mutation activated`);
+    try {
+      console.log(`   🔧 Mutation activated`);
 
-    // Evidence
-    const evidence = collectEvidence(mutation, resolution, startTime);
-    console.log(`   📋 Evidence collected (${evidence.evidenceId})`);
+      // Evidence
+      const evidence = collectEvidence(mutation, resolution, startTime);
+      console.log(`   📋 Evidence collected (${evidence.evidenceId})`);
 
-    // Detection
-    const detection = simulateDetection(mutation, evidence);
-    if (detection.detected) {
-      console.log(`   🐛 Detected: confidence=${detection.confidence}`);
-      detectedCount++;
+      // Detection
+      const detection = simulateDetection(mutation, evidence);
+      if (detection.detected) {
+        console.log(`   🐛 Detected (${detectionMode}): confidence=${detection.confidence}`);
+        detectedCount++;
+      }
+
+      // Triage
+      const triage = simulateTriage(mutation);
+      console.log(
+        `   🔍 Triage (${detectionMode}): ${triage.classification} (${triage.rootCauseHypothesis})`,
+      );
+
+      results.push({
+        id: mutation.id,
+        category: mutation.category,
+        severity: mutation.severity,
+        status: detection.detected ? "detected" : "missed",
+        confidence: detection.confidence,
+        detectionMode,
+        triage: triage.classification,
+        rootCause: triage.rootCauseHypothesis,
+        evidenceId: evidence.evidenceId,
+        duration: evidence.duration,
+        matchCount: resolution.matchCount,
+      });
+    } finally {
+      // Cleanup must always run: live mutations must never leave source changes
+      // or .p126-backup files in the working tree.
+      cleanupMutation(mutation, resolution, activation.backup);
+      if (!dryRun) {
+        console.log(`   🧹 Cleaned up`);
+      }
     }
-
-    // Triage
-    const triage = simulateTriage(mutation);
-    console.log(`   🔍 Triage: ${triage.classification} (${triage.rootCauseHypothesis})`);
-
-    // Cleanup
-    cleanupMutation(mutation, resolution, activation.backup);
-    if (!dryRun) {
-      console.log(`   🧹 Cleaned up`);
-    }
-
-    results.push({
-      id: mutation.id,
-      category: mutation.category,
-      severity: mutation.severity,
-      status: detection.detected ? "detected" : "missed",
-      confidence: detection.confidence,
-      detectionMode: detection.detectionMode,
-      triage: triage.classification,
-      rootCause: triage.rootCauseHypothesis,
-      evidenceId: evidence.evidenceId,
-      duration: evidence.duration,
-      matchCount: resolution.matchCount,
-    });
   }
 
   // ─── Summary ───────────────────────────────────────────────
@@ -363,7 +373,7 @@ function main() {
   const detected = results.filter((r) => r.status === "detected").length;
   const missed = results.filter((r) => r.status === "missed").length;
   const skipped = results.filter((r) => r.status === "skipped").length;
-  const recall = resolvableCount > 0 ? (detected / resolvableCount * 100).toFixed(1) : "0.0";
+  const recall = resolvableCount > 0 ? ((detected / resolvableCount) * 100).toFixed(1) : "0.0";
 
   console.log(`\n  Resolvable:     ${resolvableCount}/${mutations.length}`);
   console.log(`  Detected:       ${detected}`);
@@ -397,20 +407,34 @@ function main() {
     skipped,
     recall: parseFloat(recall),
     precision: detected > 0 ? 100 : 0,
+    detectionMode,
+    validationNote:
+      "Mutations are applied to source files; detection and triage are simulated unless a future real-detection mode is added.",
     fpr: 0,
     fnr: 100 - parseFloat(recall),
     results,
   };
 
-  const reportPath = join(reportDir, `p12.6-experiment-${Date.now()}.json`);
-  writeFileSync(reportPath, JSON.stringify(report, null, 2), "utf-8");
-  console.log(`\n  📄 Report: ${reportPath}`);
+  if (!noReport) {
+    const reportPath = join(reportDir, `p12.6-experiment-${Date.now()}.json`);
+    writeFileSync(reportPath, JSON.stringify(report, null, 2), "utf-8");
+    console.log(`\n  📄 Report: ${reportPath}`);
+  } else {
+    console.log("\n  📄 Report: skipped (--no-report)");
+  }
 
   console.log("\n" + "═".repeat(50));
-  console.log(parseFloat(recall) >= 80 ? "✅ EXPERIMENTAL VALIDATION PASS" : "❌ EXPERIMENTAL VALIDATION FAIL");
+  console.log(
+    parseFloat(recall) >= 80
+      ? "✅ EXPERIMENTAL VALIDATION PASS"
+      : "❌ EXPERIMENTAL VALIDATION FAIL",
+  );
   console.log("═".repeat(50) + "\n");
 
   process.exit(parseFloat(recall) >= 80 ? 0 : 1);
 }
 
-main();
+const isMain =
+  process.argv[1] &&
+  fileURLToPath(import.meta.url) === fileURLToPath(new URL(`file://${process.argv[1]}`));
+if (isMain) main();

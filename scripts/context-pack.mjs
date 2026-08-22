@@ -43,11 +43,27 @@ const AREA_RULES = [
     sections: ["React & Estado", "shadcn/ui", "Imutabilidade de Estado", "Promessas de UI"],
   },
   {
-    keywords: ["financeiro", "saldo", "custo", "lucro", "amount", "balance", "invested", "total_invested"],
+    keywords: [
+      "financeiro",
+      "saldo",
+      "custo",
+      "lucro",
+      "amount",
+      "balance",
+      "invested",
+      "total_invested",
+    ],
     sections: ["Invariantes Financeiras", "Estoques e Cache"],
   },
   {
-    keywords: ["workflow", "task:state", "task-state", "task-card", "task-validate", "task:validate"],
+    keywords: [
+      "workflow",
+      "task:state",
+      "task-state",
+      "task-card",
+      "task-validate",
+      "task:validate",
+    ],
     sections: ["CI/CD & Verificação", "Relatório Pós-Implementação"],
   },
   {
@@ -63,7 +79,19 @@ const AREA_RULES = [
     sections: ["Config Global", "Estoques e Cache", "React & Estado"],
   },
   {
-    keywords: ["formulário", "dropdown", "tabela", "botão", "sidebar", "dialog", "sheet", "drawer", "componente", "responsivo", "layout"],
+    keywords: [
+      "formulário",
+      "dropdown",
+      "tabela",
+      "botão",
+      "sidebar",
+      "dialog",
+      "sheet",
+      "drawer",
+      "componente",
+      "responsivo",
+      "layout",
+    ],
     sections: ["shadcn/ui", "Imutabilidade de Estado", "Promessas de UI"],
   },
 ];
@@ -109,13 +137,16 @@ function parseMeta(cardContent) {
 // ── Extrair seção por heading ────────────────────────────────────
 function extractSection(content, heading) {
   // Busca "## heading" ou "## heading — ..." na linha
-  const re = new RegExp(`^## ${heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}( |--).*(\\n(?!## ).*)*`, "m");
+  const re = new RegExp(
+    `^## ${heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}( |--).*(\\n(?!## ).*)*`,
+    "m",
+  );
   const m = content.match(re);
   if (m) return m[0].trim();
   // Fallback: "## heading"
   const re2 = new RegExp(
     `^## ${heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*(\\n(?!## ).*)*(?=\\n## |$)`,
-    "m"
+    "m",
   );
   const m2 = content.match(re2);
   if (m2) return m2[0].trim();
@@ -162,11 +193,16 @@ function selectSections(cardText) {
 const args = process.argv.slice(2);
 let taskId = null;
 let outPath = null;
+let compact = false;
 
 for (let i = 0; i < args.length; i++) {
   if (args[i] === "--task" && args[i + 1]) taskId = args[++i];
   else if (args[i] === "--out" && args[i + 1]) outPath = args[++i];
-  else if (args[i] === "--help" || args[i] === "-h") { showHelp(); process.exit(0); }
+  else if (args[i] === "--compact") compact = true;
+  else if (args[i] === "--help" || args[i] === "-h") {
+    showHelp();
+    process.exit(0);
+  }
 }
 
 if (!taskId) {
@@ -197,14 +233,16 @@ const pack = [];
 
 pack.push(`# 📦 Context Pack — ${label}`);
 pack.push(`> Gerado: ${new Date().toISOString().replace(/T/, " ").replace(/\..+/, "")}`);
-pack.push(`> Card: \`${label}\` | Categoria: \`${area}\` | Arquivo: \`${card.file}\``);
+pack.push(
+  `> Card: \`${label}\` | Categoria: \`${area}\` | Arquivo: \`${card.file}\`${compact ? " | Modo: `compact`" : ""}`,
+);
 pack.push("");
 
 // 1. Card completo (compact)
 pack.push("## 📋 Task Card");
 pack.push("");
 pack.push("```markdown");
-pack.push(card.content.trim());
+pack.push(compact ? card.content.trim().split("\n").slice(0, 80).join("\n") : card.content.trim());
 pack.push("```");
 pack.push("");
 
@@ -217,9 +255,9 @@ for (const heading of selectedSections) {
   let section = allConvSections[heading];
   if (!section) section = extractSection(conventions, heading);
   if (section) {
-    // Limitar seção a 80 linhas
+    // Limitar seção para evitar pacotes grandes demais para modelos menores.
     const lines = section.split("\n");
-    const trimmed = lines.slice(0, 80).join("\n");
+    const trimmed = lines.slice(0, compact ? 30 : 80).join("\n");
     pack.push(`### ${heading}`);
     pack.push("");
     pack.push(trimmed);
@@ -231,13 +269,14 @@ for (const heading of selectedSections) {
 pack.push("## 🔧 Comandos de Verificação");
 pack.push("");
 const verifies = [];
-if (area !== "docs") verifies.push("`npm run check` (typecheck + lint + format + unit + docs + build)");
+if (area !== "docs")
+  verifies.push("`npm run check` (typecheck + lint + format + unit + docs + build)");
 verifies.push("`npm run test` — testes unitários");
 verifies.push("`npm run pre-pr` — validação completa antes do PR");
 pack.push(verifies.map((v) => `- ${v}`).join("\n"));
 
 // 4. Stack
-if (existsSync(STACK_PATH)) {
+if (!compact && existsSync(STACK_PATH)) {
   pack.push("");
   pack.push("## 📦 Stack");
   pack.push("");
@@ -249,14 +288,18 @@ if (existsSync(STACK_PATH)) {
 pack.push("");
 pack.push("## ⚠️ Lembrete");
 pack.push("> Toda regra imutável de AGENTS.md tem script de validação. `pre-pr` roda todos.");
-pack.push("> Nenhum console.log em produção; usar `logInfo`/`logWarn`/`logError` de `@/lib/logger`.");
+pack.push(
+  "> Nenhum console.log em produção; usar `logInfo`/`logWarn`/`logError` de `@/lib/logger`.",
+);
 
 const output = pack.join("\n");
 
 if (outPath) {
   writeFileSync(outPath, output);
-  console.log(`✅ Pacote salvo: ${outPath} (${output.length} chars, ~${Math.round(output.length/4)} tokens)`);
+  console.log(
+    `✅ Pacote salvo: ${outPath} (${output.length} chars, ~${Math.round(output.length / 4)} tokens)`,
+  );
 } else {
   console.log(output);
-  console.log(`\n---\n📊 ${output.length} chars (~${Math.round(output.length/4)} tokens)`);
+  console.log(`\n---\n📊 ${output.length} chars (~${Math.round(output.length / 4)} tokens)`);
 }

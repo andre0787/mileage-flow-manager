@@ -23,10 +23,25 @@ const DOCS = resolve(ROOT, "docs");
 
 /** Categorias → docs carregados (tabela do AGENTS.md — lazy loading). */
 export const CATEGORY_DOCS = {
-  feature: ["AGENTS.md", "docs/WORKFLOW-QUICKSTART.md", "docs/conventions/common.md", "docs/conventions/feature.md"],
-  bugfix: ["AGENTS.md", "docs/DEBUG.md", "docs/conventions/common.md", "docs/conventions/bugfix.md"],
+  feature: [
+    "AGENTS.md",
+    "docs/WORKFLOW-QUICKSTART.md",
+    "docs/conventions/common.md",
+    "docs/conventions/feature.md",
+  ],
+  bugfix: [
+    "AGENTS.md",
+    "docs/DEBUG.md",
+    "docs/conventions/common.md",
+    "docs/conventions/bugfix.md",
+  ],
   docs: ["AGENTS.md"],
-  refactor: ["AGENTS.md", "docs/conventions/common.md", "docs/conventions/refactor.md", "docs/ARCHITECTURE.md"],
+  refactor: [
+    "AGENTS.md",
+    "docs/conventions/common.md",
+    "docs/conventions/refactor.md",
+    "docs/ARCHITECTURE.md",
+  ],
   chore: ["AGENTS.md"],
 };
 
@@ -63,7 +78,11 @@ export function auditContext(now = new Date()) {
   const categories = {};
   for (const [cat, paths] of Object.entries(CATEGORY_DOCS)) {
     const s = sumDocs(paths);
-    categories[cat] = { tokens: s.tokens, chars: s.chars, docs: s.breakdown.map((d) => `${d.path} (${d.tokens} tok)`).join(", ") };
+    categories[cat] = {
+      tokens: s.tokens,
+      chars: s.chars,
+      docs: s.breakdown.map((d) => `${d.path} (${d.tokens} tok)`).join(", "),
+    };
   }
 
   // Overhead fixo por sessão (handoff + tracking ativos)
@@ -95,14 +114,27 @@ export function auditContext(now = new Date()) {
     .filter((d) => d.tokens > 0)
     .sort((a, b) => b.tokens - a.tokens);
 
-  // Status por faixa de tokens da categoria mais pesada
+  // Status por faixa de tokens da categoria mais pesada + overhead fixo.
+  // Para modelos menores, tracking enorme é tão prejudicial quanto docs grandes,
+  // mesmo quando não deveria ser carregado como contexto de trabalho.
   const maxCat = Math.max(...Object.values(categories).map((c) => c.tokens));
+  const maxOverhead = Math.max(...Object.values(overhead));
   const status =
-    maxCat < 4000 ? { label: "Enxuto", tone: "green" }
-      : maxCat < 8000 ? { label: "Moderado", tone: "amber" }
-        : { label: "Pesado — otimizar", tone: "red" };
+    maxOverhead > 20000
+      ? { label: "Pesado — tracking", tone: "red" }
+      : maxCat < 4000
+        ? { label: "Enxuto", tone: "green" }
+        : maxCat < 8000
+          ? { label: "Moderado", tone: "amber" }
+          : { label: "Pesado — otimizar", tone: "red" };
 
-  return { categories, overhead, topDocs: allDocs.slice(0, 8), status, date: now.toISOString().slice(0, 10) };
+  return {
+    categories,
+    overhead,
+    topDocs: allDocs.slice(0, 8),
+    status,
+    date: now.toISOString().slice(0, 10),
+  };
 }
 
 /** Gera relatório markdown (usado no console e --write). */
@@ -135,7 +167,7 @@ ${topRows}
 
 ## Dicas de otimização
 
-1. **Tracking**: rode \`npm run context:trim\` se events/quality passarem de ~400KB (arquiva histórico).
+1. **Tracking**: rode \`npm run context:trim\` quando events/quality passarem dos budgets ativos (~80KB/40KB por padrão).
 2. **WORKFLOW.md** é o doc mais pesado — a categoria feature agora carrega \`WORKFLOW-QUICKSTART.md\` (enxuto); leia o completo on-demand.
 3. **context-pack** (\`npm run context:pack\`) entrega só as seções relevantes por task.
 4. **Nav gate** (\`npm run nav:gate\`): use CRG para navegar sem ler arquivos inteiros.

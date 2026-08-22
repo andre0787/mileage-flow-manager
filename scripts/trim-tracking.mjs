@@ -10,7 +10,8 @@
  * Uso:
  *   node scripts/trim-tracking.mjs              # dry-run (mostra o que faria)
  *   node scripts/trim-tracking.mjs --apply      # aplica a rotação
- *   node scripts/trim-tracking.mjs --events 1200 --quality 600   # limites custom
+ *   node scripts/trim-tracking.mjs --events 1200 --quality 600   # limites por linha
+ *   node scripts/trim-tracking.mjs --events-bytes 80000 --quality-bytes 40000
  *
  * ponytail: usa splitAtLimit de lib/log-trim.mjs, zero deps.
  */
@@ -33,8 +34,14 @@ function flagInt(flag, def) {
 }
 
 const LIMITS = {
-  "events.jsonl": flagInt("--events", 1200),
-  "quality.jsonl": flagInt("--quality", 600),
+  "events.jsonl": {
+    lines: flagInt("--events", 1200),
+    bytes: flagInt("--events-bytes", 80_000),
+  },
+  "quality.jsonl": {
+    lines: flagInt("--quality", 600),
+    bytes: flagInt("--quality-bytes", 40_000),
+  },
 };
 
 /** Exportada para testes: decide arquivo de archive pelo mês da 1ª linha arquivada. */
@@ -54,8 +61,22 @@ export function isUsableLine(line) {
   }
 }
 
+export function jsonlByteSize(lines) {
+  return Buffer.byteLength(lines.join("\n") + (lines.length ? "\n" : ""), "utf8");
+}
+
+export function splitAtBudget(lines, maxLines, maxBytes = Infinity) {
+  const lineSplit = splitAtLimit(lines, maxLines);
+  const archived = [...lineSplit.archived];
+  const kept = [...lineSplit.kept];
+  while (kept.length > 0 && jsonlByteSize(kept) > maxBytes) {
+    archived.push(kept.shift());
+  }
+  return { kept, archived };
+}
+
 /** Executa a rotação de um arquivo. Retorna resumo { file, kept, archived, archiveFiles }. */
-export function trimFile(file, max) {
+export function trimFile(file, max, maxBytes = Infinity) {
   const path = resolve(TRACKING_DIR, file);
   if (!existsSync(path)) return { file, kept: 0, archived: 0, archiveFiles: [] };
   const lines = readFileSync(path, "utf8").split("\n").filter(Boolean);
@@ -64,7 +85,7 @@ export function trimFile(file, max) {
     // Linhas corrompidas são descartadas na rotação (defesa contra log truncado)
     if (SHOULD_APPLY) writeFileSync(path, usable.join("\n") + (usable.length ? "\n" : ""));
   }
-  const { kept, archived } = splitAtLimit(usable, max);
+  const { kept, archived } = splitAtBudget(usable, max, maxBytes);
   const archiveFiles = [];
   if (SHOULD_APPLY && archived.length > 0) {
     if (!existsSync(ARCHIVE_DIR)) mkdirSync(ARCHIVE_DIR, { recursive: true });
@@ -86,7 +107,14 @@ export function trimFile(file, max) {
     const final = kept.join("\n") + (kept.length ? "\n" : "");
     writeFileSync(path, final);
   }
-  return { file, kept: kept.length, archived: archived.length, archiveFiles };
+  return {
+    file,
+    kept: kept.length,
+    archived: archived.length,
+    keptBytes: jsonlByteSize(kept),
+    archivedBytes: jsonlByteSize(archived),
+    archiveFiles,
+  };
 }
 
 // ── CLI ───────────────────────────────────────────────────────────────
@@ -95,16 +123,24 @@ const IS_MAIN =
   fileURLToPath(pathToFileURL(resolve(process.argv[1]))) === fileURLToPath(import.meta.url);
 
 if (IS_MAIN) {
-  console.log(`${SHOULD_APPLY ? "🔧 Aplicando" : "🔍 Dry-run"} rotação de telemetria (limites: events=${LIMITS["events.jsonl"]}, quality=${LIMITS["quality.jsonl"]})`);
-  for (const [file, max] of Object.entries(LIMITS)) {
-    const r = trimFile(file, max);
+  console.log(
+    `${SHOULD_APPLY ? "🔧 Aplicando" : "🔍 Dry-run"} rotação de telemetria (limites: events=${LIMITS["events.jsonl"].lines} linhas/${LIMITS["events.jsonl"].bytes} bytes, quality=${LIMITS["quality.jsonl"].lines} linhas/${LIMITS["quality.jsonl"].bytes} bytes)`,
+  );
+  for (const [file, limit] of Object.entries(LIMITS)) {
+    const r = trimFile(file, limit.lines, limit.bytes);
     if (r.archived > 0) {
-      console.log(`  📦 ${file}: mantidas ${r.kept} · arquivadas ${r.archived} → ${r.archiveFiles.join(", ")}${SHOULD_APPLY ? "" : " (--apply para aplicar)"}`);
+      console.log(
+        `  📦 ${file}: mantidas ${r.kept} (${r.keptBytes} bytes) · arquivadas ${r.archived} (${r.archivedBytes} bytes) → ${r.archiveFiles.join(", ")}${SHOULD_APPLY ? "" : " (--apply para aplicar)"}`,
+      );
     } else {
-      console.log(`  ✅ ${file}: ${r.kept} linhas — abaixo do limite, nada a arquivar`);
+      console.log(
+        `  ✅ ${file}: ${r.kept} linhas (${r.keptBytes} bytes) — abaixo do limite, nada a arquivar`,
+      );
     }
   }
   if (!SHOULD_APPLY) {
-    console.log("\n  Use --apply para executar a rotação (histórico vai para docs/tracking/archive/).");
+    console.log(
+      "\n  Use --apply para executar a rotação (histórico vai para docs/tracking/archive/).",
+    );
   }
 }
