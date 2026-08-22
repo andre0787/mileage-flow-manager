@@ -43,6 +43,8 @@ const AgentLab = lazy(() => import("./pages/AgentLab"));
 const Demo = lazy(() => import("./pages/Demo"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
+const isAgentLabEnabled = import.meta.env.VITE_AGENT_LAB_ENABLED === "true";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -194,16 +196,18 @@ const AnimatedRoutes = () => {
             </ErrorBoundary>
           }
         />
-        <Route
-          path="/agent-lab"
-          element={
-            <ErrorBoundary>
-              <div className="animate-appear">
-                <AgentLab />
-              </div>
-            </ErrorBoundary>
-          }
-        />
+        {isAgentLabEnabled && (
+          <Route
+            path="/agent-lab"
+            element={
+              <ErrorBoundary>
+                <div className="animate-appear">
+                  <AgentLab />
+                </div>
+              </ErrorBoundary>
+            }
+          />
+        )}
         <Route
           path="*"
           element={

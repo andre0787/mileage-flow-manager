@@ -3,7 +3,7 @@
  * Ativo apenas quando VITE_ENABLE_DEBUG_LOG=true
  */
 
-const ENABLE_DEBUG_LOG = import.meta.env.VITE_ENABLE_DEBUG_LOG !== "false";
+const ENABLE_DEBUG_LOG = import.meta.env.VITE_ENABLE_DEBUG_LOG === "true";
 
 interface LogEntry {
   timestamp: string;
@@ -16,7 +16,11 @@ interface LogEntry {
 
 function getUserId(): string | null {
   try {
-    const session = JSON.parse(localStorage.getItem("sb-" + "*") || "{}");
+    const key = Object.keys(localStorage).find(
+      (candidate) => candidate.startsWith("sb-") && candidate.endsWith("-auth-token"),
+    );
+    if (!key) return null;
+    const session = JSON.parse(localStorage.getItem(key) || "{}");
     return session?.user?.id ?? null;
   } catch {
     return null;
