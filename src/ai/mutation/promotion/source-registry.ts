@@ -12,13 +12,30 @@ import type { PromotionSource, SourceHealth, SourceType, CollectionMethod } from
 
 // ─── Default Sources ───────────────────────────────────────────
 
+/**
+ * P12.6-08 — Fixed Source Registry
+ *
+ * 6 fontes:
+ * 1. Livelo — programa oficial
+ * 2. Smiles — programa oficial
+ * 3. LATAM Pass — programa oficial
+ * 4. Azul Fidelidade — programa oficial (URL: azul.com)
+ * 5. Esfera — programa oficial
+ * 6. Passageiro de Primeira — fonte agregadora/discovery
+ *
+ * Semântica:
+ * - 'official' = URL do programa (fonte primária)
+ * - 'partner' = parceiro/agregador (fonte secundária)
+ * - 'discovery' = Passageiro de Primeira é discovery layer, não official source
+ */
+
 export const DEFAULT_SOURCES: PromotionSource[] = [
   {
     sourceId: "livelo-official",
     program: "Livelo",
     type: "official",
     officialUrl: "https://www.livelo.com.br/promocoes",
-    collectionMethod: "passageiro_de_primeira",
+    collectionMethod: "scrape",
     collectionFrequency: "6h",
     enabled: true,
     reliability: 0.95,
@@ -31,7 +48,7 @@ export const DEFAULT_SOURCES: PromotionSource[] = [
     program: "Smiles",
     type: "official",
     officialUrl: "https://www.smiles.com.br/promocoes",
-    collectionMethod: "passageiro_de_primeira",
+    collectionMethod: "scrape",
     collectionFrequency: "6h",
     enabled: true,
     reliability: 0.95,
@@ -44,7 +61,7 @@ export const DEFAULT_SOURCES: PromotionSource[] = [
     program: "LATAM Pass",
     type: "official",
     officialUrl: "https://www.latamairlines.com/br/pt/latam-pass/promocoes",
-    collectionMethod: "passageiro_de_primeira",
+    collectionMethod: "scrape",
     collectionFrequency: "12h",
     enabled: true,
     reliability: 0.9,
@@ -56,8 +73,21 @@ export const DEFAULT_SOURCES: PromotionSource[] = [
     sourceId: "azul-fidelidade-official",
     program: "Azul Fidelidade",
     type: "official",
-    officialUrl: "https://www.voegol.com.br/azulfidelidade",
-    collectionMethod: "passageiro_de_primeira",
+    officialUrl: "https://www.voegol.com.br/azul-fidelidade",
+    collectionMethod: "scrape",
+    collectionFrequency: "12h",
+    enabled: true,
+    reliability: 0.85,
+    health: "FRESH",
+    priority: 2,
+    freshnessTarget: 48,
+  },
+  {
+    sourceId: "esfera-official",
+    program: "Esfera",
+    type: "official",
+    officialUrl: "https://www.esfera.com.br",
+    collectionMethod: "scrape",
     collectionFrequency: "12h",
     enabled: true,
     reliability: 0.85,
@@ -67,7 +97,7 @@ export const DEFAULT_SOURCES: PromotionSource[] = [
   },
   {
     sourceId: "passageiro-de-primeira",
-    program: "Agregator",
+    program: "Discovery",
     type: "partner",
     officialUrl: "https://www.passageirodeprimeira.com.br",
     collectionMethod: "passageiro_de_primeira",
