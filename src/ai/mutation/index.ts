@@ -30,6 +30,9 @@ export * from "./telemetry-events";
 export * from "./target-resolver";
 export * from "./evidence-generator";
 export * from "./experiment-runner";
+export * from "./context-mode-runner";
+export * from "./graph-experiment";
+export * from "./orchestration-experiment";
 
 // ─── Trilha B — Promotion Intelligence ─────────────────────────
 
