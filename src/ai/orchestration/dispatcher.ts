@@ -28,6 +28,8 @@ export interface DispatchOptions {
   retryPolicy?: RetryPolicy;
   /** Sinal de cancelamento — propaga para os steps (agent.cancelled). */
   signal?: AbortSignal;
+  /** Cadeia de fallback models (P13-01): quando o modelo primário falha, tenta estes em ordem. */
+  fallbackModels?: string[];
 }
 
 export interface DispatchResult {
@@ -93,6 +95,7 @@ export async function dispatchPlan(
       batch,
       exec,
       retryPolicy,
+      fallbackModels: opts.fallbackModels,
       signal,
       emit,
       reserve: gate.reserve,

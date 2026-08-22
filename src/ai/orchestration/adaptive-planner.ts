@@ -24,12 +24,19 @@ export interface AdaptivePlan {
   steps: ExecutionStep[];
   decisions: StepDecision[];
   taskClass: TaskClass;
+  /** Se graph-scout está habilitado (P13-03). */
+  graphEnabled: boolean;
 }
 
 /** Workflow padrão por classe (spec §P11-05). */
+/**
+ * Workflow padrão por classe (spec §P11-05 + P13-03 evidence-driven).
+ * P13-03: graph+multi é prejudicial em tiny/small (custo de contexto > ganho).
+ * Graph-scout só roda em medium/large.
+ */
 const CLASS_WORKFLOWS: Record<TaskClass, string[]> = {
   tiny: ["implementer", "final-validator"],
-  small: ["graph-scout", "implementer", "tester"],
+  small: ["implementer", "tester"],
   medium: ["graph-scout", "domain-scout", "architect", "implementer", "tester", "reviewer"],
   large: [
     "graph-scout",
@@ -43,6 +50,14 @@ const CLASS_WORKFLOWS: Record<TaskClass, string[]> = {
     "final-validator",
   ],
 };
+
+/**
+ * Determina se graph-scout deve rodar para a classe da task.
+ * P13-03: graph é prejudicial para tiny/small (custo > benefício).
+ */
+export function shouldUseGraph(taskClass: TaskClass): boolean {
+  return taskClass === "medium" || taskClass === "large";
+}
 
 /** Custo médio estimado (tokens) por papel — base do anti-over-orchestration. */
 export const ROLE_OVERHEAD_TOKENS: Record<string, number> = {
@@ -117,5 +132,5 @@ export function buildAdaptivePlan(
     });
   });
 
-  return { steps, decisions, taskClass };
+  return { steps, decisions, taskClass, graphEnabled: shouldUseGraph(taskClass) };
 }

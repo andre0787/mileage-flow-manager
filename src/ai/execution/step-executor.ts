@@ -13,6 +13,7 @@ import type { ExecutionPlan, ExecutionStep } from "@/ai/core/execution-plan";
 import type { TelemetryEventType } from "@/ai/telemetry/envelope";
 import { classifyFailure, type FailureCategory } from "@/ai/execution/failure-taxonomy";
 import { shouldRetry, type RetryPolicy } from "@/ai/execution/retry";
+import { tryModelFallback } from "./model-fallback";
 import { estimateCost } from "@/lib/aiTelemetry";
 
 export interface StepOutcome {
@@ -35,6 +36,7 @@ export type ExecuteStepFn = (
   adapter: AgentAdapter,
   step: ExecutionStep,
   plan: ExecutionPlan,
+  fallbackModel?: string,
 ) => Promise<StepOutcome>;
 
 export const defaultExecute: ExecuteStepFn = async (adapter, step, plan) => {
@@ -58,6 +60,8 @@ export interface StepRunContext {
   step: ExecutionStep;
   exec?: ExecuteStepFn;
   retryPolicy?: RetryPolicy;
+  /** Modelos alternativos para fallback determinístico (P13-01). */
+  fallbackModels?: string[];
   signal?: AbortSignal;
   /** Emite um envelope de telemetria (build feito pelo dispatcher). */
   emit: (type: TelemetryEventType, p: object, success?: boolean) => void;
@@ -114,6 +118,21 @@ export async function runStepWithRetry(ctx: StepRunContext): Promise<StepOutcome
       (ctx.retryPolicy.baseDelayMs ?? 200) * Math.pow(ctx.retryPolicy.factor ?? 2, attempts - 1);
     await new Promise((r) => setTimeout(r, delay));
   } while (attempts <= (ctx.retryPolicy?.maxRetries ?? 0));
+
+  // P13-01: Fallback determinístico — quando retry esgota e há modelos
+  // alternativos, tenta com o próximo modelo da cadeia.
+  if (!outcome.success && ctx.fallbackModels && ctx.fallbackModels.length > 0) {
+    const result = await tryModelFallback(outcome, attempts, {
+      adapter: ctx.adapter,
+      step: ctx.step,
+      plan: ctx.plan,
+      exec,
+      fallbackModels: ctx.fallbackModels,
+      emit: ctx.emit,
+    });
+    outcome = result.outcome;
+    attempts = result.attempts;
+  }
 
   // `attempts` sempre presente (1 = sem retry) — P11-02.
   // A reserva já contou agent/turn; aqui soma-se apenas recursos reais.

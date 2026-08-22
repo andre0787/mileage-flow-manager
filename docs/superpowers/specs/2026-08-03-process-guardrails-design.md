@@ -1,7 +1,7 @@
 # Guardrails de Processo — Especificação de Design
 
 > **Data:** 2026-08-03  
-> **Status:** design aprovado pelo usuário; implementação pendente  
+> **Status:** implementado (process-events.mjs, process-audit.mjs, rule-36)  
 > **Categoria:** feature de workflow/chore  
 > **Council:** `docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md`
 

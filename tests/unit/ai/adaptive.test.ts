@@ -12,7 +12,7 @@ import {
   scoreToClass,
   type ClassificationSignals,
 } from "@/ai/orchestration/classifier";
-import { buildAdaptivePlan, ROLE_OVERHEAD_TOKENS } from "@/ai/orchestration/adaptive-planner";
+import { buildAdaptivePlan, ROLE_OVERHEAD_TOKENS, shouldUseGraph } from "@/ai/orchestration/adaptive-planner";
 import { ExplainabilityLog } from "@/ai/orchestration/explainability";
 
 function baseSignals(partial: Partial<ClassificationSignals> = {}): ClassificationSignals {
@@ -81,6 +81,13 @@ describe("adaptive planner (P11-05)", () => {
     expect(plan.decisions.every((d) => d.decision === "run")).toBe(true);
   });
 
+  it("small: implementer + tester (sem graph-scout — P13-03)", () => {
+    const plan = buildAdaptivePlan("T2", "small");
+    expect(plan.steps.map((s) => s.role)).toEqual(["implementer", "tester"]);
+    expect(plan.graphEnabled).toBe(false);
+    expect(plan.decisions.every((d) => d.decision === "run")).toBe(true);
+  });
+
   it("large: scouts + architect + implementer + test + review + validator", () => {
     const plan = buildAdaptivePlan("T4", "large");
     const roles = plan.steps.map((s) => s.role);
@@ -104,6 +111,13 @@ describe("adaptive planner (P11-05)", () => {
     // O workflow continua com os papéis obrigatórios.
     expect(run).toContain("architect");
     expect(run).toContain("implementer");
+  });
+
+  it("P13-03: shouldUseGraph retorna false para tiny/small, true para medium/large", () => {
+    expect(shouldUseGraph("tiny")).toBe(false);
+    expect(shouldUseGraph("small")).toBe(false);
+    expect(shouldUseGraph("medium")).toBe(true);
+    expect(shouldUseGraph("large")).toBe(true);
   });
 
   it("overhead por papel definido para todos os papéis do workflow", () => {

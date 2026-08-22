@@ -1,7 +1,7 @@
 # Sanitização Segura do Projeto — Especificação de Design
 
 > **Data:** 2026-08-03  
-> **Status:** design aprovado pelo usuário; implementação pendente  
+> **Status:** implementado (project-audit.mjs, classifyTrackedArtifacts, checkDependencyPolicy)  
 > **Categoria:** refactor/chore  
 > **Council:** `docs/council/2026-08-03-process-kpis-router-sanitizacao-veredito.md`
 

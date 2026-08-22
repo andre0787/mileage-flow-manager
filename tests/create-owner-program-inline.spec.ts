@@ -74,7 +74,8 @@ test("Criação inline de dono e programa ao registrar entrada @smoke-prod", asy
   // 4. Clicar em "Nova Entrada"
   await page.getByRole("button", { name: "Nova Entrada" }).first().click();
 
-  const entryDrawer = page.getByRole("dialog").first();
+  // Usa o título do drawer para localizar de forma robusta (evita conflito com dialogs aninhados)
+  const entryDrawer = page.getByRole("dialog").filter({ hasText: "Nova Entrada" });
   await expect(entryDrawer).toBeVisible({ timeout: 5_000 });
 
   // 5. Clicar no botão "+" de Conta (primeiro botão + dentro do drawer)
@@ -83,8 +84,8 @@ test("Criação inline de dono e programa ao registrar entrada @smoke-prod", asy
   // 6. Criar DONO inline
   await expect(page.getByText("Nome da Conta")).toBeVisible({ timeout: 3_000 });
 
-  // Clica no "+" ao lado de Dono (primeiro botão + dentro do drawer de conta)
-  const accountDrawer = page.getByRole("dialog", { name: "Nova Conta" });
+  // Localiza o drawer de conta pelo título
+  const accountDrawer = page.getByRole("dialog").filter({ hasText: "Nova Conta" });
   await expect(accountDrawer).toBeVisible({ timeout: 3_000 });
   await accountDrawer.locator('button svg.lucide-plus').locator('..').first().click();
 
@@ -96,7 +97,9 @@ test("Criação inline de dono e programa ao registrar entrada @smoke-prod", asy
   // Clica em Cadastrar
   await ownerDrawer.getByRole("button", { name: "Cadastrar" }).click();
 
-  // Verifica que o dono foi auto-selecionado
+  // Aguarda o drawer de owner fechar antes de verificar
+  const ownerDialog = page.getByRole("dialog").filter({ hasText: "Novo Dono" });
+  await expect(ownerDialog).toBeHidden({ timeout: 5_000 });
   await expect(accountDrawer.getByText("Dono Criado Inline")).toBeVisible({ timeout: 5_000 });
 
   // 7. Criar PROGRAMA inline
@@ -113,7 +116,9 @@ test("Criação inline de dono e programa ao registrar entrada @smoke-prod", asy
   // Clica em Cadastrar
   await programDrawer.getByRole("button", { name: "Cadastrar" }).click();
 
-  // Verifica que o programa foi auto-selecionado e tipo deduzido
+  // Aguarda o drawer de programa fechar antes de verificar
+  const programDialog = page.getByRole("dialog").filter({ hasText: "Novo Programa" });
+  await expect(programDialog).toBeHidden({ timeout: 5_000 });
   await expect(accountDrawer.getByText("Programa Criado Inline")).toBeVisible({ timeout: 5_000 });
   await expect(accountDrawer.getByText("Tipo da conta: Milhas")).toBeVisible({ timeout: 3_000 });
 
@@ -124,6 +129,8 @@ test("Criação inline de dono e programa ao registrar entrada @smoke-prod", asy
   await accountDrawer.getByRole("button", { name: "Cadastrar" }).click();
 
   // 9. Verificar que a conta foi auto-selecionada
+  // Aguarda o drawer de conta fechar antes de verificar no drawer de entrada
+  await expect(accountDrawer).toBeHidden({ timeout: 5_000 });
   await expect(entryDrawer.getByText("Conta Completa Inline")).toBeVisible({ timeout: 5_000 });
 
   // 10. Preencher restante da entrada
