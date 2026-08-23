@@ -24,7 +24,6 @@ const MAX_CPF_PER_OWNER = 22;
 /* Série ao vivo do BusinessPanel; o seletor 7/14/30d usa o JSON nightly (até 30d). */
 const LIVE_SERIES_DAYS = 14;
 
-
 function LiveChips({ kpi }: { kpi: KpiData }) {
   const today = kpi.daily[kpi.daily.length - 1];
   const s = kpi.summary;

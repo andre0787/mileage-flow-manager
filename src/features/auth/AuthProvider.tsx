@@ -1,7 +1,15 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { supabase } from "@/lib/supabase";
 import { useAppDispatch, useAppSelector } from "@/features/store";
-import { setSession, setLoading, setIsAdmin, selectUser, selectSession, selectLoading, selectIsAdmin } from "./authSlice";
+import {
+  setSession,
+  setLoading,
+  setIsAdmin,
+  selectUser,
+  selectSession,
+  selectLoading,
+  selectIsAdmin,
+} from "./authSlice";
 import type { User, Session } from "@supabase/supabase-js";
 
 // Contrato público preservado do AuthContext migrado (mesma interface).
@@ -91,5 +99,15 @@ export function useAuth(): AuthContextType {
     await supabase.auth.signOut();
   };
 
-  return { user, session, loading, isAdmin, signIn, signUp, signOut, resetPassword, updatePassword };
+  return {
+    user,
+    session,
+    loading,
+    isAdmin,
+    signIn,
+    signUp,
+    signOut,
+    resetPassword,
+    updatePassword,
+  };
 }
