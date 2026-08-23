@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { envelopeToRecord, isPersistableEnvelope } from "@/ai/telemetry/persist";
 import { createTelemetryEnvelope, type TelemetryEnvelope } from "@/ai/telemetry/envelope";
+import { isEnvelopeComplete } from "@/ai/telemetry/completeness";
 
 function env(partial: Partial<TelemetryEnvelope>): TelemetryEnvelope {
   return {
@@ -75,6 +76,13 @@ describe("envelopeToRecord", () => {
   });
 });
 
+describe("isEnvelopeComplete", () => {
+  it("rejeita model vazio ou unset com espaços", () => {
+    expect(isEnvelopeComplete(env({ eventType: "agent.completed", model: "   " }))).toBe(false);
+    expect(isEnvelopeComplete(env({ eventType: "agent.completed", model: " unset " }))).toBe(false);
+  });
+});
+
 describe("isPersistableEnvelope", () => {
   it("aceita execution/agent/graph.query", () => {
     expect(isPersistableEnvelope(env({ eventType: "execution.started" }))).toBe(true);
@@ -91,5 +99,6 @@ describe("isPersistableEnvelope", () => {
   it("rejeita persistência sem identidade de modelo válida", () => {
     expect(isPersistableEnvelope(env({ model: undefined }))).toBe(false);
     expect(isPersistableEnvelope(env({ model: "unset" }))).toBe(false);
+    expect(isPersistableEnvelope(env({ model: "   " }))).toBe(false);
   });
 });

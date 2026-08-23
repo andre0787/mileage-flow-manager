@@ -4,6 +4,7 @@ import {
   computeSuccessRate,
   costPerArea,
   estimateCost,
+  recordTelemetry,
 } from "@/lib/aiTelemetry";
 
 describe("estimateCost", () => {
@@ -27,6 +28,13 @@ describe("computeSuccessRate", () => {
 
   it("sem execuções → 1 (nada a reportar como falha)", () => {
     expect(computeSuccessRate(0, 0)).toBe(1);
+  });
+
+  it("limita taxas fora do intervalo permitido", () => {
+    expect(computeSuccessRate(-1, 1)).toBe(0);
+    expect(computeSuccessRate(2, 1)).toBe(1);
+    expect(computeSuccessRate(Number.NaN, 1)).toBe(0);
+    expect(computeSuccessRate(Number.POSITIVE_INFINITY, 1)).toBe(1);
   });
 });
 
@@ -60,6 +68,47 @@ describe("buildAiTelemetryRecord", () => {
     expect(rec.prompt_tokens_saved_by_pruning).toBe(200);
     expect(rec.success_rate).toBe(0.5);
     expect(rec.area).toBeNull();
+  });
+
+  it("limita override de sucesso ao intervalo permitido", () => {
+    const low = buildAiTelemetryRecord({
+      userId: "u1",
+      sessionId: "s1",
+      tokensUsed: 0,
+      totalExecutionTimeMs: 0,
+      successRate: -0.5,
+    });
+    const high = buildAiTelemetryRecord({
+      userId: "u1",
+      sessionId: "s1",
+      tokensUsed: 0,
+      totalExecutionTimeMs: 0,
+      successRate: 1.5,
+    });
+    expect(low.success_rate).toBe(0);
+    expect(high.success_rate).toBe(1);
+    expect(
+      buildAiTelemetryRecord({
+        userId: "u1",
+        sessionId: "s1",
+        tokensUsed: 0,
+        totalExecutionTimeMs: 0,
+        successRate: Number.NaN,
+      }).success_rate,
+    ).toBe(1);
+    expect(
+      buildAiTelemetryRecord({
+        userId: "u1",
+        sessionId: "s1",
+        tokensUsed: 0,
+        totalExecutionTimeMs: 0,
+        successRate: Number.POSITIVE_INFINITY,
+      }).success_rate,
+    ).toBe(1);
+  });
+
+  it("expõe a gravação resiliente pela API de telemetria", () => {
+    expect(recordTelemetry).toBeTypeOf("function");
   });
 });
 
