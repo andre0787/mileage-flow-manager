@@ -360,3 +360,7 @@
 {"timestamp":"2026-08-23T13:46:48.538Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/admin-role-and-router-deactivation","commit":"c54328d","agent":"human","errors":0}
 {"timestamp":"2026-08-23T13:48:41.923Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/admin-role-and-router-deactivation","commit":"b0bdf42","agent":"human","errors":0}
 {"timestamp":"2026-08-23T14:54:54.947Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/ai-telemetry-live-fetch","commit":"0da071c","agent":"human","errors":0}
+{"timestamp":"2026-08-23T15:10:54.519Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/workflow-pipeline-live-data","commit":"2a43483","agent":"human","errors":0}
+{"timestamp":"2026-08-23T15:13:12.929Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/workflow-pipeline-live-data","commit":"64dc43c","agent":"human","errors":0}
+{"timestamp":"2026-08-23T15:15:16.199Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/workflow-pipeline-live-data","commit":"c8e6db7","agent":"human","errors":0}
+{"timestamp":"2026-08-23T15:16:39.157Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/workflow-pipeline-live-data","commit":"94e45fc","agent":"human","errors":0}
