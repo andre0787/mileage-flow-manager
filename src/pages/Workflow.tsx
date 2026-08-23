@@ -9,7 +9,7 @@ import { WorkflowEfficiency } from "@/components/workflow/WorkflowEfficiency";
 import { WorkflowSimulator } from "@/components/workflow/WorkflowSimulator";
 import { WorkflowOverview } from "@/components/workflow/WorkflowOverview";
 import { WorkflowDataFooter } from "@/components/workflow/WorkflowDataFooter";
-import WorkflowPipelineDag from "@/components/workflow/WorkflowPipelineDag";
+import LivePipelineDag from "@/components/workflow/LivePipelineDag";
 
 /** Skeleton enquanto o JSON de dados reais carrega (use() suspende). */
 const DataSkeleton = () => (
@@ -70,7 +70,7 @@ export default function Workflow() {
       </section>
 
       <section className="border-t pt-8" aria-label="Pipeline real do workflow">
-        <WorkflowPipelineDag envelopes={[]} />
+        <LivePipelineDag />
       </section>
 
       <section className="border-t pt-8" aria-label="Experimente">
