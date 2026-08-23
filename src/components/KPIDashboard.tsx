@@ -139,7 +139,7 @@ export default function KPIDashboard({ data }: { data: KpiData }) {
         gateBlockedByRule={current.gateBlockedByRule}
       />
 
-      <AiCostSection records={data.telemetry} />
+      <AiCostSection />
 
       {/* P11-08: AI Engineering Command Center — telemetria de agentes §19.
        * Consome envelopes (exec:run:real grava em docs/tracking/envelopes.jsonl);
