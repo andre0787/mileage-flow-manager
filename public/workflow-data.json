@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-08-23T00:38:47.157Z",
+  "generatedAt": "2026-08-23T06:33:21.650Z",
   "dataDate": "2026-08-23",
   "kpiStats": [
     {
-      "value": 428,
+      "value": 430,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
@@ -28,7 +28,7 @@
       "sub": "desde o início"
     },
     {
-      "value": 35,
+      "value": 36,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -56,7 +56,7 @@
     },
     {
       "name": "llm.route.resolved",
-      "n": 29,
+      "n": 30,
       "color": "#14b8a6"
     },
     {
@@ -66,7 +66,7 @@
     },
     {
       "name": "coding:done",
-      "n": 36,
+      "n": 37,
       "color": "#22c55e"
     }
   ],
@@ -88,6 +88,16 @@
     }
   ],
   "recentTimeline": [
+    {
+      "t": "2026-08-23 00:58:57",
+      "d": "coding:done",
+      "desc": "Corrige locator secundário do smoke E2E"
+    },
+    {
+      "t": "2026-08-23 00:57:35",
+      "d": "llm.route.resolved",
+      "desc": "LLM route resolved"
+    },
     {
       "t": "2026-08-23 00:38:40",
       "d": "pre-pr",
@@ -117,16 +127,6 @@
       "t": "2026-08-23 00:35:07",
       "d": "coding:done",
       "desc": "Correção final dos findings do review concluída por subagente"
-    },
-    {
-      "t": "2026-08-23 00:34:20",
-      "d": "llm.route.resolved",
-      "desc": "LLM route resolved"
-    },
-    {
-      "t": "2026-08-23 00:32:09",
-      "d": "llm.route.resolved",
-      "desc": "LLM route resolved"
     }
   ],
   "gateEfficiency": {
@@ -165,53 +165,7 @@
       }
     ]
   },
-  "lastPrs": [
-    {
-      "number": 482,
-      "title": "refactor: implementa otimização do master plan",
-      "type": "refactor",
-      "date": "2026-08-22",
-      "tokens": 2919,
-      "benefit": "Código mais simples — menor custo de manutenção",
-      "impact": "Menos custo em mudanças futuras"
-    },
-    {
-      "number": 480,
-      "title": "refactor: modulariza generate-report + pendências P13 + fix smoke test",
-      "type": "refactor",
-      "date": "2026-08-22",
-      "tokens": 2231,
-      "benefit": "Código mais simples — menor custo de manutenção",
-      "impact": "Menos custo em mudanças futuras"
-    },
-    {
-      "number": 478,
-      "title": "refactor: reduzir fricção de agentes e finalizar Agent Lab",
-      "type": "refactor",
-      "date": "2026-08-22",
-      "tokens": 2912,
-      "benefit": "Código mais simples — menor custo de manutenção",
-      "impact": "Menos custo em mudanças futuras"
-    },
-    {
-      "number": 476,
-      "title": "feat(p12.6): final items — real scout, scheduler, validation, alerts, E2E",
-      "type": "feat",
-      "date": "2026-08-22",
-      "tokens": 1364,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 474,
-      "title": "feat(p12.6): remaining P1 items — context mode, graph, orchestration, observability",
-      "type": "feat",
-      "date": "2026-08-22",
-      "tokens": 839,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    }
-  ],
+  "lastPrs": [],
   "overview": {
     "components": 129,
     "pages": 19,
@@ -220,7 +174,7 @@
     "testFiles": 277,
     "skills": 27,
     "rules": 48,
-    "events": 428,
+    "events": 430,
     "qualityNotes": 534
   }
 }
