@@ -1,5 +1,7 @@
 # Router declarativo de modelos LLM Implementation Plan
 
+> ⚠️ **DEPRECATED (2026-08-23):** LLM Router desativado e removido do projeto. Este plano é mantido apenas como referência histórica.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Implementar um resolver declarativo, determinístico e auditável que escolha o modelo dos subagentes e seus fallbacks sem trocar o modelo do orquestrador.

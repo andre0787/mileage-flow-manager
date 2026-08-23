@@ -4,10 +4,12 @@ import {
   authReducer,
   setSession,
   setLoading,
+  setIsAdmin,
   clear,
   selectUser,
   selectSession,
   selectLoading,
+  selectIsAdmin,
   type AuthState,
 } from "@/features/auth/authSlice";
 import type { RootState } from "@/features/store";
@@ -31,7 +33,7 @@ const makeSession = (id = "session-1"): Session =>
   }) as Session;
 
 const stateWith = (partial: Partial<AuthState>): RootState =>
-  ({ auth: { user: null, session: null, loading: true, ...partial } }) as RootState;
+  ({ auth: { user: null, session: null, loading: true, isAdmin: false, ...partial } }) as RootState;
 
 describe("authSlice", () => {
   it("parte do estado inicial com loading true e sem usuário", () => {
@@ -39,6 +41,7 @@ describe("authSlice", () => {
       user: null,
       session: null,
       loading: true,
+      isAdmin: false,
     });
   });
 
@@ -72,11 +75,18 @@ describe("authSlice", () => {
     expect(state.loading).toBe(false);
   });
 
-  it("seletores leem user, session e loading do estado", () => {
+  it("setIsAdmin alterna o flag de admin", () => {
+    const state = authReducer(undefined, setIsAdmin(true));
+    expect(state.isAdmin).toBe(true);
+    expect(authReducer(state, setIsAdmin(false)).isAdmin).toBe(false);
+  });
+
+  it("seletores leem user, session, loading e isAdmin do estado", () => {
     const session = makeSession();
-    const state = stateWith({ user: session.user, session, loading: false });
+    const state = stateWith({ user: session.user, session, loading: false, isAdmin: true });
     expect(selectUser(state)).toEqual(session.user);
     expect(selectSession(state)).toEqual(session);
     expect(selectLoading(state)).toBe(false);
+    expect(selectIsAdmin(state)).toBe(true);
   });
 });

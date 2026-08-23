@@ -59,8 +59,7 @@ const TIPOS_VALIDOS = [
   "healed",
   "gate",
   "gate:blocked",
-  "llm.route.resolved",
-  "llm.route.completed",
+
   "code-review:done",
   "coding:done",
   "custom",

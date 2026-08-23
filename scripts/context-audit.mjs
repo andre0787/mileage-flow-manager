@@ -107,7 +107,7 @@ export function auditContext(now = new Date()) {
     "docs/ARCHITECTURE.md",
     "docs/STACK.md",
     "docs/handoff.md",
-    "docs/LLM-ROUTER.md",
+
     "docs/CONTEXT-MANAGEMENT.md",
   ]
     .map((p) => ({ path: p, tokens: bytesToTokens(readSize(p) || 0) }))

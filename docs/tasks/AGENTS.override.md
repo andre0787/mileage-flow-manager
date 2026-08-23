@@ -15,10 +15,7 @@ Apontar para comandos versionados — não duplicar documentação.
 2. `npm run context:pack -- --task <ID>` — pacote de contexto seletivo
 3. Ler o card: `arquivosPermitidos`, `testesObrigatórios`, `evidênciaDePronto`
 4. `npm run task:state <ID> implementing` — registra início
-5. `npm run llm:route -- resolve --task <ID>` — obtém `model`, `fallbackModels`
-   e `retrySafety`; use exatamente os três no `subagent_gate` (não escolha
-   modelo inline)
-6. Implementar — alterar **apenas** `arquivosPermitidos` do card
+5. Implementar — alterar **apenas** `arquivosPermitidos` do card
 7. `npm run task:validate` — valida cards contra o schema
 8. `npm run pre-pr` — build + testes + rules + relatório
 9. `npm run task:state <ID> verified` — registra verificação
@@ -37,5 +34,4 @@ Apontar para comandos versionados — não duplicar documentação.
 | Assunto | Onde |
 |---------|------|
 | Estados de task-card | `docs/WORKFLOW-MANIFEST.md` §2 (resumo: pending → planned → implementing → verified → review → done) |
-| Roteamento de modelos | `docs/LLM-ROUTER.md` |
 | Fluxo completo p/ modelo pequeno | `.pi/skills/small-model-execution/SKILL.md` |

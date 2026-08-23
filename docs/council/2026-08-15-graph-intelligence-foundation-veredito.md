@@ -3,7 +3,7 @@
 **Tema:** SDD v5.0 — primeira implementação: `src/ai/` agnóstico de agente com Graph Engine (status/impact/context), Context Packets, contratos de agente/modelo/task/execução e envelope de telemetria.
 **Data:** 2026-08-15
 **Sessão:** feature — P5-01 Graph Intelligence Foundation
-**Base:** CRG CLI (code-review-graph v2.3.7) já integrado via `npm run crg:*`; router LLM (`scripts/lib/llm-router.mjs`); telemetria (`docs/tracking/events.jsonl` + `ai_telemetry`).
+**Base:** CRG CLI (code-review-graph v2.3.7) já integrado via `npm run crg:*`; telemetria (`docs/tracking/events.jsonl` + `ai_telemetry`).
 
 ## Escopo da primeira implementação (seção 29 do SDD)
 

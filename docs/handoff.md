@@ -35,8 +35,8 @@ a8dc247 chore: limpeza do repositório — branches órfãs + fable-gates no MAP
 ```
 
 ## 🧭 Estado Atual
-- **Branch:** `refactor/master-plan-optimization`
-- **Último commit:** `293ccb1 — Merge pull request #480 from andre0787/feat/refactor-report-modularization`
+- **Branch:** `main`
+- **Último commit:** `d876a30 — Merge pull request #486 from andre0787/fix/smoke-origin-locator`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -66,6 +66,24 @@ Nenhum PR aberto.
 | Total testes | 575 |
 | Docs issues | 0 |
 | Branch | refactor/blueprint-v4-p1-clientes |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

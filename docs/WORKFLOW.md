@@ -129,10 +129,6 @@ Disponível via ferramenta `subagent` no Pi.
 - **toolBudget** — configurar limite de tool calls para evitar loops
 - **turnBudget** — configurar limite de turnos para tarefas com escopo definido
 
-### Roteamento determinístico de subagentes
-
-Antes de cada dispatch, o orquestrador deve executar `npm run llm:route -- resolve --task <ID>` ou resolver um `TaskContext` com `--context`. A chamada ao `subagent_gate` copia exatamente `model`, `fallbackModels` e `retrySafety`; o orquestrador não troca o modelo nem omite `model` em trabalho roteado. Após o gate, registre `llm.route.completed` somente com metadados sanitizados. O contrato completo está em [`LLM-ROUTER.md`](LLM-ROUTER.md).
-
 ## Scripts de Workflow
 
 Workflow acelerado via npm scripts — reduzem consumo de tokens automatizando repetições:
@@ -140,8 +136,6 @@ Workflow acelerado via npm scripts — reduzem consumo de tokens automatizando r
 | Script | Função | Quando usar |
 |--------|--------|-------------|
 | `npm run session:start` | Extrai resumo comprimido dos docs de início de sessão | **Início de toda sessão** (substitui leitura de 5 docs) |
-| `npm run llm:route -- resolve --task <ID>` | Resolve profile, modelo, fallbacks e retry safety para um subagente | **Antes de cada `subagent_gate`** |
-| `npm run llm:route:validate` | Valida aliases, profiles, defaults e rotas da configuração ativa | **Antes de dispatch ou alteração da configuração** |
 | `npm run pre-pr` | Gera relatório automático (se não existir) + valida: git status (aviso em fase de dev — bloqueio real no pre-push), build, testes, verify-docs, console.log | **Antes de criar PR** (checklist automatizado) |
 | `npm run report` | Gera relatório HTML automático do diff | **Antes do PR** (substitui /report manual) |
 | `npm run session:end` | add + commit + handoff + push em 1 comando | **Final da sessão** (substitui 5 passos manuais) |
@@ -483,6 +477,4 @@ Registro leve de eventos do workflow para rastrear sessões, PRs e validações.
 - `session:start` — via `session-start.mjs` ao iniciar sessão
 - `session:end` — via `session-end.mjs` ao finalizar
 - `pre-pr` — via `pre-pr-check.mjs` após validação
-- `llm.route.resolved` — via `npm run llm:route` ao escolher profile/modelo
-- `llm.route.completed` — via `npm run llm:route complete` ao registrar resultado sanitizado
 - `commit` — manual via `npm run event:log`

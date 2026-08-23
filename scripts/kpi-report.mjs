@@ -16,7 +16,7 @@ import { readFileSync, existsSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { execSync } from "child_process";
 import { parseProcessEvents } from "./lib/process-events.mjs";
-import { computeRouterKPI } from "./lib/router-kpi.mjs";
+
 
 // ─── Tipos ───────────────────────────────────────────────────────────
 
@@ -252,7 +252,7 @@ export function computeMonthlyKPI(events, monthLabel) {
     violationsCaught,
     healedRate,
     frictionPerPass,
-    llmRouter: computeRouterKPI(events),
+
   };
 }
 

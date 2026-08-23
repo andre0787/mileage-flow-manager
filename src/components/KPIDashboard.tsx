@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import KPIMonthSelector from "./KPIMonthSelector";
 import GateEfficiencySection from "./GateEfficiencySection";
-import LLMRouterKPISection, { type RouterMonthlyKPI } from "./LLMRouterKPISection";
+
 import { BusinessPanel } from "./kpi/BusinessPanel";
 import { BusinessBreakdown } from "./kpi/BusinessBreakdown";
 import { ProcessDailySection } from "./kpi/ProcessDailySection";
@@ -23,17 +23,6 @@ import type { KpiData } from "@/types/kpi";
 const MAX_CPF_PER_OWNER = 22;
 /* Série ao vivo do BusinessPanel; o seletor 7/14/30d usa o JSON nightly (até 30d). */
 const LIVE_SERIES_DAYS = 14;
-const LEGACY_ROUTER_KPI: RouterMonthlyKPI = {
-  resolved: 0,
-  completed: 0,
-  failed: 0,
-  unobserved: 0,
-  fallbackUsed: 0,
-  completionRate: null,
-  fallbackRate: null,
-  models: [],
-  skillsByModel: [],
-};
 
 function LiveChips({ kpi }: { kpi: KpiData }) {
   const today = kpi.daily[kpi.daily.length - 1];
@@ -149,8 +138,6 @@ export default function KPIDashboard({ data }: { data: KpiData }) {
         healedByRule={current.healedByRule}
         gateBlockedByRule={current.gateBlockedByRule}
       />
-
-      <LLMRouterKPISection llmRouter={current.llmRouter ?? LEGACY_ROUTER_KPI} />
 
       <AiCostSection records={data.telemetry} />
 
