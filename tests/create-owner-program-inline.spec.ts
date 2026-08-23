@@ -79,7 +79,7 @@ test("Criação inline de dono e programa ao registrar entrada @smoke-prod", asy
   await expect(entryDrawer).toBeVisible({ timeout: 5_000 });
 
   // 5. Clicar no botão "+" de Conta (primeiro botão + dentro do drawer)
-  await entryDrawer.locator('button svg.lucide-plus').locator('..').first().click();
+  await entryDrawer.locator("button svg.lucide-plus").locator("..").first().click();
 
   // 6. Criar DONO inline
   await expect(page.getByText("Nome da Conta")).toBeVisible({ timeout: 3_000 });
@@ -87,7 +87,7 @@ test("Criação inline de dono e programa ao registrar entrada @smoke-prod", asy
   // Localiza o drawer de conta pelo título
   const accountDrawer = page.getByRole("dialog").filter({ hasText: "Nova Conta" });
   await expect(accountDrawer).toBeVisible({ timeout: 3_000 });
-  await accountDrawer.locator('button svg.lucide-plus').locator('..').first().click();
+  await accountDrawer.locator("button svg.lucide-plus").locator("..").first().click();
 
   // Preenche formulário do novo dono
   await expect(page.getByText("Novo Dono")).toBeVisible({ timeout: 3_000 });
@@ -103,7 +103,7 @@ test("Criação inline de dono e programa ao registrar entrada @smoke-prod", asy
   await expect(accountDrawer.getByText("Dono Criado Inline")).toBeVisible({ timeout: 5_000 });
 
   // 7. Criar PROGRAMA inline
-  await accountDrawer.locator('button svg.lucide-plus').locator('..').last().click();
+  await accountDrawer.locator("button svg.lucide-plus").locator("..").last().click();
 
   await expect(page.getByText("Novo Programa")).toBeVisible({ timeout: 3_000 });
   const programDrawer = page.getByRole("dialog").last();
@@ -123,9 +123,7 @@ test("Criação inline de dono e programa ao registrar entrada @smoke-prod", asy
   await expect(accountDrawer.getByText("Tipo da conta: Milhas")).toBeVisible({ timeout: 3_000 });
 
   // 8. Preencher nome da conta e cadastrar
-  await accountDrawer
-    .getByPlaceholder("Ex: Conta Principal LATAM")
-    .fill("Conta Completa Inline");
+  await accountDrawer.getByPlaceholder("Ex: Conta Principal LATAM").fill("Conta Completa Inline");
   await accountDrawer.getByRole("button", { name: "Cadastrar" }).click();
 
   // 9. Verificar que a conta foi auto-selecionada
@@ -138,7 +136,7 @@ test("Criação inline de dono e programa ao registrar entrada @smoke-prod", asy
   // 10. Preencher restante da entrada
   await page.fill("#entryDate", new Date().toISOString().split("T")[0]);
 
-  await page.getByText("Selecione o tipo").click();
+  await entryDrawer.getByRole("combobox").filter({ hasText: "Selecione o tipo" }).click();
   await page.getByRole("option", { name: "Compra Direta" }).click();
 
   await page.fill("#amount", "50000");
@@ -152,12 +150,9 @@ test("Criação inline de dono e programa ao registrar entrada @smoke-prod", asy
 
   // 13. Verificar que o nome do dono aparece na tabela de entradas
   // O nome do dono fica abaixo do nome da conta, em texto secundário na coluna desktop
-  await expect(
-    page
-      .locator("table")
-      .getByText("Dono Criado Inline")
-      .first(),
-  ).toBeVisible({ timeout: 5_000 });
+  await expect(page.locator("table").getByText("Dono Criado Inline").first()).toBeVisible({
+    timeout: 5_000,
+  });
 
   // 14. Verificar dono e programa criados na página de configurações
   await page.goto("/configuracoes");
