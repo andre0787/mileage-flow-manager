@@ -1,74 +1,79 @@
 # 🗺️ ROADMAP DE REFATORAÇÃO E OTIMIZAÇÃO
 
-Plano mestre de execução detalhado em tarefas atômicas para as Fases A até E.
-
----
+Plano mestre de execução detalhado em tarefas atômicas para as Fases A até F.
 
 ## 📋 Checklist Geral
 
 - [x] **Setup Inicial**
   - [x] Iniciar sessão com `npm run session:start`
-  - [x] Criar branch de trabalho `refactor/master-plan-optimization`
+  - [x] Criar branch de trabalho (`refactor/master-plan-optimization` e correções em branch dedicada)
   - [x] Documentar Roadmap em `docs/ROADMAP-REFACTORY.md`
 
----
-
 ## 📋 FASE A: Otimização de Dados Estáticos (`workflowStaticData.ts`)
-**Objetivo:** Manter os dados de Workflow fora do bundle TypeScript, carregando JSON estático sob demanda.
+**Objetivo:** manter dados de Workflow fora do bundle TypeScript, carregando JSON estático sob demanda.
 
-- [ ] **A.1** Criar diretório `public/mock/`
-- [ ] **A.2** Extrair os dados estáticos de Workflow para `public/mock/workflow-fallback.json`
-- [ ] **A.3** Criar/Centralizar interfaces e tipos em `src/types/workflow.ts`
-- [ ] **A.4** Refatorar `src/lib/workflowData.ts` para remover dependências dos dados antigos, carregar JSON dinamicamente e fornecer fallback estrutural seguro
-- [ ] **A.5** Atualizar componentes em `src/components/workflow/` (`WorkflowGates`, `WorkflowHero`, `WorkflowJourney`, `WorkflowMindMap`, `WorkflowSimulator`, `WorkflowTimeline`) para consumir dados via `workflowData.ts` / JSON / tipos
-- [ ] **A.6** Consolidar os dados em `src/lib/workflowStaticData.ts` e atualizar testes unitários (`tests/unit/workflowData.test.ts`, `tests/unit/WorkflowEfficiency.test.ts`)
-- [ ] **A.7** Executar validações (`npm run typecheck`, `npm run build`, `npm test`)
+- [x] **A.1** Criar diretório `public/mock/`.
+- [x] **A.2** Extrair dados para `public/mock/workflow-fallback.json`.
+- [x] **A.3** Centralizar interfaces em `src/types/workflow.ts`.
+- [x] **A.4** Refatorar `src/lib/workflowData.ts` com carregamento dinâmico e fallback estrutural.
+- [x] **A.5** Atualizar componentes Workflow para consumir a nova fonte tipada.
+- [x] **A.6** Consolidar `src/lib/workflowStaticData.ts` e testes unitários.
+- [x] **A.7** Validar typecheck, build e testes.
 
----
+**Evidências:** `public/mock/workflow-fallback.json`, `src/lib/workflowData.ts`, `src/lib/workflowStaticData.ts`, `src/types/workflow.ts` e testes Workflow.
 
 ## 📋 FASE B: Telemetria Resiliente com Fila Local e Retry
-**Objetivo:** Garantir resiliência offline e persistência em falhas para registros de telemetria IA.
+**Objetivo:** garantir resiliência offline e persistência em falhas para registros de telemetria IA.
 
-- [ ] **B.1** Criar `src/lib/telemetryQueue.ts` com funções `saveToQueue`, `flushTelemetryQueue` e `recordTelemetry` usando `localStorage`
-- [ ] **B.2** Criar testes unitários para `src/lib/telemetryQueue.ts` em `tests/unit/telemetryQueue.test.ts` (Rule-31)
-- [ ] **B.3** Integrar `flushTelemetryQueue()` no ciclo de vida da aplicação em `src/App.tsx` (via `useEffect` na inicialização e eventos online)
-- [ ] **B.4** Refatorar `src/lib/aiTelemetry.ts` para integrar com a nova fila resiliente `recordTelemetry()`
-- [ ] **B.5** Validar tipagem e build (`npm run typecheck`, `npm test`, `npm run build`)
+- [x] **B.1** Criar `src/lib/telemetryQueue.ts` com `saveToQueue`, `flushTelemetryQueue` e `recordTelemetry`.
+- [x] **B.2** Criar `tests/unit/telemetryQueue.test.ts` (Rule-31).
+- [x] **B.3** Integrar `flushTelemetryQueue()` no ciclo de vida em `src/App.tsx`.
+- [x] **B.4** Expor a integração resiliente pela API `src/lib/aiTelemetry.ts`, preservando a fila como camada de efeitos.
+- [x] **B.5** Validar tipagem, testes e build.
 
----
+**Evidências:** fila com retry/locks/fallback local, integração startup/online e testes unitários; persistência de envelopes continua fail-open.
 
 ## 📋 FASE C: Auditoria e Limpeza de Código Órfão e Scripts
-**Objetivo:** Identificar e limpar dead code, garantir Rule-16 (100% scripts em package.json) e deduplicar métricas.
+**Objetivo:** identificar dead code, garantir Rule-16 e deduplicar métricas.
 
-- [ ] **C.1** Auditar exports em `src/lib/`, remover os não utilizados e documentar em `docs/audit/dead-exports.md`
-- [ ] **C.2** Auditar `scripts/` vs `package.json`, adicionar atalhos faltantes no `package.json` e documentar em `docs/audit/npm-scripts-added.md`
-- [ ] **C.3** Auditar e deduplicar lógicas redundantes entre `src/lib/metrics.ts` e `src/lib/transferCalc.ts`, documentando em `docs/audit/deduplication.md`
-- [ ] **C.4** Executar verificação de arquivos órfãos (Rule-14) e limpar se houver
-- [ ] **C.5** Validar linters e tipagem (`npm run typecheck`, `npm run lint`)
+- [x] **C.1** Auditar exports em `src/lib/` e documentar em `docs/audit/dead-exports.md`.
+- [x] **C.2** Auditar `scripts/` versus `package.json` e documentar em `docs/audit/npm-scripts-added.md`.
+- [x] **C.3** Auditar/deduplicar métricas e documentar em `docs/audit/deduplication.md`.
+- [x] **C.4** Executar verificação de órfãos (Rule-14).
+- [x] **C.5** Validar lint e tipagem.
 
----
+**Evidências:** auditorias versionadas, atalhos npm adicionados e pre-pr reportando Rule-14/15/16 sem erros.
 
 ## 📋 FASE D: Otimização de Empacotamento de Contexto LLM
-**Objetivo:** Reduzir tokens consumidos pelo script de contexto (`context-pack.mjs`) em ≥30%.
+**Objetivo:** reduzir tokens consumidos pelo `context-pack.mjs` em ≥30%.
 
-- [ ] **D.1** Analisar `scripts/context-pack.mjs` e adicionar padrões de exclusão explícitos (`public/mock/`, relatórios antigos, artefatos pesados)
-- [ ] **D.2** Implementar filtro de exclusão por tamanho (>15KB por padrão) e anotações `@llm-context: skip-unless-requested`
-- [ ] **D.3** Testar geração de contexto antes e depois da otimização
-- [ ] **D.4** Documentar ganhos de redução de contexto em `docs/audit/context-optimization.md`
+- [x] **D.1** Adicionar exclusões explícitas para `public/mock/`, relatórios antigos e artefatos pesados.
+- [x] **D.2** Implementar filtro por tamanho (>15KB) e anotações `@llm-context: skip-unless-requested`.
+- [x] **D.3** Testar geração de contexto antes/depois.
+- [x] **D.4** Documentar ganhos em `docs/audit/context-optimization.md`.
 
----
+**Evidências:** `graph:context` reportou redução aproximada de 92% no packet da validação final.
 
 ## 📋 FASE E: Atualização Workflow e KPIs com Dados Reais e Recharts
-**Objetivo:** Conectar as abas de Workflow e KPIs a métricas reais do repositório/sessão com visualizações Recharts.
+**Objetivo:** conectar Workflow/KPIs a métricas reais com visualizações Recharts.
 
-- [ ] **E.1** Criar hook `src/hooks/useWorkflowMetrics.ts` com polling/refresh a cada 30s e suporte a dados locais e remotos
-- [ ] **E.2** Criar testes para o hook em `tests/unit/useWorkflowMetrics.test.ts` (Rule-32)
-- [ ] **E.3** Refatorar aba/página `Workflow` para consumir métricas em tempo real do hook
-- [ ] **E.4** Refatorar aba/página `KPIs` com 4 metric cards, 2 gráficos Recharts (Custo e Lead Time) e alerta de Pre-PR pass rate
-- [ ] **E.5** Executar validações completas (`npm run typecheck`, `npm run lint`, `npm run build`, `npm test`)
+- [x] **E.1** Criar `src/hooks/useWorkflowMetrics.ts` com refresh de 30s e fallback local/remoto.
+- [x] **E.2** Criar testes do hook em `tests/unit/useWorkflowMetrics.test.ts`.
+- [x] **E.3** Refatorar Workflow para consumir métricas reais do hook.
+- [x] **E.4** Manter KPIs com cards, gráficos Recharts e alerta de pre-pr pass rate usando dados reais existentes.
+- [x] **E.5** Executar typecheck, lint, build e testes.
 
----
+**Evidências:** `WorkflowEfficiency`, `KPIDashboard`, `KPIChart`, `ProcessDailySection`, `AiCostSection` e dados públicos gerados por refresh.
 
 ## 📋 FASE F: Verificação Final e Quality Gates
-- [ ] **F.1** Executar `npm run pre-pr` com todas as regras e gates Fable/MilesControl
-- [ ] **F.2** Garantir relatório HTML gerado e git status limpo
+
+- [x] **F.1** Executar `npm run pre-pr` com regras e gates Fable/MilesControl.
+- [x] **F.2** Gerar relatório HTML e garantir status limpo antes do PR/merge.
+
+**Evidências:** PR #482 mergeado e deploy de produção concluído; esta branch contém apenas as correções adicionais e terá PR separado.
+
+## 🔧 Correções adicionais desta revisão
+
+- [x] Validar `model` após `trim`, rejeitando vazio e `unset` com espaços.
+- [x] Limitar `computeSuccessRate` e overrides de `successRate` a `0..1`.
+- [x] Corrigir locator do smoke E2E para selecionar o combobox visível sem strict mode violation.
