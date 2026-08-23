@@ -123,7 +123,7 @@ Nenhum PR aberto.
 **Objetivo:** Master Plan de otimização, telemetria resiliente e atualização de Workflow/KPIs
 **Status:** in_progress
 **Iniciada em:** 2026-08-22T19:37:13.399Z
-**Branch:** `refactor/master-plan-optimization`
+**Branch:** `fix/roadmap-remainder`
 **Último commit:** 293ccb1 — Merge pull request #480 from andre0787/feat/refactor-report-modularization
 **Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
 

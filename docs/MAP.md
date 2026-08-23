@@ -592,3 +592,4 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/audit/dead-exports.md` (auto) | 2026-08-22 |
 | `docs/audit/context-optimization.md` (auto) | 2026-08-22 |
 | `docs/audit/npm-scripts-added.md` (auto) | 2026-08-22 |
+| `docs/superpowers/specs/2026-08-22-roadmap-remainder-design.md` (auto) | 2026-08-23 |
