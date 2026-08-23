@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T00:38:41.069Z",
+  "generatedAt": "2026-08-23T06:33:21.612Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -219,10 +219,10 @@
       "healedRate": 25,
       "frictionPerPass": 1.06,
       "llmRouter": {
-        "resolved": 29,
+        "resolved": 30,
         "completed": 0,
         "failed": 0,
-        "unobserved": 29,
+        "unobserved": 30,
         "fallbackUsed": 0,
         "completionRate": 0,
         "fallbackRate": null,
@@ -232,19 +232,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-07-24",
-      "label": "24/07",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-07-25",
       "label": "25/07",
@@ -621,100 +608,22 @@
       "sessions": 1,
       "merges": 7,
       "friction": 1.38
+    },
+    {
+      "day": "2026-08-23",
+      "label": "23/08",
+      "prePrTotal": 4,
+      "prePrPass": 4,
+      "prePrFail": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 3,
+      "healed": 2,
+      "sessions": 0,
+      "merges": 1,
+      "friction": 0.75
     }
   ],
-  "prs": [
-    {
-      "number": 482,
-      "title": "refactor: implementa otimização do master plan",
-      "type": "refactor",
-      "date": "2026-08-22",
-      "tokens": 2919,
-      "benefit": "Código mais simples — menor custo de manutenção",
-      "impact": "Menos custo em mudanças futuras"
-    },
-    {
-      "number": 480,
-      "title": "refactor: modulariza generate-report + pendências P13 + fix smoke test",
-      "type": "refactor",
-      "date": "2026-08-22",
-      "tokens": 2231,
-      "benefit": "Código mais simples — menor custo de manutenção",
-      "impact": "Menos custo em mudanças futuras"
-    },
-    {
-      "number": 478,
-      "title": "refactor: reduzir fricção de agentes e finalizar Agent Lab",
-      "type": "refactor",
-      "date": "2026-08-22",
-      "tokens": 2912,
-      "benefit": "Código mais simples — menor custo de manutenção",
-      "impact": "Menos custo em mudanças futuras"
-    },
-    {
-      "number": 476,
-      "title": "feat(p12.6): final items — real scout, scheduler, validation, alerts, E2E",
-      "type": "feat",
-      "date": "2026-08-22",
-      "tokens": 1364,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 474,
-      "title": "feat(p12.6): remaining P1 items — context mode, graph, orchestration, observability",
-      "type": "feat",
-      "date": "2026-08-22",
-      "tokens": 839,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 472,
-      "title": "feat(p12.6): validation productionization — real experiments, Agent Lab UI, telemetry",
-      "type": "feat",
-      "date": "2026-08-22",
-      "tokens": 2659,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 468,
-      "title": "feat(p12.6): Agent QA Mutation Lab + Promotion Intelligence",
-      "type": "feat",
-      "date": "2026-08-22",
-      "tokens": 5126,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 469,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-08-22",
-      "tokens": 333,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção"
-    },
-    {
-      "number": 466,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-08-21",
-      "tokens": 333,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção"
-    },
-    {
-      "number": 464,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-08-20",
-      "tokens": 335,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção"
-    }
-  ],
+  "prs": [],
   "repo": {
     "components": 129,
     "pages": 19,
@@ -723,7 +632,7 @@
     "testFiles": 277,
     "skills": 27,
     "rules": 48,
-    "events": 428,
+    "events": 430,
     "qualityNotes": 534
   },
   "summary": {
