@@ -45,17 +45,6 @@ describe("process-audit CLI", () => {
     expect(runAudit(["{broken"], ["--check"]).status).toBe(1);
   });
 
-  it("resolução do router sem conclusão é unobserved, sem falhar o check", () => {
-    const fixture = [
-      '{"type":"llm.route.resolved","timestamp":"2026-08-01T10:00:00Z","taskId":"t1","category":"feature","capability":null,"profile":"coding","model":"model/primary","fallbackModels":[],"source":"category-default","retrySafety":"may-write","configVersion":1,"skills":[]}',
-    ];
-
-    const json = runAudit(fixture, ["--json"]);
-    expect(json.status).toBe(0);
-    expect(JSON.parse(json.stdout).unobserved).toBe(1);
-    expect(runAudit(fixture, ["--check"]).status).toBe(0);
-  });
-
   it("campo sensível falha o check sem ecoar o valor", () => {
     const fixture = [
       '{"type":"pre-pr","timestamp":"2026-08-01T10:00:00Z","branch":"feat/a","errors":0,"prompt":"SEGREDO-123"}',
@@ -69,7 +58,6 @@ describe("process-audit CLI", () => {
 
   it("relatório humano contém contagens e não valores sensíveis", () => {
     const fixture = [
-      '{"type":"llm.route.resolved","timestamp":"2026-08-01T10:00:00Z","taskId":"t1","category":"feature","capability":null,"profile":"coding","model":"model/primary","fallbackModels":[],"source":"category-default","retrySafety":"may-write","configVersion":1,"skills":[]}',
       '{"type":"pre-pr","timestamp":"2026-08-01T11:00:00Z","branch":"feat/a","errors":0,"token":"abc"}',
     ];
 

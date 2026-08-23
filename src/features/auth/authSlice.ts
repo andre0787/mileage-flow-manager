@@ -5,12 +5,14 @@ export interface AuthState {
   user: User | null;
   session: Session | null;
   loading: boolean;
+  isAdmin: boolean;
 }
 
 const initialState: AuthState = {
   user: null,
   session: null,
   loading: true,
+  isAdmin: false,
 };
 
 const authSlice = createSlice({
@@ -20,6 +22,9 @@ const authSlice = createSlice({
     setSession(state, action: PayloadAction<Session | null>) {
       state.session = action.payload;
       state.user = action.payload?.user ?? null;
+    },
+    setIsAdmin(state, action: PayloadAction<boolean>) {
+      state.isAdmin = action.payload;
     },
     setLoading(state, action: PayloadAction<boolean>) {
       state.loading = action.payload;
@@ -32,7 +37,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { setSession, setLoading, clear } = authSlice.actions;
+export const { setSession, setLoading, setIsAdmin, clear } = authSlice.actions;
 export const authReducer = authSlice.reducer;
 
 // ponytail: seletor com parâmetro estrutural (não importa RootState) — evita
@@ -42,3 +47,4 @@ type AuthRootState = { auth: AuthState };
 export const selectUser = (state: AuthRootState) => state.auth.user;
 export const selectSession = (state: AuthRootState) => state.auth.session;
 export const selectLoading = (state: AuthRootState) => state.auth.loading;
+export const selectIsAdmin = (state: AuthRootState) => state.auth.isAdmin;

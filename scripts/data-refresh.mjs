@@ -37,11 +37,11 @@ const EVENT_PALETTE = [
   ["pre-pr", "#8b5cf6"],
   ["rule:fail", "#ef4444"],
   ["healed", "#10b981"],
-  ["llm.route.resolved", "#14b8a6"],
+
   ["code-review:done", "#6366f1"],
   ["coding:done", "#22c55e"],
   ["session:end", "#f59e0b"],
-  ["llm.route.completed", "#0ea5e9"],
+
   ["gate", "#f43f5e"],
   ["pr:create", "#f97316"],
   ["pr:merge", "#16a34a"],

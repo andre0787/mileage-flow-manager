@@ -1,30 +1,21 @@
-# AI Session State - 2026-08-22T20:40:00.000Z
+# AI Session State - 2026-08-23T10:30:00.000Z
 
 ## Última Task
-- **Refactor Master Plan — Fases A–E implementadas** na branch `refactor/master-plan-optimization`.
-- Workflow migrou dados estáticos para `public/mock/workflow-fallback.json` e `src/lib/workflowStaticData.ts`.
-- Telemetria ganhou fila local, retry limitado, validação, locks e persistência fail-open.
-- Context-pack, scripts, auditorias e hook de métricas foram atualizados.
+- **Admin role + LLM Router desativado** — tudo commitado na branch `feat/admin-role-and-router-deactivation`.
 
-## Estado dos Testes & Qualidade
-- ✅ `npm run typecheck`
-- ✅ `npm run lint`
-- ✅ testes direcionados: 4 arquivos / 8 testes
-- ✅ `npm run build`
-- ⚠️ `npm run pre-pr`: requer revisão aprovada e nova verificação documental.
+## Status
+- **Branch:** `feat/admin-role-and-router-deactivation`
+- **Commit:** feat: admin role para andreluiz0787@gmail.com + desativação do LLM Router
+- **Migration:** `supabase/migrations/20260823000000_add_admin_role.sql` (pendente de deploy)
+- **Testes:** ✅ 140/140, 1180/1180
+- **TypeScript:** ✅ zero erros
 
-## Pendências Imediatas
-- Obter revisão read-only aprovada e registrar rule-38.
-- Rodar `npm run verify-docs:strict` e `npm run pre-pr` novamente.
-- Organizar commits atômicos e seguir fluxo PR; não fazer push direto na main.
-- Deploy aguarda CI e merge aprovado.
+## O que foi feito
+1. **Admin role:** Coluna `is_admin` na profiles, RLS bypass, AuthProvider expõe `isAdmin`
+2. **LLM Router removido:** scripts, config, componente React, testes, docs
+3. **KPIs regenerados:** `npm run data:refresh` executado (356 eventos, 30 dias)
 
-## Arquivos Modificados & Impacto
-- Workflow, telemetria, scripts, auditorias e testes foram atualizados; sem migrations novas.
-- Impacto: fallback estático, fila resiliente e métricas reais sem dados demo na UI.
-
-## Governança de Contexto
-- Branch: `refactor/master-plan-optimization` com alterações locais.
-- AUTH: usuário autorizou “autorizo o deploy em produção”; deploy somente após gates.
-- Riscos: locks fail-safe e descarte após tentativas máximas.
-- Context-pack otimizado; manter tracking resumido e estado abaixo de 50 linhas.
+## Próximos Passos
+- Criar PR a partir da branch
+- Aplicar migration no Supabase (produção)
+- Verificar `useAuth().isAdmin` em runtime

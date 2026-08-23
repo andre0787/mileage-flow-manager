@@ -1,5 +1,7 @@
 # KPI de Ativação do Router LLM Implementation Plan
 
+> ⚠️ **DEPRECATED (2026-08-23):** LLM Router desativado e removido do projeto. Este plano é mantido apenas como referência histórica.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Registrar execução efetiva do router LLM e exibir mensalmente modelos usados, fallbacks, cobertura de conclusão e relação skill→modelo.
@@ -78,10 +80,10 @@ git commit -m "feat: registrar skills e fallback efetivo do router"
 
 ### Task 2: Garantir a CLI de conclusão observável
 
-**Files:**
-- Modify: scripts/llm-route.mjs
-- Modify: tests/unit/scripts-llm-route.test.ts
-- Modify: docs/LLM-ROUTER.md
+**Files:** (DEPRECATED — LLM Router desativado em 2026-08-23)
+- ~~Modify: scripts/llm-route.mjs~~
+- ~~Modify: tests/unit/scripts-llm-route.test.ts~~
+- ~~Modify: docs/LLM-ROUTER.md~~ (deleted)
 
 **Interfaces:**
 - Consumes: createCompletedEvent’s extended input contract.
@@ -97,15 +99,15 @@ The CLI must continue parsing one JSON event and delegating validation to create
 
 - [x] **Step 3: Document dispatcher order**
 
-Update docs/LLM-ROUTER.md with the four-step sequence: resolve, invoke the selected subagent/fallback, complete with the effective model/status/skills, and record pre-launch failures as failed. State that resolved alone is not execution.
+(DEPRECATED) Update LLM-ROUTER doc (deleted) with the four-step sequence.
 
 - [x] **Step 4: Verify and commit**
 
 ```bash
-npm test -- tests/unit/scripts-llm-route.test.ts
-npm run llm:route:validate
-git add scripts/llm-route.mjs tests/unit/scripts-llm-route.test.ts docs/LLM-ROUTER.md
-git commit -m "docs: explicitar conclusao efetiva do router"
+# DEPRECATED — LLM Router removido em 2026-08-23
+# npm test -- tests/unit/scripts-llm-route.test.ts
+# npm run llm:route:validate
+# git add scripts/llm-route.mjs tests/unit/scripts-llm-route.test.ts
 ```
 
 ---
@@ -209,9 +211,9 @@ git commit -m "feat: exibir KPI de ativacao do router"
 ### Task 5: Integrar eventos reais do dispatcher e fechar verificação
 
 **Files:**
-- Modify: scripts/llm-route.mjs
+- ~~Modify: scripts/llm-route.mjs~~
 - Modify: scripts/event-log.mjs
-- Modify: docs/LLM-ROUTER.md
+- ~~Modify: docs/LLM-ROUTER.md~~ (deleted)
 - Modify: docs/handoff.md
 - Modify: docs/tracking/events.jsonl
 - Modify: docs/tracking/quality.jsonl
@@ -249,6 +251,6 @@ npm run build
 - [x] **Step 5: Commit the integrated evidence**
 
 ```bash
-git add scripts/llm-route.mjs scripts/event-log.mjs docs/LLM-ROUTER.md docs/handoff.md docs/tracking/events.jsonl docs/tracking/quality.jsonl public/kpi-data.json
-git commit -m "feat: fechar telemetria de execucao do router"
+# DEPRECATED — LLM Router removido em 2026-08-23
+# git add scripts/llm-route.mjs scripts/event-log.mjs docs/handoff.md docs/tracking/events.jsonl docs/tracking/quality.jsonl public/kpi-data.json
 ```

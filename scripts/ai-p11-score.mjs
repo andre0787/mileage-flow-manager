@@ -111,8 +111,7 @@ const AXES = [
     name: "Model abstraction",
     evidence: [
       file("src/ai/core/model-contract.ts"),
-      file("scripts/llm-route.mjs"),
-      file("config/llm-router.json"),
+      // Router de modelos desativado
     ],
     tests: countTests("contracts"),
   },

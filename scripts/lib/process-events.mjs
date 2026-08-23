@@ -1,4 +1,3 @@
-import { validateRouterEvent } from "./llm-router.mjs";
 
 export const PROCESS_EVENT_TYPES = Object.freeze([
   "session",
@@ -12,8 +11,7 @@ export const PROCESS_EVENT_TYPES = Object.freeze([
   "healed",
   "gate",
   "gate:blocked",
-  "llm.route.resolved",
-  "llm.route.completed",
+
   "code-review:done",
   "coding:done",
   "custom",
@@ -151,10 +149,7 @@ export function validateProcessEvent(event) {
       }
       break;
     }
-    case "llm.route.resolved":
-    case "llm.route.completed":
-      issues.push(...validateRouterEvent(event));
-      break;
+
     default:
       break;
   }
@@ -182,19 +177,13 @@ export function summarizeProcessEvidence(events) {
     byType[type] = (byType[type] ?? 0) + 1;
   }
 
-  const resolved = safeEvents.filter((event) => event?.type === "llm.route.resolved");
-  const completedTaskIds = new Set(
-    safeEvents
-      .filter((event) => event?.type === "llm.route.completed" && nonEmptyString(event.taskId))
-      .map((event) => event.taskId),
-  );
   const issues = validateProcessEvents(safeEvents);
 
   return {
     total: safeEvents.length,
     invalid: issues.length,
     byType,
-    unobserved: resolved.filter((event) => !completedTaskIds.has(event.taskId)).length,
+    unobserved: 0,
     issues,
   };
 }

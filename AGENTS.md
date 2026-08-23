@@ -26,9 +26,7 @@
 | `docs/fable-gates.md`                   | Gates INTENT, TWINS e AUTH do Fable Method                                                           | novo                                |
 | `.pi/skills/code-review-graph/SKILL.md` | Mapeamento estrutural do código (CLI CRG v2.3.7, pipx): architecture, dead-code, communities, impact | nova — usar em auditorias e reviews |
 
-### Roteamento de subagentes
-
-Antes de cada `subagent_gate`, resolva a tarefa com `npm run llm:route`. Use exatamente `model`, `fallbackModels` e `retrySafety` retornados; não escolha modelo inline nem omita `model` em uma tarefa roteada. Registre conclusão somente com metadados sanitizados. Consulte [`docs/LLM-ROUTER.md`](docs/LLM-ROUTER.md) para o contrato operacional.
+### Delegação de subagentes
 
 **Delegação econômica (obrigatória em toda delegação):** siga `compact-delegation` — contexto mínimo (task de 1-3 frases, sem histórico), retorno estruturado de campos-chave (nunca eco de arquivos/logs), sem herança de contexto. Para escopo estreito use `bounded-scout` (file|line|finding), para entender diffs use `diff-miner` (impact|risk|files), para falhas de teste use `test-triage` (cause|fix|evidence), para falhas do `pre-pr` use `pre-pr-triage` (rule|file|fix, só `❌` conta). Para resumo de entregas de um período (dia/semana), use `report-consolidation` → `npm run report:consolidate` (1 linha por PR, nunca commits). Subagentes mecânicos → perfil `efficient` via router.
 

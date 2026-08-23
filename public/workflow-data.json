@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-23T00:38:47.157Z",
+  "generatedAt": "2026-08-23T13:30:11.755Z",
   "dataDate": "2026-08-23",
   "kpiStats": [
     {
-      "value": 428,
+      "value": 356,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 534,
+      "value": 522,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,17 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 277,
+      "value": 269,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 35,
+      "value": 30,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 35,
+      "value": 29,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,49 +36,44 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 18,
+      "n": 11,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 132,
+      "n": 108,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 140,
+      "n": 120,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 35,
+      "n": 30,
       "color": "#10b981"
     },
     {
-      "name": "llm.route.resolved",
-      "n": 29,
-      "color": "#14b8a6"
-    },
-    {
       "name": "code-review:done",
-      "n": 38,
+      "n": 29,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 36,
+      "n": 28,
       "color": "#22c55e"
     }
   ],
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 320,
+      "n": 309,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 200,
+      "n": 199,
       "color": "#84cc16"
     },
     {
@@ -88,6 +83,16 @@
     }
   ],
   "recentTimeline": [
+    {
+      "t": "2026-08-23 00:58:57",
+      "d": "coding:done",
+      "desc": "Corrige locator secundário do smoke E2E"
+    },
+    {
+      "t": "2026-08-23 00:57:35",
+      "d": "llm.route.resolved",
+      "desc": "LLM route resolved"
+    },
     {
       "t": "2026-08-23 00:38:40",
       "d": "pre-pr",
@@ -117,55 +122,63 @@
       "t": "2026-08-23 00:35:07",
       "d": "coding:done",
       "desc": "Correção final dos findings do review concluída por subagente"
-    },
-    {
-      "t": "2026-08-23 00:34:20",
-      "d": "llm.route.resolved",
-      "desc": "LLM route resolved"
-    },
-    {
-      "t": "2026-08-23 00:32:09",
-      "d": "llm.route.resolved",
-      "desc": "LLM route resolved"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 140,
-    "healed": 35,
+    "ruleFails": 120,
+    "healed": 30,
     "healedRate": 25,
-    "prePrTotal": 132,
-    "prePrPass": 132,
+    "prePrTotal": 108,
+    "prePrPass": 108,
     "prePrPassRate": 100,
     "gateBlocked": 0,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 45,
+        "count": 41,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
         "rule": "rule-39-coding-gate",
-        "count": 22,
+        "count": 20,
         "hint": "faltou evento coding:done por subagente na branch"
       },
       {
+        "rule": "rule-30-outcome-grade",
+        "count": 8,
+        "hint": ""
+      },
+      {
         "rule": "rule-17-new-docs-valid",
-        "count": 11,
+        "count": 8,
         "hint": "novo doc criado sem validar referências no MAP.md"
       },
       {
         "rule": "rule-41-optimizer",
-        "count": 10,
+        "count": 7,
         "hint": "arquivo acima do limite de 150 linhas"
-      },
-      {
-        "rule": "rule-26-session-started",
-        "count": 8,
-        "hint": "timestamp de sessão ausente — npm run session:start"
       }
     ]
   },
   "lastPrs": [
+    {
+      "number": 487,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-08-23",
+      "tokens": 484,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção"
+    },
+    {
+      "number": 486,
+      "title": "fix: desambigua seletor do smoke de produção",
+      "type": "fix",
+      "date": "2026-08-23",
+      "tokens": 17,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação"
+    },
     {
       "number": 482,
       "title": "refactor: implementa otimização do master plan",
@@ -192,35 +205,17 @@
       "tokens": 2912,
       "benefit": "Código mais simples — menor custo de manutenção",
       "impact": "Menos custo em mudanças futuras"
-    },
-    {
-      "number": 476,
-      "title": "feat(p12.6): final items — real scout, scheduler, validation, alerts, E2E",
-      "type": "feat",
-      "date": "2026-08-22",
-      "tokens": 1364,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 474,
-      "title": "feat(p12.6): remaining P1 items — context mode, graph, orchestration, observability",
-      "type": "feat",
-      "date": "2026-08-22",
-      "tokens": 839,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "overview": {
-    "components": 129,
+    "components": 128,
     "pages": 19,
     "libs": 35,
-    "scripts": 123,
-    "testFiles": 277,
+    "scripts": 120,
+    "testFiles": 269,
     "skills": 27,
     "rules": 48,
-    "events": 428,
-    "qualityNotes": 534
+    "events": 356,
+    "qualityNotes": 522
   }
 }

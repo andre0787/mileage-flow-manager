@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-08-22
-> Último commit: 93e72f4-Merge pull request #466 from andre0787/chore/quality-nightly-update
+> Gerado em: 2026-08-23
+> Último commit: d876a30-Merge pull request #486 from andre0787/fix/smoke-origin-locator
 
 ## Pipeline
 
@@ -15,21 +15,21 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 1039 |
-| E2E  | 86 |
-| **Total** | **1125** |
+| Unit | 1089 |
+| E2E  | 95 |
+| **Total** | **1184** |
 
 ## Bundle
 
 | Métrica | Valor |
 |---------|-------|
-| Tamanho (dist) | 1805kB |
+| Tamanho (dist) | 1841kB |
 
 ## Documentação
 
 | Métrica | Valor |
 |---------|-------|
-| Arquivos .md | 211 |
+| Arquivos .md | 223 |
 | Arquivados | 46 |
 | Issues (verify-docs) | 0 |
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-08-22 | ✅ | 1125 | 1805kB | 0 issues |
+| 2026-08-23 | ✅ | 1184 | 1841kB | 0 issues |
 
 ---
 

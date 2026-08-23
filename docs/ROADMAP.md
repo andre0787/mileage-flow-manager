@@ -26,7 +26,7 @@
 
 - **Causa raiz:** pacote `pi-subagents` **ausente** do ambiente (settings do pi sem o pacote) → responder RPC inexistente → `subagent_gate` falha em pre-launch (`failureKind: subagent_prelaunch`); agravado pela v0.39.0 (01/08) que passou a rejeitar agentes fora do catálogo (`allowedAgents` — `general-purpose`, `council-contrarian`, `review` eram inválidos)
 - **Fix aplicado:** `pi install npm:pi-subagents` (settings registrado; extensão ativa no próximo startup do pi) + uso de agentes builtin (`worker`, `reviewer`, `oracle`, `scout`, `planner`, `researcher`, `advisor`, `delegate`, `context-builder`)
-- **Guard no repo:** `npm run harness:check` (read-only; `--check` falha com mensagem acionável) — valida o harness ANTES de delegar, evitando falhas reativas no KPI; doc em `docs/LLM-ROUTER.md`
+- **Guard no repo:** `npm run harness:check` (read-only; `--check` falha com mensagem acionável) — valida o harness ANTES de delegar, evitando falhas reativas no KPI
 
 ### P3 — Branch remota órfã `feat/process-kpi-observability-impl`
 

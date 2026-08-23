@@ -50,20 +50,7 @@ const mockData: KpiData = {
       violationsCaught: 5,
       healedRate: 20,
       frictionPerPass: 0.83,
-      llmRouter: {
-        resolved: 4,
-        completed: 3,
-        failed: 1,
-        unobserved: 1,
-        fallbackUsed: 1,
-        completionRate: 75,
-        fallbackRate: 33.3,
-        models: ["model/primary", "model/fallback"],
-        skillsByModel: [
-          { skill: "systematic-debugging", model: "model/primary" },
-          { skill: "test-driven-development", model: "model/fallback" },
-        ],
-      },
+
     },
     {
       month: "2026-06",
@@ -162,14 +149,6 @@ describe("KPIDashboard", () => {
     expect(screen.getAllByText("2026-06").length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText("1.5h")).toBeDefined();
     expect(screen.getByText("2.1h")).toBeDefined();
-  });
-
-  it("renders the router KPI section with the month block", () => {
-    render(<KPIDashboard data={mockData} />);
-    expect(screen.getByText(/Ativações do Router/i)).toBeDefined();
-    expect(screen.getByText(/Uso de Fallback/i)).toBeDefined();
-    expect(screen.getByText("33.3%")).toBeDefined();
-    expect(screen.getAllByText("model/fallback").length).toBeGreaterThanOrEqual(1);
   });
 
   it("renders entregas recentes (PrsPanel)", () => {

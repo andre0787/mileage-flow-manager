@@ -58,8 +58,7 @@
     "validate-stock": "node scripts/validate-stock.mjs",
     "task:validate": "node scripts/task-validate.mjs",
     "task:validate:strict": "node scripts/task-validate.mjs --strict",
-    "llm:route": "node scripts/llm-route.mjs",
-    "llm:route:validate": "node scripts/llm-route.mjs validate",
+
     "task:state": "node scripts/task-state.mjs",
     "context:pack": "node scripts/context-pack.mjs",
     "context:audit": "node scripts/context-audit.mjs",

@@ -6,20 +6,6 @@ import {
   validateProcessEvents,
 } from "../../scripts/lib/process-events.mjs";
 
-const resolvedEvent = {
-  type: "llm.route.resolved",
-  timestamp: "2026-08-01T10:00:00Z",
-  taskId: "task-resolved",
-  category: "feature",
-  capability: null,
-  profile: "coding",
-  model: "model/primary",
-  fallbackModels: [],
-  source: "category-default",
-  retrySafety: "may-write",
-  configVersion: 1,
-  skills: [],
-};
 
 describe("process-events parser", () => {
   it("parseia JSONL plano sem perder eventos", () => {
@@ -112,19 +98,8 @@ describe("process-events validation", () => {
     ).toEqual([]);
   });
 
-  it("valida eventos router pelo contrato compartilhado", () => {
-    expect(validateProcessEvent(resolvedEvent)).toEqual([]);
-    expect(
-      validateProcessEvent({
-        ...resolvedEvent,
-        model: "",
-      }),
-    ).toEqual(expect.arrayContaining([expect.stringMatching(/model/i)]));
-  });
-
-  it("agrega tipos, inválidos e resoluções sem conclusão", () => {
+  it("agrega tipos e inválidos", () => {
     const events = [
-      resolvedEvent,
       {
         type: "pre-pr",
         timestamp: "2026-08-01T11:00:00Z",
@@ -140,10 +115,10 @@ describe("process-events validation", () => {
 
     expect(validateProcessEvents(events)).toHaveLength(1);
     expect(summarizeProcessEvidence(events)).toMatchObject({
-      total: 3,
+      total: 2,
       invalid: 1,
-      byType: { "llm.route.resolved": 1, "pre-pr": 1, gate: 1 },
-      unobserved: 1,
+      byType: { "pre-pr": 1, gate: 1 },
+      unobserved: 0,
     });
   });
 });

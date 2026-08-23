@@ -60,8 +60,6 @@ Scouts (graph/domain/test/history), Architect, Implementer, Reviewer, Domain Kno
 | `scripts/exec-intel.mjs` | ✅ — scout/domain/test/review/run/validate |
 | `scripts/exec-run-real.ts` (tsx) | ✅ — pipeline §3 real via dispatcher TS (runner P8) |
 | `scripts/telemetry-persist.mjs` / `telemetry-audit.mjs` | ✅ |
-| `scripts/llm-route.mjs` | ✅ — resolve/validate/complete com `config/llm-router.json` |
-
 ### 1.8 KPI UI / Workflow UI
 | Peça | Estado |
 |---|---|
