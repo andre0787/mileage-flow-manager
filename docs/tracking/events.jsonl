@@ -364,3 +364,5 @@
 {"timestamp":"2026-08-23T15:13:12.929Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/workflow-pipeline-live-data","commit":"64dc43c","agent":"human","errors":0}
 {"timestamp":"2026-08-23T15:15:16.199Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/workflow-pipeline-live-data","commit":"c8e6db7","agent":"human","errors":0}
 {"timestamp":"2026-08-23T15:16:39.157Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/workflow-pipeline-live-data","commit":"94e45fc","agent":"human","errors":0}
+{"timestamp":"2026-08-23T15:23:57.272Z","type":"rule:fail","description":"rule-15-duplicate-code falhou","branch":"fix/ai-engineering-live-data","commit":"d08725e","agent":"human","rule":"rule-15-duplicate-code"}
+{"timestamp":"2026-08-23T15:25:03.946Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/ai-engineering-live-data","commit":"d08725e","agent":"human","errors":0}

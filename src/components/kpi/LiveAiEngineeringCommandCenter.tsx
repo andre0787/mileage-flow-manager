@@ -1,28 +1,28 @@
 /**
- * LivePipelineDag.tsx — Fetches live telemetry from ai_telemetry
- * and passes to WorkflowPipelineDag for the DAG visualization.
+ * LiveAiEngineeringCommandCenter.tsx — Fetches live telemetry from ai_telemetry
+ * and passes to AiEngineeringCommandCenter for the KPI dashboard.
  */
 
 import { Suspense, use } from "react";
 import { loadEnvelopes } from "@/lib/telemetryAdapter";
-import WorkflowPipelineDag from "./WorkflowPipelineDag";
+import AiEngineeringCommandCenter from "./AiEngineeringCommandCenter";
 
 let envelopePromise: ReturnType<typeof loadEnvelopes> | null = null;
 
 function LiveContent() {
   if (!envelopePromise) envelopePromise = loadEnvelopes();
   const envelopes = use(envelopePromise);
-  return <WorkflowPipelineDag envelopes={envelopes} />;
+  return <AiEngineeringCommandCenter envelopes={envelopes} />;
 }
 
-export default function LivePipelineDag() {
+export default function LiveAiEngineeringCommandCenter() {
   return (
     <Suspense
       fallback={
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="font-display text-lg font-semibold">Pipeline real (DAG)</h3>
-            <span className="text-xs text-muted-foreground">Carregando...</span>
+          <div>
+            <h3 className="font-display text-lg font-semibold">🤖 AI Engineering Command Center</h3>
+            <p className="text-sm text-muted-foreground">Carregando...</p>
           </div>
           <div className="h-32 animate-pulse rounded-xl bg-muted" />
         </div>
