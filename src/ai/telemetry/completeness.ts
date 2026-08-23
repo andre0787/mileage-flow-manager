@@ -18,7 +18,9 @@ export const RUN_IDENTITY_FIELDS = ["taskId", "runId", "model"] as const;
 
 /** Model identity válida? "unset" é inválida (P11-03). */
 export function hasValidModelIdentity(env: TelemetryEnvelope): boolean {
-  return typeof env.model === "string" && env.model.length > 0 && env.model !== "unset";
+  return (
+    typeof env.model === "string" && env.model.trim().length > 0 && env.model.trim() !== "unset"
+  );
 }
 
 /**
@@ -38,6 +40,7 @@ export function isEnvelopeComplete(env: TelemetryEnvelope): boolean {
     env.eventType.startsWith("graph.query.");
   if (!needsIdentity) return true;
   return RUN_IDENTITY_FIELDS.every((f) => {
+    if (f === "model") return hasValidModelIdentity(env);
     const v = env[f];
     return typeof v === "string" && v.length > 0;
   });
@@ -81,6 +84,10 @@ export function checkEnvelopeCompleteness(
       }
       if (persistable) {
         for (const f of RUN_IDENTITY_FIELDS) {
+          if (f === "model") {
+            if (!hasValidModelIdentity(env)) missing.push(f);
+            continue;
+          }
           const v = env[f];
           if (typeof v !== "string" || v.length === 0) missing.push(f);
         }

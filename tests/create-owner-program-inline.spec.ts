@@ -131,7 +131,9 @@ test("Criação inline de dono e programa ao registrar entrada @smoke-prod", asy
   // 9. Verificar que a conta foi auto-selecionada
   // Aguarda o drawer de conta fechar antes de verificar no drawer de entrada
   await expect(accountDrawer).toBeHidden({ timeout: 5_000 });
-  await expect(entryDrawer.getByText("Conta Completa Inline")).toBeVisible({ timeout: 5_000 });
+  await expect(
+    entryDrawer.getByRole("combobox").filter({ hasText: "Conta Completa Inline" }),
+  ).toBeVisible({ timeout: 5_000 });
 
   // 10. Preencher restante da entrada
   await page.fill("#entryDate", new Date().toISOString().split("T")[0]);
@@ -154,7 +156,7 @@ test("Criação inline de dono e programa ao registrar entrada @smoke-prod", asy
     page
       .locator("table")
       .getByText("Dono Criado Inline")
-      .first()
+      .first(),
   ).toBeVisible({ timeout: 5_000 });
 
   // 14. Verificar dono e programa criados na página de configurações

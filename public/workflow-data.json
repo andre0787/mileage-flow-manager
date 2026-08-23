@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-22T21:04:29.110Z",
-  "dataDate": "2026-08-22",
+  "generatedAt": "2026-08-23T00:38:47.157Z",
+  "dataDate": "2026-08-23",
   "kpiStats": [
     {
-      "value": 407,
+      "value": 428,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 532,
+      "value": 534,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 33,
+      "value": 35,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 34,
+      "value": 35,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,44 +41,44 @@
     },
     {
       "name": "pre-pr",
-      "n": 127,
+      "n": 132,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 137,
+      "n": 140,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 33,
+      "n": 35,
       "color": "#10b981"
     },
     {
       "name": "llm.route.resolved",
-      "n": 21,
+      "n": 29,
       "color": "#14b8a6"
     },
     {
       "name": "code-review:done",
-      "n": 37,
+      "n": 38,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 34,
+      "n": 36,
       "color": "#22c55e"
     }
   ],
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 319,
+      "n": 320,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 199,
+      "n": 200,
       "color": "#84cc16"
     },
     {
@@ -89,63 +89,63 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-22 21:04:23",
+      "t": "2026-08-23 00:38:40",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-22 21:03:37",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-22 21:02:42",
+      "t": "2026-08-23 00:37:59",
       "d": "code-review:done",
-      "desc": "Review aprovado por subagente"
+      "desc": "Review final aprovado por subagente"
     },
     {
-      "t": "2026-08-22 21:01:13",
+      "t": "2026-08-23 00:37:08",
       "d": "llm.route.resolved",
       "desc": "LLM route resolved"
     },
     {
-      "t": "2026-08-22 21:00:37",
-      "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
+      "t": "2026-08-23 00:35:20",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-22 20:58:19",
+      "t": "2026-08-23 00:35:08",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-23 00:35:07",
+      "d": "coding:done",
+      "desc": "Correção final dos findings do review concluída por subagente"
+    },
+    {
+      "t": "2026-08-23 00:34:20",
       "d": "llm.route.resolved",
       "desc": "LLM route resolved"
     },
     {
-      "t": "2026-08-22 20:57:11",
-      "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
-    },
-    {
-      "t": "2026-08-22 20:55:15",
+      "t": "2026-08-23 00:32:09",
       "d": "llm.route.resolved",
       "desc": "LLM route resolved"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 137,
-    "healed": 33,
-    "healedRate": 24.1,
-    "prePrTotal": 127,
-    "prePrPass": 127,
+    "ruleFails": 140,
+    "healed": 35,
+    "healedRate": 25,
+    "prePrTotal": 132,
+    "prePrPass": 132,
     "prePrPassRate": 100,
     "gateBlocked": 0,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 44,
+        "count": 45,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
         "rule": "rule-39-coding-gate",
-        "count": 21,
+        "count": 22,
         "hint": "faltou evento coding:done por subagente na branch"
       },
       {
@@ -155,7 +155,7 @@
       },
       {
         "rule": "rule-41-optimizer",
-        "count": 9,
+        "count": 10,
         "hint": "arquivo acima do limite de 150 linhas"
       },
       {
@@ -166,6 +166,15 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 482,
+      "title": "refactor: implementa otimização do master plan",
+      "type": "refactor",
+      "date": "2026-08-22",
+      "tokens": 2919,
+      "benefit": "Código mais simples — menor custo de manutenção",
+      "impact": "Menos custo em mudanças futuras"
+    },
     {
       "number": 480,
       "title": "refactor: modulariza generate-report + pendências P13 + fix smoke test",
@@ -201,15 +210,6 @@
       "tokens": 839,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 472,
-      "title": "feat(p12.6): validation productionization — real experiments, Agent Lab UI, telemetry",
-      "type": "feat",
-      "date": "2026-08-22",
-      "tokens": 2659,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "overview": {
@@ -220,7 +220,7 @@
     "testFiles": 277,
     "skills": 27,
     "rules": 48,
-    "events": 407,
-    "qualityNotes": 532
+    "events": 428,
+    "qualityNotes": 534
   }
 }

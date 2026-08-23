@@ -8,6 +8,8 @@
  * registrada em `area` no momento do insert.
  */
 
+export { recordTelemetry } from "@/lib/telemetryQueue";
+
 export interface AiTelemetryRecord {
   id: string;
   user_id: string;
@@ -38,7 +40,9 @@ export function estimateCost(tokensUsed: number, costPer1kTokens = 0.003): numbe
 /** Taxa de sucesso 0.0..1.0; sem execuções → 1 (nada a reportar como falha). */
 export function computeSuccessRate(successCount: number, totalCount: number): number {
   if (totalCount <= 0) return 1;
-  return Math.round((successCount / totalCount) * 100) / 100;
+  const ratio = successCount / totalCount;
+  if (Number.isNaN(ratio)) return 0;
+  return Math.min(1, Math.max(0, Math.round(ratio * 100) / 100));
 }
 
 /** Monta o registro com defaults (pruning 0, sucesso 1, timestamp now). */
@@ -60,7 +64,10 @@ export function buildAiTelemetryRecord(input: {
     prompt_tokens_saved_by_pruning: input.promptTokensSavedByPruning ?? 0,
     total_execution_time_ms: input.totalExecutionTimeMs,
     cost_estimate: estimateCost(input.tokensUsed, input.costPer1kTokens),
-    success_rate: input.successRate ?? 1,
+    success_rate:
+      input.successRate == null || Number.isNaN(input.successRate)
+        ? 1
+        : Math.min(1, Math.max(0, input.successRate)),
   };
 }
 
