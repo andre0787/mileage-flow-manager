@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T21:04:23.989Z",
+  "generatedAt": "2026-08-23T00:38:41.069Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -175,8 +175,8 @@
     {
       "month": "2026-08",
       "prePrPassRate": 100,
-      "prePrTotal": 127,
-      "prePrPass": 127,
+      "prePrTotal": 132,
+      "prePrPass": 132,
       "prePrFail": 0,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -189,11 +189,11 @@
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
-          "count": 44
+          "count": 45
         },
         {
           "rule": "rule-39-coding-gate",
-          "count": 21
+          "count": 22
         },
         {
           "rule": "rule-17-new-docs-valid",
@@ -201,7 +201,7 @@
         },
         {
           "rule": "rule-41-optimizer",
-          "count": 9
+          "count": 10
         },
         {
           "rule": "rule-26-session-started",
@@ -209,20 +209,20 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 26,
-        "rule-17-new-docs-valid": 7
+        "rule-26": 27,
+        "rule-17-new-docs-valid": 8
       },
       "gateBlockedByRule": {},
       "avgCycleTimeHours": 1.4,
-      "branchesMerged": 43,
-      "violationsCaught": 137,
-      "healedRate": 24.1,
-      "frictionPerPass": 1.08,
+      "branchesMerged": 44,
+      "violationsCaught": 140,
+      "healedRate": 25,
+      "frictionPerPass": 1.06,
       "llmRouter": {
-        "resolved": 21,
+        "resolved": 29,
         "completed": 0,
         "failed": 0,
-        "unobserved": 21,
+        "unobserved": 29,
         "fallbackUsed": 0,
         "completionRate": 0,
         "fallbackRate": null,
@@ -612,18 +612,27 @@
     {
       "day": "2026-08-22",
       "label": "22/08",
-      "prePrTotal": 15,
-      "prePrPass": 15,
+      "prePrTotal": 16,
+      "prePrPass": 16,
       "prePrFail": 0,
       "prePrPassRate": 100,
       "ruleFails": 22,
       "healed": 2,
       "sessions": 1,
       "merges": 7,
-      "friction": 1.47
+      "friction": 1.38
     }
   ],
   "prs": [
+    {
+      "number": 482,
+      "title": "refactor: implementa otimização do master plan",
+      "type": "refactor",
+      "date": "2026-08-22",
+      "tokens": 2919,
+      "benefit": "Código mais simples — menor custo de manutenção",
+      "impact": "Menos custo em mudanças futuras"
+    },
     {
       "number": 480,
       "title": "refactor: modulariza generate-report + pendências P13 + fix smoke test",
@@ -704,15 +713,6 @@
       "tokens": 335,
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção"
-    },
-    {
-      "number": 462,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-08-19",
-      "tokens": 341,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção"
     }
   ],
   "repo": {
@@ -723,15 +723,15 @@
     "testFiles": 277,
     "skills": 27,
     "rules": 48,
-    "events": 407,
-    "qualityNotes": 532
+    "events": 428,
+    "qualityNotes": 534
   },
   "summary": {
-    "merges": 43,
+    "merges": 44,
     "prs": 0,
     "sessions": 18,
-    "violations": 137,
-    "healed": 33,
+    "violations": 140,
+    "healed": 35,
     "prePrPassRate": 100
   },
   "telemetry": []

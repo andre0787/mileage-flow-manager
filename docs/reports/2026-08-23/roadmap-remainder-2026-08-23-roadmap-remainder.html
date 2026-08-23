@@ -162,19 +162,19 @@
     <section class="slide" id="s1">
       <div class="hero">
         <div class="hero-top">
-          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">roadmap-remainder</span> <span class="badge risk" style="color:#34d399">Baixo risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
-          <div class="hero-date">2026-08-23 · 21:33 · <span class="mono">fix/roadmap-remainder</span></div>
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">roadmap-remainder</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
+          <div class="hero-date">2026-08-23 · 21:38 · <span class="mono">fix/roadmap-remainder</span></div>
         </div>
         <h1>roadmap remainder</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">bf64b62 — docs: especifica conclusao do roadmap</div>
+        <div class="hero-meta mono">91f4dc4 — docs: marca roadmap como concluido</div>
       </div>
       
     <div class="kpi-grid">
       <div class="kpi">
         <div class="kpi-value">0</div>
         <div class="kpi-label">entregas em produção</div>
-        <div class="kpi-sub">1 implementações · 0 reviews</div>
+        <div class="kpi-sub">2 implementações · 1 reviews</div>
       </div>
       <div class="kpi">
         <div class="kpi-value">—</div>
@@ -182,14 +182,14 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/1</div>
+        <div class="kpi-value">0/3</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
         <div class="kpi-sub">3 violações · 2 auto-corrigidas</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value green">80</div>
+        <div class="kpi-value green">90</div>
         <div class="kpi-label">outcome grade</div>
-        <div class="kpi-sub">baixo risco da mudança</div>
+        <div class="kpi-sub">médio risco da mudança</div>
       </div>
     </div>
       <div class="bluf">
@@ -203,7 +203,7 @@
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Riscos & trade-offs</div>
-          <p>Baixo risco de mudança · outcome grade = 80 · lead time —.</p>
+          <p>Médio risco de mudança · outcome grade = 90 · lead time —.</p>
         </div>
       </div>
     </section><section class="slide" id="s2">
@@ -246,7 +246,7 @@
       <td>roadmap remainder</td>
       <td>Correção de comportamento validada — menos risco de erro para quem usa o produto.</td>
       <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
-      <td><code>~52</code></td>
+      <td><code>~787</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.259 tokens (feature) · status pesado — tracking</p>
@@ -265,6 +265,12 @@
                 <div class="tl-time">00:20</div>
                 <div class="tl-label">Implementação concluída</div>
               </div>
+            </div><div class="tl-item code-review:done">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">00:37</div>
+                <div class="tl-label">Code review aprovado</div>
+              </div>
             </div><div class="tl-item pre-pr">
               <div class="tl-dot"></div>
               <div class="tl-body">
@@ -276,7 +282,7 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">1</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">3</span><span class="stat-l">rodadas de validação pré-PR</span></div>
             <div class="stat"><span class="stat-v">3</span><span class="stat-l">violações de regra encontradas</span></div>
             <div class="stat"><span class="stat-v green">2</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
@@ -293,7 +299,8 @@
         <div class="ap-card">
           <h3>✅ Checklist de revisão</h3>
           <ul class="checks">
-            <li>🧪 Testes manuais realizados?</li>
+            <li>📦 Biblioteca testada com casos de borda?</li>
+<li>🧪 Testes manuais realizados?</li>
 <li>📋 Regras de validação passam? (npm run pre-pr)</li>
           </ul>
         </div>
@@ -301,7 +308,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 5 remoções — 69 linhas tocadas</td><td>✨ 39 adições — 4 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 101 remoções — 1049 linhas tocadas</td><td>✨ 686 adições — 13 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -309,23 +316,23 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>4</td></tr>
-            <tr><td>Adições</td><td>+39</td></tr>
-            <tr><td>Remoções</td><td>-5</td></tr>
-            <tr><td>Tokens estimados</td><td>~52</td></tr>
+            <tr><td>Arquivos alterados</td><td>13</td></tr>
+            <tr><td>Adições</td><td>+686</td></tr>
+            <tr><td>Remoções</td><td>-101</td></tr>
+            <tr><td>Tokens estimados</td><td>~787</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:56">+29 add</div>
-        <div class="del" style="flex:8">-4 del</div>
-        <div class="overhead" style="flex:36">~19 ctx</div>
+        <div class="add" style="flex:65">+515 add</div>
+        <div class="del" style="flex:10">-76 del</div>
+        <div class="overhead" style="flex:25">~196 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+29</td><td>56%</td></tr>
-      <tr><td>Remoções</td><td>-4</td><td>8%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~19</td><td>36%</td></tr>
-      <tr><th>Total</th><th>~52</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+515</td><td>65%</td></tr>
+      <tr><td>Remoções</td><td>-76</td><td>10%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~196</td><td>25%</td></tr>
+      <tr><th>Total</th><th>~787</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
@@ -333,9 +340,18 @@
           <table>
             <tr><th>Status</th><th>Arquivo</th></tr>
             <tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>M</td><td>docs/ROADMAP-REFACTORY.md</td></tr>
 <tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-08-23/roadmap-remainder-2026-08-23-roadmap-remainder.html</td></tr>
 <tr><td>A</td><td>docs/superpowers/specs/2026-08-22-roadmap-remainder-design.md</td></tr>
 <tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
+<tr><td>M</td><td>src/ai/telemetry/completeness.ts</td></tr>
+<tr><td>M</td><td>src/lib/aiTelemetry.ts</td></tr>
+<tr><td>M</td><td>src/lib/telemetryQueue.ts</td></tr>
+<tr><td>M</td><td>tests/create-owner-program-inline.spec.ts</td></tr>
+<tr><td>M</td><td>tests/unit/ai/telemetry-persist.test.ts</td></tr>
+<tr><td>M</td><td>tests/unit/aiTelemetry.test.ts</td></tr>
           </table>
         </div>
       </div>
@@ -350,71 +366,122 @@ index 608a2a9..fbba2e7 100644
  | `docs/audit/context-optimization.md` (auto) | 2026-08-22 |
  | `docs/audit/npm-scripts-added.md` (auto) | 2026-08-22 |
 <span class="add">+| `docs/superpowers/specs/2026-08-22-roadmap-remainder-design.md` (auto) | 2026-08-23 |</span>
-diff --git a/docs/handoff.md b/docs/handoff.md
-index d9fd8ac..04ae301 100644
-<span class="del">--- a/docs/handoff.md</span>
-<span class="add">+++ b/docs/handoff.md</span>
-@@ -123,7 +123,7 @@ Nenhum PR aberto.
- **Objetivo:** Master Plan de otimização, telemetria resiliente e atualização de Workflow/KPIs
- **Status:** in_progress
- **Iniciada em:** 2026-08-22T19:37:13.399Z
-<span class="del">-**Branch:** `refactor/master-plan-optimization`</span>
-<span class="add">+**Branch:** `fix/roadmap-remainder`</span>
- **Último commit:** 293ccb1 — Merge pull request #480 from andre0787/feat/refactor-report-modularization
- **Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
+diff --git a/docs/ROADMAP-REFACTORY.md b/docs/ROADMAP-REFACTORY.md
+index c16ee8b..2457fe1 100644
+<span class="del">--- a/docs/ROADMAP-REFACTORY.md</span>
+<span class="add">+++ b/docs/ROADMAP-REFACTORY.md</span>
+@@ -1,74 +1,79 @@
+ # 🗺️ ROADMAP DE REFATORAÇÃO E OTIMIZAÇÃO
  
-diff --git a/docs/superpowers/specs/2026-08-22-roadmap-remainder-design.md b/docs/superpowers/specs/2026-08-22-roadmap-remainder-design.md
-new file mode 100644
-index 0000000..cf2848b
-<span class="del">--- /dev/null</span>
-<span class="add">+++ b/docs/superpowers/specs/2026-08-22-roadmap-remainder-design.md</span>
-@@ -0,0 +1,30 @@
-<span class="add">+# Especificação — Conclusão do Roadmap de Refatoração</span>
-<span class="add">+</span>
-<span class="add">+## Objetivo</span>
-<span class="add">+Concluir os itens do `docs/ROADMAP-REFACTORY.md` que ainda não possuem evidência explícita de implementação ou validação, sem alterar contratos públicos nem introduzir dados demo na UI.</span>
-<span class="add">+</span>
-<span class="add">+## Escopo</span>
-<span class="add">+1. **Telemetria:** expor a integração da API de telemetria com `telemetryQueue`, preservando funções puras e mantendo a fila como única camada com efeitos de persistência.</span>
-<span class="add">+2. **Validação:** tratar modelos vazios ou compostos apenas por espaços como inválidos; normalizar `success_rate` para o intervalo `0..1`.</span>
-<span class="add">+3. **Smoke E2E:** tornar a asserção de conta recém-criada específica para o combobox visível, evitando conflito entre `span` e `option`.</span>
-<span class="add">+4. **Documentação:** marcar A.1–F.2 no roadmap apenas após evidência correspondente de código, testes ou comando executado.</span>
-<span class="add">+</span>
-<span class="add">+## Abordagem técnica</span>
-<span class="add">+- Adicionar testes unitários antes das mudanças de comportamento.</span>
-<span class="add">+- Reutilizar `hasValidModelIdentity` em todos os pontos de validação.</span>
-<span class="add">+- Implementar clamp defensivo em `computeSuccessRate` e nos defaults de registros.</span>
-<span class="add">+- Exportar a integração de fila sem criar ciclo de runtime: `telemetryQueue` importa apenas o tipo de `aiTelemetry`.</span>
-<span class="add">+- Ajustar somente o locator do teste E2E; não modificar o comportamento da aplicação para satisfazer o teste.</span>
-<span class="add">+- Executar typecheck, lint, format check, testes unitários, build, verify-docs e pre-pr.</span>
-<span class="add">+</span>
-<span class="add">+## Critérios de aceitação</span>
-<span class="add">+- Testes cobrem modelo com espaços, taxas abaixo/acima do intervalo e integração pública da fila.</span>
-<span class="add">+- Smoke E2E não apresenta strict mode violation no locator corrigido.</span>
-<span class="add">+- `npm run check:pr` e `npm run pre-pr` passam sem erros.</span>
-<span class="add">+- Roadmap A.1–F.2 marcado com evidências verificáveis.</span>
-<span class="add">+- PR separado, baseado em `main`, com revisão de subagente e CI aprovado.</span>
-<span class="add">+</span>
-<span class="add">+## Riscos e mitigação</span>
-<span class="add">+- **Ciclo de imports:** usar importação apenas de tipo na fila e exportação fina na API.</span>
-<span class="add">+- **Mudança de semântica de métricas:** clamp somente valores inválidos; valores válidos permanecem iguais.</span>
-<span class="add">+- **Smoke dependente de dados remotos:** validar o seletor por role/combobox, sem depender de texto duplicado em `option`.</span>
-diff --git a/docs/tracking/events.jsonl b/docs/tracking/events.jsonl
-index a7f25d2..6b9452e 100644
-<span class="del">--- a/docs/tracking/events.jsonl</span>
-<span class="add">+++ b/docs/tracking/events.jsonl</span>
-@@ -407,3 +407,6 @@
- {&quot;timestamp&quot;:&quot;2026-08-22T21:04:23.866Z&quot;,&quot;type&quot;:&quot;pre-pr&quot;,&quot;description&quot;:&quot;pre-pr PASS&quot;,&quot;branch&quot;:&quot;refactor/master-plan-optimization&quot;,&quot;commit&quot;:&quot;613312b&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;errors&quot;:0}
- {&quot;timestamp&quot;:&quot;2026-08-22T21:07:06.332Z&quot;,&quot;type&quot;:&quot;llm.route.resolved&quot;,&quot;description&quot;:&quot;LLM route resolved&quot;,&quot;branch&quot;:&quot;refactor/master-plan-optimization&quot;,&quot;commit&quot;:&quot;7e22870&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;taskId&quot;:&quot;fix-ci-format&quot;,&quot;category&quot;:&quot;refactor&quot;,&quot;capability&quot;:null,&quot;profile&quot;:&quot;coding&quot;,&quot;model&quot;:&quot;opencode/deepseek-v4-flash-free&quot;,&quot;fallbackModels&quot;:[],&quot;source&quot;:&quot;category-default&quot;,&quot;retrySafety&quot;:&quot;may-write&quot;,&quot;configVersion&quot;:1,&quot;skills&quot;:[]}
- {&quot;timestamp&quot;:&quot;2026-08-22T21:07:46.976Z&quot;,&quot;type&quot;:&quot;pre-pr&quot;,&quot;description&quot;:&quot;pre-pr PASS&quot;,&quot;branch&quot;:&quot;refactor/master-plan-optimization&quot;,&quot;commit&quot;:&quot;7e22870&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;errors&quot;:0}
-<span class="add">+{&quot;timestamp&quot;:&quot;2026-08-23T00:13:28.967Z&quot;,&quot;type&quot;:&quot;healed&quot;,&quot;description&quot;:&quot;rule-26 auto-corrigido&quot;,&quot;branch&quot;:&quot;fix/roadmap-remainder&quot;,&quot;commit&quot;:&quot;88af5f0&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;rule&quot;:&quot;rule-26&quot;}</span>
-<span class="add">+{&quot;timestamp&quot;:&quot;2026-08-23T00:13:29.003Z&quot;,&quot;type&quot;:&quot;healed&quot;,&quot;description&quot;:&quot;rule-17-new-docs-valid auto-corrigido&quot;,&quot;branch&quot;:&quot;fix/roadmap-remainder&quot;,&quot;commit&quot;:&quot;88af5f0&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;rule&quot;:&quot;rule-17-new-docs-valid&quot;}</span>
-<span class="add">+{&quot;timestamp&quot;:&quot;2026-08-23T00:13:29.594Z&quot;,&quot;type&quot;:&quot;pre-pr&quot;,&quot;description&quot;:&quot;pre-pr PASS&quot;,&quot;branch&quot;:&quot;fix/roadmap-remainder&quot;,&quot;commit&quot;:&quot;88af5f0&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;errors&quot;:0}</span>
+<span class="del">-Plano mestre de execução detalhado em tarefas atômicas para as Fases A até E.</span>
+<span class="del">-</span>
+<span class="del">----</span>
+<span class="add">+Plano mestre de execução detalhado em tarefas atômicas para as Fases A até F.</span>
+ 
+ ## 📋 Checklist Geral
+ 
+ - [x] **Setup Inicial**
+   - [x] Iniciar sessão com `npm run session:start`
+<span class="del">-  - [x] Criar branch de trabalho `refactor/master-plan-optimization`</span>
+<span class="add">+  - [x] Criar branch de trabalho (`refactor/master-plan-optimization` e correções em branch dedicada)</span>
+   - [x] Documentar Roadmap em `docs/ROADMAP-REFACTORY.md`
+ 
+<span class="del">----</span>
+<span class="del">-</span>
+ ## 📋 FASE A: Otimização de Dados Estáticos (`workflowStaticData.ts`)
+<span class="del">-**Objetivo:** Manter os dados de Workflow fora do bundle TypeScript, carregando JSON estático sob demanda.</span>
+<span class="add">+**Objetivo:** manter dados de Workflow fora do bundle TypeScript, carregando JSON estático sob demanda.</span>
+ 
+<span class="del">-- [ ] **A.1** Criar diretório `public/mock/`</span>
+<span class="del">-- [ ] **A.2** Extrair os dados estáticos de Workflow para `public/mock/workflow-fallback.json`</span>
+<span class="del">-- [ ] **A.3** Criar/Centralizar interfaces e tipos em `src/types/workflow.ts`</span>
+<span class="del">-- [ ] **A.4** Refatorar `src/lib/workflowData.ts` para remover dependências dos dados antigos, carregar JSON dinamicamente e fornecer fallback estrutural seguro</span>
+<span class="del">-- [ ] **A.5** Atualizar componentes em `src/components/workflow/` (`WorkflowGates`, `WorkflowHero`, `WorkflowJourney`, `WorkflowMindMap`, `WorkflowSimulator`, `WorkflowTimeline`) para consumir dados via `workflowData.ts` / JSON / tipos</span>
+<span class="del">-- [ ] **A.6** Consolidar os dados em `src/lib/workflowStaticData.ts` e atualizar testes unitários (`tests/unit/workflowData.test.ts`, `tests/unit/WorkflowEfficiency.test.ts`)</span>
+<span class="del">-- [ ] **A.7** Executar validações (`npm run typecheck`, `npm run build`, `npm test`)</span>
+<span class="add">+- [x] **A.1** Criar diretório `public/mock/`.</span>
+<span class="add">+- [x] **A.2** Extrair dados para `public/mock/workflow-fallback.json`.</span>
+<span class="add">+- [x] **A.3** Centralizar interfaces em `src/types/workflow.ts`.</span>
+<span class="add">+- [x] **A.4** Refatorar `src/lib/workflowData.ts` com carregamento dinâmico e fallback estrutural.</span>
+<span class="add">+- [x] **A.5** Atualizar componentes Workflow para consumir a nova fonte tipada.</span>
+<span class="add">+- [x] **A.6** Consolidar `src/lib/workflowStaticData.ts` e testes unitários.</span>
+<span class="add">+- [x] **A.7** Validar typecheck, build e testes.</span>
+ 
+<span class="del">----</span>
+<span class="add">+**Evidências:** `public/mock/workflow-fallback.json`, `src/lib/workflowData.ts`, `src/lib/workflowStaticData.ts`, `src/types/workflow.ts` e testes Workflow.</span>
+ 
+ ## 📋 FASE B: Telemetria Resiliente com Fila Local e Retry
+<span class="del">-**Objetivo:** Garantir resiliência offline e persistência em falhas para registros de telemetria IA.</span>
+<span class="add">+**Objetivo:** garantir resiliência offline e persistência em falhas para registros de telemetria IA.</span>
+ 
+<span class="del">-- [ ] **B.1** Criar `src/lib/telemetryQueue.ts` com funções `saveToQueue`, `flushTelemetryQueue` e `recordTelemetry` usando `localStorage`</span>
+<span class="del">-- [ ] **B.2** Criar testes unitários para `src/lib/telemetryQueue.ts` em `tests/unit/telemetryQueue.test.ts` (Rule-31)</span>
+<span class="del">-- [ ] **B.3** Integrar `flushTelemetryQueue()` no ciclo de vida da aplicação em `src/App.tsx` (via `useEffect` na inicialização e eventos online)</span>
+<span class="del">-- [ ] **B.4** Refatorar `src/lib/aiTelemetry.ts` para integrar com a nova fila resiliente `recordTelemetry()`</span>
+<span class="del">-- [ ] **B.5** Validar tipagem e build (`npm run typecheck`, `npm test`, `npm run build`)</span>
+<span class="add">+- [x] **B.1** Criar `src/lib/telemetryQueue.ts` com `saveToQueue`, `flushTelemetryQueue` e `recordTelemetry`.</span>
+<span class="add">+- [x] **B.2** Criar `tests/unit/telemetryQueue.test.ts` (Rule-31).</span>
+<span class="add">+- [x] **B.3** Integrar `flushTelemetryQueue()` no ciclo de vida em `src/App.tsx`.</span>
+<span class="add">+- [x] **B.4** Expor a integração resiliente pela API `src/lib/aiTelemetry.ts`, preservando a fila como camada de efeitos.</span>
+<span class="add">+- [x] **B.5** Validar tipagem, testes e build.</span>
+ 
+<span class="del">----</span>
+<span class="add">+**Evidências:** fila com retry/locks/fallback local, integração startup/online e testes unitários; persistência de envelopes continua fail-open.</span>
+ 
+ ## 📋 FASE C: Auditoria e Limpeza de Código Órfão e Scripts
+<span class="del">-**Objetivo:** Identificar e limpar dead code, garantir Rule-16 (100% scripts em package.json) e deduplicar métricas.</span>
+<span class="add">+**Objetivo:** identificar dead code, garantir Rule-16 e deduplicar métricas.</span>
+ 
+<span class="del">-- [ ] **C.1** Auditar exports em `src/lib/`, remover os não utilizados e documentar em `docs/audit/dead-exports.md`</span>
+<span class="del">-- [ ] **C.2** Auditar `scripts/` vs `package.json`, adicionar atalhos faltantes no `package.json` e documentar em `docs/audit/npm-scripts-added.md`</span>
+<span class="del">-- [ ] **C.3** Auditar e deduplicar lógicas redundantes entre `src/lib/metrics.ts` e `src/lib/transferCalc.ts`, documentando em `docs/audit/deduplication.md`</span>
+<span class="del">-- [ ] **C.4** Executar verificação de arquivos órfãos (Rule-14) e limpar se houver</span>
+<span class="del">-- [ ] **C.5** Validar linters e tipagem (`npm run typecheck`, `npm run lint`)</span>
+<span class="add">+- [x] **C.1** Auditar exports em `src/lib/` e documentar em `docs/audit/dead-exports.md`.</span>
+<span class="add">+- [x] **C.2** Auditar `scripts/` versus `package.json` e documentar em `docs/audit/npm-scripts-added.md`.</span>
+<span class="add">+- [x] **C.3** Auditar/deduplicar métricas e documentar em `docs/audit/deduplication.md`.</span>
+<span class="add">+- [x] **C.4** Executar verificação de órfãos (Rule-14).</span>
+<span class="add">+- [x] **C.5** Validar lint e tipagem.</span>
+ 
+<span class="del">----</span>
+<span class="add">+**Evidências:** auditorias versionadas, atalhos npm adicionados e pre-pr reportando Rule-14/15/16 sem erros.</span>
+ 
+ ## 📋 FASE D: Otimização de Empacotamento de Contexto LLM
+<span class="del">-**Objetivo:** Reduzir tokens consumidos pelo script de contexto (`context-pack.mjs`) em ≥30%.</span>
+<span class="add">+**Objetivo:** reduzir tokens consumidos pelo `context-pack.mjs` em ≥30%.</span>
+ 
+<span class="del">-- [ ] **D.1** Analisar `scripts/context-pack.mjs` e adicionar padrões de exclusão explícitos (`public/mock/`, relatórios antigos, artefatos pesados)</span>
+<span class="del">-- [ ] **D.2** Implementar filtro de exclusão por tamanho (&gt;15KB por padrão) e anotações `@llm-context: skip-unless-requested`</span>
+<span class="del">-- [ ] **D.3** Testar geração de contexto antes e depois da otimização</span>
+<span class="del">-- [ ] **D.4** Documentar ganhos de redução de contexto em `docs/audit/context-optimization.md`</span>
+<span class="add">+- [x] **D.1** Adicionar exclusões explícitas para `public/mock/`, relatórios antigos e artefatos pesados.</span>
+<span class="add">+- [x] **D.2** Implementar filtro por tamanho (&gt;15KB) e anotações `@llm-context: skip-unless-requested`.</span>
+<span class="add">+- [x] **D.3** Testar geração de contexto antes/depois.</span>
+<span class="add">+- [x] **D.4** Documentar ganhos em `docs/audit/context-optimization.md`.</span>
+ 
+<span class="del">----</span>
+<span class="add">+**Evidências:** `graph:context` reportou redução aproximada de 92% no packet da validação final.</span>
+ 
+ ## 📋 FASE E: Atualização Workflow e KPIs com Dados Reais e Recharts
+<span class="del">-**Objetivo:** Conectar as abas de Workflow e KPIs a métricas reais do repositório/sessão com visualizações Recharts.</span>
+<span class="add">+**Objetivo:** conectar Workflow/KPIs a métricas reais com visualizações Recharts.</span>
+ 
+<span class="del">-- [ ] **E.1** Criar hook `src/hooks/useWorkflowMetrics.ts` com polling/refresh a cada 30s e suporte a dados locais e remotos</span>
+<span class="del">-- [ ] **E.2** Criar testes para o hook em `tests/unit/useWorkflowMetrics.test.ts` (Rule-32)</span>
+<span class="del">-- [ ] **E.3** Refatorar aba/página `Workflow` para consumir métricas em tempo real do hook</span>
+<span class="del">-- [ ] **E.4** Refatorar aba/página `KPIs` com 4 metric cards, 2 gráficos Recharts (Custo e Lead Time) e alerta de Pre-PR pass rate</span>
+<span class="del">-- [ ] **E.5** Executar validações completas (`npm run typecheck`, `npm run lint`, `npm run build`, `npm test`)</span>
+<span class="add">+- [x] **E.1** Criar `src/hooks/useWorkflowMetrics.ts` com refresh de 30s e fallback local/remoto.</span>
+<span class="add">+- [x] **E.2** Criar testes do hook em `tests/unit/useWorkflowMetrics.test.ts`.</span>
+<span class="add">+- [x] **E.3** Refatorar Workflow para consumir métricas reais do hook.</span>
+<span class="add">+- [x] **E.4** Manter KPIs com cards, gráficos Recharts e alerta de pre-pr pass rate usando dados reais existentes.</span>
+<span class="add">+- [x] **E.5** Executar typecheck, lint, build e testes.</span>
+ 
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-08-23 21:33
+      Gerado por scripts/generate-report.mjs · 2026-08-23 21:38
     </div>
   </div>
 
