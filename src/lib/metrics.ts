@@ -214,7 +214,7 @@ export function computeDashboardMetrics(
   });
   const monthlyMilesIn = monthlyEntries
     .filter((e) => !e.sourceAccountId) // exclui transferências do mês
-    .reduce((sum, e) => sum + e.amount, 0);
+    .reduce((sum, e) => sum + (e.milesGenerated ?? e.amount), 0);
 
   const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
   const prevMonthSales = filterSalesByMonth(

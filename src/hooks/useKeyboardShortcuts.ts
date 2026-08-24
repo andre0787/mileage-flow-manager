@@ -5,6 +5,22 @@ interface ShortcutMap {
   [key: string]: () => void;
 }
 
+export function shouldIgnoreShortcutTarget(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement)) return false;
+  if (
+    target instanceof HTMLInputElement ||
+    target instanceof HTMLTextAreaElement ||
+    target instanceof HTMLSelectElement
+  ) {
+    return true;
+  }
+  if (target.isContentEditable || target.closest("[contenteditable]")) return true;
+  if (document.querySelector("[role='dialog'][data-state='open']")) return true;
+  if (target.closest("[role='dialog']")) return true;
+  if (target.closest("[aria-haspopup], [data-radix-collection-item]")) return true;
+  return false;
+}
+
 /**
  * Hook para atalhos de teclado globais.
  * Atalhos:
@@ -32,14 +48,7 @@ export function useKeyboardShortcuts() {
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Ignorar se estiver em input, textarea ou select
-      if (
-        e.target instanceof HTMLInputElement ||
-        e.target instanceof HTMLTextAreaElement ||
-        e.target instanceof HTMLSelectElement
-      ) {
-        return;
-      }
+      if (shouldIgnoreShortcutTarget(e.target)) return;
 
       // Ignorar se Ctrl/Alt/Meta estiver pressionado
       if (e.ctrlKey || e.altKey || e.metaKey) {

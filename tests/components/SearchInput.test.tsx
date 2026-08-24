@@ -51,6 +51,15 @@ describe("SearchInput", () => {
     expect(screen.getByText("K")).toBeDefined();
   });
 
+  it("não registra Ctrl+K localmente", () => {
+    render(<SearchInput value="" onChange={() => {}} />);
+    const input = screen.getByPlaceholderText("Buscar...");
+
+    window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }));
+
+    expect(document.activeElement).not.toBe(input);
+  });
+
   it("kbd da hotkey usa recesso escuro no dark (TWINS GlobalSearch) para não sumir no campo sólido", () => {
     const { container } = render(<SearchInput value="" onChange={() => {}} />);
     const kbd = container.querySelector("kbd");

@@ -71,7 +71,13 @@ export function AccountDrawerFields({
             </Select>
           </div>
           {canCreateOwner && (
-            <Button variant="outline" size="icon" className="shrink-0" onClick={onOpenOwner}>
+            <Button
+              variant="outline"
+              size="icon"
+              className="shrink-0"
+              aria-label="Adicionar dono"
+              onClick={onOpenOwner}
+            >
               <Plus className="h-4 w-4" />
             </Button>
           )}
@@ -96,7 +102,13 @@ export function AccountDrawerFields({
             </Select>
           </div>
           {canCreateProgram && (
-            <Button variant="outline" size="icon" className="shrink-0" onClick={onOpenProgram}>
+            <Button
+              variant="outline"
+              size="icon"
+              className="shrink-0"
+              aria-label="Adicionar programa"
+              onClick={onOpenProgram}
+            >
               <Plus className="h-4 w-4" />
             </Button>
           )}

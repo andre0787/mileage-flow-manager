@@ -20,3 +20,15 @@ export function formatDateBR(date: string): string {
 export function parseDateOnly(date: string): Date {
   return /^\d{4}-\d{2}-\d{2}$/.test(date) ? new Date(date + "T12:00:00") : new Date(date);
 }
+
+/** Adds calendar months while clamping the day to the target month's last day. */
+export function addMonthsClamped(date: string, months: number, dayOfMonth?: number): string {
+  const base = new Date(/^\d{4}-\d{2}-\d{2}$/.test(date) ? `${date}T00:00:00Z` : date);
+  const monthIndex = base.getUTCMonth() + months;
+  const year = base.getUTCFullYear() + Math.floor(monthIndex / 12);
+  const month = ((monthIndex % 12) + 12) % 12;
+  const lastDay = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+  const day = Math.min(dayOfMonth ?? base.getUTCDate(), lastDay);
+
+  return new Date(Date.UTC(year, month, day)).toISOString().split("T")[0];
+}

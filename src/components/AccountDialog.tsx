@@ -176,6 +176,7 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
                 className="min-h-[44px] min-w-[44px]"
                 onClick={() => setProgramDialogOpen(true)}
                 title="Novo programa"
+                aria-label="Novo programa"
               >
                 <Plus className="h-4 w-4" />
               </Button>
@@ -228,6 +229,7 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
                 className="min-h-[44px] min-w-[44px]"
                 onClick={() => setOwnerDialogOpen(true)}
                 title="Novo dono"
+                aria-label="Novo dono"
               >
                 <Plus className="h-4 w-4" />
               </Button>

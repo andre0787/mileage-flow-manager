@@ -135,6 +135,22 @@ describe("calcRevenueChange", () => {
   it("retorna 0 quando previous é 0", () => {
     expect(calcRevenueChange(120, 0)).toBe(0);
   });
+
+  it("calcula variação negativa (queda de receita)", () => {
+    expect(calcRevenueChange(80, 100)).toBe(-20);
+  });
+
+  it("calcula queda de 100% quando current é 0", () => {
+    expect(calcRevenueChange(0, 100)).toBe(-100);
+  });
+
+  it("retorna 0 de variação quando current é igual a previous", () => {
+    expect(calcRevenueChange(100, 100)).toBe(0);
+  });
+
+  it("retorna 0 quando previous é negativo", () => {
+    expect(calcRevenueChange(120, -10)).toBe(0);
+  });
 });
 
 // ─── Filtros ───
@@ -279,6 +295,17 @@ describe("computeDashboardMetrics", () => {
 
   it("define revenueChange como número", () => {
     expect(typeof metrics.revenueChange).toBe("number");
+  });
+
+  it("usa milhas geradas na entrada mensal quando há conversão", () => {
+    const metricsWithConversion = computeDashboardMetrics(
+      accounts,
+      [],
+      [{ date: new Date().toISOString(), amount: 100, milesGenerated: 150 }],
+      owners,
+    );
+
+    expect(metricsWithConversion.monthlyMilesIn).toBe(150);
   });
 });
 

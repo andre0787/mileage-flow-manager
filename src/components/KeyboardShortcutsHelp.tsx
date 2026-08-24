@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Keyboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { shouldIgnoreShortcutTarget } from "@/hooks/useKeyboardShortcuts";
 import {
   Dialog,
   DialogContent,
@@ -17,6 +18,7 @@ const shortcuts = [
   { key: "P", description: "Perfil" },
   { key: "S", description: "Configurações" },
   { key: "R", description: "Relatórios" },
+  { key: "Ctrl+K / ⌘K", description: "Busca global" },
   { key: "?", description: "Mostrar esta ajuda" },
 ];
 
@@ -25,13 +27,7 @@ export function KeyboardShortcutsHelp() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (
-        e.target instanceof HTMLInputElement ||
-        e.target instanceof HTMLTextAreaElement ||
-        e.target instanceof HTMLSelectElement
-      ) {
-        return;
-      }
+      if (shouldIgnoreShortcutTarget(e.target)) return;
 
       if (e.ctrlKey || e.altKey || e.metaKey) {
         return;

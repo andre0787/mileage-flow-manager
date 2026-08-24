@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import { logError, logDestructiveOp } from "@/lib/logger";
+import { addMonthsClamped } from "@/lib/dateUtils";
 import type { PointEntry } from "@/types";
 
 /** Converte um erro do Supabase para o formato esperado pelos hooks */
@@ -28,22 +29,21 @@ export function generateRecurringEntries(
   recurrenceDayOfMonth?: number,
 ): Partial<PointEntry>[] {
   const future: Partial<PointEntry>[] = [];
-  const startDate = new Date(entry.date);
   const end = new Date(endDate);
-  let cursor = new Date(startDate);
-  while (cursor < end) {
-    // ponytail: month-based math quando recurrenceDayOfMonth está presente (novo),
-    // fallback para intervalDays (legado) quando ausente.
-    // Usa UTC para consistência com datas ISO (YYYY-MM-DD).
-    if (recurrenceDayOfMonth) {
-      const monthsMap: Record<number, number> = { 30: 1, 90: 3, 180: 6, 365: 12 };
-      const months = monthsMap[intervalDays] ?? 1;
-      cursor.setUTCMonth(cursor.getUTCMonth() + months);
-    } else {
-      cursor = new Date(cursor.getTime() + intervalDays * 24 * 60 * 60 * 1000);
-    }
+  const start = new Date(entry.date);
+  const monthsMap: Record<number, number> = { 30: 1, 90: 3, 180: 6, 365: 12 };
+  const months = monthsMap[intervalDays] ?? 1;
+  let occurrence = 1;
+
+  while (true) {
+    const dateStr =
+      recurrenceDayOfMonth !== undefined
+        ? addMonthsClamped(entry.date, months * occurrence, recurrenceDayOfMonth)
+        : new Date(start.getTime() + intervalDays * occurrence * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0];
+    const cursor = new Date(dateStr);
     if (cursor > end) break;
-    const dateStr = cursor.toISOString().split("T")[0];
     future.push({
       id: crypto.randomUUID(),
       accountId: entry.accountId,
@@ -65,6 +65,7 @@ export function generateRecurringEntries(
       recurrenceEnd: endDate,
       recurrenceDayOfMonth,
     });
+    occurrence++;
   }
   return future;
 }

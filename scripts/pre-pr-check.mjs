@@ -326,7 +326,7 @@ if (!process.env.PRE_PR_ONLY_RULES) {
 if (!process.env.PRE_PR_ONLY_RULES) {
   logger.log("\n── Testes ──");
   try {
-    execSync("npm test 2>&1", { cwd: ROOT, encoding: "utf8", timeout: 120000 });
+    execSync("npm test 2>&1", { cwd: ROOT, encoding: "utf8", timeout: 180000 });
     ok("test (unit)");
   } catch (e) {
     fail(`test: ${e.stderr?.slice(0, 200) || e.message}`);

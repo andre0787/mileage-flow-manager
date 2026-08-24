@@ -21,6 +21,7 @@ export function LanguageSelector() {
       size="icon"
       className="h-9 w-9 rounded-lg"
       title={`Idioma: ${languages[currentIndex].label}`}
+      aria-label={`Idioma: ${languages[currentIndex].label}`}
       onClick={() => setLocale(nextLang.code)}
     >
       <span className="text-base">{languages[currentIndex].flag}</span>
