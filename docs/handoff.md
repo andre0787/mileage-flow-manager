@@ -150,15 +150,6 @@ Nenhum PR aberto.
 
 
 
-## 🎯 Sessão Atual
-**Categoria:** docs
-**Objetivo:** continuacao
-**Status:** in_progress
-**Iniciada em:** 2026-08-24T04:56:16.743Z
-**Branch:** `refactor/small-model-optimization`
-**Último commit:** df5ac12 — Merge pull request #493 from andre0787/fix/ai-engineering-live-data
-**Docs carregados:** AGENTS.md
-
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
@@ -181,6 +172,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
 - **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
+
 
 
 
