@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-24T13:47:33.845Z",
+  "generatedAt": "2026-08-24T13:59:16.662Z",
   "dataDate": "2026-08-24",
   "kpiStats": [
     {
-      "value": 369,
+      "value": 370,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 523,
+      "value": 524,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 115,
+      "n": 116,
       "color": "#8b5cf6"
     },
     {
@@ -73,7 +73,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 304,
+      "n": 305,
       "color": "#10b981"
     },
     {
@@ -88,6 +88,11 @@
     }
   ],
   "recentTimeline": [
+    {
+      "t": "2026-08-24 13:59:16",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
     {
       "t": "2026-08-24 13:47:33",
       "d": "pre-pr",
@@ -122,19 +127,14 @@
       "t": "2026-08-24 13:36:36",
       "d": "rule:fail",
       "desc": "rule-03-handoff-completeness falhou"
-    },
-    {
-      "t": "2026-08-24 13:33:36",
-      "d": "rule:fail",
-      "desc": "rule-26-session-started falhou"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 158,
     "healed": 29,
     "healedRate": 18.4,
-    "prePrTotal": 115,
-    "prePrPass": 115,
+    "prePrTotal": 116,
+    "prePrPass": 116,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
@@ -174,7 +174,7 @@
     "testFiles": 271,
     "skills": 27,
     "rules": 48,
-    "events": 369,
-    "qualityNotes": 523
+    "events": 370,
+    "qualityNotes": 524
   }
 }

@@ -292,13 +292,13 @@ describe("computeMetricHistory", () => {
       { status: "concluida", date: isoDate(now), saleValue: 200, profit: 50, milesUsed: 1000 },
       { status: "cancelado", date: isoDate(now), saleValue: 100, profit: 20, milesUsed: 500 }, // ignored
       { status: "concluida", date: isoDate(lastMonth), saleValue: 300, profit: 100, milesUsed: 1500 },
-    ] as any;
+    ]
 
     const entries = [
       { entryStatus: "confirmada", date: isoDate(now), amount: 2000 }, // uses amount because milesGenerated is missing
       { entryStatus: "aguardando", date: isoDate(now), amount: 1000 }, // ignored
       { entryStatus: "confirmada", date: isoDate(lastMonth), amount: 1000, milesGenerated: 3000 }, // uses milesGenerated
-    ] as any;
+    ]
 
     const history = computeMetricHistory(sales, entries);
 
