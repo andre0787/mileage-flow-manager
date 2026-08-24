@@ -26,7 +26,7 @@ export function calculateRecurrence(
 } {
   // If recurrence not enabled, fallback to clube (legacy) behavior
   if (!form.isRecurrent) {
-    return buildMonthlyRecurrence(form.isClube, form.clubeMeses);
+    return buildMonthlyRecurrence(form.isClube, form.clubeMeses, form.startDate || undefined);
   }
 
   // If recurrence enabled but only 1 occurrence, treat as no recurrence
