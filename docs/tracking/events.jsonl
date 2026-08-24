@@ -378,3 +378,5 @@
 {"timestamp":"2026-08-24T15:20:01.595Z","type":"rule:fail","description":"rule-22-pr-naming falhou","branch":"jules-metrics-tests-7691209467773456208","commit":"194b4c2","agent":"human","rule":"rule-22-pr-naming"}
 {"timestamp":"2026-08-24T15:24:03.161Z","type":"rule:fail","description":"rule-17-report-prefix falhou","branch":"jules-metrics-tests-7691209467773456208","commit":"194b4c2","agent":"human","rule":"rule-17-report-prefix"}
 {"timestamp":"2026-08-24T15:30:15.667Z","type":"pre-pr","description":"pre-pr PASS","branch":"jules-metrics-tests-7691209467773456208","commit":"6fa1783","agent":"human","errors":0}
+{"timestamp":"2026-08-24T15:34:11.428Z","type":"healed","description":"rule-26 auto-corrigido","branch":"test-date-coverage-5229054933604911938","commit":"d468e1b","agent":"human","rule":"rule-26"}
+{"timestamp":"2026-08-24T15:34:11.969Z","type":"pre-pr","description":"pre-pr PASS","branch":"test-date-coverage-5229054933604911938","commit":"d468e1b","agent":"human","errors":0}

@@ -157,7 +157,7 @@ Nenhum PR aberto.
 **Objetivo:** corrigir bugs de auditoria do frontend
 **Status:** in_progress
 **Iniciada em:** 2026-08-24T13:35:47.142Z
-**Branch:** `jules-metrics-tests-7691209467773456208`
+**Branch:** `test-date-coverage-5229054933604911938`
 **Último commit:** cb8ecbe — Merge pull request #495 from andre0787/chore/quality-nightly-update
 **Docs carregados:** DEBUG.md, conventions/common.md, conventions/bugfix.md
 
