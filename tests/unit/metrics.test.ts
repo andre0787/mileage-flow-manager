@@ -280,6 +280,17 @@ describe("computeDashboardMetrics", () => {
   it("define revenueChange como número", () => {
     expect(typeof metrics.revenueChange).toBe("number");
   });
+
+  it("usa milhas geradas na entrada mensal quando há conversão", () => {
+    const metricsWithConversion = computeDashboardMetrics(
+      accounts,
+      [],
+      [{ date: new Date().toISOString(), amount: 100, milesGenerated: 150 }],
+      owners,
+    );
+
+    expect(metricsWithConversion.monthlyMilesIn).toBe(150);
+  });
 });
 
 describe("computeMetricHistory — regressão: exclui transferências de milesIn", () => {

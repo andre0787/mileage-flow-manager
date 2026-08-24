@@ -66,6 +66,7 @@ export default function Entradas() {
     const isSplit =
       form.isRecurrent && form.recurrenceValueMode === "split" && form.recurrenceCount > 1;
     const divisor = isSplit ? form.recurrenceCount : 1;
+    const entryDate = form.isRecurrent && form.recurrenceCount > 1 ? form.startDate : form.date;
     addEntryM.mutate(
       {
         id: crypto.randomUUID(),
@@ -92,11 +93,12 @@ export default function Entradas() {
           recurrenceCount: form.recurrenceCount,
           recurrenceType: form.recurrenceType,
           date: form.date,
+          startDate: form.startDate,
           isClube: form.isClube,
           clubeMeses: form.clubeMeses,
           recurrenceValueMode: form.recurrenceValueMode,
         }),
-        date: form.date,
+        date: entryDate,
       },
       {
         onSuccess: () => {
@@ -129,6 +131,7 @@ export default function Entradas() {
           recurrenceCount: form.recurrenceCount,
           recurrenceType: form.recurrenceType,
           date: form.date,
+          startDate: form.startDate,
           isClube: form.isClube,
           clubeMeses: form.clubeMeses,
           recurrenceValueMode: form.recurrenceValueMode,
@@ -164,7 +167,7 @@ export default function Entradas() {
         bonusPercent: c.isTransfer ? parseFloat(form.bonusPercent || "0") : undefined,
         cartAmount: c.isTransfer && c.cartAmount > 0 ? c.cartAmount : undefined,
         cartCost: c.isTransfer && c.cartCost > 0 ? c.cartCost : undefined,
-        date: form.date,
+        date: form.isRecurrent && form.recurrenceCount > 1 ? form.startDate : form.date,
         ...recurrenceFields,
       },
     });

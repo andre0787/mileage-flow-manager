@@ -143,6 +143,7 @@ export function EntryForm({
               variant="outline"
               size="icon"
               className="shrink-0"
+              aria-label="Adicionar conta"
               onClick={() => setIsAccountOpen(true)}
             >
               <Plus className="h-4 w-4" />
@@ -198,6 +199,7 @@ export function EntryForm({
               variant="outline"
               size="icon"
               className="shrink-0"
+              aria-label="Adicionar tipo de origem"
               onClick={() => setIsOrigemTypeOpen(true)}
             >
               <Plus className="h-4 w-4" />
@@ -488,7 +490,7 @@ export function EntryForm({
 
       {/* Actions */}
       <div className="flex justify-end gap-2 mt-4">
-        <Button variant="outline" onClick={onCancel}>
+        <Button type="button" variant="outline" onClick={onCancel}>
           Cancelar
         </Button>
         <FormSubmitButton className="bg-gradient-primary hover:opacity-90">

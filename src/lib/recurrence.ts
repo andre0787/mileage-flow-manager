@@ -1,5 +1,6 @@
 import type { EntryFormData } from "@/types";
 import { buildMonthlyRecurrence } from "@/lib/origemTypes";
+import { addMonthsClamped } from "@/lib/dateUtils";
 
 /**
  * Calculate recurrence interval (in days) and end date based on form values.
@@ -12,6 +13,7 @@ export function calculateRecurrence(
     | "recurrenceCount"
     | "recurrenceType"
     | "date"
+    | "startDate"
     | "isClube"
     | "clubeMeses"
     | "recurrenceValueMode"
@@ -36,12 +38,15 @@ export function calculateRecurrence(
   const monthsMap = { monthly: 1, quarterly: 3, semiannual: 6, annual: 12 };
   const monthsPerPeriod = monthsMap[type];
   // ponytail: usar UTC para evitar off-by-one em timezones negativos (ex: Brasil UTC-3)
-  const startDate = new Date(form.date);
-  const endDate = new Date(startDate);
-  endDate.setUTCMonth(endDate.getUTCMonth() + monthsPerPeriod * form.recurrenceCount);
+  const recurrenceStart = form.startDate || form.date;
+  const startDate = new Date(`${recurrenceStart}T00:00:00Z`);
   return {
     recurrenceInterval: 30, // mantido para compatibilidade com dados legados
-    recurrenceEnd: endDate.toISOString().split("T")[0],
+    recurrenceEnd: addMonthsClamped(
+      recurrenceStart,
+      monthsPerPeriod * form.recurrenceCount,
+      startDate.getUTCDate(),
+    ),
     recurrenceValueMode: form.recurrenceValueMode,
     recurrenceDayOfMonth: startDate.getUTCDate(),
   };
