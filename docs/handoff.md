@@ -35,8 +35,8 @@ a8dc247 chore: limpeza do repositório — branches órfãs + fable-gates no MAP
 ```
 
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `d876a30 — Merge pull request #486 from andre0787/fix/smoke-origin-locator`
+- **Branch:** `refactor/small-model-optimization`
+- **Último commit:** `df5ac12 — Merge pull request #493 from andre0787/fix/ai-engineering-live-data`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -135,6 +135,29 @@ Nenhum PR aberto.
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 🎯 Sessão Atual
+**Categoria:** docs
+**Objetivo:** continuacao
+**Status:** in_progress
+**Iniciada em:** 2026-08-24T04:56:16.743Z
+**Branch:** `refactor/small-model-optimization`
+**Último commit:** df5ac12 — Merge pull request #493 from andre0787/fix/ai-engineering-live-data
+**Docs carregados:** AGENTS.md
 
 
 ---

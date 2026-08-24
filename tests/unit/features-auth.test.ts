@@ -13,13 +13,6 @@ const mockOnAuthStateChange = vi.fn();
 const mockSignInWithPassword = vi.fn();
 const mockSignOut = vi.fn();
 
-// Mock chainable query builder for supabase.from('profiles').select().eq().single()
-const mockSupabaseFrom = vi.fn().mockReturnValue({
-  select: vi.fn().mockReturnThis(),
-  eq: vi.fn().mockReturnThis(),
-  single: vi.fn().mockResolvedValue({ data: { is_admin: false }, error: null }),
-});
-
 vi.mock("@/lib/supabase", () => ({
   supabase: {
     auth: {
@@ -28,7 +21,6 @@ vi.mock("@/lib/supabase", () => ({
       signInWithPassword: (...args: unknown[]) => mockSignInWithPassword(...args),
       signOut: (...args: unknown[]) => mockSignOut(...args),
     },
-    from: (...args: unknown[]) => mockSupabaseFrom(...args),
   },
 }));
 

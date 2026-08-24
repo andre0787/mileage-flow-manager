@@ -30,6 +30,7 @@ const ORPHAN_ALLOWED_PREFIXES = [
   "docs/RADAR.md",
   "docs/reports/",
   "scripts/rules/__fixtures__/",
+  ".archive/",
 ];
 
 // ── Helpers ──────────────────────────────────────────────────────────

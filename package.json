@@ -130,6 +130,12 @@
     "p12:report": "tsx scripts/p12-report-generator.ts",
     "p12.5:report": "tsx scripts/p12.5-report-generator.ts",
     "scripts:lib": "node scripts/lib.mjs",
+    "purge:orphan": "node scripts/purge-orphan.mjs",
+    "pipeline": "node scripts/pipeline.mjs",
+    "pipeline:schema-gen": "node scripts/pipeline.mjs schema-gen",
+    "pipeline:code-implementer": "node scripts/pipeline.mjs code-implementer",
+    "pipeline:test-writer": "node scripts/pipeline.mjs test-writer",
+    "pipeline:pre-pr-check": "node scripts/pipeline.mjs pre-pr-check",
     "test:e2e:demo": "VITE_PUBLIC_DEMO_ENABLED=true playwright test tests/demo-e2e.spec.ts"
   },
   "dependencies": {
