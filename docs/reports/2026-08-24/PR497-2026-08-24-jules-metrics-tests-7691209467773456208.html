@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>auto — feat: add test coverage for computeMetricHistory</title>
+  <title>PR497 — jules metrics tests 7691209467773456208</title>
   <style>
     :root{
       --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;
@@ -150,7 +150,7 @@
 <body>
   <div class="nav" id="deckNav">
     <button id="prevBtn" title="Anterior (←)">←</button>
-    <span class="count" id="slideCount">1/4</span>
+    <span class="count" id="slideCount">1/5</span>
     <button id="nextBtn" title="Próxima (→)">→</button>
     <button id="fsBtn" title="Tela cheia (F)">⛶</button>
     <button id="printBtn" title="Imprimir / PDF (P)">⎙</button>
@@ -158,23 +158,23 @@
   </div>
 
   <div class="deck" id="deck">
-
+    
     <section class="slide" id="s1">
       <div class="hero">
         <div class="hero-top">
-          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">auto</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health red" style="color:#f87171">● Precisa atenção</span></div>
-          <div class="hero-date">2026-08-24 · 13:59 · <span class="mono">jules-7691209467773456208-bb683865</span></div>
+          <div class="hero-badges"><span class="badge pr">PR #497</span> <span class="badge auto">PR497</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health red" style="color:#f87171">● Precisa atenção</span></div>
+          <div class="hero-date">2026-08-24 · 15:24 · <span class="mono">jules-metrics-tests-7691209467773456208</span></div>
         </div>
-        <h1>feat: add test coverage for computeMetricHistory</h1>
-        <p class="hero-summary">Entrega concluída e validada — detalhes técnicos no apêndice.</p>
-        <div class="hero-meta mono">42a89b7 — added tests for computeMetricHistory</div>
+        <h1>jules metrics tests 7691209467773456208</h1>
+        <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
+        <div class="hero-meta mono">194b4c2 — Merge origin/main into PR497 validation branch</div>
       </div>
-
+      
     <div class="kpi-grid">
       <div class="kpi">
         <div class="kpi-value">0</div>
         <div class="kpi-label">entregas em produção</div>
-        <div class="kpi-sub">2 implementações · 2 reviews</div>
+        <div class="kpi-sub">3 implementações · 3 reviews</div>
       </div>
       <div class="kpi">
         <div class="kpi-value">—</div>
@@ -182,12 +182,12 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/4</div>
+        <div class="kpi-value">0/7</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
-        <div class="kpi-sub">40 violações · 0 auto-corrigidas</div>
+        <div class="kpi-sub">41 violações · 1 auto-corrigidas</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value green">91</div>
+        <div class="kpi-value green">88</div>
         <div class="kpi-label">outcome grade</div>
         <div class="kpi-sub">médio risco da mudança</div>
       </div>
@@ -195,18 +195,38 @@
       <div class="bluf">
         <div class="bluf-col">
           <div class="bluf-label">Decisão & entregas</div>
-          <p>Detalhes no apêndice técnico.</p>
+          <p>Alteração validada dentro do fluxo de qualidade do produto.</p>
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Impacto esperado</div>
-          <p>Detalhes no apêndice técnico.</p>
+          <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Riscos & trade-offs</div>
-          <p>Médio risco de mudança · outcome grade = 91 · lead time —.</p>
+          <p>Médio risco de mudança · outcome grade = 88 · lead time —.</p>
         </div>
       </div>
-    </section>
+    </section><section class="slide" id="s2">
+        <div class="slide-head">
+          <span class="slide-kicker">Impacto da sessão</span>
+          <h2>O que isso significa para o negócio</h2>
+        </div>
+        <div class="impact-grid">
+          <div class="impact-card blue">
+                <div class="impact-icon">🎯</div>
+                <h3>Impacto de Produto</h3>
+                <p>Alteração validada dentro do fluxo de qualidade do produto.</p>
+              </div><div class="impact-card gold">
+                <div class="impact-icon">🏢</div>
+                <h3>Impacto de Negócio</h3>
+                <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+              </div><div class="impact-card teal">
+                <div class="impact-icon">🌊</div>
+                <h3>Impacto de Processo</h3>
+                <p>Fluxo completo seguido: sessão → implementação → code review → pré-PR → PR. Detalhes nas métricas automáticas.</p>
+              </div>
+        </div>
+      </section>
     <section class="slide" id="s3">
       <div class="slide-head">
         <span class="slide-kicker">Valor por entrega</span>
@@ -222,11 +242,11 @@
       <th style="width:16%">Custo Token</th>
     </tr>
     <tr>
-      <td><strong>Entrega da sessão</strong></td>
-      <td>feat: add test coverage for computeMetricHistory</td>
-      <td>Mudança validada pelo fluxo de qualidade</td>
-      <td>Risco controlado antes da produção</td>
-      <td><code>~992</code></td>
+      <td><strong>PR #497</strong></td>
+      <td>chore: add test coverage for computeMetricHistory</td>
+      <td>Ajuste de processo validado</td>
+      <td>Processo mais confiável e audável</td>
+      <td><code>~847</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.172 tokens (feature) · status moderado</p>
@@ -264,13 +284,13 @@
                 <div class="tl-label">Validação pré-PR</div>
               </div>
             </div>
-
+        
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">4</span><span class="stat-l">rodadas de validação pré-PR</span></div>
-            <div class="stat"><span class="stat-v">40</span><span class="stat-l">violações de regra encontradas</span></div>
-            <div class="stat"><span class="stat-v green">0</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
+            <div class="stat"><span class="stat-v">7</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">41</span><span class="stat-l">violações de regra encontradas</span></div>
+            <div class="stat"><span class="stat-v green">1</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
           </div>
         </div>
@@ -293,112 +313,66 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 90 remoções — 1322 linhas tocadas</td><td>✨ 994 adições — 10 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 7 remoções — 1173 linhas tocadas</td><td>✨ 1132 adições — 5 arquivo(s) alterado(s)</td></tr>
           </table>
-
+          
         </div>
         <div class="ap-card">
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>10</td></tr>
-            <tr><td>Adições</td><td>+994</td></tr>
-            <tr><td>Remoções</td><td>-90</td></tr>
-            <tr><td>Tokens estimados</td><td>~992</td></tr>
+            <tr><td>Arquivos alterados</td><td>5</td></tr>
+            <tr><td>Adições</td><td>+1132</td></tr>
+            <tr><td>Remoções</td><td>-7</td></tr>
+            <tr><td>Tokens estimados</td><td>~880</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:75">+746 add</div>
-        <div class="del" style="flex:7">-68 del</div>
-        <div class="overhead" style="flex:18">~178 ctx</div>
+        <div class="add" style="flex:96">+849 add</div>
+        <div class="del" style="flex:1">-5 del</div>
+        <div class="overhead" style="flex:3">~26 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+746</td><td>75%</td></tr>
-      <tr><td>Remoções</td><td>-68</td><td>7%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~178</td><td>18%</td></tr>
-      <tr><th>Total</th><th>~992</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+849</td><td>96%</td></tr>
+      <tr><td>Remoções</td><td>-5</td><td>1%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~26</td><td>3%</td></tr>
+      <tr><th>Total</th><th>~880</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
           <h3>📁 Arquivos</h3>
           <table>
             <tr><th>Status</th><th>Arquivo</th></tr>
-            <tr><td>M</td><td>docs/RADAR.md</td></tr>
-<tr><td>M</td><td>docs/handoff.md</td></tr>
+            <tr><td>M</td><td>docs/handoff.md</td></tr>
 <tr><td>A</td><td>docs/reports/2026-08-24/auto-2026-08-24-feat-add-test-coverage-for-computemetrichistory.html</td></tr>
 <tr><td>A</td><td>docs/reports/2026-08-24/jules-7691209467773456208-bb683865-2026-08-24-jules-7691209467773456208-bb683865.html</td></tr>
-<tr><td>M</td><td>docs/tracking/archive/quality-2026-08.jsonl</td></tr>
 <tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
-<tr><td>M</td><td>docs/tracking/quality.jsonl</td></tr>
-<tr><td>M</td><td>public/kpi-data.json</td></tr>
-<tr><td>M</td><td>public/workflow-data.json</td></tr>
 <tr><td>M</td><td>tests/unit/metrics.test.ts</td></tr>
           </table>
         </div>
       </div>
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
-        diff --git a/docs/RADAR.md b/docs/RADAR.md
-index 97828f9..78dc002 100644
-<span class="del">--- a/docs/RADAR.md</span>
-<span class="add">+++ b/docs/RADAR.md</span>
-@@ -1,6 +1,6 @@
- # 🔭 Radar de Vulnerabilidades
-
-<span class="del">-&gt; Atualizado em: 2026-08-23T13:07:54.611Z</span>
-<span class="add">+&gt; Atualizado em: 2026-08-24T13:45:06.403Z</span>
-
- ## ✅ Radar Limpo
- Nenhuma vulnerabilidade ativa detectada.
-diff --git a/docs/handoff.md b/docs/handoff.md
-index 51029d2..cab7ca0 100644
+        diff --git a/docs/handoff.md b/docs/handoff.md
+index ba213b6..c6a9630 100644
 <span class="del">--- a/docs/handoff.md</span>
 <span class="add">+++ b/docs/handoff.md</span>
-@@ -1,3 +1,8 @@
-<span class="add">+### ⏱️ Sessão Atual</span>
-<span class="add">+- Início: 2026-08-24T12:00:00Z</span>
-<span class="add">+- Categoria: feature</span>
-<span class="add">+- Docs carregados: WORKFLOW.md, conventions/common.md, conventions/feature.md</span>
-<span class="add">+</span>
- # HANDOFF — MilesControl
- &gt; ⏰ Última atualização: 2026-08-11
- &gt; Anterior: 2026-08-10
-@@ -35,8 +40,8 @@ a8dc247 chore: limpeza do repositório — branches órfãs + fable-gates no MAP
- ```
-
- ## 🧭 Estado Atual
-<span class="del">-- **Branch:** `refactor/small-model-optimization`</span>
-<span class="del">-- **Último commit:** `df5ac12 — Merge pull request #493 from andre0787/fix/ai-engineering-live-data`</span>
-<span class="add">+- **Branch:** `jules-7691209467773456208-bb683865`</span>
-<span class="add">+- **Último commit:** `cb8ecbe — Merge pull request #495 from andre0787/chore/quality-nightly-update`</span>
- - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
-
- ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
-@@ -149,6 +154,17 @@ Nenhum PR aberto.
-
-
-
-<span class="add">+</span>
-<span class="add">+</span>
-<span class="add">+</span>
-<span class="add">+## 🎯 Sessão Atual</span>
-<span class="add">+**Categoria:** feature</span>
-<span class="add">+**Objetivo:** test coverage for computeMetricHistory</span>
-<span class="add">+**Status:** in_progress</span>
-<span class="add">+**Iniciada em:** 2026-08-24T13:45:13.443Z</span>
-<span class="add">+**Branch:** `jules-7691209467773456208-bb683865`</span>
-<span class="add">+**Último commit:** cb8ecbe — Merge pull request #495 from andre0787/chore/quality-nightly-update</span>
-<span class="add">+**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md</span>
-
-
- ---
+@@ -157,7 +157,7 @@ Nenhum PR aberto.
+ **Objetivo:** corrigir bugs de auditoria do frontend
+ **Status:** in_progress
+ **Iniciada em:** 2026-08-24T13:35:47.142Z
+<span class="del">-**Branch:** `fix/frontend-audit-bugs`</span>
+<span class="add">+**Branch:** `jules-metrics-tests-7691209467773456208`</span>
+ **Último commit:** cb8ecbe — Merge pull request #495 from andre0787/chore/quality-nightly-update
+ **Docs carregados:** DEBUG.md, conventions/common.md, conventions/bugfix.md
+ 
 diff --git a/docs/reports/2026-08-24/auto-2026-08-24-feat-add-test-coverage-for-computemetrichistory.html b/docs/reports/2026-08-24/auto-2026-08-24-feat-add-test-coverage-for-computemetrichistory.html
 new file mode 100644
-index 0000000..339abb0
+index 0000000..28ae859
 <span class="del">--- /dev/null</span>
 <span class="add">+++ b/docs/reports/2026-08-24/auto-2026-08-24-feat-add-test-coverage-for-computemetrichistory.html</span>
-@@ -0,0 +1,398 @@
+@@ -0,0 +1,526 @@
 <span class="add">+&lt;!DOCTYPE html&gt;</span>
 <span class="add">+&lt;html lang=&quot;pt-BR&quot;&gt;</span>
 <span class="add">+&lt;head&gt;</span>
@@ -459,11 +433,52 @@ index 0000000..339abb0
 <span class="add">+    .hero-meta{font-size:.72rem;color:var(--muted);opacity:.8}</span>
 <span class="add">+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin-top:.4rem}</span>
 <span class="add">+    .kpi{</span>
+<span class="add">+      background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);</span>
+<span class="add">+      border-radius:1rem;padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.2rem;</span>
+<span class="add">+      box-shadow:0 10px 30px rgba(0,0,0,.3);</span>
+<span class="add">+    }</span>
+<span class="add">+    .kpi-value{font-size:clamp(1.9rem,3vw,2.6rem);font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--text)}</span>
+<span class="add">+    .kpi-value.green{color:var(--green)}.kpi-value.amber{color:var(--amber)}</span>
+<span class="add">+    .kpi-label{font-size:.8rem;color:var(--muted);font-weight:600}</span>
+<span class="add">+    .kpi-sub{font-size:.7rem;color:var(--muted);opacity:.75}</span>
+<span class="add">+    .bluf{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem}</span>
+<span class="add">+    .bluf-col{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}</span>
+<span class="add">+    .bluf-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-weight:800;margin-bottom:.4rem}</span>
+<span class="add">+    .bluf-col p{font-size:.9rem;color:var(--text)}</span>
+<span class="add">+    .slide-head{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.6rem}</span>
+<span class="add">+    .slide-kicker{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);font-weight:800}</span>
+<span class="add">+    .slide-head h2{font-size:clamp(1.4rem,3vw,2.1rem);letter-spacing:-.02em;font-weight:800}</span>
+<span class="add">+    .impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}</span>
+<span class="add">+    .impact-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.4rem;display:flex;flex-direction:column;gap:.5rem}</span>
+<span class="add">+    .impact-icon{font-size:1.6rem}</span>
+<span class="add">+    .impact-card h3{font-size:1rem;font-weight:800;letter-spacing:-.01em}</span>
+<span class="add">+    .impact-card p{font-size:.9rem;color:var(--muted)}</span>
+<span class="add">+    .impact-card.blue{border-top:3px solid var(--blue)}</span>
+<span class="add">+    .impact-card.gold{border-top:3px solid var(--gold)}</span>
+<span class="add">+    .impact-card.teal{border-top:3px solid var(--teal)}</span>
+<span class="add">+    .split{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;align-items:start}</span>
+<span class="add">+    @media(max-width:760px){.split{grid-template-columns:1fr}}</span>
+<span class="add">+    .timeline{position:relative;padding-left:1.4rem;display:flex;flex-direction:column;gap:1.05rem}</span>
+<span class="add">+    .timeline::before{content:&quot;&quot;;position:absolute;left:.4rem;top:.3rem;bottom:.3rem;width:2px;background:linear-gradient(180deg,var(--blue),var(--green))}</span>
+<span class="add">+    .tl-item{position:relative;display:flex;align-items:center;gap:.9rem}</span>
+<span class="add">+    .tl-dot{position:absolute;left:-1.4rem;width:.85rem;height:.85rem;border-radius:50%;background:var(--card);border:2px solid var(--blue)}</span>
+<span class="add">+    .tl-item.pr\\:merge .tl-dot,.tl-item.pr-merge .tl-dot{border-color:var(--green);background:var(--green)}</span>
+<span class="add">+    .tl-item.pre-pr .tl-dot{border-color:var(--amber)}</span>
+<span class="add">+    .tl-body{display:flex;flex-direction:column}</span>
+<span class="add">+    .tl-time{font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:700}</span>
+<span class="add">+    .tl-label{font-size:.92rem;font-weight:600}</span>
+<span class="add">+    .tl-total{margin-top:.4rem;font-size:.85rem;color:var(--green);font-weight:700}</span>
+<span class="add">+    .empty-note{font-size:.9rem;color:var(--muted);border:1px dashed var(--line);border-radius:1rem;padding:1.2rem}</span>
+<span class="add">+    .stat-list{display:flex;flex-direction:column;gap:.8rem}</span>
+<span class="add">+    .stat{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1rem 1.2rem;display:flex;align-items:baseline;gap:.9rem}</span>
+<span class="add">+    .stat-v{font-size:1.7rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--blue)}</span>
+<span class="add">+    .stat-v.green{color:var(--green)}</span>
+<span class="add">+    .stat-l{font-size:.82rem;color:var(--muted)}</span>
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-08-24 13:59
+      Gerado por scripts/generate-report.mjs · 2026-08-24 15:24
     </div>
   </div>
 
