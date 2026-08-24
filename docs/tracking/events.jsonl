@@ -352,3 +352,15 @@
 {"timestamp":"2026-08-24T05:04:33.891Z","type":"rule:fail","description":"rule-36-process-evidence falhou","branch":"refactor/small-model-optimization","commit":"df5ac12","agent":"human","rule":"rule-36-process-evidence"}
 {"timestamp":"2026-08-24T05:08:08.532Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/small-model-optimization","commit":"df5ac12","agent":"human","errors":0}
 {"timestamp":"2026-08-24T05:09:15.670Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/small-model-optimization","commit":"df5ac12","agent":"human","errors":0}
+{"timestamp":"2026-08-24T13:33:28.739Z","type":"rule:fail","description":"rule-03-handoff-completeness falhou","branch":"fix/frontend-audit-bugs","commit":"cb8ecbe","agent":"human","rule":"rule-03-handoff-completeness"}
+{"timestamp":"2026-08-24T13:33:28.774Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"fix/frontend-audit-bugs","commit":"cb8ecbe","agent":"human","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-24T13:33:28.802Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"fix/frontend-audit-bugs","commit":"cb8ecbe","agent":"human","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-24T13:33:28.829Z","type":"rule:fail","description":"rule-39-coding-gate falhou","branch":"fix/frontend-audit-bugs","commit":"cb8ecbe","agent":"human","rule":"rule-39-coding-gate"}
+{"timestamp":"2026-08-24T13:35:47.163Z","type":"session:start","description":"bugfix: corrigir bugs de auditoria do frontend","branch":"fix/frontend-audit-bugs","commit":"cb8ecbe","agent":"human","categoria":"bugfix"}
+{"timestamp":"2026-08-24T13:36:09.127Z","type":"coding:done","description":"Codificação dos bugs da auditoria frontend concluída","branch":"fix/frontend-audit-bugs","commit":"cb8ecbe","agent":"human","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-08-24T13:36:09.157Z","type":"code-review:done","description":"Review dos bugs da auditoria frontend aprovado","branch":"fix/frontend-audit-bugs","commit":"cb8ecbe","agent":"human","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-08-24T13:41:13.500Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/frontend-audit-bugs","commit":"cb8ecbe","agent":"human","errors":0}
+{"timestamp":"2026-08-24T13:41:50.780Z","type":"gate","description":"AUTH: usuário disse \"Pare e me reporte assim que estiver commitado e pushado; não fique esperando CI.\"","branch":"fix/frontend-audit-bugs","commit":"cb8ecbe","agent":"human","gate":"auth","target":"commit and push feature branch"}
+{"timestamp":"2026-08-24T13:42:11.562Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/frontend-audit-bugs","commit":"cb8ecbe","agent":"human","errors":0}
+{"timestamp":"2026-08-24T13:50:10.318Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/frontend-audit-bugs","commit":"d5dc453","agent":"human","errors":0}
+{"timestamp":"2026-08-24T13:56:03.962Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/frontend-audit-bugs","commit":"b72c5e5","agent":"human","errors":0}

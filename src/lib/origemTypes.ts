@@ -1,3 +1,5 @@
+import { addMonthsClamped } from "@/lib/dateUtils";
+
 /** Serializa metadata de origem type (distinto do serializeDescription em types/index.ts que é para entries) */
 export function serializeOrigemTypeDescription(hasRecurrence: boolean): string {
   return JSON.stringify({ hasRecurrence });
@@ -62,6 +64,7 @@ export function filterToCleanOrigemTypes<T extends { name: string }>(items: T[])
 export function buildMonthlyRecurrence(
   enabled: boolean,
   months?: string,
+  startDate?: string,
 ): {
   recurrenceInterval?: number;
   recurrenceEnd?: string;
@@ -73,11 +76,16 @@ export function buildMonthlyRecurrence(
     return { recurrenceInterval: 30 };
   }
 
-  const endDate = new Date();
-  // ponytail: UTC para consistência com datas ISO
-  endDate.setUTCMonth(endDate.getUTCMonth() + parsedMonths);
+  const recurrenceEnd = startDate
+    ? addMonthsClamped(startDate, parsedMonths, new Date(`${startDate}T00:00:00Z`).getUTCDate())
+    : (() => {
+        const endDate = new Date();
+        // ponytail: UTC para consistência com datas ISO
+        endDate.setUTCMonth(endDate.getUTCMonth() + parsedMonths);
+        return endDate.toISOString().split("T")[0];
+      })();
   return {
     recurrenceInterval: 30,
-    recurrenceEnd: endDate.toISOString().split("T")[0],
+    recurrenceEnd,
   };
 }
