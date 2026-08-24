@@ -5,19 +5,16 @@ export interface Database {
         Row: {
           id: string;
           name: string;
-          is_admin: boolean;
           created_at: string;
         };
         Insert: {
           id: string;
           name?: string;
-          is_admin?: boolean;
           created_at?: string;
         };
         Update: {
           id?: string;
           name?: string;
-          is_admin?: boolean;
           created_at?: string;
         };
         Relationships: [];
@@ -372,11 +369,6 @@ export interface Database {
       };
     };
     Views: Record<string, never>;
-    Functions: {
-      is_admin: {
-        Args: Record<string, never>;
-        Returns: boolean;
-      };
-    };
+    Functions: Record<string, never>;
   };
 }

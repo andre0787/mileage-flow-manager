@@ -208,7 +208,7 @@ export const MUTATION_CATALOG: MutationCase[] = [
       type: "file_inject",
       file: "src/features/auth/authSlice.ts",
       after: "initialState",
-      inject: "\n// MUTATION: expose admin data\nisAdmin: true, adminToken: 'exposed-token-123'",
+      inject: "\n// MUTATION: expose authorization data\nroleToken: 'exposed-token-123',",
     },
     cleanup: { type: "git_checkout", file: "src/features/auth/authSlice.ts" },
     tags: ["auth", "security", "exposed", "admin"],

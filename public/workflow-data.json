@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-23T13:30:11.755Z",
-  "dataDate": "2026-08-23",
+  "generatedAt": "2026-08-24T05:08:13.310Z",
+  "dataDate": "2026-08-24",
   "kpiStats": [
     {
-      "value": 356,
+      "value": 353,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 522,
+      "value": 528,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 30,
+      "value": 29,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 29,
+      "value": 27,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,33 +36,38 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 11,
+      "n": 10,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 108,
+      "n": 113,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 120,
+      "n": 146,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 30,
+      "n": 29,
       "color": "#10b981"
     },
     {
       "name": "code-review:done",
-      "n": 29,
+      "n": 28,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 28,
+      "n": 25,
       "color": "#22c55e"
+    },
+    {
+      "name": "gate:blocked",
+      "n": 2,
+      "color": "#b91c1c"
     }
   ],
   "grades": [
@@ -73,7 +78,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 199,
+      "n": 205,
       "color": "#84cc16"
     },
     {
@@ -84,68 +89,68 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-23 00:58:57",
-      "d": "coding:done",
-      "desc": "Corrige locator secundário do smoke E2E"
-    },
-    {
-      "t": "2026-08-23 00:57:35",
-      "d": "llm.route.resolved",
-      "desc": "LLM route resolved"
-    },
-    {
-      "t": "2026-08-23 00:38:40",
+      "t": "2026-08-24 05:08:08",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-23 00:37:59",
+      "t": "2026-08-24 05:04:33",
+      "d": "rule:fail",
+      "desc": "rule-36-process-evidence falhou"
+    },
+    {
+      "t": "2026-08-24 05:04:33",
+      "d": "rule:fail",
+      "desc": "rule-31-lib-test-coverage falhou"
+    },
+    {
+      "t": "2026-08-24 05:03:45",
+      "d": "rule:fail",
+      "desc": "rule-36-process-evidence falhou"
+    },
+    {
+      "t": "2026-08-24 05:03:45",
+      "d": "rule:fail",
+      "desc": "rule-31-lib-test-coverage falhou"
+    },
+    {
+      "t": "2026-08-24 05:02:58",
+      "d": "rule:fail",
+      "desc": "rule-36-process-evidence falhou"
+    },
+    {
+      "t": "2026-08-24 05:02:58",
+      "d": "rule:fail",
+      "desc": "rule-31-lib-test-coverage falhou"
+    },
+    {
+      "t": "2026-08-24 05:02:45",
       "d": "code-review:done",
-      "desc": "Review final aprovado por subagente"
-    },
-    {
-      "t": "2026-08-23 00:37:08",
-      "d": "llm.route.resolved",
-      "desc": "LLM route resolved"
-    },
-    {
-      "t": "2026-08-23 00:35:20",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-23 00:35:08",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-08-23 00:35:07",
-      "d": "coding:done",
-      "desc": "Correção final dos findings do review concluída por subagente"
+      "desc": "Review aprovado por subagente"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 120,
-    "healed": 30,
-    "healedRate": 25,
-    "prePrTotal": 108,
-    "prePrPass": 108,
+    "ruleFails": 146,
+    "healed": 29,
+    "healedRate": 19.9,
+    "prePrTotal": 113,
+    "prePrPass": 113,
     "prePrPassRate": 100,
-    "gateBlocked": 0,
+    "gateBlocked": 2,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 41,
+        "count": 42,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
         "rule": "rule-39-coding-gate",
-        "count": 20,
+        "count": 21,
         "hint": "faltou evento coding:done por subagente na branch"
       },
       {
-        "rule": "rule-30-outcome-grade",
-        "count": 8,
+        "rule": "rule-31-lib-test-coverage",
+        "count": 9,
         "hint": ""
       },
       {
@@ -154,68 +159,68 @@
         "hint": "novo doc criado sem validar referências no MAP.md"
       },
       {
-        "rule": "rule-41-optimizer",
-        "count": 7,
-        "hint": "arquivo acima do limite de 150 linhas"
+        "rule": "rule-36-process-evidence",
+        "count": 8,
+        "hint": ""
       }
     ]
   },
   "lastPrs": [
     {
-      "number": 487,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-08-23",
-      "tokens": 484,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção"
-    },
-    {
-      "number": 486,
-      "title": "fix: desambigua seletor do smoke de produção",
+      "number": 493,
+      "title": "fix: AI Engineering Command Center busca dados live",
       "type": "fix",
       "date": "2026-08-23",
-      "tokens": 17,
+      "tokens": 110,
       "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
       "impact": "Menos risco de erro para o usuário e a operação"
     },
     {
-      "number": 482,
-      "title": "refactor: implementa otimização do master plan",
-      "type": "refactor",
-      "date": "2026-08-22",
-      "tokens": 2919,
-      "benefit": "Código mais simples — menor custo de manutenção",
-      "impact": "Menos custo em mudanças futuras"
+      "number": 492,
+      "title": "fix: Pipeline DAG busca dados live da ai_telemetry",
+      "type": "fix",
+      "date": "2026-08-23",
+      "tokens": 65,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação"
     },
     {
-      "number": 480,
-      "title": "refactor: modulariza generate-report + pendências P13 + fix smoke test",
-      "type": "refactor",
-      "date": "2026-08-22",
-      "tokens": 2231,
-      "benefit": "Código mais simples — menor custo de manutenção",
-      "impact": "Menos custo em mudanças futuras"
+      "number": 491,
+      "title": "fix: telemetria IA busca dados live do Supabase",
+      "type": "fix",
+      "date": "2026-08-23",
+      "tokens": 2,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação"
     },
     {
-      "number": 478,
-      "title": "refactor: reduzir fricção de agentes e finalizar Agent Lab",
-      "type": "refactor",
-      "date": "2026-08-22",
-      "tokens": 2912,
-      "benefit": "Código mais simples — menor custo de manutenção",
-      "impact": "Menos custo em mudanças futuras"
+      "number": 490,
+      "title": "revert: remove admin infrastructure completely",
+      "type": "other",
+      "date": "2026-08-23",
+      "tokens": 20,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção"
+    },
+    {
+      "number": 489,
+      "title": "fix: admin RLS — restringe dados de negócio ao próprio usuário",
+      "type": "fix",
+      "date": "2026-08-23",
+      "tokens": 71,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação"
     }
   ],
   "overview": {
-    "components": 128,
+    "components": 130,
     "pages": 19,
-    "libs": 35,
+    "libs": 36,
     "scripts": 120,
     "testFiles": 269,
     "skills": 27,
     "rules": 48,
-    "events": 356,
-    "qualityNotes": 522
+    "events": 353,
+    "qualityNotes": 528
   }
 }
