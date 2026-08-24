@@ -27,6 +27,17 @@ describe("formatDateBR", () => {
     expect(formatDateBR("2026-03-01")).toBe("01/03/2026");
     expect(formatDateBR("2026-07-15")).toBe("15/07/2026");
   });
+
+  it("passa direto strings ISO completas (com hora) e formata de acordo", () => {
+    // Em fuso -3, 2026-08-05T01:30:00Z vira 2026-08-04T22:30:00-03:00.
+    // formatDateBR usa toLocaleDateString, então deve retornar "04/08/2026".
+    expect(formatDateBR("2026-08-05T01:30:00Z")).toBe("04/08/2026");
+  });
+
+  it("lida graciosamente com entradas inválidas", () => {
+    expect(formatDateBR("invalid")).toBe("Invalid Date");
+    expect(formatDateBR("")).toBe("Invalid Date");
+  });
 });
 
 describe("parseDateOnly", () => {
