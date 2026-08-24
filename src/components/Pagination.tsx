@@ -30,12 +30,13 @@ export function Pagination({ currentPage, totalPages, onPageChange, className }:
   }
 
   return (
-    <div className={cn("flex items-center justify-center gap-1", className)}>
+    <nav aria-label="Paginação" className={cn("flex items-center justify-center gap-1", className)}>
       <Button
         variant="outline"
         size="icon"
         className="h-8 w-8"
         disabled={currentPage === 1}
+        aria-label="Página anterior"
         onClick={() => onPageChange(currentPage - 1)}
       >
         <ChevronLeft className="h-4 w-4" />
@@ -62,10 +63,11 @@ export function Pagination({ currentPage, totalPages, onPageChange, className }:
         size="icon"
         className="h-8 w-8"
         disabled={currentPage === totalPages}
+        aria-label="Próxima página"
         onClick={() => onPageChange(currentPage + 1)}
       >
         <ChevronRight className="h-4 w-4" />
       </Button>
-    </div>
+    </nav>
   );
 }

@@ -63,6 +63,10 @@ const PageFallback = () => (
 const AnimatedRoutes = () => {
   const location = useLocation();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname, location.search]);
+
   return (
     <Suspense fallback={<PageFallback />}>
       <Routes location={location} key={location.pathname}>

@@ -322,6 +322,7 @@ export function SaleForm({
                   size="icon"
                   onClick={() => setIsClientDialogOpen(true)}
                   title="Novo cliente"
+                  aria-label="Novo cliente"
                 >
                   <Plus className="h-4 w-4" />
                 </Button>
@@ -569,7 +570,7 @@ export function SaleForm({
           )}
 
           <div className="flex justify-end gap-2 mt-4">
-            <Button variant="outline" onClick={() => onOpenChange(false)}>
+            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
               Cancelar
             </Button>
             <FormSubmitButton

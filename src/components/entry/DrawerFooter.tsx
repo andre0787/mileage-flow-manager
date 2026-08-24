@@ -9,10 +9,11 @@ interface DrawerFooterProps {
 export function DrawerFooter({ isCreating, onCancel, onSubmit }: DrawerFooterProps) {
   return (
     <div className="flex justify-end gap-2 mt-4">
-      <Button variant="outline" onClick={onCancel}>
+      <Button type="button" variant="outline" onClick={onCancel}>
         Cancelar
       </Button>
       <Button
+        type="button"
         onClick={onSubmit}
         disabled={isCreating}
         className="bg-gradient-primary hover:opacity-90"

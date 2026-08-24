@@ -11,11 +11,11 @@
  * Design system: UI-GUIDE.md
  * - Ícone de lupa à esquerda
  * - Botão de limpar quando há texto
- * - Hotkey Ctrl+K / ⌘K para foco rápido
+ * - Indicador visual de Ctrl+K / ⌘K para busca global
  * - Transições suaves conforme guia
  */
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
@@ -39,18 +39,6 @@ export function SearchInput({
 }: SearchInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [focused, setFocused] = useState(false);
-
-  // Hotkey global Ctrl+K / ⌘K para focar
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
-        e.preventDefault();
-        inputRef.current?.focus();
-      }
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, []);
 
   return (
     <div
