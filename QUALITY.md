@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-08-23
-> Último commit: d876a30-Merge pull request #486 from andre0787/fix/smoke-origin-locator
+> Gerado em: 2026-08-24
+> Último commit: 8c5d0bc-refactor: small model optimization — admin removal + pipeline scripts (#494)
 
 ## Pipeline
 
@@ -15,21 +15,21 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 1089 |
+| Unit | 1051 |
 | E2E  | 95 |
-| **Total** | **1184** |
+| **Total** | **1146** |
 
 ## Bundle
 
 | Métrica | Valor |
 |---------|-------|
-| Tamanho (dist) | 1841kB |
+| Tamanho (dist) | 1842kB |
 
 ## Documentação
 
 | Métrica | Valor |
 |---------|-------|
-| Arquivos .md | 223 |
+| Arquivos .md | 258 |
 | Arquivados | 46 |
 | Issues (verify-docs) | 0 |
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-08-23 | ✅ | 1184 | 1841kB | 0 issues |
+| 2026-08-24 | ✅ | 1146 | 1842kB | 0 issues |
 
 ---
 
