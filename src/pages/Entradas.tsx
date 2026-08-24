@@ -547,6 +547,7 @@ export default function Entradas() {
                   )
                 : "",
               date: editingEntry.date,
+              startDate: editingEntry.date,
             }}
             accounts={accounts}
             origemTypes={origemTypes}

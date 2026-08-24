@@ -1,4 +1,4 @@
-import { useActionState, useState } from "react";
+import { useActionState, useRef, useState } from "react";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FormSubmitButton } from "@/components/FormSubmitButton";
@@ -65,12 +65,26 @@ export function EntryForm({
   onCreateOwner,
   onCreateProgram,
 }: EntryFormProps) {
-  const [form, setForm] = useState<EntryFormData>({ ...emptyEntryForm, ...initialData });
+  const initialForm = { ...emptyEntryForm, ...initialData };
+  const [form, setForm] = useState<EntryFormData>(() => ({
+    ...initialForm,
+    startDate: initialForm.startDate || initialForm.date,
+  }));
+  const recurrenceStartWasEdited = useRef(
+    Boolean(initialForm.startDate && initialForm.startDate !== initialForm.date),
+  );
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
   const [isOrigemTypeOpen, setIsOrigemTypeOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
 
-  const set = (patch: Partial<EntryFormData>) => setForm((prev) => ({ ...prev, ...patch }));
+  const set = (patch: Partial<EntryFormData>) =>
+    setForm((prev) => {
+      const next = { ...prev, ...patch };
+      if (patch.date !== undefined && !recurrenceStartWasEdited.current) {
+        next.startDate = next.date;
+      }
+      return next;
+    });
   const clearErr = (field: string) => setErrors((prev) => ({ ...prev, [field]: "" }));
 
   const selectedAccount = accounts.find((a) => a.id === form.accountId);
@@ -170,9 +184,12 @@ export function EntryForm({
                   isRecurrent: hasRecurrence,
                   recurrenceCount: hasRecurrence ? Math.max(form.recurrenceCount, 2) : 1,
                   startDate: hasRecurrence
-                    ? form.startDate || form.date || new Date().toISOString().split("T")[0]
+                    ? recurrenceStartWasEdited.current
+                      ? form.startDate
+                      : form.date
                     : form.date,
                 });
+                if (!hasRecurrence) recurrenceStartWasEdited.current = false;
                 clearErr("origemTypeId");
               }}
             >
@@ -303,16 +320,17 @@ export function EntryForm({
             type="checkbox"
             checked={form.isRecurrent}
             onChange={(e) => {
+              const isRecurrent = e.target.checked;
+              if (!isRecurrent) recurrenceStartWasEdited.current = false;
               set({
-                isRecurrent: e.target.checked,
-                startDate:
-                  e.target.checked && !form.startDate
-                    ? new Date().toISOString().split("T")[0]
-                    : form.startDate,
+                isRecurrent,
+                recurrenceCount: isRecurrent ? form.recurrenceCount : 1,
+                startDate: isRecurrent
+                  ? recurrenceStartWasEdited.current
+                    ? form.startDate
+                    : form.date
+                  : form.date,
               });
-              if (!e.target.checked) {
-                set({ recurrenceCount: 1, startDate: form.date });
-              }
             }}
             className="h-4 w-4 rounded border-border accent-primary"
           />
@@ -364,6 +382,7 @@ export function EntryForm({
                   type="date"
                   value={form.startDate}
                   onChange={(e) => {
+                    recurrenceStartWasEdited.current = true;
                     set({ startDate: e.target.value });
                     clearErr("startDate");
                   }}
