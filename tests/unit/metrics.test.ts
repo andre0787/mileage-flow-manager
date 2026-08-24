@@ -282,7 +282,58 @@ describe("computeDashboardMetrics", () => {
   });
 });
 
-describe("computeMetricHistory — regressão: exclui transferências de milesIn", () => {
+describe("computeMetricHistory", () => {
+  it("calcula histórico com o padrão de 6 meses e valores corretos", () => {
+    const now = new Date();
+    const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const isoDate = (d: Date) => d.toISOString().split("T")[0];
+
+    const sales = [
+      { status: "concluida", date: isoDate(now), saleValue: 200, profit: 50, milesUsed: 1000 },
+      { status: "cancelado", date: isoDate(now), saleValue: 100, profit: 20, milesUsed: 500 }, // ignored
+      { status: "concluida", date: isoDate(lastMonth), saleValue: 300, profit: 100, milesUsed: 1500 },
+    ] as any;
+
+    const entries = [
+      { entryStatus: "confirmada", date: isoDate(now), amount: 2000 }, // uses amount because milesGenerated is missing
+      { entryStatus: "aguardando", date: isoDate(now), amount: 1000 }, // ignored
+      { entryStatus: "confirmada", date: isoDate(lastMonth), amount: 1000, milesGenerated: 3000 }, // uses milesGenerated
+    ] as any;
+
+    const history = computeMetricHistory(sales, entries);
+
+    expect(history.milesIn).toHaveLength(6);
+    expect(history.revenue).toHaveLength(6);
+    expect(history.profit).toHaveLength(6);
+    expect(history.milesStock).toHaveLength(6);
+
+    // Current month (last element in arrays because the order is oldest to newest)
+    expect(history.milesIn[5]).toBe(2000);
+    expect(history.revenue[5]).toBe(200);
+    expect(history.profit[5]).toBe(50);
+    expect(history.milesStock[5]).toBe(2000 - 1000); // 1000
+
+    // Last month (second to last element)
+    expect(history.milesIn[4]).toBe(3000);
+    expect(history.revenue[4]).toBe(300);
+    expect(history.profit[4]).toBe(100);
+    expect(history.milesStock[4]).toBe(3000 - 1500); // 1500
+
+    // Older months should be zero
+    expect(history.milesIn[0]).toBe(0);
+    expect(history.revenue[0]).toBe(0);
+    expect(history.profit[0]).toBe(0);
+    expect(history.milesStock[0]).toBe(0);
+  });
+
+  it("respeita a quantidade de meses passada", () => {
+    const history = computeMetricHistory([], [], 3);
+    expect(history.milesIn).toHaveLength(3);
+    expect(history.revenue).toHaveLength(3);
+    expect(history.profit).toHaveLength(3);
+    expect(history.milesStock).toHaveLength(3);
+  });
+
   it("transferência não conta como milhas novas no mês (mesma regra do dashboard)", () => {
     const now = new Date();
     const isoDate = (d: Date) => d.toISOString().split("T")[0];
