@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-08-25T00:38:07.775Z",
+  "generatedAt": "2026-08-25T06:38:52.634Z",
   "dataDate": "2026-08-25",
   "kpiStats": [
     {
-      "value": 390,
+      "value": 392,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 122,
+      "n": 124,
       "color": "#8b5cf6"
     },
     {
@@ -94,6 +94,16 @@
   ],
   "recentTimeline": [
     {
+      "t": "2026-08-25 00:44:28",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-25 00:39:36",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
       "t": "2026-08-25 00:38:02",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
@@ -122,24 +132,14 @@
       "t": "2026-08-25 00:31:58",
       "d": "rule:fail",
       "desc": "rule-39-coding-gate falhou"
-    },
-    {
-      "t": "2026-08-25 00:31:58",
-      "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
-    },
-    {
-      "t": "2026-08-25 00:31:43",
-      "d": "healed",
-      "desc": "rule-26 auto-corrigido"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 163,
     "healed": 32,
     "healedRate": 19.6,
-    "prePrTotal": 122,
-    "prePrPass": 122,
+    "prePrTotal": 124,
+    "prePrPass": 124,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
@@ -170,53 +170,7 @@
       }
     ]
   },
-  "lastPrs": [
-    {
-      "number": 499,
-      "title": "chore: add edge cases and error condition coverage for formatDateBR",
-      "type": "chore",
-      "date": "2026-08-24",
-      "tokens": 417,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável"
-    },
-    {
-      "number": 497,
-      "title": "chore: add test coverage for computeMetricHistory",
-      "type": "chore",
-      "date": "2026-08-24",
-      "tokens": 461,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável"
-    },
-    {
-      "number": 498,
-      "title": "fix: corrige bugs encontrados em auditoria de frontend e recorrência",
-      "type": "fix",
-      "date": "2026-08-24",
-      "tokens": 994,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação"
-    },
-    {
-      "number": 496,
-      "title": "🧪 test: edge case coverage for calcRevenueChange",
-      "type": "other",
-      "date": "2026-08-24",
-      "tokens": 12,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção"
-    },
-    {
-      "number": 495,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-08-24",
-      "tokens": 473,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção"
-    }
-  ],
+  "lastPrs": [],
   "overview": {
     "components": 130,
     "pages": 18,
@@ -225,7 +179,7 @@
     "testFiles": 277,
     "skills": 27,
     "rules": 48,
-    "events": 390,
+    "events": 392,
     "qualityNotes": 546
   }
 }
