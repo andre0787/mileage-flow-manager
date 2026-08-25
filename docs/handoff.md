@@ -35,8 +35,8 @@ a8dc247 chore: limpeza do repositório — branches órfãs + fable-gates no MAP
 ```
 
 ## 🧭 Estado Atual
-- **Branch:** `fix/frontend-audit-bugs`
-- **Último commit:** `cb8ecbe — Merge pull request #495 from andre0787/chore/quality-nightly-update`
+- **Branch:** `main`
+- **Último commit:** `0a78fc2 — Merge pull request #500 from andre0787/fix/kpi-coverage-logging-remove-promotions`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -157,7 +157,7 @@ Nenhum PR aberto.
 **Objetivo:** corrigir bugs de auditoria do frontend
 **Status:** in_progress
 **Iniciada em:** 2026-08-24T13:35:47.142Z
-**Branch:** `fix/kpi-coverage-logging-remove-promotions`
+**Branch:** `fix/balance-reconcile-clamp`
 **Último commit:** cb8ecbe — Merge pull request #495 from andre0787/chore/quality-nightly-update
 **Docs carregados:** DEBUG.md, conventions/common.md, conventions/bugfix.md
 
