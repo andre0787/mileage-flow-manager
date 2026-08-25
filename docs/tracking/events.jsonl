@@ -387,3 +387,4 @@
 {"timestamp":"2026-08-25T00:44:28.313Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/kpi-coverage-logging-remove-promotions","commit":"ee2a7fd","agent":"human","errors":0}
 {"timestamp":"2026-08-25T16:12:51.010Z","type":"healed","description":"rule-26 auto-corrigido","branch":"fix/balance-reconcile-clamp","commit":"0a78fc2","agent":"human","rule":"rule-26"}
 {"timestamp":"2026-08-25T16:17:38.401Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/balance-reconcile-clamp","commit":"0a78fc2","agent":"human","errors":0}
+{"timestamp":"2026-08-25T16:20:16.961Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/balance-reconcile-clamp","commit":"cbd8c3f","agent":"human","errors":0}
