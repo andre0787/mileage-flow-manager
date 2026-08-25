@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-25T00:38:07.775Z",
+  "generatedAt": "2026-08-25T16:28:48.108Z",
   "dataDate": "2026-08-25",
   "kpiStats": [
     {
-      "value": 390,
+      "value": 397,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 546,
+      "value": 529,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,7 +23,7 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 32,
+      "value": 33,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
@@ -36,22 +36,22 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 11,
+      "n": 10,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 122,
+      "n": 125,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 163,
+      "n": 167,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 32,
+      "n": 33,
       "color": "#10b981"
     },
     {
@@ -78,12 +78,12 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 313,
+      "n": 293,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 208,
+      "n": 205,
       "color": "#84cc16"
     },
     {
@@ -94,63 +94,63 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-25 00:38:02",
+      "t": "2026-08-25 16:28:43",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-25 00:36:21",
+      "t": "2026-08-25 16:27:14",
       "d": "code-review:done",
-      "desc": "Review aprovado por subagente"
+      "desc": "Review aprovado — diff revisado por agente Codebuff (rule-38)"
     },
     {
-      "t": "2026-08-25 00:36:20",
+      "t": "2026-08-25 16:27:14",
       "d": "coding:done",
-      "desc": "Codificação por subagente concluída"
+      "desc": "Codificação concluída pelo agente Codebuff (fix discrepância saldos)"
     },
     {
-      "t": "2026-08-25 00:34:22",
+      "t": "2026-08-25 16:22:03",
       "d": "rule:fail",
       "desc": "rule-39-coding-gate falhou"
     },
     {
-      "t": "2026-08-25 00:34:22",
+      "t": "2026-08-25 16:22:03",
       "d": "rule:fail",
       "desc": "rule-38-code-review-gate falhou"
     },
     {
-      "t": "2026-08-25 00:31:58",
+      "t": "2026-08-25 16:20:52",
       "d": "rule:fail",
       "desc": "rule-39-coding-gate falhou"
     },
     {
-      "t": "2026-08-25 00:31:58",
+      "t": "2026-08-25 16:20:51",
       "d": "rule:fail",
       "desc": "rule-38-code-review-gate falhou"
     },
     {
-      "t": "2026-08-25 00:31:43",
-      "d": "healed",
-      "desc": "rule-26 auto-corrigido"
+      "t": "2026-08-25 16:20:16",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 163,
-    "healed": 32,
-    "healedRate": 19.6,
-    "prePrTotal": 122,
-    "prePrPass": 122,
+    "ruleFails": 167,
+    "healed": 33,
+    "healedRate": 19.8,
+    "prePrTotal": 125,
+    "prePrPass": 125,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 46,
+        "count": 48,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
         "rule": "rule-39-coding-gate",
-        "count": 25,
+        "count": 27,
         "hint": "faltou evento coding:done por subagente na branch"
       },
       {
@@ -171,6 +171,15 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 500,
+      "title": "fix: logging de cobertura KPI, remove aba Promoções, melhora briefing HTML",
+      "type": "fix",
+      "date": "2026-08-25",
+      "tokens": 1160,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação"
+    },
     {
       "number": 499,
       "title": "chore: add edge cases and error condition coverage for formatDateBR",
@@ -206,15 +215,6 @@
       "tokens": 12,
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção"
-    },
-    {
-      "number": 495,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-08-24",
-      "tokens": 473,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção"
     }
   ],
   "overview": {
@@ -225,7 +225,7 @@
     "testFiles": 277,
     "skills": 27,
     "rules": 48,
-    "events": 390,
-    "qualityNotes": 546
+    "events": 397,
+    "qualityNotes": 529
   }
 }
