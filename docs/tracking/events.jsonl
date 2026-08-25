@@ -388,3 +388,10 @@
 {"timestamp":"2026-08-25T16:12:51.010Z","type":"healed","description":"rule-26 auto-corrigido","branch":"fix/balance-reconcile-clamp","commit":"0a78fc2","agent":"human","rule":"rule-26"}
 {"timestamp":"2026-08-25T16:17:38.401Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/balance-reconcile-clamp","commit":"0a78fc2","agent":"human","errors":0}
 {"timestamp":"2026-08-25T16:20:16.961Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/balance-reconcile-clamp","commit":"cbd8c3f","agent":"human","errors":0}
+{"timestamp":"2026-08-25T16:20:51.904Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"fix/balance-reconcile-clamp","commit":"dbe56dc","agent":"human","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-25T16:20:52.017Z","type":"rule:fail","description":"rule-39-coding-gate falhou","branch":"fix/balance-reconcile-clamp","commit":"dbe56dc","agent":"human","rule":"rule-39-coding-gate"}
+{"timestamp":"2026-08-25T16:22:03.475Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"fix/balance-reconcile-clamp","commit":"dbe56dc","agent":"human","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-25T16:22:03.590Z","type":"rule:fail","description":"rule-39-coding-gate falhou","branch":"fix/balance-reconcile-clamp","commit":"dbe56dc","agent":"human","rule":"rule-39-coding-gate"}
+{"timestamp":"2026-08-25T16:27:14.852Z","type":"coding:done","description":"Codificação concluída pelo agente Codebuff (fix discrepância saldos)","branch":"fix/balance-reconcile-clamp","commit":"dbe56dc","agent":"codebuff","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-08-25T16:27:14.967Z","type":"code-review:done","description":"Review aprovado — diff revisado por agente Codebuff (rule-38)","branch":"fix/balance-reconcile-clamp","commit":"dbe56dc","agent":"codebuff","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-08-25T16:28:43.788Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/balance-reconcile-clamp","commit":"dbe56dc","agent":"human","errors":0}
