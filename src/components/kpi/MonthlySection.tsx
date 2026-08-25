@@ -50,7 +50,10 @@ export function MonthlySection({ months, current, previous }: MonthlySectionProp
           value={
             current.testCoverageComponents !== null ? `${current.testCoverageComponents}%` : "—"
           }
-          delta={calcDelta(current.testCoverageComponents, previous?.testCoverageComponents ?? null)}
+          delta={calcDelta(
+            current.testCoverageComponents,
+            previous?.testCoverageComponents ?? null,
+          )}
           description={
             current.testCoverageComponents === null
               ? "sem histórico registrado (rule-32)"

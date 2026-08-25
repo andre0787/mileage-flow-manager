@@ -389,3 +389,4 @@
 {"timestamp":"2026-08-25T00:36:21.057Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"fix/kpi-coverage-logging-remove-promotions","commit":"f523998","agent":"human","subagent":true,"verdict":"approved"}
 {"timestamp":"2026-08-25T00:38:02.539Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/kpi-coverage-logging-remove-promotions","commit":"f523998","agent":"human","errors":0}
 {"timestamp":"2026-08-25T00:39:36.041Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/kpi-coverage-logging-remove-promotions","commit":"f523998","agent":"human","errors":0}
+{"timestamp":"2026-08-25T00:44:28.313Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/kpi-coverage-logging-remove-promotions","commit":"ee2a7fd","agent":"human","errors":0}
