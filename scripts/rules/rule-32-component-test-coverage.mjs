@@ -15,6 +15,7 @@
  * Uso: node scripts/rules/rule-32-component-test-coverage.mjs
  */
 
+import { execSync } from "child_process";
 import { readdirSync, existsSync, readFileSync } from "fs";
 import { join, parse } from "path";
 import { fileURLToPath } from "url";

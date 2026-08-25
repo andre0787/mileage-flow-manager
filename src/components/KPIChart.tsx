@@ -25,6 +25,19 @@ interface KPIChartProps<T> {
 
 const COLORS = ["hsl(var(--primary))", "hsl(173 80% 40%)", "hsl(43 96% 46%)", "hsl(0 73% 52%)"];
 
+/** Valor bruto de caminho aninhado sem coerção — preserva null/undefined. */
+function getRawValue(obj: Record<string, unknown>, path: string): unknown {
+  let current: unknown = obj;
+  for (const part of path.split(".")) {
+    if (current && typeof current === "object" && part in current) {
+      current = (current as Record<string, unknown>)[part];
+    } else {
+      return undefined;
+    }
+  }
+  return current;
+}
+
 function getNestedValue(obj: Record<string, unknown>, path: string): number {
   const parts = path.split(".");
   let current: unknown = obj;
@@ -59,6 +72,41 @@ export default function KPIChart<T extends Record<string, unknown>>({
     }
     return row;
   });
+
+  // Série sem nenhum valor registrado (null ausente vira 0 no nested) —
+  // mostra empty state explicativo em vez de um gráfico vazio enganoso.
+  const hasData =
+    data.length > 0 &&
+    keys.some((key) =>
+      data.some((item) => {
+        const raw = key.includes(".")
+          ? getRawValue(item, key)
+          : item[key as keyof T];
+        return typeof raw === "number" && raw !== 0;
+      }),
+    );
+
+  if (!hasData) {
+    return (
+      <Card className="border-dashed">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-sm font-semibold font-display">{title}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex h-[280px] flex-col items-center justify-center gap-2 text-center">
+            <span className="text-3xl opacity-40">📭</span>
+            <p className="text-sm font-medium text-muted-foreground">
+              Sem histórico registrado
+            </p>
+            <p className="max-w-[280px] text-xs text-muted-foreground">
+              Nenhuma medição foi coletada para esta série ainda. O histórico
+              começa a acumular a partir da coleta atual.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card>

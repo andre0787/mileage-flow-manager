@@ -15,7 +15,7 @@ import { writeFileSync, mkdirSync, existsSync, readdirSync, renameSync } from "f
 import { resolve, dirname } from "path";
 import { fileURLToPath, pathToFileURL } from "url";
 import { parseArgs, HELP, showHelp, ROOT } from "./lib/report/report-cli.mjs";
-import { getDiff, getChangedFiles, getBranch, getCommit, getPR, derivePrRows } from "./lib/report/report-git.mjs";
+import { getDiff, getChangedFiles, getBranch, getCommit, getPR, derivePrRows, mergeBase, getSessionCommits, getNumstat } from "./lib/report/report-git.mjs";
 import { readTodayEvents, readTodayQuality, computeSessionMetrics, estimateTokens } from "./lib/report/report-metrics.mjs";
 import { generateHTML } from "./lib/report/report-html.mjs";
 import { auditContext } from "./context-audit.mjs";
@@ -24,6 +24,7 @@ import { auditContext } from "./context-audit.mjs";
 export {
   fallbackTableRow, parseCommitRecord, buildPrRow,
   numstatLines, typeOf, TYPE_BENEFIT, TYPE_IMPACT, deriveTableRows,
+  mergeBase, getSessionCommits, getNumstat,
 } from "./lib/report/report-git.mjs";
 export { escapeHTML } from "./lib/report/report-html.mjs";
 export {
@@ -73,9 +74,19 @@ if (IS_MAIN) {
   const session = computeSessionMetrics(events, quality, args.testsFlag);
   const tableRows = args.tableRows.length > 0 ? args.tableRows : derivePrRows();
 
+  const baseRef = mergeBase();
+  const lastPct = (rule) => {
+    for (let i = quality.length - 1; i >= 0; i--) {
+      if (quality[i].rule === rule && typeof quality[i].pct === "number") return quality[i].pct;
+    }
+    return null;
+  };
+  const coverage = { libs: lastPct("rule-31"), components: lastPct("rule-32") };
+
   const html = generateHTML({
     task: args.task, diff, changedFiles, branch, commit, pr, metrics,
     tableRows, evidenceUrl: args.evidenceUrl,
+    commits: getSessionCommits(baseRef), numstat: getNumstat(baseRef), coverage,
     beforeText: args.beforeText, afterText: args.afterText,
     summary: args.summary, contextAudit: auditContext(),
     impactProduto: args.impactProduto, impactNegocio: args.impactNegocio,

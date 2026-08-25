@@ -1,9 +1,8 @@
 /**
- * P12.6-25 — E2E Playwright Tests for Agent Lab + Promotions
+ * P12.6-25 — E2E Playwright Tests for Agent Lab
  *
  * Covers:
  *   - Agent Lab: dashboard loads, tabs work
- *   - Promotions: filters, source health, status
  */
 
 import { test, expect } from "@playwright/test";
@@ -107,54 +106,4 @@ test.describe("Promotions Page (P12.6)", () => {
     await page.waitForURL("/", { timeout: 15_000 });
   });
 
-  test("promotions page loads", async ({ page }) => {
-    await page.goto("/promocoes");
-    await page.waitForLoadState("networkidle");
-
-    await expect(page.locator("text=Promoções")).toBeVisible();
-    await expect(page.locator("text=Central de promoções")).toBeVisible();
-  });
-
-  test("source health section is visible", async ({ page }) => {
-    await page.goto("/promocoes");
-    await page.waitForLoadState("networkidle");
-
-    await expect(page.locator("text=Source Health")).toBeVisible();
-    await expect(page.locator("text=Livelo")).toBeVisible();
-    await expect(page.locator("text=Esfera")).toBeVisible();
-    await expect(page.locator("text=PdP")).toBeVisible();
-  });
-
-  test("program filter works", async ({ page }) => {
-    await page.goto("/promocoes");
-    await page.waitForLoadState("networkidle");
-
-    // Change program filter
-    await page.selectOption("select:first-of-type", "Smiles");
-
-    // Verify filtered results
-    const cards = page.locator("[class*='border rounded-lg']");
-    const count = await cards.count();
-
-    // All visible cards should be Smiles or no cards at all
-    if (count > 0) {
-      for (let i = 0; i < count; i++) {
-        const text = await cards.nth(i).textContent();
-        if (text?.includes("Smiles") || text?.includes("Bônus")) {
-          continue; // Expected
-        }
-      }
-    }
-  });
-
-  test("featured section shows active promotions", async ({ page }) => {
-    await page.goto("/promocoes");
-    await page.waitForLoadState("networkidle");
-
-    // Check if featured section exists (only if there are active promotions)
-    const featured = page.locator("text=🔥 Em destaque");
-    if (await featured.isVisible()) {
-      await expect(featured).toBeVisible();
-    }
-  });
 });

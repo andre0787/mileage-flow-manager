@@ -37,6 +37,48 @@ export function getChangedFiles() {
   return out;
 }
 
+/** Merge-base da branch com a base do diff (ou fallback). */
+export function mergeBase() {
+  return (
+    DIFF_BASE ||
+    git("git merge-base HEAD origin/main 2>/dev/null || git rev-list --max-parents=0 HEAD")
+  );
+}
+
+/**
+ * Commits da sessão (entre a base do diff e HEAD): hash curto + assunto.
+ * É o conteúdo mais concreto de uma sessão — vira card próprio no briefing.
+ * @returns {Array<{hash: string, subject: string}>}
+ */
+export function getSessionCommits(baseRef = null) {
+  const ref = baseRef || mergeBase();
+  const out = git(`git log ${ref}..HEAD --format='%h|%s'`);
+  if (out === "n/a" || !out.trim()) return [];
+  return out
+    .split("\n")
+    .filter((l) => l.includes("|"))
+    .map((l) => {
+      const idx = l.indexOf("|");
+      return { hash: l.slice(0, idx), subject: l.slice(idx + 1) };
+    });
+}
+
+/**
+ * Numstat por arquivo (+adições / -remoções) entre a base e HEAD.
+ * @returns {Map<string, {add: number, del: number}>}
+ */
+export function getNumstat(baseRef = null) {
+  const ref = baseRef || mergeBase();
+  const out = git(`git diff ${ref}..HEAD --numstat`);
+  const map = new Map();
+  if (out === "n/a") return map;
+  for (const line of String(out).split("\n")) {
+    const m = line.match(/^(\d+)\s+(\d+)\s+(.+)$/);
+    if (m) map.set(m[3], { add: parseInt(m[1], 10), del: parseInt(m[2], 10) });
+  }
+  return map;
+}
+
 export function getBranch() {
   return git("git rev-parse --abbrev-ref HEAD");
 }

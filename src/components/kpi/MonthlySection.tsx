@@ -3,8 +3,8 @@ import KPIChart from "@/components/KPIChart";
 import KPITable from "@/components/KPITable";
 import type { MonthlyKPI } from "@/types/kpi";
 
-function calcDelta(current: number, previous: number | null): number | null {
-  if (previous === null || previous === 0) return null;
+function calcDelta(current: number | null, previous: number | null): number | null {
+  if (current === null || previous === null || previous === 0) return null;
   return Math.round(((current - previous) / previous) * 100);
 }
 
@@ -38,22 +38,29 @@ export function MonthlySection({ months, current, previous }: MonthlySectionProp
         <KPICard
           label="Cobertura Libs"
           value={current.testCoverageLibs !== null ? `${current.testCoverageLibs}%` : "—"}
-          delta={calcDelta(current.testCoverageLibs ?? 0, previous?.testCoverageLibs ?? null)}
+          delta={calcDelta(current.testCoverageLibs, previous?.testCoverageLibs ?? null)}
+          description={
+            current.testCoverageLibs === null
+              ? "sem histórico registrado (rule-31)"
+              : `${current.prePrTotal} execuções no mês`
+          }
         />
         <KPICard
           label="Cobertura Componentes"
           value={
             current.testCoverageComponents !== null ? `${current.testCoverageComponents}%` : "—"
           }
-          delta={calcDelta(
-            current.testCoverageComponents ?? 0,
-            previous?.testCoverageComponents ?? null,
-          )}
+          delta={calcDelta(current.testCoverageComponents, previous?.testCoverageComponents ?? null)}
+          description={
+            current.testCoverageComponents === null
+              ? "sem histórico registrado (rule-32)"
+              : `${current.prePrTotal} execuções no mês`
+          }
         />
         <KPICard
           label="Outcome Grade"
           value={current.avgOutcomeGrade !== null ? `${current.avgOutcomeGrade}%` : "—"}
-          delta={calcDelta(current.avgOutcomeGrade ?? 0, previous?.avgOutcomeGrade ?? null)}
+          delta={calcDelta(current.avgOutcomeGrade, previous?.avgOutcomeGrade ?? null)}
         />
       </div>
 

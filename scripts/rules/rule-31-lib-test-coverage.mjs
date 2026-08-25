@@ -10,6 +10,7 @@
  * Uso: node scripts/rules/rule-31-lib-test-coverage.mjs [--fix]
  */
 
+import { execSync } from "child_process";
 import { readdirSync, existsSync } from "fs";
 import { join, parse } from "path";
 import { fileURLToPath } from "url";
