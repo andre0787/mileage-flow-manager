@@ -42,6 +42,9 @@ export function generateHTML({
   commit,
   pr,
   metrics,
+  commits = [],
+  numstat = new Map(),
+  coverage = { libs: null, components: null },
   tableRows,
   evidenceUrl,
   beforeText,
@@ -66,7 +69,11 @@ export function generateHTML({
     .map((l) => {
       const [status, ...pathParts] = l.trim().split(/\s+/);
       const path = pathParts.join(" ");
-      return `<tr><td>${status}</td><td>${path}</td></tr>`;
+      const ns = numstat.get(path);
+      const delta = ns
+        ? `<span class="ns-add">+${ns.add}</span> <span class="ns-del">−${ns.del}</span>`
+        : "—";
+      return `<tr><td>${status}</td><td>${path}</td><td class="mono">${delta}</td></tr>`;
     })
     .join("\n");
 
@@ -388,8 +395,32 @@ export function generateHTML({
         <div class="ap-card">
           <h3>📁 Arquivos</h3>
           <table>
-            <tr><th>Status</th><th>Arquivo</th></tr>
+            <tr><th>Status</th><th>Arquivo</th><th>+/-</th></tr>
             ${filesTable}
+          </table>
+        </div>
+        ${
+          commits.length > 0
+            ? `<div class="ap-card">
+          <h3>🔖 Commits da sessão (${commits.length})</h3>
+          <ul class="commit-list">
+            ${commits
+              .map(
+                (c) =>
+                  `<li><code>${escapeHTML(c.hash)}</code> ${escapeHTML(c.subject)}</li>`,
+              )
+              .join("\n")}
+          </ul>
+        </div>`
+            : ""
+        }
+        <div class="ap-card">
+          <h3>🧪 Qualidade de hoje</h3>
+          <table>
+            <tr><th>Métrica</th><th>Valor</th></tr>
+            <tr><td>Cobertura libs (rule-31)</td><td>${coverage.libs != null ? `${coverage.libs}%` : "sem registro hoje"}</td></tr>
+            <tr><td>Cobertura componentes (rule-32)</td><td>${coverage.components != null ? `${coverage.components}%` : "sem registro hoje"}</td></tr>
+            <tr><td>Outcome grade (rule-30)</td><td>${sm.outcomeGrade != null ? sm.outcomeGrade : "sem registro hoje"}</td></tr>
           </table>
         </div>
       </div>
@@ -524,6 +555,11 @@ export function generateHTML({
     .detail-note{font-size:.72rem;color:var(--muted);opacity:.8;margin-top:.7rem}
     .checks{list-style:none;display:flex;flex-direction:column;gap:.35rem}
     .checks li{font-size:.85rem;color:var(--muted)}
+    .ns-add{color:#34d399;font-weight:600}
+    .ns-del{color:#f87171;font-weight:600}
+    .commit-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;max-height:260px;overflow-y:auto;margin:0;padding:0}
+    .commit-list li{font-size:.82rem;color:var(--muted);line-height:1.35}
+    .commit-list code{background:var(--border);border-radius:4px;padding:.05rem .35rem;font-size:.75rem;color:var(--fg);margin-right:.4rem}
     table{width:100%;border-collapse:collapse;font-size:.8rem}
     td,th{border:1px solid var(--line);padding:.45rem .6rem;text-align:left;vertical-align:top;color:var(--muted)}
     th{color:var(--text);font-weight:700;background:rgba(255,255,255,.04)}

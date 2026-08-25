@@ -154,8 +154,8 @@ check(
 console.log("\n📋 UI:");
 
 check(
-  "Promoções page exists",
-  existsSync(join(ROOT, "src/pages/Promocoes.tsx"))
+  "Promoções page descontinuada (rota /promocoes removida)",
+  !existsSync(join(ROOT, "src/pages/Promocoes.tsx"))
 );
 
 // ── Reports ──
