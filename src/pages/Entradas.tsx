@@ -19,6 +19,7 @@ import { useHaptic } from "@/hooks/useHaptic";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
 import { isTransferencia } from "@/lib/utils";
+import { computePerAccountBalance } from "@/lib/metrics";
 import { calculateRecurrence } from "@/lib/recurrence";
 import { computeEntryValues } from "@/lib/entryOperations";
 import { serializeOrigemTypeDescription } from "@/lib/origemTypes";
@@ -266,28 +267,17 @@ export default function Entradas() {
     [entriesByTab, today],
   );
   // ponytail: saldo calculado para o banner de reconciliação.
-  // Fonte da verdade = entradas confirmadas - transferências de saída - vendas
-  // (mesma semântica do computeDashboardMetrics e do recalcAccount).
-  // Transferências têm accountId = destino (milhas): na aba pontos elas não
-  // aparecem como crédito, mas DEBITAM a conta de pontos de origem — e vendas
-  // debitam o saldo da conta sem contrapartida em entries.
+  // Soma dos saldos POR CONTA (entradas confirmadas − transferências de saída −
+  // vendas ativas), com piso 0 — mesma regra do recalcAccount (que grava
+  // accounts.balance). Antes somava globalmente sem clamp: contas estornadas
+  // faziam o banner acusar discrepância permanente, mesmo após recalcular.
+  // Usa todas as entradas da aba, não o conjunto filtrado por busca/dono —
+  // o banner não pode mudar ao digitar no SearchInput.
   const tabAccounts = accounts.filter((a) => a.type === activeTab);
-  const tabAccountIds = new Set(tabAccounts.map((a) => a.id));
-  const tabSalesOut = sales
-    .filter((s) => s.status !== "cancelado" && s.accountId && tabAccountIds.has(s.accountId))
-    .reduce((s, sl) => s + sl.milesUsed, 0);
-  const tabTransfersOut = entries
-    .filter(
-      (e) =>
-        e.entryStatus !== "aguardando" && e.sourceAccountId && tabAccountIds.has(e.sourceAccountId),
-    )
-    .reduce((s, e) => s + e.amount, 0);
-  // Usa TODAS as entradas da aba (entriesByTab), não o conjunto filtrado por
-  // busca/dono — o banner não pode mudar ao digitar no SearchInput.
-  const tabEntriesIn = entriesByTab
-    .filter((e) => e.entryStatus !== "aguardando")
-    .reduce((s, e) => s + (e.milesGenerated ?? e.amount), 0);
-  const entriesTotalBalance = tabEntriesIn - tabTransfersOut - tabSalesOut;
+  const entriesTotalBalance = useMemo(
+    () => tabAccounts.reduce((s, a) => s + computePerAccountBalance(a.id, entries, sales), 0),
+    [tabAccounts, entries, sales],
+  );
   const accountsTotalBalance = tabAccounts.reduce((s, a) => s + a.balance, 0);
   const totalAmount = confirmedEntries.reduce((s, e) => s + e.amount, 0);
   const totalAmountPaid = confirmedEntries.reduce((s, e) => s + e.amountPaid, 0);

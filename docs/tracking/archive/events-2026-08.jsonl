@@ -1406,3 +1406,8 @@
 {"timestamp":"2026-08-14T18:10:11.135Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/blueprint-v9-endurecimento","commit":"ef90414","agent":"human","errors":0}
 {"timestamp":"2026-08-14T18:20:41.353Z","type":"session:start","description":"refactor: Migrar fetches de JSON estático para use()/Suspense","branch":"refactor/react19-use-suspense","commit":"4f83e9d","agent":"human","categoria":"refactor"}
 {"timestamp":"2026-08-14T18:20:45.282Z","type":"coding:done","description":"Migra fetches JSON estático (workflowData, KPI) de useEffect para use()/Suspense (rule-45)","branch":"refactor/react19-use-suspense","commit":"4f83e9d","agent":"human","subagent":true}
+{"timestamp":"2026-08-14T18:20:45.318Z","type":"code-review:done","description":"Review: resources cacheados + Suspense boundaries + testes","branch":"refactor/react19-use-suspense","commit":"4f83e9d","agent":"human","subagent":true}
+{"timestamp":"2026-08-14T18:21:19.094Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/react19-use-suspense","commit":"4f83e9d","agent":"human","errors":0}
+{"timestamp":"2026-08-14T18:21:27.280Z","type":"pre-pr","description":"pre-pr PASS","branch":"refactor/react19-use-suspense","commit":"4f83e9d","agent":"human","errors":0}
+{"timestamp":"2026-08-14T18:36:33.455Z","type":"session:start","description":"feature: Telemetria no nightly + AiCostSection use()","branch":"feat/telemetria-nightly-kpi","commit":"a671835","agent":"human","categoria":"feature"}
+{"timestamp":"2026-08-14T18:36:37.235Z","type":"coding:done","description":"Telemetria no nightly (telemetry:record + costPerArea no kpi-data) + AiCostSection use()/Suspense","branch":"feat/telemetria-nightly-kpi","commit":"a671835","agent":"human","subagent":true}

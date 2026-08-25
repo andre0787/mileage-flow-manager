@@ -133,13 +133,44 @@ interface MetricEntry {
   amount: number;
   entryStatus?: string;
   milesGenerated?: number;
-  /** Se presente, esta entrada é uma transferência (não cria milhas novas) */
+  /** Conta de destino da entrada (crédito) */
+  accountId?: string;
+  /** Se presente, esta entrada é uma transferência (debita a conta origem) */
   sourceAccountId?: string;
 }
 
 interface MetricOwner {
   id: string;
   name: string;
+}
+
+/**
+ * Saldo calculado de UMA conta: entradas confirmadas − transferências de saída
+ * − vendas ativas, com piso em 0 por conta.
+ *
+ * ponytail: mesma regra do recalcAccount (que grava accounts.balance).
+ * O piso por conta é essencial: contas estornadas (vendas/transferências acima
+ * das entradas) valem 0 no banco — somar sem clamp gerava discrepância
+ * permanente entre o saldo calculado e a soma dos saldos gravados.
+ */
+export function computePerAccountBalance(
+  accountId: string,
+  entrs: MetricEntry[],
+  sls: MetricSale[],
+): number {
+  let sum = 0;
+  for (const e of entrs) {
+    if (e.entryStatus === "aguardando") continue;
+    // Crédito na conta destino...
+    if (e.accountId === accountId) sum += e.milesGenerated ?? e.amount;
+    // ...e débito na conta origem quando é transferência.
+    if (e.sourceAccountId === accountId) sum -= e.amount;
+  }
+  for (const s of sls) {
+    if (s.status === "cancelado") continue;
+    if (s.accountId === accountId) sum -= s.milesUsed;
+  }
+  return Math.max(0, sum);
 }
 
 /** Filtra vendas não-canceladas */
@@ -176,18 +207,13 @@ export function computeDashboardMetrics(
   const confirmedEntries = entrs.filter((e) => e.entryStatus !== "aguardando");
   const activeSales = filterActiveSales(sls);
 
-  // ─── Fonte da verdade: entradas - vendas ───
-  const totalMilesFromEntries = confirmedEntries.reduce(
-    (sum, e) => sum + (e.milesGenerated ?? e.amount),
+  // ─── Fonte da verdade: soma dos saldos por conta (piso 0, igual ao recalcAccount)
+  // Assim o hero do dashboard bate com a soma de accounts.balance recalculadas,
+  // mesmo quando alguma conta está estornada (saldo negativo → gravado como 0).
+  const totalMiles = accts.reduce(
+    (sum, a) => sum + computePerAccountBalance(a.id, confirmedEntries, activeSales),
     0,
   );
-  // Transferências movem milhas entre contas, não criam milhas novas.
-  // Subtraímos o valor debitado (e.amount) da conta origem para evitar sobrecontagem.
-  const totalMilesFromTransfers = confirmedEntries
-    .filter((e) => e.sourceAccountId)
-    .reduce((sum, e) => sum + e.amount, 0);
-  const totalMilesFromSales = activeSales.reduce((sum, s) => sum + s.milesUsed, 0);
-  const totalMiles = totalMilesFromEntries - totalMilesFromTransfers - totalMilesFromSales;
 
   // Keep totalInvested from accounts (no per-sale proportional cost stored)
   // ponytail: if this diverges, a full reconcile from entries/sales is needed
