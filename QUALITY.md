@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-08-24
-> Último commit: 8c5d0bc-refactor: small model optimization — admin removal + pipeline scripts (#494)
+> Gerado em: 2026-08-25
+> Último commit: 0a78fc2-Merge pull request #500 from andre0787/fix/kpi-coverage-logging-remove-promotions
 
 ## Pipeline
 
@@ -15,15 +15,15 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 1051 |
-| E2E  | 95 |
-| **Total** | **1146** |
+| Unit | 1068 |
+| E2E  | 91 |
+| **Total** | **1159** |
 
 ## Bundle
 
 | Métrica | Valor |
 |---------|-------|
-| Tamanho (dist) | 1842kB |
+| Tamanho (dist) | 1835kB |
 
 ## Documentação
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-08-24 | ✅ | 1146 | 1842kB | 0 issues |
+| 2026-08-25 | ✅ | 1159 | 1835kB | 0 issues |
 
 ---
 

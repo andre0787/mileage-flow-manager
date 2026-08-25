@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T00:38:02.858Z",
+  "generatedAt": "2026-08-25T06:38:52.589Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -120,8 +120,8 @@
     {
       "month": "2026-08",
       "prePrPassRate": 100,
-      "prePrTotal": 122,
-      "prePrPass": 122,
+      "prePrTotal": 124,
+      "prePrPass": 124,
       "prePrFail": 0,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
@@ -164,23 +164,10 @@
       "branchesMerged": 43,
       "violationsCaught": 163,
       "healedRate": 19.6,
-      "frictionPerPass": 1.34
+      "frictionPerPass": 1.31
     }
   ],
   "daily": [
-    {
-      "day": "2026-07-26",
-      "label": "26/07",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-07-27",
       "label": "27/07",
@@ -557,100 +544,22 @@
       "sessions": 2,
       "merges": 4,
       "friction": 4.56
+    },
+    {
+      "day": "2026-08-25",
+      "label": "25/08",
+      "prePrTotal": 3,
+      "prePrPass": 3,
+      "prePrFail": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 4,
+      "healed": 1,
+      "sessions": 0,
+      "merges": 1,
+      "friction": 1.33
     }
   ],
-  "prs": [
-    {
-      "number": 499,
-      "title": "chore: add edge cases and error condition coverage for formatDateBR",
-      "type": "chore",
-      "date": "2026-08-24",
-      "tokens": 417,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável"
-    },
-    {
-      "number": 497,
-      "title": "chore: add test coverage for computeMetricHistory",
-      "type": "chore",
-      "date": "2026-08-24",
-      "tokens": 461,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável"
-    },
-    {
-      "number": 498,
-      "title": "fix: corrige bugs encontrados em auditoria de frontend e recorrência",
-      "type": "fix",
-      "date": "2026-08-24",
-      "tokens": 994,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação"
-    },
-    {
-      "number": 496,
-      "title": "🧪 test: edge case coverage for calcRevenueChange",
-      "type": "other",
-      "date": "2026-08-24",
-      "tokens": 12,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção"
-    },
-    {
-      "number": 495,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-08-24",
-      "tokens": 473,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção"
-    },
-    {
-      "number": 493,
-      "title": "fix: AI Engineering Command Center busca dados live",
-      "type": "fix",
-      "date": "2026-08-23",
-      "tokens": 110,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação"
-    },
-    {
-      "number": 492,
-      "title": "fix: Pipeline DAG busca dados live da ai_telemetry",
-      "type": "fix",
-      "date": "2026-08-23",
-      "tokens": 65,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação"
-    },
-    {
-      "number": 491,
-      "title": "fix: telemetria IA busca dados live do Supabase",
-      "type": "fix",
-      "date": "2026-08-23",
-      "tokens": 2,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação"
-    },
-    {
-      "number": 490,
-      "title": "revert: remove admin infrastructure completely",
-      "type": "other",
-      "date": "2026-08-23",
-      "tokens": 20,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção"
-    },
-    {
-      "number": 489,
-      "title": "fix: admin RLS — restringe dados de negócio ao próprio usuário",
-      "type": "fix",
-      "date": "2026-08-23",
-      "tokens": 71,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação"
-    }
-  ],
+  "prs": [],
   "repo": {
     "components": 130,
     "pages": 18,
@@ -659,7 +568,7 @@
     "testFiles": 277,
     "skills": 27,
     "rules": 48,
-    "events": 390,
+    "events": 392,
     "qualityNotes": 546
   },
   "summary": {
