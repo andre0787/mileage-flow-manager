@@ -97,8 +97,8 @@ export function MetricCard({
           </div>
         </div>
 
-        <div className="text-2xl font-bold text-foreground tracking-tight tabular-nums">
-          {prefix && <span className="text-muted-foreground text-lg mr-0.5">{prefix}</span>}
+        <div className="text-3xl font-extrabold text-foreground tracking-tight tabular-nums font-display">
+          {prefix && <span className="text-muted-foreground text-xl mr-0.5">{prefix}</span>}
           {numericValue !== undefined ? <AnimatedNumber value={numericValue} /> : value}
         </div>
 

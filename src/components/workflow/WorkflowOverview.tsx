@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { useWorkflowData } from "@/lib/workflowData";
+import { AnimatedNumber } from "@/components/AnimatedNumber";
 import type { RepoFacts } from "@/types/kpi";
 
 const FACT_LABELS: Array<[keyof RepoFacts, string]> = [
@@ -37,10 +38,12 @@ export function WorkflowOverview() {
           {FACT_LABELS.map(([key, label]) => (
             <Card key={key}>
               <CardContent className="p-3 text-center">
-                <div className="text-xl font-extrabold text-primary font-display">
-                  {overview[key].toLocaleString("pt-BR")}
+                <div className="text-[2rem] font-extrabold text-primary font-display tabular-nums tracking-tight">
+                  <AnimatedNumber value={overview[key]} />
                 </div>
-                <div className="text-[11px] text-muted-foreground">{label}</div>
+                <div className="text-[12px] uppercase tracking-wider font-semibold text-muted-foreground mt-1">
+                  {label}
+                </div>
               </CardContent>
             </Card>
           ))}

@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import KPIMonthSelector from "./KPIMonthSelector";
 import GateEfficiencySection from "./GateEfficiencySection";
+import { AnimatedNumber } from "./AnimatedNumber";
 
 import { BusinessPanel } from "./kpi/BusinessPanel";
 import { BusinessBreakdown } from "./kpi/BusinessBreakdown";
@@ -26,41 +27,51 @@ const LIVE_SERIES_DAYS = 14;
 function LiveChips({ kpi }: { kpi: KpiData }) {
   const today = kpi.daily[kpi.daily.length - 1];
   const s = kpi.summary;
-  const chips: Array<{ label: string; value: string; warn?: boolean }> = [
-    ...(today
-      ? [
-          {
-            label: "hoje",
-            value: `${today.prePrTotal} pre-pr · ${today.merges} merges`,
-            warn: today.ruleFails > 10,
-          },
-        ]
-      : []),
-    { label: "30d taxa pre-pr", value: s.prePrPassRate !== null ? `${s.prePrPassRate}%` : "—" },
-    { label: "30d violações", value: String(s.violations), warn: s.violations > 0 },
-    { label: "30d auto-correções", value: String(s.healed) },
-    { label: "30d merges", value: String(s.merges) },
-    { label: "30d sessões", value: String(s.sessions) },
-  ];
-
+  
   return (
-    <div className="flex flex-wrap gap-2">
-      {chips.map((c) => (
-        <span
-          key={c.label}
-          className={cn(
-            "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-semibold",
-            c.warn
-              ? "border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-300"
-              : "border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300",
+    <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-3">
+      {today && (
+        <div className="flex flex-col bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-xl p-3">
+          <span className="text-[10px] uppercase font-bold text-emerald-700 dark:text-emerald-400 tracking-wider mb-1">Hoje (pre-pr / merge)</span>
+          <span className="text-xl md:text-2xl font-bold font-display text-emerald-800 dark:text-emerald-300 tabular-nums tracking-tight">
+            <AnimatedNumber value={today.prePrTotal} /> / <AnimatedNumber value={today.merges} />
+          </span>
+        </div>
+      )}
+      <div className="flex flex-col bg-muted/30 border border-border rounded-xl p-3">
+        <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Taxa Pre-PR 30d</span>
+        <span className="text-xl md:text-2xl font-bold font-display text-foreground tabular-nums tracking-tight">
+          {s.prePrPassRate !== null ? (
+            <span className="inline-flex items-baseline"><AnimatedNumber value={s.prePrPassRate} />%</span>
+          ) : (
+            "—"
           )}
-        >
-          <span
-            className={cn("h-1.5 w-1.5 rounded-full", c.warn ? "bg-amber-500" : "bg-emerald-500")}
-          />
-          {c.label}: {c.value}
         </span>
-      ))}
+      </div>
+      <div className={`flex flex-col border rounded-xl p-3 ${s.violations > 0 ? "bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800" : "bg-muted/30 border-border"}`}>
+        <span className={`text-[10px] uppercase font-bold tracking-wider mb-1 ${s.violations > 0 ? "text-amber-700 dark:text-amber-400" : "text-muted-foreground"}`}>Violações 30d</span>
+        <span className={`text-xl md:text-2xl font-bold font-display tabular-nums tracking-tight ${s.violations > 0 ? "text-amber-800 dark:text-amber-300" : "text-foreground"}`}>
+          <AnimatedNumber value={s.violations} />
+        </span>
+      </div>
+      <div className="flex flex-col bg-muted/30 border border-border rounded-xl p-3">
+        <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Auto-correções 30d</span>
+        <span className="text-xl md:text-2xl font-bold font-display text-foreground tabular-nums tracking-tight">
+          <AnimatedNumber value={s.healed} />
+        </span>
+      </div>
+      <div className="flex flex-col bg-muted/30 border border-border rounded-xl p-3">
+        <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Merges 30d</span>
+        <span className="text-xl md:text-2xl font-bold font-display text-foreground tabular-nums tracking-tight">
+          <AnimatedNumber value={s.merges} />
+        </span>
+      </div>
+      <div className="flex flex-col bg-muted/30 border border-border rounded-xl p-3">
+        <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Sessões 30d</span>
+        <span className="text-xl md:text-2xl font-bold font-display text-foreground tabular-nums tracking-tight">
+          <AnimatedNumber value={s.sessions} />
+        </span>
+      </div>
     </div>
   );
 }
