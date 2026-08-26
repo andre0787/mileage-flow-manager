@@ -1,14 +1,3 @@
-{"timestamp":"2026-08-14T18:36:37.269Z","type":"code-review:done","description":"Review: resource telemetria + snapshot KpiData + nightly","branch":"feat/telemetria-nightly-kpi","commit":"a671835","agent":"human","subagent":true}
-{"timestamp":"2026-08-14T18:36:44.980Z","type":"rule:fail","description":"rule-30-outcome-grade falhou","branch":"feat/telemetria-nightly-kpi","commit":"a671835","agent":"human","rule":"rule-30-outcome-grade"}
-{"timestamp":"2026-08-14T18:37:28.317Z","type":"rule:fail","description":"rule-30-outcome-grade falhou","branch":"feat/telemetria-nightly-kpi","commit":"a671835","agent":"human","rule":"rule-30-outcome-grade"}
-{"timestamp":"2026-08-14T18:39:18.288Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetria-nightly-kpi","commit":"a671835","agent":"human","errors":0}
-{"timestamp":"2026-08-14T18:39:32.293Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetria-nightly-kpi","commit":"a671835","agent":"human","errors":0}
-{"timestamp":"2026-08-14T18:59:09.649Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetria-nightly-kpi","commit":"c48744f","agent":"human","errors":0}
-{"timestamp":"2026-08-14T19:21:09.984Z","type":"session:start","description":"feature: Visualização por cor dos itens por dono de conta","branch":"main","commit":"0f56929","agent":"human","categoria":"feature"}
-{"timestamp":"2026-08-14T22:22:01.135Z","type":"coding:done","description":"Visualização por cor dos itens por dono (ownerColors + Contas/Entradas/Vendas)","branch":"feat/owner-colors-visual","commit":"0f56929","agent":"human","subagent":true}
-{"timestamp":"2026-08-14T22:22:01.169Z","type":"code-review:done","description":"Review: paleta curada, cor como reforço, nome sempre visível","branch":"feat/owner-colors-visual","commit":"0f56929","agent":"human","subagent":true}
-{"timestamp":"2026-08-14T22:22:02.731Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/owner-colors-visual","commit":"0f56929","agent":"human","rule":"rule-26"}
-{"timestamp":"2026-08-14T22:22:08.588Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/owner-colors-visual","commit":"0f56929","agent":"human","rule":"rule-17-new-docs-valid"}
 {"timestamp":"2026-08-14T22:22:46.899Z","type":"rule:fail","description":"rule-17-new-docs-valid falhou","branch":"feat/owner-colors-visual","commit":"0f56929","agent":"human","rule":"rule-17-new-docs-valid"}
 {"timestamp":"2026-08-14T22:24:03.490Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-colors-visual","commit":"0f56929","agent":"human","errors":0}
 {"timestamp":"2026-08-14T22:24:24.755Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/owner-colors-visual","commit":"0f56929","agent":"human","errors":0}

@@ -1,26 +1,25 @@
-# AI Session State - 2026-08-24T13:54:00.000Z
+# AI Session State - 2026-08-26T00:00:00.000Z
 
 ## Última Task
-- **Auditoria frontend** — alinhamento da recorrência padrão e Clube à data inicial
-- **Branch:** `fix/frontend-audit-bugs`
-- **Status:** ready_to_commit
+- **Triagem e encerramento dos issues abertos do GitHub** (4 issues: #502, #481, #483, #485)
+- **Branch:** `main` (somente metadados de tracking modificados; nenhuma mudança de código)
+- **Status:** issues fechados
 
 ## Estado dos Testes & Qualidade
 - **Node:** v22.23.2 (`.nvmrc`, `package.json.engines`)
-- **Testes:** 146 arquivos, 1.199 testes passing
-- **Typecheck/lint/format:** passing
-- **Pre-pr:** passing, 0 errors
+- **Testes:** `tests/unit/metrics.test.ts` — 47 passing (regressão #502)
 
 ## Arquivos Modificados & Impacto
-- EntryForm: startDate inicia em date, acompanha mudanças e preserva edição manual
-- Entradas: edição recebe a data persistida como início da recorrência
-- Clube: startDate explícito é usado com clamp no fim do mês
-- Teste de regressão cobre data diferente de hoje, recorrência e Clube
+- `docs/RADAR.md`, `docs/tracking/*.jsonl` — artefatos gerados pelo `session:start`
+- `docs/AI-SESSION-STATE.md` — atualização deste estado
+
+## Resolução dos Issues
+- **#502** Discrepância banner reconciliação → já corrigido na main (`cbd8c3f`, helper `computePerAccountBalance` + testes). Fechado.
+- **#481/#483/#485** Smoke pós-deploy → causa raiz: `strict mode violation` em `tests/create-owner-program-inline.spec.ts`; corrigido em `f2a5f25` (PR #486). Deploys subsequentes com `e2e-smoke-prod` success. Fechados.
 
 ## Pendências Imediatas
-- Criar commit e fazer push do ajuste em `fix/frontend-audit-bugs`
-- Não aguardar CI; lead abrirá/atualizará o PR
+- Sem pendências de código. Tracking files modificados prontos para commit se desejado.
 
 ## Governança de Contexto
-- `session:start`, INTENT/TWINS, coding e code-review gates registrados
-- `docs/handoff.md` atualizado para a sessão bugfix
+- `session:start` executado; AUTH gate declarado pelo usuário (fechar os 4 issues)
+- `docs/handoff.md` reflete sessão bugfix
