@@ -35,8 +35,8 @@ a8dc247 chore: limpeza do repositório — branches órfãs + fable-gates no MAP
 ```
 
 ## 🧭 Estado Atual
-- **Branch:** `fix/frontend-audit-bugs`
-- **Último commit:** `cb8ecbe — Merge pull request #495 from andre0787/chore/quality-nightly-update`
+- **Branch:** `main`
+- **Último commit:** `155d995 — Merge pull request #503 from andre0787/fix/balance-reconcile-clamp`
 - **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
 
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -153,6 +153,17 @@ Nenhum PR aberto.
 
 
 
+
+## 🎯 Sessão Atual
+**Categoria:** chore
+**Objetivo:** descrição concisa
+**Status:** in_progress
+**Iniciada em:** 2026-08-26T06:39:12.399Z
+**Branch:** `main`
+**Último commit:** 155d995 — Merge pull request #503 from andre0787/fix/balance-reconcile-clamp
+**Docs carregados:** AGENTS.md
+
+
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 
@@ -174,6 +185,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
 - **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
+
 
 
 
