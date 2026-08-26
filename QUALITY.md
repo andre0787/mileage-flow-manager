@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-08-25
-> Último commit: 0a78fc2-Merge pull request #500 from andre0787/fix/kpi-coverage-logging-remove-promotions
+> Gerado em: 2026-08-26
+> Último commit: 155d995-Merge pull request #503 from andre0787/fix/balance-reconcile-clamp
 
 ## Pipeline
 
@@ -15,9 +15,9 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 1068 |
+| Unit | 1073 |
 | E2E  | 91 |
-| **Total** | **1159** |
+| **Total** | **1164** |
 
 ## Bundle
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-08-25 | ✅ | 1159 | 1835kB | 0 issues |
+| 2026-08-26 | ✅ | 1164 | 1835kB | 0 issues |
 
 ---
 
