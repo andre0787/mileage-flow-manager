@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-08-26
-> Último commit: 155d995-Merge pull request #503 from andre0787/fix/balance-reconcile-clamp
+> Gerado em: 2026-08-27
+> Último commit: 5147ab8-Merge pull request #505 from andre0787/chore/session-end-issues
 
 ## Pipeline
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-08-26 | ✅ | 1164 | 1835kB | 0 issues |
+| 2026-08-27 | ✅ | 1164 | 1835kB | 0 issues |
 
 ---
 

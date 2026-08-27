@@ -42,14 +42,7 @@ Nenhum PR aberto.
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** descrição concisa
-**Status:** done
-**Iniciada em:** 2026-08-26T06:39:12.399Z
-**Branch:** `main`
-**Último commit:** 155d995 — Merge pull request #503 from andre0787/fix/balance-reconcile-clamp
-**Docs carregados:** AGENTS.md
+
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
@@ -92,3 +85,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 
 
+
+## 🎯 Sessão Atual
+**Categoria:** chore
+**Objetivo:** P0 completo
