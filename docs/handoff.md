@@ -86,6 +86,4 @@ Continue a tarefa ativa ou selecione o próximo task-card.
 
 
 
-## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** P0 completo
+
