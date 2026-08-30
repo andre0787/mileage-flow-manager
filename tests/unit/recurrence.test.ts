@@ -1,7 +1,15 @@
-import { expect, test, describe } from "vitest";
+import { expect, test, describe, vi, beforeEach, afterEach } from "vitest";
 import { calculateRecurrence } from "../../src/lib/recurrence";
 
 describe("calculateRecurrence", () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2025-01-15T12:00:00Z"));
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
   const baseForm = {
     date: "2025-01-01",
     isClube: false,
