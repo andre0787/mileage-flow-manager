@@ -153,7 +153,7 @@ describe("entradasApi — deleteEntry", () => {
     vi.clearAllMocks();
   });
 
-  it("deleta a entrada, filhos recorrentes e reverte o saldo quando confirmada", async () => {
+  it("deleta a entrada, filhos recorrentes via batch delete (.in) e reverte o saldo quando confirmada", async () => {
     const entry = {
       ...makeEntry(),
       entryStatus: "confirmada" as const,
@@ -161,10 +161,15 @@ describe("entradasApi — deleteEntry", () => {
       recurrenceEnd: "2026-12-31",
     };
     const del = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
-    const childDelete = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
+    const childDeleteIn = vi.fn().mockReturnValue(Promise.resolve({ error: null }));
+    const childDelete = vi.fn().mockReturnValue({ in: childDeleteIn });
     const update = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
     const select = vi.fn().mockReturnValue({
-      filter: () => Promise.resolve({ data: [{ id: "child-1" }], error: null }),
+      filter: () =>
+        Promise.resolve({
+          data: [{ id: "child-1" }, { id: "child-2" }, { id: "child-3" }],
+          error: null,
+        }),
     });
     let entriesCalls = 0;
     mockFrom.mockImplementation((table: string) => {
@@ -188,7 +193,8 @@ describe("entradasApi — deleteEntry", () => {
     const store = makeStore();
     const result = await store.dispatch(entradasApi.endpoints.deleteEntry.initiate(entry));
     expect(result.data).toBeNull();
-    expect(childDelete).toHaveBeenCalled();
+    expect(childDelete).toHaveBeenCalledTimes(1);
+    expect(childDeleteIn).toHaveBeenCalledWith("id", ["child-1", "child-2", "child-3"]);
     expect(del).toHaveBeenCalled();
     expect(update).toHaveBeenCalled();
   });
