@@ -19,10 +19,9 @@ export const deleteEntryEndpoint = (builder: EntradasBuilder) => ({
           .from("entries")
           .select("id")
           .filter("description", "like", `%"parentEntryId":"${entry.id}"%`);
-        if (childEntries) {
-          for (const child of childEntries) {
-            await supabase.from("entries").delete().eq("id", child.id);
-          }
+        if (childEntries && childEntries.length > 0) {
+          const childIds = childEntries.map((child) => child.id);
+          await supabase.from("entries").delete().in("id", childIds);
         }
       }
 
