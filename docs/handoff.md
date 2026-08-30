@@ -1,44 +1,17 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-08-11
-> Anterior: 2026-08-10
+> ⏰ Última atualização: 2026-08-30
+> Anterior: 2026-08-24
 ---
 ## 🏗️ Projeto
-
-> ⏰ Snapshot atualizado em: 2026-08-15
-
-### 🏗️ Projeto
-
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
-**Regras críticas:** branch obrigatória, pre-pr c/ relatório, git status ZERO, lazy loading por categoria
-**Workflow:** session:start → categoria → carregar docs → council (se feature) → build → pre-pr → PR
-
+**Workflow:** session:start → categoria → implementação → pre-pr → PR
 ### 🐞 Bugs Abertos
-
-- [#451](https://github.com/andre0787/mileage-flow-manager/issues/451) — 🚨 Smoke de produção falhou após deploy ab9377a94703d6c766b679f33c1038caf85722a3
-- [#449](https://github.com/andre0787/mileage-flow-manager/issues/449) — 🚨 Smoke de produção falhou após deploy 2da3dab2501aac54bbe290afdfa7a7f6e1a0272a
-- [#446](https://github.com/andre0787/mileage-flow-manager/issues/446) — 🚨 Smoke de produção falhou após deploy ef5b4b59e94a591b7661f255174ed565421b7a59
-- [#444](https://github.com/andre0787/mileage-flow-manager/issues/444) — 🚨 Smoke de produção falhou após deploy b1b05b0df5a7a45c6a5a1107343f7d31f0ce39e9
-- [#442](https://github.com/andre0787/mileage-flow-manager/issues/442) — 🚨 Smoke de produção falhou após deploy dcd80c8c62732c3912c8f4c0758378c725df88de
-- [#440](https://github.com/andre0787/mileage-flow-manager/issues/440) — 🚨 Smoke de produção falhou após deploy b237e4c55dbbac286db11075357ead7193f59840
-- [#438](https://github.com/andre0787/mileage-flow-manager/issues/438) — 🚨 Smoke de produção falhou após deploy 875a0e0baf94885ba9edf6ada2a6fe6eccc1a8e2
-- [#436](https://github.com/andre0787/mileage-flow-manager/issues/436) — 🚨 Smoke de produção falhou após deploy ecb0eb14c5fae84bc46bf14d934ccc658d80ff08
-- [#434](https://github.com/andre0787/mileage-flow-manager/issues/434) — 🚨 Smoke de produção falhou após deploy 299719d16b13b8aac24592d512e57bbb29eacbd5
-- [#432](https://github.com/andre0787/mileage-flow-manager/issues/432) — 🚨 Smoke de produção falhou após deploy 9a131eda4bdd7b03050bae65329cf48b492ab6f8
-
-### 📋 Commits Recentes
-
-```
-ab9377a Merge pull request #450 from andre0787/chore/cleanup-orphan-branches
-b11ef59 chore: normalize report prefix to PR450
-a8dc247 chore: limpeza do repositório — branches órfãs + fable-gates no MAP
-```
-
+Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `refactor/small-model-optimization`
-- **Último commit:** `df5ac12 — Merge pull request #493 from andre0787/fix/ai-engineering-live-data`
-- **Remote:** `origin` → https://github.com/andre0787/mileage-flow-manager.git
-
+- **Branch:** `jules-7691209467773456208-bb683865`
+- **Último commit:** `272db26` — fix recurrence test flake
+- **Remote:** no remote
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
 - **P3-28 entradas** (`src/features/entradas/`), **P3-29 contas** (`src/features/contas/`),
   **P3-30 clientes** (`src/features/clientes/`), **P3-31 vendas** (`src/features/vendas/`, PR #341),
@@ -63,97 +36,20 @@ Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 575 |
+| Total testes | 1148 |
 | Docs issues | 0 |
-| Branch | refactor/blueprint-v4-p1-clientes |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+| Branch | jules-7691209467773456208-bb683865 |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-
+## 🎯 Sessão Atual
+**Categoria:** feature
+**Objetivo:** test coverage for computeMetricHistory
+**Status:** done
+**Iniciada em:** 2026-08-24T13:45:13.443Z
+**Branch:** `jules-7691209467773456208-bb683865`
+**Último commit:** cb8ecbe — Merge pull request #495 from andre0787/chore/quality-nightly-update
+**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão

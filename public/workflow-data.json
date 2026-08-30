@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-24T06:47:02.300Z",
-  "dataDate": "2026-08-24",
+  "generatedAt": "2026-08-30T14:59:05.011Z",
+  "dataDate": "2026-08-30",
   "kpiStats": [
     {
-      "value": 354,
+      "value": 371,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 528,
+      "value": 525,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -28,7 +28,7 @@
       "sub": "desde o início"
     },
     {
-      "value": 27,
+      "value": 28,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,12 +41,12 @@
     },
     {
       "name": "pre-pr",
-      "n": 114,
+      "n": 117,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 146,
+      "n": 158,
       "color": "#ef4444"
     },
     {
@@ -56,12 +56,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 28,
+      "n": 29,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 25,
+      "n": 26,
       "color": "#22c55e"
     },
     {
@@ -73,7 +73,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 309,
+      "n": 306,
       "color": "#10b981"
     },
     {
@@ -89,78 +89,78 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-24 05:09:15",
+      "t": "2026-08-30 14:59:04",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-24 05:08:08",
+      "t": "2026-08-24 13:59:16",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-24 05:04:33",
-      "d": "rule:fail",
-      "desc": "rule-36-process-evidence falhou"
+      "t": "2026-08-24 13:47:33",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-24 05:04:33",
+      "t": "2026-08-24 13:42:21",
       "d": "rule:fail",
-      "desc": "rule-31-lib-test-coverage falhou"
+      "desc": "rule-26-session-started falhou"
     },
     {
-      "t": "2026-08-24 05:03:45",
+      "t": "2026-08-24 13:42:21",
       "d": "rule:fail",
-      "desc": "rule-36-process-evidence falhou"
+      "desc": "rule-03-handoff-completeness falhou"
     },
     {
-      "t": "2026-08-24 05:03:45",
+      "t": "2026-08-24 13:39:12",
       "d": "rule:fail",
-      "desc": "rule-31-lib-test-coverage falhou"
+      "desc": "rule-26-session-started falhou"
     },
     {
-      "t": "2026-08-24 05:02:58",
+      "t": "2026-08-24 13:39:12",
       "d": "rule:fail",
-      "desc": "rule-36-process-evidence falhou"
+      "desc": "rule-03-handoff-completeness falhou"
     },
     {
-      "t": "2026-08-24 05:02:58",
+      "t": "2026-08-24 13:36:36",
       "d": "rule:fail",
-      "desc": "rule-31-lib-test-coverage falhou"
+      "desc": "rule-26-session-started falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 146,
+    "ruleFails": 158,
     "healed": 29,
-    "healedRate": 19.9,
-    "prePrTotal": 114,
-    "prePrPass": 114,
+    "healedRate": 18.4,
+    "prePrTotal": 117,
+    "prePrPass": 117,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 42,
+        "count": 43,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
         "rule": "rule-39-coding-gate",
-        "count": 21,
+        "count": 22,
         "hint": "faltou evento coding:done por subagente na branch"
+      },
+      {
+        "rule": "rule-03-handoff-completeness",
+        "count": 12,
+        "hint": ""
+      },
+      {
+        "rule": "rule-26-session-started",
+        "count": 11,
+        "hint": "timestamp de sessão ausente — npm run session:start"
       },
       {
         "rule": "rule-31-lib-test-coverage",
         "count": 9,
-        "hint": ""
-      },
-      {
-        "rule": "rule-17-new-docs-valid",
-        "count": 8,
-        "hint": "novo doc criado sem validar referências no MAP.md"
-      },
-      {
-        "rule": "rule-36-process-evidence",
-        "count": 8,
         "hint": ""
       }
     ]
@@ -174,7 +174,7 @@
     "testFiles": 271,
     "skills": 27,
     "rules": 48,
-    "events": 354,
-    "qualityNotes": 528
+    "events": 371,
+    "qualityNotes": 525
   }
 }
