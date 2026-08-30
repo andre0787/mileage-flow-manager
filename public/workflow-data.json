@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-28T18:03:45.625Z",
-  "dataDate": "2026-08-28",
+  "generatedAt": "2026-08-30T15:03:12.143Z",
+  "dataDate": "2026-08-30",
   "kpiStats": [
     {
       "value": 387,
@@ -8,7 +8,7 @@
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 519,
+      "value": 521,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,17 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 277,
+      "value": 279,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 32,
+      "value": 31,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 28,
+      "value": 29,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,27 +36,27 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 9,
+      "n": 10,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 123,
+      "n": 121,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 164,
+      "n": 165,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 32,
+      "n": 31,
       "color": "#10b981"
     },
     {
       "name": "code-review:done",
-      "n": 29,
+      "n": 30,
       "color": "#6366f1"
     },
     {
@@ -78,12 +78,12 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 289,
+      "n": 285,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 199,
+      "n": 198,
       "color": "#84cc16"
     },
     {
@@ -94,52 +94,52 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-25 16:42:11",
+      "t": "2026-08-30 15:03:11",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-25 16:28:43",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "t": "2026-08-30 15:00:49",
+      "d": "session:start",
+      "desc": "chore: Adicionar testes unitários para parseDescription"
     },
     {
-      "t": "2026-08-25 16:27:14",
+      "t": "2026-08-30 14:58:33",
+      "d": "rule:fail",
+      "desc": "rule-26-session-started falhou"
+    },
+    {
+      "t": "2026-08-30 14:58:33",
+      "d": "rule:fail",
+      "desc": "rule-03-handoff-completeness falhou"
+    },
+    {
+      "t": "2026-08-30 14:57:59",
       "d": "code-review:done",
-      "desc": "Review aprovado — diff revisado por agente Codebuff (rule-38)"
+      "desc": "Review aprovado por subagente"
     },
     {
-      "t": "2026-08-25 16:27:14",
+      "t": "2026-08-30 14:57:59",
       "d": "coding:done",
-      "desc": "Codificação concluída pelo agente Codebuff (fix discrepância saldos)"
+      "desc": "Implementado testes unitários para parseDescription"
     },
     {
-      "t": "2026-08-25 16:22:03",
-      "d": "rule:fail",
-      "desc": "rule-39-coding-gate falhou"
-    },
-    {
-      "t": "2026-08-25 16:22:03",
+      "t": "2026-08-30 14:50:52",
       "d": "rule:fail",
       "desc": "rule-38-code-review-gate falhou"
     },
     {
-      "t": "2026-08-25 16:20:52",
+      "t": "2026-08-30 14:50:52",
       "d": "rule:fail",
-      "desc": "rule-39-coding-gate falhou"
-    },
-    {
-      "t": "2026-08-25 16:20:51",
-      "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
+      "desc": "rule-26-session-started falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 164,
-    "healed": 32,
-    "healedRate": 19.5,
-    "prePrTotal": 123,
-    "prePrPass": 123,
+    "ruleFails": 165,
+    "healed": 31,
+    "healedRate": 18.8,
+    "prePrTotal": 121,
+    "prePrPass": 121,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
@@ -150,22 +150,22 @@
       },
       {
         "rule": "rule-39-coding-gate",
-        "count": 27,
+        "count": 26,
         "hint": "faltou evento coding:done por subagente na branch"
+      },
+      {
+        "rule": "rule-03-handoff-completeness",
+        "count": 10,
+        "hint": ""
+      },
+      {
+        "rule": "rule-26-session-started",
+        "count": 9,
+        "hint": "timestamp de sessão ausente — npm run session:start"
       },
       {
         "rule": "rule-31-lib-test-coverage",
         "count": 9,
-        "hint": ""
-      },
-      {
-        "rule": "rule-03-handoff-completeness",
-        "count": 8,
-        "hint": ""
-      },
-      {
-        "rule": "rule-36-process-evidence",
-        "count": 8,
         "hint": ""
       }
     ]
@@ -176,10 +176,10 @@
     "pages": 18,
     "libs": 36,
     "scripts": 122,
-    "testFiles": 277,
+    "testFiles": 279,
     "skills": 27,
     "rules": 48,
     "events": 387,
-    "qualityNotes": 519
+    "qualityNotes": 521
   }
 }

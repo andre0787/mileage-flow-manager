@@ -3,14 +3,29 @@
 > Anterior: 2026-08-26
 ---
 ## 🏗️ Projeto
+
+> ⏰ Snapshot atualizado em: 2026-08-30
+
+### 🏗️ Projeto
+
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
-**Workflow:** session:start → categoria → implementação → pre-pr → PR
+**Regras críticas:** branch obrigatória, pre-pr c/ relatório, git status ZERO, lazy loading por categoria
+**Workflow:** session:start → categoria → carregar docs → council (se feature) → build → pre-pr → PR
+
 ### 🐞 Bugs Abertos
-Consulte as GitHub Issues para a lista atual.
+
+- nenhum | [ver todos → Issues](https://github.com/andreluiz0787/mileage-flow-manager/issues)
+
+### 📋 Commits Recentes
+
+```
+1940b7f Merge pull request #508 from andre0787/chore/quality-nightly-update
+```
+
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `2359b6c` — chore: session end
+- **Branch:** `jules-1724316057849982027-53fdc958`
+- **Último commit:** `1940b7f — Merge pull request #508 from andre0787/chore/quality-nightly-update`
 - **Remote:** origin/main
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
 - **P3-28 entradas** (`src/features/entradas/`), **P3-29 contas** (`src/features/contas/`),
@@ -39,6 +54,17 @@ Nenhum PR aberto.
 | Total testes | 1164 |
 | Docs issues | 0 |
 | Branch | main |
+
+
+## 🎯 Sessão Atual
+**Categoria:** chore
+**Objetivo:** Adicionar testes unitários para parseDescription
+**Status:** in_progress
+**Iniciada em:** 2026-08-30T15:00:49.376Z
+**Branch:** `jules-1724316057849982027-53fdc958`
+**Último commit:** 1940b7f — Merge pull request #508 from andre0787/chore/quality-nightly-update
+**Docs carregados:** AGENTS.md
+
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
