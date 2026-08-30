@@ -41,14 +41,16 @@ describe("clearAccountDataFn", () => {
 
   it("compares performance against sequential execution", async () => {
     const DELAY_MS = 50;
-    (supabase.from as any).mockImplementation(() => ({
-      delete: () => ({
-        not: async () => {
-          await new Promise((resolve) => setTimeout(resolve, DELAY_MS));
-          return { error: null };
-        },
-      }),
-    }));
+    vi.mocked(supabase.from).mockImplementation(() => {
+      return {
+        delete: () => ({
+          not: async () => {
+            await new Promise((resolve) => setTimeout(resolve, DELAY_MS));
+            return { error: null };
+          },
+        }),
+      } as ReturnType<typeof supabase.from>;
+    });
 
     const startSeq = performance.now();
     await clearAccountDataSequential();
@@ -68,15 +70,15 @@ describe("clearAccountDataFn", () => {
   it("deletes child tables first, then parent tables", async () => {
     const executionOrder: string[] = [];
 
-    (supabase.from as any).mockImplementation((table: string) => {
+    vi.mocked(supabase.from).mockImplementation((table: string) => {
       return {
         delete: () => ({
-          not: async (col: string, op: string, val: any) => {
+          not: async () => {
             executionOrder.push(table);
             return { error: null };
           },
         }),
-      };
+      } as ReturnType<typeof supabase.from>;
     });
 
     await clearAccountDataFn();
@@ -88,7 +90,7 @@ describe("clearAccountDataFn", () => {
   });
 
   it("throws error if a deletion fails", async () => {
-    (supabase.from as any).mockImplementation((table: string) => {
+    vi.mocked(supabase.from).mockImplementation((table: string) => {
       return {
         delete: () => ({
           not: async () => {
@@ -98,7 +100,7 @@ describe("clearAccountDataFn", () => {
             return { error: null };
           },
         }),
-      };
+      } as ReturnType<typeof supabase.from>;
     });
 
     await expect(clearAccountDataFn()).rejects.toThrow("Deletion failed");
