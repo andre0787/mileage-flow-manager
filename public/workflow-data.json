@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-28T18:03:45.625Z",
-  "dataDate": "2026-08-28",
+  "generatedAt": "2026-08-30T15:02:48.809Z",
+  "dataDate": "2026-08-30",
   "kpiStats": [
     {
-      "value": 387,
+      "value": 398,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 519,
+      "value": 531,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 32,
+      "value": 33,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 28,
+      "value": 29,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,27 +41,27 @@
     },
     {
       "name": "pre-pr",
-      "n": 123,
+      "n": 124,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 164,
+      "n": 171,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 32,
+      "n": 33,
       "color": "#10b981"
     },
     {
       "name": "code-review:done",
-      "n": 29,
+      "n": 30,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 27,
+      "n": 28,
       "color": "#22c55e"
     },
     {
@@ -78,7 +78,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 289,
+      "n": 293,
       "color": "#10b981"
     },
     {
@@ -94,78 +94,78 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-25 16:42:11",
+      "t": "2026-08-30 15:02:48",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-25 16:28:43",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "t": "2026-08-30 14:58:16",
+      "d": "rule:fail",
+      "desc": "rule-26-session-started falhou"
     },
     {
-      "t": "2026-08-25 16:27:14",
-      "d": "code-review:done",
-      "desc": "Review aprovado — diff revisado por agente Codebuff (rule-38)"
+      "t": "2026-08-30 14:58:07",
+      "d": "healed",
+      "desc": "rule-02 auto-corrigido"
     },
     {
-      "t": "2026-08-25 16:27:14",
+      "t": "2026-08-30 14:55:17",
+      "d": "rule:fail",
+      "desc": "rule-26-session-started falhou"
+    },
+    {
+      "t": "2026-08-30 14:55:17",
+      "d": "rule:fail",
+      "desc": "rule-03-handoff-completeness falhou"
+    },
+    {
+      "t": "2026-08-30 14:54:41",
       "d": "coding:done",
-      "desc": "Codificação concluída pelo agente Codebuff (fix discrepância saldos)"
+      "desc": "Codificação por subagente concluída"
     },
     {
-      "t": "2026-08-25 16:22:03",
+      "t": "2026-08-30 14:54:41",
+      "d": "code-review:done",
+      "desc": "Review aprovado por subagente"
+    },
+    {
+      "t": "2026-08-30 14:52:11",
       "d": "rule:fail",
       "desc": "rule-39-coding-gate falhou"
-    },
-    {
-      "t": "2026-08-25 16:22:03",
-      "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
-    },
-    {
-      "t": "2026-08-25 16:20:52",
-      "d": "rule:fail",
-      "desc": "rule-39-coding-gate falhou"
-    },
-    {
-      "t": "2026-08-25 16:20:51",
-      "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 164,
-    "healed": 32,
-    "healedRate": 19.5,
-    "prePrTotal": 123,
-    "prePrPass": 123,
+    "ruleFails": 171,
+    "healed": 33,
+    "healedRate": 19.3,
+    "prePrTotal": 124,
+    "prePrPass": 124,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 48,
+        "count": 49,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
         "rule": "rule-39-coding-gate",
-        "count": 27,
+        "count": 28,
         "hint": "faltou evento coding:done por subagente na branch"
+      },
+      {
+        "rule": "rule-03-handoff-completeness",
+        "count": 10,
+        "hint": ""
+      },
+      {
+        "rule": "rule-26-session-started",
+        "count": 10,
+        "hint": "timestamp de sessão ausente — npm run session:start"
       },
       {
         "rule": "rule-31-lib-test-coverage",
         "count": 9,
-        "hint": ""
-      },
-      {
-        "rule": "rule-03-handoff-completeness",
-        "count": 8,
-        "hint": ""
-      },
-      {
-        "rule": "rule-36-process-evidence",
-        "count": 8,
         "hint": ""
       }
     ]
@@ -179,7 +179,7 @@
     "testFiles": 277,
     "skills": 27,
     "rules": 48,
-    "events": 387,
-    "qualityNotes": 519
+    "events": 398,
+    "qualityNotes": 531
   }
 }

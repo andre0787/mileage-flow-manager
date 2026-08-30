@@ -60,6 +60,7 @@ describe("calculateRecurrence", () => {
   test("falls back to clube recurrence when isRecurrent false", () => {
     const form = {
       ...baseForm,
+      startDate: "2025-01-01",
       isRecurrent: false,
       isClube: true,
       clubeMeses: "6",
@@ -67,9 +68,8 @@ describe("calculateRecurrence", () => {
     const result = calculateRecurrence(form);
     expect(result).toHaveProperty("recurrenceInterval", 30);
     expect(typeof result.recurrenceEnd).toBe("string");
-    // Clube usa setUTCMonth: 6 meses a partir de hoje
     const end = new Date(result.recurrenceEnd!);
-    const start = new Date();
+    const start = new Date(`${form.startDate}T00:00:00Z`);
     const diffMonths =
       (end.getUTCFullYear() - start.getUTCFullYear()) * 12 +
       end.getUTCMonth() -

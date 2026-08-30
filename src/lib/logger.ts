@@ -30,11 +30,6 @@ function getUserId(): string | null {
 function persist(entry: LogEntry): void {
   if (!ENABLE_DEBUG_LOG) return;
 
-  // Console em dev
-  if (import.meta.env.DEV) {
-    console.log(`[Logger] ${entry.type}:`, entry);
-  }
-
   // localStorage para persistir entre refreshs
   try {
     const logs = JSON.parse(localStorage.getItem("mc_debug_logs") || "[]");

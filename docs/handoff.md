@@ -3,11 +3,33 @@
 > Anterior: 2026-08-26
 ---
 ## 🏗️ Projeto
+
+> ⏰ Snapshot atualizado em: 2026-08-30
+
+### 🏗️ Projeto
+
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
-**Workflow:** session:start → categoria → implementação → pre-pr → PR
+**Regras críticas:** branch obrigatória, pre-pr c/ relatório, git status ZERO, lazy loading por categoria
+**Workflow:** session:start → categoria → carregar docs → council (se feature) → build → pre-pr → PR
+
 ### 🐞 Bugs Abertos
-Consulte as GitHub Issues para a lista atual.
+
+- nenhum | [ver todos → Issues](https://github.com/andreluiz0787/mileage-flow-manager/issues)
+
+### 📋 Commits Recentes
+
+```
+1940b7f Merge pull request #508 from andre0787/chore/quality-nightly-update
+```
+
+## 🎯 Sessão Atual
+**Iniciada em:** 2026-08-30T14:50:00.000Z
+**Branch:** `jules-18146623467192773992-a3a3fd9d`
+**Categoria:** refactor
+**Objetivo:** Remover debug console.log do logger
+**Docs carregados:** conventions/common.md, conventions/refactor.md, ARCHITECTURE.md
+
 ## 🧭 Estado Atual
 - **Branch:** `main`
 - **Último commit:** `2359b6c` — chore: session end
