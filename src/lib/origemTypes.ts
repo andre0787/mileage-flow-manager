@@ -76,14 +76,10 @@ export function buildMonthlyRecurrence(
     return { recurrenceInterval: 30 };
   }
 
-  const recurrenceEnd = startDate
-    ? addMonthsClamped(startDate, parsedMonths, new Date(`${startDate}T00:00:00Z`).getUTCDate())
-    : (() => {
-        const endDate = new Date();
-        // ponytail: UTC para consistência com datas ISO
-        endDate.setUTCMonth(endDate.getUTCMonth() + parsedMonths);
-        return endDate.toISOString().split("T")[0];
-      })();
+  const todayStr = new Date().toISOString().split("T")[0];
+  const dateToUse = startDate || todayStr;
+  const dayOfMonth = new Date(`${dateToUse}T00:00:00Z`).getUTCDate();
+  const recurrenceEnd = addMonthsClamped(dateToUse, parsedMonths, dayOfMonth);
   return {
     recurrenceInterval: 30,
     recurrenceEnd,
