@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-28T18:03:45.625Z",
-  "dataDate": "2026-08-28",
+  "generatedAt": "2026-08-31T12:27:51.969Z",
+  "dataDate": "2026-08-31",
   "kpiStats": [
     {
       "value": 387,
@@ -18,7 +18,7 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 277,
+      "value": 279,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
@@ -176,7 +176,7 @@
     "pages": 18,
     "libs": 36,
     "scripts": 122,
-    "testFiles": 277,
+    "testFiles": 279,
     "skills": 27,
     "rules": 48,
     "events": 387,

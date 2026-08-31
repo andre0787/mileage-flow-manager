@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T18:03:45.577Z",
+  "generatedAt": "2026-08-31T12:27:51.935Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -168,45 +168,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-07-30",
-      "label": "30/07",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
-    {
-      "day": "2026-07-31",
-      "label": "31/07",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
-    {
-      "day": "2026-08-01",
-      "label": "01/08",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-08-02",
       "label": "02/08",
@@ -557,6 +518,45 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
+    },
+    {
+      "day": "2026-08-29",
+      "label": "29/08",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-08-30",
+      "label": "30/08",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-08-31",
+      "label": "31/08",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [],
@@ -565,7 +565,7 @@
     "pages": 18,
     "libs": 36,
     "scripts": 122,
-    "testFiles": 277,
+    "testFiles": 279,
     "skills": 27,
     "rules": 48,
     "events": 387,
