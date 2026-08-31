@@ -389,3 +389,4 @@
 {"timestamp":"2026-08-30T14:50:12.352Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"jules-1207420845657447998-4d7fa9dc","commit":"1940b7f","agent":"human","rule":"rule-26-session-started"}
 {"timestamp":"2026-08-30T14:50:12.421Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"jules-1207420845657447998-4d7fa9dc","commit":"1940b7f","agent":"human","rule":"rule-38-code-review-gate"}
 {"timestamp":"2026-08-31T13:14:47.685Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/merge-all-remaining-prs","commit":"e8aa991","agent":"pi","errors":0}
+{"timestamp":"2026-08-31T13:14:48.511Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/merge-all-remaining-prs","commit":"3300a12","agent":"pi","errors":0}

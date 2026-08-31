@@ -27,9 +27,9 @@ export function DeleteEntryDialog({ entry }: Props) {
   const hasSales = relatedSales.length > 0;
 
   const handleDelete = async () => {
-    // Delete related sales first
-    for (const sale of relatedSales) {
-      await deleteSaleM.mutateAsync(sale.id);
+    // Delete related sales first in parallel
+    if (relatedSales.length > 0) {
+      await Promise.all(relatedSales.map((sale) => deleteSaleM.mutateAsync(sale.id)));
     }
     // Then delete the entry
     await deleteEntryM.mutateAsync(entry);
