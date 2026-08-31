@@ -76,11 +76,12 @@ export function buildMonthlyRecurrence(
     return { recurrenceInterval: 30 };
   }
 
-  const todayStr = new Date().toISOString().split("T")[0];
+  const todayIso = new Date().toISOString().split("T")[0];
+  const baseDate = startDate || todayIso;
   const recurrenceEnd = addMonthsClamped(
-    startDate || todayStr,
+    baseDate,
     parsedMonths,
-    new Date(`${startDate || todayStr}T00:00:00Z`).getUTCDate(),
+    new Date(`${baseDate}T00:00:00Z`).getUTCDate(),
   );
   return {
     recurrenceInterval: 30,
