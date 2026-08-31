@@ -1,6 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import KPIDashboard from "../../src/components/KPIDashboard";
+
+vi.mock("@/components/AnimatedNumber", () => ({
+  AnimatedNumber: ({ value }: { value: number }) => String(value),
+}));
 import type { KpiData } from "../../src/types/kpi";
 
 vi.mock("../../src/contexts/DataContext", () => ({
@@ -160,6 +164,8 @@ describe("KPIDashboard", () => {
   it("renders radar diário (ProcessDailySection)", () => {
     render(<KPIDashboard data={mockData} />);
     expect(screen.getByText("Radar do workflow")).toBeDefined();
-    expect(screen.getAllByText(/hoje: 7 pre-pr · 1 merges/).length).toBeGreaterThanOrEqual(1);
+    // LiveChips foi extraído: agora renderiza "Hoje (pre-pr / merge)" + valores animados 7 / 1 (via AnimatedNumber)
+    expect(screen.getByText(/Hoje \(pre-pr \/ merge\)/)).toBeDefined();
+    expect(screen.getByText(/7.*\/.*1/)).toBeDefined();
   });
 });

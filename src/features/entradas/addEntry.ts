@@ -55,8 +55,8 @@ export const addEntryEndpoint = (builder: EntradasBuilder) => ({
           entry.recurrenceEnd,
           entry.recurrenceDayOfMonth,
         );
-        for (const fe of futureEntries) {
-          await supabase.from("entries").insert({
+        if (futureEntries.length > 0) {
+          const bulkInsertPayload = futureEntries.map((fe) => ({
             id: fe.id!,
             user_id: user.id,
             account_id: fe.accountId!,
@@ -81,7 +81,9 @@ export const addEntryEndpoint = (builder: EntradasBuilder) => ({
                 recurrenceValueMode: entry.recurrenceValueMode,
               }) ?? null,
             date: fe.date!,
-          });
+          }));
+          const { error: bulkError } = await supabase.from("entries").insert(bulkInsertPayload);
+          if (bulkError) return { error: toQueryError(bulkError) };
         }
       }
 

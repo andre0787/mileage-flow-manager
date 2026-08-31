@@ -8,6 +8,10 @@ vi.mock("@/lib/workflowData", () => ({
   useWorkflowData: vi.fn(),
 }));
 
+vi.mock("@/components/AnimatedNumber", () => ({
+  AnimatedNumber: ({ value }: { value: number }) => String(value),
+}));
+
 import { useWorkflowData } from "@/lib/workflowData";
 
 const mockUseWorkflowData = vi.mocked(useWorkflowData);

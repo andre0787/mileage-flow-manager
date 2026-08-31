@@ -59,6 +59,39 @@ const PageFallback = () => (
   </div>
 );
 
+interface AppRouteConfig {
+  path: string;
+  component: React.ComponentType;
+  withErrorBoundary?: boolean;
+}
+
+const APP_ROUTES: AppRouteConfig[] = [
+  { path: "/", component: Dashboard },
+  { path: "/contas", component: Contas },
+  { path: "/clientes", component: Clientes },
+  { path: "/entradas", component: Entradas },
+  { path: "/vendas", component: Vendas },
+  { path: "/cpf", component: ControleCPF },
+  { path: "/relatorios", component: Relatorios },
+  { path: "/configuracoes", component: Configuracoes },
+  { path: "/perfil", component: Perfil },
+  { path: "/kpi", component: KPI },
+  { path: "/admin/eventos", component: AdminEventos },
+  { path: "/workflow", component: Workflow },
+  ...(isAgentLabEnabled ? [{ path: "/agent-lab", component: AgentLab }] : []),
+  { path: "*", component: NotFound, withErrorBoundary: false },
+];
+
+const renderRouteElement = ({ component: Component, withErrorBoundary = true }: AppRouteConfig) => {
+  const content = (
+    <div className="animate-appear">
+      <Component />
+    </div>
+  );
+
+  return withErrorBoundary ? <ErrorBoundary>{content}</ErrorBoundary> : content;
+};
+
 const AnimatedRoutes = () => {
   const location = useLocation();
 
@@ -69,146 +102,9 @@ const AnimatedRoutes = () => {
   return (
     <Suspense fallback={<PageFallback />}>
       <Routes location={location} key={location.pathname}>
-        <Route
-          path="/"
-          element={
-            <ErrorBoundary>
-              <div className="animate-appear">
-                <Dashboard />
-              </div>
-            </ErrorBoundary>
-          }
-        />
-        <Route
-          path="/contas"
-          element={
-            <ErrorBoundary>
-              <div className="animate-appear">
-                <Contas />
-              </div>
-            </ErrorBoundary>
-          }
-        />
-        <Route
-          path="/clientes"
-          element={
-            <ErrorBoundary>
-              <div className="animate-appear">
-                <Clientes />
-              </div>
-            </ErrorBoundary>
-          }
-        />
-        <Route
-          path="/entradas"
-          element={
-            <ErrorBoundary>
-              <div className="animate-appear">
-                <Entradas />
-              </div>
-            </ErrorBoundary>
-          }
-        />
-        <Route
-          path="/vendas"
-          element={
-            <ErrorBoundary>
-              <div className="animate-appear">
-                <Vendas />
-              </div>
-            </ErrorBoundary>
-          }
-        />
-        <Route
-          path="/cpf"
-          element={
-            <ErrorBoundary>
-              <div className="animate-appear">
-                <ControleCPF />
-              </div>
-            </ErrorBoundary>
-          }
-        />
-        <Route
-          path="/relatorios"
-          element={
-            <ErrorBoundary>
-              <div className="animate-appear">
-                <Relatorios />
-              </div>
-            </ErrorBoundary>
-          }
-        />
-        <Route
-          path="/configuracoes"
-          element={
-            <ErrorBoundary>
-              <div className="animate-appear">
-                <Configuracoes />
-              </div>
-            </ErrorBoundary>
-          }
-        />
-        <Route
-          path="/perfil"
-          element={
-            <ErrorBoundary>
-              <div className="animate-appear">
-                <Perfil />
-              </div>
-            </ErrorBoundary>
-          }
-        />
-        <Route
-          path="/kpi"
-          element={
-            <ErrorBoundary>
-              <div className="animate-appear">
-                <KPI />
-              </div>
-            </ErrorBoundary>
-          }
-        />
-        <Route
-          path="/admin/eventos"
-          element={
-            <ErrorBoundary>
-              <div className="animate-appear">
-                <AdminEventos />
-              </div>
-            </ErrorBoundary>
-          }
-        />
-        <Route
-          path="/workflow"
-          element={
-            <ErrorBoundary>
-              <div className="animate-appear">
-                <Workflow />
-              </div>
-            </ErrorBoundary>
-          }
-        />
-        {isAgentLabEnabled && (
-          <Route
-            path="/agent-lab"
-            element={
-              <ErrorBoundary>
-                <div className="animate-appear">
-                  <AgentLab />
-                </div>
-              </ErrorBoundary>
-            }
-          />
-        )}
-        <Route
-          path="*"
-          element={
-            <div className="animate-appear">
-              <NotFound />
-            </div>
-          }
-        />
+        {APP_ROUTES.map((route) => (
+          <Route key={route.path} path={route.path} element={renderRouteElement(route)} />
+        ))}
       </Routes>
     </Suspense>
   );
