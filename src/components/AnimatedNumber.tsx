@@ -1,3 +1,4 @@
+import * as React from "react";
 import { useState, useEffect } from "react";
 
 interface AnimatedNumberProps {
@@ -21,5 +22,5 @@ export function AnimatedNumber({ value }: AnimatedNumberProps) {
     return () => cancelAnimationFrame(raf);
   }, [value]);
 
-  return <>{count.toLocaleString("pt-BR")}</>;
+  return <React.Fragment>{count.toLocaleString("pt-BR")}</React.Fragment>;
 }

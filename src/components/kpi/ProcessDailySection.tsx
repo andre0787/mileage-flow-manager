@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import KPIChart from "@/components/KPIChart";
 import { cn } from "@/lib/utils";
+import { AnimatedNumber } from "@/components/AnimatedNumber";
 import type { DailyMetric } from "@/types/kpi";
 
 interface ProcessDailySectionProps {
@@ -33,13 +34,13 @@ export function ProcessDailySection({ daily }: ProcessDailySectionProps) {
           {today && (
             <div className="flex flex-wrap gap-2 text-[11px] font-semibold">
               <span className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-primary">
-                hoje: {today.prePrTotal} pre-pr · {today.merges} merges
+                hoje: <AnimatedNumber value={today.prePrTotal} /> pre-pr · <AnimatedNumber value={today.merges} /> merges
               </span>
               <span className="rounded-full border border-destructive/30 bg-destructive/10 px-2.5 py-1 text-destructive">
-                {today.ruleFails} violações
+                <AnimatedNumber value={today.ruleFails} /> violações
               </span>
               <span className="rounded-full border border-success/30 bg-success/10 px-2.5 py-1 text-success">
-                {today.healed} auto-correções
+                <AnimatedNumber value={today.healed} /> auto-correções
               </span>
             </div>
           )}
