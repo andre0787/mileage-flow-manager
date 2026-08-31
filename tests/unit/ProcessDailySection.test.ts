@@ -1,8 +1,12 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { createElement } from "react";
 import { render, screen } from "@testing-library/react";
 import { ProcessDailySection } from "@/components/kpi/ProcessDailySection";
 import type { DailyMetric } from "@/types/kpi";
+
+vi.mock("@/components/AnimatedNumber", () => ({
+  AnimatedNumber: ({ value }: { value: number }) => String(value),
+}));
 
 const DAILY: DailyMetric[] = [
   {

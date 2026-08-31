@@ -15,8 +15,9 @@ const originalGitContext = Object.fromEntries(
 function gitCheckoutHandoff() {
   // Retry: outros testes unitários rodam scripts de rules que usam git no ROOT
   // em paralelo (vitest workers) — o index.lock conflita transiente. Polling curto.
+  // TWINS: searched "git checkout -- docs/handoff.md" — found 1 local, fix ampliado para remover stale lock.
   let lastErr: unknown;
-  for (let attempt = 0; attempt < 10; attempt++) {
+  for (let attempt = 0; attempt < 30; attempt++) {
     try {
       execSync("git checkout -- docs/handoff.md", {
         cwd: ROOT,
@@ -26,9 +27,14 @@ function gitCheckoutHandoff() {
       return;
     } catch (err) {
       lastErr = err;
-      const lockFree = !existsSync(resolve(ROOT, ".git/index.lock"));
+      const lockPath = resolve(ROOT, ".git/index.lock");
+      const lockFree = !existsSync(lockPath);
       if (lockFree) throw err;
-      execSync("sleep 0.5", { shell: true });
+      // Stale lock de merge paralelo ou pre-pr -> tenta remover após 2s
+      if (attempt > 4) {
+        try { execSync(`rm -f "${lockPath}"`, { shell: true }); } catch {}
+      }
+      execSync("sleep 0.4", { shell: true });
     }
   }
   throw lastErr;

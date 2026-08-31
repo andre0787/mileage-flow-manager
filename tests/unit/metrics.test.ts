@@ -228,9 +228,9 @@ describe("computeDashboardMetrics", () => {
   ];
 
   const entries = [
-    { date: new Date().toISOString(), amount: 5000, entryStatus: "confirmado" },
-    { date: lastMonthDate().toISOString(), amount: 3000, entryStatus: "confirmado" },
-    { date: new Date().toISOString(), amount: 1000, entryStatus: "aguardando" },
+    { date: new Date().toISOString(), amount: 5000, entryStatus: "confirmado", accountId: "a1", milesGenerated: 5000 },
+    { date: lastMonthDate().toISOString(), amount: 3000, entryStatus: "confirmado", accountId: "a1", milesGenerated: 3000 },
+    { date: new Date().toISOString(), amount: 1000, entryStatus: "aguardando", accountId: "a1", milesGenerated: 1000 },
   ];
 
   const owners = [
