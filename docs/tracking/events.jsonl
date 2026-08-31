@@ -385,8 +385,7 @@
 {"timestamp":"2026-08-25T16:27:14.967Z","type":"code-review:done","description":"Review aprovado — diff revisado por agente Codebuff (rule-38)","branch":"fix/balance-reconcile-clamp","commit":"dbe56dc","agent":"codebuff","subagent":true,"verdict":"approved"}
 {"timestamp":"2026-08-25T16:28:43.788Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/balance-reconcile-clamp","commit":"dbe56dc","agent":"human","errors":0}
 {"timestamp":"2026-08-25T16:42:11.517Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/balance-reconcile-clamp","commit":"4127cbc","agent":"human","errors":0}
-{"timestamp":"2026-08-26T17:45:33.569Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/balance-reconcile-clamp","commit":"9631185","agent":"human","errors":0}
-{"timestamp":"2026-08-31T04:37:20.102Z","type":"rule:fail","description":"rule-04-branch falhou","branch":"main","commit":"be8215b","agent":"pi","rule":"rule-04-branch"}
-{"timestamp":"2026-08-31T04:37:20.141Z","type":"rule:fail","description":"rule-14-orphan-files falhou","branch":"main","commit":"be8215b","agent":"pi","rule":"rule-14-orphan-files"}
-{"timestamp":"2026-08-31T13:13:36.316Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/merge-all-remaining-prs","commit":"be8215b","agent":"pi","errors":0}
-{"timestamp":"2026-08-31T13:14:29.761Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/merge-all-remaining-prs","commit":"0f9b80e","agent":"pi","errors":0}
+{"timestamp":"2026-08-30T14:50:12.268Z","type":"rule:fail","description":"rule-03-handoff-completeness falhou","branch":"jules-1207420845657447998-4d7fa9dc","commit":"1940b7f","agent":"human","rule":"rule-03-handoff-completeness"}
+{"timestamp":"2026-08-30T14:50:12.352Z","type":"rule:fail","description":"rule-26-session-started falhou","branch":"jules-1207420845657447998-4d7fa9dc","commit":"1940b7f","agent":"human","rule":"rule-26-session-started"}
+{"timestamp":"2026-08-30T14:50:12.421Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"jules-1207420845657447998-4d7fa9dc","commit":"1940b7f","agent":"human","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-31T13:14:47.685Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/merge-all-remaining-prs","commit":"e8aa991","agent":"pi","errors":0}

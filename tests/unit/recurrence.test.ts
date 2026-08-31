@@ -67,9 +67,10 @@ describe("calculateRecurrence", () => {
     const result = calculateRecurrence(form);
     expect(result).toHaveProperty("recurrenceInterval", 30);
     expect(typeof result.recurrenceEnd).toBe("string");
-    // Clube usa setUTCMonth: 6 meses a partir de hoje
-    const end = new Date(result.recurrenceEnd!);
-    const start = new Date();
+    // Clube usa addMonthsClamped: 6 meses a partir de hoje (preservando o dia ou ajustando ao último dia do mês)
+    const end = new Date(`${result.recurrenceEnd!}T00:00:00Z`);
+    const startIso = new Date().toISOString().slice(0, 10);
+    const start = new Date(`${startIso}T00:00:00Z`);
     const diffMonths =
       (end.getUTCFullYear() - start.getUTCFullYear()) * 12 +
       end.getUTCMonth() -
