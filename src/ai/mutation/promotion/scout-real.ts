@@ -180,17 +180,11 @@ export class PromotionScoutReal {
   }
 
   /**
-   * Scout all enabled sources.
+   * Scout all enabled sources concurrently using Promise.all().
    */
   async scoutAll(): Promise<ScoutResult[]> {
-    const results: ScoutResult[] = [];
-
-    for (const source of this.sourceRegistry.filter((s) => s.enabled)) {
-      const result = await this.scoutSource(source);
-      results.push(result);
-    }
-
-    return results;
+    const enabledSources = this.sourceRegistry.filter((s) => s.enabled);
+    return Promise.all(enabledSources.map((source) => this.scoutSource(source)));
   }
 
   /**
