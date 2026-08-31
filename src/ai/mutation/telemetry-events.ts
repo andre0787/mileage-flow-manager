@@ -96,13 +96,6 @@ export function emitTelemetryEvent(
 
   eventBuffer.push(telemetryEvent);
 
-  // Also emit to console for observability
-  if (typeof console !== "undefined") {
-    console.log(
-      `[TELEMETRY] ${telemetryEvent.event} | ${telemetryEvent.eventId} | ${telemetryEvent.status}`,
-    );
-  }
-
   return telemetryEvent;
 }
 
