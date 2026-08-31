@@ -80,8 +80,8 @@ export function buildMonthlyRecurrence(
     ? addMonthsClamped(startDate, parsedMonths, new Date(`${startDate}T00:00:00Z`).getUTCDate())
     : (() => {
         const todayStr = new Date().toISOString().split("T")[0];
-        const today = new Date();
-        return addMonthsClamped(todayStr, parsedMonths, today.getUTCDate());
+        const baseDate = new Date(`${todayStr}T00:00:00Z`);
+        return addMonthsClamped(todayStr, parsedMonths, baseDate.getUTCDate());
       })();
   return {
     recurrenceInterval: 30,
