@@ -51,4 +51,28 @@ describe("telemetryQueue", () => {
     await recordTelemetry(payload);
     expect(queuedTelemetryCount()).toBe(1);
   });
+
+  it("benchmarks flushing multiple items (baseline vs batch)", async () => {
+    const insertMock = vi.fn().mockImplementation(async (arg) => {
+      // Simulate small network delay per call
+      await new Promise((resolve) => setTimeout(resolve, 5));
+      return { error: null };
+    });
+    vi.spyOn(supabase, "from").mockReturnValue({
+      insert: insertMock,
+    } as never);
+
+    const N = 50;
+    for (let i = 0; i < N; i++) {
+      saveToQueue({ ...payload, session_id: `session-${i}` });
+    }
+    expect(queuedTelemetryCount()).toBe(N);
+
+    const start = performance.now();
+    await flushTelemetryQueue();
+    const duration = performance.now() - start;
+
+    expect(queuedTelemetryCount()).toBe(0);
+    console.log(`Flush ${N} items call count: ${insertMock.mock.calls.length}, duration: ${duration.toFixed(2)}ms`);
+  });
 });

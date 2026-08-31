@@ -86,13 +86,18 @@ async function flushQueueOnce(): Promise<void> {
   const pending = readQueue();
   if (!pending.length) return;
 
+  const payloads = pending.map((item) => item.payload);
+  const { error } = await supabase.from("ai_telemetry").insert(payloads as never);
+
   const remaining: QueueItem[] = [];
-  for (const item of pending) {
-    const { error } = await supabase.from("ai_telemetry").insert(item.payload as never);
-    if (error && item.attempts + 1 < MAX_ATTEMPTS) {
-      remaining.push({ ...item, attempts: item.attempts + 1 });
+  if (error) {
+    for (const item of pending) {
+      if (item.attempts + 1 < MAX_ATTEMPTS) {
+        remaining.push({ ...item, attempts: item.attempts + 1 });
+      }
     }
   }
+
   const processedIds = new Set(pending.map((item) => item.id));
   const additions = readQueue().filter((item) => !processedIds.has(item.id));
   writeQueue([...additions, ...remaining]);
