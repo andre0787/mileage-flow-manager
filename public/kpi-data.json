@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T15:02:48.725Z",
+  "generatedAt": "2026-08-30T14:59:04.935Z",
   "currentMonth": "2026-08",
   "months": [
     {
@@ -120,33 +120,33 @@
     {
       "month": "2026-08",
       "prePrPassRate": 100,
-      "prePrTotal": 124,
-      "prePrPass": 124,
+      "prePrTotal": 117,
+      "prePrPass": 117,
       "prePrFail": 0,
-      "testCoverageLibs": 100,
-      "testCoverageComponents": 100,
+      "testCoverageLibs": null,
+      "testCoverageComponents": null,
       "gateActivations": {
         "intent": 0,
         "twins": 0,
-        "auth": 1
+        "auth": 0
       },
-      "avgOutcomeGrade": 91,
+      "avgOutcomeGrade": 91.1,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
-          "count": 49
+          "count": 43
         },
         {
           "rule": "rule-39-coding-gate",
-          "count": 28
+          "count": 22
         },
         {
           "rule": "rule-03-handoff-completeness",
-          "count": 10
+          "count": 12
         },
         {
           "rule": "rule-26-session-started",
-          "count": 10
+          "count": 11
         },
         {
           "rule": "rule-31-lib-test-coverage",
@@ -154,18 +154,17 @@
         }
       ],
       "healedByRule": {
-        "rule-26": 25,
-        "rule-17-new-docs-valid": 7,
-        "rule-02": 1
+        "rule-26": 22,
+        "rule-17-new-docs-valid": 7
       },
       "gateBlockedByRule": {
         "rule-33-intent-gate": 2
       },
       "avgCycleTimeHours": 0.6,
-      "branchesMerged": 43,
-      "violationsCaught": 171,
-      "healedRate": 19.3,
-      "frictionPerPass": 1.38
+      "branchesMerged": 40,
+      "violationsCaught": 158,
+      "healedRate": 18.4,
+      "frictionPerPass": 1.35
     }
   ],
   "daily": [
@@ -341,15 +340,15 @@
     {
       "day": "2026-08-14",
       "label": "14/08",
-      "prePrTotal": 9,
-      "prePrPass": 9,
+      "prePrTotal": 14,
+      "prePrPass": 14,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 5,
-      "healed": 2,
-      "sessions": 0,
-      "merges": 3,
-      "friction": 0.56
+      "ruleFails": 8,
+      "healed": 3,
+      "sessions": 2,
+      "merges": 5,
+      "friction": 0.57
     },
     {
       "day": "2026-08-15",
@@ -471,28 +470,28 @@
     {
       "day": "2026-08-24",
       "label": "24/08",
-      "prePrTotal": 9,
-      "prePrPass": 9,
+      "prePrTotal": 4,
+      "prePrPass": 4,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 41,
-      "healed": 2,
-      "sessions": 2,
-      "merges": 4,
-      "friction": 4.56
+      "ruleFails": 40,
+      "healed": 0,
+      "sessions": 1,
+      "merges": 2,
+      "friction": 10
     },
     {
       "day": "2026-08-25",
       "label": "25/08",
-      "prePrTotal": 7,
-      "prePrPass": 7,
+      "prePrTotal": 0,
+      "prePrPass": 0,
       "prePrFail": 0,
-      "prePrPassRate": 100,
-      "ruleFails": 8,
-      "healed": 2,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
       "sessions": 0,
-      "merges": 2,
-      "friction": 1.14
+      "merges": 0,
+      "friction": null
     },
     {
       "day": "2026-08-26",
@@ -553,31 +552,31 @@
       "prePrPass": 1,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 7,
-      "healed": 1,
+      "ruleFails": 0,
+      "healed": 0,
       "sessions": 0,
       "merges": 1,
-      "friction": 7
+      "friction": 0
     }
   ],
   "prs": [],
   "repo": {
     "components": 130,
-    "pages": 18,
+    "pages": 19,
     "libs": 36,
     "scripts": 122,
-    "testFiles": 277,
+    "testFiles": 271,
     "skills": 27,
     "rules": 48,
-    "events": 398,
-    "qualityNotes": 531
+    "events": 371,
+    "qualityNotes": 525
   },
   "summary": {
-    "merges": 43,
+    "merges": 40,
     "prs": 0,
-    "sessions": 9,
-    "violations": 171,
-    "healed": 33,
+    "sessions": 10,
+    "violations": 158,
+    "healed": 29,
     "prePrPassRate": 100
   },
   "telemetry": []

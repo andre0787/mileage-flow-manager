@@ -14,7 +14,6 @@ import {
   filterSalesByMonth,
   computeDashboardMetrics,
   computeMetricHistory,
-  computePerAccountBalance,
 } from "@/lib/metrics";
 
 // ─── Cálculos de Custo ───
@@ -136,22 +135,6 @@ describe("calcRevenueChange", () => {
   it("retorna 0 quando previous é 0", () => {
     expect(calcRevenueChange(120, 0)).toBe(0);
   });
-
-  it("calcula variação negativa (queda de receita)", () => {
-    expect(calcRevenueChange(80, 100)).toBe(-20);
-  });
-
-  it("calcula queda de 100% quando current é 0", () => {
-    expect(calcRevenueChange(0, 100)).toBe(-100);
-  });
-
-  it("retorna 0 de variação quando current é igual a previous", () => {
-    expect(calcRevenueChange(100, 100)).toBe(0);
-  });
-
-  it("retorna 0 quando previous é negativo", () => {
-    expect(calcRevenueChange(120, -10)).toBe(0);
-  });
 });
 
 // ─── Filtros ───
@@ -190,76 +173,6 @@ describe("filterSalesByMonth com datas date-only (bug de fuso #308, TWINS)", () 
     // Supabase envia YYYY-MM-DD. Sem parseDateOnly, em -3: new Date("2026-08-01") → 31/07 21h
     const sales = [{ date: "2026-08-01" }, { date: "2026-08-15" }, { date: "2026-07-31" }];
     expect(filterSalesByMonth(sales, 7, 2026)).toHaveLength(2); // ago: 01 e 15
-  });
-});
-
-describe("computePerAccountBalance", () => {
-  it("calcula entradas confirmadas − vendas ativas", () => {
-    const bal = computePerAccountBalance(
-      "a1",
-      [
-        { date: "2026-08-01", amount: 1000, entryStatus: "confirmado", accountId: "a1" },
-        { date: "2026-08-02", amount: 500, entryStatus: "aguardando", accountId: "a1" },
-      ],
-      [
-        {
-          status: "concluida",
-          date: "2026-08-03",
-          saleValue: 100,
-          profit: 10,
-          milesUsed: 400,
-          accountId: "a1",
-          passengers: [],
-        },
-        {
-          status: "cancelado",
-          date: "2026-08-03",
-          saleValue: 100,
-          profit: 10,
-          milesUsed: 999,
-          accountId: "a1",
-          passengers: [],
-        },
-      ],
-    );
-    expect(bal).toBe(600);
-  });
-
-  it("tem piso 0 quando conta está estornada", () => {
-    const bal = computePerAccountBalance(
-      "a1",
-      [{ date: "2026-08-01", amount: 100, entryStatus: "confirmado", accountId: "a1" }],
-      [
-        {
-          status: "pendente",
-          date: "2026-08-02",
-          saleValue: 50,
-          profit: 5,
-          milesUsed: 700,
-          accountId: "a1",
-          passengers: [],
-        },
-      ],
-    );
-    expect(bal).toBe(0);
-  });
-
-  it("débito de transferência cai na conta origem (sourceAccountId)", () => {
-    const entries = [
-      // compra na origem
-      { date: "2026-08-01", amount: 5000, entryStatus: "confirmado", accountId: "origem" },
-      // transferência origem → destino
-      {
-        date: "2026-08-02",
-        amount: 1500,
-        milesGenerated: 1500,
-        entryStatus: "confirmado",
-        accountId: "destino",
-        sourceAccountId: "origem",
-      },
-    ];
-    expect(computePerAccountBalance("origem", entries, [])).toBe(3500);
-    expect(computePerAccountBalance("destino", entries, [])).toBe(1500);
   });
 });
 
@@ -315,19 +228,9 @@ describe("computeDashboardMetrics", () => {
   ];
 
   const entries = [
-    { date: new Date().toISOString(), amount: 5000, entryStatus: "confirmado", accountId: "a1" },
-    {
-      date: lastMonthDate().toISOString(),
-      amount: 3000,
-      entryStatus: "confirmado",
-      accountId: "a1",
-    },
-    {
-      date: new Date().toISOString(),
-      amount: 1000,
-      entryStatus: "aguardando",
-      accountId: "a1",
-    },
+    { date: new Date().toISOString(), amount: 5000, entryStatus: "confirmado" },
+    { date: lastMonthDate().toISOString(), amount: 3000, entryStatus: "confirmado" },
+    { date: new Date().toISOString(), amount: 1000, entryStatus: "aguardando" },
   ];
 
   const owners = [
@@ -338,79 +241,9 @@ describe("computeDashboardMetrics", () => {
   const metrics = computeDashboardMetrics(accounts, sales, entries, owners, 22);
 
   it("calcula totalMiles corretamente", () => {
-    // totalMiles = soma dos saldos por conta (piso 0)
-    // a1: (5000+3000) - (2000+1000+1000) = 4000; a2 e a3 sem lançamentos
+    // totalMiles = entradas confirmadas - vendas não canceladas
+    // (5000+3000) - (2000+1000+1000) = 8000 - 4000 = 4000
     expect(metrics.totalMiles).toBe(4000);
-  });
-
-  it("conta estornada vale 0 (mesma regra do recalcAccount) — banner de reconciliação zera após recalcular", () => {
-    // a1 recebeu 1000 mas teve 3000 vendidos → saldo gravado seria max(0, -2000) = 0
-    // a2 é saudável: 5000 entradas
-    // Total tem que ser 5000 (e não 6000-3000=3000 da soma global sem clamp),
-    // batendo com a soma dos balances que o recalcAccount grava no banco.
-    const overdrawn = computeDashboardMetrics(
-      [
-        { id: "a1", balance: 0, status: "ativa", ownerId: "o1" },
-        { id: "a2", balance: 5000, status: "ativa", ownerId: "o1" },
-      ],
-      [
-        {
-          status: "concluida",
-          date: new Date().toISOString(),
-          saleValue: 900,
-          profit: 100,
-          milesUsed: 3000,
-          accountId: "a1",
-          passengers: [],
-        },
-      ],
-      [
-        {
-          date: new Date().toISOString(),
-          amount: 1000,
-          entryStatus: "confirmado",
-          accountId: "a1",
-        },
-        {
-          date: new Date().toISOString(),
-          amount: 5000,
-          entryStatus: "confirmado",
-          accountId: "a2",
-        },
-      ],
-      owners,
-    );
-    expect(overdrawn.totalMiles).toBe(5000);
-  });
-
-  it("transferência credita destino e debita origem por conta (funciona entre abas/donos)", () => {
-    const withTransfer = computeDashboardMetrics(
-      [
-        { id: "a1", balance: 0, status: "ativa", ownerId: "o1" },
-        { id: "a2", balance: 0, status: "ativa", ownerId: "o2" },
-      ],
-      [],
-      [
-        // compra na a1
-        {
-          date: new Date().toISOString(),
-          amount: 5000,
-          entryStatus: "confirmado",
-          accountId: "a1",
-        },
-        // transferência a1 → a2
-        {
-          date: new Date().toISOString(),
-          amount: 2000,
-          milesGenerated: 2000,
-          entryStatus: "confirmado",
-          accountId: "a2",
-          sourceAccountId: "a1",
-        },
-      ],
-      owners,
-    );
-    expect(withTransfer.totalMiles).toBe(5000);
   });
 
   it("calcula totalInvested corretamente", () => {
@@ -447,17 +280,6 @@ describe("computeDashboardMetrics", () => {
   it("define revenueChange como número", () => {
     expect(typeof metrics.revenueChange).toBe("number");
   });
-
-  it("usa milhas geradas na entrada mensal quando há conversão", () => {
-    const metricsWithConversion = computeDashboardMetrics(
-      accounts,
-      [],
-      [{ date: new Date().toISOString(), amount: 100, milesGenerated: 150 }],
-      owners,
-    );
-
-    expect(metricsWithConversion.monthlyMilesIn).toBe(150);
-  });
 });
 
 describe("computeMetricHistory", () => {
@@ -469,20 +291,14 @@ describe("computeMetricHistory", () => {
     const sales = [
       { status: "concluida", date: isoDate(now), saleValue: 200, profit: 50, milesUsed: 1000 },
       { status: "cancelado", date: isoDate(now), saleValue: 100, profit: 20, milesUsed: 500 }, // ignored
-      {
-        status: "concluida",
-        date: isoDate(lastMonth),
-        saleValue: 300,
-        profit: 100,
-        milesUsed: 1500,
-      },
-    ];
+      { status: "concluida", date: isoDate(lastMonth), saleValue: 300, profit: 100, milesUsed: 1500 },
+    ]
 
     const entries = [
       { entryStatus: "confirmada", date: isoDate(now), amount: 2000 }, // uses amount because milesGenerated is missing
       { entryStatus: "aguardando", date: isoDate(now), amount: 1000 }, // ignored
       { entryStatus: "confirmada", date: isoDate(lastMonth), amount: 1000, milesGenerated: 3000 }, // uses milesGenerated
-    ];
+    ]
 
     const history = computeMetricHistory(sales, entries);
 

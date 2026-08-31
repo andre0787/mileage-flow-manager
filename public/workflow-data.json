@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-30T15:02:48.809Z",
+  "generatedAt": "2026-08-30T14:59:05.011Z",
   "dataDate": "2026-08-30",
   "kpiStats": [
     {
-      "value": 398,
+      "value": 371,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 531,
+      "value": 525,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,17 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 277,
+      "value": 271,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 33,
+      "value": 29,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 29,
+      "value": 28,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,38 +36,33 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 9,
+      "n": 10,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 124,
+      "n": 117,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 171,
+      "n": 158,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 33,
+      "n": 29,
       "color": "#10b981"
     },
     {
       "name": "code-review:done",
-      "n": 30,
+      "n": 29,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 28,
+      "n": 26,
       "color": "#22c55e"
-    },
-    {
-      "name": "gate",
-      "n": 1,
-      "color": "#f43f5e"
     },
     {
       "name": "gate:blocked",
@@ -78,12 +73,12 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 293,
+      "n": 306,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 199,
+      "n": 205,
       "color": "#84cc16"
     },
     {
@@ -94,73 +89,73 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-30 15:02:48",
+      "t": "2026-08-30 14:59:04",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-30 14:58:16",
+      "t": "2026-08-24 13:59:16",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-24 13:47:33",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-08-24 13:42:21",
       "d": "rule:fail",
       "desc": "rule-26-session-started falhou"
     },
     {
-      "t": "2026-08-30 14:58:07",
-      "d": "healed",
-      "desc": "rule-02 auto-corrigido"
-    },
-    {
-      "t": "2026-08-30 14:55:17",
-      "d": "rule:fail",
-      "desc": "rule-26-session-started falhou"
-    },
-    {
-      "t": "2026-08-30 14:55:17",
+      "t": "2026-08-24 13:42:21",
       "d": "rule:fail",
       "desc": "rule-03-handoff-completeness falhou"
     },
     {
-      "t": "2026-08-30 14:54:41",
-      "d": "coding:done",
-      "desc": "Codificação por subagente concluída"
-    },
-    {
-      "t": "2026-08-30 14:54:41",
-      "d": "code-review:done",
-      "desc": "Review aprovado por subagente"
-    },
-    {
-      "t": "2026-08-30 14:52:11",
+      "t": "2026-08-24 13:39:12",
       "d": "rule:fail",
-      "desc": "rule-39-coding-gate falhou"
+      "desc": "rule-26-session-started falhou"
+    },
+    {
+      "t": "2026-08-24 13:39:12",
+      "d": "rule:fail",
+      "desc": "rule-03-handoff-completeness falhou"
+    },
+    {
+      "t": "2026-08-24 13:36:36",
+      "d": "rule:fail",
+      "desc": "rule-26-session-started falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 171,
-    "healed": 33,
-    "healedRate": 19.3,
-    "prePrTotal": 124,
-    "prePrPass": 124,
+    "ruleFails": 158,
+    "healed": 29,
+    "healedRate": 18.4,
+    "prePrTotal": 117,
+    "prePrPass": 117,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 49,
+        "count": 43,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
         "rule": "rule-39-coding-gate",
-        "count": 28,
+        "count": 22,
         "hint": "faltou evento coding:done por subagente na branch"
       },
       {
         "rule": "rule-03-handoff-completeness",
-        "count": 10,
+        "count": 12,
         "hint": ""
       },
       {
         "rule": "rule-26-session-started",
-        "count": 10,
+        "count": 11,
         "hint": "timestamp de sessão ausente — npm run session:start"
       },
       {
@@ -173,13 +168,13 @@
   "lastPrs": [],
   "overview": {
     "components": 130,
-    "pages": 18,
+    "pages": 19,
     "libs": 36,
     "scripts": 122,
-    "testFiles": 277,
+    "testFiles": 271,
     "skills": 27,
     "rules": 48,
-    "events": 398,
-    "qualityNotes": 531
+    "events": 371,
+    "qualityNotes": 525
   }
 }
