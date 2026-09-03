@@ -55,14 +55,23 @@ jobs:
             if gh pr merge "$PR_NUM" \
               --repo "${{ github.repository }}" \
               --merge \
-              --delete-branch 2>/dev/null; then
+              --delete-branch; then
               echo "✅ PR #${PR_NUM} merged e branch deletada (tentativa $i)"
               exit 0
             fi
-            echo "⏳ Tentativa $i falhou (checks em registro?) — aguardando 15s"
+            echo "⏳ Tentativa $i falhou (tentando habilitar auto-merge se houver checks pendentes)..."
+            if gh pr merge "$PR_NUM" \
+              --repo "${{ github.repository }}" \
+              --auto \
+              --merge \
+              --delete-branch 2>/dev/null; then
+              echo "✅ Auto-merge ativado no GitHub para o PR #${PR_NUM}"
+              exit 0
+            fi
+            echo "⏳ Aguardando 15s para a próxima tentativa ($i/6)..."
             sleep 15
           done
-          # Última tentativa com erro visível
+          # Última tentativa direta com saída de erro exposta
           gh pr merge "$PR_NUM" \
             --repo "${{ github.repository }}" \
             --merge \
@@ -125,11 +134,20 @@ jobs:
             if gh pr merge "$PR_NUM" \
               --repo "${{ github.repository }}" \
               --merge \
-              --delete-branch 2>/dev/null; then
+              --delete-branch; then
               echo "✅ PR #${PR_NUM} merged e branch deletada (tentativa $i)"
               exit 0
             fi
-            echo "⏳ Tentativa $i falhou (checks em registro?) — aguardando 15s"
+            echo "⏳ Tentativa $i falhou (tentando habilitar auto-merge se houver checks pendentes)..."
+            if gh pr merge "$PR_NUM" \
+              --repo "${{ github.repository }}" \
+              --auto \
+              --merge \
+              --delete-branch 2>/dev/null; then
+              echo "✅ Auto-merge ativado no GitHub para o PR #${PR_NUM}"
+              exit 0
+            fi
+            echo "⏳ Aguardando 15s para a próxima tentativa ($i/6)..."
             sleep 15
           done
           gh pr merge "$PR_NUM" \
