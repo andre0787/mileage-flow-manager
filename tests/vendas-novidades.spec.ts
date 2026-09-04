@@ -1,5 +1,15 @@
 import { test, expect } from "@playwright/test";
+import type { Page } from "@playwright/test";
 import { API_SETUP, registerUser, waitForStable } from "./helpers";
+
+interface SeedIds {
+  oid: string;
+  pid: string;
+  aid: string;
+  cid: string;
+}
+
+type SaleSeed = Record<string, unknown>;
 
 /**
  * Vendas — novos fluxos (custos dinâmicos, recebimento parcial, edição de recebida).
@@ -10,8 +20,8 @@ test.describe.configure({ mode: "serial" });
 
 const today = () => new Date().toISOString().split("T")[0];
 
-async function seedBase(page) {
-  const ids: any = await page.evaluate(
+async function seedBase(page: Page): Promise<SeedIds> {
+  const ids = (await page.evaluate(
     `(async () => {
       ${API_SETUP}
       const oid = crypto.randomUUID();
@@ -32,11 +42,11 @@ async function seedBase(page) {
       await put("clients", { id: cid, name: "Cliente E2E", phone: "(11) 99999-9999" });
       return { oid, pid, aid, cid };
     })()`,
-  );
+  )) as SeedIds;
   return ids;
 }
 
-async function insertSale(page, ids: any, sale: any) {
+async function insertSale(page: Page, ids: SeedIds, sale: SaleSeed): Promise<void> {
   await page.evaluate(
     `(async ({ ids, sale }) => {
       ${API_SETUP}
@@ -63,10 +73,9 @@ async function insertSale(page, ids: any, sale: any) {
 
 test.beforeEach(async ({ page }) => {
   await registerUser(page);
-  const ids = await seedBase(page);
+  await seedBase(page);
   await page.goto("/vendas");
   await waitForStable(page);
-  return { ids } as any;
 });
 
 test("TC-VEND-N1: criar venda com 2 custos adicionais dinâmicos", async ({ page }) => {
