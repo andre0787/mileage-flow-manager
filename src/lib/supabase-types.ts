@@ -251,6 +251,8 @@ export interface Database {
           cost_per_mile: number;
           additional_cost: number | null;
           additional_cost_desc: string | null;
+          additional_costs: { desc: string; amount: number }[] | null;
+          amount_received: number;
           profit: number;
           profit_margin: number;
           status: "pendente" | "pago" | "concluido" | "cancelado";
@@ -273,6 +275,8 @@ export interface Database {
           cost_per_mile: number;
           additional_cost?: number | null;
           additional_cost_desc?: string | null;
+          additional_costs?: { desc: string; amount: number }[] | null;
+          amount_received?: number;
           profit?: number;
           profit_margin?: number;
           status?: "pendente" | "pago" | "concluido" | "cancelado";
@@ -295,6 +299,8 @@ export interface Database {
           cost_per_mile?: number;
           additional_cost?: number | null;
           additional_cost_desc?: string | null;
+          additional_costs?: { desc: string; amount: number }[] | null;
+          amount_received?: number;
           profit?: number;
           profit_margin?: number;
           status?: "pendente" | "pago" | "concluido" | "cancelado";

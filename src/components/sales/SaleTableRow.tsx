@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { StatusBadge } from "@/components/ui/StatusBadge";
+import { SaleReceiveDialog } from "@/components/sales/SaleReceiveDialog";
 import {
   Select,
   SelectContent,
@@ -18,6 +20,7 @@ interface SaleTableRowProps {
   customColorHex?: string | null;
   isOnline: boolean;
   onStatusChange?: (saleId: string, status: "pendente" | "pago" | "concluido") => void;
+  onReceive?: (saleId: string, amount: number) => void;
   onEdit?: (sale: Sale) => void;
   onCancelClick: (saleId: string) => void;
 }
@@ -27,10 +30,15 @@ export function SaleTableRow({
   customColorHex = null,
   isOnline,
   onStatusChange,
+  onReceive,
   onEdit,
   onCancelClick,
 }: SaleTableRowProps) {
+  const [receiveOpen, setReceiveOpen] = useState(false);
+  const amountReceived = sale.amountReceived ?? 0;
+  const pending = Math.max(0, sale.saleValue - amountReceived);
   return (
+    <>
     <TableRow className={sale.status === "cancelado" ? "opacity-50" : ""}>
       <TableCell>{formatDateBR(sale.date)}</TableCell>
       <TableCell>
@@ -62,6 +70,9 @@ export function SaleTableRow({
       <TableCell className="text-right tabular-nums">
         {"R$ "}
         {sale.saleValue.toLocaleString("pt-BR")}
+      </TableCell>
+      <TableCell className="text-right tabular-nums">
+        {pending > 0 ? `R$ ${pending.toLocaleString("pt-BR")}` : "—"}
       </TableCell>
       <TableCell
         className={`text-right tabular-nums font-semibold ${sale.profit < 0 ? "text-destructive" : "text-success"}`}
@@ -99,6 +110,18 @@ export function SaleTableRow({
           <span className="text-xs">{sale.passengers.length} pax</span>
           {sale.status !== "cancelado" && (
             <>
+              {onReceive && pending > 0 && (sale.status === "pendente" || sale.status === "pago") && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 text-xs text-primary hover:text-primary"
+                  onClick={() => setReceiveOpen(true)}
+                  disabled={!isOnline}
+                  title={!isOnline ? "Requer conexão" : "Registrar recebimento"}
+                >
+                  Receber
+                </Button>
+              )}
               {onEdit && (
                 <Button
                   variant="ghost"
@@ -124,5 +147,15 @@ export function SaleTableRow({
         </div>
       </TableCell>
     </TableRow>
+    {onReceive && (
+      <SaleReceiveDialog
+        open={receiveOpen}
+        onOpenChange={setReceiveOpen}
+        saleValue={sale.saleValue}
+        amountReceived={amountReceived}
+        onConfirm={(amount) => onReceive(sale.id, amount)}
+      />
+    )}
+    </>
   );
 }

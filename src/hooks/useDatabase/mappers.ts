@@ -90,6 +90,12 @@ export function mapClient(row: Database["public"]["Tables"]["clients"]["Row"]): 
 }
 
 export function mapSale(row: Database["public"]["Tables"]["sales"]["Row"]): Sale {
+  const costs = Array.isArray((row as { additional_costs?: unknown }).additional_costs)
+    ? ((row as { additional_costs?: { desc?: string; amount?: number }[] }).additional_costs ?? [])
+        .filter((c) => c && typeof c.amount === "number")
+        .map((c) => ({ desc: c.desc ?? "", amount: Number(c.amount) }))
+    : [];
+  const received = Number((row as { amount_received?: unknown }).amount_received ?? 0);
   return {
     id: row.id,
     accountId: row.account_id ?? undefined,
@@ -104,6 +110,8 @@ export function mapSale(row: Database["public"]["Tables"]["sales"]["Row"]): Sale
     costPerMile: Number(row.cost_per_mile),
     additionalCost: row.additional_cost ?? undefined,
     additionalCostDesc: row.additional_cost_desc ?? undefined,
+    additionalCosts: costs.length > 0 ? costs : undefined,
+    amountReceived: Number.isFinite(received) ? received : 0,
     profit: Number(row.profit),
     profitMargin: Number(row.profit_margin),
     status: row.status,

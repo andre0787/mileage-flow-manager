@@ -17,6 +17,11 @@ import { parseDateOnly } from "@/lib/dateUtils";
 import { calcProfit, calcProfitMargin } from "@/lib/metrics";
 import type { Account, Owner, Program, Client, Sale } from "@/types";
 
+export interface AdditionalCostItem {
+  desc: string;
+  amount: string;
+}
+
 export interface SaleFormData {
   ownerName: string;
   accountId: string;
@@ -29,6 +34,8 @@ export interface SaleFormData {
   saleValue: string;
   additionalCost: string;
   additionalCostDesc: string;
+  /** Lista dinâmica de custos adicionais (novo) — soma vai para additionalCost por compat */
+  additionalCosts?: AdditionalCostItem[];
   ticketLocator: string;
   passengers: { name: string; passengerId: string; cpf: string; clientId?: string }[];
   /** Preenchido automaticamente no submit a partir do averageCostPerMile da conta */
@@ -78,6 +85,7 @@ const emptyForm: SaleFormData = {
   saleValue: "",
   additionalCost: "",
   additionalCostDesc: "",
+  additionalCosts: [{ desc: "", amount: "" }],
   ticketLocator: "",
   passengers: [emptyPassenger()],
 };
@@ -96,7 +104,17 @@ export function SaleForm({
   initialData,
   editingSaleId,
 }: SaleFormProps) {
-  const [form, setForm] = useState<SaleFormData>({ ...emptyForm, ...initialData });
+  const [form, setForm] = useState<SaleFormData>(() => {
+    const base = { ...emptyForm, ...initialData };
+    // Normaliza lista dinâmica a partir do legado (um custo) quando necessário
+    if (!base.additionalCosts || base.additionalCosts.length === 0) {
+      base.additionalCosts =
+        base.additionalCost || base.additionalCostDesc
+          ? [{ amount: base.additionalCost, desc: base.additionalCostDesc }]
+          : [{ desc: "", amount: "" }];
+    }
+    return base;
+  });
   const [isClientDialogOpen, setIsClientDialogOpen] = useState(false);
   const [newClient, setNewClient] = useState<NewClientData>({
     name: "",
@@ -157,16 +175,26 @@ export function SaleForm({
     return relevant.reduce((sum, s) => sum + s.passengers.length, 0);
   }, [sales, form.program, programConfig, editingSaleId]);
 
+  // Soma dos custos adicionais dinâmicos (fallback para o campo legado)
+  const additionalCostsTotal = useMemo(() => {
+    if (form.additionalCosts && form.additionalCosts.length > 0) {
+      const sum = form.additionalCosts.reduce((s, c) => s + (parseFloat(c.amount) || 0), 0);
+      // Se a lista está vazia/zerada, respeita o legado para compat
+      if (sum > 0) return sum;
+    }
+    return parseFloat(form.additionalCost || "0") || 0;
+  }, [form.additionalCosts, form.additionalCost]);
+
   // Profit preview usando calcProfit / calcProfitMargin
   const profitPreview = useMemo(() => {
     if (!form.milesUsed || !form.saleValue || !selectedProgramStock) return null;
     const miles = parseFloat(form.milesUsed);
     const val = parseFloat(form.saleValue);
-    const addCost = parseFloat(form.additionalCost || "0");
+    const addCost = additionalCostsTotal;
     const costPM = selectedProgramStock.averageCostPerMile;
     const profit = calcProfit(val, miles, costPM, addCost);
     return { costTotal: miles * costPM, profit, margin: calcProfitMargin(profit, val) };
-  }, [form.milesUsed, form.saleValue, form.additionalCost, selectedProgramStock]);
+  }, [form.milesUsed, form.saleValue, additionalCostsTotal, selectedProgramStock]);
 
   const update = (partial: Partial<SaleFormData>) => setForm((prev) => ({ ...prev, ...partial }));
 
@@ -174,8 +202,18 @@ export function SaleForm({
   // pending de useFormStatus, sem estado de carregamento manual.
   const [, formAction] = useActionState(
     async () => {
-      // Preenche costPerMile automaticamente do estoque selecionado
-      onSubmit({ ...form, costPerMile: selectedProgramStock?.averageCostPerMile ?? 0 });
+      // Sincroniza legado (soma) para compat com API antiga + envia lista dinâmica
+      const costs = (form.additionalCosts ?? []).filter(
+        (c) => (c.desc.trim() || c.amount.trim()) && parseFloat(c.amount) > 0,
+      );
+      const total = costs.reduce((s, c) => s + (parseFloat(c.amount) || 0), 0);
+      onSubmit({
+        ...form,
+        additionalCosts: costs,
+        additionalCost: total ? total.toFixed(2) : "",
+        additionalCostDesc: costs[0]?.desc ?? "",
+        costPerMile: selectedProgramStock?.averageCostPerMile ?? 0,
+      });
       setForm(emptyForm);
       return { ok: true };
     },
@@ -410,26 +448,75 @@ export function SaleForm({
             </div>
           </div>
 
-          {/* Additional Cost */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label>Custo Adicional (R$)</Label>
-              <Input
-                type="number"
-                step="0.01"
-                value={form.additionalCost}
-                onChange={(e) => update({ additionalCost: e.target.value })}
-                placeholder="Ex: 50.00"
-              />
+          {/* Custos Adicionais dinâmicos */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <Label>Custos Adicionais</Label>
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                className="min-h-[44px]"
+                onClick={() =>
+                  update({
+                    additionalCosts: [...(form.additionalCosts ?? []), { desc: "", amount: "" }],
+                  })
+                }
+              >
+                <Plus className="h-4 w-4 mr-1" /> Adicionar custo
+              </Button>
             </div>
-            <div className="space-y-2">
-              <Label>Observação do Custo</Label>
-              <Input
-                value={form.additionalCostDesc}
-                onChange={(e) => update({ additionalCostDesc: e.target.value })}
-                placeholder="Ex: Taxa de embarque"
-              />
-            </div>
+            {(form.additionalCosts ?? []).map((c, i) => (
+              <div key={i} className="grid grid-cols-[1fr_1fr_auto] gap-2">
+                <Input
+                  type="number"
+                  step="0.01"
+                  value={c.amount}
+                  onChange={(e) =>
+                    update({
+                      additionalCosts: (form.additionalCosts ?? []).map((x, j) =>
+                        j === i ? { ...x, amount: e.target.value } : x,
+                      ),
+                    })
+                  }
+                  placeholder="Ex: 50.00"
+                  aria-label={`Valor do custo adicional ${i + 1}`}
+                />
+                <Input
+                  value={c.desc}
+                  onChange={(e) =>
+                    update({
+                      additionalCosts: (form.additionalCosts ?? []).map((x, j) =>
+                        j === i ? { ...x, desc: e.target.value } : x,
+                      ),
+                    })
+                  }
+                  placeholder="Ex: Taxa de embarque"
+                  aria-label={`Descrição do custo adicional ${i + 1}`}
+                />
+                {(form.additionalCosts ?? []).length > 1 && (
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    className="min-h-[44px] min-w-[44px]"
+                    onClick={() =>
+                      update({
+                        additionalCosts: (form.additionalCosts ?? []).filter((_, j) => j !== i),
+                      })
+                    }
+                    aria-label={`Remover custo adicional ${i + 1}`}
+                  >
+                    ×
+                  </Button>
+                )}
+              </div>
+            ))}
+            {additionalCostsTotal > 0 && (
+              <p className="text-xs text-muted-foreground">
+                Total adicional: R$ {additionalCostsTotal.toFixed(2)}
+              </p>
+            )}
           </div>
 
           {/* Profit Preview via calcProfit / calcProfitMargin (DRY) */}
@@ -441,11 +528,11 @@ export function SaleForm({
                   <span className="text-muted-foreground">Custo total:</span>
                   <p className="font-semibold">R$ {profitPreview.costTotal.toFixed(2)}</p>
                 </div>
-                {form.additionalCost && parseFloat(form.additionalCost) > 0 && (
+                {additionalCostsTotal > 0 && (
                   <div>
-                    <span className="text-muted-foreground">Custo adicional:</span>
+                    <span className="text-muted-foreground">Custos adicionais:</span>
                     <p className="font-semibold text-destructive">
-                      R$ {parseFloat(form.additionalCost).toFixed(2)}
+                      R$ {additionalCostsTotal.toFixed(2)}
                     </p>
                   </div>
                 )}

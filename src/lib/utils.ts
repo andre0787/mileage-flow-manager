@@ -23,7 +23,9 @@ export function downloadCSV(data: Record<string, string | number>[], filename: s
     ...data.map((row) =>
       headers
         .map((h) => {
-          const val = String(row[h] ?? "");
+          let val = String(row[h] ?? "");
+          // Anti CSV-injection: neutraliza prefixos de fórmula.
+          if (/^[=+\-@\t\r]/.test(val)) val = `'${val}`;
           return val.includes(",") || val.includes('"') || val.includes("\n")
             ? `"${val.replace(/"/g, '""')}"`
             : val;

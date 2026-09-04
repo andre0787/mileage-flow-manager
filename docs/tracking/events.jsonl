@@ -370,3 +370,7 @@
 {"timestamp":"2026-08-24T13:59:16.350Z","type":"pre-pr","description":"pre-pr PASS","branch":"jules-7691209467773456208-bb683865","commit":"42a89b7","agent":"human","errors":0}
 {"timestamp":"2026-08-30T14:59:04.715Z","type":"pre-pr","description":"pre-pr PASS","branch":"jules-7691209467773456208-bb683865","commit":"4bb5b8d","agent":"human","errors":0}
 {"timestamp":"2026-08-31T13:14:57.021Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/merge-all-remaining-prs","commit":"024c29d","agent":"pi","errors":0}
+{"timestamp":"2026-09-04T03:36:50.140Z","type":"coding:done","description":"Codificação por subagente concluída (slices dados/API + UI + fix must-fix)","branch":"feat/venda-custos-parcial","commit":"b420f76","agent":"pi","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-09-04T03:36:50.174Z","type":"code-review:done","description":"Review por subagentes concluído (2 reviewers, must-fix aplicado)","branch":"feat/venda-custos-parcial","commit":"b420f76","agent":"pi","subagent":true,"verdict":"approved-after-fix"}
+{"timestamp":"2026-09-04T03:57:54.865Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-custos-parcial","commit":"b420f76","agent":"pi","errors":0}
+{"timestamp":"2026-09-04T04:04:04.505Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-custos-parcial","commit":"b420f76","agent":"pi","errors":0}

@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { SaleReceiveDialog } from "@/components/sales/SaleReceiveDialog";
 import {
   Select,
   SelectContent,
@@ -16,6 +18,7 @@ interface SaleMobileCardProps {
   sale: Sale;
   customColorHex?: string | null;
   onStatusChange?: (saleId: string, status: "pendente" | "pago" | "concluido") => void;
+  onReceive?: (saleId: string, amount: number) => void;
   onEdit?: (sale: Sale) => void;
   onCancelClick: (saleId: string) => void;
 }
@@ -24,10 +27,15 @@ export function SaleMobileCard({
   sale,
   customColorHex = null,
   onStatusChange,
+  onReceive,
   onEdit,
   onCancelClick,
 }: SaleMobileCardProps) {
+  const [receiveOpen, setReceiveOpen] = useState(false);
+  const amountReceived = sale.amountReceived ?? 0;
+  const pending = Math.max(0, sale.saleValue - amountReceived);
   return (
+    <>
     <div
       className={`border rounded-lg p-4 space-y-3 ${sale.status === "cancelado" ? "opacity-50" : ""}`}
     >
@@ -93,6 +101,10 @@ export function SaleMobileCard({
             {sale.profit.toLocaleString("pt-BR")}
           </p>
         </div>
+        <div>
+          <span className="text-muted-foreground text-xs">Pendente:</span>
+          <p className="font-semibold">{pending > 0 ? `R$ ${pending.toLocaleString("pt-BR")}` : "—"}</p>
+        </div>
       </div>
       <div className="flex items-center justify-between text-xs text-muted-foreground">
         <div className="flex items-center gap-2 min-w-0 flex-1">
@@ -106,7 +118,18 @@ export function SaleMobileCard({
         </div>
       </div>
       {sale.status !== "cancelado" && (
+        <>
         <div className="flex items-center gap-2 pt-1 border-t">
+          {onReceive && pending > 0 && (sale.status === "pendente" || sale.status === "pago") && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-9 px-3 min-h-[44px]"
+              onClick={() => setReceiveOpen(true)}
+            >
+              Receber
+            </Button>
+          )}
           {onEdit && (
             <Button
               variant="ghost"
@@ -146,7 +169,18 @@ export function SaleMobileCard({
             </Select>
           </div>
         </div>
+        </>
       )}
     </div>
+    {onReceive && (
+      <SaleReceiveDialog
+        open={receiveOpen}
+        onOpenChange={setReceiveOpen}
+        saleValue={sale.saleValue}
+        amountReceived={amountReceived}
+        onConfirm={(amount) => onReceive(sale.id, amount)}
+      />
+    )}
+    </>
   );
 }

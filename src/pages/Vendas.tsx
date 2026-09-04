@@ -63,10 +63,22 @@ export default function Vendas() {
   );
 
   // Handlers
+  const sumAdditionalCosts = (data: SaleFormData): { total: number; items: { desc: string; amount: number }[] } => {
+    const items = (data.additionalCosts ?? [])
+      .map((c) => ({ desc: c.desc.trim(), amount: parseFloat(c.amount) || 0 }))
+      .filter((c) => c.amount > 0);
+    if (items.length > 0) return { total: items.reduce((s, c) => s + c.amount, 0), items };
+    const legacy = parseFloat(data.additionalCost || "0") || 0;
+    return legacy > 0
+      ? { total: legacy, items: [{ desc: data.additionalCostDesc.trim(), amount: legacy }] }
+      : { total: 0, items: [] };
+  };
+
+  // Handlers
   const handleCreateSale = (data: SaleFormData) => {
     const milesUsed = parseFloat(data.milesUsed);
     const saleValue = parseFloat(data.saleValue);
-    const additionalCost = parseFloat(data.additionalCost || "0");
+    const { total: additionalCost, items: additionalCosts } = sumAdditionalCosts(data);
     // costPerMille vem preenchido pelo SaleForm a partir do estoque selecionado
     const costPerMile = data.costPerMile ?? 0;
     const profit = calcProfit(saleValue, milesUsed, costPerMile, additionalCost);
@@ -85,7 +97,9 @@ export default function Vendas() {
         saleValue,
         pricePerMile: parseFloat(data.pricePerMile) || undefined,
         additionalCost: additionalCost || undefined,
-        additionalCostDesc: data.additionalCostDesc.trim() || undefined,
+        additionalCostDesc: additionalCosts[0]?.desc || undefined,
+        additionalCosts,
+        amountReceived: 0,
         costPerMile,
         profit,
         profitMargin,
@@ -116,7 +130,7 @@ export default function Vendas() {
     if (!editingSale) return;
     const milesUsed = parseFloat(data.milesUsed);
     const saleValue = parseFloat(data.saleValue);
-    const additionalCost = parseFloat(data.additionalCost || "0");
+    const { total: additionalCost, items: additionalCosts } = sumAdditionalCosts(data);
     const costPerMile = data.costPerMile ?? 0;
     const profit = calcProfit(saleValue, milesUsed, costPerMile, additionalCost);
     const profitMargin = calcProfitMargin(profit, saleValue);
@@ -134,7 +148,9 @@ export default function Vendas() {
         saleValue,
         pricePerMile: parseFloat(data.pricePerMile) || undefined,
         additionalCost: additionalCost || undefined,
-        additionalCostDesc: data.additionalCostDesc.trim() || undefined,
+        additionalCostDesc: additionalCosts[0]?.desc || undefined,
+        additionalCosts,
+        amountReceived: Math.min(editingSale.amountReceived ?? 0, saleValue),
         costPerMile,
         profit,
         profitMargin,
@@ -154,6 +170,32 @@ export default function Vendas() {
 
   const handleCancelSale = (saleId: string) => {
     cancelSaleM.mutate(saleId);
+  };
+
+  const handleReceivePayment = (saleId: string, amount: number) => {
+    const sale = sales.find((s) => s.id === saleId);
+    if (!sale) return;
+    const current = sale.amountReceived ?? 0;
+    const next = Math.min(sale.saleValue, current + amount);
+    const fullyPaid = next >= sale.saleValue - 1e-9;
+    updateSaleM.mutate(
+      {
+        id: saleId,
+        amountReceived: next,
+        status: fullyPaid ? ("pago" as const) : sale.status,
+      },
+      {
+        onSuccess: () => {
+          haptic.success();
+          toast.success(
+            fullyPaid
+              ? "Recebimento total registrado."
+              : `Recebido R$ ${amount.toFixed(2)}. Pendente: R$ ${(sale.saleValue - next).toFixed(2)}.`,
+          );
+        },
+        onError: () => toast.error("Erro ao registrar recebimento."),
+      },
+    );
   };
 
   const handleStatusChange = (saleId: string, status: "pendente" | "pago" | "concluido") => {
@@ -188,6 +230,8 @@ export default function Vendas() {
       Programa: s.program,
       Milhas: s.milesUsed,
       "Valor Venda (R$)": s.saleValue,
+      "Recebido (R$)": s.amountReceived ?? 0,
+      "Pendente (R$)": Math.max(0, s.saleValue - (s.amountReceived ?? 0)),
       "Custo/Milha (R$)": s.costPerMile?.toFixed(4) ?? "",
       "Lucro (R$)": s.profit?.toFixed(2) ?? "",
       // ponytail: calcProfitMargin já retorna percentual (ex: 25 = 25%)
@@ -315,6 +359,7 @@ export default function Vendas() {
         ownerCustomColors={Object.fromEntries(owners.map((o) => [o.name, o.color ?? null]))}
         onCancel={handleCancelSale}
         onStatusChange={handleStatusChange}
+        onReceive={handleReceivePayment}
         onCreateClick={() => setIsCreateDialogOpen(true)}
         onEdit={(sale) => {
           setEditingSale(sale);
@@ -366,6 +411,20 @@ export default function Vendas() {
                 saleValue: editingSale.saleValue.toString(),
                 additionalCost: editingSale.additionalCost?.toString() ?? "",
                 additionalCostDesc: editingSale.additionalCostDesc ?? "",
+                additionalCosts:
+                  editingSale.additionalCosts && editingSale.additionalCosts.length > 0
+                    ? editingSale.additionalCosts.map((c) => ({
+                        desc: c.desc,
+                        amount: String(c.amount),
+                      }))
+                    : editingSale.additionalCost
+                      ? [
+                          {
+                            desc: editingSale.additionalCostDesc ?? "",
+                            amount: String(editingSale.additionalCost),
+                          },
+                        ]
+                      : [{ desc: "", amount: "" }],
                 ticketLocator: editingSale.ticketLocator,
                 passengers: editingSale.passengers,
                 costPerMile: editingSale.costPerMile,

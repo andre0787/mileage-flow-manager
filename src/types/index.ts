@@ -176,6 +176,8 @@ export interface Sale {
   costPerMile: number;
   additionalCost?: number;
   additionalCostDesc?: string;
+  additionalCosts?: { desc: string; amount: number }[];
+  amountReceived?: number;
   profit: number;
   profitMargin: number;
   status: "pendente" | "pago" | "concluido" | "cancelado";
