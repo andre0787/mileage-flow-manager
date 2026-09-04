@@ -7,6 +7,34 @@ vi.mock("@/contexts/OnlineContext", () => ({
   useOnlineStatus: () => ({ isOnline: true }),
 }));
 
+// RTK Query exige <Provider>; o mock isola a tabela do store (mesmo padrão do OnlineContext).
+vi.mock("@/features/clientes/hooks", () => ({
+  useClientBalanceQuery: () => ({
+    balance: 0,
+    movements: [],
+    data: [],
+    isPending: false,
+    isError: false,
+    error: undefined,
+    refetch: vi.fn(),
+  }),
+  useClientCreditsQuery: () => ({
+    data: [],
+    isPending: false,
+    isError: false,
+    error: undefined,
+    refetch: vi.fn(),
+  }),
+  useClientsQuery: () => ({
+    data: [],
+    byId: {},
+    isPending: false,
+    isError: false,
+    error: undefined,
+    refetch: vi.fn(),
+  }),
+}));
+
 const mockSales: Sale[] = [
   {
     id: "sale-1",

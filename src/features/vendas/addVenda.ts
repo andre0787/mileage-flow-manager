@@ -1,10 +1,12 @@
 import { supabase, calcProportionalCost, calcAccountUpdate, toQueryError } from "./shared";
 import { calcProfit, calcProfitMargin } from "@/lib/metrics";
+import { mapClientCredit } from "@/hooks/useDatabase/mappers";
+import { planReceipt, calcCreditBalance, CREDIT_EPSILON } from "@/lib/clientCredits";
 import type { Sale, VendasBuilder } from "./shared";
 
 export const addVendaEndpoint = (builder: VendasBuilder) => ({
-  addVenda: builder.mutation<null, Sale>({
-    invalidatesTags: ["sales", "accounts"],
+  addVenda: builder.mutation<null, Sale & { useCredit?: number }>({
+    invalidatesTags: ["sales", "accounts", "clients"],
     queryFn: async (sale) => {
       const { user } = (await supabase.auth.getUser()).data;
       if (!user) return { error: toQueryError({ message: "Usuário não autenticado" }) };
@@ -16,10 +18,23 @@ export const addVendaEndpoint = (builder: VendasBuilder) => ({
         costs.length > 0
           ? costs.map((c) => `${c.desc || "Custo"}: ${c.amount}`).join("; ")
           : sale.additionalCostDesc;
-      const amountReceived = Math.min(
-        Math.max(Number(sale.amountReceived ?? 0), 0),
-        Number(sale.saleValue),
-      );
+      // Crédito inicial: valida saldo e planeja earn/spend (spec §4).
+      // Sem useCredit e sem excedente, o plano é vazio e nada muda.
+      // Excedente em dinheiro NUNCA é descartado: vira earn (era cap silencioso).
+      const { data: creditMoves, error: creditFetchError } = await supabase
+        .from("client_credit_movements")
+        .select("*")
+        .eq("client_id", sale.clientId);
+      if (creditFetchError) return { error: toQueryError(creditFetchError) };
+      const creditBalance = calcCreditBalance((creditMoves ?? []).map(mapClientCredit));
+      const initialPlan = planReceipt({
+        saleValue: Number(sale.saleValue),
+        amountReceived: 0,
+        balance: creditBalance,
+        cash: Math.max(0, Number(sale.amountReceived ?? 0)),
+        useCredit: Math.max(0, Number(sale.useCredit ?? 0)),
+      });
+      const amountReceived = initialPlan.newReceived;
       // Lucro recalculado server-side — ignora valores do client (anti-forgery).
       const serverProfit = calcProfit(
         Number(sale.saleValue),
@@ -48,12 +63,50 @@ export const addVendaEndpoint = (builder: VendasBuilder) => ({
         amount_received: amountReceived as unknown as never,
         profit: serverProfit,
         profit_margin: serverProfitMargin,
-        status: sale.status,
+        status: initialPlan.fullyPaid ? "pago" : sale.status,
         ticket_locator: sale.ticketLocator,
         passengers: sale.passengers,
         date: sale.date,
       });
       if (error) return { error: toQueryError(error) };
+
+      // Movimentos do recebimento inicial (após a venda existir, pelo FK;
+      // em falha, a venda é removida — DELETE em sales é permitido).
+      if (
+        initialPlan.appliedCredit > CREDIT_EPSILON ||
+        initialPlan.earnedCredit > CREDIT_EPSILON
+      ) {
+        const creditRows: {
+          user_id: string;
+          client_id: string;
+          sale_id: string;
+          kind: "earn" | "spend";
+          amount: number;
+        }[] = [];
+        if (initialPlan.appliedCredit > CREDIT_EPSILON)
+          creditRows.push({
+            user_id: user.id,
+            client_id: sale.clientId,
+            sale_id: sale.id,
+            kind: "spend",
+            amount: initialPlan.appliedCredit,
+          });
+        if (initialPlan.earnedCredit > CREDIT_EPSILON)
+          creditRows.push({
+            user_id: user.id,
+            client_id: sale.clientId,
+            sale_id: sale.id,
+            kind: "earn",
+            amount: initialPlan.earnedCredit,
+          });
+        const { error: creditError } = await supabase
+          .from("client_credit_movements")
+          .insert(creditRows);
+        if (creditError) {
+          await supabase.from("sales").delete().eq("id", sale.id);
+          return { error: toQueryError(creditError) };
+        }
+      }
 
       if (sale.accountId) {
         const { data: acc } = await supabase

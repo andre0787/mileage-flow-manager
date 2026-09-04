@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { SaleReceiveDialog } from "@/components/sales/SaleReceiveDialog";
+import { SaleReceiveDialog, type CreditPayment } from "@/components/sales/SaleReceiveDialog";
+import { useClientBalanceQuery } from "@/features/clientes/hooks";
 import {
   Select,
   SelectContent,
@@ -18,7 +19,7 @@ interface SaleMobileCardProps {
   sale: Sale;
   customColorHex?: string | null;
   onStatusChange?: (saleId: string, status: "pendente" | "pago" | "concluido") => void;
-  onReceive?: (saleId: string, amount: number) => void;
+  onReceive?: (saleId: string, payment: CreditPayment) => void;
   onEdit?: (sale: Sale) => void;
   onCancelClick: (saleId: string) => void;
 }
@@ -34,6 +35,10 @@ export function SaleMobileCard({
   const [receiveOpen, setReceiveOpen] = useState(false);
   const amountReceived = sale.amountReceived ?? 0;
   const pending = Math.max(0, sale.saleValue - amountReceived);
+  const { balance: creditBalance, movements: creditMoves } = useClientBalanceQuery(
+    sale.clientId,
+  );
+  const hasCredit = creditMoves.some((m) => m.saleId === sale.id);
   return (
     <>
       <div
@@ -117,6 +122,14 @@ export function SaleMobileCard({
               <Users className="h-3 w-3" />
               {sale.passengers.length} pax
             </span>
+            {hasCredit && (
+              <span
+                className="rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary shrink-0"
+                title="Venda com movimento de crédito"
+              >
+                Crédito
+              </span>
+            )}
           </div>
         </div>
         {sale.status !== "cancelado" && (
@@ -182,7 +195,9 @@ export function SaleMobileCard({
           onOpenChange={setReceiveOpen}
           saleValue={sale.saleValue}
           amountReceived={amountReceived}
-          onConfirm={(amount) => onReceive(sale.id, amount)}
+          clientBalance={creditBalance}
+          clientName={sale.clientName}
+          onConfirm={(payment) => onReceive(sale.id, payment)}
         />
       )}
     </>

@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useUserId } from "@/hooks/useDatabase/shared";
+import { calcCreditBalance } from "@/lib/clientCredits";
 import { clientesApi } from "./clientesApi";
 import { selectAllClients, selectClientEntities } from "./adapter";
 
@@ -19,3 +20,15 @@ export function useClientsQuery() {
 
 export { useAddClientMutation, useUpdateClientMutation } from "./mutationHooksBasic";
 export { useDeleteClientMutation } from "./mutationHooksLifecycle";
+
+export function useClientCreditsQuery(clientId: string) {
+  const { data, isLoading, isError, error, refetch } =
+    clientesApi.useGetClientCreditsQuery(clientId, { skip: !clientId });
+  return { data: data ?? [], isPending: isLoading, isError, error, refetch };
+}
+
+export function useClientBalanceQuery(clientId: string) {
+  const { data, ...rest } = useClientCreditsQuery(clientId);
+  const balance = useMemo(() => calcCreditBalance(data), [data]);
+  return { balance, movements: data, ...rest };
+}

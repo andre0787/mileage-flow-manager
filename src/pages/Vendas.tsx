@@ -20,6 +20,7 @@ import {
   useCancelSaleMutation,
   useAddClientMutation,
 } from "@/hooks/useDatabase";
+import { useReceiveWithCreditMutation } from "@/features/vendas";
 import { calcProfit, calcProfitMargin } from "@/lib/metrics";
 import { downloadCSV } from "@/lib/utils";
 import { formatDateBR } from "@/lib/dateUtils";
@@ -174,28 +175,36 @@ export default function Vendas() {
     cancelSaleM.mutate(saleId);
   };
 
-  const handleReceivePayment = (saleId: string, amount: number) => {
+  const receiveWithCreditM = useReceiveWithCreditMutation();
+
+  // Recebimento com crédito (mutation atômica server-side, Worker A).
+  const handleReceiveWithCredit = (
+    saleId: string,
+    payment: { cash: number; useCredit: number },
+  ) => {
     const sale = sales.find((s) => s.id === saleId);
     if (!sale) return;
     const current = sale.amountReceived ?? 0;
-    const next = Math.min(sale.saleValue, current + amount);
-    const fullyPaid = next >= sale.saleValue - 1e-9;
-    updateSaleM.mutate(
-      {
-        id: saleId,
-        amountReceived: next,
-        status: fullyPaid ? ("pago" as const) : sale.status,
-      },
+    const pending = Math.max(0, sale.saleValue - current);
+    const cash = Math.max(0, payment.cash || 0);
+    const use = Math.max(0, payment.useCredit || 0);
+    const applied = Math.min(cash + use, pending);
+    const excess = Math.max(0, cash + use - pending);
+    const next = Math.min(sale.saleValue, current + applied);
+    receiveWithCreditM.mutate(
+      { saleId, cash, useCredit: use },
       {
         onSuccess: () => {
           haptic.success();
+          const viaCredito = use > 0 ? ` (usando R$ ${use.toFixed(2)} do saldo)` : "";
+          const excedente =
+            excess > 0 ? ` Excedente de R$ ${excess.toFixed(2)} registrado como crédito.` : "";
           toast.success(
-            fullyPaid
-              ? "Recebimento total registrado."
-              : `Recebido R$ ${amount.toFixed(2)}. Pendente: R$ ${(sale.saleValue - next).toFixed(2)}.`,
+            next >= sale.saleValue - 1e-9
+              ? `Recebimento total registrado.${viaCredito}${excedente}`
+              : `Recebido R$ ${applied.toFixed(2)}${viaCredito}. Pendente: R$ ${(sale.saleValue - next).toFixed(2)}.${excedente}`,
           );
         },
-        onError: () => toast.error("Erro ao registrar recebimento."),
       },
     );
   };
@@ -361,7 +370,7 @@ export default function Vendas() {
         ownerCustomColors={Object.fromEntries(owners.map((o) => [o.name, o.color ?? null]))}
         onCancel={handleCancelSale}
         onStatusChange={handleStatusChange}
-        onReceive={handleReceivePayment}
+        onReceive={handleReceiveWithCredit}
         onCreateClick={() => setIsCreateDialogOpen(true)}
         onEdit={(sale) => {
           setEditingSale(sale);

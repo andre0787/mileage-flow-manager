@@ -1,4 +1,4 @@
-import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client } from "@/types";
+import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client, ClientCredit } from "@/types";
 import { parseDescription } from "@/types";
 import type { Database } from "@/lib/supabase-types";
 
@@ -86,6 +86,20 @@ export function mapClient(row: Database["public"]["Tables"]["clients"]["Row"]): 
     telegram: row.telegram ?? "",
     totalPurchases: row.total_purchases ?? 0,
     usageHistory: row.usage_history ?? [],
+  };
+}
+
+export function mapClientCredit(
+  row: Database["public"]["Tables"]["client_credit_movements"]["Row"],
+): ClientCredit {
+  return {
+    id: row.id,
+    clientId: row.client_id,
+    saleId: row.sale_id,
+    kind: row.kind,
+    reversalOf: row.reversal_of ?? undefined,
+    amount: Number(row.amount),
+    createdAt: row.created_at,
   };
 }
 
