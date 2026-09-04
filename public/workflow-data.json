@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-08-30T14:59:05.011Z",
-  "dataDate": "2026-08-30",
+  "generatedAt": "2026-09-04T10:27:33.732Z",
+  "dataDate": "2026-09-04",
   "kpiStats": [
     {
-      "value": 371,
+      "value": 383,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
@@ -18,7 +18,7 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 271,
+      "value": 297,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
@@ -28,7 +28,7 @@
       "sub": "desde o início"
     },
     {
-      "value": 28,
+      "value": 30,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,12 +41,12 @@
     },
     {
       "name": "pre-pr",
-      "n": 117,
+      "n": 123,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 158,
+      "n": 160,
       "color": "#ef4444"
     },
     {
@@ -56,12 +56,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 29,
+      "n": 31,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 26,
+      "n": 28,
       "color": "#22c55e"
     },
     {
@@ -73,12 +73,12 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 306,
+      "n": 244,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 205,
+      "n": 165,
       "color": "#84cc16"
     },
     {
@@ -89,58 +89,58 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-08-30 14:59:04",
+      "t": "2026-09-04 04:59:37",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-24 13:59:16",
+      "t": "2026-09-04 04:50:21",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-24 13:47:33",
+      "t": "2026-09-04 04:49:35",
+      "d": "code-review:done",
+      "desc": "Review por subagente aprovado após must-fix da cancelada (issue #533)"
+    },
+    {
+      "t": "2026-09-04 04:47:38",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
+    },
+    {
+      "t": "2026-09-04 04:46:51",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
+    },
+    {
+      "t": "2026-09-04 04:46:18",
+      "d": "coding:done",
+      "desc": "Correção por subagente: limite de estoque no modo edição devolve milhas da própria venda (issue #533)"
+    },
+    {
+      "t": "2026-09-04 04:20:18",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-08-24 13:42:21",
-      "d": "rule:fail",
-      "desc": "rule-26-session-started falhou"
-    },
-    {
-      "t": "2026-08-24 13:42:21",
-      "d": "rule:fail",
-      "desc": "rule-03-handoff-completeness falhou"
-    },
-    {
-      "t": "2026-08-24 13:39:12",
-      "d": "rule:fail",
-      "desc": "rule-26-session-started falhou"
-    },
-    {
-      "t": "2026-08-24 13:39:12",
-      "d": "rule:fail",
-      "desc": "rule-03-handoff-completeness falhou"
-    },
-    {
-      "t": "2026-08-24 13:36:36",
-      "d": "rule:fail",
-      "desc": "rule-26-session-started falhou"
+      "t": "2026-09-04 04:04:04",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 158,
+    "ruleFails": 160,
     "healed": 29,
-    "healedRate": 18.4,
-    "prePrTotal": 117,
-    "prePrPass": 117,
+    "healedRate": 18.1,
+    "prePrTotal": 123,
+    "prePrPass": 123,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 43,
+        "count": 45,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
@@ -167,14 +167,14 @@
   },
   "lastPrs": [],
   "overview": {
-    "components": 130,
-    "pages": 19,
+    "components": 139,
+    "pages": 18,
     "libs": 36,
     "scripts": 122,
-    "testFiles": 271,
+    "testFiles": 297,
     "skills": 27,
     "rules": 48,
-    "events": 371,
+    "events": 383,
     "qualityNotes": 525
   }
 }
