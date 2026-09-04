@@ -1,4 +1,5 @@
 import { supabase, calcProportionalCost, calcAccountUpdate, toQueryError } from "./shared";
+import { calcProfit, calcProfitMargin } from "@/lib/metrics";
 import type { Sale, VendaUpdate, VendaMutationInput, VendasBuilder } from "./shared";
 
 export const updateVendaEndpoint = (builder: VendasBuilder) => ({
@@ -29,8 +30,53 @@ export const updateVendaEndpoint = (builder: VendasBuilder) => ({
       if (data.additionalCost !== undefined) updateData.additional_cost = data.additionalCost;
       if (data.additionalCostDesc !== undefined)
         updateData.additional_cost_desc = data.additionalCostDesc;
-      if (data.profit !== undefined) updateData.profit = data.profit;
-      if (data.profitMargin !== undefined) updateData.profit_margin = data.profitMargin;
+      if (data.additionalCosts !== undefined) {
+        const costs = Array.isArray(data.additionalCosts) ? data.additionalCosts : [];
+        const sum = costs.reduce((s, c) => s + (Number(c.amount) || 0), 0);
+        (updateData as Record<string, unknown>).additional_costs = costs;
+        updateData.additional_cost = sum;
+        updateData.additional_cost_desc = costs
+          .map((c) => `${c.desc || "Custo"}: ${c.amount}`)
+          .join("; ");
+      }
+      const effectiveSaleValue = data.saleValue ?? Number(oldSale.sale_value);
+      if (data.amountReceived !== undefined) {
+        (updateData as Record<string, unknown>).amount_received = Math.min(
+          Math.max(Number(data.amountReceived ?? 0), 0),
+          effectiveSaleValue,
+        );
+      } else if (data.saleValue !== undefined) {
+        const oldReceived = Number((oldSale as { amount_received?: unknown }).amount_received ?? 0);
+        (updateData as Record<string, unknown>).amount_received = Math.min(
+          Math.max(oldReceived, 0),
+          effectiveSaleValue,
+        );
+      }
+      // Lucro recalculado server-side — ignora valores do client (anti-forgery).
+      const effMiles = data.milesUsed ?? Number(oldSale.miles_used);
+      const effCostPerMile = data.costPerMile ?? Number(oldSale.cost_per_mile);
+      const oldCostsRaw = (oldSale as { additional_costs?: unknown }).additional_costs;
+      const oldCostsSum = Array.isArray(oldCostsRaw)
+        ? oldCostsRaw.reduce(
+            (s: number, c: unknown) => s + (Number((c as { amount?: unknown }).amount ?? 0) || 0),
+            0,
+          )
+        : Number(oldSale.additional_cost ?? 0);
+      const effCostsSum =
+        data.additionalCosts !== undefined
+          ? (Array.isArray(data.additionalCosts) ? data.additionalCosts : []).reduce(
+              (s, c) => s + (Number(c.amount) || 0),
+              0,
+            )
+          : (data.additionalCost ?? oldCostsSum);
+      const serverProfit = calcProfit(
+        Number(effectiveSaleValue),
+        Number(effMiles),
+        Number(effCostPerMile),
+        Number(effCostsSum),
+      );
+      updateData.profit = serverProfit;
+      updateData.profit_margin = calcProfitMargin(serverProfit, Number(effectiveSaleValue));
       if (data.status !== undefined) updateData.status = data.status as VendaUpdate["status"];
       if (data.ticketLocator !== undefined) updateData.ticket_locator = data.ticketLocator;
       if (data.passengers !== undefined) updateData.passengers = data.passengers;

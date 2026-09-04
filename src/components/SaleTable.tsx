@@ -18,6 +18,7 @@ interface SaleTableProps {
   ownerCustomColors?: Record<string, string | null>;
   onCancel?: (saleId: string) => void;
   onStatusChange?: (saleId: string, status: "pendente" | "pago" | "concluido") => void;
+  onReceive?: (saleId: string, amount: number) => void;
   onCreateClick?: () => void;
   onEdit?: (sale: Sale) => void;
 }
@@ -29,6 +30,7 @@ export function SaleTable({
   ownerCustomColors,
   onCancel,
   onStatusChange,
+  onReceive,
   onCreateClick,
   onEdit,
 }: SaleTableProps) {
@@ -50,6 +52,8 @@ export function SaleTable({
         return sale.milesUsed;
       case "Valor":
         return sale.saleValue;
+      case "Pendente":
+        return sale.saleValue - (sale.amountReceived ?? 0);
       case "Lucro":
         return sale.profit;
       case "Margem":
@@ -133,6 +137,13 @@ export function SaleTable({
                     className="text-right tabular-nums"
                   />
                   <SortableHeader
+                    label="Pendente"
+                    sortKey="Pendente"
+                    sort={sort}
+                    onSort={setSort}
+                    className="text-right tabular-nums"
+                  />
+                  <SortableHeader
                     label="Lucro"
                     sortKey="Lucro"
                     sort={sort}
@@ -158,6 +169,7 @@ export function SaleTable({
                     customColorHex={customColor(sale.ownerName)}
                     isOnline={isOnline}
                     onStatusChange={onStatusChange}
+                    onReceive={onReceive}
                     onEdit={onEdit}
                     onCancelClick={setCancelConfirmId}
                   />
@@ -174,6 +186,7 @@ export function SaleTable({
                 sale={sale}
                 customColorHex={customColor(sale.ownerName)}
                 onStatusChange={onStatusChange}
+                onReceive={onReceive}
                 onEdit={onEdit}
                 onCancelClick={setCancelConfirmId}
               />
