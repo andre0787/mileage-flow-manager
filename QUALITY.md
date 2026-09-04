@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-08-31
-> Último commit: 92541ac-Merge pull request #527 from andre0787/perf/fix-entry-delete-n-plus-1-17527660950325326549
+> Gerado em: 2026-09-04
+> Último commit: 5a8f6f9-Merge pull request #534 from andre0787/fix/venda-edit-custos-recebida
 
 ## Pipeline
 
@@ -15,15 +15,15 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 1074 |
+| Unit | 1114 |
 | E2E  | 91 |
-| **Total** | **1165** |
+| **Total** | **1205** |
 
 ## Bundle
 
 | Métrica | Valor |
 |---------|-------|
-| Tamanho (dist) | 1835kB |
+| Tamanho (dist) | 1846kB |
 
 ## Documentação
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-08-31 | ✅ | 1165 | 1835kB | 0 issues |
+| 2026-09-04 | ✅ | 1205 | 1846kB | 0 issues |
 
 ---
 
