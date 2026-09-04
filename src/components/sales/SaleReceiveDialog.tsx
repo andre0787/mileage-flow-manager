@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,6 +21,11 @@ export function SaleReceiveDialog({
 }: SaleReceiveDialogProps) {
   const pending = Math.max(0, saleValue - (amountReceived || 0));
   const [value, setValue] = useState<string>(pending ? pending.toFixed(2) : "");
+  // Reabrir (ou mudança no pendente) sempre exibe o pendente atual,
+  // nunca um valor digitado anteriormente.
+  useEffect(() => {
+    if (open) setValue(pending ? pending.toFixed(2) : "");
+  }, [open, pending]);
   const parsed = parseFloat(value) || 0;
   const valid = parsed > 0 && parsed <= pending + 1e-9;
 
