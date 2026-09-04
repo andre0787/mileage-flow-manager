@@ -30,9 +30,9 @@ describe("movementEffect", () => {
 
 describe("calcCreditBalance", () => {
   it("deriva earn menos spend com reversals", () => {
-    expect(
-      calcCreditBalance([earn(150), spend(40), rev("earn", 50), rev("spend", 10)]),
-    ).toBe(150 - 40 - 50 + 10);
+    expect(calcCreditBalance([earn(150), spend(40), rev("earn", 50), rev("spend", 10)])).toBe(
+      150 - 40 - 50 + 10,
+    );
   });
 
   it("zera poeira de float abaixo do epsilon", () => {
@@ -107,9 +107,7 @@ describe("planReceipt", () => {
 
 describe("planCancelReversals", () => {
   it("espelha earn/spend preservando a ordem (extrato)", () => {
-    expect(
-      planCancelReversals([earn(50), spend(20), earn(10)]),
-    ).toEqual([
+    expect(planCancelReversals([earn(50), spend(20), earn(10)])).toEqual([
       { kind: "reversal", reversalOf: "earn", amount: 50 },
       { kind: "reversal", reversalOf: "spend", amount: 20 },
       { kind: "reversal", reversalOf: "earn", amount: 10 },
@@ -117,8 +115,8 @@ describe("planCancelReversals", () => {
   });
 
   it("ignora reversals aninhadas e valores não positivos", () => {
-    expect(
-      planCancelReversals([rev("earn", 40), earn(0), spend(-5), spend(25)]),
-    ).toEqual([{ kind: "reversal", reversalOf: "spend", amount: 25 }]);
+    expect(planCancelReversals([rev("earn", 40), earn(0), spend(-5), spend(25)])).toEqual([
+      { kind: "reversal", reversalOf: "spend", amount: 25 },
+    ]);
   });
 });

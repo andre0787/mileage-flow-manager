@@ -159,9 +159,9 @@ test("TC-VEND-C2: uso manual misto (saldo + dinheiro)", async ({ page }) => {
   await dlg.locator('input[type="number"]').first().fill("50");
   await expect(dlg.getByText("Usando R$ 100.00 do saldo")).toBeVisible();
   await dlg.getByRole("button", { name: "Confirmar recebimento" }).click();
-  await expect(
-    page.locator("[data-sonner-toast]", { hasText: "Pendente: R$ 350.00" }),
-  ).toBeVisible({ timeout: 15_000 });
+  await expect(page.locator("[data-sonner-toast]", { hasText: "Pendente: R$ 350.00" })).toBeVisible(
+    { timeout: 15_000 },
+  );
   await expect(row.locator("td").nth(5)).toContainText("R$ 350");
 });
 

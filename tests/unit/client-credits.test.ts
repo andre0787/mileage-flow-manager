@@ -22,9 +22,7 @@ describe("movementEffect", () => {
   });
 
   it("reversal inverte o referenciado", () => {
-    expect(movementEffect(move({ kind: "reversal", reversalOf: "earn", amount: 100 }))).toBe(
-      -100,
-    );
+    expect(movementEffect(move({ kind: "reversal", reversalOf: "earn", amount: 100 }))).toBe(-100);
     expect(movementEffect(move({ kind: "reversal", reversalOf: "spend", amount: 30 }))).toBe(30);
   });
 });
@@ -57,9 +55,7 @@ describe("calcCreditBalance", () => {
 
 describe("planReceipt", () => {
   it("parcial simples sem crédito", () => {
-    expect(
-      planReceipt({ saleValue: 500, amountReceived: 0, balance: 0, cash: 200 }),
-    ).toEqual({
+    expect(planReceipt({ saleValue: 500, amountReceived: 0, balance: 0, cash: 200 })).toEqual({
       appliedCash: 200,
       appliedCredit: 0,
       earnedCredit: 0,
@@ -69,9 +65,7 @@ describe("planReceipt", () => {
   });
 
   it("excedente em dinheiro vira earn e quita", () => {
-    expect(
-      planReceipt({ saleValue: 500, amountReceived: 0, balance: 0, cash: 600 }),
-    ).toEqual({
+    expect(planReceipt({ saleValue: 500, amountReceived: 0, balance: 0, cash: 600 })).toEqual({
       appliedCash: 500,
       appliedCredit: 0,
       earnedCredit: 100,
@@ -132,9 +126,7 @@ describe("planReceipt", () => {
   });
 
   it("venda quitada + dinheiro vira earn integral", () => {
-    expect(
-      planReceipt({ saleValue: 500, amountReceived: 500, balance: 0, cash: 50 }),
-    ).toEqual({
+    expect(planReceipt({ saleValue: 500, amountReceived: 500, balance: 0, cash: 50 })).toEqual({
       appliedCash: 0,
       appliedCredit: 0,
       earnedCredit: 50,
