@@ -374,3 +374,4 @@
 {"timestamp":"2026-09-04T03:36:50.174Z","type":"code-review:done","description":"Review por subagentes concluído (2 reviewers, must-fix aplicado)","branch":"feat/venda-custos-parcial","commit":"b420f76","agent":"pi","subagent":true,"verdict":"approved-after-fix"}
 {"timestamp":"2026-09-04T03:57:54.865Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-custos-parcial","commit":"b420f76","agent":"pi","errors":0}
 {"timestamp":"2026-09-04T04:04:04.505Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-custos-parcial","commit":"b420f76","agent":"pi","errors":0}
+{"timestamp":"2026-09-04T04:20:18.884Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-custos-parcial","commit":"eb82bd9","agent":"pi","errors":0}

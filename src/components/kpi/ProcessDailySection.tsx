@@ -34,7 +34,8 @@ export function ProcessDailySection({ daily }: ProcessDailySectionProps) {
           {today && (
             <div className="flex flex-wrap gap-2 text-[11px] font-semibold">
               <span className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-primary">
-                hoje: <AnimatedNumber value={today.prePrTotal} /> pre-pr · <AnimatedNumber value={today.merges} /> merges
+                hoje: <AnimatedNumber value={today.prePrTotal} /> pre-pr ·{" "}
+                <AnimatedNumber value={today.merges} /> merges
               </span>
               <span className="rounded-full border border-destructive/30 bg-destructive/10 px-2.5 py-1 text-destructive">
                 <AnimatedNumber value={today.ruleFails} /> violações

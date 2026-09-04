@@ -63,7 +63,9 @@ export default function Vendas() {
   );
 
   // Handlers
-  const sumAdditionalCosts = (data: SaleFormData): { total: number; items: { desc: string; amount: number }[] } => {
+  const sumAdditionalCosts = (
+    data: SaleFormData,
+  ): { total: number; items: { desc: string; amount: number }[] } => {
     const items = (data.additionalCosts ?? [])
       .map((c) => ({ desc: c.desc.trim(), amount: parseFloat(c.amount) || 0 }))
       .filter((c) => c.amount > 0);

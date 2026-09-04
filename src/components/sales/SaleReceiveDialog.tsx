@@ -39,7 +39,8 @@ export function SaleReceiveDialog({
             Valor da venda: <span className="font-semibold">R$ {saleValue.toFixed(2)}</span>
           </p>
           <p>
-            Já recebido: <span className="font-semibold">R$ {(amountReceived || 0).toFixed(2)}</span>
+            Já recebido:{" "}
+            <span className="font-semibold">R$ {(amountReceived || 0).toFixed(2)}</span>
           </p>
           <p>
             Saldo pendente: <span className="font-semibold">R$ {pending.toFixed(2)}</span>

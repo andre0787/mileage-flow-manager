@@ -35,7 +35,9 @@ export const updateVendaEndpoint = (builder: VendasBuilder) => ({
         const sum = costs.reduce((s, c) => s + (Number(c.amount) || 0), 0);
         (updateData as Record<string, unknown>).additional_costs = costs;
         updateData.additional_cost = sum;
-        updateData.additional_cost_desc = costs.map((c) => `${c.desc || "Custo"}: ${c.amount}`).join("; ");
+        updateData.additional_cost_desc = costs
+          .map((c) => `${c.desc || "Custo"}: ${c.amount}`)
+          .join("; ");
       }
       const effectiveSaleValue = data.saleValue ?? Number(oldSale.sale_value);
       if (data.amountReceived !== undefined) {
@@ -44,9 +46,7 @@ export const updateVendaEndpoint = (builder: VendasBuilder) => ({
           effectiveSaleValue,
         );
       } else if (data.saleValue !== undefined) {
-        const oldReceived = Number(
-          (oldSale as { amount_received?: unknown }).amount_received ?? 0,
-        );
+        const oldReceived = Number((oldSale as { amount_received?: unknown }).amount_received ?? 0);
         (updateData as Record<string, unknown>).amount_received = Math.min(
           Math.max(oldReceived, 0),
           effectiveSaleValue,
@@ -57,7 +57,10 @@ export const updateVendaEndpoint = (builder: VendasBuilder) => ({
       const effCostPerMile = data.costPerMile ?? Number(oldSale.cost_per_mile);
       const oldCostsRaw = (oldSale as { additional_costs?: unknown }).additional_costs;
       const oldCostsSum = Array.isArray(oldCostsRaw)
-        ? oldCostsRaw.reduce((s: number, c: unknown) => s + (Number((c as { amount?: unknown }).amount ?? 0) || 0), 0)
+        ? oldCostsRaw.reduce(
+            (s: number, c: unknown) => s + (Number((c as { amount?: unknown }).amount ?? 0) || 0),
+            0,
+          )
         : Number(oldSale.additional_cost ?? 0);
       const effCostsSum =
         data.additionalCosts !== undefined
