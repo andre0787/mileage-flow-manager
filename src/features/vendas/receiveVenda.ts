@@ -37,9 +37,7 @@ export const receiveVendaEndpoint = (builder: VendasBuilder) => ({
       const balance = calcCreditBalance((moves ?? []).map(mapClientCredit));
 
       // 3. Plano puro (valida + limita tudo antes de escrever).
-      const oldReceived = Number(
-        (sale as { amount_received?: unknown }).amount_received ?? 0,
-      );
+      const oldReceived = Number((sale as { amount_received?: unknown }).amount_received ?? 0);
       const plan = planReceipt({
         saleValue: Number(sale.sale_value),
         amountReceived: oldReceived,

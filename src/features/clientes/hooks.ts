@@ -22,8 +22,10 @@ export { useAddClientMutation, useUpdateClientMutation } from "./mutationHooksBa
 export { useDeleteClientMutation } from "./mutationHooksLifecycle";
 
 export function useClientCreditsQuery(clientId: string) {
-  const { data, isLoading, isError, error, refetch } =
-    clientesApi.useGetClientCreditsQuery(clientId, { skip: !clientId });
+  const { data, isLoading, isError, error, refetch } = clientesApi.useGetClientCreditsQuery(
+    clientId,
+    { skip: !clientId },
+  );
   return { data: data ?? [], isPending: isLoading, isError, error, refetch };
 }
 

@@ -35,9 +35,7 @@ export function SaleMobileCard({
   const [receiveOpen, setReceiveOpen] = useState(false);
   const amountReceived = sale.amountReceived ?? 0;
   const pending = Math.max(0, sale.saleValue - amountReceived);
-  const { balance: creditBalance, movements: creditMoves } = useClientBalanceQuery(
-    sale.clientId,
-  );
+  const { balance: creditBalance, movements: creditMoves } = useClientBalanceQuery(sale.clientId);
   const hasCredit = creditMoves.some((m) => m.saleId === sale.id);
   return (
     <>

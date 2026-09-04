@@ -86,11 +86,7 @@ export function useUpdateSaleMutation() {
   return { mutate, mutateAsync, isPending: result.isLoading, ...result };
 }
 
-const CREDIT_INVALIDATE: ("sales" | "accounts" | "clients")[] = [
-  "sales",
-  "accounts",
-  "clients",
-];
+const CREDIT_INVALIDATE: ("sales" | "accounts" | "clients")[] = ["sales", "accounts", "clients"];
 
 export function useReceiveWithCreditMutation() {
   const [trigger, result] = vendasApi.useReceiveWithCreditMutation();

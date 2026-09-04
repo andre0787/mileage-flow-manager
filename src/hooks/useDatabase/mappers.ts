@@ -1,4 +1,13 @@
-import type { Owner, Program, OrigemType, Account, PointEntry, Sale, Client, ClientCredit } from "@/types";
+import type {
+  Owner,
+  Program,
+  OrigemType,
+  Account,
+  PointEntry,
+  Sale,
+  Client,
+  ClientCredit,
+} from "@/types";
 import { parseDescription } from "@/types";
 import type { Database } from "@/lib/supabase-types";
 

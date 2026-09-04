@@ -48,7 +48,9 @@ export const cancelVendaEndpoint = (builder: VendasBuilder) => ({
       } catch (err) {
         await supabase.from("sales").update({ status: oldStatus }).eq("id", id);
         return {
-          error: toQueryError(err instanceof Error ? err : { message: "Falha ao estornar crédito" }),
+          error: toQueryError(
+            err instanceof Error ? err : { message: "Falha ao estornar crédito" },
+          ),
         };
       }
 

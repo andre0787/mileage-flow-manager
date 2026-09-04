@@ -72,10 +72,7 @@ export const addVendaEndpoint = (builder: VendasBuilder) => ({
 
       // Movimentos do recebimento inicial (após a venda existir, pelo FK;
       // em falha, a venda é removida — DELETE em sales é permitido).
-      if (
-        initialPlan.appliedCredit > CREDIT_EPSILON ||
-        initialPlan.earnedCredit > CREDIT_EPSILON
-      ) {
+      if (initialPlan.appliedCredit > CREDIT_EPSILON || initialPlan.earnedCredit > CREDIT_EPSILON) {
         const creditRows: {
           user_id: string;
           client_id: string;

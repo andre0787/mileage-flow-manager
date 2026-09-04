@@ -38,9 +38,7 @@ export function SaleTableRow({
   const [receiveOpen, setReceiveOpen] = useState(false);
   const amountReceived = sale.amountReceived ?? 0;
   const pending = Math.max(0, sale.saleValue - amountReceived);
-  const { balance: creditBalance, movements: creditMoves } = useClientBalanceQuery(
-    sale.clientId,
-  );
+  const { balance: creditBalance, movements: creditMoves } = useClientBalanceQuery(sale.clientId);
   const hasCredit = creditMoves.some((m) => m.saleId === sale.id);
   return (
     <>
@@ -115,14 +113,14 @@ export function SaleTableRow({
           <div className="flex items-center gap-2">
             <Users className="h-3 w-3 text-muted-foreground" />
             <span className="text-xs">{sale.passengers.length} pax</span>
-          {hasCredit && (
-            <span
-              className="rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary"
-              title="Venda com movimento de crédito"
-            >
-              Crédito
-            </span>
-          )}
+            {hasCredit && (
+              <span
+                className="rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary"
+                title="Venda com movimento de crédito"
+              >
+                Crédito
+              </span>
+            )}
             {sale.status !== "cancelado" && (
               <>
                 {onReceive &&
