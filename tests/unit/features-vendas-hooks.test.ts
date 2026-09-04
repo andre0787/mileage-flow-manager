@@ -147,6 +147,14 @@ describe("wrappers de compatibilidade de vendas", () => {
           delete: () => ({ eq: () => Promise.resolve({ error: null }) }),
         };
       }
+      // Sem crédito vinculado: ledger vazio → fluxos de delete/cancel liberados.
+      if (table === "client_credit_movements") {
+        return {
+          select: () => ({
+            eq: () => ({ limit: () => Promise.resolve({ data: [], error: null }) }),
+          }),
+        };
+      }
       return {
         select: () => ({
           eq: () => ({

@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useClientBalanceQuery } from "@/features/clientes/hooks";
 import { Plus, Users, Search, Edit, Trash2, Phone, AlertTriangle, UserPlus } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -38,6 +39,28 @@ import { formatDateBR } from "@/lib/dateUtils";
 import { formatCPF } from "@/lib/utils";
 
 const ITEMS_PER_PAGE = 20;
+
+/** Saldo + extrato de crédito de um cliente (hook por cliente: chamada legal). */
+function ClientCreditInfo({ clientId }: { clientId: string }) {
+  const { balance, movements } = useClientBalanceQuery(clientId);
+  return (
+    <>
+      <p className="font-semibold tabular-nums">R$ {balance.toFixed(2)}</p>
+      {movements.length > 0 && (
+        <details className="text-xs text-muted-foreground">
+          <summary className="cursor-pointer">Extrato</summary>
+          <ul className="mt-1 space-y-0.5 text-left">
+            {movements.map((m) => (
+              <li key={m.id} className="tabular-nums">
+                {m.kind === "earn" ? "+" : m.kind === "spend" ? "−" : "↩"} R$ {m.amount.toFixed(2)}
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
+    </>
+  );
+}
 
 export default function Clientes() {
   const { clients, sales, isLoading } = useData();
@@ -427,6 +450,7 @@ export default function Clientes() {
                   <TableHead className="hidden md:table-cell">CPF</TableHead>
                   <TableHead className="hidden md:table-cell">Contato</TableHead>
                   <TableHead className="hidden md:table-cell">Compras</TableHead>
+                  <TableHead className="hidden md:table-cell text-right">Saldo</TableHead>
                   <TableHead className="hidden md:table-cell">Histórico de Uso</TableHead>
                   <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
                 </TableRow>
@@ -461,6 +485,9 @@ export default function Clientes() {
                     </TableCell>
                     <TableCell className="hidden md:table-cell">
                       <Badge variant="outline">{client.totalPurchases} compras</Badge>
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell text-right">
+                      <ClientCreditInfo clientId={client.id} />
                     </TableCell>
                     <TableCell className="hidden md:table-cell">
                       <div className="flex flex-wrap gap-1">
@@ -523,8 +550,8 @@ export default function Clientes() {
                     <p className="font-mono text-xs">{client.cpf ?? "-"}</p>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Telefone:</span>
-                    <p>{client.phone}</p>
+                    <span className="text-muted-foreground">Saldo:</span>
+                    <ClientCreditInfo clientId={client.id} />
                   </div>
                 </div>
                 <div className="flex items-center justify-between">

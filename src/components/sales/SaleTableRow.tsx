@@ -3,7 +3,8 @@ import { Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { StatusBadge } from "@/components/ui/StatusBadge";
-import { SaleReceiveDialog } from "@/components/sales/SaleReceiveDialog";
+import { SaleReceiveDialog, type CreditPayment } from "@/components/sales/SaleReceiveDialog";
+import { useClientBalanceQuery } from "@/features/clientes/hooks";
 import {
   Select,
   SelectContent,
@@ -20,7 +21,7 @@ interface SaleTableRowProps {
   customColorHex?: string | null;
   isOnline: boolean;
   onStatusChange?: (saleId: string, status: "pendente" | "pago" | "concluido") => void;
-  onReceive?: (saleId: string, amount: number) => void;
+  onReceive?: (saleId: string, payment: CreditPayment) => void;
   onEdit?: (sale: Sale) => void;
   onCancelClick: (saleId: string) => void;
 }
@@ -37,6 +38,8 @@ export function SaleTableRow({
   const [receiveOpen, setReceiveOpen] = useState(false);
   const amountReceived = sale.amountReceived ?? 0;
   const pending = Math.max(0, sale.saleValue - amountReceived);
+  const { balance: creditBalance, movements: creditMoves } = useClientBalanceQuery(sale.clientId);
+  const hasCredit = creditMoves.some((m) => m.saleId === sale.id);
   return (
     <>
       <TableRow className={sale.status === "cancelado" ? "opacity-50" : ""}>
@@ -110,6 +113,14 @@ export function SaleTableRow({
           <div className="flex items-center gap-2">
             <Users className="h-3 w-3 text-muted-foreground" />
             <span className="text-xs">{sale.passengers.length} pax</span>
+            {hasCredit && (
+              <span
+                className="rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary"
+                title="Venda com movimento de crédito"
+              >
+                Crédito
+              </span>
+            )}
             {sale.status !== "cancelado" && (
               <>
                 {onReceive &&
@@ -157,7 +168,9 @@ export function SaleTableRow({
           onOpenChange={setReceiveOpen}
           saleValue={sale.saleValue}
           amountReceived={amountReceived}
-          onConfirm={(amount) => onReceive(sale.id, amount)}
+          clientBalance={creditBalance}
+          clientName={sale.clientName}
+          onConfirm={(payment) => onReceive(sale.id, payment)}
         />
       )}
     </>

@@ -1,5 +1,7 @@
 export {
   useClientsQuery,
+  useClientCreditsQuery,
+  useClientBalanceQuery,
   useAddClientMutation,
   useUpdateClientMutation,
   useDeleteClientMutation,

@@ -19,5 +19,9 @@ export function useSalesQuery() {
   return { data, byId, isPending: isLoading, isError, error, refetch };
 }
 
-export { useAddSaleMutation, useUpdateSaleMutation } from "./mutationHooksBasic";
+export {
+  useAddSaleMutation,
+  useUpdateSaleMutation,
+  useReceiveWithCreditMutation,
+} from "./mutationHooksBasic";
 export { useDeleteSaleMutation, useCancelSaleMutation } from "./mutationHooksLifecycle";

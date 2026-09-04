@@ -185,3 +185,34 @@ export interface Sale {
   passengers: { name: string; passengerId: string; cpf: string; clientId?: string }[];
   date: string;
 }
+
+export type CreditMovementKind = "earn" | "spend" | "reversal";
+
+/** Movimento do ledger append-only de crédito por cliente (saldo sempre derivado). */
+export interface ClientCredit {
+  id: string;
+  clientId: string;
+  saleId: string;
+  kind: CreditMovementKind;
+  reversalOf?: "earn" | "spend";
+  amount: number;
+  createdAt: string;
+}
+
+/** Entrada da mutation única de recebimento com crédito (contrato com Worker B). */
+export interface ReceiveWithCreditInput {
+  saleId: string;
+  /** Dinheiro entregue agora (vai p/ amountReceived até o pendente; excedente vira earn). */
+  cash: number;
+  /** Quanto do saldo de crédito abater (limitado a min(saldo, pendente)). */
+  useCredit?: number;
+}
+
+/** Resultado da mutation única de recebimento com crédito. */
+export interface ReceiveWithCreditResult {
+  appliedCash: number;
+  appliedCredit: number;
+  earnedCredit: number;
+  newReceived: number;
+  fullyPaid: boolean;
+}

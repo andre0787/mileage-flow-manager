@@ -5,6 +5,7 @@ import { baseApi } from "@/features/api/baseApi";
 import { vendasApi } from "./vendasApi";
 
 const INVALIDATE: ("sales" | "accounts")[] = ["sales", "accounts"];
+const CANCEL_INVALIDATE: ("sales" | "accounts" | "clients")[] = ["sales", "accounts", "clients"];
 
 interface MutateOptions {
   onSuccess?: () => void;
@@ -55,7 +56,7 @@ export function useDeleteSaleMutation() {
 export function useCancelSaleMutation() {
   const [trigger, result] = vendasApi.useCancelVendaMutation();
   const dispatch = useAppDispatch();
-  const invalidate = () => dispatch(baseApi.util.invalidateTags(INVALIDATE));
+  const invalidate = () => dispatch(baseApi.util.invalidateTags(CANCEL_INVALIDATE));
 
   const mutate = (id: string, options?: MutateOptions) => {
     trigger(id)

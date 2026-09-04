@@ -310,6 +310,39 @@ export interface Database {
         };
         Relationships: [];
       };
+      client_credit_movements: {
+        Row: {
+          id: string;
+          user_id: string;
+          client_id: string;
+          sale_id: string;
+          kind: "earn" | "spend" | "reversal";
+          reversal_of: "earn" | "spend" | null;
+          amount: number;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          client_id: string;
+          sale_id: string;
+          kind: "earn" | "spend" | "reversal";
+          reversal_of?: "earn" | "spend" | null;
+          amount: number;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          client_id?: string;
+          sale_id?: string;
+          kind?: "earn" | "spend" | "reversal";
+          reversal_of?: "earn" | "spend" | null;
+          amount?: number;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       feedback: {
         Row: {
           id: string;

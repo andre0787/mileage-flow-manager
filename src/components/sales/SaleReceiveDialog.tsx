@@ -4,12 +4,24 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormDrawer } from "@/components/FormDrawer";
 
+/** Pagamento com crédito: dinheiro + abatimento do saldo do cliente. */
+export interface CreditPayment {
+  cash: number;
+  useCredit: number;
+}
+
 interface SaleReceiveDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   saleValue: number;
   amountReceived: number;
-  onConfirm: (amount: number) => void;
+  /**
+   * Saldo de crédito do cliente (fonte: Worker A — getClientBalance).
+   * Default 0 = comportamento legado (só dinheiro, sem excedente visível).
+   */
+  clientBalance?: number;
+  clientName?: string;
+  onConfirm: (payment: CreditPayment) => void;
 }
 
 export function SaleReceiveDialog({
@@ -17,23 +29,37 @@ export function SaleReceiveDialog({
   onOpenChange,
   saleValue,
   amountReceived,
+  clientBalance = 0,
+  clientName = "",
   onConfirm,
 }: SaleReceiveDialogProps) {
   const pending = Math.max(0, saleValue - (amountReceived || 0));
-  const [value, setValue] = useState<string>(pending ? pending.toFixed(2) : "");
-  // Reabrir (ou mudança no pendente) sempre exibe o pendente atual,
+  const balance = Math.max(0, clientBalance ?? 0);
+  const maxUse = Math.min(balance, pending);
+
+  const [cash, setCash] = useState<string>(pending ? pending.toFixed(2) : "");
+  const [credit, setCredit] = useState<string>("0");
+
+  // Reabrir (ou mudança no pendente/saldo) sempre exibe valores atuais,
   // nunca um valor digitado anteriormente.
   useEffect(() => {
-    if (open) setValue(pending ? pending.toFixed(2) : "");
+    if (open) {
+      setCash(pending ? pending.toFixed(2) : "");
+      setCredit("0");
+    }
   }, [open, pending]);
-  const parsed = parseFloat(value) || 0;
-  const valid = parsed > 0 && parsed <= pending + 1e-9;
+
+  const cashVal = Math.max(0, parseFloat(cash) || 0);
+  const useCredit = Math.min(Math.max(0, parseFloat(credit) || 0), maxUse);
+  const total = cashVal + useCredit;
+  // Excedente acima do pendente vira crédito automático (Worker A persiste o earn).
+  const excess = Math.max(0, total - pending);
+  const valid = total > 0;
 
   return (
     <FormDrawer
       open={open}
       onOpenChange={(o) => {
-        if (!o) setValue(pending ? pending.toFixed(2) : "");
         onOpenChange(o);
       }}
       title="Registrar recebimento"
@@ -50,6 +76,12 @@ export function SaleReceiveDialog({
           <p>
             Saldo pendente: <span className="font-semibold">R$ {pending.toFixed(2)}</span>
           </p>
+          {balance > 0 && (
+            <p>
+              Crédito de {clientName || "cliente"}:{" "}
+              <span className="font-semibold text-primary">R$ {balance.toFixed(2)}</span>
+            </p>
+          )}
         </div>
         <div className="space-y-2">
           <Label>Valor recebido agora (R$)</Label>
@@ -57,17 +89,44 @@ export function SaleReceiveDialog({
             type="number"
             step="0.01"
             min="0"
-            max={pending}
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
+            value={cash}
+            onChange={(e) => setCash(e.target.value)}
             placeholder="Ex: 100.00"
           />
-          {!valid && value.trim() !== "" && (
-            <p className="text-xs text-destructive">
-              Informe um valor maior que zero e até R$ {pending.toFixed(2)}.
-            </p>
+          {!valid && cash.trim() !== "" && (
+            <p className="text-xs text-destructive">Informe um valor maior que zero.</p>
           )}
         </div>
+        {balance > 0 && (
+          <div className="space-y-2">
+            <Label>Usar saldo (R$)</Label>
+            <Input
+              type="number"
+              step="0.01"
+              min="0"
+              max={maxUse}
+              value={credit}
+              onChange={(e) => setCredit(e.target.value)}
+              placeholder="0.00"
+              aria-label="Usar saldo de crédito"
+            />
+            <p className="text-xs text-muted-foreground">
+              Disponível: R$ {maxUse.toFixed(2)} para esta venda.
+            </p>
+          </div>
+        )}
+        {useCredit > 0 && (
+          <p className="text-xs text-primary font-semibold">
+            Usando R$ {useCredit.toFixed(2)} do saldo
+            {cashVal > 0 ? ` + R$ ${cashVal.toFixed(2)} em dinheiro` : ""}.
+          </p>
+        )}
+        {excess > 0 && (
+          <p className="text-xs text-warning font-semibold">
+            Excedente de R$ {excess.toFixed(2)} será registrado como crédito
+            {clientName ? ` de ${clientName}` : ""}.
+          </p>
+        )}
       </div>
       <div className="flex justify-end gap-2 mt-4">
         <Button variant="outline" onClick={() => onOpenChange(false)}>
@@ -77,7 +136,7 @@ export function SaleReceiveDialog({
           className="bg-gradient-primary hover:opacity-90"
           disabled={!valid}
           onClick={() => {
-            onConfirm(parsed);
+            onConfirm({ cash: cashVal, useCredit });
             onOpenChange(false);
           }}
         >

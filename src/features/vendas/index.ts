@@ -2,6 +2,7 @@ export {
   useSalesQuery,
   useAddSaleMutation,
   useUpdateSaleMutation,
+  useReceiveWithCreditMutation,
   useDeleteSaleMutation,
   useCancelSaleMutation,
 } from "./hooks";

@@ -12,6 +12,22 @@ export const deleteVendaEndpoint = (builder: VendasBuilder) => ({
         .single();
       if (fetchError) return { error: toQueryError(fetchError) };
 
+      // Ledger é append-only: venda com crédito vinculado só sai via
+      // cancelamento (que reverte); hard-delete apagaria o histórico via CASCADE.
+      const { data: linkedMoves, error: linkedError } = await supabase
+        .from("client_credit_movements")
+        .select("id")
+        .eq("sale_id", id)
+        .limit(1);
+      if (linkedError) return { error: toQueryError(linkedError) };
+      if (linkedMoves && linkedMoves.length > 0) {
+        return {
+          error: toQueryError({
+            message: "Venda com crédito vinculado não pode ser excluída — use o cancelamento",
+          }),
+        };
+      }
+
       const { error } = await supabase.from("sales").delete().eq("id", id);
       if (error) return { error: toQueryError(error) };
 

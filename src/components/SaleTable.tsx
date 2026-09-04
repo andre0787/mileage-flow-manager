@@ -18,7 +18,7 @@ interface SaleTableProps {
   ownerCustomColors?: Record<string, string | null>;
   onCancel?: (saleId: string) => void;
   onStatusChange?: (saleId: string, status: "pendente" | "pago" | "concluido") => void;
-  onReceive?: (saleId: string, amount: number) => void;
+  onReceive?: (saleId: string, payment: { cash: number; useCredit: number }) => void;
   onCreateClick?: () => void;
   onEdit?: (sale: Sale) => void;
 }

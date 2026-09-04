@@ -192,6 +192,14 @@ describe("vendasApi — deleteVenda / cancelVenda", () => {
         }
         return { delete: del };
       }
+      // Sem crédito vinculado: ledger vazio → hard-delete liberado.
+      if (table === "client_credit_movements") {
+        return {
+          select: () => ({
+            eq: () => ({ limit: () => Promise.resolve({ data: [], error: null }) }),
+          }),
+        };
+      }
       return {
         select: () => ({
           eq: () => ({
@@ -210,6 +218,39 @@ describe("vendasApi — deleteVenda / cancelVenda", () => {
     expect(result.data).toBeNull();
     expect(del).toHaveBeenCalled();
     expect(update).toHaveBeenCalled();
+  });
+
+  it("bloqueia a exclusão quando há crédito vinculado (exige cancelamento)", async () => {
+    const del = vi.fn();
+    mockFrom.mockImplementation((table: string) => {
+      if (table === "sales") {
+        return {
+          select: () => ({
+            eq: () => ({
+              single: () =>
+                Promise.resolve({
+                  data: { account_id: "acc-1", miles_used: 10000, cost_per_mile: 0.05 },
+                  error: null,
+                }),
+            }),
+          }),
+        };
+      }
+      if (table === "client_credit_movements") {
+        return {
+          select: () => ({
+            eq: () => ({
+              limit: () => Promise.resolve({ data: [{ id: "mov-1" }], error: null }),
+            }),
+          }),
+        };
+      }
+      return { delete: del };
+    });
+
+    const result = await makeStore().dispatch(vendasApi.endpoints.deleteVenda.initiate("sale-1"));
+    expect(result.error).toBeDefined();
+    expect(del).not.toHaveBeenCalled();
   });
 
   it("cancela a venda (status cancelado) e restaura a conta", async () => {
@@ -256,11 +297,19 @@ describe("vendasApi — deleteVenda / cancelVenda", () => {
     expect(updAcc).toHaveBeenCalled();
   });
 
-  it("declara invalidação de sales e accounts em todos os endpoints", async () => {
+  it("declara invalidação de sales e accounts nos endpoints base", async () => {
     const { readFileSync } = await import("node:fs");
-    const source = ["addVenda", "updateVenda", "deleteVenda", "cancelVenda"]
+    const source = ["addVenda", "updateVenda", "deleteVenda"]
       .map((name) => readFileSync(`src/features/vendas/${name}.ts`, "utf8"))
       .join("\n");
-    expect(source.match(/invalidatesTags: \["sales", "accounts"\]/g)).toHaveLength(4);
+    expect(source.match(/invalidatesTags: \["sales", "accounts"\]/g)).toHaveLength(2);
+  });
+
+  it("declara invalidação incluindo clients nos endpoints com crédito", async () => {
+    const { readFileSync } = await import("node:fs");
+    const source = ["addVenda", "cancelVenda", "receiveVenda"]
+      .map((name) => readFileSync(`src/features/vendas/${name}.ts`, "utf8"))
+      .join("\n");
+    expect(source.match(/invalidatesTags: \["sales", "accounts", "clients"\]/g)).toHaveLength(3);
   });
 });
