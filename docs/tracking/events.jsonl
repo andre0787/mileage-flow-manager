@@ -375,3 +375,9 @@
 {"timestamp":"2026-09-04T03:57:54.865Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-custos-parcial","commit":"b420f76","agent":"pi","errors":0}
 {"timestamp":"2026-09-04T04:04:04.505Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-custos-parcial","commit":"b420f76","agent":"pi","errors":0}
 {"timestamp":"2026-09-04T04:20:18.884Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-custos-parcial","commit":"eb82bd9","agent":"pi","errors":0}
+{"timestamp":"2026-09-04T04:46:18.204Z","type":"coding:done","description":"Correção por subagente: limite de estoque no modo edição devolve milhas da própria venda (issue #533)","branch":"fix/venda-edit-custos-recebida","commit":"6e8778b","agent":"pi","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-09-04T04:46:51.026Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"fix/venda-edit-custos-recebida","commit":"6e8778b","agent":"pi","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-09-04T04:47:38.135Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"fix/venda-edit-custos-recebida","commit":"6e8778b","agent":"pi","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-09-04T04:49:35.018Z","type":"code-review:done","description":"Review por subagente aprovado após must-fix da cancelada (issue #533)","branch":"fix/venda-edit-custos-recebida","commit":"6e8778b","agent":"pi","subagent":true,"verdict":"approved-after-fix"}
+{"timestamp":"2026-09-04T04:50:21.241Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/venda-edit-custos-recebida","commit":"6e8778b","agent":"pi","errors":0}
+{"timestamp":"2026-09-04T04:59:37.290Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/venda-edit-custos-recebida","commit":"6e8778b","agent":"pi","errors":0}
