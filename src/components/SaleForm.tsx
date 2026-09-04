@@ -152,6 +152,27 @@ export function SaleForm({
     () => stockInfo.find((s) => s.accountId === form.accountId),
     [stockInfo, form.accountId],
   );
+  // Edição: as milhas da própria venda já foram debitadas do estoque —
+  // devolve-as ao limite de validação quando a conta não foi trocada.
+  // Venda cancelada não teve milhas debitadas (reversal) — sem add-back.
+  const editingOriginalSale = useMemo(
+    () =>
+      mode === "edit" && editingSaleId ? sales.find((s) => s.id === editingSaleId) : undefined,
+    [mode, editingSaleId, sales],
+  );
+  const effectiveAvailableMiles = useMemo(() => {
+    const base = selectedProgramStock?.availableMiles ?? 0;
+    if (
+      mode === "edit" &&
+      editingOriginalSale &&
+      editingOriginalSale.status !== "cancelado" &&
+      form.accountId &&
+      form.accountId === editingOriginalSale.accountId
+    ) {
+      return base + editingOriginalSale.milesUsed;
+    }
+    return base;
+  }, [mode, editingOriginalSale, form.accountId, selectedProgramStock]);
   const programConfig = useMemo(
     () => programs.find((p) => p.id === selectedProgramStock?.programId),
     [programs, selectedProgramStock],
@@ -240,7 +261,7 @@ export function SaleForm({
     form.clientId &&
     form.milesUsed &&
     form.saleValue &&
-    (!selectedProgramStock || parseFloat(form.milesUsed) <= selectedProgramStock.availableMiles);
+    (!selectedProgramStock || parseFloat(form.milesUsed) <= effectiveAvailableMiles);
 
   const passengerLimitExceeded =
     programConfig?.maxPassengers &&
@@ -395,7 +416,7 @@ export function SaleForm({
                   );
                 }}
                 placeholder="Ex: 50000"
-                max={selectedProgramStock?.availableMiles}
+                max={selectedProgramStock ? effectiveAvailableMiles : undefined}
               />
               {selectedProgramStock && (
                 <p className="text-xs text-muted-foreground">
@@ -404,7 +425,7 @@ export function SaleForm({
               )}
               {form.milesUsed &&
                 selectedProgramStock &&
-                parseFloat(form.milesUsed) > selectedProgramStock.availableMiles && (
+                parseFloat(form.milesUsed) > effectiveAvailableMiles && (
                   <p className="text-xs text-destructive">
                     Quantidade superior ao estoque disponível
                   </p>
