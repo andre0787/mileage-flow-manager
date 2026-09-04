@@ -32,7 +32,9 @@ function gitCheckoutHandoff() {
       if (lockFree) throw err;
       // Stale lock de merge paralelo ou pre-pr -> tenta remover após 2s
       if (attempt > 4) {
-        try { execSync(`rm -f "${lockPath}"`, { shell: true }); } catch {}
+        try { execSync(`rm -f "${lockPath}"`, { shell: true }); } catch {
+          // ignore
+        }
       }
       execSync("sleep 0.4", { shell: true });
     }
