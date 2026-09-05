@@ -91,6 +91,14 @@ describe("accountsOfType / salesOfAccountType / entriesOfAccountType", () => {
     expect(entriesOfAccountType(entries, accounts, "milhas").map((e) => e.id)).toEqual(["e1"]);
     expect(entriesOfAccountType(entries, accounts, "pontos").map((e) => e.id)).toEqual(["e2"]);
   });
+
+  it("bug #544: transferência pontos→milhas aparece no conjunto pontos (débito da origem)", () => {
+    const t = entry("t1", "a1", { sourceAccountId: "a2", amount: 85 });
+    expect(entriesOfAccountType([...entries, t], accounts, "pontos").map((e) => e.id)).toEqual([
+      "e2",
+      "t1",
+    ]);
+  });
 });
 
 describe("accountsByOwner / salesByOwner / entriesByOwner", () => {
@@ -108,6 +116,13 @@ describe("accountsByOwner / salesByOwner / entriesByOwner", () => {
     expect(accountsByOwner(accounts, "o1").map((a) => a.id)).toEqual(["a1"]);
     expect(salesByOwner(sales, accounts, "o1").map((s) => s.id)).toEqual(["s1"]);
     expect(entriesByOwner(entries, accounts, "o2").map((e) => e.id)).toEqual(["e2"]);
+  });
+
+  it("bug #544: transferência inclui o dono da origem (débito não some do filtro)", () => {
+    const accs = [acct("a1", "milhas", "o1", "p1", 100), acct("a2", "pontos", "o2", "p2", 50)];
+    const t = entry("t1", "a1", { sourceAccountId: "a2", amount: 85 });
+    expect(entriesByOwner([t], accs, "o2").map((e) => e.id)).toEqual(["t1"]);
+    expect(entriesByOwner([t], accs, "o1").map((e) => e.id)).toEqual(["t1"]);
   });
 });
 

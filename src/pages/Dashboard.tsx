@@ -73,8 +73,13 @@ export default function Dashboard() {
     [sales, accounts],
   );
 
-  // ponytail: pontos sales not implemented yet — no sales tracking for points accounts
-  const pontosSales = useMemo(() => [], []);
+  // bug #544: vendas vinculadas a contas de pontos precisam entrar no saldo
+  // calculado — o recalcAccount subtrai vendas de qualquer conta, então o
+  // dashboard precisa da mesma regra ou o banner acusa discrepância permanente.
+  const pontosSales = useMemo(
+    () => salesOfAccountType(sales, accounts, "pontos"),
+    [sales, accounts],
+  );
 
   const milhasEntries = useMemo(
     () => entriesOfAccountType(entries, accounts, "milhas"),

@@ -413,3 +413,10 @@
 {"timestamp":"2026-09-05T17:10:43.025Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-recebimento-separado","commit":"b721e76","agent":"pi","errors":0}
 {"timestamp":"2026-09-05T17:28:46.804Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-recebimento-separado","commit":"b721e76","agent":"pi","errors":0}
 {"timestamp":"2026-09-05T17:31:28.199Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-recebimento-separado","commit":"438364b","agent":"pi","errors":0}
+{"timestamp":"2026-09-05T20:21:44.144Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"chore/ci-supabase-migrate","commit":"126cedd","agent":"pi","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-09-05T20:23:39.495Z","type":"code-review:done","description":"Reviews por subagente: BLOCK com must-fix aplicado + re-review ADDRESSED (workflow migrate)","branch":"chore/ci-supabase-migrate","commit":"126cedd","agent":"pi","subagent":true,"verdict":"approved-after-fix"}
+{"timestamp":"2026-09-05T20:23:53.041Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/ci-supabase-migrate","commit":"126cedd","agent":"pi","errors":0}
+{"timestamp":"2026-09-05T20:44:11.546Z","type":"coding:done","description":"Bug #544: seletores incluem origem de transferência + pontosSales alinhado","branch":"fix/discrepancia-pontos-camila","commit":"0553477","agent":"pi","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-09-05T20:47:04.997Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"fix/discrepancia-pontos-camila","commit":"0553477","agent":"pi","subagent":true,"verdict":"approved","reviewerRun":"edaf5e2a-9223-449e-8d5a-99b815531dc9"}
+{"timestamp":"2026-09-05T20:48:01.543Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/discrepancia-pontos-camila","commit":"0553477","agent":"pi","errors":0}
+{"timestamp":"2026-09-05T20:49:25.766Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/discrepancia-pontos-camila","commit":"0553477","agent":"pi","errors":0}
