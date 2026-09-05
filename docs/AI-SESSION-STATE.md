@@ -1,25 +1,26 @@
-# AI Session State - 2026-08-30T14:50:00.000Z
+# AI Session State - 2026-09-05T21:00:00.000Z
 
 ## Última Task
-- **Remover debug console.log do logger** (`src/lib/logger.ts`)
-- **Branch:** `jules-18146623467192773992-a3a3fd9d`
-- **Status:** concluído
+- **Investigar banner "Discrepância detectada" persistente** (Dashboard Pontos, Camila)
+- **Branch:** `fix/discrepancia-pontos-camila` (issue #544)
+- **Status:** causa raiz encontrada; fix bloqueado (infra de subagentes)
 
 ## Estado dos Testes & Qualidade
-- **Node:** v22.22.1 (`.nvmrc`, `package.json`)
-- **Testes:** `tests/unit/logger.test.ts` e `tests/unit/recurrence.test.ts` — 12 passing
+- **Node:** v22.23.1
+- **Testes:** não executados (bloqueio antes da implementação)
 
 ## Arquivos Modificados & Impacto
-- `src/lib/logger.ts`: removido console.log em ambiente DEV no `persist()`
-- `tests/unit/recurrence.test.ts`: corrigida borda de mês no teste de recorrência
-- `docs/AI-SESSION-STATE.md`: atualização deste estado
+- Nenhum arquivo de código tocado (worktree limpa)
+- Causa raiz: `entriesOfAccountType`/`entriesByOwner` filtram só pelo destino,
+  escondendo débitos de transferência; `pontosSales=[]` vs recalc que subtrai vendas
 
 ## Resolução dos Issues
-- **Code Health:** Removido log de debug `console.log` desnecessário de `src/lib/logger.ts`.
+- **#544:** registrada; fix pendente de desbloqueio
 
 ## Pendências Imediatas
-- Nenhuma pendência de código.
+- Desbloquear execução de subagentes OU aprovar bypass dos Gates 39/38
+- Implementar fix + teste + pre-pr + PR + deploy prod
 
 ## Governança de Contexto
-- `session:start` executado; pre-pr executado
-- `docs/handoff.md` atualizado
+- `session:start` executado; `docs/handoff.md` verificado
+- `docs/AI-SESSION-STATE.md`: atualização deste estado

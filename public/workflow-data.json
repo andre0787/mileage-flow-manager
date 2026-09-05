@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-04T10:27:33.732Z",
-  "dataDate": "2026-09-04",
+  "generatedAt": "2026-09-05T20:48:05.103Z",
+  "dataDate": "2026-09-05",
   "kpiStats": [
     {
-      "value": 383,
+      "value": 421,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 525,
+      "value": 534,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,17 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 297,
+      "value": 303,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 29,
+      "value": 30,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 30,
+      "value": 36,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,27 +41,27 @@
     },
     {
       "name": "pre-pr",
-      "n": 123,
+      "n": 135,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 160,
+      "n": 173,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 29,
+      "n": 30,
       "color": "#10b981"
     },
     {
       "name": "code-review:done",
-      "n": 31,
+      "n": 37,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 28,
+      "n": 34,
       "color": "#22c55e"
     },
     {
@@ -73,7 +73,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 244,
+      "n": 247,
       "color": "#10b981"
     },
     {
@@ -89,58 +89,58 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-09-04 04:59:37",
+      "t": "2026-09-05 20:48:01",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-04 04:50:21",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-04 04:49:35",
+      "t": "2026-09-05 20:47:04",
       "d": "code-review:done",
-      "desc": "Review por subagente aprovado após must-fix da cancelada (issue #533)"
+      "desc": "Review aprovado por subagente"
     },
     {
-      "t": "2026-09-04 04:47:38",
-      "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
-    },
-    {
-      "t": "2026-09-04 04:46:51",
-      "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
-    },
-    {
-      "t": "2026-09-04 04:46:18",
+      "t": "2026-09-05 20:44:11",
       "d": "coding:done",
-      "desc": "Correção por subagente: limite de estoque no modo edição devolve milhas da própria venda (issue #533)"
+      "desc": "Bug #544: seletores incluem origem de transferência + pontosSales alinhado"
     },
     {
-      "t": "2026-09-04 04:20:18",
+      "t": "2026-09-05 20:23:53",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-04 04:04:04",
+      "t": "2026-09-05 20:23:39",
+      "d": "code-review:done",
+      "desc": "Reviews por subagente: BLOCK com must-fix aplicado + re-review ADDRESSED (workflow migrate)"
+    },
+    {
+      "t": "2026-09-05 20:21:44",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
+    },
+    {
+      "t": "2026-09-05 17:31:28",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-05 17:28:46",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 160,
-    "healed": 29,
-    "healedRate": 18.1,
-    "prePrTotal": 123,
-    "prePrPass": 123,
+    "ruleFails": 173,
+    "healed": 30,
+    "healedRate": 17.3,
+    "prePrTotal": 135,
+    "prePrPass": 135,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 45,
+        "count": 50,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
@@ -149,32 +149,78 @@
         "hint": "faltou evento coding:done por subagente na branch"
       },
       {
-        "rule": "rule-03-handoff-completeness",
-        "count": 12,
-        "hint": ""
-      },
-      {
         "rule": "rule-26-session-started",
-        "count": 11,
+        "count": 15,
         "hint": "timestamp de sessão ausente — npm run session:start"
       },
       {
+        "rule": "rule-03-handoff-completeness",
+        "count": 14,
+        "hint": ""
+      },
+      {
         "rule": "rule-31-lib-test-coverage",
-        "count": 9,
+        "count": 11,
         "hint": ""
       }
     ]
   },
-  "lastPrs": [],
+  "lastPrs": [
+    {
+      "number": 543,
+      "title": "chore docs: atualiza handoff da sessão",
+      "type": "chore",
+      "date": "2026-09-05",
+      "tokens": 5,
+      "benefit": "Ajuste de processo validado",
+      "impact": "Processo mais confiável e audável"
+    },
+    {
+      "number": 542,
+      "title": "feat vendas: recebimento separado com checkbox, totais vivos e extrato",
+      "type": "feat",
+      "date": "2026-09-05",
+      "tokens": 439,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 541,
+      "title": "feat vendas: quitado por venda + alerta de saldo de crédito",
+      "type": "feat",
+      "date": "2026-09-05",
+      "tokens": 346,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
+      "number": 540,
+      "title": "chore docs: atualiza handoff da sessão",
+      "type": "chore",
+      "date": "2026-09-05",
+      "tokens": 17,
+      "benefit": "Ajuste de processo validado",
+      "impact": "Processo mais confiável e audável"
+    },
+    {
+      "number": 539,
+      "title": "fix security: remedia alertas do linter (DROP exec_sql, revokes, search_path)",
+      "type": "fix",
+      "date": "2026-09-04",
+      "tokens": 28,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação"
+    }
+  ],
   "overview": {
     "components": 139,
     "pages": 18,
-    "libs": 36,
+    "libs": 37,
     "scripts": 122,
-    "testFiles": 297,
+    "testFiles": 303,
     "skills": 27,
     "rules": 48,
-    "events": 383,
-    "qualityNotes": 525
+    "events": 421,
+    "qualityNotes": 534
   }
 }

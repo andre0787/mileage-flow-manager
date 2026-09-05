@@ -13,7 +13,13 @@ export const entriesOfAccountType = (
   entries: PointEntry[],
   accounts: Account[],
   type: "milhas" | "pontos",
-) => entries.filter((e) => accounts.find((a) => a.id === e.accountId)?.type === type);
+) =>
+  entries.filter(
+    (e) =>
+      accounts.find((a) => a.id === e.accountId)?.type === type ||
+      (e.sourceAccountId != null &&
+        accounts.find((a) => a.id === e.sourceAccountId)?.type === type),
+  );
 
 const byOwner = <T>(
   items: T[],
@@ -31,7 +37,15 @@ export const entriesByOwner = (
   entries: PointEntry[],
   accounts: Account[],
   ownerId: string | null,
-) => byOwner(entries, ownerId, (e) => accounts.find((a) => a.id === e.accountId)?.ownerId);
+) => {
+  if (!ownerId) return entries;
+  const ownerAccountIds = new Set(accounts.filter((a) => a.ownerId === ownerId).map((a) => a.id));
+  return entries.filter(
+    (e) =>
+      ownerAccountIds.has(e.accountId) ||
+      (e.sourceAccountId != null && ownerAccountIds.has(e.sourceAccountId)),
+  );
+};
 
 export interface OwnerDataRow {
   owner: string;
