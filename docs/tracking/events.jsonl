@@ -412,3 +412,4 @@
 {"timestamp":"2026-09-05T17:09:58.527Z","type":"code-review:done","description":"Reviews por subagente: BLOCK com must-fix aplicado + re-review ADDRESSED (recebimento separado)","branch":"feat/venda-recebimento-separado","commit":"b721e76","agent":"pi","subagent":true,"verdict":"approved-after-fix"}
 {"timestamp":"2026-09-05T17:10:43.025Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-recebimento-separado","commit":"b721e76","agent":"pi","errors":0}
 {"timestamp":"2026-09-05T17:28:46.804Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-recebimento-separado","commit":"b721e76","agent":"pi","errors":0}
+{"timestamp":"2026-09-05T17:31:28.199Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-recebimento-separado","commit":"438364b","agent":"pi","errors":0}

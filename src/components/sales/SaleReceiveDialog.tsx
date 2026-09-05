@@ -60,13 +60,9 @@ export function SaleReceiveDialog({
 
   // Extrato da venda: só movimentos de crédito desta venda (ledger por saleId).
 
-  const saleStatement = (saleMovements ?? []).filter(
-    (m) => m && typeof m.amount === "number",
-  );
+  const saleStatement = (saleMovements ?? []).filter((m) => m && typeof m.amount === "number");
   const cashVal = Math.max(0, parseFloat(cash) || 0);
-  const useCredit = payWithCredit
-    ? Math.min(Math.max(0, parseFloat(credit) || 0), maxUse)
-    : 0;
+  const useCredit = payWithCredit ? Math.min(Math.max(0, parseFloat(credit) || 0), maxUse) : 0;
   const total = cashVal + useCredit;
   const remaining = Math.max(0, pending - total);
   // Excedente acima do pendente vira crédito automático (Worker A persiste o earn).
@@ -157,8 +153,7 @@ export function SaleReceiveDialog({
         {total > 0 && (
           <p className="text-xs font-semibold text-muted-foreground">
             Total aplicado: R$ {total.toFixed(2)} (R$ {cashVal.toFixed(2)} em dinheiro + R${" "}
-            {useCredit.toFixed(2)} de crédito) • Pendente restante: R${" "}
-            {remaining.toFixed(2)}
+            {useCredit.toFixed(2)} de crédito) • Pendente restante: R$ {remaining.toFixed(2)}
           </p>
         )}
         {excess > 0 && (
