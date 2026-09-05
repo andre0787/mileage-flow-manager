@@ -202,7 +202,7 @@ test("TC-VEND-C4: edição após crédito não corrompe", async ({ page }) => {
   // Gera crédito na venda (earn 100) e confirma o indicador.
   await receiveViaUI(page, "E2ENOV4", "600");
   const row = page.locator("table tbody tr", { hasText: "E2ENOV4" });
-  await expect(row.getByText("Crédito")).toBeVisible({ timeout: 15_000 });
+  await expect(row.getByText("Crédito", { exact: true })).toBeVisible({ timeout: 15_000 });
 
   // Edita custos: submit habilitado, salva, lucro recalcula, indicador persiste.
   await row.getByRole("button", { name: "Editar" }).click();
@@ -214,8 +214,8 @@ test("TC-VEND-C4: edição após crédito não corrompe", async ({ page }) => {
   await expect(submit).toBeEnabled({ timeout: 10_000 });
   await submit.click();
   await expect(drawer).toBeHidden({ timeout: 15_000 });
-  await expect(row.getByText("R$ 160")).toBeVisible({ timeout: 15_000 });
-  await expect(row.getByText("Crédito")).toBeVisible({ timeout: 10_000 });
+  await expect(row.getByText("R$ 160", { exact: true })).toBeVisible({ timeout: 15_000 });
+  await expect(row.getByText("Crédito", { exact: true })).toBeVisible({ timeout: 10_000 });
 });
 
 test("TC-VEND-C5: cancelamento estorna crédito", async ({ page }) => {
