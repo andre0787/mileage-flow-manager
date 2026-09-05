@@ -1,6 +1,6 @@
 # HANDOFF — MilesControl
 > ⏰ Última atualização: 2026-09-05
-> Anterior: 2026-08-30
+> Anterior: 2026-09-05
 ---
 ## 🏗️ Projeto
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `c015e07` — Merge pull request #539 from andre0787/fix/supabase-linter-remediation
+- **Último commit:** `d16eaf3` — Merge pull request #542 from andre0787/feat/venda-recebimento-separado
 - **Remote:** origin/main
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
 - **P3-28 entradas** (`src/features/entradas/`), **P3-29 contas** (`src/features/contas/`),
@@ -36,7 +36,7 @@ Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 1244 |
+| Total testes | 1245 |
 | Docs issues | 0 |
 | Branch | main |
 
@@ -66,6 +66,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
 - **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
+
 
 
 
