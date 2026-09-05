@@ -155,6 +155,7 @@ test("TC-VEND-C2: uso manual misto (saldo + dinheiro)", async ({ page }) => {
   await expect(dlg.getByText("Crédito de Cliente E2E: R$ 150.00")).toBeVisible({
     timeout: 10_000,
   });
+  await dlg.getByRole("checkbox", { name: "Pagar com crédito" }).check();
   await dlg.getByLabel("Usar saldo de crédito").fill("100");
   await dlg.locator('input[type="number"]').first().fill("50");
   await expect(dlg.getByText("Usando R$ 100.00 do saldo")).toBeVisible();
@@ -186,6 +187,7 @@ test("TC-VEND-C3: quitação total só com crédito", async ({ page }) => {
     timeout: 10_000,
   });
   await dlg.locator('input[type="number"]').first().fill("0");
+  await dlg.getByRole("checkbox", { name: "Pagar com crédito" }).check();
   await dlg.getByLabel("Usar saldo de crédito").fill("500");
   await dlg.getByRole("button", { name: "Confirmar recebimento" }).click();
   await expect(
@@ -261,6 +263,58 @@ test("TC-VEND-C6: reabertura mostra saldo atualizado", async ({ page }) => {
   await row.getByRole("button", { name: "Receber" }).click();
   const dlg = page.locator("[role='dialog']", { hasText: "Registrar recebimento" });
   await expect(dlg.getByText("Crédito de Cliente E2E: R$ 100.00")).toBeVisible({
+    timeout: 10_000,
+  });
+});
+
+test("TC-VEND-C7: checkbox revela crédito, totais vivos e extrato", async ({ page }) => {
+  const ids = await seedBase(page);
+  await insertSale(page, ids, { ticket_locator: "E2ENOV7A", status: "pendente" });
+  await insertSale(page, ids, { ticket_locator: "E2ENOV7B", status: "pendente" });
+  await page.reload({ waitUntil: "networkidle" });
+
+  // Gera crédito (earn 150) na venda A.
+  await receiveViaUI(page, "E2ENOV7A", "650");
+  await expect(
+    page.locator("[data-sonner-toast]", { hasText: "registrado como crédito" }),
+  ).toBeVisible({ timeout: 15_000 });
+
+  // Venda B: caixa de crédito escondida até marcar o checkbox.
+  const row = page.locator("table tbody tr", { hasText: "E2ENOV7B" });
+  await expect(row).toBeVisible({ timeout: 15_000 });
+  await row.getByRole("button", { name: "Receber" }).click();
+  const dlg = page.locator("[role='dialog']", { hasText: "Registrar recebimento" });
+  await expect(dlg.getByText("Crédito de Cliente E2E: R$ 150.00")).toBeVisible({
+    timeout: 10_000,
+  });
+  await expect(dlg.getByLabel("Usar saldo de crédito")).toHaveCount(0);
+  await dlg.getByRole("checkbox", { name: "Pagar com crédito" }).check();
+  await dlg.getByLabel("Usar saldo de crédito").fill("100");
+  await dlg.locator('input[type="number"]').first().fill("50");
+  await expect(dlg.getByText("Total aplicado: R$ 150.00")).toBeVisible();
+  await dlg.getByRole("button", { name: "Confirmar recebimento" }).click();
+  await expect(page.locator("[data-sonner-toast]", { hasText: "Pendente: R$ 350.00" })).toBeVisible(
+    { timeout: 15_000 },
+  );
+
+  // Reabre B: extrato mostra o uso de crédito desta venda com sinal de saída.
+  await row.getByRole("button", { name: "Receber" }).click();
+  await expect(dlg.getByText("Crédito usado: −R$ 100.00", { exact: true })).toBeVisible({
+    timeout: 10_000,
+  });
+  await dlg.getByRole("button", { name: "Cancelar" }).click();
+
+  // Venda A (paga com earn 150): eleva o valor para reabrir o pendente e
+  // comprova o sinal de entrada do earn no extrato.
+  const rowA = page.locator("table tbody tr", { hasText: "E2ENOV7A" });
+  await rowA.getByRole("button", { name: "Editar" }).click();
+  const editDlg = page.locator("[role='dialog']", { hasText: "Editar Venda" });
+  await expect(editDlg).toBeVisible({ timeout: 10_000 });
+  await editDlg.getByPlaceholder("Ex: 300.00").fill("700");
+  await editDlg.getByRole("button", { name: "Atualizar Venda" }).click();
+  await expect(editDlg).toBeHidden({ timeout: 15_000 });
+  await rowA.getByRole("button", { name: "Receber" }).click();
+  await expect(dlg.getByText("Crédito gerado: +R$ 150.00", { exact: true })).toBeVisible({
     timeout: 10_000,
   });
 });

@@ -209,6 +209,7 @@ export function SaleMobileCard({
           amountReceived={amountReceived}
           clientBalance={creditBalance}
           clientName={sale.clientName}
+          saleMovements={creditMoves.filter((m) => m.saleId === sale.id)}
           onConfirm={(payment) => onReceive(sale.id, payment)}
         />
       )}
