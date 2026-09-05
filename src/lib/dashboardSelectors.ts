@@ -39,11 +39,11 @@ export const entriesByOwner = (
   ownerId: string | null,
 ) => {
   if (!ownerId) return entries;
-  const ownerAccountIds = new Set(
-    accounts.filter((a) => a.ownerId === ownerId).map((a) => a.id),
-  );
+  const ownerAccountIds = new Set(accounts.filter((a) => a.ownerId === ownerId).map((a) => a.id));
   return entries.filter(
-    (e) => ownerAccountIds.has(e.accountId) || (e.sourceAccountId != null && ownerAccountIds.has(e.sourceAccountId)),
+    (e) =>
+      ownerAccountIds.has(e.accountId) ||
+      (e.sourceAccountId != null && ownerAccountIds.has(e.sourceAccountId)),
   );
 };
 
