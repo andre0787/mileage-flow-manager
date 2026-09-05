@@ -96,6 +96,12 @@ export function SaleMobileCard({
               {"R$ "}
               {sale.saleValue.toLocaleString("pt-BR")}
             </p>
+            {amountReceived > 0 && (
+              <p className="text-xs text-muted-foreground">
+                Quitado R$ {amountReceived.toLocaleString("pt-BR")} de R${" "}
+                {sale.saleValue.toLocaleString("pt-BR")}
+              </p>
+            )}
           </div>
           <div>
             <span className="text-muted-foreground text-xs">Lucro:</span>
@@ -126,6 +132,14 @@ export function SaleMobileCard({
                 title="Venda com movimento de crédito"
               >
                 Crédito
+              </span>
+            )}
+            {creditBalance > 0 && (
+              <span
+                className="rounded-full bg-success/10 px-1.5 py-0.5 text-[10px] font-semibold text-success shrink-0"
+                title={`Cliente com saldo de crédito disponível: R$ ${creditBalance.toLocaleString("pt-BR")}`}
+              >
+                Crédito R$ {creditBalance.toLocaleString("pt-BR")}
               </span>
             )}
           </div>

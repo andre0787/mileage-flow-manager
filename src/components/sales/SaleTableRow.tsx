@@ -73,6 +73,12 @@ export function SaleTableRow({
         <TableCell className="text-right tabular-nums">
           {"R$ "}
           {sale.saleValue.toLocaleString("pt-BR")}
+          {amountReceived > 0 && (
+            <p className="text-xs text-muted-foreground">
+              Quitado R$ {amountReceived.toLocaleString("pt-BR")} de R${" "}
+              {sale.saleValue.toLocaleString("pt-BR")}
+            </p>
+          )}
         </TableCell>
         <TableCell className="text-right tabular-nums">
           {pending > 0 ? `R$ ${pending.toLocaleString("pt-BR")}` : "—"}
@@ -119,6 +125,14 @@ export function SaleTableRow({
                 title="Venda com movimento de crédito"
               >
                 Crédito
+              </span>
+            )}
+            {creditBalance > 0 && (
+              <span
+                className="rounded-full bg-success/10 px-1.5 py-0.5 text-[10px] font-semibold text-success"
+                title={`Cliente com saldo de crédito disponível: R$ ${creditBalance.toLocaleString("pt-BR")}`}
+              >
+                Crédito R$ {creditBalance.toLocaleString("pt-BR")}
               </span>
             )}
             {sale.status !== "cancelado" && (

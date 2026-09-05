@@ -401,3 +401,7 @@
 {"timestamp":"2026-09-04T17:10:33.505Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/cliente-credito-ledger","commit":"21c258b","agent":"pi","errors":0}
 {"timestamp":"2026-09-04T17:28:30.423Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/cliente-credito-ledger","commit":"21c258b","agent":"pi","errors":0}
 {"timestamp":"2026-09-04T17:31:23.780Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/cliente-credito-ledger","commit":"1bc94da","agent":"pi","errors":0}
+{"timestamp":"2026-09-05T14:58:40.479Z","type":"coding:done","description":"Implementação por subagente: quitado + alerta de crédito por linha (C0-C6 e N1-N3 verdes)","branch":"feat/venda-quitado-alerta","commit":"a3a3846","agent":"pi","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-09-05T14:59:16.613Z","type":"code-review:done","description":"Review por subagente OK sem achados (quitado + alerta; evidências C0-C6, N1-N3, tsc anexadas no report/PR)","branch":"feat/venda-quitado-alerta","commit":"a3a3846","agent":"pi","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-09-05T15:00:03.734Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-quitado-alerta","commit":"a3a3846","agent":"pi","errors":0}
+{"timestamp":"2026-09-05T16:40:18.565Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-quitado-alerta","commit":"a3a3846","agent":"pi","errors":0}
