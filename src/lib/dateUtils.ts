@@ -21,6 +21,19 @@ export function parseDateOnly(date: string): Date {
   return /^\d{4}-\d{2}-\d{2}$/.test(date) ? new Date(date + "T12:00:00") : new Date(date);
 }
 
+/** Data de hoje em ISO date-only (YYYY-MM-DD), padrão dos campos de data dos forms. */
+export function todayISODate(): string {
+  return new Date().toISOString().split("T")[0];
+}
+
+/** Valida string de data ISO date-only (YYYY-MM-DD) com dia real do calendário. */
+export function isValidISODate(value: unknown): boolean {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const [y, m, d] = value.split("-").map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  return dt.getUTCFullYear() === y && dt.getUTCMonth() === m - 1 && dt.getUTCDate() === d;
+}
+
 /** Adds calendar months while clamping the day to the target month's last day. */
 export function addMonthsClamped(date: string, months: number, dayOfMonth?: number): string {
   const base = new Date(/^\d{4}-\d{2}-\d{2}$/.test(date) ? `${date}T00:00:00Z` : date);

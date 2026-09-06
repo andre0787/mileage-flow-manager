@@ -464,3 +464,7 @@
 {"timestamp":"2026-09-06T12:04:19.053Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"fix/cobranca-filtros","commit":"bf141cb","agent":"pi","subagent":true,"verdict":"approved"}
 {"timestamp":"2026-09-06T12:08:15.786Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/cobranca-filtros","commit":"bf141cb","agent":"pi","errors":0}
 {"timestamp":"2026-09-06T12:08:34.870Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/cobranca-filtros","commit":"bf141cb","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T13:54:25.340Z","type":"coding:done","description":"Campo Data no SaleForm + payload create/update","branch":"fix/venda-data","commit":"1784575","agent":"pi","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-09-06T13:56:28.321Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"fix/venda-data","commit":"1784575","agent":"pi","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-09-06T13:57:53.319Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/venda-data","commit":"1784575","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T13:58:28.340Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/venda-data","commit":"1784575","agent":"pi","errors":0}

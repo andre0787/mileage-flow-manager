@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select";
 import { FormDrawer } from "@/components/FormDrawer";
 import { formatCPF } from "@/lib/utils";
-import { parseDateOnly } from "@/lib/dateUtils";
+import { isValidISODate, parseDateOnly, todayISODate } from "@/lib/dateUtils";
 import { calcProfit, calcProfitMargin } from "@/lib/metrics";
 import type { Account, Owner, Program, Client, Sale, SaleKind, ServiceType } from "@/types";
 
@@ -43,6 +43,8 @@ export interface SaleFormData {
   serviceType?: string;
   /** Observações livres — só no modo servico */
   observations?: string;
+  /** Data da venda (YYYY-MM-DD) — obrigatória nos dois modos, default hoje */
+  date: string;
   ticketLocator: string;
   passengers: { name: string; passengerId: string; cpf: string; clientId?: string }[];
   /** Preenchido automaticamente no submit a partir do averageCostPerMile da conta */
@@ -96,6 +98,7 @@ const emptyForm: SaleFormData = {
   kind: "milhas",
   serviceType: "",
   observations: "",
+  date: todayISODate(),
   ticketLocator: "",
   passengers: [emptyPassenger()],
 };
@@ -277,7 +280,7 @@ export function SaleForm({
         additionalCostDesc: costs[0]?.desc ?? "",
         costPerMile: selectedProgramStock?.averageCostPerMile ?? 0,
       });
-      setForm(emptyForm);
+      setForm({ ...emptyForm, date: todayISODate() });
       return { ok: true };
     },
     { ok: false },
@@ -296,7 +299,9 @@ export function SaleForm({
     setIsClientDialogOpen(false);
   };
 
-  const canSubmitServico = form.clientId && form.serviceType && parseFloat(form.saleValue) > 0;
+  const hasValidDate = isValidISODate(form.date);
+  const canSubmitServico =
+    form.clientId && form.serviceType && parseFloat(form.saleValue) > 0 && hasValidDate;
   const canSubmitMiles =
     form.ownerName &&
     form.accountId &&
@@ -304,6 +309,7 @@ export function SaleForm({
     form.clientId &&
     form.milesUsed &&
     form.saleValue &&
+    hasValidDate &&
     (!selectedProgramStock || parseFloat(form.milesUsed) <= effectiveAvailableMiles);
   const canSubmit = form.kind === "servico" ? canSubmitServico : canSubmitMiles;
 
@@ -317,7 +323,7 @@ export function SaleForm({
       <FormDrawer
         open={open}
         onOpenChange={(open) => {
-          if (!open) setForm(emptyForm);
+          if (!open) setForm({ ...emptyForm, date: todayISODate() });
           onOpenChange(open);
         }}
         title={mode === "edit" ? "Editar Venda" : "Registrar Nova Venda"}
@@ -464,6 +470,24 @@ export function SaleForm({
                 />
               </div>
             )}
+          </div>
+
+          {/* Data da venda (obrigatória nos dois modos) */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label>Data da venda</Label>
+              <Input
+                type="date"
+                required
+                value={form.date}
+                max={todayISODate()}
+                onChange={(e) => update({ date: e.target.value })}
+                aria-label="Data da venda"
+              />
+              {form.date.trim() !== "" && !isValidISODate(form.date) && (
+                <p className="text-xs text-destructive">Informe uma data válida.</p>
+              )}
+            </div>
           </div>
 
           {/* Miles + Price + Value (só milhas) */}
