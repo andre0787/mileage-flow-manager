@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T13:57:53.432Z",
+  "generatedAt": "2026-09-06T15:36:14.525Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -146,8 +146,8 @@
     {
       "month": "2026-09",
       "prePrPassRate": 100,
-      "prePrTotal": 41,
-      "prePrPass": 41,
+      "prePrTotal": 45,
+      "prePrPass": 45,
       "prePrFail": 0,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
@@ -156,7 +156,7 @@
         "twins": 0,
         "auth": 0
       },
-      "avgOutcomeGrade": 86.7,
+      "avgOutcomeGrade": 87.1,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
@@ -180,14 +180,14 @@
         }
       ],
       "healedByRule": {
-        "rule-17-new-docs-valid": 2
+        "rule-17-new-docs-valid": 3
       },
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
-      "branchesMerged": 13,
+      "branchesMerged": 14,
       "violationsCaught": 28,
-      "healedRate": 7.1,
-      "frictionPerPass": 0.68
+      "healedRate": 10.7,
+      "frictionPerPass": 0.62
     }
   ],
   "daily": [
@@ -571,18 +571,27 @@
     {
       "day": "2026-09-06",
       "label": "06/09",
-      "prePrTotal": 22,
-      "prePrPass": 22,
+      "prePrTotal": 26,
+      "prePrPass": 26,
       "prePrFail": 0,
       "prePrPassRate": 100,
       "ruleFails": 13,
-      "healed": 1,
+      "healed": 2,
       "sessions": 0,
-      "merges": 5,
-      "friction": 0.59
+      "merges": 6,
+      "friction": 0.5
     }
   ],
   "prs": [
+    {
+      "number": 551,
+      "title": "feat(vendas) — campo Data no formulário de venda",
+      "type": "feat",
+      "date": "2026-09-06",
+      "tokens": 465,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 550,
       "title": "fix(relatorios) — Cobrança respeita filtros da página",
@@ -663,34 +672,25 @@
       "tokens": 346,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 540,
-      "title": "chore docs: atualiza handoff da sessão",
-      "type": "chore",
-      "date": "2026-09-05",
-      "tokens": 17,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável"
     }
   ],
   "repo": {
-    "components": 141,
+    "components": 144,
     "pages": 18,
-    "libs": 41,
+    "libs": 42,
     "scripts": 122,
-    "testFiles": 315,
+    "testFiles": 319,
     "skills": 27,
     "rules": 48,
-    "events": 469,
-    "qualityNotes": 561
+    "events": 476,
+    "qualityNotes": 567
   },
   "summary": {
-    "merges": 54,
+    "merges": 55,
     "prs": 0,
     "sessions": 10,
     "violations": 186,
-    "healed": 31,
+    "healed": 32,
     "prePrPassRate": 100
   },
   "telemetry": []

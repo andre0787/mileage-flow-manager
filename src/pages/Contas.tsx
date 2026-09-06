@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Plus, Filter, Building2, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { OwnerFilter, ALL_OWNERS } from "@/components/ui";
@@ -6,7 +6,9 @@ import { EmptyState } from "@/components/EmptyState";
 import { Pagination } from "@/components/Pagination";
 import { SkeletonMetricCard } from "@/components/SkeletonLoader";
 import { AccountCard } from "@/components/accounts/AccountCard";
-import { AccountsSummary } from "@/components/accounts/AccountsSummary";
+import { AccountsTable } from "@/components/accounts/AccountsTable";
+import { computeReceivablesByAccount } from "@/lib/accountReceivables";
+import { sortByKey, type SortState } from "@/lib/sort";
 import { useData } from "@/contexts/DataContext";
 import {
   useUpdateAccountMutation,
@@ -21,13 +23,66 @@ import type { Account, PointEntry, Sale } from "@/types";
 
 const ITEMS_PER_PAGE = 20;
 
+const FILTERS_KEY = "mc:contas:filters";
+const SORT_KEY = "mc:contas:sort";
+
+function readStored<T extends object>(key: string, fallback: T): T {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return fallback;
+    const parsed = JSON.parse(raw) as Partial<T>;
+    return { ...fallback, ...parsed };
+  } catch {
+    return fallback;
+  }
+}
+
+function store(key: string, value: unknown) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // modo privado: filtros apenas não persistem
+  }
+}
+
 export default function Contas() {
   const { accounts, owners, programs, entries, sales, isLoading } = useData();
   const updateAccountM = useUpdateAccountMutation();
   const deleteAccountM = useDeleteAccountMutation();
   const recalcAccountM = useRecalcAccountMutation();
-  const [filterType, setFilterType] = useState<"todas" | "pontos" | "milhas">("todas");
-  const [ownerFilter, setOwnerFilter] = useState<string>(ALL_OWNERS);
+  const [filterType, setFilterType] = useState<"todas" | "pontos" | "milhas">(() => {
+    const stored = readStored(FILTERS_KEY, { filterType: "todas" }).filterType;
+    return stored === "pontos" || stored === "milhas" ? stored : "todas";
+  });
+  const [ownerFilter, setOwnerFilter] = useState<string>(
+    () => readStored(FILTERS_KEY, { ownerFilter: ALL_OWNERS }).ownerFilter,
+  );
+  const [sort, setSortState] = useState<SortState | null>(() => {
+    try {
+      const raw = localStorage.getItem(SORT_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw) as SortState;
+      return parsed && typeof parsed.key === "string" ? parsed : null;
+    } catch {
+      return null;
+    }
+  });
+  const setSort = (next: SortState) => {
+    setSortState(next);
+    setCurrentPage(1);
+  };
+
+  useEffect(() => {
+    store(FILTERS_KEY, { filterType, ownerFilter });
+  }, [filterType, ownerFilter]);
+  useEffect(() => {
+    try {
+      if (sort) localStorage.setItem(SORT_KEY, JSON.stringify(sort));
+      else localStorage.removeItem(SORT_KEY);
+    } catch {
+      // modo privado: sort apenas não persiste
+    }
+  }, [sort]);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [editAccount, setEditAccount] = useState<Account | undefined>(undefined);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -39,12 +94,6 @@ export default function Contas() {
       filterType === "todas" ? accounts : accounts.filter((a) => a.type === filterType);
     return ownerFilter === ALL_OWNERS ? byType : byType.filter((a) => a.ownerId === ownerFilter);
   }, [accounts, filterType, ownerFilter]);
-
-  const totalPages = Math.ceil(filteredAccounts.length / ITEMS_PER_PAGE);
-  const paginatedAccounts = filteredAccounts.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE,
-  );
 
   const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id;
   const ownerColor = (id: string) => owners.find((o) => o.id === id)?.color ?? null;
@@ -72,6 +121,9 @@ export default function Contas() {
     return map;
   }, [accounts, entries, sales]);
 
+  // A receber por conta: vendas não-canceladas (mesmo padrão do computedBalances)
+  const receivables = useMemo(() => computeReceivablesByAccount(sales), [sales]);
+
   // Última entrada e última venda válidas por conta (filtro idêntico ao computedBalances)
   const lastActivityByAccount = useMemo(() => {
     const map = new Map<string, { lastEntry?: PointEntry; lastSale?: Sale }>();
@@ -84,6 +136,76 @@ export default function Contas() {
   const { data: allAlerts = [] } = useAccountAlerts();
   const unreadCount = (accountId: string) =>
     allAlerts.filter((a) => a.accountId === accountId && !a.read).length;
+
+  // Ordenação (cópia — nunca muta o array memoizado)
+  const sortedAccounts = useMemo(() => {
+    if (!sort) return filteredAccounts;
+    const getValue = (a: Account) =>
+      sort.key === "saldo"
+        ? (computedBalances.get(a.id) ?? a.balance)
+        : sort.key === "investido"
+          ? (a.totalInvested ?? 0)
+          : sort.key === "receber"
+            ? (receivables.get(a.id) ?? 0)
+            : a.name;
+    return sortByKey(filteredAccounts, sort.key, sort.dir, getValue);
+  }, [filteredAccounts, sort, computedBalances, receivables]);
+
+  const totalPages = Math.ceil(sortedAccounts.length / ITEMS_PER_PAGE);
+  const paginatedAccounts = sortedAccounts.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE,
+  );
+
+  // Linhas da tabela (página atual, já enriquecidas)
+  const tableRows = useMemo(
+    () =>
+      paginatedAccounts.map((account) => ({
+        account,
+        computedBalance: computedBalances.get(account.id) ?? account.balance,
+        receivable: receivables.get(account.id) ?? 0,
+        ownerName: ownerName(account.ownerId),
+        programName: programName(account.programId),
+        unreadCount: unreadCount(account.id),
+        lastEntryDate: lastActivityByAccount.get(account.id)?.lastEntry?.date,
+        lastSaleDate: lastActivityByAccount.get(account.id)?.lastSale?.date,
+      })),
+    [
+      paginatedAccounts,
+      computedBalances,
+      receivables,
+      owners,
+      programs,
+      allAlerts,
+      lastActivityByAccount,
+    ],
+  );
+
+  // Totais do rodapé: lista filtrada inteira (não só a página)
+  const footerTotals = useMemo(() => {
+    let saldo = 0;
+    let investido = 0;
+    let receber = 0;
+    for (const a of filteredAccounts) {
+      saldo += computedBalances.get(a.id) ?? a.balance;
+      investido += a.totalInvested ?? 0;
+      receber += receivables.get(a.id) ?? 0;
+    }
+    return { count: filteredAccounts.length, saldo, investido, receber };
+  }, [filteredAccounts, computedBalances, receivables]);
+
+  // Faixa-resumo: mesmos valores do antigo AccountsSummary (todas as contas)
+  const summaryStrip = useMemo(() => {
+    const active = accounts.filter((a) => a.status === "ativa").length;
+    let pontos = 0;
+    let milhas = 0;
+    for (const a of accounts) {
+      const bal = computedBalances.get(a.id) ?? a.balance;
+      if (a.type === "pontos") pontos += bal;
+      else milhas += bal;
+    }
+    return { active, total: accounts.length, pontos, milhas };
+  }, [accounts, computedBalances]);
 
   const toggleAccountStatus = (id: string) => {
     const account = accounts.find((a) => a.id === id);
@@ -169,7 +291,10 @@ export default function Contas() {
             variant={filterType === t ? "default" : "outline"}
             size="sm"
             className="min-h-[44px]"
-            onClick={() => setFilterType(t)}
+            onClick={() => {
+              setFilterType(t);
+              setCurrentPage(1);
+            }}
           >
             {t === "todas" ? "Todas" : t === "pontos" ? "Pontos" : "Milhas"}
           </Button>
@@ -185,7 +310,7 @@ export default function Contas() {
         />
       </div>
 
-      {/* Accounts Grid */}
+      {/* Accounts Table (desktop) + Cards (mobile) */}
       {filteredAccounts.length === 0 ? (
         <EmptyState
           icon={Building2}
@@ -198,30 +323,49 @@ export default function Contas() {
           action={{ label: "Nova Conta", onClick: () => setIsCreateDialogOpen(true) }}
         />
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {paginatedAccounts.map((account) => (
-            <AccountCard
-              key={account.id}
-              account={account}
-              computedBalance={computedBalances.get(account.id) ?? account.balance}
-              ownerName={ownerName(account.ownerId)}
-              ownerColor={ownerColor(account.ownerId)}
-              programName={programName(account.programId)}
-              unreadCount={unreadCount(account.id)}
-              lastEntryDate={lastActivityByAccount.get(account.id)?.lastEntry?.date}
-              lastSaleDate={lastActivityByAccount.get(account.id)?.lastSale?.date}
+        <>
+          <div className="hidden md:block">
+            <AccountsTable
+              rows={tableRows}
+              sort={sort}
+              onSort={setSort}
+              totals={footerTotals}
               recalcPending={recalcAccountM.isPending}
-              onToggleStatus={() => toggleAccountStatus(account.id)}
-              onEdit={() => {
+              onToggleStatus={toggleAccountStatus}
+              onEdit={(account) => {
                 setEditAccount(account);
                 setIsEditDialogOpen(true);
               }}
-              onRecalc={() => recalcAccountM.mutate(account.id)}
-              onDelete={() => deleteAccountM.mutate(account.id)}
-              onOpenAlerts={() => setAlertsAccount(account)}
+              onRecalc={(id) => recalcAccountM.mutate(id)}
+              onDelete={(id) => deleteAccountM.mutate(id)}
+              onOpenAlerts={(account) => setAlertsAccount(account)}
             />
-          ))}
-        </div>
+          </div>
+          <div className="grid gap-6 md:hidden">
+            {paginatedAccounts.map((account) => (
+              <AccountCard
+                key={account.id}
+                account={account}
+                computedBalance={computedBalances.get(account.id) ?? account.balance}
+                ownerName={ownerName(account.ownerId)}
+                ownerColor={ownerColor(account.ownerId)}
+                programName={programName(account.programId)}
+                unreadCount={unreadCount(account.id)}
+                lastEntryDate={lastActivityByAccount.get(account.id)?.lastEntry?.date}
+                lastSaleDate={lastActivityByAccount.get(account.id)?.lastSale?.date}
+                recalcPending={recalcAccountM.isPending}
+                onToggleStatus={() => toggleAccountStatus(account.id)}
+                onEdit={() => {
+                  setEditAccount(account);
+                  setIsEditDialogOpen(true);
+                }}
+                onRecalc={() => recalcAccountM.mutate(account.id)}
+                onDelete={() => deleteAccountM.mutate(account.id)}
+                onOpenAlerts={() => setAlertsAccount(account)}
+              />
+            ))}
+          </div>
+        </>
       )}
 
       {filteredAccounts.length > ITEMS_PER_PAGE && (
@@ -239,8 +383,27 @@ export default function Contas() {
         </div>
       )}
 
-      {/* Summary Card */}
-      <AccountsSummary accounts={accounts} computedBalances={computedBalances} />
+      {/* Faixa-resumo (substitui o AccountsSummary de 4 cards) */}
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
+        <span>
+          <strong className="text-foreground tabular-nums">
+            {summaryStrip.active}/{summaryStrip.total}
+          </strong>{" "}
+          ativas
+        </span>
+        <span>
+          Total pontos:{" "}
+          <strong className="text-foreground tabular-nums">
+            {summaryStrip.pontos.toLocaleString("pt-BR")}
+          </strong>
+        </span>
+        <span>
+          Total milhas:{" "}
+          <strong className="text-foreground tabular-nums">
+            {summaryStrip.milhas.toLocaleString("pt-BR")}
+          </strong>
+        </span>
+      </div>
 
       {alertsAccount && (
         <AccountAlertsDialog

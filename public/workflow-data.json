@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-06T13:57:57.057Z",
+  "generatedAt": "2026-09-06T15:36:17.970Z",
   "dataDate": "2026-09-06",
   "kpiStats": [
     {
-      "value": 469,
+      "value": 476,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 561,
+      "value": 567,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,17 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 315,
+      "value": 319,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 31,
+      "value": 32,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 41,
+      "value": 42,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 159,
+      "n": 163,
       "color": "#8b5cf6"
     },
     {
@@ -51,17 +51,17 @@
     },
     {
       "name": "healed",
-      "n": 31,
+      "n": 32,
       "color": "#10b981"
     },
     {
       "name": "code-review:done",
-      "n": 42,
+      "n": 43,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 39,
+      "n": 40,
       "color": "#22c55e"
     },
     {
@@ -73,68 +73,68 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 222,
+      "n": 223,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 168,
+      "n": 167,
       "color": "#84cc16"
     },
     {
       "name": "abaixo de 80%",
-      "n": 14,
+      "n": 8,
       "color": "#ef4444"
     }
   ],
   "recentTimeline": [
     {
+      "t": "2026-09-06 15:36:14",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-06 15:35:29",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-06 15:34:47",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-06 15:34:04",
+      "d": "healed",
+      "desc": "rule-17-new-docs-valid auto-corrigido"
+    },
+    {
+      "t": "2026-09-06 15:32:05",
+      "d": "code-review:done",
+      "desc": "Review aprovado por subagente"
+    },
+    {
+      "t": "2026-09-06 15:27:14",
+      "d": "coding:done",
+      "desc": "Codificação contas-tabela por subagente"
+    },
+    {
+      "t": "2026-09-06 13:58:28",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
       "t": "2026-09-06 13:57:53",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-06 13:56:28",
-      "d": "code-review:done",
-      "desc": "Review aprovado por subagente"
-    },
-    {
-      "t": "2026-09-06 13:54:25",
-      "d": "coding:done",
-      "desc": "Campo Data no SaleForm + payload create/update"
-    },
-    {
-      "t": "2026-09-06 12:08:34",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-06 12:08:15",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-06 12:04:19",
-      "d": "code-review:done",
-      "desc": "Review aprovado por subagente"
-    },
-    {
-      "t": "2026-09-06 11:59:10",
-      "d": "coding:done",
-      "desc": "Cobranca respeita filtros + remove export morto"
-    },
-    {
-      "t": "2026-09-06 05:04:36",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 186,
-    "healed": 31,
-    "healedRate": 16.7,
-    "prePrTotal": 159,
-    "prePrPass": 159,
+    "healed": 32,
+    "healedRate": 17.2,
+    "prePrTotal": 163,
+    "prePrPass": 163,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
@@ -166,6 +166,15 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 551,
+      "title": "feat(vendas) — campo Data no formulário de venda",
+      "type": "feat",
+      "date": "2026-09-06",
+      "tokens": 465,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 550,
       "title": "fix(relatorios) — Cobrança respeita filtros da página",
@@ -201,26 +210,17 @@
       "tokens": 26,
       "benefit": "Ajuste de processo validado",
       "impact": "Processo mais confiável e audável"
-    },
-    {
-      "number": 546,
-      "title": "feat(vendas) — botão Devolver saldo para o crédito",
-      "type": "feat",
-      "date": "2026-09-06",
-      "tokens": 759,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "overview": {
-    "components": 141,
+    "components": 144,
     "pages": 18,
-    "libs": 41,
+    "libs": 42,
     "scripts": 122,
-    "testFiles": 315,
+    "testFiles": 319,
     "skills": 27,
     "rules": 48,
-    "events": 469,
-    "qualityNotes": 561
+    "events": 476,
+    "qualityNotes": 567
   }
 }
