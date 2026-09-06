@@ -2,7 +2,7 @@ import { supabase, calcProportionalCost, calcAccountUpdate, toQueryError } from 
 import { calcProfit, calcProfitMargin } from "@/lib/metrics";
 import { mapClientCredit } from "@/hooks/useDatabase/mappers";
 import { planReceipt, calcCreditBalance, CREDIT_EPSILON } from "@/lib/clientCredits";
-import { validateSaleKind } from "@/lib/saleKind";
+import { validateSaleKind, kindInputForAdd } from "@/lib/saleKind";
 import type { Sale, VendasBuilder } from "./shared";
 
 export const addVendaEndpoint = (builder: VendasBuilder) => ({
@@ -14,17 +14,7 @@ export const addVendaEndpoint = (builder: VendasBuilder) => ({
 
       // Discriminador milhas|servico — rejeita payload misto antes de escrever.
       const kind = sale.kind ?? "milhas";
-      const kindErrors = validateSaleKind({
-        kind,
-        milesUsed: Number(sale.milesUsed ?? 0),
-        accountId: sale.accountId ?? null,
-        saleValue: Number(sale.saleValue),
-        clientId: sale.clientId,
-        serviceType: sale.serviceType ?? null,
-        pricePerMile: sale.pricePerMile ?? null,
-        observations: sale.observations ?? null,
-        additionalCosts: sale.additionalCosts ?? null,
-      });
+      const kindErrors = validateSaleKind(kindInputForAdd(sale));
       if (kindErrors.length > 0) return { error: toQueryError({ message: kindErrors[0] }) };
 
       const costs = Array.isArray(sale.additionalCosts) ? sale.additionalCosts : [];

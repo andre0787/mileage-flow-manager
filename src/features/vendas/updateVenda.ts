@@ -1,7 +1,7 @@
 import { supabase, calcProportionalCost, calcAccountUpdate, toQueryError } from "./shared";
-import { calcProfit, calcProfitMargin } from "@/lib/metrics";
-import { validateSaleKind } from "@/lib/saleKind";
-import type { Sale, VendaUpdate, VendaMutationInput, VendasBuilder } from "./shared";
+import { validateEffectiveKind } from "@/lib/saleKind";
+import { buildVendaUpdate } from "./buildVendaUpdate";
+import type { Sale, VendaMutationInput, VendasBuilder } from "./shared";
 
 export const updateVendaEndpoint = (builder: VendasBuilder) => ({
   updateVenda: builder.mutation<null, VendaMutationInput>({
@@ -22,102 +22,12 @@ export const updateVendaEndpoint = (builder: VendasBuilder) => ({
       if (data.kind !== undefined && data.kind !== oldKind)
         return { error: toQueryError({ message: "Tipo da venda não pode ser alterado." }) };
 
-      // Revalida o estado EFETIVO (banco + patch) — sem isso o update
-      // corromperia invariantes (serviço ganhando miles/conta, milhas
-      // ganhando serviceType/observations). Mesma regra do addVenda.
-      const oldCostsRawEff = (oldSale as { additional_costs?: unknown }).additional_costs;
-      const kindEffErrors = validateSaleKind({
-        kind: (oldKind === "servico" ? "servico" : "milhas") as "milhas" | "servico",
-        milesUsed: Number(data.milesUsed ?? oldSale.miles_used ?? 0),
-        accountId: (data.accountId ?? oldSale.account_id ?? null) as string | null,
-        saleValue: Number(data.saleValue ?? oldSale.sale_value ?? 0),
-        clientId: (data.clientId ?? oldSale.client_id ?? null) as string | null,
-        serviceType: (data.serviceType ?? oldSale.service_type ?? null) as
-          | "consultoria"
-          | "taxa"
-          | "outro"
-          | null,
-        pricePerMile: (data.pricePerMile ?? oldSale.price_per_mile ?? null) as number | null,
-        observations: (data.observations ?? oldSale.observations ?? null) as string | null,
-        additionalCosts: (data.additionalCosts ??
-          (Array.isArray(oldCostsRawEff) ? oldCostsRawEff : null)) as
-          | { desc: string; amount: number }[]
-          | null,
-      });
-      if (kindEffErrors.length > 0)
-        return { error: toQueryError({ message: kindEffErrors[0] }) };
+      // Revalida o estado EFETIVO (banco + patch) — mesma regra do addVenda.
+      const kindEffErrors = validateEffectiveKind(oldSale, data);
+      if (kindEffErrors.length > 0) return { error: toQueryError({ message: kindEffErrors[0] }) };
 
-      // 2. Build update data (snake_case)
-      const updateData: VendaUpdate = {};
-      if (data.accountId !== undefined) updateData.account_id = data.accountId;
-      if (data.accountName !== undefined) updateData.account_name = data.accountName;
-      if (data.ownerName !== undefined) updateData.owner_name = data.ownerName;
-      if (data.program !== undefined) updateData.program = data.program;
-      if (data.clientId !== undefined) updateData.client_id = data.clientId;
-      if (data.clientName !== undefined) updateData.client_name = data.clientName;
-      if (data.milesUsed !== undefined) updateData.miles_used = data.milesUsed;
-      if (data.saleValue !== undefined) updateData.sale_value = data.saleValue;
-      if (data.pricePerMile !== undefined) updateData.price_per_mile = data.pricePerMile;
-      if (data.costPerMile !== undefined) updateData.cost_per_mile = data.costPerMile;
-      if (data.additionalCost !== undefined) updateData.additional_cost = data.additionalCost;
-      if (data.additionalCostDesc !== undefined)
-        updateData.additional_cost_desc = data.additionalCostDesc;
-      if (data.additionalCosts !== undefined) {
-        const costs = Array.isArray(data.additionalCosts) ? data.additionalCosts : [];
-        const sum = costs.reduce((s, c) => s + (Number(c.amount) || 0), 0);
-        (updateData as Record<string, unknown>).additional_costs = costs;
-        updateData.additional_cost = sum;
-        updateData.additional_cost_desc = costs
-          .map((c) => `${c.desc || "Custo"}: ${c.amount}`)
-          .join("; ");
-      }
-      const effectiveSaleValue = data.saleValue ?? Number(oldSale.sale_value);
-      if (data.amountReceived !== undefined) {
-        (updateData as Record<string, unknown>).amount_received = Math.min(
-          Math.max(Number(data.amountReceived ?? 0), 0),
-          effectiveSaleValue,
-        );
-      } else if (data.saleValue !== undefined) {
-        const oldReceived = Number((oldSale as { amount_received?: unknown }).amount_received ?? 0);
-        (updateData as Record<string, unknown>).amount_received = Math.min(
-          Math.max(oldReceived, 0),
-          effectiveSaleValue,
-        );
-      }
-      // Lucro recalculado server-side — ignora valores do client (anti-forgery).
-      const effMiles = data.milesUsed ?? Number(oldSale.miles_used);
-      const effCostPerMile = data.costPerMile ?? Number(oldSale.cost_per_mile);
-      const oldCostsRaw = (oldSale as { additional_costs?: unknown }).additional_costs;
-      const oldCostsSum = Array.isArray(oldCostsRaw)
-        ? oldCostsRaw.reduce(
-            (s: number, c: unknown) => s + (Number((c as { amount?: unknown }).amount ?? 0) || 0),
-            0,
-          )
-        : Number(oldSale.additional_cost ?? 0);
-      const effCostsSum =
-        data.additionalCosts !== undefined
-          ? (Array.isArray(data.additionalCosts) ? data.additionalCosts : []).reduce(
-              (s, c) => s + (Number(c.amount) || 0),
-              0,
-            )
-          : (data.additionalCost ?? oldCostsSum);
-      const serverProfit = calcProfit(
-        Number(effectiveSaleValue),
-        Number(effMiles),
-        Number(effCostPerMile),
-        Number(effCostsSum),
-      );
-      updateData.profit = serverProfit;
-      updateData.profit_margin = calcProfitMargin(serverProfit, Number(effectiveSaleValue));
-      if (data.status !== undefined) updateData.status = data.status as VendaUpdate["status"];
-      if (data.serviceType !== undefined)
-        (updateData as Record<string, unknown>).service_type = data.serviceType ?? null;
-      if (data.observations !== undefined)
-        (updateData as Record<string, unknown>).observations =
-          (data.observations ?? "").trim() || null;
-      if (data.ticketLocator !== undefined) updateData.ticket_locator = data.ticketLocator;
-      if (data.passengers !== undefined) updateData.passengers = data.passengers;
-      if (data.date !== undefined) updateData.date = data.date;
+      // 2. Payload snake_case + lucro server-side (extraído p/ rule-41).
+      const updateData = buildVendaUpdate(oldSale, data);
 
       // 3. Compute old vs new
       const oldMiles = Number(oldSale.miles_used);

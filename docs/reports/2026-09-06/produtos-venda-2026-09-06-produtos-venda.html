@@ -167,12 +167,12 @@
     <section class="slide" id="s1">
       <div class="hero">
         <div class="hero-top">
-          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">produtos-venda</span> <span class="badge risk" style="color:#f87171">Alto risco</span> <span class="badge health amber" style="color:#fbbf24">● Sob atenção</span></div>
-          <div class="hero-date">2026-09-06 · 22:32 · <span class="mono">feat/produtos-venda</span></div>
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">produtos-venda</span> <span class="badge risk" style="color:#f87171">Alto risco</span> <span class="badge health red" style="color:#f87171">● Precisa atenção</span></div>
+          <div class="hero-date">2026-09-06 · 22:44 · <span class="mono">feat/produtos-venda</span></div>
         </div>
         <h1>produtos venda</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">61e6d44 — docs: veredito council + spec/plano venda-servico</div>
+        <div class="hero-meta mono">19a66e7 — feat(vendas): venda standalone de serviço (sale_kind, observações, KPIs isolados)</div>
       </div>
       
     <div class="kpi-grid">
@@ -187,12 +187,12 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/12</div>
+        <div class="kpi-value">0/13</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
-        <div class="kpi-sub">11 violações · 1 auto-corrigidas</div>
+        <div class="kpi-sub">13 violações · 1 auto-corrigidas</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value green">80</div>
+        <div class="kpi-value green">83</div>
         <div class="kpi-label">outcome grade</div>
         <div class="kpi-sub">alto risco da mudança</div>
       </div>
@@ -208,7 +208,7 @@
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Riscos & trade-offs</div>
-          <p>Alto risco de mudança · outcome grade = 80 · lead time —.</p>
+          <p>Alto risco de mudança · outcome grade = 83 · lead time —.</p>
         </div>
       </div>
     </section><section class="slide" id="s2">
@@ -251,7 +251,7 @@
       <td>produtos venda</td>
       <td>Nova capacidade entregue e validada para o produto.</td>
       <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
-      <td><code>~1958</code></td>
+      <td><code>~2191</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.172 tokens (feature) · status pesado — tracking</p>
@@ -287,8 +287,8 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">12</span><span class="stat-l">rodadas de validação pré-PR</span></div>
-            <div class="stat"><span class="stat-v">11</span><span class="stat-l">violações de regra encontradas</span></div>
+            <div class="stat"><span class="stat-v">13</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">13</span><span class="stat-l">violações de regra encontradas</span></div>
             <div class="stat"><span class="stat-v green">1</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
           </div>
@@ -316,7 +316,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 313 remoções — 2611 linhas tocadas</td><td>✨ 1939 adições — 21 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 318 remoções — 2921 linhas tocadas</td><td>✨ 2198 adições — 24 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -324,23 +324,23 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>21</td></tr>
-            <tr><td>Adições</td><td>+1939</td></tr>
-            <tr><td>Remoções</td><td>-313</td></tr>
-            <tr><td>Tokens estimados</td><td>~1958</td></tr>
+            <tr><td>Arquivos alterados</td><td>24</td></tr>
+            <tr><td>Adições</td><td>+2198</td></tr>
+            <tr><td>Remoções</td><td>-318</td></tr>
+            <tr><td>Tokens estimados</td><td>~2191</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:74">+1454 add</div>
-        <div class="del" style="flex:12">-235 del</div>
-        <div class="overhead" style="flex:14">~269 ctx</div>
+        <div class="add" style="flex:75">+1649 add</div>
+        <div class="del" style="flex:11">-239 del</div>
+        <div class="overhead" style="flex:14">~303 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+1454</td><td>74%</td></tr>
-      <tr><td>Remoções</td><td>-235</td><td>12%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~269</td><td>14%</td></tr>
-      <tr><th>Total</th><th>~1958</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+1649</td><td>75%</td></tr>
+      <tr><td>Remoções</td><td>-239</td><td>11%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~303</td><td>14%</td></tr>
+      <tr><th>Total</th><th>~2191</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
@@ -349,31 +349,35 @@
             <tr><th>Status</th><th>Arquivo</th><th>+/-</th></tr>
             <tr><td>M</td><td>docs/MAP.md</td><td class="mono"><span class="ns-add">+2</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>A</td><td>docs/council/2026-09-06-produtos-veredito.md</td><td class="mono"><span class="ns-add">+16</span> <span class="ns-del">−0</span></td></tr>
-<tr><td>A</td><td>docs/reports/2026-09-06/produtos-venda-2026-09-06-produtos-venda.html</td><td class="mono"><span class="ns-add">+453</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-06/produtos-venda-2026-09-06-produtos-venda.html</td><td class="mono"><span class="ns-add">+583</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>A</td><td>docs/superpowers/plans/venda-servico.md</td><td class="mono"><span class="ns-add">+364</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>A</td><td>docs/superpowers/specs/venda-servico.md</td><td class="mono"><span class="ns-add">+129</span> <span class="ns-del">−0</span></td></tr>
-<tr><td>M</td><td>docs/tracking/events.jsonl</td><td class="mono"><span class="ns-add">+17</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td><td class="mono"><span class="ns-add">+23</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td><td class="mono"><span class="ns-add">+6</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>M</td><td>src/components/SaleForm.tsx</td><td class="mono"><span class="ns-add">+397</span> <span class="ns-del">−279</span></td></tr>
 <tr><td>M</td><td>src/components/sales/SaleMobileCard.tsx</td><td class="mono"><span class="ns-add">+23</span> <span class="ns-del">−5</span></td></tr>
 <tr><td>M</td><td>src/components/sales/SaleTableRow.tsx</td><td class="mono"><span class="ns-add">+15</span> <span class="ns-del">−2</span></td></tr>
 <tr><td>M</td><td>src/features/vendas/addVenda.ts</td><td class="mono"><span class="ns-add">+20</span> <span class="ns-del">−1</span></td></tr>
-<tr><td>M</td><td>src/features/vendas/updateVenda.ts</td><td class="mono"><span class="ns-add">+11</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/features/vendas/updateVenda.ts</td><td class="mono"><span class="ns-add">+37</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>M</td><td>src/hooks/useDatabase/mappers.ts</td><td class="mono"><span class="ns-add">+7</span> <span class="ns-del">−0</span></td></tr>
-<tr><td>M</td><td>src/lib/metrics.ts</td><td class="mono"><span class="ns-add">+26</span> <span class="ns-del">−5</span></td></tr>
+<tr><td>M</td><td>src/lib/businessSeries.ts</td><td class="mono"><span class="ns-add">+7</span> <span class="ns-del">−1</span></td></tr>
+<tr><td>M</td><td>src/lib/metrics.ts</td><td class="mono"><span class="ns-add">+29</span> <span class="ns-del">−6</span></td></tr>
 <tr><td>A</td><td>src/lib/saleKind.ts</td><td class="mono"><span class="ns-add">+44</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>M</td><td>src/pages/Vendas.tsx</td><td class="mono"><span class="ns-add">+80</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>M</td><td>src/types/index.ts</td><td class="mono"><span class="ns-add">+9</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>A</td><td>supabase/migrations/20260906000000_venda_servico.sql</td><td class="mono"><span class="ns-add">+15</span> <span class="ns-del">−0</span></td></tr>
-<tr><td>M</td><td>tests/unit/features-vendas-api.test.ts</td><td class="mono"><span class="ns-add">+110</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>tests/unit/businessSeries.test.ts</td><td class="mono"><span class="ns-add">+19</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>tests/unit/features-vendas-api.test.ts</td><td class="mono"><span class="ns-add">+169</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>A</td><td>tests/unit/mappers-servico.test.ts</td><td class="mono"><span class="ns-add">+48</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>A</td><td>tests/unit/metrics-servico.test.ts</td><td class="mono"><span class="ns-add">+61</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>A</td><td>tests/unit/saleKind.test.ts</td><td class="mono"><span class="ns-add">+71</span> <span class="ns-del">−0</span></td></tr>
           </table>
         </div>
         <div class="ap-card">
-          <h3>🔖 Commits da sessão (9)</h3>
+          <h3>🔖 Commits da sessão (10)</h3>
           <ul class="commit-list">
-            <li><code>61e6d44</code> docs: veredito council + spec/plano venda-servico</li>
+            <li><code>19a66e7</code> feat(vendas): venda standalone de serviço (sale_kind, observações, KPIs isolados)</li>
+<li><code>61e6d44</code> docs: veredito council + spec/plano venda-servico</li>
 <li><code>0cf1364</code> feat(vendas): badge Servico + CSV com tipo/observacoes</li>
 <li><code>48a609a</code> feat(vendas): modo Servico no SaleForm</li>
 <li><code>669769b</code> feat(vendas): KPIs de milhagem excluem servico</li>
@@ -390,7 +394,7 @@
             <tr><th>Métrica</th><th>Valor</th></tr>
             <tr><td>Cobertura libs (rule-31)</td><td>sem registro hoje</td></tr>
             <tr><td>Cobertura componentes (rule-32)</td><td>sem registro hoje</td></tr>
-            <tr><td>Outcome grade (rule-30)</td><td>80</td></tr>
+            <tr><td>Outcome grade (rule-30)</td><td>83</td></tr>
           </table>
         </div>
       </div>
@@ -430,10 +434,10 @@ index 0000000..09c7cc4
 <span class="add">+**Extended Thinking Usado:** não — as 5 análises já convergem em profundidade e a lacuna restante (repasse vs. markup) é empírica, só o usuário resolve; o risco residual foi convertido nas travas acima.</span>
 diff --git a/docs/reports/2026-09-06/produtos-venda-2026-09-06-produtos-venda.html b/docs/reports/2026-09-06/produtos-venda-2026-09-06-produtos-venda.html
 new file mode 100644
-index 0000000..075ccb5
+index 0000000..48c8334
 <span class="del">--- /dev/null</span>
 <span class="add">+++ b/docs/reports/2026-09-06/produtos-venda-2026-09-06-produtos-venda.html</span>
-@@ -0,0 +1,453 @@
+@@ -0,0 +1,583 @@
 <span class="add">+&lt;!DOCTYPE html&gt;</span>
 <span class="add">+&lt;html lang=&quot;pt-BR&quot;&gt;</span>
 <span class="add">+&lt;head&gt;</span>
@@ -520,7 +524,7 @@ index 0000000..075ccb5
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-09-06 22:32
+      Gerado por scripts/generate-report.mjs · 2026-09-06 22:44
     </div>
   </div>
 

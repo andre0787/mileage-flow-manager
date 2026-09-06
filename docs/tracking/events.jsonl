@@ -450,3 +450,7 @@
 {"timestamp":"2026-09-06T01:32:09.442Z","type":"rule:fail","description":"rule-41-optimizer falhou","branch":"feat/produtos-venda","commit":"61e6d44","agent":"pi","rule":"rule-41-optimizer"}
 {"timestamp":"2026-09-06T01:32:09.476Z","type":"rule:fail","description":"rule-43-migration-gate falhou","branch":"feat/produtos-venda","commit":"61e6d44","agent":"pi","rule":"rule-43-migration-gate"}
 {"timestamp":"2026-09-06T01:33:07.698Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/produtos-venda","commit":"61e6d44","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T01:33:15.573Z","type":"rule:fail","description":"rule-41-optimizer falhou","branch":"feat/produtos-venda","commit":"19a66e7","agent":"pi","rule":"rule-41-optimizer"}
+{"timestamp":"2026-09-06T01:33:15.608Z","type":"rule:fail","description":"rule-43-migration-gate falhou","branch":"feat/produtos-venda","commit":"19a66e7","agent":"pi","rule":"rule-43-migration-gate"}
+{"timestamp":"2026-09-06T01:44:43.128Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/produtos-venda","commit":"19a66e7","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T01:45:26.087Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/produtos-venda","commit":"19a66e7","agent":"pi","errors":0}

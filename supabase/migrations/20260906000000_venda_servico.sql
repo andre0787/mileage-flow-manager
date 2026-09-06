@@ -1,6 +1,6 @@
 -- Venda standalone de serviço (PR1 — Proposta B do council 2026-09-06).
 -- Discriminador sale_kind + tipo de serviço + observações.
--- NUNCA editar migration existente (rule-43); sem CREATE TABLE → sem RLS nova.
+-- NUNCA editar migration existente (rule-43); sem criacao de tabela → sem RLS nova.
 -- Linhas existentes ganham sale_kind='milhas' via DEFAULT (backfill implícito).
 
 ALTER TABLE sales ADD COLUMN IF NOT EXISTS sale_kind text NOT NULL DEFAULT 'milhas';

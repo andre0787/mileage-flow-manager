@@ -12,6 +12,7 @@ import type {
 } from "@/types";
 import { parseDescription } from "@/types";
 import type { Database } from "@/lib/supabase-types";
+import { parseSaleCosts } from "@/lib/saleCosts";
 
 export function mapOwner(row: Database["public"]["Tables"]["owners"]["Row"]): Owner {
   return {
@@ -115,11 +116,7 @@ export function mapClientCredit(
 }
 
 export function mapSale(row: Database["public"]["Tables"]["sales"]["Row"]): Sale {
-  const costs = Array.isArray((row as { additional_costs?: unknown }).additional_costs)
-    ? ((row as { additional_costs?: { desc?: string; amount?: number }[] }).additional_costs ?? [])
-        .filter((c) => c && typeof c.amount === "number")
-        .map((c) => ({ desc: c.desc ?? "", amount: Number(c.amount) }))
-    : [];
+  const costs = parseSaleCosts((row as { additional_costs?: unknown }).additional_costs);
   const received = Number((row as { amount_received?: unknown }).amount_received ?? 0);
   return {
     id: row.id,
