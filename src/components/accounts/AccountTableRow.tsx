@@ -1,4 +1,5 @@
 import { AlertTriangle } from "lucide-react";
+import { ownerColor, ownerColorSoft } from "@/lib/ownerColors";
 import { Badge } from "@/components/ui/badge";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { AccountActions } from "@/components/accounts/AccountActions";
@@ -11,6 +12,8 @@ export interface AccountTableRowProps {
   computedBalance: number;
   receivable: number;
   ownerName: string;
+  /** Hex custom do dono (owners.color) — null usa fallback por hash. */
+  ownerColorHex?: string | null;
   programName: string;
   unreadCount: number;
   lastEntryDate?: string;
@@ -32,6 +35,7 @@ export function AccountTableRow({
   computedBalance,
   receivable,
   ownerName,
+  ownerColorHex = null,
   programName,
   unreadCount,
   lastEntryDate,
@@ -58,7 +62,21 @@ export function AccountTableRow({
       >
         <TableCell className="font-medium">{account.name}</TableCell>
         <TableCell className="text-muted-foreground">{programName}</TableCell>
-        <TableCell>{ownerName}</TableCell>
+        <TableCell>
+          <span
+            className="inline-flex items-center gap-1.5 rounded-full px-1.5 py-0.5 text-xs font-semibold"
+            style={{
+              backgroundColor: ownerColorSoft(ownerName, ownerColorHex),
+              color: ownerColor(ownerName, ownerColorHex),
+            }}
+          >
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ backgroundColor: ownerColor(ownerName, ownerColorHex) }}
+            />
+            {ownerName}
+          </span>
+        </TableCell>
         <TableCell className={NUM}>
           <span className="inline-flex items-center gap-1 font-semibold">
             {mismatch && (

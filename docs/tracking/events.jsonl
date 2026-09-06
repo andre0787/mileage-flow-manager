@@ -479,3 +479,10 @@
 {"timestamp":"2026-09-06T17:25:59.115Z","type":"healed","description":"rule-17-new-docs-valid auto-corrigido","branch":"feat/pipeline-operacao","commit":"1d1efbd","agent":"pi","rule":"rule-17-new-docs-valid"}
 {"timestamp":"2026-09-06T17:26:40.222Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/pipeline-operacao","commit":"1d1efbd","agent":"pi","errors":0}
 {"timestamp":"2026-09-06T17:26:50.223Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/pipeline-operacao","commit":"1d1efbd","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T20:21:57.373Z","type":"coding:done","description":"Codificação F3+P2s por subagente","branch":"feat/telemetria-f3-p2","commit":"7486746","agent":"pi","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-09-06T20:36:02.055Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"feat/telemetria-f3-p2","commit":"7486746","agent":"pi","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-09-06T20:36:06.318Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"feat/telemetria-f3-p2","commit":"7486746","agent":"pi","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-09-06T20:36:16.772Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"feat/telemetria-f3-p2","commit":"7486746","agent":"pi","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-09-06T20:36:22.385Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"feat/telemetria-f3-p2","commit":"7486746","agent":"pi","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-09-06T20:37:48.428Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetria-f3-p2","commit":"7486746","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T20:38:07.775Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetria-f3-p2","commit":"7486746","agent":"pi","errors":0}

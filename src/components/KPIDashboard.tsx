@@ -7,6 +7,7 @@ import { LiveChips } from "./KPIDashboardLiveChips";
 import { BusinessPanel } from "./kpi/BusinessPanel";
 import { BusinessBreakdown } from "./kpi/BusinessBreakdown";
 import { ProcessDailySection } from "./kpi/ProcessDailySection";
+import { ProcessInsights } from "./kpi/ProcessInsights";
 import { ProcessAlerts } from "./kpi/ProcessAlerts";
 import { MonthlySection } from "./kpi/MonthlySection";
 import { PrsPanel } from "./kpi/PrsPanel";
@@ -84,6 +85,8 @@ export default function KPIDashboard({ data }: { data: KpiData }) {
       )}
 
       <ProcessDailySection daily={data.daily} />
+
+      <ProcessInsights daily={data.daily} months={data.months} aiCosts={data.telemetry} />
 
       <PrsPanel prs={data.prs} />
 

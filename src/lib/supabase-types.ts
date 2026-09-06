@@ -262,6 +262,7 @@ export interface Database {
           ticket_locator: string;
           passengers: { name: string; passengerId: string; cpf: string; clientId?: string }[];
           date: string;
+          due_date: string | null;
         };
         Insert: {
           id?: string;
@@ -316,6 +317,7 @@ export interface Database {
           ticket_locator?: string;
           passengers?: { name: string; passengerId: string; cpf: string; clientId?: string }[];
           date?: string;
+          due_date?: string | null;
         };
         Relationships: [];
       };
@@ -348,6 +350,33 @@ export interface Database {
           kind?: "earn" | "spend" | "reversal";
           reversal_of?: "earn" | "spend" | null;
           amount?: number;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      sale_status_history: {
+        Row: {
+          id: string;
+          user_id: string;
+          sale_id: string;
+          from_status: string;
+          to_status: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          sale_id: string;
+          from_status: string;
+          to_status: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          sale_id?: string;
+          from_status?: string;
+          to_status?: string;
           created_at?: string;
         };
         Relationships: [];

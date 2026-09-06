@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { useWorkflowData } from "@/lib/workflowData";
+import { isIllustrativeData, useWorkflowData } from "@/lib/workflowData";
+import { IllustrativeBadge, WorkflowEmptyState } from "@/components/workflow/WorkflowEmptyState";
 
 function BarRow({ name, n, color, max }: { name: string; n: number; color: string; max: number }) {
   const [visible, setVisible] = useState(false);
@@ -95,6 +96,7 @@ function TimelineRow({ t, d, desc }: { t: string; d: string; desc: string }) {
 export function WorkflowTelemetry() {
   const data = useWorkflowData();
   const { kpiStats, eventTypes, grades, recentTimeline, dataDate } = data;
+  const illustrative = isIllustrativeData(data.generatedAt);
   const maxEvents = Math.max(...eventTypes.map((e) => e.n), 1);
   const maxGrade = Math.max(...grades.map((g) => g.n), 1);
 
@@ -103,9 +105,12 @@ export function WorkflowTelemetry() {
       <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
         A telemetria
       </span>
-      <h2 className="text-xl font-bold text-foreground font-display md:text-2xl">
-        Números reais do sistema
-      </h2>
+      <div className="flex flex-wrap items-center gap-2">
+        <h2 className="text-xl font-bold text-foreground font-display md:text-2xl">
+          Números reais do sistema
+        </h2>
+        {illustrative && <IllustrativeBadge />}
+      </div>
       <p className="text-sm text-muted-foreground max-w-3xl">
         Tudo o que acontece vira um registro em{" "}
         <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
@@ -116,36 +121,66 @@ export function WorkflowTelemetry() {
         dias):
       </p>
 
-      <div className="grid grid-cols-2 gap-3">
-        {kpiStats.map((s) => (
-          <CounterStat key={s.label} value={s.value} label={s.label} sub={s.sub} />
-        ))}
-      </div>
+      {kpiStats.length > 0 ? (
+        <div className="grid grid-cols-2 gap-3">
+          {kpiStats.map((s) => (
+            <CounterStat key={s.label} value={s.value} label={s.label} sub={s.sub} />
+          ))}
+        </div>
+      ) : (
+        <WorkflowEmptyState
+          title="Sem contadores ainda"
+          message="Os contadores do sistema aparecem aqui após a primeira coleta de telemetria."
+          actionCommand="npm run data:refresh"
+        />
+      )}
 
       <h3 className="pt-4 text-[17px] font-bold text-foreground">📊 Eventos por tipo</h3>
-      <div className="space-y-2">
-        {eventTypes.map((e) => (
-          <BarRow key={e.name} name={e.name} n={e.n} color={e.color} max={maxEvents} />
-        ))}
-      </div>
+      {eventTypes.length > 0 ? (
+        <div className="space-y-2">
+          {eventTypes.map((e) => (
+            <BarRow key={e.name} name={e.name} n={e.n} color={e.color} max={maxEvents} />
+          ))}
+        </div>
+      ) : (
+        <WorkflowEmptyState
+          title="Nenhum evento registrado"
+          message="Os eventos começam a aparecer após a primeira sessão instrumentada (session:start já registra)."
+        />
+      )}
 
       <h3 className="pt-4 text-[17px] font-bold text-foreground">
         🏆 Nota de qualidade (outcome grade)
       </h3>
-      <div className="space-y-2">
-        {grades.map((g) => (
-          <BarRow key={g.name} name={g.name} n={g.n} color={g.color} max={maxGrade} />
-        ))}
-      </div>
+      {grades.length > 0 ? (
+        <div className="space-y-2">
+          {grades.map((g) => (
+            <BarRow key={g.name} name={g.name} n={g.n} color={g.color} max={maxGrade} />
+          ))}
+        </div>
+      ) : (
+        <WorkflowEmptyState
+          title="Sem notas de qualidade ainda"
+          message="As notas (outcome grade) aparecem após os primeiros pre-pr com quality gate."
+          actionCommand="npm run pre-pr"
+        />
+      )}
 
       <h3 className="pt-4 text-[17px] font-bold text-foreground">
         🕒 Linha do tempo recente (eventos reais)
       </h3>
-      <div className="divide-y divide-border rounded-xl border bg-card">
-        {recentTimeline.map((e, i) => (
-          <TimelineRow key={i} t={e.t} d={e.d} desc={e.desc} />
-        ))}
-      </div>
+      {recentTimeline.length > 0 ? (
+        <div className="divide-y divide-border rounded-xl border bg-card">
+          {recentTimeline.map((e, i) => (
+            <TimelineRow key={i} t={e.t} d={e.d} desc={e.desc} />
+          ))}
+        </div>
+      ) : (
+        <WorkflowEmptyState
+          title="Linha do tempo vazia"
+          message="Os eventos recentes do workflow aparecem aqui assim que houver atividade instrumentada."
+        />
+      )}
     </div>
   );
 }

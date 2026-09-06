@@ -2,8 +2,17 @@ import { describe, it, expect } from "vitest";
 import { isValidISODate, todayISODate } from "@/lib/dateUtils";
 
 describe("todayISODate", () => {
-  it("retorna hoje em YYYY-MM-DD por padrão", () => {
-    expect(todayISODate()).toBe(new Date().toISOString().split("T")[0]);
+  it("retorna hoje em YYYY-MM-DD no fuso da operação", () => {
+    const got = todayISODate();
+    expect(got).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(isValidISODate(got)).toBe(true);
+    const expected = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "America/Sao_Paulo",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(new Date());
+    expect(got).toBe(expected);
   });
 });
 
