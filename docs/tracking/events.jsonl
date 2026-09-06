@@ -486,3 +486,11 @@
 {"timestamp":"2026-09-06T20:36:22.385Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"feat/telemetria-f3-p2","commit":"7486746","agent":"pi","subagent":true,"verdict":"approved"}
 {"timestamp":"2026-09-06T20:37:48.428Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetria-f3-p2","commit":"7486746","agent":"pi","errors":0}
 {"timestamp":"2026-09-06T20:38:07.775Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetria-f3-p2","commit":"7486746","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T21:59:02.936Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"feat/rollback-reports-revamp","commit":"b1af410","agent":"pi","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-09-06T21:59:02.968Z","type":"rule:fail","description":"rule-39-coding-gate falhou","branch":"feat/rollback-reports-revamp","commit":"b1af410","agent":"pi","rule":"rule-39-coding-gate"}
+{"timestamp":"2026-09-06T21:59:47.704Z","type":"coding:done","description":"F3 rollback-log + revamp Relatorios (ReportChrome/ordem/headers/empties)","branch":"feat/rollback-reports-revamp","commit":"b1af410","agent":"pi","subagent":true}
+{"timestamp":"2026-09-06T22:07:04.861Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"feat/rollback-reports-revamp","commit":"b1af410","agent":"pi","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-09-06T22:12:04.810Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"feat/rollback-reports-revamp","commit":"b1af410","agent":"pi","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-09-06T22:12:47.137Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/rollback-reports-revamp","commit":"b1af410","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T22:36:55.937Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/rollback-reports-revamp","commit":"b1af410","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T22:37:51.763Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/rollback-reports-revamp","commit":"b1af410","agent":"pi","errors":0}

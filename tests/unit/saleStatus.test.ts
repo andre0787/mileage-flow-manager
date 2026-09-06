@@ -20,4 +20,22 @@ describe("planStatusTransition", () => {
   it("apara espaços antes de comparar", () => {
     expect(planStatusTransition(" pago ", "pago")).toBeNull();
   });
+
+  it("planeja transições de retorno do rollback (F3)", () => {
+    // cancelVenda: volta de cancelado ao status anterior.
+    expect(planStatusTransition("cancelado", "pendente")).toEqual({
+      from: "cancelado",
+      to: "pendente",
+    });
+    // receiveVenda: volta de pago ao status anterior.
+    expect(planStatusTransition("pago", "pendente")).toEqual({
+      from: "pago",
+      to: "pendente",
+    });
+    // refundToCredit: volta de pendente ao status anterior.
+    expect(planStatusTransition("pendente", "pago")).toEqual({
+      from: "pendente",
+      to: "pago",
+    });
+  });
 });

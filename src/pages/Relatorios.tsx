@@ -42,6 +42,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CollectionSection } from "@/components/reports/CollectionSection";
 import { PipelineTab } from "@/components/reports/PipelineTab";
 import { FlowKeysStrip } from "@/components/reports/FlowKeysStrip";
+import { ReportEmpty, SectionTitle } from "@/components/reports/ReportChrome";
+import { REPORT_TABS } from "@/components/reports/reportTabs";
 import { filterCollectionSales } from "@/lib/collections";
 import { computeFlowKeys } from "@/lib/flowKeys";
 import { useAllClientCreditsQuery } from "@/features/clientes";
@@ -474,11 +476,11 @@ export default function Relatorios() {
       {/* Cobrança por cliente + performance por aba */}
       <Tabs defaultValue="cobranca">
         <TabsList>
-          <TabsTrigger value="cobranca">Cobrança</TabsTrigger>
-          <TabsTrigger value="pipeline">Pipeline</TabsTrigger>
-          <TabsTrigger value="donos">Donos</TabsTrigger>
-          <TabsTrigger value="programas">Programas</TabsTrigger>
-          <TabsTrigger value="insights">Insights</TabsTrigger>
+          {REPORT_TABS.map((t) => (
+            <TabsTrigger key={t.value} value={t.value}>
+              {t.label}
+            </TabsTrigger>
+          ))}
         </TabsList>
         <TabsContent value="cobranca" className="mt-4">
           <CollectionSection sales={collectionSales} />
@@ -493,73 +495,74 @@ export default function Relatorios() {
           {/* Owner Performance Report */}
           <Card className="shadow-card animate-appear animate-delay-600">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 border-l-4 border-primary pl-3">
-                <TrendingUp className="h-5 w-5 text-primary" />
-                Performance por Dono
-              </CardTitle>
+              <SectionTitle icon={TrendingUp}>Performance por Dono</SectionTitle>
             </CardHeader>
             <CardContent>
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="hidden md:table-cell">Dono</TableHead>
-                      <TableHead className="hidden md:table-cell">Pontos Adquiridos</TableHead>
-                      <TableHead className="hidden md:table-cell">Investimento</TableHead>
-                      <TableHead className="hidden md:table-cell">Milhas Geradas</TableHead>
-                      <TableHead className="hidden md:table-cell">Faturamento</TableHead>
-                      <TableHead className="hidden md:table-cell">Lucro</TableHead>
-                      <TableHead className="hidden md:table-cell">Margem</TableHead>
-                      <TableHead className="hidden md:table-cell">ROI</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredOwnerReports.map((report) => {
-                      const reportOwnerColor = ownerColor(
-                        report.ownerName,
-                        owners.find((o) => o.name === report.ownerName)?.color ?? null,
-                      );
-                      return (
-                        <TableRow key={report.ownerName}>
-                          <TableCell className="hidden md:table-cell font-medium">
-                            <span className="inline-flex items-center gap-2">
-                              <span
-                                className="h-2.5 w-2.5 rounded-full shrink-0"
-                                style={{ backgroundColor: reportOwnerColor }}
-                                aria-hidden
-                              />
-                              {report.ownerName}
-                            </span>
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            {report.totalPointsAcquired.toLocaleString("pt-BR")}
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            R$ {report.totalAmountInvested.toLocaleString("pt-BR")}
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            {report.totalMilesGenerated.toLocaleString("pt-BR")}
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            R$ {report.totalRevenue.toLocaleString("pt-BR")}
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell font-semibold text-success">
-                            R$ {report.totalProfit.toLocaleString("pt-BR")}
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            <Badge variant="outline">{report.profitMargin.toFixed(1)}%</Badge>
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            <Badge variant={report.roi >= 20 ? "default" : "secondary"}>
-                              {report.roi.toFixed(1)}%
-                            </Badge>
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
-                </Table>
-              </div>
+              {filteredOwnerReports.length === 0 ? (
+                <ReportEmpty message="Nenhum relatório encontrado para os filtros selecionados" />
+              ) : (
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="hidden md:table-cell">Dono</TableHead>
+                        <TableHead className="hidden md:table-cell">Pontos Adquiridos</TableHead>
+                        <TableHead className="hidden md:table-cell">Investimento</TableHead>
+                        <TableHead className="hidden md:table-cell">Milhas Geradas</TableHead>
+                        <TableHead className="hidden md:table-cell">Faturamento</TableHead>
+                        <TableHead className="hidden md:table-cell">Lucro</TableHead>
+                        <TableHead className="hidden md:table-cell">Margem</TableHead>
+                        <TableHead className="hidden md:table-cell">ROI</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {filteredOwnerReports.map((report) => {
+                        const reportOwnerColor = ownerColor(
+                          report.ownerName,
+                          owners.find((o) => o.name === report.ownerName)?.color ?? null,
+                        );
+                        return (
+                          <TableRow key={report.ownerName}>
+                            <TableCell className="hidden md:table-cell font-medium">
+                              <span className="inline-flex items-center gap-2">
+                                <span
+                                  className="h-2.5 w-2.5 rounded-full shrink-0"
+                                  style={{ backgroundColor: reportOwnerColor }}
+                                  aria-hidden
+                                />
+                                {report.ownerName}
+                              </span>
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              {report.totalPointsAcquired.toLocaleString("pt-BR")}
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              R$ {report.totalAmountInvested.toLocaleString("pt-BR")}
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              {report.totalMilesGenerated.toLocaleString("pt-BR")}
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              R$ {report.totalRevenue.toLocaleString("pt-BR")}
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell font-semibold text-success">
+                              R$ {report.totalProfit.toLocaleString("pt-BR")}
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              <Badge variant="outline">{report.profitMargin.toFixed(1)}%</Badge>
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              <Badge variant={report.roi >= 20 ? "default" : "secondary"}>
+                                {report.roi.toFixed(1)}%
+                              </Badge>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </div>
+              )}
 
               {/* Mobile card list - Owner Performance */}
               <div className="md:hidden space-y-3 mt-4">
@@ -623,9 +626,7 @@ export default function Relatorios() {
                   );
                 })}
                 {filteredOwnerReports.length === 0 && (
-                  <div className="text-center py-8 text-muted-foreground">
-                    Nenhum relatório encontrado para os filtros selecionados
-                  </div>
+                  <ReportEmpty message="Nenhum relatório encontrado para os filtros selecionados" />
                 )}
               </div>
             </CardContent>
@@ -635,60 +636,61 @@ export default function Relatorios() {
           {/* Program Performance Report */}
           <Card className="shadow-card animate-appear animate-delay-800">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 border-l-4 border-primary pl-3">
-                <BarChart3 className="h-5 w-5 text-primary" />
-                Performance por Programa
-              </CardTitle>
+              <SectionTitle icon={BarChart3}>Performance por Programa</SectionTitle>
             </CardHeader>
             <CardContent>
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="hidden md:table-cell">Programa</TableHead>
-                      <TableHead className="hidden md:table-cell">Estoque Atual</TableHead>
-                      <TableHead className="hidden md:table-cell">Custo Médio/Milha</TableHead>
-                      <TableHead className="hidden md:table-cell">Milhas Vendidas</TableHead>
-                      <TableHead className="hidden md:table-cell">Faturamento</TableHead>
-                      <TableHead className="hidden md:table-cell">Lucro</TableHead>
-                      <TableHead className="hidden md:table-cell">Performance</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredProgramReports.map((report) => {
-                      const stockUtilization =
-                        (report.totalSold / (report.totalStock + report.totalSold)) * 100;
-                      return (
-                        <TableRow key={report.program}>
-                          <TableCell className="hidden md:table-cell font-medium">
-                            {report.program}
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            {report.totalStock.toLocaleString("pt-BR")}
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            R$ {report.averageCostPerMile.toFixed(4)}
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            {report.totalSold.toLocaleString("pt-BR")}
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            R$ {report.revenue.toLocaleString("pt-BR")}
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell font-semibold text-success">
-                            R$ {report.profit.toLocaleString("pt-BR")}
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            <Badge variant={stockUtilization >= 50 ? "default" : "outline"}>
-                              {stockUtilization.toFixed(1)}% vendido
-                            </Badge>
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
-                </Table>
-              </div>
+              {filteredProgramReports.length === 0 ? (
+                <ReportEmpty message="Nenhum relatório encontrado para os filtros selecionados" />
+              ) : (
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="hidden md:table-cell">Programa</TableHead>
+                        <TableHead className="hidden md:table-cell">Estoque Atual</TableHead>
+                        <TableHead className="hidden md:table-cell">Custo Médio/Milha</TableHead>
+                        <TableHead className="hidden md:table-cell">Milhas Vendidas</TableHead>
+                        <TableHead className="hidden md:table-cell">Faturamento</TableHead>
+                        <TableHead className="hidden md:table-cell">Lucro</TableHead>
+                        <TableHead className="hidden md:table-cell">Performance</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {filteredProgramReports.map((report) => {
+                        const stockUtilization =
+                          (report.totalSold / (report.totalStock + report.totalSold)) * 100;
+                        return (
+                          <TableRow key={report.program}>
+                            <TableCell className="hidden md:table-cell font-medium">
+                              {report.program}
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              {report.totalStock.toLocaleString("pt-BR")}
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              R$ {report.averageCostPerMile.toFixed(4)}
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              {report.totalSold.toLocaleString("pt-BR")}
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              R$ {report.revenue.toLocaleString("pt-BR")}
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell font-semibold text-success">
+                              R$ {report.profit.toLocaleString("pt-BR")}
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              <Badge variant={stockUtilization >= 50 ? "default" : "outline"}>
+                                {stockUtilization.toFixed(1)}% vendido
+                              </Badge>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </div>
+              )}
 
               {/* Mobile card list - Program Performance */}
               <div className="md:hidden space-y-3 mt-4">
@@ -737,9 +739,7 @@ export default function Relatorios() {
                   );
                 })}
                 {filteredProgramReports.length === 0 && (
-                  <div className="text-center py-8 text-muted-foreground">
-                    Nenhum relatório encontrado para os filtros selecionados
-                  </div>
+                  <ReportEmpty message="Nenhum relatório encontrado para os filtros selecionados" />
                 )}
               </div>
             </CardContent>
@@ -749,7 +749,7 @@ export default function Relatorios() {
           {/* Key Insights */}
           <Card className="shadow-card animate-appear animate-delay-1000">
             <CardHeader>
-              <CardTitle>Insights e Recomendações</CardTitle>
+              <SectionTitle icon={Lightbulb}>Insights e Recomendações</SectionTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">

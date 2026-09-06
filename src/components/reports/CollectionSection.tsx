@@ -1,13 +1,14 @@
 import { useMemo, useState } from "react";
 import { Download, HandCoins } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useData } from "@/contexts/DataContext";
 import { useAllClientCreditsQuery } from "@/features/clientes";
 import { buildCollectionReport, collectionCsvRows } from "@/lib/collections";
 import type { CollectionSale } from "@/lib/collections";
 import { downloadCSV } from "@/lib/utils";
 import { formatDateBR } from "@/lib/dateUtils";
+import { SectionTitle, ReportEmpty } from "./ReportChrome";
 
 /**
  * Seção Cobrança: débitos por cliente p/ cobrança — sem lucro/margem/custos.
@@ -33,10 +34,9 @@ export function CollectionSection({ sales: salesProp }: { sales?: CollectionSale
     <Card className="shadow-card">
       <CardHeader>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <CardTitle className="flex items-center gap-2 border-l-4 border-primary pl-3">
-            <HandCoins className="h-5 w-5 text-primary" />
+          <SectionTitle icon={HandCoins}>
             Cobrança — Líquido: R$ {totalNet.toLocaleString("pt-BR")}
-          </CardTitle>
+          </SectionTitle>
           <Button
             variant="outline"
             size="sm"
@@ -56,9 +56,7 @@ export function CollectionSection({ sales: salesProp }: { sales?: CollectionSale
       </CardHeader>
       <CardContent>
         {rows.length === 0 ? (
-          <p className="text-sm text-muted-foreground text-center py-8">
-            Nenhum débito em aberto. Tudo recebido.
-          </p>
+          <ReportEmpty message="Nenhum débito em aberto. Tudo recebido." />
         ) : (
           <div className="space-y-3">
             {rows.map((r) => {

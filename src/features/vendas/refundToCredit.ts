@@ -81,6 +81,9 @@ export const refundToCreditEndpoint = (builder: VendasBuilder) => ({
           .from("sales")
           .update({ amount_received: oldReceived, status: sale.status })
           .eq("id", saleId);
+        // F3: retorno ao estado anterior entra no histórico — status só
+        // mudou se backToPending (virou "pendente"), nos demais é no-op.
+        if (plan.backToPending) void recordStatusChange(user.id, saleId, "pendente", sale.status);
         if (restoreError) {
           logError("refundToCredit:restore", restoreError);
           return {
