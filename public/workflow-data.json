@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-06T01:44:46.962Z",
+  "generatedAt": "2026-09-06T05:04:27.380Z",
   "dataDate": "2026-09-06",
   "kpiStats": [
     {
-      "value": 455,
+      "value": 461,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 552,
+      "value": 555,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,7 +18,7 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 309,
+      "value": 313,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
@@ -28,7 +28,7 @@
       "sub": "desde o início"
     },
     {
-      "value": 38,
+      "value": 39,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 151,
+      "n": 155,
       "color": "#8b5cf6"
     },
     {
@@ -56,12 +56,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 39,
+      "n": 40,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 36,
+      "n": 37,
       "color": "#22c55e"
     },
     {
@@ -73,12 +73,12 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 248,
+      "n": 227,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 170,
+      "n": 171,
       "color": "#84cc16"
     },
     {
@@ -89,6 +89,36 @@
   ],
   "recentTimeline": [
     {
+      "t": "2026-09-06 05:04:23",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-06 05:03:06",
+      "d": "code-review:done",
+      "desc": "Review aprovado por subagente"
+    },
+    {
+      "t": "2026-09-06 05:01:34",
+      "d": "coding:done",
+      "desc": "Codificação cobrança por subagente"
+    },
+    {
+      "t": "2026-09-06 02:14:24",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-06 02:13:44",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-06 01:45:26",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
       "t": "2026-09-06 01:44:43",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
@@ -97,44 +127,14 @@
       "t": "2026-09-06 01:33:15",
       "d": "rule:fail",
       "desc": "rule-43-migration-gate falhou"
-    },
-    {
-      "t": "2026-09-06 01:33:15",
-      "d": "rule:fail",
-      "desc": "rule-41-optimizer falhou"
-    },
-    {
-      "t": "2026-09-06 01:33:07",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-06 01:32:09",
-      "d": "rule:fail",
-      "desc": "rule-43-migration-gate falhou"
-    },
-    {
-      "t": "2026-09-06 01:32:09",
-      "d": "rule:fail",
-      "desc": "rule-41-optimizer falhou"
-    },
-    {
-      "t": "2026-09-06 01:31:21",
-      "d": "rule:fail",
-      "desc": "rule-43-migration-gate falhou"
-    },
-    {
-      "t": "2026-09-06 01:31:21",
-      "d": "rule:fail",
-      "desc": "rule-41-optimizer falhou"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 186,
     "healed": 31,
     "healedRate": 16.7,
-    "prePrTotal": 151,
-    "prePrPass": 151,
+    "prePrTotal": 155,
+    "prePrPass": 155,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
@@ -166,6 +166,15 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 548,
+      "title": "feat(vendas) — venda standalone de serviço (PR1)",
+      "type": "feat",
+      "date": "2026-09-06",
+      "tokens": 2319,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 547,
       "title": "chore: fecha sessão do refund (handoff + estado)",
@@ -201,26 +210,17 @@
       "tokens": 5,
       "benefit": "Ajuste de processo validado",
       "impact": "Processo mais confiável e audável"
-    },
-    {
-      "number": 542,
-      "title": "feat vendas: recebimento separado com checkbox, totais vivos e extrato",
-      "type": "feat",
-      "date": "2026-09-05",
-      "tokens": 439,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "overview": {
     "components": 140,
     "pages": 18,
-    "libs": 38,
+    "libs": 40,
     "scripts": 122,
-    "testFiles": 309,
+    "testFiles": 313,
     "skills": 27,
     "rules": 48,
-    "events": 455,
-    "qualityNotes": 552
+    "events": 461,
+    "qualityNotes": 555
   }
 }

@@ -456,3 +456,7 @@
 {"timestamp":"2026-09-06T01:45:26.087Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/produtos-venda","commit":"19a66e7","agent":"pi","errors":0}
 {"timestamp":"2026-09-06T02:13:44.960Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/produtos-venda","commit":"642ccd1","agent":"pi","errors":0}
 {"timestamp":"2026-09-06T02:14:24.745Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/produtos-venda","commit":"28d1744","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T05:01:34.596Z","type":"coding:done","description":"Codificação cobrança por subagente","branch":"feat/relatorio-cobranca","commit":"9b127d6","agent":"pi","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-09-06T05:03:06.845Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"feat/relatorio-cobranca","commit":"9b127d6","agent":"pi","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-09-06T05:04:23.247Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/relatorio-cobranca","commit":"9b127d6","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T05:04:36.975Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/relatorio-cobranca","commit":"9b127d6","agent":"pi","errors":0}

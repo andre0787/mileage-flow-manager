@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T01:44:43.242Z",
+  "generatedAt": "2026-09-06T05:04:23.371Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -146,8 +146,8 @@
     {
       "month": "2026-09",
       "prePrPassRate": 100,
-      "prePrTotal": 33,
-      "prePrPass": 33,
+      "prePrTotal": 37,
+      "prePrPass": 37,
       "prePrFail": 0,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
@@ -156,7 +156,7 @@
         "twins": 0,
         "auth": 0
       },
-      "avgOutcomeGrade": 88.9,
+      "avgOutcomeGrade": 88,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
@@ -184,26 +184,13 @@
       },
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
-      "branchesMerged": 10,
+      "branchesMerged": 11,
       "violationsCaught": 28,
       "healedRate": 7.1,
-      "frictionPerPass": 0.85
+      "frictionPerPass": 0.76
     }
   ],
   "daily": [
-    {
-      "day": "2026-08-07",
-      "label": "07/08",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-08-08",
       "label": "08/08",
@@ -580,9 +567,31 @@
       "sessions": 0,
       "merges": 4,
       "friction": 0.33
+    },
+    {
+      "day": "2026-09-06",
+      "label": "06/09",
+      "prePrTotal": 18,
+      "prePrPass": 18,
+      "prePrFail": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 13,
+      "healed": 1,
+      "sessions": 0,
+      "merges": 3,
+      "friction": 0.72
     }
   ],
   "prs": [
+    {
+      "number": 548,
+      "title": "feat(vendas) — venda standalone de serviço (PR1)",
+      "type": "feat",
+      "date": "2026-09-06",
+      "tokens": 2319,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 547,
       "title": "chore: fecha sessão do refund (handoff + estado)",
@@ -663,30 +672,21 @@
       "tokens": 1459,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 537,
-      "title": "fix vendas: dialog ressincroniza pendente + spec E2E N1-N3",
-      "type": "fix",
-      "date": "2026-09-04",
-      "tokens": 474,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação"
     }
   ],
   "repo": {
     "components": 140,
     "pages": 18,
-    "libs": 38,
+    "libs": 40,
     "scripts": 122,
-    "testFiles": 309,
+    "testFiles": 313,
     "skills": 27,
     "rules": 48,
-    "events": 455,
-    "qualityNotes": 552
+    "events": 461,
+    "qualityNotes": 555
   },
   "summary": {
-    "merges": 51,
+    "merges": 52,
     "prs": 0,
     "sessions": 10,
     "violations": 186,

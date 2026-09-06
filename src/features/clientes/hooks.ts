@@ -29,6 +29,13 @@ export function useClientCreditsQuery(clientId: string) {
   return { data: data ?? [], isPending: isLoading, isError, error, refetch };
 }
 
+/** Todos os movimentos de crédito (uma leitura p/ relatório de cobrança). */
+export function useAllClientCreditsQuery() {
+  const { data, isLoading, isError, error, refetch } =
+    clientesApi.useGetAllClientCreditsQuery(undefined);
+  return { data: data ?? [], isPending: isLoading, isError, error, refetch };
+}
+
 export function useClientBalanceQuery(clientId: string) {
   const { data, ...rest } = useClientCreditsQuery(clientId);
   const balance = useMemo(() => calcCreditBalance(data), [data]);
