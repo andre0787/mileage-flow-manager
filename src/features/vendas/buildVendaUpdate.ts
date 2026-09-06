@@ -13,7 +13,10 @@ export interface UpdateDbRow {
 }
 
 /** Monta o payload snake_case + lucro server-side (extraído do updateVenda p/ rule-41). */
-export function buildVendaUpdate(oldSale: UpdateDbRow, data: Omit<VendaMutationInput, "id">): VendaUpdate {
+export function buildVendaUpdate(
+  oldSale: UpdateDbRow,
+  data: Omit<VendaMutationInput, "id">,
+): VendaUpdate {
   const updateData: VendaUpdate = {};
   if (data.accountId !== undefined) updateData.account_id = data.accountId;
   if (data.accountName !== undefined) updateData.account_name = data.accountName;
