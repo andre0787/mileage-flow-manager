@@ -30,6 +30,7 @@ const makeSale = (): Sale => ({
   profit: 1450,
   profitMargin: 0.725,
   status: "pendente",
+  kind: "milhas",
   ticketLocator: "AB12CD",
   passengers: [],
   date: "2026-08-10",
@@ -122,6 +123,61 @@ describe("vendasApi — addVenda", () => {
     const result = await makeStore().dispatch(vendasApi.endpoints.addVenda.initiate(makeSale()));
     expect(result.error).toBeDefined();
   });
+
+  it("rejeita servico com milhas sem chamar o insert", async () => {
+    const insert = vi.fn().mockResolvedValue({ error: null });
+    mockFrom.mockReturnValue({ insert });
+    const result = await makeStore().dispatch(
+      vendasApi.endpoints.addVenda.initiate({
+        ...makeSale(),
+        kind: "servico",
+        accountId: undefined,
+        serviceType: "taxa",
+      }),
+    );
+    expect(result.error).toBeDefined();
+    expect(insert).not.toHaveBeenCalled();
+  });
+
+  it("insere servico com sale_kind, price_per_mile NULL e lucro = valor", async () => {
+    const insert = vi.fn().mockResolvedValue({ error: null });
+    mockFrom.mockReturnValue({
+      insert,
+      select: () => ({
+        eq: () => Promise.resolve({ data: [], error: null }),
+      }),
+    });
+    const result = await makeStore().dispatch(
+      vendasApi.endpoints.addVenda.initiate({
+        ...makeSale(),
+        kind: "servico",
+        accountId: undefined,
+        accountName: "",
+        ownerName: "",
+        program: "",
+        milesUsed: 0,
+        saleValue: 500,
+        pricePerMile: undefined,
+        costPerMile: 0,
+        additionalCost: undefined,
+        additionalCostDesc: undefined,
+        additionalCosts: undefined,
+        serviceType: "consultoria",
+        observations: "Sessão de 2h",
+        ticketLocator: "",
+      }),
+    );
+    expect(result.error).toBeUndefined();
+    expect(insert).toHaveBeenCalledWith(
+      expect.objectContaining({
+        sale_kind: "servico",
+        service_type: "consultoria",
+        observations: "Sessão de 2h",
+        price_per_mile: null,
+        profit: 500,
+      }),
+    );
+  });
 });
 
 describe("vendasApi — updateVenda", () => {
@@ -164,6 +220,119 @@ describe("vendasApi — updateVenda", () => {
       vendasApi.endpoints.updateVenda.initiate({ id: "missing", saleValue: 1 }),
     );
     expect(result.error).toBeDefined();
+  });
+
+  it("rejeita troca de kind milhas→servico sem chamar o update", async () => {
+    const update = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
+    mockFrom.mockReturnValue({
+      select: () => ({
+        eq: () => ({
+          single: () =>
+            Promise.resolve({
+              data: {
+                miles_used: 10000,
+                status: "pendente",
+                account_id: "acc-1",
+                cost_per_mile: 0.05,
+              },
+              error: null,
+            }),
+        }),
+      }),
+      update,
+    });
+    const result = await makeStore().dispatch(
+      vendasApi.endpoints.updateVenda.initiate({ id: "sale-1", kind: "servico" }),
+    );
+    expect(result.error).toBeDefined();
+    expect(update).not.toHaveBeenCalled();
+  });
+
+  it("permite editar observations de venda-serviço", async () => {
+    const update = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
+    mockFrom.mockReturnValue({
+      select: () => ({
+        eq: () => ({
+          single: () =>
+            Promise.resolve({
+              data: {
+                miles_used: 0,
+                sale_value: 500,
+                status: "pendente",
+                account_id: null,
+                cost_per_mile: 0,
+                sale_kind: "servico",
+                client_id: "c1",
+                service_type: "consultoria",
+              },
+              error: null,
+            }),
+        }),
+      }),
+      update,
+    });
+    const result = await makeStore().dispatch(
+      vendasApi.endpoints.updateVenda.initiate({ id: "sale-1", observations: "Nova obs" }),
+    );
+    expect(result.error).toBeUndefined();
+    expect(update).toHaveBeenCalledWith(expect.objectContaining({ observations: "Nova obs" }));
+  });
+
+  it("rejeita miles em venda-serviço via update sem chamar o update", async () => {
+    const update = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
+    mockFrom.mockReturnValue({
+      select: () => ({
+        eq: () => ({
+          single: () =>
+            Promise.resolve({
+              data: {
+                miles_used: 0,
+                sale_value: 500,
+                status: "pendente",
+                account_id: null,
+                cost_per_mile: 0,
+                sale_kind: "servico",
+                client_id: "c1",
+                service_type: "consultoria",
+              },
+              error: null,
+            }),
+        }),
+      }),
+      update,
+    });
+    const result = await makeStore().dispatch(
+      vendasApi.endpoints.updateVenda.initiate({ id: "sale-1", milesUsed: 100 }),
+    );
+    expect(result.error).toBeDefined();
+    expect(update).not.toHaveBeenCalled();
+  });
+
+  it("rejeita serviceType em venda-milhas via update sem chamar o update", async () => {
+    const update = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
+    mockFrom.mockReturnValue({
+      select: () => ({
+        eq: () => ({
+          single: () =>
+            Promise.resolve({
+              data: {
+                miles_used: 10000,
+                sale_value: 2500,
+                status: "pendente",
+                account_id: "acc-1",
+                cost_per_mile: 0.05,
+              },
+              error: null,
+            }),
+        }),
+      }),
+      update,
+    });
+    const result = await makeStore().dispatch(
+      vendasApi.endpoints.updateVenda.initiate({ id: "sale-1", serviceType: "taxa" }),
+    );
+    expect(result.error).toBeDefined();
+    expect(update).not.toHaveBeenCalled();
   });
 });
 

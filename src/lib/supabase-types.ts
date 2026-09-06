@@ -247,6 +247,9 @@ export interface Database {
           client_name: string;
           miles_used: number;
           sale_value: number;
+          sale_kind: string;
+          service_type: string | null;
+          observations: string | null;
           price_per_mile: number | null;
           cost_per_mile: number;
           additional_cost: number | null;
@@ -271,6 +274,9 @@ export interface Database {
           client_name?: string;
           miles_used: number;
           sale_value: number;
+          sale_kind?: string;
+          service_type?: string | null;
+          observations?: string | null;
           price_per_mile?: number | null;
           cost_per_mile: number;
           additional_cost?: number | null;
@@ -295,6 +301,9 @@ export interface Database {
           client_name?: string;
           miles_used?: number;
           sale_value?: number;
+          sale_kind?: string;
+          service_type?: string | null;
+          observations?: string | null;
           price_per_mile?: number | null;
           cost_per_mile?: number;
           additional_cost?: number | null;

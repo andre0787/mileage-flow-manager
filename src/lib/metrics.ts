@@ -126,6 +126,20 @@ interface MetricSale {
   milesUsed: number;
   accountId?: string | null;
   passengers: { cpf: string }[];
+  /** Discriminador milhas|servico (ausente = milhas, p/ mocks e linhas antigas) */
+  kind?: string;
+}
+
+/** Venda é de milhagem quando kind ausente ou 'milhas' (compat com mocks/linhas antigas). */
+function isMilesSale(s: { kind?: string }): boolean {
+  return (s.kind ?? "milhas") === "milhas";
+}
+
+/** Receita de serviços: soma de saleValue das vendas-serviço não-canceladas. */
+export function totalServiceRevenue(sls: MetricSale[]): number {
+  return sls
+    .filter((s) => s.status !== "cancelado" && !isMilesSale(s))
+    .reduce((sum, s) => sum + s.saleValue, 0);
 }
 
 interface MetricEntry {
@@ -206,6 +220,8 @@ export function computeDashboardMetrics(
 ): DashboardMetrics {
   const confirmedEntries = entrs.filter((e) => e.entryStatus !== "aguardando");
   const activeSales = filterActiveSales(sls);
+  // Vendas-serviço não entram nos KPIs de milhagem (unanimidade do council).
+  const milesSales = activeSales.filter(isMilesSale);
 
   // ─── Fonte da verdade: soma dos saldos por conta (piso 0, igual ao recalcAccount)
   // Assim o hero do dashboard bate com a soma de accounts.balance recalculadas,
@@ -224,13 +240,13 @@ export function computeDashboardMetrics(
   const now = new Date();
   const currentMonth = now.getMonth();
   const currentYear = now.getFullYear();
-  const monthlySales = filterSalesByMonth(activeSales, currentMonth, currentYear);
+  const monthlySales = filterSalesByMonth(milesSales, currentMonth, currentYear);
   const monthlyRevenue = monthlySales.reduce((sum, s) => sum + s.saleValue, 0);
   const monthlyProfit = monthlySales.reduce((sum, s) => sum + s.profit, 0);
 
-  const totalSoldMiles = activeSales.reduce((sum, s) => sum + s.milesUsed, 0);
-  const totalRevenue = activeSales.reduce((sum, s) => sum + s.saleValue, 0);
-  const totalProfit = activeSales.reduce((sum, s) => sum + s.profit, 0);
+  const totalSoldMiles = milesSales.reduce((sum, s) => sum + s.milesUsed, 0);
+  const totalRevenue = milesSales.reduce((sum, s) => sum + s.saleValue, 0);
+  const totalProfit = milesSales.reduce((sum, s) => sum + s.profit, 0);
   const avgProfitMargin = calcProfitMargin(totalProfit, totalRevenue);
   const avgCostPerMile = calcAverageCostPerMile(totalInvested, totalMiles);
 
@@ -243,8 +259,10 @@ export function computeDashboardMetrics(
     .reduce((sum, e) => sum + (e.milesGenerated ?? e.amount), 0);
 
   const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+  // revenueChange compara milhagem com milhagem: o mês anterior também
+  // usa milesSales (serviço fora dos KPIs de milhagem).
   const prevMonthSales = filterSalesByMonth(
-    activeSales,
+    milesSales,
     lastMonth.getMonth(),
     lastMonth.getFullYear(),
   );
@@ -308,7 +326,12 @@ export function computeMetricHistory(
 
     const monthSales = sls.filter((s) => {
       const d = parseDateOnly(s.date);
-      return d.getMonth() === month && d.getFullYear() === year && s.status !== "cancelado";
+      return (
+        d.getMonth() === month &&
+        d.getFullYear() === year &&
+        s.status !== "cancelado" &&
+        isMilesSale(s)
+      );
     });
 
     const monthEntries = entrs.filter((e) => {

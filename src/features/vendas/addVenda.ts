@@ -2,6 +2,7 @@ import { supabase, calcProportionalCost, calcAccountUpdate, toQueryError } from 
 import { calcProfit, calcProfitMargin } from "@/lib/metrics";
 import { mapClientCredit } from "@/hooks/useDatabase/mappers";
 import { planReceipt, calcCreditBalance, CREDIT_EPSILON } from "@/lib/clientCredits";
+import { validateSaleKind, kindInputForAdd } from "@/lib/saleKind";
 import type { Sale, VendasBuilder } from "./shared";
 
 export const addVendaEndpoint = (builder: VendasBuilder) => ({
@@ -10,6 +11,11 @@ export const addVendaEndpoint = (builder: VendasBuilder) => ({
     queryFn: async (sale) => {
       const { user } = (await supabase.auth.getUser()).data;
       if (!user) return { error: toQueryError({ message: "Usuário não autenticado" }) };
+
+      // Discriminador milhas|servico — rejeita payload misto antes de escrever.
+      const kind = sale.kind ?? "milhas";
+      const kindErrors = validateSaleKind(kindInputForAdd(sale));
+      if (kindErrors.length > 0) return { error: toQueryError({ message: kindErrors[0] }) };
 
       const costs = Array.isArray(sale.additionalCosts) ? sale.additionalCosts : [];
       const sumCosts = costs.reduce((s, c) => s + (Number(c.amount) || 0), 0);
@@ -55,7 +61,10 @@ export const addVendaEndpoint = (builder: VendasBuilder) => ({
         client_name: sale.clientName,
         miles_used: sale.milesUsed,
         sale_value: sale.saleValue,
-        price_per_mile: sale.pricePerMile,
+        sale_kind: kind,
+        service_type: sale.serviceType ?? null,
+        observations: (sale.observations ?? "").trim() || null,
+        price_per_mile: kind === "servico" ? null : sale.pricePerMile,
         cost_per_mile: sale.costPerMile,
         additional_cost: additionalCost,
         additional_cost_desc: additionalCostDesc,

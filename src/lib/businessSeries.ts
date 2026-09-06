@@ -1,4 +1,5 @@
 /** Séries de negócio diárias (Datadog interno). Funções PURAS — regra-31: tests/unit/businessSeries.test.ts */
+import { isActiveMilesSale, isConfirmedDayEntry, sumEntriesMiles } from "@/lib/seriesFilters";
 
 export interface DailyBusinessPoint {
   day: string;
@@ -15,6 +16,8 @@ interface SeriesSale {
   saleValue?: number;
   profit?: number;
   milesUsed?: number;
+  /** Discriminador milhas|servico — ausente = milhas (linhas antigas/mocks). */
+  kind?: string;
 }
 
 interface SeriesEntry {
@@ -129,18 +132,13 @@ export function computeDailyBusinessSeries(
       d.getDate(),
     ).padStart(2, "0")}`;
 
-    const daySales = sales.filter(
-      (s) => s.status !== "cancelado" && (s.date ?? "").startsWith(day),
-    );
-    const dayEntries = entries.filter(
-      (e) => e.entryStatus !== "aguardando" && (e.date ?? "").startsWith(day),
-    );
+    // Vendas-serviço fora das séries de milhagem (unanimidade do council).
+    const daySales = sales.filter((s) => isActiveMilesSale(s, day));
+    const dayEntries = entries.filter((e) => isConfirmedDayEntry(e, day));
 
     const revenue = daySales.reduce((sum, s) => sum + (s.saleValue ?? 0), 0);
     const profit = daySales.reduce((sum, s) => sum + (s.profit ?? 0), 0);
-    const milesIn = dayEntries
-      .filter((e) => !e.sourceAccountId)
-      .reduce((sum, e) => sum + (e.milesGenerated ?? e.amount), 0);
+    const milesIn = sumEntriesMiles(dayEntries);
     const milesOut = daySales.reduce((sum, s) => sum + (s.milesUsed ?? 0), 0);
 
     out.push({ day, label: businessDayLabel(day), revenue, profit, milesIn, milesOut });

@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-06T00:40:21.480Z",
+  "generatedAt": "2026-09-06T01:44:46.962Z",
   "dataDate": "2026-09-06",
   "kpiStats": [
     {
-      "value": 426,
+      "value": 455,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 537,
+      "value": 552,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,17 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 303,
+      "value": 309,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 30,
+      "value": 31,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 37,
+      "value": 38,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,27 +41,27 @@
     },
     {
       "name": "pre-pr",
-      "n": 138,
+      "n": 151,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 173,
+      "n": 186,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 30,
+      "n": 31,
       "color": "#10b981"
     },
     {
       "name": "code-review:done",
-      "n": 38,
+      "n": 39,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 35,
+      "n": 36,
       "color": "#22c55e"
     },
     {
@@ -73,12 +73,12 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 247,
+      "n": 248,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 166,
+      "n": 170,
       "color": "#84cc16"
     },
     {
@@ -89,52 +89,52 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-09-06 00:40:17",
+      "t": "2026-09-06 01:44:43",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-06 00:38:33",
-      "d": "code-review:done",
-      "desc": "Review aprovado por subagente"
+      "t": "2026-09-06 01:33:15",
+      "d": "rule:fail",
+      "desc": "rule-43-migration-gate falhou"
     },
     {
-      "t": "2026-09-06 00:33:29",
-      "d": "coding:done",
-      "desc": "Devolução de saldo para crédito implementada por subagente"
+      "t": "2026-09-06 01:33:15",
+      "d": "rule:fail",
+      "desc": "rule-41-optimizer falhou"
     },
     {
-      "t": "2026-09-05 20:54:45",
+      "t": "2026-09-06 01:33:07",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-05 20:49:25",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "t": "2026-09-06 01:32:09",
+      "d": "rule:fail",
+      "desc": "rule-43-migration-gate falhou"
     },
     {
-      "t": "2026-09-05 20:48:01",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "t": "2026-09-06 01:32:09",
+      "d": "rule:fail",
+      "desc": "rule-41-optimizer falhou"
     },
     {
-      "t": "2026-09-05 20:47:04",
-      "d": "code-review:done",
-      "desc": "Review aprovado por subagente"
+      "t": "2026-09-06 01:31:21",
+      "d": "rule:fail",
+      "desc": "rule-43-migration-gate falhou"
     },
     {
-      "t": "2026-09-05 20:44:11",
-      "d": "coding:done",
-      "desc": "Bug #544: seletores incluem origem de transferência + pontosSales alinhado"
+      "t": "2026-09-06 01:31:21",
+      "d": "rule:fail",
+      "desc": "rule-41-optimizer falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 173,
-    "healed": 30,
-    "healedRate": 17.3,
-    "prePrTotal": 138,
-    "prePrPass": 138,
+    "ruleFails": 186,
+    "healed": 31,
+    "healedRate": 16.7,
+    "prePrTotal": 151,
+    "prePrPass": 151,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
@@ -167,6 +167,24 @@
   },
   "lastPrs": [
     {
+      "number": 547,
+      "title": "chore: fecha sessão do refund (handoff + estado)",
+      "type": "chore",
+      "date": "2026-09-06",
+      "tokens": 26,
+      "benefit": "Ajuste de processo validado",
+      "impact": "Processo mais confiável e audável"
+    },
+    {
+      "number": 546,
+      "title": "feat(vendas) — botão Devolver saldo para o crédito",
+      "type": "feat",
+      "date": "2026-09-06",
+      "tokens": 759,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
+    {
       "number": 545,
       "title": "fix(dashboard) — zera discrepância persistente do banner Pontos/Camila",
       "type": "fix",
@@ -192,35 +210,17 @@
       "tokens": 439,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 541,
-      "title": "feat vendas: quitado por venda + alerta de saldo de crédito",
-      "type": "feat",
-      "date": "2026-09-05",
-      "tokens": 346,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 540,
-      "title": "chore docs: atualiza handoff da sessão",
-      "type": "chore",
-      "date": "2026-09-05",
-      "tokens": 17,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável"
     }
   ],
   "overview": {
-    "components": 139,
+    "components": 140,
     "pages": 18,
-    "libs": 37,
+    "libs": 38,
     "scripts": 122,
-    "testFiles": 303,
+    "testFiles": 309,
     "skills": 27,
     "rules": 48,
-    "events": 426,
-    "qualityNotes": 537
+    "events": 455,
+    "qualityNotes": 552
   }
 }
