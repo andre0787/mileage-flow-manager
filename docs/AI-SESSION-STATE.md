@@ -1,26 +1,27 @@
-# AI Session State - 2026-09-05T21:00:00.000Z
+# AI Session State - 2026-09-06T01:00:00.000Z
 
 ## Última Task
-- **Investigar banner "Discrepância detectada" persistente** (Dashboard Pontos, Camila)
-- **Branch:** `fix/discrepancia-pontos-camila` (issue #544)
-- **Status:** causa raiz encontrada; fix bloqueado (infra de subagentes)
+- **Botão Devolver saldo para o crédito** (PR #546 → merge `35904b9`)
+- **Branch:** main (feature branch deletada)
+- **Status:** DEPLOYADO em prod (deploy success)
 
 ## Estado dos Testes & Qualidade
 - **Node:** v22.23.1
-- **Testes:** não executados (bloqueio antes da implementação)
+- **Testes:** clientCredits 14 passed; invariants 29 passed; tsc EXIT:0
+- **CI:** check-pr pass, e2e-smoke pass, Vercel pass; pre-pr 0 errors
 
 ## Arquivos Modificados & Impacto
-- Nenhum arquivo de código tocado (worktree limpa)
-- Causa raiz: `entriesOfAccountType`/`entriesByOwner` filtram só pelo destino,
-  escondendo débitos de transferência; `pontosSales=[]` vs recalc que subtrai vendas
+- `refundToCredit.ts` (novo, compare-and-set anti-TOCTOU)
+- `SaleRefundDialog.tsx` (novo, valor parcial + extrato)
+- Row/Card/Table/Vendas: botão Devolver + handler + toasts
+- Review: BLOCK → fix P0/P1 → approved
 
 ## Resolução dos Issues
-- **#544:** registrada; fix pendente de desbloqueio
+- **Receber com crédito agora tem volta:** devolução vira earn, status a pendente
 
 ## Pendências Imediatas
-- Desbloquear execução de subagentes OU aprovar bypass dos Gates 39/38
-- Implementar fix + teste + pre-pr + PR + deploy prod
+- Nova sessão: produtos na venda (taxa embarque como receita + venda standalone consultoria/taxa com observações)
 
 ## Governança de Contexto
-- `session:start` executado; `docs/handoff.md` verificado
-- `docs/AI-SESSION-STATE.md`: atualização deste estado
+- pre-pr + post-pr executados; Gates 38/39 via subagente
+- AUTH: "pode dar push e abrir a pr pra main, inclusive ja mandar para produ"
