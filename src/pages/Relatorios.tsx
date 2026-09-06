@@ -40,7 +40,11 @@ import { describeFilters } from "@/lib/text-to-query";
 import { DataTable } from "@/components/ui";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CollectionSection } from "@/components/reports/CollectionSection";
+import { PipelineTab } from "@/components/reports/PipelineTab";
+import { FlowKeysStrip } from "@/components/reports/FlowKeysStrip";
 import { filterCollectionSales } from "@/lib/collections";
+import { computeFlowKeys } from "@/lib/flowKeys";
+import { useAllClientCreditsQuery } from "@/features/clientes";
 
 interface OwnerReport {
   ownerName: string;
@@ -177,6 +181,31 @@ export default function Relatorios() {
       programName: selectedProgram === "todos" ? null : selectedProgram,
     });
   }, [sales, dateCutoff, owners, accounts, selectedOwner, selectedProgram]);
+
+  // Pipeline: escopo 100% no caller — sales com período/dono/programa
+  // (collectionSales), entries com período/dono (pipelineEntries) + ledger p/ CFR/MTTR.
+  const pipelineAccountIds = useMemo(() => {
+    const owner = selectedOwner === "todos" ? null : owners.find((o) => o.name === selectedOwner);
+    return owner ? accounts.filter((a) => a.ownerId === owner.id).map((a) => a.id) : null;
+  }, [owners, accounts, selectedOwner]);
+  const pipelineEntries = useMemo(
+    () =>
+      !pipelineAccountIds
+        ? filteredEntries
+        : filteredEntries.filter((e) => pipelineAccountIds.includes(e.accountId)),
+    [filteredEntries, pipelineAccountIds],
+  );
+  const creditsQ = useAllClientCreditsQuery();
+  const flowKeys = useMemo(
+    () =>
+      computeFlowKeys(
+        collectionSales,
+        pipelineEntries,
+        creditsQ.data ?? [],
+        parseInt(selectedPeriod) || 30,
+      ),
+    [collectionSales, pipelineEntries, creditsQ.data, selectedPeriod],
+  );
 
   const periods = PERIOD_OPTIONS;
 
@@ -446,12 +475,19 @@ export default function Relatorios() {
       <Tabs defaultValue="cobranca">
         <TabsList>
           <TabsTrigger value="cobranca">Cobrança</TabsTrigger>
+          <TabsTrigger value="pipeline">Pipeline</TabsTrigger>
           <TabsTrigger value="donos">Donos</TabsTrigger>
           <TabsTrigger value="programas">Programas</TabsTrigger>
           <TabsTrigger value="insights">Insights</TabsTrigger>
         </TabsList>
         <TabsContent value="cobranca" className="mt-4">
           <CollectionSection sales={collectionSales} />
+        </TabsContent>
+        <TabsContent value="pipeline" className="mt-4">
+          <div className="space-y-4">
+            <FlowKeysStrip keys={flowKeys} />
+            <PipelineTab entries={pipelineEntries} sales={collectionSales} />
+          </div>
         </TabsContent>
         <TabsContent value="donos" className="mt-4">
           {/* Owner Performance Report */}

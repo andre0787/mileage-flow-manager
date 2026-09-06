@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T15:36:14.525Z",
+  "generatedAt": "2026-09-06T17:26:40.338Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -146,8 +146,8 @@
     {
       "month": "2026-09",
       "prePrPassRate": 100,
-      "prePrTotal": 45,
-      "prePrPass": 45,
+      "prePrTotal": 46,
+      "prePrPass": 46,
       "prePrFail": 0,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
@@ -156,7 +156,7 @@
         "twins": 0,
         "auth": 0
       },
-      "avgOutcomeGrade": 87.1,
+      "avgOutcomeGrade": 86.7,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
@@ -180,14 +180,14 @@
         }
       ],
       "healedByRule": {
-        "rule-17-new-docs-valid": 3
+        "rule-17-new-docs-valid": 4
       },
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
-      "branchesMerged": 14,
+      "branchesMerged": 15,
       "violationsCaught": 28,
-      "healedRate": 10.7,
-      "frictionPerPass": 0.62
+      "healedRate": 14.3,
+      "frictionPerPass": 0.61
     }
   ],
   "daily": [
@@ -571,18 +571,27 @@
     {
       "day": "2026-09-06",
       "label": "06/09",
-      "prePrTotal": 26,
-      "prePrPass": 26,
+      "prePrTotal": 27,
+      "prePrPass": 27,
       "prePrFail": 0,
       "prePrPassRate": 100,
       "ruleFails": 13,
-      "healed": 2,
+      "healed": 3,
       "sessions": 0,
-      "merges": 6,
-      "friction": 0.5
+      "merges": 7,
+      "friction": 0.48
     }
   ],
   "prs": [
+    {
+      "number": 552,
+      "title": "refactor(contas) — tabela densa scannable + drill-down",
+      "type": "refactor",
+      "date": "2026-09-06",
+      "tokens": 1157,
+      "benefit": "Código mais simples — menor custo de manutenção",
+      "impact": "Menos custo em mudanças futuras"
+    },
     {
       "number": 551,
       "title": "feat(vendas) — campo Data no formulário de venda",
@@ -663,15 +672,6 @@
       "tokens": 439,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 541,
-      "title": "feat vendas: quitado por venda + alerta de saldo de crédito",
-      "type": "feat",
-      "date": "2026-09-05",
-      "tokens": 346,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "repo": {
@@ -682,15 +682,15 @@
     "testFiles": 319,
     "skills": 27,
     "rules": 48,
-    "events": 476,
-    "qualityNotes": 567
+    "events": 480,
+    "qualityNotes": 570
   },
   "summary": {
-    "merges": 55,
+    "merges": 56,
     "prs": 0,
     "sessions": 10,
     "violations": 186,
-    "healed": 32,
+    "healed": 33,
     "prePrPassRate": 100
   },
   "telemetry": []
