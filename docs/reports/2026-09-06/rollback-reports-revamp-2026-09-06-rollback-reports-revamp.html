@@ -167,12 +167,12 @@
     <section class="slide" id="s1">
       <div class="hero">
         <div class="hero-top">
-          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">rollback-reports-revamp</span> <span class="badge risk" style="color:#34d399">Baixo risco</span> <span class="badge health red" style="color:#f87171">● Precisa atenção</span></div>
-          <div class="hero-date">2026-09-06 · 19:12 · <span class="mono">feat/rollback-reports-revamp</span></div>
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">rollback-reports-revamp</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health red" style="color:#f87171">● Precisa atenção</span></div>
+          <div class="hero-date">2026-09-06 · 19:41 · <span class="mono">feat/rollback-reports-revamp</span></div>
         </div>
         <h1>rollback reports revamp</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">b1af410 — Merge pull request #554 from andre0787/feat/telemetria-f3-p2</div>
+        <div class="hero-meta mono">9f79a09 — fix(telemetria): rollback de status logado + revamp visual das abas de Relatorios</div>
       </div>
       
     <div class="kpi-grid">
@@ -187,14 +187,14 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/30</div>
+        <div class="kpi-value">0/33</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
         <div class="kpi-sub">16 violações · 3 auto-corrigidas</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value green">83</div>
+        <div class="kpi-value green">84</div>
         <div class="kpi-label">outcome grade</div>
-        <div class="kpi-sub">baixo risco da mudança</div>
+        <div class="kpi-sub">médio risco da mudança</div>
       </div>
     </div>
       <div class="bluf">
@@ -208,7 +208,7 @@
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Riscos & trade-offs</div>
-          <p>Baixo risco de mudança · outcome grade = 83 · lead time —.</p>
+          <p>Médio risco de mudança · outcome grade = 84 · lead time —.</p>
         </div>
       </div>
     </section><section class="slide" id="s2">
@@ -251,7 +251,7 @@
       <td>rollback reports revamp</td>
       <td>Nova capacidade entregue e validada para o produto.</td>
       <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
-      <td><code>~1</code></td>
+      <td><code>~1340</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.172 tokens (feature) · status pesado — tracking</p>
@@ -287,7 +287,7 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">30</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">33</span><span class="stat-l">rodadas de validação pré-PR</span></div>
             <div class="stat"><span class="stat-v">16</span><span class="stat-l">violações de regra encontradas</span></div>
             <div class="stat"><span class="stat-v green">3</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
@@ -304,7 +304,8 @@
         <div class="ap-card">
           <h3>✅ Checklist de revisão</h3>
           <ul class="checks">
-            <li>🧪 Testes manuais realizados?</li>
+            <li>🖼️ Renderização verificada em desktop e mobile?</li>
+<li>🧪 Testes manuais realizados?</li>
 <li>📋 Regras de validação passam? (npm run pre-pr)</li>
           </ul>
         </div>
@@ -312,7 +313,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 0 remoções — 1 linhas tocadas</td><td>✨ 0 adições — 0 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 409 remoções — 1786 linhas tocadas</td><td>✨ 971 adições — 16 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -320,51 +321,190 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>0</td></tr>
-            <tr><td>Adições</td><td>+0</td></tr>
-            <tr><td>Remoções</td><td>-0</td></tr>
-            <tr><td>Tokens estimados</td><td>~1</td></tr>
+            <tr><td>Arquivos alterados</td><td>16</td></tr>
+            <tr><td>Adições</td><td>+971</td></tr>
+            <tr><td>Remoções</td><td>-409</td></tr>
+            <tr><td>Tokens estimados</td><td>~1340</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:54">+728 add</div>
+        <div class="del" style="flex:23">-307 del</div>
+        <div class="overhead" style="flex:23">~305 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+728</td><td>54%</td></tr>
+      <tr><td>Remoções</td><td>-307</td><td>23%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~305</td><td>23%</td></tr>
+      <tr><th>Total</th><th>~1340</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
           <h3>📁 Arquivos</h3>
           <table>
             <tr><th>Status</th><th>Arquivo</th><th>+/-</th></tr>
-            
+            <tr><td>M</td><td>docs/MAP.md</td><td class="mono"><span class="ns-add">+164</span> <span class="ns-del">−160</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-06/rollback-reports-revamp-2026-09-06-rollback-reports-revamp.html</td><td class="mono"><span class="ns-add">+427</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/relatorios-revamp.md</td><td class="mono"><span class="ns-add">+49</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td><td class="mono"><span class="ns-add">+8</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td><td class="mono"><span class="ns-add">+9</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td><td class="mono"><span class="ns-add">+30</span> <span class="ns-del">−30</span></td></tr>
+<tr><td>M</td><td>public/workflow-data.json</td><td class="mono"><span class="ns-add">+47</span> <span class="ns-del">−47</span></td></tr>
+<tr><td>M</td><td>src/components/reports/CollectionSection.tsx</td><td class="mono"><span class="ns-add">+5</span> <span class="ns-del">−7</span></td></tr>
+<tr><td>M</td><td>src/components/reports/PipelineTab.tsx</td><td class="mono"><span class="ns-add">+29</span> <span class="ns-del">−20</span></td></tr>
+<tr><td>A</td><td>src/components/reports/ReportChrome.tsx</td><td class="mono"><span class="ns-add">+19</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>src/components/reports/reportTabs.ts</td><td class="mono"><span class="ns-add">+13</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/features/vendas/cancelVenda.ts</td><td class="mono"><span class="ns-add">+2</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/features/vendas/receiveVenda.ts</td><td class="mono"><span class="ns-add">+3</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/features/vendas/refundToCredit.ts</td><td class="mono"><span class="ns-add">+3</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/pages/Relatorios.tsx</td><td class="mono"><span class="ns-add">+129</span> <span class="ns-del">−129</span></td></tr>
+<tr><td>M</td><td>tests/unit/saleStatus.test.ts</td><td class="mono"><span class="ns-add">+18</span> <span class="ns-del">−0</span></td></tr>
           </table>
         </div>
-        
+        <div class="ap-card">
+          <h3>🔖 Commits da sessão (1)</h3>
+          <ul class="commit-list">
+            <li><code>9f79a09</code> fix(telemetria): rollback de status logado + revamp visual das abas de Relatorios</li>
+          </ul>
+        </div>
         <div class="ap-card">
           <h3>🧪 Qualidade de hoje</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
             <tr><td>Cobertura libs (rule-31)</td><td>sem registro hoje</td></tr>
             <tr><td>Cobertura componentes (rule-32)</td><td>sem registro hoje</td></tr>
-            <tr><td>Outcome grade (rule-30)</td><td>83</td></tr>
+            <tr><td>Outcome grade (rule-30)</td><td>84</td></tr>
           </table>
         </div>
       </div>
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
-        
+        diff --git a/docs/MAP.md b/docs/MAP.md
+index c3823c8..d842809 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -4,41 +4,41 @@
+ 
+ ## Docs de Código
+ 
+<span class="del">-| Arquivo | Quando ler | O que contém |</span>
+<span class="del">-|---------|-----------|--------------|</span>
+<span class="del">-| `STACK.md` | Setup inicial, comandos, dependências | Stack, npm scripts, env vars |</span>
+<span class="del">-| `ARCHITECTURE.md` | Antes de criar/modificar arquivos | Estrutura de pastas, fluxo de dados, roteamento |</span>
+<span class="del">-| `CONVENTIONS.md` | Antes de escrever código | Padrões de código, nomenclatura, DRY, imports |</span>
+<span class="del">-| `UI-GUIDE.md` | Antes de criar/modificar UI | Design system, grid, cores, tipografia, componentes |</span>
+<span class="del">-| `DEBUG.md` | Quando precisar debugar | Logger, breakpoints, launch.json, console.log rules |</span>
+<span class="add">+| Arquivo           | Quando ler                            | O que contém                                        |</span>
+<span class="add">+| ----------------- | ------------------------------------- | --------------------------------------------------- |</span>
+<span class="add">+| `STACK.md`        | Setup inicial, comandos, dependências | Stack, npm scripts, env vars                        |</span>
+<span class="add">+| `ARCHITECTURE.md` | Antes de criar/modificar arquivos     | Estrutura de pastas, fluxo de dados, roteamento     |</span>
+<span class="add">+| `CONVENTIONS.md`  | Antes de escrever código              | Padrões de código, nomenclatura, DRY, imports       |</span>
+<span class="add">+| `UI-GUIDE.md`     | Antes de criar/modificar UI           | Design system, grid, cores, tipografia, componentes |</span>
+<span class="add">+| `DEBUG.md`        | Quando precisar debugar               | Logger, breakpoints, launch.json, console.log rules |</span>
+ 
+ ## Docs de Processo
+ 
+<span class="del">-| Arquivo | Quando ler | O que contém |</span>
+<span class="del">-|---------|-----------|--------------|</span>
+<span class="del">-| `WORKFLOW-MANIFEST.md` | **Sempre primeiro** | Fonte canônica: categorias, estados, comandos obrigatórios, alvo de PR, política de bypass |</span>
+<span class="del">-| `WORKFLOW.md` | Antes de iniciar qualquer feature | Workflow council-to-superpowers + LLM Council + **navegação Serena-First** (detalhamento do manifesto) |</span>
+<span class="del">-| `AGENDA.md` | Obsoleto/arquivado | Stub que aponta para `docs/archive/AGENDA-2026.md`; use `docs/tasks/ROADMAP.md` e GitHub Issues |</span>
+<span class="del">-| `GIT-WORKFLOW.md` | Antes de commitar/criar PR | Branches, commits, PR, deploy |</span>
+<span class="del">-| `TESTING.md` | Antes de rodar testes | Playwright, bateria obrigatória, helpers |</span>
+<span class="del">-| `TESTING-PRODUCTION.md` | Testes contra produção | Metodologia duas camadas, armadilhas, CI pós-deploy |</span>
+<span class="del">-| `TEST-PLAN.md` | Planejamento de testes | 32 casos organizados em 3 fases, prioridades |</span>
+<span class="del">-| `MAPA-EXPERIENCIAS-USUARIO.md` | Contexto UX | 43 fluxos de usuário, 85+ cenários de teste, edge cases |</span>
+<span class="del">-| `docs/handoff.md` | Início/fim de sessão | Contexto entre sessões, branch atual, PRs, próximos passos |</span>
+<span class="del">-| `docs/CI-PROCESS.md` | Melhoria contínua | Ciclo de melhoria: coletar → priorizar → executar → revisar → retrospectiva |</span>
+<span class="del">-| `docs/RADAR.md` | **Início de toda sessão (automático)** | Relatório persistente de vulnerabilidades npm monitoradas (gerado pelo `scripts/check-radar.mjs`) |</span>
+<span class="del">-| `docs/audits/2026-08-03-project-audit.md` | Ao investigar estrutura/sujeira do repositório | Snapshot read-only da auditoria estrutural (`npm run project:audit`): checks, findings, allowlists |</span>
+<span class="del">-| `docs/audits/2026-08-07-docs-audit.md` | Ao auditar docs/skills/pendências | Auditoria completa de docs: checklist 6 itens, inventário .md, limpeza executada, órfãos, skills, pendências mapeadas |</span>
+<span class="add">+| Arquivo                                   | Quando ler                                     | O que contém                                                                                                          |</span>
+<span class="add">+| ----------------------------------------- | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |</span>
+<span class="add">+| `WORKFLOW-MANIFEST.md`                    | **Sempre primeiro**                            | Fonte canônica: categorias, estados, comandos obrigatórios, alvo de PR, política de bypass                            |</span>
+<span class="add">+| `WORKFLOW.md`                             | Antes de iniciar qualquer feature              | Workflow council-to-superpowers + LLM Council + **navegação Serena-First** (detalhamento do manifesto)                |</span>
+<span class="add">+| `AGENDA.md`                               | Obsoleto/arquivado                             | Stub que aponta para `docs/archive/AGENDA-2026.md`; use `docs/tasks/ROADMAP.md` e GitHub Issues                       |</span>
+<span class="add">+| `GIT-WORKFLOW.md`                         | Antes de commitar/criar PR                     | Branches, commits, PR, deploy                                                                                         |</span>
+<span class="add">+| `TESTING.md`                              | Antes de rodar testes                          | Playwright, bateria obrigatória, helpers                                                                              |</span>
+<span class="add">+| `TESTING-PRODUCTION.md`                   | Testes contra produção                         | Metodologia duas camadas, armadilhas, CI pós-deploy                                                                   |</span>
+<span class="add">+| `TEST-PLAN.md`                            | Planejamento de testes                         | 32 casos organizados em 3 fases, prioridades                                                                          |</span>
+<span class="add">+| `MAPA-EXPERIENCIAS-USUARIO.md`            | Contexto UX                                    | 43 fluxos de usuário, 85+ cenários de teste, edge cases                                                               |</span>
+<span class="add">+| `docs/handoff.md`                         | Início/fim de sessão                           | Contexto entre sessões, branch atual, PRs, próximos passos                                                            |</span>
+<span class="add">+| `docs/CI-PROCESS.md`                      | Melhoria contínua                              | Ciclo de melhoria: coletar → priorizar → executar → revisar → retrospectiva                                           |</span>
+<span class="add">+| `docs/RADAR.md`                           | **Início de toda sessão (automático)**         | Relatório persistente de vulnerabilidades npm monitoradas (gerado pelo `scripts/check-radar.mjs`)                     |</span>
+<span class="add">+| `docs/audits/2026-08-03-project-audit.md` | Ao investigar estrutura/sujeira do repositório | Snapshot read-only da auditoria estrutural (`npm run project:audit`): checks, findings, allowlists                    |</span>
+<span class="add">+| `docs/audits/2026-08-07-docs-audit.md`    | Ao auditar docs/skills/pendências              | Auditoria completa de docs: checklist 6 itens, inventário .md, limpeza executada, órfãos, skills, pendências mapeadas |</span>
+ 
+ ## Docs de Roadmap / Task-cards
+ 
+<span class="del">-| Arquivo | Quando ler | O que contém |</span>
+<span class="del">-|---------|-----------|--------------|</span>
+<span class="del">-| [`docs/tasks/ROADMAP.md`](tasks/ROADMAP.md) | Antes de planejar trabalho de workflow/agente | Índice em 4 ondas (P0/P1/P2/P3) de 25 task-cards |</span>
+<span class="del">-| [`docs/ROADMAP.md`](ROADMAP.md) | Backlog de itens do futuro fora da sessão corrente | Itens P1-P4 priorizados (react-router GHSA, npm audit, subagentes, branch órfã) |</span>
+<span class="del">-| `docs/tasks/_TEMPLATE.md` | Ao criar novo task-card | Estrutura canônica do card (objetivo, arquivos permitidos, critérios de aceite, testes, evidência) |</span>
+<span class="del">-| [`docs/tasks/P3-26-blueprint-v4-p0.md`](tasks/P3-26-blueprint-v4-p0.md) | Ao executar a Fase P0 do Blueprint v4 | Card da Fase P0: grafo de dependências, regras 40/41, sync-map — spec em `docs/superpowers/specs/2026-08-10-blueprint-v4-p0-design.md` |</span>
+<span class="del">-| [`docs/tasks/P3-27-blueprint-v4-p1-foundation-auth.md`](tasks/P3-27-blueprint-v4-p1-foundation-auth.md) | Ao executar a Fase P1 do Blueprint v4 (card 1) | Card da Fase P1: fundação Feature-First (RTK) + migração do domínio auth — spec em `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-foundation-auth-design.md` |</span>
+<span class="add">+| Arquivo                                                                                                 | Quando ler                                         | O que contém                                                                                                                                                     |</span>
+<span class="add">+| ------------------------------------------------------------------------------------------------------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |</span>
+<span class="add">+| [`docs/tasks/ROADMAP.md`](tasks/ROADMAP.md)                                                             | Antes de planejar trabalho de workflow/agente      | Índice em 4 ondas (P0/P1/P2/P3) de 25 task-cards                                                                                                                 |</span>
+<span class="add">+| [`docs/ROADMAP.md`](ROADMAP.md)                                                                         | Backlog de itens do futuro fora da sessão corrente | Itens P1-P4 priorizados (react-router GHSA, npm audit, subagentes, branch órfã)                                                                                  |</span>
+<span class="add">+| `docs/tasks/_TEMPLATE.md`                                                                               | Ao criar novo task-card                            | Estrutura canônica do card (objetivo, arquivos permitidos, critérios de aceite, testes, evidência)                                                               |</span>
+<span class="add">+| [`docs/tasks/P3-26-blueprint-v4-p0.md`](tasks/P3-26-blueprint-v4-p0.md)                                 | Ao executar a Fase P0 do Blueprint v4              | Card da Fase P0: grafo de dependências, regras 40/41, sync-map — spec em `docs/superpowers/specs/2026-08-10-blueprint-v4-p0-design.md`                           |</span>
+<span class="add">+| [`docs/tasks/P3-27-blueprint-v4-p1-foundation-auth.md`](tasks/P3-27-blueprint-v4-p1-foundation-auth.md) | Ao executar a Fase P1 do Blueprint v4 (card 1)     | Card da Fase P1: fundação Feature-First (RTK) + migração do domínio auth — spec em `docs/superpowers/specs/2026-08-10-blueprint-v4-p1-foundation-auth-design.md` |</span>
+ 
+ &gt; **Coleção de task-cards** (`docs/tasks/`): 25 cards granulares em 4 ondas (P0/P1/P2/P3).
+ &gt; O índice navegável está em `docs/tasks/ROADMAP.md`. Cards P3 de housekeeping:
+@@ -47,87 +47,87 @@
+ 
+ ## Docs do Ecossistema
+ 
+<span class="del">-| Arquivo | Quando ler | O que contém |</span>
+<span class="del">-|---------|-----------|--------------|</span>
+<span class="del">-| `STACK.md` (seção Agente) | Quando precisar de ferramentas do agente | pi, opencode, MCPs, plugins, skills, subagentes |</span>
+<span class="del">-| `docs/memory.md` | Contexto de sessões anteriores | Histórico de decisões, sprints, post-mortems |</span>
+<span class="del">-| `docs/IDEIAS.md` | Caixa de entrada de ideias | Ideias humanas pendentes, lidas no início da sessão |</span>
+<span class="del">-| `docs/FLUXO.md` | Diagramas do ecossistema | Flowcharts Mermaid: visão geral, fluxo de dados, rotas |</span>
+<span class="del">-| `docs/council/` | Vereditos de decisões | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md`, `2026-08-01-llm-model-router-veredito.md`, `2026-08-03-process-kpis-router-sanitizacao-veredito.md`, `2026-08-04-ux-entradas-vendas-veredito.md`, `2026-08-05-process-violations-veredito.md` |</span>
+<span class="del">-| `docs/superpowers/specs/` | Especificações técnicas | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md`, `2026-08-01-llm-model-router-design.md`, `2026-08-03-process-guardrails-design.md`, `2026-08-03-llm-router-kpi-design.md`, `2026-08-03-project-sanitization-design.md`, `2026-08-03-react-router-8-upgrade-design.md`, `2026-08-04-ux-entradas-vendas.md`, `2026-08-10-blueprint-v4-p0-design.md` |</span>
+<span class="del">-| `docs/superpowers/plans/` | Planos de execução | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md`, `2026-07-29-auth-ci-plan.md`, `2026-07-29-fable-method-skill-plan.md`, `2026-08-01-llm-model-router-plan.md`, `2026-08-03-process-guardrails-plan.md`, `2026-08-03-llm-router-kpi-plan.md`, `2026-08-03-project-sanitization-plan.md` |</span>
+<span class="del">-| `docs/fable-gates.md` | Gates INTENT/TWINS/AUTH | Declaração formal dos 3 gates do Fable Method aplicados no workflow |</span>
+<span class="del">-| `docs/reports/` | Relatórios HTML | Relatórios obrigatórios antes de cada PR |</span>
+<span class="del">-| `.githooks/` | Git hooks | Pre-commit que bloqueia commits na main |</span>
+<span class="del">-| `.pi/skills/fable-method/SKILL.md` | Skill primária de desenvolvimento | Loop de 7 passos Fable Method adaptado ao MilesControl — costura categorias, gates, workflow e scripts |</span>
+<span class="del">-| `.pi/skills/subagent-driven-development/SKILL.md` | Execução delegada com subagentes | Plano → subagente por tarefa → task review → final review |</span>
+<span class="del">-| `.pi/skills/dispatching-parallel-agents/SKILL.md` | Investigação paralela | 1 subagente por domínio de problema independente |</span>
+<span class="del">-| `.pi/skills/compact-delegation/SKILL.md` | Delegação econômica | Contrato universal: contexto mínimo + retorno estruturado por campos (reduz tokens por dispatch) |</span>
+<span class="del">-| `.pi/skills/bounded-scout/SKILL.md` | Exploração de escopo estreito | Scout retorna file|line|finding — sem carregar arquivos no contexto |</span>
+<span class="del">-| `.pi/skills/diff-miner/SKILL.md` | Análise de diffs | Lê o diff (não os arquivos) e retorna impact|risk|files |</span>
+<span class="del">-| `.pi/skills/test-triage/SKILL.md` | Triagem de falhas de teste | Roda só o teste falho e retorna cause|fix|evidence |</span>
+<span class="del">-| `.pi/skills/using-git-worktrees/SKILL.md` | Worktrees isolados | Branches separadas para trabalho concorrente sem conflito |</span>
+<span class="del">-| `.pi/skills/council-to-superpowers/SKILL.md` | Workflow feature | Council → **INTENT gate** → brainstorming → plans → execução → PR |</span>
+<span class="del">-| `.pi/skills/writing-plans/SKILL.md` | Planos de implementação | **INTENT gate** antes de definir tasks — alinha código, teste e spec |</span>
+<span class="del">-| `.pi/skills/systematic-debugging/SKILL.md` | Debug estruturado | **TWINS check** ao corrigir bugs — busca mesmo padrão no projeto todo |</span>
+<span class="del">-| `.pi/skills/finishing-a-development-branch/SKILL.md` | Finalização de branch | **AUTH gate** — exige palavras do usuário antes de push/merge/deploy irreversível |</span>
+<span class="del">-| `.pi/skills/using-superpowers/SKILL.md` | Início de qualquer conversa | Descobre e invoca skills antes de responder; ver `docs/STACK.md` (seção Agente) |</span>
+<span class="del">-| `.pi/skills/brainstorming/SKILL.md` | Antes de trabalho criativo | Explora intenção, requisitos e design antes de implementar |</span>
+<span class="del">-| `.pi/skills/llm-council/SKILL.md` | Decisões estratégicas | 5 conselheiros + síntese do chairman — usado internamente pelo council-to-superpowers |</span>
+<span class="del">-| `.pi/skills/test-driven-development/SKILL.md` | Antes de implementar feature/bugfix | Escreve teste que falha → implementa → refatora |</span>
+<span class="del">-| `.pi/skills/executing-plans/SKILL.md` | Execução de plano em sessão separada | Checkpoints de revisão entre sessões |</span>
+<span class="del">-| `.pi/skills/verification-before-completion/SKILL.md` | Antes de declarar trabalho pronto | Evidência antes de afirmação — roda comandos e confirma output |</span>
+<span class="del">-| `.pi/skills/requesting-code-review/SKILL.md` | Antes de merge | Verifica se o trabalho atende requisitos |</span>
+<span class="del">-| `.pi/skills/receiving-code-review/SKILL.md` | Ao receber feedback de review | Rigor técnico e verificação, não concordância performática |</span>
+<span class="del">-| `.pi/skills/small-model-execution/SKILL.md` | Execução com modelo pequeno | Fluxo mínimo para executar task-card de `docs/tasks/` usando comandos versionados |</span>
+<span class="del">-| `.pi/skills/writing-skills/SKILL.md` | Criar/editar skills | Valida skills antes do deploy |</span>
+<span class="del">-| `scripts/check-feedback.mjs` | Verificação de feedback | Consulta feedbacks de usuários no Supabase |</span>
+<span class="del">-| `scripts/check-deploy.mjs` | Saúde do deploy | Verifica status do último deploy via GitHub API |</span>
+<span class="del">-| `scripts/retro.mjs` | Retrospectiva | Gera relatório de retrospectiva do período |</span>
+<span class="del">-| `scripts/rules/rule-22-pr-naming.mjs` | Validação de PR | Valida nomenclatura de PRs no pre-pr |</span>
+<span class="del">-| `scripts/twins-check.mjs` | TWINS gate | Busca automatizada de padrões no código |</span>
+<span class="del">-| `scripts/process-audit.mjs` | Auditoria de evidência | Valida `docs/tracking/events.jsonl` (read-only); `--check`/`--json` |</span>
+<span class="del">-| `code-review-graph` (CLI, via `npm run crg:*`) | Grafo estrutural | Tree-sitter: `crg:architecture`, `crg:dead-code`, `crg:impact`, `crg:detect-changes`, `crg:status`, `crg:build/update`, `crg:wiki` — ver skill `.pi/skills/code-review-graph/SKILL.md` e WORKFLOW.md |</span>
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-09-06 19:12
+      Gerado por scripts/generate-report.mjs · 2026-09-06 19:41
     </div>
   </div>
 

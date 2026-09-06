@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-06T22:12:50.944Z",
+  "generatedAt": "2026-09-06T22:42:24.109Z",
   "dataDate": "2026-09-06",
   "kpiStats": [
     {
-      "value": 494,
+      "value": 497,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 582,
+      "value": 585,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 168,
+      "n": 171,
       "color": "#8b5cf6"
     },
     {
@@ -73,7 +73,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 219,
+      "n": 220,
       "color": "#10b981"
     },
     {
@@ -88,6 +88,21 @@
     }
   ],
   "recentTimeline": [
+    {
+      "t": "2026-09-06 22:42:20",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-06 22:37:51",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-06 22:36:55",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
     {
       "t": "2026-09-06 22:12:47",
       "d": "pre-pr",
@@ -112,29 +127,14 @@
       "t": "2026-09-06 21:59:02",
       "d": "rule:fail",
       "desc": "rule-39-coding-gate falhou"
-    },
-    {
-      "t": "2026-09-06 21:59:02",
-      "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
-    },
-    {
-      "t": "2026-09-06 20:38:07",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-06 20:37:48",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 189,
     "healed": 33,
     "healedRate": 17.5,
-    "prePrTotal": 168,
-    "prePrPass": 168,
+    "prePrTotal": 171,
+    "prePrPass": 171,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
@@ -213,14 +213,14 @@
     }
   ],
   "overview": {
-    "components": 149,
+    "components": 150,
     "pages": 18,
     "libs": 46,
     "scripts": 122,
     "testFiles": 327,
     "skills": 27,
     "rules": 48,
-    "events": 494,
-    "qualityNotes": 582
+    "events": 497,
+    "qualityNotes": 585
   }
 }
