@@ -50,6 +50,8 @@ export const cancelVendaEndpoint = (builder: VendasBuilder) => ({
         }
       } catch (err) {
         await supabase.from("sales").update({ status: oldStatus }).eq("id", id);
+        // F3: o retorno ao status anterior também entra no histórico (best-effort).
+        void recordStatusChange(sale.user_id, id, "cancelado", oldStatus);
         return {
           error: toQueryError(
             err instanceof Error ? err : { message: "Falha ao estornar crédito" },

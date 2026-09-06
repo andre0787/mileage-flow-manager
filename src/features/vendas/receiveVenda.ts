@@ -101,6 +101,9 @@ export const receiveVendaEndpoint = (builder: VendasBuilder) => ({
             .from("sales")
             .update({ amount_received: oldReceived, status: sale.status })
             .eq("id", saleId);
+          // F3: retorno ao estado anterior entra no histórico — status só
+          // mudou se fullyPaid (virou "pago"), nos demais casos é no-op.
+          if (plan.fullyPaid) void recordStatusChange(user.id, saleId, "pago", sale.status);
           return { error: toQueryError(movementError) };
         }
       }
