@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { buildCollectionReport, collectionCsvRows } from "@/lib/collections";
+import { buildCollectionReport, collectionCsvRows, filterCollectionSales } from "@/lib/collections";
 
 const sale = (id: string, clientId: string, opts: Record<string, unknown> = {}) => ({
   id,
@@ -82,5 +82,57 @@ describe("buildCollectionReport", () => {
     for (const banned of ["profit", "margin", "cost", "lucro", "margem", "custo"]) {
       expect(blob.toLowerCase()).not.toContain(banned);
     }
+  });
+});
+
+describe("filterCollectionSales", () => {
+  it("passthrough com filtros nulos (comportamento anterior)", () => {
+    const input = [sale("s1", "c1"), sale("s2", "c2", { accountId: "a9" })];
+    const out = filterCollectionSales(input, {
+      cutoff: new Date("2020-01-01T00:00:00"),
+      accountIds: null,
+      programName: null,
+    });
+    expect(out).toHaveLength(2);
+  });
+
+  it("corta pelo período (data da venda)", () => {
+    const input = [
+      sale("s1", "c1", { date: "2026-09-05" }),
+      sale("s2", "c1", { date: "2026-08-01" }),
+    ];
+    const out = filterCollectionSales(input, {
+      cutoff: new Date("2026-09-01T00:00:00"),
+      accountIds: null,
+      programName: null,
+    });
+    expect(out.map((s) => s.id)).toEqual(["s1"]);
+  });
+
+  it("filtra por dono via conta (serviço sem conta sai no filtro, entra sem filtro)", () => {
+    const withAccount = sale("s1", "c1", { accountId: "a1" });
+    const service = sale("s2", "c1", { kind: "servico", accountId: null });
+    const filtered = filterCollectionSales([withAccount, service], {
+      cutoff: new Date("2020-01-01T00:00:00"),
+      accountIds: ["a1"],
+      programName: null,
+    });
+    expect(filtered.map((s) => s.id)).toEqual(["s1"]);
+    const all = filterCollectionSales([withAccount, service], {
+      cutoff: new Date("2020-01-01T00:00:00"),
+      accountIds: null,
+      programName: null,
+    });
+    expect(all).toHaveLength(2);
+  });
+
+  it("filtra por programa", () => {
+    const input = [sale("s1", "c1", { program: "Smiles" }), sale("s2", "c1", { program: "Latam" })];
+    const out = filterCollectionSales(input, {
+      cutoff: new Date("2020-01-01T00:00:00"),
+      accountIds: null,
+      programName: "Latam",
+    });
+    expect(out.map((s) => s.id)).toEqual(["s2"]);
   });
 });

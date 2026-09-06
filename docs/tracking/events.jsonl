@@ -460,3 +460,7 @@
 {"timestamp":"2026-09-06T05:03:06.845Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"feat/relatorio-cobranca","commit":"9b127d6","agent":"pi","subagent":true,"verdict":"approved"}
 {"timestamp":"2026-09-06T05:04:23.247Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/relatorio-cobranca","commit":"9b127d6","agent":"pi","errors":0}
 {"timestamp":"2026-09-06T05:04:36.975Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/relatorio-cobranca","commit":"9b127d6","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T11:59:10.991Z","type":"coding:done","description":"Cobranca respeita filtros + remove export morto","branch":"fix/cobranca-filtros","commit":"bf141cb","agent":"pi","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-09-06T12:04:19.053Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"fix/cobranca-filtros","commit":"bf141cb","agent":"pi","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-09-06T12:08:15.786Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/cobranca-filtros","commit":"bf141cb","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T12:08:34.870Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/cobranca-filtros","commit":"bf141cb","agent":"pi","errors":0}

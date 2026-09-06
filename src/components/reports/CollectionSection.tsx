@@ -5,12 +5,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useData } from "@/contexts/DataContext";
 import { useAllClientCreditsQuery } from "@/features/clientes";
 import { buildCollectionReport, collectionCsvRows } from "@/lib/collections";
+import type { CollectionSale } from "@/lib/collections";
 import { downloadCSV } from "@/lib/utils";
 import { formatDateBR } from "@/lib/dateUtils";
 
-/** Seção Cobrança: débitos por cliente p/ cobrança — sem lucro/margem/custos. */
-export function CollectionSection() {
-  const { sales, isLoading } = useData();
+/**
+ * Seção Cobrança: débitos por cliente p/ cobrança — sem lucro/margem/custos.
+ * Recebe vendas já filtradas (período/dono/programa); sem prop, usa todas.
+ */
+export function CollectionSection({ sales: salesProp }: { sales?: CollectionSale[] }) {
+  const { sales: allSales, isLoading } = useData();
+  const sales = salesProp ?? allSales;
   const creditsQ = useAllClientCreditsQuery();
   const [openId, setOpenId] = useState<string | null>(null);
 
