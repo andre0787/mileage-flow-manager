@@ -444,3 +444,9 @@
 {"timestamp":"2026-09-06T01:25:17.642Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/produtos-venda","commit":"48a609a","agent":"pi","errors":0}
 {"timestamp":"2026-09-06T01:25:24.287Z","type":"coding:done","description":"Codificação venda-servico por subagente","branch":"feat/produtos-venda","commit":"0cf1364","agent":"pi","subagent":true,"skill":"subagent-driven-development"}
 {"timestamp":"2026-09-06T01:25:29.511Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/produtos-venda","commit":"0cf1364","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T01:30:52.165Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"feat/produtos-venda","commit":"61e6d44","agent":"pi","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-09-06T01:31:21.419Z","type":"rule:fail","description":"rule-41-optimizer falhou","branch":"feat/produtos-venda","commit":"61e6d44","agent":"pi","rule":"rule-41-optimizer"}
+{"timestamp":"2026-09-06T01:31:21.454Z","type":"rule:fail","description":"rule-43-migration-gate falhou","branch":"feat/produtos-venda","commit":"61e6d44","agent":"pi","rule":"rule-43-migration-gate"}
+{"timestamp":"2026-09-06T01:32:09.442Z","type":"rule:fail","description":"rule-41-optimizer falhou","branch":"feat/produtos-venda","commit":"61e6d44","agent":"pi","rule":"rule-41-optimizer"}
+{"timestamp":"2026-09-06T01:32:09.476Z","type":"rule:fail","description":"rule-43-migration-gate falhou","branch":"feat/produtos-venda","commit":"61e6d44","agent":"pi","rule":"rule-43-migration-gate"}
+{"timestamp":"2026-09-06T01:33:07.698Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/produtos-venda","commit":"61e6d44","agent":"pi","errors":0}

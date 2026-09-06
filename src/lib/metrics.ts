@@ -259,8 +259,10 @@ export function computeDashboardMetrics(
     .reduce((sum, e) => sum + (e.milesGenerated ?? e.amount), 0);
 
   const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+  // revenueChange compara milhagem com milhagem: o mês anterior também
+  // usa milesSales (serviço fora dos KPIs de milhagem).
   const prevMonthSales = filterSalesByMonth(
-    activeSales,
+    milesSales,
     lastMonth.getMonth(),
     lastMonth.getFullYear(),
   );

@@ -167,19 +167,19 @@
     <section class="slide" id="s1">
       <div class="hero">
         <div class="hero-top">
-          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">produtos-venda</span> <span class="badge risk" style="color:#f87171">Alto risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
-          <div class="hero-date">2026-09-06 · 22:24 · <span class="mono">feat/produtos-venda</span></div>
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">produtos-venda</span> <span class="badge risk" style="color:#f87171">Alto risco</span> <span class="badge health amber" style="color:#fbbf24">● Sob atenção</span></div>
+          <div class="hero-date">2026-09-06 · 22:32 · <span class="mono">feat/produtos-venda</span></div>
         </div>
         <h1>produtos venda</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">b141cfe — feat(vendas): migration sale_kind/service_type/observations</div>
+        <div class="hero-meta mono">61e6d44 — docs: veredito council + spec/plano venda-servico</div>
       </div>
       
     <div class="kpi-grid">
       <div class="kpi">
         <div class="kpi-value">0</div>
         <div class="kpi-label">entregas em produção</div>
-        <div class="kpi-sub">1 implementações · 1 reviews</div>
+        <div class="kpi-sub">2 implementações · 2 reviews</div>
       </div>
       <div class="kpi">
         <div class="kpi-value">—</div>
@@ -187,9 +187,9 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/4</div>
+        <div class="kpi-value">0/12</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
-        <div class="kpi-sub">7 violações · 1 auto-corrigidas</div>
+        <div class="kpi-sub">11 violações · 1 auto-corrigidas</div>
       </div>
       <div class="kpi">
         <div class="kpi-value green">80</div>
@@ -251,7 +251,7 @@
       <td>produtos venda</td>
       <td>Nova capacidade entregue e validada para o produto.</td>
       <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
-      <td><code>~16</code></td>
+      <td><code>~1958</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.172 tokens (feature) · status pesado — tracking</p>
@@ -287,8 +287,8 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">4</span><span class="stat-l">rodadas de validação pré-PR</span></div>
-            <div class="stat"><span class="stat-v">7</span><span class="stat-l">violações de regra encontradas</span></div>
+            <div class="stat"><span class="stat-v">12</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">11</span><span class="stat-l">violações de regra encontradas</span></div>
             <div class="stat"><span class="stat-v green">1</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
           </div>
@@ -305,6 +305,9 @@
           <h3>✅ Checklist de revisão</h3>
           <ul class="checks">
             <li>🔷 Migração de banco aplicada?</li>
+<li>🖼️ Renderização verificada em desktop e mobile?</li>
+<li>🔌 Hooks testados em tela real?</li>
+<li>📦 Biblioteca testada com casos de borda?</li>
 <li>🧪 Testes manuais realizados?</li>
 <li>📋 Regras de validação passam? (npm run pre-pr)</li>
           </ul>
@@ -313,7 +316,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 1 remoções — 21 linhas tocadas</td><td>✨ 16 adições — 1 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 313 remoções — 2611 linhas tocadas</td><td>✨ 1939 adições — 21 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -321,36 +324,64 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>1</td></tr>
-            <tr><td>Adições</td><td>+16</td></tr>
-            <tr><td>Remoções</td><td>-1</td></tr>
-            <tr><td>Tokens estimados</td><td>~16</td></tr>
+            <tr><td>Arquivos alterados</td><td>21</td></tr>
+            <tr><td>Adições</td><td>+1939</td></tr>
+            <tr><td>Remoções</td><td>-313</td></tr>
+            <tr><td>Tokens estimados</td><td>~1958</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:75">+12 add</div>
-        <div class="del" style="flex:6">-1 del</div>
-        <div class="overhead" style="flex:19">~3 ctx</div>
+        <div class="add" style="flex:74">+1454 add</div>
+        <div class="del" style="flex:12">-235 del</div>
+        <div class="overhead" style="flex:14">~269 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+12</td><td>75%</td></tr>
-      <tr><td>Remoções</td><td>-1</td><td>6%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~3</td><td>19%</td></tr>
-      <tr><th>Total</th><th>~16</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+1454</td><td>74%</td></tr>
+      <tr><td>Remoções</td><td>-235</td><td>12%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~269</td><td>14%</td></tr>
+      <tr><th>Total</th><th>~1958</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
           <h3>📁 Arquivos</h3>
           <table>
             <tr><th>Status</th><th>Arquivo</th><th>+/-</th></tr>
-            <tr><td>A</td><td>supabase/migrations/20260906000000_venda_servico.sql</td><td class="mono"><span class="ns-add">+15</span> <span class="ns-del">−0</span></td></tr>
+            <tr><td>M</td><td>docs/MAP.md</td><td class="mono"><span class="ns-add">+2</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/council/2026-09-06-produtos-veredito.md</td><td class="mono"><span class="ns-add">+16</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-06/produtos-venda-2026-09-06-produtos-venda.html</td><td class="mono"><span class="ns-add">+453</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/superpowers/plans/venda-servico.md</td><td class="mono"><span class="ns-add">+364</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/venda-servico.md</td><td class="mono"><span class="ns-add">+129</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td><td class="mono"><span class="ns-add">+17</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/components/SaleForm.tsx</td><td class="mono"><span class="ns-add">+397</span> <span class="ns-del">−279</span></td></tr>
+<tr><td>M</td><td>src/components/sales/SaleMobileCard.tsx</td><td class="mono"><span class="ns-add">+23</span> <span class="ns-del">−5</span></td></tr>
+<tr><td>M</td><td>src/components/sales/SaleTableRow.tsx</td><td class="mono"><span class="ns-add">+15</span> <span class="ns-del">−2</span></td></tr>
+<tr><td>M</td><td>src/features/vendas/addVenda.ts</td><td class="mono"><span class="ns-add">+20</span> <span class="ns-del">−1</span></td></tr>
+<tr><td>M</td><td>src/features/vendas/updateVenda.ts</td><td class="mono"><span class="ns-add">+11</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/hooks/useDatabase/mappers.ts</td><td class="mono"><span class="ns-add">+7</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/lib/metrics.ts</td><td class="mono"><span class="ns-add">+26</span> <span class="ns-del">−5</span></td></tr>
+<tr><td>A</td><td>src/lib/saleKind.ts</td><td class="mono"><span class="ns-add">+44</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/pages/Vendas.tsx</td><td class="mono"><span class="ns-add">+80</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/types/index.ts</td><td class="mono"><span class="ns-add">+9</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>supabase/migrations/20260906000000_venda_servico.sql</td><td class="mono"><span class="ns-add">+15</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>tests/unit/features-vendas-api.test.ts</td><td class="mono"><span class="ns-add">+110</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>tests/unit/mappers-servico.test.ts</td><td class="mono"><span class="ns-add">+48</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>tests/unit/metrics-servico.test.ts</td><td class="mono"><span class="ns-add">+61</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>tests/unit/saleKind.test.ts</td><td class="mono"><span class="ns-add">+71</span> <span class="ns-del">−0</span></td></tr>
           </table>
         </div>
         <div class="ap-card">
-          <h3>🔖 Commits da sessão (1)</h3>
+          <h3>🔖 Commits da sessão (9)</h3>
           <ul class="commit-list">
-            <li><code>b141cfe</code> feat(vendas): migration sale_kind/service_type/observations</li>
+            <li><code>61e6d44</code> docs: veredito council + spec/plano venda-servico</li>
+<li><code>0cf1364</code> feat(vendas): badge Servico + CSV com tipo/observacoes</li>
+<li><code>48a609a</code> feat(vendas): modo Servico no SaleForm</li>
+<li><code>669769b</code> feat(vendas): KPIs de milhagem excluem servico</li>
+<li><code>951981d</code> feat(vendas): kind imutavel no updateVenda</li>
+<li><code>d9fc535</code> feat(vendas): validacao kind no addVenda + insert servico</li>
+<li><code>d193c3f</code> feat(vendas): validateSaleKind puro + testes</li>
+<li><code>54585f7</code> feat(vendas): tipos kind/serviceType/observations + mapper</li>
+<li><code>b141cfe</code> feat(vendas): migration sale_kind/service_type/observations</li>
           </ul>
         </div>
         <div class="ap-card">
@@ -365,32 +396,131 @@
       </div>
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
-        diff --git a/supabase/migrations/20260906000000_venda_servico.sql b/supabase/migrations/20260906000000_venda_servico.sql
+        diff --git a/docs/MAP.md b/docs/MAP.md
+index 9c4d5b8..9fb1a35 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -594,3 +594,5 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
+ | `docs/superpowers/specs/2026-08-22-roadmap-remainder-design.md` (auto) | 2026-08-23 |
+ | `docs/superpowers/plans/cliente-credito-ledger.md` (auto) | 2026-09-04 |
+ | `docs/superpowers/specs/credito-cliente.md` (auto) | 2026-09-04 |
+<span class="add">+| `docs/superpowers/plans/venda-servico.md` (auto) | 2026-09-06 |</span>
+<span class="add">+| `docs/superpowers/specs/venda-servico.md` (auto) | 2026-09-06 |</span>
+diff --git a/docs/council/2026-09-06-produtos-veredito.md b/docs/council/2026-09-06-produtos-veredito.md
 new file mode 100644
-index 0000000..7c1d45e
+index 0000000..09c7cc4
 <span class="del">--- /dev/null</span>
-<span class="add">+++ b/supabase/migrations/20260906000000_venda_servico.sql</span>
-@@ -0,0 +1,15 @@
-<span class="add">+-- Venda standalone de serviço (PR1 — Proposta B do council 2026-09-06).</span>
-<span class="add">+-- Discriminador sale_kind + tipo de serviço + observações.</span>
-<span class="add">+-- NUNCA editar migration existente (rule-43); sem CREATE TABLE → sem RLS nova.</span>
-<span class="add">+-- Linhas existentes ganham sale_kind='milhas' via DEFAULT (backfill implícito).</span>
+<span class="add">+++ b/docs/council/2026-09-06-produtos-veredito.md</span>
+@@ -0,0 +1,16 @@
+<span class="add">+# Veredito do Council — Produtos na Venda + Relatório de Cobrança</span>
+<span class="add">+&gt; Data: 2026-09-06 · Chairman: Executor · Advisors: Contrarian, First Principles, Expansionist, Outsider, Executor</span>
 <span class="add">+</span>
-<span class="add">+ALTER TABLE sales ADD COLUMN IF NOT EXISTS sale_kind text NOT NULL DEFAULT 'milhas';</span>
-<span class="add">+ALTER TABLE sales ADD COLUMN IF NOT EXISTS service_type text NULL;</span>
-<span class="add">+ALTER TABLE sales ADD COLUMN IF NOT EXISTS observations text NULL;</span>
+<span class="add">+## Síntese do Chairman</span>
 <span class="add">+</span>
-<span class="add">+DO $$ BEGIN</span>
-<span class="add">+  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'sales_kind_check') THEN</span>
-<span class="add">+    ALTER TABLE sales ADD CONSTRAINT sales_kind_check</span>
-<span class="add">+      CHECK (sale_kind IN ('milhas', 'servico'));</span>
-<span class="add">+  END IF;</span>
-<span class="add">+END $$;</span>
+<span class="add">+**Consenso:** 4 vereditos **Faça** + 1 **Reformule** (Contrarian) cujas 4 travas são idênticas às condições impostas pelos outros quatro — ou seja, convergência total sob travas. Unanimidade em: **arquivar a Proposta A** (coluna de receita adicional na mesma venda — polui `sale_value`, margem e comparabilidade histórica); **Proposta B no PR1** (venda standalone `miles=0`, sem conta, com observações, reaproveitando recebimento/crédito/extrato); **Proposta C no PR2** (relatório de cobrança por cliente, SEM lucro/margem/custos); fatiamento em 2 PRs (escrita antes, leitura depois).</span>
+<span class="add">+</span>
+<span class="add">+**Peer review (pontos reforçados):** discriminador explícito de tipo (`sale_kind: milhas|servico`) — exigido por 4 advisors; vendas-serviço fora dos KPIs de milhagem (`totalSoldMiles`, `avgCostPerMile`, `avgProfitMargin`, `price_per_mile=NULL`) — unanimidade; fórmula do líquido travada (`Σ(sale_value − amount_received, não-canceladas) − credit_balance`, mesmo `CREDIT_EPSILON`) + teste anti-dupla-subtração do `spend` — achado-chave do Contrarian, adotado; checar constraints reais (`account_name/owner_name/program` NOT NULL, `account_id` NULLable) antes de afirmar &quot;sem migração&quot; — Executor/First Principles; observações em coluna nova nullable (nunca gambiarra em campo legado) — Expansionist/Outsider; testes de corrida e estorno do ledger cobrindo venda-serviço como gate — Contrarian/Executor, dado que `receiveWithCredit` segue sem transação server-side.</span>
+<span class="add">+</span>
+<span class="add">+**Premissa questionada (lacuna real):** ninguém além do Contrarian tratou a natureza da taxa — se a taxa de embarque é **repasse** (operador adianta e cliente reembolsa), o modelo correto é lançamento duplo (receita + custo espelhado, lucro neutro); se é **markup/serviço**, entra como receita pura. Somar tudo como receita sem distinguir gera lucro fantasma no caso repasse. Vira trava: a spec do PR1 deve definir a natureza por produto.</span>
+<span class="add">+</span>
+<span class="add">+**Veredito Final:** **Faça condicionado** — B no PR1 + C no PR2, A arquivada, sob as 5 travas abaixo. Sem elas, regride para Não faça (fallback do Outsider: consultoria fora da tabela `sales`).</span>
+<span class="add">+</span>
+<span class="add">+**Próximos Passos:** 1) Spec Superpowers com fórmula do líquido travada + natureza por produto (repasse vs. markup); 2) Migration nova e mínima (`sale_kind` default `milhas`, `observations` nullable; nunca editar migration existente — rule-43); 3) PR1: validação `miles&gt;0 IFF kind=milhas`, `account_id=NULL` real, KPIs isolados, testes (profit=fee, sem débito em conta, recebimento/estorno com crédito); 4) PR2: seção de cobrança read-only (pendente + linhas por venda + saldo + líquido, sem lucro/margem/custos) — escopo pode expandir para repaginação total da aba Relatórios, já autorizada pelo usuário; 5) Gates: testes de estorno/corrida do ledger, pre-pr 0 errors, review por subagente.</span>
+<span class="add">+</span>
+<span class="add">+**Extended Thinking Usado:** não — as 5 análises já convergem em profundidade e a lacuna restante (repasse vs. markup) é empírica, só o usuário resolve; o risco residual foi convertido nas travas acima.</span>
+diff --git a/docs/reports/2026-09-06/produtos-venda-2026-09-06-produtos-venda.html b/docs/reports/2026-09-06/produtos-venda-2026-09-06-produtos-venda.html
+new file mode 100644
+index 0000000..075ccb5
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/reports/2026-09-06/produtos-venda-2026-09-06-produtos-venda.html</span>
+@@ -0,0 +1,453 @@
+<span class="add">+&lt;!DOCTYPE html&gt;</span>
+<span class="add">+&lt;html lang=&quot;pt-BR&quot;&gt;</span>
+<span class="add">+&lt;head&gt;</span>
+<span class="add">+  &lt;meta charset=&quot;UTF-8&quot;&gt;</span>
+<span class="add">+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;</span>
+<span class="add">+  &lt;title&gt;produtos-venda — produtos venda&lt;/title&gt;</span>
+<span class="add">+  &lt;style&gt;</span>
+<span class="add">+    :root{</span>
+<span class="add">+      --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;</span>
+<span class="add">+      --text:#e6edf7;--muted:#8fa3c0;--blue:#3b82f6;--green:#34d399;--amber:#fbbf24;--red:#f87171;--gold:#f59e0b;--teal:#2dd4bf;</span>
+<span class="add">+    }</span>
+<span class="add">+    *{box-sizing:border-box;margin:0;padding:0}</span>
+<span class="add">+    html,body{height:100%}</span>
+<span class="add">+    body{</span>
+<span class="add">+      font-family:ui-sans-serif,system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;</span>
+<span class="add">+      background:radial-gradient(1200px 600px at 15% -10%,#12203f 0%,transparent 55%),radial-gradient(1000px 500px at 110% 20%,#0f2440 0%,transparent 50%),var(--bg);</span>
+<span class="add">+      color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;</span>
+<span class="add">+    }</span>
+<span class="add">+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}</span>
+<span class="add">+    .deck{min-height:100vh;display:flex;flex-direction:column}</span>
+<span class="add">+    .slide{</span>
+<span class="add">+      flex:1 0 auto;min-height:100vh;padding:5.5rem clamp(1.25rem,5vw,4.5rem) 3.5rem;</span>
+<span class="add">+      display:flex;flex-direction:column;justify-content:center;gap:1.4rem;</span>
+<span class="add">+      max-width:1180px;margin:0 auto;width:100%;</span>
+<span class="add">+      border-bottom:1px solid var(--line);</span>
+<span class="add">+    }</span>
+<span class="add">+    .deck-mode .slide{display:none}</span>
+<span class="add">+    .deck-mode .slide.active{display:flex}</span>
+<span class="add">+    .nav{</span>
+<span class="add">+      position:fixed;top:1rem;right:1rem;z-index:60;display:flex;gap:.4rem;align-items:center;</span>
+<span class="add">+      background:rgba(10,15,30,.85);backdrop-filter:blur(8px);border:1px solid var(--line);</span>
+<span class="add">+      border-radius:999px;padding:.35rem .5rem;box-shadow:0 8px 24px rgba(0,0,0,.45);</span>
+<span class="add">+    }</span>
+<span class="add">+    .nav button{</span>
+<span class="add">+      background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:1.05rem;</span>
+<span class="add">+      width:2.1rem;height:2.1rem;border-radius:999px;transition:all .15s;line-height:1;</span>
+<span class="add">+    }</span>
+<span class="add">+    .nav button:hover{background:var(--card2);color:var(--text)}</span>
+<span class="add">+    .nav .count{font-size:.72rem;color:var(--muted);min-width:2.6rem;text-align:center;font-variant-numeric:tabular-nums}</span>
+<span class="add">+    .nav .mode-btn{width:auto;padding:0 .7rem;font-size:.72rem;color:var(--muted)}</span>
+<span class="add">+    .hero{display:flex;flex-direction:column;gap:.9rem}</span>
+<span class="add">+    .hero-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}</span>
+<span class="add">+    .hero-badges{display:flex;gap:.5rem;flex-wrap:wrap}</span>
+<span class="add">+    .badge{</span>
+<span class="add">+      display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .7rem;border-radius:999px;</span>
+<span class="add">+      font-size:.72rem;font-weight:700;letter-spacing:.02em;border:1px solid var(--line);color:var(--muted);</span>
+<span class="add">+    }</span>
+<span class="add">+    .badge.pr{color:#93c5fd;border-color:rgba(59,130,246,.4);background:rgba(59,130,246,.12)}</span>
+<span class="add">+    .badge.feat{color:#6ee7b7;border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.1)}</span>
+<span class="add">+    .badge.fix{color:#fca5a5;border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.1)}</span>
+<span class="add">+    .badge.docs{color:#c4b5fd;border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.1)}</span>
+<span class="add">+    .badge.chore,.badge.auto{color:#a7b8d1;border-color:var(--line);background:rgba(255,255,255,.04)}</span>
+<span class="add">+    .badge.risk{border-style:dashed}</span>
+<span class="add">+    .badge.health{font-weight:800}</span>
+<span class="add">+    .hero-date{font-size:.78rem;color:var(--muted)}</span>
+<span class="add">+    h1{font-size:clamp(1.9rem,4.5vw,3.3rem);line-height:1.08;letter-spacing:-.03em;font-weight:800;text-wrap:balance}</span>
+<span class="add">+    .hero-summary{font-size:clamp(1rem,1.6vw,1.3rem);color:var(--muted);max-width:62ch;text-wrap:balance}</span>
+<span class="add">+    .hero-meta{font-size:.72rem;color:var(--muted);opacity:.8}</span>
+<span class="add">+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin-top:.4rem}</span>
+<span class="add">+    .kpi{</span>
+<span class="add">+      background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);</span>
+<span class="add">+      border-radius:1rem;padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.2rem;</span>
+<span class="add">+      box-shadow:0 10px 30px rgba(0,0,0,.3);</span>
+<span class="add">+    }</span>
+<span class="add">+    .kpi-value{font-size:clamp(1.9rem,3vw,2.6rem);font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--text)}</span>
+<span class="add">+    .kpi-value.green{color:var(--green)}.kpi-value.amber{color:var(--amber)}</span>
+<span class="add">+    .kpi-label{font-size:.8rem;color:var(--muted);font-weight:600}</span>
+<span class="add">+    .kpi-sub{font-size:.7rem;color:var(--muted);opacity:.75}</span>
+<span class="add">+    .bluf{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem}</span>
+<span class="add">+    .bluf-col{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}</span>
+<span class="add">+    .bluf-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-weight:800;margin-bottom:.4rem}</span>
+<span class="add">+    .bluf-col p{font-size:.9rem;color:var(--text)}</span>
+<span class="add">+    .slide-head{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.6rem}</span>
+<span class="add">+    .slide-kicker{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);font-weight:800}</span>
+<span class="add">+    .slide-head h2{font-size:clamp(1.4rem,3vw,2.1rem);letter-spacing:-.02em;font-weight:800}</span>
+<span class="add">+    .impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}</span>
+<span class="add">+    .impact-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.4rem;display:flex;flex-direction:column;gap:.5rem}</span>
+<span class="add">+    .impact-icon{font-size:1.6rem}</span>
+<span class="add">+    .impact-card h3{font-size:1rem;font-weight:800;letter-spacing:-.01em}</span>
+<span class="add">+    .impact-card p{font-size:.9rem;color:var(--muted)}</span>
+<span class="add">+    .impact-card.blue{border-top:3px solid var(--blue)}</span>
+<span class="add">+    .impact-card.gold{border-top:3px solid var(--gold)}</span>
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-09-06 22:24
+      Gerado por scripts/generate-report.mjs · 2026-09-06 22:32
     </div>
   </div>
 

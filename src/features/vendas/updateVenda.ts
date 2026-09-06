@@ -1,5 +1,6 @@
 import { supabase, calcProportionalCost, calcAccountUpdate, toQueryError } from "./shared";
 import { calcProfit, calcProfitMargin } from "@/lib/metrics";
+import { validateSaleKind } from "@/lib/saleKind";
 import type { Sale, VendaUpdate, VendaMutationInput, VendasBuilder } from "./shared";
 
 export const updateVendaEndpoint = (builder: VendasBuilder) => ({
@@ -20,6 +21,31 @@ export const updateVendaEndpoint = (builder: VendasBuilder) => ({
       const oldKind = (oldSale as { sale_kind?: unknown }).sale_kind ?? "milhas";
       if (data.kind !== undefined && data.kind !== oldKind)
         return { error: toQueryError({ message: "Tipo da venda não pode ser alterado." }) };
+
+      // Revalida o estado EFETIVO (banco + patch) — sem isso o update
+      // corromperia invariantes (serviço ganhando miles/conta, milhas
+      // ganhando serviceType/observations). Mesma regra do addVenda.
+      const oldCostsRawEff = (oldSale as { additional_costs?: unknown }).additional_costs;
+      const kindEffErrors = validateSaleKind({
+        kind: (oldKind === "servico" ? "servico" : "milhas") as "milhas" | "servico",
+        milesUsed: Number(data.milesUsed ?? oldSale.miles_used ?? 0),
+        accountId: (data.accountId ?? oldSale.account_id ?? null) as string | null,
+        saleValue: Number(data.saleValue ?? oldSale.sale_value ?? 0),
+        clientId: (data.clientId ?? oldSale.client_id ?? null) as string | null,
+        serviceType: (data.serviceType ?? oldSale.service_type ?? null) as
+          | "consultoria"
+          | "taxa"
+          | "outro"
+          | null,
+        pricePerMile: (data.pricePerMile ?? oldSale.price_per_mile ?? null) as number | null,
+        observations: (data.observations ?? oldSale.observations ?? null) as string | null,
+        additionalCosts: (data.additionalCosts ??
+          (Array.isArray(oldCostsRawEff) ? oldCostsRawEff : null)) as
+          | { desc: string; amount: number }[]
+          | null,
+      });
+      if (kindEffErrors.length > 0)
+        return { error: toQueryError({ message: kindEffErrors[0] }) };
 
       // 2. Build update data (snake_case)
       const updateData: VendaUpdate = {};

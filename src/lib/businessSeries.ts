@@ -15,6 +15,8 @@ interface SeriesSale {
   saleValue?: number;
   profit?: number;
   milesUsed?: number;
+  /** Discriminador milhas|servico — ausente = milhas (linhas antigas/mocks). */
+  kind?: string;
 }
 
 interface SeriesEntry {
@@ -129,8 +131,12 @@ export function computeDailyBusinessSeries(
       d.getDate(),
     ).padStart(2, "0")}`;
 
+    // Vendas-serviço fora das séries de milhagem (unanimidade do council).
     const daySales = sales.filter(
-      (s) => s.status !== "cancelado" && (s.date ?? "").startsWith(day),
+      (s) =>
+        s.status !== "cancelado" &&
+        (s.kind ?? "milhas") === "milhas" &&
+        (s.date ?? "").startsWith(day),
     );
     const dayEntries = entries.filter(
       (e) => e.entryStatus !== "aguardando" && (e.date ?? "").startsWith(day),

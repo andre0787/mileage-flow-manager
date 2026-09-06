@@ -62,6 +62,25 @@ describe("computeDailyBusinessSeries", () => {
     const series = computeDailyBusinessSeries([], [], 3);
     expect(series.every((p) => p.revenue === 0 && p.profit === 0 && p.milesIn === 0)).toBe(true);
   });
+
+  it("exclui vendas-serviço da receita/lucro (fora das séries de milhagem)", () => {
+    const withService = [
+      ...sales,
+      {
+        date: day(0),
+        saleValue: 300,
+        profit: 300,
+        milesUsed: 0,
+        status: "concluido",
+        kind: "servico",
+      },
+    ];
+    const series = computeDailyBusinessSeries(withService, entries, 5);
+    const last = series[series.length - 1]; // hoje
+    expect(last.revenue).toBe(1000); // sem os 300 do serviço
+    expect(last.profit).toBe(400);
+    expect(last.milesOut).toBe(10000);
+  });
 });
 
 describe("computeOwnersBreakdown", () => {

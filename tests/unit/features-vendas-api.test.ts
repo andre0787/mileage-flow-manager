@@ -262,6 +262,8 @@ describe("vendasApi — updateVenda", () => {
                 account_id: null,
                 cost_per_mile: 0,
                 sale_kind: "servico",
+                client_id: "c1",
+                service_type: "consultoria",
               },
               error: null,
             }),
@@ -274,6 +276,63 @@ describe("vendasApi — updateVenda", () => {
     );
     expect(result.error).toBeUndefined();
     expect(update).toHaveBeenCalledWith(expect.objectContaining({ observations: "Nova obs" }));
+  });
+
+  it("rejeita miles em venda-serviço via update sem chamar o update", async () => {
+    const update = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
+    mockFrom.mockReturnValue({
+      select: () => ({
+        eq: () => ({
+          single: () =>
+            Promise.resolve({
+              data: {
+                miles_used: 0,
+                sale_value: 500,
+                status: "pendente",
+                account_id: null,
+                cost_per_mile: 0,
+                sale_kind: "servico",
+                client_id: "c1",
+                service_type: "consultoria",
+              },
+              error: null,
+            }),
+        }),
+      }),
+      update,
+    });
+    const result = await makeStore().dispatch(
+      vendasApi.endpoints.updateVenda.initiate({ id: "sale-1", milesUsed: 100 }),
+    );
+    expect(result.error).toBeDefined();
+    expect(update).not.toHaveBeenCalled();
+  });
+
+  it("rejeita serviceType em venda-milhas via update sem chamar o update", async () => {
+    const update = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
+    mockFrom.mockReturnValue({
+      select: () => ({
+        eq: () => ({
+          single: () =>
+            Promise.resolve({
+              data: {
+                miles_used: 10000,
+                sale_value: 2500,
+                status: "pendente",
+                account_id: "acc-1",
+                cost_per_mile: 0.05,
+              },
+              error: null,
+            }),
+        }),
+      }),
+      update,
+    });
+    const result = await makeStore().dispatch(
+      vendasApi.endpoints.updateVenda.initiate({ id: "sale-1", serviceType: "taxa" }),
+    );
+    expect(result.error).toBeDefined();
+    expect(update).not.toHaveBeenCalled();
   });
 });
 
