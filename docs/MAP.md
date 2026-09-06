@@ -596,3 +596,4 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/superpowers/specs/credito-cliente.md` (auto) | 2026-09-04 |
 | `docs/superpowers/plans/venda-servico.md` (auto) | 2026-09-06 |
 | `docs/superpowers/specs/venda-servico.md` (auto) | 2026-09-06 |
+| `docs/superpowers/specs/contas-tabela.md` (auto) | 2026-09-06 |

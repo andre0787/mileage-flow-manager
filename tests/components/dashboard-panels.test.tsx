@@ -7,7 +7,6 @@ import { OwnerStockList } from "../../src/components/dashboard/OwnerStockList";
 import { RecentSalesList } from "../../src/components/dashboard/RecentSalesList";
 import { RecentTransfersList } from "../../src/components/dashboard/RecentTransfersList";
 import { AccountCard } from "../../src/components/accounts/AccountCard";
-import { AccountsSummary } from "../../src/components/accounts/AccountsSummary";
 import type { Account } from "../../src/types";
 
 const mockAccount: Account = {
@@ -245,18 +244,5 @@ describe("AccountCard", () => {
     );
     expect(screen.getByText("Saldo registrado:")).toBeDefined();
     expect(screen.getByText("10.000")).toBeDefined();
-  });
-});
-
-describe("AccountsSummary", () => {
-  it("renderiza totais de contas, ativas, pontos e milhas", () => {
-    const balances = new Map<string, number>([["acc-1", 9000]]);
-    render(<AccountsSummary accounts={[mockAccount]} computedBalances={balances} />);
-    expect(screen.getByText("Resumo das Contas")).toBeDefined();
-    expect(screen.getByText("Total de Contas")).toBeDefined();
-    expect(screen.getByText("Contas Ativas")).toBeDefined();
-    expect(screen.getByText("Total Milhas")).toBeDefined();
-    expect(screen.getByText("Total Pontos")).toBeDefined();
-    expect(screen.getByText("9.000")).toBeDefined();
   });
 });

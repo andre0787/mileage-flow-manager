@@ -1,7 +1,8 @@
-import { AlertTriangle, Bell, Eye, EyeOff } from "lucide-react";
+import { AlertTriangle, Eye, EyeOff } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AccountActions } from "@/components/accounts/AccountActions";
+import { AccountAlertBell } from "@/components/accounts/AccountAlertBell";
 import { formatDateBR } from "@/lib/dateUtils";
 import { ownerColor, ownerColorBorder, ownerColorSoft } from "@/lib/ownerColors";
 import type { Account } from "@/types";
@@ -65,20 +66,11 @@ export function AccountCard({
             <p className="text-sm text-muted-foreground">{programName}</p>
           </div>
           <div className="flex items-center gap-2">
-            <button
-              type="button"
-              className="relative inline-flex items-center justify-center rounded-md p-1.5 hover:bg-muted transition-colors"
-              onClick={onOpenAlerts}
-              aria-label={`Alertas de ${account.name}`}
-              title="Alertas da conta"
-            >
-              <Bell className="h-4 w-4" />
-              {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-destructive text-[10px] font-semibold text-white px-1">
-                  {unreadCount}
-                </span>
-              )}
-            </button>
+            <AccountAlertBell
+              accountName={account.name}
+              unreadCount={unreadCount}
+              onOpen={onOpenAlerts}
+            />
             <Badge variant={account.type === "pontos" ? "secondary" : "default"}>
               {account.type === "pontos" ? "Pontos" : "Milhas"}
             </Badge>
