@@ -4,7 +4,8 @@
  * Cobrança mostra SOMENTE valores a cobrar — nunca lucro/margem/custos.
  */
 import { CREDIT_EPSILON, calcCreditBalance } from "@/lib/clientCredits";
-import type { ClientCredit, Sale } from "@/types";
+import { parseDateOnly } from "@/lib/dateUtils";
+import type { ClientCredit } from "@/types";
 
 export interface CollectionLine {
   saleId: string;
@@ -26,7 +27,7 @@ export interface ClientCollection {
   oldestOpenDate: string;
 }
 
-interface CollectionSale {
+export interface CollectionSale {
   id: string;
   clientId: string;
   clientName: string;
@@ -38,6 +39,9 @@ interface CollectionSale {
   amountReceived?: number;
   status: string;
   date: string;
+  /** Só para filtrar por dono/programa (espelha ownerSales/programSales). */
+  accountId?: string | null;
+  program?: string;
 }
 
 function saleLabel(s: CollectionSale): string {
@@ -130,4 +134,28 @@ export function collectionCsvRows(rows: ClientCollection[]): Record<string, stri
   return out;
 }
 
-export type { Sale };
+export interface CollectionSalesFilter {
+  /** Corte de período (mesmo dateCutoff da página). */
+  cutoff: Date;
+  /** ids das contas do dono selecionado; null = todos os donos. */
+  accountIds: string[] | null;
+  /** Nome do programa selecionado; null = todos os programas. */
+  programName: string | null;
+}
+
+/**
+ * Recorte de vendas para a Cobrança: período por data + dono (via conta) +
+ * programa — mesma lógica de ownerSales/programSales de Relatorios.tsx.
+ * Filtros nulos = passthrough (comportamento anterior).
+ */
+export function filterCollectionSales(
+  sales: CollectionSale[],
+  filter: CollectionSalesFilter,
+): CollectionSale[] {
+  return (sales ?? []).filter((s) => {
+    if (parseDateOnly(s.date) < filter.cutoff) return false;
+    if (filter.accountIds !== null && !filter.accountIds.includes(s.accountId ?? "")) return false;
+    if (filter.programName !== null && s.program !== filter.programName) return false;
+    return true;
+  });
+}

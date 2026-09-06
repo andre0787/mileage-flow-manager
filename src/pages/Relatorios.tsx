@@ -40,6 +40,7 @@ import { describeFilters } from "@/lib/text-to-query";
 import { DataTable } from "@/components/ui";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CollectionSection } from "@/components/reports/CollectionSection";
+import { filterCollectionSales } from "@/lib/collections";
 
 interface OwnerReport {
   ownerName: string;
@@ -163,6 +164,19 @@ export default function Relatorios() {
     if (selectedProgram === "todos") return programReports;
     return programReports.filter((r) => r.program === selectedProgram);
   }, [programReports, selectedProgram]);
+
+  // Cobrança respeita os mesmos filtros da página (período/dono/programa).
+  const collectionSales = useMemo(() => {
+    const owner = selectedOwner === "todos" ? null : owners.find((o) => o.name === selectedOwner);
+    const accountIds = owner
+      ? accounts.filter((a) => a.ownerId === owner.id).map((a) => a.id)
+      : null;
+    return filterCollectionSales(sales, {
+      cutoff: dateCutoff,
+      accountIds,
+      programName: selectedProgram === "todos" ? null : selectedProgram,
+    });
+  }, [sales, dateCutoff, owners, accounts, selectedOwner, selectedProgram]);
 
   const periods = PERIOD_OPTIONS;
 
@@ -437,7 +451,7 @@ export default function Relatorios() {
           <TabsTrigger value="insights">Insights</TabsTrigger>
         </TabsList>
         <TabsContent value="cobranca" className="mt-4">
-          <CollectionSection />
+          <CollectionSection sales={collectionSales} />
         </TabsContent>
         <TabsContent value="donos" className="mt-4">
           {/* Owner Performance Report */}
