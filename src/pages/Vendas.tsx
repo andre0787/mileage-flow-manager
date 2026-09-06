@@ -79,6 +79,54 @@ export default function Vendas() {
 
   // Handlers
   const handleCreateSale = (data: SaleFormData) => {
+    // Venda-serviço: sem milhas, sem conta, lucro = valor (receita pura).
+    if (data.kind === "servico") {
+      const saleValue = parseFloat(data.saleValue);
+      addSaleM.mutate(
+        {
+          id: crypto.randomUUID(),
+          kind: "servico",
+          serviceType: data.serviceType as "consultoria" | "taxa" | "outro",
+          observations: (data.observations ?? "").trim() || undefined,
+          accountId: undefined,
+          ownerName: "",
+          accountName: "",
+          program: "",
+          clientId: data.clientId,
+          clientName: data.clientName,
+          milesUsed: 0,
+          saleValue,
+          pricePerMile: undefined,
+          additionalCost: undefined,
+          additionalCostDesc: undefined,
+          additionalCosts: [],
+          amountReceived: 0,
+          costPerMile: 0,
+          profit: saleValue,
+          profitMargin: 100,
+          status: "pendente" as const,
+          ticketLocator: "",
+          passengers: [],
+          date: new Date().toISOString().split("T")[0],
+        },
+        {
+          onSuccess: () => {
+            haptic.success();
+            if (saleValue >= 200) {
+              confetti({
+                particleCount: 60,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ["#6366f1", "#f59e0b", "#10b981"],
+              });
+            }
+          },
+          onError: () => toast.error("Erro ao criar venda. Verifique os dados e tente novamente."),
+        },
+      );
+      setIsCreateDialogOpen(false);
+      return;
+    }
     const milesUsed = parseFloat(data.milesUsed);
     const saleValue = parseFloat(data.saleValue);
     const { total: additionalCost, items: additionalCosts } = sumAdditionalCosts(data);
@@ -131,6 +179,32 @@ export default function Vendas() {
 
   const handleUpdateSale = (data: SaleFormData) => {
     if (!editingSale) return;
+    // Edição de venda-serviço: kind vem do servidor (imutável), só valor,
+    // tipo, observações e cliente são editáveis.
+    if (editingSale.kind === "servico") {
+      const saleValue = parseFloat(data.saleValue);
+      updateSaleM.mutate(
+        {
+          id: editingSale.id,
+          saleValue,
+          serviceType: data.serviceType as "consultoria" | "taxa" | "outro",
+          observations: (data.observations ?? "").trim(),
+          clientId: data.clientId,
+          clientName: data.clientName,
+          amountReceived: Math.min(editingSale.amountReceived ?? 0, saleValue),
+          profit: saleValue,
+          profitMargin: 100,
+        },
+        {
+          onSuccess: () => haptic.success(),
+          onError: () =>
+            toast.error("Erro ao atualizar venda. Verifique os dados e tente novamente."),
+        },
+      );
+      setEditingSale(null);
+      setIsEditDialogOpen(false);
+      return;
+    }
     const milesUsed = parseFloat(data.milesUsed);
     const saleValue = parseFloat(data.saleValue);
     const { total: additionalCost, items: additionalCosts } = sumAdditionalCosts(data);
@@ -263,6 +337,9 @@ export default function Vendas() {
       "Recebido (R$)": s.amountReceived ?? 0,
       "Pendente (R$)": Math.max(0, s.saleValue - (s.amountReceived ?? 0)),
       "Custo/Milha (R$)": s.costPerMile?.toFixed(4) ?? "",
+      Tipo: s.kind === "servico" ? "Serviço" : "Milhas",
+      "Tipo Serviço": s.kind === "servico" ? (s.serviceType ?? "") : "",
+      Observações: s.observations ?? "",
       "Lucro (R$)": s.profit?.toFixed(2) ?? "",
       // ponytail: calcProfitMargin já retorna percentual (ex: 25 = 25%)
       Margem: s.profitMargin ? `${s.profitMargin.toFixed(1)}%` : "",
@@ -460,6 +537,9 @@ export default function Vendas() {
                 ticketLocator: editingSale.ticketLocator,
                 passengers: editingSale.passengers,
                 costPerMile: editingSale.costPerMile,
+                kind: editingSale.kind ?? "milhas",
+                serviceType: editingSale.serviceType ?? "",
+                observations: editingSale.observations ?? "",
               }
             : undefined
         }

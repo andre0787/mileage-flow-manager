@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { FormSubmitButton } from "@/components/FormSubmitButton";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -15,7 +16,7 @@ import { FormDrawer } from "@/components/FormDrawer";
 import { formatCPF } from "@/lib/utils";
 import { parseDateOnly } from "@/lib/dateUtils";
 import { calcProfit, calcProfitMargin } from "@/lib/metrics";
-import type { Account, Owner, Program, Client, Sale } from "@/types";
+import type { Account, Owner, Program, Client, Sale, SaleKind, ServiceType } from "@/types";
 
 export interface AdditionalCostItem {
   desc: string;
@@ -36,6 +37,12 @@ export interface SaleFormData {
   additionalCostDesc: string;
   /** Lista dinâmica de custos adicionais (novo) — soma vai para additionalCost por compat */
   additionalCosts?: AdditionalCostItem[];
+  /** Discriminador milhas|servico (modo do formulário) */
+  kind: SaleKind;
+  /** Tipo de serviço — só no modo servico */
+  serviceType?: string;
+  /** Observações livres — só no modo servico */
+  observations?: string;
   ticketLocator: string;
   passengers: { name: string; passengerId: string; cpf: string; clientId?: string }[];
   /** Preenchido automaticamente no submit a partir do averageCostPerMile da conta */
@@ -86,6 +93,9 @@ const emptyForm: SaleFormData = {
   additionalCost: "",
   additionalCostDesc: "",
   additionalCosts: [{ desc: "", amount: "" }],
+  kind: "milhas",
+  serviceType: "",
+  observations: "",
   ticketLocator: "",
   passengers: [emptyPassenger()],
 };
@@ -207,7 +217,13 @@ export function SaleForm({
   }, [form.additionalCosts, form.additionalCost]);
 
   // Profit preview usando calcProfit / calcProfitMargin
+  // Serviço: receita pura (lucro = valor, margem 100%).
   const profitPreview = useMemo(() => {
+    if (form.kind === "servico") {
+      const val = parseFloat(form.saleValue);
+      if (!val || val <= 0) return null;
+      return { costTotal: 0, profit: val, margin: 100 };
+    }
     if (!form.milesUsed || !form.saleValue || !selectedProgramStock) return null;
     const miles = parseFloat(form.milesUsed);
     const val = parseFloat(form.saleValue);
@@ -218,6 +234,31 @@ export function SaleForm({
   }, [form.milesUsed, form.saleValue, additionalCostsTotal, selectedProgramStock]);
 
   const update = (partial: Partial<SaleFormData>) => setForm((prev) => ({ ...prev, ...partial }));
+
+  const isServico = form.kind === "servico";
+
+  // Troca de modo limpa os campos do outro modo (evita payload misto).
+  // No modo edit o toggle é desabilitado (kind é imutável — server rejeita).
+  const switchKind = (kind: SaleKind) => {
+    if (kind === "servico") {
+      update({
+        kind,
+        ownerName: "",
+        accountId: "",
+        accountName: "",
+        program: "",
+        milesUsed: "",
+        pricePerMile: "",
+        additionalCost: "",
+        additionalCostDesc: "",
+        additionalCosts: [],
+        ticketLocator: "",
+        passengers: [],
+      });
+    } else {
+      update({ kind, serviceType: "", observations: "" });
+    }
+  };
 
   // React 19 form action (rule-45): submit via <form action> — o botão deriva
   // pending de useFormStatus, sem estado de carregamento manual.
@@ -230,7 +271,8 @@ export function SaleForm({
       const total = costs.reduce((s, c) => s + (parseFloat(c.amount) || 0), 0);
       onSubmit({
         ...form,
-        additionalCosts: costs,
+        observations: (form.observations ?? "").trim(),
+        additionalCosts: form.kind === "servico" ? [] : costs,
         additionalCost: total ? total.toFixed(2) : "",
         additionalCostDesc: costs[0]?.desc ?? "",
         costPerMile: selectedProgramStock?.averageCostPerMile ?? 0,
@@ -254,7 +296,8 @@ export function SaleForm({
     setIsClientDialogOpen(false);
   };
 
-  const canSubmit =
+  const canSubmitServico = form.clientId && form.serviceType && parseFloat(form.saleValue) > 0;
+  const canSubmitMiles =
     form.ownerName &&
     form.accountId &&
     form.program &&
@@ -262,6 +305,7 @@ export function SaleForm({
     form.milesUsed &&
     form.saleValue &&
     (!selectedProgramStock || parseFloat(form.milesUsed) <= effectiveAvailableMiles);
+  const canSubmit = form.kind === "servico" ? canSubmitServico : canSubmitMiles;
 
   const passengerLimitExceeded =
     programConfig?.maxPassengers &&
@@ -279,56 +323,79 @@ export function SaleForm({
         title={mode === "edit" ? "Editar Venda" : "Registrar Nova Venda"}
       >
         <form className="grid gap-4 py-4" action={formAction}>
-          {/* Owner + Account */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label>Dono da Conta</Label>
-              <Select
-                value={form.ownerName}
-                onValueChange={(v) =>
-                  update({ ownerName: v, accountId: "", accountName: "", program: "" })
-                }
+          {/* Tipo da venda: Milhas | Serviço (imutável no edit) */}
+          <div className="grid grid-cols-2 gap-2" role="group" aria-label="Tipo da venda">
+            {(
+              [
+                { value: "milhas", label: "Milhas" },
+                { value: "servico", label: "Serviço" },
+              ] as const
+            ).map((opt) => (
+              <Button
+                key={opt.value}
+                type="button"
+                variant={form.kind === opt.value ? "default" : "outline"}
+                className="min-h-[44px]"
+                disabled={mode === "edit"}
+                title={mode === "edit" ? "Tipo da venda não pode ser alterado" : undefined}
+                onClick={() => switchKind(opt.value)}
               >
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione o dono" />
-                </SelectTrigger>
-                <SelectContent>
-                  {ownersList.map((o) => (
-                    <SelectItem key={o} value={o}>
-                      {o}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-2">
-              <Label>Conta / Programa</Label>
-              <Select
-                value={form.accountId}
-                onValueChange={(v) => {
-                  const s = selectedOwnerStock.find((x) => x.accountId === v);
-                  update({
-                    accountId: v,
-                    accountName: s?.accountName ?? "",
-                    program: s?.program ?? "",
-                  });
-                }}
-                disabled={!form.ownerName}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione a conta" />
-                </SelectTrigger>
-                <SelectContent>
-                  {selectedOwnerStock.map((s) => (
-                    <SelectItem key={s.accountId} value={s.accountId}>
-                      {s.program} — {s.accountName} ({s.availableMiles.toLocaleString("pt-BR")}{" "}
-                      milhas)
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+                {opt.label}
+              </Button>
+            ))}
           </div>
+          {/* Owner + Account (só milhas) */}
+          {!isServico && (
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>Dono da Conta</Label>
+                <Select
+                  value={form.ownerName}
+                  onValueChange={(v) =>
+                    update({ ownerName: v, accountId: "", accountName: "", program: "" })
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o dono" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {ownersList.map((o) => (
+                      <SelectItem key={o} value={o}>
+                        {o}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label>Conta / Programa</Label>
+                <Select
+                  value={form.accountId}
+                  onValueChange={(v) => {
+                    const s = selectedOwnerStock.find((x) => x.accountId === v);
+                    update({
+                      accountId: v,
+                      accountName: s?.accountName ?? "",
+                      program: s?.program ?? "",
+                    });
+                  }}
+                  disabled={!form.ownerName}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione a conta" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {selectedOwnerStock.map((s) => (
+                      <SelectItem key={s.accountId} value={s.accountId}>
+                        {s.program} — {s.accountName} ({s.availableMiles.toLocaleString("pt-BR")}{" "}
+                        milhas)
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          )}
 
           {/* Stock info */}
           {selectedProgramStock && (
@@ -387,158 +454,207 @@ export function SaleForm({
                 </Button>
               </div>
             </div>
-            <div className="space-y-2">
-              <Label>Localizador do Bilhete</Label>
-              <Input
-                value={form.ticketLocator}
-                onChange={(e) => update({ ticketLocator: e.target.value })}
-                placeholder="Ex: ABC123"
-              />
-            </div>
+            {!isServico && (
+              <div className="space-y-2">
+                <Label>Localizador do Bilhete</Label>
+                <Input
+                  value={form.ticketLocator}
+                  onChange={(e) => update({ ticketLocator: e.target.value })}
+                  placeholder="Ex: ABC123"
+                />
+              </div>
+            )}
           </div>
 
-          {/* Miles + Price + Value (grid 3 cols) */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="space-y-2">
-              <Label>Milhas Utilizadas</Label>
-              <Input
-                type="number"
-                value={form.milesUsed}
-                onChange={(e) => {
-                  const v = e.target.value;
-                  update(
-                    v && form.pricePerMile
-                      ? {
-                          milesUsed: v,
-                          saleValue: (parseFloat(v) * parseFloat(form.pricePerMile)).toFixed(2),
-                        }
-                      : { milesUsed: v },
-                  );
-                }}
-                placeholder="Ex: 50000"
-                max={selectedProgramStock ? effectiveAvailableMiles : undefined}
-              />
-              {selectedProgramStock && (
-                <p className="text-xs text-muted-foreground">
-                  Estoque: {selectedProgramStock.availableMiles.toLocaleString("pt-BR")} milhas
-                </p>
-              )}
-              {form.milesUsed &&
-                selectedProgramStock &&
-                parseFloat(form.milesUsed) > effectiveAvailableMiles && (
-                  <p className="text-xs text-destructive">
-                    Quantidade superior ao estoque disponível
+          {/* Miles + Price + Value (só milhas) */}
+          {!isServico && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <Label>Milhas Utilizadas</Label>
+                <Input
+                  type="number"
+                  value={form.milesUsed}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    update(
+                      v && form.pricePerMile
+                        ? {
+                            milesUsed: v,
+                            saleValue: (parseFloat(v) * parseFloat(form.pricePerMile)).toFixed(2),
+                          }
+                        : { milesUsed: v },
+                    );
+                  }}
+                  placeholder="Ex: 50000"
+                  max={selectedProgramStock ? effectiveAvailableMiles : undefined}
+                />
+                {selectedProgramStock && (
+                  <p className="text-xs text-muted-foreground">
+                    Estoque: {selectedProgramStock.availableMiles.toLocaleString("pt-BR")} milhas
                   </p>
                 )}
-            </div>
-            <div className="space-y-2">
-              <Label>Valor por Milha (R$)</Label>
-              <Input
-                type="number"
-                step="0.0001"
-                value={form.pricePerMile}
-                onChange={(e) => {
-                  const v = e.target.value;
-                  update(
-                    v && form.milesUsed
-                      ? {
-                          pricePerMile: v,
-                          saleValue: (parseFloat(v) * parseFloat(form.milesUsed)).toFixed(2),
-                        }
-                      : { pricePerMile: v },
-                  );
-                }}
-                placeholder="Ex: 0.03"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label>Valor da Venda (R$)</Label>
-              <Input
-                type="number"
-                step="0.01"
-                value={form.saleValue}
-                onChange={(e) => update({ saleValue: e.target.value })}
-                placeholder="Ex: 300.00"
-              />
-              {form.pricePerMile && form.milesUsed && (
-                <p className="text-xs text-muted-foreground">
-                  {parseFloat(form.milesUsed).toLocaleString("pt-BR")} × R${" "}
-                  {parseFloat(form.pricePerMile).toFixed(4)}
-                </p>
-              )}
-            </div>
-          </div>
-
-          {/* Custos Adicionais dinâmicos */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <Label>Custos Adicionais</Label>
-              <Button
-                type="button"
-                size="sm"
-                variant="outline"
-                className="min-h-[44px]"
-                onClick={() =>
-                  update({
-                    additionalCosts: [...(form.additionalCosts ?? []), { desc: "", amount: "" }],
-                  })
-                }
-              >
-                <Plus className="h-4 w-4 mr-1" /> Adicionar custo
-              </Button>
-            </div>
-            {(form.additionalCosts ?? []).map((c, i) => (
-              <div key={i} className="grid grid-cols-[1fr_1fr_auto] gap-2">
+                {form.milesUsed &&
+                  selectedProgramStock &&
+                  parseFloat(form.milesUsed) > effectiveAvailableMiles && (
+                    <p className="text-xs text-destructive">
+                      Quantidade superior ao estoque disponível
+                    </p>
+                  )}
+              </div>
+              <div className="space-y-2">
+                <Label>Valor por Milha (R$)</Label>
+                <Input
+                  type="number"
+                  step="0.0001"
+                  value={form.pricePerMile}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    update(
+                      v && form.milesUsed
+                        ? {
+                            pricePerMile: v,
+                            saleValue: (parseFloat(v) * parseFloat(form.milesUsed)).toFixed(2),
+                          }
+                        : { pricePerMile: v },
+                    );
+                  }}
+                  placeholder="Ex: 0.03"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Valor da Venda (R$)</Label>
                 <Input
                   type="number"
                   step="0.01"
-                  value={c.amount}
-                  onChange={(e) =>
-                    update({
-                      additionalCosts: (form.additionalCosts ?? []).map((x, j) =>
-                        j === i ? { ...x, amount: e.target.value } : x,
-                      ),
-                    })
-                  }
-                  placeholder="Ex: 50.00"
-                  aria-label={`Valor do custo adicional ${i + 1}`}
+                  value={form.saleValue}
+                  onChange={(e) => update({ saleValue: e.target.value })}
+                  placeholder="Ex: 300.00"
                 />
-                <Input
-                  value={c.desc}
-                  onChange={(e) =>
-                    update({
-                      additionalCosts: (form.additionalCosts ?? []).map((x, j) =>
-                        j === i ? { ...x, desc: e.target.value } : x,
-                      ),
-                    })
-                  }
-                  placeholder="Ex: Taxa de embarque"
-                  aria-label={`Descrição do custo adicional ${i + 1}`}
-                />
-                {(form.additionalCosts ?? []).length > 1 && (
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="outline"
-                    className="min-h-[44px] min-w-[44px]"
-                    onClick={() =>
-                      update({
-                        additionalCosts: (form.additionalCosts ?? []).filter((_, j) => j !== i),
-                      })
-                    }
-                    aria-label={`Remover custo adicional ${i + 1}`}
-                  >
-                    ×
-                  </Button>
+                {form.pricePerMile && form.milesUsed && (
+                  <p className="text-xs text-muted-foreground">
+                    {parseFloat(form.milesUsed).toLocaleString("pt-BR")} × R${" "}
+                    {parseFloat(form.pricePerMile).toFixed(4)}
+                  </p>
                 )}
               </div>
-            ))}
-            {additionalCostsTotal > 0 && (
-              <p className="text-xs text-muted-foreground">
-                Total adicional: R$ {additionalCostsTotal.toFixed(2)}
-              </p>
-            )}
-          </div>
+            </div>
+          )}
+
+          {/* Custos Adicionais dinâmicos (só milhas) */}
+          {!isServico && (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <Label>Custos Adicionais</Label>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  className="min-h-[44px]"
+                  onClick={() =>
+                    update({
+                      additionalCosts: [...(form.additionalCosts ?? []), { desc: "", amount: "" }],
+                    })
+                  }
+                >
+                  <Plus className="h-4 w-4 mr-1" /> Adicionar custo
+                </Button>
+              </div>
+              {(form.additionalCosts ?? []).map((c, i) => (
+                <div key={i} className="grid grid-cols-[1fr_1fr_auto] gap-2">
+                  <Input
+                    type="number"
+                    step="0.01"
+                    value={c.amount}
+                    onChange={(e) =>
+                      update({
+                        additionalCosts: (form.additionalCosts ?? []).map((x, j) =>
+                          j === i ? { ...x, amount: e.target.value } : x,
+                        ),
+                      })
+                    }
+                    placeholder="Ex: 50.00"
+                    aria-label={`Valor do custo adicional ${i + 1}`}
+                  />
+                  <Input
+                    value={c.desc}
+                    onChange={(e) =>
+                      update({
+                        additionalCosts: (form.additionalCosts ?? []).map((x, j) =>
+                          j === i ? { ...x, desc: e.target.value } : x,
+                        ),
+                      })
+                    }
+                    placeholder="Ex: Taxa de embarque"
+                    aria-label={`Descrição do custo adicional ${i + 1}`}
+                  />
+                  {(form.additionalCosts ?? []).length > 1 && (
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      className="min-h-[44px] min-w-[44px]"
+                      onClick={() =>
+                        update({
+                          additionalCosts: (form.additionalCosts ?? []).filter((_, j) => j !== i),
+                        })
+                      }
+                      aria-label={`Remover custo adicional ${i + 1}`}
+                    >
+                      ×
+                    </Button>
+                  )}
+                </div>
+              ))}
+              {additionalCostsTotal > 0 && (
+                <p className="text-xs text-muted-foreground">
+                  Total adicional: R$ {additionalCostsTotal.toFixed(2)}
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Serviço: tipo + valor + observações */}
+          {isServico && (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Tipo de serviço</Label>
+                  <Select
+                    value={form.serviceType}
+                    onValueChange={(v) => update({ serviceType: v })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione o tipo" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="consultoria">Consultoria</SelectItem>
+                      <SelectItem value="taxa">Taxa de embarque</SelectItem>
+                      <SelectItem value="outro">Outro</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label>Valor (R$)</Label>
+                  <Input
+                    type="number"
+                    step="0.01"
+                    value={form.saleValue}
+                    onChange={(e) => update({ saleValue: e.target.value })}
+                    placeholder="Ex: 500.00"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label>Observações</Label>
+                <Textarea
+                  value={form.observations}
+                  onChange={(e) => update({ observations: e.target.value.slice(0, 500) })}
+                  placeholder="Ex: Sessão de consultoria de 2h sobre..."
+                  maxLength={500}
+                />
+              </div>
+            </>
+          )}
 
           {/* Profit Preview via calcProfit / calcProfitMargin (DRY) */}
           {profitPreview && (
@@ -569,104 +685,106 @@ export function SaleForm({
             </div>
           )}
 
-          {/* Passengers */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <Label>Passageiros no Bilhete</Label>
-              <Button
-                type="button"
-                size="sm"
-                variant="outline"
-                className="min-h-[44px]"
-                onClick={() => update({ passengers: [...form.passengers, emptyPassenger()] })}
-              >
-                Adicionar
-              </Button>
-            </div>
-            {form.passengers.map((p, i) => (
-              <div key={i} className="grid grid-cols-[auto_1fr_1fr_1fr_auto] gap-2">
-                <Select
-                  value={p.clientId ?? ""}
-                  onValueChange={(v) => {
-                    if (v === "__manual__") {
-                      const upd = form.passengers.map((x, j) =>
-                        j === i ? { ...x, clientId: undefined, name: "", cpf: "" } : x,
-                      );
-                      update({ passengers: upd });
-                    } else {
-                      const client = clients.find((c) => c.id === v);
-                      if (client) {
+          {/* Passengers (só milhas) */}
+          {!isServico && (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <Label>Passageiros no Bilhete</Label>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  className="min-h-[44px]"
+                  onClick={() => update({ passengers: [...form.passengers, emptyPassenger()] })}
+                >
+                  Adicionar
+                </Button>
+              </div>
+              {form.passengers.map((p, i) => (
+                <div key={i} className="grid grid-cols-[auto_1fr_1fr_1fr_auto] gap-2">
+                  <Select
+                    value={p.clientId ?? ""}
+                    onValueChange={(v) => {
+                      if (v === "__manual__") {
                         const upd = form.passengers.map((x, j) =>
-                          j === i
-                            ? {
-                                ...x,
-                                clientId: client.id,
-                                name: client.name,
-                                cpf: client.cpf ?? x.cpf,
-                              }
-                            : x,
+                          j === i ? { ...x, clientId: undefined, name: "", cpf: "" } : x,
                         );
                         update({ passengers: upd });
+                      } else {
+                        const client = clients.find((c) => c.id === v);
+                        if (client) {
+                          const upd = form.passengers.map((x, j) =>
+                            j === i
+                              ? {
+                                  ...x,
+                                  clientId: client.id,
+                                  name: client.name,
+                                  cpf: client.cpf ?? x.cpf,
+                                }
+                              : x,
+                          );
+                          update({ passengers: upd });
+                        }
                       }
-                    }
-                  }}
-                >
-                  <SelectTrigger className="w-24 text-xs">
-                    <SelectValue placeholder="Cliente" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="__manual__">— Manual —</SelectItem>
-                    {clients.map((c) => (
-                      <SelectItem key={c.id} value={c.id}>
-                        {c.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Input
-                  placeholder="Nome completo"
-                  value={p.name}
-                  onChange={(e) =>
-                    update({
-                      passengers: form.passengers.map((x, j) =>
-                        j === i ? { ...x, name: e.target.value } : x,
-                      ),
-                    })
-                  }
-                />
-                <Input
-                  placeholder="ID Passageiro"
-                  value={p.passengerId}
-                  disabled
-                  className="bg-muted/30 text-muted-foreground text-xs"
-                />
-                <Input
-                  placeholder="CPF"
-                  value={p.cpf}
-                  onChange={(e) =>
-                    update({
-                      passengers: form.passengers.map((x, j) =>
-                        j === i ? { ...x, cpf: e.target.value } : x,
-                      ),
-                    })
-                  }
-                />
-                {form.passengers.length > 1 && (
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="outline"
-                    className="min-h-[44px] min-w-[44px]"
-                    onClick={() =>
-                      update({ passengers: form.passengers.filter((_, j) => j !== i) })
-                    }
+                    }}
                   >
-                    ×
-                  </Button>
-                )}
-              </div>
-            ))}
-          </div>
+                    <SelectTrigger className="w-24 text-xs">
+                      <SelectValue placeholder="Cliente" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="__manual__">— Manual —</SelectItem>
+                      {clients.map((c) => (
+                        <SelectItem key={c.id} value={c.id}>
+                          {c.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <Input
+                    placeholder="Nome completo"
+                    value={p.name}
+                    onChange={(e) =>
+                      update({
+                        passengers: form.passengers.map((x, j) =>
+                          j === i ? { ...x, name: e.target.value } : x,
+                        ),
+                      })
+                    }
+                  />
+                  <Input
+                    placeholder="ID Passageiro"
+                    value={p.passengerId}
+                    disabled
+                    className="bg-muted/30 text-muted-foreground text-xs"
+                  />
+                  <Input
+                    placeholder="CPF"
+                    value={p.cpf}
+                    onChange={(e) =>
+                      update({
+                        passengers: form.passengers.map((x, j) =>
+                          j === i ? { ...x, cpf: e.target.value } : x,
+                        ),
+                      })
+                    }
+                  />
+                  {form.passengers.length > 1 && (
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      className="min-h-[44px] min-w-[44px]"
+                      onClick={() =>
+                        update({ passengers: form.passengers.filter((_, j) => j !== i) })
+                      }
+                    >
+                      ×
+                    </Button>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
 
           {passengerLimitExceeded && (
             <p className="text-xs text-destructive">
