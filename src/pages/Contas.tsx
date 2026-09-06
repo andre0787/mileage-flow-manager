@@ -165,6 +165,7 @@ export default function Contas() {
         computedBalance: computedBalances.get(account.id) ?? account.balance,
         receivable: receivables.get(account.id) ?? 0,
         ownerName: ownerName(account.ownerId),
+        ownerColorHex: ownerColor(account.ownerId),
         programName: programName(account.programId),
         unreadCount: unreadCount(account.id),
         lastEntryDate: lastActivityByAccount.get(account.id)?.lastEntry?.date,

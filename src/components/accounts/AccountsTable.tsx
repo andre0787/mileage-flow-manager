@@ -17,6 +17,7 @@ export interface AccountsTableRow {
   computedBalance: number;
   receivable: number;
   ownerName: string;
+  ownerColorHex?: string | null;
   programName: string;
   unreadCount: number;
   lastEntryDate?: string;
@@ -99,6 +100,7 @@ export function AccountsTable({
               computedBalance={r.computedBalance}
               receivable={r.receivable}
               ownerName={r.ownerName}
+              ownerColorHex={r.ownerColorHex ?? null}
               programName={r.programName}
               unreadCount={r.unreadCount}
               lastEntryDate={r.lastEntryDate}

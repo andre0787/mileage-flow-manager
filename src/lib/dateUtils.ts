@@ -21,9 +21,18 @@ export function parseDateOnly(date: string): Date {
   return /^\d{4}-\d{2}-\d{2}$/.test(date) ? new Date(date + "T12:00:00") : new Date(date);
 }
 
-/** Data de hoje em ISO date-only (YYYY-MM-DD), padrão dos campos de data dos forms. */
-export function todayISODate(): string {
-  return new Date().toISOString().split("T")[0];
+/**
+ * Data de hoje em ISO date-only (YYYY-MM-DD), padrão dos campos de data dos forms.
+ * Usa o fuso America/Sao_Paulo (operação): `toISOString` (UTC) vira o dia
+ * anterior no fim da noite brasileira (ex: 22h em SP = dia seguinte em UTC).
+ */
+export function todayISODate(timeZone = "America/Sao_Paulo"): string {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
 }
 
 /** Valida string de data ISO date-only (YYYY-MM-DD) com dia real do calendário. */

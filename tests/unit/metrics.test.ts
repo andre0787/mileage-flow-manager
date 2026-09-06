@@ -228,9 +228,27 @@ describe("computeDashboardMetrics", () => {
   ];
 
   const entries = [
-    { date: new Date().toISOString(), amount: 5000, entryStatus: "confirmado", accountId: "a1", milesGenerated: 5000 },
-    { date: lastMonthDate().toISOString(), amount: 3000, entryStatus: "confirmado", accountId: "a1", milesGenerated: 3000 },
-    { date: new Date().toISOString(), amount: 1000, entryStatus: "aguardando", accountId: "a1", milesGenerated: 1000 },
+    {
+      date: new Date().toISOString(),
+      amount: 5000,
+      entryStatus: "confirmado",
+      accountId: "a1",
+      milesGenerated: 5000,
+    },
+    {
+      date: lastMonthDate().toISOString(),
+      amount: 3000,
+      entryStatus: "confirmado",
+      accountId: "a1",
+      milesGenerated: 3000,
+    },
+    {
+      date: new Date().toISOString(),
+      amount: 1000,
+      entryStatus: "aguardando",
+      accountId: "a1",
+      milesGenerated: 1000,
+    },
   ];
 
   const owners = [
@@ -291,14 +309,20 @@ describe("computeMetricHistory", () => {
     const sales = [
       { status: "concluida", date: isoDate(now), saleValue: 200, profit: 50, milesUsed: 1000 },
       { status: "cancelado", date: isoDate(now), saleValue: 100, profit: 20, milesUsed: 500 }, // ignored
-      { status: "concluida", date: isoDate(lastMonth), saleValue: 300, profit: 100, milesUsed: 1500 },
-    ]
+      {
+        status: "concluida",
+        date: isoDate(lastMonth),
+        saleValue: 300,
+        profit: 100,
+        milesUsed: 1500,
+      },
+    ];
 
     const entries = [
       { entryStatus: "confirmada", date: isoDate(now), amount: 2000 }, // uses amount because milesGenerated is missing
       { entryStatus: "aguardando", date: isoDate(now), amount: 1000 }, // ignored
       { entryStatus: "confirmada", date: isoDate(lastMonth), amount: 1000, milesGenerated: 3000 }, // uses milesGenerated
-    ]
+    ];
 
     const history = computeMetricHistory(sales, entries);
 
@@ -363,5 +387,52 @@ describe("computeMetricHistory", () => {
     expect(history.milesIn[0]).toBe(5000);
     // milesStock = 5000 - 1000 = 4000
     expect(history.milesStock[0]).toBe(4000);
+  });
+});
+
+describe("computeDashboardMetrics ignora servico nos KPIs de milhagem (F3/P2)", () => {
+  const now = new Date();
+  const isoNow = now.toISOString();
+  const isoLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString();
+  const accts = [{ id: "a9", balance: 1000, totalInvested: 100, status: "ativa", ownerId: "o9" }];
+  const sls = [
+    {
+      status: "concluido",
+      date: isoNow,
+      saleValue: 800,
+      profit: 200,
+      milesUsed: 2000,
+      accountId: "a9",
+      passengers: [],
+    },
+    {
+      status: "concluido",
+      date: isoNow,
+      saleValue: 10000,
+      profit: 10000,
+      milesUsed: 0,
+      accountId: null,
+      passengers: [],
+      kind: "servico",
+    },
+    {
+      status: "concluido",
+      date: isoLastMonth,
+      saleValue: 400,
+      profit: 100,
+      milesUsed: 1000,
+      accountId: "a9",
+      passengers: [],
+    },
+  ];
+  const m = computeDashboardMetrics(accts, sls, [], [{ id: "o9", name: "Z" }], 22);
+
+  it("exclui servico da receita mensal e total", () => {
+    expect(m.monthlyRevenue).toBe(800);
+    expect(m.totalRevenue).toBe(1200);
+  });
+
+  it("calcula revenueChange só com milhagem", () => {
+    expect(m.revenueChange).toBeCloseTo(calcRevenueChange(800, 400), 5);
   });
 });

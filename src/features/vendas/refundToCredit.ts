@@ -1,4 +1,5 @@
 import { supabase, toQueryError } from "./shared";
+import { recordStatusChange } from "./statusHistory";
 import { logError } from "@/lib/logger";
 import type { VendasBuilder } from "./shared";
 import { planRefundToCredit, CREDIT_EPSILON } from "@/lib/clientCredits";
@@ -91,6 +92,9 @@ export const refundToCreditEndpoint = (builder: VendasBuilder) => ({
         }
         return { error: toQueryError(movementError) };
       }
+
+      // F3: volta a pendente entra no histórico (best-effort).
+      if (plan.backToPending) void recordStatusChange(user.id, saleId, sale.status, "pendente");
 
       return {
         data: {

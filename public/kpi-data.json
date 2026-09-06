@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T17:26:40.338Z",
+  "generatedAt": "2026-09-06T20:37:48.543Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -146,8 +146,8 @@
     {
       "month": "2026-09",
       "prePrPassRate": 100,
-      "prePrTotal": 46,
-      "prePrPass": 46,
+      "prePrTotal": 48,
+      "prePrPass": 48,
       "prePrFail": 0,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
@@ -156,7 +156,7 @@
         "twins": 0,
         "auth": 0
       },
-      "avgOutcomeGrade": 86.7,
+      "avgOutcomeGrade": 86.3,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
@@ -184,10 +184,10 @@
       },
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
-      "branchesMerged": 15,
+      "branchesMerged": 16,
       "violationsCaught": 28,
       "healedRate": 14.3,
-      "frictionPerPass": 0.61
+      "frictionPerPass": 0.58
     }
   ],
   "daily": [
@@ -571,18 +571,27 @@
     {
       "day": "2026-09-06",
       "label": "06/09",
-      "prePrTotal": 27,
-      "prePrPass": 27,
+      "prePrTotal": 29,
+      "prePrPass": 29,
       "prePrFail": 0,
       "prePrPassRate": 100,
       "ruleFails": 13,
       "healed": 3,
       "sessions": 0,
-      "merges": 7,
-      "friction": 0.48
+      "merges": 8,
+      "friction": 0.45
     }
   ],
   "prs": [
+    {
+      "number": 553,
+      "title": "feat(relatorios) — Pipeline operacional + 4-keys (F1+F2)",
+      "type": "feat",
+      "date": "2026-09-06",
+      "tokens": 912,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio"
+    },
     {
       "number": 552,
       "title": "refactor(contas) — tabela densa scannable + drill-down",
@@ -663,30 +672,21 @@
       "tokens": 5,
       "benefit": "Ajuste de processo validado",
       "impact": "Processo mais confiável e audável"
-    },
-    {
-      "number": 542,
-      "title": "feat vendas: recebimento separado com checkbox, totais vivos e extrato",
-      "type": "feat",
-      "date": "2026-09-05",
-      "tokens": 439,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "repo": {
-    "components": 144,
+    "components": 146,
     "pages": 18,
-    "libs": 42,
+    "libs": 44,
     "scripts": 122,
-    "testFiles": 319,
+    "testFiles": 323,
     "skills": 27,
     "rules": 48,
-    "events": 480,
-    "qualityNotes": 570
+    "events": 487,
+    "qualityNotes": 573
   },
   "summary": {
-    "merges": 56,
+    "merges": 57,
     "prs": 0,
     "sessions": 10,
     "violations": 186,

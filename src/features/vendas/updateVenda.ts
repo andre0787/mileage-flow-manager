@@ -1,4 +1,5 @@
 import { supabase, calcProportionalCost, calcAccountUpdate, toQueryError } from "./shared";
+import { recordStatusChange } from "./statusHistory";
 import { validateEffectiveKind } from "@/lib/saleKind";
 import { buildVendaUpdate } from "./buildVendaUpdate";
 import type { Sale, VendaMutationInput, VendasBuilder } from "./shared";
@@ -62,6 +63,9 @@ export const updateVendaEndpoint = (builder: VendasBuilder) => ({
       // 5. Update sale record
       const { error } = await supabase.from("sales").update(updateData).eq("id", id);
       if (error) return { error: toQueryError(error) };
+
+      // F3: histórico de transição (best-effort, nunca bloqueia).
+      void recordStatusChange(oldSale.user_id, id, oldSale.status, data.status ?? oldSale.status);
 
       // 6. Apply new impact on account (deduct miles + cost)
       if (newAccountId && newMiles > 0 && !newIsCanceled) {

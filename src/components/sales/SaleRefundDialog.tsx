@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormDrawer } from "@/components/FormDrawer";
+import { CREDIT_EPSILON } from "@/lib/clientCredits";
 import type { ClientCredit } from "@/types";
 
 interface SaleRefundDialogProps {
@@ -34,15 +35,19 @@ export function SaleRefundDialog({
   const received = Math.max(0, amountReceived || 0);
   const [value, setValue] = useState<string>(received ? received.toFixed(2) : "");
 
-  // Reabrir sempre exibe o valor atual, nunca um valor digitado anteriormente.
+  // Pré-preenche ao ABRIR; refetch de `received` com o dialog aberto não
+  // apaga a digitação (só sucesso limpa — ver onConfirm abaixo).
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (open) setValue(received ? received.toFixed(2) : "");
-  }, [open, received]);
+  }, [open]);
 
-  const amount = Math.min(Math.max(0, parseFloat(value) || 0), received);
+  const raw = Math.max(0, parseFloat(value) || 0);
+  const clamped = raw > received + CREDIT_EPSILON;
+  const amount = Math.min(raw, received);
   const newReceived = Math.max(0, received - amount);
-  const backToPending = amount > 0 && newReceived < saleValue;
-  const valid = amount > 0;
+  const backToPending = amount > CREDIT_EPSILON && newReceived < saleValue - CREDIT_EPSILON;
+  const valid = amount > CREDIT_EPSILON;
 
   const saleStatement = (saleMovements ?? []).filter((m) => m && typeof m.amount === "number");
 
@@ -83,6 +88,11 @@ export function SaleRefundDialog({
           <p className="text-xs text-muted-foreground">
             Máximo: R$ {received.toFixed(2)} (total recebido).
           </p>
+          {clamped && (
+            <p className="text-xs text-warning font-semibold">
+              Valor limitado ao recebido (R$ {received.toFixed(2)}).
+            </p>
+          )}
           {!valid && value.trim() !== "" && (
             <p className="text-xs text-destructive">Informe um valor maior que zero.</p>
           )}
@@ -133,6 +143,7 @@ export function SaleRefundDialog({
           disabled={!valid || isPending}
           onClick={() => {
             onConfirm(amount);
+            setValue("");
             onOpenChange(false);
           }}
         >

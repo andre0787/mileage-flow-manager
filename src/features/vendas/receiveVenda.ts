@@ -1,4 +1,5 @@
 import { supabase, toQueryError } from "./shared";
+import { recordStatusChange } from "./statusHistory";
 import type { VendasBuilder } from "./shared";
 import { mapClientCredit } from "@/hooks/useDatabase/mappers";
 import { planReceipt, calcCreditBalance, CREDIT_EPSILON } from "@/lib/clientCredits";
@@ -64,6 +65,9 @@ export const receiveVendaEndpoint = (builder: VendasBuilder) => ({
         })
         .eq("id", saleId);
       if (updateError) return { error: toQueryError(updateError) };
+
+      // F3: virada para pago entra no histórico (best-effort).
+      if (plan.fullyPaid) void recordStatusChange(user.id, saleId, sale.status, "pago");
 
       const creditRows: {
         user_id: string;

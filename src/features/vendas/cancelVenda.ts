@@ -1,4 +1,5 @@
 import { supabase, calcAccountUpdate, toQueryError } from "./shared";
+import { recordStatusChange } from "./statusHistory";
 import { mapClientCredit } from "@/hooks/useDatabase/mappers";
 import { planCancelReversals } from "@/lib/clientCredits";
 import type { VendasBuilder } from "./shared";
@@ -33,6 +34,8 @@ export const cancelVendaEndpoint = (builder: VendasBuilder) => ({
         .eq("id", id);
       if (cancelError) return { error: toQueryError(cancelError) };
 
+      // F3: cancelamento entra no histórico (best-effort).
+      void recordStatusChange(sale.user_id, id, oldStatus, "cancelado");
       try {
         for (const r of reversals) {
           const { error } = await supabase.from("client_credit_movements").insert({

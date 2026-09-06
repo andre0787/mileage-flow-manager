@@ -106,6 +106,18 @@ export function loadWorkflowData(): Promise<WorkflowData> {
   return workflowPromise;
 }
 
+/**
+ * Verdadeiro quando os dados são ilustrativos/vazios (fallback), não reais.
+ * Tanto o JSON mocado quanto a estrutura vazia usam generatedAt em epoch.
+ */
+export function isIllustrativeData(generatedAt: string | undefined | null): boolean {
+  // Ausente = assume real (mocks legados não trazem o campo); epoch ou
+  // inválido = fallback ilustrativo/vazio (ambos usam generatedAt em epoch).
+  if (generatedAt === undefined || generatedAt === null) return false;
+  const t = Date.parse(generatedAt);
+  return !Number.isFinite(t) || t <= 0;
+}
+
 /** Hook React 19 que suspende via `use()` até dados chegarem. */
 export function useWorkflowData(): WorkflowData {
   return use(loadWorkflowData());
