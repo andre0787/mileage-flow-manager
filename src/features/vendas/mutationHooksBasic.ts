@@ -147,9 +147,10 @@ export function useRefundToCreditMutation() {
 
   const mutateAsync = async (input: RefundToCreditInput, options?: MutateOptions) => {
     try {
-      await trigger(input).unwrap();
+      const data = await trigger(input).unwrap();
       invalidate();
       options?.onSuccess?.();
+      return data;
     } catch (err) {
       logError("refundToCredit", err);
       invalidate();
