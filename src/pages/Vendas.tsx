@@ -221,9 +221,7 @@ export default function Vendas() {
       .mutateAsync({ saleId, amount })
       .then((res) => {
         haptic.success();
-        toast.success(
-          `R$ ${res.refunded.toFixed(2)} devolvido ao crédito de ${sale.clientName}.`,
-        );
+        toast.success(`R$ ${res.refunded.toFixed(2)} devolvido ao crédito de ${sale.clientName}.`);
       })
       .catch(() => {
         // Erro já logado + toast no hook (useRefundToCreditMutation).

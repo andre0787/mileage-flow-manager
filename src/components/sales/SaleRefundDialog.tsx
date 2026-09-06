@@ -90,8 +90,7 @@ export function SaleRefundDialog({
         {valid && (
           <p className="text-xs text-primary font-semibold">
             R$ {amount.toFixed(2)} volta ao crédito
-            {clientName ? ` de ${clientName}` : ""} • Recebido restante: R${" "}
-            {newReceived.toFixed(2)}
+            {clientName ? ` de ${clientName}` : ""} • Recebido restante: R$ {newReceived.toFixed(2)}
             {backToPending ? " • venda volta a pendente" : ""}.
           </p>
         )}
