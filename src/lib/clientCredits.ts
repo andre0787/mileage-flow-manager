@@ -76,6 +76,38 @@ export function planReceipt(input: PlanReceiptInput): PlanReceiptResult {
   };
 }
 
+export interface PlanRefundInput {
+  saleValue: number;
+  amountReceived: number;
+  /** Quanto devolver ao crédito (limitado ao recebido). */
+  amount: number;
+}
+
+export interface PlanRefundResult {
+  /** Valor efetivamente devolvido (earn espelhado no ledger). */
+  refunded: number;
+  newReceived: number;
+  /** Verdadeiro quando a venda volta a ter pendente (status deve voltar a pendente). */
+  backToPending: boolean;
+}
+
+/**
+ * Planeja a devolução de valor recebido para o crédito do cliente.
+ * Espelho do recebimento: reduz amountReceived e gera earn no ledger.
+ * refunded = min(amount, received); backToPending quando sobra pendente.
+ */
+export function planRefundToCredit(input: PlanRefundInput): PlanRefundResult {
+  const saleValue = Math.max(0, Number(input.saleValue) || 0);
+  const received = Math.max(0, Number(input.amountReceived) || 0);
+  const refunded = Math.min(sanitize(input.amount), received);
+  const newReceived = Math.max(0, received - refunded);
+  return {
+    refunded,
+    newReceived,
+    backToPending: refunded > 0 && newReceived < saleValue - CREDIT_EPSILON,
+  };
+}
+
 export interface PlannedReversal {
   kind: "reversal";
   reversalOf: "earn" | "spend";

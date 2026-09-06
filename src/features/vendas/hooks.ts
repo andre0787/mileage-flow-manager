@@ -23,5 +23,6 @@ export {
   useAddSaleMutation,
   useUpdateSaleMutation,
   useReceiveWithCreditMutation,
+  useRefundToCreditMutation,
 } from "./mutationHooksBasic";
 export { useDeleteSaleMutation, useCancelSaleMutation } from "./mutationHooksLifecycle";

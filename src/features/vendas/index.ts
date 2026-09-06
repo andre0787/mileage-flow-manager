@@ -3,6 +3,7 @@ export {
   useAddSaleMutation,
   useUpdateSaleMutation,
   useReceiveWithCreditMutation,
+  useRefundToCreditMutation,
   useDeleteSaleMutation,
   useCancelSaleMutation,
 } from "./hooks";

@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { SaleReceiveDialog, type CreditPayment } from "@/components/sales/SaleReceiveDialog";
+import { SaleRefundDialog } from "@/components/sales/SaleRefundDialog";
+import { CREDIT_EPSILON } from "@/lib/clientCredits";
 import { useClientBalanceQuery } from "@/features/clientes/hooks";
 import {
   Select,
@@ -22,6 +24,8 @@ interface SaleTableRowProps {
   isOnline: boolean;
   onStatusChange?: (saleId: string, status: "pendente" | "pago" | "concluido") => void;
   onReceive?: (saleId: string, payment: CreditPayment) => void;
+  onRefund?: (saleId: string, amount: number) => void;
+  refundPending?: boolean;
   onEdit?: (sale: Sale) => void;
   onCancelClick: (saleId: string) => void;
 }
@@ -32,10 +36,13 @@ export function SaleTableRow({
   isOnline,
   onStatusChange,
   onReceive,
+  onRefund,
+  refundPending = false,
   onEdit,
   onCancelClick,
 }: SaleTableRowProps) {
   const [receiveOpen, setReceiveOpen] = useState(false);
+  const [refundOpen, setRefundOpen] = useState(false);
   const amountReceived = sale.amountReceived ?? 0;
   const pending = Math.max(0, sale.saleValue - amountReceived);
   const { balance: creditBalance, movements: creditMoves } = useClientBalanceQuery(sale.clientId);
@@ -151,6 +158,24 @@ export function SaleTableRow({
                       Receber
                     </Button>
                   )}
+                {onRefund && amountReceived > CREDIT_EPSILON && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-6 text-xs text-warning hover:text-warning"
+                    onClick={() => setRefundOpen(true)}
+                    disabled={!isOnline || refundPending || sale.status === "concluido"}
+                    title={
+                      !isOnline
+                        ? "Requer conexão"
+                        : sale.status === "concluido"
+                          ? "Reabra a venda para devolver"
+                          : "Devolver ao crédito do cliente"
+                    }
+                  >
+                    Devolver
+                  </Button>
+                )}
                 {onEdit && (
                   <Button
                     variant="ghost"
@@ -186,6 +211,18 @@ export function SaleTableRow({
           clientName={sale.clientName}
           saleMovements={creditMoves.filter((m) => m.saleId === sale.id)}
           onConfirm={(payment) => onReceive(sale.id, payment)}
+        />
+      )}
+      {onRefund && (
+        <SaleRefundDialog
+          open={refundOpen}
+          onOpenChange={setRefundOpen}
+          saleValue={sale.saleValue}
+          amountReceived={amountReceived}
+          clientName={sale.clientName}
+          saleMovements={creditMoves.filter((m) => m.saleId === sale.id)}
+          isPending={refundPending}
+          onConfirm={(amount) => onRefund(sale.id, amount)}
         />
       )}
     </>

@@ -20,7 +20,7 @@ import {
   useCancelSaleMutation,
   useAddClientMutation,
 } from "@/hooks/useDatabase";
-import { useReceiveWithCreditMutation } from "@/features/vendas";
+import { useReceiveWithCreditMutation, useRefundToCreditMutation } from "@/features/vendas";
 import { calcProfit, calcProfitMargin } from "@/lib/metrics";
 import { downloadCSV } from "@/lib/utils";
 import { formatDateBR } from "@/lib/dateUtils";
@@ -209,6 +209,27 @@ export default function Vendas() {
     );
   };
 
+  const refundToCreditM = useRefundToCreditMutation();
+
+  // Devolução de valor recebido para o crédito do cliente (espelho do recebimento).
+  // mutateAsync: o toast usa o valor confirmado pelo servidor (res.refunded),
+  // nunca o valor digitado — evita mensagem mentirosa em caso de clamp/erro.
+  const handleRefundToCredit = (saleId: string, amount: number) => {
+    const sale = sales.find((s) => s.id === saleId);
+    if (!sale) return;
+    refundToCreditM
+      .mutateAsync({ saleId, amount })
+      .then((res) => {
+        haptic.success();
+        toast.success(
+          `R$ ${res.refunded.toFixed(2)} devolvido ao crédito de ${sale.clientName}.`,
+        );
+      })
+      .catch(() => {
+        // Erro já logado + toast no hook (useRefundToCreditMutation).
+      });
+  };
+
   const handleStatusChange = (saleId: string, status: "pendente" | "pago" | "concluido") => {
     updateSaleM.mutate({ id: saleId, status });
   };
@@ -371,6 +392,8 @@ export default function Vendas() {
         onCancel={handleCancelSale}
         onStatusChange={handleStatusChange}
         onReceive={handleReceiveWithCredit}
+        onRefund={handleRefundToCredit}
+        refundPending={refundToCreditM.isPending}
         onCreateClick={() => setIsCreateDialogOpen(true)}
         onEdit={(sale) => {
           setEditingSale(sale);

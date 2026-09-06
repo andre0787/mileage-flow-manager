@@ -4,6 +4,7 @@ import {
   movementEffect,
   calcCreditBalance,
   planReceipt,
+  planRefundToCredit,
   planCancelReversals,
 } from "@/lib/clientCredits";
 
@@ -102,6 +103,29 @@ describe("planReceipt", () => {
     });
     expect(r.earnedCredit).toBe(0);
     expect(r.fullyPaid).toBe(true);
+  });
+});
+
+describe("planRefundToCredit", () => {
+  it("devolve parcial e marca volta a pendente", () => {
+    const r = planRefundToCredit({ saleValue: 500, amountReceived: 500, amount: 200 });
+    expect(r).toEqual({ refunded: 200, newReceived: 300, backToPending: true });
+  });
+
+  it("limita ao recebido (nunca negativo)", () => {
+    const r = planRefundToCredit({ saleValue: 500, amountReceived: 120, amount: 999 });
+    expect(r).toEqual({ refunded: 120, newReceived: 0, backToPending: true });
+  });
+
+  it("sanitiza entradas negativas, NaN e zero", () => {
+    expect(planRefundToCredit({ saleValue: 500, amountReceived: 300, amount: -10 })).toEqual({
+      refunded: 0,
+      newReceived: 300,
+      backToPending: false,
+    });
+    expect(
+      planRefundToCredit({ saleValue: 500, amountReceived: 0, amount: Number.NaN }),
+    ).toEqual({ refunded: 0, newReceived: 0, backToPending: false });
   });
 });
 

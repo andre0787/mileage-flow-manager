@@ -3,6 +3,8 @@ import { Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SaleReceiveDialog, type CreditPayment } from "@/components/sales/SaleReceiveDialog";
+import { SaleRefundDialog } from "@/components/sales/SaleRefundDialog";
+import { CREDIT_EPSILON } from "@/lib/clientCredits";
 import { useClientBalanceQuery } from "@/features/clientes/hooks";
 import {
   Select,
@@ -20,6 +22,8 @@ interface SaleMobileCardProps {
   customColorHex?: string | null;
   onStatusChange?: (saleId: string, status: "pendente" | "pago" | "concluido") => void;
   onReceive?: (saleId: string, payment: CreditPayment) => void;
+  onRefund?: (saleId: string, amount: number) => void;
+  refundPending?: boolean;
   onEdit?: (sale: Sale) => void;
   onCancelClick: (saleId: string) => void;
 }
@@ -29,10 +33,13 @@ export function SaleMobileCard({
   customColorHex = null,
   onStatusChange,
   onReceive,
+  onRefund,
+  refundPending = false,
   onEdit,
   onCancelClick,
 }: SaleMobileCardProps) {
   const [receiveOpen, setReceiveOpen] = useState(false);
+  const [refundOpen, setRefundOpen] = useState(false);
   const amountReceived = sale.amountReceived ?? 0;
   const pending = Math.max(0, sale.saleValue - amountReceived);
   const { balance: creditBalance, movements: creditMoves } = useClientBalanceQuery(sale.clientId);
@@ -159,6 +166,18 @@ export function SaleMobileCard({
                     Receber
                   </Button>
                 )}
+              {onRefund && amountReceived > CREDIT_EPSILON && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-warning hover:text-warning hover:bg-warning/10 h-9 px-3 min-h-[44px]"
+                  onClick={() => setRefundOpen(true)}
+                  disabled={refundPending || sale.status === "concluido"}
+                  title={sale.status === "concluido" ? "Reabra a venda para devolver" : undefined}
+                >
+                  Devolver
+                </Button>
+              )}
               {onEdit && (
                 <Button
                   variant="ghost"
@@ -211,6 +230,18 @@ export function SaleMobileCard({
           clientName={sale.clientName}
           saleMovements={creditMoves.filter((m) => m.saleId === sale.id)}
           onConfirm={(payment) => onReceive(sale.id, payment)}
+        />
+      )}
+      {onRefund && (
+        <SaleRefundDialog
+          open={refundOpen}
+          onOpenChange={setRefundOpen}
+          saleValue={sale.saleValue}
+          amountReceived={amountReceived}
+          clientName={sale.clientName}
+          saleMovements={creditMoves.filter((m) => m.saleId === sale.id)}
+          isPending={refundPending}
+          onConfirm={(amount) => onRefund(sale.id, amount)}
         />
       )}
     </>

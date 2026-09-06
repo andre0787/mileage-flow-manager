@@ -3,7 +3,7 @@ import { useAppDispatch } from "@/features/store";
 import { logError } from "@/lib/logger";
 import { baseApi } from "@/features/api/baseApi";
 import { vendasApi } from "./vendasApi";
-import type { Sale, ReceiveWithCreditInput } from "@/types";
+import type { Sale, ReceiveWithCreditInput, RefundToCreditInput } from "@/types";
 
 const INVALIDATE: ("sales" | "accounts")[] = ["sales", "accounts"];
 
@@ -118,6 +118,43 @@ export function useReceiveWithCreditMutation() {
       invalidate();
       options?.onError?.();
       toast.error("Erro ao registrar recebimento");
+      throw err;
+    }
+  };
+
+  return { mutate, mutateAsync, isPending: result.isLoading, ...result };
+}
+
+export function useRefundToCreditMutation() {
+  const [trigger, result] = vendasApi.useRefundToCreditMutation();
+  const dispatch = useAppDispatch();
+  const invalidate = () => dispatch(baseApi.util.invalidateTags(CREDIT_INVALIDATE));
+
+  const mutate = (input: RefundToCreditInput, options?: MutateOptions) => {
+    trigger(input)
+      .unwrap()
+      .then(() => {
+        invalidate();
+        options?.onSuccess?.();
+      })
+      .catch((err) => {
+        logError("refundToCredit", err);
+        invalidate();
+        options?.onError?.();
+        toast.error("Erro ao devolver valor ao crédito");
+      });
+  };
+
+  const mutateAsync = async (input: RefundToCreditInput, options?: MutateOptions) => {
+    try {
+      await trigger(input).unwrap();
+      invalidate();
+      options?.onSuccess?.();
+    } catch (err) {
+      logError("refundToCredit", err);
+      invalidate();
+      options?.onError?.();
+      toast.error("Erro ao devolver valor ao crédito");
       throw err;
     }
   };
