@@ -597,3 +597,4 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/superpowers/plans/venda-servico.md` (auto) | 2026-09-06 |
 | `docs/superpowers/specs/venda-servico.md` (auto) | 2026-09-06 |
 | `docs/superpowers/specs/contas-tabela.md` (auto) | 2026-09-06 |
+| `docs/superpowers/specs/pipeline-operacao.md` (auto) | 2026-09-06 |

@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-06T15:36:17.970Z",
+  "generatedAt": "2026-09-06T17:26:44.121Z",
   "dataDate": "2026-09-06",
   "kpiStats": [
     {
-      "value": 476,
+      "value": 480,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 567,
+      "value": 570,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 32,
+      "value": 33,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 42,
+      "value": 43,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 163,
+      "n": 164,
       "color": "#8b5cf6"
     },
     {
@@ -51,17 +51,17 @@
     },
     {
       "name": "healed",
-      "n": 32,
+      "n": 33,
       "color": "#10b981"
     },
     {
       "name": "code-review:done",
-      "n": 43,
+      "n": 44,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 40,
+      "n": 41,
       "color": "#22c55e"
     },
     {
@@ -78,7 +78,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 167,
+      "n": 168,
       "color": "#84cc16"
     },
     {
@@ -88,6 +88,26 @@
     }
   ],
   "recentTimeline": [
+    {
+      "t": "2026-09-06 17:26:40",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-06 17:25:59",
+      "d": "healed",
+      "desc": "rule-17-new-docs-valid auto-corrigido"
+    },
+    {
+      "t": "2026-09-06 17:23:58",
+      "d": "code-review:done",
+      "desc": "Review aprovado por subagente"
+    },
+    {
+      "t": "2026-09-06 17:20:14",
+      "d": "coding:done",
+      "desc": "Implementacao pipeline-operacao por subagente"
+    },
     {
       "t": "2026-09-06 15:36:14",
       "d": "pre-pr",
@@ -107,34 +127,14 @@
       "t": "2026-09-06 15:34:04",
       "d": "healed",
       "desc": "rule-17-new-docs-valid auto-corrigido"
-    },
-    {
-      "t": "2026-09-06 15:32:05",
-      "d": "code-review:done",
-      "desc": "Review aprovado por subagente"
-    },
-    {
-      "t": "2026-09-06 15:27:14",
-      "d": "coding:done",
-      "desc": "Codificação contas-tabela por subagente"
-    },
-    {
-      "t": "2026-09-06 13:58:28",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-06 13:57:53",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 186,
-    "healed": 32,
-    "healedRate": 17.2,
-    "prePrTotal": 163,
-    "prePrPass": 163,
+    "healed": 33,
+    "healedRate": 17.7,
+    "prePrTotal": 164,
+    "prePrPass": 164,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
@@ -166,6 +166,15 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 552,
+      "title": "refactor(contas) — tabela densa scannable + drill-down",
+      "type": "refactor",
+      "date": "2026-09-06",
+      "tokens": 1157,
+      "benefit": "Código mais simples — menor custo de manutenção",
+      "impact": "Menos custo em mudanças futuras"
+    },
     {
       "number": 551,
       "title": "feat(vendas) — campo Data no formulário de venda",
@@ -201,15 +210,6 @@
       "tokens": 2319,
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio"
-    },
-    {
-      "number": 547,
-      "title": "chore: fecha sessão do refund (handoff + estado)",
-      "type": "chore",
-      "date": "2026-09-06",
-      "tokens": 26,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável"
     }
   ],
   "overview": {
@@ -220,7 +220,7 @@
     "testFiles": 319,
     "skills": 27,
     "rules": 48,
-    "events": 476,
-    "qualityNotes": 567
+    "events": 480,
+    "qualityNotes": 570
   }
 }
