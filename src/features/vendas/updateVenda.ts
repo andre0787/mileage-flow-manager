@@ -15,6 +15,12 @@ export const updateVendaEndpoint = (builder: VendasBuilder) => ({
       if (fetchError || !oldSale)
         return { error: toQueryError(fetchError ?? { message: "Venda não encontrada" }) };
 
+      // Tipo da venda é imutável: a troca milhas↔servico exigiria
+      // restaurar/aplicar estoque (fora do escopo).
+      const oldKind = (oldSale as { sale_kind?: unknown }).sale_kind ?? "milhas";
+      if (data.kind !== undefined && data.kind !== oldKind)
+        return { error: toQueryError({ message: "Tipo da venda não pode ser alterado." }) };
+
       // 2. Build update data (snake_case)
       const updateData: VendaUpdate = {};
       if (data.accountId !== undefined) updateData.account_id = data.accountId;
@@ -78,6 +84,11 @@ export const updateVendaEndpoint = (builder: VendasBuilder) => ({
       updateData.profit = serverProfit;
       updateData.profit_margin = calcProfitMargin(serverProfit, Number(effectiveSaleValue));
       if (data.status !== undefined) updateData.status = data.status as VendaUpdate["status"];
+      if (data.serviceType !== undefined)
+        (updateData as Record<string, unknown>).service_type = data.serviceType ?? null;
+      if (data.observations !== undefined)
+        (updateData as Record<string, unknown>).observations =
+          (data.observations ?? "").trim() || null;
       if (data.ticketLocator !== undefined) updateData.ticket_locator = data.ticketLocator;
       if (data.passengers !== undefined) updateData.passengers = data.passengers;
       if (data.date !== undefined) updateData.date = data.date;
