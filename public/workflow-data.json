@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-06T15:34:51.452Z",
+  "generatedAt": "2026-09-06T15:36:17.970Z",
   "dataDate": "2026-09-06",
   "kpiStats": [
     {
-      "value": 474,
+      "value": 476,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 564,
+      "value": 567,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,7 +18,7 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 317,
+      "value": 319,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 161,
+      "n": 163,
       "color": "#8b5cf6"
     },
     {
@@ -73,7 +73,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 222,
+      "n": 223,
       "color": "#10b981"
     },
     {
@@ -88,6 +88,16 @@
     }
   ],
   "recentTimeline": [
+    {
+      "t": "2026-09-06 15:36:14",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-06 15:35:29",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
     {
       "t": "2026-09-06 15:34:47",
       "d": "pre-pr",
@@ -117,24 +127,14 @@
       "t": "2026-09-06 13:57:53",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-06 13:56:28",
-      "d": "code-review:done",
-      "desc": "Review aprovado por subagente"
-    },
-    {
-      "t": "2026-09-06 13:54:25",
-      "d": "coding:done",
-      "desc": "Campo Data no SaleForm + payload create/update"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 186,
     "healed": 32,
     "healedRate": 17.2,
-    "prePrTotal": 161,
-    "prePrPass": 161,
+    "prePrTotal": 163,
+    "prePrPass": 163,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
@@ -213,14 +213,14 @@
     }
   ],
   "overview": {
-    "components": 141,
+    "components": 144,
     "pages": 18,
-    "libs": 41,
+    "libs": 42,
     "scripts": 122,
-    "testFiles": 317,
+    "testFiles": 319,
     "skills": 27,
     "rules": 48,
-    "events": 474,
-    "qualityNotes": 564
+    "events": 476,
+    "qualityNotes": 567
   }
 }
