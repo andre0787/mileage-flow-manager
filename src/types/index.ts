@@ -168,8 +168,8 @@ export type ServiceType = "consultoria" | "taxa" | "outro";
 export interface Sale {
   id: string;
   accountId?: string;
-  /** Discriminador milhas|servico (default 'milhas' p/ linhas antigas) */
-  kind: SaleKind;
+  /** Discriminador milhas|servico (default 'milhas' p/ linhas antigas e mocks) */
+  kind?: SaleKind;
   /** Tipo de serviço — só quando kind === 'servico' */
   serviceType?: ServiceType;
   /** Observações livres — só quando kind === 'servico' */
