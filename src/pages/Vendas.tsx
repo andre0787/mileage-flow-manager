@@ -107,7 +107,7 @@ export default function Vendas() {
           status: "pendente" as const,
           ticketLocator: "",
           passengers: [],
-          date: new Date().toISOString().split("T")[0],
+          date: data.date,
         },
         {
           onSuccess: () => {
@@ -157,7 +157,7 @@ export default function Vendas() {
         status: "pendente" as const,
         ticketLocator: data.ticketLocator,
         passengers: data.passengers.filter((p) => p.name.trim()),
-        date: new Date().toISOString().split("T")[0],
+        date: data.date,
       },
       {
         onSuccess: () => {
@@ -194,6 +194,7 @@ export default function Vendas() {
           amountReceived: Math.min(editingSale.amountReceived ?? 0, saleValue),
           profit: saleValue,
           profitMargin: 100,
+          date: data.date,
         },
         {
           onSuccess: () => haptic.success(),
@@ -233,7 +234,7 @@ export default function Vendas() {
         profitMargin,
         ticketLocator: data.ticketLocator,
         passengers: data.passengers.filter((p) => p.name.trim()),
-        date: editingSale.date,
+        date: data.date,
       },
       {
         onSuccess: () => haptic.success(),
@@ -540,6 +541,7 @@ export default function Vendas() {
                 kind: editingSale.kind ?? "milhas",
                 serviceType: editingSale.serviceType ?? "",
                 observations: editingSale.observations ?? "",
+                date: editingSale.date,
               }
             : undefined
         }
