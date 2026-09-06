@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-05T20:48:05.103Z",
-  "dataDate": "2026-09-05",
+  "generatedAt": "2026-09-06T00:40:21.480Z",
+  "dataDate": "2026-09-06",
   "kpiStats": [
     {
-      "value": 421,
+      "value": 426,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 534,
+      "value": 537,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -28,7 +28,7 @@
       "sub": "desde o início"
     },
     {
-      "value": 36,
+      "value": 37,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 135,
+      "n": 138,
       "color": "#8b5cf6"
     },
     {
@@ -56,12 +56,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 37,
+      "n": 38,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 34,
+      "n": 35,
       "color": "#22c55e"
     },
     {
@@ -78,7 +78,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 165,
+      "n": 166,
       "color": "#84cc16"
     },
     {
@@ -88,6 +88,31 @@
     }
   ],
   "recentTimeline": [
+    {
+      "t": "2026-09-06 00:40:17",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-06 00:38:33",
+      "d": "code-review:done",
+      "desc": "Review aprovado por subagente"
+    },
+    {
+      "t": "2026-09-06 00:33:29",
+      "d": "coding:done",
+      "desc": "Devolução de saldo para crédito implementada por subagente"
+    },
+    {
+      "t": "2026-09-05 20:54:45",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-05 20:49:25",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
     {
       "t": "2026-09-05 20:48:01",
       "d": "pre-pr",
@@ -102,39 +127,14 @@
       "t": "2026-09-05 20:44:11",
       "d": "coding:done",
       "desc": "Bug #544: seletores incluem origem de transferência + pontosSales alinhado"
-    },
-    {
-      "t": "2026-09-05 20:23:53",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-05 20:23:39",
-      "d": "code-review:done",
-      "desc": "Reviews por subagente: BLOCK com must-fix aplicado + re-review ADDRESSED (workflow migrate)"
-    },
-    {
-      "t": "2026-09-05 20:21:44",
-      "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
-    },
-    {
-      "t": "2026-09-05 17:31:28",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-05 17:28:46",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 173,
     "healed": 30,
     "healedRate": 17.3,
-    "prePrTotal": 135,
-    "prePrPass": 135,
+    "prePrTotal": 138,
+    "prePrPass": 138,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
@@ -166,6 +166,15 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 545,
+      "title": "fix(dashboard) — zera discrepância persistente do banner Pontos/Camila",
+      "type": "fix",
+      "date": "2026-09-05",
+      "tokens": 722,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação"
+    },
     {
       "number": 543,
       "title": "chore docs: atualiza handoff da sessão",
@@ -201,15 +210,6 @@
       "tokens": 17,
       "benefit": "Ajuste de processo validado",
       "impact": "Processo mais confiável e audável"
-    },
-    {
-      "number": 539,
-      "title": "fix security: remedia alertas do linter (DROP exec_sql, revokes, search_path)",
-      "type": "fix",
-      "date": "2026-09-04",
-      "tokens": 28,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação"
     }
   ],
   "overview": {
@@ -220,7 +220,7 @@
     "testFiles": 303,
     "skills": 27,
     "rules": 48,
-    "events": 421,
-    "qualityNotes": 534
+    "events": 426,
+    "qualityNotes": 537
   }
 }

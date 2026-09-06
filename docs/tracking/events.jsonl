@@ -421,3 +421,9 @@
 {"timestamp":"2026-09-05T20:48:01.543Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/discrepancia-pontos-camila","commit":"0553477","agent":"pi","errors":0}
 {"timestamp":"2026-09-05T20:49:25.766Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/discrepancia-pontos-camila","commit":"0553477","agent":"pi","errors":0}
 {"timestamp":"2026-09-05T20:54:45.375Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/discrepancia-pontos-camila","commit":"1a93aec","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T00:33:29.562Z","type":"coding:done","description":"Devolução de saldo para crédito implementada por subagente","branch":"feat/devolucao-saldo-credito","commit":"cb273aa","agent":"pi","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-09-06T00:38:33.558Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"feat/devolucao-saldo-credito","commit":"cb273aa","agent":"pi","subagent":true,"verdict":"approved","reviewerRun":"9b759936-e06d-462c-8939-b04865b2c2f9","scope":"refund-to-credit re-review"}
+{"timestamp":"2026-09-06T00:40:17.783Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/devolucao-saldo-credito","commit":"cb273aa","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T00:40:27.626Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/devolucao-saldo-credito","commit":"cb273aa","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T00:45:59.296Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/devolucao-saldo-credito","commit":"2a57979","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T00:47:41.096Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/devolucao-saldo-credito","commit":"02f3dda","agent":"pi","errors":0}

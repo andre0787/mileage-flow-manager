@@ -216,3 +216,17 @@ export interface ReceiveWithCreditResult {
   newReceived: number;
   fullyPaid: boolean;
 }
+
+/** Entrada da devolução de valor recebido para o crédito do cliente. */
+export interface RefundToCreditInput {
+  saleId: string;
+  /** Quanto do recebido devolver ao crédito (limitado ao amountReceived). */
+  amount: number;
+}
+
+/** Resultado da devolução de valor recebido para o crédito do cliente. */
+export interface RefundToCreditResult {
+  refunded: number;
+  newReceived: number;
+  backToPending: boolean;
+}

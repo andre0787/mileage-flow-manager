@@ -5,6 +5,7 @@ import { updateVendaEndpoint } from "./updateVenda";
 import { cancelVendaEndpoint } from "./cancelVenda";
 import { deleteVendaEndpoint } from "./deleteVenda";
 import { receiveVendaEndpoint } from "./receiveVenda";
+import { refundToCreditEndpoint } from "./refundToCredit";
 
 export const vendasApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -14,5 +15,6 @@ export const vendasApi = baseApi.injectEndpoints({
     ...cancelVendaEndpoint(builder),
     ...deleteVendaEndpoint(builder),
     ...receiveVendaEndpoint(builder),
+    ...refundToCreditEndpoint(builder),
   }),
 });

@@ -19,6 +19,9 @@ interface SaleTableProps {
   onCancel?: (saleId: string) => void;
   onStatusChange?: (saleId: string, status: "pendente" | "pago" | "concluido") => void;
   onReceive?: (saleId: string, payment: { cash: number; useCredit: number }) => void;
+  onRefund?: (saleId: string, amount: number) => void;
+  /** Desabilita Devolver/Confirmar enquanto um refund está em voo (anti-duplo-clique). */
+  refundPending?: boolean;
   onCreateClick?: () => void;
   onEdit?: (sale: Sale) => void;
 }
@@ -31,6 +34,8 @@ export function SaleTable({
   onCancel,
   onStatusChange,
   onReceive,
+  onRefund,
+  refundPending = false,
   onCreateClick,
   onEdit,
 }: SaleTableProps) {
@@ -170,6 +175,8 @@ export function SaleTable({
                     isOnline={isOnline}
                     onStatusChange={onStatusChange}
                     onReceive={onReceive}
+                    onRefund={onRefund}
+                    refundPending={refundPending}
                     onEdit={onEdit}
                     onCancelClick={setCancelConfirmId}
                   />
@@ -187,6 +194,8 @@ export function SaleTable({
                 customColorHex={customColor(sale.ownerName)}
                 onStatusChange={onStatusChange}
                 onReceive={onReceive}
+                onRefund={onRefund}
+                refundPending={refundPending}
                 onEdit={onEdit}
                 onCancelClick={setCancelConfirmId}
               />

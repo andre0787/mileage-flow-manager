@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T20:48:01.658Z",
+  "generatedAt": "2026-09-06T00:40:17.897Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -146,8 +146,8 @@
     {
       "month": "2026-09",
       "prePrPassRate": 100,
-      "prePrTotal": 17,
-      "prePrPass": 17,
+      "prePrTotal": 20,
+      "prePrPass": 20,
       "prePrFail": 0,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
@@ -156,7 +156,7 @@
         "twins": 0,
         "auth": 0
       },
-      "avgOutcomeGrade": 100,
+      "avgOutcomeGrade": 95,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
@@ -180,10 +180,10 @@
       },
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
-      "branchesMerged": 8,
+      "branchesMerged": 9,
       "violationsCaught": 15,
       "healedRate": 6.7,
-      "frictionPerPass": 0.88
+      "frictionPerPass": 0.75
     }
   ],
   "daily": [
@@ -567,18 +567,27 @@
     {
       "day": "2026-09-05",
       "label": "05/09",
-      "prePrTotal": 7,
-      "prePrPass": 7,
+      "prePrTotal": 9,
+      "prePrPass": 9,
       "prePrFail": 0,
       "prePrPassRate": 100,
       "ruleFails": 3,
       "healed": 0,
       "sessions": 0,
       "merges": 4,
-      "friction": 0.43
+      "friction": 0.33
     }
   ],
   "prs": [
+    {
+      "number": 545,
+      "title": "fix(dashboard) — zera discrepância persistente do banner Pontos/Camila",
+      "type": "fix",
+      "date": "2026-09-05",
+      "tokens": 722,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação"
+    },
     {
       "number": 543,
       "title": "chore docs: atualiza handoff da sessão",
@@ -659,15 +668,6 @@
       "tokens": 342,
       "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
       "impact": "Menos risco de erro para o usuário e a operação"
-    },
-    {
-      "number": 532,
-      "title": "feat vendas: custos dinâmicos + recebimento parcial",
-      "type": "feat",
-      "date": "2026-09-04",
-      "tokens": 982,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio"
     }
   ],
   "repo": {
@@ -678,11 +678,11 @@
     "testFiles": 303,
     "skills": 27,
     "rules": 48,
-    "events": 421,
-    "qualityNotes": 534
+    "events": 426,
+    "qualityNotes": 537
   },
   "summary": {
-    "merges": 49,
+    "merges": 50,
     "prs": 0,
     "sessions": 10,
     "violations": 173,
