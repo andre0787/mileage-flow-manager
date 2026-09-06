@@ -5,6 +5,8 @@ import type {
   Account,
   PointEntry,
   Sale,
+  SaleKind,
+  ServiceType,
   Client,
   ClientCredit,
 } from "@/types";
@@ -138,6 +140,11 @@ export function mapSale(row: Database["public"]["Tables"]["sales"]["Row"]): Sale
     profit: Number(row.profit),
     profitMargin: Number(row.profit_margin),
     status: row.status,
+    kind: ((row as { sale_kind?: unknown }).sale_kind ?? "milhas") as SaleKind,
+    serviceType:
+      ((row as { service_type?: unknown }).service_type as ServiceType | undefined) ?? undefined,
+    observations:
+      ((row as { observations?: unknown }).observations as string | undefined) ?? undefined,
     ticketLocator: row.ticket_locator ?? undefined,
     passengers: row.passengers ?? [],
     date: row.date,

@@ -427,3 +427,12 @@
 {"timestamp":"2026-09-06T00:40:27.626Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/devolucao-saldo-credito","commit":"cb273aa","agent":"pi","errors":0}
 {"timestamp":"2026-09-06T00:45:59.296Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/devolucao-saldo-credito","commit":"2a57979","agent":"pi","errors":0}
 {"timestamp":"2026-09-06T00:47:41.096Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/devolucao-saldo-credito","commit":"02f3dda","agent":"pi","errors":0}
+{"timestamp":"2026-09-06T01:14:48.041Z","type":"healed","description":"rule-17-new-docs-valid auto-corrigido","branch":"feat/produtos-venda","commit":"b141cfe","agent":"pi","rule":"rule-17-new-docs-valid"}
+{"timestamp":"2026-09-06T01:14:48.560Z","type":"rule:fail","description":"rule-14-orphan-files falhou","branch":"feat/produtos-venda","commit":"b141cfe","agent":"pi","rule":"rule-14-orphan-files"}
+{"timestamp":"2026-09-06T01:14:53.613Z","type":"rule:fail","description":"rule-14-orphan-files falhou","branch":"feat/produtos-venda","commit":"b141cfe","agent":"pi","rule":"rule-14-orphan-files"}
+{"timestamp":"2026-09-06T01:15:29.277Z","type":"rule:fail","description":"rule-14-orphan-files falhou","branch":"feat/produtos-venda","commit":"b141cfe","agent":"pi","rule":"rule-14-orphan-files"}
+{"timestamp":"2026-09-06T01:15:29.973Z","type":"rule:fail","description":"rule-14-orphan-files falhou","branch":"feat/produtos-venda","commit":"b141cfe","agent":"pi","rule":"rule-14-orphan-files"}
+{"timestamp":"2026-09-06T01:15:33.803Z","type":"rule:fail","description":"rule-14-orphan-files falhou","branch":"feat/produtos-venda","commit":"b141cfe","agent":"pi","rule":"rule-14-orphan-files"}
+{"timestamp":"2026-09-06T01:15:34.486Z","type":"rule:fail","description":"rule-14-orphan-files falhou","branch":"feat/produtos-venda","commit":"b141cfe","agent":"pi","rule":"rule-14-orphan-files"}
+{"timestamp":"2026-09-06T01:15:55.828Z","type":"rule:fail","description":"rule-14-orphan-files falhou","branch":"feat/produtos-venda","commit":"b141cfe","agent":"pi","rule":"rule-14-orphan-files"}
+{"timestamp":"2026-09-06T01:24:46.141Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/produtos-venda","commit":"b141cfe","agent":"pi","errors":0}
