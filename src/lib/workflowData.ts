@@ -44,66 +44,72 @@ export function fallbackWorkflowData(): WorkflowData {
   };
 }
 
-let workflowPromise: Promise<WorkflowData> | null = null;
+/** TTL do cache — JSON nightly fresco por sessão, refetch a cada 10 min (2026-09-07). */
+const WORKFLOW_TTL_MS = 10 * 60 * 1000;
+let workflowCache: { promise: Promise<WorkflowData>; at: number } | null = null;
+
+function fetchWorkflowData(): Promise<WorkflowData> {
+  return fetch("/workflow-data.json")
+    .then((res) => {
+      if (!res.ok) throw new Error("workflow-data indisponível");
+      return res.json() as Promise<WorkflowData>;
+    })
+    .catch(() =>
+      fetch("/mock/workflow-fallback.json")
+        .then((res) => {
+          if (!res.ok) throw new Error("fallback indisponível");
+          return res.json() as Promise<Record<string, unknown>>;
+        })
+        .then((fallback) => {
+          // Converte fallback genérico para WorkflowData quando possível,
+          // senão retorna estrutura vazia. Mantém compatibilidade com
+          // dados ilustrativos antigos que têm KPI_STATS etc.
+          if (fallback && typeof fallback === "object" && "KPI_STATS" in fallback) {
+            const f = fallback as unknown as {
+              DATA_DATE: string;
+              KPI_STATS: WorkflowData["kpiStats"];
+              EVENT_TYPES: WorkflowData["eventTypes"];
+              GRADES: WorkflowData["grades"];
+              RECENT_TIMELINE: WorkflowData["recentTimeline"];
+              GATE_EFFICIENCY: WorkflowData["gateEfficiency"];
+            };
+            return {
+              generatedAt: new Date(0).toISOString(),
+              dataDate: f.DATA_DATE,
+              kpiStats: f.KPI_STATS,
+              eventTypes: f.EVENT_TYPES,
+              grades: f.GRADES,
+              recentTimeline: f.RECENT_TIMELINE,
+              gateEfficiency: f.GATE_EFFICIENCY,
+              lastPrs: [],
+              overview: {
+                components: 0,
+                pages: 0,
+                libs: 0,
+                scripts: 0,
+                testFiles: 0,
+                skills: 0,
+                rules: 0,
+                events: 0,
+                qualityNotes: 0,
+              },
+            } satisfies WorkflowData;
+          }
+          return fallback as unknown as WorkflowData;
+        })
+        .catch(() => fallbackWorkflowData()),
+    );
+}
 
 /**
  * Resource de dados reais: tenta workflow-data.json, depois fallback JSON estático,
- * depois estrutura vazia. Nunca rejeita.
+ * depois estrutura vazia. Cache com TTL. Nunca rejeita.
  */
 export function loadWorkflowData(): Promise<WorkflowData> {
-  if (!workflowPromise) {
-    workflowPromise = fetch("/workflow-data.json")
-      .then((res) => {
-        if (!res.ok) throw new Error("workflow-data indisponível");
-        return res.json() as Promise<WorkflowData>;
-      })
-      .catch(() =>
-        fetch("/mock/workflow-fallback.json")
-          .then((res) => {
-            if (!res.ok) throw new Error("fallback indisponível");
-            return res.json() as Promise<Record<string, unknown>>;
-          })
-          .then((fallback) => {
-            // Converte fallback genérico para WorkflowData quando possível,
-            // senão retorna estrutura vazia. Mantém compatibilidade com
-            // dados ilustrativos antigos que têm KPI_STATS etc.
-            if (fallback && typeof fallback === "object" && "KPI_STATS" in fallback) {
-              const f = fallback as unknown as {
-                DATA_DATE: string;
-                KPI_STATS: WorkflowData["kpiStats"];
-                EVENT_TYPES: WorkflowData["eventTypes"];
-                GRADES: WorkflowData["grades"];
-                RECENT_TIMELINE: WorkflowData["recentTimeline"];
-                GATE_EFFICIENCY: WorkflowData["gateEfficiency"];
-              };
-              return {
-                generatedAt: new Date(0).toISOString(),
-                dataDate: f.DATA_DATE,
-                kpiStats: f.KPI_STATS,
-                eventTypes: f.EVENT_TYPES,
-                grades: f.GRADES,
-                recentTimeline: f.RECENT_TIMELINE,
-                gateEfficiency: f.GATE_EFFICIENCY,
-                lastPrs: [],
-                overview: {
-                  components: 0,
-                  pages: 0,
-                  libs: 0,
-                  scripts: 0,
-                  testFiles: 0,
-                  skills: 0,
-                  rules: 0,
-                  events: 0,
-                  qualityNotes: 0,
-                },
-              } satisfies WorkflowData;
-            }
-            return fallback as unknown as WorkflowData;
-          })
-          .catch(() => fallbackWorkflowData()),
-      );
+  if (!workflowCache || Date.now() - workflowCache.at > WORKFLOW_TTL_MS) {
+    workflowCache = { promise: fetchWorkflowData(), at: Date.now() };
   }
-  return workflowPromise;
+  return workflowCache.promise;
 }
 
 /**
@@ -125,5 +131,5 @@ export function useWorkflowData(): WorkflowData {
 
 /** Reseta cache — útil para testes. */
 export function _resetWorkflowCache(): void {
-  workflowPromise = null;
+  workflowCache = null;
 }

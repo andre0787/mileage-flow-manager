@@ -7,11 +7,9 @@ import { Suspense, use } from "react";
 import { loadEnvelopes } from "@/lib/telemetryAdapter";
 import WorkflowPipelineDag from "./WorkflowPipelineDag";
 
-let envelopePromise: ReturnType<typeof loadEnvelopes> | null = null;
-
 function LiveContent() {
-  if (!envelopePromise) envelopePromise = loadEnvelopes();
-  const envelopes = use(envelopePromise);
+  // loadEnvelopes tem cache TTL próprio — refetch automático sem recarregar.
+  const envelopes = use(loadEnvelopes());
   return <WorkflowPipelineDag envelopes={envelopes} />;
 }
 

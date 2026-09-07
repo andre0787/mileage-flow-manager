@@ -133,12 +133,14 @@ async function main() {
     escreverSessao(cat, obj, branch, commit);
     console.log(`✅ Sessão iniciada: ${cat} — ${obj}`);
     execSync(`node scripts/event-log.mjs session:start "${cat}: ${obj}" --meta '{"categoria":"${cat}"}' 2>/dev/null || true`, { cwd: ROOT, encoding: 'utf8', timeout: 5000 });
+    emitPipelineEnvelopes(cat);
     return;
   }
 
   // ─── Continuação: só atualiza estado ───
   if (inProgress) {
     atualizarEstado(branch, commit);
+    emitPipelineEnvelopes("continuacao");
     return;
   }
 
@@ -181,12 +183,35 @@ async function main() {
     }
 
     escreverSessao(resposta.cat, resposta.obj, branch, commit);
+    emitPipelineEnvelopes(resposta.cat);
   } finally {
     rl.close();
   }
 }
 
 // ─── Helpers ───
+
+/**
+ * Emite os envelopes §19 dos nodes TASK e CLASSIFIER do pipeline real
+ * (fail-open, não-bloqueante). Envelopes vão para envelopes.jsonl + ai_telemetry
+ * (insert direto quando há credenciais; senão o nightly persiste).
+ * Skip em CI/testes para não poluir artifacts.
+ */
+function emitPipelineEnvelopes(cat) {
+  if (process.env.VITEST || process.env.CI) return;
+  try {
+    execSync(
+      `node scripts/emit-envelope.mjs --type execution.started --role task --task ${cat} --desc "sessao iniciada (${cat})" 2>/dev/null || true`,
+      { cwd: ROOT, encoding: "utf8", timeout: 10000 },
+    );
+    execSync(
+      `node scripts/emit-envelope.mjs --type agent.completed --role classifier --task ${cat} --desc "categoria: ${cat}" 2>/dev/null || true`,
+      { cwd: ROOT, encoding: "utf8", timeout: 10000 },
+    );
+  } catch {
+    /* telemetria nunca bloqueia a sessão */
+  }
+}
 
 function escreverSessao(cat, obj, branchAtual, commitAtual) {
   const now = new Date().toISOString();

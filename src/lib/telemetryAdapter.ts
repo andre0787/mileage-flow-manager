@@ -34,8 +34,8 @@ export function mapToEnvelope(row: Record<string, unknown>): TelemetryEnvelope {
   };
 }
 
-/** Loads telemetry envelopes from Supabase (fail-open → []). */
-export function loadEnvelopes(): Promise<TelemetryEnvelope[]> {
+/** Busca os envelopes na ai_telemetry (fail-open → []). */
+function fetchEnvelopes(): Promise<TelemetryEnvelope[]> {
   return new Promise<TelemetryEnvelope[]>((resolve) => {
     supabase
       .from("ai_telemetry")
@@ -47,4 +47,21 @@ export function loadEnvelopes(): Promise<TelemetryEnvelope[]> {
         () => resolve([]),
       );
   });
+}
+
+/** TTL do cache — dados frescos por sessão sem recarregar a página (2026-09-07). */
+export const ENVELOPES_TTL_MS = 5 * 60 * 1000;
+let envelopesCache: { promise: Promise<TelemetryEnvelope[]>; at: number } | null = null;
+
+/** Envelopes com cache TTL — resolve na hora dentro da janela, refetch fora. */
+export function loadEnvelopes(): Promise<TelemetryEnvelope[]> {
+  if (!envelopesCache || Date.now() - envelopesCache.at > ENVELOPES_TTL_MS) {
+    envelopesCache = { promise: fetchEnvelopes(), at: Date.now() };
+  }
+  return envelopesCache.promise;
+}
+
+/** Reseta o cache — útil para testes. */
+export function _resetEnvelopesCache(): void {
+  envelopesCache = null;
 }

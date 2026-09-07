@@ -97,6 +97,20 @@ function readPersistedIds() {
   }
 }
 
+/** Carrega KEY=VALUE do .env local (sem sobrescrever env existente). */
+function loadDotEnv() {
+  const envPath = resolve(ROOT, ".env");
+  if (!existsSync(envPath)) return;
+  for (const line of readFileSync(envPath, "utf8").split("\n")) {
+    const m = /^([A-Z_][A-Z0-9_]*)=(.*)$/.exec(line.trim());
+    if (!m) continue;
+    const [, key, raw] = m;
+    if (process.env[key] === undefined) {
+      process.env[key] = raw.replace(/^"|"$/g, "");
+    }
+  }
+}
+
 function git(cmd) {
   try {
     return execSync(cmd, { cwd: ROOT, encoding: "utf8", timeout: 5000 }).trim();
@@ -152,6 +166,8 @@ function toRecord(env) {
 }
 
 // ── Executa ───────────────────────────────────────────────────────────────
+loadDotEnv();
+
 // user_id é opcional: com SUPABASE_SERVICE_KEY o service role burla RLS e o
 // registro fica como SISTEMA (user_id NULL) — visível no browser pela policy
 // anon (migration 20260907010000). Sem service key, exige TELEMETRY_USER_ID.

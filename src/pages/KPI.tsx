@@ -2,23 +2,29 @@ import { Suspense, use } from "react";
 import KPIDashboard from "@/components/KPIDashboard";
 import type { KpiData } from "@/types/kpi";
 
-let kpiPromise: Promise<KpiData | null> | null = null;
+/** TTL do cache — JSON nightly fresco por sessão, refetch a cada 10 min. */
+const KPI_TTL_MS = 10 * 60 * 1000;
+let kpiCache: { promise: Promise<KpiData | null>; at: number } | null = null;
+
+function fetchKpiData(): Promise<KpiData | null> {
+  return fetch("/kpi-data.json")
+    .then((r) => {
+      if (!r.ok) throw new Error("Dados não encontrados");
+      return r.json() as Promise<KpiData>;
+    })
+    .catch(() => null);
+}
 
 /**
  * Resource dos KPIs: /kpi-data.json (gerado por `npm run data:refresh`/nightly).
- * Promise cacheada em módulo — em falha resolve com null (a página mostra a
+ * Cache com TTL em módulo — em falha resolve com null (a página mostra a
  * UI de "nenhum dado disponível" com a dica de gerar os dados).
  */
 function loadKpiData(): Promise<KpiData | null> {
-  if (!kpiPromise) {
-    kpiPromise = fetch("/kpi-data.json")
-      .then((r) => {
-        if (!r.ok) throw new Error("Dados não encontrados");
-        return r.json() as Promise<KpiData>;
-      })
-      .catch(() => null);
+  if (!kpiCache || Date.now() - kpiCache.at > KPI_TTL_MS) {
+    kpiCache = { promise: fetchKpiData(), at: Date.now() };
   }
-  return kpiPromise;
+  return kpiCache.promise;
 }
 
 function KpiContent() {

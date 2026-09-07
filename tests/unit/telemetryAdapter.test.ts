@@ -1,5 +1,27 @@
-import { describe, expect, it, vi, beforeEach } from "vitest";
-import { mapToEnvelope } from "@/lib/telemetryAdapter";
+import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
+import {
+  mapToEnvelope,
+  loadEnvelopes,
+  _resetEnvelopesCache,
+  ENVELOPES_TTL_MS,
+} from "@/lib/telemetryAdapter";
+
+let mockRows: unknown[] = [];
+
+vi.mock("@/lib/supabase", () => ({
+  supabase: {
+    from: () => {
+      const builder = {
+        select: () => builder,
+        order: () => builder,
+        limit: () => builder,
+        then: (res: (v: { data: unknown[] }) => unknown, rej: (e: unknown) => unknown) =>
+          Promise.resolve({ data: mockRows }).then(res, rej),
+      };
+      return builder;
+    },
+  },
+}));
 
 describe("telemetryAdapter", () => {
   describe("mapToEnvelope", () => {
@@ -90,6 +112,39 @@ describe("telemetryAdapter", () => {
     it("defaults eventType to agent.completed when event_type is absent", () => {
       const env = mapToEnvelope({});
       expect(env.eventType).toBe("agent.completed");
+    });
+  });
+
+  describe("loadEnvelopes (cache TTL)", () => {
+    beforeEach(() => {
+      _resetEnvelopesCache();
+      mockRows = [];
+      vi.useFakeTimers();
+      vi.setSystemTime(new Date("2026-09-07T12:00:00Z"));
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+      _resetEnvelopesCache();
+    });
+
+    it("retorna a mesma promise dentro da janela de TTL (sem refetch)", async () => {
+      mockRows = [{ id: "evt-1", event_type: "agent.completed" }];
+      const first = await loadEnvelopes();
+      const second = await loadEnvelopes();
+      expect(first).toBe(second);
+      expect(first).toHaveLength(1);
+    });
+
+    it("refetch após expirar o TTL (dados novos aparecem)", async () => {
+      mockRows = [{ id: "evt-1" }];
+      const first = await loadEnvelopes();
+      expect(first).toHaveLength(1);
+
+      vi.setSystemTime(new Date(Date.now() + ENVELOPES_TTL_MS + 1));
+      mockRows = [{ id: "evt-1" }, { id: "evt-2" }];
+      const second = await loadEnvelopes();
+      expect(second).toHaveLength(2);
     });
   });
 });
