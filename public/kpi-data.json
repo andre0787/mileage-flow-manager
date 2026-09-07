@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T21:21:04.484Z",
+  "generatedAt": "2026-09-07T21:36:22.951Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -146,21 +146,21 @@
     {
       "month": "2026-09",
       "prePrPassRate": 100,
-      "prePrTotal": 69,
-      "prePrPass": 69,
+      "prePrTotal": 73,
+      "prePrPass": 73,
       "prePrFail": 0,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
       "gateActivations": {
-        "intent": 4,
-        "twins": 3,
-        "auth": 3
+        "intent": 9,
+        "twins": 8,
+        "auth": 8
       },
-      "avgOutcomeGrade": 84,
+      "avgOutcomeGrade": 86.7,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
-          "count": 10
+          "count": 12
         },
         {
           "rule": "rule-14-orphan-files",
@@ -181,14 +181,14 @@
       ],
       "healedByRule": {
         "rule-17-new-docs-valid": 4,
-        "rule-26": 2
+        "rule-26": 3
       },
       "gateBlockedByRule": {},
       "avgCycleTimeHours": 0.3,
-      "branchesMerged": 24,
-      "violationsCaught": 37,
-      "healedRate": 16.2,
-      "frictionPerPass": 0.54
+      "branchesMerged": 25,
+      "violationsCaught": 39,
+      "healedRate": 17.9,
+      "frictionPerPass": 0.53
     }
   ],
   "daily": [
@@ -572,18 +572,28 @@
     {
       "day": "2026-09-07",
       "label": "07/09",
-      "prePrTotal": 15,
-      "prePrPass": 15,
+      "prePrTotal": 19,
+      "prePrPass": 19,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 6,
-      "healed": 2,
+      "ruleFails": 8,
+      "healed": 3,
       "sessions": 0,
-      "merges": 6,
-      "friction": 0.4
+      "merges": 7,
+      "friction": 0.42
     }
   ],
   "prs": [
+    {
+      "number": 565,
+      "title": "feat controle-cpf — passageiros por dono/programa com filtro global e sinal de duplicados",
+      "type": "feat",
+      "date": "2026-09-07",
+      "tokens": 1556,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio",
+      "cycleHours": 0.1
+    },
     {
       "number": 563,
       "title": "feat contas: ordenação total + média/un + toggle pontos/milhas no registro",
@@ -673,16 +683,6 @@
       "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
       "impact": "Menos risco de erro para o usuário e a operação",
       "cycleHours": 0.1
-    },
-    {
-      "number": 554,
-      "title": "feat(telemetria) — F3 + P2s + insights acionáveis",
-      "type": "feat",
-      "date": "2026-09-06",
-      "tokens": 1232,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio",
-      "cycleHours": 0.1
     }
   ],
   "repo": {
@@ -693,15 +693,15 @@
     "testFiles": 341,
     "skills": 27,
     "rules": 48,
-    "events": 398,
-    "qualityNotes": 516
+    "events": 426,
+    "qualityNotes": 531
   },
   "summary": {
-    "merges": 47,
+    "merges": 48,
     "prs": 10,
     "sessions": 7,
-    "violations": 160,
-    "healed": 18,
+    "violations": 162,
+    "healed": 19,
     "prePrPassRate": 100
   },
   "telemetry": []

@@ -68,6 +68,14 @@ Crie uma branch primeiro!
 
 **Exceções:** NENHUMA. Nem correção rápida, nem revert, nem hotfix.
 
+### Merge automático por padrão
+
+Regra permanente do usuário: após CI verde (`check-pr` + `e2e-smoke`), o agente
+faz o merge direto do PR sem pedir confirmação. Vale para todo PR do workflow
+(feature, fix, docs, chore, refactor). Exceção: quando o pedido sinalizar o
+contrário (ex.: "sem merge", "só o PR"). AUTH permanente: usuário disse
+"pode sempre fazer o merge direto seguindo o workflow".
+
 ## Nomenclatura de Branches
 
 Usar prefixos padronizados em inglês, **kebab-case**:
