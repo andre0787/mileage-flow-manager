@@ -1,27 +1,24 @@
-# AI Session State - 2026-09-06T01:00:00.000Z
+# AI Session State - 2026-09-07T20:35:00.000Z
 
 ## Última Task
-- **Botão Devolver saldo para o crédito** (PR #546 → merge `35904b9`)
-- **Branch:** main (feature branch deletada)
-- **Status:** DEPLOYADO em prod (deploy success)
+- **Feature Contas: ordenação total + Média/un + toggle pontos/milhas** (branch `feat/contas-sort-media-entry-toggle`, commitado, pre-pr 0 errors)
+- **Status:** PRONTO p/ PR — falta AUTH do usuário p/ push
 
 ## Estado dos Testes & Qualidade
-- **Node:** v22.23.1
-- **Testes:** clientCredits 14 passed; invariants 29 passed; tsc EXIT:0
-- **CI:** check-pr pass, e2e-smoke pass, Vercel pass; pre-pr 0 errors
+- **Node:** v22.23.1 — **tsc EXIT:0**, vitest feature 11/11 pass
+- **pre-pr:** 0 errors (build + unit + docs + gates 38/39 ✅ via subagentes)
+- **Review subagente:** OK-with-notes, 0 critical; 3P1+2P2 corrigidos via worker
 
 ## Arquivos Modificados & Impacto
-- `refundToCredit.ts` (novo, compare-and-set anti-TOCTOU)
-- `SaleRefundDialog.tsx` (novo, valor parcial + extrato)
-- Row/Card/Table/Vendas: botão Devolver + handler + toasts
-- Review: BLOCK → fix P0/P1 → approved
-
-## Resolução dos Issues
-- **Receber com crédito agora tem volta:** devolução vira earn, status a pendente
+- `src/lib/unitCost.ts` (novo: avgUnitCost + formatUnitCost)
+- `AccountsTable.tsx` (sort todas as colunas + coluna Média/un), `Contas.tsx` (sort + média ponderada)
+- `EntryForm.tsx` (toggle pontos/milhas no create), `Entradas.tsx` (tipo deriva da conta)
+- Testes: `unitCost`, `EntryFormToggle`, `AccountsTable`
 
 ## Pendências Imediatas
-- Nova sessão: produtos na venda (taxa embarque como receita + venda standalone consultoria/taxa com observações)
+- AUTH p/ `git push + abrir PR` (dizer as palavras exatas)
+- Pós-PR: `npm run post-pr`
 
 ## Governança de Contexto
-- pre-pr + post-pr executados; Gates 38/39 via subagente
-- AUTH: "pode dar push e abrir a pr pra main, inclusive ja mandar para produ"
+- Gates 38/39: eventos coding:done + code-review:done (subagent:true)
+- git status ZERO pós-commit; relatório HTML gerado
