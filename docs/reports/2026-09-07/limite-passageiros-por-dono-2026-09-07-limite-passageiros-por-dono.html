@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>limite-passageiros-por-dono — limite passageiros por dono</title>
+  <style>
+    :root{
+      --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;
+      --text:#e6edf7;--muted:#8fa3c0;--blue:#3b82f6;--green:#34d399;--amber:#fbbf24;--red:#f87171;--gold:#f59e0b;--teal:#2dd4bf;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      background:radial-gradient(1200px 600px at 15% -10%,#12203f 0%,transparent 55%),radial-gradient(1000px 500px at 110% 20%,#0f2440 0%,transparent 50%),var(--bg);
+      color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;
+    }
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    .deck{min-height:100vh;display:flex;flex-direction:column}
+    .slide{
+      flex:1 0 auto;min-height:100vh;padding:5.5rem clamp(1.25rem,5vw,4.5rem) 3.5rem;
+      display:flex;flex-direction:column;justify-content:center;gap:1.4rem;
+      max-width:1180px;margin:0 auto;width:100%;
+      border-bottom:1px solid var(--line);
+    }
+    .deck-mode .slide{display:none}
+    .deck-mode .slide.active{display:flex}
+    .nav{
+      position:fixed;top:1rem;right:1rem;z-index:60;display:flex;gap:.4rem;align-items:center;
+      background:rgba(10,15,30,.85);backdrop-filter:blur(8px);border:1px solid var(--line);
+      border-radius:999px;padding:.35rem .5rem;box-shadow:0 8px 24px rgba(0,0,0,.45);
+    }
+    .nav button{
+      background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:1.05rem;
+      width:2.1rem;height:2.1rem;border-radius:999px;transition:all .15s;line-height:1;
+    }
+    .nav button:hover{background:var(--card2);color:var(--text)}
+    .nav .count{font-size:.72rem;color:var(--muted);min-width:2.6rem;text-align:center;font-variant-numeric:tabular-nums}
+    .nav .mode-btn{width:auto;padding:0 .7rem;font-size:.72rem;color:var(--muted)}
+    .hero{display:flex;flex-direction:column;gap:.9rem}
+    .hero-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+    .hero-badges{display:flex;gap:.5rem;flex-wrap:wrap}
+    .badge{
+      display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .7rem;border-radius:999px;
+      font-size:.72rem;font-weight:700;letter-spacing:.02em;border:1px solid var(--line);color:var(--muted);
+    }
+    .badge.pr{color:#93c5fd;border-color:rgba(59,130,246,.4);background:rgba(59,130,246,.12)}
+    .badge.feat{color:#6ee7b7;border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.1)}
+    .badge.fix{color:#fca5a5;border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.1)}
+    .badge.docs{color:#c4b5fd;border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.1)}
+    .badge.chore,.badge.auto{color:#a7b8d1;border-color:var(--line);background:rgba(255,255,255,.04)}
+    .badge.risk{border-style:dashed}
+    .badge.health{font-weight:800}
+    .hero-date{font-size:.78rem;color:var(--muted)}
+    h1{font-size:clamp(1.9rem,4.5vw,3.3rem);line-height:1.08;letter-spacing:-.03em;font-weight:800;text-wrap:balance}
+    .hero-summary{font-size:clamp(1rem,1.6vw,1.3rem);color:var(--muted);max-width:62ch;text-wrap:balance}
+    .hero-meta{font-size:.72rem;color:var(--muted);opacity:.8}
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin-top:.4rem}
+    .kpi{
+      background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);
+      border-radius:1rem;padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.2rem;
+      box-shadow:0 10px 30px rgba(0,0,0,.3);
+    }
+    .kpi-value{font-size:clamp(1.9rem,3vw,2.6rem);font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--text)}
+    .kpi-value.green{color:var(--green)}.kpi-value.amber{color:var(--amber)}
+    .kpi-label{font-size:.8rem;color:var(--muted);font-weight:600}
+    .kpi-sub{font-size:.7rem;color:var(--muted);opacity:.75}
+    .bluf{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem}
+    .bluf-col{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}
+    .bluf-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-weight:800;margin-bottom:.4rem}
+    .bluf-col p{font-size:.9rem;color:var(--text)}
+    .slide-head{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.6rem}
+    .slide-kicker{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);font-weight:800}
+    .slide-head h2{font-size:clamp(1.4rem,3vw,2.1rem);letter-spacing:-.02em;font-weight:800}
+    .impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+    .impact-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.4rem;display:flex;flex-direction:column;gap:.5rem}
+    .impact-icon{font-size:1.6rem}
+    .impact-card h3{font-size:1rem;font-weight:800;letter-spacing:-.01em}
+    .impact-card p{font-size:.9rem;color:var(--muted)}
+    .impact-card.blue{border-top:3px solid var(--blue)}
+    .impact-card.gold{border-top:3px solid var(--gold)}
+    .impact-card.teal{border-top:3px solid var(--teal)}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;align-items:start}
+    @media(max-width:760px){.split{grid-template-columns:1fr}}
+    .timeline{position:relative;padding-left:1.4rem;display:flex;flex-direction:column;gap:1.05rem}
+    .timeline::before{content:"";position:absolute;left:.4rem;top:.3rem;bottom:.3rem;width:2px;background:linear-gradient(180deg,var(--blue),var(--green))}
+    .tl-item{position:relative;display:flex;align-items:center;gap:.9rem}
+    .tl-dot{position:absolute;left:-1.4rem;width:.85rem;height:.85rem;border-radius:50%;background:var(--card);border:2px solid var(--blue)}
+    .tl-item.pr\\:merge .tl-dot,.tl-item.pr-merge .tl-dot{border-color:var(--green);background:var(--green)}
+    .tl-item.pre-pr .tl-dot{border-color:var(--amber)}
+    .tl-body{display:flex;flex-direction:column}
+    .tl-time{font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:700}
+    .tl-label{font-size:.92rem;font-weight:600}
+    .tl-total{margin-top:.4rem;font-size:.85rem;color:var(--green);font-weight:700}
+    .empty-note{font-size:.9rem;color:var(--muted);border:1px dashed var(--line);border-radius:1rem;padding:1.2rem}
+    .stat-list{display:flex;flex-direction:column;gap:.8rem}
+    .stat{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1rem 1.2rem;display:flex;align-items:baseline;gap:.9rem}
+    .stat-v{font-size:1.7rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--blue)}
+    .stat-v.green{color:var(--green)}
+    .stat-l{font-size:.82rem;color:var(--muted)}
+    .appendix{justify-content:flex-start}
+    .appendix-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:860px){.appendix-grid{grid-template-columns:1fr}}
+    .ap-card{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}
+    .ap-card h3{font-size:.92rem;font-weight:800;margin-bottom:.6rem}
+    .detail-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.2rem;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+    .detail-scroll{max-height:56vh;overflow:auto;border-radius:.8rem}
+    .detail-scroll table{margin:0}
+    .detail-note{font-size:.72rem;color:var(--muted);opacity:.8;margin-top:.7rem}
+    .checks{list-style:none;display:flex;flex-direction:column;gap:.35rem}
+    .checks li{font-size:.85rem;color:var(--muted)}
+    .ns-add{color:#34d399;font-weight:600}
+    .ns-del{color:#f87171;font-weight:600}
+    .commit-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;max-height:260px;overflow-y:auto;margin:0;padding:0}
+    .commit-list li{font-size:.82rem;color:var(--muted);line-height:1.35}
+    .commit-list code{background:var(--border);border-radius:4px;padding:.05rem .35rem;font-size:.75rem;color:var(--fg);margin-right:.4rem}
+    table{width:100%;border-collapse:collapse;font-size:.8rem}
+    td,th{border:1px solid var(--line);padding:.45rem .6rem;text-align:left;vertical-align:top;color:var(--muted)}
+    th{color:var(--text);font-weight:700;background:rgba(255,255,255,.04)}
+    td code,code{color:#93c5fd;font-family:ui-monospace,Menlo,monospace;font-size:.78rem}
+    .evidence{max-width:100%;border:1px solid var(--line);border-radius:.8rem;margin-top:.7rem}
+    .token-bar{display:flex;border-radius:.6rem;overflow:hidden;margin:.7rem 0;font-size:.7rem}
+    .token-bar div{padding:.3rem .7rem;text-align:center;white-space:nowrap}
+    .token-bar .add{background:rgba(52,211,153,.18);color:#6ee7b7}
+    .token-bar .del{background:rgba(248,113,113,.16);color:#fca5a5}
+    .token-bar .overhead{background:rgba(255,255,255,.07);color:var(--muted)}
+    .diff-title{margin:1.2rem 0 .5rem;font-size:.92rem;font-weight:800}
+    .diff{background:#070b16;color:#c9d6ea;padding:.9rem;border-radius:.8rem;font:.74rem/1.5 ui-monospace,Menlo,monospace;overflow-x:auto;max-height:340px;border:1px solid var(--line)}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .foot{margin:1.4rem auto 2.5rem;text-align:center;font-size:.7rem;color:var(--muted);opacity:.6}
+    .foot .scroll-hint{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3rem .9rem;margin-bottom:.8rem}
+    @page{size:A4 landscape;margin:12mm}
+    @media print{
+      html,body{background:#fff!important;color:#111}
+      .nav{display:none!important}
+      .slide{min-height:0;page-break-after:always;break-after:page;display:flex!important;border-bottom:0;padding:1.5rem 0}
+      .slide:last-child{page-break-after:auto;break-after:auto}
+      .hero h1{color:#0b1220}
+      .hero-summary,.hero-date,.hero-meta,.kpi-label,.kpi-sub,.bluf-col p,.impact-card p,.tl-time,.tl-label,.stat-l,.checks li,td,th,.foot{color:#334155}
+      .kpi,.impact-card,.bluf-col,.ap-card,.stat{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-card{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-scroll{max-height:none;overflow:visible}
+      .bluf-col,.checks li{color:#334155}
+      .diff{background:#f8fafc;color:#0f172a;border-color:#e2e8f0}
+      .timeline::before{background:linear-gradient(180deg,#3b82f6,#16a34a)}
+      tr{break-inside:avoid;page-break-inside:avoid}
+      th,td{font-size:.72rem}
+      .detail-scroll table{margin:0}
+      img.evidence{max-height:120mm;object-fit:contain}
+    }
+  </style>
+</head>
+<body>
+  <div class="nav" id="deckNav">
+    <button id="prevBtn" title="Anterior (←)">←</button>
+    <span class="count" id="slideCount">1/5</span>
+    <button id="nextBtn" title="Próxima (→)">→</button>
+    <button id="fsBtn" title="Tela cheia (F)">⛶</button>
+    <button id="printBtn" title="Imprimir / PDF (P)">⎙</button>
+    <button class="mode-btn" id="modeBtn" title="Alternar modo documento">📄</button>
+  </div>
+
+  <div class="deck" id="deck">
+    
+    <section class="slide" id="s1">
+      <div class="hero">
+        <div class="hero-top">
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">limite-passageiros-por-dono</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
+          <div class="hero-date">2026-09-07 · 19:52 · <span class="mono">fix/limite-passageiros-por-dono</span></div>
+        </div>
+        <h1>limite passageiros por dono</h1>
+        <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
+        <div class="hero-meta mono">23def43 — fix: limite de passageiros do programa contado por dono (issue #569)</div>
+      </div>
+      
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-value">0</div>
+        <div class="kpi-label">entregas em produção</div>
+        <div class="kpi-sub">4 implementações · 5 reviews</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value">—</div>
+        <div class="kpi-label">lead time (início → produção)</div>
+        <div class="kpi-sub">da sessão ao deploy</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value">0/22</div>
+        <div class="kpi-label">fricção pré-PR (fail/total)</div>
+        <div class="kpi-sub">8 violações · 5 auto-corrigidas</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value green">88</div>
+        <div class="kpi-label">outcome grade</div>
+        <div class="kpi-sub">médio risco da mudança</div>
+      </div>
+    </div>
+      <div class="bluf">
+        <div class="bluf-col">
+          <div class="bluf-label">Decisão & entregas</div>
+          <p>Correção de comportamento validada — menos risco de erro para quem usa o produto.</p>
+        </div>
+        <div class="bluf-col">
+          <div class="bluf-label">Impacto esperado</div>
+          <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+        </div>
+        <div class="bluf-col">
+          <div class="bluf-label">Riscos & trade-offs</div>
+          <p>Médio risco de mudança · outcome grade = 88 · lead time —.</p>
+        </div>
+      </div>
+    </section><section class="slide" id="s2">
+        <div class="slide-head">
+          <span class="slide-kicker">Impacto da sessão</span>
+          <h2>O que isso significa para o negócio</h2>
+        </div>
+        <div class="impact-grid">
+          <div class="impact-card blue">
+                <div class="impact-icon">🎯</div>
+                <h3>Impacto de Produto</h3>
+                <p>Correção de comportamento validada — menos risco de erro para quem usa o produto.</p>
+              </div><div class="impact-card gold">
+                <div class="impact-icon">🏢</div>
+                <h3>Impacto de Negócio</h3>
+                <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+              </div><div class="impact-card teal">
+                <div class="impact-icon">🌊</div>
+                <h3>Impacto de Processo</h3>
+                <p>Fluxo completo seguido: sessão → implementação → code review → pré-PR → PR. Detalhes nas métricas automáticas.</p>
+              </div>
+        </div>
+      </section>
+    <section class="slide" id="s3">
+      <div class="slide-head">
+        <span class="slide-kicker">Valor por entrega</span>
+        <h2>Detalhamento por item</h2>
+      </div>
+      <div class="detail-card">
+        <div class="detail-scroll"><table>
+    <tr>
+      <th style="width:16%">Item</th>
+      <th style="width:24%">Correção Efetuada</th>
+      <th style="width:20%">Benefício</th>
+      <th style="width:24%">Impacto no Negócio</th>
+      <th style="width:16%">Custo Token</th>
+    </tr>
+    <tr>
+      <td><strong>Entrega da sessão</strong></td>
+      <td>limite passageiros por dono</td>
+      <td>Correção de comportamento validada — menos risco de erro para quem usa o produto.</td>
+      <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
+      <td><code>~182</code></td>
+    </tr>
+  </table></div>
+        <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.172 tokens (feature) · status pesado — tracking</p>
+      </div>
+    </section>
+    <section class="slide" id="s4">
+      <div class="slide-head">
+        <span class="slide-kicker">Execução</span>
+        <h2>Timeline da sessão</h2>
+      </div>
+      <div class="split">
+        <div class="split-left"><div class="timeline">
+        <div class="tl-item coding:done">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">20:30</div>
+                <div class="tl-label">Implementação concluída</div>
+              </div>
+            </div><div class="tl-item code-review:done">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">20:30</div>
+                <div class="tl-label">Code review aprovado</div>
+              </div>
+            </div><div class="tl-item pre-pr">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">05:29</div>
+                <div class="tl-label">Validação pré-PR</div>
+              </div>
+            </div>
+        
+      </div></div>
+        <div class="split-right">
+          <div class="stat-list">
+            <div class="stat"><span class="stat-v">22</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">8</span><span class="stat-l">violações de regra encontradas</span></div>
+            <div class="stat"><span class="stat-v green">5</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
+            <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="slide appendix" id="s5">
+      <div class="slide-head">
+        <span class="slide-kicker">Apêndice técnico</span>
+        <h2>Detalhes da implementação</h2>
+      </div>
+      <div class="appendix-grid">
+        <div class="ap-card">
+          <h3>✅ Checklist de revisão</h3>
+          <ul class="checks">
+            <li>🖼️ Renderização verificada em desktop e mobile?</li>
+<li>📦 Biblioteca testada com casos de borda?</li>
+<li>🧪 Testes manuais realizados?</li>
+<li>📋 Regras de validação passam? (npm run pre-pr)</li>
+          </ul>
+        </div>
+        <div class="ap-card">
+          <h3>📸 Evidências — antes & depois</h3>
+          <table>
+            <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 56 remoções — 243 linhas tocadas</td><td>✨ 131 adições — 5 arquivo(s) alterado(s)</td></tr>
+          </table>
+          
+        </div>
+        <div class="ap-card">
+          <h3>📊 Métricas da mudança</h3>
+          <table>
+            <tr><th>Métrica</th><th>Valor</th></tr>
+            <tr><td>Arquivos alterados</td><td>5</td></tr>
+            <tr><td>Adições</td><td>+131</td></tr>
+            <tr><td>Remoções</td><td>-56</td></tr>
+            <tr><td>Tokens estimados</td><td>~182</td></tr>
+          </table>
+          <div class="token-bar">
+        <div class="add" style="flex:54">+98 add</div>
+        <div class="del" style="flex:23">-42 del</div>
+        <div class="overhead" style="flex:23">~42 ctx</div>
+      </div>
+          <h3>Breakdown de tokens</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+98</td><td>54%</td></tr>
+      <tr><td>Remoções</td><td>-42</td><td>23%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~42</td><td>23%</td></tr>
+      <tr><th>Total</th><th>~182</th><th>100%</th></tr>
+    </table>
+        </div>
+        <div class="ap-card">
+          <h3>📁 Arquivos</h3>
+          <table>
+            <tr><th>Status</th><th>Arquivo</th><th>+/-</th></tr>
+            <tr><td>M</td><td>docs/handoff.md</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−1</span></td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td><td class="mono"><span class="ns-add">+4</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/components/SaleForm.tsx</td><td class="mono"><span class="ns-add">+11</span> <span class="ns-del">−16</span></td></tr>
+<tr><td>M</td><td>src/lib/passengerCycle.ts</td><td class="mono"><span class="ns-add">+42</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>tests/unit/passengerCycle.test.ts</td><td class="mono"><span class="ns-add">+68</span> <span class="ns-del">−34</span></td></tr>
+          </table>
+        </div>
+        <div class="ap-card">
+          <h3>🔖 Commits da sessão (1)</h3>
+          <ul class="commit-list">
+            <li><code>23def43</code> fix: limite de passageiros do programa contado por dono (issue #569)</li>
+          </ul>
+        </div>
+        <div class="ap-card">
+          <h3>🧪 Qualidade de hoje</h3>
+          <table>
+            <tr><th>Métrica</th><th>Valor</th></tr>
+            <tr><td>Cobertura libs (rule-31)</td><td>sem registro hoje</td></tr>
+            <tr><td>Cobertura componentes (rule-32)</td><td>sem registro hoje</td></tr>
+            <tr><td>Outcome grade (rule-30)</td><td>88</td></tr>
+          </table>
+        </div>
+      </div>
+      <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
+      <div class="diff">
+        diff --git a/docs/handoff.md b/docs/handoff.md
+index 5523e12..873c2ef 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -52,7 +52,7 @@ Nenhum PR aberto.
+ **Objetivo:** continuacao
+ **Status:** in_progress
+ **Iniciada em:** 2026-09-07T19:07:27.835Z
+<span class="del">-**Branch:** `chore/cleanup-orgaos-geral`</span>
+<span class="add">+**Branch:** `fix/limite-passageiros-por-dono`</span>
+ **Último commit:** d1eccfe — Merge pull request #561 from andre0787/feat/client-advance-payment
+ **Docs carregados:** AGENTS.md
+ 
+diff --git a/docs/tracking/events.jsonl b/docs/tracking/events.jsonl
+index d61fe2b..ba45b5b 100644
+<span class="del">--- a/docs/tracking/events.jsonl</span>
+<span class="add">+++ b/docs/tracking/events.jsonl</span>
+@@ -433,3 +433,7 @@
+ {&quot;timestamp&quot;:&quot;2026-09-07T22:39:50.762Z&quot;,&quot;type&quot;:&quot;gate&quot;,&quot;description&quot;:&quot;gate twins executado (rule-34-twins-check)&quot;,&quot;branch&quot;:&quot;chore/cleanup-orgaos-geral&quot;,&quot;commit&quot;:&quot;22c810b&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;gate&quot;:&quot;twins&quot;,&quot;rule&quot;:&quot;rule-34-twins-check&quot;}
+ {&quot;timestamp&quot;:&quot;2026-09-07T22:39:50.797Z&quot;,&quot;type&quot;:&quot;gate&quot;,&quot;description&quot;:&quot;gate auth executado (rule-35-auth-gate)&quot;,&quot;branch&quot;:&quot;chore/cleanup-orgaos-geral&quot;,&quot;commit&quot;:&quot;22c810b&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;gate&quot;:&quot;auth&quot;,&quot;rule&quot;:&quot;rule-35-auth-gate&quot;}
+ {&quot;timestamp&quot;:&quot;2026-09-07T22:40:28.884Z&quot;,&quot;type&quot;:&quot;pre-pr&quot;,&quot;description&quot;:&quot;pre-pr PASS&quot;,&quot;branch&quot;:&quot;chore/cleanup-orgaos-geral&quot;,&quot;commit&quot;:&quot;22c810b&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;errors&quot;:0}
+<span class="add">+{&quot;timestamp&quot;:&quot;2026-09-07T22:51:14.235Z&quot;,&quot;type&quot;:&quot;coding:done&quot;,&quot;description&quot;:&quot;Codificação por subagente concluída&quot;,&quot;branch&quot;:&quot;fix/limite-passageiros-por-dono&quot;,&quot;commit&quot;:&quot;658825d&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;subagent&quot;:true,&quot;skill&quot;:&quot;subagent-driven-development&quot;}</span>
+<span class="add">+{&quot;timestamp&quot;:&quot;2026-09-07T22:51:53.579Z&quot;,&quot;type&quot;:&quot;code-review:done&quot;,&quot;description&quot;:&quot;Review aprovado por subagente&quot;,&quot;branch&quot;:&quot;fix/limite-passageiros-por-dono&quot;,&quot;commit&quot;:&quot;658825d&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;subagent&quot;:true,&quot;verdict&quot;:&quot;approved&quot;}</span>
+<span class="add">+{&quot;timestamp&quot;:&quot;2026-09-07T22:52:00.297Z&quot;,&quot;type&quot;:&quot;healed&quot;,&quot;description&quot;:&quot;rule-26 auto-corrigido&quot;,&quot;branch&quot;:&quot;fix/limite-passageiros-por-dono&quot;,&quot;commit&quot;:&quot;658825d&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;rule&quot;:&quot;rule-26&quot;}</span>
+<span class="add">+{&quot;timestamp&quot;:&quot;2026-09-07T22:52:00.991Z&quot;,&quot;type&quot;:&quot;pre-pr&quot;,&quot;description&quot;:&quot;pre-pr PASS&quot;,&quot;branch&quot;:&quot;fix/limite-passageiros-por-dono&quot;,&quot;commit&quot;:&quot;658825d&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;errors&quot;:0}</span>
+diff --git a/src/components/SaleForm.tsx b/src/components/SaleForm.tsx
+index e657c1f..00b3d94 100644
+<span class="del">--- a/src/components/SaleForm.tsx</span>
+<span class="add">+++ b/src/components/SaleForm.tsx</span>
+@@ -14,8 +14,9 @@ import {
+ } from &quot;@/components/ui/select&quot;;
+ import { FormDrawer } from &quot;@/components/FormDrawer&quot;;
+ import { formatCPF } from &quot;@/lib/utils&quot;;
+<span class="del">-import { isValidISODate, parseDateOnly, todayISODate } from &quot;@/lib/dateUtils&quot;;</span>
+<span class="add">+import { isValidISODate, todayISODate } from &quot;@/lib/dateUtils&quot;;</span>
+ import { calcProfit, calcProfitMargin } from &quot;@/lib/metrics&quot;;
+<span class="add">+import { countPassengersInCycle } from &quot;@/lib/passengerCycle&quot;;</span>
+ import type { Account, Owner, Program, Client, Sale, SaleKind, ServiceType } from &quot;@/types&quot;;
+ 
+ export interface AdditionalCostItem {
+@@ -191,23 +192,17 @@ export function SaleForm({
+     [programs, selectedProgramStock],
+   );
+ 
+<span class="del">-  // Passenger cycle validation</span>
+<span class="add">+  // Passenger cycle validation (limite por dono: vendas de outros donos não somam)</span>
+   const usedPassengersInCycle = useMemo(() =&gt; {
+     if (!programConfig?.passengerCycleType || !programConfig?.maxPassengers) return 0;
+<span class="del">-    // Exclui a venda em edição — senão os próprios passageiros contam 2x</span>
+<span class="del">-    // (uma vez em `sales`, outra em `form.passengers`).</span>
+<span class="del">-    let relevant = sales.filter((s) =&gt; s.program === form.program &amp;&amp; s.id !== editingSaleId);</span>
+<span class="del">-    if (programConfig.passengerCycleType === &quot;anual&quot;) {</span>
+<span class="del">-      const year = new Date().getFullYear();</span>
+<span class="del">-      relevant = relevant.filter((s) =&gt; parseDateOnly(s.date).getFullYear() === year);</span>
+<span class="del">-    } else if (programConfig.passengerCycleType === &quot;dias&quot; &amp;&amp; programConfig.passengerCycleDays) {</span>
+<span class="del">-      const cutoff = new Date();</span>
+<span class="del">-      cutoff.setDate(cutoff.getDate() - programConfig.passengerCycleDays);</span>
+<span class="del">-      cutoff.setHours(0, 0, 0, 0);</span>
+<span class="del">-      relevant = relevant.filter((s) =&gt; parseDateOnly(s.date) &gt;= cutoff);</span>
+<span class="del">-    }</span>
+<span class="del">-    return relevant.reduce((sum, s) =&gt; sum + s.passengers.length, 0);</span>
+<span class="del">-  }, [sales, form.program, programConfig, editingSaleId]);</span>
+<span class="add">+    return countPassengersInCycle(sales, {</span>
+<span class="add">+      program: form.program,</span>
+<span class="add">+      ownerName: form.ownerName,</span>
+<span class="add">+      editingSaleId,</span>
+<span class="add">+      cycleType: programConfig.passengerCycleType,</span>
+<span class="add">+      cycleDays: programConfig.passengerCycleDays,</span>
+<span class="add">+    });</span>
+<span class="add">+  }, [sales, form.program, form.ownerName, programConfig, editingSaleId]);</span>
+ 
+   // Soma dos custos adicionais dinâmicos (fallback para o campo legado)
+   const additionalCostsTotal = useMemo(() =&gt; {
+diff --git a/src/lib/passengerCycle.ts b/src/lib/passengerCycle.ts
+index 72286d7..8ed92be 100644
+<span class="del">--- a/src/lib/passengerCycle.ts</span>
+<span class="add">+++ b/src/lib/passengerCycle.ts</span>
+@@ -25,3 +25,45 @@ export function getCycleLabel(program: Program): string {
+   }
+   return new Date().getFullYear().toString();
+ }
+<span class="add">+</span>
+<span class="add">+/** Venda mínima necessária para a contagem de passageiros do ciclo. */</span>
+<span class="add">+export interface CycleSale {</span>
+<span class="add">+  id: string;</span>
+<span class="add">+  program: string;</span>
+<span class="add">+  ownerName?: string | null;</span>
+<span class="add">+  date: string;</span>
+<span class="add">+  passengers: readonly unknown[];</span>
+<span class="add">+}</span>
+<span class="add">+</span>
+<span class="add">+/** Filtros da contagem de passageiros do ciclo. */</span>
+<span class="add">+export interface PassengerCycleCountInput {</span>
+<span class="add">+  program: string;</span>
+<span class="add">+  ownerName: string;</span>
+<span class="add">+  editingSaleId?: string;</span>
+<span class="add">+  cycleType?: Program[&quot;passengerCycleType&quot;];</span>
+<span class="add">+  cycleDays?: number;</span>
+<span class="add">+  now?: Date;</span>
+<span class="add">+}</span>
+<span class="add">+</span>
+<span class="add">+/**</span>
+<span class="add">+ * Conta passageiros usados no ciclo vigente por (programa + dono).</span>
+<span class="add">+ * O limite do programa é por dono: vendas de outros donos nunca somam.</span>
+<span class="add">+ * A venda em edição é excluída para não contar 2x (sales + formulário).</span>
+<span class="add">+ */</span>
+<span class="add">+export function countPassengersInCycle(sales: CycleSale[], input: PassengerCycleCountInput): number {</span>
+<span class="add">+  const now = input.now ?? new Date();</span>
+<span class="add">+  const owner = input.ownerName ?? &quot;&quot;;</span>
+<span class="add">+  let relevant = sales.filter(</span>
+<span class="add">+    (s) =&gt; s.program === input.program &amp;&amp; (s.ownerName ?? &quot;&quot;) === owner &amp;&amp; s.id !== input.editingSaleId,</span>
+<span class="add">+  );</span>
+<span class="add">+  if (input.cycleType === &quot;anual&quot;) {</span>
+<span class="add">+    const year = now.getFullYear();</span>
+<span class="add">+    relevant = relevant.filter((s) =&gt; parseDateOnly(s.date).getFullYear() === year);</span>
+<span class="add">+  } else if (input.cycleType === &quot;dias&quot; &amp;&amp; input.cycleDays) {</span>
+<span class="add">+    const cutoff = new Date(now);</span>
+<span class="add">+    cutoff.setDate(cutoff.getDate() - input.cycleDays);</span>
+<span class="add">+    cutoff.setHours(0, 0, 0, 0);</span>
+<span class="add">+    relevant = relevant.filter((s) =&gt; parseDateOnly(s.date) &gt;= cutoff);</span>
+      </div>
+    </section>
+    <div class="foot">
+      <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
+      Gerado por scripts/generate-report.mjs · 2026-09-07 19:52
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+      var deck = document.getElementById("deck");
+      var count = document.getElementById("slideCount");
+      var nav = document.getElementById("deckNav");
+      var current = 0;
+      var deckMode = true;
+
+      function show(i) {
+        current = Math.max(0, Math.min(slides.length - 1, i));
+        slides.forEach(function (s, idx) {
+          s.classList.toggle("active", idx === current);
+        });
+        count.textContent = (current + 1) + "/" + slides.length;
+        if (deckMode) {
+          window.scrollTo(0, 0);
+        } else {
+          slides[current].scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      function toggleMode() {
+        deckMode = !deckMode;
+        deck.classList.toggle("deck-mode", deckMode);
+        document.body.classList.toggle("deck-mode", deckMode);
+        nav.style.display = deckMode ? "flex" : "none";
+        if (deckMode) show(current);
+      }
+
+      document.getElementById("nextBtn").addEventListener("click", function () { show(current + 1); });
+      document.getElementById("prevBtn").addEventListener("click", function () { show(current - 1); });
+      document.getElementById("fsBtn").addEventListener("click", function () {
+        if (document.fullscreenElement) document.exitFullscreen();
+        else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+      });
+      document.getElementById("printBtn").addEventListener("click", function () { window.print(); });
+      document.getElementById("modeBtn").addEventListener("click", toggleMode);
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); show(current + 1); }
+        else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); show(current - 1); }
+        else if (e.key === "Home") { e.preventDefault(); show(0); }
+        else if (e.key === "End") { e.preventDefault(); show(slides.length - 1); }
+        else if (e.key === "f" || e.key === "F") {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+        }
+        else if (e.key === "p" || e.key === "P") { window.print(); }
+      });
+
+      if (window.innerWidth < 640) toggleMode();
+      else { deck.classList.add("deck-mode"); document.body.classList.add("deck-mode"); show(0); }
+    })();
+  </script>
+</body>
+</html>
