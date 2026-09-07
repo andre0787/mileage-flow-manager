@@ -64,6 +64,9 @@ export default function Entradas() {
 
   const handleCreateEntry = (form: EntryFormData) => {
     const c = computeEntryValues(form, origemTypes);
+    // Tipo real da entrada vem da conta selecionada (o form tem toggle
+    // pontos/milhas — pode diferir da aba ativa).
+    const entryType = accounts.find((a) => a.id === form.accountId)?.type;
     const isSplit =
       form.isRecurrent && form.recurrenceValueMode === "split" && form.recurrenceCount > 1;
     const divisor = isSplit ? form.recurrenceCount : 1;
@@ -78,7 +81,7 @@ export default function Entradas() {
         costPerThousand: c.costPerThousand,
         conversionRate: c.isTransfer
           ? 1 + parseFloat(form.bonusPercent || "0") / 100
-          : activeTab === "milhas"
+          : entryType === "milhas"
             ? undefined
             : c.conversionRate,
         // ponytail: no split, amount/amountPaid são divididos — milesGenerated
@@ -148,6 +151,7 @@ export default function Entradas() {
 
     const ot = origemTypes.find((ot) => ot.id === form.origemTypeId);
     const isTransfer = ot ? isTransferencia(ot) : false;
+    const entryType = accounts.find((a) => a.id === form.accountId)?.type;
 
     updateEntryM.mutate({
       oldEntry: editingEntry,
@@ -159,7 +163,7 @@ export default function Entradas() {
         costPerThousand: c.costPerThousand,
         conversionRate: c.isTransfer
           ? 1 + parseFloat(form.bonusPercent || "0") / 100
-          : activeTab === "milhas"
+          : entryType === "milhas"
             ? undefined
             : c.conversionRate,
         milesGenerated: c.milesGenerated,
@@ -197,13 +201,15 @@ export default function Entradas() {
     name: string;
     color: string;
     hasRecurrence: boolean;
+    accountType?: "pontos" | "milhas";
   }) => {
     const id = crypto.randomUUID();
     const desc = serializeOrigemTypeDescription(data.hasRecurrence);
     await addOrigemTypeM.mutateAsync({
       id,
       name: data.name,
-      accountType: activeTab,
+      // O form tem toggle pontos/milhas — o tipo real vem do form, não da aba
+      accountType: data.accountType ?? activeTab,
       color: data.color,
       description: desc,
     });
@@ -441,7 +447,7 @@ export default function Entradas() {
       <FormDrawer
         open={isCreateDialogOpen}
         onOpenChange={(open) => setIsCreateDialogOpen(open)}
-        title={`Registrar Nova Entrada - ${activeTab === "pontos" ? "Pontos" : "Milhas"}`}
+        title="Registrar Nova Entrada"
       >
         <EntryForm
           type={activeTab === "pontos" ? "pontos" : "milhas"}
@@ -483,7 +489,11 @@ export default function Entradas() {
           if (!open) setEditingEntry(null);
           setIsEditDialogOpen(open);
         }}
-        title={`Editar Entrada - ${activeTab === "pontos" ? "Pontos" : "Milhas"}`}
+        title={`Editar Entrada - ${
+          editingEntry && accounts.find((a) => a.id === editingEntry.accountId)?.type === "milhas"
+            ? "Milhas"
+            : "Pontos"
+        }`}
       >
         {editingEntry && editingEntry.sourceAccountId ? (
           <TransferForm
@@ -516,7 +526,10 @@ export default function Entradas() {
           />
         ) : editingEntry ? (
           <EntryForm
-            type={activeTab === "pontos" ? "pontos" : "milhas"}
+            type={
+              accounts.find((a) => a.id === editingEntry?.accountId)?.type ??
+              (activeTab === "pontos" ? "pontos" : "milhas")
+            }
             mode="edit"
             initialData={{
               accountId: editingEntry.accountId,

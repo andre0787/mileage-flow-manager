@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-07T19:06:57.684Z",
+  "generatedAt": "2026-09-07T20:31:18.986Z",
   "dataDate": "2026-09-07",
   "kpiStats": [
     {
-      "value": 512,
+      "value": 398,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 591,
+      "value": 516,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 33,
+      "value": 17,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 45,
+      "value": 32,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,32 +36,32 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 10,
+      "n": 7,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 180,
+      "n": 131,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 193,
+      "n": 166,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 33,
+      "n": 17,
       "color": "#10b981"
     },
     {
       "name": "code-review:done",
-      "n": 49,
+      "n": 35,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 43,
+      "n": 30,
       "color": "#22c55e"
     },
     {
@@ -71,7 +71,7 @@
     },
     {
       "name": "gate",
-      "n": 1,
+      "n": 9,
       "color": "#f43f5e"
     },
     {
@@ -88,7 +88,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 167,
+      "n": 169,
       "color": "#84cc16"
     },
     {
@@ -99,73 +99,73 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-09-07 19:06:49",
+      "t": "2026-09-07 20:31:15",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-07 19:05:58",
+      "t": "2026-09-07 20:30:37",
+      "d": "gate",
+      "desc": "gate auth executado (rule-35-auth-gate)"
+    },
+    {
+      "t": "2026-09-07 20:30:37",
+      "d": "gate",
+      "desc": "gate twins executado (rule-34-twins-check)"
+    },
+    {
+      "t": "2026-09-07 20:30:37",
       "d": "gate",
       "desc": "gate intent executado (rule-33-intent-gate)"
     },
     {
-      "t": "2026-09-07 19:04:25",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "t": "2026-09-07 20:30:37",
+      "d": "gate",
+      "desc": "gate council executado (rule-27-council-veredict)"
     },
     {
-      "t": "2026-09-07 19:02:09",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "t": "2026-09-07 20:30:27",
+      "d": "code-review:done",
+      "desc": "Review por subagente: OK-with-notes, 0 critical, 3P1+2P2 corrigidos via worker"
     },
     {
-      "t": "2026-09-07 17:16:44",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "t": "2026-09-07 20:30:27",
+      "d": "coding:done",
+      "desc": "Feature Contas via subagente: ordenacao total + Media/un + toggle EntryForm + 4 fixes do review"
     },
     {
-      "t": "2026-09-07 16:36:43",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-07 15:40:03",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-07 15:32:32",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "t": "2026-09-07 20:25:00",
+      "d": "rule:fail",
+      "desc": "rule-39-coding-gate falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 193,
-    "healed": 33,
-    "healedRate": 17.1,
-    "prePrTotal": 180,
-    "prePrPass": 180,
+    "ruleFails": 166,
+    "healed": 17,
+    "healedRate": 10.2,
+    "prePrTotal": 131,
+    "prePrPass": 131,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 52,
+        "count": 47,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
         "rule": "rule-39-coding-gate",
-        "count": 23,
+        "count": 20,
         "hint": "faltou evento coding:done por subagente na branch"
       },
       {
         "rule": "rule-26-session-started",
-        "count": 15,
+        "count": 13,
         "hint": "timestamp de sessão ausente — npm run session:start"
       },
       {
         "rule": "rule-03-handoff-completeness",
-        "count": 14,
+        "count": 12,
         "hint": ""
       },
       {
@@ -176,6 +176,16 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 562,
+      "title": "fix(kpi): pipeline de processo mede gates, PRs e cycle time de verdade",
+      "type": "fix",
+      "date": "2026-09-07",
+      "tokens": 620,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação",
+      "cycleHours": 0.1
+    },
     {
       "number": 561,
       "title": "feat(clientes): adiantamento — crédito do cliente antes da emissão",
@@ -215,16 +225,6 @@
       "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
       "impact": "Menos risco de erro para o usuário e a operação",
       "cycleHours": 0.2
-    },
-    {
-      "number": 557,
-      "title": "docs: registra session:end",
-      "type": "docs",
-      "date": "2026-09-07",
-      "tokens": 1,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança",
-      "cycleHours": 0
     }
   ],
   "overview": {
@@ -235,7 +235,7 @@
     "testFiles": 335,
     "skills": 27,
     "rules": 48,
-    "events": 512,
-    "qualityNotes": 591
+    "events": 398,
+    "qualityNotes": 516
   }
 }

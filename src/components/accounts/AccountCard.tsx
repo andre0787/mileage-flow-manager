@@ -5,6 +5,7 @@ import { AccountActions } from "@/components/accounts/AccountActions";
 import { AccountAlertBell } from "@/components/accounts/AccountAlertBell";
 import { formatDateBR } from "@/lib/dateUtils";
 import { ownerColor, ownerColorBorder, ownerColorSoft } from "@/lib/ownerColors";
+import { formatUnitCost } from "@/lib/unitCost";
 import type { Account } from "@/types";
 
 interface AccountCardProps {
@@ -17,6 +18,8 @@ interface AccountCardProps {
   unreadCount: number;
   lastEntryDate?: string;
   lastSaleDate?: string;
+  /** Valor médio por unidade do saldo (investido ÷ saldo) — undefined sem dado. */
+  avgUnitCost?: number;
   recalcPending: boolean;
   onToggleStatus: () => void;
   onEdit: () => void;
@@ -34,6 +37,7 @@ export function AccountCard({
   unreadCount,
   lastEntryDate,
   lastSaleDate,
+  avgUnitCost,
   recalcPending,
   onToggleStatus,
   onEdit,
@@ -109,6 +113,15 @@ export function AccountCard({
               <span className="font-semibold text-success">
                 R$ {account.totalInvested.toLocaleString("pt-BR")}
               </span>
+            </div>
+          )}
+          {avgUnitCost != null && (
+            <div
+              className="flex items-center justify-between"
+              title="Valor médio por ponto/milha do saldo atual (investido ÷ saldo)"
+            >
+              <span className="text-sm text-muted-foreground">Média/un:</span>
+              <span className="font-semibold tabular-nums">{formatUnitCost(avgUnitCost)}</span>
             </div>
           )}
           {balanceMismatch && (

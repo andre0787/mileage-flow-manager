@@ -9,6 +9,7 @@ import { AccountCard } from "@/components/accounts/AccountCard";
 import { AccountsTable } from "@/components/accounts/AccountsTable";
 import { computeReceivablesByAccount } from "@/lib/accountReceivables";
 import { sortByKey, type SortState } from "@/lib/sort";
+import { avgUnitCost } from "@/lib/unitCost";
 import { useData } from "@/contexts/DataContext";
 import {
   useUpdateAccountMutation,
@@ -137,7 +138,8 @@ export default function Contas() {
   const unreadCount = (accountId: string) =>
     allAlerts.filter((a) => a.accountId === accountId && !a.read).length;
 
-  // Ordenação (cópia — nunca muta o array memoizado)
+  // Ordenação (cópia — nunca muta o array memoizado). Todas as colunas de
+  // dados são ordenáveis; conta sem média vai pro fim em ordem crescente.
   const sortedAccounts = useMemo(() => {
     if (!sort) return filteredAccounts;
     const getValue = (a: Account) =>
@@ -147,9 +149,17 @@ export default function Contas() {
           ? (a.totalInvested ?? 0)
           : sort.key === "receber"
             ? (receivables.get(a.id) ?? 0)
-            : a.name;
+            : sort.key === "programa"
+              ? programName(a.programId).toLowerCase()
+              : sort.key === "dono"
+                ? ownerName(a.ownerId).toLowerCase()
+                : sort.key === "status"
+                  ? a.status
+                  : sort.key === "media"
+                    ? (avgUnitCost(a.totalInvested, computedBalances.get(a.id) ?? a.balance) ?? Infinity)
+                    : a.name;
     return sortByKey(filteredAccounts, sort.key, sort.dir, getValue);
-  }, [filteredAccounts, sort, computedBalances, receivables]);
+  }, [filteredAccounts, sort, computedBalances, receivables, owners, programs]);
 
   const totalPages = Math.ceil(sortedAccounts.length / ITEMS_PER_PAGE);
   const paginatedAccounts = sortedAccounts.slice(
@@ -170,6 +180,10 @@ export default function Contas() {
         unreadCount: unreadCount(account.id),
         lastEntryDate: lastActivityByAccount.get(account.id)?.lastEntry?.date,
         lastSaleDate: lastActivityByAccount.get(account.id)?.lastSale?.date,
+        avgUnitCost: avgUnitCost(
+          account.totalInvested,
+          computedBalances.get(account.id) ?? account.balance,
+        ),
       })),
     [
       paginatedAccounts,
@@ -192,7 +206,9 @@ export default function Contas() {
       investido += a.totalInvested ?? 0;
       receber += receivables.get(a.id) ?? 0;
     }
-    return { count: filteredAccounts.length, saldo, investido, receber };
+    // Média ponderada da lista: total investido ÷ saldo total
+    const avgUnit = saldo > 0 && investido > 0 ? investido / saldo : null;
+    return { count: filteredAccounts.length, saldo, investido, receber, avgUnit };
   }, [filteredAccounts, computedBalances, receivables]);
 
   // Faixa-resumo: mesmos valores do antigo AccountsSummary (todas as contas)
@@ -354,6 +370,12 @@ export default function Contas() {
                 unreadCount={unreadCount(account.id)}
                 lastEntryDate={lastActivityByAccount.get(account.id)?.lastEntry?.date}
                 lastSaleDate={lastActivityByAccount.get(account.id)?.lastSale?.date}
+                avgUnitCost={
+                  avgUnitCost(
+                    account.totalInvested,
+                    computedBalances.get(account.id) ?? account.balance,
+                  ) ?? undefined
+                }
                 recalcPending={recalcAccountM.isPending}
                 onToggleStatus={() => toggleAccountStatus(account.id)}
                 onEdit={() => {
