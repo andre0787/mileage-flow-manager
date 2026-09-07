@@ -57,6 +57,20 @@ function git(cmd) {
   }
 }
 
+/** Carrega KEY=VALUE do .env local (sem sobrescrever env existente). */
+function loadDotEnv() {
+  const envPath = resolve(ROOT, ".env");
+  if (!existsSync(envPath)) return;
+  for (const line of readFileSync(envPath, "utf8").split("\n")) {
+    const m = /^([A-Z_][A-Z0-9_]*)=(.*)$/.exec(line.trim());
+    if (!m) continue;
+    const [, key, raw] = m;
+    if (process.env[key] === undefined) {
+      process.env[key] = raw.replace(/^"|"$/g, "");
+    }
+  }
+}
+
 function readEvents() {
   if (!existsSync(EVENTS_PATH)) return [];
   return readFileSync(EVENTS_PATH, "utf8")
@@ -99,6 +113,8 @@ if (!RECORD) {
   console.log("(use --record para montar/inserir o registro ai_telemetry)");
   process.exit(0);
 }
+
+loadDotEnv();
 
 // user_id é opcional: com SUPABASE_SERVICE_KEY o service role burla RLS e o
 // registro fica como SISTEMA (user_id NULL) — visível no browser pela policy

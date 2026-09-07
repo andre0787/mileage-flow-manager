@@ -393,6 +393,25 @@ logger.log("\n══════════════════════
 logger.log(`  ${errors > 0 ? `❌ ${errors} errors` : "✅ 0 errors"}`);
 logger.log("═══════════════════════════════════\n");
 
+// Telemetria dos nodes TOOLS e VALIDATOR do pipeline real (fail-open) —
+// duração real = uptime do processo. Emitidas ANTES do exit --strict para
+// capturar falhas: tools = checagens mecânicas; final-validator = a validação
+// final que o pre-pr executa.
+if (!process.env.VITEST && !process.env.PRE_PR_ONLY_RULES) {
+  try {
+    execSync(
+      `node scripts/emit-envelope.mjs --type agent.completed --role tools --duration-ms ${Math.round(process.uptime() * 1000)} --success ${errors > 0 ? "false" : "true"} --desc "pre-pr (${errors} errors)" 2>/dev/null || true`,
+      { cwd: ROOT, encoding: "utf8", timeout: 10000 },
+    );
+    execSync(
+      `node scripts/emit-envelope.mjs --type agent.completed --role final-validator --duration-ms ${Math.round(process.uptime() * 1000)} --success ${errors > 0 ? "false" : "true"} --desc "pre-pr (${errors} errors)" 2>/dev/null || true`,
+      { cwd: ROOT, encoding: "utf8", timeout: 10000 },
+    );
+  } catch {
+    /* non-blocking */
+  }
+}
+
 if (errors > 0 && process.argv.includes("--strict")) process.exit(1);
 
 // Event log — não bloqueante

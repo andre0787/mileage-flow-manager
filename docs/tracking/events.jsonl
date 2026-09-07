@@ -498,3 +498,8 @@
 {"timestamp":"2026-09-06T23:50:04.146Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/session-end-555","commit":"68a6eee","agent":"pi","errors":0}
 {"timestamp":"2026-09-06T23:59:36.113Z","type":"session:end","description":"Encerrando sessao — telemetria + revamp Relatorios (PR #555/#556 em prod)","branch":"main","commit":"400f985","agent":"pi"}
 {"timestamp":"2026-09-07T05:29:01.109Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/telemetry-dag-auto-populate","commit":"6101d94","agent":"human","errors":0}
+{"timestamp":"2026-09-07T06:12:00.687Z","type":"rule:fail","description":"rule-04-branch falhou","branch":"main","commit":"38600ed","agent":"human","rule":"rule-04-branch"}
+{"timestamp":"2026-09-07T06:12:00.794Z","type":"rule:fail","description":"rule-30-outcome-grade falhou","branch":"main","commit":"38600ed","agent":"human","rule":"rule-30-outcome-grade"}
+{"timestamp":"2026-09-07T06:13:22.173Z","type":"rule:fail","description":"rule-04-branch falhou","branch":"main","commit":"38600ed","agent":"human","rule":"rule-04-branch"}
+{"timestamp":"2026-09-07T06:13:22.279Z","type":"rule:fail","description":"rule-30-outcome-grade falhou","branch":"main","commit":"38600ed","agent":"human","rule":"rule-30-outcome-grade"}
+{"timestamp":"2026-09-07T15:32:32.746Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetry-full-pipeline","commit":"38600ed","agent":"human","errors":0}

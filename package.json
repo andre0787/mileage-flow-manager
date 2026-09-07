@@ -116,6 +116,8 @@
     "telemetry:audit": "node scripts/telemetry-audit.mjs",
     "telemetry:record": "node scripts/telemetry-audit.mjs --record",
     "telemetry:persist": "node scripts/telemetry-persist.mjs",
+    "telemetry:emit": "node scripts/emit-envelope.mjs",
+    "telemetry:sanity": "node scripts/telemetry-sanity.mjs",
     "exec:scout": "node scripts/exec-intel.mjs scout",
     "exec:domain": "node scripts/exec-intel.mjs domain",
     "exec:test": "node scripts/exec-intel.mjs test",

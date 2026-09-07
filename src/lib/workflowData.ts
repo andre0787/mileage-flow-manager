@@ -44,15 +44,12 @@ export function fallbackWorkflowData(): WorkflowData {
   };
 }
 
-let workflowPromise: Promise<WorkflowData> | null = null;
+/** TTL do cache — JSON nightly fresco por sessão, refetch a cada 10 min (2026-09-07). */
+const WORKFLOW_TTL_MS = 10 * 60 * 1000;
+let workflowCache: { promise: Promise<WorkflowData>; at: number } | null = null;
 
-/**
- * Resource de dados reais: tenta workflow-data.json, depois fallback JSON estático,
- * depois estrutura vazia. Nunca rejeita.
- */
-export function loadWorkflowData(): Promise<WorkflowData> {
-  if (!workflowPromise) {
-    workflowPromise = fetch("/workflow-data.json")
+function fetchWorkflowData(): Promise<WorkflowData> {
+  return fetch("/workflow-data.json")
       .then((res) => {
         if (!res.ok) throw new Error("workflow-data indisponível");
         return res.json() as Promise<WorkflowData>;
@@ -102,8 +99,17 @@ export function loadWorkflowData(): Promise<WorkflowData> {
           })
           .catch(() => fallbackWorkflowData()),
       );
+}
+
+/**
+ * Resource de dados reais: tenta workflow-data.json, depois fallback JSON estático,
+ * depois estrutura vazia. Cache com TTL. Nunca rejeita.
+ */
+export function loadWorkflowData(): Promise<WorkflowData> {
+  if (!workflowCache || Date.now() - workflowCache.at > WORKFLOW_TTL_MS) {
+    workflowCache = { promise: fetchWorkflowData(), at: Date.now() };
   }
-  return workflowPromise;
+  return workflowCache.promise;
 }
 
 /**
@@ -125,5 +131,5 @@ export function useWorkflowData(): WorkflowData {
 
 /** Reseta cache — útil para testes. */
 export function _resetWorkflowCache(): void {
-  workflowPromise = null;
+  workflowCache = null;
 }
