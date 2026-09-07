@@ -50,11 +50,15 @@ export interface PassengerCycleCountInput {
  * O limite do programa é por dono: vendas de outros donos nunca somam.
  * A venda em edição é excluída para não contar 2x (sales + formulário).
  */
-export function countPassengersInCycle(sales: CycleSale[], input: PassengerCycleCountInput): number {
+export function countPassengersInCycle(
+  sales: CycleSale[],
+  input: PassengerCycleCountInput,
+): number {
   const now = input.now ?? new Date();
   const owner = input.ownerName ?? "";
   let relevant = sales.filter(
-    (s) => s.program === input.program && (s.ownerName ?? "") === owner && s.id !== input.editingSaleId,
+    (s) =>
+      s.program === input.program && (s.ownerName ?? "") === owner && s.id !== input.editingSaleId,
   );
   if (input.cycleType === "anual") {
     const year = now.getFullYear();

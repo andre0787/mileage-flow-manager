@@ -442,3 +442,4 @@
 {"timestamp":"2026-09-07T22:52:18.666Z","type":"gate","description":"gate twins executado (rule-34-twins-check)","branch":"fix/limite-passageiros-por-dono","commit":"23def43","agent":"pi","gate":"twins","rule":"rule-34-twins-check"}
 {"timestamp":"2026-09-07T22:52:18.699Z","type":"gate","description":"gate auth executado (rule-35-auth-gate)","branch":"fix/limite-passageiros-por-dono","commit":"23def43","agent":"pi","gate":"auth","rule":"rule-35-auth-gate"}
 {"timestamp":"2026-09-07T22:52:55.190Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/limite-passageiros-por-dono","commit":"23def43","agent":"pi","errors":0}
+{"timestamp":"2026-09-07T22:59:15.441Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/limite-passageiros-por-dono","commit":"0518aab","agent":"pi","errors":0}

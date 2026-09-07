@@ -1,7 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { countPassengersInCycle, type CycleSale } from "@/lib/passengerCycle";
 
-const mk = (id: string, ownerName: string, program: string, date: string, n: number): CycleSale => ({
+const mk = (
+  id: string,
+  ownerName: string,
+  program: string,
+  date: string,
+  n: number,
+): CycleSale => ({
   id,
   ownerName,
   program,
@@ -32,7 +38,11 @@ describe("countPassengersInCycle", () => {
       mk("s2", "Rodrigo lemes", "Smiles", `${currentYear}-03-10`, 7),
     ];
     expect(
-      countPassengersInCycle(sales, { program: "Latam", ownerName: "Rodrigo lemes", cycleType: "anual" }),
+      countPassengersInCycle(sales, {
+        program: "Latam",
+        ownerName: "Rodrigo lemes",
+        cycleType: "anual",
+      }),
     ).toBe(5);
   });
 
