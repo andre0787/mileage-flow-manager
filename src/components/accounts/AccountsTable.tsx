@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { SortableHeader } from "@/components/ui/SortableHeader";
+import { formatUnitCost } from "@/lib/unitCost";
 import { AccountTableRow } from "@/components/accounts/AccountTableRow";
 import type { SortState } from "@/lib/sort";
 import type { Account } from "@/types";
@@ -22,13 +23,21 @@ export interface AccountsTableRow {
   unreadCount: number;
   lastEntryDate?: string;
   lastSaleDate?: string;
+  /** Valor médio por unidade do saldo atual (investido ÷ saldo) — undefined sem dado. */
+  avgUnitCost?: number;
 }
 
 interface AccountsTableProps {
   rows: AccountsTableRow[];
   sort: SortState | null;
   onSort: (next: SortState) => void;
-  totals: { count: number; saldo: number; investido: number; receber: number };
+  totals: {
+    count: number;
+    saldo: number;
+    investido: number;
+    receber: number;
+    avgUnit: number | null;
+  };
   recalcPending: boolean;
   onToggleStatus: (id: string) => void;
   onEdit: (account: Account) => void;
@@ -64,8 +73,20 @@ export function AccountsTable({
               sort={sort ?? emptySort}
               onSort={onSort}
             />
-            <TableCell className="font-medium text-muted-foreground">Programa</TableCell>
-            <TableCell className="font-medium text-muted-foreground">Dono</TableCell>
+            <SortableHeader
+              label="Programa"
+              sortKey="programa"
+              sort={sort ?? emptySort}
+              onSort={onSort}
+            />
+            <SortableHeader label="Dono" sortKey="dono" sort={sort ?? emptySort} onSort={onSort} />
+            <SortableHeader
+              label="Média/un"
+              sortKey="media"
+              sort={sort ?? emptySort}
+              onSort={onSort}
+              className={NUM}
+            />
             <SortableHeader
               label="Saldo"
               sortKey="saldo"
@@ -87,7 +108,12 @@ export function AccountsTable({
               onSort={onSort}
               className={NUM}
             />
-            <TableCell className="font-medium text-muted-foreground">Status</TableCell>
+            <SortableHeader
+              label="Status"
+              sortKey="status"
+              sort={sort ?? emptySort}
+              onSort={onSort}
+            />
             <TableCell className="font-medium text-muted-foreground">Alertas</TableCell>
             <TableCell className="font-medium text-muted-foreground">Ações</TableCell>
           </TableRow>
@@ -102,6 +128,7 @@ export function AccountsTable({
               ownerName={r.ownerName}
               ownerColorHex={r.ownerColorHex ?? null}
               programName={r.programName}
+              avgUnitCost={r.avgUnitCost}
               unreadCount={r.unreadCount}
               lastEntryDate={r.lastEntryDate}
               lastSaleDate={r.lastSaleDate}
@@ -122,6 +149,12 @@ export function AccountsTable({
           <TableRow>
             <TableCell colSpan={3} className="font-semibold">
               Total ({totals.count} contas)
+            </TableCell>
+            <TableCell
+              className={`${NUM} font-semibold tabular-nums`}
+              title="Média ponderada: total investido ÷ saldo total"
+            >
+              {totals.avgUnit != null ? formatUnitCost(totals.avgUnit) : "—"}
             </TableCell>
             <TableCell className={`${NUM} font-semibold tabular-nums`}>
               {totals.saldo.toLocaleString("pt-BR")}

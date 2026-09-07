@@ -33,6 +33,8 @@ interface EntryFormProps {
     name: string;
     color: string;
     hasRecurrence: boolean;
+    /** Tipo do form no momento da criação — pode diferir da aba ativa. */
+    accountType?: "pontos" | "milhas";
   }) => Promise<string | undefined>;
   onCreateAccount?: (data: {
     name: string;
@@ -77,6 +79,26 @@ export function EntryForm({
   const [isOrigemTypeOpen, setIsOrigemTypeOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
 
+  // Tipo do registro (pontos/milhas) editável no próprio form (create): o
+  // toggle acima da Conta troca o tipo sem sair do drawer — antes era preciso
+  // fechar, trocar a aba e reabrir. Em edição o tipo é fixo da conta original.
+  const [formType, setFormType] = useState<"pontos" | "milhas">(() => {
+    if (mode === "edit") {
+      const fromAccount = initialData?.accountId
+        ? accounts.find((a) => a.id === initialData.accountId)?.type
+        : undefined;
+      if (fromAccount) return fromAccount;
+    }
+    return type;
+  });
+  const switchFormType = (next: "pontos" | "milhas") => {
+    if (next === formType) return;
+    setFormType(next);
+    // Conta e origem são específicas por tipo — limpam ao trocar
+    setForm((prev) => ({ ...prev, accountId: "", origemTypeId: "" }));
+    setErrors({});
+  };
+
   const set = (patch: Partial<EntryFormData>) =>
     setForm((prev) => {
       const next = { ...prev, ...patch };
@@ -88,9 +110,9 @@ export function EntryForm({
   const clearErr = (field: string) => setErrors((prev) => ({ ...prev, [field]: "" }));
 
   const selectedAccount = accounts.find((a) => a.id === form.accountId);
-  const availableAccounts = accounts.filter((a) => a.type === type && a.status === "ativa");
+  const availableAccounts = accounts.filter((a) => a.type === formType && a.status === "ativa");
   const currentOrigemTypes = filterToCleanOrigemTypes(
-    origemTypes.filter((ot) => ot.accountType === type && !isTransferencia(ot)),
+    origemTypes.filter((ot) => ot.accountType === formType && !isTransferencia(ot)),
   );
   const selectedOrigemType = origemTypes.find((ot) => ot.id === form.origemTypeId);
   const selectedOrigemTypeHasRecurrence = selectedOrigemType
@@ -100,7 +122,7 @@ export function EntryForm({
   const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id;
   const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id;
 
-  const label = type === "milhas" ? "Milhas" : "Pontos";
+  const label = formType === "milhas" ? "Milhas" : "Pontos";
 
   const validate = (): boolean => {
     const errs = validateEntryForm(form);
@@ -128,6 +150,27 @@ export function EntryForm({
 
   return (
     <form className="grid gap-4 py-4" action={formAction}>
+      {/* Tipo do registro — troca pontos/milhas no próprio form (só create) */}
+      {mode === "create" && (
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-medium text-muted-foreground">Tipo do registro:</span>
+          <div className="flex gap-1.5">
+            {(["pontos", "milhas"] as const).map((t) => (
+              <Button
+                key={t}
+                type="button"
+                variant={formType === t ? "default" : "outline"}
+                size="sm"
+                className="min-h-[36px]"
+                onClick={() => switchFormType(t)}
+              >
+                {t === "pontos" ? "Pontos" : "Milhas"}
+              </Button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Conta */}
       <div className="space-y-2">
         <Label htmlFor="entryAccount">Conta</Label>
@@ -464,7 +507,7 @@ export function EntryForm({
       </div>
 
       {/* Taxa de Conversão (só para Pontos) */}
-      {type === "pontos" && (
+      {formType === "pontos" && (
         <div className="space-y-2">
           <Label htmlFor="conversion">Taxa de Conversão (Pontos → Milhas)</Label>
           <Input
@@ -484,7 +527,7 @@ export function EntryForm({
           <h4 className="font-semibold text-sm">Cálculos Automáticos:</h4>
           <div
             className={
-              type === "pontos"
+              formType === "pontos"
                 ? "grid grid-cols-3 gap-4 text-xs"
                 : "grid grid-cols-2 gap-4 text-xs"
             }
@@ -493,7 +536,7 @@ export function EntryForm({
               <span className="text-muted-foreground">Custo por milhar:</span>
               <p className="font-semibold">R$ {costPerThousand.toFixed(2)}</p>
             </div>
-            {type === "pontos" && (
+            {formType === "pontos" && (
               <div>
                 <span className="text-muted-foreground">Milhas geradas:</span>
                 <p className="font-semibold">{milesGenerated.toLocaleString("pt-BR")}</p>
@@ -519,7 +562,7 @@ export function EntryForm({
 
       {/* Drawers de criação (Conta, Dono, Programa, Tipo de Origem) */}
       <EntryCreateDrawers
-        type={type}
+        type={formType}
         owners={owners}
         programs={programs}
         origemTypeOpen={isOrigemTypeOpen}
@@ -528,7 +571,11 @@ export function EntryForm({
         onAccountOpenChange={setIsAccountOpen}
         onOrigemTypeCreated={(id) => set({ origemTypeId: id })}
         onAccountCreated={(id) => set({ accountId: id })}
-        onCreateOrigemType={onCreateOrigemType}
+        onCreateOrigemType={
+          onCreateOrigemType
+            ? (data) => onCreateOrigemType({ ...data, accountType: formType })
+            : undefined
+        }
         onCreateAccount={onCreateAccount}
         onCreateOwner={onCreateOwner}
         onCreateProgram={onCreateProgram}

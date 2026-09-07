@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `fix/kpi-pipeline-gates`
-- **Último commit:** `d1eccfe — Merge pull request #561 from andre0787/feat/client-advance-payment`
+- **Branch:** `feat/contas-sort-media-entry-toggle`
+- **Último commit:** `a75b97a — Merge pull request #562 from andre0787/fix/kpi-pipeline-gates`
 - **Remote:** origin/main
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
 - **P3-28 entradas** (`src/features/entradas/`), **P3-29 contas** (`src/features/contas/`),
@@ -52,7 +52,7 @@ Nenhum PR aberto.
 **Objetivo:** continuacao
 **Status:** in_progress
 **Iniciada em:** 2026-09-07T19:07:27.835Z
-**Branch:** `fix/kpi-pipeline-gates`
+**Branch:** `feat/contas-sort-media-entry-toggle`
 **Último commit:** d1eccfe — Merge pull request #561 from andre0787/feat/client-advance-payment
 **Docs carregados:** AGENTS.md
 

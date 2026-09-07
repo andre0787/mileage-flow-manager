@@ -3,6 +3,7 @@ import { ownerColor, ownerColorSoft } from "@/lib/ownerColors";
 import { Badge } from "@/components/ui/badge";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { AccountActions } from "@/components/accounts/AccountActions";
+import { formatUnitCost } from "@/lib/unitCost";
 import { AccountAlertBell } from "@/components/accounts/AccountAlertBell";
 import { AccountRowExpand } from "@/components/accounts/AccountRowExpand";
 import type { Account } from "@/types";
@@ -18,6 +19,8 @@ export interface AccountTableRowProps {
   unreadCount: number;
   lastEntryDate?: string;
   lastSaleDate?: string;
+  /** Valor médio por unidade do saldo (investido ÷ saldo) — undefined sem dado. */
+  avgUnitCost?: number;
   recalcPending: boolean;
   expanded: boolean;
   onToggleExpand: () => void;
@@ -40,6 +43,7 @@ export function AccountTableRow({
   unreadCount,
   lastEntryDate,
   lastSaleDate,
+  avgUnitCost,
   recalcPending,
   expanded,
   onToggleExpand,
@@ -76,6 +80,12 @@ export function AccountTableRow({
             />
             {ownerName}
           </span>
+        </TableCell>
+        <TableCell
+          className={NUM}
+          title="Valor médio por ponto/milha do saldo atual (investido ÷ saldo)"
+        >
+          {avgUnitCost != null ? formatUnitCost(avgUnitCost) : "—"}
         </TableCell>
         <TableCell className={NUM}>
           <span className="inline-flex items-center gap-1 font-semibold">
@@ -125,7 +135,7 @@ export function AccountTableRow({
       </TableRow>
       {expanded && (
         <AccountRowExpand
-          colSpan={9}
+          colSpan={10}
           averageCostPerMile={account.averageCostPerMile}
           lastEntryDate={lastEntryDate}
           lastSaleDate={lastSaleDate}
