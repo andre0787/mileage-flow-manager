@@ -9,7 +9,7 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `feat/telemetry-full-pipeline`
+- **Branch:** `main`
 - **Último commit:** `38600ed — Merge pull request #558 from andre0787/fix/telemetry-dag-auto-populate`
 - **Remote:** origin/main
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
@@ -42,15 +42,6 @@ Nenhum PR aberto.
 
 
 
-
-## 🎯 Sessão Atual
-**Categoria:** docs
-**Objetivo:** continuacao
-**Status:** in_progress
-**Iniciada em:** 2026-09-07T15:25:25.260Z
-**Branch:** `feat/telemetry-full-pipeline`
-**Último commit:** 38600ed — Merge pull request #558 from andre0787/fix/telemetry-dag-auto-populate
-**Docs carregados:** AGENTS.md
 
 
 ---

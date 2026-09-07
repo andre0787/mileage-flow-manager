@@ -503,3 +503,4 @@
 {"timestamp":"2026-09-07T06:13:22.173Z","type":"rule:fail","description":"rule-04-branch falhou","branch":"main","commit":"38600ed","agent":"human","rule":"rule-04-branch"}
 {"timestamp":"2026-09-07T06:13:22.279Z","type":"rule:fail","description":"rule-30-outcome-grade falhou","branch":"main","commit":"38600ed","agent":"human","rule":"rule-30-outcome-grade"}
 {"timestamp":"2026-09-07T15:32:32.746Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetry-full-pipeline","commit":"38600ed","agent":"human","errors":0}
+{"timestamp":"2026-09-07T15:40:03.852Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetry-full-pipeline","commit":"165e184","agent":"human","errors":0}
