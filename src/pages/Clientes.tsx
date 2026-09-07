@@ -1,6 +1,16 @@
 import { useState, useMemo } from "react";
 import { useClientBalanceQuery } from "@/features/clientes/hooks";
-import { Plus, Users, Search, Edit, Trash2, Phone, AlertTriangle, UserPlus, Banknote } from "lucide-react";
+import {
+  Plus,
+  Users,
+  Search,
+  Edit,
+  Trash2,
+  Phone,
+  AlertTriangle,
+  UserPlus,
+  Banknote,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -452,8 +462,8 @@ export default function Clientes() {
             />
           </div>
           <p className="text-xs text-muted-foreground">
-            O valor entra como crédito do cliente no extrato e pode ser abatido
-            automaticamente ao receber a emissão (venda).
+            O valor entra como crédito do cliente no extrato e pode ser abatido automaticamente ao
+            receber a emissão (venda).
           </p>
         </div>
         <div className="mt-4 flex justify-end gap-2">

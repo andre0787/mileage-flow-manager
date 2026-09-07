@@ -46,7 +46,10 @@ export function useAddClientAdvanceMutation() {
       ).unwrap();
     }
   };
-  const mutate = (input: AddClientAdvanceInput, options?: { onSuccess?: () => void; onError?: () => void }) => {
+  const mutate = (
+    input: AddClientAdvanceInput,
+    options?: { onSuccess?: () => void; onError?: () => void },
+  ) => {
     trigger(input)
       .unwrap()
       .then(async () => {
@@ -59,7 +62,10 @@ export function useAddClientAdvanceMutation() {
         toast.error("Erro ao registrar adiantamento");
       });
   };
-  const mutateAsync = async (input: AddClientAdvanceInput, options?: { onSuccess?: () => void; onError?: () => void }) => {
+  const mutateAsync = async (
+    input: AddClientAdvanceInput,
+    options?: { onSuccess?: () => void; onError?: () => void },
+  ) => {
     try {
       await trigger(input).unwrap();
       await refetchCredits(input.clientId);

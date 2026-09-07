@@ -35,11 +35,7 @@ export interface EntryTableProps {
   onCreateClick?: () => void;
 }
 
-function getOrigemTypeName(
-  id: string,
-  origemTypes: OrigemType[],
-  programs: Program[],
-): string {
+function getOrigemTypeName(id: string, origemTypes: OrigemType[], programs: Program[]): string {
   const ot = origemTypes.find((item) => item.id === id);
   if (ot) return ot.name;
   const prog = programs.find((p) => p.id === id);
