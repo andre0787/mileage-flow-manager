@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T20:31:18.986Z",
+  "generatedAt": "2026-09-07T21:21:04.516Z",
   "dataDate": "2026-09-07",
   "kpiStats": [
     {
@@ -18,17 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 335,
+      "value": 341,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 17,
+      "value": 18,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 32,
+      "value": 33,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,27 +41,27 @@
     },
     {
       "name": "pre-pr",
-      "n": 131,
+      "n": 130,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 166,
+      "n": 160,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 17,
+      "n": 18,
       "color": "#10b981"
     },
     {
       "name": "code-review:done",
-      "n": 35,
+      "n": 36,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 30,
+      "n": 31,
       "color": "#22c55e"
     },
     {
@@ -71,7 +71,7 @@
     },
     {
       "name": "gate",
-      "n": 9,
+      "n": 13,
       "color": "#f43f5e"
     },
     {
@@ -83,7 +83,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 172,
+      "n": 173,
       "color": "#10b981"
     },
     {
@@ -99,63 +99,63 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-09-07 20:31:15",
+      "t": "2026-09-07 21:21:00",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-07 20:30:37",
+      "t": "2026-09-07 21:20:21",
       "d": "gate",
       "desc": "gate auth executado (rule-35-auth-gate)"
     },
     {
-      "t": "2026-09-07 20:30:37",
+      "t": "2026-09-07 21:20:21",
       "d": "gate",
       "desc": "gate twins executado (rule-34-twins-check)"
     },
     {
-      "t": "2026-09-07 20:30:37",
+      "t": "2026-09-07 21:20:21",
       "d": "gate",
       "desc": "gate intent executado (rule-33-intent-gate)"
     },
     {
-      "t": "2026-09-07 20:30:37",
+      "t": "2026-09-07 21:20:21",
       "d": "gate",
       "desc": "gate council executado (rule-27-council-veredict)"
     },
     {
-      "t": "2026-09-07 20:30:27",
+      "t": "2026-09-07 21:20:12",
       "d": "code-review:done",
-      "desc": "Review por subagente: OK-with-notes, 0 critical, 3P1+2P2 corrigidos via worker"
+      "desc": "Review aprovado por subagente"
     },
     {
-      "t": "2026-09-07 20:30:27",
+      "t": "2026-09-07 21:18:15",
       "d": "coding:done",
-      "desc": "Feature Contas via subagente: ordenacao total + Media/un + toggle EntryForm + 4 fixes do review"
+      "desc": "Controle CPF passageiros via subagente"
     },
     {
-      "t": "2026-09-07 20:25:00",
-      "d": "rule:fail",
-      "desc": "rule-39-coding-gate falhou"
+      "t": "2026-09-07 21:18:10",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 166,
-    "healed": 17,
-    "healedRate": 10.2,
-    "prePrTotal": 131,
-    "prePrPass": 131,
+    "ruleFails": 160,
+    "healed": 18,
+    "healedRate": 11.3,
+    "prePrTotal": 130,
+    "prePrPass": 130,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 47,
+        "count": 45,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
         "rule": "rule-39-coding-gate",
-        "count": 20,
+        "count": 19,
         "hint": "faltou evento coding:done por subagente na branch"
       },
       {
@@ -169,13 +169,23 @@
         "hint": ""
       },
       {
-        "rule": "rule-31-lib-test-coverage",
-        "count": 11,
-        "hint": ""
+        "rule": "rule-41-optimizer",
+        "count": 9,
+        "hint": "arquivo acima do limite de 150 linhas"
       }
     ]
   },
   "lastPrs": [
+    {
+      "number": 563,
+      "title": "feat contas: ordenação total + média/un + toggle pontos/milhas no registro",
+      "type": "feat",
+      "date": "2026-09-07",
+      "tokens": 1179,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio",
+      "cycleHours": 0.1
+    },
     {
       "number": 562,
       "title": "fix(kpi): pipeline de processo mede gates, PRs e cycle time de verdade",
@@ -215,24 +225,14 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0.1
-    },
-    {
-      "number": 558,
-      "title": "fix(telemetria): DAG e cards de IA populam automaticamente a cada sessão",
-      "type": "fix",
-      "date": "2026-09-07",
-      "tokens": 272,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação",
-      "cycleHours": 0.2
     }
   ],
   "overview": {
-    "components": 150,
+    "components": 156,
     "pages": 18,
-    "libs": 46,
+    "libs": 49,
     "scripts": 124,
-    "testFiles": 335,
+    "testFiles": 341,
     "skills": 27,
     "rules": 48,
     "events": 398,
