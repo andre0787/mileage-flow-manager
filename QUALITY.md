@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-09-04
-> Último commit: 5a8f6f9-Merge pull request #534 from andre0787/fix/venda-edit-custos-recebida
+> Gerado em: 2026-09-07
+> Último commit: 38600ed-Merge pull request #558 from andre0787/fix/telemetry-dag-auto-populate
 
 ## Pipeline
 
@@ -15,21 +15,21 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 1114 |
-| E2E  | 91 |
-| **Total** | **1205** |
+| Unit | 1223 |
+| E2E  | 102 |
+| **Total** | **1325** |
 
 ## Bundle
 
 | Métrica | Valor |
 |---------|-------|
-| Tamanho (dist) | 1846kB |
+| Tamanho (dist) | 1897kB |
 
 ## Documentação
 
 | Métrica | Valor |
 |---------|-------|
-| Arquivos .md | 258 |
+| Arquivos .md | 268 |
 | Arquivados | 46 |
 | Issues (verify-docs) | 0 |
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-09-04 | ✅ | 1205 | 1846kB | 0 issues |
+| 2026-09-07 | ✅ | 1325 | 1897kB | 0 issues |
 
 ---
 

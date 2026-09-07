@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `68a6eee` — Merge pull request #555 from andre0787/feat/rollback-reports-revamp
+- **Último commit:** `38600ed — Merge pull request #558 from andre0787/fix/telemetry-dag-auto-populate`
 - **Remote:** origin/main
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
 - **P3-28 entradas** (`src/features/entradas/`), **P3-29 contas** (`src/features/contas/`),
@@ -40,14 +40,13 @@ Nenhum PR aberto.
 | Docs issues | 0 |
 | Branch | main |
 
+
+
+
+
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
-## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** descrição concisa
-**Status:** done
-**Branch:** `main`
-**Docs carregados:** AGENTS.md
+
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
