@@ -73,6 +73,13 @@ function findTestFile(srcFile) {
   // Módulos de src/ai/: testes em tests/unit/ai/<name>.test.ts (espelho da pasta)
   const aiUnitPath = resolve(ROOT, "tests", "unit", "ai", `${name}${TEST_EXTENSIONS[0]}`);
   if (srcFile.startsWith("src/ai/") && existsSync(aiUnitPath)) return aiUnitPath;
+  // Páginas de src/pages/: teste em tests/pages/<name>.test.tsx (convenção do repo)
+  if (srcFile.startsWith("src/pages/")) {
+    for (const ext of TEST_EXTENSIONS) {
+      const pageTest = resolve(ROOT, "tests", "pages", `${name}${ext}`);
+      if (existsSync(pageTest)) return pageTest;
+    }
+  }
   // Componentes: teste em tests/components/<subdir?>/<name>.test.tsx — o caminho
   // relativo dentro de src/components/ é preservado em tests/components/.
   if (srcFile.startsWith("src/components/")) {

@@ -7,33 +7,38 @@ import type { AiTelemetryAreaCost } from "@/types/kpi";
 /** Registros brutos da ai_telemetry OU agregados por área (snapshot do JSON). */
 export type AiCostRecord = AiTelemetryRecord | AiTelemetryAreaCost;
 
-let telemetryPromise: Promise<AiTelemetryRecord[]> | null = null;
+const TELEMETRY_TTL_MS = 5 * 60 * 1000;
+let telemetryCache: { promise: Promise<AiTelemetryRecord[]>; at: number } | null = null;
+
+function fetchTelemetryRecords(): Promise<AiTelemetryRecord[]> {
+  return Promise.resolve(
+    supabase
+      .from("ai_telemetry")
+      .select("area, cost_estimate, total_execution_time_ms, tokens_used")
+      .order("created_at", { ascending: false })
+      .limit(500)
+      .then(
+        ({ data }) => (data as AiTelemetryRecord[]) ?? [],
+        () => [],
+      ),
+  );
+}
 
 /**
  * Resource dos registros de telemetria (Blueprint v9.0, rule-48): busca a
- * tabela ai_telemetry no Supabase uma única vez (promise cacheada em módulo).
+ * tabela ai_telemetry no Supabase com cache TTL (dados frescos por sessão).
  * Nunca rejeita — em falha resolve com [] (empty state, fail-open).
  */
+function loadTelemetryRecords(): Promise<AiTelemetryRecord[]> {
+  if (!telemetryCache || Date.now() - telemetryCache.at > TELEMETRY_TTL_MS) {
+    telemetryCache = { promise: fetchTelemetryRecords(), at: Date.now() };
+  }
+  return telemetryCache.promise;
+}
+
 function LiveAiCostContent() {
   const records = use(loadTelemetryRecords());
   return <AiCostContent records={records} />;
-}
-
-function loadTelemetryRecords(): Promise<AiTelemetryRecord[]> {
-  if (!telemetryPromise) {
-    telemetryPromise = Promise.resolve(
-      supabase
-        .from("ai_telemetry")
-        .select("area, cost_estimate, total_execution_time_ms, tokens_used")
-        .order("created_at", { ascending: false })
-        .limit(500)
-        .then(
-          ({ data }) => (data as AiTelemetryRecord[]) ?? [],
-          () => [],
-        ),
-    );
-  }
-  return telemetryPromise;
 }
 
 function AiCostContent({ records }: { records: AiCostRecord[] }) {

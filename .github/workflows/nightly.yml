@@ -65,6 +65,15 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ohyplfpcwxzakujjfwdf.supabase.co' }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY || '' }}
 
+      - name: Sanity check da telemetria (falha se ai_telemetry sem linhas novas)
+        # Detecta cedo um pipeline de telemetria quebrado: com service key e
+        # Supabase respondendo, 26h sem nenhuma linha nova = falha do run.
+        # Sem credenciais ou sem rede → fail-open.
+        run: node scripts/telemetry-sanity.mjs
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ohyplfpcwxzakujjfwdf.supabase.co' }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY || '' }}
+
       - name: Refresh dashboard data (KPIs diários + aba Workflow)
         # fetchTelemetryCost usa SUPABASE_SERVICE_KEY/ANON_KEY para agregar a
         # ai_telemetry no snapshot (aba KPI — Custo por Funcionalidade offline).

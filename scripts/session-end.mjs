@@ -93,6 +93,18 @@ if (DRY_RUN) {
   process.exit(0);
 }
 
+// 0. Telemetria do node RESULT (fail-open, antes do git add para ser commitada):
+//    execution.completed da sessão + persistência imediata dos envelopes
+//    (env-gated — sem SUPABASE_SERVICE_KEY no local, o nightly persiste).
+if (!process.env.VITEST && !process.env.CI) {
+  try {
+    execSync('node scripts/emit-envelope.mjs --type execution.completed --role result --desc "sessao encerrada" 2>/dev/null || true', {
+      cwd: ROOT, encoding: 'utf8', timeout: 10000,
+    });
+    execSync('npm run telemetry:persist 2>/dev/null || true', { cwd: ROOT, encoding: 'utf8', timeout: 60000 });
+  } catch { /* telemetria nunca bloqueia o fim de sessão */ }
+}
+
 // 1. Git status
 const status = run("git status --short");
 if (!status) {

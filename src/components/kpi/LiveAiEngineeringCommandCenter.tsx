@@ -7,11 +7,9 @@ import { Suspense, use } from "react";
 import { loadEnvelopes } from "@/lib/telemetryAdapter";
 import AiEngineeringCommandCenter from "./AiEngineeringCommandCenter";
 
-let envelopePromise: ReturnType<typeof loadEnvelopes> | null = null;
-
 function LiveContent() {
-  if (!envelopePromise) envelopePromise = loadEnvelopes();
-  const envelopes = use(envelopePromise);
+  // loadEnvelopes tem cache TTL próprio — refetch automático sem recarregar.
+  const envelopes = use(loadEnvelopes());
   return <AiEngineeringCommandCenter envelopes={envelopes} />;
 }
 
