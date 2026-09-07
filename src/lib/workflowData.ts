@@ -50,55 +50,55 @@ let workflowCache: { promise: Promise<WorkflowData>; at: number } | null = null;
 
 function fetchWorkflowData(): Promise<WorkflowData> {
   return fetch("/workflow-data.json")
-      .then((res) => {
-        if (!res.ok) throw new Error("workflow-data indisponível");
-        return res.json() as Promise<WorkflowData>;
-      })
-      .catch(() =>
-        fetch("/mock/workflow-fallback.json")
-          .then((res) => {
-            if (!res.ok) throw new Error("fallback indisponível");
-            return res.json() as Promise<Record<string, unknown>>;
-          })
-          .then((fallback) => {
-            // Converte fallback genérico para WorkflowData quando possível,
-            // senão retorna estrutura vazia. Mantém compatibilidade com
-            // dados ilustrativos antigos que têm KPI_STATS etc.
-            if (fallback && typeof fallback === "object" && "KPI_STATS" in fallback) {
-              const f = fallback as unknown as {
-                DATA_DATE: string;
-                KPI_STATS: WorkflowData["kpiStats"];
-                EVENT_TYPES: WorkflowData["eventTypes"];
-                GRADES: WorkflowData["grades"];
-                RECENT_TIMELINE: WorkflowData["recentTimeline"];
-                GATE_EFFICIENCY: WorkflowData["gateEfficiency"];
-              };
-              return {
-                generatedAt: new Date(0).toISOString(),
-                dataDate: f.DATA_DATE,
-                kpiStats: f.KPI_STATS,
-                eventTypes: f.EVENT_TYPES,
-                grades: f.GRADES,
-                recentTimeline: f.RECENT_TIMELINE,
-                gateEfficiency: f.GATE_EFFICIENCY,
-                lastPrs: [],
-                overview: {
-                  components: 0,
-                  pages: 0,
-                  libs: 0,
-                  scripts: 0,
-                  testFiles: 0,
-                  skills: 0,
-                  rules: 0,
-                  events: 0,
-                  qualityNotes: 0,
-                },
-              } satisfies WorkflowData;
-            }
-            return fallback as unknown as WorkflowData;
-          })
-          .catch(() => fallbackWorkflowData()),
-      );
+    .then((res) => {
+      if (!res.ok) throw new Error("workflow-data indisponível");
+      return res.json() as Promise<WorkflowData>;
+    })
+    .catch(() =>
+      fetch("/mock/workflow-fallback.json")
+        .then((res) => {
+          if (!res.ok) throw new Error("fallback indisponível");
+          return res.json() as Promise<Record<string, unknown>>;
+        })
+        .then((fallback) => {
+          // Converte fallback genérico para WorkflowData quando possível,
+          // senão retorna estrutura vazia. Mantém compatibilidade com
+          // dados ilustrativos antigos que têm KPI_STATS etc.
+          if (fallback && typeof fallback === "object" && "KPI_STATS" in fallback) {
+            const f = fallback as unknown as {
+              DATA_DATE: string;
+              KPI_STATS: WorkflowData["kpiStats"];
+              EVENT_TYPES: WorkflowData["eventTypes"];
+              GRADES: WorkflowData["grades"];
+              RECENT_TIMELINE: WorkflowData["recentTimeline"];
+              GATE_EFFICIENCY: WorkflowData["gateEfficiency"];
+            };
+            return {
+              generatedAt: new Date(0).toISOString(),
+              dataDate: f.DATA_DATE,
+              kpiStats: f.KPI_STATS,
+              eventTypes: f.EVENT_TYPES,
+              grades: f.GRADES,
+              recentTimeline: f.RECENT_TIMELINE,
+              gateEfficiency: f.GATE_EFFICIENCY,
+              lastPrs: [],
+              overview: {
+                components: 0,
+                pages: 0,
+                libs: 0,
+                scripts: 0,
+                testFiles: 0,
+                skills: 0,
+                rules: 0,
+                events: 0,
+                qualityNotes: 0,
+              },
+            } satisfies WorkflowData;
+          }
+          return fallback as unknown as WorkflowData;
+        })
+        .catch(() => fallbackWorkflowData()),
+    );
 }
 
 /**

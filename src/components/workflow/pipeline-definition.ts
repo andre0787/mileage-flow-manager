@@ -17,7 +17,13 @@ export interface PipelineNode {
 export const PIPELINE: PipelineNode[] = [
   // Roles "task"/"classifier"/"tools"/"result" são emitidos por
   // scripts/emit-envelope.mjs via session-start/pre-pr/session-end (2026-09-07).
-  { id: "task", label: "TASK", icon: "🎯", description: "Entrada: intent + contrato", roles: ["task"] },
+  {
+    id: "task",
+    label: "TASK",
+    icon: "🎯",
+    description: "Entrada: intent + contrato",
+    roles: ["task"],
+  },
   {
     id: "classifier",
     label: "CLASSIFIER",
@@ -60,7 +66,13 @@ export const PIPELINE: PipelineNode[] = [
     description: "final validation + telemetry",
     roles: ["final-validator"],
   },
-  { id: "result", label: "RESULT", icon: "✅", description: "outcome + envelopes §19", roles: ["result"] },
+  {
+    id: "result",
+    label: "RESULT",
+    icon: "✅",
+    description: "outcome + envelopes §19",
+    roles: ["result"],
+  },
 ];
 
 export function roleToNode(role: string): PipelineNode | undefined {
