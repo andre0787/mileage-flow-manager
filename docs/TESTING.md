@@ -32,7 +32,6 @@ npx playwright test --reporter=list --workers=1
 | `tests/fluxo-completo.spec.ts` | Fluxo end-to-end completo |
 | `tests/origem-tipo.spec.ts` | CRUD tipos de origem |
 | `tests/relatorio.spec.ts` | Geração de relatórios |
-| `tests/debug.spec.ts` | Debug helpers |
 
 ## Bateria Obrigatória (pré-deploy)
 

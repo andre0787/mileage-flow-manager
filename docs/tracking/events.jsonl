@@ -424,3 +424,7 @@
 {"timestamp":"2026-09-07T21:35:42.537Z","type":"gate","description":"gate twins executado (rule-34-twins-check)","branch":"docs/merge-automatico-padrao","commit":"3a68ee0","agent":"pi","gate":"twins","rule":"rule-34-twins-check"}
 {"timestamp":"2026-09-07T21:35:42.570Z","type":"gate","description":"gate auth executado (rule-35-auth-gate)","branch":"docs/merge-automatico-padrao","commit":"3a68ee0","agent":"pi","gate":"auth","rule":"rule-35-auth-gate"}
 {"timestamp":"2026-09-07T21:36:18.982Z","type":"pre-pr","description":"pre-pr PASS","branch":"docs/merge-automatico-padrao","commit":"3a68ee0","agent":"pi","errors":0}
+{"timestamp":"2026-09-07T22:38:08.943Z","type":"coding:done","description":"Codificação por subagente concluída","branch":"chore/cleanup-orgaos-geral","commit":"6892731","agent":"pi","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-09-07T22:39:33.694Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"chore/cleanup-orgaos-geral","commit":"6892731","agent":"pi","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-09-07T22:39:36.795Z","type":"healed","description":"rule-26 auto-corrigido","branch":"chore/cleanup-orgaos-geral","commit":"6892731","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-09-07T22:39:37.487Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/cleanup-orgaos-geral","commit":"6892731","agent":"pi","errors":0}
