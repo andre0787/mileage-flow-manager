@@ -499,3 +499,4 @@
 {"timestamp":"2026-09-06T23:59:36.113Z","type":"session:end","description":"Encerrando sessao — telemetria + revamp Relatorios (PR #555/#556 em prod)","branch":"main","commit":"400f985","agent":"pi"}
 {"timestamp":"2026-09-07T05:29:01.109Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/telemetry-dag-auto-populate","commit":"6101d94","agent":"human","errors":0}
 {"timestamp":"2026-09-07T16:25:06.203Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/client-advance-payment","commit":"3734ca1","agent":"human","errors":0}
+{"timestamp":"2026-09-07T16:35:49.712Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/client-advance-payment","commit":"e0c3525","agent":"human","errors":0}
