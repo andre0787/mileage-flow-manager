@@ -35,7 +35,7 @@ export interface EntryTableProps {
   onCreateClick?: () => void;
 }
 
-export function getOrigemTypeName(
+function getOrigemTypeName(
   id: string,
   origemTypes: OrigemType[],
   programs: Program[],
@@ -46,7 +46,7 @@ export function getOrigemTypeName(
   return prog?.name ?? id;
 }
 
-export function getSortValue(
+function getSortValue(
   entry: PointEntry,
   col: string,
   accounts: Account[],
