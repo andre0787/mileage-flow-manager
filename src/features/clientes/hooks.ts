@@ -1,8 +1,12 @@
 import { useMemo } from "react";
+import { toast } from "sonner";
+import { useAppDispatch } from "@/features/store";
 import { useUserId } from "@/hooks/useDatabase/shared";
+import { logError } from "@/lib/logger";
 import { calcCreditBalance } from "@/lib/clientCredits";
 import { clientesApi } from "./clientesApi";
 import { selectAllClients, selectClientEntities } from "./adapter";
+import type { AddClientAdvanceInput } from "@/types";
 
 export function useClientsQuery() {
   const userId = useUserId();
@@ -20,6 +24,55 @@ export function useClientsQuery() {
 
 export { useAddClientMutation, useUpdateClientMutation } from "./mutationHooksBasic";
 export { useDeleteClientMutation } from "./mutationHooksLifecycle";
+
+/** Adiantamento: dinheiro recebido do cliente antes de qualquer emissão. */
+export function useAddClientAdvanceMutation() {
+  const [trigger, result] = clientesApi.useAddClientAdvanceMutation();
+  const dispatch = useAppDispatch();
+  const userId = useUserId();
+  const refetchCredits = async (clientId: string) => {
+    await dispatch(
+      clientesApi.endpoints.getClientCredits.initiate(clientId, {
+        forceRefetch: true,
+        subscribe: false,
+      }),
+    ).unwrap();
+    if (userId) {
+      await dispatch(
+        clientesApi.endpoints.getAllClientCredits.initiate(undefined, {
+          forceRefetch: true,
+          subscribe: false,
+        }),
+      ).unwrap();
+    }
+  };
+  const mutate = (input: AddClientAdvanceInput, options?: { onSuccess?: () => void; onError?: () => void }) => {
+    trigger(input)
+      .unwrap()
+      .then(async () => {
+        await refetchCredits(input.clientId);
+        options?.onSuccess?.();
+      })
+      .catch((err) => {
+        logError("addClientAdvance", err);
+        options?.onError?.();
+        toast.error("Erro ao registrar adiantamento");
+      });
+  };
+  const mutateAsync = async (input: AddClientAdvanceInput, options?: { onSuccess?: () => void; onError?: () => void }) => {
+    try {
+      await trigger(input).unwrap();
+      await refetchCredits(input.clientId);
+      options?.onSuccess?.();
+    } catch (err) {
+      logError("addClientAdvance", err);
+      options?.onError?.();
+      toast.error("Erro ao registrar adiantamento");
+      throw err;
+    }
+  };
+  return { mutate, mutateAsync, isPending: result.isLoading, ...result };
+}
 
 export function useClientCreditsQuery(clientId: string) {
   const { data, isLoading, isError, error, refetch } = clientesApi.useGetClientCreditsQuery(

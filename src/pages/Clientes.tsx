@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useClientBalanceQuery } from "@/features/clientes/hooks";
-import { Plus, Users, Search, Edit, Trash2, Phone, AlertTriangle, UserPlus } from "lucide-react";
+import { Plus, Users, Search, Edit, Trash2, Phone, AlertTriangle, UserPlus, Banknote } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,10 +32,12 @@ import { useData } from "@/contexts/DataContext";
 import { SearchInput } from "@/components/ui/SearchInput";
 import {
   useAddClientMutation,
+  useAddClientAdvanceMutation,
   useUpdateClientMutation,
   useDeleteClientMutation,
 } from "@/hooks/useDatabase";
 import { formatDateBR } from "@/lib/dateUtils";
+import { movementEffect } from "@/lib/clientCredits";
 import { formatCPF } from "@/lib/utils";
 
 const ITEMS_PER_PAGE = 20;
@@ -50,11 +52,24 @@ function ClientCreditInfo({ clientId }: { clientId: string }) {
         <details className="text-xs text-muted-foreground">
           <summary className="cursor-pointer">Extrato</summary>
           <ul className="mt-1 space-y-0.5 text-left">
-            {movements.map((m) => (
-              <li key={m.id} className="tabular-nums">
-                {m.kind === "earn" ? "+" : m.kind === "spend" ? "−" : "↩"} R$ {m.amount.toFixed(2)}
-              </li>
-            ))}
+            {(() => {
+              let running = 0;
+              return movements.map((m) => {
+                running += movementEffect(m);
+                const advance = m.kind === "earn" && !m.saleId;
+                return (
+                  <li key={m.id} className="tabular-nums">
+                    {m.kind === "earn" ? "+" : m.kind === "spend" ? "−" : "↩"} R${" "}
+                    {m.amount.toFixed(2)}
+                    <span className="ml-1 text-[10px] opacity-70">
+                      {formatDateBR(m.createdAt)}
+                      {m.note ? ` · ${m.note}` : advance ? " · adiantamento" : ""}
+                    </span>
+                    <span className="float-right opacity-70">= R$ {running.toFixed(2)}</span>
+                  </li>
+                );
+              });
+            })()}
           </ul>
         </details>
       )}
@@ -66,6 +81,7 @@ export default function Clientes() {
   const { clients, sales, isLoading } = useData();
 
   const addClientM = useAddClientMutation();
+  const advanceM = useAddClientAdvanceMutation();
   const updateClientM = useUpdateClientMutation();
   const deleteClientM = useDeleteClientMutation();
 
@@ -90,6 +106,8 @@ export default function Clientes() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [advanceClient, setAdvanceClient] = useState<{ id: string; name: string } | null>(null);
+  const [advanceForm, setAdvanceForm] = useState({ amount: "", note: "" });
   const debouncedSearch = useDebounce(searchTerm, 300);
   const [deleteBlocked, setDeleteBlocked] = useState<{
     open: boolean;
@@ -177,6 +195,29 @@ export default function Clientes() {
 
   const handleCPFChange = (value: string) => {
     setNewClient({ ...newClient, cpf: formatCPF(value) });
+  };
+
+  /** Adiantamento: dinheiro recebido do cliente antes de qualquer emissão. */
+  const handleAdvance = () => {
+    if (!advanceClient) return;
+    advanceM.mutate(
+      {
+        clientId: advanceClient.id,
+        amount: Number(advanceForm.amount),
+        note: advanceForm.note,
+      },
+      {
+        onSuccess: () => {
+          setAdvanceClient(null);
+          setAdvanceForm({ amount: "", note: "" });
+        },
+      },
+    );
+  };
+
+  const openAdvanceDrawer = (client: { id: string; name: string }) => {
+    setAdvanceForm({ amount: "", note: "" });
+    setAdvanceClient(client);
   };
 
   if (isLoading) {
@@ -380,6 +421,55 @@ export default function Clientes() {
         </div>
       </FormDrawer>
 
+      {/* Adiantamento — dinheiro recebido antes da emissão (crédito do cliente) */}
+      <FormDrawer
+        open={advanceClient !== null}
+        onOpenChange={(open) => {
+          if (!open) setAdvanceClient(null);
+        }}
+        title={`Registrar Adiantamento — ${advanceClient?.name ?? ""}`}
+      >
+        <div className="grid gap-4 py-4">
+          <div className="space-y-2">
+            <Label htmlFor="advance-amount">Valor recebido (R$)</Label>
+            <Input
+              id="advance-amount"
+              type="number"
+              min="0.01"
+              step="0.01"
+              value={advanceForm.amount}
+              onChange={(e) => setAdvanceForm({ ...advanceForm, amount: e.target.value })}
+              placeholder="0,00"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="advance-note">Observação (origem do dinheiro)</Label>
+            <Input
+              id="advance-note"
+              value={advanceForm.note}
+              onChange={(e) => setAdvanceForm({ ...advanceForm, note: e.target.value })}
+              placeholder="Ex.: PIX recebido — adiantamento"
+            />
+          </div>
+          <p className="text-xs text-muted-foreground">
+            O valor entra como crédito do cliente no extrato e pode ser abatido
+            automaticamente ao receber a emissão (venda).
+          </p>
+        </div>
+        <div className="mt-4 flex justify-end gap-2">
+          <Button variant="outline" onClick={() => setAdvanceClient(null)}>
+            Cancelar
+          </Button>
+          <Button
+            onClick={handleAdvance}
+            disabled={!advanceForm.amount || Number(advanceForm.amount) <= 0 || advanceM.isPending}
+            className="bg-gradient-primary hover:opacity-90"
+          >
+            {advanceM.isPending ? "Registrando..." : "Registrar"}
+          </Button>
+        </div>
+      </FormDrawer>
+
       {/* Search - sticky on mobile */}
       <div className="sticky top-0 z-10 bg-background py-2 -mx-4 px-4 md:static md:mx-0 md:px-0">
         <div className="flex items-center gap-4">
@@ -503,6 +593,15 @@ export default function Clientes() {
                         <Button
                           size="sm"
                           variant="outline"
+                          title="Registrar adiantamento (dinheiro recebido antes da emissão)"
+                          className="px-2 min-w-[44px] min-h-[44px]"
+                          onClick={() => openAdvanceDrawer(client)}
+                        >
+                          <Banknote className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
                           className="px-2 min-w-[44px] min-h-[44px]"
                           onClick={() => handleEditClient(client)}
                         >
@@ -557,6 +656,15 @@ export default function Clientes() {
                 <div className="flex items-center justify-between">
                   <Badge variant="outline">{client.totalPurchases} compras</Badge>
                   <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      title="Registrar adiantamento (dinheiro recebido antes da emissão)"
+                      className="px-2 min-h-[44px] min-w-[44px]"
+                      onClick={() => openAdvanceDrawer(client)}
+                    >
+                      <Banknote className="h-4 w-4" />
+                    </Button>
                     <Button
                       size="sm"
                       variant="outline"

@@ -326,30 +326,33 @@ export interface Database {
           id: string;
           user_id: string;
           client_id: string;
-          sale_id: string;
+          sale_id: string | null;
           kind: "earn" | "spend" | "reversal";
           reversal_of: "earn" | "spend" | null;
           amount: number;
+          note: string | null;
           created_at: string;
         };
         Insert: {
           id?: string;
           user_id: string;
           client_id: string;
-          sale_id: string;
+          sale_id?: string | null;
           kind: "earn" | "spend" | "reversal";
           reversal_of?: "earn" | "spend" | null;
           amount: number;
+          note?: string | null;
           created_at?: string;
         };
         Update: {
           id?: string;
           user_id?: string;
           client_id?: string;
-          sale_id?: string;
+          sale_id?: string | null;
           kind?: "earn" | "spend" | "reversal";
           reversal_of?: "earn" | "spend" | null;
           amount?: number;
+          note?: string | null;
           created_at?: string;
         };
         Relationships: [];
