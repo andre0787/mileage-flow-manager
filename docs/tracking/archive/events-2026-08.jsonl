@@ -1560,3 +1560,15 @@
 {"timestamp":"2026-08-15T14:39:51.534Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p11-01-real-agent-foundation","commit":"6eae9aa","agent":"human","errors":0}
 {"timestamp":"2026-08-15T14:45:00.437Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p11-01-real-agent-foundation","commit":"5eb3ae1","agent":"human","errors":0}
 {"timestamp":"2026-08-15T14:46:47.902Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p11-01-real-agent-foundation","commit":"e3aed1d","agent":"human","errors":0}
+{"timestamp":"2026-08-15T14:48:10.609Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p11-01-real-agent-foundation","commit":"4cd597b","agent":"human","errors":0}
+{"timestamp":"2026-08-15T14:49:33.478Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p11-01-real-agent-foundation","commit":"c538426","agent":"human","errors":0}
+{"timestamp":"2026-08-15T14:52:55.553Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p11-01-real-agent-foundation","commit":"3845935","agent":"human","errors":0}
+{"timestamp":"2026-08-15T14:54:50.822Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p11-01-real-agent-foundation","commit":"6cdbfe2","agent":"human","errors":0}
+{"timestamp":"2026-08-15T15:00:01.405Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p11-01-real-agent-foundation","commit":"f7ca9f7","agent":"human","errors":0}
+{"timestamp":"2026-08-15T15:01:42.980Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/p11-01-real-agent-foundation","commit":"952d997","agent":"human","errors":0}
+{"timestamp":"2026-08-15T15:40:34.956Z","type":"rule:fail","description":"rule-31-lib-test-coverage falhou","branch":"feat/p11-01-real-agent-foundation","commit":"d14210a","agent":"human","rule":"rule-31-lib-test-coverage"}
+{"timestamp":"2026-08-15T15:40:34.990Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"feat/p11-01-real-agent-foundation","commit":"d14210a","agent":"human","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-08-15T15:40:35.025Z","type":"rule:fail","description":"rule-39-coding-gate falhou","branch":"feat/p11-01-real-agent-foundation","commit":"d14210a","agent":"human","rule":"rule-39-coding-gate"}
+{"timestamp":"2026-08-15T15:40:35.060Z","type":"rule:fail","description":"rule-41-optimizer falhou","branch":"feat/p11-01-real-agent-foundation","commit":"d14210a","agent":"human","rule":"rule-41-optimizer"}
+{"timestamp":"2026-08-15T15:41:14.304Z","type":"rule:fail","description":"rule-31-lib-test-coverage falhou","branch":"feat/p11-01-real-agent-foundation","commit":"d14210a","agent":"human","rule":"rule-31-lib-test-coverage"}
+{"timestamp":"2026-08-15T15:41:14.340Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"feat/p11-01-real-agent-foundation","commit":"d14210a","agent":"human","rule":"rule-38-code-review-gate"}

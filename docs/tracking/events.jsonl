@@ -389,3 +389,11 @@
 {"timestamp":"2026-09-07T20:40:26.603Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/contas-sort-media-entry-toggle","commit":"65b481d","agent":"pi","errors":0}
 {"timestamp":"2026-09-07T21:18:09.734Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/controle-cpf-passageiros","commit":"10eed17","agent":"pi","rule":"rule-26"}
 {"timestamp":"2026-09-07T21:18:10.430Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/controle-cpf-passageiros","commit":"10eed17","agent":"pi","errors":0}
+{"timestamp":"2026-09-07T21:18:15.472Z","type":"coding:done","description":"Controle CPF passageiros via subagente","branch":"feat/controle-cpf-passageiros","commit":"97d06f9","agent":"pi","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-09-07T21:20:12.643Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"feat/controle-cpf-passageiros","commit":"97d06f9","agent":"pi","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-09-07T21:20:21.687Z","type":"gate","description":"gate council executado (rule-27-council-veredict)","branch":"feat/controle-cpf-passageiros","commit":"97d06f9","agent":"pi","gate":"council","rule":"rule-27-council-veredict"}
+{"timestamp":"2026-09-07T21:20:21.721Z","type":"gate","description":"gate intent executado (rule-33-intent-gate)","branch":"feat/controle-cpf-passageiros","commit":"97d06f9","agent":"pi","gate":"intent","rule":"rule-33-intent-gate"}
+{"timestamp":"2026-09-07T21:20:21.755Z","type":"gate","description":"gate twins executado (rule-34-twins-check)","branch":"feat/controle-cpf-passageiros","commit":"97d06f9","agent":"pi","gate":"twins","rule":"rule-34-twins-check"}
+{"timestamp":"2026-09-07T21:20:21.789Z","type":"gate","description":"gate auth executado (rule-35-auth-gate)","branch":"feat/controle-cpf-passageiros","commit":"97d06f9","agent":"pi","gate":"auth","rule":"rule-35-auth-gate"}
+{"timestamp":"2026-09-07T21:21:00.355Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/controle-cpf-passageiros","commit":"97d06f9","agent":"pi","errors":0}
+{"timestamp":"2026-09-07T21:21:45.548Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/controle-cpf-passageiros","commit":"97d06f9","agent":"pi","errors":0}

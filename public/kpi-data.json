@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T20:31:18.955Z",
+  "generatedAt": "2026-09-07T21:21:04.484Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -97,8 +97,8 @@
     {
       "month": "2026-08",
       "prePrPassRate": 100,
-      "prePrTotal": 67,
-      "prePrPass": 67,
+      "prePrTotal": 61,
+      "prePrPass": 61,
       "prePrFail": 0,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -107,27 +107,27 @@
         "twins": 0,
         "auth": 0
       },
-      "avgOutcomeGrade": 91.3,
+      "avgOutcomeGrade": 91.2,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
-          "count": 37
+          "count": 35
         },
         {
           "rule": "rule-39-coding-gate",
-          "count": 18
+          "count": 17
         },
         {
           "rule": "rule-03-handoff-completeness",
           "count": 10
         },
         {
-          "rule": "rule-31-lib-test-coverage",
+          "rule": "rule-26-session-started",
           "count": 9
         },
         {
-          "rule": "rule-26-session-started",
-          "count": 9
+          "rule": "rule-31-lib-test-coverage",
+          "count": 7
         }
       ],
       "healedByRule": {
@@ -139,24 +139,24 @@
       },
       "avgCycleTimeHours": 0.9,
       "branchesMerged": 23,
-      "violationsCaught": 129,
-      "healedRate": 9.3,
-      "frictionPerPass": 1.93
+      "violationsCaught": 123,
+      "healedRate": 9.8,
+      "frictionPerPass": 2.02
     },
     {
       "month": "2026-09",
       "prePrPassRate": 100,
-      "prePrTotal": 64,
-      "prePrPass": 64,
+      "prePrTotal": 69,
+      "prePrPass": 69,
       "prePrFail": 0,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
       "gateActivations": {
-        "intent": 3,
-        "twins": 2,
-        "auth": 2
+        "intent": 4,
+        "twins": 3,
+        "auth": 3
       },
-      "avgOutcomeGrade": 83.3,
+      "avgOutcomeGrade": 84,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
@@ -181,14 +181,14 @@
       ],
       "healedByRule": {
         "rule-17-new-docs-valid": 4,
-        "rule-26": 1
+        "rule-26": 2
       },
       "gateBlockedByRule": {},
       "avgCycleTimeHours": 0.3,
-      "branchesMerged": 23,
+      "branchesMerged": 24,
       "violationsCaught": 37,
-      "healedRate": 13.5,
-      "frictionPerPass": 0.58
+      "healedRate": 16.2,
+      "frictionPerPass": 0.54
     }
   ],
   "daily": [
@@ -273,15 +273,15 @@
     {
       "day": "2026-08-15",
       "label": "15/08",
-      "prePrTotal": 28,
-      "prePrPass": 28,
+      "prePrTotal": 22,
+      "prePrPass": 22,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 59,
+      "ruleFails": 53,
       "healed": 8,
       "sessions": 5,
       "merges": 7,
-      "friction": 2.11
+      "friction": 2.41
     },
     {
       "day": "2026-08-16",
@@ -572,18 +572,28 @@
     {
       "day": "2026-09-07",
       "label": "07/09",
-      "prePrTotal": 10,
-      "prePrPass": 10,
+      "prePrTotal": 15,
+      "prePrPass": 15,
       "prePrFail": 0,
       "prePrPassRate": 100,
       "ruleFails": 6,
-      "healed": 1,
+      "healed": 2,
       "sessions": 0,
-      "merges": 5,
-      "friction": 0.6
+      "merges": 6,
+      "friction": 0.4
     }
   ],
   "prs": [
+    {
+      "number": 563,
+      "title": "feat contas: ordenação total + média/un + toggle pontos/milhas no registro",
+      "type": "feat",
+      "date": "2026-09-07",
+      "tokens": 1179,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio",
+      "cycleHours": 0.1
+    },
     {
       "number": 562,
       "title": "fix(kpi): pipeline de processo mede gates, PRs e cycle time de verdade",
@@ -673,35 +683,25 @@
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio",
       "cycleHours": 0.1
-    },
-    {
-      "number": 553,
-      "title": "feat(relatorios) — Pipeline operacional + 4-keys (F1+F2)",
-      "type": "feat",
-      "date": "2026-09-06",
-      "tokens": 912,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio",
-      "cycleHours": 0.1
     }
   ],
   "repo": {
-    "components": 150,
+    "components": 156,
     "pages": 18,
-    "libs": 46,
+    "libs": 49,
     "scripts": 124,
-    "testFiles": 335,
+    "testFiles": 341,
     "skills": 27,
     "rules": 48,
     "events": 398,
     "qualityNotes": 516
   },
   "summary": {
-    "merges": 46,
+    "merges": 47,
     "prs": 10,
     "sessions": 7,
-    "violations": 166,
-    "healed": 17,
+    "violations": 160,
+    "healed": 18,
     "prePrPassRate": 100
   },
   "telemetry": []
