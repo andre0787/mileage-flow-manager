@@ -25,6 +25,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        # Histórico completo: fetchPrs precisa dos merge commits (git log
+        # --merges -40); checkout raso produzia prs: [] no snapshot do KPI.
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -77,13 +81,13 @@ jobs:
       - name: Refresh dashboard data (KPIs diários + aba Workflow)
         # fetchTelemetryCost usa SUPABASE_SERVICE_KEY/ANON_KEY para agregar a
         # ai_telemetry no snapshot (aba KPI — Custo por Funcionalidade offline).
+        # GH_TOKEN: fetchPrs consulta `gh pr view` — sem token os KPIs de PR
+        # saem vazios no snapshot (prs: []).
         run: npm run data:refresh
         env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ohyplfpcwxzakujjfwdf.supabase.co' }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY || '' }}
-
-      - name: Refresh dashboard data (KPIs diários + aba Workflow)
-        run: npm run data:refresh
 
       - name: Disable pre-commit hooks (bot commit — pre-pr não roda no CI)
         run: mkdir -p /tmp/no-hooks && git config core.hooksPath /tmp/no-hooks

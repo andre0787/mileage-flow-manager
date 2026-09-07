@@ -79,6 +79,7 @@ const logger = {
 const GATE_RULES = new Map([
   ["rule-27-council-veredict", "council"],
   ["rule-33-intent-gate", "intent"],
+  ["rule-34-twins-check", "twins"],
   ["rule-35-auth-gate", "auth"],
 ]);
 
@@ -266,6 +267,16 @@ for (const file of ruleFiles) {
   // perder proteção. (fricção 2026-08-12: rule-10 = 47% de todas as rule:fail)
   const env = { ...process.env };
   if (file === "rule-10-clean.mjs") env.PRE_PR_CONTEXT = "1";
+  const ruleName = file.replace(/\.mjs$/, "");
+  const gate = GATE_RULES.get(ruleName);
+  if (gate) {
+    // Telemetria de ATIVAÇÃO: gate executado (pass ou fail), evento type
+    // "gate" (tipo já registrado no process-events). Antes o pre-pr só
+    // emitia gate:blocked, e gateActivations ficava travado em 0 nos KPIs.
+    pendingEvents.push(
+      `node scripts/event-log.mjs gate "gate ${gate} executado (${ruleName})" --meta '{"gate":"${gate}","rule":"${ruleName}","branch":"${gitExec("git rev-parse --abbrev-ref HEAD").trim()}"}'`,
+    );
+  }
   try {
     const out = execSync(`node "${rulePath}"`, {
       cwd: ROOT,
@@ -280,8 +291,6 @@ for (const file of ruleFiles) {
     if (e.stderr) process.stderr.write(e.stderr + "\n");
     // Bufferiza o evento (rule:fail/gate:blocked) — o flush ocorre DEPOIS do
     // loop para não sujar events.jsonl durante a execução do rule-10-clean.
-    const ruleName = file.replace(/\.mjs$/, "");
-    const gate = GATE_RULES.get(ruleName);
     if (gate) {
       logger.log(`  🔐 gate:blocked — ${ruleName} (${gate}): julgamento humano requerido`);
       pendingEvents.push(

@@ -22,7 +22,10 @@ function gitCheckoutHandoff() {
       execSync("git checkout -- docs/handoff.md", {
         cwd: ROOT,
         encoding: "utf8",
-        timeout: 3000,
+        // Runners de CI frios demoram >5s em operações git (flake visto em
+        // 2026-09-07: 2 reruns de CI queimados). 15s dá folga sem afetar
+        // velocidade local (comandos típicos <1s).
+        timeout: 15000,
       });
       return;
     } catch (err) {
@@ -84,7 +87,7 @@ describe("session-start", () => {
       execSync(`node "${SCRIPT}" --set-category invalida objetivo`, {
         cwd: ROOT,
         encoding: "utf8",
-        timeout: 5000,
+        timeout: 15000,
       })
     ).toThrow();
   });
@@ -94,7 +97,7 @@ describe("session-start", () => {
       execSync(`node "${SCRIPT}" --set-category`, {
         cwd: ROOT,
         encoding: "utf8",
-        timeout: 5000,
+        timeout: 15000,
       })
     ).toThrow();
   });
@@ -104,7 +107,7 @@ describe("session-start", () => {
       execSync(`node "${SCRIPT}" --set-category "" "objetivo"`, {
         cwd: ROOT,
         encoding: "utf8",
-        timeout: 5000,
+        timeout: 15000,
       })
     ).toThrow();
   });
@@ -115,7 +118,7 @@ describe("session-start", () => {
     restoreHandoff();
     const out = execSync(
       `node "${SCRIPT}" --set-category docs "teste docs"`,
-      { cwd: ROOT, encoding: "utf8", timeout: 5000 }
+      { cwd: ROOT, encoding: "utf8", timeout: 15000 }
     );
     expect(out).toContain("✅ Sessão iniciada: docs — teste docs");
     expect(getSessaoAtual()?.categoria).toBe("docs");
@@ -127,7 +130,7 @@ describe("session-start", () => {
     restoreHandoff();
     const out = execSync(
       `node "${SCRIPT}" --set-category bugfix "corrige bug"`,
-      { cwd: ROOT, encoding: "utf8", timeout: 5000 }
+      { cwd: ROOT, encoding: "utf8", timeout: 15000 }
     );
     expect(out).toContain("✅ Sessão iniciada: bugfix — corrige bug");
     expect(getSessaoAtual()?.categoria).toBe("bugfix");
@@ -137,7 +140,7 @@ describe("session-start", () => {
     restoreHandoff();
     const out = execSync(
       `node "${SCRIPT}" --set-category refactor "refatora modulo"`,
-      { cwd: ROOT, encoding: "utf8", timeout: 5000 }
+      { cwd: ROOT, encoding: "utf8", timeout: 15000 }
     );
     expect(out).toContain("✅ Sessão iniciada: refactor — refatora modulo");
     expect(getSessaoAtual()?.categoria).toBe("refactor");
@@ -225,7 +228,7 @@ describe("session-start", () => {
     restoreHandoff();
     const out = execSync(
       `node "${SCRIPT}" --set-category docs "verifica output"`,
-      { cwd: ROOT, encoding: "utf8", timeout: 5000 }
+      { cwd: ROOT, encoding: "utf8", timeout: 15000 }
     );
     expect(out).toContain("branch:");
     expect(out).toContain("commit:");

@@ -174,14 +174,16 @@ export function isPrePrFail(e) {
  * @param {string} monthLabel - "YYYY-MM"
  * @returns {MonthlyKPI}
  */
-export function computeMonthlyKPI(events, monthLabel) {
+export function computeMonthlyKPI(events, monthLabel, prs = []) {
   const prePrs = events.filter((e) => e.type === "pre-pr");
   const total = prePrs.length;
   const passes = prePrs.filter(isPrePrPass).length;
   const fails = prePrs.filter(isPrePrFail).length;
   const prePrPassRate = total > 0 ? Math.round((passes / total) * 1000) / 10 : 0;
 
-  const gates = events.filter((e) => e.type === "gate");
+  // Ativação = gate EXECUTADO (evento gate:run emitido pelo pre-pr, pass ou
+  // fail). Fallback "gate" mantém compat com eventos antigos.
+  const gates = events.filter((e) => e.type === "gate:run" || e.type === "gate");
   const gateActivations = {
     intent: gates.filter((e) => e.gate === "intent" || e.data?.gate === "intent").length,
     twins: gates.filter((e) => e.gate === "twins" || e.data?.gate === "twins").length,
@@ -191,7 +193,16 @@ export function computeMonthlyKPI(events, monthLabel) {
   const { avgOutcomeGrade, testCoverageLibs, testCoverageComponents } =
     parseReportsForMonth(monthLabel);
 
-  const avgCycleTimeHours = computeCycleTime(events);
+  // Cycle time: fonte primária são as PRs do GitHub (criação → merge, dados
+  // reais e confiáveis); fallback para o par session:start → pre-pr PASS nos
+  // eventos (raro, deixava o indicador sempre null).
+  const prCycles = (prs ?? [])
+    .filter((p) => typeof p.cycleHours === "number" && (p.date || "").startsWith(monthLabel))
+    .map((p) => p.cycleHours);
+  const avgCycleTimeHours =
+    prCycles.length > 0
+      ? Math.round((prCycles.reduce((s, h) => s + h, 0) / prCycles.length) * 10) / 10
+      : computeCycleTime(events);
 
   // Top violações: eventos rule:fail registrados pelo pre-pr (regra + contagem)
   const violationsByRule = {};
