@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-07T21:21:04.516Z",
+  "generatedAt": "2026-09-07T21:36:22.982Z",
   "dataDate": "2026-09-07",
   "kpiStats": [
     {
-      "value": 398,
+      "value": 426,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 516,
+      "value": 531,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 18,
+      "value": 19,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 33,
+      "value": 34,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,22 +41,22 @@
     },
     {
       "name": "pre-pr",
-      "n": 130,
+      "n": 134,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 160,
+      "n": 162,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 18,
+      "n": 19,
       "color": "#10b981"
     },
     {
       "name": "code-review:done",
-      "n": 36,
+      "n": 37,
       "color": "#6366f1"
     },
     {
@@ -71,7 +71,7 @@
     },
     {
       "name": "gate",
-      "n": 13,
+      "n": 33,
       "color": "#f43f5e"
     },
     {
@@ -83,7 +83,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 173,
+      "n": 178,
       "color": "#10b981"
     },
     {
@@ -99,58 +99,58 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-09-07 21:21:00",
+      "t": "2026-09-07 21:36:18",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-07 21:20:21",
+      "t": "2026-09-07 21:35:42",
       "d": "gate",
       "desc": "gate auth executado (rule-35-auth-gate)"
     },
     {
-      "t": "2026-09-07 21:20:21",
+      "t": "2026-09-07 21:35:42",
       "d": "gate",
       "desc": "gate twins executado (rule-34-twins-check)"
     },
     {
-      "t": "2026-09-07 21:20:21",
+      "t": "2026-09-07 21:35:42",
       "d": "gate",
       "desc": "gate intent executado (rule-33-intent-gate)"
     },
     {
-      "t": "2026-09-07 21:20:21",
+      "t": "2026-09-07 21:35:42",
       "d": "gate",
       "desc": "gate council executado (rule-27-council-veredict)"
     },
     {
-      "t": "2026-09-07 21:20:12",
-      "d": "code-review:done",
-      "desc": "Review aprovado por subagente"
-    },
-    {
-      "t": "2026-09-07 21:18:15",
-      "d": "coding:done",
-      "desc": "Controle CPF passageiros via subagente"
-    },
-    {
-      "t": "2026-09-07 21:18:10",
+      "t": "2026-09-07 21:35:17",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-07 21:34:41",
+      "d": "gate",
+      "desc": "gate auth executado (rule-35-auth-gate)"
+    },
+    {
+      "t": "2026-09-07 21:34:41",
+      "d": "gate",
+      "desc": "gate twins executado (rule-34-twins-check)"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 160,
-    "healed": 18,
-    "healedRate": 11.3,
-    "prePrTotal": 130,
-    "prePrPass": 130,
+    "ruleFails": 162,
+    "healed": 19,
+    "healedRate": 11.7,
+    "prePrTotal": 134,
+    "prePrPass": 134,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 45,
+        "count": 47,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
@@ -176,6 +176,16 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 565,
+      "title": "feat controle-cpf — passageiros por dono/programa com filtro global e sinal de duplicados",
+      "type": "feat",
+      "date": "2026-09-07",
+      "tokens": 1556,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio",
+      "cycleHours": 0.1
+    },
     {
       "number": 563,
       "title": "feat contas: ordenação total + média/un + toggle pontos/milhas no registro",
@@ -215,16 +225,6 @@
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio",
       "cycleHours": 1.4
-    },
-    {
-      "number": 559,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-07",
-      "tokens": 513,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
     }
   ],
   "overview": {
@@ -235,7 +235,7 @@
     "testFiles": 341,
     "skills": 27,
     "rules": 48,
-    "events": 398,
-    "qualityNotes": 516
+    "events": 426,
+    "qualityNotes": 531
   }
 }
