@@ -35,18 +35,14 @@ export interface EntryTableProps {
   onCreateClick?: () => void;
 }
 
-export function getOrigemTypeName(
-  id: string,
-  origemTypes: OrigemType[],
-  programs: Program[],
-): string {
+function getOrigemTypeName(id: string, origemTypes: OrigemType[], programs: Program[]): string {
   const ot = origemTypes.find((item) => item.id === id);
   if (ot) return ot.name;
   const prog = programs.find((p) => p.id === id);
   return prog?.name ?? id;
 }
 
-export function getSortValue(
+function getSortValue(
   entry: PointEntry,
   col: string,
   accounts: Account[],

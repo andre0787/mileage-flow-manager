@@ -201,11 +201,21 @@ export type CreditMovementKind = "earn" | "spend" | "reversal";
 export interface ClientCredit {
   id: string;
   clientId: string;
-  saleId: string;
+  /** Venda vinculada — undefined em adiantamento (crédito ANTES da emissão). */
+  saleId?: string;
   kind: CreditMovementKind;
   reversalOf?: "earn" | "spend";
   amount: number;
+  /** Descrição livre (ex.: "PIX recebido", "adiantamento via transferência"). */
+  note?: string;
   createdAt: string;
+}
+
+/** Entrada do adiantamento: dinheiro recebido do cliente antes de qualquer venda. */
+export interface AddClientAdvanceInput {
+  clientId: string;
+  amount: number;
+  note?: string;
 }
 
 /** Entrada da mutation única de recebimento com crédito (contrato com Worker B). */

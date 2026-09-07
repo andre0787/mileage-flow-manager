@@ -70,7 +70,11 @@ export function computeLeadDays(sales: SaleLike[], entries: EntryLike[]): number
 
 /** Reversões por venda (kind reversal) — base do CFR e do MTTR. */
 function reversalSaleIds(movements: MoveLike[]): Set<string> {
-  return new Set(movements.filter((m) => m.kind === "reversal").map((m) => m.saleId));
+  return new Set(
+    movements
+      .filter((m) => m.kind === "reversal" && typeof m.saleId === "string")
+      .map((m) => m.saleId as string),
+  );
 }
 
 /**
@@ -81,6 +85,7 @@ function reversalSaleIds(movements: MoveLike[]): Set<string> {
 export function computeMttrDays(movements: MoveLike[]): { days: number | null; pairs: number } {
   const bySale = new Map<string, MoveLike[]>();
   for (const m of movements) {
+    if (typeof m.saleId !== "string") continue;
     const list = bySale.get(m.saleId) ?? [];
     list.push(m);
     bySale.set(m.saleId, list);

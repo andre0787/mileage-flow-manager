@@ -125,3 +125,34 @@ export function planCancelReversals(movementsOfSale: CreditLike[]): PlannedRever
     }))
     .filter((r) => r.amount > 0);
 }
+
+export interface PlanAdvanceInput {
+  amount: number;
+  note?: string;
+}
+
+export interface PlanAdvanceResult {
+  ok: boolean;
+  /** Valor sanitizado (2 casas) — undefined quando ok = false. */
+  amount?: number;
+  note?: string;
+  error?: string;
+}
+
+/**
+ * Planeja um adiantamento: dinheiro recebido do cliente ANTES de qualquer
+ * emissão (vira 'earn' sem venda no ledger). Regras puras — UI e API
+ * consomem daqui.
+ */
+export function planAdvance(input: PlanAdvanceInput): PlanAdvanceResult {
+  const raw = Number(input.amount);
+  if (!Number.isFinite(raw)) {
+    return { ok: false, error: "Informe um valor válido" };
+  }
+  const amount = Math.round(raw * 100) / 100;
+  if (amount <= CREDIT_EPSILON) {
+    return { ok: false, error: "Informe um valor maior que zero" };
+  }
+  const note = typeof input.note === "string" ? input.note.trim().slice(0, 200) : "";
+  return { ok: true, amount, note: note || undefined };
+}

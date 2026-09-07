@@ -37,7 +37,6 @@ export function SaleRefundDialog({
 
   // Pré-preenche ao ABRIR; refetch de `received` com o dialog aberto não
   // apaga a digitação (só sucesso limpa — ver onConfirm abaixo).
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (open) setValue(received ? received.toFixed(2) : "");
   }, [open]);

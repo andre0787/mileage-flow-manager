@@ -107,10 +107,11 @@ export function mapClientCredit(
   return {
     id: row.id,
     clientId: row.client_id,
-    saleId: row.sale_id,
+    saleId: row.sale_id ?? undefined,
     kind: row.kind,
     reversalOf: row.reversal_of ?? undefined,
     amount: Number(row.amount),
+    note: row.note ?? undefined,
     createdAt: row.created_at,
   };
 }
