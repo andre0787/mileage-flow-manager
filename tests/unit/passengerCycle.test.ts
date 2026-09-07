@@ -1,47 +1,81 @@
 import { describe, expect, it } from "vitest";
-import { getCycleLabel, isInCurrentCycle } from "@/lib/passengerCycle";
-import type { Program } from "@/types";
+import { countPassengersInCycle, type CycleSale } from "@/lib/passengerCycle";
 
-describe("passengerCycle", () => {
+const mk = (id: string, ownerName: string, program: string, date: string, n: number): CycleSale => ({
+  id,
+  ownerName,
+  program,
+  date,
+  passengers: Array.from({ length: n }, (_, i) => ({ i })),
+});
+
+describe("countPassengersInCycle", () => {
   const currentYear = new Date().getFullYear();
-  const base: Program = { id: "p1", name: "Smiles", type: "milhas" };
 
-  it("ciclo anual inclui vendas do ano atual e exclui outros anos", () => {
-    const program: Program = { ...base, passengerCycleType: "anual" };
-    expect(isInCurrentCycle(program, `${currentYear}-01-01`)).toBe(true);
-    expect(isInCurrentCycle(program, `${currentYear}-12-31`)).toBe(true);
-    expect(isInCurrentCycle(program, `${currentYear - 1}-06-15`)).toBe(false);
+  it("conta só o dono informado (limite é por dono, não global)", () => {
+    const sales = [
+      mk("s1", "Rodrigo lemes", "Latam", `${currentYear}-03-10`, 20),
+      mk("s2", "Fabio Ivo", "Latam", `${currentYear}-04-11`, 22),
+    ];
+    const used = countPassengersInCycle(sales, {
+      program: "Latam",
+      ownerName: "Rodrigo lemes",
+      cycleType: "anual",
+    });
+    // 22 do outro dono não somam — regressão do bloqueio indevido da issue #569
+    expect(used).toBe(20);
   });
 
-  it("programa sem tipo de ciclo usa o ano atual", () => {
-    expect(isInCurrentCycle(base, `${currentYear}-05-10`)).toBe(true);
-    expect(isInCurrentCycle(base, `${currentYear - 1}-05-10`)).toBe(false);
+  it("ignora outros programas", () => {
+    const sales = [
+      mk("s1", "Rodrigo lemes", "Latam", `${currentYear}-03-10`, 5),
+      mk("s2", "Rodrigo lemes", "Smiles", `${currentYear}-03-10`, 7),
+    ];
+    expect(
+      countPassengersInCycle(sales, { program: "Latam", ownerName: "Rodrigo lemes", cycleType: "anual" }),
+    ).toBe(5);
   });
 
-  it("ciclo por dias respeita a janela e ignora limite <= 0", () => {
-    const program: Program = {
-      ...base,
-      passengerCycleType: "dias",
-      passengerCycleDays: 30,
-    };
+  it("exclui a venda em edição (sem dupla contagem)", () => {
+    const sales = [
+      mk("s1", "Rodrigo lemes", "Latam", `${currentYear}-03-10`, 3),
+      mk("s2", "Rodrigo lemes", "Latam", `${currentYear}-04-11`, 2),
+    ];
+    expect(
+      countPassengersInCycle(sales, {
+        program: "Latam",
+        ownerName: "Rodrigo lemes",
+        editingSaleId: "s2",
+        cycleType: "anual",
+      }),
+    ).toBe(3);
+  });
+
+  it("ciclo anual conta só o ano vigente", () => {
+    const sales = [
+      mk("s1", "Ana", "Smiles", `${currentYear}-02-15`, 4),
+      mk("s2", "Ana", "Smiles", `${currentYear - 1}-11-20`, 6),
+    ];
+    expect(
+      countPassengersInCycle(sales, { program: "Smiles", ownerName: "Ana", cycleType: "anual" }),
+    ).toBe(4);
+  });
+
+  it("ciclo em dias respeita o cutoff", () => {
     const today = new Date();
     const recent = new Date(today.getTime() - 5 * 86400000).toISOString().split("T")[0];
     const old = new Date(today.getTime() - 40 * 86400000).toISOString().split("T")[0];
-    expect(isInCurrentCycle(program, recent)).toBe(true);
-    expect(isInCurrentCycle(program, old)).toBe(false);
-
-    const noLimit: Program = {
-      ...base,
-      passengerCycleType: "dias",
-      passengerCycleDays: 0,
-    };
-    expect(isInCurrentCycle(noLimit, old)).toBe(true);
-  });
-
-  it("getCycleLabel descreve o ciclo vigente", () => {
-    expect(getCycleLabel(base)).toBe(currentYear.toString());
-    expect(getCycleLabel({ ...base, passengerCycleType: "dias", passengerCycleDays: 30 })).toBe(
-      "Últimos 30 dias",
-    );
+    const sales = [
+      mk("s1", "Carlos", "TudoAzul", recent, 2),
+      mk("s2", "Carlos", "TudoAzul", old, 9),
+    ];
+    expect(
+      countPassengersInCycle(sales, {
+        program: "TudoAzul",
+        ownerName: "Carlos",
+        cycleType: "dias",
+        cycleDays: 30,
+      }),
+    ).toBe(2);
   });
 });

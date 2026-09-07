@@ -433,3 +433,7 @@
 {"timestamp":"2026-09-07T22:39:50.762Z","type":"gate","description":"gate twins executado (rule-34-twins-check)","branch":"chore/cleanup-orgaos-geral","commit":"22c810b","agent":"pi","gate":"twins","rule":"rule-34-twins-check"}
 {"timestamp":"2026-09-07T22:39:50.797Z","type":"gate","description":"gate auth executado (rule-35-auth-gate)","branch":"chore/cleanup-orgaos-geral","commit":"22c810b","agent":"pi","gate":"auth","rule":"rule-35-auth-gate"}
 {"timestamp":"2026-09-07T22:40:28.884Z","type":"pre-pr","description":"pre-pr PASS","branch":"chore/cleanup-orgaos-geral","commit":"22c810b","agent":"pi","errors":0}
+{"timestamp":"2026-09-07T22:51:14.235Z","type":"coding:done","description":"Codificação por subagente concluída","branch":"fix/limite-passageiros-por-dono","commit":"658825d","agent":"pi","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-09-07T22:51:53.579Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"fix/limite-passageiros-por-dono","commit":"658825d","agent":"pi","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-09-07T22:52:00.297Z","type":"healed","description":"rule-26 auto-corrigido","branch":"fix/limite-passageiros-por-dono","commit":"658825d","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-09-07T22:52:00.991Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/limite-passageiros-por-dono","commit":"658825d","agent":"pi","errors":0}
