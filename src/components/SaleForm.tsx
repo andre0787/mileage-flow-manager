@@ -14,8 +14,9 @@ import {
 } from "@/components/ui/select";
 import { FormDrawer } from "@/components/FormDrawer";
 import { formatCPF } from "@/lib/utils";
-import { isValidISODate, parseDateOnly, todayISODate } from "@/lib/dateUtils";
+import { isValidISODate, todayISODate } from "@/lib/dateUtils";
 import { calcProfit, calcProfitMargin } from "@/lib/metrics";
+import { countPassengersInCycle } from "@/lib/passengerCycle";
 import type { Account, Owner, Program, Client, Sale, SaleKind, ServiceType } from "@/types";
 
 export interface AdditionalCostItem {
@@ -191,23 +192,17 @@ export function SaleForm({
     [programs, selectedProgramStock],
   );
 
-  // Passenger cycle validation
+  // Passenger cycle validation (limite por dono: vendas de outros donos não somam)
   const usedPassengersInCycle = useMemo(() => {
     if (!programConfig?.passengerCycleType || !programConfig?.maxPassengers) return 0;
-    // Exclui a venda em edição — senão os próprios passageiros contam 2x
-    // (uma vez em `sales`, outra em `form.passengers`).
-    let relevant = sales.filter((s) => s.program === form.program && s.id !== editingSaleId);
-    if (programConfig.passengerCycleType === "anual") {
-      const year = new Date().getFullYear();
-      relevant = relevant.filter((s) => parseDateOnly(s.date).getFullYear() === year);
-    } else if (programConfig.passengerCycleType === "dias" && programConfig.passengerCycleDays) {
-      const cutoff = new Date();
-      cutoff.setDate(cutoff.getDate() - programConfig.passengerCycleDays);
-      cutoff.setHours(0, 0, 0, 0);
-      relevant = relevant.filter((s) => parseDateOnly(s.date) >= cutoff);
-    }
-    return relevant.reduce((sum, s) => sum + s.passengers.length, 0);
-  }, [sales, form.program, programConfig, editingSaleId]);
+    return countPassengersInCycle(sales, {
+      program: form.program,
+      ownerName: form.ownerName,
+      editingSaleId,
+      cycleType: programConfig.passengerCycleType,
+      cycleDays: programConfig.passengerCycleDays,
+    });
+  }, [sales, form.program, form.ownerName, programConfig, editingSaleId]);
 
   // Soma dos custos adicionais dinâmicos (fallback para o campo legado)
   const additionalCostsTotal = useMemo(() => {

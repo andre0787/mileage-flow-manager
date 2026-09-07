@@ -25,3 +25,49 @@ export function getCycleLabel(program: Program): string {
   }
   return new Date().getFullYear().toString();
 }
+
+/** Venda mínima necessária para a contagem de passageiros do ciclo. */
+export interface CycleSale {
+  id: string;
+  program: string;
+  ownerName?: string | null;
+  date: string;
+  passengers: readonly unknown[];
+}
+
+/** Filtros da contagem de passageiros do ciclo. */
+export interface PassengerCycleCountInput {
+  program: string;
+  ownerName: string;
+  editingSaleId?: string;
+  cycleType?: Program["passengerCycleType"];
+  cycleDays?: number;
+  now?: Date;
+}
+
+/**
+ * Conta passageiros usados no ciclo vigente por (programa + dono).
+ * O limite do programa é por dono: vendas de outros donos nunca somam.
+ * A venda em edição é excluída para não contar 2x (sales + formulário).
+ */
+export function countPassengersInCycle(
+  sales: CycleSale[],
+  input: PassengerCycleCountInput,
+): number {
+  const now = input.now ?? new Date();
+  const owner = input.ownerName ?? "";
+  let relevant = sales.filter(
+    (s) =>
+      s.program === input.program && (s.ownerName ?? "") === owner && s.id !== input.editingSaleId,
+  );
+  if (input.cycleType === "anual") {
+    const year = now.getFullYear();
+    relevant = relevant.filter((s) => parseDateOnly(s.date).getFullYear() === year);
+  } else if (input.cycleType === "dias" && input.cycleDays) {
+    const cutoff = new Date(now);
+    cutoff.setDate(cutoff.getDate() - input.cycleDays);
+    cutoff.setHours(0, 0, 0, 0);
+    relevant = relevant.filter((s) => parseDateOnly(s.date) >= cutoff);
+  }
+  return relevant.reduce((sum, s) => sum + s.passengers.length, 0);
+}
