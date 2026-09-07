@@ -5,7 +5,7 @@
  *
  * Lê docs/tracking/envelopes.jsonl (canônico) + events.jsonl (legado), filtra
  * envelopes persistíveis (eventos execution, agent e graph.query) e insere na
- * ai_telemetry via REST.
+ * ai_telemetry via REST (upsert idempotente em event_id).
  * Fail-open: sem credenciais ou falha de rede → imprime e sai com 0.
  *
  * Uso:
@@ -17,6 +17,12 @@
  */
 
 import { readFileSync, writeFileSync, existsSync, openSync, closeSync, unlinkSync, statSync } from "fs";
+
+/**
+ * NOTA (2026-09-07): os envelopes antigos usavam model "unset" — agora
+ * persistem com model NULL (identidade de modelo ausente ≠ envelope inválido).
+ * A validação estrita de modelo continua no isEnvelopeComplete (UI/exec).
+ */
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 import { execSync } from "child_process";
@@ -28,7 +34,7 @@ const EVENTS_PATH = resolve(ROOT, "docs/tracking/events.jsonl");
 const ENVELOPES_PATH = resolve(ROOT, "docs/tracking/envelopes.jsonl");
 const DRY_RUN = process.argv.includes("--dry-run");
 const SESSION_ID = process.env.TELEMETRY_SESSION_ID;
-const USER_ID = process.env.TELEMETRY_USER_ID || process.env.SUPABASE_USER_ID;
+const USER_ID = process.env.TELEMETRY_USER_ID || process.env.SUPABASE_USER_ID || null;
 const PERSISTED_IDS_PATH = resolve(ROOT, "docs/tracking/telemetry-persisted.json");
 const PERSIST_LOCK_PATH = resolve(ROOT, "docs/tracking/.telemetry-persist.lock");
 let persistLockFd = null;
@@ -125,6 +131,7 @@ function toRecord(env) {
   const costPer1k = 0.003;
   const cost = Math.round((tokensUsed / 1000) * costPer1k * 100000) / 100000;
   return {
+    event_id: env.eventId,
     user_id: USER_ID,
     session_id: SESSION_ID || env.sessionId || git("git rev-parse --abbrev-ref HEAD"),
     area: env.agentRole ?? env.agentAdapter ?? null,
@@ -145,8 +152,11 @@ function toRecord(env) {
 }
 
 // ── Executa ───────────────────────────────────────────────────────────────
-if (!USER_ID) {
-  console.log("⚠️ TELEMETRY_USER_ID ausente — nada persistido (fail-open)");
+// user_id é opcional: com SUPABASE_SERVICE_KEY o service role burla RLS e o
+// registro fica como SISTEMA (user_id NULL) — visível no browser pela policy
+// anon (migration 20260907010000). Sem service key, exige TELEMETRY_USER_ID.
+if (!USER_ID && !process.env.SUPABASE_SERVICE_KEY) {
+  console.log("⚠️ TELEMETRY_USER_ID ausente (e sem SUPABASE_SERVICE_KEY) — nada persistido (fail-open)");
   process.exit(0);
 }
 
@@ -163,14 +173,8 @@ const persistableEvents = events.filter(
     !persistedIds.has(e.eventId) &&
     typeof e.eventType === "string" &&
     PERSISTABLE.test(e.eventType) &&
-    typeof e.model === "string" &&
-    e.model.length > 0 &&
-    e.model !== "unset" &&
-    validMetric(e.inputTokens) &&
-    validMetric(e.outputTokens) &&
-    validMetric(e.tokensSaved) &&
-    validMetric(e.durationMs) &&
-    (e.success === undefined || typeof e.success === "boolean"),
+    // model "unset"/ausente persiste como NULL — não descarta o envelope.
+    (e.model === undefined || typeof e.model === "string"),
 );
 const envelopes = persistableEvents.map(toRecord);
 
@@ -190,13 +194,14 @@ let inserted = 0;
 for (let index = 0; index < envelopes.length; index += 1) {
   const record = envelopes[index];
   try {
-    const res = await fetch(`${url}/rest/v1/ai_telemetry`, {
+    // Idempotente: conflito em event_id → merge-duplicates (upsert), não erro.
+    const res = await fetch(`${url}/rest/v1/ai_telemetry?on_conflict=event_id`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         apikey: serviceKey || anonKey,
         Authorization: `Bearer ${serviceKey || anonKey}`,
-        Prefer: "return=minimal",
+        Prefer: "resolution=merge-duplicates,return=minimal",
       },
       body: JSON.stringify(record),
     });

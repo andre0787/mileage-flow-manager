@@ -14,6 +14,7 @@ import { hasValidModelIdentity } from "./completeness";
 import { estimateCost } from "@/lib/aiTelemetry";
 
 export interface TelemetryRecord {
+  event_id?: string | null;
   session_id: string;
   area?: string | null;
   tokens_used: number;
@@ -39,6 +40,7 @@ export interface EnvelopeToRecordOptions {
 /**
  * Converte um envelope em registro da ai_telemetry. Fail-open: campos
  * ausentes viram null; tokens = input+output; area = agentRole ?? agentAdapter.
+ * event_id espelha eventId — chave de upsert idempotente no REST.
  */
 export function envelopeToRecord(
   env: TelemetryEnvelope,
@@ -46,6 +48,7 @@ export function envelopeToRecord(
 ): TelemetryRecord {
   const tokensUsed = (env.inputTokens ?? 0) + (env.outputTokens ?? 0);
   return {
+    event_id: env.eventId || null,
     session_id: opts.sessionId || env.sessionId || "unknown",
     area: env.agentRole ?? env.agentAdapter ?? null,
     tokens_used: tokensUsed,
