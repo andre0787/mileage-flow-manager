@@ -176,17 +176,24 @@ export function computeDailySeries(events, days = 14) {
 // ─── Resumo 30d ─────────────────────────────────────────────────────
 
 /** Totais da janela de N dias. Função pura. */
-export function computeSummary(events, days = 30) {
+export function computeSummary(events, days = 30, prs = []) {
   const window = eventsInWindow(events, days);
   const prePrs = window.filter((e) => e.type === "pre-pr");
   const passes = prePrs.filter(isPrePrPass).length;
+  // PRs reais dentro da janela (fetchPrs/GitHub) — o evento "pr:merge" nunca
+  // existiu no events.jsonl e summary.prs ficava travado em 0.
+  const since = sinceMs(days);
+  const prsInWindow = (prs ?? []).filter((p) => {
+    const ts = Date.parse(String(p.date ?? ""));
+    return Number.isFinite(ts) && ts >= since;
+  }).length;
   return {
     merges: new Set(
       prePrs
         .filter((e) => isPrePrPass(e) && (e.branch || e.data?.branch))
         .map((e) => e.branch ?? e.data?.branch),
     ).size,
-    prs: window.filter((e) => e.type === "pr:merge").length,
+    prs: prsInWindow,
     sessions: window.filter((e) => e.type === "session:start").length,
     violations: window.filter((e) => e.type === "rule:fail").length,
     healed: window.filter((e) => e.type === "healed").length,
@@ -208,10 +215,10 @@ export function parseMergeLogLine(line) {
  * MESMA fonte dos relatórios (typeOf/TYPE_BENEFIT/TYPE_IMPACT de
  * generate-report.mjs); shape próprio do JSON do dashboard (número/tipo).
  */
-export function prRow(number, title, date, tokens) {
+export function prRow(number, title, date, tokens, cycleHours) {
   const rawType = typeOf(title);
   const type = rawType === "auto" ? "other" : rawType;
-  return {
+  const row = {
     number,
     title,
     type,
@@ -220,6 +227,12 @@ export function prRow(number, title, date, tokens) {
     benefit: TYPE_BENEFIT[type] ?? DEFAULT_BENEFIT,
     impact: TYPE_IMPACT[type] ?? DEFAULT_IMPACT,
   };
+  // Cycle time real (criação → merge, horas) — fonte: GitHub API. Alimenta
+  // avgCycleTimeHours dos KPIs mensais (o par session:start → pre-pr PASS
+  // nos eventos era raro demais e o indicador ficava sempre null).
+  const hours = Number(cycleHours);
+  if (Number.isFinite(hours) && hours >= 0) row.cycleHours = Math.round(hours * 10) / 10;
+  return row;
 }
 
 /** Tokens estimados (linhas do numstat × 0.75) — reusa numstatLines dos reports. */
@@ -235,9 +248,22 @@ export function fetchPrs(limit = 10) {
     const [sha, subject, date] = line.split("\x1f");
     const parsed = parseMergeLogLine(subject || "");
     if (!parsed) continue;
-    const title = sh(`gh pr view ${parsed.number} --json title --jq .title`) || subject;
+    const prMeta = sh(
+      `gh pr view ${parsed.number} --json title,createdAt,mergedAt --jq '{t:.title,c:.createdAt,m:.mergedAt}'`,
+    );
+    let title = subject;
+    let cycleHours;
+    try {
+      const meta = JSON.parse(prMeta);
+      if (meta.t) title = meta.t;
+      if (meta.c && meta.m) {
+        cycleHours = (new Date(meta.m).getTime() - new Date(meta.c).getTime()) / (1000 * 60 * 60);
+      }
+    } catch {
+      // gh indisponível (sem token no runner): fallback para o subject do merge
+    }
     const numstat = sh(`git diff ${sha}^1 ${sha} --numstat`);
-    rows.push(prRow(parsed.number, title, (date || "").slice(0, 10), tokensFromNumstat(numstat)));
+    rows.push(prRow(parsed.number, title, (date || "").slice(0, 10), tokensFromNumstat(numstat), cycleHours));
     if (rows.length >= limit) break;
   }
   return rows;
@@ -456,18 +482,19 @@ async function main() {
   const days = Number(arg("days") ?? 30);
   const prsLimit = Number(arg("prs") ?? 10);
 
+  const prs = fetchPrs(prsLimit);
+
   const months = [];
   const now = new Date();
   for (let i = 5; i >= 0; i--) {
     const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
     const label = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
     const monthEvents = events.filter((e) => String(e.timestamp ?? "").startsWith(label));
-    months.push(computeMonthlyKPI(monthEvents, label));
+    months.push(computeMonthlyKPI(monthEvents, label, prs));
   }
 
   const daily = computeDailySeries(events, days);
-  const summary = computeSummary(events, days >= 30 ? 30 : days);
-  const prs = fetchPrs(prsLimit);
+  const summary = computeSummary(events, days >= 30 ? 30 : days, prs);
   const repo = computeRepoFacts(events, quality);
 
   // Custo por funcionalidade (rule-48) — fail-open (sem credenciais → []).

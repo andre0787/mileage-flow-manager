@@ -135,7 +135,11 @@ describe("computeSummary", () => {
         branch: "feat/velho",
       },
     ];
-    const summary = computeSummary(events, 30);
+    // prs agora vem das PRs reais (fetchPrs/GitHub) — evento "pr:merge" nunca existiu
+    const summary = computeSummary(events, 30, [
+      { number: 1, date: new Date().toISOString().slice(0, 10) },
+      { number: 2, date: "2020-01-01" },
+    ]);
     expect(summary.prePrPassRate).toBe(50);
     expect(summary.prs).toBe(1);
     expect(summary.violations).toBe(1);

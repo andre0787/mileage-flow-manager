@@ -506,3 +506,8 @@
 {"timestamp":"2026-09-07T15:40:03.852Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetry-full-pipeline","commit":"165e184","agent":"human","errors":0}
 {"timestamp":"2026-09-07T16:36:43.612Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/telemetry-full-pipeline","commit":"9bf61d1","agent":"human","errors":0}
 {"timestamp":"2026-09-07T17:16:44.126Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/client-advance-payment","commit":"7a8c2fc","agent":"human","errors":0}
+{"timestamp":"2026-09-07T19:02:09.888Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/kpi-pipeline-gates","commit":"d1eccfe","agent":"human","errors":0}
+{"timestamp":"2026-09-07T19:04:25.853Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/kpi-pipeline-gates","commit":"d1eccfe","agent":"human","errors":0}
+{"timestamp":"2026-09-07T19:05:58.267Z","type":"gate","description":"gate intent executado (rule-33-intent-gate)","branch":"fix/kpi-pipeline-gates","commit":"d1eccfe","agent":"human","gate":"intent","rule":"rule-33-intent-gate"}
+{"timestamp":"2026-09-07T19:06:49.228Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/kpi-pipeline-gates","commit":"d1eccfe","agent":"human","errors":0}
+{"timestamp":"2026-09-07T19:08:23.783Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/kpi-pipeline-gates","commit":"d1eccfe","agent":"human","errors":0}

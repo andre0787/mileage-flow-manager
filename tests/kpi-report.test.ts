@@ -78,6 +78,22 @@ describe("computeMonthlyKPI", () => {
     expect(result.branchesMerged).toBe(2);
   });
 
+  it("conta gate:run como ativação (formato emitido pelo pre-pr em 2026-09)", () => {
+    const events = [
+      { type: "gate:run", timestamp: "2026-09-01T10:00:00Z", gate: "intent", rule: "rule-33-intent-gate", branch: "feat/a" },
+      { type: "gate:run", timestamp: "2026-09-02T10:00:00Z", gate: "intent", rule: "rule-33-intent-gate", branch: "feat/b" },
+      { type: "gate:run", timestamp: "2026-09-03T10:00:00Z", gate: "twins", rule: "rule-34-twins-check", branch: "feat/b" },
+      { type: "gate:run", timestamp: "2026-09-04T10:00:00Z", gate: "auth", rule: "rule-35-auth-gate", branch: "feat/b" },
+      { type: "gate:blocked", timestamp: "2026-09-05T10:00:00Z", gate: "auth", rule: "rule-35-auth-gate", branch: "feat/b" },
+    ];
+    const result = computeMonthlyKPI(events, "2026-09");
+    expect(result.gateActivations.intent).toBe(2);
+    expect(result.gateActivations.twins).toBe(1);
+    expect(result.gateActivations.auth).toBe(1);
+    // Bloqueio não conta como ativação dupla — fica em gateBlockedByRule
+    expect(result.gateBlockedByRule["rule-35-auth-gate"]).toBe(1);
+  });
+
   it("separa gate:blocked (bloqueio) de rule:fail (violação) em gateBlockedByRule", () => {
     const events = [
       { type: "rule:fail", timestamp: "2026-07-04T10:00:00Z", rule: "rule-10-clean" },

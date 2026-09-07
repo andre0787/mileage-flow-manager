@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-07T11:23:01.619Z",
+  "generatedAt": "2026-09-07T19:06:57.684Z",
   "dataDate": "2026-09-07",
   "kpiStats": [
     {
-      "value": 500,
+      "value": 512,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 585,
+      "value": 591,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,7 +18,7 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 327,
+      "value": 335,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
@@ -41,12 +41,12 @@
     },
     {
       "name": "pre-pr",
-      "n": 173,
+      "n": 180,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 189,
+      "n": 193,
       "color": "#ef4444"
     },
     {
@@ -70,6 +70,11 @@
       "color": "#f59e0b"
     },
     {
+      "name": "gate",
+      "n": 1,
+      "color": "#f43f5e"
+    },
+    {
       "name": "gate:blocked",
       "n": 2,
       "color": "#b91c1c"
@@ -88,58 +93,58 @@
     },
     {
       "name": "abaixo de 80%",
-      "n": 8,
+      "n": 10,
       "color": "#ef4444"
     }
   ],
   "recentTimeline": [
     {
-      "t": "2026-09-07 05:29:01",
+      "t": "2026-09-07 19:06:49",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-06 23:59:36",
-      "d": "session:end",
-      "desc": "Encerrando sessao — telemetria + revamp Relatorios (PR #555/#556 em prod)"
+      "t": "2026-09-07 19:05:58",
+      "d": "gate",
+      "desc": "gate intent executado (rule-33-intent-gate)"
     },
     {
-      "t": "2026-09-06 23:50:04",
+      "t": "2026-09-07 19:04:25",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-06 22:42:20",
+      "t": "2026-09-07 19:02:09",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-06 22:37:51",
+      "t": "2026-09-07 17:16:44",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-06 22:36:55",
+      "t": "2026-09-07 16:36:43",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-06 22:12:47",
+      "t": "2026-09-07 15:40:03",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-06 22:12:04",
-      "d": "code-review:done",
-      "desc": "Review aprovado por subagente"
+      "t": "2026-09-07 15:32:32",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 189,
+    "ruleFails": 193,
     "healed": 33,
-    "healedRate": 17.5,
-    "prePrTotal": 173,
-    "prePrPass": 173,
+    "healedRate": 17.1,
+    "prePrTotal": 180,
+    "prePrPass": 180,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
@@ -170,16 +175,67 @@
       }
     ]
   },
-  "lastPrs": [],
+  "lastPrs": [
+    {
+      "number": 561,
+      "title": "feat(clientes): adiantamento — crédito do cliente antes da emissão",
+      "type": "feat",
+      "date": "2026-09-07",
+      "tokens": 650,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio",
+      "cycleHours": 1.1
+    },
+    {
+      "number": 560,
+      "title": "feat(telemetria): DAG 8/8 nodes com emissores reais + TTL refresh + gate de sanidade",
+      "type": "feat",
+      "date": "2026-09-07",
+      "tokens": 1022,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio",
+      "cycleHours": 1.4
+    },
+    {
+      "number": 559,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-07",
+      "tokens": 513,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 558,
+      "title": "fix(telemetria): DAG e cards de IA populam automaticamente a cada sessão",
+      "type": "fix",
+      "date": "2026-09-07",
+      "tokens": 272,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação",
+      "cycleHours": 0.2
+    },
+    {
+      "number": 557,
+      "title": "docs: registra session:end",
+      "type": "docs",
+      "date": "2026-09-07",
+      "tokens": 1,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança",
+      "cycleHours": 0
+    }
+  ],
   "overview": {
     "components": 150,
     "pages": 18,
     "libs": 46,
-    "scripts": 122,
-    "testFiles": 327,
+    "scripts": 124,
+    "testFiles": 335,
     "skills": 27,
     "rules": 48,
-    "events": 500,
-    "qualityNotes": 585
+    "events": 512,
+    "qualityNotes": 591
   }
 }

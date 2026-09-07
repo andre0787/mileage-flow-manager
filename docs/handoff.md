@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `38600ed — Merge pull request #558 from andre0787/fix/telemetry-dag-auto-populate`
+- **Branch:** `fix/kpi-pipeline-gates`
+- **Último commit:** `d1eccfe — Merge pull request #561 from andre0787/feat/client-advance-payment`
 - **Remote:** origin/main
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
 - **P3-28 entradas** (`src/features/entradas/`), **P3-29 contas** (`src/features/contas/`),
@@ -42,6 +42,19 @@ Nenhum PR aberto.
 
 
 
+
+
+
+
+
+## 🎯 Sessão Atual
+**Categoria:** docs
+**Objetivo:** continuacao
+**Status:** in_progress
+**Iniciada em:** 2026-09-07T19:07:27.835Z
+**Branch:** `fix/kpi-pipeline-gates`
+**Último commit:** d1eccfe — Merge pull request #561 from andre0787/feat/client-advance-payment
+**Docs carregados:** AGENTS.md
 
 
 ---
