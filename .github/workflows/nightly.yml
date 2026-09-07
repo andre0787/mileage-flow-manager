@@ -47,9 +47,31 @@ jobs:
         run: npm run quality:write
 
       - name: Registrar telemetria da sessão (rule-48, fail-open)
-        # Registra o consumo da última sessão na ai_telemetry; sem credenciais
-        # Supabase no runner, apenas imprime o registro (fail-open).
+        # Registra o consumo da última sessão na ai_telemetry. Com o service
+        # key o registro entra como SISTEMA (user_id NULL) — visível no browser
+        # pela policy anon (migration 20260907010000). Sem credenciais, apenas
+        # imprime o registro (fail-open).
         run: npm run telemetry:record
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ohyplfpcwxzakujjfwdf.supabase.co' }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY || '' }}
+
+      - name: Persistir envelopes §19 na ai_telemetry (fail-open)
+        # Upsert idempotente (on_conflict=event_id): reprocessar envelopes.jsonl
+        # todo dia NÃO duplica linhas. Alimenta o Pipeline real (DAG), o AI
+        # Engineering Command Center e o custo por área no kpi-data.json.
+        run: npm run telemetry:persist
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ohyplfpcwxzakujjfwdf.supabase.co' }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY || '' }}
+
+      - name: Refresh dashboard data (KPIs diários + aba Workflow)
+        # fetchTelemetryCost usa SUPABASE_SERVICE_KEY/ANON_KEY para agregar a
+        # ai_telemetry no snapshot (aba KPI — Custo por Funcionalidade offline).
+        run: npm run data:refresh
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ohyplfpcwxzakujjfwdf.supabase.co' }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY || '' }}
 
       - name: Refresh dashboard data (KPIs diários + aba Workflow)
         run: npm run data:refresh
@@ -80,6 +102,7 @@ jobs:
             QUALITY.md
             public/kpi-data.json
             public/workflow-data.json
+            docs/tracking/telemetry-persisted.json
 
       # ── Destravar merge automático do PR do bot ───────────────────────
       # O PR criado por GITHUB_TOKEN gera um run de CI que nasce

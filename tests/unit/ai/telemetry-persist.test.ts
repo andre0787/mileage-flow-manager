@@ -31,6 +31,7 @@ describe("envelopeToRecord", () => {
       }),
       { sessionId: "sess-1" },
     );
+    expect(record.event_id).toBe("e1");
     expect(record.session_id).toBe("sess-1");
     expect(record.area).toBe("graph-scout");
     expect(record.agent_adapter).toBe("pi");
@@ -73,6 +74,11 @@ describe("envelopeToRecord", () => {
     expect(record.tokens_used).toBe(0);
     expect(record.area).toBeNull();
     expect(record.task_id).toBeNull();
+  });
+
+  it("event_id vazio vira null (sem chave de upsert)", () => {
+    const record = envelopeToRecord(env({ eventId: "" }), { sessionId: "s" });
+    expect(record.event_id).toBeNull();
   });
 });
 

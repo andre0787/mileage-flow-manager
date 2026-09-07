@@ -100,8 +100,11 @@ if (!RECORD) {
   process.exit(0);
 }
 
-if (!USER_ID) {
-  console.log("⚠️ TELEMETRY_USER_ID ausente — nada persistido (fail-open)");
+// user_id é opcional: com SUPABASE_SERVICE_KEY o service role burla RLS e o
+// registro fica como SISTEMA (user_id NULL) — visível no browser pela policy
+// anon (migration 20260907010000). Sem service key, exige TELEMETRY_USER_ID.
+if (!USER_ID && !process.env.SUPABASE_SERVICE_KEY) {
+  console.log("⚠️ TELEMETRY_USER_ID ausente (e sem SUPABASE_SERVICE_KEY) — nada persistido (fail-open)");
   process.exit(0);
 }
 if (!acquireRecordLock()) {
@@ -119,7 +122,7 @@ if (existsSync(RECORD_MARKER)) {
   }
 }
 const sessionId = sessionStart?.sessionId ?? sessionStart?.timestamp ?? git("git rev-parse --abbrev-ref HEAD");
-const recordKey = `${USER_ID}:${sessionId}`;
+const recordKey = `${USER_ID ?? "system"}:${sessionId}`;
 if (recorded.has(recordKey)) {
   console.log("ℹ️ sessão já registrada — nada persistido");
   process.exit(0);
