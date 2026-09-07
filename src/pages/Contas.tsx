@@ -156,7 +156,8 @@ export default function Contas() {
                 : sort.key === "status"
                   ? a.status
                   : sort.key === "media"
-                    ? (avgUnitCost(a.totalInvested, computedBalances.get(a.id) ?? a.balance) ?? Infinity)
+                    ? (avgUnitCost(a.totalInvested, computedBalances.get(a.id) ?? a.balance) ??
+                      Infinity)
                     : a.name;
     return sortByKey(filteredAccounts, sort.key, sort.dir, getValue);
   }, [filteredAccounts, sort, computedBalances, receivables, owners, programs]);

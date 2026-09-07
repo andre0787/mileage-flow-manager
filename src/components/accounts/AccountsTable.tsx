@@ -31,7 +31,13 @@ interface AccountsTableProps {
   rows: AccountsTableRow[];
   sort: SortState | null;
   onSort: (next: SortState) => void;
-  totals: { count: number; saldo: number; investido: number; receber: number; avgUnit: number | null };
+  totals: {
+    count: number;
+    saldo: number;
+    investido: number;
+    receber: number;
+    avgUnit: number | null;
+  };
   recalcPending: boolean;
   onToggleStatus: (id: string) => void;
   onEdit: (account: Account) => void;
@@ -73,12 +79,7 @@ export function AccountsTable({
               sort={sort ?? emptySort}
               onSort={onSort}
             />
-            <SortableHeader
-              label="Dono"
-              sortKey="dono"
-              sort={sort ?? emptySort}
-              onSort={onSort}
-            />
+            <SortableHeader label="Dono" sortKey="dono" sort={sort ?? emptySort} onSort={onSort} />
             <SortableHeader
               label="Média/un"
               sortKey="media"

@@ -5,7 +5,10 @@
  */
 
 /** Valor médio por unidade: total investido ÷ saldo atual. undefined sem dado. */
-export function avgUnitCost(totalInvested: number | null | undefined, balance: number): number | undefined {
+export function avgUnitCost(
+  totalInvested: number | null | undefined,
+  balance: number,
+): number | undefined {
   const invested = Number(totalInvested ?? 0);
   if (invested <= 0 || balance <= 0) return undefined;
   return invested / balance;
