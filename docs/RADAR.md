@@ -1,6 +1,6 @@
 # 🔭 Radar de Vulnerabilidades
 
-> Atualizado em: 2026-09-07T20:26:24.145Z
+> Atualizado em: 2026-09-07T21:03:28.412Z
 
 ## ⚠️  Vulnerabilidades Ativas (3 pacotes)
 

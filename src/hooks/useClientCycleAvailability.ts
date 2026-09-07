@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { parseDateOnly } from "@/lib/dateUtils";
+import { getCycleLabel, isInCurrentCycle } from "@/lib/passengerCycle";
 import type { Sale, Program } from "@/types";
 
 export interface ClientUsage {
@@ -92,27 +92,4 @@ export function useClientCycleAvailability(sales: Sale[], programs: Program[]) {
       owners: Array.from(allOwners).sort(),
     };
   }, [sales, programs]);
-}
-
-function isInCurrentCycle(program: Program, saleDate: string): boolean {
-  // ponytail: parseDateOnly evita o bug de fuso #308 — em America/Sao_Paulo,
-  // new Date("YYYY-MM-DD") cai no dia anterior 21h e quebra o ciclo anual
-  // (venda de 01/01 contada no ano errado) e o diff de dias do ciclo "dias".
-  const date = parseDateOnly(saleDate);
-
-  if (program.passengerCycleType === "dias") {
-    if (!program.passengerCycleDays || program.passengerCycleDays <= 0) return true;
-    const diffDays = (Date.now() - date.getTime()) / 86400000;
-    return diffDays <= program.passengerCycleDays;
-  }
-
-  const currentYear = new Date().getFullYear();
-  return date.getFullYear() === currentYear;
-}
-
-function getCycleLabel(program: Program): string {
-  if (program.passengerCycleType === "dias" && program.passengerCycleDays) {
-    return `Últimos ${program.passengerCycleDays} dias`;
-  }
-  return new Date().getFullYear().toString();
 }
