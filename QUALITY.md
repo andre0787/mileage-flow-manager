@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-09-07
-> Último commit: 38600ed-Merge pull request #558 from andre0787/fix/telemetry-dag-auto-populate
+> Gerado em: 2026-09-08
+> Último commit: 6adc6328-Merge pull request #572 from andre0787/feat/vendas-filtro-coluna-programa
 
 ## Pipeline
 
@@ -15,21 +15,21 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 1223 |
-| E2E  | 102 |
-| **Total** | **1325** |
+| Unit | 1262 |
+| E2E  | 101 |
+| **Total** | **1363** |
 
 ## Bundle
 
 | Métrica | Valor |
 |---------|-------|
-| Tamanho (dist) | 1897kB |
+| Tamanho (dist) | 1908kB |
 
 ## Documentação
 
 | Métrica | Valor |
 |---------|-------|
-| Arquivos .md | 268 |
+| Arquivos .md | 270 |
 | Arquivados | 46 |
 | Issues (verify-docs) | 0 |
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-09-07 | ✅ | 1325 | 1897kB | 0 issues |
+| 2026-09-08 | ✅ | 1363 | 1908kB | 0 issues |
 
 ---
 
