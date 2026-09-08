@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T03:22:25.368Z",
+  "generatedAt": "2026-09-08T10:29:59.298Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -146,21 +146,21 @@
     {
       "month": "2026-09",
       "prePrPassRate": 100,
-      "prePrTotal": 87,
-      "prePrPass": 87,
+      "prePrTotal": 85,
+      "prePrPass": 85,
       "prePrFail": 0,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
       "gateActivations": {
-        "intent": 20,
-        "twins": 19,
-        "auth": 19
+        "intent": 17,
+        "twins": 16,
+        "auth": 16
       },
-      "avgOutcomeGrade": 89.8,
+      "avgOutcomeGrade": 88.9,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
-          "count": 14
+          "count": 12
         },
         {
           "rule": "rule-14-orphan-files",
@@ -171,24 +171,24 @@
           "count": 4
         },
         {
-          "rule": "rule-39-coding-gate",
-          "count": 4
+          "rule": "rule-41-optimizer",
+          "count": 3
         },
         {
-          "rule": "rule-41-optimizer",
+          "rule": "rule-43-migration-gate",
           "count": 3
         }
       ],
       "healedByRule": {
         "rule-17-new-docs-valid": 4,
-        "rule-26": 9
+        "rule-26": 8
       },
       "gateBlockedByRule": {},
       "avgCycleTimeHours": 0.4,
-      "branchesMerged": 30,
-      "violationsCaught": 45,
-      "healedRate": 28.9,
-      "frictionPerPass": 0.52
+      "branchesMerged": 29,
+      "violationsCaught": 41,
+      "healedRate": 29.3,
+      "frictionPerPass": 0.48
     }
   ],
   "daily": [
@@ -572,15 +572,15 @@
     {
       "day": "2026-09-08",
       "label": "08/09",
-      "prePrTotal": 9,
-      "prePrPass": 9,
+      "prePrTotal": 7,
+      "prePrPass": 7,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 6,
-      "healed": 4,
+      "ruleFails": 2,
+      "healed": 3,
       "sessions": 0,
-      "merges": 3,
-      "friction": 0.67
+      "merges": 2,
+      "friction": 0.29
     }
   ],
   "prs": [
@@ -693,16 +693,95 @@
     "testFiles": 340,
     "skills": 27,
     "rules": 48,
-    "events": 506,
-    "qualityNotes": 564
+    "events": 485,
+    "qualityNotes": 555
   },
   "summary": {
-    "merges": 53,
+    "merges": 52,
     "prs": 10,
     "sessions": 7,
-    "violations": 168,
-    "healed": 25,
+    "violations": 164,
+    "healed": 24,
     "prePrPassRate": 100
   },
-  "telemetry": []
+  "telemetry": [
+    {
+      "area": "workflow",
+      "cost": 0.05068,
+      "executions": 3,
+      "avgExecutionMs": 801923940
+    },
+    {
+      "area": "vendas",
+      "cost": 0.0287,
+      "executions": 1,
+      "avgExecutionMs": 16831791
+    },
+    {
+      "area": "graph-scout",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "test-scout",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "architect",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "implementer",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "tester",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "reviewer",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "task",
+      "cost": 0,
+      "executions": 6,
+      "avgExecutionMs": 0
+    },
+    {
+      "area": "classifier",
+      "cost": 0,
+      "executions": 6,
+      "avgExecutionMs": 0
+    },
+    {
+      "area": "tools",
+      "cost": 0,
+      "executions": 25,
+      "avgExecutionMs": 52715
+    },
+    {
+      "area": "result",
+      "cost": 0,
+      "executions": 2,
+      "avgExecutionMs": 0
+    },
+    {
+      "area": "final-validator",
+      "cost": 0,
+      "executions": 24,
+      "avgExecutionMs": 48771
+    }
+  ]
 }

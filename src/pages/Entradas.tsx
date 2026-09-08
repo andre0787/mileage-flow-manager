@@ -371,7 +371,13 @@ export default function Entradas() {
       </div>
 
       {/* Tabs */}
-      <Tabs value={activeTab} onValueChange={(v) => { setActiveTab(v as "pontos" | "milhas"); setProgramFilter(ALL_PROGRAMS); }}>
+      <Tabs
+        value={activeTab}
+        onValueChange={(v) => {
+          setActiveTab(v as "pontos" | "milhas");
+          setProgramFilter(ALL_PROGRAMS);
+        }}
+      >
         <TabsList>
           <TabsTrigger value="pontos" className="gap-2">
             <TrendingUp className="h-4 w-4" />
