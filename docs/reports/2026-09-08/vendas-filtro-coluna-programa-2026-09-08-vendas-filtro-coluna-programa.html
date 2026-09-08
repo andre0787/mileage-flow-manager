@@ -168,11 +168,11 @@
       <div class="hero">
         <div class="hero-top">
           <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">vendas-filtro-coluna-programa</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
-          <div class="hero-date">2026-09-08 · 23:35 · <span class="mono">feat/vendas-filtro-coluna-programa</span></div>
+          <div class="hero-date">2026-09-08 · 23:38 · <span class="mono">feat/vendas-filtro-coluna-programa</span></div>
         </div>
         <h1>vendas filtro coluna programa</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">2e0faba — feat: filtro superior por programa e coluna Programa na aba Vendas</div>
+        <div class="hero-meta mono">5334e8d — docs: registra veredito council vendas-programa no MAP (rule-17)</div>
       </div>
       
     <div class="kpi-grid">
@@ -187,7 +187,7 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/1</div>
+        <div class="kpi-value">0/3</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
         <div class="kpi-sub">2 violações · 1 auto-corrigidas</div>
       </div>
@@ -251,7 +251,7 @@
       <td>vendas filtro coluna programa</td>
       <td>Nova capacidade entregue e validada para o produto.</td>
       <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
-      <td><code>~231</code></td>
+      <td><code>~686</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.172 tokens (feature) · status pesado — tracking</p>
@@ -287,7 +287,7 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">1</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">3</span><span class="stat-l">rodadas de validação pré-PR</span></div>
             <div class="stat"><span class="stat-v">2</span><span class="stat-l">violações de regra encontradas</span></div>
             <div class="stat"><span class="stat-v green">1</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
@@ -313,7 +313,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 20 remoções — 308 linhas tocadas</td><td>✨ 171 adições — 10 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 24 remoções — 914 linhas tocadas</td><td>✨ 753 adições — 13 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -321,32 +321,35 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>10</td></tr>
-            <tr><td>Adições</td><td>+171</td></tr>
-            <tr><td>Remoções</td><td>-20</td></tr>
-            <tr><td>Tokens estimados</td><td>~231</td></tr>
+            <tr><td>Arquivos alterados</td><td>13</td></tr>
+            <tr><td>Adições</td><td>+753</td></tr>
+            <tr><td>Remoções</td><td>-24</td></tr>
+            <tr><td>Tokens estimados</td><td>~686</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:55">+128 add</div>
-        <div class="del" style="flex:6">-15 del</div>
-        <div class="overhead" style="flex:39">~88 ctx</div>
+        <div class="add" style="flex:82">+565 add</div>
+        <div class="del" style="flex:3">-18 del</div>
+        <div class="overhead" style="flex:15">~103 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+128</td><td>55%</td></tr>
-      <tr><td>Remoções</td><td>-15</td><td>6%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~88</td><td>39%</td></tr>
-      <tr><th>Total</th><th>~231</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+565</td><td>82%</td></tr>
+      <tr><td>Remoções</td><td>-18</td><td>3%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~103</td><td>15%</td></tr>
+      <tr><th>Total</th><th>~686</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
           <h3>📁 Arquivos</h3>
           <table>
             <tr><th>Status</th><th>Arquivo</th><th>+/-</th></tr>
-            <tr><td>A</td><td>docs/council/2026-09-08-vendas-programa-veredito.md</td><td class="mono"><span class="ns-add">+35</span> <span class="ns-del">−0</span></td></tr>
+            <tr><td>M</td><td>docs/MAP.md</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−1</span></td></tr>
+<tr><td>A</td><td>docs/council/2026-09-08-vendas-programa-veredito.md</td><td class="mono"><span class="ns-add">+35</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>M</td><td>docs/handoff.md</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−1</span></td></tr>
-<tr><td>M</td><td>docs/tracking/events.jsonl</td><td class="mono"><span class="ns-add">+4</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-08/vendas-filtro-coluna-programa-2026-09-08-vendas-filtro-coluna-programa.html</td><td class="mono"><span class="ns-add">+561</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td><td class="mono"><span class="ns-add">+15</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td><td class="mono"><span class="ns-add">+6</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>M</td><td>src/components/SaleTable.tsx</td><td class="mono"><span class="ns-add">+7</span> <span class="ns-del">−4</span></td></tr>
 <tr><td>M</td><td>src/components/sales/SaleTableRow.tsx</td><td class="mono"><span class="ns-add">+3</span> <span class="ns-del">−3</span></td></tr>
 <tr><td>A</td><td>src/components/ui/ProgramFilter.tsx</td><td class="mono"><span class="ns-add">+45</span> <span class="ns-del">−0</span></td></tr>
@@ -357,9 +360,10 @@
           </table>
         </div>
         <div class="ap-card">
-          <h3>🔖 Commits da sessão (1)</h3>
+          <h3>🔖 Commits da sessão (2)</h3>
           <ul class="commit-list">
-            <li><code>2e0faba</code> feat: filtro superior por programa e coluna Programa na aba Vendas</li>
+            <li><code>5334e8d</code> docs: registra veredito council vendas-programa no MAP (rule-17)</li>
+<li><code>2e0faba</code> feat: filtro superior por programa e coluna Programa na aba Vendas</li>
           </ul>
         </div>
         <div class="ap-card">
@@ -374,7 +378,20 @@
       </div>
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
-        diff --git a/docs/council/2026-09-08-vendas-programa-veredito.md b/docs/council/2026-09-08-vendas-programa-veredito.md
+        diff --git a/docs/MAP.md b/docs/MAP.md
+index d842809..98d76fc 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -53,7 +53,7 @@
+ | `docs/memory.md`                                     | Contexto de sessões anteriores           | Histórico de decisões, sprints, post-mortems                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+ | `docs/IDEIAS.md`                                     | Caixa de entrada de ideias               | Ideias humanas pendentes, lidas no início da sessão                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+ | `docs/FLUXO.md`                                      | Diagramas do ecossistema                 | Flowcharts Mermaid: visão geral, fluxo de dados, rotas                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+<span class="del">-| `docs/council/`                                      | Vereditos de decisões                    | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md`, `2026-08-01-llm-model-router-veredito.md`, `2026-08-03-process-kpis-router-sanitizacao-veredito.md`, `2026-08-04-ux-entradas-vendas-veredito.md`, `2026-08-05-process-violations-veredito.md`                                                                                                    |</span>
+<span class="add">+| `docs/council/`                                      | Vereditos de decisões                    | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md`, `2026-08-01-llm-model-router-veredito.md`, `2026-08-03-process-kpis-router-sanitizacao-veredito.md`, `2026-08-04-ux-entradas-vendas-veredito.md`, `2026-08-05-process-violations-veredito.md`, `2026-09-08-vendas-programa-veredito.md`                                                                                                    |</span>
+ | `docs/superpowers/specs/`                            | Especificações técnicas                  | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md`, `2026-08-01-llm-model-router-design.md`, `2026-08-03-process-guardrails-design.md`, `2026-08-03-llm-router-kpi-design.md`, `2026-08-03-project-sanitization-design.md`, `2026-08-03-react-router-8-upgrade-design.md`, `2026-08-04-ux-entradas-vendas.md`, `2026-08-10-blueprint-v4-p0-design.md` |
+ | `docs/superpowers/plans/`                            | Planos de execução                       | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md`, `2026-07-29-auth-ci-plan.md`, `2026-07-29-fable-method-skill-plan.md`, `2026-08-01-llm-model-router-plan.md`, `2026-08-03-process-guardrails-plan.md`, `2026-08-03-llm-router-kpi-plan.md`, `2026-08-03-project-sanitization-plan.md`                                                                                                                                                                                                                                                   |
+ | `docs/fable-gates.md`                                | Gates INTENT/TWINS/AUTH                  | Declaração formal dos 3 gates do Fable Method aplicados no workflow                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+diff --git a/docs/council/2026-09-08-vendas-programa-veredito.md b/docs/council/2026-09-08-vendas-programa-veredito.md
 new file mode 100644
 index 0000000..0043799
 <span class="del">--- /dev/null</span>
@@ -428,77 +445,64 @@ index 873c2ef..595618f 100644
  **Último commit:** d1eccfe — Merge pull request #561 from andre0787/feat/client-advance-payment
  **Docs carregados:** AGENTS.md
  
-diff --git a/docs/tracking/events.jsonl b/docs/tracking/events.jsonl
-index c72790d..66b8c45 100644
-<span class="del">--- a/docs/tracking/events.jsonl</span>
-<span class="add">+++ b/docs/tracking/events.jsonl</span>
-@@ -443,3 +443,7 @@
- {&quot;timestamp&quot;:&quot;2026-09-07T22:52:18.699Z&quot;,&quot;type&quot;:&quot;gate&quot;,&quot;description&quot;:&quot;gate auth executado (rule-35-auth-gate)&quot;,&quot;branch&quot;:&quot;fix/limite-passageiros-por-dono&quot;,&quot;commit&quot;:&quot;23def43&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;gate&quot;:&quot;auth&quot;,&quot;rule&quot;:&quot;rule-35-auth-gate&quot;}
- {&quot;timestamp&quot;:&quot;2026-09-07T22:52:55.190Z&quot;,&quot;type&quot;:&quot;pre-pr&quot;,&quot;description&quot;:&quot;pre-pr PASS&quot;,&quot;branch&quot;:&quot;fix/limite-passageiros-por-dono&quot;,&quot;commit&quot;:&quot;23def43&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;errors&quot;:0}
- {&quot;timestamp&quot;:&quot;2026-09-07T22:59:15.441Z&quot;,&quot;type&quot;:&quot;pre-pr&quot;,&quot;description&quot;:&quot;pre-pr PASS&quot;,&quot;branch&quot;:&quot;fix/limite-passageiros-por-dono&quot;,&quot;commit&quot;:&quot;0518aab&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;errors&quot;:0}
-<span class="add">+{&quot;timestamp&quot;:&quot;2026-09-08T02:32:54.749Z&quot;,&quot;type&quot;:&quot;coding:done&quot;,&quot;description&quot;:&quot;Codificacao por subagente concluida&quot;,&quot;branch&quot;:&quot;feat/vendas-filtro-coluna-programa&quot;,&quot;commit&quot;:&quot;c1ca905&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;subagent&quot;:true,&quot;skill&quot;:&quot;subagent-driven-development&quot;}</span>
-<span class="add">+{&quot;timestamp&quot;:&quot;2026-09-08T02:33:45.101Z&quot;,&quot;type&quot;:&quot;code-review:done&quot;,&quot;description&quot;:&quot;Review aprovado por subagente&quot;,&quot;branch&quot;:&quot;feat/vendas-filtro-coluna-programa&quot;,&quot;commit&quot;:&quot;c1ca905&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;subagent&quot;:true,&quot;verdict&quot;:&quot;approved&quot;}</span>
-<span class="add">+{&quot;timestamp&quot;:&quot;2026-09-08T02:33:51.381Z&quot;,&quot;type&quot;:&quot;healed&quot;,&quot;description&quot;:&quot;rule-26 auto-corrigido&quot;,&quot;branch&quot;:&quot;feat/vendas-filtro-coluna-programa&quot;,&quot;commit&quot;:&quot;c1ca905&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;rule&quot;:&quot;rule-26&quot;}</span>
-<span class="add">+{&quot;timestamp&quot;:&quot;2026-09-08T02:33:52.069Z&quot;,&quot;type&quot;:&quot;pre-pr&quot;,&quot;description&quot;:&quot;pre-pr PASS&quot;,&quot;branch&quot;:&quot;feat/vendas-filtro-coluna-programa&quot;,&quot;commit&quot;:&quot;c1ca905&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;errors&quot;:0}</span>
-diff --git a/src/components/SaleTable.tsx b/src/components/SaleTable.tsx
-index 188b117..36fb751 100644
-<span class="del">--- a/src/components/SaleTable.tsx</span>
-<span class="add">+++ b/src/components/SaleTable.tsx</span>
-@@ -49,8 +49,10 @@ export function SaleTable({
-     switch (col) {
-       case &quot;Data&quot;:
-         return new Date(sale.date).getTime();
-<span class="del">-      case &quot;Dono/Programa&quot;:</span>
-<span class="del">-        return `${sale.ownerName} ${sale.program}`.toLowerCase();</span>
-<span class="add">+      case &quot;Dono&quot;:</span>
-<span class="add">+        return sale.ownerName.toLowerCase();</span>
-<span class="add">+      case &quot;Programa&quot;:</span>
-<span class="add">+        return (sale.program ?? &quot;&quot;).toLowerCase();</span>
-       case &quot;Cliente&quot;:
-         return sale.clientName.toLowerCase();
-       case &quot;Milhas&quot;:
-@@ -120,9 +122,10 @@ export function SaleTable({
-               &lt;TableHeader&gt;
-                 &lt;TableRow&gt;
-                   &lt;SortableHeader label=&quot;Data&quot; sortKey=&quot;Data&quot; sort={sort} onSort={setSort} /&gt;
-<span class="add">+                  &lt;SortableHeader label=&quot;Dono&quot; sortKey=&quot;Dono&quot; sort={sort} onSort={setSort} /&gt;</span>
-                   &lt;SortableHeader
-<span class="del">-                    label=&quot;Dono/Programa&quot;</span>
-<span class="del">-                    sortKey=&quot;Dono/Programa&quot;</span>
-<span class="add">+                    label=&quot;Programa&quot;</span>
-<span class="add">+                    sortKey=&quot;Programa&quot;</span>
-                     sort={sort}
-                     onSort={setSort}
-                   /&gt;
-diff --git a/src/components/sales/SaleTableRow.tsx b/src/components/sales/SaleTableRow.tsx
-index 126e34f..8e045c5 100644
-<span class="del">--- a/src/components/sales/SaleTableRow.tsx</span>
-<span class="add">+++ b/src/components/sales/SaleTableRow.tsx</span>
-@@ -56,9 +56,6 @@ export function SaleTableRow({
-           &lt;p className=&quot;font-medium&quot;&gt;
-             {sale.kind === &quot;servico&quot; ? serviceTypeLabel(sale.serviceType) : sale.ownerName}
-           &lt;/p&gt;
-<span class="del">-          &lt;p className=&quot;text-xs text-muted-foreground&quot;&gt;</span>
-<span class="del">-            {sale.kind === &quot;servico&quot; ? &quot;Serviço&quot; : sale.program}</span>
-<span class="del">-          &lt;/p&gt;</span>
-           &lt;span
-             className=&quot;mt-1 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold&quot;
-             style={{
-@@ -75,6 +72,9 @@ export function SaleTableRow({
-             {sale.ownerName}
-           &lt;/span&gt;
-         &lt;/TableCell&gt;
-<span class="add">+        &lt;TableCell&gt;</span>
-<span class="add">+          &lt;p className=&quot;font-medium&quot;&gt;{sale.kind === &quot;servico&quot; ? &quot;Serviço&quot; : sale.program || &quot;—&quot;}&lt;/p&gt;</span>
-<span class="add">+        &lt;/TableCell&gt;</span>
-         &lt;TableCell&gt;
-           &lt;p className=&quot;font-medium&quot;&gt;{sale.clientName}&lt;/p&gt;
-           &lt;p className=&quot;text-xs text-muted-foreground&quot;&gt;{sale.ticketLocator}&lt;/p&gt;
+diff --git a/docs/reports/2026-09-08/vendas-filtro-coluna-programa-2026-09-08-vendas-filtro-coluna-programa.html b/docs/reports/2026-09-08/vendas-filtro-coluna-programa-2026-09-08-vendas-filtro-coluna-programa.html
+new file mode 100644
+index 0000000..df9e750
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/reports/2026-09-08/vendas-filtro-coluna-programa-2026-09-08-vendas-filtro-coluna-programa.html</span>
+@@ -0,0 +1,561 @@
+<span class="add">+&lt;!DOCTYPE html&gt;</span>
+<span class="add">+&lt;html lang=&quot;pt-BR&quot;&gt;</span>
+<span class="add">+&lt;head&gt;</span>
+<span class="add">+  &lt;meta charset=&quot;UTF-8&quot;&gt;</span>
+<span class="add">+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;</span>
+<span class="add">+  &lt;title&gt;vendas-filtro-coluna-programa — vendas filtro coluna programa&lt;/title&gt;</span>
+<span class="add">+  &lt;style&gt;</span>
+<span class="add">+    :root{</span>
+<span class="add">+      --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;</span>
+<span class="add">+      --text:#e6edf7;--muted:#8fa3c0;--blue:#3b82f6;--green:#34d399;--amber:#fbbf24;--red:#f87171;--gold:#f59e0b;--teal:#2dd4bf;</span>
+<span class="add">+    }</span>
+<span class="add">+    *{box-sizing:border-box;margin:0;padding:0}</span>
+<span class="add">+    html,body{height:100%}</span>
+<span class="add">+    body{</span>
+<span class="add">+      font-family:ui-sans-serif,system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;</span>
+<span class="add">+      background:radial-gradient(1200px 600px at 15% -10%,#12203f 0%,transparent 55%),radial-gradient(1000px 500px at 110% 20%,#0f2440 0%,transparent 50%),var(--bg);</span>
+<span class="add">+      color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;</span>
+<span class="add">+    }</span>
+<span class="add">+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}</span>
+<span class="add">+    .deck{min-height:100vh;display:flex;flex-direction:column}</span>
+<span class="add">+    .slide{</span>
+<span class="add">+      flex:1 0 auto;min-height:100vh;padding:5.5rem clamp(1.25rem,5vw,4.5rem) 3.5rem;</span>
+<span class="add">+      display:flex;flex-direction:column;justify-content:center;gap:1.4rem;</span>
+<span class="add">+      max-width:1180px;margin:0 auto;width:100%;</span>
+<span class="add">+      border-bottom:1px solid var(--line);</span>
+<span class="add">+    }</span>
+<span class="add">+    .deck-mode .slide{display:none}</span>
+<span class="add">+    .deck-mode .slide.active{display:flex}</span>
+<span class="add">+    .nav{</span>
+<span class="add">+      position:fixed;top:1rem;right:1rem;z-index:60;display:flex;gap:.4rem;align-items:center;</span>
+<span class="add">+      background:rgba(10,15,30,.85);backdrop-filter:blur(8px);border:1px solid var(--line);</span>
+<span class="add">+      border-radius:999px;padding:.35rem .5rem;box-shadow:0 8px 24px rgba(0,0,0,.45);</span>
+<span class="add">+    }</span>
+<span class="add">+    .nav button{</span>
+<span class="add">+      background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:1.05rem;</span>
+<span class="add">+      width:2.1rem;height:2.1rem;border-radius:999px;transition:all .15s;line-height:1;</span>
+<span class="add">+    }</span>
+<span class="add">+    .nav button:hover{background:var(--card2);color:var(--text)}</span>
+<span class="add">+    .nav .count{font-size:.72rem;color:var(--muted);min-width:2.6rem;text-align:center;font-variant-numeric:tabular-nums}</span>
+<span class="add">+    .nav .mode-btn{width:auto;padding:0 .7rem;font-size:.72rem;color:var(--muted)}</span>
+<span class="add">+    .hero{display:flex;flex-direction:column;gap:.9rem}</span>
+<span class="add">+    .hero-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}</span>
+<span class="add">+    .hero-badges{display:flex;gap:.5rem;flex-wrap:wrap}</span>
+<span class="add">+    .badge{</span>
+<span class="add">+      display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .7rem;border-radius:999px;</span>
+<span class="add">+      font-size:.72rem;font-weight:700;letter-spacing:.02em;border:1px solid var(--line);color:var(--muted);</span>
+<span class="add">+    }</span>
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-09-08 23:35
+      Gerado por scripts/generate-report.mjs · 2026-09-08 23:38
     </div>
   </div>
 
