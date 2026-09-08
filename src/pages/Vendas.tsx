@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { Plus, Calculator, Download } from "lucide-react";
 import { SearchInput } from "@/components/ui/SearchInput";
-import { OwnerFilter, ALL_OWNERS } from "@/components/ui";
+import { OwnerFilter, ALL_OWNERS, ProgramFilter, ALL_PROGRAMS } from "@/components/ui";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -38,6 +38,7 @@ export default function Vendas() {
   const debouncedSearch = useDebounce(searchTerm, 300);
   const [statusFilter, setStatusFilter] = useState<string>("todos");
   const [ownerFilter, setOwnerFilter] = useState<string>(ALL_OWNERS);
+  const [programFilter, setProgramFilter] = useState<string>(ALL_PROGRAMS);
   const [simulatorOpen, setSimulatorOpen] = useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -356,9 +357,17 @@ export default function Vendas() {
       ownerFilter === ALL_OWNERS
         ? null
         : new Set(accounts.filter((a) => a.ownerId === ownerFilter).map((a) => a.id));
+    // s.program guarda o nome do programa — compara normalizado com o nome do programa selecionado.
+    const selectedProgramName =
+      programFilter === ALL_PROGRAMS
+        ? null
+        : (programs.find((p) => p.id === programFilter)?.name ?? null);
+    const selectedProgramKey = selectedProgramName?.trim().toLowerCase() ?? null;
     return sales.filter((s) => {
       if (statusFilter !== "todos" && s.status !== statusFilter) return false;
       if (ownerAccountIds && !ownerAccountIds.has(s.accountId ?? "")) return false;
+      if (selectedProgramKey && (s.program ?? "").trim().toLowerCase() !== selectedProgramKey)
+        return false;
       if (!debouncedSearch) return true;
       const q = debouncedSearch.toLowerCase();
       return (
@@ -368,7 +377,7 @@ export default function Vendas() {
         s.ticketLocator.toLowerCase().includes(q)
       );
     });
-  }, [sales, statusFilter, ownerFilter, accounts, debouncedSearch]);
+  }, [sales, statusFilter, ownerFilter, programFilter, programs, accounts, debouncedSearch]);
 
   if (isLoading) {
     return (
@@ -416,6 +425,12 @@ export default function Vendas() {
             owners={owners}
             value={ownerFilter}
             onChange={setOwnerFilter}
+            className="w-full sm:w-44"
+          />
+          <ProgramFilter
+            programs={programs.filter((p) => p.type === "milhas")}
+            value={programFilter}
+            onChange={setProgramFilter}
             className="w-full sm:w-44"
           />
           <Select value={statusFilter} onValueChange={setStatusFilter}>

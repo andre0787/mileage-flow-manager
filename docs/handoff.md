@@ -52,7 +52,7 @@ Nenhum PR aberto.
 **Objetivo:** continuacao
 **Status:** in_progress
 **Iniciada em:** 2026-09-07T19:07:27.835Z
-**Branch:** `fix/flake-session-start-isolamento`
+**Branch:** `feat/vendas-filtro-coluna-programa`
 **Último commit:** d1eccfe — Merge pull request #561 from andre0787/feat/client-advance-payment
 **Docs carregados:** AGENTS.md
 

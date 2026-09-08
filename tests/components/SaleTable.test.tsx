@@ -126,6 +126,24 @@ describe("SaleTable", () => {
     expect(onCancel).toHaveBeenCalledWith("sale-2");
   });
 
+  it("exibe colunas Dono e Programa separadas com nomes dos programas", () => {
+    render(<SaleTable sales={mockSales} />);
+
+    expect(screen.getByText("Dono")).toBeDefined();
+    expect(screen.getByText("Programa")).toBeDefined();
+    expect(screen.getAllByText("Smiles").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("TudoAzul").length).toBeGreaterThan(0);
+  });
+
+  it("ordena pela coluna Programa", () => {
+    render(<SaleTable sales={mockSales} />);
+
+    fireEvent.click(screen.getByText("Programa"));
+
+    const rows = screen.getAllByRole("row");
+    expect(rows.length).toBeGreaterThan(1);
+  });
+
   it("permite ordenar colunas", () => {
     render(<SaleTable sales={mockSales} />);
 

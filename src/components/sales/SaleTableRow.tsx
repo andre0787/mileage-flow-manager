@@ -56,9 +56,6 @@ export function SaleTableRow({
           <p className="font-medium">
             {sale.kind === "servico" ? serviceTypeLabel(sale.serviceType) : sale.ownerName}
           </p>
-          <p className="text-xs text-muted-foreground">
-            {sale.kind === "servico" ? "Serviço" : sale.program}
-          </p>
           <span
             className="mt-1 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold"
             style={{
@@ -74,6 +71,9 @@ export function SaleTableRow({
             />
             {sale.ownerName}
           </span>
+        </TableCell>
+        <TableCell>
+          <p className="font-medium">{sale.kind === "servico" ? "Serviço" : sale.program || "—"}</p>
         </TableCell>
         <TableCell>
           <p className="font-medium">{sale.clientName}</p>

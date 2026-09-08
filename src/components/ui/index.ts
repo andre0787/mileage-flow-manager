@@ -7,6 +7,7 @@
 export { DataTable } from "./DataTable";
 export type { Column } from "./DataTable";
 export { OwnerFilter, ALL_OWNERS } from "./OwnerFilter";
+export { ProgramFilter, ALL_PROGRAMS } from "./ProgramFilter";
 export { SortableHeader } from "./SortableHeader";
 export { SearchInput } from "./SearchInput";
 export { StatusBadge } from "./StatusBadge";
