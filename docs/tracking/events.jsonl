@@ -443,3 +443,7 @@
 {"timestamp":"2026-09-07T22:52:18.699Z","type":"gate","description":"gate auth executado (rule-35-auth-gate)","branch":"fix/limite-passageiros-por-dono","commit":"23def43","agent":"pi","gate":"auth","rule":"rule-35-auth-gate"}
 {"timestamp":"2026-09-07T22:52:55.190Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/limite-passageiros-por-dono","commit":"23def43","agent":"pi","errors":0}
 {"timestamp":"2026-09-07T22:59:15.441Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/limite-passageiros-por-dono","commit":"0518aab","agent":"pi","errors":0}
+{"timestamp":"2026-09-08T02:32:54.749Z","type":"coding:done","description":"Codificacao por subagente concluida","branch":"feat/vendas-filtro-coluna-programa","commit":"c1ca905","agent":"pi","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-09-08T02:33:45.101Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"feat/vendas-filtro-coluna-programa","commit":"c1ca905","agent":"pi","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-09-08T02:33:51.381Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/vendas-filtro-coluna-programa","commit":"c1ca905","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-09-08T02:33:52.069Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/vendas-filtro-coluna-programa","commit":"c1ca905","agent":"pi","errors":0}

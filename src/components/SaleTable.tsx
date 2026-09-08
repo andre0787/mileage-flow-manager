@@ -49,8 +49,10 @@ export function SaleTable({
     switch (col) {
       case "Data":
         return new Date(sale.date).getTime();
-      case "Dono/Programa":
-        return `${sale.ownerName} ${sale.program}`.toLowerCase();
+      case "Dono":
+        return sale.ownerName.toLowerCase();
+      case "Programa":
+        return (sale.program ?? "").toLowerCase();
       case "Cliente":
         return sale.clientName.toLowerCase();
       case "Milhas":
@@ -120,9 +122,10 @@ export function SaleTable({
               <TableHeader>
                 <TableRow>
                   <SortableHeader label="Data" sortKey="Data" sort={sort} onSort={setSort} />
+                  <SortableHeader label="Dono" sortKey="Dono" sort={sort} onSort={setSort} />
                   <SortableHeader
-                    label="Dono/Programa"
-                    sortKey="Dono/Programa"
+                    label="Programa"
+                    sortKey="Programa"
                     sort={sort}
                     onSort={setSort}
                   />
