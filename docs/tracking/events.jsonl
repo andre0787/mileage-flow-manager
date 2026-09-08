@@ -499,3 +499,8 @@
 {"timestamp":"2026-09-08T03:19:20.067Z","type":"rule:fail","description":"rule-39-coding-gate falhou","branch":"feat/entradas-program-filter","commit":"7fc168e","agent":"pi","rule":"rule-39-coding-gate"}
 {"timestamp":"2026-09-08T03:21:20.007Z","type":"coding:done","description":"Codificação por subagente concluída","branch":"feat/entradas-program-filter","commit":"7fc168e","agent":"pi","subagent":true,"skill":"subagent-driven-development"}
 {"timestamp":"2026-09-08T03:21:20.044Z","type":"code-review:done","description":"Review aprovado por subagente","branch":"feat/entradas-program-filter","commit":"7fc168e","agent":"pi","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-09-08T03:21:39.008Z","type":"gate","description":"gate council executado (rule-27-council-veredict)","branch":"feat/entradas-program-filter","commit":"ea8a789","agent":"pi","gate":"council","rule":"rule-27-council-veredict"}
+{"timestamp":"2026-09-08T03:21:39.044Z","type":"gate","description":"gate intent executado (rule-33-intent-gate)","branch":"feat/entradas-program-filter","commit":"ea8a789","agent":"pi","gate":"intent","rule":"rule-33-intent-gate"}
+{"timestamp":"2026-09-08T03:21:39.079Z","type":"gate","description":"gate twins executado (rule-34-twins-check)","branch":"feat/entradas-program-filter","commit":"ea8a789","agent":"pi","gate":"twins","rule":"rule-34-twins-check"}
+{"timestamp":"2026-09-08T03:21:39.115Z","type":"gate","description":"gate auth executado (rule-35-auth-gate)","branch":"feat/entradas-program-filter","commit":"ea8a789","agent":"pi","gate":"auth","rule":"rule-35-auth-gate"}
+{"timestamp":"2026-09-08T03:22:21.553Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/entradas-program-filter","commit":"ea8a789","agent":"pi","errors":0}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T21:36:22.951Z",
+  "generatedAt": "2026-09-08T03:22:25.368Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -146,21 +146,21 @@
     {
       "month": "2026-09",
       "prePrPassRate": 100,
-      "prePrTotal": 73,
-      "prePrPass": 73,
+      "prePrTotal": 87,
+      "prePrPass": 87,
       "prePrFail": 0,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
       "gateActivations": {
-        "intent": 9,
-        "twins": 8,
-        "auth": 8
+        "intent": 20,
+        "twins": 19,
+        "auth": 19
       },
-      "avgOutcomeGrade": 86.7,
+      "avgOutcomeGrade": 89.8,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
-          "count": 12
+          "count": 14
         },
         {
           "rule": "rule-14-orphan-files",
@@ -171,40 +171,27 @@
           "count": 4
         },
         {
-          "rule": "rule-41-optimizer",
-          "count": 3
+          "rule": "rule-39-coding-gate",
+          "count": 4
         },
         {
-          "rule": "rule-43-migration-gate",
+          "rule": "rule-41-optimizer",
           "count": 3
         }
       ],
       "healedByRule": {
         "rule-17-new-docs-valid": 4,
-        "rule-26": 3
+        "rule-26": 9
       },
       "gateBlockedByRule": {},
-      "avgCycleTimeHours": 0.3,
-      "branchesMerged": 25,
-      "violationsCaught": 39,
-      "healedRate": 17.9,
-      "frictionPerPass": 0.53
+      "avgCycleTimeHours": 0.4,
+      "branchesMerged": 30,
+      "violationsCaught": 45,
+      "healedRate": 28.9,
+      "frictionPerPass": 0.52
     }
   ],
   "daily": [
-    {
-      "day": "2026-08-09",
-      "label": "09/08",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-08-10",
       "label": "10/08",
@@ -572,18 +559,81 @@
     {
       "day": "2026-09-07",
       "label": "07/09",
-      "prePrTotal": 19,
-      "prePrPass": 19,
+      "prePrTotal": 24,
+      "prePrPass": 24,
       "prePrFail": 0,
       "prePrPassRate": 100,
       "ruleFails": 8,
-      "healed": 3,
+      "healed": 5,
       "sessions": 0,
-      "merges": 7,
-      "friction": 0.42
+      "merges": 9,
+      "friction": 0.33
+    },
+    {
+      "day": "2026-09-08",
+      "label": "08/09",
+      "prePrTotal": 9,
+      "prePrPass": 9,
+      "prePrFail": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 6,
+      "healed": 4,
+      "sessions": 0,
+      "merges": 3,
+      "friction": 0.67
     }
   ],
   "prs": [
+    {
+      "number": 572,
+      "title": "feat vendas: filtro superior por programa e coluna Programa",
+      "type": "feat",
+      "date": "2026-09-08",
+      "tokens": 593,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio",
+      "cycleHours": 0.2
+    },
+    {
+      "number": 571,
+      "title": "fix testes — isola estado do session-start por worker (issue #567)",
+      "type": "fix",
+      "date": "2026-09-08",
+      "tokens": 686,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 570,
+      "title": "fix vendas — limite de passageiros contado por dono (issue #569)",
+      "type": "fix",
+      "date": "2026-09-07",
+      "tokens": 569,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 568,
+      "title": "chore: limpeza de orfaos (debug.spec + TESTING.md)",
+      "type": "chore",
+      "date": "2026-09-07",
+      "tokens": 434,
+      "benefit": "Ajuste de processo validado",
+      "impact": "Processo mais confiável e audável",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 566,
+      "title": "docs git-workflow — merge automático por padrão após CI verde",
+      "type": "docs",
+      "date": "2026-09-07",
+      "tokens": 578,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança",
+      "cycleHours": 0.2
+    },
     {
       "number": 565,
       "title": "feat controle-cpf — passageiros por dono/programa com filtro global e sinal de duplicados",
@@ -633,75 +683,25 @@
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio",
       "cycleHours": 1.4
-    },
-    {
-      "number": 559,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-07",
-      "tokens": 513,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 558,
-      "title": "fix(telemetria): DAG e cards de IA populam automaticamente a cada sessão",
-      "type": "fix",
-      "date": "2026-09-07",
-      "tokens": 272,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação",
-      "cycleHours": 0.2
-    },
-    {
-      "number": 557,
-      "title": "docs: registra session:end",
-      "type": "docs",
-      "date": "2026-09-07",
-      "tokens": 1,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança",
-      "cycleHours": 0
-    },
-    {
-      "number": 556,
-      "title": "docs: encerra sessão — telemetria + revamp Relatorios (PR #555)",
-      "type": "docs",
-      "date": "2026-09-06",
-      "tokens": 6,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança",
-      "cycleHours": 0
-    },
-    {
-      "number": 555,
-      "title": "fix(telemetria): rollback de status logado + revamp visual das abas de Relatorios",
-      "type": "fix",
-      "date": "2026-09-06",
-      "tokens": 1124,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação",
-      "cycleHours": 0.1
     }
   ],
   "repo": {
-    "components": 156,
+    "components": 157,
     "pages": 18,
     "libs": 49,
     "scripts": 124,
-    "testFiles": 341,
+    "testFiles": 340,
     "skills": 27,
     "rules": 48,
-    "events": 426,
-    "qualityNotes": 531
+    "events": 506,
+    "qualityNotes": 564
   },
   "summary": {
-    "merges": 48,
+    "merges": 53,
     "prs": 10,
     "sessions": 7,
-    "violations": 162,
-    "healed": 19,
+    "violations": 168,
+    "healed": 25,
     "prePrPassRate": 100
   },
   "telemetry": []
