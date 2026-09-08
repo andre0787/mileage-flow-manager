@@ -1,5 +1,5 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-09-06
+> ⏰ Última atualização: 2026-09-08
 > Anterior: 2026-09-06
 ---
 ## 🏗️ Projeto
@@ -9,9 +9,9 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `main`
-- **Último commit:** `10eed17 — Merge pull request #563 from andre0787/feat/contas-sort-media-entry-toggle`
-- **Remote:** origin/main
+- **Branch:** `feat/entradas-program-filter`
+- **Último commit:** `658a6cb` — chore: session end
+- **Remote:** origin/feat/entradas-program-filter
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
 - **P3-28 entradas** (`src/features/entradas/`), **P3-29 contas** (`src/features/contas/`),
   **P3-30 clientes** (`src/features/clientes/`), **P3-31 vendas** (`src/features/vendas/`, PR #341),
@@ -32,44 +32,28 @@ Consulte as GitHub Issues para a lista atual.
   auditoria 2026-08-13 sem risco restante.
 
 ### 📋 PRs Abertos
-Nenhum PR aberto.
+- #573 — feat(entradas): filtro de programas no topo
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 1324 |
+| Total testes | 1363 |
 | Docs issues | 0 |
-| Branch | main |
+| Branch | feat/entradas-program-filter |
 
-
-
-
-
-
-
-
+---
+_Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
 **Categoria:** docs
 **Objetivo:** continuacao
-**Status:** in_progress
+**Status:** done
 **Iniciada em:** 2026-09-07T19:07:27.835Z
 **Branch:** `feat/entradas-program-filter`
 **Último commit:** d1eccfe — Merge pull request #561 from andre0787/feat/client-advance-payment
 **Docs carregados:** AGENTS.md
-
-
----
-_Atualizado automaticamente por `scripts/update-handoff.mjs`_
-
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão
-**Refino da aba Controle de CPF** (pedido do usuário, sessão 2026-09-07):
-- Um card de programa para cada dono/programa.
-- Todos os dados da tela respeitam o filtro do topo.
-- Contar **passageiros**, não clientes únicos (clientes são controlados em outra aba).
-- A aba atua apenas no controle do número de passageiros.
-- Sinalizar passageiros presentes em mais de uma emissão: **não** contabilizam no limite, só sinalizar a existência.
-- Revisar a página inteira e ajustar tudo isso.
+Continue a tarefa ativa ou selecione o próximo task-card.
 ## 🧠 Notas da Sessão Atual
 
 ### 🐛 Bug do Web UI: "Optional feature audit could not establish a safe resource configuration"
@@ -84,6 +68,7 @@ Estado atualizado automaticamente.
   **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
 - **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
+
 
 
 
