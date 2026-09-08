@@ -483,3 +483,5 @@
 {"timestamp":"2026-09-08T02:28:26.638Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/flake-session-start-isolamento","commit":"afb7a41","agent":"pi","errors":0}
 {"timestamp":"2026-09-08T02:53:54.256Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/vendas-filtro-coluna-programa","commit":"bece6b2","agent":"pi","rule":"rule-26"}
 {"timestamp":"2026-09-08T02:53:54.954Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/vendas-filtro-coluna-programa","commit":"bece6b2","agent":"pi","errors":0}
+{"timestamp":"2026-09-08T03:18:06.413Z","type":"healed","description":"rule-26 auto-corrigido","branch":"feat/entradas-program-filter","commit":"6adc632","agent":"pi","rule":"rule-26"}
+{"timestamp":"2026-09-08T03:18:07.146Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/entradas-program-filter","commit":"6adc632","agent":"pi","errors":0}

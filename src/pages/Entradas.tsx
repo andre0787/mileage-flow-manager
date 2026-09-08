@@ -8,7 +8,7 @@ import {
   TrendingDown,
 } from "lucide-react";
 import { SearchInput } from "@/components/ui/SearchInput";
-import { OwnerFilter, ALL_OWNERS } from "@/components/ui";
+import { OwnerFilter, ALL_OWNERS, ProgramFilter, ALL_PROGRAMS } from "@/components/ui";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -57,6 +57,7 @@ export default function Entradas() {
 
   const [activeTab, setActiveTab] = useState<"pontos" | "milhas">("pontos");
   const [ownerFilter, setOwnerFilter] = useState<string>(ALL_OWNERS);
+  const [programFilter, setProgramFilter] = useState<string>(ALL_PROGRAMS);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editingEntry, setEditingEntry] = useState<PointEntry | null>(null);
@@ -250,9 +251,15 @@ export default function Entradas() {
     const byOwner = ownerAccountIds
       ? entriesByTab.filter((e) => ownerAccountIds.has(e.accountId))
       : entriesByTab;
-    if (!debouncedSearch) return byOwner;
+    const byProgram =
+      programFilter === ALL_PROGRAMS
+        ? byOwner
+        : byOwner.filter(
+            (e) => accounts.find((a) => a.id === e.accountId)?.programId === programFilter,
+          );
+    if (!debouncedSearch) return byProgram;
     const q = debouncedSearch.toLowerCase();
-    return byOwner.filter((e) => {
+    return byProgram.filter((e) => {
       const account = accounts.find((a) => a.id === e.accountId);
       const accountName = account?.name.toLowerCase() ?? "";
       const origemNome =
@@ -261,7 +268,7 @@ export default function Entradas() {
         "";
       return accountName.includes(q) || origemNome.includes(q) || formatDateBR(e.date).includes(q);
     });
-  }, [entriesByTab, debouncedSearch, accounts, origemTypes, programs, ownerFilter]);
+  }, [entriesByTab, debouncedSearch, accounts, origemTypes, programs, ownerFilter, programFilter]);
 
   const confirmedEntries = useMemo(
     () => entriesFiltered.filter((e) => e.entryStatus !== "aguardando"),
@@ -317,6 +324,12 @@ export default function Entradas() {
             onChange={setOwnerFilter}
             className="w-full sm:w-44"
           />
+          <ProgramFilter
+            programs={programs.filter((p) => p.type === activeTab)}
+            value={programFilter}
+            onChange={setProgramFilter}
+            className="w-full sm:w-44"
+          />
           <Button
             onClick={() => setIsTransferDialogOpen(true)}
             className="gap-2 bg-gradient-primary hover:opacity-90 shrink-0"
@@ -358,7 +371,7 @@ export default function Entradas() {
       </div>
 
       {/* Tabs */}
-      <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as "pontos" | "milhas")}>
+      <Tabs value={activeTab} onValueChange={(v) => { setActiveTab(v as "pontos" | "milhas"); setProgramFilter(ALL_PROGRAMS); }}>
         <TabsList>
           <TabsTrigger value="pontos" className="gap-2">
             <TrendingUp className="h-4 w-4" />
