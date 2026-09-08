@@ -1,60 +1,40 @@
 import { describe, it, expect, afterAll, beforeAll } from "vitest";
 import { execSync } from "child_process";
-import { resolve } from "path";
-import { readFileSync, writeFileSync, existsSync } from "fs";
+import { resolve, join } from "path";
+import { readFileSync, writeFileSync, mkdtempSync, rmSync } from "fs";
+import { tmpdir } from "os";
 
 const ROOT = resolve(__dirname, "../..");
 const SCRIPT = resolve(ROOT, "scripts/session-start.mjs");
-const HANDOFF = resolve(ROOT, "docs/handoff.md");
+// issue #567: o teste nunca toca o handoff real — cada worker usa uma cópia
+// temporária via MILESCONTROL_HANDOFF (workers vitest em paralelo mutavam
+// docs/handoff.md e o index.lock, flakando no CI full-suite).
+const REAL_HANDOFF = resolve(ROOT, "docs/handoff.md");
+let TMP_DIR: string;
+let HANDOFF: string;
 let originalHandoff: string;
-const GIT_CONTEXT_KEYS = ["GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_COMMON_DIR", "GIT_PREFIX"];
+const GIT_CONTEXT_KEYS = [
+  "GIT_DIR",
+  "GIT_WORK_TREE",
+  "GIT_INDEX_FILE",
+  "GIT_COMMON_DIR",
+  "GIT_PREFIX",
+];
 const originalGitContext = Object.fromEntries(
-  GIT_CONTEXT_KEYS.filter((key) => process.env[key] !== undefined).map((key) => [key, process.env[key]]),
+  GIT_CONTEXT_KEYS.filter((key) => process.env[key] !== undefined).map((key) => [
+    key,
+    process.env[key],
+  ]),
 );
 
-function gitCheckoutHandoff() {
-  // Retry: outros testes unitários rodam scripts de rules que usam git no ROOT
-  // em paralelo (vitest workers) — o index.lock conflita transiente. Polling curto.
-  // TWINS: searched "git checkout -- docs/handoff.md" — found 1 local, fix ampliado para remover stale lock.
-  let lastErr: unknown;
-  for (let attempt = 0; attempt < 30; attempt++) {
-    try {
-      execSync("git checkout -- docs/handoff.md", {
-        cwd: ROOT,
-        encoding: "utf8",
-        // Runners de CI frios demoram >5s em operações git (flake visto em
-        // 2026-09-07: 2 reruns de CI queimados). 15s dá folga sem afetar
-        // velocidade local (comandos típicos <1s).
-        timeout: 15000,
-      });
-      return;
-    } catch (err) {
-      lastErr = err;
-      const lockPath = resolve(ROOT, ".git/index.lock");
-      const lockFree = !existsSync(lockPath);
-      if (lockFree) throw err;
-      // Stale lock de merge paralelo ou pre-pr -> tenta remover após 2s
-      if (attempt > 4) {
-        try { execSync(`rm -f "${lockPath}"`, { shell: true }); } catch {
-          // ignore
-        }
-      }
-      execSync("sleep 0.4", { shell: true });
-    }
-  }
-  throw lastErr;
-}
-
 function restoreHandoff() {
-  gitCheckoutHandoff();
-  const content = readFileSync(HANDOFF, "utf8");
   writeFileSync(
     HANDOFF,
-    content.replace(/## 🎯 Sessão Atual[\s\S]*?(?=\n## |\n---|$)/, ""),
+    originalHandoff.replace(/## 🎯 Sessão Atual[\s\S]*?(?=\n## |\n---|$)/, ""),
   );
 }
 
-/** Lê a seção 🎯 Sessão Atual do handoff, ou null se não existir */
+/** Lê a seção 🎯 Sessão Atual do handoff (cópia temp), ou null se não existir */
 function getSessaoAtual() {
   const md = readFileSync(HANDOFF, "utf8");
   const m = md.match(/## 🎯 Sessão Atual[\s\S]*?(?=\n## |\n---|$)/);
@@ -68,11 +48,20 @@ function getSessaoAtual() {
 
 beforeAll(() => {
   for (const key of GIT_CONTEXT_KEYS) delete process.env[key];
-  originalHandoff = readFileSync(HANDOFF, "utf8");
+  originalHandoff = readFileSync(REAL_HANDOFF, "utf8");
+  TMP_DIR = mkdtempSync(join(tmpdir(), "session-start-test-"));
+  HANDOFF = join(TMP_DIR, "handoff.md");
+  writeFileSync(HANDOFF, originalHandoff, "utf8");
+  process.env.MILESCONTROL_HANDOFF = HANDOFF;
   restoreHandoff();
 });
 afterAll(() => {
-  writeFileSync(HANDOFF, originalHandoff);
+  delete process.env.MILESCONTROL_HANDOFF;
+  try {
+    rmSync(TMP_DIR, { recursive: true, force: true });
+  } catch {
+    /* ignore */
+  }
   for (const key of GIT_CONTEXT_KEYS) {
     if (originalGitContext[key] === undefined) delete process.env[key];
     else process.env[key] = originalGitContext[key];
@@ -88,7 +77,7 @@ describe("session-start", () => {
         cwd: ROOT,
         encoding: "utf8",
         timeout: 15000,
-      })
+      }),
     ).toThrow();
   });
 
@@ -98,7 +87,7 @@ describe("session-start", () => {
         cwd: ROOT,
         encoding: "utf8",
         timeout: 15000,
-      })
+      }),
     ).toThrow();
   });
 
@@ -108,7 +97,7 @@ describe("session-start", () => {
         cwd: ROOT,
         encoding: "utf8",
         timeout: 15000,
-      })
+      }),
     ).toThrow();
   });
 
@@ -116,10 +105,11 @@ describe("session-start", () => {
 
   it("--set-category docs → exit 0 e salva no handoff", () => {
     restoreHandoff();
-    const out = execSync(
-      `node "${SCRIPT}" --set-category docs "teste docs"`,
-      { cwd: ROOT, encoding: "utf8", timeout: 15000 }
-    );
+    const out = execSync(`node "${SCRIPT}" --set-category docs "teste docs"`, {
+      cwd: ROOT,
+      encoding: "utf8",
+      timeout: 15000,
+    });
     expect(out).toContain("✅ Sessão iniciada: docs — teste docs");
     expect(getSessaoAtual()?.categoria).toBe("docs");
     expect(getSessaoAtual()?.objetivo).toBe("teste docs");
@@ -128,20 +118,22 @@ describe("session-start", () => {
 
   it("--set-category bugfix → exit 0", () => {
     restoreHandoff();
-    const out = execSync(
-      `node "${SCRIPT}" --set-category bugfix "corrige bug"`,
-      { cwd: ROOT, encoding: "utf8", timeout: 15000 }
-    );
+    const out = execSync(`node "${SCRIPT}" --set-category bugfix "corrige bug"`, {
+      cwd: ROOT,
+      encoding: "utf8",
+      timeout: 15000,
+    });
     expect(out).toContain("✅ Sessão iniciada: bugfix — corrige bug");
     expect(getSessaoAtual()?.categoria).toBe("bugfix");
   });
 
   it("--set-category refactor → exit 0", () => {
     restoreHandoff();
-    const out = execSync(
-      `node "${SCRIPT}" --set-category refactor "refatora modulo"`,
-      { cwd: ROOT, encoding: "utf8", timeout: 15000 }
-    );
+    const out = execSync(`node "${SCRIPT}" --set-category refactor "refatora modulo"`, {
+      cwd: ROOT,
+      encoding: "utf8",
+      timeout: 15000,
+    });
     expect(out).toContain("✅ Sessão iniciada: refactor — refatora modulo");
     expect(getSessaoAtual()?.categoria).toBe("refactor");
   });
@@ -151,13 +143,17 @@ describe("session-start", () => {
   it("--set-category sobrescreve sessão anterior (comportamento explícito)", () => {
     restoreHandoff();
     execSync(`node "${SCRIPT}" --set-category feature "primeira feature"`, {
-      cwd: ROOT, encoding: "utf8", timeout: 5000,
+      cwd: ROOT,
+      encoding: "utf8",
+      timeout: 5000,
     });
     expect(getSessaoAtual()?.objetivo).toBe("primeira feature");
 
     // --set-category é explícito → sobrescreve
     execSync(`node "${SCRIPT}" --set-category chore "segunda chore"`, {
-      cwd: ROOT, encoding: "utf8", timeout: 5000,
+      cwd: ROOT,
+      encoding: "utf8",
+      timeout: 5000,
     });
     expect(getSessaoAtual()?.objetivo).toBe("segunda chore");
   });
@@ -168,12 +164,16 @@ describe("session-start", () => {
     // Prepara uma sessão ativa
     restoreHandoff();
     execSync(`node "${SCRIPT}" --set-category docs "continuacao"`, {
-      cwd: ROOT, encoding: "utf8", timeout: 5000,
+      cwd: ROOT,
+      encoding: "utf8",
+      timeout: 5000,
     });
 
     // Roda de novo (modo interativo sem input → detecta inProgress)
     const out = execSync(`node "${SCRIPT}"`, {
-      cwd: ROOT, encoding: "utf8", timeout: 5000,
+      cwd: ROOT,
+      encoding: "utf8",
+      timeout: 5000,
     });
     expect(out).toContain("▶️  HANDOFF indica algo em andamento");
 
@@ -190,8 +190,10 @@ describe("session-start", () => {
     );
     expect(() =>
       execSync(`node "${SCRIPT}"`, {
-        cwd: ROOT, encoding: "utf8", timeout: 3000,
-      })
+        cwd: ROOT,
+        encoding: "utf8",
+        timeout: 3000,
+      }),
     ).toThrow();
   });
 
@@ -202,8 +204,10 @@ describe("session-start", () => {
     // O importante é confirmar que ele NÃO entra em modo continuação.
     expect(() =>
       execSync(`node "${SCRIPT}"`, {
-        cwd: ROOT, encoding: "utf8", timeout: 3000,
-      })
+        cwd: ROOT,
+        encoding: "utf8",
+        timeout: 3000,
+      }),
     ).toThrow(); // Timeout = não está em continuação
   });
 
@@ -211,14 +215,18 @@ describe("session-start", () => {
     restoreHandoff();
     // Cria sessão com objetivo genérico (default)
     execSync(`node "${SCRIPT}" --set-category chore "descrição concisa"`, {
-      cwd: ROOT, encoding: "utf8", timeout: 5000,
+      cwd: ROOT,
+      encoding: "utf8",
+      timeout: 5000,
     });
     // Ao rodar de novo, não deve detectar como inProgress
     // (porque o objetivo default significa sessão não iniciada de verdade)
     expect(() =>
       execSync(`node "${SCRIPT}"`, {
-        cwd: ROOT, encoding: "utf8", timeout: 3000,
-      })
+        cwd: ROOT,
+        encoding: "utf8",
+        timeout: 3000,
+      }),
     ).toThrow(); // Timeout = entrou em modo interativo, não continuação
   });
 
@@ -226,14 +234,28 @@ describe("session-start", () => {
 
   it("output contém informações do projeto", () => {
     restoreHandoff();
-    const out = execSync(
-      `node "${SCRIPT}" --set-category docs "verifica output"`,
-      { cwd: ROOT, encoding: "utf8", timeout: 15000 }
-    );
+    const out = execSync(`node "${SCRIPT}" --set-category docs "verifica output"`, {
+      cwd: ROOT,
+      encoding: "utf8",
+      timeout: 15000,
+    });
     expect(out).toContain("branch:");
     expect(out).toContain("commit:");
     expect(out).toContain("PRs:");
     expect(out).toContain("## 🏗️ Projeto");
     expect(out).toContain("## 💭 Ideias pendentes");
+  });
+
+  // ─── Isolamento (issue #567) ───
+
+  it("não muta o handoff real", () => {
+    const before = readFileSync(REAL_HANDOFF, "utf8");
+    restoreHandoff();
+    execSync(`node "${SCRIPT}" --set-category chore "teste isolamento"`, {
+      cwd: ROOT,
+      encoding: "utf8",
+      timeout: 15000,
+    });
+    expect(readFileSync(REAL_HANDOFF, "utf8")).toBe(before);
   });
 });

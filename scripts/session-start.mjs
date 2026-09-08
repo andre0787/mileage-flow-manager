@@ -19,7 +19,10 @@ import { createInterface } from "readline";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
-const HANDOFF_PATH = resolve(ROOT, "docs/handoff.md");
+// Override para testes: MILESCONTROL_HANDOFF aponta o script para uma cópia
+// temporária (issue #567 — o teste unitário não pode mutar o handoff real
+// com workers vitest em paralelo).
+const HANDOFF_PATH = process.env.MILESCONTROL_HANDOFF || resolve(ROOT, "docs/handoff.md");
 const CATEGORIAS = ["feature", "bugfix", "docs", "refactor", "chore"];
 const DOCS_CARREGADOS = {
   feature: "WORKFLOW.md, conventions/common.md, conventions/feature.md",
@@ -28,7 +31,13 @@ const DOCS_CARREGADOS = {
   refactor: "conventions/common.md, conventions/refactor.md, ARCHITECTURE.md",
   chore: "AGENTS.md",
 };
-const LABELS = { feature: "feature", bugfix: "bugfix", docs: "docs", refactor: "refactor", chore: "chore" };
+const LABELS = {
+  feature: "feature",
+  bugfix: "bugfix",
+  docs: "docs",
+  refactor: "refactor",
+  chore: "chore",
+};
 
 function readFile(p) {
   return existsSync(p) ? readFileSync(p, "utf8") : null;
@@ -39,41 +48,70 @@ async function main() {
   const setCatIdx = process.argv.indexOf("--set-category");
 
   // ─── Garante pre-commit hook ───
-  try { execSync("git config core.hooksPath .githooks", { cwd: ROOT, encoding: "utf8", timeout: 3000 }); } catch {}
+  try {
+    execSync("git config core.hooksPath .githooks", { cwd: ROOT, encoding: "utf8", timeout: 3000 });
+  } catch {}
 
   // ─── Info do git ───
   const branch = (() => {
-    try { return execSync("git rev-parse --abbrev-ref HEAD", { cwd: ROOT, encoding: "utf8", timeout: 3000 }).trim(); }
-    catch { return "?"; }
+    try {
+      return execSync("git rev-parse --abbrev-ref HEAD", {
+        cwd: ROOT,
+        encoding: "utf8",
+        timeout: 3000,
+      }).trim();
+    } catch {
+      return "?";
+    }
   })();
 
   const commit = (() => {
-    try { return execSync("git log -1 --format='%h — %s'", { cwd: ROOT, encoding: "utf8", timeout: 3000 }).trim(); }
-    catch { return "?"; }
+    try {
+      return execSync("git log -1 --format='%h — %s'", {
+        cwd: ROOT,
+        encoding: "utf8",
+        timeout: 3000,
+      }).trim();
+    } catch {
+      return "?";
+    }
   })();
 
   const prs = (() => {
     try {
-      const o = execSync("gh pr list --state open --json number,title 2>/dev/null", { cwd: ROOT, encoding: "utf8", timeout: 5000 });
+      const o = execSync("gh pr list --state open --json number,title 2>/dev/null", {
+        cwd: ROOT,
+        encoding: "utf8",
+        timeout: 5000,
+      });
       const l = JSON.parse(o);
-      return l.length ? l.map(p => `#${p.number}`).join(", ") : "nenhum";
-    } catch { return "?"; }
+      return l.length ? l.map((p) => `#${p.number}`).join(", ") : "nenhum";
+    } catch {
+      return "?";
+    }
   })();
 
   const status = (() => {
     try {
-      const o = execSync("git status --short", { cwd: ROOT, encoding: "utf8", timeout: 3000 }).trim();
+      const o = execSync("git status --short", {
+        cwd: ROOT,
+        encoding: "utf8",
+        timeout: 3000,
+      }).trim();
       return o || "limpo";
-    } catch { return "?"; }
+    } catch {
+      return "?";
+    }
   })();
 
   // ─── Ideias pendentes ───
   const ideias = readFile(resolve(ROOT, "docs/IDEIAS.md"));
-  const ideiasPendentes = (ideias || "")
-    .split("\n")
-    .filter(l => l.trim().startsWith("- [ ]"))
-    .map(l => "  " + l.replace("- [ ]", "⬜").trim())
-    .join("\n") || "(vazio)";
+  const ideiasPendentes =
+    (ideias || "")
+      .split("\n")
+      .filter((l) => l.trim().startsWith("- [ ]"))
+      .map((l) => "  " + l.replace("- [ ]", "⬜").trim())
+      .join("\n") || "(vazio)";
 
   // ─── Snapshot do handoff ───
   const snapshotMatch = (handoff || "").match(/## 🏗️ Projeto[\s\S]*?(?=\n## |\n---|$)/);
@@ -82,38 +120,59 @@ async function main() {
   // ─── Radar de vulnerabilidades (não bloqueante, skip em CI/test) ───
   if (!process.env.CI && !process.env.VITEST) {
     try {
-      execSync("node scripts/check-radar.mjs", { cwd: ROOT, encoding: "utf8", timeout: 20000, stdio: "inherit" });
-    } catch { /* radar pode falhar silenciosamente */ }
+      execSync("node scripts/check-radar.mjs", {
+        cwd: ROOT,
+        encoding: "utf8",
+        timeout: 20000,
+        stdio: "inherit",
+      });
+    } catch {
+      /* radar pode falhar silenciosamente */
+    }
   }
 
   // ─── Rotação de telemetria (não bloqueante, fail-open, skip em CI/test) ───
   // Mantém events/quality enxutos: arquiva excedente acima do limite em docs/tracking/archive/.
   if (!process.env.CI && !process.env.VITEST) {
     try {
-      execSync("node scripts/trim-tracking.mjs --apply", { cwd: ROOT, encoding: "utf8", timeout: 15000, stdio: "ignore" });
-    } catch { /* trim pode falhar silenciosamente (ex: repo vazio) */ }
+      execSync("node scripts/trim-tracking.mjs --apply", {
+        cwd: ROOT,
+        encoding: "utf8",
+        timeout: 15000,
+        stdio: "ignore",
+      });
+    } catch {
+      /* trim pode falhar silenciosamente (ex: repo vazio) */
+    }
   }
 
   // ─── Detecta sessão em andamento ───
   const sessaoMatch = (handoff || "").match(/## 🎯 Sessão Atual[\s\S]*?(?=\n## |\n---|$)/);
   const sessao = sessaoMatch ? sessaoMatch[0] : null;
-  const inProgress = sessao !== null && sessao.includes("**Status:** in_progress") && !sessao.includes("descrição concisa");
+  const inProgress =
+    sessao !== null &&
+    sessao.includes("**Status:** in_progress") &&
+    !sessao.includes("descrição concisa");
 
   // ─── Output inicial ───
-  console.log([
-    `branch: ${branch}`,
-    `commit: ${commit}`,
-    `files:  ${status.split("\n").length - 1} pendente(s)`,
-    `PRs:    ${prs}`,
-    "",
-    snapshot,
-    "",
-    "## 💭 Ideias pendentes (IDEIAS.md)",
-    ideiasPendentes,
-    "",
-    inProgress ? "▶️  HANDOFF indica algo em andamento — continua." : "",
-    ideiasPendentes.includes("⬜") ? "💡 IDEIAS.md tem pendentes — perguntar ao usuário." : "",
-  ].filter(l => l !== "").join("\n"));
+  console.log(
+    [
+      `branch: ${branch}`,
+      `commit: ${commit}`,
+      `files:  ${status.split("\n").length - 1} pendente(s)`,
+      `PRs:    ${prs}`,
+      "",
+      snapshot,
+      "",
+      "## 💭 Ideias pendentes (IDEIAS.md)",
+      ideiasPendentes,
+      "",
+      inProgress ? "▶️  HANDOFF indica algo em andamento — continua." : "",
+      ideiasPendentes.includes("⬜") ? "💡 IDEIAS.md tem pendentes — perguntar ao usuário." : "",
+    ]
+      .filter((l) => l !== "")
+      .join("\n"),
+  );
 
   // ─── Modo --set-category (não-interativo, pra testes) ───
   // Vem antes de inProgress porque --set-category é explícito (sobrescreve)
@@ -132,7 +191,10 @@ async function main() {
     }
     escreverSessao(cat, obj, branch, commit);
     console.log(`✅ Sessão iniciada: ${cat} — ${obj}`);
-    execSync(`node scripts/event-log.mjs session:start "${cat}: ${obj}" --meta '{"categoria":"${cat}"}' 2>/dev/null || true`, { cwd: ROOT, encoding: 'utf8', timeout: 5000 });
+    execSync(
+      `node scripts/event-log.mjs session:start "${cat}: ${obj}" --meta '{"categoria":"${cat}"}' 2>/dev/null || true`,
+      { cwd: ROOT, encoding: "utf8", timeout: 5000 },
+    );
     emitPipelineEnvelopes(cat);
     return;
   }
@@ -146,34 +208,41 @@ async function main() {
 
   // ─── Modo interativo: carrega feedback (lento) ───
   try {
-    const fbOut = execSync("node scripts/check-feedback.mjs", { cwd: ROOT, encoding: "utf8", timeout: 10000 }).trim();
+    const fbOut = execSync("node scripts/check-feedback.mjs", {
+      cwd: ROOT,
+      encoding: "utf8",
+      timeout: 10000,
+    }).trim();
     const fb = fbOut.split("\n")[0];
     const fbItems = fbOut.split("\n").slice(1).join("\n");
     if (fbItems) console.log(`\n## 📬 Feedback de usuários\n${fbItems}`);
     console.log(fb);
-  } catch { console.log("\n📬 Feedback: ?"); }
+  } catch {
+    console.log("\n📬 Feedback: ?");
+  }
 
   // ─── Pergunta categoria e objetivo ───
   const rl = createInterface({ input: process.stdin, output: process.stdout });
 
   try {
     const resposta = await new Promise((resolve) => {
-      rl.question(
-        `\nCategoria da tarefa? (${CATEGORIAS.join("/")}) `,
-        (cat) => {
-          const trimmed = cat?.trim();
-          const c = trimmed ? trimmed.toLowerCase() : undefined;
-          if (!c || !CATEGORIAS.includes(c)) {
-            const display = trimmed ?? "";
-            resolve({ err: `❌ Categoria inválida: "${display}". Use uma de: ${CATEGORIAS.join(", ")}` });
-            return;
-          }
-          rl.question(`Objetivo da sessão? (descrição concisa) `, (obj) => {
-            resolve({ cat: c, obj: obj.trim() || "descrição concisa" });
+      rl.question(`\nCategoria da tarefa? (${CATEGORIAS.join("/")}) `, (cat) => {
+        const trimmed = cat?.trim();
+        const c = trimmed ? trimmed.toLowerCase() : undefined;
+        if (!c || !CATEGORIAS.includes(c)) {
+          const display = trimmed ?? "";
+          resolve({
+            err: `❌ Categoria inválida: "${display}". Use uma de: ${CATEGORIAS.join(", ")}`,
           });
+          return;
         }
-      );
-      rl.on("close", () => { process.exitCode = 1; });
+        rl.question(`Objetivo da sessão? (descrição concisa) `, (obj) => {
+          resolve({ cat: c, obj: obj.trim() || "descrição concisa" });
+        });
+      });
+      rl.on("close", () => {
+        process.exitCode = 1;
+      });
     });
 
     if (resposta.err) {
