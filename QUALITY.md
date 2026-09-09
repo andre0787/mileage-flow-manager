@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-09-08
-> Último commit: 6adc6328-Merge pull request #572 from andre0787/feat/vendas-filtro-coluna-programa
+> Gerado em: 2026-09-09
+> Último commit: 03eee531-Merge pull request #573 from andre0787/feat/entradas-program-filter
 
 ## Pipeline
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-09-08 | ✅ | 1363 | 1908kB | 0 issues |
+| 2026-09-09 | ✅ | 1363 | 1908kB | 0 issues |
 
 ---
 

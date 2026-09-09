@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T10:29:59.298Z",
+  "generatedAt": "2026-09-09T10:39:57.801Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -146,21 +146,21 @@
     {
       "month": "2026-09",
       "prePrPassRate": 100,
-      "prePrTotal": 85,
-      "prePrPass": 85,
+      "prePrTotal": 88,
+      "prePrPass": 88,
       "prePrFail": 0,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
       "gateActivations": {
-        "intent": 17,
-        "twins": 16,
-        "auth": 16
+        "intent": 20,
+        "twins": 19,
+        "auth": 19
       },
-      "avgOutcomeGrade": 88.9,
+      "avgOutcomeGrade": 89.8,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
-          "count": 12
+          "count": 14
         },
         {
           "rule": "rule-14-orphan-files",
@@ -171,40 +171,27 @@
           "count": 4
         },
         {
-          "rule": "rule-41-optimizer",
-          "count": 3
+          "rule": "rule-39-coding-gate",
+          "count": 4
         },
         {
-          "rule": "rule-43-migration-gate",
+          "rule": "rule-41-optimizer",
           "count": 3
         }
       ],
       "healedByRule": {
         "rule-17-new-docs-valid": 4,
-        "rule-26": 8
+        "rule-26": 9
       },
       "gateBlockedByRule": {},
-      "avgCycleTimeHours": 0.4,
-      "branchesMerged": 29,
-      "violationsCaught": 41,
-      "healedRate": 29.3,
-      "frictionPerPass": 0.48
+      "avgCycleTimeHours": 1.4,
+      "branchesMerged": 30,
+      "violationsCaught": 45,
+      "healedRate": 28.9,
+      "frictionPerPass": 0.51
     }
   ],
   "daily": [
-    {
-      "day": "2026-08-10",
-      "label": "10/08",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-08-11",
       "label": "11/08",
@@ -572,18 +559,51 @@
     {
       "day": "2026-09-08",
       "label": "08/09",
-      "prePrTotal": 7,
-      "prePrPass": 7,
+      "prePrTotal": 10,
+      "prePrPass": 10,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 2,
-      "healed": 3,
+      "ruleFails": 6,
+      "healed": 4,
       "sessions": 0,
-      "merges": 2,
-      "friction": 0.29
+      "merges": 3,
+      "friction": 0.6
+    },
+    {
+      "day": "2026-09-09",
+      "label": "09/09",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [
+    {
+      "number": 573,
+      "title": "feat(entradas): filtro de programas no topo",
+      "type": "feat",
+      "date": "2026-09-08",
+      "tokens": 500,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio",
+      "cycleHours": 12.7
+    },
+    {
+      "number": 574,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-08",
+      "tokens": 666,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 572,
       "title": "feat vendas: filtro superior por programa e coluna Programa",
@@ -663,26 +683,6 @@
       "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
       "impact": "Menos risco de erro para o usuário e a operação",
       "cycleHours": 0.1
-    },
-    {
-      "number": 561,
-      "title": "feat(clientes): adiantamento — crédito do cliente antes da emissão",
-      "type": "feat",
-      "date": "2026-09-07",
-      "tokens": 650,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio",
-      "cycleHours": 1.1
-    },
-    {
-      "number": 560,
-      "title": "feat(telemetria): DAG 8/8 nodes com emissores reais + TTL refresh + gate de sanidade",
-      "type": "feat",
-      "date": "2026-09-07",
-      "tokens": 1022,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio",
-      "cycleHours": 1.4
     }
   ],
   "repo": {
@@ -693,23 +693,23 @@
     "testFiles": 340,
     "skills": 27,
     "rules": 48,
-    "events": 485,
-    "qualityNotes": 555
+    "events": 507,
+    "qualityNotes": 564
   },
   "summary": {
-    "merges": 52,
+    "merges": 53,
     "prs": 10,
     "sessions": 7,
-    "violations": 164,
-    "healed": 24,
+    "violations": 168,
+    "healed": 25,
     "prePrPassRate": 100
   },
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.05068,
-      "executions": 3,
-      "avgExecutionMs": 801923940
+      "cost": 0.06209,
+      "executions": 4,
+      "avgExecutionMs": 900068355
     },
     {
       "area": "vendas",
@@ -756,13 +756,13 @@
     {
       "area": "task",
       "cost": 0,
-      "executions": 6,
+      "executions": 7,
       "avgExecutionMs": 0
     },
     {
       "area": "classifier",
       "cost": 0,
-      "executions": 6,
+      "executions": 7,
       "avgExecutionMs": 0
     },
     {
