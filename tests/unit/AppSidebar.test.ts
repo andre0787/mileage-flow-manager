@@ -1,12 +1,14 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { createElement } from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 
+const clearCacheMock = vi.fn();
+
 vi.mock("@/contexts/DataContext", () => ({
-  useData: () => ({ entries: [], clearCache: vi.fn() }),
+  useData: () => ({ entries: [], clearCache: clearCacheMock }),
 }));
 
 vi.mock("@/features/auth", () => ({
@@ -66,5 +68,32 @@ describe("AppSidebar", () => {
     expect(screen.getByText("Perfil")).toBeTruthy();
     expect(screen.getByText("Configurações")).toBeTruthy();
     expect(screen.getByText("Sair")).toBeTruthy();
+  });
+
+  it("chama clearCache ao confirmar limpar cache e ignora quando cancelado", () => {
+    render(
+      createElement(
+        MemoryRouter,
+        null,
+        createElement(SidebarProvider, null, createElement(AppSidebar)),
+      ),
+    );
+
+    const button = screen.getByText("Limpar Cache");
+
+    // Scenario 1: User cancels confirmation
+    const confirmSpy = vi.spyOn(window, "confirm").mockReturnValueOnce(false);
+    fireEvent.click(button);
+    expect(confirmSpy).toHaveBeenCalledWith(
+      "Limpar cache? Dados serão recarregados do servidor.",
+    );
+    expect(clearCacheMock).not.toHaveBeenCalled();
+
+    // Scenario 2: User confirms
+    confirmSpy.mockReturnValueOnce(true);
+    fireEvent.click(button);
+    expect(clearCacheMock).toHaveBeenCalledTimes(1);
+
+    confirmSpy.mockRestore();
   });
 });
