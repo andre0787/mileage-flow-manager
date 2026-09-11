@@ -10,7 +10,6 @@ const mockOwners: Owner[] = [
     cpf: "123.456.789-00",
     phone: "(11) 99999-9999",
     color: "#FF0000",
-    created_at: "2024-01-01T00:00:00Z",
   },
 ];
 
@@ -20,8 +19,10 @@ const mockAccounts: Account[] = [
     ownerId: "owner-1",
     programId: "prog-1",
     name: "Conta Azul",
+    type: "pontos",
+    status: "ativa",
     balance: 10000,
-    created_at: "2024-01-01T00:00:00Z",
+    createdAt: "2024-01-01T00:00:00Z",
   },
 ];
 
@@ -42,7 +43,7 @@ describe("OwnerSection", () => {
         onAdd={onAdd}
         onUpdate={onUpdate}
         onDelete={onDelete}
-      />
+      />,
     );
 
     expect(screen.getByText("1 dono(s) cadastrado(s)")).toBeDefined();
@@ -57,7 +58,7 @@ describe("OwnerSection", () => {
         onAdd={onAdd}
         onUpdate={onUpdate}
         onDelete={onDelete}
-      />
+      />,
     );
 
     const button = screen.getByRole("button", { name: /Novo Dono/i });
@@ -79,7 +80,7 @@ describe("OwnerSection", () => {
         onAdd={onAdd}
         onUpdate={onUpdate}
         onDelete={onDelete}
-      />
+      />,
     );
 
     fireEvent.click(screen.getByRole("button", { name: /Novo Dono/i }));
@@ -97,7 +98,7 @@ describe("OwnerSection", () => {
         onAdd={onAdd}
         onUpdate={onUpdate}
         onDelete={onDelete}
-      />
+      />,
     );
 
     fireEvent.click(screen.getByRole("button", { name: /Novo Dono/i }));
@@ -120,7 +121,7 @@ describe("OwnerSection", () => {
         name: "Maria Souza",
         cpf: "987.654.321-00",
         phone: "11988887777",
-      })
+      }),
     );
   });
 });
