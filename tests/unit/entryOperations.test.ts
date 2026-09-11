@@ -79,6 +79,21 @@ describe("computeEntryValues", () => {
     expect(r.totalPaid).toBe(2500); // cartCost NÃO soma
   });
 
+  it("transferência com cartCost > 0 e cartAmount = 0 soma cartCost no totalPaid", () => {
+    const r = computeEntryValues(
+      form({
+        origemTypeId: "ot-transfer",
+        amount: "50000",
+        amountPaid: "2500",
+        cartAmount: "",
+        cartCost: "200",
+      }),
+      origemTypes,
+    );
+    expect(r.isTransfer).toBe(true);
+    expect(r.totalPaid).toBe(2700); // 2500 + 200
+  });
+
   it("conversão de pontos: milesGenerated = amount * conversionRate", () => {
     const r = computeEntryValues(form({ conversionRate: "1.5" }), origemTypes);
     expect(r.milesGenerated).toBe(75000);

@@ -87,7 +87,7 @@ export function TransferForm({
     amount: amountNum,
     cartAmount: cartAmountNum,
     amountPaid: parseFloat(form.amountPaid || "0"),
-    cartCost: cartAmountNum > 0 ? cartCostNum : 0,
+    cartCost: cartCostNum,
     conversionRate: 1 + bonusNum / 100,
     bonusPercent: bonusNum,
   });

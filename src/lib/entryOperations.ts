@@ -39,7 +39,7 @@ export function computeEntryValues(
     amount,
     cartAmount: isTransfer ? cartAmount : 0,
     amountPaid,
-    cartCost: isTransfer && cartAmount > 0 ? cartCost : 0,
+    cartCost: isTransfer ? cartCost : 0,
     conversionRate,
     bonusPercent,
   });
