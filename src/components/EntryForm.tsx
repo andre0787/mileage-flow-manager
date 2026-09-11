@@ -122,6 +122,30 @@ export function EntryForm({
   const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id;
   const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id;
 
+  const handleOrigemTypeChange = (value: string) => {
+    const selected = origemTypes.find((ot) => ot.id === value);
+    const hasRecurrence = selected
+      ? parseOrigemTypeDescription(selected.description).hasRecurrence
+      : false;
+
+    let startDate = form.date;
+    if (hasRecurrence && recurrenceStartWasEdited.current) {
+      startDate = form.startDate;
+    }
+
+    set({
+      origemTypeId: value,
+      isRecurrent: hasRecurrence,
+      recurrenceCount: hasRecurrence ? Math.max(form.recurrenceCount, 2) : 1,
+      startDate,
+    });
+
+    if (!hasRecurrence) {
+      recurrenceStartWasEdited.current = false;
+    }
+    clearErr("origemTypeId");
+  };
+
   const label = formType === "milhas" ? "Milhas" : "Pontos";
 
   const validate = (): boolean => {
@@ -215,27 +239,7 @@ export function EntryForm({
         <Label htmlFor="entryType">Tipo de Origem</Label>
         <div className="flex gap-2">
           <div className="flex-1">
-            <Select
-              value={form.origemTypeId}
-              onValueChange={(value) => {
-                const selected = origemTypes.find((ot) => ot.id === value);
-                const hasRecurrence = selected
-                  ? parseOrigemTypeDescription(selected.description).hasRecurrence
-                  : false;
-                set({
-                  origemTypeId: value,
-                  isRecurrent: hasRecurrence,
-                  recurrenceCount: hasRecurrence ? Math.max(form.recurrenceCount, 2) : 1,
-                  startDate: hasRecurrence
-                    ? recurrenceStartWasEdited.current
-                      ? form.startDate
-                      : form.date
-                    : form.date,
-                });
-                if (!hasRecurrence) recurrenceStartWasEdited.current = false;
-                clearErr("origemTypeId");
-              }}
-            >
+            <Select value={form.origemTypeId} onValueChange={handleOrigemTypeChange}>
               <SelectTrigger>
                 <SelectValue placeholder="Selecione o tipo" />
               </SelectTrigger>
