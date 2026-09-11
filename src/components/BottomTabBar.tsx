@@ -28,7 +28,8 @@ interface TabProps {
   badge?: number;
 }
 
-function Tab({ to, label, icon: Icon, end, active, badge }: TabProps) {
+function Tab(props: TabProps) {
+  const { to, label, icon: Icon, end, active, badge } = props;
   return (
     <NavLink
       to={to}
