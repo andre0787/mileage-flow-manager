@@ -88,6 +88,31 @@ describe("logger", () => {
       expect(logs[0].context).toBe("cancel: cancelar.venda");
       expect(logs[0].details?.vendaId).toBe("456");
     });
+
+    it("deve redactar campos sensíveis nos detalhes", () => {
+      logDestructiveOp("delete", "user.delete", {
+        id: "123",
+        password: "secret_password",
+        authToken: "bearer_123",
+        cpf: "123.456.789-00",
+        nested: {
+          email: "test@example.com",
+          safeKey: "safeValue",
+        },
+      });
+
+      const logs = JSON.parse(localStorageMock.getItem("mc_debug_logs") || "[]");
+      expect(logs[0].details).toEqual({
+        id: "123",
+        password: "[REDACTED]",
+        authToken: "[REDACTED]",
+        cpf: "[REDACTED]",
+        nested: {
+          email: "[REDACTED]",
+          safeKey: "safeValue",
+        },
+      });
+    });
   });
 
   describe("limite de logs", () => {

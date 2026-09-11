@@ -14,6 +14,40 @@ interface LogEntry {
   error?: string;
 }
 
+const SENSITIVE_KEY_REGEX = /password|token|secret|auth|cpf|email|credit_card|card_number|cvv|api_key|bearer|authorization|pwd|pass/i;
+
+function redactValue(val: unknown): unknown {
+  if (val === null || val === undefined) return val;
+  if (typeof val === "string" || typeof val === "number" || typeof val === "boolean") {
+    return val;
+  }
+  if (Array.isArray(val)) {
+    return val.map(redactValue);
+  }
+  if (typeof val === "object") {
+    const sanitized: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(val as Record<string, unknown>)) {
+      if (SENSITIVE_KEY_REGEX.test(key)) {
+        sanitized[key] = "[REDACTED]";
+      } else {
+        sanitized[key] = redactValue(value);
+      }
+    }
+    return sanitized;
+  }
+  return String(val);
+}
+
+function sanitizeEntry(entry: LogEntry): LogEntry {
+  const sanitized: LogEntry = {
+    ...entry,
+  };
+  if (entry.details) {
+    sanitized.details = redactValue(entry.details) as Record<string, unknown>;
+  }
+  return sanitized;
+}
+
 function getUserId(): string | null {
   try {
     const key = Object.keys(localStorage).find(
@@ -28,12 +62,13 @@ function getUserId(): string | null {
 }
 
 function persist(entry: LogEntry): void {
-  if (!ENABLE_DEBUG_LOG) return;
+  if (!ENABLE_DEBUG_LOG || import.meta.env.PROD) return;
 
   // localStorage para persistir entre refreshs
   try {
+    const sanitizedEntry = sanitizeEntry(entry);
     const logs = JSON.parse(localStorage.getItem("mc_debug_logs") || "[]");
-    logs.push(entry);
+    logs.push(sanitizedEntry);
     // Manter apenas últimos 100 logs
     if (logs.length > 100) logs.splice(0, logs.length - 100);
     localStorage.setItem("mc_debug_logs", JSON.stringify(logs));
