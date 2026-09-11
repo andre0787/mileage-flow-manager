@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-10T10:28:22.170Z",
-  "dataDate": "2026-09-10",
+  "generatedAt": "2026-09-11T10:28:11.410Z",
+  "dataDate": "2026-09-11",
   "kpiStats": [
     {
       "value": 507,
@@ -83,17 +83,17 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 132,
+      "n": 105,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 123,
+      "n": 92,
       "color": "#84cc16"
     },
     {
       "name": "abaixo de 80%",
-      "n": 10,
+      "n": 7,
       "color": "#ef4444"
     }
   ],
@@ -177,6 +177,16 @@
   },
   "lastPrs": [
     {
+      "number": 576,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-10",
+      "tokens": 371,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
       "number": 575,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
       "type": "other",
@@ -215,16 +225,6 @@
       "benefit": "Nova capacidade entregue e validada",
       "impact": "Nova alavanca de uso/negócio",
       "cycleHours": 0.2
-    },
-    {
-      "number": 571,
-      "title": "fix testes — isola estado do session-start por worker (issue #567)",
-      "type": "fix",
-      "date": "2026-09-08",
-      "tokens": 686,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação",
-      "cycleHours": 0.1
     }
   ],
   "overview": {
