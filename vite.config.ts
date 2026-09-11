@@ -4,6 +4,36 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { VitePWA } from "vite-plugin-pwa";
 
+const VENDOR_MODULES = [
+  "node_modules/react",
+  "node_modules/scheduler",
+  "node_modules/react-router",
+  "node_modules/@reduxjs",
+  "node_modules/redux",
+  "node_modules/react-redux",
+  "node_modules/use-sync-external-store",
+  "node_modules/immer",
+  "node_modules/reselect",
+];
+
+const UI_MODULES = [
+  "node_modules/@radix-ui",
+  "node_modules/lucide-react",
+];
+
+const CHARTS_MODULES = [
+  "node_modules/recharts",
+  "node_modules/d3-",
+  "node_modules/victory",
+];
+
+function getManualChunk(id: string): string | undefined {
+  if (VENDOR_MODULES.some((mod) => id.includes(mod))) return "vendor";
+  if (UI_MODULES.some((mod) => id.includes(mod))) return "ui";
+  if (CHARTS_MODULES.some((mod) => id.includes(mod))) return "charts";
+  return undefined;
+}
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   test: {
@@ -85,29 +115,7 @@ export default defineConfig(({ mode }) => ({
       // playwright-core nunca entra no bundle do client (P12.5-05)
       external: ["playwright-core"],
       output: {
-        manualChunks: (id) => {
-          if (id.includes("node_modules/react") || id.includes("node_modules/scheduler"))
-            return "vendor";
-          if (id.includes("node_modules/react-router")) return "vendor";
-          if (id.includes("node_modules/@reduxjs") || id.includes("node_modules/redux"))
-            return "vendor";
-          if (
-            id.includes("node_modules/react-redux") ||
-            id.includes("node_modules/use-sync-external-store")
-          )
-            return "vendor";
-          if (id.includes("node_modules/immer") || id.includes("node_modules/reselect"))
-            return "vendor";
-          if (id.includes("node_modules/@radix-ui")) return "ui";
-          if (
-            id.includes("node_modules/recharts") ||
-            id.includes("node_modules/d3-") ||
-            id.includes("node_modules/victory")
-          )
-            return "charts";
-          if (id.includes("node_modules/lucide-react")) return "ui";
-          return undefined;
-        },
+        manualChunks: getManualChunk,
       },
     },
   },
