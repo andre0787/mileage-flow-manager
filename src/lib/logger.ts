@@ -14,7 +14,8 @@ interface LogEntry {
   error?: string;
 }
 
-const SENSITIVE_KEY_REGEX = /password|token|secret|auth|cpf|email|credit_card|card_number|cvv|api_key|bearer|authorization|pwd|pass/i;
+const SENSITIVE_KEY_REGEX =
+  /password|token|secret|auth|cpf|email|credit_card|card_number|cvv|api_key|bearer|authorization|pwd|pass/i;
 
 function redactValue(val: unknown): unknown {
   if (val === null || val === undefined) return val;
