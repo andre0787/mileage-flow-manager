@@ -412,4 +412,158 @@ describe("useClientCycleAvailability", () => {
     expect(result.current.programs).toEqual(["Latam Pass", "Livelo", "Smiles"]);
     expect(result.current.owners).toEqual(["Alice", "Bruno"]);
   });
+
+  it("usa fallback de identificação do passageiro (clientId se existir, senão cpf)", () => {
+    const programs: Program[] = [
+      { id: "p1", name: "Smiles", type: "milhas", maxPassengers: 10 },
+    ];
+
+    const sales: Sale[] = [
+      {
+        id: "s1",
+        accountName: "Conta 1",
+        ownerName: "João",
+        program: "Smiles",
+        clientId: "c1",
+        clientName: "Cliente 1",
+        milesUsed: 5000,
+        saleValue: 100,
+        costPerMile: 10,
+        profit: 20,
+        profitMargin: 20,
+        status: "concluido",
+        ticketLocator: "LOC1",
+        passengers: [
+          // Tem clientId e cpf -> deve usar clientId
+          { name: "Maria Silva", passengerId: "p1", cpf: "11122233344", clientId: "client-id-1" },
+          // Não tem clientId, tem cpf -> deve usar cpf
+          { name: "Jose Santos", passengerId: "p2", cpf: "99988877766" },
+        ],
+        date: `${currentYear}-06-01`,
+      },
+    ];
+
+    const { result } = renderHook(() => useClientCycleAvailability(sales, programs));
+    const clients = result.current.usage[0].clients;
+
+    expect(clients).toHaveLength(2);
+    expect(clients[0]).toEqual({
+      clientId: "client-id-1",
+      name: "Maria Silva",
+      cpf: "11122233344",
+      lastSaleDate: `${currentYear}-06-01`,
+    });
+    expect(clients[1]).toEqual({
+      clientId: "99988877766",
+      name: "Jose Santos",
+      cpf: "99988877766",
+      lastSaleDate: `${currentYear}-06-01`,
+    });
+  });
+
+  it("ordena alfabeticamente por programName como critério de desempate quando a porcentagem for igual", () => {
+    const programs: Program[] = [
+      { id: "p1", name: "Smiles", type: "milhas", maxPassengers: 10 },
+      { id: "p2", name: "Azul", type: "milhas", maxPassengers: 10 },
+      { id: "p3", name: "AAdvantage", type: "milhas", maxPassengers: 10 },
+    ];
+
+    const sales: Sale[] = [
+      {
+        id: "s1",
+        accountName: "C1",
+        ownerName: "Titular",
+        program: "Smiles",
+        clientId: "c1",
+        clientName: "C1",
+        milesUsed: 1000,
+        saleValue: 100,
+        costPerMile: 10,
+        profit: 10,
+        profitMargin: 10,
+        status: "concluido",
+        ticketLocator: "T1",
+        passengers: [{ name: "P1", passengerId: "p1", cpf: "111", clientId: "cli1" }],
+        date: `${currentYear}-01-01`,
+      },
+      {
+        id: "s2",
+        accountName: "C1",
+        ownerName: "Titular",
+        program: "Azul",
+        clientId: "c1",
+        clientName: "C1",
+        milesUsed: 1000,
+        saleValue: 100,
+        costPerMile: 10,
+        profit: 10,
+        profitMargin: 10,
+        status: "concluido",
+        ticketLocator: "T2",
+        passengers: [{ name: "P2", passengerId: "p2", cpf: "222", clientId: "cli2" }],
+        date: `${currentYear}-01-01`,
+      },
+      {
+        id: "s3",
+        accountName: "C1",
+        ownerName: "Titular",
+        program: "AAdvantage",
+        clientId: "c1",
+        clientName: "C1",
+        milesUsed: 1000,
+        saleValue: 100,
+        costPerMile: 10,
+        profit: 10,
+        profitMargin: 10,
+        status: "concluido",
+        ticketLocator: "T3",
+        passengers: [{ name: "P3", passengerId: "p3", cpf: "333", clientId: "cli3" }],
+        date: `${currentYear}-01-01`,
+      },
+    ];
+
+    const { result } = renderHook(() => useClientCycleAvailability(sales, programs));
+
+    // Todos têm 10% de uso (1/10 * 100), então a ordem deve ser estritamente alfabética pelo nome do programa:
+    // AAdvantage, Azul, Smiles
+    const programOrder = result.current.usage.map((u) => u.programName);
+    expect(programOrder).toEqual(["AAdvantage", "Azul", "Smiles"]);
+  });
+
+  it("garante memoização do retorno do hook quando as referências de sales e programs permanecem inalteradas", () => {
+    const programs: Program[] = [
+      { id: "p1", name: "Smiles", type: "milhas", maxPassengers: 10 },
+    ];
+    const sales: Sale[] = [
+      {
+        id: "s1",
+        accountName: "Conta 1",
+        ownerName: "João",
+        program: "Smiles",
+        clientId: "c1",
+        clientName: "Cliente 1",
+        milesUsed: 5000,
+        saleValue: 100,
+        costPerMile: 10,
+        profit: 20,
+        profitMargin: 20,
+        status: "concluido",
+        ticketLocator: "LOC1",
+        passengers: [{ name: "Passageiro", passengerId: "p1", cpf: "123", clientId: "cli1" }],
+        date: `${currentYear}-06-01`,
+      },
+    ];
+
+    const { result, rerender } = renderHook(
+      ({ s, p }) => useClientCycleAvailability(s, p),
+      { initialProps: { s: sales, p: programs } }
+    );
+
+    const firstResult = result.current;
+
+    // Rerender com exatamente as mesmas referências
+    rerender({ s: sales, p: programs });
+
+    expect(result.current).toBe(firstResult);
+  });
 });
