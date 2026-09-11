@@ -83,6 +83,15 @@ export function SaleTable({
     currentPage * ITEMS_PER_PAGE,
   );
 
+  const handleOpenChange = (open: boolean) => {
+    if (!open) setCancelConfirmId(null);
+  };
+
+  const handleConfirmCancel = (saleId: string) => {
+    onCancel?.(saleId);
+    setCancelConfirmId(null);
+  };
+
   if (sales.length === 0) {
     return (
       <Card className="shadow-card animate-appear animate-delay-600">
@@ -223,13 +232,8 @@ export function SaleTable({
 
       <SaleCancelDialog
         cancelConfirmId={cancelConfirmId}
-        onOpenChange={(open) => {
-          if (!open) setCancelConfirmId(null);
-        }}
-        onConfirmCancel={(saleId) => {
-          onCancel?.(saleId);
-          setCancelConfirmId(null);
-        }}
+        onOpenChange={handleOpenChange}
+        onConfirmCancel={handleConfirmCancel}
       />
     </>
   );
