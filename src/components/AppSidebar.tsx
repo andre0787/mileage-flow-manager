@@ -85,9 +85,7 @@ export function AppSidebar() {
   const isActive = (path: string) => currentPath === path;
 
   const handleClearCache = () => {
-    const isConfirmed = window.confirm(
-      "Limpar cache? Dados serão recarregados do servidor.",
-    );
+    const isConfirmed = window.confirm("Limpar cache? Dados serão recarregados do servidor.");
     if (!isConfirmed) return;
 
     clearCache();
