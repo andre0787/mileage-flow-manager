@@ -86,26 +86,37 @@ export default defineConfig(({ mode }) => ({
       external: ["playwright-core"],
       output: {
         manualChunks: (id) => {
-          if (id.includes("node_modules/react") || id.includes("node_modules/scheduler"))
-            return "vendor";
-          if (id.includes("node_modules/react-router")) return "vendor";
-          if (id.includes("node_modules/@reduxjs") || id.includes("node_modules/redux"))
-            return "vendor";
-          if (
-            id.includes("node_modules/react-redux") ||
-            id.includes("node_modules/use-sync-external-store")
-          )
-            return "vendor";
-          if (id.includes("node_modules/immer") || id.includes("node_modules/reselect"))
-            return "vendor";
-          if (id.includes("node_modules/@radix-ui")) return "ui";
-          if (
-            id.includes("node_modules/recharts") ||
-            id.includes("node_modules/d3-") ||
-            id.includes("node_modules/victory")
-          )
-            return "charts";
-          if (id.includes("node_modules/lucide-react")) return "ui";
+          const CHUNK_RULES: Array<{ chunk: string; patterns: string[] }> = [
+            {
+              chunk: "vendor",
+              patterns: [
+                "node_modules/react",
+                "node_modules/scheduler",
+                "node_modules/react-router",
+                "node_modules/@reduxjs",
+                "node_modules/redux",
+                "node_modules/react-redux",
+                "node_modules/use-sync-external-store",
+                "node_modules/immer",
+                "node_modules/reselect",
+              ],
+            },
+            {
+              chunk: "ui",
+              patterns: ["node_modules/@radix-ui", "node_modules/lucide-react"],
+            },
+            {
+              chunk: "charts",
+              patterns: ["node_modules/recharts", "node_modules/d3-", "node_modules/victory"],
+            },
+          ];
+
+          for (const rule of CHUNK_RULES) {
+            if (rule.patterns.some((pattern) => id.includes(pattern))) {
+              return rule.chunk;
+            }
+          }
+
           return undefined;
         },
       },
