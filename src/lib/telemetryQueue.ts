@@ -75,7 +75,7 @@ function writeQueue(items: QueueItem[]): void {
 }
 export function saveToQueue(payload: TelemetryPayload): void {
   const item: QueueItem = {
-    id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+    id: crypto.randomUUID(),
     payload,
     attempts: 0,
     queuedAt: new Date().toISOString(),
@@ -104,7 +104,7 @@ async function flushQueueOnce(): Promise<void> {
 }
 async function flushWithFallbackLock(): Promise<void> {
   if (typeof localStorage === "undefined") return;
-  const token = `${Date.now()}:${Math.random()}`;
+  const token = crypto.randomUUID();
   try {
     const current = JSON.parse(
       localStorage.getItem(FALLBACK_LOCK_KEY) ?? "null",
