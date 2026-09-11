@@ -233,6 +233,31 @@ export function SaleForm({
 
   const update = (partial: Partial<SaleFormData>) => setForm((prev) => ({ ...prev, ...partial }));
 
+  const handlePassengerClientChange = (index: number, selectedClientId: string) => {
+    if (selectedClientId === "__manual__") {
+      const upd = form.passengers.map((p, j) =>
+        j === index ? { ...p, clientId: undefined, name: "", cpf: "" } : p,
+      );
+      update({ passengers: upd });
+      return;
+    }
+
+    const client = clients.find((c) => c.id === selectedClientId);
+    if (!client) return;
+
+    const upd = form.passengers.map((p, j) =>
+      j === index
+        ? {
+            ...p,
+            clientId: client.id,
+            name: client.name,
+            cpf: client.cpf ?? p.cpf,
+          }
+        : p,
+    );
+    update({ passengers: upd });
+  };
+
   const isServico = form.kind === "servico";
 
   // Troca de modo limpa os campos do outro modo (evita payload misto).
@@ -723,29 +748,7 @@ export function SaleForm({
                 <div key={i} className="grid grid-cols-[auto_1fr_1fr_1fr_auto] gap-2">
                   <Select
                     value={p.clientId ?? ""}
-                    onValueChange={(v) => {
-                      if (v === "__manual__") {
-                        const upd = form.passengers.map((x, j) =>
-                          j === i ? { ...x, clientId: undefined, name: "", cpf: "" } : x,
-                        );
-                        update({ passengers: upd });
-                      } else {
-                        const client = clients.find((c) => c.id === v);
-                        if (client) {
-                          const upd = form.passengers.map((x, j) =>
-                            j === i
-                              ? {
-                                  ...x,
-                                  clientId: client.id,
-                                  name: client.name,
-                                  cpf: client.cpf ?? x.cpf,
-                                }
-                              : x,
-                          );
-                          update({ passengers: upd });
-                        }
-                      }
-                    }}
+                    onValueChange={(v) => handlePassengerClientChange(i, v)}
                   >
                     <SelectTrigger className="w-24 text-xs">
                       <SelectValue placeholder="Cliente" />
