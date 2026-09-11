@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-11T10:28:11.410Z",
+  "generatedAt": "2026-09-11T21:17:12.123Z",
   "dataDate": "2026-09-11",
   "kpiStats": [
     {
-      "value": 507,
+      "value": 394,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 564,
+      "value": 512,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 25,
+      "value": 16,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 39,
+      "value": 31,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,32 +36,32 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 7,
+      "n": 2,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 149,
+      "n": 115,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 168,
+      "n": 109,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 25,
+      "n": 16,
       "color": "#10b981"
     },
     {
       "name": "code-review:done",
-      "n": 42,
+      "n": 33,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 36,
+      "n": 31,
       "color": "#22c55e"
     },
     {
@@ -71,7 +71,7 @@
     },
     {
       "name": "gate",
-      "n": 77,
+      "n": 85,
       "color": "#f43f5e"
     },
     {
@@ -83,7 +83,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 105,
+      "n": 102,
       "color": "#10b981"
     },
     {
@@ -99,143 +99,92 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-09-08 16:00:34",
+      "t": "2026-09-11 21:17:11",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-08 03:22:21",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-08 03:21:39",
+      "t": "2026-09-11 21:14:49",
       "d": "gate",
       "desc": "gate auth executado (rule-35-auth-gate)"
     },
     {
-      "t": "2026-09-08 03:21:39",
+      "t": "2026-09-11 21:14:49",
       "d": "gate",
       "desc": "gate twins executado (rule-34-twins-check)"
     },
     {
-      "t": "2026-09-08 03:21:39",
+      "t": "2026-09-11 21:14:49",
       "d": "gate",
       "desc": "gate intent executado (rule-33-intent-gate)"
     },
     {
-      "t": "2026-09-08 03:21:39",
+      "t": "2026-09-11 21:14:49",
       "d": "gate",
       "desc": "gate council executado (rule-27-council-veredict)"
     },
     {
-      "t": "2026-09-08 03:21:20",
+      "t": "2026-09-11 21:14:21",
       "d": "code-review:done",
       "desc": "Review aprovado por subagente"
     },
     {
-      "t": "2026-09-08 03:21:20",
+      "t": "2026-09-11 21:14:21",
       "d": "coding:done",
       "desc": "Codificação por subagente concluída"
+    },
+    {
+      "t": "2026-09-11 21:11:37",
+      "d": "rule:fail",
+      "desc": "rule-39-coding-gate falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 168,
-    "healed": 25,
-    "healedRate": 14.9,
-    "prePrTotal": 149,
-    "prePrPass": 149,
+    "ruleFails": 109,
+    "healed": 16,
+    "healedRate": 14.7,
+    "prePrTotal": 115,
+    "prePrPass": 115,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 49,
+        "count": 28,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
         "rule": "rule-39-coding-gate",
-        "count": 21,
+        "count": 10,
         "hint": "faltou evento coding:done por subagente na branch"
       },
       {
         "rule": "rule-26-session-started",
-        "count": 13,
+        "count": 10,
         "hint": "timestamp de sessão ausente — npm run session:start"
       },
       {
         "rule": "rule-03-handoff-completeness",
-        "count": 12,
+        "count": 9,
         "hint": ""
       },
       {
-        "rule": "rule-41-optimizer",
+        "rule": "rule-31-lib-test-coverage",
         "count": 9,
-        "hint": "arquivo acima do limite de 150 linhas"
+        "hint": ""
       }
     ]
   },
-  "lastPrs": [
-    {
-      "number": 576,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-10",
-      "tokens": 371,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 575,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-09",
-      "tokens": 499,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 573,
-      "title": "feat(entradas): filtro de programas no topo",
-      "type": "feat",
-      "date": "2026-09-08",
-      "tokens": 500,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio",
-      "cycleHours": 12.7
-    },
-    {
-      "number": 574,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-08",
-      "tokens": 666,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 572,
-      "title": "feat vendas: filtro superior por programa e coluna Programa",
-      "type": "feat",
-      "date": "2026-09-08",
-      "tokens": 593,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio",
-      "cycleHours": 0.2
-    }
-  ],
+  "lastPrs": [],
   "overview": {
-    "components": 157,
+    "components": 158,
     "pages": 18,
     "libs": 49,
     "scripts": 124,
     "testFiles": 340,
     "skills": 27,
     "rules": 48,
-    "events": 507,
-    "qualityNotes": 564
+    "events": 394,
+    "qualityNotes": 512
   }
 }

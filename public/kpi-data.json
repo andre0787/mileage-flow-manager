@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-11T10:28:11.125Z",
+  "generatedAt": "2026-09-11T21:17:12.051Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -97,8 +97,8 @@
     {
       "month": "2026-08",
       "prePrPassRate": 100,
-      "prePrTotal": 61,
-      "prePrPass": 61,
+      "prePrTotal": 26,
+      "prePrPass": 26,
       "prePrFail": 0,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -107,71 +107,71 @@
         "twins": 0,
         "auth": 0
       },
-      "avgOutcomeGrade": 91.2,
+      "avgOutcomeGrade": 90.9,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
-          "count": 35
-        },
-        {
-          "rule": "rule-39-coding-gate",
-          "count": 17
+          "count": 13
         },
         {
           "rule": "rule-03-handoff-completeness",
-          "count": 10
-        },
-        {
-          "rule": "rule-26-session-started",
-          "count": 9
+          "count": 7
         },
         {
           "rule": "rule-31-lib-test-coverage",
           "count": 7
+        },
+        {
+          "rule": "rule-26-session-started",
+          "count": 6
+        },
+        {
+          "rule": "rule-36-process-evidence",
+          "count": 6
         }
       ],
       "healedByRule": {
-        "rule-26": 7,
-        "rule-17-new-docs-valid": 5
+        "rule-17-new-docs-valid": 2,
+        "rule-26": 1
       },
       "gateBlockedByRule": {
         "rule-33-intent-gate": 2
       },
-      "avgCycleTimeHours": 0.9,
-      "branchesMerged": 23,
-      "violationsCaught": 123,
-      "healedRate": 9.8,
-      "frictionPerPass": 2.02
+      "avgCycleTimeHours": 1.2,
+      "branchesMerged": 10,
+      "violationsCaught": 62,
+      "healedRate": 4.8,
+      "frictionPerPass": 2.38
     },
     {
       "month": "2026-09",
       "prePrPassRate": 100,
-      "prePrTotal": 88,
-      "prePrPass": 88,
+      "prePrTotal": 89,
+      "prePrPass": 89,
       "prePrFail": 0,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
       "gateActivations": {
-        "intent": 20,
-        "twins": 19,
-        "auth": 19
+        "intent": 22,
+        "twins": 21,
+        "auth": 21
       },
-      "avgOutcomeGrade": 89.8,
+      "avgOutcomeGrade": 90.2,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
-          "count": 14
+          "count": 15
         },
         {
           "rule": "rule-14-orphan-files",
           "count": 7
         },
         {
-          "rule": "rule-26-session-started",
-          "count": 4
+          "rule": "rule-39-coding-gate",
+          "count": 5
         },
         {
-          "rule": "rule-39-coding-gate",
+          "rule": "rule-26-session-started",
           "count": 4
         },
         {
@@ -184,11 +184,11 @@
         "rule-26": 9
       },
       "gateBlockedByRule": {},
-      "avgCycleTimeHours": 1.4,
-      "branchesMerged": 30,
-      "violationsCaught": 45,
-      "healedRate": 28.9,
-      "frictionPerPass": 0.51
+      "avgCycleTimeHours": null,
+      "branchesMerged": 31,
+      "violationsCaught": 47,
+      "healedRate": 27.7,
+      "frictionPerPass": 0.53
     }
   ],
   "daily": [
@@ -221,28 +221,28 @@
     {
       "day": "2026-08-15",
       "label": "15/08",
-      "prePrTotal": 22,
-      "prePrPass": 22,
+      "prePrTotal": 0,
+      "prePrPass": 0,
       "prePrFail": 0,
-      "prePrPassRate": 100,
-      "ruleFails": 53,
-      "healed": 8,
-      "sessions": 5,
-      "merges": 7,
-      "friction": 2.41
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     },
     {
       "day": "2026-08-16",
       "label": "16/08",
-      "prePrTotal": 2,
-      "prePrPass": 2,
+      "prePrTotal": 0,
+      "prePrPass": 0,
       "prePrFail": 0,
-      "prePrPassRate": 100,
-      "ruleFails": 4,
+      "prePrPassRate": null,
+      "ruleFails": 0,
       "healed": 0,
       "sessions": 0,
-      "merges": 1,
-      "friction": 2
+      "merges": 0,
+      "friction": null
     },
     {
       "day": "2026-08-17",
@@ -312,15 +312,15 @@
     {
       "day": "2026-08-22",
       "label": "22/08",
-      "prePrTotal": 16,
-      "prePrPass": 16,
+      "prePrTotal": 5,
+      "prePrPass": 5,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 22,
-      "healed": 2,
+      "ruleFails": 18,
+      "healed": 1,
       "sessions": 1,
-      "merges": 7,
-      "friction": 1.38
+      "merges": 2,
+      "friction": 3.6
     },
     {
       "day": "2026-08-23",
@@ -572,216 +572,36 @@
     {
       "day": "2026-09-11",
       "label": "11/09",
-      "prePrTotal": 0,
-      "prePrPass": 0,
+      "prePrTotal": 1,
+      "prePrPass": 1,
       "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 2,
       "healed": 0,
       "sessions": 0,
-      "merges": 0,
-      "friction": null
+      "merges": 1,
+      "friction": 2
     }
   ],
-  "prs": [
-    {
-      "number": 576,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-10",
-      "tokens": 371,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 575,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-09",
-      "tokens": 499,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 573,
-      "title": "feat(entradas): filtro de programas no topo",
-      "type": "feat",
-      "date": "2026-09-08",
-      "tokens": 500,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio",
-      "cycleHours": 12.7
-    },
-    {
-      "number": 574,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-08",
-      "tokens": 666,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 572,
-      "title": "feat vendas: filtro superior por programa e coluna Programa",
-      "type": "feat",
-      "date": "2026-09-08",
-      "tokens": 593,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio",
-      "cycleHours": 0.2
-    },
-    {
-      "number": 571,
-      "title": "fix testes — isola estado do session-start por worker (issue #567)",
-      "type": "fix",
-      "date": "2026-09-08",
-      "tokens": 686,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 570,
-      "title": "fix vendas — limite de passageiros contado por dono (issue #569)",
-      "type": "fix",
-      "date": "2026-09-07",
-      "tokens": 569,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 568,
-      "title": "chore: limpeza de orfaos (debug.spec + TESTING.md)",
-      "type": "chore",
-      "date": "2026-09-07",
-      "tokens": 434,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 566,
-      "title": "docs git-workflow — merge automático por padrão após CI verde",
-      "type": "docs",
-      "date": "2026-09-07",
-      "tokens": 578,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança",
-      "cycleHours": 0.2
-    },
-    {
-      "number": 565,
-      "title": "feat controle-cpf — passageiros por dono/programa com filtro global e sinal de duplicados",
-      "type": "feat",
-      "date": "2026-09-07",
-      "tokens": 1556,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio",
-      "cycleHours": 0.1
-    }
-  ],
+  "prs": [],
   "repo": {
-    "components": 157,
+    "components": 158,
     "pages": 18,
     "libs": 49,
     "scripts": 124,
     "testFiles": 340,
     "skills": 27,
     "rules": 48,
-    "events": 507,
-    "qualityNotes": 564
+    "events": 394,
+    "qualityNotes": 512
   },
   "summary": {
-    "merges": 53,
-    "prs": 10,
-    "sessions": 7,
-    "violations": 168,
-    "healed": 25,
+    "merges": 41,
+    "prs": 0,
+    "sessions": 2,
+    "violations": 109,
+    "healed": 16,
     "prePrPassRate": 100
   },
-  "telemetry": [
-    {
-      "area": "workflow",
-      "cost": 0.08491,
-      "executions": 6,
-      "avgExecutionMs": 998212770
-    },
-    {
-      "area": "vendas",
-      "cost": 0.0287,
-      "executions": 1,
-      "avgExecutionMs": 16831791
-    },
-    {
-      "area": "graph-scout",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "test-scout",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "architect",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "implementer",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "tester",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "reviewer",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "task",
-      "cost": 0,
-      "executions": 7,
-      "avgExecutionMs": 0
-    },
-    {
-      "area": "classifier",
-      "cost": 0,
-      "executions": 7,
-      "avgExecutionMs": 0
-    },
-    {
-      "area": "tools",
-      "cost": 0,
-      "executions": 25,
-      "avgExecutionMs": 52715
-    },
-    {
-      "area": "result",
-      "cost": 0,
-      "executions": 2,
-      "avgExecutionMs": 0
-    },
-    {
-      "area": "final-validator",
-      "cost": 0,
-      "executions": 24,
-      "avgExecutionMs": 48771
-    }
-  ]
+  "telemetry": []
 }
