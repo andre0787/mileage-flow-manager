@@ -84,6 +84,20 @@ export function AppSidebar() {
 
   const isActive = (path: string) => currentPath === path;
 
+  const handleClearCache = () => {
+    const isConfirmed = window.confirm(
+      "Limpar cache? Dados serão recarregados do servidor.",
+    );
+    if (!isConfirmed) return;
+
+    clearCache();
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/login");
+  };
+
   return (
     <div className="hidden md:block">
       <Sidebar collapsible="icon">
@@ -208,11 +222,7 @@ export function AppSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                   <button
-                    onClick={() => {
-                      if (window.confirm("Limpar cache? Dados serão recarregados do servidor.")) {
-                        clearCache();
-                      }
-                    }}
+                    onClick={handleClearCache}
                     className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50"
                     title="Limpar cache local e recarregar dados"
                   >
@@ -238,10 +248,7 @@ export function AppSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                   <button
-                    onClick={async () => {
-                      await signOut();
-                      navigate("/login");
-                    }}
+                    onClick={handleSignOut}
                     className="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 w-full text-left text-muted-foreground hover:text-foreground hover:bg-accent/50"
                   >
                     <LogOut className="w-4 h-4 shrink-0" />
