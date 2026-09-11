@@ -13,11 +13,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FormDrawer } from "@/components/FormDrawer";
-import { formatCPF } from "@/lib/utils";
+import { ClientCreationDrawer, type NewClientData } from "@/components/ClientCreationDrawer";
 import { isValidISODate, todayISODate } from "@/lib/dateUtils";
 import { calcProfit, calcProfitMargin } from "@/lib/metrics";
 import { countPassengersInCycle } from "@/lib/passengerCycle";
 import type { Account, Owner, Program, Client, Sale, SaleKind, ServiceType } from "@/types";
+
+export type { NewClientData };
 
 export interface AdditionalCostItem {
   desc: string;
@@ -50,14 +52,6 @@ export interface SaleFormData {
   passengers: { name: string; passengerId: string; cpf: string; clientId?: string }[];
   /** Preenchido automaticamente no submit a partir do averageCostPerMile da conta */
   costPerMile?: number;
-}
-
-interface NewClientData {
-  name: string;
-  cpf: string;
-  email: string;
-  phone: string;
-  telegram: string;
 }
 
 interface SaleFormProps {
@@ -130,14 +124,6 @@ export function SaleForm({
     return base;
   });
   const [isClientDialogOpen, setIsClientDialogOpen] = useState(false);
-  const [newClient, setNewClient] = useState<NewClientData>({
-    name: "",
-    cpf: "",
-    email: "",
-    phone: "",
-    telegram: "",
-  });
-  const [clientErrors, setClientErrors] = useState<Partial<Record<string, string>>>({});
 
   // Derived data
   const stockInfo = useMemo(
@@ -281,18 +267,6 @@ export function SaleForm({
     { ok: false },
   );
 
-  const handleCreateClient = async () => {
-    if (!newClient.name.trim()) {
-      setClientErrors({ name: "Nome é obrigatório" });
-      return;
-    }
-    const id = crypto.randomUUID();
-    await onCreateClient({ id, ...newClient });
-    update({ clientId: id, clientName: newClient.name.trim() });
-    setNewClient({ name: "", cpf: "", email: "", phone: "", telegram: "" });
-    setClientErrors({});
-    setIsClientDialogOpen(false);
-  };
 
   const hasValidDate = isValidISODate(form.date);
   const canSubmitServico =
@@ -829,82 +803,12 @@ export function SaleForm({
       </FormDrawer>
 
       {/* Client creation dialog */}
-      <FormDrawer
+      <ClientCreationDrawer
         open={isClientDialogOpen}
-        onOpenChange={(open) => {
-          setIsClientDialogOpen(open);
-          if (!open) setClientErrors({});
-        }}
-        title="Novo Cliente"
-      >
-        <div className="grid gap-4 py-4">
-          <div className="space-y-2">
-            <Label>Nome Completo</Label>
-            <Input
-              value={newClient.name}
-              onChange={(e) => {
-                setNewClient((p) => ({ ...p, name: e.target.value }));
-                setClientErrors((prev) => ({ ...prev, name: "" }));
-              }}
-              placeholder="Digite o nome completo"
-            />
-            {clientErrors.name && <p className="text-xs text-destructive">{clientErrors.name}</p>}
-          </div>
-          <div className="space-y-2">
-            <Label>CPF</Label>
-            <Input
-              value={newClient.cpf}
-              onChange={(e) =>
-                setNewClient((p) => ({
-                  ...p,
-                  cpf: formatCPF(e.target.value.replace(/\D/g, "").slice(0, 11)),
-                }))
-              }
-              placeholder="000.000.000-00"
-              maxLength={14}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>E-mail</Label>
-            <Input
-              type="email"
-              value={newClient.email}
-              onChange={(e) => setNewClient((p) => ({ ...p, email: e.target.value }))}
-              placeholder="cliente@email.com"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Telefone</Label>
-            <Input
-              value={newClient.phone}
-              onChange={(e) => setNewClient((p) => ({ ...p, phone: e.target.value }))}
-              placeholder="(11) 99999-9999"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Contato Telegram</Label>
-            <Input
-              value={newClient.telegram}
-              onChange={(e) => setNewClient((p) => ({ ...p, telegram: e.target.value }))}
-              placeholder="@usuario"
-            />
-          </div>
-        </div>
-        <div className="flex justify-end gap-2 mt-4">
-          <Button
-            variant="outline"
-            onClick={() => {
-              setIsClientDialogOpen(false);
-              setClientErrors({});
-            }}
-          >
-            Cancelar
-          </Button>
-          <Button onClick={handleCreateClient} className="bg-gradient-primary hover:opacity-90">
-            Cadastrar
-          </Button>
-        </div>
-      </FormDrawer>
+        onOpenChange={setIsClientDialogOpen}
+        onCreateClient={onCreateClient}
+        onClientCreated={({ id, name }) => update({ clientId: id, clientName: name })}
+      />
     </>
   );
 }
