@@ -60,11 +60,7 @@ export function ClientCreationDrawer({
   };
 
   return (
-    <FormDrawer
-      open={open}
-      onOpenChange={handleOpenChange}
-      title="Novo Cliente"
-    >
+    <FormDrawer open={open} onOpenChange={handleOpenChange} title="Novo Cliente">
       <div className="grid gap-4 py-4">
         <div className="space-y-2">
           <Label>Nome Completo</Label>
@@ -119,11 +115,7 @@ export function ClientCreationDrawer({
         </div>
       </div>
       <div className="flex justify-end gap-2 mt-4">
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => handleOpenChange(false)}
-        >
+        <Button type="button" variant="outline" onClick={() => handleOpenChange(false)}>
           Cancelar
         </Button>
         <Button

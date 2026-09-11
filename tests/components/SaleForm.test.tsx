@@ -18,7 +18,7 @@ describe("ClientCreationDrawer", () => {
         onOpenChange={vi.fn()}
         onCreateClient={onCreateClient}
         onClientCreated={onClientCreated}
-      />
+      />,
     );
 
     expect(screen.getByText("Novo Cliente")).toBeDefined();
@@ -41,7 +41,7 @@ describe("ClientCreationDrawer", () => {
         onOpenChange={onOpenChange}
         onCreateClient={onCreateClient}
         onClientCreated={onClientCreated}
-      />
+      />,
     );
 
     const nameInput = screen.getByPlaceholderText("Digite o nome completo");
@@ -54,12 +54,12 @@ describe("ClientCreationDrawer", () => {
       expect(onCreateClient).toHaveBeenCalledWith(
         expect.objectContaining({
           name: "Maria Silva",
-        })
+        }),
       );
       expect(onClientCreated).toHaveBeenCalledWith(
         expect.objectContaining({
           name: "Maria Silva",
-        })
+        }),
       );
     });
   });

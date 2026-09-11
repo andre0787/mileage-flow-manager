@@ -267,7 +267,6 @@ export function SaleForm({
     { ok: false },
   );
 
-
   const hasValidDate = isValidISODate(form.date);
   const canSubmitServico =
     form.clientId && form.serviceType && parseFloat(form.saleValue) > 0 && hasValidDate;
