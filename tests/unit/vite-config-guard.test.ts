@@ -16,6 +16,13 @@ describe("vite.config (P1 react-router 8)", () => {
     expect(VITE_CONFIG).toContain('"node_modules/recharts"');
   });
 
+  it("manualChunks usa CHUNK_PATTERNS e cobre chunks vendor, ui e charts", () => {
+    expect(VITE_CONFIG).toContain("CHUNK_PATTERNS");
+    expect(VITE_CONFIG).toContain('"vendor"');
+    expect(VITE_CONFIG).toContain('"ui"');
+    expect(VITE_CONFIG).toContain('"charts"');
+  });
+
   it("budget-check continua guardando o tamanho do index", () => {
     const budget = readFileSync(resolve(ROOT, "scripts/budget-check.mjs"), "utf8");
     expect(budget).toContain("Index:");
