@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-11T10:28:11.125Z",
+  "generatedAt": "2026-09-12T09:59:34.993Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -192,19 +192,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-08-13",
-      "label": "13/08",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-08-14",
       "label": "14/08",
@@ -581,9 +568,32 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
+    },
+    {
+      "day": "2026-09-12",
+      "label": "12/09",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [
+    {
+      "number": 577,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-11",
+      "tokens": 372,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 576,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -673,16 +683,6 @@
       "benefit": "Documentação/processo atualizados — mais rastreabilidade",
       "impact": "Menos fricção e melhor governança",
       "cycleHours": 0.2
-    },
-    {
-      "number": 565,
-      "title": "feat controle-cpf — passageiros por dono/programa com filtro global e sinal de duplicados",
-      "type": "feat",
-      "date": "2026-09-07",
-      "tokens": 1556,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio",
-      "cycleHours": 0.1
     }
   ],
   "repo": {
@@ -707,9 +707,9 @@
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.08491,
-      "executions": 6,
-      "avgExecutionMs": 998212770
+      "cost": 0.09632,
+      "executions": 7,
+      "avgExecutionMs": 1026254031
     },
     {
       "area": "vendas",
