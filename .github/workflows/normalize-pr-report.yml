@@ -28,6 +28,12 @@ jobs:
           TODAY=$(date +%F)
           REPORTS_DIR="docs/reports/$TODAY"
 
+          if [ -z "$PR_NUM" ]; then
+            echo "⚠️ Número de PR não encontrado"
+            echo "pushed=no" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           if [ ! -d "$REPORTS_DIR" ]; then
             echo "ℹ️  Nenhum relatório em docs/reports/$TODAY/"
             echo "pushed=no" >> "$GITHUB_OUTPUT"
@@ -35,6 +41,7 @@ jobs:
           fi
 
           CHANGED=0
+          shopt -s nullglob
           for file in "$REPORTS_DIR"/*.html; do
             [ -f "$file" ] || continue
             BASENAME=$(basename "$file")
