@@ -27,4 +27,14 @@ describe("ProgramFilter", () => {
 
     expect(onChange).toHaveBeenCalledWith("p2");
   });
+
+  it("permite selecionar Todos os Programas limpando o filtro ativo", () => {
+    const onChange = vi.fn();
+    render(<ProgramFilter programs={mockPrograms} value="p2" onChange={onChange} />);
+
+    fireEvent.click(screen.getByRole("combobox"));
+    fireEvent.click(screen.getByText("Todos os Programas"));
+
+    expect(onChange).toHaveBeenCalledWith(ALL_PROGRAMS);
+  });
 });
