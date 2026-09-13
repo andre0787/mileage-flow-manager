@@ -96,9 +96,12 @@ export default function Contas() {
     return ownerFilter === ALL_OWNERS ? byType : byType.filter((a) => a.ownerId === ownerFilter);
   }, [accounts, filterType, ownerFilter]);
 
-  const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id;
-  const ownerColor = (id: string) => owners.find((o) => o.id === id)?.color ?? null;
-  const programName = (id: string) => programs.find((p) => p.id === id)?.name ?? id;
+  const ownerMap = useMemo(() => new Map(owners.map((o) => [o.id, o])), [owners]);
+  const programMap = useMemo(() => new Map(programs.map((p) => [p.id, p])), [programs]);
+
+  const ownerName = (id: string) => ownerMap.get(id)?.name ?? id;
+  const ownerColor = (id: string) => ownerMap.get(id)?.color ?? null;
+  const programName = (id: string) => programMap.get(id)?.name ?? id;
 
   // Fonte da verdade: saldo calculado de entradas confirmadas - vendas ativas
   // ponytail: mesma lógica do dashboard, evita mostrar saldo corrompido
@@ -160,7 +163,7 @@ export default function Contas() {
                       Infinity)
                     : a.name;
     return sortByKey(filteredAccounts, sort.key, sort.dir, getValue);
-  }, [filteredAccounts, sort, computedBalances, receivables, owners, programs]);
+  }, [filteredAccounts, sort, computedBalances, receivables, ownerMap, programMap]);
 
   const totalPages = Math.ceil(sortedAccounts.length / ITEMS_PER_PAGE);
   const paginatedAccounts = sortedAccounts.slice(
@@ -190,8 +193,8 @@ export default function Contas() {
       paginatedAccounts,
       computedBalances,
       receivables,
-      owners,
-      programs,
+      ownerMap,
+      programMap,
       allAlerts,
       lastActivityByAccount,
     ],
