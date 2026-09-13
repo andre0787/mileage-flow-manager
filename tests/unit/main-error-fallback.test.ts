@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { renderFatalError, renderMissingRoot } from "../../src/main";
+import { renderFatalError, renderMissingRoot } from "../../src/lib/mainErrorFallback";
 
-describe("src/main.tsx error rendering", () => {
+describe("src/lib/mainErrorFallback.ts error rendering", () => {
   let container: HTMLDivElement;
 
   beforeEach(() => {
@@ -24,7 +24,7 @@ describe("src/main.tsx error rendering", () => {
     expect(pre?.textContent).toContain(maliciousMsg);
 
     // Verify raw HTML was not injected into innerHTML as tags
-    expect(container.innerHTML).toContain("&lt;img src=\"x\" onerror=\"alert(1)\"&gt;");
+    expect(container.innerHTML).toContain('&lt;img src="x" onerror="alert(1)"&gt;');
   });
 
   it("renders missing root safely", () => {
