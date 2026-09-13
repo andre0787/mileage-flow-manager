@@ -158,6 +158,14 @@ export default function Relatorios() {
     });
   }, [programs, accounts, filteredSales]);
 
+  const ownerColorsByName = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const o of owners) {
+      map.set(o.name, ownerColor(o.name, o.color ?? null));
+    }
+    return map;
+  }, [owners]);
+
   const ownerNames = useMemo(() => ["todos", ...owners.map((o) => o.name)], [owners]);
   const programNames = useMemo(() => ["todos", ...programs.map((p) => p.name)], [programs]);
 
@@ -517,10 +525,8 @@ export default function Relatorios() {
                     </TableHeader>
                     <TableBody>
                       {filteredOwnerReports.map((report) => {
-                        const reportOwnerColor = ownerColor(
-                          report.ownerName,
-                          owners.find((o) => o.name === report.ownerName)?.color ?? null,
-                        );
+                        const reportOwnerColor =
+                          ownerColorsByName.get(report.ownerName) ?? ownerColor(report.ownerName);
                         return (
                           <TableRow key={report.ownerName}>
                             <TableCell className="hidden md:table-cell font-medium">
@@ -567,10 +573,8 @@ export default function Relatorios() {
               {/* Mobile card list - Owner Performance */}
               <div className="md:hidden space-y-3 mt-4">
                 {filteredOwnerReports.map((report) => {
-                  const reportOwnerColor = ownerColor(
-                    report.ownerName,
-                    owners.find((o) => o.name === report.ownerName)?.color ?? null,
-                  );
+                  const reportOwnerColor =
+                    ownerColorsByName.get(report.ownerName) ?? ownerColor(report.ownerName);
                   return (
                     <div key={report.ownerName} className="border rounded-lg p-4 space-y-3">
                       <div className="flex items-center justify-between">
