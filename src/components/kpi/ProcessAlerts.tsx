@@ -15,9 +15,8 @@ interface Alert {
 /**
  * ProcessAlerts — alertas de saúde do processo (datadog interno):
  * taxa de pre-pr, fricção do dia, entregas em 30d e auto-correção.
- * Lógica pura `buildProcessAlerts` separada para teste unitário.
  */
-export function buildProcessAlerts(daily: DailyMetric[], summary: Summary30): Alert[] {
+function buildProcessAlerts(daily: DailyMetric[], summary: Summary30): Alert[] {
   const alerts: Alert[] = [];
   const today = daily[daily.length - 1];
   const healedRate =
