@@ -8,6 +8,7 @@ import { SkeletonMetricCard } from "@/components/SkeletonLoader";
 import { AccountCard } from "@/components/accounts/AccountCard";
 import { AccountsTable } from "@/components/accounts/AccountsTable";
 import { computeReceivablesByAccount } from "@/lib/accountReceivables";
+import { computeBalancesByAccount } from "@/lib/accounts";
 import { sortByKey, type SortState } from "@/lib/sort";
 import { avgUnitCost } from "@/lib/unitCost";
 import { useData } from "@/contexts/DataContext";
@@ -102,25 +103,10 @@ export default function Contas() {
 
   // Fonte da verdade: saldo calculado de entradas confirmadas - vendas ativas
   // ponytail: mesma lógica do dashboard, evita mostrar saldo corrompido
-  const computedBalances = useMemo(() => {
-    const map = new Map<string, number>();
-    for (const a of accounts) {
-      const accEntries = entries.filter(
-        (e) => e.accountId === a.id && e.entryStatus !== "aguardando",
-      );
-      // Transferências debitam a conta origem (sourceAccountId) sem entrada própria
-      // — o saldo calculado precisa descontá-las (mesma regra do recalcAccount).
-      const accTransfersOut = entries.filter(
-        (e) => e.sourceAccountId === a.id && e.entryStatus !== "aguardando",
-      );
-      const accSales = sales.filter((s) => s.accountId === a.id && s.status !== "cancelado");
-      const entriesSum = accEntries.reduce((s, e) => s + (e.milesGenerated ?? e.amount), 0);
-      const transfersOutSum = accTransfersOut.reduce((s, e) => s + e.amount, 0);
-      const salesSum = accSales.reduce((s, sl) => s + sl.milesUsed, 0);
-      map.set(a.id, Math.max(0, entriesSum - transfersOutSum - salesSum));
-    }
-    return map;
-  }, [accounts, entries, sales]);
+  const computedBalances = useMemo(
+    () => computeBalancesByAccount(accounts, entries, sales),
+    [accounts, entries, sales],
+  );
 
   // A receber por conta: vendas não-canceladas (mesmo padrão do computedBalances)
   const receivables = useMemo(() => computeReceivablesByAccount(sales), [sales]);
