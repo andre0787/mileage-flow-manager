@@ -174,8 +174,12 @@ export function graphQuery(selector?: string): GraphQueryResult {
   const edges = (Array.isArray(parsed.edges) ? parsed.edges : [])
     .map(normalizeCrgEdge)
     .filter((e): e is GraphEdge => Boolean(e));
-  const changedFiles = Array.isArray(parsed.changed_files) ? (parsed.changed_files as string[]) : [];
-  const impactedFiles = Array.isArray(parsed.impacted_files) ? (parsed.impacted_files as string[]) : [];
+  const changedFiles = Array.isArray(parsed.changed_files)
+    ? (parsed.changed_files as string[])
+    : [];
+  const impactedFiles = Array.isArray(parsed.impacted_files)
+    ? (parsed.impacted_files as string[])
+    : [];
   const reachable =
     Array.isArray(parsed.impacted_files) || Array.isArray(parsed.changed_files)
       ? [...new Set<string>([...changedFiles, ...impactedFiles])]
@@ -247,13 +251,15 @@ export function graphSearch(query: string, kind?: string): GraphQueryResult {
  */
 export async function evaluateNode(
   nodeId: string,
-  context: Record<string, unknown> = {}
+  context: Record<string, unknown> = {},
 ): Promise<Record<string, unknown>> {
   try {
     const contextJson = JSON.stringify(context);
     const res = runCrg(["evaluate", "--node", nodeId, "--context", contextJson]);
     if (!res.ok || !res.stdout.trim()) {
-      return { error: (res.error ?? res.stderr.trim()) || "code-review-graph evaluate indisponível" };
+      return {
+        error: (res.error ?? res.stderr.trim()) || "code-review-graph evaluate indisponível",
+      };
     }
     const parsed = safeParseJsonObject(res.stdout);
     if (!parsed) {
