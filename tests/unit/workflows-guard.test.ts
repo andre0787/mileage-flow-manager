@@ -66,6 +66,10 @@ describe("auto-merge workflow (dispara deploy após merge)", () => {
   const AUTO_MERGE = resolve(ROOT, ".github/workflows/auto-merge.yml");
   const content = readFileSync(AUTO_MERGE, "utf8");
 
+  it("restringe a execução a eventos de pull_request", () => {
+    expect(content).toMatch(/github\.event\.workflow_run\.event == 'pull_request'/);
+  });
+
   it("tem permissão actions: write para repository_dispatch", () => {
     expect(content).toMatch(/actions: write/);
   });

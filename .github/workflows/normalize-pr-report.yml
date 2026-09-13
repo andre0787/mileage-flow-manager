@@ -24,6 +24,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          shopt -s nullglob
           PR_NUM="${{ github.event.pull_request.number }}"
           TODAY=$(date +%F)
           REPORTS_DIR="docs/reports/$TODAY"
