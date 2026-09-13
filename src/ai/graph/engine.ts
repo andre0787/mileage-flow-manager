@@ -2,7 +2,7 @@
  * engine.ts — Graph Engine (SDD v5.0, seções 5-6).
  *
  * API pública do Graph Intelligence: status, build, update, query,
- * impact, context, neo4jReadiness. A implementação de referência fala
+ * impact, context, neo4jReadiness, evaluateNode. A implementação de referência fala
  * com o CRG CLI (code-review-graph) via spawnSync e é FAIL-OPEN: se o
  * binário não existe ou falha, degrada (status unavailable / resultado
  * vazio) em vez de quebrar.
@@ -44,6 +44,20 @@ export interface Neo4jReadiness {
 }
 
 const CRG = "code-review-graph";
+
+/** Parse seguro de JSON com validação de tipo objeto (não nulo e não array). */
+export function safeParseJsonObject(input: string): Record<string, unknown> | null {
+  if (!input || typeof input !== "string" || !input.trim()) return null;
+  try {
+    const parsed = JSON.parse(input);
+    if (parsed !== null && typeof parsed === "object" && !Array.isArray(parsed)) {
+      return parsed as Record<string, unknown>;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
 
 function runCrg(args: string[]): { ok: boolean; stdout: string; stderr: string; error?: string } {
   try {
@@ -87,19 +101,18 @@ export function graphStatus(): GraphStatus {
       error: (res.error ?? res.stderr.trim()) || "code-review-graph indisponível",
     };
   }
-  try {
-    const parsed = JSON.parse(res.stdout) as Record<string, unknown>;
-    return {
-      available: true,
-      version: typeof parsed.version === "string" ? parsed.version : undefined,
-      graphVersion: typeof parsed.graphVersion === "string" ? parsed.graphVersion : undefined,
-      nodes: typeof parsed.nodes === "number" ? parsed.nodes : undefined,
-      edges: typeof parsed.edges === "number" ? parsed.edges : undefined,
-      lastBuildAt: typeof parsed.lastBuildAt === "string" ? parsed.lastBuildAt : undefined,
-    };
-  } catch {
+  const parsed = safeParseJsonObject(res.stdout);
+  if (!parsed) {
     return { available: true, error: "status retornou JSON inválido" };
   }
+  return {
+    available: true,
+    version: typeof parsed.version === "string" ? parsed.version : undefined,
+    graphVersion: typeof parsed.graphVersion === "string" ? parsed.graphVersion : undefined,
+    nodes: typeof parsed.nodes === "number" ? parsed.nodes : undefined,
+    edges: typeof parsed.edges === "number" ? parsed.edges : undefined,
+    lastBuildAt: typeof parsed.lastBuildAt === "string" ? parsed.lastBuildAt : undefined,
+  };
 }
 
 /** graph.build() / graph.update() — delega ao CRG (fail-open). */
@@ -150,75 +163,58 @@ export function graphQuery(selector?: string): GraphQueryResult {
   const res = runCrg(args);
   if (!res.ok || !res.stdout.trim()) return emptyGraphResult("unknown");
 
-  try {
-    const parsed = JSON.parse(res.stdout) as {
-      changed_nodes?: unknown;
-      impacted_nodes?: unknown;
-      edges?: unknown;
-      impacted_files?: unknown;
-      changed_files?: unknown;
-    };
-    const changed = Array.isArray(parsed.changed_nodes) ? parsed.changed_nodes : [];
-    const impacted = Array.isArray(parsed.impacted_nodes) ? parsed.impacted_nodes : [];
-    const nodes = [...changed, ...impacted]
-      .map(normalizeCrgNode)
-      .filter((n): n is GraphNode => Boolean(n));
-    const edges = (Array.isArray(parsed.edges) ? parsed.edges : [])
-      .map(normalizeCrgEdge)
-      .filter((e): e is GraphEdge => Boolean(e));
-    const reachable =
-      Array.isArray(parsed.impacted_files) || Array.isArray(parsed.changed_files)
-        ? [
-            ...new Set<string>([
-              ...(parsed.changed_files as string[]),
-              ...(parsed.impacted_files as string[]),
-            ]),
-          ]
-        : undefined;
-    return {
-      nodes,
-      edges,
-      reachable,
-      scannedNodes: nodes.length,
-      queriedAt: new Date().toISOString(),
-      graphVersion: undefined,
-    };
-  } catch {
-    return emptyGraphResult("unknown");
-  }
+  const parsed = safeParseJsonObject(res.stdout);
+  if (!parsed) return emptyGraphResult("unknown");
+
+  const changed = Array.isArray(parsed.changed_nodes) ? parsed.changed_nodes : [];
+  const impacted = Array.isArray(parsed.impacted_nodes) ? parsed.impacted_nodes : [];
+  const nodes = [...changed, ...impacted]
+    .map(normalizeCrgNode)
+    .filter((n): n is GraphNode => Boolean(n));
+  const edges = (Array.isArray(parsed.edges) ? parsed.edges : [])
+    .map(normalizeCrgEdge)
+    .filter((e): e is GraphEdge => Boolean(e));
+  const changedFiles = Array.isArray(parsed.changed_files) ? (parsed.changed_files as string[]) : [];
+  const impactedFiles = Array.isArray(parsed.impacted_files) ? (parsed.impacted_files as string[]) : [];
+  const reachable =
+    Array.isArray(parsed.impacted_files) || Array.isArray(parsed.changed_files)
+      ? [...new Set<string>([...changedFiles, ...impactedFiles])]
+      : undefined;
+  return {
+    nodes,
+    edges,
+    reachable,
+    scannedNodes: nodes.length,
+    queriedAt: new Date().toISOString(),
+    graphVersion: undefined,
+  };
 }
 
 /** graph.impact() — nós alcançáveis a partir de um arquivo/símbolo (v2.3.7: `impact --files`). */
 export function graphImpact(target: string): GraphQueryResult {
   const res = runCrg(["impact", "--files", target]);
   if (!res.ok || !res.stdout.trim()) return emptyGraphResult("unknown");
-  try {
-    const parsed = JSON.parse(res.stdout) as {
-      changed_nodes?: unknown;
-      impacted_nodes?: unknown;
-      edges?: unknown;
-      impacted_files?: unknown;
-    };
-    const changed = Array.isArray(parsed.changed_nodes) ? parsed.changed_nodes : [];
-    const impacted = Array.isArray(parsed.impacted_nodes) ? parsed.impacted_nodes : [];
-    const nodes = [...changed, ...impacted]
-      .map(normalizeCrgNode)
-      .filter((n): n is GraphNode => Boolean(n));
-    const edges = (Array.isArray(parsed.edges) ? parsed.edges : [])
-      .map(normalizeCrgEdge)
-      .filter((e): e is GraphEdge => Boolean(e));
-    return {
-      nodes,
-      edges,
-      reachable: Array.isArray(parsed.impacted_files)
-        ? (parsed.impacted_files as string[])
-        : undefined,
-      scannedNodes: nodes.length,
-      queriedAt: new Date().toISOString(),
-    };
-  } catch {
-    return emptyGraphResult("unknown");
-  }
+
+  const parsed = safeParseJsonObject(res.stdout);
+  if (!parsed) return emptyGraphResult("unknown");
+
+  const changed = Array.isArray(parsed.changed_nodes) ? parsed.changed_nodes : [];
+  const impacted = Array.isArray(parsed.impacted_nodes) ? parsed.impacted_nodes : [];
+  const nodes = [...changed, ...impacted]
+    .map(normalizeCrgNode)
+    .filter((n): n is GraphNode => Boolean(n));
+  const edges = (Array.isArray(parsed.edges) ? parsed.edges : [])
+    .map(normalizeCrgEdge)
+    .filter((e): e is GraphEdge => Boolean(e));
+  return {
+    nodes,
+    edges,
+    reachable: Array.isArray(parsed.impacted_files)
+      ? (parsed.impacted_files as string[])
+      : undefined,
+    scannedNodes: nodes.length,
+    queriedAt: new Date().toISOString(),
+  };
 }
 
 /**
@@ -231,19 +227,41 @@ export function graphSearch(query: string, kind?: string): GraphQueryResult {
     : ["search", "--limit", "20", query];
   const res = runCrg(args);
   if (!res.ok || !res.stdout.trim()) return emptyGraphResult("unknown");
+
+  const parsed = safeParseJsonObject(res.stdout);
+  if (!parsed) return emptyGraphResult("unknown");
+
+  const nodes = (Array.isArray(parsed.results) ? parsed.results : [])
+    .map(normalizeCrgNode)
+    .filter((n): n is GraphNode => Boolean(n));
+  return {
+    nodes,
+    edges: [],
+    scannedNodes: nodes.length,
+    queriedAt: new Date().toISOString(),
+  };
+}
+
+/**
+ * graph.evaluateNode() — avalia um nó no grafo com um contexto (fail-open: retornos seguros em falha de JSON/comando).
+ */
+export async function evaluateNode(
+  nodeId: string,
+  context: Record<string, unknown> = {}
+): Promise<Record<string, unknown>> {
   try {
-    const parsed = JSON.parse(res.stdout) as { results?: unknown };
-    const nodes = (Array.isArray(parsed.results) ? parsed.results : [])
-      .map(normalizeCrgNode)
-      .filter((n): n is GraphNode => Boolean(n));
-    return {
-      nodes,
-      edges: [],
-      scannedNodes: nodes.length,
-      queriedAt: new Date().toISOString(),
-    };
-  } catch {
-    return emptyGraphResult("unknown");
+    const contextJson = JSON.stringify(context);
+    const res = runCrg(["evaluate", "--node", nodeId, "--context", contextJson]);
+    if (!res.ok || !res.stdout.trim()) {
+      return { error: (res.error ?? res.stderr.trim()) || "code-review-graph evaluate indisponível" };
+    }
+    const parsed = safeParseJsonObject(res.stdout);
+    if (!parsed) {
+      return { error: "evaluate retornou JSON inválido" };
+    }
+    return parsed;
+  } catch (err) {
+    return { error: err instanceof Error ? err.message : String(err) };
   }
 }
 
