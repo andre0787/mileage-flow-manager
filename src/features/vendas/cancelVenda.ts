@@ -37,15 +37,17 @@ export const cancelVendaEndpoint = (builder: VendasBuilder) => ({
       // F3: cancelamento entra no histórico (best-effort).
       void recordStatusChange(sale.user_id, id, oldStatus, "cancelado");
       try {
-        for (const r of reversals) {
-          const { error } = await supabase.from("client_credit_movements").insert({
-            user_id: sale.user_id,
-            client_id: sale.client_id,
-            sale_id: id,
-            kind: "reversal",
-            reversal_of: r.reversalOf,
-            amount: r.amount,
-          });
+        if (reversals.length > 0) {
+          const { error } = await supabase.from("client_credit_movements").insert(
+            reversals.map((r) => ({
+              user_id: sale.user_id,
+              client_id: sale.client_id,
+              sale_id: id,
+              kind: "reversal" as const,
+              reversal_of: r.reversalOf,
+              amount: r.amount,
+            })),
+          );
           if (error) throw new Error(error.message);
         }
       } catch (err) {

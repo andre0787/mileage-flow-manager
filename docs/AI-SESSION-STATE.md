@@ -1,24 +1,20 @@
-# AI Session State - 2026-09-07T20:50:00.000Z
+# AI Session State - 2026-09-13T14:43:00.000Z
 
 ## Última Task
-- **Feature Contas: ordenação total + Média/un + toggle pontos/milhas** — DEPLOYADO em prod
-- **PR #563** merged (10eed17); branch deletada; main limpa
+- **Performance: Otimização N+1 em cancelVenda (Bulk Insert)** — PR pronto
+- Refatoração da inserção de estornos (reversals) em `cancelVenda.ts` para bulk insert.
 
 ## Estado dos Testes & Qualidade
-- **CI PR:** changes/check-pr/e2e-smoke/Vercel ✅
-- **Prod:** Deploy workflow success (deploy + e2e-smoke-prod ✅)
-- **pre-pr local:** 0 errors; tsc 0; 11/11 testes feature
+- **pre-pr local:** 0 errors; pre-pr checks e unit tests 100% OK
+- **Vitest:** `cancelVenda-perf.test.ts` e `features-vendas-api.test.ts` passando
 
 ## Arquivos Modificados & Impacto
-- `src/lib/unitCost.ts` (novo) + coluna Média/un em tabela/card/rodapé
-- Ordenação total em `Contas.tsx`/`AccountsTable.tsx`
-- Toggle pontos/milhas em `EntryForm.tsx`; tipo deriva da conta em `Entradas.tsx`
-- Testes: `unitCost`, `EntryFormToggle`, `AccountsTable`
+- `src/features/vendas/cancelVenda.ts`: substituiu loop `for..of` de insert por bulk `.insert(reversals.map(...))`
+- `tests/unit/cancelVenda-perf.test.ts`: novo teste de benchmark/desempenho para inserção em lote de estornos
 
 ## Pendências Imediatas
-- Nenhuma — #564 encerrada sem alteração (era config do programa)
+- Nenhuma
 
 ## Governança de Contexto
-- Gates 38/39 via subagentes; review OK-with-notes aplicado
-- AUTH: "tem permissao de nao parar ate subir em prod"
-- #564 (Controle CPF): causa raiz era config do programa; branch descartada, issue fechada
+- Gates 38/39 (Rule 38 Code Review, Rule 39 Coding) registrados via `event-log.mjs`
+- Rule 46 Token Sentinel verificado
