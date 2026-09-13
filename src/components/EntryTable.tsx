@@ -35,27 +35,19 @@ export interface EntryTableProps {
   onCreateClick?: () => void;
 }
 
-function getOrigemTypeName(id: string, origemTypes: OrigemType[], programs: Program[]): string {
-  const ot = origemTypes.find((item) => item.id === id);
-  if (ot) return ot.name;
-  const prog = programs.find((p) => p.id === id);
-  return prog?.name ?? id;
-}
-
 function getSortValue(
   entry: PointEntry,
   col: string,
-  accounts: Account[],
-  origemTypes: OrigemType[],
-  programs: Program[],
+  accountMap: Map<string, Account>,
+  origemNameMap: Map<string, string>,
 ): unknown {
   switch (col) {
     case "Data":
       return new Date(entry.date).getTime();
     case "Conta":
-      return accounts.find((a) => a.id === entry.accountId)?.name ?? "";
+      return accountMap.get(entry.accountId)?.name ?? "";
     case "Origem":
-      return getOrigemTypeName(entry.origemTypeId, origemTypes, programs).toLowerCase();
+      return (origemNameMap.get(entry.origemTypeId) ?? entry.origemTypeId).toLowerCase();
     case "Pontos":
       return entry.amount;
     case "Milhas Geradas":
@@ -361,16 +353,29 @@ export function EntryTable({
   const isPontos = type === "pontos";
   const [sort, setSort] = useState<SortState>({ key: "Data", dir: "desc" });
 
-  const ownerName = (id: string) => owners.find((o) => o.id === id)?.name ?? id;
-  const donoCustomColor = (id: string) => owners.find((o) => o.id === id)?.color ?? null;
-  const resolveOrigemName = (id: string) => getOrigemTypeName(id, origemTypes, programs);
+  const accountMap = useMemo(() => new Map(accounts.map((a) => [a.id, a])), [accounts]);
+
+  const ownerMap = useMemo(() => new Map(owners.map((o) => [o.id, o])), [owners]);
+
+  const origemNameMap = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const ot of origemTypes) {
+      map.set(ot.id, ot.name);
+    }
+    for (const prog of programs) {
+      if (!map.has(prog.id)) {
+        map.set(prog.id, prog.name);
+      }
+    }
+    return map;
+  }, [origemTypes, programs]);
 
   const sortedEntries = useMemo(
     () =>
       sortByKey(entries, sort.key, sort.dir, (e) =>
-        getSortValue(e, sort.key, accounts, origemTypes, programs),
+        getSortValue(e, sort.key, accountMap, origemNameMap),
       ),
-    [entries, sort, accounts, origemTypes, programs],
+    [entries, sort, accountMap, origemNameMap],
   );
 
   const totalPages = Math.ceil(sortedEntries.length / ITEMS_PER_PAGE);
@@ -448,11 +453,12 @@ export function EntryTable({
               </TableRow>
             ) : (
               paginatedEntries.map((entry) => {
-                const account = accounts.find((a) => a.id === entry.accountId);
+                const account = accountMap.get(entry.accountId);
                 const ownerId = account?.ownerId ?? "";
-                const ownerNameStr = ownerName(ownerId);
-                const customColorHex = donoCustomColor(ownerId);
-                const origemName = resolveOrigemName(entry.origemTypeId);
+                const owner = ownerMap.get(ownerId);
+                const ownerNameStr = owner?.name ?? ownerId;
+                const customColorHex = owner?.color ?? null;
+                const origemName = origemNameMap.get(entry.origemTypeId) ?? entry.origemTypeId;
 
                 return (
                   <EntryTableRow
@@ -486,11 +492,12 @@ export function EntryTable({
           />
         ) : (
           paginatedEntries.map((entry) => {
-            const account = accounts.find((a) => a.id === entry.accountId);
+            const account = accountMap.get(entry.accountId);
             const ownerId = account?.ownerId ?? "";
-            const ownerNameStr = ownerName(ownerId);
-            const customColorHex = donoCustomColor(ownerId);
-            const origemName = resolveOrigemName(entry.origemTypeId);
+            const owner = ownerMap.get(ownerId);
+            const ownerNameStr = owner?.name ?? ownerId;
+            const customColorHex = owner?.color ?? null;
+            const origemName = origemNameMap.get(entry.origemTypeId) ?? entry.origemTypeId;
 
             return (
               <EntryMobileCard
