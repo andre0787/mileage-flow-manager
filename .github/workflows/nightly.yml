@@ -151,12 +151,12 @@ jobs:
             exit 0
           fi
 
-          # 2) Aprovar — reinicia o run com jobs reais
+          # 2) Aprovar — reinicia o run com jobs reais (ignora se já aprovado/em execução)
           gh api \
             --method POST \
             -H "Accept: application/vnd.github+json" \
-            "/repos/${{ github.repository }}/actions/runs/$RUN_ID/approve"
-          echo "✅ Run $RUN_ID aprovado — jobs em execução"
+            "/repos/${{ github.repository }}/actions/runs/$RUN_ID/approve" 2>/dev/null || echo "ℹ️ Run $RUN_ID já aprovado ou não requer aprovação"
+          echo "✅ Run $RUN_ID verificado — jobs em execução"
 
           # 3) Aguardar conclusão (até ~20 min)
           CONCLUSION=""
