@@ -562,6 +562,3 @@
 {"timestamp":"2026-09-08T03:21:38.314Z","rule":"rule-30","outcomeGrade":100}
 {"timestamp":"2026-09-08T03:21:38.370Z","rule":"rule-31","covered":42,"total":42,"pct":100}
 {"timestamp":"2026-09-08T03:21:38.426Z","rule":"rule-32","covered":4,"total":4,"pct":100}
-{"timestamp":"2026-09-13T14:53:58.840Z","rule":"rule-30","outcomeGrade":80}
-{"timestamp":"2026-09-13T14:53:58.949Z","rule":"rule-31","covered":42,"total":42,"pct":100}
-{"timestamp":"2026-09-13T14:53:59.059Z","rule":"rule-32","covered":4,"total":4,"pct":100}

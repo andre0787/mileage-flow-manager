@@ -38,7 +38,7 @@ export interface BalanceAccountInput {
 }
 
 export interface BalanceEntryInput {
-  accountId: string;
+  accountId?: string | null;
   sourceAccountId?: string | null;
   entryStatus?: string | null;
   milesGenerated?: number | null;
@@ -46,7 +46,7 @@ export interface BalanceEntryInput {
 }
 
 export interface BalanceSaleInput {
-  accountId: string;
+  accountId?: string | null;
   status: string;
   milesUsed: number;
 }

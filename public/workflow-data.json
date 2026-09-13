@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-13T14:56:30.644Z",
+  "generatedAt": "2026-09-13T10:58:53.167Z",
   "dataDate": "2026-09-13",
   "kpiStats": [
     {
-      "value": 514,
+      "value": 507,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 567,
+      "value": 564,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -28,7 +28,7 @@
       "sub": "desde o início"
     },
     {
-      "value": 40,
+      "value": 39,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 150,
+      "n": 149,
       "color": "#8b5cf6"
     },
     {
@@ -56,12 +56,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 43,
+      "n": 42,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 37,
+      "n": 36,
       "color": "#22c55e"
     },
     {
@@ -71,7 +71,7 @@
     },
     {
       "name": "gate",
-      "n": 81,
+      "n": 77,
       "color": "#f43f5e"
     },
     {
@@ -88,7 +88,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 76,
+      "n": 75,
       "color": "#84cc16"
     },
     {
@@ -99,52 +99,52 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-09-13 14:56:30",
+      "t": "2026-09-08 16:00:34",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-13 14:54:00",
+      "t": "2026-09-08 03:22:21",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-08 03:21:39",
       "d": "gate",
       "desc": "gate auth executado (rule-35-auth-gate)"
     },
     {
-      "t": "2026-09-13 14:54:00",
+      "t": "2026-09-08 03:21:39",
       "d": "gate",
       "desc": "gate twins executado (rule-34-twins-check)"
     },
     {
-      "t": "2026-09-13 14:54:00",
+      "t": "2026-09-08 03:21:39",
       "d": "gate",
       "desc": "gate intent executado (rule-33-intent-gate)"
     },
     {
-      "t": "2026-09-13 14:54:00",
+      "t": "2026-09-08 03:21:39",
       "d": "gate",
       "desc": "gate council executado (rule-27-council-veredict)"
     },
     {
-      "t": "2026-09-13 14:52:47",
+      "t": "2026-09-08 03:21:20",
       "d": "code-review:done",
-      "desc": "Code review completed with #Correct#"
+      "desc": "Review aprovado por subagente"
     },
     {
-      "t": "2026-09-13 14:52:18",
+      "t": "2026-09-08 03:21:20",
       "d": "coding:done",
-      "desc": "O(N+E+S) map grouping optimization for computedBalances"
-    },
-    {
-      "t": "2026-09-08 16:00:34",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "desc": "Codificação por subagente concluída"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 168,
     "healed": 25,
     "healedRate": 14.9,
-    "prePrTotal": 150,
-    "prePrPass": 150,
+    "prePrTotal": 149,
+    "prePrPass": 149,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
@@ -175,7 +175,58 @@
       }
     ]
   },
-  "lastPrs": [],
+  "lastPrs": [
+    {
+      "number": 608,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-12",
+      "tokens": 371,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 577,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-11",
+      "tokens": 372,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 576,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-10",
+      "tokens": 371,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 575,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-09",
+      "tokens": 499,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 573,
+      "title": "feat(entradas): filtro de programas no topo",
+      "type": "feat",
+      "date": "2026-09-08",
+      "tokens": 500,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio",
+      "cycleHours": 12.7
+    }
+  ],
   "overview": {
     "components": 157,
     "pages": 18,
@@ -184,7 +235,7 @@
     "testFiles": 340,
     "skills": 27,
     "rules": 48,
-    "events": 514,
-    "qualityNotes": 567
+    "events": 507,
+    "qualityNotes": 564
   }
 }
