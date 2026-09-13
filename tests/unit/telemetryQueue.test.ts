@@ -29,10 +29,13 @@ describe("telemetryQueue", () => {
     });
   });
 
-  it("persiste eventos no localStorage", () => {
+  it("persiste eventos no localStorage com ID UUID válido", () => {
     saveToQueue(payload);
     expect(queuedTelemetryCount()).toBe(1);
-    expect(localStorage.getItem(TELEMETRY_QUEUE_STORAGE_KEY)).toContain("session-1");
+    const rawQueue = localStorage.getItem(TELEMETRY_QUEUE_STORAGE_KEY);
+    expect(rawQueue).toContain("session-1");
+    const items = JSON.parse(rawQueue ?? "[]");
+    expect(items[0].id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i);
   });
 
   it("envia e remove eventos quando o Supabase responde sem erro", async () => {
