@@ -140,22 +140,22 @@ export function SaleForm({
   const [clientErrors, setClientErrors] = useState<Partial<Record<string, string>>>({});
 
   // Derived data
-  const stockInfo = useMemo(
-    () =>
-      accounts
-        .filter((a) => a.type === "milhas" && a.status === "ativa")
-        .map((a) => ({
-          accountId: a.id,
-          ownerId: a.ownerId,
-          ownerName: owners.find((o) => o.id === a.ownerId)?.name ?? "",
-          accountName: a.name,
-          programId: a.programId,
-          program: programs.find((p) => p.id === a.programId)?.name ?? "",
-          availableMiles: a.balance,
-          averageCostPerMile: a.averageCostPerMile ?? 0,
-        })),
-    [accounts, owners, programs],
-  );
+  const stockInfo = useMemo(() => {
+    const ownersMap = new Map(owners.map((o) => [o.id, o.name]));
+    const programsMap = new Map(programs.map((p) => [p.id, p.name]));
+    return accounts
+      .filter((a) => a.type === "milhas" && a.status === "ativa")
+      .map((a) => ({
+        accountId: a.id,
+        ownerId: a.ownerId,
+        ownerName: ownersMap.get(a.ownerId) ?? "",
+        accountName: a.name,
+        programId: a.programId,
+        program: programsMap.get(a.programId) ?? "",
+        availableMiles: a.balance,
+        averageCostPerMile: a.averageCostPerMile ?? 0,
+      }));
+  }, [accounts, owners, programs]);
 
   const ownersList = useMemo(() => [...new Set(stockInfo.map((s) => s.ownerName))], [stockInfo]);
   const selectedOwnerStock = useMemo(
