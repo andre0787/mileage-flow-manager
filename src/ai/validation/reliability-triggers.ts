@@ -78,6 +78,90 @@ export function buildTriggers(
   ];
 }
 
+/**
+ * Verifica se um run possui TODOS os campos de telemetria §11 preenchidos,
+ * independentemente de ter sido executado com sucesso ou falha.
+ */
+export function isRunTelemetryComplete(r: RunMetrics): boolean {
+  if (!r) return false;
+
+  const validIdentity =
+    typeof r.taskId === "string" &&
+    r.taskId.trim().length > 0 &&
+    typeof r.agent === "string" &&
+    r.agent.trim().length > 0 &&
+    typeof r.model === "string" &&
+    r.model.trim().length > 0 &&
+    r.model.trim() !== "unset" &&
+    typeof r.role === "string" &&
+    r.role.trim().length > 0 &&
+    typeof r.strategy === "string" &&
+    r.strategy.trim().length > 0 &&
+    typeof r.status === "string" &&
+    r.status.trim().length > 0;
+
+  if (!validIdentity) return false;
+
+  const validRepo =
+    Boolean(r.repository) &&
+    typeof r.repository.commitSha === "string" &&
+    r.repository.commitSha.trim().length > 0 &&
+    typeof r.repository.branch === "string" &&
+    r.repository.branch.trim().length > 0 &&
+    typeof r.repository.workingTreeClean === "boolean" &&
+    typeof r.repository.beforeSha === "string" &&
+    r.repository.beforeSha.trim().length > 0 &&
+    typeof r.repository.afterSha === "string" &&
+    r.repository.afterSha.trim().length > 0;
+
+  if (!validRepo) return false;
+
+  return (
+    typeof r.quality === "number" &&
+    r.quality >= 0 &&
+    typeof r.durationMs === "number" &&
+    r.durationMs > 0 &&
+    typeof r.inputTokens === "number" &&
+    r.inputTokens >= 0 &&
+    typeof r.outputTokens === "number" &&
+    r.outputTokens >= 0 &&
+    typeof r.totalTokens === "number" &&
+    r.totalTokens > 0 &&
+    typeof r.cost === "number" &&
+    r.cost >= 0 &&
+    typeof r.toolCalls === "number" &&
+    r.toolCalls >= 0 &&
+    typeof r.retryCount === "number" &&
+    r.retryCount >= 0 &&
+    typeof r.rework === "number" &&
+    r.rework >= 0 &&
+    typeof r.graphUsed === "boolean" &&
+    typeof r.graphLatencyMs === "number" &&
+    r.graphLatencyMs >= 0 &&
+    typeof r.contextSize === "number" &&
+    r.contextSize > 0 &&
+    typeof r.contextFreshness === "number" &&
+    r.contextFreshness > 0 &&
+    typeof r.budgetUsage === "number" &&
+    r.budgetUsage >= 0 &&
+    typeof r.validation === "boolean" &&
+    typeof r.testPassRate === "number" &&
+    r.testPassRate >= 0 &&
+    typeof r.failureRate === "number" &&
+    r.failureRate >= 0 &&
+    typeof r.agentCount === "number" &&
+    r.agentCount > 0 &&
+    typeof r.orchestrationOverhead === "number" &&
+    r.orchestrationOverhead >= 0 &&
+    typeof r.planningTimeMs === "number" &&
+    r.planningTimeMs >= 0 &&
+    typeof r.executionTimeMs === "number" &&
+    r.executionTimeMs >= 0 &&
+    typeof r.validationTimeMs === "number" &&
+    r.validationTimeMs >= 0
+  );
+}
+
 /** Coleta as métricas brutas que alimentam os triggers. */
 export function collectTriggerInputs(runs: RunMetrics[]): TriggerInputs {
   const total = runs.length || 1;
@@ -87,18 +171,7 @@ export function collectTriggerInputs(runs: RunMetrics[]): TriggerInputs {
   const budgetViolations = runs.filter((r) => r.budgetUsage > 0.98).length;
   const timeouts = runs.filter((r) => r.durationMs > 60000).length;
   const stale = runs.filter((r) => r.contextFreshness < 0.95).length;
-  // Completude de telemetria: TODOS os campos §11 preenchidos (independente
-  // de sucesso). Um run que falhou mas registrou tudo é telemetria completa.
-  const telemetryComplete = runs.filter(
-    (r) =>
-      r.totalTokens > 0 &&
-      r.cost >= 0 &&
-      r.durationMs > 0 &&
-      r.toolCalls >= 0 &&
-      r.contextSize > 0 &&
-      r.contextFreshness > 0 &&
-      r.budgetUsage >= 0,
-  ).length;
+  const telemetryComplete = runs.filter(isRunTelemetryComplete).length;
   return {
     total,
     failureRate,
