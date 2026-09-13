@@ -29,9 +29,13 @@ describe("telemetryQueue", () => {
     });
   });
 
-  it("persiste eventos no localStorage", () => {
+  it("persiste eventos no localStorage com ID UUID valido", () => {
     saveToQueue(payload);
     expect(queuedTelemetryCount()).toBe(1);
+    const stored = JSON.parse(localStorage.getItem(TELEMETRY_QUEUE_STORAGE_KEY) ?? "[]");
+    expect(stored).toHaveLength(1);
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    expect(stored[0].id).toMatch(uuidRegex);
     expect(localStorage.getItem(TELEMETRY_QUEUE_STORAGE_KEY)).toContain("session-1");
   });
 
