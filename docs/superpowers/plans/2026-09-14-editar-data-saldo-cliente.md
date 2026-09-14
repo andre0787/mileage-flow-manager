@@ -76,4 +76,6 @@ Rollback: `git revert` + `DROP POLICY` da policy criada (migration down manual).
 - [x] Implementação (subagente, `coding:done`)
 - [x] Review (subagente delegate: 7 achados, 5 corrigidos, 2 riscos aceitos) + fixes (worker, 12/12 testes)
 - [x] pre-pr verde + relatório HTML + commit na branch
-- [ ] Push + PR → `main` (aguarda AUTH do dono)
+- [x] Push + PR #635 → `main` (AUTH: "manda bala, pode implantar em prod")
+- [x] CI verde (check-pr + e2e-smoke) + migrations aplicadas em prod (policy UPDATE + trigger verificados)
+- [x] Merge 8b0f1c42 + deploy Vercel + post-pr
