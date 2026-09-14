@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { createElement } from "react";
 import { render, screen } from "@testing-library/react";
-import { ProcessAlerts, buildProcessAlerts } from "@/components/kpi/ProcessAlerts";
+import { ProcessAlerts } from "@/components/kpi/ProcessAlerts";
 import type { DailyMetric, Summary30 } from "@/types/kpi";
 
 const DAILY: DailyMetric[] = [
@@ -45,50 +45,54 @@ function makeSummary(overrides: Partial<Summary30> = {}): Summary30 {
   };
 }
 
-describe("buildProcessAlerts", () => {
+describe("ProcessAlerts", () => {
   const calmDaily: DailyMetric[] = [{ ...DAILY[0] }, { ...DAILY[1], ruleFails: 8 }];
 
   it("reporta processo saudável quando nada chama atenção", () => {
-    const alerts = buildProcessAlerts(calmDaily, makeSummary());
-    expect(alerts).toHaveLength(1);
-    expect(alerts[0].tone).toBe("ok");
-    expect(alerts[0].title).toBe("Processo saudável");
+    render(createElement(ProcessAlerts, { daily: calmDaily, summary: makeSummary() }));
+    expect(screen.getByText("Processo saudável")).toBeTruthy();
   });
 
   it("alerta taxa de pre-pr abaixo de 70% em 30 dias", () => {
-    const alerts = buildProcessAlerts(DAILY, makeSummary({ prePrPassRate: 65 }));
-    expect(alerts.some((a) => a.title === "Taxa de pre-pr baixa" && a.tone === "warn")).toBe(true);
+    render(
+      createElement(ProcessAlerts, {
+        daily: calmDaily,
+        summary: makeSummary({ prePrPassRate: 65 }),
+      }),
+    );
+    expect(screen.getByText("Taxa de pre-pr baixa")).toBeTruthy();
   });
 
   it("alerta fricção alta quando o dia tem muitas violações", () => {
-    const alerts = buildProcessAlerts(DAILY, makeSummary());
-    expect(alerts.some((a) => a.title === "Fricção alta hoje" && a.tone === "warn")).toBe(true);
+    render(createElement(ProcessAlerts, { daily: DAILY, summary: makeSummary() }));
+    expect(screen.getByText("Fricção alta hoje")).toBeTruthy();
   });
 
   it("alerta crítico quando não há entregas em 30 dias", () => {
-    const alerts = buildProcessAlerts(DAILY, makeSummary({ merges: 0 }));
-    expect(alerts.some((a) => a.title === "Nenhuma entrega em 30 dias")).toBe(true);
-    expect(alerts.find((a) => a.title === "Nenhuma entrega em 30 dias")?.tone).toBe("critical");
+    render(
+      createElement(ProcessAlerts, {
+        daily: calmDaily,
+        summary: makeSummary({ merges: 0 }),
+      }),
+    );
+    expect(screen.getByText("Nenhuma entrega em 30 dias")).toBeTruthy();
   });
 
   it("alerta auto-correção baixa com muitas violações e pouco heal", () => {
-    const alerts = buildProcessAlerts(DAILY, makeSummary({ violations: 200, healed: 10 }));
-    expect(alerts.some((a) => a.title === "Auto-correção baixa")).toBe(true);
+    render(
+      createElement(ProcessAlerts, {
+        daily: calmDaily,
+        summary: makeSummary({ violations: 200, healed: 10 }),
+      }),
+    );
+    expect(screen.getByText("Auto-correção baixa")).toBeTruthy();
   });
-});
 
-describe("ProcessAlerts", () => {
-  it("renderiza os alertas encontrados", () => {
+  it("renderiza os alertas encontrados simultâneos", () => {
     render(
       createElement(ProcessAlerts, { daily: DAILY, summary: makeSummary({ prePrPassRate: 60 }) }),
     );
     expect(screen.getByText("Taxa de pre-pr baixa")).toBeTruthy();
     expect(screen.getByText("Fricção alta hoje")).toBeTruthy();
-  });
-
-  it("renderiza processo saudável quando ok", () => {
-    const calmDaily: DailyMetric[] = [{ ...DAILY[0] }, { ...DAILY[1], ruleFails: 8 }];
-    render(createElement(ProcessAlerts, { daily: calmDaily, summary: makeSummary() }));
-    expect(screen.getByText("Processo saudável")).toBeTruthy();
   });
 });

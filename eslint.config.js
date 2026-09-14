@@ -25,13 +25,12 @@ export default tseslint.config(
   },
   // Padrões intencionais: shadcn/ui exporta constantes de variantes;
   // contexts exportam hook + provider; arquivos de lógica pura + componente
-  // (ex.: buildProcessAlerts + ProcessAlerts) são separados para teste unitário.
+  // são separados para teste unitário.
   {
     files: [
       "src/components/ui/**",
       "src/contexts/**",
       "src/features/auth/**",
-      "src/components/kpi/ProcessAlerts.tsx",
       "src/components/kpi/BusinessPanel.tsx",
       "src/components/workflow/WorkflowMindMap.tsx",
     ],
