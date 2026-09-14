@@ -76,6 +76,9 @@ jobs:
       - name: Install Playwright
         run: npx playwright install chromium --with-deps
       - name: E2E Smoke
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ohyplfpcwxzakujjfwdf.supabase.co' }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY || 'sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs' }}
         run: CI_SMOKE_ONLY=true npx playwright test --grep "Smoke Tests" --reporter=list
       - name: Upload smoke report
         if: always()
