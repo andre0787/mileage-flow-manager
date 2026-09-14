@@ -32,12 +32,12 @@ try {
   }
 } catch { /* fail-open */ }
 
-const key = process.env.SUPABASE_SERVICE_KEY;
+const key = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
 
 console.log("── TELEMETRY SANITY ──");
 
 if (!key) {
-  console.log("⚠️ SUPABASE_SERVICE_KEY ausente — check ignorado (fail-open)");
+  console.log("⚠️ Credenciais Supabase (SERVICE_KEY/ANON_KEY) ausentes — check ignorado (fail-open)");
   process.exit(0);
 }
 

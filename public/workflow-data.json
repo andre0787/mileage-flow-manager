@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-13T14:48:30.012Z",
-  "dataDate": "2026-09-13",
+  "generatedAt": "2026-09-14T00:56:35.877Z",
+  "dataDate": "2026-09-14",
   "kpiStats": [
     {
-      "value": 393,
+      "value": 520,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 511,
+      "value": 570,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -18,17 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 342,
+      "value": 340,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 16,
+      "value": 25,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 31,
+      "value": 40,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,32 +36,32 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 2,
+      "n": 7,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 115,
+      "n": 150,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 108,
+      "n": 170,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 16,
+      "n": 25,
       "color": "#10b981"
     },
     {
       "name": "code-review:done",
-      "n": 33,
+      "n": 43,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 31,
+      "n": 37,
       "color": "#22c55e"
     },
     {
@@ -88,90 +88,90 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 76,
+      "n": 67,
       "color": "#84cc16"
     },
     {
       "name": "abaixo de 80%",
-      "n": 7,
+      "n": 5,
       "color": "#ef4444"
     }
   ],
   "recentTimeline": [
     {
-      "t": "2026-09-13 14:48:29",
+      "t": "2026-09-14 00:56:35",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-13 14:46:03",
+      "t": "2026-09-14 00:54:06",
       "d": "gate",
       "desc": "gate auth executado (rule-35-auth-gate)"
     },
     {
-      "t": "2026-09-13 14:46:03",
+      "t": "2026-09-14 00:54:05",
       "d": "gate",
       "desc": "gate twins executado (rule-34-twins-check)"
     },
     {
-      "t": "2026-09-13 14:46:03",
+      "t": "2026-09-14 00:54:05",
       "d": "gate",
       "desc": "gate intent executado (rule-33-intent-gate)"
     },
     {
-      "t": "2026-09-13 14:46:03",
+      "t": "2026-09-14 00:54:05",
       "d": "gate",
       "desc": "gate council executado (rule-27-council-veredict)"
     },
     {
-      "t": "2026-09-13 14:42:46",
-      "d": "gate",
-      "desc": "gate auth executado (rule-35-auth-gate)"
+      "t": "2026-09-14 00:53:35",
+      "d": "code-review:done",
+      "desc": "Review do pipeline e workflows"
     },
     {
-      "t": "2026-09-13 14:42:46",
-      "d": "gate",
-      "desc": "gate twins executado (rule-34-twins-check)"
+      "t": "2026-09-14 00:53:35",
+      "d": "coding:done",
+      "desc": "Ajustes de pipeline e normalização de relatórios"
     },
     {
-      "t": "2026-09-13 14:42:46",
-      "d": "gate",
-      "desc": "gate intent executado (rule-33-intent-gate)"
+      "t": "2026-09-14 00:50:45",
+      "d": "rule:fail",
+      "desc": "rule-39-coding-gate falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 108,
-    "healed": 16,
-    "healedRate": 14.8,
-    "prePrTotal": 115,
-    "prePrPass": 115,
+    "ruleFails": 170,
+    "healed": 25,
+    "healedRate": 14.7,
+    "prePrTotal": 150,
+    "prePrPass": 150,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 27,
+        "count": 50,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
-        "rule": "rule-26-session-started",
-        "count": 10,
-        "hint": "timestamp de sessão ausente — npm run session:start"
-      },
-      {
         "rule": "rule-39-coding-gate",
-        "count": 9,
+        "count": 22,
         "hint": "faltou evento coding:done por subagente na branch"
       },
       {
+        "rule": "rule-26-session-started",
+        "count": 13,
+        "hint": "timestamp de sessão ausente — npm run session:start"
+      },
+      {
         "rule": "rule-03-handoff-completeness",
-        "count": 9,
+        "count": 12,
         "hint": ""
       },
       {
-        "rule": "rule-31-lib-test-coverage",
+        "rule": "rule-41-optimizer",
         "count": 9,
-        "hint": ""
+        "hint": "arquivo acima do limite de 150 linhas"
       }
     ]
   },
@@ -181,10 +181,10 @@
     "pages": 18,
     "libs": 49,
     "scripts": 124,
-    "testFiles": 342,
+    "testFiles": 340,
     "skills": 27,
     "rules": 48,
-    "events": 393,
-    "qualityNotes": 511
+    "events": 520,
+    "qualityNotes": 570
   }
 }
