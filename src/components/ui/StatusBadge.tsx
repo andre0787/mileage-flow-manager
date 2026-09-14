@@ -60,18 +60,3 @@ export function StatusBadge({ status, size = "default", showLabel = true }: Stat
     </Badge>
   );
 }
-
-/**
- * Mapa de cores CSS para uso direto em ícones/dots (não via Badge).
- */
-export function statusColor(status: string): string {
-  const colors: Record<string, string> = {
-    confirmada: "var(--success, #22c55e)",
-    aguardando: "var(--warning, #f59e0b)",
-    pendente: "var(--warning, #f59e0b)",
-    pago: "var(--primary, #2563eb)",
-    concluido: "var(--success, #22c55e)",
-    cancelado: "var(--destructive, #ef4444)",
-  };
-  return colors[status] || "var(--muted-foreground, #6b7280)";
-}

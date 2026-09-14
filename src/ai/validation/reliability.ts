@@ -16,6 +16,7 @@ import {
 } from "./reliability-triggers";
 
 export type { ReliabilityTrigger } from "./reliability-triggers";
+export { isRunTelemetryComplete } from "./reliability-triggers";
 
 export interface PhaseLatency {
   phase:

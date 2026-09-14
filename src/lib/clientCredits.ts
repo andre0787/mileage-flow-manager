@@ -129,6 +129,8 @@ export function planCancelReversals(movementsOfSale: CreditLike[]): PlannedRever
 export interface PlanAdvanceInput {
   amount: number;
   note?: string;
+  /** Data do pagamento (YYYY-MM-DD) — omitido = hoje. */
+  date?: string;
 }
 
 export interface PlanAdvanceResult {
@@ -136,6 +138,8 @@ export interface PlanAdvanceResult {
   /** Valor sanitizado (2 casas) — undefined quando ok = false. */
   amount?: number;
   note?: string;
+  /** Data validada (YYYY-MM-DD) — undefined quando ok = false. */
+  date?: string;
   error?: string;
 }
 
@@ -154,5 +158,17 @@ export function planAdvance(input: PlanAdvanceInput): PlanAdvanceResult {
     return { ok: false, error: "Informe um valor maior que zero" };
   }
   const note = typeof input.note === "string" ? input.note.trim().slice(0, 200) : "";
-  return { ok: true, amount, note: note || undefined };
+  let date: string | undefined;
+  if (input.date !== undefined && input.date !== "") {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(input.date)) {
+      return { ok: false, error: "Data inválida" };
+    }
+    const [y, m, d] = input.date.split("-").map(Number);
+    const dt = new Date(Date.UTC(y, m - 1, d));
+    if (dt.getUTCFullYear() !== y || dt.getUTCMonth() !== m - 1 || dt.getUTCDate() !== d) {
+      return { ok: false, error: "Data inválida" };
+    }
+    date = input.date;
+  }
+  return { ok: true, amount, note: note || undefined, date };
 }

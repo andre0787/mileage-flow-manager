@@ -216,6 +216,8 @@ export interface AddClientAdvanceInput {
   clientId: string;
   amount: number;
   note?: string;
+  /** Data do pagamento (YYYY-MM-DD) — vira created_at no ledger; omitido = hoje. */
+  date?: string;
 }
 
 /** Entrada da mutation única de recebimento com crédito (contrato com Worker B). */

@@ -46,7 +46,7 @@ import {
   useUpdateClientMutation,
   useDeleteClientMutation,
 } from "@/hooks/useDatabase";
-import { formatDateBR } from "@/lib/dateUtils";
+import { formatDateBR, todayISODate } from "@/lib/dateUtils";
 import { movementEffect } from "@/lib/clientCredits";
 import { formatCPF } from "@/lib/utils";
 
@@ -117,7 +117,7 @@ export default function Clientes() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [advanceClient, setAdvanceClient] = useState<{ id: string; name: string } | null>(null);
-  const [advanceForm, setAdvanceForm] = useState({ amount: "", note: "" });
+  const [advanceForm, setAdvanceForm] = useState({ amount: "", note: "", date: todayISODate() });
   const debouncedSearch = useDebounce(searchTerm, 300);
   const [deleteBlocked, setDeleteBlocked] = useState<{
     open: boolean;
@@ -215,18 +215,19 @@ export default function Clientes() {
         clientId: advanceClient.id,
         amount: Number(advanceForm.amount),
         note: advanceForm.note,
+        date: advanceForm.date || undefined,
       },
       {
         onSuccess: () => {
           setAdvanceClient(null);
-          setAdvanceForm({ amount: "", note: "" });
+          setAdvanceForm({ amount: "", note: "", date: todayISODate() });
         },
       },
     );
   };
 
   const openAdvanceDrawer = (client: { id: string; name: string }) => {
-    setAdvanceForm({ amount: "", note: "" });
+    setAdvanceForm({ amount: "", note: "", date: todayISODate() });
     setAdvanceClient(client);
   };
 
@@ -450,6 +451,15 @@ export default function Clientes() {
               value={advanceForm.amount}
               onChange={(e) => setAdvanceForm({ ...advanceForm, amount: e.target.value })}
               placeholder="0,00"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="advance-date">Data do pagamento</Label>
+            <Input
+              id="advance-date"
+              type="date"
+              value={advanceForm.date}
+              onChange={(e) => setAdvanceForm({ ...advanceForm, date: e.target.value })}
             />
           </div>
           <div className="space-y-2">

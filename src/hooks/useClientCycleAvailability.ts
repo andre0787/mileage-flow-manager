@@ -20,10 +20,18 @@ export interface ProgramOwnerUsage {
   clients: ClientUsage[];
 }
 
+interface ProgramOwnerUsageTracker {
+  programName: string;
+  ownerName: string;
+  cycleLabel: string;
+  limit: number | null;
+  clientsMap: Map<string, ClientUsage>;
+}
+
 export function useClientCycleAvailability(sales: Sale[], programs: Program[]) {
   return useMemo(() => {
     const programsByName = new Map(programs.map((p) => [p.name, p]));
-    const usageByKey = new Map<string, ProgramOwnerUsage>();
+    const usageByKey = new Map<string, ProgramOwnerUsageTracker>();
     const allPrograms = new Set<string>();
     const allOwners = new Set<string>();
 
@@ -46,10 +54,7 @@ export function useClientCycleAvailability(sales: Sale[], programs: Program[]) {
           ownerName: sale.ownerName,
           cycleLabel: getCycleLabel(program),
           limit: program.maxPassengers ?? null,
-          used: 0,
-          available: null,
-          percentage: 0,
-          clients: [],
+          clientsMap: new Map<string, ClientUsage>(),
         });
       }
 
@@ -59,13 +64,13 @@ export function useClientCycleAvailability(sales: Sale[], programs: Program[]) {
         const id = passenger.clientId || passenger.cpf;
         if (!id) continue;
 
-        const existing = entry.clients.find((c) => c.clientId === id);
+        const existing = entry.clientsMap.get(id);
         if (existing) {
           if (sale.date > existing.lastSaleDate) {
             existing.lastSaleDate = sale.date;
           }
         } else {
-          entry.clients.push({
+          entry.clientsMap.set(id, {
             clientId: id,
             name: passenger.name,
             cpf: passenger.cpf,
@@ -75,15 +80,31 @@ export function useClientCycleAvailability(sales: Sale[], programs: Program[]) {
       }
     }
 
-    for (const entry of usageByKey.values()) {
-      entry.used = entry.clients.length;
-      if (entry.limit !== null) {
-        entry.available = Math.max(0, entry.limit - entry.used);
-        entry.percentage = (entry.used / entry.limit) * 100;
+    const usage: ProgramOwnerUsage[] = [];
+
+    for (const tracker of usageByKey.values()) {
+      const clients = Array.from(tracker.clientsMap.values());
+      const used = clients.length;
+      let available: number | null = null;
+      let percentage = 0;
+
+      if (tracker.limit !== null) {
+        available = Math.max(0, tracker.limit - used);
+        percentage = (used / tracker.limit) * 100;
       }
+
+      usage.push({
+        programName: tracker.programName,
+        ownerName: tracker.ownerName,
+        cycleLabel: tracker.cycleLabel,
+        limit: tracker.limit,
+        used,
+        available,
+        percentage,
+        clients,
+      });
     }
 
-    const usage = Array.from(usageByKey.values());
     usage.sort((a, b) => b.percentage - a.percentage || a.programName.localeCompare(b.programName));
 
     return {

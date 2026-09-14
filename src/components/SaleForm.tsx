@@ -13,11 +13,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FormDrawer } from "@/components/FormDrawer";
-import { formatCPF } from "@/lib/utils";
+import { ClientCreationDrawer, type NewClientData } from "@/components/ClientCreationDrawer";
 import { isValidISODate, todayISODate } from "@/lib/dateUtils";
 import { calcProfit, calcProfitMargin } from "@/lib/metrics";
 import { countPassengersInCycle } from "@/lib/passengerCycle";
 import type { Account, Owner, Program, Client, Sale, SaleKind, ServiceType } from "@/types";
+
+export type { NewClientData };
 
 export interface AdditionalCostItem {
   desc: string;
@@ -50,14 +52,6 @@ export interface SaleFormData {
   passengers: { name: string; passengerId: string; cpf: string; clientId?: string }[];
   /** Preenchido automaticamente no submit a partir do averageCostPerMile da conta */
   costPerMile?: number;
-}
-
-interface NewClientData {
-  name: string;
-  cpf: string;
-  email: string;
-  phone: string;
-  telegram: string;
 }
 
 interface SaleFormProps {
@@ -130,32 +124,24 @@ export function SaleForm({
     return base;
   });
   const [isClientDialogOpen, setIsClientDialogOpen] = useState(false);
-  const [newClient, setNewClient] = useState<NewClientData>({
-    name: "",
-    cpf: "",
-    email: "",
-    phone: "",
-    telegram: "",
-  });
-  const [clientErrors, setClientErrors] = useState<Partial<Record<string, string>>>({});
 
   // Derived data
-  const stockInfo = useMemo(
-    () =>
-      accounts
-        .filter((a) => a.type === "milhas" && a.status === "ativa")
-        .map((a) => ({
-          accountId: a.id,
-          ownerId: a.ownerId,
-          ownerName: owners.find((o) => o.id === a.ownerId)?.name ?? "",
-          accountName: a.name,
-          programId: a.programId,
-          program: programs.find((p) => p.id === a.programId)?.name ?? "",
-          availableMiles: a.balance,
-          averageCostPerMile: a.averageCostPerMile ?? 0,
-        })),
-    [accounts, owners, programs],
-  );
+  const stockInfo = useMemo(() => {
+    const ownersMap = new Map(owners.map((o) => [o.id, o.name]));
+    const programsMap = new Map(programs.map((p) => [p.id, p.name]));
+    return accounts
+      .filter((a) => a.type === "milhas" && a.status === "ativa")
+      .map((a) => ({
+        accountId: a.id,
+        ownerId: a.ownerId,
+        ownerName: ownersMap.get(a.ownerId) ?? "",
+        accountName: a.name,
+        programId: a.programId,
+        program: programsMap.get(a.programId) ?? "",
+        availableMiles: a.balance,
+        averageCostPerMile: a.averageCostPerMile ?? 0,
+      }));
+  }, [accounts, owners, programs]);
 
   const ownersList = useMemo(() => [...new Set(stockInfo.map((s) => s.ownerName))], [stockInfo]);
   const selectedOwnerStock = useMemo(
@@ -281,17 +267,29 @@ export function SaleForm({
     { ok: false },
   );
 
-  const handleCreateClient = async () => {
-    if (!newClient.name.trim()) {
-      setClientErrors({ name: "Nome é obrigatório" });
+  const handlePassengerClientChange = (index: number, selectedClientId: string) => {
+    if (selectedClientId === "__manual__") {
+      const upd = form.passengers.map((p, j) =>
+        j === index ? { ...p, clientId: undefined, name: "", cpf: "" } : p,
+      );
+      update({ passengers: upd });
       return;
     }
-    const id = crypto.randomUUID();
-    await onCreateClient({ id, ...newClient });
-    update({ clientId: id, clientName: newClient.name.trim() });
-    setNewClient({ name: "", cpf: "", email: "", phone: "", telegram: "" });
-    setClientErrors({});
-    setIsClientDialogOpen(false);
+
+    const client = clients.find((c) => c.id === selectedClientId);
+    if (!client) return;
+
+    const upd = form.passengers.map((p, j) =>
+      j === index
+        ? {
+            ...p,
+            clientId: client.id,
+            name: client.name,
+            cpf: client.cpf ?? p.cpf,
+          }
+        : p,
+    );
+    update({ passengers: upd });
   };
 
   const hasValidDate = isValidISODate(form.date);
@@ -308,10 +306,11 @@ export function SaleForm({
     (!selectedProgramStock || parseFloat(form.milesUsed) <= effectiveAvailableMiles);
   const canSubmit = form.kind === "servico" ? canSubmitServico : canSubmitMiles;
 
+  const newPassengersCount = form.passengers.filter((p) => p.name.trim()).length;
+  const totalPassengersInCycle = usedPassengersInCycle + newPassengersCount;
+  const maxPassengersAllowed = programConfig?.maxPassengers;
   const passengerLimitExceeded =
-    programConfig?.maxPassengers &&
-    usedPassengersInCycle + form.passengers.filter((p) => p.name.trim()).length >
-      programConfig.maxPassengers;
+    Boolean(maxPassengersAllowed) && totalPassengersInCycle > maxPassengersAllowed!;
 
   return (
     <>
@@ -723,29 +722,7 @@ export function SaleForm({
                 <div key={i} className="grid grid-cols-[auto_1fr_1fr_1fr_auto] gap-2">
                   <Select
                     value={p.clientId ?? ""}
-                    onValueChange={(v) => {
-                      if (v === "__manual__") {
-                        const upd = form.passengers.map((x, j) =>
-                          j === i ? { ...x, clientId: undefined, name: "", cpf: "" } : x,
-                        );
-                        update({ passengers: upd });
-                      } else {
-                        const client = clients.find((c) => c.id === v);
-                        if (client) {
-                          const upd = form.passengers.map((x, j) =>
-                            j === i
-                              ? {
-                                  ...x,
-                                  clientId: client.id,
-                                  name: client.name,
-                                  cpf: client.cpf ?? x.cpf,
-                                }
-                              : x,
-                          );
-                          update({ passengers: upd });
-                        }
-                      }
-                    }}
+                    onValueChange={(v) => handlePassengerClientChange(i, v)}
                   >
                     <SelectTrigger className="w-24 text-xs">
                       <SelectValue placeholder="Cliente" />
@@ -805,12 +782,10 @@ export function SaleForm({
             </div>
           )}
 
-          {passengerLimitExceeded && (
+          {passengerLimitExceeded && maxPassengersAllowed && (
             <p className="text-xs text-destructive">
-              Limite de {programConfig!.maxPassengers} passageiros excedido para este ciclo. Usados:{" "}
-              {usedPassengersInCycle} + {form.passengers.filter((p) => p.name.trim()).length}{" "}
-              novo(s) ={" "}
-              {usedPassengersInCycle + form.passengers.filter((p) => p.name.trim()).length}
+              Limite de {maxPassengersAllowed} passageiros excedido para este ciclo. Usados:{" "}
+              {usedPassengersInCycle} + {newPassengersCount} novo(s) = {totalPassengersInCycle}
             </p>
           )}
 
@@ -829,82 +804,12 @@ export function SaleForm({
       </FormDrawer>
 
       {/* Client creation dialog */}
-      <FormDrawer
+      <ClientCreationDrawer
         open={isClientDialogOpen}
-        onOpenChange={(open) => {
-          setIsClientDialogOpen(open);
-          if (!open) setClientErrors({});
-        }}
-        title="Novo Cliente"
-      >
-        <div className="grid gap-4 py-4">
-          <div className="space-y-2">
-            <Label>Nome Completo</Label>
-            <Input
-              value={newClient.name}
-              onChange={(e) => {
-                setNewClient((p) => ({ ...p, name: e.target.value }));
-                setClientErrors((prev) => ({ ...prev, name: "" }));
-              }}
-              placeholder="Digite o nome completo"
-            />
-            {clientErrors.name && <p className="text-xs text-destructive">{clientErrors.name}</p>}
-          </div>
-          <div className="space-y-2">
-            <Label>CPF</Label>
-            <Input
-              value={newClient.cpf}
-              onChange={(e) =>
-                setNewClient((p) => ({
-                  ...p,
-                  cpf: formatCPF(e.target.value.replace(/\D/g, "").slice(0, 11)),
-                }))
-              }
-              placeholder="000.000.000-00"
-              maxLength={14}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>E-mail</Label>
-            <Input
-              type="email"
-              value={newClient.email}
-              onChange={(e) => setNewClient((p) => ({ ...p, email: e.target.value }))}
-              placeholder="cliente@email.com"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Telefone</Label>
-            <Input
-              value={newClient.phone}
-              onChange={(e) => setNewClient((p) => ({ ...p, phone: e.target.value }))}
-              placeholder="(11) 99999-9999"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Contato Telegram</Label>
-            <Input
-              value={newClient.telegram}
-              onChange={(e) => setNewClient((p) => ({ ...p, telegram: e.target.value }))}
-              placeholder="@usuario"
-            />
-          </div>
-        </div>
-        <div className="flex justify-end gap-2 mt-4">
-          <Button
-            variant="outline"
-            onClick={() => {
-              setIsClientDialogOpen(false);
-              setClientErrors({});
-            }}
-          >
-            Cancelar
-          </Button>
-          <Button onClick={handleCreateClient} className="bg-gradient-primary hover:opacity-90">
-            Cadastrar
-          </Button>
-        </div>
-      </FormDrawer>
+        onOpenChange={setIsClientDialogOpen}
+        onCreateClient={onCreateClient}
+        onClientCreated={({ id, name }) => update({ clientId: id, clientName: name })}
+      />
     </>
   );
 }

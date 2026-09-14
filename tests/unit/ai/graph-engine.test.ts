@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
   computeReadinessScore,
+  evaluateNode,
   graphQuery,
   graphSearch,
   graphStatus,
   readinessBandLegacy as readinessBand,
+  safeParseJsonObject,
 } from "@/ai/graph/engine";
 
 describe("computeReadinessScore", () => {
@@ -56,6 +58,37 @@ describe("readinessBand", () => {
   });
 });
 
+describe("safeParseJsonObject", () => {
+  it("retorna objeto válido para JSON de objeto", () => {
+    expect(safeParseJsonObject('{"version":"1.0","nodes":42}')).toEqual({
+      version: "1.0",
+      nodes: 42,
+    });
+  });
+
+  it("retorna null para string vazia ou apenas com espaços", () => {
+    expect(safeParseJsonObject("")).toBeNull();
+    expect(safeParseJsonObject("   \n\t ")).toBeNull();
+  });
+
+  it("retorna null para JSON malformado", () => {
+    expect(safeParseJsonObject("{ version: 1.0 }")).toBeNull();
+    expect(safeParseJsonObject("not a json")).toBeNull();
+  });
+
+  it("retorna null para 'null' literal ou valores primitivos", () => {
+    expect(safeParseJsonObject("null")).toBeNull();
+    expect(safeParseJsonObject("12345")).toBeNull();
+    expect(safeParseJsonObject("true")).toBeNull();
+    expect(safeParseJsonObject('"string"')).toBeNull();
+  });
+
+  it("retorna null para arrays JSON", () => {
+    expect(safeParseJsonObject('[1, 2, "test"]')).toBeNull();
+    expect(safeParseJsonObject("[]")).toBeNull();
+  });
+});
+
 describe("graphStatus", () => {
   it("fail-open: nunca lança e retorna available:false sem CRG", () => {
     // O engine faz spawnSync — se o CRG não estiver instalado, degrada.
@@ -64,6 +97,14 @@ describe("graphStatus", () => {
     if (!status.available) {
       expect(status.error).toBeTruthy();
     }
+  });
+});
+
+describe("evaluateNode", () => {
+  it("fail-open: retorna resultado seguro em forma de objeto sem lançar exceções", async () => {
+    const res = await evaluateNode("node-123", { param: "test" });
+    expect(typeof res).toBe("object");
+    expect(res).not.toBeNull();
   });
 });
 

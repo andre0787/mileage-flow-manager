@@ -28,6 +28,52 @@ const typeLabels = {
   conta: "Contas",
 };
 
+interface SearchResultItemProps {
+  item: SearchResult;
+  active: boolean;
+  flatIdx: number;
+  onHover: (index: number) => void;
+  onSelect: (url: string) => void;
+}
+
+function SearchResultItem({ item, active, flatIdx, onHover, onSelect }: SearchResultItemProps) {
+  const Icon = typeIcons[item.type];
+
+  const setScrollRef = (el: HTMLButtonElement | null) => {
+    if (!active) return;
+    if (typeof el?.scrollIntoView !== "function") return;
+    el.scrollIntoView({ block: "nearest" });
+  };
+
+  return (
+    <button
+      id={`gs-result-${item.id}`}
+      role="option"
+      aria-selected={active}
+      ref={setScrollRef}
+      className={cn(
+        "w-full px-3 py-2 flex items-center gap-3 transition-colors text-left",
+        active
+          ? "bg-accent/60 text-accent-foreground"
+          : "hover:bg-accent/40 dark:hover:bg-accent/50",
+      )}
+      onMouseEnter={() => onHover(flatIdx)}
+      onClick={() => onSelect(item.url)}
+    >
+      <Icon
+        className={cn(
+          "h-4 w-4 shrink-0 transition-colors",
+          active ? "text-primary" : "text-muted-foreground",
+        )}
+      />
+      <div className="min-w-0 flex-1">
+        <p className="text-sm font-medium text-foreground truncate">{item.title}</p>
+        <p className="text-xs text-muted-foreground truncate">{item.subtitle}</p>
+      </div>
+    </button>
+  );
+}
+
 export function GlobalSearch() {
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -229,56 +275,27 @@ export function GlobalSearch() {
             </div>
           ) : (
             <div className="py-2">
-              {Array.from(grouped.entries()).map(([type, items]) => {
-                const Icon = typeIcons[type as keyof typeof typeIcons];
-                return (
-                  <div key={type}>
-                    <div className="px-3 py-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                      {typeLabels[type as keyof typeof typeLabels]}
-                    </div>
-                    {items.map((item) => {
-                      const flatIdx = flatResults.indexOf(item);
-                      const active = flatIdx === activeIndex;
-                      return (
-                        <button
-                          key={item.id}
-                          id={`gs-result-${item.id}`}
-                          role="option"
-                          aria-selected={active}
-                          ref={(el) => {
-                            if (active && typeof el?.scrollIntoView === "function") {
-                              el.scrollIntoView({ block: "nearest" });
-                            }
-                          }}
-                          className={cn(
-                            "w-full px-3 py-2 flex items-center gap-3 transition-colors text-left",
-                            active
-                              ? "bg-accent/60 text-accent-foreground"
-                              : "hover:bg-accent/40 dark:hover:bg-accent/50",
-                          )}
-                          onMouseEnter={() => setActiveIndex(flatIdx)}
-                          onClick={() => handleSelect(item.url)}
-                        >
-                          <Icon
-                            className={cn(
-                              "h-4 w-4 shrink-0 transition-colors",
-                              active ? "text-primary" : "text-muted-foreground",
-                            )}
-                          />
-                          <div className="min-w-0 flex-1">
-                            <p className="text-sm font-medium text-foreground truncate">
-                              {item.title}
-                            </p>
-                            <p className="text-xs text-muted-foreground truncate">
-                              {item.subtitle}
-                            </p>
-                          </div>
-                        </button>
-                      );
-                    })}
+              {Array.from(grouped.entries()).map(([type, items]) => (
+                <div key={type}>
+                  <div className="px-3 py-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    {typeLabels[type as keyof typeof typeLabels]}
                   </div>
-                );
-              })}
+                  {items.map((item) => {
+                    const flatIdx = flatResults.indexOf(item);
+                    const active = flatIdx === activeIndex;
+                    return (
+                      <SearchResultItem
+                        key={item.id}
+                        item={item}
+                        active={active}
+                        flatIdx={flatIdx}
+                        onHover={setActiveIndex}
+                        onSelect={handleSelect}
+                      />
+                    );
+                  })}
+                </div>
+              ))}
             </div>
           )}
         </div>

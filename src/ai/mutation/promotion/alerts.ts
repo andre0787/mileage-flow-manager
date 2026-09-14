@@ -139,7 +139,7 @@ export class AlertEngine {
     if (recentDuplicate) return null;
 
     const alert: PromotionAlert = {
-      alertId: `alert-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      alertId: `alert-${Date.now()}-${crypto.randomUUID()}`,
       promotionId: params.promotionId,
       eventType: params.eventType,
       reason: params.reason,

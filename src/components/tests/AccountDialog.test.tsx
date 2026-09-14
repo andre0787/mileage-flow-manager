@@ -4,8 +4,11 @@ import AccountDialog from "@/components/AccountDialog";
 
 vi.mock("@/contexts/DataContext", () => ({
   useData: () => ({
-    owners: [],
-    programs: [],
+    owners: [{ id: "o1", name: "Dono 1" }],
+    programs: [
+      { id: "p1", name: "LATAM Pass", type: "milhas" },
+      { id: "p2", name: "Livelo", type: "pontos" },
+    ],
   }),
 }));
 
@@ -39,5 +42,11 @@ describe("AccountDialog", () => {
     render(<AccountDialog mode="create" open onOpenChange={onOpenChange} />);
     fireEvent.click(screen.getByRole("button", { name: "Cancelar" }));
     expect(onOpenChange).toHaveBeenCalledWith(false);
+  });
+
+  it("exibe mensagem de erro quando tenta salvar sem selecionar programa", () => {
+    render(<AccountDialog mode="create" open onOpenChange={() => {}} />);
+    fireEvent.click(screen.getByRole("button", { name: "Criar Conta" }));
+    expect(screen.getByText("Selecione um programa")).toBeDefined();
   });
 });

@@ -37,4 +37,21 @@ describe("planAdvance (adiantamento antes da emissão)", () => {
     expect(plan.amount).toBe(50);
     expect(plan.note).toBeUndefined();
   });
+
+  it("aceita data válida YYYY-MM-DD", () => {
+    const plan = planAdvance({ amount: 100, date: "2026-09-10" });
+    expect(plan.ok).toBe(true);
+    expect(plan.date).toBe("2026-09-10");
+  });
+
+  it("rejeita data inválida", () => {
+    expect(planAdvance({ amount: 100, date: "10/09/2026" }).ok).toBe(false);
+    expect(planAdvance({ amount: 100, date: "2026-02-30" }).ok).toBe(false);
+  });
+
+  it("data omitida segue válida (usa hoje no ledger)", () => {
+    const plan = planAdvance({ amount: 100 });
+    expect(plan.ok).toBe(true);
+    expect(plan.date).toBeUndefined();
+  });
 });
