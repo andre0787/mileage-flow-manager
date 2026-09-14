@@ -505,26 +505,17 @@
 {"timestamp":"2026-09-08T03:21:39.115Z","type":"gate","description":"gate auth executado (rule-35-auth-gate)","branch":"feat/entradas-program-filter","commit":"ea8a789","agent":"pi","gate":"auth","rule":"rule-35-auth-gate"}
 {"timestamp":"2026-09-08T03:22:21.553Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/entradas-program-filter","commit":"ea8a789","agent":"pi","errors":0}
 {"timestamp":"2026-09-08T16:00:34.477Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/entradas-program-filter","commit":"78bba23","agent":"pi","errors":0}
-{"timestamp":"2026-09-14T11:03:10.083Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"0a0db798","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:11.395Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"fdf1f888","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:12.396Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"804cf737","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:13.413Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"4b50334b","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:14.516Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"393ebd2c","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:15.549Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"5987dd12","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:16.594Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"9ff81c9c","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:17.771Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"a3acc426","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:18.914Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"daed7294","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:19.922Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"360580c6","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:20.946Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"efca1804","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:22.043Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"bfcfc47f","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:23.068Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"428e0d0d","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:24.117Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"7cc8d07c","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:25.139Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"10e48025","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:26.216Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"da69e882","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:32.470Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"f3ebeca4","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:33.533Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"6fe9315c","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:34.610Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"b552b86a","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:35.628Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"184588dd","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:03:39.165Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"a0e6a8fe","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:04:30.941Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"49446d37","agent":"human","errors":0}
-{"timestamp":"2026-09-14T11:04:35.778Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave","commit":"c6a12851","agent":"human","errors":0}
+{"timestamp":"2026-09-14T00:50:45.062Z","type":"gate","description":"gate council executado (rule-27-council-veredict)","branch":"jules-368068699608860660-2b07e98f","commit":"853ec55","agent":"human","gate":"council","rule":"rule-27-council-veredict"}
+{"timestamp":"2026-09-14T00:50:45.134Z","type":"gate","description":"gate intent executado (rule-33-intent-gate)","branch":"jules-368068699608860660-2b07e98f","commit":"853ec55","agent":"human","gate":"intent","rule":"rule-33-intent-gate"}
+{"timestamp":"2026-09-14T00:50:45.208Z","type":"gate","description":"gate twins executado (rule-34-twins-check)","branch":"jules-368068699608860660-2b07e98f","commit":"853ec55","agent":"human","gate":"twins","rule":"rule-34-twins-check"}
+{"timestamp":"2026-09-14T00:50:45.282Z","type":"gate","description":"gate auth executado (rule-35-auth-gate)","branch":"jules-368068699608860660-2b07e98f","commit":"853ec55","agent":"human","gate":"auth","rule":"rule-35-auth-gate"}
+{"timestamp":"2026-09-14T00:50:45.354Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"jules-368068699608860660-2b07e98f","commit":"853ec55","agent":"human","rule":"rule-38-code-review-gate"}
+{"timestamp":"2026-09-14T00:50:45.430Z","type":"rule:fail","description":"rule-39-coding-gate falhou","branch":"jules-368068699608860660-2b07e98f","commit":"853ec55","agent":"human","rule":"rule-39-coding-gate"}
+{"timestamp":"2026-09-14T00:53:35.261Z","type":"coding:done","description":"Ajustes de pipeline e normalização de relatórios","branch":"jules-368068699608860660-2b07e98f","commit":"853ec55","agent":"human","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-09-14T00:53:35.330Z","type":"code-review:done","description":"Review do pipeline e workflows","branch":"jules-368068699608860660-2b07e98f","commit":"853ec55","agent":"human","subagent":true,"verdict":"approved"}
+{"timestamp":"2026-09-14T00:54:05.842Z","type":"gate","description":"gate council executado (rule-27-council-veredict)","branch":"jules-368068699608860660-2b07e98f","commit":"853ec55","agent":"human","gate":"council","rule":"rule-27-council-veredict"}
+{"timestamp":"2026-09-14T00:54:05.915Z","type":"gate","description":"gate intent executado (rule-33-intent-gate)","branch":"jules-368068699608860660-2b07e98f","commit":"853ec55","agent":"human","gate":"intent","rule":"rule-33-intent-gate"}
+{"timestamp":"2026-09-14T00:54:05.990Z","type":"gate","description":"gate twins executado (rule-34-twins-check)","branch":"jules-368068699608860660-2b07e98f","commit":"853ec55","agent":"human","gate":"twins","rule":"rule-34-twins-check"}
+{"timestamp":"2026-09-14T00:54:06.063Z","type":"gate","description":"gate auth executado (rule-35-auth-gate)","branch":"jules-368068699608860660-2b07e98f","commit":"853ec55","agent":"human","gate":"auth","rule":"rule-35-auth-gate"}
+{"timestamp":"2026-09-14T00:56:35.540Z","type":"pre-pr","description":"pre-pr PASS","branch":"jules-368068699608860660-2b07e98f","commit":"853ec55","agent":"human","errors":0}
+{"timestamp":"2026-09-14T11:11:37.346Z","type":"pre-pr","description":"pre-pr PASS","branch":"fix/supabase-anon-key-fallback","commit":"15247e47","agent":"human","errors":0}
