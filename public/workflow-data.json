@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-14T00:56:35.877Z",
+  "generatedAt": "2026-09-14T11:33:16.030Z",
   "dataDate": "2026-09-14",
   "kpiStats": [
     {
-      "value": 520,
+      "value": 521,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 150,
+      "n": 151,
       "color": "#8b5cf6"
     },
     {
@@ -83,12 +83,12 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 76,
+      "n": 73,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 67,
+      "n": 55,
       "color": "#84cc16"
     },
     {
@@ -98,6 +98,11 @@
     }
   ],
   "recentTimeline": [
+    {
+      "t": "2026-09-14 11:11:37",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
     {
       "t": "2026-09-14 00:56:35",
       "d": "pre-pr",
@@ -132,19 +137,14 @@
       "t": "2026-09-14 00:53:35",
       "d": "coding:done",
       "desc": "Ajustes de pipeline e normalização de relatórios"
-    },
-    {
-      "t": "2026-09-14 00:50:45",
-      "d": "rule:fail",
-      "desc": "rule-39-coding-gate falhou"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 170,
     "healed": 25,
     "healedRate": 14.7,
-    "prePrTotal": 150,
-    "prePrPass": 150,
+    "prePrTotal": 151,
+    "prePrPass": 151,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
@@ -175,7 +175,58 @@
       }
     ]
   },
-  "lastPrs": [],
+  "lastPrs": [
+    {
+      "number": 625,
+      "title": "🔒 Fix hardcoded Supabase Anon Key fallback",
+      "type": "other",
+      "date": "2026-09-14",
+      "tokens": 12,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 20.4
+    },
+    {
+      "number": 622,
+      "title": "🔒 Fix hardcoded Supabase URL fallback",
+      "type": "other",
+      "date": "2026-09-14",
+      "tokens": 35,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 20.4
+    },
+    {
+      "number": 630,
+      "title": "Fix CI workflows and report normalization",
+      "type": "fix",
+      "date": "2026-09-14",
+      "tokens": 628,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação",
+      "cycleHours": 10.1
+    },
+    {
+      "number": 610,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-13",
+      "tokens": 371,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0
+    },
+    {
+      "number": 608,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-12",
+      "tokens": 371,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    }
+  ],
   "overview": {
     "components": 157,
     "pages": 18,
@@ -184,7 +235,7 @@
     "testFiles": 340,
     "skills": 27,
     "rules": 48,
-    "events": 520,
+    "events": 521,
     "qualityNotes": 570
   }
 }
