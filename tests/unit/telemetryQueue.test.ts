@@ -29,10 +29,27 @@ describe("telemetryQueue", () => {
     });
   });
 
-  it("persiste eventos no localStorage", () => {
+  it("persiste eventos no localStorage com UUID seguro", () => {
     saveToQueue(payload);
     expect(queuedTelemetryCount()).toBe(1);
-    expect(localStorage.getItem(TELEMETRY_QUEUE_STORAGE_KEY)).toContain("session-1");
+    const stored = JSON.parse(localStorage.getItem(TELEMETRY_QUEUE_STORAGE_KEY) ?? "[]");
+    expect(stored.length).toBe(1);
+    // UUID pattern test: 8-4-4-4-12 hex chars after timestamp prefix
+    const uuidPattern = /^[0-9]+-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    expect(stored[0].id).toMatch(uuidPattern);
+  });
+
+  it("utiliza fallback lock com UUID quando navigator.locks não está disponível", async () => {
+    Object.defineProperty(navigator, "locks", {
+      configurable: true,
+      value: undefined,
+    });
+    vi.spyOn(supabase, "from").mockReturnValue({
+      insert: vi.fn().mockResolvedValue({ error: null }),
+    } as never);
+    saveToQueue(payload);
+    await flushTelemetryQueue();
+    expect(queuedTelemetryCount()).toBe(0);
   });
 
   it("envia e remove eventos quando o Supabase responde sem erro", async () => {
