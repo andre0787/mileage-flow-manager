@@ -51,18 +51,17 @@ export default function Vendas() {
   const haptic = useHaptic();
 
   // Stock info compartilhado com o Simulador
-  const stockInfo: StockItem[] = useMemo(
-    () =>
-      accounts
-        .filter((a) => a.type === "milhas" && a.status === "ativa")
-        .map((a) => ({
-          accountId: a.id,
-          ownerName: owners.find((o) => o.id === a.ownerId)?.name ?? "",
-          accountName: a.name,
-          averageCostPerMile: a.averageCostPerMile ?? 0,
-        })),
-    [accounts, owners],
-  );
+  const stockInfo: StockItem[] = useMemo(() => {
+    const ownersMap = new Map(owners.map((o) => [o.id, o.name]));
+    return accounts
+      .filter((a) => a.type === "milhas" && a.status === "ativa")
+      .map((a) => ({
+        accountId: a.id,
+        ownerName: ownersMap.get(a.ownerId) ?? "",
+        accountName: a.name,
+        averageCostPerMile: a.averageCostPerMile ?? 0,
+      }));
+  }, [accounts, owners]);
 
   // Handlers
   const sumAdditionalCosts = (
