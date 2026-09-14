@@ -5,6 +5,7 @@ export {
   useClientBalanceQuery,
   useAddClientMutation,
   useAddClientAdvanceMutation,
+  useUpdateClientCreditDateMutation,
   useUpdateClientMutation,
   useDeleteClientMutation,
 } from "./hooks";

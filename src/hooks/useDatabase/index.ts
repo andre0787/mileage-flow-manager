@@ -46,6 +46,7 @@ export {
   useClientsQuery,
   useAddClientMutation,
   useAddClientAdvanceMutation,
+  useUpdateClientCreditDateMutation,
   useUpdateClientMutation,
   useDeleteClientMutation,
 } from "@/features/clientes";

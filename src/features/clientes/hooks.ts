@@ -6,7 +6,7 @@ import { logError } from "@/lib/logger";
 import { calcCreditBalance } from "@/lib/clientCredits";
 import { clientesApi } from "./clientesApi";
 import { selectAllClients, selectClientEntities } from "./adapter";
-import type { AddClientAdvanceInput } from "@/types";
+import type { AddClientAdvanceInput, UpdateClientCreditDateInput } from "@/types";
 
 export function useClientsQuery() {
   const userId = useUserId();
@@ -74,6 +74,63 @@ export function useAddClientAdvanceMutation() {
       logError("addClientAdvance", err);
       options?.onError?.();
       toast.error("Erro ao registrar adiantamento");
+      throw err;
+    }
+  };
+  return { mutate, mutateAsync, isPending: result.isLoading, ...result };
+}
+
+/** Edição da data de um adiantamento no extrato de Saldo. */
+export function useUpdateClientCreditDateMutation() {
+  const [trigger, result] = clientesApi.useUpdateClientCreditDateMutation();
+  const dispatch = useAppDispatch();
+  const userId = useUserId();
+  const refetchCredits = async (clientId: string) => {
+    await dispatch(
+      clientesApi.endpoints.getClientCredits.initiate(clientId, {
+        forceRefetch: true,
+        subscribe: false,
+      }),
+    ).unwrap();
+    if (userId) {
+      await dispatch(
+        clientesApi.endpoints.getAllClientCredits.initiate(undefined, {
+          forceRefetch: true,
+          subscribe: false,
+        }),
+      ).unwrap();
+    }
+  };
+  const mutate = (
+    input: UpdateClientCreditDateInput,
+    options?: { onSuccess?: () => void; onError?: () => void },
+  ) => {
+    trigger(input)
+      .unwrap()
+      .then(async () => {
+        await refetchCredits(input.clientId);
+        toast.success("Data do adiantamento atualizada");
+        options?.onSuccess?.();
+      })
+      .catch((err) => {
+        logError("updateClientCreditDate", err);
+        options?.onError?.();
+        toast.error("Erro ao atualizar data do adiantamento");
+      });
+  };
+  const mutateAsync = async (
+    input: UpdateClientCreditDateInput,
+    options?: { onSuccess?: () => void; onError?: () => void },
+  ) => {
+    try {
+      await trigger(input).unwrap();
+      await refetchCredits(input.clientId);
+      toast.success("Data do adiantamento atualizada");
+      options?.onSuccess?.();
+    } catch (err) {
+      logError("updateClientCreditDate", err);
+      options?.onError?.();
+      toast.error("Erro ao atualizar data do adiantamento");
       throw err;
     }
   };

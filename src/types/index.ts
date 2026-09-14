@@ -220,6 +220,16 @@ export interface AddClientAdvanceInput {
   date?: string;
 }
 
+/** Entrada da edição de data de um adiantamento no extrato de Saldo. */
+export interface UpdateClientCreditDateInput {
+  /** Id do movimento no ledger. */
+  id: string;
+  /** Dono do movimento (usado no refetch do extrato). */
+  clientId: string;
+  /** Nova data do movimento (YYYY-MM-DD) — vira created_at no ledger. */
+  date: string;
+}
+
 /** Entrada da mutation única de recebimento com crédito (contrato com Worker B). */
 export interface ReceiveWithCreditInput {
   saleId: string;

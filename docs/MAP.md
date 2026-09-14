@@ -602,3 +602,4 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/superpowers/specs/contas-tabela.md` (auto)                                  | 2026-09-06    |
 | `docs/superpowers/specs/pipeline-operacao.md` (auto)                              | 2026-09-06    |
 | `docs/superpowers/specs/relatorios-revamp.md` (auto)                              | 2026-09-06    |
+| `docs/superpowers/plans/2026-09-14-editar-data-saldo-cliente.md` (auto) | 2026-09-14 |
