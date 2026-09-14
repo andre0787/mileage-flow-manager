@@ -505,3 +505,4 @@
 {"timestamp":"2026-09-08T03:21:39.115Z","type":"gate","description":"gate auth executado (rule-35-auth-gate)","branch":"feat/entradas-program-filter","commit":"ea8a789","agent":"pi","gate":"auth","rule":"rule-35-auth-gate"}
 {"timestamp":"2026-09-08T03:22:21.553Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/entradas-program-filter","commit":"ea8a789","agent":"pi","errors":0}
 {"timestamp":"2026-09-08T16:00:34.477Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/entradas-program-filter","commit":"78bba23","agent":"pi","errors":0}
+{"timestamp":"2026-09-14T10:50:06.386Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/client-advance-date","commit":"03eee531","agent":"pi","errors":0}

@@ -87,4 +87,44 @@ describe("addClientAdvance (adiantamento sem venda)", () => {
 
     expect(result.error).toBeDefined();
   });
+
+  it("insere earn com created_at quando data informada", async () => {
+    const insert = vi.fn().mockResolvedValue({ error: null });
+    mockFrom.mockReturnValue({ insert });
+
+    const result = await makeStore().dispatch(
+      clientesApi.endpoints.addClientAdvance.initiate({
+        clientId: "client-1",
+        amount: 200,
+        date: "2026-09-10",
+      }),
+    );
+
+    expect(result.data).toEqual({ amount: 200 });
+    expect(insert).toHaveBeenCalledWith({
+      user_id: "user-1",
+      client_id: "client-1",
+      sale_id: null,
+      kind: "earn",
+      amount: 200,
+      note: null,
+      created_at: "2026-09-10T12:00:00-03:00",
+    });
+  });
+
+  it("rejeita data inválida sem tocar no banco", async () => {
+    const insert = vi.fn();
+    mockFrom.mockReturnValue({ insert });
+
+    const result = await makeStore().dispatch(
+      clientesApi.endpoints.addClientAdvance.initiate({
+        clientId: "client-1",
+        amount: 100,
+        date: "10/09/2026",
+      }),
+    );
+
+    expect(result.error).toBeDefined();
+    expect(insert).not.toHaveBeenCalled();
+  });
 });
