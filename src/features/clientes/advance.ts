@@ -11,11 +11,11 @@ import type { AddClientAdvanceInput } from "@/types";
 export const addClientAdvanceEndpoint = (builder: ClientesBuilder) => ({
   addClientAdvance: builder.mutation<{ amount: number }, AddClientAdvanceInput>({
     invalidatesTags: ["clients"],
-    queryFn: async ({ clientId, amount, note }) => {
+    queryFn: async ({ clientId, amount, note, date }) => {
       if (!clientId) {
         return { error: toQueryError({ message: "Cliente não informado" }) };
       }
-      const plan = planAdvance({ amount, note });
+      const plan = planAdvance({ amount, note, date });
       if (!plan.ok) {
         return { error: toQueryError({ message: plan.error ?? "Valor inválido" }) };
       }
@@ -30,6 +30,7 @@ export const addClientAdvanceEndpoint = (builder: ClientesBuilder) => ({
         kind: "earn",
         amount: plan.amount ?? 0,
         note: plan.note ?? null,
+        ...(plan.date ? { created_at: `${plan.date}T12:00:00-03:00` } : {}),
       });
       if (error) return { error: toQueryError(error) };
       return { data: { amount: plan.amount ?? 0 } };
