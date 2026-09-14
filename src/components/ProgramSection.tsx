@@ -129,17 +129,19 @@ export default function ProgramSection({
     setIsDialogOpen(true);
   };
 
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      resetDialog();
+      return;
+    }
+    setIsDialogOpen(true);
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <p className="text-sm text-muted-foreground">{programs.length} programa(s) cadastrado(s)</p>
-        <Dialog
-          open={isDialogOpen}
-          onOpenChange={(open) => {
-            if (!open) resetDialog();
-            else setIsDialogOpen(true);
-          }}
-        >
+        <Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
           <DialogTrigger asChild>
             <Button className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto">
               <Plus className="h-4 w-4" /> Novo Programa
