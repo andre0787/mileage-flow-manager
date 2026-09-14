@@ -294,6 +294,31 @@ export function SaleForm({
     setIsClientDialogOpen(false);
   };
 
+  const handlePassengerClientChange = (index: number, selectedClientId: string) => {
+    if (selectedClientId === "__manual__") {
+      const upd = form.passengers.map((p, j) =>
+        j === index ? { ...p, clientId: undefined, name: "", cpf: "" } : p,
+      );
+      update({ passengers: upd });
+      return;
+    }
+
+    const client = clients.find((c) => c.id === selectedClientId);
+    if (!client) return;
+
+    const upd = form.passengers.map((p, j) =>
+      j === index
+        ? {
+            ...p,
+            clientId: client.id,
+            name: client.name,
+            cpf: client.cpf ?? p.cpf,
+          }
+        : p,
+    );
+    update({ passengers: upd });
+  };
+
   const hasValidDate = isValidISODate(form.date);
   const canSubmitServico =
     form.clientId && form.serviceType && parseFloat(form.saleValue) > 0 && hasValidDate;
@@ -308,10 +333,11 @@ export function SaleForm({
     (!selectedProgramStock || parseFloat(form.milesUsed) <= effectiveAvailableMiles);
   const canSubmit = form.kind === "servico" ? canSubmitServico : canSubmitMiles;
 
+  const newPassengersCount = form.passengers.filter((p) => p.name.trim()).length;
+  const totalPassengersInCycle = usedPassengersInCycle + newPassengersCount;
+  const maxPassengersAllowed = programConfig?.maxPassengers;
   const passengerLimitExceeded =
-    programConfig?.maxPassengers &&
-    usedPassengersInCycle + form.passengers.filter((p) => p.name.trim()).length >
-      programConfig.maxPassengers;
+    Boolean(maxPassengersAllowed) && totalPassengersInCycle > maxPassengersAllowed!;
 
   return (
     <>
@@ -723,29 +749,7 @@ export function SaleForm({
                 <div key={i} className="grid grid-cols-[auto_1fr_1fr_1fr_auto] gap-2">
                   <Select
                     value={p.clientId ?? ""}
-                    onValueChange={(v) => {
-                      if (v === "__manual__") {
-                        const upd = form.passengers.map((x, j) =>
-                          j === i ? { ...x, clientId: undefined, name: "", cpf: "" } : x,
-                        );
-                        update({ passengers: upd });
-                      } else {
-                        const client = clients.find((c) => c.id === v);
-                        if (client) {
-                          const upd = form.passengers.map((x, j) =>
-                            j === i
-                              ? {
-                                  ...x,
-                                  clientId: client.id,
-                                  name: client.name,
-                                  cpf: client.cpf ?? x.cpf,
-                                }
-                              : x,
-                          );
-                          update({ passengers: upd });
-                        }
-                      }
-                    }}
+                    onValueChange={(v) => handlePassengerClientChange(i, v)}
                   >
                     <SelectTrigger className="w-24 text-xs">
                       <SelectValue placeholder="Cliente" />
@@ -805,12 +809,10 @@ export function SaleForm({
             </div>
           )}
 
-          {passengerLimitExceeded && (
+          {passengerLimitExceeded && maxPassengersAllowed && (
             <p className="text-xs text-destructive">
-              Limite de {programConfig!.maxPassengers} passageiros excedido para este ciclo. Usados:{" "}
-              {usedPassengersInCycle} + {form.passengers.filter((p) => p.name.trim()).length}{" "}
-              novo(s) ={" "}
-              {usedPassengersInCycle + form.passengers.filter((p) => p.name.trim()).length}
+              Limite de {maxPassengersAllowed} passageiros excedido para este ciclo. Usados:{" "}
+              {usedPassengersInCycle} + {newPassengersCount} novo(s) = {totalPassengersInCycle}
             </p>
           )}
 
