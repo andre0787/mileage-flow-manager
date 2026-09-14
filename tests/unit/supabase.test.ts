@@ -1,23 +1,33 @@
-import { describe, expect, test, vi } from "vitest";
-import { supabase } from "@/lib/supabase";
+import { describe, expect, test, vi, beforeEach, afterEach } from "vitest";
 
 describe("supabase client initialization", () => {
-  test("exports a valid Supabase client instance when env vars are present", () => {
+  const originalEnv = process.env;
+
+  beforeEach(() => {
+    vi.resetModules();
+    process.env = { ...originalEnv };
+  });
+
+  afterEach(() => {
+    process.env = originalEnv;
+  });
+
+  test("throws error when environment variables are missing", async () => {
+    vi.stubEnv("VITE_SUPABASE_URL", "");
+    vi.stubEnv("VITE_SUPABASE_ANON_KEY", "");
+
+    await expect(import("@/lib/supabase")).rejects.toThrow(
+      "Missing required Supabase environment variables: VITE_SUPABASE_URL and/or VITE_SUPABASE_ANON_KEY"
+    );
+  });
+
+  test("exports valid Supabase client when env vars are defined", async () => {
+    vi.stubEnv("VITE_SUPABASE_URL", "https://xyz.supabase.co");
+    vi.stubEnv("VITE_SUPABASE_ANON_KEY", "dummy-anon-key");
+
+    const { supabase } = await import("@/lib/supabase");
     expect(supabase).toBeDefined();
     expect(supabase.auth).toBeDefined();
     expect(typeof supabase.from).toBe("function");
-  });
-
-  test("throws an error when VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY is missing", async () => {
-    vi.resetModules();
-    const originalUrl = import.meta.env.VITE_SUPABASE_URL;
-    import.meta.env.VITE_SUPABASE_URL = "";
-
-    await expect(import("@/lib/supabase")).rejects.toThrow(
-      "Missing Supabase environment variables: VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY must be set.",
-    );
-
-    import.meta.env.VITE_SUPABASE_URL = originalUrl;
-    vi.resetModules();
   });
 });
