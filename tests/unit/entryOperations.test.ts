@@ -73,6 +73,25 @@ describe("computeEntryValues", () => {
     expect(r.milesGenerated).toBeCloseTo(78000, 3); // 60000 * 1.3
   });
 
+  it("transferência: reage ao cartCost mesmo sem cartAmount (ou com cartAmount > 0)", () => {
+    const r = computeEntryValues(
+      form({
+        origemTypeId: "ot-transfer",
+        amount: "50000",
+        amountPaid: "2500",
+        bonusPercent: "30",
+        cartAmount: "10000",
+        cartCost: "200",
+        conversionRate: "1",
+      }),
+      origemTypes,
+    );
+    // custo total = 2500 + 200 = 2700 -> custo/milhar = 2700 / 78000 * 1000 ≈ 34.615
+    expect(r.totalPaid).toBe(2700);
+    expect(r.costPerThousand).toBeCloseTo(34.615, 2);
+    expect(r.costPerMile).toBeCloseTo(0.0346, 3);
+  });
+
   it("entrada comum ignora cartCost (carrinho só em transferência)", () => {
     const r = computeEntryValues(form({ cartAmount: "5000", cartCost: "100" }), origemTypes);
     expect(r.isTransfer).toBe(false);
