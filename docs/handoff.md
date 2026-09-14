@@ -1,17 +1,42 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-09-08
-> Anterior: 2026-09-06
+> ⏰ Última atualização: 2026-09-14
+> Anterior: 2026-09-08
 ---
 ## 🏗️ Projeto
+
+> ⏰ Snapshot atualizado em: 2026-09-14
+
+### 🏗️ Projeto
+
 **Stack:** React + Vite + Supabase + Tailwind | pt-BR
 **Estrutura:** /src (components/, lib/, pages/) | /docs | /scripts | /tests
-**Workflow:** session:start → categoria → implementação → pre-pr → PR
+**Regras críticas:** branch obrigatória, pre-pr c/ relatório, git status ZERO, lazy loading por categoria
+**Workflow:** session:start → categoria → carregar docs → council (se feature) → build → pre-pr → PR
+
 ### 🐞 Bugs Abertos
-Consulte as GitHub Issues para a lista atual.
+
+- nenhum | [ver todos → Issues](https://github.com/andreluiz0787/mileage-flow-manager/issues)
+
+### 📋 Commits Recentes
+
+```
+20d19276 Merge pull request #633 from andre0787/integrate/pr-wave
+cc0cba27 feat(clientes): data no adiantamento que vira crédito (PR #631)
+bf7d6cb8 chore: zera ruído de docs/public contra a main
+```
+
 ## 🧭 Estado Atual
-- **Branch:** `feat/entradas-program-filter`
-- **Último commit:** `658a6cb` — chore: session end
-- **Remote:** origin/feat/entradas-program-filter
+- **Branch:** `main` limpa — **zero PRs abertas** (52 PRs do lote #578–#633 resolvidas)
+- **Último commit:** `20d19276` — Merge pull request #633 (consolidação do lote)
+- **Produção:** deploy ✅ @`20d19276` + `e2e-smoke-prod` ✅
+
+### ✅ Lote #578–#633 consolidado e em produção (2026-09-14)
+- 52 PRs abertas resolvidas: **32 merged** (inclui as previamente merged #608/#610/#632) + **24 closed** com comentário.
+- **Causa da consolidação:** branch protection de `main` usa `strict: true` (`check-pr` + `e2e-smoke`), então cada merge invalida todas as demais PRs (`BEHIND`) → dezenas de ciclos seriais de CI. Somado a isso, quase todas as branches conflitavam apenas por ruído com `docs/tracking/*` e `public/kpi-data.json`, reescritos diariamente pelos bots.
+- **Solução:** branch `integrate/pr-wave` com as 33 canônicas integrradas, validada como conjunto **antes** de tocar a `main` → PR #633 → merge → deploy.
+- **Evidência:** 197 arquivos / **1488 testes**, `tsc` limpo, `build` ok, `check:pr` ok (inclui `budget:check`).
+- **Conflitos resolvidos à mão:** `SaleForm.tsx` (#591 extraiu `handlePassengerClientChange` vs #593, que moveu `handleCreateClient` para `ClientCreationDrawer`) → descartado o `handleCreateClient` obsoleto; `tests/components/SaleForm.test.tsx` → **união** dos dois lados; `supabase.ts`/`tests/setup.ts`/`supabase.test.ts` (#622 + #625, que removiam fallbacks hardcoded) → mensagem unificada e env setado em `process.env` **e** `import.meta.env`.
+- **Não incluído:** duplicatas puramente cosméticas/duplicadas entre si (#581/#583/#585/#586/#590/#592/#595/#596/#598/#599/#600/#603/#605/#606/#607/#609/#611/#613/#623/#628) e a cobertura extra de teste do #596 foram fechadas sem merge.
 ### ✅ Blueprint v4.0 P1 completo — todos os domínios migrados para RTK Query
 - **P3-28 entradas** (`src/features/entradas/`), **P3-29 contas** (`src/features/contas/`),
   **P3-30 clientes** (`src/features/clientes/`), **P3-31 vendas** (`src/features/vendas/`, PR #341),
@@ -32,23 +57,23 @@ Consulte as GitHub Issues para a lista atual.
   auditoria 2026-08-13 sem risco restante.
 
 ### 📋 PRs Abertos
-- #573 — feat(entradas): filtro de programas no topo
+- Nenhuma — lote #578–#633 consolidado em #633 e deployado.
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 1363 |
+| Total testes | 1488 |
 | Docs issues | 0 |
-| Branch | feat/entradas-program-filter |
+| Branch | main (zero PRs abertas) |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** docs
-**Objetivo:** continuacao
+**Categoria:** chore (consolidação de PRs + deploy)
+**Objetivo:** implantar todas as PRs abertas em produção sem regressão
 **Status:** done
-**Iniciada em:** 2026-09-07T19:07:27.835Z
-**Branch:** `feat/entradas-program-filter`
-**Último commit:** d1eccfe — Merge pull request #561 from andre0787/feat/client-advance-payment
+**Iniciada em:** 2026-09-14
+**Branch:** `main` (consolidação via #633)
+**Último commit:** 20d19276 — Merge pull request #633
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
