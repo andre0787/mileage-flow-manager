@@ -412,4 +412,54 @@ describe("useClientCycleAvailability", () => {
     expect(result.current.programs).toEqual(["Latam Pass", "Livelo", "Smiles"]);
     expect(result.current.owners).toEqual(["Alice", "Bruno"]);
   });
+
+  it("performance benchmark with 5000 sales and multiple passengers", () => {
+    const programs: Program[] = [
+      { id: "p1", name: "Smiles", type: "milhas", maxPassengers: 25 },
+      { id: "p2", name: "Latam Pass", type: "milhas", maxPassengers: 25 },
+      { id: "p3", name: "TudoAzul", type: "milhas", maxPassengers: 25 },
+    ];
+
+    const sales: Sale[] = [];
+    const numSales = 5000;
+    const numPassengersPerSale = 5;
+    const numUniqueClients = 500;
+
+    for (let i = 0; i < numSales; i++) {
+      const passengers = [];
+      for (let j = 0; j < numPassengersPerSale; j++) {
+        const clientIndex = (i * numPassengersPerSale + j) % numUniqueClients;
+        passengers.push({
+          name: `Passageiro ${clientIndex}`,
+          passengerId: `pass_${clientIndex}`,
+          cpf: `111222333${clientIndex.toString().padStart(2, "0")}`,
+          clientId: `cli_${clientIndex}`,
+        });
+      }
+      sales.push({
+        id: `s_${i}`,
+        accountName: "Conta 1",
+        ownerName: i % 2 === 0 ? "João" : "Maria",
+        program: programs[i % programs.length].name,
+        clientId: `cli_${i % numUniqueClients}`,
+        clientName: `Cliente ${i % numUniqueClients}`,
+        milesUsed: 10000,
+        saleValue: 200,
+        costPerMile: 15,
+        profit: 50,
+        profitMargin: 25,
+        status: "concluido",
+        ticketLocator: `LOC${i}`,
+        passengers,
+        date: `${currentYear}-05-10`,
+      });
+    }
+
+    const start = performance.now();
+    const { result } = renderHook(() => useClientCycleAvailability(sales, programs));
+    const duration = performance.now() - start;
+
+    console.log(`[Benchmark Baseline] Execution time: ${duration.toFixed(2)}ms`);
+    expect(result.current.usage.length).toBeGreaterThan(0);
+  });
 });
