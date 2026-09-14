@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>pr-wave — integrate pr wave</title>
+  <style>
+    :root{
+      --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;
+      --text:#e6edf7;--muted:#8fa3c0;--blue:#3b82f6;--green:#34d399;--amber:#fbbf24;--red:#f87171;--gold:#f59e0b;--teal:#2dd4bf;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      background:radial-gradient(1200px 600px at 15% -10%,#12203f 0%,transparent 55%),radial-gradient(1000px 500px at 110% 20%,#0f2440 0%,transparent 50%),var(--bg);
+      color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;
+    }
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    .deck{min-height:100vh;display:flex;flex-direction:column}
+    .slide{
+      flex:1 0 auto;min-height:100vh;padding:5.5rem clamp(1.25rem,5vw,4.5rem) 3.5rem;
+      display:flex;flex-direction:column;justify-content:center;gap:1.4rem;
+      max-width:1180px;margin:0 auto;width:100%;
+      border-bottom:1px solid var(--line);
+    }
+    .deck-mode .slide{display:none}
+    .deck-mode .slide.active{display:flex}
+    .nav{
+      position:fixed;top:1rem;right:1rem;z-index:60;display:flex;gap:.4rem;align-items:center;
+      background:rgba(10,15,30,.85);backdrop-filter:blur(8px);border:1px solid var(--line);
+      border-radius:999px;padding:.35rem .5rem;box-shadow:0 8px 24px rgba(0,0,0,.45);
+    }
+    .nav button{
+      background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:1.05rem;
+      width:2.1rem;height:2.1rem;border-radius:999px;transition:all .15s;line-height:1;
+    }
+    .nav button:hover{background:var(--card2);color:var(--text)}
+    .nav .count{font-size:.72rem;color:var(--muted);min-width:2.6rem;text-align:center;font-variant-numeric:tabular-nums}
+    .nav .mode-btn{width:auto;padding:0 .7rem;font-size:.72rem;color:var(--muted)}
+    .hero{display:flex;flex-direction:column;gap:.9rem}
+    .hero-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+    .hero-badges{display:flex;gap:.5rem;flex-wrap:wrap}
+    .badge{
+      display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .7rem;border-radius:999px;
+      font-size:.72rem;font-weight:700;letter-spacing:.02em;border:1px solid var(--line);color:var(--muted);
+    }
+    .badge.pr{color:#93c5fd;border-color:rgba(59,130,246,.4);background:rgba(59,130,246,.12)}
+    .badge.feat{color:#6ee7b7;border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.1)}
+    .badge.fix{color:#fca5a5;border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.1)}
+    .badge.docs{color:#c4b5fd;border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.1)}
+    .badge.chore,.badge.auto{color:#a7b8d1;border-color:var(--line);background:rgba(255,255,255,.04)}
+    .badge.risk{border-style:dashed}
+    .badge.health{font-weight:800}
+    .hero-date{font-size:.78rem;color:var(--muted)}
+    h1{font-size:clamp(1.9rem,4.5vw,3.3rem);line-height:1.08;letter-spacing:-.03em;font-weight:800;text-wrap:balance}
+    .hero-summary{font-size:clamp(1rem,1.6vw,1.3rem);color:var(--muted);max-width:62ch;text-wrap:balance}
+    .hero-meta{font-size:.72rem;color:var(--muted);opacity:.8}
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin-top:.4rem}
+    .kpi{
+      background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);
+      border-radius:1rem;padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.2rem;
+      box-shadow:0 10px 30px rgba(0,0,0,.3);
+    }
+    .kpi-value{font-size:clamp(1.9rem,3vw,2.6rem);font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--text)}
+    .kpi-value.green{color:var(--green)}.kpi-value.amber{color:var(--amber)}
+    .kpi-label{font-size:.8rem;color:var(--muted);font-weight:600}
+    .kpi-sub{font-size:.7rem;color:var(--muted);opacity:.75}
+    .bluf{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem}
+    .bluf-col{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}
+    .bluf-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-weight:800;margin-bottom:.4rem}
+    .bluf-col p{font-size:.9rem;color:var(--text)}
+    .slide-head{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.6rem}
+    .slide-kicker{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);font-weight:800}
+    .slide-head h2{font-size:clamp(1.4rem,3vw,2.1rem);letter-spacing:-.02em;font-weight:800}
+    .impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+    .impact-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.4rem;display:flex;flex-direction:column;gap:.5rem}
+    .impact-icon{font-size:1.6rem}
+    .impact-card h3{font-size:1rem;font-weight:800;letter-spacing:-.01em}
+    .impact-card p{font-size:.9rem;color:var(--muted)}
+    .impact-card.blue{border-top:3px solid var(--blue)}
+    .impact-card.gold{border-top:3px solid var(--gold)}
+    .impact-card.teal{border-top:3px solid var(--teal)}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;align-items:start}
+    @media(max-width:760px){.split{grid-template-columns:1fr}}
+    .timeline{position:relative;padding-left:1.4rem;display:flex;flex-direction:column;gap:1.05rem}
+    .timeline::before{content:"";position:absolute;left:.4rem;top:.3rem;bottom:.3rem;width:2px;background:linear-gradient(180deg,var(--blue),var(--green))}
+    .tl-item{position:relative;display:flex;align-items:center;gap:.9rem}
+    .tl-dot{position:absolute;left:-1.4rem;width:.85rem;height:.85rem;border-radius:50%;background:var(--card);border:2px solid var(--blue)}
+    .tl-item.pr\\:merge .tl-dot,.tl-item.pr-merge .tl-dot{border-color:var(--green);background:var(--green)}
+    .tl-item.pre-pr .tl-dot{border-color:var(--amber)}
+    .tl-body{display:flex;flex-direction:column}
+    .tl-time{font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:700}
+    .tl-label{font-size:.92rem;font-weight:600}
+    .tl-total{margin-top:.4rem;font-size:.85rem;color:var(--green);font-weight:700}
+    .empty-note{font-size:.9rem;color:var(--muted);border:1px dashed var(--line);border-radius:1rem;padding:1.2rem}
+    .stat-list{display:flex;flex-direction:column;gap:.8rem}
+    .stat{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1rem 1.2rem;display:flex;align-items:baseline;gap:.9rem}
+    .stat-v{font-size:1.7rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--blue)}
+    .stat-v.green{color:var(--green)}
+    .stat-l{font-size:.82rem;color:var(--muted)}
+    .appendix{justify-content:flex-start}
+    .appendix-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:860px){.appendix-grid{grid-template-columns:1fr}}
+    .ap-card{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}
+    .ap-card h3{font-size:.92rem;font-weight:800;margin-bottom:.6rem}
+    .detail-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.2rem;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+    .detail-scroll{max-height:56vh;overflow:auto;border-radius:.8rem}
+    .detail-scroll table{margin:0}
+    .detail-note{font-size:.72rem;color:var(--muted);opacity:.8;margin-top:.7rem}
+    .checks{list-style:none;display:flex;flex-direction:column;gap:.35rem}
+    .checks li{font-size:.85rem;color:var(--muted)}
+    .ns-add{color:#34d399;font-weight:600}
+    .ns-del{color:#f87171;font-weight:600}
+    .commit-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;max-height:260px;overflow-y:auto;margin:0;padding:0}
+    .commit-list li{font-size:.82rem;color:var(--muted);line-height:1.35}
+    .commit-list code{background:var(--border);border-radius:4px;padding:.05rem .35rem;font-size:.75rem;color:var(--fg);margin-right:.4rem}
+    table{width:100%;border-collapse:collapse;font-size:.8rem}
+    td,th{border:1px solid var(--line);padding:.45rem .6rem;text-align:left;vertical-align:top;color:var(--muted)}
+    th{color:var(--text);font-weight:700;background:rgba(255,255,255,.04)}
+    td code,code{color:#93c5fd;font-family:ui-monospace,Menlo,monospace;font-size:.78rem}
+    .evidence{max-width:100%;border:1px solid var(--line);border-radius:.8rem;margin-top:.7rem}
+    .token-bar{display:flex;border-radius:.6rem;overflow:hidden;margin:.7rem 0;font-size:.7rem}
+    .token-bar div{padding:.3rem .7rem;text-align:center;white-space:nowrap}
+    .token-bar .add{background:rgba(52,211,153,.18);color:#6ee7b7}
+    .token-bar .del{background:rgba(248,113,113,.16);color:#fca5a5}
+    .token-bar .overhead{background:rgba(255,255,255,.07);color:var(--muted)}
+    .diff-title{margin:1.2rem 0 .5rem;font-size:.92rem;font-weight:800}
+    .diff{background:#070b16;color:#c9d6ea;padding:.9rem;border-radius:.8rem;font:.74rem/1.5 ui-monospace,Menlo,monospace;overflow-x:auto;max-height:340px;border:1px solid var(--line)}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .foot{margin:1.4rem auto 2.5rem;text-align:center;font-size:.7rem;color:var(--muted);opacity:.6}
+    .foot .scroll-hint{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3rem .9rem;margin-bottom:.8rem}
+    @page{size:A4 landscape;margin:12mm}
+    @media print{
+      html,body{background:#fff!important;color:#111}
+      .nav{display:none!important}
+      .slide{min-height:0;page-break-after:always;break-after:page;display:flex!important;border-bottom:0;padding:1.5rem 0}
+      .slide:last-child{page-break-after:auto;break-after:auto}
+      .hero h1{color:#0b1220}
+      .hero-summary,.hero-date,.hero-meta,.kpi-label,.kpi-sub,.bluf-col p,.impact-card p,.tl-time,.tl-label,.stat-l,.checks li,td,th,.foot{color:#334155}
+      .kpi,.impact-card,.bluf-col,.ap-card,.stat{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-card{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-scroll{max-height:none;overflow:visible}
+      .bluf-col,.checks li{color:#334155}
+      .diff{background:#f8fafc;color:#0f172a;border-color:#e2e8f0}
+      .timeline::before{background:linear-gradient(180deg,#3b82f6,#16a34a)}
+      tr{break-inside:avoid;page-break-inside:avoid}
+      th,td{font-size:.72rem}
+      .detail-scroll table{margin:0}
+      img.evidence{max-height:120mm;object-fit:contain}
+    }
+  </style>
+</head>
+<body>
+  <div class="nav" id="deckNav">
+    <button id="prevBtn" title="Anterior (←)">←</button>
+    <span class="count" id="slideCount">1/5</span>
+    <button id="nextBtn" title="Próxima (→)">→</button>
+    <button id="fsBtn" title="Tela cheia (F)">⛶</button>
+    <button id="printBtn" title="Imprimir / PDF (P)">⎙</button>
+    <button class="mode-btn" id="modeBtn" title="Alternar modo documento">📄</button>
+  </div>
+
+  <div class="deck" id="deck">
+    
+    <section class="slide" id="s1">
+      <div class="hero">
+        <div class="hero-top">
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">pr-wave</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
+          <div class="hero-date">2026-09-14 · 08:06 · <span class="mono">integrate/pr-wave</span></div>
+        </div>
+        <h1>integrate pr wave</h1>
+        <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
+        <div class="hero-meta mono">30393a7b — Merge remote-tracking branch 'origin/fix/supabase-anon-key-fallback-5851933796064766463' into integrate/pr-wave</div>
+      </div>
+      
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-value">0</div>
+        <div class="kpi-label">entregas em produção</div>
+        <div class="kpi-sub">0 implementações · 0 reviews</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value">—</div>
+        <div class="kpi-label">lead time (início → produção)</div>
+        <div class="kpi-sub">da sessão ao deploy</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value">0/23</div>
+        <div class="kpi-label">fricção pré-PR (fail/total)</div>
+        <div class="kpi-sub">0 violações · 0 auto-corrigidas</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value amber">—</div>
+        <div class="kpi-label">qualidade</div>
+        <div class="kpi-sub">médio risco da mudança</div>
+      </div>
+    </div>
+      <div class="bluf">
+        <div class="bluf-col">
+          <div class="bluf-label">Decisão & entregas</div>
+          <p>Alteração validada dentro do fluxo de qualidade do produto.</p>
+        </div>
+        <div class="bluf-col">
+          <div class="bluf-label">Impacto esperado</div>
+          <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+        </div>
+        <div class="bluf-col">
+          <div class="bluf-label">Riscos & trade-offs</div>
+          <p>Médio risco de mudança · qualidade  · lead time —.</p>
+        </div>
+      </div>
+    </section><section class="slide" id="s2">
+        <div class="slide-head">
+          <span class="slide-kicker">Impacto da sessão</span>
+          <h2>O que isso significa para o negócio</h2>
+        </div>
+        <div class="impact-grid">
+          <div class="impact-card blue">
+                <div class="impact-icon">🎯</div>
+                <h3>Impacto de Produto</h3>
+                <p>Alteração validada dentro do fluxo de qualidade do produto.</p>
+              </div><div class="impact-card gold">
+                <div class="impact-icon">🏢</div>
+                <h3>Impacto de Negócio</h3>
+                <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+              </div><div class="impact-card teal">
+                <div class="impact-icon">🌊</div>
+                <h3>Impacto de Processo</h3>
+                <p>Fluxo completo seguido: sessão → implementação → code review → pré-PR → PR. Detalhes nas métricas automáticas.</p>
+              </div>
+        </div>
+      </section>
+    <section class="slide" id="s3">
+      <div class="slide-head">
+        <span class="slide-kicker">Valor por entrega</span>
+        <h2>Detalhamento por item</h2>
+      </div>
+      <div class="detail-card">
+        <div class="detail-scroll"><table>
+    <tr>
+      <th style="width:16%">Item</th>
+      <th style="width:24%">Correção Efetuada</th>
+      <th style="width:20%">Benefício</th>
+      <th style="width:24%">Impacto no Negócio</th>
+      <th style="width:16%">Custo Token</th>
+    </tr>
+    <tr>
+      <td><strong>Entrega da sessão</strong></td>
+      <td>integrate pr wave</td>
+      <td>Alteração validada dentro do fluxo de qualidade do produto.</td>
+      <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
+      <td><code>~13261</code></td>
+    </tr>
+  </table></div>
+        <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.172 tokens (feature) · status pesado — tracking</p>
+      </div>
+    </section>
+    <section class="slide" id="s4">
+      <div class="slide-head">
+        <span class="slide-kicker">Execução</span>
+        <h2>Timeline da sessão</h2>
+      </div>
+      <div class="split">
+        <div class="split-left"><div class="timeline">
+        <div class="tl-item pre-pr">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">11:03</div>
+                <div class="tl-label">Validação pré-PR</div>
+              </div>
+            </div>
+        
+      </div></div>
+        <div class="split-right">
+          <div class="stat-list">
+            <div class="stat"><span class="stat-v">23</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">0</span><span class="stat-l">violações de regra encontradas</span></div>
+            <div class="stat"><span class="stat-v green">0</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
+            <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="slide appendix" id="s5">
+      <div class="slide-head">
+        <span class="slide-kicker">Apêndice técnico</span>
+        <h2>Detalhes da implementação</h2>
+      </div>
+      <div class="appendix-grid">
+        <div class="ap-card">
+          <h3>✅ Checklist de revisão</h3>
+          <ul class="checks">
+            <li>🖼️ Renderização verificada em desktop e mobile?</li>
+<li>🔌 Hooks testados em tela real?</li>
+<li>📦 Biblioteca testada com casos de borda?</li>
+<li>🤖 CI workflow válido? (sintaxe YAML)</li>
+<li>🧪 Testes manuais realizados?</li>
+<li>📋 Regras de validação passam? (npm run pre-pr)</li>
+          </ul>
+        </div>
+        <div class="ap-card">
+          <h3>📸 Evidências — antes & depois</h3>
+          <table>
+            <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 703 remoções — 17681 linhas tocadas</td><td>✨ 15893 adições — 99 arquivo(s) alterado(s)</td></tr>
+          </table>
+          
+        </div>
+        <div class="ap-card">
+          <h3>📊 Métricas da mudança</h3>
+          <table>
+            <tr><th>Métrica</th><th>Valor</th></tr>
+            <tr><td>Arquivos alterados</td><td>99</td></tr>
+            <tr><td>Adições</td><td>+15893</td></tr>
+            <tr><td>Remoções</td><td>-703</td></tr>
+            <tr><td>Tokens estimados</td><td>~13261</td></tr>
+          </table>
+          <div class="token-bar">
+        <div class="add" style="flex:90">+11920 add</div>
+        <div class="del" style="flex:4">-527 del</div>
+        <div class="overhead" style="flex:6">~814 ctx</div>
+      </div>
+          <h3>Breakdown de tokens</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+11920</td><td>90%</td></tr>
+      <tr><td>Remoções</td><td>-527</td><td>4%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~814</td><td>6%</td></tr>
+      <tr><th>Total</th><th>~13261</th><th>100%</th></tr>
+    </table>
+        </div>
+        <div class="ap-card">
+          <h3>📁 Arquivos</h3>
+          <table>
+            <tr><th>Status</th><th>Arquivo</th><th>+/-</th></tr>
+            <tr><td>M</td><td>.github/workflows/auto-merge.yml</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>.github/workflows/ci.yml</td><td class="mono"><span class="ns-add">+6</span> <span class="ns-del">−1</span></td></tr>
+<tr><td>M</td><td>.github/workflows/nightly.yml</td><td class="mono"><span class="ns-add">+2</span> <span class="ns-del">−1</span></td></tr>
+<tr><td>M</td><td>.github/workflows/normalize-pr-report.yml</td><td class="mono"><span class="ns-add">+6</span> <span class="ns-del">−2</span></td></tr>
+<tr><td>R100</td><td>docs/reports/2026-09-11/main-2026-09-11-main.html docs/reports/2026-09-11/PR578-2026-09-11-main.html</td><td class="mono">—</td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-11/PR579-2026-09-11-main.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-11/PR580-2026-09-11-main.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-11/PR582-2026-09-11-main.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-11/PR584-2026-09-11-main.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-11/PR587-2026-09-11-main.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-11/PR589-2026-09-11-main.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-11/PR591-2026-09-11-main.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-11/PR591-9081716822733203864-217096a8-2026-09-11-jules-9081716822733203864-217096a8.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-11/PR594-2026-09-11-main.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-11/PR594-680935131789266363-7790ddd8-2026-09-11-jules-680935131789266363-7790ddd8.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-11/PR601-2026-09-11-main.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-11/PR602-2026-09-11-main.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-11/jules-17714344593869345305-41731a98-2026-09-11-jules-17714344593869345305-41731a98.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-11/jules-44988880685143869-a25eae25-2026-09-11-jules-44988880685143869-a25eae25.html</td><td class="mono"><span class="ns-add">+421</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-11/jules-5329345579010226155-b31f711b-2026-09-11-jules-5329345579010226155-b31f711b.html</td><td class="mono"><span class="ns-add">+427</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>R100</td><td>docs/reports/2026-09-13/main-2026-09-13-main.html docs/reports/2026-09-13/PR612-2026-09-13-main.html</td><td class="mono">—</td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-13/PR614-2026-09-13-main.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-13/PR614-7059655299252902614-cf013843-2026-09-13-jules-7059655299252902614-cf013843.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-13/PR615-2026-09-13-main.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-13/PR616-2026-09-13-main.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-13/PR617-13486782067920537480-73fc2393-2026-09-13-jules-13486782067920537480-73fc2393.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-13/PR617-2026-09-13-main.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-13/PR618-2026-09-13-main.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-13/PR619-2026-09-13-main.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-13/PR620-2026-09-13-main.html</td><td class="mono"><span class="ns-add">+406</span> <span class="ns-del">−0</span></td></tr>
+          </table>
+        </div>
+        <div class="ap-card">
+          <h3>🔖 Commits da sessão (103)</h3>
+          <ul class="commit-list">
+            <li><code>30393a7b</code> Merge remote-tracking branch 'origin/fix/supabase-anon-key-fallback-5851933796064766463' into integrate/pr-wave</li>
+<li><code>1a5c8649</code> Merge remote-tracking branch 'origin/fix/supabase-url-fallback-6246546072539050475' into integrate/pr-wave</li>
+<li><code>11ca2fde</code> Merge remote-tracking branch 'origin/jules-7264668324131312587-85608eb0' into integrate/pr-wave</li>
+<li><code>c6a12851</code> Merge remote-tracking branch 'origin/refactor/sale-form-client-drawer-17714344593869345305' into integrate/pr-wave</li>
+<li><code>49446d37</code> Merge remote-tracking branch 'origin/refactor-sale-form-nested-conditional-9081716822733203864' into integrate/pr-wave</li>
+<li><code>a0e6a8fe</code> Merge remote-tracking branch 'origin/jules-6228410642997445168-6f185cfc' into integrate/pr-wave</li>
+<li><code>b426c704</code> Merge remote-tracking branch 'origin/fix/cart-cost-calculation-9103946709812462859' into integrate/pr-wave</li>
+<li><code>184588dd</code> Merge remote-tracking branch 'origin/jules-13860803604665028090-dff7ae1d' into integrate/pr-wave</li>
+<li><code>b552b86a</code> Merge remote-tracking branch 'origin/fix/ci-workflows-and-pipeline-hardening-368068699608860660' into integrate/pr-wave</li>
+<li><code>6fe9315c</code> Merge remote-tracking branch 'origin/fix/telemetry-insecure-randomness-7059655299252902614' into integrate/pr-wave</li>
+<li><code>f3ebeca4</code> Merge remote-tracking branch 'origin/jules-13295147255017883569-28a0f2ed' into integrate/pr-wave</li>
+<li><code>2837e74d</code> Merge remote-tracking branch 'origin/jules-5329345579010226155-b31f711b' into integrate/pr-wave</li>
+<li><code>da69e882</code> Merge remote-tracking branch 'origin/perf/client-cycle-availability-map-lookup-2801722404434332328' into integrate/pr-wave</li>
+<li><code>10e48025</code> Merge remote-tracking branch 'origin/fix/safe-json-parse-graph-engine-11084679300062801099' into integrate/pr-wave</li>
+<li><code>7cc8d07c</code> Merge remote-tracking branch 'origin/perf/entry-table-map-lookups-5793211199566890504' into integrate/pr-wave</li>
+<li><code>428e0d0d</code> Merge remote-tracking branch 'origin/jules-979868512771486381-ce658fcf' into integrate/pr-wave</li>
+<li><code>bfcfc47f</code> Merge remote-tracking branch 'origin/jules-16091402823985236029-3cf7eed1' into integrate/pr-wave</li>
+<li><code>efca1804</code> Merge remote-tracking branch 'origin/perf/relatorios-owner-color-map-13486782067920537480' into integrate/pr-wave</li>
+<li><code>360580c6</code> Merge remote-tracking branch 'origin/jules-11266130917659813232-532ae4c9' into integrate/pr-wave</li>
+<li><code>daed7294</code> Merge remote-tracking branch 'origin/refactor/remove-unused-statuscolor-statusbadge-3773631927968219156' into integrate/pr-wave</li>
+<li><code>3bc5a0bc</code> Merge remote-tracking branch 'origin/jules-8608145655052321747-15a76413' into integrate/pr-wave</li>
+<li><code>a3acc426</code> Merge remote-tracking branch 'origin/refactor/app-sidebar-clean-handlers-6912176637247668263' into integrate/pr-wave</li>
+<li><code>8242c9e5</code> Merge remote-tracking branch 'origin/refactor/account-dialog-handler-680935131789266363' into integrate/pr-wave</li>
+<li><code>9ff81c9c</code> Merge remote-tracking branch 'origin/fix/alerts-insecure-random-id-9465051722316702412' into integrate/pr-wave</li>
+<li><code>5987dd12</code> Merge remote-tracking branch 'origin/fix/debug-logs-localStorage-security-44988880685143869' into integrate/pr-wave</li>
+<li><code>393ebd2c</code> Merge remote-tracking branch 'origin/refactor-sale-table-nested-callbacks-5817587523952880425' into integrate/pr-wave</li>
+<li><code>4b50334b</code> Merge remote-tracking branch 'origin/jules-7078357867290175809-539e4550' into integrate/pr-wave</li>
+<li><code>804cf737</code> Merge remote-tracking branch 'origin/fix/sec-error-boundary-localstorage-11119934358476918370' into integrate/pr-wave</li>
+<li><code>fdf1f888</code> Merge remote-tracking branch 'origin/jules-12582134620859567133-a8c7a54f' into integrate/pr-wave</li>
+<li><code>5da56cac</code> Merge remote-tracking branch 'origin/chore/refactor-globalsearch-nested-conditional-17777496809561507962' into integrate/pr-wave</li>
+<li><code>0a0db798</code> Merge remote-tracking branch 'origin/jules-767095778592684549-57cc3903' into integrate/pr-wave</li>
+<li><code>4ea0eced</code> chore: normalize report prefix to PR630</li>
+<li><code>2ca45483</code> fix: adjust auto-merge conditions and normalize pr report script</li>
+<li><code>6c179286</code> ⚡ optimize computedBalances linear aggregation in Contas.tsx</li>
+<li><code>14fa7aaf</code> 🔒 fix: require Supabase environment variables and remove fallbacks</li>
+<li><code>70dff657</code> 🔒 fix(ai): safe JSON parsing of command output in graph engine</li>
+<li><code>a645394a</code> chore: normalize report prefix to PR629</li>
+<li><code>ccb039e5</code> ⚡ optimize computedBalances linear aggregation in Contas.tsx</li>
+<li><code>15247e47</code> fix(security): remove hardcoded Supabase fallback env vars</li>
+<li><code>ed0f9569</code> 🔒 fix: require Supabase environment variables and remove fallbacks</li>
+<li><code>477efb0d</code> chore: normalize report prefix to PR627</li>
+<li><code>e53ebb48</code> ⚡ perf(vendas): bulk insert credit reversals on sale cancel</li>
+<li><code>6fd785a6</code> chore: normalize report prefix to PR626</li>
+<li><code>622b0660</code> 🔒 fix(ai): safe JSON parsing of command output in graph engine</li>
+<li><code>76fbd4e0</code> chore: normalize report prefix to PR625</li>
+<li><code>5c34f9db</code> chore: normalize report prefix to PR624</li>
+<li><code>cc297ec9</code> fix(security): remove hardcoded Supabase fallback env vars</li>
+<li><code>e7812c62</code> perf: optimize stockInfo computation using Map lookups in SaleForm and Vendas</li>
+<li><code>3db8f6d2</code> chore: normalize report prefix to PR622</li>
+<li><code>3364e9a1</code> 🔒 fix: require Supabase environment variables and remove fallbacks</li>
+<li><code>0ead2128</code> chore: normalize report prefix to PR621</li>
+<li><code>6ec71166</code> perf(EntryTable): replace linear array lookups with precomputed Map lookups</li>
+<li><code>1b63184c</code> chore: normalize report prefix to PR620</li>
+<li><code>db89ab01</code> 🧹 Implement complete §11 telemetry completeness check</li>
+<li><code>9611559d</code> chore: normalize report prefix to PR619</li>
+<li><code>4c741743</code> refactor: extract fatal error rendering fallback from main.tsx</li>
+<li><code>470c2be1</code> chore: normalize report prefix to PR618</li>
+<li><code>44e037f0</code> perf: optimize client lookup in useClientCycleAvailability hook</li>
+<li><code>8d04a82b</code> chore: normalize report prefix to PR617</li>
+<li><code>a381f9e7</code> chore: normalize report prefix to PR616</li>
+<li><code>52c92178</code> ⚡ optimize owner color lookup in Relatorios component map</li>
+<li><code>812155f4</code> refactor(kpi): remove unused export buildProcessAlerts</li>
+<li><code>64d6051c</code> chore: normalize report prefix to PR615</li>
+<li><code>8a2b62bf</code> fix(carrinho): update preview calculation when cartCost is entered</li>
+<li><code>f4536480</code> chore: normalize report prefix to PR614</li>
+<li><code>bcc19aca</code> fix(telemetry): replace insecure Math.random with crypto.randomUUID</li>
+<li><code>772ec487</code> chore: normalize report prefix to PR612</li>
+<li><code>e8430f36</code> refactor: remove unused statusColor function in StatusBadge</li>
+<li><code>566505ec</code> fix(tests): update Owner and Account test types in OwnerSection test</li>
+<li><code>747caca5</code> refactor(sidebar): extract inline handlers and fix formatting in AppSidebar</li>
+<li><code>c10b340d</code> chore: normalize report prefix to PR604</li>
+<li><code>24ef7805</code> refactor(OwnerSection): extract dialog open handler</li>
+<li><code>98d3e7cd</code> chore: normalize report prefix to PR602</li>
+<li><code>6fb450a0</code> refactor(vite): simplify manualChunks using declarative CHUNK_GROUPS</li>
+<li><code>98bf6233</code> chore: normalize report prefix to PR601</li>
+<li><code>6f2f8b15</code> refactor: simplify nested onOpenChange conditional in ProgramSection</li>
+<li><code>e2d68972</code> chore: normalize report prefix to PR597</li>
+<li><code>31d751de</code> refactor(sidebar): extract inline handlers in AppSidebar</li>
+<li><code>492d2786</code> refactor: extract ClientCreationDrawer from SaleForm</li>
+<li><code>4ee380f6</code> fix(security): sanitize and restrict debug logs in localStorage</li>
+<li><code>55c64f17</code> chore: normalize report prefix to PR594</li>
+<li><code>c363ebea</code> refactor: extract program selection handler in AccountDialog</li>
+<li><code>bf7e89e3</code> fix(security): sanitize and restrict debug logs in localStorage</li>
+<li><code>39c43f42</code> chore: normalize report prefix to PR591</li>
+<li><code>98b6ef78</code> chore: normalize report prefix to PR593</li>
+<li><code>7c8bbae3</code> refactor: extract ClientCreationDrawer from SaleForm</li>
+<li><code>dbb4e614</code> refactor: extract passenger client selection and simplify passenger limit logic in SaleForm</li>
+<li><code>bdc579b9</code> chore: normalize report prefix to PR589</li>
+<li><code>082c2252</code> chore: normalize report prefix to PR588</li>
+<li><code>d9d90a4a</code> fix(security): replace Math.random with crypto.randomUUID in AlertEngine</li>
+<li><code>74082f91</code> fix(security): sanitize and restrict debug logs in localStorage</li>
+<li><code>02d3d558</code> chore: normalize report prefix to PR587</li>
+<li><code>4b9fcba4</code> refactor: extract nested inline callbacks in SaleTable</li>
+<li><code>c173e0bd</code> chore: normalize report prefix to PR584</li>
+<li><code>cfec3301</code> refactor(components): extract origem type selection handler in EntryForm</li>
+<li><code>a7c06da3</code> chore: normalize report prefix to PR582</li>
+<li><code>cf5fd9ad</code> fix(security): remove sensitive data storage in ErrorBoundary localStorage</li>
+<li><code>7c855af9</code> chore: normalize report prefix to PR580</li>
+<li><code>e7fe1be9</code> test(use-mobile): add unit tests for useIsMobile hook</li>
+<li><code>87d9434b</code> chore: normalize report prefix to PR579</li>
+<li><code>528f725d</code> refactor(GlobalSearch): extract SearchResultItem to simplify nested conditional logic</li>
+<li><code>d5fba175</code> chore: normalize report prefix to PR578</li>
+<li><code>719fd793</code> refactor: reduce parameter count in BottomTabBar Tab component</li>
+          </ul>
+        </div>
+        <div class="ap-card">
+          <h3>🧪 Qualidade de hoje</h3>
+          <table>
+            <tr><th>Métrica</th><th>Valor</th></tr>
+            <tr><td>Cobertura libs (rule-31)</td><td>sem registro hoje</td></tr>
+            <tr><td>Cobertura componentes (rule-32)</td><td>sem registro hoje</td></tr>
+            <tr><td>Outcome grade (rule-30)</td><td>sem registro hoje</td></tr>
+          </table>
+        </div>
+      </div>
+      <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
+      <div class="diff">
+        diff --git a/.github/workflows/auto-merge.yml b/.github/workflows/auto-merge.yml
+index 91643886..84ea5621 100644
+<span class="del">--- a/.github/workflows/auto-merge.yml</span>
+<span class="add">+++ b/.github/workflows/auto-merge.yml</span>
+@@ -19,6 +19,7 @@ jobs:
+   auto-merge:
+     if: &gt;
+       github.event_name == 'workflow_run' &amp;&amp;
+<span class="add">+      github.event.workflow_run.event == 'pull_request' &amp;&amp;</span>
+       github.event.workflow_run.conclusion == 'success' &amp;&amp;
+       github.event.workflow_run.head_branch != github.event.repository.default_branch
+     runs-on: ubuntu-latest
+diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
+index e84c2596..96c50601 100644
+<span class="del">--- a/.github/workflows/ci.yml</span>
+<span class="add">+++ b/.github/workflows/ci.yml</span>
+@@ -14,6 +14,8 @@ concurrency:
+ 
+ env:
+   CI: true
+<span class="add">+  VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL || 'https://mock.supabase.co' }}</span>
+<span class="add">+  VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY || 'mock-anon-key' }}</span>
+ 
+ jobs:
+   changes:
+@@ -76,10 +78,13 @@ jobs:
+       - name: Install Playwright
+         run: npx playwright install chromium --with-deps
+       - name: E2E Smoke
+<span class="add">+        env:</span>
+<span class="add">+          VITE_SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ohyplfpcwxzakujjfwdf.supabase.co' }}</span>
+<span class="add">+          VITE_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY || 'sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs' }}</span>
+         run: CI_SMOKE_ONLY=true npx playwright test --grep &quot;Smoke Tests&quot; --reporter=list
+       - name: Upload smoke report
+         if: always()
+         uses: actions/upload-artifact@v4
+         with:
+           name: playwright-smoke-report
+<span class="del">-          path: playwright-report/</span>
+\ No newline at end of file
+<span class="add">+          path: playwright-report/</span>
+diff --git a/.github/workflows/nightly.yml b/.github/workflows/nightly.yml
+index d3271878..b93396d0 100644
+<span class="del">--- a/.github/workflows/nightly.yml</span>
+<span class="add">+++ b/.github/workflows/nightly.yml</span>
+@@ -70,13 +70,14 @@ jobs:
+           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY || '' }}
+ 
+       - name: Sanity check da telemetria (falha se ai_telemetry sem linhas novas)
+<span class="del">-        # Detecta cedo um pipeline de telemetria quebrado: com service key e</span>
+<span class="add">+        # Detecta cedo um pipeline de telemetria quebrado: com credenciais e</span>
+         # Supabase respondendo, 26h sem nenhuma linha nova = falha do run.
+         # Sem credenciais ou sem rede → fail-open.
+         run: node scripts/telemetry-sanity.mjs
+         env:
+           SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ohyplfpcwxzakujjfwdf.supabase.co' }}
+           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY || '' }}
+<span class="add">+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY || '' }}</span>
+ 
+       - name: Refresh dashboard data (KPIs diários + aba Workflow)
+         # fetchTelemetryCost usa SUPABASE_SERVICE_KEY/ANON_KEY para agregar a
+diff --git a/.github/workflows/normalize-pr-report.yml b/.github/workflows/normalize-pr-report.yml
+index d1297a1c..d86ba226 100644
+<span class="del">--- a/.github/workflows/normalize-pr-report.yml</span>
+<span class="add">+++ b/.github/workflows/normalize-pr-report.yml</span>
+@@ -34,6 +34,7 @@ jobs:
+             exit 0
+           fi
+ 
+<span class="add">+          shopt -s nullglob</span>
+           CHANGED=0
+           for file in &quot;$REPORTS_DIR&quot;/*.html; do
+             [ -f &quot;$file&quot; ] || continue
+@@ -42,8 +43,11 @@ jobs:
+             if echo &quot;$BASENAME&quot; | grep -qE &quot;^PR[0-9]+-&quot;; then
+               continue
+             fi
+<span class="del">-            # Renomeia prefixo da branch para PR&lt;num&gt;</span>
+<span class="del">-            NEW_NAME=$(echo &quot;$BASENAME&quot; | sed &quot;s/^[^-]*/PR${PR_NUM}/&quot;)</span>
+<span class="add">+            # Renomeia o prefixo substituindo tudo até a data (YYYY-MM-DD) pelo prefixo PR&lt;num&gt;</span>
+<span class="add">+            NEW_NAME=$(echo &quot;$BASENAME&quot; | sed &quot;s/^.\+-\([0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\)/PR${PR_NUM}-\1/&quot;)</span>
+<span class="add">+            if [ -z &quot;$NEW_NAME&quot; ] || [ &quot;$NEW_NAME&quot; = &quot;$BASENAME&quot; ]; then</span>
+<span class="add">+              NEW_NAME=$(echo &quot;$BASENAME&quot; | sed &quot;s/^[^-]*/PR${PR_NUM}/&quot;)</span>
+<span class="add">+            fi</span>
+             if [ &quot;$BASENAME&quot; != &quot;$NEW_NAME&quot; ]; then
+               mv &quot;$file&quot; &quot;$REPORTS_DIR/$NEW_NAME&quot;
+               echo &quot;  🔄 $BASENAME → $NEW_NAME&quot;
+diff --git a/docs/reports/2026-09-11/main-2026-09-11-main.html b/docs/reports/2026-09-11/PR578-2026-09-11-main.html
+similarity index 100%
+rename from docs/reports/2026-09-11/main-2026-09-11-main.html
+rename to docs/reports/2026-09-11/PR578-2026-09-11-main.html
+diff --git a/docs/reports/2026-09-11/PR579-2026-09-11-main.html b/docs/reports/2026-09-11/PR579-2026-09-11-main.html
+new file mode 100644
+index 00000000..da967583
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/reports/2026-09-11/PR579-2026-09-11-main.html</span>
+@@ -0,0 +1,406 @@
+<span class="add">+&lt;!DOCTYPE html&gt;</span>
+<span class="add">+&lt;html lang=&quot;pt-BR&quot;&gt;</span>
+<span class="add">+&lt;head&gt;</span>
+<span class="add">+  &lt;meta charset=&quot;UTF-8&quot;&gt;</span>
+<span class="add">+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;</span>
+<span class="add">+  &lt;title&gt;main — main&lt;/title&gt;</span>
+<span class="add">+  &lt;style&gt;</span>
+<span class="add">+    :root{</span>
+<span class="add">+      --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;</span>
+<span class="add">+      --text:#e6edf7;--muted:#8fa3c0;--blue:#3b82f6;--green:#34d399;--amber:#fbbf24;--red:#f87171;--gold:#f59e0b;--teal:#2dd4bf;</span>
+<span class="add">+    }</span>
+<span class="add">+    *{box-sizing:border-box;margin:0;padding:0}</span>
+<span class="add">+    html,body{height:100%}</span>
+<span class="add">+    body{</span>
+<span class="add">+      font-family:ui-sans-serif,system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;</span>
+<span class="add">+      background:radial-gradient(1200px 600px at 15% -10%,#12203f 0%,transparent 55%),radial-gradient(1000px 500px at 110% 20%,#0f2440 0%,transparent 50%),var(--bg);</span>
+<span class="add">+      color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;</span>
+<span class="add">+    }</span>
+<span class="add">+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}</span>
+<span class="add">+    .deck{min-height:100vh;display:flex;flex-direction:column}</span>
+<span class="add">+    .slide{</span>
+<span class="add">+      flex:1 0 auto;min-height:100vh;padding:5.5rem clamp(1.25rem,5vw,4.5rem) 3.5rem;</span>
+<span class="add">+      display:flex;flex-direction:column;justify-content:center;gap:1.4rem;</span>
+      </div>
+    </section>
+    <div class="foot">
+      <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
+      Gerado por scripts/generate-report.mjs · 2026-09-14 08:06
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+      var deck = document.getElementById("deck");
+      var count = document.getElementById("slideCount");
+      var nav = document.getElementById("deckNav");
+      var current = 0;
+      var deckMode = true;
+
+      function show(i) {
+        current = Math.max(0, Math.min(slides.length - 1, i));
+        slides.forEach(function (s, idx) {
+          s.classList.toggle("active", idx === current);
+        });
+        count.textContent = (current + 1) + "/" + slides.length;
+        if (deckMode) {
+          window.scrollTo(0, 0);
+        } else {
+          slides[current].scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      function toggleMode() {
+        deckMode = !deckMode;
+        deck.classList.toggle("deck-mode", deckMode);
+        document.body.classList.toggle("deck-mode", deckMode);
+        nav.style.display = deckMode ? "flex" : "none";
+        if (deckMode) show(current);
+      }
+
+      document.getElementById("nextBtn").addEventListener("click", function () { show(current + 1); });
+      document.getElementById("prevBtn").addEventListener("click", function () { show(current - 1); });
+      document.getElementById("fsBtn").addEventListener("click", function () {
+        if (document.fullscreenElement) document.exitFullscreen();
+        else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+      });
+      document.getElementById("printBtn").addEventListener("click", function () { window.print(); });
+      document.getElementById("modeBtn").addEventListener("click", toggleMode);
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); show(current + 1); }
+        else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); show(current - 1); }
+        else if (e.key === "Home") { e.preventDefault(); show(0); }
+        else if (e.key === "End") { e.preventDefault(); show(slides.length - 1); }
+        else if (e.key === "f" || e.key === "F") {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+        }
+        else if (e.key === "p" || e.key === "P") { window.print(); }
+      });
+
+      if (window.innerWidth < 640) toggleMode();
+      else { deck.classList.add("deck-mode"); document.body.classList.add("deck-mode"); show(0); }
+    })();
+  </script>
+</body>
+</html>
