@@ -17,6 +17,7 @@ import {
   analyzeWorkflowEfficiency,
   executeValidationRun,
   runValidationSuite,
+  isRunTelemetryComplete,
   DEFAULT_VALIDATION_CONFIG,
 } from "@/ai/validation";
 import type { RealTask } from "@/ai/validation";
@@ -154,6 +155,33 @@ describe("P12-05 Reliability & Bottlenecks", () => {
     const rep = analyzeReliability(runs);
     // Todos os runs do simulador têm os campos preenchidos → 100%.
     expect(rep.telemetryCompleteness).toBe(1);
+  });
+
+  it("isRunTelemetryComplete valida todos os campos §11 do run", () => {
+    const validRun = executeValidationRun(REAL_TASK_DATASET[0], "single", REPO);
+    expect(isRunTelemetryComplete(validRun)).toBe(true);
+
+    // Um run que falhou mas registrou tudo é telemetria completa.
+    const failedRun = { ...validRun, status: "failure" as const, validation: false };
+    expect(isRunTelemetryComplete(failedRun)).toBe(true);
+
+    // Unset model é telemetria incompleta
+    expect(isRunTelemetryComplete({ ...validRun, model: "unset" })).toBe(false);
+
+    // taskId vazio é telemetria incompleta
+    expect(isRunTelemetryComplete({ ...validRun, taskId: "" })).toBe(false);
+
+    // Repositório incompleto
+    expect(
+      isRunTelemetryComplete({
+        ...validRun,
+        repository: { ...validRun.repository, commitSha: "" },
+      }),
+    ).toBe(false);
+
+    // Métrica zerada/inválida
+    expect(isRunTelemetryComplete({ ...validRun, contextSize: 0 })).toBe(false);
+    expect(isRunTelemetryComplete({ ...validRun, totalTokens: 0 })).toBe(false);
   });
 
   it("triggers respeitam thresholds configuráveis", () => {
