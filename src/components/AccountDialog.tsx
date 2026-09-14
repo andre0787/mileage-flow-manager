@@ -123,6 +123,18 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
     setProgramDialogOpen(false);
   };
 
+  const handleProgramChange = (value: string) => {
+    setProgramId(value);
+    const program = programs.find((p) => p.id === value);
+    if (program) setType(program.type);
+    setErrors((p) => ({ ...p, programId: "" }));
+  };
+
+  const handleOwnerChange = (value: string) => {
+    setOwnerId(value);
+    setErrors((p) => ({ ...p, ownerId: "" }));
+  };
+
   return (
     <>
       <FormDrawer
@@ -149,15 +161,7 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
             <Label>Programa</Label>
             <div className="flex gap-2">
               <div className="flex-1">
-                <Select
-                  value={programId}
-                  onValueChange={(v) => {
-                    setProgramId(v);
-                    const program = programs.find((p) => p.id === v);
-                    if (program) setType(program.type);
-                    setErrors((p) => ({ ...p, programId: "" }));
-                  }}
-                >
+                <Select value={programId} onValueChange={handleProgramChange}>
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione o programa" />
                   </SelectTrigger>
@@ -204,13 +208,7 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
             <Label>Dono</Label>
             <div className="flex gap-2">
               <div className="flex-1">
-                <Select
-                  value={ownerId}
-                  onValueChange={(v) => {
-                    setOwnerId(v);
-                    setErrors((p) => ({ ...p, ownerId: "" }));
-                  }}
-                >
+                <Select value={ownerId} onValueChange={handleOwnerChange}>
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione o dono" />
                   </SelectTrigger>
