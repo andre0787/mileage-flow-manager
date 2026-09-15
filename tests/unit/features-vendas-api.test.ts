@@ -119,7 +119,12 @@ describe("vendasApi — addVenda", () => {
   });
 
   it("propaga erro de inserção", async () => {
-    mockFrom.mockReturnValue({ insert: () => Promise.resolve({ error: { message: "db down" } }) });
+    mockFrom.mockReturnValue({
+      insert: () => Promise.resolve({ error: { message: "db down" } }),
+      select: () => ({
+        eq: () => Promise.resolve({ data: [], error: null }),
+      }),
+    });
     const result = await makeStore().dispatch(vendasApi.endpoints.addVenda.initiate(makeSale()));
     expect(result.error).toBeDefined();
   });
