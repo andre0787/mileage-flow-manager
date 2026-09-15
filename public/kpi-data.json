@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T12:38:10.618Z",
+  "generatedAt": "2026-09-15T10:54:21.472Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -146,8 +146,8 @@
     {
       "month": "2026-09",
       "prePrPassRate": 100,
-      "prePrTotal": 92,
-      "prePrPass": 92,
+      "prePrTotal": 94,
+      "prePrPass": 94,
       "prePrFail": 0,
       "testCoverageLibs": 99.9,
       "testCoverageComponents": 100,
@@ -184,27 +184,14 @@
         "rule-26": 9
       },
       "gateBlockedByRule": {},
-      "avgCycleTimeHours": 8.5,
+      "avgCycleTimeHours": 7.3,
       "branchesMerged": 34,
       "violationsCaught": 49,
       "healedRate": 28.6,
-      "frictionPerPass": 0.53
+      "frictionPerPass": 0.52
     }
   ],
   "daily": [
-    {
-      "day": "2026-08-16",
-      "label": "16/08",
-      "prePrTotal": 2,
-      "prePrPass": 2,
-      "prePrFail": 0,
-      "prePrPassRate": 100,
-      "ruleFails": 4,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 1,
-      "friction": 2
-    },
     {
       "day": "2026-08-17",
       "label": "17/08",
@@ -572,18 +559,41 @@
     {
       "day": "2026-09-14",
       "label": "14/09",
-      "prePrTotal": 4,
-      "prePrPass": 4,
+      "prePrTotal": 6,
+      "prePrPass": 6,
       "prePrFail": 0,
       "prePrPassRate": 100,
       "ruleFails": 4,
       "healed": 1,
       "sessions": 0,
       "merges": 4,
-      "friction": 1
+      "friction": 0.67
+    },
+    {
+      "day": "2026-09-15",
+      "label": "15/09",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [
+    {
+      "number": 635,
+      "title": "feat(clientes) — Editar data de adiantamento no extrato de Saldo",
+      "type": "feat",
+      "date": "2026-09-14",
+      "tokens": 1139,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio",
+      "cycleHours": 0.1
+    },
     {
       "number": 634,
       "title": "docs: registra consolidação do lote de PRs #578–#633 e deploy em produção",
@@ -650,19 +660,98 @@
     "pages": 18,
     "libs": 50,
     "scripts": 124,
-    "testFiles": 352,
+    "testFiles": 356,
     "skills": 27,
     "rules": 48,
-    "events": 541,
+    "events": 543,
     "qualityNotes": 579
   },
   "summary": {
-    "merges": 57,
-    "prs": 6,
-    "sessions": 7,
-    "violations": 172,
-    "healed": 26,
+    "merges": 49,
+    "prs": 7,
+    "sessions": 2,
+    "violations": 115,
+    "healed": 18,
     "prePrPassRate": 100
   },
-  "telemetry": []
+  "telemetry": [
+    {
+      "area": "workflow",
+      "cost": 0.13202,
+      "executions": 10,
+      "avgExecutionMs": 1076728301
+    },
+    {
+      "area": "vendas",
+      "cost": 0.0287,
+      "executions": 1,
+      "avgExecutionMs": 16831791
+    },
+    {
+      "area": "graph-scout",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "test-scout",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "architect",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "implementer",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "tester",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "reviewer",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "task",
+      "cost": 0,
+      "executions": 7,
+      "avgExecutionMs": 0
+    },
+    {
+      "area": "classifier",
+      "cost": 0,
+      "executions": 7,
+      "avgExecutionMs": 0
+    },
+    {
+      "area": "tools",
+      "cost": 0,
+      "executions": 32,
+      "avgExecutionMs": 58525
+    },
+    {
+      "area": "result",
+      "cost": 0,
+      "executions": 3,
+      "avgExecutionMs": 0
+    },
+    {
+      "area": "final-validator",
+      "cost": 0,
+      "executions": 31,
+      "avgExecutionMs": 55898
+    }
+  ]
 }
