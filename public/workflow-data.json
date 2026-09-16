@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-15T10:54:21.852Z",
-  "dataDate": "2026-09-15",
+  "generatedAt": "2026-09-16T10:44:31.061Z",
+  "dataDate": "2026-09-16",
   "kpiStats": [
     {
       "value": 543,
@@ -177,6 +177,16 @@
   },
   "lastPrs": [
     {
+      "number": 637,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-15",
+      "tokens": 511,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0
+    },
+    {
       "number": 635,
       "title": "feat(clientes) — Editar data de adiantamento no extrato de Saldo",
       "type": "feat",
@@ -215,16 +225,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0.1
-    },
-    {
-      "number": 625,
-      "title": "🔒 Fix hardcoded Supabase Anon Key fallback",
-      "type": "other",
-      "date": "2026-09-14",
-      "tokens": 12,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 20.4
     }
   ],
   "overview": {
