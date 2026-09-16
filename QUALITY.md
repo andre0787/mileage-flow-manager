@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-09-15
-> Último commit: 8b0f1c42-Merge pull request #635 from andre0787/feat/clientes-editar-data-saldo
+> Gerado em: 2026-09-16
+> Último commit: 19232d0f-Merge pull request #637 from andre0787/chore/quality-nightly-update
 
 ## Pipeline
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-09-15 | ✅ | 1413 | 1913kB | 0 issues |
+| 2026-09-16 | ✅ | 1413 | 1913kB | 0 issues |
 
 ---
 
