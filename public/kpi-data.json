@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T10:44:30.891Z",
+  "generatedAt": "2026-09-17T10:53:11.677Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -184,7 +184,7 @@
         "rule-26": 9
       },
       "gateBlockedByRule": {},
-      "avgCycleTimeHours": 6.4,
+      "avgCycleTimeHours": 5.7,
       "branchesMerged": 34,
       "violationsCaught": 49,
       "healedRate": 28.6,
@@ -192,19 +192,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-08-18",
-      "label": "18/08",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-08-19",
       "label": "19/08",
@@ -581,9 +568,32 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
+    },
+    {
+      "day": "2026-09-17",
+      "label": "17/09",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [
+    {
+      "number": 639,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-16",
+      "tokens": 363,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 637,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -678,7 +688,7 @@
   },
   "summary": {
     "merges": 49,
-    "prs": 8,
+    "prs": 9,
     "sessions": 2,
     "violations": 115,
     "healed": 18,
@@ -687,9 +697,9 @@
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.14452,
-      "executions": 11,
-      "avgExecutionMs": 1087434965
+      "cost": 0.15702,
+      "executions": 12,
+      "avgExecutionMs": 1096357184
     },
     {
       "area": "vendas",
