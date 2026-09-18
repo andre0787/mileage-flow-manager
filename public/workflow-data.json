@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-14T12:38:10.650Z",
-  "dataDate": "2026-09-14",
+  "generatedAt": "2026-09-18T10:27:24.667Z",
+  "dataDate": "2026-09-18",
   "kpiStats": [
     {
-      "value": 541,
+      "value": 543,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
@@ -18,7 +18,7 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 352,
+      "value": 356,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
@@ -36,32 +36,32 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 7,
+      "n": 2,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 153,
+      "n": 131,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 172,
+      "n": 115,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 26,
+      "n": 18,
       "color": "#10b981"
     },
     {
       "name": "code-review:done",
-      "n": 44,
+      "n": 34,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 39,
+      "n": 33,
       "color": "#22c55e"
     },
     {
@@ -83,21 +83,31 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 69,
+      "n": 33,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 58,
+      "n": 40,
       "color": "#84cc16"
     },
     {
       "name": "abaixo de 80%",
-      "n": 5,
+      "n": 2,
       "color": "#ef4444"
     }
   ],
   "recentTimeline": [
+    {
+      "t": "2026-09-14 13:35:46",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-14 12:38:42",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
     {
       "t": "2026-09-14 12:38:08",
       "d": "pre-pr",
@@ -127,55 +137,85 @@
       "t": "2026-09-14 12:35:34",
       "d": "gate",
       "desc": "gate auth executado (rule-35-auth-gate)"
-    },
-    {
-      "t": "2026-09-14 12:35:34",
-      "d": "gate",
-      "desc": "gate twins executado (rule-34-twins-check)"
-    },
-    {
-      "t": "2026-09-14 12:35:34",
-      "d": "gate",
-      "desc": "gate intent executado (rule-33-intent-gate)"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 172,
-    "healed": 26,
-    "healedRate": 15.1,
-    "prePrTotal": 153,
-    "prePrPass": 153,
+    "ruleFails": 115,
+    "healed": 18,
+    "healedRate": 15.7,
+    "prePrTotal": 131,
+    "prePrPass": 131,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 50,
+        "count": 29,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
-        "rule": "rule-39-coding-gate",
-        "count": 22,
-        "hint": "faltou evento coding:done por subagente na branch"
-      },
-      {
         "rule": "rule-26-session-started",
-        "count": 13,
+        "count": 11,
         "hint": "timestamp de sessão ausente — npm run session:start"
-      },
-      {
-        "rule": "rule-03-handoff-completeness",
-        "count": 12,
-        "hint": ""
       },
       {
         "rule": "rule-31-lib-test-coverage",
         "count": 11,
         "hint": ""
+      },
+      {
+        "rule": "rule-03-handoff-completeness",
+        "count": 10,
+        "hint": ""
+      },
+      {
+        "rule": "rule-39-coding-gate",
+        "count": 10,
+        "hint": "faltou evento coding:done por subagente na branch"
       }
     ]
   },
   "lastPrs": [
+    {
+      "number": 640,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-17",
+      "tokens": 363,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 639,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-16",
+      "tokens": 363,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 637,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-15",
+      "tokens": 511,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0
+    },
+    {
+      "number": 635,
+      "title": "feat(clientes) — Editar data de adiantamento no extrato de Saldo",
+      "type": "feat",
+      "date": "2026-09-14",
+      "tokens": 1139,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio",
+      "cycleHours": 0.1
+    },
     {
       "number": 634,
       "title": "docs: registra consolidação do lote de PRs #578–#633 e deploy em produção",
@@ -185,46 +225,6 @@
       "benefit": "Documentação/processo atualizados — mais rastreabilidade",
       "impact": "Menos fricção e melhor governança",
       "cycleHours": 0.1
-    },
-    {
-      "number": 633,
-      "title": "chore: consolida lote de PRs #578–#631 (33 canônicas) + data no adiantamento",
-      "type": "chore",
-      "date": "2026-09-14",
-      "tokens": 2468,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 632,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-14",
-      "tokens": 549,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 625,
-      "title": "🔒 Fix hardcoded Supabase Anon Key fallback",
-      "type": "other",
-      "date": "2026-09-14",
-      "tokens": 12,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 20.4
-    },
-    {
-      "number": 622,
-      "title": "🔒 Fix hardcoded Supabase URL fallback",
-      "type": "other",
-      "date": "2026-09-14",
-      "tokens": 35,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 20.4
     }
   ],
   "overview": {
@@ -232,10 +232,10 @@
     "pages": 18,
     "libs": 50,
     "scripts": 124,
-    "testFiles": 352,
+    "testFiles": 356,
     "skills": 27,
     "rules": 48,
-    "events": 541,
+    "events": 543,
     "qualityNotes": 579
   }
 }

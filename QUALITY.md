@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-09-14
-> Último commit: 9b2ca107-Merge pull request #625 from andre0787/fix/supabase-anon-key-fallback-5851933796064766463
+> Gerado em: 2026-09-18
+> Último commit: 7bec2ef1-Merge pull request #640 from andre0787/chore/quality-nightly-update
 
 ## Pipeline
 
@@ -15,21 +15,21 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 1264 |
+| Unit | 1312 |
 | E2E  | 101 |
-| **Total** | **1365** |
+| **Total** | **1413** |
 
 ## Bundle
 
 | Métrica | Valor |
 |---------|-------|
-| Tamanho (dist) | 1908kB |
+| Tamanho (dist) | 1913kB |
 
 ## Documentação
 
 | Métrica | Valor |
 |---------|-------|
-| Arquivos .md | 270 |
+| Arquivos .md | 272 |
 | Arquivados | 46 |
 | Issues (verify-docs) | 0 |
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-09-14 | ✅ | 1365 | 1908kB | 0 issues |
+| 2026-09-18 | ✅ | 1413 | 1913kB | 0 issues |
 
 ---
 
