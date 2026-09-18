@@ -171,7 +171,8 @@ describe("programsApi — updateProgram", () => {
   beforeEach(() => vi.clearAllMocks());
 
   it("updates the program converting camelCase to snake_case", async () => {
-    const update = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
+    const eq = vi.fn().mockResolvedValue({ error: null });
+    const update = vi.fn().mockReturnValue({ eq });
     mockFrom.mockImplementation((table: string) => {
       if (table === "programs") {
         return { update };
@@ -187,8 +188,9 @@ describe("programsApi — updateProgram", () => {
   });
 
   it("propagates error when the program does not exist", async () => {
+    const eq = vi.fn().mockResolvedValue({ error: { message: "not found" } });
     mockFrom.mockReturnValue({
-      update: () => Promise.resolve({ error: { message: "not found" } }),
+      update: () => ({ eq }),
     });
     const result = await makeStore().dispatch(
       programsApi.endpoints.updateProgram.initiate({ id: "missing", name: "Test" }),
@@ -201,7 +203,8 @@ describe("programsApi — deleteProgram", () => {
   beforeEach(() => vi.clearAllMocks());
 
   it("deletes the program", async () => {
-    const del = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
+    const eq = vi.fn().mockResolvedValue({ error: null });
+    const del = vi.fn().mockReturnValue({ eq });
     mockFrom.mockImplementation((table: string) => {
       if (table === "programs") {
         return { delete: del };
@@ -217,8 +220,9 @@ describe("programsApi — deleteProgram", () => {
   });
 
   it("propagates deletion error", async () => {
+    const eq = vi.fn().mockResolvedValue({ error: { message: "delete failed" } });
     mockFrom.mockReturnValue({
-      delete: () => Promise.resolve({ error: { message: "delete failed" } }),
+      delete: () => ({ eq }),
     });
     const result = await makeStore().dispatch(
       programsApi.endpoints.deleteProgram.initiate("prog-1"),
