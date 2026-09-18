@@ -79,6 +79,10 @@ describe("auto-merge workflow (dispara deploy após merge)", () => {
     expect(content).toMatch(/github\.event\.workflow_run\.event == 'pull_request'/);
   });
 
+  it("ignora execuções na branch default para evitar falhas pós-merge", () => {
+    expect(content).toMatch(/github\.event\.workflow_run\.head_branch != github\.event\.repository\.default_branch/);
+  });
+
   it("mergeia via repository_dispatch pr-ready (fluxo do bot normalize)", () => {
     // workflow_run NÃO dispara para runs action_required (approval gate) — o
     // normalize aprova o run e notifica via pr-ready com client_payload.branch.
