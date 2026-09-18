@@ -115,7 +115,8 @@ describe("origemTypesApi — updateOrigemType", () => {
   beforeEach(() => vi.clearAllMocks());
 
   it("updates the origemType converting camelCase to snake_case", async () => {
-    const update = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
+    const eq = vi.fn().mockResolvedValue({ error: null });
+    const update = vi.fn().mockReturnValue({ eq });
     mockFrom.mockImplementation((table: string) => {
       if (table === "origem_types") {
         return { update };
@@ -131,8 +132,9 @@ describe("origemTypesApi — updateOrigemType", () => {
   });
 
   it("propagates error when the origemType does not exist", async () => {
+    const eq = vi.fn().mockResolvedValue({ error: { message: "not found" } });
     mockFrom.mockReturnValue({
-      update: () => Promise.resolve({ error: { message: "not found" } }),
+      update: () => ({ eq }),
     });
     const result = await makeStore().dispatch(
       origemTypesApi.endpoints.updateOrigemType.initiate({ id: "missing", name: "Test" }),
@@ -145,7 +147,8 @@ describe("origemTypesApi — deleteOrigemType", () => {
   beforeEach(() => vi.clearAllMocks());
 
   it("deletes the origemType", async () => {
-    const del = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
+    const eq = vi.fn().mockResolvedValue({ error: null });
+    const del = vi.fn().mockReturnValue({ eq });
     mockFrom.mockImplementation((table: string) => {
       if (table === "origem_types") {
         return { delete: del };
@@ -161,7 +164,8 @@ describe("origemTypesApi — deleteOrigemType", () => {
   });
 
   it("propagates deletion error", async () => {
-    mockFrom.mockReturnValue({ delete: () => Promise.resolve({ error: { message: "del fail" } }) });
+    const eq = vi.fn().mockResolvedValue({ error: { message: "del fail" } });
+    mockFrom.mockReturnValue({ delete: () => ({ eq }) });
     const result = await makeStore().dispatch(
       origemTypesApi.endpoints.deleteOrigemType.initiate("ot-1"),
     );

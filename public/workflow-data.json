@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-15T10:54:21.852Z",
-  "dataDate": "2026-09-15",
+  "generatedAt": "2026-09-18T10:27:24.667Z",
+  "dataDate": "2026-09-18",
   "kpiStats": [
     {
       "value": 543,
@@ -177,6 +177,36 @@
   },
   "lastPrs": [
     {
+      "number": 640,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-17",
+      "tokens": 363,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 639,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-16",
+      "tokens": 363,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 637,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-15",
+      "tokens": 511,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0
+    },
+    {
       "number": 635,
       "title": "feat(clientes) — Editar data de adiantamento no extrato de Saldo",
       "type": "feat",
@@ -195,36 +225,6 @@
       "benefit": "Documentação/processo atualizados — mais rastreabilidade",
       "impact": "Menos fricção e melhor governança",
       "cycleHours": 0.1
-    },
-    {
-      "number": 633,
-      "title": "chore: consolida lote de PRs #578–#631 (33 canônicas) + data no adiantamento",
-      "type": "chore",
-      "date": "2026-09-14",
-      "tokens": 2468,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 632,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-14",
-      "tokens": 549,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 625,
-      "title": "🔒 Fix hardcoded Supabase Anon Key fallback",
-      "type": "other",
-      "date": "2026-09-14",
-      "tokens": 12,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 20.4
     }
   ],
   "overview": {

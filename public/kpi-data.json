@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-15T10:54:21.472Z",
+  "generatedAt": "2026-09-18T10:27:24.314Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -184,7 +184,7 @@
         "rule-26": 9
       },
       "gateBlockedByRule": {},
-      "avgCycleTimeHours": 7.3,
+      "avgCycleTimeHours": 5.2,
       "branchesMerged": 34,
       "violationsCaught": 49,
       "healedRate": 28.6,
@@ -192,45 +192,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-08-17",
-      "label": "17/08",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
-    {
-      "day": "2026-08-18",
-      "label": "18/08",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
-    {
-      "day": "2026-08-19",
-      "label": "19/08",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-08-20",
       "label": "20/08",
@@ -581,9 +542,78 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
+    },
+    {
+      "day": "2026-09-16",
+      "label": "16/09",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-09-17",
+      "label": "17/09",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-09-18",
+      "label": "18/09",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [
+    {
+      "number": 640,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-17",
+      "tokens": 363,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 639,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-16",
+      "tokens": 363,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 637,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-15",
+      "tokens": 511,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0
+    },
     {
       "number": 635,
       "title": "feat(clientes) — Editar data de adiantamento no extrato de Saldo",
@@ -668,7 +698,7 @@
   },
   "summary": {
     "merges": 49,
-    "prs": 7,
+    "prs": 10,
     "sessions": 2,
     "violations": 115,
     "healed": 18,
@@ -677,9 +707,9 @@
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.13202,
-      "executions": 10,
-      "avgExecutionMs": 1076728301
+      "cost": 0.16952,
+      "executions": 13,
+      "avgExecutionMs": 1103906755
     },
     {
       "area": "vendas",
