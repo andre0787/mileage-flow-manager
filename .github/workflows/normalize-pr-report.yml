@@ -43,10 +43,13 @@ jobs:
             if echo "$BASENAME" | grep -qE "^PR[0-9]+-"; then
               continue
             fi
-            # Renomeia o prefixo substituindo tudo até a data (YYYY-MM-DD) pelo prefixo PR<num>
-            NEW_NAME=$(echo "$BASENAME" | sed "s/^.\+-\([0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\)/PR${PR_NUM}-\1/")
-            if [ -z "$NEW_NAME" ] || [ "$NEW_NAME" = "$BASENAME" ]; then
-              NEW_NAME=$(echo "$BASENAME" | sed "s/^[^-]*/PR${PR_NUM}/")
+            # Renomeia o prefixo preservando a data YYYY-MM-DD e o nome do relatório
+            if echo "$BASENAME" | grep -qE "^[0-9]{4}-[0-9]{2}-[0-9]{2}"; then
+              NEW_NAME="PR${PR_NUM}-${BASENAME}"
+            elif echo "$BASENAME" | grep -qE "^.+-([0-9]{4}-[0-9]{2}-[0-9]{2})"; then
+              NEW_NAME=$(echo "$BASENAME" | sed "s/^.\+-\([0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\)/PR${PR_NUM}-\1/")
+            else
+              NEW_NAME="PR${PR_NUM}-${BASENAME}"
             fi
             if [ "$BASENAME" != "$NEW_NAME" ]; then
               mv "$file" "$REPORTS_DIR/$NEW_NAME"
