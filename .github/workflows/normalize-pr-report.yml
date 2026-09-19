@@ -63,9 +63,10 @@ jobs:
           if [ "$CHANGED" -eq 1 ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
+            git checkout -B "${{ github.head_ref }}"
             git add -A
             git commit -m "chore: normalize report prefix to PR${PR_NUM}"
-            git push origin "${{ github.head_ref }}"
+            git push origin "HEAD:${{ github.head_ref }}"
             echo "✅ Relatório(s) renomeado(s) para PR${PR_NUM} e commitado na branch"
             echo "pushed=yes" >> "$GITHUB_OUTPUT"
           else

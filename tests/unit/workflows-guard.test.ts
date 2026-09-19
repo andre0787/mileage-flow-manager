@@ -15,6 +15,12 @@ describe("normalize-pr-report workflow (P0: PRs blocked por [skip ci])", () => {
     expect(content).not.toMatch(/git commit[^\n]*\[skip ci\]/);
   });
 
+  it("garante checkout de branch e push com refspec HEAD explícito", () => {
+    const content = readFileSync(WF, "utf8");
+    expect(content).toMatch(/git checkout -B "\$\{\{\s*github\.head_ref\s*\}\}"/);
+    expect(content).toMatch(/git push origin "HEAD:\$\{\{\s*github\.head_ref\s*\}\}"/);
+  });
+
   it("dispara em pull_request opened (documentando o gatilho)", () => {
     const content = readFileSync(WF, "utf8");
     expect(content).toMatch(/pull_request:\s*\n\s*types:\s*\[opened\]/);
@@ -81,6 +87,10 @@ describe("auto-merge workflow (dispara deploy após merge)", () => {
 
   it("ignora execuções na branch default para evitar falhas pós-merge", () => {
     expect(content).toMatch(/github\.event\.workflow_run\.head_branch != github\.event\.repository\.default_branch/);
+  });
+
+  it("valida branch não vazia e ignora main defensivamente no script do Find open PR", () => {
+    expect(content).toMatch(/if \[ -z "\$BRANCH" \] \|\| \[ "\$BRANCH" = "main" \]/);
   });
 
   it("mergeia via repository_dispatch pr-ready (fluxo do bot normalize)", () => {
