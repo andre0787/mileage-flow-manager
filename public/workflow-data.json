@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-18T10:27:24.667Z",
-  "dataDate": "2026-09-18",
+  "generatedAt": "2026-09-19T10:12:25.827Z",
+  "dataDate": "2026-09-19",
   "kpiStats": [
     {
       "value": 543,
@@ -177,6 +177,46 @@
   },
   "lastPrs": [
     {
+      "number": 641,
+      "title": "Adjust Auto Merge conditions and Normalize PR Report logic",
+      "type": "other",
+      "date": "2026-09-18",
+      "tokens": 14,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 15.8
+    },
+    {
+      "number": 638,
+      "title": "fix: update workflows guard tests and verify pipeline robustness",
+      "type": "fix",
+      "date": "2026-09-18",
+      "tokens": 612,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação",
+      "cycleHours": 64
+    },
+    {
+      "number": 636,
+      "title": "fix(tests): resolve unhandled Supabase chained mock errors in API tests",
+      "type": "fix",
+      "date": "2026-09-18",
+      "tokens": 23,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação",
+      "cycleHours": 87.8
+    },
+    {
+      "number": 642,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-18",
+      "tokens": 363,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0
+    },
+    {
       "number": 640,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
       "type": "other",
@@ -184,46 +224,6 @@
       "tokens": 363,
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 639,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-16",
-      "tokens": 363,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 637,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-15",
-      "tokens": 511,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0
-    },
-    {
-      "number": 635,
-      "title": "feat(clientes) — Editar data de adiantamento no extrato de Saldo",
-      "type": "feat",
-      "date": "2026-09-14",
-      "tokens": 1139,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 634,
-      "title": "docs: registra consolidação do lote de PRs #578–#633 e deploy em produção",
-      "type": "docs",
-      "date": "2026-09-14",
-      "tokens": 64,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança",
       "cycleHours": 0.1
     }
   ],

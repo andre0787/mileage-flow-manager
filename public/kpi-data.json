@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-18T10:27:24.314Z",
+  "generatedAt": "2026-09-19T10:12:25.481Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -184,7 +184,7 @@
         "rule-26": 9
       },
       "gateBlockedByRule": {},
-      "avgCycleTimeHours": 5.2,
+      "avgCycleTimeHours": 16.8,
       "branchesMerged": 34,
       "violationsCaught": 49,
       "healedRate": 28.6,
@@ -192,19 +192,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-08-20",
-      "label": "20/08",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-08-21",
       "label": "21/08",
@@ -581,9 +568,62 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
+    },
+    {
+      "day": "2026-09-19",
+      "label": "19/09",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [
+    {
+      "number": 641,
+      "title": "Adjust Auto Merge conditions and Normalize PR Report logic",
+      "type": "other",
+      "date": "2026-09-18",
+      "tokens": 14,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 15.8
+    },
+    {
+      "number": 638,
+      "title": "fix: update workflows guard tests and verify pipeline robustness",
+      "type": "fix",
+      "date": "2026-09-18",
+      "tokens": 612,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação",
+      "cycleHours": 64
+    },
+    {
+      "number": 636,
+      "title": "fix(tests): resolve unhandled Supabase chained mock errors in API tests",
+      "type": "fix",
+      "date": "2026-09-18",
+      "tokens": 23,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação",
+      "cycleHours": 87.8
+    },
+    {
+      "number": 642,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-18",
+      "tokens": 363,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0
+    },
     {
       "number": 640,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -643,46 +683,6 @@
       "benefit": "Ajuste de processo validado",
       "impact": "Processo mais confiável e audável",
       "cycleHours": 0.1
-    },
-    {
-      "number": 632,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-14",
-      "tokens": 549,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 625,
-      "title": "🔒 Fix hardcoded Supabase Anon Key fallback",
-      "type": "other",
-      "date": "2026-09-14",
-      "tokens": 12,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 20.4
-    },
-    {
-      "number": 622,
-      "title": "🔒 Fix hardcoded Supabase URL fallback",
-      "type": "other",
-      "date": "2026-09-14",
-      "tokens": 35,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 20.4
-    },
-    {
-      "number": 630,
-      "title": "Fix CI workflows and report normalization",
-      "type": "fix",
-      "date": "2026-09-14",
-      "tokens": 628,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação",
-      "cycleHours": 10.1
     }
   ],
   "repo": {
@@ -707,9 +707,9 @@
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.16952,
-      "executions": 13,
-      "avgExecutionMs": 1103906755
+      "cost": 0.18202,
+      "executions": 14,
+      "avgExecutionMs": 1110377815
     },
     {
       "area": "vendas",
