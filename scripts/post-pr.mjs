@@ -81,7 +81,7 @@ if (shouldPush) {
   try {
     execSync(`git add docs/reports/${today}/`, { cwd: ROOT, encoding: "utf8", timeout: 3000 });
     execSync(`git commit -m "chore: normalize report prefix to ${prefix}"`, { cwd: ROOT, encoding: "utf8", timeout: 3000 });
-    execSync(`git push origin "${branch}"`, { cwd: ROOT, encoding: "utf8", timeout: 15000 });
+    execSync(`git push origin HEAD:"${branch}"`, { cwd: ROOT, encoding: "utf8", timeout: 15000 });
     console.log(`  📤 Rename commit pushed to ${branch}`);
   } catch (e) {
     console.log(`  ⚠️  Erro ao commitar/pushar: ${e.message.slice(0, 100)}`);

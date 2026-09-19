@@ -88,4 +88,18 @@ describe("countPassengersInCycle", () => {
       }),
     ).toBe(2);
   });
+
+  it("trata seguro quando ownerName for nulo ou indefinido nas vendas", () => {
+    const sales: CycleSale[] = [
+      { id: "s1", ownerName: null, program: "Latam", date: `${currentYear}-01-10`, passengers: [1, 2] },
+      { id: "s2", ownerName: "Maria", program: "Latam", date: `${currentYear}-01-11`, passengers: [1] },
+    ];
+    expect(
+      countPassengersInCycle(sales, {
+        program: "Latam",
+        ownerName: "Maria",
+        cycleType: "anual",
+      }),
+    ).toBe(1);
+  });
 });
