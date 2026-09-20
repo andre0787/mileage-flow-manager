@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T10:12:25.481Z",
+  "generatedAt": "2026-09-20T10:30:48.153Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -192,19 +192,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-08-21",
-      "label": "21/08",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-08-22",
       "label": "22/08",
@@ -581,9 +568,32 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
+    },
+    {
+      "day": "2026-09-20",
+      "label": "20/09",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [
+    {
+      "number": 644,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-19",
+      "tokens": 449,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 641,
       "title": "Adjust Auto Merge conditions and Normalize PR Report logic",
@@ -673,16 +683,6 @@
       "benefit": "Documentação/processo atualizados — mais rastreabilidade",
       "impact": "Menos fricção e melhor governança",
       "cycleHours": 0.1
-    },
-    {
-      "number": 633,
-      "title": "chore: consolida lote de PRs #578–#631 (33 canônicas) + data no adiantamento",
-      "type": "chore",
-      "date": "2026-09-14",
-      "tokens": 2468,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável",
-      "cycleHours": 0.1
     }
   ],
   "repo": {
@@ -707,9 +707,9 @@
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.18202,
-      "executions": 14,
-      "avgExecutionMs": 1110377815
+      "cost": 0.19452,
+      "executions": 15,
+      "avgExecutionMs": 1115986067
     },
     {
       "area": "vendas",

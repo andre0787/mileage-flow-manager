@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-19T10:12:25.827Z",
-  "dataDate": "2026-09-19",
+  "generatedAt": "2026-09-20T10:30:48.362Z",
+  "dataDate": "2026-09-20",
   "kpiStats": [
     {
       "value": 543,
@@ -177,6 +177,16 @@
   },
   "lastPrs": [
     {
+      "number": 644,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-19",
+      "tokens": 449,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
       "number": 641,
       "title": "Adjust Auto Merge conditions and Normalize PR Report logic",
       "type": "other",
@@ -215,16 +225,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0
-    },
-    {
-      "number": 640,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-17",
-      "tokens": 363,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
     }
   ],
   "overview": {
