@@ -21,6 +21,15 @@ interface Sale {
   profit: number;
 }
 
+interface ExpectedProgramReport {
+  program: string;
+  totalStock: number;
+  averageCostPerMile: number;
+  totalSold: number;
+  revenue: number;
+  profit: number;
+}
+
 describe("Relatorios Program Reports Benchmark", () => {
   it("compares linear filter per program vs pre-grouped Map lookup", () => {
     const numPrograms = 50;
@@ -57,7 +66,7 @@ describe("Relatorios Program Reports Benchmark", () => {
 
     // Baseline approach: filter accounts & filter sales inside .map loop
     const startBaseline = performance.now();
-    let baselineResults: any[] = [];
+    let baselineResults: ExpectedProgramReport[] = [];
     for (let iter = 0; iter < iterations; iter++) {
       baselineResults = programs.map((program) => {
         const programAccounts = accounts.filter((a) => a.programId === program.id);
@@ -84,7 +93,7 @@ describe("Relatorios Program Reports Benchmark", () => {
 
     // Optimized approach: pre-group accounts and sales into Maps before .map loop
     const startOptimized = performance.now();
-    let optimizedResults: any[] = [];
+    let optimizedResults: ExpectedProgramReport[] = [];
     for (let iter = 0; iter < iterations; iter++) {
       const accountsByProgramId = new Map<string, Account[]>();
       for (const a of accounts) {
