@@ -19,12 +19,28 @@ import {
 // ─── Cálculos de Custo ───
 
 describe("calcCostPerMile", () => {
-  it("calcula custo por milha", () => {
+  it("calcula custo por milha para valores positivos normais", () => {
     expect(calcCostPerMile(100, 1000)).toBe(0.1);
   });
 
-  it("retorna 0 quando milhas é 0", () => {
+  it("retorna 0 quando milhas geradas é 0 para evitar divisão por zero", () => {
     expect(calcCostPerMile(100, 0)).toBe(0);
+  });
+
+  it("retorna 0 quando milhas geradas é negativo", () => {
+    expect(calcCostPerMile(100, -500)).toBe(0);
+  });
+
+  it("retorna 0 quando o valor pago é 0", () => {
+    expect(calcCostPerMile(0, 1000)).toBe(0);
+  });
+
+  it("calcula corretamente com valores decimais/fracionados", () => {
+    expect(calcCostPerMile(150.5, 10000)).toBeCloseTo(0.01505, 5);
+  });
+
+  it("calcula corretamente com grande volume de milhas e valor elevado", () => {
+    expect(calcCostPerMile(35000, 1000000)).toBe(0.035);
   });
 });
 
