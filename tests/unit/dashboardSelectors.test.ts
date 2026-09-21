@@ -7,6 +7,7 @@ import {
   computeProgramData,
   entriesByOwner,
   entriesOfAccountType,
+  getOwnerAccountIds,
   salesByOwner,
   salesOfAccountType,
 } from "@/lib/dashboardSelectors";
@@ -98,6 +99,28 @@ describe("accountsOfType / salesOfAccountType / entriesOfAccountType", () => {
       "e2",
       "t1",
     ]);
+  });
+});
+
+describe("getOwnerAccountIds", () => {
+  it("retorna conjunto vazio para lista de contas vazia", () => {
+    expect(getOwnerAccountIds([], "o1")).toEqual(new Set());
+  });
+
+  it("retorna IDs das contas pertencentes ao ownerId informado", () => {
+    const accounts = [
+      acct("a1", "milhas", "o1", "p1", 100),
+      acct("a2", "milhas", "o1", "p2", 200),
+      acct("a3", "milhas", "o2", "p1", 300),
+    ];
+    const result = getOwnerAccountIds(accounts, "o1");
+    expect(result).toBeInstanceOf(Set);
+    expect(Array.from(result)).toEqual(["a1", "a2"]);
+  });
+
+  it("retorna conjunto vazio se nenhum dono corresponder", () => {
+    const accounts = [acct("a1", "milhas", "o1", "p1", 100)];
+    expect(getOwnerAccountIds(accounts, "nonexistent")).toEqual(new Set());
   });
 });
 

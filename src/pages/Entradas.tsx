@@ -18,6 +18,7 @@ import { BalanceReconcileBanner } from "@/components/BalanceReconcileBanner";
 import { useHaptic } from "@/hooks/useHaptic";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
+import { getOwnerAccountIds } from "@/lib/dashboardSelectors";
 import { isTransferencia } from "@/lib/utils";
 import { computePerAccountBalance } from "@/lib/metrics";
 import { calculateRecurrence } from "@/lib/recurrence";
@@ -245,9 +246,7 @@ export default function Entradas() {
 
   const entriesFiltered = useMemo(() => {
     const ownerAccountIds =
-      ownerFilter === ALL_OWNERS
-        ? null
-        : new Set(accounts.filter((a) => a.ownerId === ownerFilter).map((a) => a.id));
+      ownerFilter === ALL_OWNERS ? null : getOwnerAccountIds(accounts, ownerFilter);
     const byOwner = ownerAccountIds
       ? entriesByTab.filter((e) => ownerAccountIds.has(e.accountId))
       : entriesByTab;
