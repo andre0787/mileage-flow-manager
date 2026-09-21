@@ -244,10 +244,15 @@ export default function Entradas() {
   );
 
   const entriesFiltered = useMemo(() => {
-    const ownerAccountIds =
-      ownerFilter === ALL_OWNERS
-        ? null
-        : new Set(accounts.filter((a) => a.ownerId === ownerFilter).map((a) => a.id));
+    let ownerAccountIds: Set<string> | null = null;
+    if (ownerFilter !== ALL_OWNERS) {
+      ownerAccountIds = new Set<string>();
+      for (let i = 0; i < accounts.length; i++) {
+        if (accounts[i].ownerId === ownerFilter) {
+          ownerAccountIds.add(accounts[i].id);
+        }
+      }
+    }
     const byOwner = ownerAccountIds
       ? entriesByTab.filter((e) => ownerAccountIds.has(e.accountId))
       : entriesByTab;
