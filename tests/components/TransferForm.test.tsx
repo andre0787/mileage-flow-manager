@@ -111,4 +111,65 @@ describe("TransferForm Component", () => {
     expect(screen.getByText("R$ 0.0346")).toBeInTheDocument();
     expect(screen.getByText("Total: R$ 2700.00")).toBeInTheDocument();
   });
+
+  it("calcula custo base a partir do custo médio da conta quando amountPaid não está na initialData", () => {
+    render(
+      <TransferForm
+        mode="create"
+        onSubmit={vi.fn()}
+        onCancel={vi.fn()}
+        accounts={mockAccounts}
+        origemTypes={mockOrigemTypes}
+        programs={mockPrograms}
+        owners={mockOwners}
+        initialData={{
+          sourceAccountId: "acc-pts",
+          accountId: "acc-mls",
+          amount: "50000",
+          bonusPercent: "30",
+          cartAmount: "10000",
+          date: "2026-08-05",
+        }}
+      />,
+    );
+
+    // Custo calculado: 50000 * 0.05 = 2500. Milhas: 78000. Custo/milhar ≈ 32.05
+    expect(screen.getByText("R$ 32.05")).toBeInTheDocument();
+
+    const cartCostInput = screen.getByPlaceholderText("Ex: 200.00");
+    fireEvent.change(cartCostInput, { target: { value: "200" } });
+
+    expect(screen.getByText("R$ 34.62")).toBeInTheDocument();
+    expect(screen.getByText("R$ 0.0346")).toBeInTheDocument();
+    expect(screen.getByText("Total: R$ 2700.00")).toBeInTheDocument();
+  });
+
+  it("exibe detalhamento mesmo se cartAmount for 0 mas cartCost for informado", () => {
+    render(
+      <TransferForm
+        mode="create"
+        onSubmit={vi.fn()}
+        onCancel={vi.fn()}
+        accounts={mockAccounts}
+        origemTypes={mockOrigemTypes}
+        programs={mockPrograms}
+        owners={mockOwners}
+        initialData={{
+          sourceAccountId: "acc-pts",
+          accountId: "acc-mls",
+          amount: "50000",
+          amountPaid: "2500",
+          bonusPercent: "0",
+          cartAmount: "0",
+          date: "2026-08-05",
+        }}
+      />,
+    );
+
+    const cartCostInput = screen.getByPlaceholderText("Ex: 200.00");
+    fireEvent.change(cartCostInput, { target: { value: "200" } });
+
+    expect(screen.getByText("Carrinho: R$ 200.00")).toBeInTheDocument();
+    expect(screen.getByText("Total: R$ 2700.00")).toBeInTheDocument();
+  });
 });
