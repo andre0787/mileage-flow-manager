@@ -238,10 +238,12 @@ export default function Entradas() {
     return id;
   };
 
-  const entriesByTab = useMemo(
-    () => entries.filter((e) => accounts.find((a) => a.id === e.accountId)?.type === activeTab),
-    [entries, accounts, activeTab],
-  );
+  const entriesByTab = useMemo(() => {
+    const tabAccountIds = new Set(
+      accounts.filter((a) => a.type === activeTab).map((a) => a.id),
+    );
+    return entries.filter((e) => tabAccountIds.has(e.accountId));
+  }, [entries, accounts, activeTab]);
 
   const entriesFiltered = useMemo(() => {
     const ownerAccountIds =
@@ -251,12 +253,13 @@ export default function Entradas() {
     const byOwner = ownerAccountIds
       ? entriesByTab.filter((e) => ownerAccountIds.has(e.accountId))
       : entriesByTab;
-    const byProgram =
+    const programAccountIds =
       programFilter === ALL_PROGRAMS
-        ? byOwner
-        : byOwner.filter(
-            (e) => accounts.find((a) => a.id === e.accountId)?.programId === programFilter,
-          );
+        ? null
+        : new Set(accounts.filter((a) => a.programId === programFilter).map((a) => a.id));
+    const byProgram = programAccountIds
+      ? byOwner.filter((e) => programAccountIds.has(e.accountId))
+      : byOwner;
     if (!debouncedSearch) return byProgram;
     const q = debouncedSearch.toLowerCase();
     return byProgram.filter((e) => {
