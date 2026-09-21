@@ -34,10 +34,10 @@ function runCrg(args) {
   }
 }
 
-function runGit(cmd) {
+function runGit(args) {
   try {
-    const res = spawnSync(cmd, { encoding: "utf8", shell: true, timeout: 15_000 });
-    return res.error ? "" : (res.stdout ?? "");
+    const res = spawnSync("git", args, { encoding: "utf8", timeout: 15_000 });
+    return res.error || res.status !== 0 ? "" : (res.stdout ?? "");
   } catch {
     return "";
   }
@@ -252,9 +252,10 @@ function testScout(target) {
 
 function review(target) {
   // Reviewer (§20): diff vs HEAD, avalia writeScope/testes via heurística.
-  const res = runGit(
-    `git diff --name-only HEAD~1 HEAD 2>/dev/null || git diff --name-only origin/main...HEAD`,
-  );
+  let res = runGit(["diff", "--name-only", "HEAD~1", "HEAD"]);
+  if (!res.trim()) {
+    res = runGit(["diff", "--name-only", "origin/main...HEAD"]);
+  }
   const diffFiles = res
     ? res
         .split("\n")
