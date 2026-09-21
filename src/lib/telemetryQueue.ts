@@ -14,6 +14,7 @@ type NavigatorLocks = {
 const STORAGE_KEY = "milescontrol:ai-telemetry-queue";
 const FALLBACK_LOCK_KEY = `${STORAGE_KEY}:flush-lock`;
 const MAX_ATTEMPTS = 5;
+export const MAX_QUEUE_SIZE = 100;
 let flushPromise: Promise<void> | null = null;
 function isQueueItem(value: unknown): value is QueueItem {
   if (!value || typeof value !== "object") return false;
@@ -68,7 +69,8 @@ function readQueue(): QueueItem[] {
 function writeQueue(items: QueueItem[]): void {
   if (typeof localStorage === "undefined") return;
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    const trimmed = items.length > MAX_QUEUE_SIZE ? items.slice(-MAX_QUEUE_SIZE) : items;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(trimmed));
   } catch {
     // Storage cheio/bloqueado não pode interromper a aplicação.
   }
