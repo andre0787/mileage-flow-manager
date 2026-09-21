@@ -242,7 +242,10 @@ export function parseNaturalQuery(query: string): QueryFilter | null {
 
     const colonIdx = unquoted.indexOf(":");
     const key = unquoted.slice(0, colonIdx).toLowerCase().trim();
-    const val = unquoted.slice(colonIdx + 1).trim().toLowerCase();
+    const val = unquoted
+      .slice(colonIdx + 1)
+      .trim()
+      .toLowerCase();
 
     if (!key || !val) continue;
 
@@ -251,11 +254,23 @@ export function parseNaturalQuery(query: string): QueryFilter | null {
         result.table = val as QueryFilter["table"];
       }
     } else if (key === "period" || key === "periodo") {
-      if (["today", "this_week", "this_month", "last_month", "this_year", "last_year", "all"].includes(val)) {
+      if (
+        [
+          "today",
+          "this_week",
+          "this_month",
+          "last_month",
+          "this_year",
+          "last_year",
+          "all",
+        ].includes(val)
+      ) {
         result.period = val as QueryFilter["period"];
       }
     } else if (key === "status") {
-      if (["confirmada", "aguardando", "pendente", "pago", "concluido", "cancelado"].includes(val)) {
+      if (
+        ["confirmada", "aguardando", "pendente", "pago", "concluido", "cancelado"].includes(val)
+      ) {
         result.status = val as QueryFilter["status"];
       }
     } else if (key === "program" || key === "programa") {

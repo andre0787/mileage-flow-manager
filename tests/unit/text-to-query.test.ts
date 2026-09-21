@@ -1,9 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  parseNaturalQuery,
-  describeFilters,
-  filtersToSupabaseParams,
-} from "@/lib/text-to-query";
+import { parseNaturalQuery, describeFilters, filtersToSupabaseParams } from "@/lib/text-to-query";
 
 describe("text-to-query", () => {
   describe("parseNaturalQuery", () => {
@@ -73,7 +69,9 @@ describe("text-to-query", () => {
     });
 
     it("suporta tokens estruturados no formato key:value", () => {
-      const result = parseNaturalQuery("status:pendente program:smiles table:entries period:last_month groupBy:client metric:profit");
+      const result = parseNaturalQuery(
+        "status:pendente program:smiles table:entries period:last_month groupBy:client metric:profit",
+      );
       expect(result).not.toBeNull();
       expect(result!.status).toBe("pendente");
       expect(result!.program).toBe("smiles");
@@ -94,7 +92,7 @@ describe("text-to-query", () => {
     });
 
     it("trata tokens entre aspas e com múltiplos espaços", () => {
-      const result = parseNaturalQuery('   "status:pendente"    \'program:azul\'   ');
+      const result = parseNaturalQuery("   \"status:pendente\"    'program:azul'   ");
       expect(result).not.toBeNull();
       expect(result!.status).toBe("pendente");
       expect(result!.program).toBe("azul");
