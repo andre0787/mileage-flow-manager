@@ -30,7 +30,7 @@ describe("PromotionScout", () => {
       new Response("<html>Promo Content</html>", {
         status: 200,
         headers: { "Content-Type": "text/html" },
-      })
+      }),
     );
 
     const scout = new PromotionScout();

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-21T12:46:26.121Z",
+  "generatedAt": "2026-09-21T13:22:48.828Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -145,18 +145,18 @@
     },
     {
       "month": "2026-09",
-      "prePrPassRate": 99,
-      "prePrTotal": 96,
+      "prePrPassRate": 100,
+      "prePrTotal": 95,
       "prePrPass": 95,
-      "prePrFail": 1,
+      "prePrFail": 0,
       "testCoverageLibs": 99.9,
       "testCoverageComponents": 100,
       "gateActivations": {
-        "intent": 27,
-        "twins": 26,
-        "auth": 26
+        "intent": 26,
+        "twins": 25,
+        "auth": 25
       },
-      "avgOutcomeGrade": 89.2,
+      "avgOutcomeGrade": 88.9,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
@@ -168,7 +168,7 @@
         },
         {
           "rule": "rule-39-coding-gate",
-          "count": 6
+          "count": 5
         },
         {
           "rule": "rule-26-session-started",
@@ -186,9 +186,9 @@
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 35,
-      "violationsCaught": 50,
-      "healedRate": 28,
-      "frictionPerPass": 0.53
+      "violationsCaught": 49,
+      "healedRate": 28.6,
+      "frictionPerPass": 0.52
     }
   ],
   "daily": [
@@ -572,15 +572,15 @@
     {
       "day": "2026-09-21",
       "label": "21/09",
-      "prePrTotal": 2,
+      "prePrTotal": 1,
       "prePrPass": 1,
-      "prePrFail": 1,
-      "prePrPassRate": 50,
-      "ruleFails": 1,
+      "prePrFail": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 0,
       "healed": 0,
       "sessions": 0,
       "merges": 1,
-      "friction": 1
+      "friction": 0
     }
   ],
   "prs": [],
@@ -592,16 +592,16 @@
     "testFiles": 358,
     "skills": 27,
     "rules": 48,
-    "events": 557,
-    "qualityNotes": 585
+    "events": 550,
+    "qualityNotes": 582
   },
   "summary": {
     "merges": 46,
     "prs": 0,
     "sessions": 2,
-    "violations": 116,
+    "violations": 115,
     "healed": 17,
-    "prePrPassRate": 99.2
+    "prePrPassRate": 100
   },
   "telemetry": []
 }

@@ -101,14 +101,16 @@ export class PromotionScout {
     const rawContent = await this.fetchContent(source.officialUrl);
     if (!rawContent) return [];
 
-    return [{
-      candidateId: `candidate-${source.sourceId}-${Date.now()}`,
-      sourceId: source.sourceId,
-      sourceUrl: source.officialUrl,
-      discoveryType: "new_promotion",
-      rawContent,
-      detectedAt: new Date().toISOString(),
-    }];
+    return [
+      {
+        candidateId: `candidate-${source.sourceId}-${Date.now()}`,
+        sourceId: source.sourceId,
+        sourceUrl: source.officialUrl,
+        discoveryType: "new_promotion",
+        rawContent,
+        detectedAt: new Date().toISOString(),
+      },
+    ];
   }
 
   private async fetchContent(url: string): Promise<string | null> {
