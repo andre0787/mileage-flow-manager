@@ -150,6 +150,10 @@ export default function Entradas() {
       };
     }
 
+    const isSplit =
+      form.isRecurrent && form.recurrenceValueMode === "split" && form.recurrenceCount > 1;
+    const divisor = isSplit ? form.recurrenceCount : 1;
+
     const ot = origemTypes.find((ot) => ot.id === form.origemTypeId);
     const isTransfer = ot ? isTransferencia(ot) : false;
     const entryType = accounts.find((a) => a.id === form.accountId)?.type;
@@ -159,15 +163,15 @@ export default function Entradas() {
       updates: {
         accountId: form.accountId,
         origemTypeId: form.origemTypeId,
-        amount: c.amount,
-        amountPaid: c.totalPaid,
+        amount: c.amount / divisor,
+        amountPaid: c.totalPaid / divisor,
         costPerThousand: c.costPerThousand,
         conversionRate: c.isTransfer
           ? 1 + parseFloat(form.bonusPercent || "0") / 100
           : entryType === "milhas"
             ? undefined
             : c.conversionRate,
-        milesGenerated: c.milesGenerated,
+        milesGenerated: c.milesGenerated / divisor,
         costPerMile: c.costPerMile,
         sourceAccountId: c.isTransfer ? form.sourceAccountId : undefined,
         bonusPercent: c.isTransfer ? parseFloat(form.bonusPercent || "0") : undefined,
