@@ -24,6 +24,17 @@ interface Sale {
   profit: number;
 }
 
+interface OwnerReportResult {
+  ownerName: string;
+  totalPointsAcquired: number;
+  totalAmountInvested: number;
+  totalMilesGenerated: number;
+  totalRevenue: number;
+  totalProfit: number;
+  profitMargin: number;
+  roi: number;
+}
+
 describe("Relatorios Owner Traversal Benchmark", () => {
   it("compares nested array filtering vs map pre-aggregation", () => {
     const numOwners = 50;
@@ -69,7 +80,7 @@ describe("Relatorios Owner Traversal Benchmark", () => {
 
     // Baseline implementation
     const startBaseline = performance.now();
-    let baselineResult: any[] = [];
+    let baselineResult: OwnerReportResult[] = [];
     for (let iter = 0; iter < iterations; iter++) {
       baselineResult = owners.map((owner) => {
         const ownerAccountIds = accounts.filter((a) => a.ownerId === owner.id).map((a) => a.id);
@@ -106,7 +117,7 @@ describe("Relatorios Owner Traversal Benchmark", () => {
 
     // Optimized implementation
     const startOptimized = performance.now();
-    let optimizedResult: any[] = [];
+    let optimizedResult: OwnerReportResult[] = [];
     for (let iter = 0; iter < iterations; iter++) {
       const accountOwnerMap = new Map<string, string>();
       for (const acc of accounts) {
