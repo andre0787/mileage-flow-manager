@@ -128,26 +128,42 @@ function runStrategy(
   strategy: "evidence_llm" | "evidence_llm_graph",
 ): GraphStrategyResult {
   const isGraph = strategy === "evidence_llm_graph";
-  const taskResults: GraphTaskResult[] = [];
+  const taskResults: GraphTaskResult[] = new Array(tasks.length);
 
-  for (const task of tasks) {
-    const result = simulateTaskExecution(task, isGraph);
-    taskResults.push(result);
+  let totalAccuracy = 0;
+  let totalTime = 0;
+  let totalTokens = 0;
+  let totalCost = 0;
+  let totalConfidence = 0;
+  let fixSuccessCount = 0;
+  let regressionCount = 0;
+
+  for (let i = 0; i < tasks.length; i++) {
+    const result = simulateTaskExecution(tasks[i], isGraph);
+    taskResults[i] = result;
+
+    totalAccuracy += result.rootCauseAccuracy;
+    totalTime += result.timeToDiagnosis;
+    totalTokens += result.tokens;
+    totalCost += result.cost;
+    totalConfidence += result.confidence;
+    if (result.fixSuccess) fixSuccessCount++;
+    if (result.regression) regressionCount++;
   }
 
-  const n = taskResults.length || 1;
+  const n = tasks.length || 1;
 
   return {
     strategy,
     tasks: taskResults,
     aggregate: {
-      avgRootCauseAccuracy: taskResults.reduce((s, r) => s + r.rootCauseAccuracy, 0) / n,
-      avgTimeToDiagnosis: taskResults.reduce((s, r) => s + r.timeToDiagnosis, 0) / n,
-      totalTokens: taskResults.reduce((s, r) => s + r.tokens, 0),
-      totalCost: taskResults.reduce((s, r) => s + r.cost, 0),
-      avgConfidence: taskResults.reduce((s, r) => s + r.confidence, 0) / n,
-      fixSuccessRate: taskResults.filter((r) => r.fixSuccess).length / n,
-      regressionRate: taskResults.filter((r) => r.regression).length / n,
+      avgRootCauseAccuracy: totalAccuracy / n,
+      avgTimeToDiagnosis: totalTime / n,
+      totalTokens,
+      totalCost,
+      avgConfidence: totalConfidence / n,
+      fixSuccessRate: fixSuccessCount / n,
+      regressionRate: regressionCount / n,
     },
   };
 }
