@@ -153,6 +153,90 @@ describe("contasApi — mutations", () => {
     });
   });
 
+  it("ignora transferências de saída pendentes (status aguardando) no recalc", async () => {
+    const update = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
+    mockFrom.mockImplementation((table: string) => {
+      if (table === "entries") {
+        return {
+          select: () => ({
+            eq: (col: string) =>
+              Promise.resolve({
+                data:
+                  col === "source_account_id"
+                    ? [
+                        // transferência de saída pendente não deve debitar
+                        {
+                          amount: 400,
+                          description: JSON.stringify({ entryStatus: "aguardando" }),
+                        },
+                      ]
+                    : [
+                        {
+                          miles_generated: 1000,
+                          amount: 1000,
+                          amount_paid: 100,
+                          description: null,
+                        },
+                      ],
+                error: null,
+              }),
+          }),
+        };
+      }
+      if (table === "sales") {
+        return {
+          select: () => ({
+            eq: () => ({
+              neq: () => Promise.resolve({ data: [], error: null }),
+            }),
+          }),
+        };
+      }
+      return { update };
+    });
+    const result = await makeStore().dispatch(
+      contasApi.endpoints.recalcAccount.initiate(account.id),
+    );
+    expect(result.data).toBeNull();
+    // balance = 1000 - 0 (transf. pendente ignorada) - 0 (vendas) = 1000
+    expect(update).toHaveBeenCalledWith({
+      balance: 1000,
+      total_invested: 100,
+      average_cost_per_mile: 0.1,
+    });
+  });
+
+  it("retorna erro caso falhe a busca por transferências de saída no recalc", async () => {
+    mockFrom.mockImplementation((table: string) => {
+      if (table === "entries") {
+        return {
+          select: () => ({
+            eq: (col: string) =>
+              Promise.resolve(
+                col === "source_account_id"
+                  ? { data: null, error: { message: "erro ao buscar transferências" } }
+                  : { data: [], error: null },
+              ),
+          }),
+        };
+      }
+      if (table === "sales") {
+        return {
+          select: () => ({
+            eq: () => ({
+              neq: () => Promise.resolve({ data: [], error: null }),
+            }),
+          }),
+        };
+      }
+      return {};
+    });
+    const result = await makeStore().dispatch(
+      contasApi.endpoints.recalcAccount.initiate(account.id),
+    );
+    expect(result.error).toBeDefined();
+  });
+
   it("invalida contas, entries e sales em delete/recalc", () => {
     const source = ["deleteAccount", "recalcAccount"]
       .map((name) => readFileSync(`src/features/contas/${name}.ts`, "utf8"))
