@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-21T11:46:15.096Z",
+  "generatedAt": "2026-09-21T12:45:37.197Z",
   "dataDate": "2026-09-21",
   "kpiStats": [
     {
-      "value": 543,
+      "value": 392,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 579,
+      "value": 513,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 26,
+      "value": 14,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 41,
+      "value": 31,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,32 +36,32 @@
   "eventTypes": [
     {
       "name": "session:start",
-      "n": 2,
+      "n": 1,
       "color": "#3b82f6"
     },
     {
       "name": "pre-pr",
-      "n": 127,
+      "n": 112,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 115,
+      "n": 93,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 17,
+      "n": 14,
       "color": "#10b981"
     },
     {
       "name": "code-review:done",
-      "n": 34,
+      "n": 33,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 33,
+      "n": 31,
       "color": "#22c55e"
     },
     {
@@ -71,7 +71,7 @@
     },
     {
       "name": "gate",
-      "n": 97,
+      "n": 105,
       "color": "#f43f5e"
     },
     {
@@ -88,7 +88,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 40,
+      "n": 42,
       "color": "#84cc16"
     },
     {
@@ -99,143 +99,92 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-09-14 13:35:46",
+      "t": "2026-09-21 12:45:36",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-14 12:38:42",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-14 12:38:08",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-14 12:37:28",
+      "t": "2026-09-21 12:42:46",
       "d": "gate",
       "desc": "gate auth executado (rule-35-auth-gate)"
     },
     {
-      "t": "2026-09-14 12:37:28",
+      "t": "2026-09-21 12:42:46",
       "d": "gate",
       "desc": "gate twins executado (rule-34-twins-check)"
     },
     {
-      "t": "2026-09-14 12:37:28",
+      "t": "2026-09-21 12:42:46",
       "d": "gate",
       "desc": "gate intent executado (rule-33-intent-gate)"
     },
     {
-      "t": "2026-09-14 12:37:28",
+      "t": "2026-09-21 12:42:46",
       "d": "gate",
       "desc": "gate council executado (rule-27-council-veredict)"
     },
     {
-      "t": "2026-09-14 12:35:34",
-      "d": "gate",
-      "desc": "gate auth executado (rule-35-auth-gate)"
+      "t": "2026-09-21 12:42:17",
+      "d": "code-review:done",
+      "desc": "Review do TransferForm aprovado"
+    },
+    {
+      "t": "2026-09-21 12:41:57",
+      "d": "coding:done",
+      "desc": "Refatoração do TransferForm realizada"
+    },
+    {
+      "t": "2026-09-21 12:38:29",
+      "d": "rule:fail",
+      "desc": "rule-45-react19-compliance falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 115,
-    "healed": 17,
-    "healedRate": 14.8,
-    "prePrTotal": 127,
-    "prePrPass": 127,
+    "ruleFails": 93,
+    "healed": 14,
+    "healedRate": 15.1,
+    "prePrTotal": 112,
+    "prePrPass": 112,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 29,
+        "count": 19,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
-        "rule": "rule-26-session-started",
-        "count": 11,
-        "hint": "timestamp de sessão ausente — npm run session:start"
-      },
-      {
         "rule": "rule-31-lib-test-coverage",
-        "count": 11,
-        "hint": ""
-      },
-      {
-        "rule": "rule-03-handoff-completeness",
         "count": 10,
         "hint": ""
       },
       {
         "rule": "rule-39-coding-gate",
-        "count": 10,
+        "count": 9,
         "hint": "faltou evento coding:done por subagente na branch"
+      },
+      {
+        "rule": "rule-26-session-started",
+        "count": 9,
+        "hint": "timestamp de sessão ausente — npm run session:start"
+      },
+      {
+        "rule": "rule-03-handoff-completeness",
+        "count": 8,
+        "hint": ""
       }
     ]
   },
-  "lastPrs": [
-    {
-      "number": 646,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-20",
-      "tokens": 368,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 644,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-19",
-      "tokens": 449,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 641,
-      "title": "Adjust Auto Merge conditions and Normalize PR Report logic",
-      "type": "other",
-      "date": "2026-09-18",
-      "tokens": 14,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 15.8
-    },
-    {
-      "number": 638,
-      "title": "fix: update workflows guard tests and verify pipeline robustness",
-      "type": "fix",
-      "date": "2026-09-18",
-      "tokens": 612,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação",
-      "cycleHours": 64
-    },
-    {
-      "number": 636,
-      "title": "fix(tests): resolve unhandled Supabase chained mock errors in API tests",
-      "type": "fix",
-      "date": "2026-09-18",
-      "tokens": 23,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação",
-      "cycleHours": 87.8
-    }
-  ],
+  "lastPrs": [],
   "overview": {
-    "components": 159,
+    "components": 163,
     "pages": 18,
     "libs": 50,
     "scripts": 124,
     "testFiles": 356,
     "skills": 27,
     "rules": 48,
-    "events": 543,
-    "qualityNotes": 579
+    "events": 392,
+    "qualityNotes": 513
   }
 }
