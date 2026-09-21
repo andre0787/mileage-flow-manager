@@ -3,8 +3,17 @@ import { createElement } from "react";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import Dashboard from "@/pages/Dashboard";
+import type { Account, PointEntry, Sale } from "@/types";
 
-const mockData = {
+const mockData: {
+  owners: unknown[];
+  accounts: Account[];
+  programs: unknown[];
+  sales: Sale[];
+  entries: PointEntry[];
+  origemTypes: unknown[];
+  isLoading: boolean;
+} = {
   owners: [],
   accounts: [],
   programs: [],
@@ -66,7 +75,7 @@ describe("Dashboard", () => {
   });
 
   it("bug #544: subtrai vendas vinculadas a contas de pontos no saldo das contas de pontos", () => {
-    const accountPontos = {
+    const accountPontos: Account = {
       id: "acc-p1",
       name: "Conta Livelo",
       type: "pontos",
@@ -85,21 +94,31 @@ describe("Dashboard", () => {
       milesGenerated: 10000,
       date: "2026-01-01",
       entryStatus: "confirmado",
-    };
+      costPerThousand: 50,
+      origemTypeId: "ot1",
+    } as PointEntry;
     const salePontos = {
       id: "s-p1",
       accountId: "acc-p1",
+      accountName: "Conta Livelo",
+      ownerName: "Dono",
+      program: "Livelo",
+      clientId: "c1",
+      clientName: "Cliente",
       milesUsed: 3000,
       saleValue: 200,
+      costPerMile: 0.05,
       profit: 50,
+      profitMargin: 25,
       status: "concluido",
+      ticketLocator: "",
       date: "2026-01-02",
       passengers: [],
-    };
+    } as Sale;
 
-    mockData.accounts = [accountPontos] as any;
-    mockData.entries = [entryPontos] as any;
-    mockData.sales = [salePontos] as any;
+    mockData.accounts = [accountPontos];
+    mockData.entries = [entryPontos];
+    mockData.sales = [salePontos];
 
     render(
       createElement(
