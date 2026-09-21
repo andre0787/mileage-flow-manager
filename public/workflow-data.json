@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-21T12:45:37.197Z",
+  "generatedAt": "2026-09-21T13:23:30.166Z",
   "dataDate": "2026-09-21",
   "kpiStats": [
     {
-      "value": 392,
+      "value": 397,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 513,
+      "value": 516,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 112,
+      "n": 113,
       "color": "#8b5cf6"
     },
     {
@@ -71,7 +71,7 @@
     },
     {
       "name": "gate",
-      "n": 105,
+      "n": 109,
       "color": "#f43f5e"
     },
     {
@@ -88,7 +88,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 42,
+      "n": 43,
       "color": "#84cc16"
     },
     {
@@ -98,6 +98,31 @@
     }
   ],
   "recentTimeline": [
+    {
+      "t": "2026-09-21 13:23:29",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-21 13:20:58",
+      "d": "gate",
+      "desc": "gate auth executado (rule-35-auth-gate)"
+    },
+    {
+      "t": "2026-09-21 13:20:58",
+      "d": "gate",
+      "desc": "gate twins executado (rule-34-twins-check)"
+    },
+    {
+      "t": "2026-09-21 13:20:58",
+      "d": "gate",
+      "desc": "gate intent executado (rule-33-intent-gate)"
+    },
+    {
+      "t": "2026-09-21 13:20:58",
+      "d": "gate",
+      "desc": "gate council executado (rule-27-council-veredict)"
+    },
     {
       "t": "2026-09-21 12:45:36",
       "d": "pre-pr",
@@ -112,39 +137,14 @@
       "t": "2026-09-21 12:42:46",
       "d": "gate",
       "desc": "gate twins executado (rule-34-twins-check)"
-    },
-    {
-      "t": "2026-09-21 12:42:46",
-      "d": "gate",
-      "desc": "gate intent executado (rule-33-intent-gate)"
-    },
-    {
-      "t": "2026-09-21 12:42:46",
-      "d": "gate",
-      "desc": "gate council executado (rule-27-council-veredict)"
-    },
-    {
-      "t": "2026-09-21 12:42:17",
-      "d": "code-review:done",
-      "desc": "Review do TransferForm aprovado"
-    },
-    {
-      "t": "2026-09-21 12:41:57",
-      "d": "coding:done",
-      "desc": "Refatoração do TransferForm realizada"
-    },
-    {
-      "t": "2026-09-21 12:38:29",
-      "d": "rule:fail",
-      "desc": "rule-45-react19-compliance falhou"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 93,
     "healed": 14,
     "healedRate": 15.1,
-    "prePrTotal": 112,
-    "prePrPass": 112,
+    "prePrTotal": 113,
+    "prePrPass": 113,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
@@ -184,7 +184,7 @@
     "testFiles": 356,
     "skills": 27,
     "rules": 48,
-    "events": 392,
-    "qualityNotes": 513
+    "events": 397,
+    "qualityNotes": 516
   }
 }

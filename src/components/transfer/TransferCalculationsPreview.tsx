@@ -58,9 +58,7 @@ export function TransferCalculationsPreview({
             <div className="mt-1 space-y-0.5 text-[10px] text-muted-foreground border-t border-success/20 pt-1">
               <p>Transferência: R$ {parseFloat(amountPaid || "0").toFixed(2)}</p>
               <p>Carrinho: R$ {cartCostNum.toFixed(2)}</p>
-              <p className="font-semibold text-foreground">
-                Total: R$ {calc.totalPaid.toFixed(2)}
-              </p>
+              <p className="font-semibold text-foreground">Total: R$ {calc.totalPaid.toFixed(2)}</p>
             </div>
           )}
         </div>

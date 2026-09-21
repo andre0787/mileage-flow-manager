@@ -96,12 +96,7 @@ export function TransferForm({
         effectiveMiles={effectiveMiles}
       />
 
-      <TransferCartFields
-        form={form}
-        set={set}
-        cartAmountNum={cartAmountNum}
-        bonusNum={bonusNum}
-      />
+      <TransferCartFields form={form} set={set} cartAmountNum={cartAmountNum} bonusNum={bonusNum} />
 
       <TransferCalculationsPreview
         amount={form.amount}
