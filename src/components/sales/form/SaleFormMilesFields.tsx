@@ -158,9 +158,7 @@ export function SaleFormMilesFields({
           {form.milesUsed &&
             selectedProgramStock &&
             parseFloat(form.milesUsed) > effectiveAvailableMiles && (
-              <p className="text-xs text-destructive">
-                Quantidade superior ao estoque disponível
-              </p>
+              <p className="text-xs text-destructive">Quantidade superior ao estoque disponível</p>
             )}
         </div>
         <div className="space-y-2">
@@ -338,9 +336,7 @@ export function SaleFormMilesFields({
                 size="sm"
                 variant="outline"
                 className="min-h-[44px] min-w-[44px]"
-                onClick={() =>
-                  update({ passengers: form.passengers.filter((_, j) => j !== i) })
-                }
+                onClick={() => update({ passengers: form.passengers.filter((_, j) => j !== i) })}
               >
                 ×
               </Button>

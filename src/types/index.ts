@@ -165,6 +165,33 @@ export function parseDescription(description?: string | null): {
 export type SaleKind = "milhas" | "servico";
 export type ServiceType = "consultoria" | "taxa" | "outro";
 
+export interface AdditionalCostItem {
+  desc: string;
+  amount: string;
+}
+
+export interface SaleFormData {
+  ownerName: string;
+  accountId: string;
+  accountName: string;
+  program: string;
+  clientId: string;
+  clientName: string;
+  milesUsed: string;
+  pricePerMile: string;
+  saleValue: string;
+  additionalCost: string;
+  additionalCostDesc: string;
+  additionalCosts?: AdditionalCostItem[];
+  kind: SaleKind;
+  serviceType?: string;
+  observations?: string;
+  date: string;
+  ticketLocator: string;
+  passengers: { name: string; passengerId: string; cpf: string; clientId?: string }[];
+  costPerMile?: number;
+}
+
 export interface Sale {
   id: string;
   accountId?: string;

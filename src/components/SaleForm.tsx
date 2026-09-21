@@ -3,14 +3,20 @@ import { FormSubmitButton } from "@/components/FormSubmitButton";
 import { FormDrawer } from "@/components/FormDrawer";
 import { ClientCreationDrawer, type NewClientData } from "@/components/ClientCreationDrawer";
 import { todayISODate } from "@/lib/dateUtils";
-import {
-  useSaleFormState,
-  emptyForm,
-} from "./sales/form/useSaleFormState";
+import { useSaleFormState, emptyForm } from "./sales/form/useSaleFormState";
 import { SaleFormCommonFields } from "./sales/form/SaleFormCommonFields";
 import { SaleFormMilesFields } from "./sales/form/SaleFormMilesFields";
 import { SaleFormServiceFields } from "./sales/form/SaleFormServiceFields";
-import type { Account, Owner, Program, Client, Sale, SaleFormData, SaleKind, AdditionalCostItem } from "@/types";
+import type {
+  Account,
+  Owner,
+  Program,
+  Client,
+  Sale,
+  SaleFormData,
+  SaleKind,
+  AdditionalCostItem,
+} from "@/types";
 
 export type { NewClientData, AdditionalCostItem, SaleFormData };
 

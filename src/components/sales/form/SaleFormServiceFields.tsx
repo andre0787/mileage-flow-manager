@@ -21,10 +21,7 @@ export function SaleFormServiceFields({ form, update }: SaleFormServiceFieldsPro
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label>Tipo de serviço</Label>
-          <Select
-            value={form.serviceType}
-            onValueChange={(v) => update({ serviceType: v })}
-          >
+          <Select value={form.serviceType} onValueChange={(v) => update({ serviceType: v })}>
             <SelectTrigger>
               <SelectValue placeholder="Selecione o tipo" />
             </SelectTrigger>
