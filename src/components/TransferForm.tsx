@@ -79,14 +79,15 @@ export function TransferForm({
   const bonusNum = parseFloat(form.bonusPercent || "0");
   // Custo da transferência pura (preenche o campo disabled em create).
   const calculatedCost = amountNum * avgCostPerPoint;
+  const effectiveAmountPaid = form.amountPaid !== "" ? parseFloat(form.amountPaid) : calculatedCost;
   // Custo por milha/milhar refletem o custo TOTAL (transferência + carrinho).
   // Histórico: cartCost era ignorado no preview → digitar o valor do carrinho
-  // não alterava os números. Usamos form.amountPaid (não calculatedCost) para que
-  // a edição reflita o custo real armazenado, não o recálculo pelo custo médio atual.
+  // não alterava os números. Usamos effectiveAmountPaid para que se form.amountPaid
+  // estiver vazio no momento, o custo calculado da transferência seja mantido.
   const calc = computeTransferCalc({
     amount: amountNum,
     cartAmount: cartAmountNum,
-    amountPaid: parseFloat(form.amountPaid || "0"),
+    amountPaid: effectiveAmountPaid,
     cartCost: cartAmountNum > 0 || cartCostNum > 0 ? cartCostNum : 0,
     conversionRate: 1 + bonusNum / 100,
     bonusPercent: bonusNum,
@@ -116,6 +117,7 @@ export function TransferForm({
       // Fill in defaults for EntryFormData fields not used by TransferForm
       onSubmit({
         ...form,
+        amountPaid: form.amountPaid !== "" ? form.amountPaid : String(calculatedCost),
         origemTypeId: transferType?.id ?? form.origemTypeId,
         conversionRate: "",
         isClube: false,
@@ -355,9 +357,9 @@ export function TransferForm({
             <div>
               <span className="text-muted-foreground">Custo por milha:</span>
               <p className="font-semibold">R$ {calc.costPerMile.toFixed(4)}</p>
-              {cartAmountNum > 0 && (
+              {(cartAmountNum > 0 || cartCostNum > 0) && (
                 <div className="mt-1 space-y-0.5 text-[10px] text-muted-foreground border-t border-success/20 pt-1">
-                  <p>Transferência: R$ {parseFloat(form.amountPaid || "0").toFixed(2)}</p>
+                  <p>Transferência: R$ {effectiveAmountPaid.toFixed(2)}</p>
                   <p>Carrinho: R$ {cartCostNum.toFixed(2)}</p>
                   <p className="font-semibold text-foreground">
                     Total: R$ {calc.totalPaid.toFixed(2)}

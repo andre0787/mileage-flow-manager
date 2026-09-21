@@ -111,4 +111,35 @@ describe("TransferForm Component", () => {
     expect(screen.getByText("R$ 0.0346")).toBeInTheDocument();
     expect(screen.getByText("Total: R$ 2700.00")).toBeInTheDocument();
   });
+
+  it("calcula corretamente o custo quando amountPaid está vazio e cartCost é preenchido", () => {
+    render(
+      <TransferForm
+        mode="create"
+        onSubmit={vi.fn()}
+        onCancel={vi.fn()}
+        accounts={mockAccounts}
+        origemTypes={mockOrigemTypes}
+        programs={mockPrograms}
+        owners={mockOwners}
+        initialData={{
+          sourceAccountId: "acc-pts",
+          accountId: "acc-mls",
+          amount: "50000",
+          amountPaid: "",
+          bonusPercent: "30",
+          cartAmount: "10000",
+          date: "2026-08-05",
+        }}
+      />,
+    );
+
+    // Saldo da conta fonte tem custo médio 0.05, logo 50000 * 0.05 = 2500 calculatedCost
+    const cartCostInput = screen.getByPlaceholderText("Ex: 200.00");
+    fireEvent.change(cartCostInput, { target: { value: "200" } });
+
+    expect(screen.getByText("R$ 34.62")).toBeInTheDocument();
+    expect(screen.getByText("R$ 0.0346")).toBeInTheDocument();
+    expect(screen.getByText("Total: R$ 2700.00")).toBeInTheDocument();
+  });
 });
