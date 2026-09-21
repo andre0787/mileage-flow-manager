@@ -239,9 +239,7 @@ export default function Entradas() {
   };
 
   const entriesByTab = useMemo(() => {
-    const tabAccountIds = new Set(
-      accounts.filter((a) => a.type === activeTab).map((a) => a.id),
-    );
+    const tabAccountIds = new Set(accounts.filter((a) => a.type === activeTab).map((a) => a.id));
     return entries.filter((e) => tabAccountIds.has(e.accountId));
   }, [entries, accounts, activeTab]);
 
