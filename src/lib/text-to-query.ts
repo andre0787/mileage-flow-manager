@@ -79,14 +79,14 @@ const PATTERNS: NLPattern[] = [
 
   // Entradas (compras de milhas/pontos)
   {
-    regex: /entradas?\s*(por|de|do)?\s*(mês|mes|periodo)/i,
-    handler: () => ({ table: "entries", period: "this_month", metric: "amount" }),
-    labelTemplate: "Entradas do mês",
-  },
-  {
     regex: /entradas?\s*(do|no)?\s*(mês|mes)\s*(passado|anterior)/i,
     handler: () => ({ table: "entries", period: "last_month", metric: "amount" }),
     labelTemplate: "Entradas do mês passado",
+  },
+  {
+    regex: /entradas?\s*(por|de|do)?\s*(mês|mes|periodo)/i,
+    handler: () => ({ table: "entries", period: "this_month", metric: "amount" }),
+    labelTemplate: "Entradas do mês",
   },
   {
     regex: /entradas?\s*(por|de)\s*programa/i,

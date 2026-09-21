@@ -7,96 +7,92 @@ import {
 
 describe("text-to-query", () => {
   describe("parseNaturalQuery", () => {
-    it("retorna null para query vazia", () => {
+    it("retorna null para query vazia ou apenas espaços", () => {
       expect(parseNaturalQuery("")).toBeNull();
-      expect(parseNaturalQuery("   ")).toBeNull();
+      expect(parseNaturalQuery("   \t\n ")).toBeNull();
     });
 
-    it("interpreta 'vendas por cliente'", () => {
-      const result = parseNaturalQuery("vendas por cliente");
-      expect(result).not.toBeNull();
-      expect(result!.table).toBe("sales");
-      expect(result!.groupBy).toBe("client");
+    it("interpreta padrões de vendas, entradas, contas e clientes", () => {
+      expect(parseNaturalQuery("vendas por cliente")).toMatchObject({ table: "sales", groupBy: "client", metric: "profit" });
+      expect(parseNaturalQuery("vendas do mês passado")).toMatchObject({ table: "sales", period: "last_month" });
+      expect(parseNaturalQuery("vendas por programa")).toMatchObject({ table: "sales", groupBy: "program" });
+      expect(parseNaturalQuery("vendas pendentes")).toMatchObject({ table: "sales", status: "pendente", metric: "count" });
+      expect(parseNaturalQuery("vendas concluídas")).toMatchObject({ table: "sales", status: "concluido", metric: "profit" });
+      expect(parseNaturalQuery("entradas do mês passado")).toMatchObject({ table: "entries", period: "last_month", metric: "amount" });
+      expect(parseNaturalQuery("compras do mês")).toMatchObject({ table: "entries", period: "this_month", metric: "amount" });
+      expect(parseNaturalQuery("saldos por programa")).toMatchObject({ table: "accounts", groupBy: "program", metric: "balance" });
+      expect(parseNaturalQuery("contas ativas")).toMatchObject({ table: "accounts", status: "confirmada", isAggregate: true });
+      expect(parseNaturalQuery("contas inativas")).toMatchObject({ table: "accounts", status: "aguardando", isAggregate: true });
+      expect(parseNaturalQuery("clientes ativos")).toMatchObject({ table: "clients", status: "confirmada", isAggregate: true });
+      expect(parseNaturalQuery("rentabilidade")).toMatchObject({ table: "entries", period: "all", metric: "cost", isAggregate: true });
     });
 
-    it("interpreta 'vendas do mês passado'", () => {
-      const result = parseNaturalQuery("vendas do mês passado");
-      expect(result).not.toBeNull();
-      expect(result!.table).toBe("sales");
-      expect(result!.period).toBe("last_month");
+    it("interpreta padrões de períodos gerais", () => {
+      expect(parseNaturalQuery("hoje")).toMatchObject({ period: "today" });
+      expect(parseNaturalQuery("esta semana")).toMatchObject({ period: "this_week" });
+      expect(parseNaturalQuery("este ano")).toMatchObject({ period: "this_year", metric: "profit" });
+      expect(parseNaturalQuery("ano passado")).toMatchObject({ period: "last_year", metric: "profit" });
+      expect(parseNaturalQuery("todos os registros geral")).toMatchObject({ period: "all", isAggregate: true });
     });
 
-    it("interpreta 'entradas do mês'", () => {
-      const result = parseNaturalQuery("entradas do mês");
-      expect(result).not.toBeNull();
-      expect(result!.table).toBe("entries");
-      expect(result!.period).toBe("this_month");
+    it("infere tabela por contexto quando nenhum padrão pré-definido combina", () => {
+      expect(parseNaturalQuery("faturamento de ontem")!.table).toBe("sales");
+      expect(parseNaturalQuery("receita extra")!.table).toBe("sales");
+      expect(parseNaturalQuery("programa de pontos")!.table).toBe("accounts");
+      expect(parseNaturalQuery("investimento alto")!.table).toBe("entries");
+      expect(parseNaturalQuery("desconhecido aleatorio")!.table).toBe("sales"); // fallback
     });
 
-    it("interpreta 'saldo total'", () => {
-      const result = parseNaturalQuery("saldo total");
-      expect(result).not.toBeNull();
-      expect(result!.table).toBe("accounts");
-      expect(result!.isAggregate).toBe(true);
-    });
-
-    it("interpreta 'lucro do mês'", () => {
-      const result = parseNaturalQuery("lucro do mês");
-      expect(result).not.toBeNull();
-      expect(result!.table).toBe("sales");
-      expect(result!.metric).toBe("profit");
-    });
-
-    it("interpreta 'vendas pendentes'", () => {
-      const result = parseNaturalQuery("vendas pendentes");
-      expect(result).not.toBeNull();
-      expect(result!.status).toBe("pendente");
-    });
-
-    it("detecta programa na query", () => {
-      const result = parseNaturalQuery("vendas azul este mês");
-      expect(result).not.toBeNull();
-      expect(result!.program).toMatch(/azul/i);
-    });
-
-    it("infere tabela por contexto", () => {
-      const result = parseNaturalQuery("quanto lucro tivemos");
-      expect(result).not.toBeNull();
-      expect(result!.table).toBe("sales");
+    it("extrai programa de milhas da query", () => {
+      expect(parseNaturalQuery("relatório smiles")!.program?.toLowerCase()).toBe("smiles");
+      expect(parseNaturalQuery("compras latam")!.program?.toLowerCase()).toBe("latam");
+      expect(parseNaturalQuery("vendas tudoazul")!.program?.toLowerCase()).toBe("tudoazul");
+      expect(parseNaturalQuery("saldo esfera")!.program?.toLowerCase()).toBe("esfera");
+      expect(parseNaturalQuery("pontos livelo")!.program?.toLowerCase()).toBe("livelo");
     });
   });
 
   describe("describeFilters", () => {
-    it("usa label se disponível", () => {
+    it("usa label de padrão se disponível ou formata para filtros dinâmicos", () => {
       const filters = parseNaturalQuery("vendas por cliente")!;
       expect(describeFilters(filters)).toBe("Vendas por cliente");
-    });
 
-    it("gera descrição para filtros personalizados", () => {
-      const filters = parseNaturalQuery("entradas do mês")!;
-      const desc = describeFilters(filters);
-      expect(desc.toLowerCase()).toContain("entradas");
-      expect(desc).toContain("mês");
+      const customFilters = {
+        table: "sales" as const,
+        period: "this_month" as const,
+        groupBy: "client" as const,
+        status: "pendente" as const,
+        program: "smiles",
+        isAggregate: false,
+        label: "Consulta personalizada",
+      };
+      const desc = describeFilters(customFilters);
+      expect(desc).toBe("Relatório de vendas | este mês | agrupado por client | status: pendente | smiles");
     });
   });
 
   describe("filtersToSupabaseParams", () => {
-    it("mapeia tabela entries para point_entries", () => {
-      const filters = parseNaturalQuery("entradas do mês")!;
-      const params = filtersToSupabaseParams(filters);
-      expect(params.table).toBe("point_entries");
-    });
+    it("mapeia tabelas, agregações e filtros eq para Supabase", () => {
+      const filtersEntries = parseNaturalQuery("entradas do mês")!;
+      expect(filtersToSupabaseParams(filtersEntries)).toEqual({
+        table: "point_entries",
+        select: "*",
+        eq: undefined,
+      });
 
-    it("usa select count para agregação", () => {
-      const filters = parseNaturalQuery("saldo total")!;
-      const params = filtersToSupabaseParams(filters);
-      expect(params.select).toBe("count");
-    });
+      const filtersAggregate = parseNaturalQuery("saldo total")!;
+      expect(filtersToSupabaseParams(filtersAggregate)).toEqual({
+        table: "accounts",
+        select: "count",
+        eq: undefined,
+      });
 
-    it("inclui eq para status", () => {
-      const filters = parseNaturalQuery("vendas pendentes")!;
-      const params = filtersToSupabaseParams(filters);
-      expect(params.eq).toEqual({ status: "pendente" });
+      const filtersStatus = parseNaturalQuery("vendas pendentes")!;
+      expect(filtersToSupabaseParams(filtersStatus)).toEqual({
+        table: "sales",
+        select: "*",
+        eq: { status: "pendente" },
+      });
     });
   });
 });
