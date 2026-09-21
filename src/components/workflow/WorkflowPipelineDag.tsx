@@ -30,8 +30,9 @@ export default function WorkflowPipelineDag({ envelopes, decisions = [] }: Props
 
   const byNode = useMemo(() => {
     const map = new Map<string, TelemetryEnvelope[]>();
+    const defaultNode = PIPELINE.find((n) => n.id === "agents");
     for (const env of envelopes) {
-      const node = roleToNode(env.agentRole ?? "") ?? PIPELINE.find((n) => n.id === "agents");
+      const node = roleToNode(env.agentRole ?? "") ?? defaultNode;
       if (!node) continue;
       const list = map.get(node.id) ?? [];
       list.push(env);
