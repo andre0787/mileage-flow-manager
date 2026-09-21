@@ -32,9 +32,7 @@ export function EntryRecurrenceFields({
   return (
     <div className="space-y-4">
       {selectedOrigemTypeHasRecurrence && (
-        <p className="text-sm text-primary">
-          Recorrência ativada pelo tipo de origem selecionado
-        </p>
+        <p className="text-sm text-primary">Recorrência ativada pelo tipo de origem selecionado</p>
       )}
       <div className="flex items-center gap-2">
         <input

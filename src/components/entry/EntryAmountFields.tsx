@@ -8,7 +8,9 @@ interface EntryAmountFieldsProps {
   amountPaid: string;
   conversionRate: string;
   errors: Partial<Record<string, string>>;
-  onUpdateForm: (patch: Partial<{ amount: string; amountPaid: string; conversionRate: string }>) => void;
+  onUpdateForm: (
+    patch: Partial<{ amount: string; amountPaid: string; conversionRate: string }>,
+  ) => void;
   onClearError: (field: string) => void;
 }
 

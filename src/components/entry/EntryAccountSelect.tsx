@@ -16,7 +16,11 @@ interface EntryAccountSelectProps {
   owners: Owner[];
   mode: "create" | "edit";
   error?: string;
-  onCreateAccount?: (data: { name: string; ownerId: string; programId: string }) => Promise<string | undefined>;
+  onCreateAccount?: (data: {
+    name: string;
+    ownerId: string;
+    programId: string;
+  }) => Promise<string | undefined>;
   onSelectAccount: (value: string) => void;
   onOpenAccountDrawer: () => void;
 }

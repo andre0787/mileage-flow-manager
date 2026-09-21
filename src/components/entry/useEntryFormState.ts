@@ -9,12 +9,7 @@ interface UseEntryFormStateParams {
   accounts: Account[];
 }
 
-export function useEntryFormState({
-  type,
-  mode,
-  initialData,
-  accounts,
-}: UseEntryFormStateParams) {
+export function useEntryFormState({ type, mode, initialData, accounts }: UseEntryFormStateParams) {
   const initialForm = { ...emptyEntryForm, ...initialData };
   const [form, setForm] = useState<EntryFormData>(() => ({
     ...initialForm,

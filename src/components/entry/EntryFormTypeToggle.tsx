@@ -5,10 +5,7 @@ interface EntryFormTypeToggleProps {
   onSwitchFormType: (next: "pontos" | "milhas") => void;
 }
 
-export function EntryFormTypeToggle({
-  formType,
-  onSwitchFormType,
-}: EntryFormTypeToggleProps) {
+export function EntryFormTypeToggle({ formType, onSwitchFormType }: EntryFormTypeToggleProps) {
   return (
     <div className="flex items-center gap-2">
       <span className="text-xs font-medium text-muted-foreground">Tipo do registro:</span>

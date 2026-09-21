@@ -47,9 +47,7 @@ export function EntryRecurrenceSummary({
         </div>
         <div className="flex justify-between mt-1 text-xs text-primary">
           <span>Dia do mês:</span>
-          <span>
-            {startDate ? parseDateOnly(startDate).getDate() + "º dia" : "—"}
-          </span>
+          <span>{startDate ? parseDateOnly(startDate).getDate() + "º dia" : "—"}</span>
         </div>
         <div className="flex justify-between mt-1">
           <span>Valor por parcela:</span>
