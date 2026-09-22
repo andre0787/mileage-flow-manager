@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "generatedAt": "2026-09-22T00:14:45.923Z",
 =======
   "generatedAt": "2026-09-21T12:38:26.893Z",
@@ -12,6 +13,9 @@
 =======
   "generatedAt": "2026-09-21T12:44:33.413Z",
 >>>>>>> pr-678
+=======
+  "generatedAt": "2026-09-21T12:39:34.018Z",
+>>>>>>> pr-670
   "currentMonth": "2026-09",
   "months": [
     {
@@ -164,11 +168,15 @@
       "gateActivations": {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> pr-670
         "intent": 27,
         "twins": 26,
         "auth": 26
       },
       "avgOutcomeGrade": 88.3,
+<<<<<<< HEAD
 =======
         "intent": 26,
         "twins": 25,
@@ -190,10 +198,13 @@
       },
       "avgOutcomeGrade": 89.4,
 >>>>>>> pr-673
+=======
+>>>>>>> pr-670
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
           "count": 16
+<<<<<<< HEAD
 =======
         "intent": 28,
         "twins": 27,
@@ -205,6 +216,8 @@
           "rule": "rule-38-code-review-gate",
           "count": 17
 >>>>>>> pr-678
+=======
+>>>>>>> pr-670
         },
         {
           "rule": "rule-14-orphan-files",
@@ -233,6 +246,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       "violationsCaught": 50,
       "healedRate": 28,
       "frictionPerPass": 0.53
@@ -251,6 +265,11 @@
       "healedRate": 26.9,
       "frictionPerPass": 0.55
 >>>>>>> pr-678
+=======
+      "violationsCaught": 51,
+      "healedRate": 27.5,
+      "frictionPerPass": 0.54
+>>>>>>> pr-670
     }
   ],
   "daily": [
@@ -623,12 +642,16 @@
       "label": "21/09",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> pr-678
+=======
+>>>>>>> pr-670
       "prePrTotal": 1,
       "prePrPass": 1,
       "prePrFail": 0,
       "prePrPassRate": 100,
+<<<<<<< HEAD
 <<<<<<< HEAD
       "ruleFails": 0,
       "healed": 0,
@@ -671,6 +694,13 @@
       "merges": 1,
       "friction": 3
 >>>>>>> pr-678
+=======
+      "ruleFails": 2,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 1,
+      "friction": 2
+>>>>>>> pr-670
     }
   ],
   "prs": [],
@@ -682,6 +712,7 @@
     "testFiles": 358,
     "skills": 27,
     "rules": 48,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -705,10 +736,17 @@
   },
   "summary": {
 >>>>>>> pr-673
+=======
+    "events": 558,
+    "qualityNotes": 585
+  },
+  "summary": {
+>>>>>>> pr-670
     "merges": 46,
     "prs": 0,
     "sessions": 2,
     "violations": 117,
+<<<<<<< HEAD
     "healed": 17,
 <<<<<<< HEAD
 >>>>>>> pr-663
@@ -730,5 +768,10 @@
     "prePrPassRate": 100
   },
 >>>>>>> pr-678
+=======
+    "healed": 17,
+    "prePrPassRate": 100
+  },
+>>>>>>> pr-670
   "telemetry": []
 }

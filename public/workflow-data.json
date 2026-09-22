@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "generatedAt": "2026-09-22T00:14:45.990Z",
   "dataDate": "2026-09-22",
   "kpiStats": [
@@ -28,10 +29,18 @@
     {
       "value": 561,
 >>>>>>> pr-678
+=======
+  "generatedAt": "2026-09-21T12:39:34.091Z",
+  "dataDate": "2026-09-21",
+  "kpiStats": [
+    {
+      "value": 558,
+>>>>>>> pr-670
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -45,6 +54,9 @@
 =======
       "value": 588,
 >>>>>>> pr-678
+=======
+      "value": 585,
+>>>>>>> pr-670
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -67,6 +79,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       "value": 31,
 =======
       "value": 42,
@@ -77,6 +90,9 @@
 =======
       "value": 42,
 >>>>>>> pr-678
+=======
+      "value": 42,
+>>>>>>> pr-670
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -92,6 +108,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       "n": 112,
 =======
       "n": 122,
@@ -102,10 +119,14 @@
 =======
       "n": 122,
 >>>>>>> pr-678
+=======
+      "n": 122,
+>>>>>>> pr-670
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
       "n": 91,
@@ -115,6 +136,9 @@
 =======
       "n": 118,
 >>>>>>> pr-678
+=======
+      "n": 117,
+>>>>>>> pr-670
       "color": "#ef4444"
     },
     {
@@ -124,11 +148,16 @@
     },
     {
       "name": "code-review:done",
+<<<<<<< HEAD
       "n": 35,
+=======
+      "n": 36,
+>>>>>>> pr-670
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -142,6 +171,9 @@
 =======
       "n": 34,
 >>>>>>> pr-678
+=======
+      "n": 35,
+>>>>>>> pr-670
       "color": "#22c55e"
     },
     {
@@ -151,6 +183,7 @@
     },
     {
       "name": "gate",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -164,6 +197,9 @@
 =======
       "n": 109,
 >>>>>>> pr-678
+=======
+      "n": 105,
+>>>>>>> pr-670
       "color": "#f43f5e"
     },
     {
@@ -192,7 +228,11 @@
     },
     {
       "name": "80% — aprovado",
+<<<<<<< HEAD
       "n": 31,
+=======
+      "n": 42,
+>>>>>>> pr-670
       "color": "#84cc16"
     },
     {
@@ -206,6 +246,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       "t": "2026-09-22 00:14:45",
 =======
       "t": "2026-09-21 12:38:26",
@@ -216,6 +257,9 @@
 =======
       "t": "2026-09-21 12:44:33",
 >>>>>>> pr-678
+=======
+      "t": "2026-09-21 12:39:33",
+>>>>>>> pr-670
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
@@ -223,6 +267,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       "t": "2026-09-22 00:12:19",
 =======
       "t": "2026-09-21 12:35:54",
@@ -233,6 +278,9 @@
 =======
       "t": "2026-09-21 12:42:03",
 >>>>>>> pr-678
+=======
+      "t": "2026-09-21 12:37:03",
+>>>>>>> pr-670
       "d": "gate",
       "desc": "gate auth executado (rule-35-auth-gate)"
     },
@@ -240,6 +288,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       "t": "2026-09-22 00:12:19",
 =======
       "t": "2026-09-21 12:35:54",
@@ -250,6 +299,9 @@
 =======
       "t": "2026-09-21 12:42:03",
 >>>>>>> pr-678
+=======
+      "t": "2026-09-21 12:37:03",
+>>>>>>> pr-670
       "d": "gate",
       "desc": "gate twins executado (rule-34-twins-check)"
     },
@@ -257,6 +309,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       "t": "2026-09-22 00:12:19",
 =======
       "t": "2026-09-21 12:35:54",
@@ -267,6 +320,9 @@
 =======
       "t": "2026-09-21 12:42:03",
 >>>>>>> pr-678
+=======
+      "t": "2026-09-21 12:37:03",
+>>>>>>> pr-670
       "d": "gate",
       "desc": "gate intent executado (rule-33-intent-gate)"
     },
@@ -274,6 +330,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       "t": "2026-09-22 00:12:19",
 =======
       "t": "2026-09-21 12:35:54",
@@ -284,6 +341,9 @@
 =======
       "t": "2026-09-21 12:42:03",
 >>>>>>> pr-678
+=======
+      "t": "2026-09-21 12:37:03",
+>>>>>>> pr-670
       "d": "gate",
       "desc": "gate council executado (rule-27-council-veredict)"
     },
@@ -291,11 +351,16 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       "t": "2026-09-22 00:11:54",
+=======
+      "t": "2026-09-21 12:36:35",
+>>>>>>> pr-670
       "d": "code-review:done",
       "desc": "Review aprovado por subagente"
     },
     {
+<<<<<<< HEAD
       "t": "2026-09-22 00:08:51",
       "d": "rule:fail",
       "desc": "rule-38-code-review-gate falhou"
@@ -358,6 +423,24 @@
     "prePrTotal": 122,
     "prePrPass": 122,
 >>>>>>> pr-678
+=======
+      "t": "2026-09-21 12:36:35",
+      "d": "coding:done",
+      "desc": "Codificação por subagente concluída"
+    },
+    {
+      "t": "2026-09-21 12:33:46",
+      "d": "rule:fail",
+      "desc": "rule-39-coding-gate falhou"
+    }
+  ],
+  "gateEfficiency": {
+    "ruleFails": 117,
+    "healed": 17,
+    "healedRate": 14.5,
+    "prePrTotal": 122,
+    "prePrPass": 122,
+>>>>>>> pr-670
     "prePrPassRate": 100,
 =======
       "t": "2026-09-21 12:39:17",
@@ -389,6 +472,7 @@
         "rule": "rule-38-code-review-gate",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "count": 19,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
@@ -398,6 +482,9 @@
 =======
         "count": 31,
 >>>>>>> pr-678
+=======
+        "count": 30,
+>>>>>>> pr-670
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
@@ -408,7 +495,15 @@
       {
         "rule": "rule-39-coding-gate",
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+        "count": 11,
+        "hint": "faltou evento coding:done por subagente na branch"
+      },
+      {
+        "rule": "rule-31-lib-test-coverage",
+>>>>>>> pr-670
         "count": 11,
         "hint": "faltou evento coding:done por subagente na branch"
       },
@@ -435,6 +530,7 @@
         "hint": ""
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       },
       {
         "rule": "rule-39-coding-gate",
@@ -444,6 +540,8 @@
 >>>>>>> pr-673
 =======
 >>>>>>> pr-678
+=======
+>>>>>>> pr-670
       }
     ]
   },
@@ -456,6 +554,7 @@
     "testFiles": 358,
     "skills": 27,
     "rules": 48,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -473,5 +572,9 @@
     "events": 561,
     "qualityNotes": 588
 >>>>>>> pr-678
+=======
+    "events": 558,
+    "qualityNotes": 585
+>>>>>>> pr-670
   }
 }
