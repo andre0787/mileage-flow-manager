@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "generatedAt": "2026-09-22T00:14:45.923Z",
 =======
   "generatedAt": "2026-09-21T12:38:26.893Z",
@@ -16,6 +17,9 @@
 =======
   "generatedAt": "2026-09-21T12:39:34.018Z",
 >>>>>>> pr-670
+=======
+  "generatedAt": "2026-09-21T13:22:48.828Z",
+>>>>>>> pr-680
   "currentMonth": "2026-09",
   "months": [
     {
@@ -169,6 +173,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> pr-670
         "intent": 27,
@@ -200,6 +205,13 @@
 >>>>>>> pr-673
 =======
 >>>>>>> pr-670
+=======
+        "intent": 26,
+        "twins": 25,
+        "auth": 25
+      },
+      "avgOutcomeGrade": 88.9,
+>>>>>>> pr-680
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
@@ -247,10 +259,13 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       "violationsCaught": 50,
       "healedRate": 28,
       "frictionPerPass": 0.53
 =======
+=======
+>>>>>>> pr-680
       "violationsCaught": 49,
       "healedRate": 28.6,
       "frictionPerPass": 0.52
@@ -643,14 +658,18 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> pr-678
 =======
 >>>>>>> pr-670
+=======
+>>>>>>> pr-680
       "prePrTotal": 1,
       "prePrPass": 1,
       "prePrFail": 0,
       "prePrPassRate": 100,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
       "ruleFails": 0,
@@ -701,6 +720,13 @@
       "merges": 1,
       "friction": 2
 >>>>>>> pr-670
+=======
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 1,
+      "friction": 0
+>>>>>>> pr-680
     }
   ],
   "prs": [],
@@ -712,6 +738,7 @@
     "testFiles": 358,
     "skills": 27,
     "rules": 48,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -742,6 +769,12 @@
   },
   "summary": {
 >>>>>>> pr-670
+=======
+    "events": 550,
+    "qualityNotes": 582
+  },
+  "summary": {
+>>>>>>> pr-680
     "merges": 46,
     "prs": 0,
     "sessions": 2,
@@ -767,11 +800,14 @@
     "healed": 17,
     "prePrPassRate": 100
   },
+<<<<<<< HEAD
 >>>>>>> pr-678
 =======
     "healed": 17,
     "prePrPassRate": 100
   },
 >>>>>>> pr-670
+=======
+>>>>>>> pr-680
   "telemetry": []
 }
