@@ -1,7 +1,12 @@
 import { useActionState, useState } from "react";
 import { isValidISODate, todayISODate } from "@/lib/dateUtils";
 import type { Account, Owner, Program, Client, Sale, SaleFormData, SaleKind } from "@/types";
-import { emptyForm, emptyPassenger, switchKind, handlePassengerClientChange } from "./salesFormUtils";
+import {
+  emptyForm,
+  emptyPassenger,
+  switchKind,
+  handlePassengerClientChange,
+} from "./salesFormUtils";
 import { useSaleFormStock } from "./useSaleFormStock";
 
 export { emptyForm, emptyPassenger };
@@ -57,7 +62,13 @@ export function useSaleFormState({
   const onSwitchKind = (kind: SaleKind) => switchKind({ kind, update });
 
   const onPassengerClientChange = (index: number, selectedClientId: string) =>
-    handlePassengerClientChange({ index, selectedClientId, clients, passengers: form.passengers, update });
+    handlePassengerClientChange({
+      index,
+      selectedClientId,
+      clients,
+      passengers: form.passengers,
+      update,
+    });
 
   const [, formAction] = useActionState(
     async () => {
