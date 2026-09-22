@@ -173,12 +173,32 @@ export default function Relatorios() {
   }, [owners, accounts, filteredEntries, filteredSales]);
 
   const programReports = useMemo(() => {
+    const accountsByProgramId = new Map<string, typeof accounts>();
+    for (const a of accounts) {
+      let group = accountsByProgramId.get(a.programId);
+      if (!group) {
+        group = [];
+        accountsByProgramId.set(a.programId, group);
+      }
+      group.push(a);
+    }
+
+    const salesByProgramName = new Map<string, typeof filteredSales>();
+    for (const s of filteredSales) {
+      let group = salesByProgramName.get(s.program);
+      if (!group) {
+        group = [];
+        salesByProgramName.set(s.program, group);
+      }
+      group.push(s);
+    }
+
     return programs.map((program) => {
-      const programAccounts = accounts.filter((a) => a.programId === program.id);
+      const programAccounts = accountsByProgramId.get(program.id) ?? [];
       const totalStock = programAccounts.reduce((sum, a) => sum + a.balance, 0);
       const averageCostPerMile = calcWeightedAverageCost(programAccounts);
 
-      const programSales = filteredSales.filter((s) => s.program === program.name);
+      const programSales = salesByProgramName.get(program.name) ?? [];
       const totalSold = programSales.reduce((sum, s) => sum + s.milesUsed, 0);
       const revenue = programSales.reduce((sum, s) => sum + s.saleValue, 0);
       const profit = programSales.reduce((sum, s) => sum + s.profit, 0);
