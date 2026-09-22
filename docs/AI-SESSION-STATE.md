@@ -1,25 +1,23 @@
-# AI Session State - 2026-09-22T01:45:00.000Z
+# AI Session State - 2026-09-22T05:00:00.000Z
 
 ## Última Task
-- **Wave de integração #643–#684 (37 PRs canônicos) — branch `integrate/pr-wave-643-684`**
-- PRs absorvidos localmente com resolução semântica; duplicatas exatas fechadas sem merge: #669 (= #656), #679 (= #655).
-- Fix #655 portado para o TransferForm modularizado do #681 (`baseAmountPaid` em `useTransferForm.ts` + `TransferCalculationsPreview.tsx`).
-- Conflitos só em artefatos gerados: `docs/reports/` restaurado da main (fixtures pre-pr), tracking JSONLs reconstruídos como união dedup (main + 37 branches, JSON válido).
-- Decomposição rule-41: `SaleFormMilesFields` (356→76) e `useSaleFormState` (266→124) → novos módulos em `src/components/sales/form/` (todos ≤150 linhas).
+- **Wave #685 MERGEADA EM PRODUÇÃO** (commit d08b16ed, 04:52Z) — consolida 37 PRs canônicos #643–#684.
+- GitHub marcou os 37 PRs absorvidos como MERGED (head commits alcançaram main via #685); duplicatas #669/#679 fechadas como superseded.
+- Backlog zerado: **0 PRs abertos**. Deploy de produção: success. Auto-merge e Normalize (fixes #643/#645/#684) operando em produção.
 
 ## Estado dos Testes & Qualidade
-- **Local:** 209 arquivos / **1566 testes** ✅ | typecheck ✅ | build ✅ | `pre-pr` 0 errors ✅
-- Gates rule-38 (`code-review:done`) e rule-39 (`coding:done`) registrados na branch.
+- **Local:** 209 arquivos / **1566 testes** ✅ | typecheck ✅ | build ✅ | CI PR Check ✅ | e2e-smoke ✅
+- Gates rule-38 (`code-review:done`) e rule-39 (`coding:done`) registrados; AUTH rule-35 registrado no comentário do #685.
 
 ## Arquivos Modificados & Impacto
-- 37 PRs: fixes (#655 #659 #660 #663 #673 #674 #678), perf (#656 #657 #665 #666 #667 #668… #682), refactors (#675 #677 #681), tests (#649–#654 #658 #661 #662 #664 #671 #683), CI (#643 #645 #684 #647).
-- Workflows: auto-merge com guardas de branch/estado; normalize-pr-report com fetch-depth 0 e push `"HEAD:${{ github.head_ref }}"`.
+- Fixes de segurança (#660 #663 #673 #678), bugfixes (#655+port #681, #659), perf (#656 #657 #665–#682), refactors (#675 #677 #681), tests (#649–#654 #658 #661 #662 #664 #671 #674 #683), CI (#643 #645 #684 #647).
+- rule-41: SaleForm decomposto em `src/components/sales/form/` (7 módulos ≤150 linhas).
+- Tracking JSONLs reconstruídos (união dedup, JSON 100% válido); `docs/reports/` restaurado da main.
 
 ## Pendências Imediatas
-- Push da branch, abrir PR da wave e merge em main (deploy em produção via dispatch).
-- Fechar #669 e #679 comentando o supersede; reabrir PRs canônicos absorvidos para histórico (ou fechar como absorbed).
-- Pop stash local `wave-2026-09-22` após o merge.
+- Pop do stash local `wave-2026-09-22` (ruído docs/tracking+RADAR pré-wave) — conferir antes de descartar.
+- Monitorar nightly: coverage gate (rule-42) e Radar de vulnerabilidades (7 pacotes afetados, npm update pendente).
 
 ## Governança de Contexto
-- TWINS: padrão de duplicatas buscado (owner-filter ×3, cart-cost ×3, workflows ×3) — consolidado na wave.
-- AUTH Gate pendente de citação explícita do usuário antes do merge em prod (já autorizado nesta sessão).
+- TWINS: duplicatas consolidadas (#669=#656, #679=#655); padrões owner-filter/cart-cost/workflows unificados.
+- Sessão encerrada com git status limpo em `main` local sincronizado com origem.
