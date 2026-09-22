@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>nightly-e2e-permissions — nightly e2e permissions</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 nightly e2e permissions</h1>
+  <p class="meta">2026-08-07 06:38 &middot; fix/nightly-e2e-permissions &middot; c8e0044 — fix: origem-tipo — fechar por X + reopen force; entradas save backoff</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">nightly-e2e-permissions</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">3</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+95</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-21</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~116</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🤖 CI workflow válido? (sintaxe YAML)</li>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Auto-gerado pelo pre-pr-check</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Relatório gerado automaticamente como parte do workflow de validação pré-PR</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 21 remoções — 155 linhas tocadas</td>
+        <td>✨ 95 adições — 3 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .github/workflows/nightly.yml, tests/entradas.spec.ts, tests/origem-tipo.spec.ts</td>
+      </tr>
+      
+      <tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>3</td></tr>
+    <tr><td>Adições</td><td>+95</td></tr>
+    <tr><td>Remoções</td><td>-21</td></tr>
+    <tr><td>Tokens estimados</td><td>~116</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:61">+71 add</div>
+        <div class="del" style="flex:14">-16 del</div>
+        <div class="overhead" style="flex:25">~29 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+71</td><td>61%</td></tr>
+      <tr><td>Remoções</td><td>-16</td><td>14%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~29</td><td>25%</td></tr>
+      <tr><th>Total</th><th>~116</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>.github/workflows/nightly.yml</td></tr>
+<tr><td>M</td><td>tests/entradas.spec.ts</td></tr>
+<tr><td>M</td><td>tests/origem-tipo.spec.ts</td></tr>
+  </table>
+
+  
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/.github/workflows/nightly.yml b/.github/workflows/nightly.yml
+index 22de193..462d6b9 100644
+<span class="del">--- a/.github/workflows/nightly.yml</span>
+<span class="add">+++ b/.github/workflows/nightly.yml</span>
+@@ -95,3 +95,11 @@ jobs:
+         with:
+           name: playwright-report-nightly
+           path: playwright-report/
+<span class="add">+</span>
+<span class="add">+      - name: Upload E2E test-results (diagnóstico)</span>
+<span class="add">+        if: always()</span>
+<span class="add">+        uses: actions/upload-artifact@v4</span>
+<span class="add">+        with:</span>
+<span class="add">+          name: e2e-test-results</span>
+<span class="add">+          path: test-results/</span>
+<span class="add">+          if-no-files-found: warn</span>
+diff --git a/tests/entradas.spec.ts b/tests/entradas.spec.ts
+index 910926d..deed790 100644
+<span class="del">--- a/tests/entradas.spec.ts</span>
+<span class="add">+++ b/tests/entradas.spec.ts</span>
+@@ -126,8 +126,25 @@ test.describe("Edição de Entradas", () =&gt; {
+     await page.fill("#amountPaid", "5000.00");
+     await expect(drawer).toBeInViewport();
+ 
+<span class="del">-    // Salva</span>
+<span class="del">-    await page.locator("button:has-text('Salvar Alterações')").click({ force: true });</span>
+<span class="add">+    // Salva — retry: a mutation pode falhar transiente (rate-limit do Supabase</span>
+<span class="add">+    // compartilhado por IP do runner do GitHub); se o save funcionou o drawer</span>
+<span class="add">+    // fecha (botão some) e basta esperar o re-fetch da tabela</span>
+<span class="add">+    const saveBtn = page.locator("button:has-text('Salvar Alterações')");</span>
+<span class="add">+    for (let i = 0; i &lt; 5; i++) {</span>
+<span class="add">+      if (await saveBtn.isVisible({ timeout: 3000 }).catch(() =&gt; false)) {</span>
+<span class="add">+        await saveBtn.click({ force: true });</span>
+<span class="add">+        // backoff curto: janela de rate-limit (429) do Supabase compartilhado</span>
+<span class="add">+        // por IP do runner — o 1o clique pode ser rejeitado, o 2o passa</span>
+<span class="add">+        await page.waitForTimeout(2000);</span>
+<span class="add">+      }</span>
+<span class="add">+      const saved = await page</span>
+<span class="add">+        .locator("text=75.000")</span>
+<span class="add">+        .first()</span>
+<span class="add">+        .isVisible({ timeout: 15000 })</span>
+<span class="add">+        .catch(() =&gt; false);</span>
+<span class="add">+      if (saved) break;</span>
+<span class="add">+      console.log(`[entradas] save retry ${i}`);</span>
+<span class="add">+    }</span>
+     await expect(page.locator("text=75.000").first()).toBeVisible({ timeout: 5_000 });
+ 
+     // Verifica valores atualizados
+diff --git a/tests/origem-tipo.spec.ts b/tests/origem-tipo.spec.ts
+index 9ea39eb..afb60c7 100644
+<span class="del">--- a/tests/origem-tipo.spec.ts</span>
+<span class="add">+++ b/tests/origem-tipo.spec.ts</span>
+@@ -27,11 +27,17 @@ test("Tipos de origem são criados e listados corretamente", async ({ page }) =&gt;
+   await page.getByRole("button", { name: "Nova Entrada" }).first().click();
+   await expect(page.getByRole("dialog").first()).toBeVisible({ timeout: 5_000 });
+ 
+<span class="del">-  // 4. Plus button ao lado do Tipo de Origem</span>
+<span class="del">-  const plusBtn = page.locator("button:has(svg.lucide-plus)").last();</span>
+<span class="del">-  await expect(plusBtn).toBeVisible({ timeout: 10000 });</span>
+<span class="add">+  // 4. Plus button ao lado do Tipo de Origem (irmão do combobox de origem —</span>
+<span class="add">+  // locator estrutural; `.last()` era frágil com múltiplos botões plus no form)</span>
+<span class="add">+  const origemCombobox = page</span>
+<span class="add">+    .getByRole("dialog")</span>
+<span class="add">+    .first()</span>
+<span class="add">+    .locator("button[role='combobox']")</span>
+<span class="add">+    .nth(1);</span>
+<span class="add">+  const plusOrigemType = origemCombobox.locator("xpath=../..").locator("button:has(svg.lucide-plus)");</span>
+<span class="add">+  await expect(plusOrigemType).toBeVisible({ timeout: 10000 });</span>
+   // force: elemento visível mas instável (transition-all) sob carga do runner
+<span class="del">-  await plusBtn.click({ force: true });</span>
+<span class="add">+  await plusOrigemType.click({ force: true });</span>
+ 
+   // 5. Verifica modal
+   await expect(page.getByText("Novo Tipo de Origem")).toBeVisible({ timeout: 5000 });
+@@ -42,25 +48,68 @@ test("Tipos de origem são criados e listados corretamente", async ({ page }) =&gt;
+ 
+   // 7. Verifica que o tipo foi selecionado no combobox (escopado ao dialog —
+   //    o header agora tem o OwnerFilter, um combobox a mais na página)
+<span class="del">-  const origemCombobox = page</span>
+<span class="del">-    .getByRole("dialog")</span>
+<span class="del">-    .first()</span>
+<span class="del">-    .locator("button[role='combobox']")</span>
+<span class="del">-    .nth(1);</span>
+   await expect(origemCombobox).toContainText(/Clube Mensal/i, { timeout: 5000 });
+ 
+<span class="del">-  // 8. Fecha e reabre o formulário para garantir que o tipo novo ficou disponível na aba Pontos</span>
+<span class="del">-  await page.keyboard.press('Escape');</span>
+<span class="del">-  await expect(page.getByRole("dialog").first()).toBeHidden({ timeout: 5_000 });</span>
+<span class="del">-  await page.getByRole("button", { name: "Nova Entrada" }).first().click();</span>
+<span class="del">-  await expect(page.getByRole("dialog").first()).toBeVisible({ timeout: 5_000 });</span>
+<span class="add">+</span>
+ 
+   await origemCombobox.click();
+   await expect(page.getByRole('option', { name: /Clube Mensal/i })).toBeVisible({ timeout: 5000 });
+   await page.keyboard.press('Escape');
+<span class="add">+  // espera o dropdown (listbox) desmontar: aberto, ele COBRE o botão plus —</span>
+<span class="add">+  // o force click atingiria o overlay e o modal nunca abriria (CI)</span>
+<span class="add">+  await expect(page.getByRole("listbox")).toHaveCount(0, { timeout: 5000 });</span>
+ 
+<span class="del">-  // 9. Cria outro tipo avulso e valida que aparece no combobox</span>
+<span class="del">-  await page.locator("button:has(svg.lucide-plus)").last().click();</span>
+<span class="add">+  // 8. Fecha e reabre o formulário para garantir que o tipo novo ficou disponível na aba Pontos</span>
+<span class="add">+  // Fechamento via X do dialog (determinístico — Escape é ambíguo com dropdown aberto)</span>
+<span class="add">+  await page</span>
+<span class="add">+    .getByRole("dialog")</span>
+<span class="add">+    .first()</span>
+<span class="add">+    .getByRole("button", { name: /Close|Fechar/i })</span>
+<span class="add">+    .click({ timeout: 5000 })</span>
+<span class="add">+    .catch((e) =&gt; console.log("[origem-tipo] fechar por X falhou", String(e).slice(0, 100)));</span>
+<span class="add">+  await expect(page.getByRole("dialog").first()).toBeHidden({ timeout: 5_000 });</span>
+<span class="add">+  // Reabre com force + retry (o click normal falha por instabilidade do botão no CI)</span>
+<span class="add">+  const reopenBtn = page.getByRole("button", { name: "Nova Entrada" }).first();</span>
+<span class="add">+  for (let i = 0; i &lt; 3; i++) {</span>
+<span class="add">+    await reopenBtn.click({ force: true, timeout: 5000 }).catch(() =&gt; {});</span>
+<span class="add">+    const opened = await page</span>
+<span class="add">+      .getByRole("dialog")</span>
+<span class="add">+      .first()</span>
+<span class="add">+      .isVisible({ timeout: 4000 })</span>
+<span class="add">+      .catch(() =&gt; false);</span>
+<span class="add">+    if (opened) break;</span>
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>

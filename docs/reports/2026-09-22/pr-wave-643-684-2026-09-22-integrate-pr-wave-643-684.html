@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>pr-wave-643-684 — integrate pr wave 643 684</title>
+  <style>
+    :root{
+      --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;
+      --text:#e6edf7;--muted:#8fa3c0;--blue:#3b82f6;--green:#34d399;--amber:#fbbf24;--red:#f87171;--gold:#f59e0b;--teal:#2dd4bf;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      background:radial-gradient(1200px 600px at 15% -10%,#12203f 0%,transparent 55%),radial-gradient(1000px 500px at 110% 20%,#0f2440 0%,transparent 50%),var(--bg);
+      color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;
+    }
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    .deck{min-height:100vh;display:flex;flex-direction:column}
+    .slide{
+      flex:1 0 auto;min-height:100vh;padding:5.5rem clamp(1.25rem,5vw,4.5rem) 3.5rem;
+      display:flex;flex-direction:column;justify-content:center;gap:1.4rem;
+      max-width:1180px;margin:0 auto;width:100%;
+      border-bottom:1px solid var(--line);
+    }
+    .deck-mode .slide{display:none}
+    .deck-mode .slide.active{display:flex}
+    .nav{
+      position:fixed;top:1rem;right:1rem;z-index:60;display:flex;gap:.4rem;align-items:center;
+      background:rgba(10,15,30,.85);backdrop-filter:blur(8px);border:1px solid var(--line);
+      border-radius:999px;padding:.35rem .5rem;box-shadow:0 8px 24px rgba(0,0,0,.45);
+    }
+    .nav button{
+      background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:1.05rem;
+      width:2.1rem;height:2.1rem;border-radius:999px;transition:all .15s;line-height:1;
+    }
+    .nav button:hover{background:var(--card2);color:var(--text)}
+    .nav .count{font-size:.72rem;color:var(--muted);min-width:2.6rem;text-align:center;font-variant-numeric:tabular-nums}
+    .nav .mode-btn{width:auto;padding:0 .7rem;font-size:.72rem;color:var(--muted)}
+    .hero{display:flex;flex-direction:column;gap:.9rem}
+    .hero-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+    .hero-badges{display:flex;gap:.5rem;flex-wrap:wrap}
+    .badge{
+      display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .7rem;border-radius:999px;
+      font-size:.72rem;font-weight:700;letter-spacing:.02em;border:1px solid var(--line);color:var(--muted);
+    }
+    .badge.pr{color:#93c5fd;border-color:rgba(59,130,246,.4);background:rgba(59,130,246,.12)}
+    .badge.feat{color:#6ee7b7;border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.1)}
+    .badge.fix{color:#fca5a5;border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.1)}
+    .badge.docs{color:#c4b5fd;border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.1)}
+    .badge.chore,.badge.auto{color:#a7b8d1;border-color:var(--line);background:rgba(255,255,255,.04)}
+    .badge.risk{border-style:dashed}
+    .badge.health{font-weight:800}
+    .hero-date{font-size:.78rem;color:var(--muted)}
+    h1{font-size:clamp(1.9rem,4.5vw,3.3rem);line-height:1.08;letter-spacing:-.03em;font-weight:800;text-wrap:balance}
+    .hero-summary{font-size:clamp(1rem,1.6vw,1.3rem);color:var(--muted);max-width:62ch;text-wrap:balance}
+    .hero-meta{font-size:.72rem;color:var(--muted);opacity:.8}
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin-top:.4rem}
+    .kpi{
+      background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);
+      border-radius:1rem;padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.2rem;
+      box-shadow:0 10px 30px rgba(0,0,0,.3);
+    }
+    .kpi-value{font-size:clamp(1.9rem,3vw,2.6rem);font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--text)}
+    .kpi-value.green{color:var(--green)}.kpi-value.amber{color:var(--amber)}
+    .kpi-label{font-size:.8rem;color:var(--muted);font-weight:600}
+    .kpi-sub{font-size:.7rem;color:var(--muted);opacity:.75}
+    .bluf{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem}
+    .bluf-col{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}
+    .bluf-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-weight:800;margin-bottom:.4rem}
+    .bluf-col p{font-size:.9rem;color:var(--text)}
+    .slide-head{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.6rem}
+    .slide-kicker{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);font-weight:800}
+    .slide-head h2{font-size:clamp(1.4rem,3vw,2.1rem);letter-spacing:-.02em;font-weight:800}
+    .impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+    .impact-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.4rem;display:flex;flex-direction:column;gap:.5rem}
+    .impact-icon{font-size:1.6rem}
+    .impact-card h3{font-size:1rem;font-weight:800;letter-spacing:-.01em}
+    .impact-card p{font-size:.9rem;color:var(--muted)}
+    .impact-card.blue{border-top:3px solid var(--blue)}
+    .impact-card.gold{border-top:3px solid var(--gold)}
+    .impact-card.teal{border-top:3px solid var(--teal)}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;align-items:start}
+    @media(max-width:760px){.split{grid-template-columns:1fr}}
+    .timeline{position:relative;padding-left:1.4rem;display:flex;flex-direction:column;gap:1.05rem}
+    .timeline::before{content:"";position:absolute;left:.4rem;top:.3rem;bottom:.3rem;width:2px;background:linear-gradient(180deg,var(--blue),var(--green))}
+    .tl-item{position:relative;display:flex;align-items:center;gap:.9rem}
+    .tl-dot{position:absolute;left:-1.4rem;width:.85rem;height:.85rem;border-radius:50%;background:var(--card);border:2px solid var(--blue)}
+    .tl-item.pr\\:merge .tl-dot,.tl-item.pr-merge .tl-dot{border-color:var(--green);background:var(--green)}
+    .tl-item.pre-pr .tl-dot{border-color:var(--amber)}
+    .tl-body{display:flex;flex-direction:column}
+    .tl-time{font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:700}
+    .tl-label{font-size:.92rem;font-weight:600}
+    .tl-total{margin-top:.4rem;font-size:.85rem;color:var(--green);font-weight:700}
+    .empty-note{font-size:.9rem;color:var(--muted);border:1px dashed var(--line);border-radius:1rem;padding:1.2rem}
+    .stat-list{display:flex;flex-direction:column;gap:.8rem}
+    .stat{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1rem 1.2rem;display:flex;align-items:baseline;gap:.9rem}
+    .stat-v{font-size:1.7rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--blue)}
+    .stat-v.green{color:var(--green)}
+    .stat-l{font-size:.82rem;color:var(--muted)}
+    .appendix{justify-content:flex-start}
+    .appendix-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:860px){.appendix-grid{grid-template-columns:1fr}}
+    .ap-card{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}
+    .ap-card h3{font-size:.92rem;font-weight:800;margin-bottom:.6rem}
+    .detail-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.2rem;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+    .detail-scroll{max-height:56vh;overflow:auto;border-radius:.8rem}
+    .detail-scroll table{margin:0}
+    .detail-note{font-size:.72rem;color:var(--muted);opacity:.8;margin-top:.7rem}
+    .checks{list-style:none;display:flex;flex-direction:column;gap:.35rem}
+    .checks li{font-size:.85rem;color:var(--muted)}
+    .ns-add{color:#34d399;font-weight:600}
+    .ns-del{color:#f87171;font-weight:600}
+    .commit-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;max-height:260px;overflow-y:auto;margin:0;padding:0}
+    .commit-list li{font-size:.82rem;color:var(--muted);line-height:1.35}
+    .commit-list code{background:var(--border);border-radius:4px;padding:.05rem .35rem;font-size:.75rem;color:var(--fg);margin-right:.4rem}
+    table{width:100%;border-collapse:collapse;font-size:.8rem}
+    td,th{border:1px solid var(--line);padding:.45rem .6rem;text-align:left;vertical-align:top;color:var(--muted)}
+    th{color:var(--text);font-weight:700;background:rgba(255,255,255,.04)}
+    td code,code{color:#93c5fd;font-family:ui-monospace,Menlo,monospace;font-size:.78rem}
+    .evidence{max-width:100%;border:1px solid var(--line);border-radius:.8rem;margin-top:.7rem}
+    .token-bar{display:flex;border-radius:.6rem;overflow:hidden;margin:.7rem 0;font-size:.7rem}
+    .token-bar div{padding:.3rem .7rem;text-align:center;white-space:nowrap}
+    .token-bar .add{background:rgba(52,211,153,.18);color:#6ee7b7}
+    .token-bar .del{background:rgba(248,113,113,.16);color:#fca5a5}
+    .token-bar .overhead{background:rgba(255,255,255,.07);color:var(--muted)}
+    .diff-title{margin:1.2rem 0 .5rem;font-size:.92rem;font-weight:800}
+    .diff{background:#070b16;color:#c9d6ea;padding:.9rem;border-radius:.8rem;font:.74rem/1.5 ui-monospace,Menlo,monospace;overflow-x:auto;max-height:340px;border:1px solid var(--line)}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .foot{margin:1.4rem auto 2.5rem;text-align:center;font-size:.7rem;color:var(--muted);opacity:.6}
+    .foot .scroll-hint{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3rem .9rem;margin-bottom:.8rem}
+    @page{size:A4 landscape;margin:12mm}
+    @media print{
+      html,body{background:#fff!important;color:#111}
+      .nav{display:none!important}
+      .slide{min-height:0;page-break-after:always;break-after:page;display:flex!important;border-bottom:0;padding:1.5rem 0}
+      .slide:last-child{page-break-after:auto;break-after:auto}
+      .hero h1{color:#0b1220}
+      .hero-summary,.hero-date,.hero-meta,.kpi-label,.kpi-sub,.bluf-col p,.impact-card p,.tl-time,.tl-label,.stat-l,.checks li,td,th,.foot{color:#334155}
+      .kpi,.impact-card,.bluf-col,.ap-card,.stat{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-card{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-scroll{max-height:none;overflow:visible}
+      .bluf-col,.checks li{color:#334155}
+      .diff{background:#f8fafc;color:#0f172a;border-color:#e2e8f0}
+      .timeline::before{background:linear-gradient(180deg,#3b82f6,#16a34a)}
+      tr{break-inside:avoid;page-break-inside:avoid}
+      th,td{font-size:.72rem}
+      .detail-scroll table{margin:0}
+      img.evidence{max-height:120mm;object-fit:contain}
+    }
+  </style>
+</head>
+<body>
+  <div class="nav" id="deckNav">
+    <button id="prevBtn" title="Anterior (←)">←</button>
+    <span class="count" id="slideCount">1/5</span>
+    <button id="nextBtn" title="Próxima (→)">→</button>
+    <button id="fsBtn" title="Tela cheia (F)">⛶</button>
+    <button id="printBtn" title="Imprimir / PDF (P)">⎙</button>
+    <button class="mode-btn" id="modeBtn" title="Alternar modo documento">📄</button>
+  </div>
+
+  <div class="deck" id="deck">
+    
+    <section class="slide" id="s1">
+      <div class="hero">
+        <div class="hero-top">
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">pr-wave-643-684</span> <span class="badge risk" style="color:#f87171">Alto risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
+          <div class="hero-date">2026-09-22 · 01:27 · <span class="mono">integrate/pr-wave-643-684</span></div>
+        </div>
+        <h1>integrate pr wave 643 684</h1>
+        <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
+        <div class="hero-meta mono">6a25a827 — absorve PR #647</div>
+      </div>
+      
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-value">0</div>
+        <div class="kpi-label">entregas em produção</div>
+        <div class="kpi-sub">1 implementações · 2 reviews</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value">—</div>
+        <div class="kpi-label">lead time (início → produção)</div>
+        <div class="kpi-sub">da sessão ao deploy</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value">0/23</div>
+        <div class="kpi-label">fricção pré-PR (fail/total)</div>
+        <div class="kpi-sub">1 violações · 0 auto-corrigidas</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value green">80</div>
+        <div class="kpi-label">outcome grade</div>
+        <div class="kpi-sub">alto risco da mudança</div>
+      </div>
+    </div>
+      <div class="bluf">
+        <div class="bluf-col">
+          <div class="bluf-label">Decisão & entregas</div>
+          <p>Alteração validada dentro do fluxo de qualidade do produto.</p>
+        </div>
+        <div class="bluf-col">
+          <div class="bluf-label">Impacto esperado</div>
+          <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+        </div>
+        <div class="bluf-col">
+          <div class="bluf-label">Riscos & trade-offs</div>
+          <p>Alto risco de mudança · outcome grade = 80 · lead time —.</p>
+        </div>
+      </div>
+    </section><section class="slide" id="s2">
+        <div class="slide-head">
+          <span class="slide-kicker">Impacto da sessão</span>
+          <h2>O que isso significa para o negócio</h2>
+        </div>
+        <div class="impact-grid">
+          <div class="impact-card blue">
+                <div class="impact-icon">🎯</div>
+                <h3>Impacto de Produto</h3>
+                <p>Alteração validada dentro do fluxo de qualidade do produto.</p>
+              </div><div class="impact-card gold">
+                <div class="impact-icon">🏢</div>
+                <h3>Impacto de Negócio</h3>
+                <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+              </div><div class="impact-card teal">
+                <div class="impact-icon">🌊</div>
+                <h3>Impacto de Processo</h3>
+                <p>Fluxo completo seguido: sessão → implementação → code review → pré-PR → PR. Detalhes nas métricas automáticas.</p>
+              </div>
+        </div>
+      </section>
+    <section class="slide" id="s3">
+      <div class="slide-head">
+        <span class="slide-kicker">Valor por entrega</span>
+        <h2>Detalhamento por item</h2>
+      </div>
+      <div class="detail-card">
+        <div class="detail-scroll"><table>
+    <tr>
+      <th style="width:16%">Item</th>
+      <th style="width:24%">Correção Efetuada</th>
+      <th style="width:20%">Benefício</th>
+      <th style="width:24%">Impacto no Negócio</th>
+      <th style="width:16%">Custo Token</th>
+    </tr>
+    <tr>
+      <td><strong>Entrega da sessão</strong></td>
+      <td>integrate pr wave 643 684</td>
+      <td>Alteração validada dentro do fluxo de qualidade do produto.</td>
+      <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
+      <td><code>~1</code></td>
+    </tr>
+  </table></div>
+        <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.172 tokens (feature) · status pesado — tracking</p>
+      </div>
+    </section>
+    <section class="slide" id="s4">
+      <div class="slide-head">
+        <span class="slide-kicker">Execução</span>
+        <h2>Timeline da sessão</h2>
+      </div>
+      <div class="split">
+        <div class="split-left"><div class="timeline">
+        <div class="tl-item coding:done">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">00:08</div>
+                <div class="tl-label">Implementação concluída</div>
+              </div>
+            </div><div class="tl-item code-review:done">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">00:08</div>
+                <div class="tl-label">Code review aprovado</div>
+              </div>
+            </div><div class="tl-item pre-pr">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">00:14</div>
+                <div class="tl-label">Validação pré-PR</div>
+              </div>
+            </div>
+        
+      </div></div>
+        <div class="split-right">
+          <div class="stat-list">
+            <div class="stat"><span class="stat-v">23</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">1</span><span class="stat-l">violações de regra encontradas</span></div>
+            <div class="stat"><span class="stat-v green">0</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
+            <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="slide appendix" id="s5">
+      <div class="slide-head">
+        <span class="slide-kicker">Apêndice técnico</span>
+        <h2>Detalhes da implementação</h2>
+      </div>
+      <div class="appendix-grid">
+        <div class="ap-card">
+          <h3>✅ Checklist de revisão</h3>
+          <ul class="checks">
+            <li>🔷 Migração de banco aplicada?</li>
+<li>🖼️ Renderização verificada em desktop e mobile?</li>
+<li>📦 Biblioteca testada com casos de borda?</li>
+<li>📬 Feedback flow testado (anon + auth)?</li>
+<li>🤖 CI workflow válido? (sintaxe YAML)</li>
+<li>🧪 Testes manuais realizados?</li>
+<li>📋 Regras de validação passam? (npm run pre-pr)</li>
+          </ul>
+        </div>
+        <div class="ap-card">
+          <h3>📸 Evidências — antes & depois</h3>
+          <table>
+            <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 0 remoções — 1 linhas tocadas</td><td>✨ 0 adições — 386 arquivo(s) alterado(s)</td></tr>
+          </table>
+          
+        </div>
+        <div class="ap-card">
+          <h3>📊 Métricas da mudança</h3>
+          <table>
+            <tr><th>Métrica</th><th>Valor</th></tr>
+            <tr><td>Arquivos alterados</td><td>386</td></tr>
+            <tr><td>Adições</td><td>+0</td></tr>
+            <tr><td>Remoções</td><td>-0</td></tr>
+            <tr><td>Tokens estimados</td><td>~1</td></tr>
+          </table>
+          <div class="token-bar">
+        <div class="add" style="flex:0">+0 add</div>
+        <div class="del" style="flex:0">-0 del</div>
+        <div class="overhead" style="flex:100">~1 ctx</div>
+      </div>
+          <h3>Breakdown de tokens</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
+      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
+      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+    </table>
+        </div>
+        <div class="ap-card">
+          <h3>📁 Arquivos</h3>
+          <table>
+            <tr><th>Status</th><th>Arquivo</th><th>+/-</th></tr>
+            <tr><td>M</td><td>.github/workflows/auto-merge.yml</td><td class="mono"><span class="ns-add">+45</span> <span class="ns-del">−2</span></td></tr>
+<tr><td>M</td><td>.github/workflows/normalize-pr-report.yml</td><td class="mono"><span class="ns-add">+11</span> <span class="ns-del">−14</span></td></tr>
+<tr><td>A</td><td>.pi/skills/typesafe-ai/SKILL.md</td><td class="mono"><span class="ns-add">+149</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/AI-SESSION-STATE.md</td><td class="mono"><span class="ns-add">+71</span> <span class="ns-del">−15</span></td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td><td class="mono"><span class="ns-add">+45</span> <span class="ns-del">−16</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-20/PR170-2026-07-20-p1-09-p1-11-context-pack-estados.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−262</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-20/PR172-2026-07-20-p1-14-check-fast-pr-nightly.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−183</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-20/PR173-2026-07-20-mobile-form-stability-v2.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−261</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-20/PR174-2026-07-20-cache-auto-refresh-v2.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−260</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-20/PR175-2026-07-20-p1-10-regra-escopo.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−170</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-20/PR176-2026-07-20-p1-12-small-model-execution.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−262</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-20/PR177-2026-07-20-p1-15-fixtures-negativas-regras.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−285</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-20/PR178-2026-07-20-p1-17-invariantes-financeiras.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−262</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-20/PR179-2026-07-20-p1-18-e2e-estabiliza.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−276</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-20/PR180-17-p1-18-done-2026-07-20-p1-17-p1-18-done.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-20/PR181-18-merge-2026-07-20-release-p1-18-merge.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−276</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-20/PR182-16-ast-regras-alto-risco-2026-07-20-p1-16-ast-regras-alto-risco.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-20/PR183-16-done-2026-07-20-p1-16-done.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-20/PR184-2026-07-20-main.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-20/PR184-2026-07-20-p1-08-task-card-schema.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−259</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-20/PR185-2026-07-20-p2-19-bundle-budgets.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−261</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-20/p2-20-quality-report-ci-2026-07-20-p2-20-quality-report-ci.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−175</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-21/p2-20-quality-consome-ci-2026-07-21-p2-20-quality-consome-ci.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-21/p2-21-metricas-programa-2026-07-21-p2-21-metricas-programa.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−262</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-21/p2-22-feedback-usuario-aceite-2026-07-21-p2-22-feedback-usuario-aceite.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-22/PR192-2026-07-22-quality-auto-update.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-22/PR194-2026-07-22-dashboard-owner-data.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-22/PR195-2026-07-22-animated-number-stale.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−260</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-22/PR195-2026-07-22-main.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
+<tr><td>D</td><td>docs/reports/2026-07-22/PR196-2026-07-22-main.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
+          </table>
+        </div>
+        <div class="ap-card">
+          <h3>🔖 Commits da sessão (122)</h3>
+          <ul class="commit-list">
+            <li><code>6a25a827</code> absorve PR #647</li>
+<li><code>eb31018c</code> absorve PR #674</li>
+<li><code>73a89ebd</code> absorve PR #664</li>
+<li><code>a64ceed3</code> absorve PR #662</li>
+<li><code>d6d2cfc1</code> chore: remove artefato docs/reports do merge #661</li>
+<li><code>08fd61bd</code> absorve PR #661</li>
+<li><code>221dd65a</code> absorve PR #658</li>
+<li><code>dadfc9fb</code> absorve PR #653</li>
+<li><code>5fc761ff</code> absorve PR #652</li>
+<li><code>a0382d21</code> absorve PR #671</li>
+<li><code>b9df5911</code> absorve PR #668</li>
+<li><code>427a1ea6</code> absorve PR #683</li>
+<li><code>8b39ef9a</code> absorve PR #651</li>
+<li><code>1253267f</code> absorve PR #654</li>
+<li><code>5b01a59a</code> absorve PR #650</li>
+<li><code>c2caf110</code> absorve PR #649</li>
+<li><code>f07cc12f</code> chore: remove artefato docs/reports órfão do merge #677</li>
+<li><code>344d6475</code> absorve PR #677 (refatora EntryForm)</li>
+<li><code>85c182d4</code> absorve PR #675 (decompõe SaleForm)</li>
+<li><code>c5ddb2d1</code> fix: porta fix #655 (baseAmountPaid) para TransferForm modularizado (#681)</li>
+<li><code>f905c701</code> absorve PR #681 (modulariza TransferForm)</li>
+<li><code>180de3dd</code> absorve PR #655 (fix cart cost TransferForm + entryOperations NaN-safe)</li>
+<li><code>9f752e56</code> absorve PR #672</li>
+<li><code>aad64837</code> fix: resolve conflito #656×#676 em Vendas.tsx (usa getOwnerAccountIds do selectors)</li>
+<li><code>5c557669</code> absorve PR #665</li>
+<li><code>2b471d18</code> absorve PR #659</li>
+<li><code>c4036201</code> absorve PR #682</li>
+<li><code>e92f8f00</code> absorve PR #676</li>
+<li><code>8ef3cbe3</code> absorve PR #656</li>
+<li><code>9a43d36f</code> absorve PR #667</li>
+<li><code>5332f27b</code> absorve PR #680</li>
+<li><code>3eea399a</code> absorve PR #670</li>
+<li><code>825b17a3</code> absorve PR #657</li>
+<li><code>cad42acc</code> absorve PR #678</li>
+<li><code>3effd6f8</code> absorve PR #673</li>
+<li><code>9983b7d8</code> absorve PR #663</li>
+<li><code>dac9744b</code> absorve PR #660</li>
+<li><code>f990750b</code> chore: absorve PR #645 (fetch-depth 0 + re-check OPEN antes de mergear)</li>
+<li><code>fe73eac4</code> chore: absorve PR #684 (normalize-pr-report generalizado)</li>
+<li><code>f2c3904e</code> chore: absorve PR #643 (guardas auto-merge/normalize + workflows-guard tests)</li>
+<li><code>ceff1082</code> chore: normalize report prefix to PR684</li>
+<li><code>4cfd42c6</code> chore: adjust auto-merge, nightly and normalize-pr-report workflows</li>
+<li><code>b329edca</code> refactor(SaleForm): decompose SaleForm into hooks and sub-components</li>
+<li><code>f79941ad</code> perf(relatorios): pre-group entries and sales by owner</li>
+<li><code>7af6a339</code> perf: implement response caching in PromotionScout and fix formatting</li>
+<li><code>217aa75c</code> refactor(components): modulariza TransferForm em subcomponentes</li>
+<li><code>67c80525</code> perf: optimize entriesByTab filtering with Set O(1) lookups and fix formatting</li>
+<li><code>79b366da</code> test: add edge case handling and unit tests for text-to-query tokens</li>
+<li><code>a346ca79</code> perf: optimize program reports array traversal and replace any types</li>
+<li><code>239994c7</code> refactor(components): decompose EntryForm component for health and maintainability</li>
+<li><code>5534424e</code> refactor(components): decompose EntryForm component for health and maintainability</li>
+<li><code>38456b60</code> fix(dashboard): fix bug #544 by verifying sales on pontos accounts enter calculated balance</li>
+<li><code>e97cd02e</code> chore: normalize report prefix to PR682</li>
+<li><code>f0c0cc75</code> chore: normalize report prefix to PR678</li>
+<li><code>363ff685</code> chore: normalize report prefix to PR683</li>
+<li><code>cbba1ce6</code> chore: normalize report prefix to PR677</li>
+<li><code>6e396c9b</code> perf: optimize program reports array traversal and fix benchmark types</li>
+<li><code>8771e8f4</code> chore: normalize report prefix to PR681</li>
+<li><code>3580cb1f</code> chore: normalize report prefix to PR676</li>
+<li><code>b605fd53</code> test: add edge case handling and unit tests for text-to-query tokens</li>
+<li><code>ba9728bf</code> chore: normalize report prefix to PR675</li>
+<li><code>0e032037</code> chore: normalize report prefix to PR672</li>
+<li><code>4b404883</code> perf: optimize entriesByTab filtering with Set O(1) lookups</li>
+<li><code>6e5803b5</code> chore: normalize report prefix to PR680</li>
+<li><code>81a10c9a</code> chore: normalize report prefix to PR668</li>
+<li><code>e41184e7</code> refactor(components): modulariza TransferForm em subcomponentes</li>
+<li><code>6eceb01d</code> perf: implement response caching in PromotionScout</li>
+<li><code>8df8107f</code> fix(security): prevent command injection in consolidate-report script</li>
+<li><code>7492ec7e</code> chore: normalize report prefix to PR674</li>
+<li><code>433f8270</code> chore: normalize report prefix to PR664</li>
+<li><code>fa3477af</code> chore: normalize report prefix to PR673</li>
+<li><code>fd603328</code> refactor(components): decompose EntryForm component for health and maintainability</li>
+<li><code>a492abdf</code> perf: optimize getOwnerAccountIds single-pass reduce</li>
+<li><code>98e77d4b</code> refactor(SaleForm): decompose SaleForm into hooks and sub-components</li>
+<li><code>bb4e3e3f</code> chore: normalize report prefix to PR667</li>
+<li><code>cd7bf11c</code> chore: normalize report prefix to PR670</li>
+<li><code>e793afe3</code> fix(dashboard): fix bug #544 by verifying sales on pontos accounts enter calculated balance</li>
+<li><code>aeafb42d</code> fix(contas): verify recalc debits source account transfers (#357)</li>
+<li><code>73978d5b</code> 🔒 fix: mitigate local storage DoS in telemetry queue</li>
+<li><code>bdb0dd72</code> chore: normalize report prefix to PR671</li>
+<li><code>e936d38d</code> perf: optimize program reports array traversal</li>
+<li><code>892b6ea3</code> test(dateUtils): add unit tests for parseDateOnly</li>
+<li><code>24d772f6</code> perf: optimize metric aggregation in graph-experiment</li>
+<li><code>90f50039</code> test(dateUtils): add edge case tests for addMonthsClamped</li>
+<li><code>aad9ba58</code> chore: normalize report prefix to PR665</li>
+<li><code>6f158706</code> perf(dashboardSelectors): optimize computeOwnerData lookups with Map and Set</li>
+<li><code>49d847fb</code> chore: normalize report prefix to PR662</li>
+<li><code>95e73fa5</code> perf(relatorios): pre-group entries and sales by owner</li>
+<li><code>370eaa1e</code> chore: normalize report prefix to PR663</li>
+<li><code>da81d7a8</code> test(components): add error recovery and dev mode tests for ErrorBoundary</li>
+<li><code>bbf0fe4d</code> chore: normalize report prefix to PR661</li>
+<li><code>30665851</code> fix(security): remove shell option from spawnSync</li>
+<li><code>41755f1d</code> test(components): add unit tests for ThemeToggle component</li>
+<li><code>4add38cc</code> fix(dashboard): fix bug #544 by verifying sales on pontos accounts enter calculated balance</li>
+<li><code>ebbdf9bf</code> chore: normalize report prefix to PR660</li>
+<li><code>b34829b8</code> chore: normalize report prefix to PR659</li>
+<li><code>4085857e</code> fix(security): remove shell option from exec-intel.mjs</li>
+<li><code>a6247a2d</code> fix(entradas): divide milesGenerated in split recurrence updates (#356)</li>
+<li><code>15e7f462</code> chore: normalize report prefix to PR658</li>
+<li><code>f5976ac8</code> chore: normalize report prefix to PR657</li>
+<li><code>c8db7325</code> test: add comprehensive unit test for AppSidebar component</li>
+<li><code>6b8266ee</code> perf(workflow): optimize branch lookup with Map in WorkflowMindMap</li>
+<li><code>5a8611f6</code> chore: normalize report prefix to PR656</li>
+<li><code>f3e5c3d1</code> perf(vendas): consolidate filter and map in owner account filtering</li>
+<li><code>ba5a0808</code> chore: normalize report prefix to PR655</li>
+<li><code>ca9aa6ff</code> fix(transfer): recalculate transfer cost when cartCost is entered</li>
+<li><code>9a0970fb</code> chore: normalize report prefix to PR654</li>
+<li><code>b3e3b122</code> test: add unit tests for calcCostPerMile</li>
+<li><code>cb66098f</code> chore: normalize report prefix to PR653</li>
+<li><code>8131b827</code> chore: normalize report prefix to PR652</li>
+<li><code>9ce5a79f</code> test(passengerDuplicates): add unit tests for passengerIdentity</li>
+<li><code>1f8ec025</code> test: add unit test coverage for BottomTabBar component</li>
+<li><code>3f236f2c</code> chore: normalize report prefix to PR651</li>
+<li><code>03494593</code> test: add unit tests for parseNaturalQuery in text-to-query</li>
+<li><code>d568006e</code> chore: normalize report prefix to PR650</li>
+<li><code>45a07b6e</code> test: add zero and negative tests for calcProfitMargin</li>
+<li><code>cc648d99</code> chore: normalize report prefix to PR649</li>
+<li><code>dad6e03a</code> test(metrics): add unit tests for calcMilesGenerated</li>
+<li><code>48e906c6</code> chore: normalize report prefix to PR647</li>
+<li><code>2a6b10a5</code> chore: validar workflows CI, Nightly, Normalize e filtros UI</li>
+<li><code>f67e65fd</code> fix(ci): adjust auto-merge conditions and normalize pr report script</li>
+<li><code>2ac7fe21</code> fix: adjust auto merge guards, nightly check and normalize pr report</li>
+          </ul>
+        </div>
+        <div class="ap-card">
+          <h3>🧪 Qualidade de hoje</h3>
+          <table>
+            <tr><th>Métrica</th><th>Valor</th></tr>
+            <tr><td>Cobertura libs (rule-31)</td><td>sem registro hoje</td></tr>
+            <tr><td>Cobertura componentes (rule-32)</td><td>sem registro hoje</td></tr>
+            <tr><td>Outcome grade (rule-30)</td><td>80</td></tr>
+          </table>
+        </div>
+      </div>
+      <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
+      <div class="diff">
+        
+      </div>
+    </section>
+    <div class="foot">
+      <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
+      Gerado por scripts/generate-report.mjs · 2026-09-22 01:27
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+      var deck = document.getElementById("deck");
+      var count = document.getElementById("slideCount");
+      var nav = document.getElementById("deckNav");
+      var current = 0;
+      var deckMode = true;
+
+      function show(i) {
+        current = Math.max(0, Math.min(slides.length - 1, i));
+        slides.forEach(function (s, idx) {
+          s.classList.toggle("active", idx === current);
+        });
+        count.textContent = (current + 1) + "/" + slides.length;
+        if (deckMode) {
+          window.scrollTo(0, 0);
+        } else {
+          slides[current].scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      function toggleMode() {
+        deckMode = !deckMode;
+        deck.classList.toggle("deck-mode", deckMode);
+        document.body.classList.toggle("deck-mode", deckMode);
+        nav.style.display = deckMode ? "flex" : "none";
+        if (deckMode) show(current);
+      }
+
+      document.getElementById("nextBtn").addEventListener("click", function () { show(current + 1); });
+      document.getElementById("prevBtn").addEventListener("click", function () { show(current - 1); });
+      document.getElementById("fsBtn").addEventListener("click", function () {
+        if (document.fullscreenElement) document.exitFullscreen();
+        else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+      });
+      document.getElementById("printBtn").addEventListener("click", function () { window.print(); });
+      document.getElementById("modeBtn").addEventListener("click", toggleMode);
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); show(current + 1); }
+        else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); show(current - 1); }
+        else if (e.key === "Home") { e.preventDefault(); show(0); }
+        else if (e.key === "End") { e.preventDefault(); show(slides.length - 1); }
+        else if (e.key === "f" || e.key === "F") {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+        }
+        else if (e.key === "p" || e.key === "P") { window.print(); }
+      });
+
+      if (window.innerWidth < 640) toggleMode();
+      else { deck.classList.add("deck-mode"); document.body.classList.add("deck-mode"); show(0); }
+    })();
+  </script>
+</body>
+</html>

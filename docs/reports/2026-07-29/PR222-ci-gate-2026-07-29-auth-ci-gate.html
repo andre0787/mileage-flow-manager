@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>auth-ci-gate — auth ci gate</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#fafafa;color:#1a1a1a}
+    h1{font-size:1.3rem;border-bottom:2px solid #ddd;padding-bottom:.5rem}
+    h2{font-size:1rem;margin-top:1.5rem;color:#333}
+    h3{font-size:.9rem;margin-top:1.2rem;color:#555}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+    .badge.pr{background:#dbeafe;color:#1e40af}
+    .badge.auto{background:#fef3c7;color:#92400e}
+    .badge.fix{background:#fee2e2;color:#991b1b}
+    .badge.feat{background:#dcfce7;color:#166534}
+    .badge.docs{background:#ede9fe;color:#5b21b6}
+    .badge.chore{background:#f3f4f6;color:#374151}
+    table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+    td,th{border:1px solid #ddd;padding:5px 8px;text-align:left;vertical-align:top}
+    th{background:#f3f4f6;font-weight:600}
+    tr.add{background:#f0fdf4}
+    tr.del{background:#fef2f2}
+    .meta{font-size:.8rem;color:#666;margin:.5rem 0}
+    .token-bar{display:flex;gap:0;border-radius:4px;overflow:hidden;margin:.5rem 0;font-size:.75rem}
+    .token-bar div{padding:3px 10px;text-align:center;white-space:nowrap}
+    .token-bar .add{background:#dcfce7;color:#166534}
+    .token-bar .del{background:#fee2e2;color:#991b1b}
+    .token-bar .overhead{background:#f3f4f6;color:#374151}
+    .diff{background:#1a1a1a;color:#e5e5e5;padding:.5rem;border-radius:4px;font:.75rem/1.4 'Courier New',monospace;overflow-x:auto;max-height:400px}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .impact-box{background:#f0f9ff;border-left:3px solid #3b82f6;padding:.75rem 1rem;border-radius:4px;margin:.5rem 0;font-size:.85rem}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <h1>📋 auth ci gate</h1>
+  <p class="meta">2026-07-29 23:13 &middot; feat/auth-ci-gate &middot; 5c33209 — fix: corrige links relativos no SKILL.md e plan</p>
+  <p><span class="badge auto">auto</span> <span class="badge auto">auth-ci-gate</span> <span class="badge" style="background:#fef3c7;color:#92400e">Médio Risco</span></p>
+
+  <!-- Status cards -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin:.75rem 0">
+    <div style="flex:1;min-width:120px;background:#f9fafb;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700">14</div>
+      <div style="font-size:.7rem;color:#666">Arquivos</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#f0fdf4;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#166534">+1487</div>
+      <div style="font-size:.7rem;color:#666">Adições</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fef2f2;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#991b1b">-80</div>
+      <div style="font-size:.7rem;color:#666">Remoções</div>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fefce8;border-radius:8px;padding:.5rem .75rem;text-align:center">
+      <div style="font-size:1.5rem;font-weight:700;color:#854d0e">~1276</div>
+      <div style="font-size:.7rem;color:#666">Tokens</div>
+    </div>
+  </div>
+
+  <h2>✅ Checklist de Revisão</h2>
+    <ul>
+      <li>🤖 CI workflow válido? (sintaxe YAML)</li>
+      <li>🧪 Testes manuais realizados?</li>
+      <li>📋 Regras de validação passam? (npm run pre-pr)</li>
+    </ul>
+
+  <h2>🎯 Benefícios</h2>
+    <ul>
+      <li>Auto-gerado pelo pre-pr-check</li>
+    </ul>
+    
+
+  <h2>🏢 Impacto no Negócio</h2>
+       <div class="impact-box">Relatório gerado automaticamente como parte do workflow de validação pré-PR</div>
+       <br>
+
+  <h2>📸 Evidências — Antes & Depois</h2>
+    <table>
+      <tr><th style="width:15%">Item</th><th style="width:42%">Antes</th><th style="width:43%">Depois</th></tr>
+      <tr>
+        <td><strong>Código</strong></td>
+        <td>🧹 80 remoções — 1701 linhas tocadas</td>
+        <td>✨ 1487 adições — 14 arquivo(s) alterado(s)</td>
+      </tr>
+      <tr>
+        <td><strong>Arquivos</strong></td>
+        <td colspan="2"><span style="color:#92400e;font-weight:600">✏️</span> .github/workflows/deploy.yml, .prompts-manifest.json, docs/MAP.md, docs/WORKFLOW.md<br><span style="color:#166534;font-weight:600">➕</span> .pi/skills/fable-method/SKILL.md<br><em>+9 arquivo(s)</em></td>
+      </tr>
+      
+      <tr>
+        <td><strong>💡 Dica</strong></td>
+        <td colspan="2">Use <code>--before "descrição"</code> e <code>--after "descrição"</code> para texto customizado, ou <code>--evidence URL</code> pra screenshot</td>
+      </tr>
+    </table>
+    <br>
+
+  <h2>📊 Métricas</h2>
+  <table>
+    <tr><th>Métrica</th><th>Valor</th></tr>
+    <tr><td>Arquivos alterados</td><td>14</td></tr>
+    <tr><td>Adições</td><td>+1487</td></tr>
+    <tr><td>Remoções</td><td>-80</td></tr>
+    <tr><td>Tokens estimados</td><td>~1276</td></tr>
+  </table>
+
+  <h2>⚡ Consumo de Tokens</h2>
+  <div class="token-bar">
+        <div class="add" style="flex:87">+1115 add</div>
+        <div class="del" style="flex:5">-60 del</div>
+        <div class="overhead" style="flex:8">~101 ctx</div>
+       </div>
+  <h3>Breakdown</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+1115</td><td>87%</td></tr>
+      <tr><td>Remoções</td><td>-60</td><td>5%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~101</td><td>8%</td></tr>
+      <tr><th>Total</th><th>~1276</th><th>100%</th></tr>
+    </table>
+
+  <h2>📁 Arquivos</h2>
+  <table>
+    <tr><th>Status</th><th>Arquivo</th></tr>
+    <tr><td>M</td><td>.github/workflows/deploy.yml</td></tr>
+<tr><td>A</td><td>.pi/skills/fable-method/SKILL.md</td></tr>
+<tr><td>M</td><td>.prompts-manifest.json</td></tr>
+<tr><td>M</td><td>docs/MAP.md</td></tr>
+<tr><td>M</td><td>docs/WORKFLOW.md</td></tr>
+<tr><td>M</td><td>docs/handoff.md</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-29/auth-ci-gate-2026-07-29-auth-ci-gate.html</td></tr>
+<tr><td>A</td><td>docs/reports/2026-07-29/twins-checklist-integration-2026-07-29-twins-checklist-integration.html</td></tr>
+<tr><td>A</td><td>docs/superpowers/plans/2026-07-29-auth-ci-plan.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/plans/2026-07-29-fable-method-skill-plan.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-07-29-auth-ci-design.md</td></tr>
+<tr><td>A</td><td>docs/superpowers/specs/2026-07-29-fable-method-skill-design.md</td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td></tr>
+<tr><td>M</td><td>scripts/rules/rule-35-auth-gate.mjs</td></tr>
+  </table>
+
+  
+
+  <h2>🔍 Diff</h2>
+  <div class="diff">
+    diff --git a/.github/workflows/deploy.yml b/.github/workflows/deploy.yml
+index af74545..fbbb643 100644
+<span class="del">--- a/.github/workflows/deploy.yml</span>
+<span class="add">+++ b/.github/workflows/deploy.yml</span>
+@@ -3,12 +3,27 @@ name: Deploy
+ on:
+   push:
+     branches: [main]
+<span class="add">+  workflow_dispatch:</span>
+<span class="add">+    inputs:</span>
+<span class="add">+      auth_phrase:</span>
+<span class="add">+        description: '🔐 Frase de autorização para deploy manual'</span>
+<span class="add">+        required: true</span>
+<span class="add">+        type: string</span>
+ 
+ jobs:
+   deploy:
+     runs-on: ubuntu-latest
+ 
+     steps:
+<span class="add">+      - name: 🔐 AUTH Gate</span>
+<span class="add">+        if: github.event_name == 'workflow_dispatch'</span>
+<span class="add">+        run: |</span>
+<span class="add">+          if [ "${{ github.event.inputs.auth_phrase }}" != "Autorizo o deploy para produção" ]; then</span>
+<span class="add">+            echo "❌ AUTH DENIED: frase incorreta"</span>
+<span class="add">+            exit 1</span>
+<span class="add">+          fi</span>
+<span class="add">+          echo "✅ AUTH GRANTED — deploy autorizado"</span>
+<span class="add">+</span>
+       - uses: actions/checkout@v4
+ 
+       - uses: actions/setup-node@v4
+diff --git a/.pi/skills/fable-method/SKILL.md b/.pi/skills/fable-method/SKILL.md
+new file mode 100644
+index 0000000..3586326
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/.pi/skills/fable-method/SKILL.md</span>
+@@ -0,0 +1,202 @@
+<span class="add">+---</span>
+<span class="add">+name: fable-method</span>
+<span class="add">+description: "7-step problem-solving loop adaptado ao MilesControl: classify → define done → evidence → decide → act → verify → report. Use para qualquer tarefa de desenvolvimento (feature, bugfix, refactor, docs, chore) como skill primária."</span>
+<span class="add">+---</span>
+<span class="add">+</span>
+<span class="add">+# Fable Method — MilesControl</span>
+<span class="add">+</span>
+<span class="add">+&gt; Adaptação do [Fable Method](https://github.com/Sahir619/fable-method) (7-step loop)</span>
+<span class="add">+&gt; para o fluxo de desenvolvimento do MilesControl. Costura categorias, gates,</span>
+<span class="add">+&gt; workflow e scripts existentes num único processo.</span>
+<span class="add">+&gt;</span>
+<span class="add">+&gt; **Use esta skill sempre que iniciar qualquer tarefa de desenvolvimento.**</span>
+<span class="add">+</span>
+<span class="add">+Uma skill mais específica (ex: `council-to-superpowers`, `systematic-debugging`)</span>
+<span class="add">+pode substituir passos individuais deste loop — mas o loop completo é o padrão.</span>
+<span class="add">+</span>
+<span class="add">+## Os 7 Passos — Visão Geral</span>
+<span class="add">+</span>
+<span class="add">+| Passo | Ação | Ferramentas |</span>
+<span class="add">+|---|---|---|</span>
+<span class="add">+| **0. Classify** | Identificar categoria da tarefa | `npm run session:start`, sistema de categorias (`AGENTS.md`) |</span>
+<span class="add">+| **1. Define done** | Definir verificação de conclusão | `npm run pre-pr` é a meta; checklist da tarefa |</span>
+<span class="add">+| **2. Evidence** | Coletar evidências antes de agir | Lazy loading docs da categoria; navegação Serena-First; council-to-superpowers (se feature) |</span>
+<span class="add">+| **3. Decide** | Comprometer-se com 1 recomendação | Decisão direta ou council; **🔐 AUTH Gate** se outward-facing |</span>
+<span class="add">+| **4. Act** | Editar cirurgicamente | **🧠 INTENT Gate** antes de editar; edit tool; standing prohibitions |</span>
+<span class="add">+| **5. Verify** | Verificar por observação | `npm run pre-pr` (build+test+rules+docs); **🔁 TWINS Check** se bug fix |</span>
+<span class="add">+| **6. Report** | Reportar resultado primeiro | Outcome-first; relatório HTML do pre-pr; AUTH/INTENT/TWINS/PENDING lines |</span>
+<span class="add">+</span>
+<span class="add">+---</span>
+<span class="add">+</span>
+<span class="add">+## Triviality Gate (execute primeiro)</span>
+<span class="add">+</span>
+<span class="add">+Uma tarefa é trivial **apenas** se TODAS são verdade:</span>
+<span class="add">+</span>
+<span class="add">+1. **1 arquivo** envolvido</span>
+<span class="add">+2. **&lt; ~10 linhas** alteradas</span>
+<span class="add">+3. **Nenhum comportamento novo** — apenas ajuste mecânico</span>
+<span class="add">+4. **Você já sabe exatamente o que mudar** sem precisar buscar contexto</span>
+<span class="add">+</span>
+<span class="add">+**Se trivial:** faça a mudança, confirme com o check óbvio (build/lint/command), reporte em 2 frases.</span>
+<span class="add">+</span>
+<span class="add">+**Tudo mais:** siga o loop completo abaixo.</span>
+<span class="add">+</span>
+<span class="add">+---</span>
+<span class="add">+</span>
+<span class="add">+## Step 0 — Classify</span>
+<span class="add">+</span>
+<span class="add">+Determine a **categoria** da tarefa. As categorias definem quais docs carregar e qual workflow seguir.</span>
+<span class="add">+</span>
+<span class="add">+| Categoria | Docs a carregar | Workflow |</span>
+<span class="add">+|---|---|---|</span>
+<span class="add">+| **feature** | `WORKFLOW.md` + `CONVENTIONS.md` (seções relevantes) | council → build → pre-pr → PR |</span>
+<span class="add">+| **bugfix** | `DEBUG.md` + `CONVENTIONS.md` (seção bugs) | triagem → fix → pre-pr → PR |</span>
+<span class="add">+| **docs** | (só `AGENTS.md`) | editar → pre-pr → PR |</span>
+<span class="add">+| **refactor** | `CONVENTIONS.md` + `ARCHITECTURE.md` | spec → build → pre-pr → PR |</span>
+<span class="add">+| **chore** | (só `AGENTS.md`) | executar → pre-pr → PR |</span>
+<span class="add">+</span>
+<span class="add">+**Tie-breaks:**</span>
+<span class="add">+- Se parece feature mas tem ambiguidade → **plan-first** (vai para council)</span>
+<span class="add">+- Se parece bugfix mas envolve redesign → **refactor**</span>
+<span class="add">+- Se é mista ("por que falha e pode corrigir?") → task, mas o relatório final responde ambas</span>
+<span class="add">+</span>
+<span class="add">+Execute `npm run session:start` para iniciar a sessão e carregar o handoff atual.</span>
+<span class="add">+</span>
+<span class="add">+Extraia também as **restrições** que o usuário já declarou e as **decisões** já tomadas. Não re-lite decisões estabelecidas.</span>
+<span class="add">+</span>
+<span class="add">+---</span>
+<span class="add">+</span>
+<span class="add">+## Step 1 — Define Done</span>
+<span class="add">+</span>
+<span class="add">+Em **1-2 frases**, o que significa "pronto" e como será verificado.</span>
+<span class="add">+</span>
+<span class="add">+- **Task:** `npm run pre-pr` passa (build + test + rules + docs)</span>
+<span class="add">+- **Bugfix:** o bug não se reproduz mais + `pre-pr` passa</span>
+<span class="add">+- **Refactor:** comportamento inalterado + `pre-pr` passa</span>
+<span class="add">+- **Docs:** `npm run verify-docs` passa</span>
+<span class="add">+</span>
+<span class="add">+**State suas premissas.** Se uma premissa é verificável com 1 comando, verifique em vez de assumir.</span>
+<span class="add">+</span>
+<span class="add">+**⚠️ Se após re-ler o pedido você ainda não consegue nomear uma verificação, faça** uma pergunta específica ao usuário antes de prosseguir.</span>
+<span class="add">+</span>
+<span class="add">+---</span>
+  </div>
+
+  <p class="meta center">Gerado por scripts/generate-report.mjs</p>
+</body>
+</html>

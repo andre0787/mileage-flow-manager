@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>flake-session-start-isolamento — flake session start isolamento</title>
+  <style>
+    :root{
+      --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;
+      --text:#e6edf7;--muted:#8fa3c0;--blue:#3b82f6;--green:#34d399;--amber:#fbbf24;--red:#f87171;--gold:#f59e0b;--teal:#2dd4bf;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      background:radial-gradient(1200px 600px at 15% -10%,#12203f 0%,transparent 55%),radial-gradient(1000px 500px at 110% 20%,#0f2440 0%,transparent 50%),var(--bg);
+      color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;
+    }
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    .deck{min-height:100vh;display:flex;flex-direction:column}
+    .slide{
+      flex:1 0 auto;min-height:100vh;padding:5.5rem clamp(1.25rem,5vw,4.5rem) 3.5rem;
+      display:flex;flex-direction:column;justify-content:center;gap:1.4rem;
+      max-width:1180px;margin:0 auto;width:100%;
+      border-bottom:1px solid var(--line);
+    }
+    .deck-mode .slide{display:none}
+    .deck-mode .slide.active{display:flex}
+    .nav{
+      position:fixed;top:1rem;right:1rem;z-index:60;display:flex;gap:.4rem;align-items:center;
+      background:rgba(10,15,30,.85);backdrop-filter:blur(8px);border:1px solid var(--line);
+      border-radius:999px;padding:.35rem .5rem;box-shadow:0 8px 24px rgba(0,0,0,.45);
+    }
+    .nav button{
+      background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:1.05rem;
+      width:2.1rem;height:2.1rem;border-radius:999px;transition:all .15s;line-height:1;
+    }
+    .nav button:hover{background:var(--card2);color:var(--text)}
+    .nav .count{font-size:.72rem;color:var(--muted);min-width:2.6rem;text-align:center;font-variant-numeric:tabular-nums}
+    .nav .mode-btn{width:auto;padding:0 .7rem;font-size:.72rem;color:var(--muted)}
+    .hero{display:flex;flex-direction:column;gap:.9rem}
+    .hero-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+    .hero-badges{display:flex;gap:.5rem;flex-wrap:wrap}
+    .badge{
+      display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .7rem;border-radius:999px;
+      font-size:.72rem;font-weight:700;letter-spacing:.02em;border:1px solid var(--line);color:var(--muted);
+    }
+    .badge.pr{color:#93c5fd;border-color:rgba(59,130,246,.4);background:rgba(59,130,246,.12)}
+    .badge.feat{color:#6ee7b7;border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.1)}
+    .badge.fix{color:#fca5a5;border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.1)}
+    .badge.docs{color:#c4b5fd;border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.1)}
+    .badge.chore,.badge.auto{color:#a7b8d1;border-color:var(--line);background:rgba(255,255,255,.04)}
+    .badge.risk{border-style:dashed}
+    .badge.health{font-weight:800}
+    .hero-date{font-size:.78rem;color:var(--muted)}
+    h1{font-size:clamp(1.9rem,4.5vw,3.3rem);line-height:1.08;letter-spacing:-.03em;font-weight:800;text-wrap:balance}
+    .hero-summary{font-size:clamp(1rem,1.6vw,1.3rem);color:var(--muted);max-width:62ch;text-wrap:balance}
+    .hero-meta{font-size:.72rem;color:var(--muted);opacity:.8}
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin-top:.4rem}
+    .kpi{
+      background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);
+      border-radius:1rem;padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.2rem;
+      box-shadow:0 10px 30px rgba(0,0,0,.3);
+    }
+    .kpi-value{font-size:clamp(1.9rem,3vw,2.6rem);font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--text)}
+    .kpi-value.green{color:var(--green)}.kpi-value.amber{color:var(--amber)}
+    .kpi-label{font-size:.8rem;color:var(--muted);font-weight:600}
+    .kpi-sub{font-size:.7rem;color:var(--muted);opacity:.75}
+    .bluf{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem}
+    .bluf-col{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}
+    .bluf-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-weight:800;margin-bottom:.4rem}
+    .bluf-col p{font-size:.9rem;color:var(--text)}
+    .slide-head{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.6rem}
+    .slide-kicker{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);font-weight:800}
+    .slide-head h2{font-size:clamp(1.4rem,3vw,2.1rem);letter-spacing:-.02em;font-weight:800}
+    .impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+    .impact-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.4rem;display:flex;flex-direction:column;gap:.5rem}
+    .impact-icon{font-size:1.6rem}
+    .impact-card h3{font-size:1rem;font-weight:800;letter-spacing:-.01em}
+    .impact-card p{font-size:.9rem;color:var(--muted)}
+    .impact-card.blue{border-top:3px solid var(--blue)}
+    .impact-card.gold{border-top:3px solid var(--gold)}
+    .impact-card.teal{border-top:3px solid var(--teal)}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;align-items:start}
+    @media(max-width:760px){.split{grid-template-columns:1fr}}
+    .timeline{position:relative;padding-left:1.4rem;display:flex;flex-direction:column;gap:1.05rem}
+    .timeline::before{content:"";position:absolute;left:.4rem;top:.3rem;bottom:.3rem;width:2px;background:linear-gradient(180deg,var(--blue),var(--green))}
+    .tl-item{position:relative;display:flex;align-items:center;gap:.9rem}
+    .tl-dot{position:absolute;left:-1.4rem;width:.85rem;height:.85rem;border-radius:50%;background:var(--card);border:2px solid var(--blue)}
+    .tl-item.pr\\:merge .tl-dot,.tl-item.pr-merge .tl-dot{border-color:var(--green);background:var(--green)}
+    .tl-item.pre-pr .tl-dot{border-color:var(--amber)}
+    .tl-body{display:flex;flex-direction:column}
+    .tl-time{font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:700}
+    .tl-label{font-size:.92rem;font-weight:600}
+    .tl-total{margin-top:.4rem;font-size:.85rem;color:var(--green);font-weight:700}
+    .empty-note{font-size:.9rem;color:var(--muted);border:1px dashed var(--line);border-radius:1rem;padding:1.2rem}
+    .stat-list{display:flex;flex-direction:column;gap:.8rem}
+    .stat{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1rem 1.2rem;display:flex;align-items:baseline;gap:.9rem}
+    .stat-v{font-size:1.7rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--blue)}
+    .stat-v.green{color:var(--green)}
+    .stat-l{font-size:.82rem;color:var(--muted)}
+    .appendix{justify-content:flex-start}
+    .appendix-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:860px){.appendix-grid{grid-template-columns:1fr}}
+    .ap-card{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}
+    .ap-card h3{font-size:.92rem;font-weight:800;margin-bottom:.6rem}
+    .detail-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.2rem;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+    .detail-scroll{max-height:56vh;overflow:auto;border-radius:.8rem}
+    .detail-scroll table{margin:0}
+    .detail-note{font-size:.72rem;color:var(--muted);opacity:.8;margin-top:.7rem}
+    .checks{list-style:none;display:flex;flex-direction:column;gap:.35rem}
+    .checks li{font-size:.85rem;color:var(--muted)}
+    .ns-add{color:#34d399;font-weight:600}
+    .ns-del{color:#f87171;font-weight:600}
+    .commit-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;max-height:260px;overflow-y:auto;margin:0;padding:0}
+    .commit-list li{font-size:.82rem;color:var(--muted);line-height:1.35}
+    .commit-list code{background:var(--border);border-radius:4px;padding:.05rem .35rem;font-size:.75rem;color:var(--fg);margin-right:.4rem}
+    table{width:100%;border-collapse:collapse;font-size:.8rem}
+    td,th{border:1px solid var(--line);padding:.45rem .6rem;text-align:left;vertical-align:top;color:var(--muted)}
+    th{color:var(--text);font-weight:700;background:rgba(255,255,255,.04)}
+    td code,code{color:#93c5fd;font-family:ui-monospace,Menlo,monospace;font-size:.78rem}
+    .evidence{max-width:100%;border:1px solid var(--line);border-radius:.8rem;margin-top:.7rem}
+    .token-bar{display:flex;border-radius:.6rem;overflow:hidden;margin:.7rem 0;font-size:.7rem}
+    .token-bar div{padding:.3rem .7rem;text-align:center;white-space:nowrap}
+    .token-bar .add{background:rgba(52,211,153,.18);color:#6ee7b7}
+    .token-bar .del{background:rgba(248,113,113,.16);color:#fca5a5}
+    .token-bar .overhead{background:rgba(255,255,255,.07);color:var(--muted)}
+    .diff-title{margin:1.2rem 0 .5rem;font-size:.92rem;font-weight:800}
+    .diff{background:#070b16;color:#c9d6ea;padding:.9rem;border-radius:.8rem;font:.74rem/1.5 ui-monospace,Menlo,monospace;overflow-x:auto;max-height:340px;border:1px solid var(--line)}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .foot{margin:1.4rem auto 2.5rem;text-align:center;font-size:.7rem;color:var(--muted);opacity:.6}
+    .foot .scroll-hint{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3rem .9rem;margin-bottom:.8rem}
+    @page{size:A4 landscape;margin:12mm}
+    @media print{
+      html,body{background:#fff!important;color:#111}
+      .nav{display:none!important}
+      .slide{min-height:0;page-break-after:always;break-after:page;display:flex!important;border-bottom:0;padding:1.5rem 0}
+      .slide:last-child{page-break-after:auto;break-after:auto}
+      .hero h1{color:#0b1220}
+      .hero-summary,.hero-date,.hero-meta,.kpi-label,.kpi-sub,.bluf-col p,.impact-card p,.tl-time,.tl-label,.stat-l,.checks li,td,th,.foot{color:#334155}
+      .kpi,.impact-card,.bluf-col,.ap-card,.stat{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-card{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-scroll{max-height:none;overflow:visible}
+      .bluf-col,.checks li{color:#334155}
+      .diff{background:#f8fafc;color:#0f172a;border-color:#e2e8f0}
+      .timeline::before{background:linear-gradient(180deg,#3b82f6,#16a34a)}
+      tr{break-inside:avoid;page-break-inside:avoid}
+      th,td{font-size:.72rem}
+      .detail-scroll table{margin:0}
+      img.evidence{max-height:120mm;object-fit:contain}
+    }
+  </style>
+</head>
+<body>
+  <div class="nav" id="deckNav">
+    <button id="prevBtn" title="Anterior (←)">←</button>
+    <span class="count" id="slideCount">1/5</span>
+    <button id="nextBtn" title="Próxima (→)">→</button>
+    <button id="fsBtn" title="Tela cheia (F)">⛶</button>
+    <button id="printBtn" title="Imprimir / PDF (P)">⎙</button>
+    <button class="mode-btn" id="modeBtn" title="Alternar modo documento">📄</button>
+  </div>
+
+  <div class="deck" id="deck">
+    
+    <section class="slide" id="s1">
+      <div class="hero">
+        <div class="hero-top">
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">flake-session-start-isolamento</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
+          <div class="hero-date">2026-09-08 · 23:28 · <span class="mono">fix/flake-session-start-isolamento</span></div>
+        </div>
+        <h1>flake session start isolamento</h1>
+        <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
+        <div class="hero-meta mono">afb7a41 — fix: isola estado do teste session-start por worker (issue #567)</div>
+      </div>
+      
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-value">0</div>
+        <div class="kpi-label">entregas em produção</div>
+        <div class="kpi-sub">1 implementações · 1 reviews</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value">—</div>
+        <div class="kpi-label">lead time (início → produção)</div>
+        <div class="kpi-sub">da sessão ao deploy</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value">0/1</div>
+        <div class="kpi-label">fricção pré-PR (fail/total)</div>
+        <div class="kpi-sub">0 violações · 1 auto-corrigidas</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value green">100</div>
+        <div class="kpi-label">outcome grade</div>
+        <div class="kpi-sub">médio risco da mudança</div>
+      </div>
+    </div>
+      <div class="bluf">
+        <div class="bluf-col">
+          <div class="bluf-label">Decisão & entregas</div>
+          <p>Correção de comportamento validada — menos risco de erro para quem usa o produto.</p>
+        </div>
+        <div class="bluf-col">
+          <div class="bluf-label">Impacto esperado</div>
+          <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+        </div>
+        <div class="bluf-col">
+          <div class="bluf-label">Riscos & trade-offs</div>
+          <p>Médio risco de mudança · outcome grade = 100 · lead time —.</p>
+        </div>
+      </div>
+    </section><section class="slide" id="s2">
+        <div class="slide-head">
+          <span class="slide-kicker">Impacto da sessão</span>
+          <h2>O que isso significa para o negócio</h2>
+        </div>
+        <div class="impact-grid">
+          <div class="impact-card blue">
+                <div class="impact-icon">🎯</div>
+                <h3>Impacto de Produto</h3>
+                <p>Correção de comportamento validada — menos risco de erro para quem usa o produto.</p>
+              </div><div class="impact-card gold">
+                <div class="impact-icon">🏢</div>
+                <h3>Impacto de Negócio</h3>
+                <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+              </div><div class="impact-card teal">
+                <div class="impact-icon">🌊</div>
+                <h3>Impacto de Processo</h3>
+                <p>Fluxo completo seguido: sessão → implementação → code review → pré-PR → PR. Detalhes nas métricas automáticas.</p>
+              </div>
+        </div>
+      </section>
+    <section class="slide" id="s3">
+      <div class="slide-head">
+        <span class="slide-kicker">Valor por entrega</span>
+        <h2>Detalhamento por item</h2>
+      </div>
+      <div class="detail-card">
+        <div class="detail-scroll"><table>
+    <tr>
+      <th style="width:16%">Item</th>
+      <th style="width:24%">Correção Efetuada</th>
+      <th style="width:20%">Benefício</th>
+      <th style="width:24%">Impacto no Negócio</th>
+      <th style="width:16%">Custo Token</th>
+    </tr>
+    <tr>
+      <td><strong>Entrega da sessão</strong></td>
+      <td>flake session start isolamento</td>
+      <td>Correção de comportamento validada — menos risco de erro para quem usa o produto.</td>
+      <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
+      <td><code>~446</code></td>
+    </tr>
+  </table></div>
+        <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.172 tokens (feature) · status pesado — tracking</p>
+      </div>
+    </section>
+    <section class="slide" id="s4">
+      <div class="slide-head">
+        <span class="slide-kicker">Execução</span>
+        <h2>Timeline da sessão</h2>
+      </div>
+      <div class="split">
+        <div class="split-left"><div class="timeline">
+        <div class="tl-item coding:done">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">02:26</div>
+                <div class="tl-label">Implementação concluída</div>
+              </div>
+            </div><div class="tl-item code-review:done">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">02:27</div>
+                <div class="tl-label">Code review aprovado</div>
+              </div>
+            </div><div class="tl-item pre-pr">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">02:27</div>
+                <div class="tl-label">Validação pré-PR</div>
+              </div>
+            </div>
+        
+      </div></div>
+        <div class="split-right">
+          <div class="stat-list">
+            <div class="stat"><span class="stat-v">1</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">0</span><span class="stat-l">violações de regra encontradas</span></div>
+            <div class="stat"><span class="stat-v green">1</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
+            <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="slide appendix" id="s5">
+      <div class="slide-head">
+        <span class="slide-kicker">Apêndice técnico</span>
+        <h2>Detalhes da implementação</h2>
+      </div>
+      <div class="appendix-grid">
+        <div class="ap-card">
+          <h3>✅ Checklist de revisão</h3>
+          <ul class="checks">
+            <li>🧪 Testes manuais realizados?</li>
+<li>📋 Regras de validação passam? (npm run pre-pr)</li>
+          </ul>
+        </div>
+        <div class="ap-card">
+          <h3>📸 Evidências — antes & depois</h3>
+          <table>
+            <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 132 remoções — 595 linhas tocadas</td><td>✨ 227 adições — 4 arquivo(s) alterado(s)</td></tr>
+          </table>
+          
+        </div>
+        <div class="ap-card">
+          <h3>📊 Métricas da mudança</h3>
+          <table>
+            <tr><th>Métrica</th><th>Valor</th></tr>
+            <tr><td>Arquivos alterados</td><td>4</td></tr>
+            <tr><td>Adições</td><td>+227</td></tr>
+            <tr><td>Remoções</td><td>-132</td></tr>
+            <tr><td>Tokens estimados</td><td>~446</td></tr>
+          </table>
+          <div class="token-bar">
+        <div class="add" style="flex:38">+170 add</div>
+        <div class="del" style="flex:22">-99 del</div>
+        <div class="overhead" style="flex:40">~177 ctx</div>
+      </div>
+          <h3>Breakdown de tokens</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+170</td><td>38%</td></tr>
+      <tr><td>Remoções</td><td>-99</td><td>22%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~177</td><td>40%</td></tr>
+      <tr><th>Total</th><th>~446</th><th>100%</th></tr>
+    </table>
+        </div>
+        <div class="ap-card">
+          <h3>📁 Arquivos</h3>
+          <table>
+            <tr><th>Status</th><th>Arquivo</th><th>+/-</th></tr>
+            <tr><td>M</td><td>docs/handoff.md</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−1</span></td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td><td class="mono"><span class="ns-add">+4</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>scripts/session-start.mjs</td><td class="mono"><span class="ns-add">+122</span> <span class="ns-del">−53</span></td></tr>
+<tr><td>M</td><td>tests/unit/scripts-session-start.test.ts</td><td class="mono"><span class="ns-add">+96</span> <span class="ns-del">−74</span></td></tr>
+          </table>
+        </div>
+        <div class="ap-card">
+          <h3>🔖 Commits da sessão (1)</h3>
+          <ul class="commit-list">
+            <li><code>afb7a41</code> fix: isola estado do teste session-start por worker (issue #567)</li>
+          </ul>
+        </div>
+        <div class="ap-card">
+          <h3>🧪 Qualidade de hoje</h3>
+          <table>
+            <tr><th>Métrica</th><th>Valor</th></tr>
+            <tr><td>Cobertura libs (rule-31)</td><td>sem registro hoje</td></tr>
+            <tr><td>Cobertura componentes (rule-32)</td><td>sem registro hoje</td></tr>
+            <tr><td>Outcome grade (rule-30)</td><td>100</td></tr>
+          </table>
+        </div>
+      </div>
+      <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
+      <div class="diff">
+        diff --git a/docs/handoff.md b/docs/handoff.md
+index 873c2ef..8491bee 100644
+<span class="del">--- a/docs/handoff.md</span>
+<span class="add">+++ b/docs/handoff.md</span>
+@@ -52,7 +52,7 @@ Nenhum PR aberto.
+ **Objetivo:** continuacao
+ **Status:** in_progress
+ **Iniciada em:** 2026-09-07T19:07:27.835Z
+<span class="del">-**Branch:** `fix/limite-passageiros-por-dono`</span>
+<span class="add">+**Branch:** `fix/flake-session-start-isolamento`</span>
+ **Último commit:** d1eccfe — Merge pull request #561 from andre0787/feat/client-advance-payment
+ **Docs carregados:** AGENTS.md
+ 
+diff --git a/docs/tracking/events.jsonl b/docs/tracking/events.jsonl
+index c72790d..69220fa 100644
+<span class="del">--- a/docs/tracking/events.jsonl</span>
+<span class="add">+++ b/docs/tracking/events.jsonl</span>
+@@ -443,3 +443,7 @@
+ {&quot;timestamp&quot;:&quot;2026-09-07T22:52:18.699Z&quot;,&quot;type&quot;:&quot;gate&quot;,&quot;description&quot;:&quot;gate auth executado (rule-35-auth-gate)&quot;,&quot;branch&quot;:&quot;fix/limite-passageiros-por-dono&quot;,&quot;commit&quot;:&quot;23def43&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;gate&quot;:&quot;auth&quot;,&quot;rule&quot;:&quot;rule-35-auth-gate&quot;}
+ {&quot;timestamp&quot;:&quot;2026-09-07T22:52:55.190Z&quot;,&quot;type&quot;:&quot;pre-pr&quot;,&quot;description&quot;:&quot;pre-pr PASS&quot;,&quot;branch&quot;:&quot;fix/limite-passageiros-por-dono&quot;,&quot;commit&quot;:&quot;23def43&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;errors&quot;:0}
+ {&quot;timestamp&quot;:&quot;2026-09-07T22:59:15.441Z&quot;,&quot;type&quot;:&quot;pre-pr&quot;,&quot;description&quot;:&quot;pre-pr PASS&quot;,&quot;branch&quot;:&quot;fix/limite-passageiros-por-dono&quot;,&quot;commit&quot;:&quot;0518aab&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;errors&quot;:0}
+<span class="add">+{&quot;timestamp&quot;:&quot;2026-09-08T02:26:24.424Z&quot;,&quot;type&quot;:&quot;coding:done&quot;,&quot;description&quot;:&quot;Codificacao por subagente concluida&quot;,&quot;branch&quot;:&quot;fix/flake-session-start-isolamento&quot;,&quot;commit&quot;:&quot;c1ca905&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;subagent&quot;:true,&quot;skill&quot;:&quot;subagent-driven-development&quot;}</span>
+<span class="add">+{&quot;timestamp&quot;:&quot;2026-09-08T02:27:33.661Z&quot;,&quot;type&quot;:&quot;code-review:done&quot;,&quot;description&quot;:&quot;Review aprovado por subagente&quot;,&quot;branch&quot;:&quot;fix/flake-session-start-isolamento&quot;,&quot;commit&quot;:&quot;c1ca905&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;subagent&quot;:true,&quot;verdict&quot;:&quot;approved&quot;}</span>
+<span class="add">+{&quot;timestamp&quot;:&quot;2026-09-08T02:27:36.623Z&quot;,&quot;type&quot;:&quot;healed&quot;,&quot;description&quot;:&quot;rule-26 auto-corrigido&quot;,&quot;branch&quot;:&quot;fix/flake-session-start-isolamento&quot;,&quot;commit&quot;:&quot;c1ca905&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;rule&quot;:&quot;rule-26&quot;}</span>
+<span class="add">+{&quot;timestamp&quot;:&quot;2026-09-08T02:27:37.543Z&quot;,&quot;type&quot;:&quot;pre-pr&quot;,&quot;description&quot;:&quot;pre-pr PASS&quot;,&quot;branch&quot;:&quot;fix/flake-session-start-isolamento&quot;,&quot;commit&quot;:&quot;c1ca905&quot;,&quot;agent&quot;:&quot;pi&quot;,&quot;errors&quot;:0}</span>
+diff --git a/scripts/session-start.mjs b/scripts/session-start.mjs
+index 39688b0..a6ea1d0 100644
+<span class="del">--- a/scripts/session-start.mjs</span>
+<span class="add">+++ b/scripts/session-start.mjs</span>
+@@ -19,7 +19,10 @@ import { createInterface } from &quot;readline&quot;;
+ 
+ const __dirname = dirname(fileURLToPath(import.meta.url));
+ const ROOT = resolve(__dirname, &quot;..&quot;);
+<span class="del">-const HANDOFF_PATH = resolve(ROOT, &quot;docs/handoff.md&quot;);</span>
+<span class="add">+// Override para testes: MILESCONTROL_HANDOFF aponta o script para uma cópia</span>
+<span class="add">+// temporária (issue #567 — o teste unitário não pode mutar o handoff real</span>
+<span class="add">+// com workers vitest em paralelo).</span>
+<span class="add">+const HANDOFF_PATH = process.env.MILESCONTROL_HANDOFF || resolve(ROOT, &quot;docs/handoff.md&quot;);</span>
+ const CATEGORIAS = [&quot;feature&quot;, &quot;bugfix&quot;, &quot;docs&quot;, &quot;refactor&quot;, &quot;chore&quot;];
+ const DOCS_CARREGADOS = {
+   feature: &quot;WORKFLOW.md, conventions/common.md, conventions/feature.md&quot;,
+@@ -28,7 +31,13 @@ const DOCS_CARREGADOS = {
+   refactor: &quot;conventions/common.md, conventions/refactor.md, ARCHITECTURE.md&quot;,
+   chore: &quot;AGENTS.md&quot;,
+ };
+<span class="del">-const LABELS = { feature: &quot;feature&quot;, bugfix: &quot;bugfix&quot;, docs: &quot;docs&quot;, refactor: &quot;refactor&quot;, chore: &quot;chore&quot; };</span>
+<span class="add">+const LABELS = {</span>
+<span class="add">+  feature: &quot;feature&quot;,</span>
+<span class="add">+  bugfix: &quot;bugfix&quot;,</span>
+<span class="add">+  docs: &quot;docs&quot;,</span>
+<span class="add">+  refactor: &quot;refactor&quot;,</span>
+<span class="add">+  chore: &quot;chore&quot;,</span>
+<span class="add">+};</span>
+ 
+ function readFile(p) {
+   return existsSync(p) ? readFileSync(p, &quot;utf8&quot;) : null;
+@@ -39,41 +48,70 @@ async function main() {
+   const setCatIdx = process.argv.indexOf(&quot;--set-category&quot;);
+ 
+   // ─── Garante pre-commit hook ───
+<span class="del">-  try { execSync(&quot;git config core.hooksPath .githooks&quot;, { cwd: ROOT, encoding: &quot;utf8&quot;, timeout: 3000 }); } catch {}</span>
+<span class="add">+  try {</span>
+<span class="add">+    execSync(&quot;git config core.hooksPath .githooks&quot;, { cwd: ROOT, encoding: &quot;utf8&quot;, timeout: 3000 });</span>
+<span class="add">+  } catch {}</span>
+ 
+   // ─── Info do git ───
+   const branch = (() =&gt; {
+<span class="del">-    try { return execSync(&quot;git rev-parse --abbrev-ref HEAD&quot;, { cwd: ROOT, encoding: &quot;utf8&quot;, timeout: 3000 }).trim(); }</span>
+<span class="del">-    catch { return &quot;?&quot;; }</span>
+<span class="add">+    try {</span>
+<span class="add">+      return execSync(&quot;git rev-parse --abbrev-ref HEAD&quot;, {</span>
+<span class="add">+        cwd: ROOT,</span>
+<span class="add">+        encoding: &quot;utf8&quot;,</span>
+<span class="add">+        timeout: 3000,</span>
+<span class="add">+      }).trim();</span>
+<span class="add">+    } catch {</span>
+<span class="add">+      return &quot;?&quot;;</span>
+<span class="add">+    }</span>
+   })();
+ 
+   const commit = (() =&gt; {
+<span class="del">-    try { return execSync(&quot;git log -1 --format='%h — %s'&quot;, { cwd: ROOT, encoding: &quot;utf8&quot;, timeout: 3000 }).trim(); }</span>
+<span class="del">-    catch { return &quot;?&quot;; }</span>
+<span class="add">+    try {</span>
+<span class="add">+      return execSync(&quot;git log -1 --format='%h — %s'&quot;, {</span>
+<span class="add">+        cwd: ROOT,</span>
+<span class="add">+        encoding: &quot;utf8&quot;,</span>
+<span class="add">+        timeout: 3000,</span>
+<span class="add">+      }).trim();</span>
+<span class="add">+    } catch {</span>
+<span class="add">+      return &quot;?&quot;;</span>
+<span class="add">+    }</span>
+   })();
+ 
+   const prs = (() =&gt; {
+     try {
+<span class="del">-      const o = execSync(&quot;gh pr list --state open --json number,title 2&gt;/dev/null&quot;, { cwd: ROOT, encoding: &quot;utf8&quot;, timeout: 5000 });</span>
+<span class="add">+      const o = execSync(&quot;gh pr list --state open --json number,title 2&gt;/dev/null&quot;, {</span>
+<span class="add">+        cwd: ROOT,</span>
+<span class="add">+        encoding: &quot;utf8&quot;,</span>
+<span class="add">+        timeout: 5000,</span>
+<span class="add">+      });</span>
+       const l = JSON.parse(o);
+<span class="del">-      return l.length ? l.map(p =&gt; `#${p.number}`).join(&quot;, &quot;) : &quot;nenhum&quot;;</span>
+<span class="del">-    } catch { return &quot;?&quot;; }</span>
+<span class="add">+      return l.length ? l.map((p) =&gt; `#${p.number}`).join(&quot;, &quot;) : &quot;nenhum&quot;;</span>
+<span class="add">+    } catch {</span>
+<span class="add">+      return &quot;?&quot;;</span>
+<span class="add">+    }</span>
+   })();
+ 
+   const status = (() =&gt; {
+     try {
+<span class="del">-      const o = execSync(&quot;git status --short&quot;, { cwd: ROOT, encoding: &quot;utf8&quot;, timeout: 3000 }).trim();</span>
+<span class="add">+      const o = execSync(&quot;git status --short&quot;, {</span>
+<span class="add">+        cwd: ROOT,</span>
+<span class="add">+        encoding: &quot;utf8&quot;,</span>
+<span class="add">+        timeout: 3000,</span>
+<span class="add">+      }).trim();</span>
+       return o || &quot;limpo&quot;;
+      </div>
+    </section>
+    <div class="foot">
+      <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
+      Gerado por scripts/generate-report.mjs · 2026-09-08 23:28
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+      var deck = document.getElementById("deck");
+      var count = document.getElementById("slideCount");
+      var nav = document.getElementById("deckNav");
+      var current = 0;
+      var deckMode = true;
+
+      function show(i) {
+        current = Math.max(0, Math.min(slides.length - 1, i));
+        slides.forEach(function (s, idx) {
+          s.classList.toggle("active", idx === current);
+        });
+        count.textContent = (current + 1) + "/" + slides.length;
+        if (deckMode) {
+          window.scrollTo(0, 0);
+        } else {
+          slides[current].scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      function toggleMode() {
+        deckMode = !deckMode;
+        deck.classList.toggle("deck-mode", deckMode);
+        document.body.classList.toggle("deck-mode", deckMode);
+        nav.style.display = deckMode ? "flex" : "none";
+        if (deckMode) show(current);
+      }
+
+      document.getElementById("nextBtn").addEventListener("click", function () { show(current + 1); });
+      document.getElementById("prevBtn").addEventListener("click", function () { show(current - 1); });
+      document.getElementById("fsBtn").addEventListener("click", function () {
+        if (document.fullscreenElement) document.exitFullscreen();
+        else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+      });
+      document.getElementById("printBtn").addEventListener("click", function () { window.print(); });
+      document.getElementById("modeBtn").addEventListener("click", toggleMode);
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); show(current + 1); }
+        else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); show(current - 1); }
+        else if (e.key === "Home") { e.preventDefault(); show(0); }
+        else if (e.key === "End") { e.preventDefault(); show(slides.length - 1); }
+        else if (e.key === "f" || e.key === "F") {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+        }
+        else if (e.key === "p" || e.key === "P") { window.print(); }
+      });
+
+      if (window.innerWidth < 640) toggleMode();
+      else { deck.classList.add("deck-mode"); document.body.classList.add("deck-mode"); show(0); }
+    })();
+  </script>
+</body>
+</html>
