@@ -56,9 +56,39 @@ describe("parseDateOnly", () => {
     expect(d.getDate()).toBe(1);
   });
 
-  it("passa direto strings ISO completas (com hora)", () => {
-    const full = new Date("2026-08-05T15:30:00.000Z");
-    expect(parseDateOnly("2026-08-05T15:30:00.000Z").getTime()).toBe(full.getTime());
+  it("define o horário local para meio-dia (12:00:00) ao receber YYYY-MM-DD", () => {
+    const d = parseDateOnly("2026-08-15");
+    expect(d.getHours()).toBe(12);
+    expect(d.getMinutes()).toBe(0);
+    expect(d.getSeconds()).toBe(0);
+  });
+
+  it("preserva limites do mês, fim do ano e ano bissexto", () => {
+    const endJan = parseDateOnly("2026-01-31");
+    expect(endJan.getMonth()).toBe(0);
+    expect(endJan.getDate()).toBe(31);
+
+    const endDec = parseDateOnly("2026-12-31");
+    expect(endDec.getMonth()).toBe(11);
+    expect(endDec.getDate()).toBe(31);
+
+    const leap = parseDateOnly("2024-02-29");
+    expect(leap.getFullYear()).toBe(2024);
+    expect(leap.getMonth()).toBe(1);
+    expect(leap.getDate()).toBe(29);
+  });
+
+  it("passa direto strings ISO completas (com hora e offset)", () => {
+    const fullUtc = new Date("2026-08-05T15:30:00.000Z");
+    expect(parseDateOnly("2026-08-05T15:30:00.000Z").getTime()).toBe(fullUtc.getTime());
+
+    const fullOffset = new Date("2026-08-05T10:00:00-03:00");
+    expect(parseDateOnly("2026-08-05T10:00:00-03:00").getTime()).toBe(fullOffset.getTime());
+  });
+
+  it("lida com entradas inválidas ou formatos não-ISO de forma segura", () => {
+    expect(isNaN(parseDateOnly("invalid").getTime())).toBe(true);
+    expect(isNaN(parseDateOnly("").getTime())).toBe(true);
   });
 });
 
