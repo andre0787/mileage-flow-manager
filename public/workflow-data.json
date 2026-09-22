@@ -1,85 +1,14 @@
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "generatedAt": "2026-09-22T00:14:45.990Z",
+  "generatedAt": "2026-09-22T04:43:33.080Z",
   "dataDate": "2026-09-22",
   "kpiStats": [
     {
-      "value": 391,
-=======
-  "generatedAt": "2026-09-21T12:38:26.973Z",
-=======
-  "generatedAt": "2026-09-21T13:22:48.898Z",
->>>>>>> pr-680
-  "dataDate": "2026-09-21",
-  "kpiStats": [
-    {
-      "value": 550,
-<<<<<<< HEAD
->>>>>>> pr-663
-=======
-  "generatedAt": "2026-09-21T12:42:25.731Z",
-  "dataDate": "2026-09-21",
-  "kpiStats": [
-    {
-      "value": 563,
->>>>>>> pr-673
-=======
-  "generatedAt": "2026-09-21T12:44:33.478Z",
-  "dataDate": "2026-09-21",
-  "kpiStats": [
-    {
-      "value": 561,
->>>>>>> pr-678
-=======
-  "generatedAt": "2026-09-21T12:39:34.091Z",
-  "dataDate": "2026-09-21",
-  "kpiStats": [
-    {
-      "value": 558,
->>>>>>> pr-670
-=======
->>>>>>> pr-680
-=======
-  "generatedAt": "2026-09-21T12:36:15.735Z",
-  "dataDate": "2026-09-21",
-  "kpiStats": [
-    {
-      "value": 385,
->>>>>>> pr-656
+      "value": 815,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "value": 511,
-=======
-      "value": 582,
->>>>>>> pr-663
-=======
-      "value": 588,
->>>>>>> pr-673
-=======
-      "value": 588,
->>>>>>> pr-678
-=======
-      "value": 585,
->>>>>>> pr-670
-=======
-      "value": 582,
->>>>>>> pr-680
-=======
-      "value": 508,
->>>>>>> pr-656
+      "value": 706,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -89,41 +18,17 @@
       "sub": "auto-executadas no pre-pr"
     },
     {
-      "value": 358,
+      "value": 372,
       "label": "arquivos de teste",
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 14,
+      "value": 26,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "value": 31,
-=======
-      "value": 42,
->>>>>>> pr-663
-=======
-      "value": 42,
->>>>>>> pr-673
-=======
-      "value": 42,
->>>>>>> pr-678
-=======
-      "value": 42,
->>>>>>> pr-670
-=======
-      "value": 42,
->>>>>>> pr-680
-=======
-      "value": 31,
->>>>>>> pr-656
+      "value": 65,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -136,52 +41,12 @@
     },
     {
       "name": "pre-pr",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "n": 112,
-=======
-      "n": 122,
->>>>>>> pr-663
-=======
-      "n": 124,
->>>>>>> pr-673
-=======
-      "n": 122,
->>>>>>> pr-678
-=======
-      "n": 122,
->>>>>>> pr-670
-=======
-      "n": 122,
->>>>>>> pr-680
-=======
-      "n": 112,
->>>>>>> pr-656
+      "n": 137,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "n": 91,
-=======
-      "n": 117,
->>>>>>> pr-673
-=======
-      "n": 118,
->>>>>>> pr-678
-=======
-      "n": 117,
->>>>>>> pr-670
-=======
-      "n": 90,
->>>>>>> pr-656
+      "n": 116,
       "color": "#ef4444"
     },
     {
@@ -191,48 +56,12 @@
     },
     {
       "name": "code-review:done",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "n": 35,
-=======
-      "n": 36,
->>>>>>> pr-670
-=======
-      "n": 35,
->>>>>>> pr-680
-=======
-      "n": 33,
->>>>>>> pr-656
+      "n": 58,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "n": 31,
-=======
-      "n": 34,
->>>>>>> pr-663
-=======
-      "n": 35,
->>>>>>> pr-673
-=======
-      "n": 34,
->>>>>>> pr-678
-=======
-      "n": 35,
->>>>>>> pr-670
-=======
-      "n": 34,
->>>>>>> pr-680
-=======
-      "n": 31,
->>>>>>> pr-656
+      "n": 55,
       "color": "#22c55e"
     },
     {
@@ -242,31 +71,7 @@
     },
     {
       "name": "gate",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "n": 105,
-=======
-      "n": 101,
->>>>>>> pr-663
-=======
-      "n": 109,
->>>>>>> pr-673
-=======
-      "n": 109,
->>>>>>> pr-678
-=======
-      "n": 105,
->>>>>>> pr-670
-=======
-      "n": 101,
->>>>>>> pr-680
-=======
-      "n": 101,
->>>>>>> pr-656
+      "n": 265,
       "color": "#f43f5e"
     },
     {
@@ -278,36 +83,12 @@
   "grades": [
     {
       "name": "100% — excelente",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "n": 32,
-=======
-      "n": 34,
->>>>>>> pr-663
-=======
-      "n": 36,
->>>>>>> pr-673
-=======
-      "n": 36,
->>>>>>> pr-678
-=======
-      "n": 34,
->>>>>>> pr-680
+      "n": 55,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "n": 31,
-=======
-      "n": 42,
->>>>>>> pr-670
-=======
-      "n": 41,
->>>>>>> pr-656
+      "n": 45,
       "color": "#84cc16"
     },
     {
@@ -318,362 +99,66 @@
   ],
   "recentTimeline": [
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "t": "2026-09-22 00:14:45",
-=======
-      "t": "2026-09-21 12:38:26",
->>>>>>> pr-663
-=======
-      "t": "2026-09-21 12:42:25",
->>>>>>> pr-673
-=======
-      "t": "2026-09-21 12:44:33",
->>>>>>> pr-678
-=======
-      "t": "2026-09-21 12:39:33",
->>>>>>> pr-670
-=======
-      "t": "2026-09-21 13:22:48",
->>>>>>> pr-680
-=======
-      "t": "2026-09-21 12:36:15",
->>>>>>> pr-656
+      "t": "2026-09-22 04:43:31",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "t": "2026-09-22 00:12:19",
-=======
-      "t": "2026-09-21 12:35:54",
->>>>>>> pr-663
-=======
-      "t": "2026-09-21 12:39:45",
->>>>>>> pr-673
-=======
-      "t": "2026-09-21 12:42:03",
->>>>>>> pr-678
-=======
-      "t": "2026-09-21 12:37:03",
->>>>>>> pr-670
-=======
-      "t": "2026-09-21 13:20:16",
->>>>>>> pr-680
-=======
-      "t": "2026-09-21 12:33:47",
->>>>>>> pr-656
+      "t": "2026-09-22 04:42:51",
       "d": "gate",
       "desc": "gate auth executado (rule-35-auth-gate)"
     },
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "t": "2026-09-22 00:12:19",
-=======
-      "t": "2026-09-21 12:35:54",
->>>>>>> pr-663
-=======
-      "t": "2026-09-21 12:39:45",
->>>>>>> pr-673
-=======
-      "t": "2026-09-21 12:42:03",
->>>>>>> pr-678
-=======
-      "t": "2026-09-21 12:37:03",
->>>>>>> pr-670
-=======
-      "t": "2026-09-21 13:20:15",
->>>>>>> pr-680
-=======
-      "t": "2026-09-21 12:33:47",
->>>>>>> pr-656
+      "t": "2026-09-22 04:42:51",
       "d": "gate",
       "desc": "gate twins executado (rule-34-twins-check)"
     },
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "t": "2026-09-22 00:12:19",
-=======
-      "t": "2026-09-21 12:35:54",
->>>>>>> pr-663
-=======
-      "t": "2026-09-21 12:39:45",
->>>>>>> pr-673
-=======
-      "t": "2026-09-21 12:42:03",
->>>>>>> pr-678
-=======
-      "t": "2026-09-21 12:37:03",
->>>>>>> pr-670
-=======
-      "t": "2026-09-21 13:20:15",
->>>>>>> pr-680
-=======
-      "t": "2026-09-21 12:33:47",
->>>>>>> pr-656
+      "t": "2026-09-22 04:42:51",
       "d": "gate",
       "desc": "gate intent executado (rule-33-intent-gate)"
     },
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "t": "2026-09-22 00:12:19",
-=======
-      "t": "2026-09-21 12:35:54",
->>>>>>> pr-663
-=======
-      "t": "2026-09-21 12:39:45",
->>>>>>> pr-673
-=======
-      "t": "2026-09-21 12:42:03",
->>>>>>> pr-678
-=======
-      "t": "2026-09-21 12:37:03",
->>>>>>> pr-670
-=======
-      "t": "2026-09-21 13:20:15",
->>>>>>> pr-680
-=======
-      "t": "2026-09-21 12:33:47",
->>>>>>> pr-656
+      "t": "2026-09-22 04:42:51",
       "d": "gate",
       "desc": "gate council executado (rule-27-council-veredict)"
     },
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "t": "2026-09-22 00:11:54",
-=======
-      "t": "2026-09-21 12:36:35",
->>>>>>> pr-670
-=======
-      "t": "2026-09-21 13:19:31",
->>>>>>> pr-680
+      "t": "2026-09-22 04:42:37",
       "d": "code-review:done",
-      "desc": "Review aprovado por subagente"
+      "desc": "Review aprovado por subagente (wave 643-684: diffs validados, duplicatas #669/#679 fechadas, fixes portados)"
     },
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "t": "2026-09-22 00:08:51",
-      "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
-    },
-    {
-      "t": "2026-09-22 00:08:51",
-      "d": "gate",
-      "desc": "gate auth executado (rule-35-auth-gate)"
-=======
-      "t": "2026-09-21 13:19:31",
+      "t": "2026-09-22 04:42:37",
       "d": "coding:done",
-      "desc": "Otimização de cache no PromotionScout com formatação corrigida"
+      "desc": "Codificação por subagente concluída (wave 643-684, 37 PRs integrados + decomposição rule-41)"
     },
     {
-      "t": "2026-09-14 13:35:46",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
->>>>>>> pr-680
-    }
-  ],
-  "gateEfficiency": {
-    "ruleFails": 91,
-    "healed": 14,
-    "healedRate": 15.4,
-    "prePrTotal": 112,
-    "prePrPass": 112,
-=======
-      "t": "2026-09-21 12:35:10",
-      "d": "code-review:done",
-      "desc": "Reviewed fix for ai-p12.5-score.mjs spawnSync command injection"
-    },
-    {
-      "t": "2026-09-21 12:34:41",
-      "d": "coding:done",
-      "desc": "Fixed command injection risk in ai-p12.5-score.mjs"
-=======
-      "t": "2026-09-21 12:33:04",
-      "d": "code-review:done",
-      "desc": "Code review passed for Vendas.tsx performance optimization"
-    },
-    {
-      "t": "2026-09-21 12:32:41",
-      "d": "coding:done",
-      "desc": "Refactored owner filtering in Vendas.tsx to single-pass Set"
->>>>>>> pr-656
-    },
-    {
-      "t": "2026-09-14 13:35:46",
+      "t": "2026-09-22 04:42:37",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
-<<<<<<< HEAD
-    "ruleFails": 115,
-    "healed": 17,
-    "healedRate": 14.8,
-    "prePrTotal": 122,
-    "prePrPass": 122,
-<<<<<<< HEAD
->>>>>>> pr-663
-=======
-      "t": "2026-09-21 12:41:39",
-      "d": "code-review:done",
-      "desc": "Security review approved for command injection fix"
-    },
-    {
-      "t": "2026-09-21 12:41:39",
-      "d": "coding:done",
-      "desc": "Fix command injection in consolidate-report script"
-    },
-    {
-      "t": "2026-09-21 12:38:50",
-      "d": "rule:fail",
-      "desc": "rule-39-coding-gate falhou"
-    }
-  ],
-  "gateEfficiency": {
-    "ruleFails": 118,
-    "healed": 17,
-    "healedRate": 14.4,
-    "prePrTotal": 122,
-    "prePrPass": 122,
->>>>>>> pr-678
-=======
-      "t": "2026-09-21 12:36:35",
-      "d": "coding:done",
-      "desc": "Codificação por subagente concluída"
-    },
-    {
-      "t": "2026-09-21 12:33:46",
-      "d": "rule:fail",
-      "desc": "rule-39-coding-gate falhou"
-    }
-  ],
-  "gateEfficiency": {
-    "ruleFails": 117,
-    "healed": 17,
-    "healedRate": 14.5,
-    "prePrTotal": 122,
-    "prePrPass": 122,
->>>>>>> pr-670
-=======
->>>>>>> pr-680
-=======
-    "ruleFails": 90,
+    "ruleFails": 116,
     "healed": 14,
-    "healedRate": 15.6,
-    "prePrTotal": 112,
-    "prePrPass": 112,
->>>>>>> pr-656
-    "prePrPassRate": 100,
-=======
-      "t": "2026-09-21 12:39:17",
-      "d": "coding:done",
-      "desc": "Codificação por subagente concluída"
-    },
-    {
-      "t": "2026-09-21 12:38:56",
-      "d": "pre-pr",
-      "desc": "pre-pr FAIL"
-    },
-    {
-      "t": "2026-09-21 12:36:13",
-      "d": "rule:fail",
-      "desc": "rule-39-coding-gate falhou"
-    }
-  ],
-  "gateEfficiency": {
-    "ruleFails": 117,
-    "healed": 17,
-    "healedRate": 14.5,
-    "prePrTotal": 124,
-    "prePrPass": 122,
-    "prePrPassRate": 98.4,
->>>>>>> pr-673
+    "healedRate": 12.1,
+    "prePrTotal": 137,
+    "prePrPass": 135,
+    "prePrPassRate": 98.5,
     "gateBlocked": 2,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "count": 19,
+        "count": 33,
         "hint": "faltou evento code-review:done por subagente na branch"
-      },
-      {
-=======
-        "count": 30,
-=======
-        "count": 31,
->>>>>>> pr-678
-=======
-        "count": 30,
->>>>>>> pr-670
-        "hint": "faltou evento code-review:done por subagente na branch"
-      },
-      {
-        "rule": "rule-26-session-started",
-        "count": 11,
-        "hint": "timestamp de sessão ausente — npm run session:start"
       },
       {
         "rule": "rule-39-coding-gate",
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
-        "count": 11,
+        "count": 16,
         "hint": "faltou evento coding:done por subagente na branch"
       },
       {
-        "rule": "rule-31-lib-test-coverage",
->>>>>>> pr-670
-        "count": 11,
-        "hint": "faltou evento coding:done por subagente na branch"
-      },
-      {
-        "rule": "rule-31-lib-test-coverage",
->>>>>>> pr-678
-        "count": 11,
-        "hint": "faltou evento coding:done por subagente na branch"
-      },
-      {
->>>>>>> pr-673
-=======
-        "count": 18,
-        "hint": "faltou evento code-review:done por subagente na branch"
-      },
-      {
->>>>>>> pr-656
         "rule": "rule-31-lib-test-coverage",
         "count": 10,
         "hint": ""
@@ -687,63 +172,60 @@
         "rule": "rule-03-handoff-completeness",
         "count": 8,
         "hint": ""
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      },
-      {
-        "rule": "rule-39-coding-gate",
-        "count": 8,
-        "hint": "faltou evento coding:done por subagente na branch"
-=======
->>>>>>> pr-673
-=======
->>>>>>> pr-678
-=======
->>>>>>> pr-670
       }
     ]
   },
-  "lastPrs": [],
+  "lastPrs": [
+    {
+      "number": 648,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-21",
+      "tokens": 380,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0
+    },
+    {
+      "number": 646,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-20",
+      "tokens": 368,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 644,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-19",
+      "tokens": 449,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 641,
+      "title": "Adjust Auto Merge conditions and Normalize PR Report logic",
+      "type": "other",
+      "date": "2026-09-18",
+      "tokens": 14,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 15.8
+    }
+  ],
   "overview": {
-    "components": 159,
+    "components": 178,
     "pages": 18,
     "libs": 50,
     "scripts": 124,
-    "testFiles": 358,
-    "skills": 27,
+    "testFiles": 372,
+    "skills": 28,
     "rules": 48,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "events": 391,
-    "qualityNotes": 511
-=======
-    "events": 550,
-    "qualityNotes": 582
->>>>>>> pr-663
-=======
-    "events": 563,
-    "qualityNotes": 588
->>>>>>> pr-673
-=======
-    "events": 561,
-    "qualityNotes": 588
->>>>>>> pr-678
-=======
-    "events": 558,
-    "qualityNotes": 585
->>>>>>> pr-670
-=======
-    "events": 550,
-    "qualityNotes": 582
->>>>>>> pr-680
-=======
-    "events": 385,
-    "qualityNotes": 508
->>>>>>> pr-656
+    "events": 815,
+    "qualityNotes": 706
   }
 }
