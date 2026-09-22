@@ -115,4 +115,29 @@ describe("computeEntryValues", () => {
     expect(r.costPerMile).toBe(0);
     expect(r.costPerThousand).toBe(0);
   });
+
+  it("divisão em recorrência parcelada (split): divide milesGenerated, amount e totalPaid pelo divisor (bug #356)", () => {
+    const formData = form({
+      amount: "60000",
+      amountPaid: "3000",
+      conversionRate: "1.5", // milesGenerated = 90000 sem split
+      isRecurrent: true,
+      recurrenceValueMode: "split",
+      recurrenceCount: 3,
+    });
+    const c = computeEntryValues(formData, origemTypes);
+    const isSplit =
+      formData.isRecurrent && formData.recurrenceValueMode === "split" && formData.recurrenceCount > 1;
+    const divisor = isSplit ? formData.recurrenceCount : 1;
+
+    expect(divisor).toBe(3);
+    const amountSplit = c.amount / divisor;
+    const amountPaidSplit = c.totalPaid / divisor;
+    const milesGeneratedSplit = c.milesGenerated / divisor;
+
+    expect(amountSplit).toBe(20000);
+    expect(amountPaidSplit).toBe(1000);
+    expect(milesGeneratedSplit).toBe(30000); // 90000 / 3 - não infla o saldo
+    expect(c.costPerMile).toBeCloseTo(amountPaidSplit / milesGeneratedSplit, 6);
+  });
 });
