@@ -167,12 +167,12 @@
     <section class="slide" id="s1">
       <div class="hero">
         <div class="hero-top">
-          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">pr-wave-643-684</span> <span class="badge risk" style="color:#f87171">Alto risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
-          <div class="hero-date">2026-09-22 · 01:27 · <span class="mono">integrate/pr-wave-643-684</span></div>
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">pr-wave-643-684</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health amber" style="color:#fbbf24">● Sob atenção</span></div>
+          <div class="hero-date">2026-09-22 · 01:32 · <span class="mono">integrate/pr-wave-643-684</span></div>
         </div>
         <h1>integrate pr wave 643 684</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">6a25a827 — absorve PR #647</div>
+        <div class="hero-meta mono">6d58fb33 — chore: restaura docs/reports da main (fixtures de testes pre-pr + histórico)</div>
       </div>
       
     <div class="kpi-grid">
@@ -187,14 +187,14 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/23</div>
+        <div class="kpi-value">0/24</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
-        <div class="kpi-sub">1 violações · 0 auto-corrigidas</div>
+        <div class="kpi-sub">9 violações · 0 auto-corrigidas</div>
       </div>
       <div class="kpi">
         <div class="kpi-value green">80</div>
         <div class="kpi-label">outcome grade</div>
-        <div class="kpi-sub">alto risco da mudança</div>
+        <div class="kpi-sub">médio risco da mudança</div>
       </div>
     </div>
       <div class="bluf">
@@ -208,7 +208,7 @@
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Riscos & trade-offs</div>
-          <p>Alto risco de mudança · outcome grade = 80 · lead time —.</p>
+          <p>Médio risco de mudança · outcome grade = 80 · lead time —.</p>
         </div>
       </div>
     </section><section class="slide" id="s2">
@@ -251,7 +251,7 @@
       <td>integrate pr wave 643 684</td>
       <td>Alteração validada dentro do fluxo de qualidade do produto.</td>
       <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
-      <td><code>~1</code></td>
+      <td><code>~7922</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.172 tokens (feature) · status pesado — tracking</p>
@@ -287,8 +287,8 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">23</span><span class="stat-l">rodadas de validação pré-PR</span></div>
-            <div class="stat"><span class="stat-v">1</span><span class="stat-l">violações de regra encontradas</span></div>
+            <div class="stat"><span class="stat-v">24</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">9</span><span class="stat-l">violações de regra encontradas</span></div>
             <div class="stat"><span class="stat-v green">0</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
           </div>
@@ -304,10 +304,8 @@
         <div class="ap-card">
           <h3>✅ Checklist de revisão</h3>
           <ul class="checks">
-            <li>🔷 Migração de banco aplicada?</li>
-<li>🖼️ Renderização verificada em desktop e mobile?</li>
+            <li>🖼️ Renderização verificada em desktop e mobile?</li>
 <li>📦 Biblioteca testada com casos de borda?</li>
-<li>📬 Feedback flow testado (anon + auth)?</li>
 <li>🤖 CI workflow válido? (sintaxe YAML)</li>
 <li>🧪 Testes manuais realizados?</li>
 <li>📋 Regras de validação passam? (npm run pre-pr)</li>
@@ -317,7 +315,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 0 remoções — 1 linhas tocadas</td><td>✨ 0 adições — 386 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 2571 remoções — 10562 linhas tocadas</td><td>✨ 6579 adições — 77 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -325,23 +323,23 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>386</td></tr>
-            <tr><td>Adições</td><td>+0</td></tr>
-            <tr><td>Remoções</td><td>-0</td></tr>
-            <tr><td>Tokens estimados</td><td>~1</td></tr>
+            <tr><td>Arquivos alterados</td><td>77</td></tr>
+            <tr><td>Adições</td><td>+6579</td></tr>
+            <tr><td>Remoções</td><td>-2571</td></tr>
+            <tr><td>Tokens estimados</td><td>~7922</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:0">+0 add</div>
-        <div class="del" style="flex:0">-0 del</div>
-        <div class="overhead" style="flex:100">~1 ctx</div>
+        <div class="add" style="flex:62">+4934 add</div>
+        <div class="del" style="flex:24">-1928 del</div>
+        <div class="overhead" style="flex:14">~1060 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+0</td><td>0%</td></tr>
-      <tr><td>Remoções</td><td>-0</td><td>0%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~1</td><td>100%</td></tr>
-      <tr><th>Total</th><th>~1</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+4934</td><td>62%</td></tr>
+      <tr><td>Remoções</td><td>-1928</td><td>24%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~1060</td><td>14%</td></tr>
+      <tr><th>Total</th><th>~7922</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
@@ -353,37 +351,38 @@
 <tr><td>A</td><td>.pi/skills/typesafe-ai/SKILL.md</td><td class="mono"><span class="ns-add">+149</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>M</td><td>docs/AI-SESSION-STATE.md</td><td class="mono"><span class="ns-add">+71</span> <span class="ns-del">−15</span></td></tr>
 <tr><td>M</td><td>docs/RADAR.md</td><td class="mono"><span class="ns-add">+45</span> <span class="ns-del">−16</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-20/PR170-2026-07-20-p1-09-p1-11-context-pack-estados.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−262</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-20/PR172-2026-07-20-p1-14-check-fast-pr-nightly.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−183</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-20/PR173-2026-07-20-mobile-form-stability-v2.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−261</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-20/PR174-2026-07-20-cache-auto-refresh-v2.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−260</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-20/PR175-2026-07-20-p1-10-regra-escopo.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−170</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-20/PR176-2026-07-20-p1-12-small-model-execution.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−262</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-20/PR177-2026-07-20-p1-15-fixtures-negativas-regras.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−285</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-20/PR178-2026-07-20-p1-17-invariantes-financeiras.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−262</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-20/PR179-2026-07-20-p1-18-e2e-estabiliza.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−276</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-20/PR180-17-p1-18-done-2026-07-20-p1-17-p1-18-done.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-20/PR181-18-merge-2026-07-20-release-p1-18-merge.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−276</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-20/PR182-16-ast-regras-alto-risco-2026-07-20-p1-16-ast-regras-alto-risco.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-20/PR183-16-done-2026-07-20-p1-16-done.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-20/PR184-2026-07-20-main.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-20/PR184-2026-07-20-p1-08-task-card-schema.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−259</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-20/PR185-2026-07-20-p2-19-bundle-budgets.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−261</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-20/p2-20-quality-report-ci-2026-07-20-p2-20-quality-report-ci.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−175</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-21/p2-20-quality-consome-ci-2026-07-21-p2-20-quality-consome-ci.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-21/p2-21-metricas-programa-2026-07-21-p2-21-metricas-programa.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−262</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-21/p2-22-feedback-usuario-aceite-2026-07-21-p2-22-feedback-usuario-aceite.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-22/PR192-2026-07-22-quality-auto-update.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-22/PR194-2026-07-22-dashboard-owner-data.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-22/PR195-2026-07-22-animated-number-stale.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−260</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-22/PR195-2026-07-22-main.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
-<tr><td>D</td><td>docs/reports/2026-07-22/PR196-2026-07-22-main.html</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−137</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-22/pr-wave-643-684-2026-09-22-integrate-pr-wave-643-684.html</td><td class="mono"><span class="ns-add">+587</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/archive/events-2026-08.jsonl</td><td class="mono"><span class="ns-add">+165</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/archive/quality-2026-08.jsonl</td><td class="mono"><span class="ns-add">+74</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/envelopes.jsonl</td><td class="mono"><span class="ns-add">+44</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td><td class="mono"><span class="ns-add">+128</span> <span class="ns-del">−165</span></td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td><td class="mono"><span class="ns-add">+57</span> <span class="ns-del">−74</span></td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td><td class="mono"><span class="ns-add">+309</span> <span class="ns-del">−229</span></td></tr>
+<tr><td>M</td><td>public/workflow-data.json</td><td class="mono"><span class="ns-add">+599</span> <span class="ns-del">−91</span></td></tr>
+<tr><td>M</td><td>scripts/ai-p12.5-score.mjs</td><td class="mono"><span class="ns-add">+2</span> <span class="ns-del">−2</span></td></tr>
+<tr><td>M</td><td>scripts/consolidate-report.mjs</td><td class="mono"><span class="ns-add">+73</span> <span class="ns-del">−51</span></td></tr>
+<tr><td>M</td><td>scripts/exec-intel.mjs</td><td class="mono"><span class="ns-add">+7</span> <span class="ns-del">−6</span></td></tr>
+<tr><td>M</td><td>scripts/post-pr.mjs</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−1</span></td></tr>
+<tr><td>M</td><td>src/ai/mutation/graph-experiment.ts</td><td class="mono"><span class="ns-add">+29</span> <span class="ns-del">−13</span></td></tr>
+<tr><td>M</td><td>src/ai/mutation/promotion/scout.ts</td><td class="mono"><span class="ns-add">+19</span> <span class="ns-del">−94</span></td></tr>
+<tr><td>M</td><td>src/components/EntryForm.tsx</td><td class="mono"><span class="ns-add">+91</span> <span class="ns-del">−446</span></td></tr>
+<tr><td>M</td><td>src/components/SaleForm.tsx</td><td class="mono"><span class="ns-add">+81</span> <span class="ns-del">−696</span></td></tr>
+<tr><td>M</td><td>src/components/TransferForm.tsx</td><td class="mono"><span class="ns-add">+75</span> <span class="ns-del">−333</span></td></tr>
+<tr><td>A</td><td>src/components/entry/EntryAccountInfo.tsx</td><td class="mono"><span class="ns-add">+49</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>src/components/entry/EntryAccountSelect.tsx</td><td class="mono"><span class="ns-add">+74</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>src/components/entry/EntryAmountFields.tsx</td><td class="mono"><span class="ns-add">+76</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>src/components/entry/EntryCalculationsCard.tsx</td><td class="mono"><span class="ns-add">+49</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>src/components/entry/EntryFormTypeToggle.tsx</td><td class="mono"><span class="ns-add">+28</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>src/components/entry/EntryOrigemTypeSelect.tsx</td><td class="mono"><span class="ns-add">+74</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>src/components/entry/EntryRecurrenceFields.tsx</td><td class="mono"><span class="ns-add">+136</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>src/components/entry/EntryRecurrenceSummary.tsx</td><td class="mono"><span class="ns-add">+59</span> <span class="ns-del">−0</span></td></tr>
           </table>
         </div>
         <div class="ap-card">
-          <h3>🔖 Commits da sessão (122)</h3>
+          <h3>🔖 Commits da sessão (123)</h3>
           <ul class="commit-list">
-            <li><code>6a25a827</code> absorve PR #647</li>
+            <li><code>6d58fb33</code> chore: restaura docs/reports da main (fixtures de testes pre-pr + histórico)</li>
+<li><code>6a25a827</code> absorve PR #647</li>
 <li><code>eb31018c</code> absorve PR #674</li>
 <li><code>73a89ebd</code> absorve PR #664</li>
 <li><code>a64ceed3</code> absorve PR #662</li>
@@ -519,12 +518,131 @@
       </div>
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
-        
+        diff --git a/.github/workflows/auto-merge.yml b/.github/workflows/auto-merge.yml
+index 26136ed0..d3ef4ea1 100644
+<span class="del">--- a/.github/workflows/auto-merge.yml</span>
+<span class="add">+++ b/.github/workflows/auto-merge.yml</span>
+@@ -14,13 +14,14 @@ permissions:
+ 
+ jobs:
+   # ── Fluxo normal (run de push humano com jobs reais) ────────────────
+<span class="del">-  # workflow_run dispara quando um run do CI completa (success/failure).</span>
+<span class="del">-  # O run do head final (push humano) completa success → merge.</span>
+<span class="add">+  # Restrição P0: workflow_run dispara apenas quando o evento do CI é 'pull_request'</span>
+<span class="add">+  # e a branch head não é 'main' (default_branch), eliminando falhas automáticas pós-merge.</span>
+   auto-merge:
+     if: &gt;
+       github.event_name == 'workflow_run' &amp;&amp;
+       github.event.workflow_run.event == 'pull_request' &amp;&amp;
+       github.event.workflow_run.conclusion == 'success' &amp;&amp;
+<span class="add">+      github.event.workflow_run.head_branch &amp;&amp;</span>
+       github.event.workflow_run.head_branch != github.event.repository.default_branch &amp;&amp;
+       github.event.workflow_run.head_branch != 'main'
+     runs-on: ubuntu-latest
+@@ -33,6 +34,12 @@ jobs:
+         run: |
+           BRANCH=&quot;${{ github.event.workflow_run.head_branch }}&quot;
+           echo &quot;🔍 Buscando PR aberto da branch: $BRANCH&quot;
+<span class="add">+          if [ -z &quot;$BRANCH&quot; ] || [ &quot;$BRANCH&quot; = &quot;main&quot; ] || [ &quot;$BRANCH&quot; = &quot;${{ github.event.repository.default_branch }}&quot; ]; then</span>
+<span class="add">+            echo &quot;⚠️ Branch inválida ou main, ignorando&quot;</span>
+<span class="add">+            echo &quot;num=&quot; &gt;&gt; &quot;$GITHUB_OUTPUT&quot;</span>
+<span class="add">+            echo &quot;branch=&quot; &gt;&gt; &quot;$GITHUB_OUTPUT&quot;</span>
+<span class="add">+            exit 0</span>
+<span class="add">+          fi</span>
+           PR_NUM=$(gh pr list \
+             --repo &quot;${{ github.repository }}&quot; \
+             --head &quot;$BRANCH&quot; \
+@@ -50,6 +57,14 @@ jobs:
+           PR_NUM=&quot;${{ steps.pr.outputs.num }}&quot;
+           BRANCH=&quot;${{ steps.pr.outputs.branch }}&quot;
+           echo &quot;🔀 Mergindo PR #${PR_NUM} (branch: ${BRANCH})&quot;
+<span class="add">+</span>
+<span class="add">+          # Garante que o PR ainda está aberto antes de tentar mergear</span>
+<span class="add">+          STATE=$(gh pr view &quot;$PR_NUM&quot; --repo &quot;${{ github.repository }}&quot; --json state -q '.state' 2&gt;/dev/null || echo &quot;&quot;)</span>
+<span class="add">+          if [ &quot;$STATE&quot; != &quot;OPEN&quot; ]; then</span>
+<span class="add">+            echo &quot;ℹ️ PR #${PR_NUM} não está mais aberto (estado: $STATE). Ignorando merge.&quot;</span>
+<span class="add">+            exit 0</span>
+<span class="add">+          fi</span>
+<span class="add">+</span>
+           # O workflow_run dispara quando o run completa, mas os status checks
+           # do head podem não estar registrados ainda (race com a branch
+           # protection) — retry com backoff resolve.
+@@ -64,6 +79,13 @@ jobs:
+             echo &quot;⏳ Tentativa $i falhou (checks em registro?) — aguardando 15s&quot;
+             sleep 15
+           done
+<span class="add">+</span>
+<span class="add">+          STATE=$(gh pr view &quot;$PR_NUM&quot; --repo &quot;${{ github.repository }}&quot; --json state -q '.state' 2&gt;/dev/null || echo &quot;&quot;)</span>
+<span class="add">+          if [ &quot;$STATE&quot; != &quot;OPEN&quot; ]; then</span>
+<span class="add">+            echo &quot;✅ PR #${PR_NUM} já foi merged/fechado durante os retries.&quot;</span>
+<span class="add">+            exit 0</span>
+<span class="add">+          fi</span>
+<span class="add">+</span>
+           # Última tentativa com erro visível
+           gh pr merge &quot;$PR_NUM&quot; \
+             --repo &quot;${{ github.repository }}&quot; \
+@@ -95,6 +117,7 @@ jobs:
+   mergeia-pr-ready:
+     if: &gt;
+       github.event_name == 'repository_dispatch' &amp;&amp;
+<span class="add">+      github.event.client_payload.branch &amp;&amp;</span>
+       github.event.client_payload.branch != github.event.repository.default_branch &amp;&amp;
+       github.event.client_payload.branch != 'main'
+     runs-on: ubuntu-latest
+@@ -108,6 +131,12 @@ jobs:
+         run: |
+           BRANCH=&quot;${{ github.event.client_payload.branch }}&quot;
+           echo &quot;🔍 Buscando PR aberto da branch: $BRANCH (pr-ready)&quot;
+<span class="add">+          if [ -z &quot;$BRANCH&quot; ] || [ &quot;$BRANCH&quot; = &quot;main&quot; ] || [ &quot;$BRANCH&quot; = &quot;${{ github.event.repository.default_branch }}&quot; ]; then</span>
+<span class="add">+            echo &quot;⚠️ Branch inválida ou main, ignorando&quot;</span>
+<span class="add">+            echo &quot;num=&quot; &gt;&gt; &quot;$GITHUB_OUTPUT&quot;</span>
+<span class="add">+            echo &quot;branch=&quot; &gt;&gt; &quot;$GITHUB_OUTPUT&quot;</span>
+<span class="add">+            exit 0</span>
+<span class="add">+          fi</span>
+           PR_NUM=$(gh pr list \
+             --repo &quot;${{ github.repository }}&quot; \
+             --head &quot;$BRANCH&quot; \
+@@ -125,6 +154,13 @@ jobs:
+           PR_NUM=&quot;${{ steps.pr.outputs.num }}&quot;
+           BRANCH=&quot;${{ steps.pr.outputs.branch }}&quot;
+           echo &quot;🔀 Mergindo PR #${PR_NUM} (branch: ${BRANCH})&quot;
+<span class="add">+</span>
+<span class="add">+          STATE=$(gh pr view &quot;$PR_NUM&quot; --repo &quot;${{ github.repository }}&quot; --json state -q '.state' 2&gt;/dev/null || echo &quot;&quot;)</span>
+<span class="add">+          if [ &quot;$STATE&quot; != &quot;OPEN&quot; ]; then</span>
+<span class="add">+            echo &quot;ℹ️ PR #${PR_NUM} não está mais aberto (estado: $STATE). Ignorando merge.&quot;</span>
+<span class="add">+            exit 0</span>
+<span class="add">+          fi</span>
+<span class="add">+</span>
+           # Mesmo retry do fluxo normal (registro de checks vs branch protection)
+           for i in 1 2 3 4 5 6; do
+             if gh pr merge &quot;$PR_NUM&quot; \
+@@ -137,6 +173,13 @@ jobs:
+             echo &quot;⏳ Tentativa $i falhou (checks em registro?) — aguardando 15s&quot;
+             sleep 15
+           done
+<span class="add">+</span>
+<span class="add">+          STATE=$(gh pr view &quot;$PR_NUM&quot; --repo &quot;${{ github.repository }}&quot; --json state -q '.state' 2&gt;/dev/null || echo &quot;&quot;)</span>
+<span class="add">+          if [ &quot;$STATE&quot; != &quot;OPEN&quot; ]; then</span>
+<span class="add">+            echo &quot;✅ PR #${PR_NUM} já foi merged/fechado durante os retries.&quot;</span>
+<span class="add">+            exit 0</span>
+<span class="add">+          fi</span>
+<span class="add">+</span>
+           gh pr merge &quot;$PR_NUM&quot; \
+             --repo &quot;${{ github.repository }}&quot; \
+             --merge \
+diff --git a/.github/workflows/normalize-pr-report.yml b/.github/workflows/normalize-pr-report.yml
+index d2a7d845..2c258bb1 100644
+<span class="del">--- a/.github/workflows/normalize-pr-report.yml</span>
+<span class="add">+++ b/.github/workflows/normalize-pr-report.yml</span>
+@@ -17,7 +17,7 @@ jobs:
+       - uses: actions/checkout@v4
+         with:
+           ref: ${{ github.head_ref }}
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-09-22 01:27
+      Gerado por scripts/generate-report.mjs · 2026-09-22 01:32
     </div>
   </div>
 
