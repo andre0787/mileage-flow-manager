@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-09-21
-> Último commit: 7268b6a6-Merge pull request #646 from andre0787/chore/quality-nightly-update
+> Gerado em: 2026-09-22
+> Último commit: 45af522c-Merge pull request #686 from andre0787/docs/session-state-wave-685
 
 ## Pipeline
 
@@ -15,15 +15,15 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 1313 |
+| Unit | 1358 |
 | E2E  | 101 |
-| **Total** | **1414** |
+| **Total** | **1459** |
 
 ## Bundle
 
 | Métrica | Valor |
 |---------|-------|
-| Tamanho (dist) | 1913kB |
+| Tamanho (dist) | 1922kB |
 
 ## Documentação
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-09-21 | ✅ | 1414 | 1913kB | 0 issues |
+| 2026-09-22 | ✅ | 1459 | 1922kB | 0 issues |
 
 ---
 
