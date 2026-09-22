@@ -1,36 +1,10 @@
-import { useActionState, useMemo, useState } from "react";
+import { useActionState, useState } from "react";
 import { isValidISODate, todayISODate } from "@/lib/dateUtils";
-import { calcProfit, calcProfitMargin } from "@/lib/metrics";
-import { countPassengersInCycle } from "@/lib/passengerCycle";
 import type { Account, Owner, Program, Client, Sale, SaleFormData, SaleKind } from "@/types";
+import { emptyForm, emptyPassenger, switchKind, handlePassengerClientChange } from "./salesFormUtils";
+import { useSaleFormStock } from "./useSaleFormStock";
 
-export const emptyPassenger = () => ({
-  name: "",
-  passengerId: crypto.randomUUID(),
-  cpf: "",
-  clientId: undefined as string | undefined,
-});
-
-export const emptyForm: SaleFormData = {
-  ownerName: "",
-  accountId: "",
-  accountName: "",
-  program: "",
-  clientId: "",
-  clientName: "",
-  milesUsed: "",
-  pricePerMile: "",
-  saleValue: "",
-  additionalCost: "",
-  additionalCostDesc: "",
-  additionalCosts: [{ desc: "", amount: "" }],
-  kind: "milhas",
-  serviceType: "",
-  observations: "",
-  date: todayISODate(),
-  ticketLocator: "",
-  passengers: [emptyPassenger()],
-};
+export { emptyForm, emptyPassenger };
 
 interface UseSaleFormStateProps {
   accounts: Account[];
@@ -67,139 +41,23 @@ export function useSaleFormState({
   });
   const [isClientDialogOpen, setIsClientDialogOpen] = useState(false);
 
-  const stockInfo = useMemo(() => {
-    const ownersMap = new Map(owners.map((o) => [o.id, o.name]));
-    const programsMap = new Map(programs.map((p) => [p.id, p.name]));
-    return accounts
-      .filter((a) => a.type === "milhas" && a.status === "ativa")
-      .map((a) => ({
-        accountId: a.id,
-        ownerId: a.ownerId,
-        ownerName: ownersMap.get(a.ownerId) ?? "",
-        accountName: a.name,
-        programId: a.programId,
-        program: programsMap.get(a.programId) ?? "",
-        availableMiles: a.balance,
-        averageCostPerMile: a.averageCostPerMile ?? 0,
-      }));
-  }, [accounts, owners, programs]);
-
-  const ownersList = useMemo(() => [...new Set(stockInfo.map((s) => s.ownerName))], [stockInfo]);
-  const selectedOwnerStock = useMemo(
-    () => stockInfo.filter((s) => s.ownerName === form.ownerName),
-    [stockInfo, form.ownerName],
-  );
-  const selectedProgramStock = useMemo(
-    () => stockInfo.find((s) => s.accountId === form.accountId),
-    [stockInfo, form.accountId],
-  );
-
-  const editingOriginalSale = useMemo(
-    () =>
-      mode === "edit" && editingSaleId ? sales.find((s) => s.id === editingSaleId) : undefined,
-    [mode, editingSaleId, sales],
-  );
-
-  const effectiveAvailableMiles = useMemo(() => {
-    const base = selectedProgramStock?.availableMiles ?? 0;
-    if (
-      mode === "edit" &&
-      editingOriginalSale &&
-      editingOriginalSale.status !== "cancelado" &&
-      form.accountId &&
-      form.accountId === editingOriginalSale.accountId
-    ) {
-      return base + editingOriginalSale.milesUsed;
-    }
-    return base;
-  }, [mode, editingOriginalSale, form.accountId, selectedProgramStock]);
-
-  const programConfig = useMemo(
-    () => programs.find((p) => p.id === selectedProgramStock?.programId),
-    [programs, selectedProgramStock],
-  );
-
-  const usedPassengersInCycle = useMemo(() => {
-    if (!programConfig?.passengerCycleType || !programConfig?.maxPassengers) return 0;
-    return countPassengersInCycle(sales, {
-      program: form.program,
-      ownerName: form.ownerName,
-      editingSaleId,
-      cycleType: programConfig.passengerCycleType,
-      cycleDays: programConfig.passengerCycleDays,
-    });
-  }, [sales, form.program, form.ownerName, programConfig, editingSaleId]);
-
-  const additionalCostsTotal = useMemo(() => {
-    if (form.additionalCosts && form.additionalCosts.length > 0) {
-      const sum = form.additionalCosts.reduce((s, c) => s + (parseFloat(c.amount) || 0), 0);
-      if (sum > 0) return sum;
-    }
-    return parseFloat(form.additionalCost || "0") || 0;
-  }, [form.additionalCosts, form.additionalCost]);
-
-  const profitPreview = useMemo(() => {
-    if (form.kind === "servico") {
-      const val = parseFloat(form.saleValue);
-      if (!val || val <= 0) return null;
-      return { costTotal: 0, profit: val, margin: 100 };
-    }
-    if (!form.milesUsed || !form.saleValue || !selectedProgramStock) return null;
-    const miles = parseFloat(form.milesUsed);
-    const val = parseFloat(form.saleValue);
-    const addCost = additionalCostsTotal;
-    const costPM = selectedProgramStock.averageCostPerMile;
-    const profit = calcProfit(val, miles, costPM, addCost);
-    return { costTotal: miles * costPM, profit, margin: calcProfitMargin(profit, val) };
-  }, [form.kind, form.milesUsed, form.saleValue, additionalCostsTotal, selectedProgramStock]);
+  const {
+    ownersList,
+    selectedOwnerStock,
+    selectedProgramStock,
+    effectiveAvailableMiles,
+    programConfig,
+    usedPassengersInCycle,
+    additionalCostsTotal,
+    profitPreview,
+  } = useSaleFormStock({ accounts, owners, programs, sales, form, mode, editingSaleId });
 
   const update = (partial: Partial<SaleFormData>) => setForm((prev) => ({ ...prev, ...partial }));
 
-  const switchKind = (kind: SaleKind) => {
-    if (kind === "servico") {
-      update({
-        kind,
-        ownerName: "",
-        accountId: "",
-        accountName: "",
-        program: "",
-        milesUsed: "",
-        pricePerMile: "",
-        additionalCost: "",
-        additionalCostDesc: "",
-        additionalCosts: [],
-        ticketLocator: "",
-        passengers: [],
-      });
-    } else {
-      update({ kind, serviceType: "", observations: "" });
-    }
-  };
+  const onSwitchKind = (kind: SaleKind) => switchKind({ kind, update });
 
-  const handlePassengerClientChange = (index: number, selectedClientId: string) => {
-    if (selectedClientId === "__manual__") {
-      const upd = form.passengers.map((p, j) =>
-        j === index ? { ...p, clientId: undefined, name: "", cpf: "" } : p,
-      );
-      update({ passengers: upd });
-      return;
-    }
-
-    const client = clients.find((c) => c.id === selectedClientId);
-    if (!client) return;
-
-    const upd = form.passengers.map((p, j) =>
-      j === index
-        ? {
-            ...p,
-            clientId: client.id,
-            name: client.name,
-            cpf: client.cpf ?? p.cpf,
-          }
-        : p,
-    );
-    update({ passengers: upd });
-  };
+  const onPassengerClientChange = (index: number, selectedClientId: string) =>
+    handlePassengerClientChange({ index, selectedClientId, clients, passengers: form.passengers, update });
 
   const [, formAction] = useActionState(
     async () => {
@@ -245,7 +103,7 @@ export function useSaleFormState({
     form,
     setForm,
     update,
-    switchKind,
+    switchKind: onSwitchKind,
     isClientDialogOpen,
     setIsClientDialogOpen,
     ownersList,
@@ -254,7 +112,7 @@ export function useSaleFormState({
     effectiveAvailableMiles,
     additionalCostsTotal,
     profitPreview,
-    handlePassengerClientChange,
+    handlePassengerClientChange: onPassengerClientChange,
     formAction,
     canSubmit,
     usedPassengersInCycle,
