@@ -353,20 +353,8 @@ export default function Vendas() {
 
   // Filtros
   const filteredSales = useMemo(() => {
-<<<<<<< HEAD
-    let ownerAccountIds: Set<string> | null = null;
-    if (ownerFilter !== ALL_OWNERS) {
-      ownerAccountIds = new Set();
-      for (let i = 0; i < accounts.length; i++) {
-        if (accounts[i].ownerId === ownerFilter) {
-          ownerAccountIds.add(accounts[i].id);
-        }
-      }
-    }
-=======
     const ownerAccountIds =
       ownerFilter === ALL_OWNERS ? null : getOwnerAccountIds(accounts, ownerFilter);
->>>>>>> pr-676
     // s.program guarda o nome do programa — compara normalizado com o nome do programa selecionado.
     const selectedProgramName =
       programFilter === ALL_PROGRAMS
