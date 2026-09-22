@@ -1,5 +1,6 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
   "generatedAt": "2026-09-22T00:14:45.990Z",
   "dataDate": "2026-09-22",
   "kpiStats": [
@@ -12,15 +13,26 @@
     {
       "value": 550,
 >>>>>>> pr-663
+=======
+  "generatedAt": "2026-09-21T12:42:25.731Z",
+  "dataDate": "2026-09-21",
+  "kpiStats": [
+    {
+      "value": 563,
+>>>>>>> pr-673
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
       "value": 511,
 =======
       "value": 582,
 >>>>>>> pr-663
+=======
+      "value": 588,
+>>>>>>> pr-673
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -41,10 +53,14 @@
     },
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
       "value": 31,
 =======
       "value": 42,
 >>>>>>> pr-663
+=======
+      "value": 42,
+>>>>>>> pr-673
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -58,15 +74,23 @@
     {
       "name": "pre-pr",
 <<<<<<< HEAD
+<<<<<<< HEAD
       "n": 112,
 =======
       "n": 122,
 >>>>>>> pr-663
+=======
+      "n": 124,
+>>>>>>> pr-673
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
+<<<<<<< HEAD
       "n": 91,
+=======
+      "n": 117,
+>>>>>>> pr-673
       "color": "#ef4444"
     },
     {
@@ -82,10 +106,14 @@
     {
       "name": "coding:done",
 <<<<<<< HEAD
+<<<<<<< HEAD
       "n": 31,
 =======
       "n": 34,
 >>>>>>> pr-663
+=======
+      "n": 35,
+>>>>>>> pr-673
       "color": "#22c55e"
     },
     {
@@ -96,10 +124,14 @@
     {
       "name": "gate",
 <<<<<<< HEAD
+<<<<<<< HEAD
       "n": 105,
 =======
       "n": 101,
 >>>>>>> pr-663
+=======
+      "n": 109,
+>>>>>>> pr-673
       "color": "#f43f5e"
     },
     {
@@ -112,10 +144,14 @@
     {
       "name": "100% — excelente",
 <<<<<<< HEAD
+<<<<<<< HEAD
       "n": 32,
 =======
       "n": 34,
 >>>>>>> pr-663
+=======
+      "n": 36,
+>>>>>>> pr-673
       "color": "#10b981"
     },
     {
@@ -132,50 +168,71 @@
   "recentTimeline": [
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
       "t": "2026-09-22 00:14:45",
 =======
       "t": "2026-09-21 12:38:26",
 >>>>>>> pr-663
+=======
+      "t": "2026-09-21 12:42:25",
+>>>>>>> pr-673
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
       "t": "2026-09-22 00:12:19",
 =======
       "t": "2026-09-21 12:35:54",
 >>>>>>> pr-663
+=======
+      "t": "2026-09-21 12:39:45",
+>>>>>>> pr-673
       "d": "gate",
       "desc": "gate auth executado (rule-35-auth-gate)"
     },
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
       "t": "2026-09-22 00:12:19",
 =======
       "t": "2026-09-21 12:35:54",
 >>>>>>> pr-663
+=======
+      "t": "2026-09-21 12:39:45",
+>>>>>>> pr-673
       "d": "gate",
       "desc": "gate twins executado (rule-34-twins-check)"
     },
     {
 <<<<<<< HEAD
-      "t": "2026-09-22 00:12:19",
-=======
-      "t": "2026-09-21 12:35:54",
->>>>>>> pr-663
-      "d": "gate",
-      "desc": "gate intent executado (rule-33-intent-gate)"
-    },
-    {
 <<<<<<< HEAD
       "t": "2026-09-22 00:12:19",
 =======
       "t": "2026-09-21 12:35:54",
 >>>>>>> pr-663
+=======
+      "t": "2026-09-21 12:39:45",
+>>>>>>> pr-673
+      "d": "gate",
+      "desc": "gate intent executado (rule-33-intent-gate)"
+    },
+    {
+<<<<<<< HEAD
+<<<<<<< HEAD
+      "t": "2026-09-22 00:12:19",
+=======
+      "t": "2026-09-21 12:35:54",
+>>>>>>> pr-663
+=======
+      "t": "2026-09-21 12:39:45",
+>>>>>>> pr-673
       "d": "gate",
       "desc": "gate council executado (rule-27-council-veredict)"
     },
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
       "t": "2026-09-22 00:11:54",
       "d": "code-review:done",
@@ -222,14 +279,55 @@
     "prePrPass": 122,
 >>>>>>> pr-663
     "prePrPassRate": 100,
+=======
+      "t": "2026-09-21 12:39:17",
+      "d": "coding:done",
+      "desc": "Codificação por subagente concluída"
+    },
+    {
+      "t": "2026-09-21 12:38:56",
+      "d": "pre-pr",
+      "desc": "pre-pr FAIL"
+    },
+    {
+      "t": "2026-09-21 12:36:13",
+      "d": "rule:fail",
+      "desc": "rule-39-coding-gate falhou"
+    }
+  ],
+  "gateEfficiency": {
+    "ruleFails": 117,
+    "healed": 17,
+    "healedRate": 14.5,
+    "prePrTotal": 124,
+    "prePrPass": 122,
+    "prePrPassRate": 98.4,
+>>>>>>> pr-673
     "gateBlocked": 2,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
+<<<<<<< HEAD
         "count": 19,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
+=======
+        "count": 30,
+        "hint": "faltou evento code-review:done por subagente na branch"
+      },
+      {
+        "rule": "rule-26-session-started",
+        "count": 11,
+        "hint": "timestamp de sessão ausente — npm run session:start"
+      },
+      {
+        "rule": "rule-39-coding-gate",
+        "count": 11,
+        "hint": "faltou evento coding:done por subagente na branch"
+      },
+      {
+>>>>>>> pr-673
         "rule": "rule-31-lib-test-coverage",
         "count": 10,
         "hint": ""
@@ -243,11 +341,14 @@
         "rule": "rule-03-handoff-completeness",
         "count": 8,
         "hint": ""
+<<<<<<< HEAD
       },
       {
         "rule": "rule-39-coding-gate",
         "count": 8,
         "hint": "faltou evento coding:done por subagente na branch"
+=======
+>>>>>>> pr-673
       }
     ]
   },
@@ -261,11 +362,16 @@
     "skills": 27,
     "rules": 48,
 <<<<<<< HEAD
+<<<<<<< HEAD
     "events": 391,
     "qualityNotes": 511
 =======
     "events": 550,
     "qualityNotes": 582
 >>>>>>> pr-663
+=======
+    "events": 563,
+    "qualityNotes": 588
+>>>>>>> pr-673
   }
 }

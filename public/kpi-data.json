@@ -1,9 +1,13 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
   "generatedAt": "2026-09-22T00:14:45.923Z",
 =======
   "generatedAt": "2026-09-21T12:38:26.893Z",
 >>>>>>> pr-663
+=======
+  "generatedAt": "2026-09-21T12:42:25.643Z",
+>>>>>>> pr-673
   "currentMonth": "2026-09",
   "months": [
     {
@@ -146,6 +150,7 @@
     },
     {
       "month": "2026-09",
+<<<<<<< HEAD
       "prePrPassRate": 100,
       "prePrTotal": 95,
       "prePrPass": 95,
@@ -166,6 +171,20 @@
       },
       "avgOutcomeGrade": 88.9,
 >>>>>>> pr-663
+=======
+      "prePrPassRate": 97.9,
+      "prePrTotal": 97,
+      "prePrPass": 95,
+      "prePrFail": 2,
+      "testCoverageLibs": 99.9,
+      "testCoverageComponents": 100,
+      "gateActivations": {
+        "intent": 28,
+        "twins": 27,
+        "auth": 27
+      },
+      "avgOutcomeGrade": 89.4,
+>>>>>>> pr-673
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
@@ -177,7 +196,7 @@
         },
         {
           "rule": "rule-39-coding-gate",
-          "count": 5
+          "count": 6
         },
         {
           "rule": "rule-26-session-started",
@@ -196,6 +215,7 @@
       "avgCycleTimeHours": null,
       "branchesMerged": 35,
 <<<<<<< HEAD
+<<<<<<< HEAD
       "violationsCaught": 50,
       "healedRate": 28,
       "frictionPerPass": 0.53
@@ -204,6 +224,11 @@
       "healedRate": 28.6,
       "frictionPerPass": 0.52
 >>>>>>> pr-663
+=======
+      "violationsCaught": 51,
+      "healedRate": 27.5,
+      "frictionPerPass": 0.54
+>>>>>>> pr-673
     }
   ],
   "daily": [
@@ -574,6 +599,7 @@
     {
       "day": "2026-09-21",
       "label": "21/09",
+<<<<<<< HEAD
       "prePrTotal": 1,
       "prePrPass": 1,
       "prePrFail": 0,
@@ -601,6 +627,17 @@
       "merges": 1,
       "friction": 0
 >>>>>>> pr-663
+=======
+      "prePrTotal": 3,
+      "prePrPass": 1,
+      "prePrFail": 2,
+      "prePrPassRate": 33.3,
+      "ruleFails": 2,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 1,
+      "friction": 2
+>>>>>>> pr-673
     }
   ],
   "prs": [],
@@ -612,6 +649,7 @@
     "testFiles": 356,
     "skills": 27,
     "rules": 48,
+<<<<<<< HEAD
 <<<<<<< HEAD
     "events": 391,
     "qualityNotes": 511
@@ -627,13 +665,23 @@
     "qualityNotes": 582
   },
   "summary": {
+=======
+    "events": 563,
+    "qualityNotes": 588
+  },
+  "summary": {
+>>>>>>> pr-673
     "merges": 46,
     "prs": 0,
     "sessions": 2,
-    "violations": 115,
+    "violations": 117,
     "healed": 17,
+<<<<<<< HEAD
 >>>>>>> pr-663
     "prePrPassRate": 100
+=======
+    "prePrPassRate": 98.4
+>>>>>>> pr-673
   },
   "telemetry": []
 }
