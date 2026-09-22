@@ -33,13 +33,19 @@ export const accountsByOwner = (accounts: Account[], ownerId: string | null) =>
 export const salesByOwner = (sales: Sale[], accounts: Account[], ownerId: string | null) =>
   byOwner(sales, ownerId, (s) => accounts.find((a) => a.id === s.accountId)?.ownerId);
 
+export const getOwnerAccountIds = (accounts: Account[], ownerId: string): Set<string> =>
+  accounts.reduce((acc, a) => {
+    if (a.ownerId === ownerId) acc.add(a.id);
+    return acc;
+  }, new Set<string>());
+
 export const entriesByOwner = (
   entries: PointEntry[],
   accounts: Account[],
   ownerId: string | null,
 ) => {
   if (!ownerId) return entries;
-  const ownerAccountIds = new Set(accounts.filter((a) => a.ownerId === ownerId).map((a) => a.id));
+  const ownerAccountIds = getOwnerAccountIds(accounts, ownerId);
   return entries.filter(
     (e) =>
       ownerAccountIds.has(e.accountId) ||

@@ -21,6 +21,7 @@ import {
   useAddClientMutation,
 } from "@/hooks/useDatabase";
 import { useReceiveWithCreditMutation, useRefundToCreditMutation } from "@/features/vendas";
+import { getOwnerAccountIds } from "@/lib/dashboardSelectors";
 import { calcProfit, calcProfitMargin } from "@/lib/metrics";
 import { downloadCSV } from "@/lib/utils";
 import { formatDateBR } from "@/lib/dateUtils";
@@ -352,6 +353,7 @@ export default function Vendas() {
 
   // Filtros
   const filteredSales = useMemo(() => {
+<<<<<<< HEAD
     let ownerAccountIds: Set<string> | null = null;
     if (ownerFilter !== ALL_OWNERS) {
       ownerAccountIds = new Set();
@@ -361,6 +363,10 @@ export default function Vendas() {
         }
       }
     }
+=======
+    const ownerAccountIds =
+      ownerFilter === ALL_OWNERS ? null : getOwnerAccountIds(accounts, ownerFilter);
+>>>>>>> pr-676
     // s.program guarda o nome do programa — compara normalizado com o nome do programa selecionado.
     const selectedProgramName =
       programFilter === ALL_PROGRAMS
