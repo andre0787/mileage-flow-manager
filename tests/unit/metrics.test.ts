@@ -61,12 +61,29 @@ describe("calcProfit", () => {
 });
 
 describe("calcProfitMargin", () => {
-  it("calcula margem percentual", () => {
+  it("calcula margem percentual para valores positivos", () => {
     expect(calcProfitMargin(40, 100)).toBe(40);
+    expect(calcProfitMargin(25, 200)).toBe(12.5);
   });
 
-  it("retorna 0 quando saleValue é 0", () => {
+  it("retorna 0 quando saleValue é 0 (divisão por zero)", () => {
     expect(calcProfitMargin(40, 0)).toBe(0);
+    expect(calcProfitMargin(0, 0)).toBe(0);
+    expect(calcProfitMargin(-20, 0)).toBe(0);
+  });
+
+  it("retorna 0 quando saleValue é negativo", () => {
+    expect(calcProfitMargin(40, -100)).toBe(0);
+    expect(calcProfitMargin(-20, -100)).toBe(0);
+  });
+
+  it("retorna margem negativa quando o lucro é negativo (prejuízo)", () => {
+    expect(calcProfitMargin(-20, 100)).toBe(-20);
+    expect(calcProfitMargin(-50, 200)).toBe(-25);
+  });
+
+  it("retorna 0 quando o lucro é 0 com saleValue positivo", () => {
+    expect(calcProfitMargin(0, 100)).toBe(0);
   });
 });
 
