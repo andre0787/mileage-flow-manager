@@ -57,6 +57,14 @@ jobs:
           PR_NUM="${{ steps.pr.outputs.num }}"
           BRANCH="${{ steps.pr.outputs.branch }}"
           echo "🔀 Mergindo PR #${PR_NUM} (branch: ${BRANCH})"
+
+          # Garante que o PR ainda está aberto antes de tentar mergear
+          STATE=$(gh pr view "$PR_NUM" --repo "${{ github.repository }}" --json state -q '.state' 2>/dev/null || echo "")
+          if [ "$STATE" != "OPEN" ]; then
+            echo "ℹ️ PR #${PR_NUM} não está mais aberto (estado: $STATE). Ignorando merge."
+            exit 0
+          fi
+
           # O workflow_run dispara quando o run completa, mas os status checks
           # do head podem não estar registrados ainda (race com a branch
           # protection) — retry com backoff resolve.
@@ -71,6 +79,13 @@ jobs:
             echo "⏳ Tentativa $i falhou (checks em registro?) — aguardando 15s"
             sleep 15
           done
+
+          STATE=$(gh pr view "$PR_NUM" --repo "${{ github.repository }}" --json state -q '.state' 2>/dev/null || echo "")
+          if [ "$STATE" != "OPEN" ]; then
+            echo "✅ PR #${PR_NUM} já foi merged/fechado durante os retries."
+            exit 0
+          fi
+
           # Última tentativa com erro visível
           gh pr merge "$PR_NUM" \
             --repo "${{ github.repository }}" \
@@ -139,6 +154,13 @@ jobs:
           PR_NUM="${{ steps.pr.outputs.num }}"
           BRANCH="${{ steps.pr.outputs.branch }}"
           echo "🔀 Mergindo PR #${PR_NUM} (branch: ${BRANCH})"
+
+          STATE=$(gh pr view "$PR_NUM" --repo "${{ github.repository }}" --json state -q '.state' 2>/dev/null || echo "")
+          if [ "$STATE" != "OPEN" ]; then
+            echo "ℹ️ PR #${PR_NUM} não está mais aberto (estado: $STATE). Ignorando merge."
+            exit 0
+          fi
+
           # Mesmo retry do fluxo normal (registro de checks vs branch protection)
           for i in 1 2 3 4 5 6; do
             if gh pr merge "$PR_NUM" \
@@ -151,6 +173,13 @@ jobs:
             echo "⏳ Tentativa $i falhou (checks em registro?) — aguardando 15s"
             sleep 15
           done
+
+          STATE=$(gh pr view "$PR_NUM" --repo "${{ github.repository }}" --json state -q '.state' 2>/dev/null || echo "")
+          if [ "$STATE" != "OPEN" ]; then
+            echo "✅ PR #${PR_NUM} já foi merged/fechado durante os retries."
+            exit 0
+          fi
+
           gh pr merge "$PR_NUM" \
             --repo "${{ github.repository }}" \
             --merge \
