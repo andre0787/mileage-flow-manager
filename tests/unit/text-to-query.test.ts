@@ -1,9 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  parseNaturalQuery,
-  describeFilters,
-  filtersToSupabaseParams,
-} from "@/lib/text-to-query";
+import { parseNaturalQuery, describeFilters, filtersToSupabaseParams } from "@/lib/text-to-query";
 
 describe("text-to-query", () => {
   describe("parseNaturalQuery", () => {
@@ -49,6 +45,43 @@ describe("text-to-query", () => {
       expect(parseNaturalQuery("vendas tudoazul")!.program?.toLowerCase()).toBe("tudoazul");
       expect(parseNaturalQuery("saldo esfera")!.program?.toLowerCase()).toBe("esfera");
       expect(parseNaturalQuery("pontos livelo")!.program?.toLowerCase()).toBe("livelo");
+    });
+
+    it("processa tokens sem key-value sem quebrar nem corromper filtros", () => {
+      const result = parseNaturalQuery("vendas com texto simples 123 !@#");
+      expect(result).not.toBeNull();
+      expect(result!.table).toBe("sales");
+      expect(result!.status).toBeUndefined();
+    });
+
+    it("suporta tokens estruturados no formato key:value", () => {
+      const result = parseNaturalQuery(
+        "status:pendente program:smiles table:entries period:last_month groupBy:client metric:profit",
+      );
+      expect(result).not.toBeNull();
+      expect(result!.status).toBe("pendente");
+      expect(result!.program).toBe("smiles");
+      expect(result!.table).toBe("entries");
+      expect(result!.period).toBe("last_month");
+      expect(result!.groupBy).toBe("client");
+      expect(result!.metric).toBe("profit");
+    });
+
+    it("trata tokens com dois pontos malformados ou incompletos", () => {
+      const result1 = parseNaturalQuery("vendas : status: :pendente ::: status:pendente");
+      expect(result1).not.toBeNull();
+      expect(result1!.status).toBe("pendente");
+
+      const result2 = parseNaturalQuery("tabela:invalid key:val");
+      expect(result2).not.toBeNull();
+      expect(result2!.table).toBe("sales");
+    });
+
+    it("trata tokens entre aspas e com múltiplos espaços", () => {
+      const result = parseNaturalQuery("   \"status:pendente\"    'program:azul'   ");
+      expect(result).not.toBeNull();
+      expect(result!.status).toBe("pendente");
+      expect(result!.program).toBe("azul");
     });
   });
 
