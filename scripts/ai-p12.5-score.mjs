@@ -150,10 +150,10 @@ const dims = [
 ];
 
 // Gates hard: typecheck/lint/tests passam
-const typecheck = spawnSync("npm", ["run", "typecheck"], {
+const npmCmd = process.platform === "win32" ? "npm.cmd" : "npm";
+const typecheck = spawnSync(npmCmd, ["run", "typecheck"], {
   cwd: ROOT,
   encoding: "utf8",
-  shell: true,
 });
 if (typecheck.status !== 0) {
   console.error("P12.5 SCORE — FAIL (typecheck quebrado)");

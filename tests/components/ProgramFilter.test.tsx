@@ -27,4 +27,9 @@ describe("ProgramFilter", () => {
 
     expect(onChange).toHaveBeenCalledWith("p2");
   });
+
+  it("exibe o nome do programa selecionado quando value é um id de programa", () => {
+    render(<ProgramFilter programs={mockPrograms} value="p1" onChange={vi.fn()} />);
+    expect(screen.getByText("Smiles")).toBeDefined();
+  });
 });

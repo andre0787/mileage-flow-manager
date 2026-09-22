@@ -1,25 +1,25 @@
-# AI Session State - 2026-09-14T11:55:00.000Z
+# AI Session State - 2026-09-22T01:45:00.000Z
 
 ## Última Task
-- **Consolidação do lote de PRs abertas (#578–#633) + deploy em produção**
-- 52 PRs resolvidas: **32 merged** (inclui #608/#610/#632 pré-existentes) + **24 closed**; **zero abertas**
-- Merge da PR #633 (`integrate/pr-wave`) em `main` = `20d19276`
+- **Wave de integração #643–#684 (37 PRs canônicos) — branch `integrate/pr-wave-643-684`**
+- PRs absorvidos localmente com resolução semântica; duplicatas exatas fechadas sem merge: #669 (= #656), #679 (= #655).
+- Fix #655 portado para o TransferForm modularizado do #681 (`baseAmountPaid` em `useTransferForm.ts` + `TransferCalculationsPreview.tsx`).
+- Conflitos só em artefatos gerados: `docs/reports/` restaurado da main (fixtures pre-pr), tracking JSONLs reconstruídos como união dedup (main + 37 branches, JSON válido).
+- Decomposição rule-41: `SaleFormMilesFields` (356→76) e `useSaleFormState` (266→124) → novos módulos em `src/components/sales/form/` (todos ≤150 linhas).
 
 ## Estado dos Testes & Qualidade
-- **Local (branch de integração):** 197 arquivos / **1488 testes** ✅ | `tsc --noEmit` limpo | `npm run build` ok | `check:pr` ok (`budget:check` ok)
-- **CI PR #633:** changes/check-pr/e2e-smoke/Vercel ✅
-- **Prod:** deploy success @`20d19276` (deploy + `e2e-smoke-prod` ✅); `GET /` → HTTP 200
+- **Local:** 209 arquivos / **1566 testes** ✅ | typecheck ✅ | build ✅ | `pre-pr` 0 errors ✅
+- Gates rule-38 (`code-review:done`) e rule-39 (`coding:done`) registrados na branch.
 
 ## Arquivos Modificados & Impacto
-- 61 arquivos de código integrados (segurança, perf, refactors, CI e a feature de data no adiantamento)
-- Resoluções manuais de conflito: `src/components/SaleForm.tsx` (descarte do `handleCreateClient` obsoleto, mantendo `handlePassengerClientChange`), `tests/components/SaleForm.test.tsx` (união dos dois lados), `src/lib/supabase.ts` / `tests/setup.ts` / `tests/unit/supabase.test.ts` (env em `process.env` **e** `import.meta.env`)
-- Ruído descartado em todas as branches: `docs/tracking/*`, `docs/reports/*`, `public/kpi-data.json`, `public/workflow-data.json` (mantidas as versões da `main`)
+- 37 PRs: fixes (#655 #659 #660 #663 #673 #674 #678), perf (#656 #657 #665 #666 #667 #668… #682), refactors (#675 #677 #681), tests (#649–#654 #658 #661 #662 #664 #671 #683), CI (#643 #645 #684 #647).
+- Workflows: auto-merge com guardas de branch/estado; normalize-pr-report com fetch-depth 0 e push `"HEAD:${{ github.head_ref }}"`.
 
 ## Pendências Imediatas
-- Nenhuma bloqueante. Sugestões: habilitar `auto-merge` nativo no repositório (`enablePullRequestAutoMerge` está desligado) e revisar a necessidade de `strict: true`, que serializa merges em lote.
-- Confirmar com o autor se as PRs fechadas como duplicata (#596 cobria teste extra de `useClientCycleAvailability`) devem ser reabertas.
+- Push da branch, abrir PR da wave e merge em main (deploy em produção via dispatch).
+- Fechar #669 e #679 comentando o supersede; reabrir PRs canônicos absorvidos para histórico (ou fechar como absorbed).
+- Pop stash local `wave-2026-09-22` após o merge.
 
 ## Governança de Contexto
-- Gates de coding/review executados; validação conjunta feita em branch isolada **antes** de tocar a `main`
-- AUTH: "Autorizo o deploy para produção" (frase exigida pelo AUTH Gate do `deploy.yml`)
-- Commits de sincronização das branches de PR usaram `--no-verify` (apenas merge da main + descarte de ruído, sem código novo; gate real = CI obrigatório)
+- TWINS: padrão de duplicatas buscado (owner-filter ×3, cart-cost ×3, workflows ×3) — consolidado na wave.
+- AUTH Gate pendente de citação explícita do usuário antes do merge em prod (já autorizado nesta sessão).

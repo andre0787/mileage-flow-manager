@@ -79,14 +79,14 @@ const PATTERNS: NLPattern[] = [
 
   // Entradas (compras de milhas/pontos)
   {
-    regex: /entradas?\s*(por|de|do)?\s*(mês|mes|periodo)/i,
-    handler: () => ({ table: "entries", period: "this_month", metric: "amount" }),
-    labelTemplate: "Entradas do mês",
-  },
-  {
     regex: /entradas?\s*(do|no)?\s*(mês|mes)\s*(passado|anterior)/i,
     handler: () => ({ table: "entries", period: "last_month", metric: "amount" }),
     labelTemplate: "Entradas do mês passado",
+  },
+  {
+    regex: /entradas?\s*(por|de|do)?\s*(mês|mes|periodo)/i,
+    handler: () => ({ table: "entries", period: "this_month", metric: "amount" }),
+    labelTemplate: "Entradas do mês",
   },
   {
     regex: /entradas?\s*(por|de)\s*programa/i,
@@ -231,6 +231,59 @@ export function parseNaturalQuery(query: string): QueryFilter | null {
   const programMatch = clean.match(/(azul|latam|smiles|todes|livelo|esfera|dotz|tudo[\s-]?azul)/i);
   if (programMatch) {
     result.program = programMatch[0].trim();
+  }
+
+  // Extrai tokens para chaves estruturadas (key:value) ou tokens livres sem key-value
+  const tokens = clean.match(/[^\s"']+|"([^"]*)"|'([^']*)'/g) || [];
+  for (const token of tokens) {
+    if (!token) continue;
+    const unquoted = token.replace(/^["']|["']$/g, "").trim();
+    if (!unquoted || !unquoted.includes(":")) continue;
+
+    const colonIdx = unquoted.indexOf(":");
+    const key = unquoted.slice(0, colonIdx).toLowerCase().trim();
+    const val = unquoted
+      .slice(colonIdx + 1)
+      .trim()
+      .toLowerCase();
+
+    if (!key || !val) continue;
+
+    if (key === "table" || key === "tabela") {
+      if (["entries", "sales", "accounts", "clients"].includes(val)) {
+        result.table = val as QueryFilter["table"];
+      }
+    } else if (key === "period" || key === "periodo") {
+      if (
+        [
+          "today",
+          "this_week",
+          "this_month",
+          "last_month",
+          "this_year",
+          "last_year",
+          "all",
+        ].includes(val)
+      ) {
+        result.period = val as QueryFilter["period"];
+      }
+    } else if (key === "status") {
+      if (
+        ["confirmada", "aguardando", "pendente", "pago", "concluido", "cancelado"].includes(val)
+      ) {
+        result.status = val as QueryFilter["status"];
+      }
+    } else if (key === "program" || key === "programa") {
+      result.program = val;
+    } else if (key === "groupby" || key === "agrupar") {
+      if (["program", "account", "client", "owner", "status", "none"].includes(val)) {
+        result.groupBy = val as QueryFilter["groupBy"];
+      }
+    } else if (key === "metric" || key === "metrica") {
+      if (["amount", "profit", "count", "cost", "balance"].includes(val)) {
+        result.metric = val as QueryFilter["metric"];
+      }
+    }
   }
 
   return {

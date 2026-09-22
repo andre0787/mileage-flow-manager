@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
+  MAX_QUEUE_SIZE,
   TELEMETRY_QUEUE_STORAGE_KEY,
   flushTelemetryQueue,
   queuedTelemetryCount,
@@ -67,6 +68,19 @@ describe("telemetryQueue", () => {
     } as never);
     await recordTelemetry(payload);
     expect(queuedTelemetryCount()).toBe(1);
+  });
+
+  it("limita a fila a MAX_QUEUE_SIZE descartando os itens mais antigos", () => {
+    const totalItems = MAX_QUEUE_SIZE + 20;
+    for (let i = 0; i < totalItems; i++) {
+      saveToQueue({ ...payload, session_id: `session-${i}` });
+    }
+    expect(queuedTelemetryCount()).toBe(MAX_QUEUE_SIZE);
+
+    const stored = JSON.parse(localStorage.getItem(TELEMETRY_QUEUE_STORAGE_KEY) ?? "[]");
+    expect(stored.length).toBe(MAX_QUEUE_SIZE);
+    expect(stored[0].payload.session_id).toBe("session-20");
+    expect(stored[MAX_QUEUE_SIZE - 1].payload.session_id).toBe(`session-${totalItems - 1}`);
   });
 
   it("benchmarks flushing multiple items (baseline vs batch)", async () => {

@@ -29,10 +29,20 @@ describe("passengerDuplicates", () => {
     };
   }
 
-  it("passengerIdentity prioriza clientId e retorna null sem ID", () => {
-    expect(passengerIdentity({ clientId: "cli1", cpf: "111" })).toBe("cli1");
-    expect(passengerIdentity({ cpf: "111" })).toBe("111");
-    expect(passengerIdentity({ clientId: "", cpf: "" })).toBeNull();
+  describe("passengerIdentity", () => {
+    it("prioritizes clientId when provided", () => {
+      expect(passengerIdentity({ clientId: "cli123", cpf: "12345678900" })).toBe("cli123");
+    });
+
+    it("falls back to cpf when clientId is missing or empty", () => {
+      expect(passengerIdentity({ cpf: "12345678900" })).toBe("12345678900");
+      expect(passengerIdentity({ clientId: "", cpf: "12345678900" })).toBe("12345678900");
+    });
+
+    it("returns null when both clientId and cpf are empty or falsy", () => {
+      expect(passengerIdentity({ clientId: "", cpf: "" })).toBeNull();
+      expect(passengerIdentity({ cpf: "" })).toBeNull();
+    });
   });
 
   it("retorna vazio quando ninguém se repete entre emissões", () => {

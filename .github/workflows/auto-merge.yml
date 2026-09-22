@@ -14,13 +14,14 @@ permissions:
 
 jobs:
   # ── Fluxo normal (run de push humano com jobs reais) ────────────────
-  # workflow_run dispara quando um run do CI completa (success/failure).
-  # O run do head final (push humano) completa success → merge.
+  # Restrição P0: workflow_run dispara apenas quando o evento do CI é 'pull_request'
+  # e a branch head não é 'main' (default_branch), eliminando falhas automáticas pós-merge.
   auto-merge:
     if: >
       github.event_name == 'workflow_run' &&
       github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch &&
       github.event.workflow_run.head_branch != github.event.repository.default_branch &&
       github.event.workflow_run.head_branch != 'main'
     runs-on: ubuntu-latest
@@ -33,6 +34,12 @@ jobs:
         run: |
           BRANCH="${{ github.event.workflow_run.head_branch }}"
           echo "🔍 Buscando PR aberto da branch: $BRANCH"
+          if [ -z "$BRANCH" ] || [ "$BRANCH" = "main" ] || [ "$BRANCH" = "${{ github.event.repository.default_branch }}" ]; then
+            echo "⚠️ Branch inválida ou main, ignorando"
+            echo "num=" >> "$GITHUB_OUTPUT"
+            echo "branch=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           PR_NUM=$(gh pr list \
             --repo "${{ github.repository }}" \
             --head "$BRANCH" \
@@ -50,6 +57,14 @@ jobs:
           PR_NUM="${{ steps.pr.outputs.num }}"
           BRANCH="${{ steps.pr.outputs.branch }}"
           echo "🔀 Mergindo PR #${PR_NUM} (branch: ${BRANCH})"
+
+          # Garante que o PR ainda está aberto antes de tentar mergear
+          STATE=$(gh pr view "$PR_NUM" --repo "${{ github.repository }}" --json state -q '.state' 2>/dev/null || echo "")
+          if [ "$STATE" != "OPEN" ]; then
+            echo "ℹ️ PR #${PR_NUM} não está mais aberto (estado: $STATE). Ignorando merge."
+            exit 0
+          fi
+
           # O workflow_run dispara quando o run completa, mas os status checks
           # do head podem não estar registrados ainda (race com a branch
           # protection) — retry com backoff resolve.
@@ -64,6 +79,13 @@ jobs:
             echo "⏳ Tentativa $i falhou (checks em registro?) — aguardando 15s"
             sleep 15
           done
+
+          STATE=$(gh pr view "$PR_NUM" --repo "${{ github.repository }}" --json state -q '.state' 2>/dev/null || echo "")
+          if [ "$STATE" != "OPEN" ]; then
+            echo "✅ PR #${PR_NUM} já foi merged/fechado durante os retries."
+            exit 0
+          fi
+
           # Última tentativa com erro visível
           gh pr merge "$PR_NUM" \
             --repo "${{ github.repository }}" \
@@ -95,6 +117,7 @@ jobs:
   mergeia-pr-ready:
     if: >
       github.event_name == 'repository_dispatch' &&
+      github.event.client_payload.branch &&
       github.event.client_payload.branch != github.event.repository.default_branch &&
       github.event.client_payload.branch != 'main'
     runs-on: ubuntu-latest
@@ -108,6 +131,12 @@ jobs:
         run: |
           BRANCH="${{ github.event.client_payload.branch }}"
           echo "🔍 Buscando PR aberto da branch: $BRANCH (pr-ready)"
+          if [ -z "$BRANCH" ] || [ "$BRANCH" = "main" ] || [ "$BRANCH" = "${{ github.event.repository.default_branch }}" ]; then
+            echo "⚠️ Branch inválida ou main, ignorando"
+            echo "num=" >> "$GITHUB_OUTPUT"
+            echo "branch=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           PR_NUM=$(gh pr list \
             --repo "${{ github.repository }}" \
             --head "$BRANCH" \
@@ -125,6 +154,13 @@ jobs:
           PR_NUM="${{ steps.pr.outputs.num }}"
           BRANCH="${{ steps.pr.outputs.branch }}"
           echo "🔀 Mergindo PR #${PR_NUM} (branch: ${BRANCH})"
+
+          STATE=$(gh pr view "$PR_NUM" --repo "${{ github.repository }}" --json state -q '.state' 2>/dev/null || echo "")
+          if [ "$STATE" != "OPEN" ]; then
+            echo "ℹ️ PR #${PR_NUM} não está mais aberto (estado: $STATE). Ignorando merge."
+            exit 0
+          fi
+
           # Mesmo retry do fluxo normal (registro de checks vs branch protection)
           for i in 1 2 3 4 5 6; do
             if gh pr merge "$PR_NUM" \
@@ -137,6 +173,13 @@ jobs:
             echo "⏳ Tentativa $i falhou (checks em registro?) — aguardando 15s"
             sleep 15
           done
+
+          STATE=$(gh pr view "$PR_NUM" --repo "${{ github.repository }}" --json state -q '.state' 2>/dev/null || echo "")
+          if [ "$STATE" != "OPEN" ]; then
+            echo "✅ PR #${PR_NUM} já foi merged/fechado durante os retries."
+            exit 0
+          fi
+
           gh pr merge "$PR_NUM" \
             --repo "${{ github.repository }}" \
             --merge \

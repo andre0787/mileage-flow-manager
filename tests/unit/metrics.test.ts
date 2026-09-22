@@ -19,12 +19,28 @@ import {
 // ─── Cálculos de Custo ───
 
 describe("calcCostPerMile", () => {
-  it("calcula custo por milha", () => {
+  it("calcula custo por milha para valores positivos normais", () => {
     expect(calcCostPerMile(100, 1000)).toBe(0.1);
   });
 
-  it("retorna 0 quando milhas é 0", () => {
+  it("retorna 0 quando milhas geradas é 0 para evitar divisão por zero", () => {
     expect(calcCostPerMile(100, 0)).toBe(0);
+  });
+
+  it("retorna 0 quando milhas geradas é negativo", () => {
+    expect(calcCostPerMile(100, -500)).toBe(0);
+  });
+
+  it("retorna 0 quando o valor pago é 0", () => {
+    expect(calcCostPerMile(0, 1000)).toBe(0);
+  });
+
+  it("calcula corretamente com valores decimais/fracionados", () => {
+    expect(calcCostPerMile(150.5, 10000)).toBeCloseTo(0.01505, 5);
+  });
+
+  it("calcula corretamente com grande volume de milhas e valor elevado", () => {
+    expect(calcCostPerMile(35000, 1000000)).toBe(0.035);
   });
 });
 
@@ -61,12 +77,29 @@ describe("calcProfit", () => {
 });
 
 describe("calcProfitMargin", () => {
-  it("calcula margem percentual", () => {
+  it("calcula margem percentual para valores positivos", () => {
     expect(calcProfitMargin(40, 100)).toBe(40);
+    expect(calcProfitMargin(25, 200)).toBe(12.5);
   });
 
-  it("retorna 0 quando saleValue é 0", () => {
+  it("retorna 0 quando saleValue é 0 (divisão por zero)", () => {
     expect(calcProfitMargin(40, 0)).toBe(0);
+    expect(calcProfitMargin(0, 0)).toBe(0);
+    expect(calcProfitMargin(-20, 0)).toBe(0);
+  });
+
+  it("retorna 0 quando saleValue é negativo", () => {
+    expect(calcProfitMargin(40, -100)).toBe(0);
+    expect(calcProfitMargin(-20, -100)).toBe(0);
+  });
+
+  it("retorna margem negativa quando o lucro é negativo (prejuízo)", () => {
+    expect(calcProfitMargin(-20, 100)).toBe(-20);
+    expect(calcProfitMargin(-50, 200)).toBe(-25);
+  });
+
+  it("retorna 0 quando o lucro é 0 com saleValue positivo", () => {
+    expect(calcProfitMargin(0, 100)).toBe(0);
   });
 });
 
@@ -83,16 +116,37 @@ describe("calcROI", () => {
 // ─── Entrada/Transferência ───
 
 describe("calcMilesGenerated", () => {
-  it("calcula sem bônus", () => {
+  it("calcula sem bônus usando a taxa de conversão", () => {
     expect(calcMilesGenerated(1000, 1)).toBe(1000);
+    expect(calcMilesGenerated(1000, 0.5)).toBe(500);
+    expect(calcMilesGenerated(1000, 2)).toBe(2000);
   });
 
-  it("calcula com bônus percentual", () => {
+  it("calcula com bônus percentual positivo", () => {
     expect(calcMilesGenerated(1000, 1, 50)).toBe(1500);
+    expect(calcMilesGenerated(1000, 1, 100)).toBe(2000);
+    expect(calcMilesGenerated(1000, 1, 30.5)).toBe(1305);
   });
 
-  it("ignora bônus 0%", () => {
+  it("ignora bônus 0% e utiliza a taxa de conversão", () => {
     expect(calcMilesGenerated(1000, 1, 0)).toBe(1000);
+    expect(calcMilesGenerated(1000, 0.5, 0)).toBe(500);
+  });
+
+  it("ignora bônus negativo e utiliza a taxa de conversão", () => {
+    expect(calcMilesGenerated(1000, 1, -10)).toBe(1000);
+    expect(calcMilesGenerated(1000, 2, -20)).toBe(2000);
+  });
+
+  it("lida com bônus undefined", () => {
+    expect(calcMilesGenerated(1000, 1, undefined)).toBe(1000);
+    expect(calcMilesGenerated(500, 0.8, undefined)).toBe(400);
+  });
+
+  it("retorna 0 quando a quantidade ou taxa de conversão for 0 sem bônus", () => {
+    expect(calcMilesGenerated(0, 1)).toBe(0);
+    expect(calcMilesGenerated(1000, 0)).toBe(0);
+    expect(calcMilesGenerated(0, 1, 50)).toBe(0);
   });
 });
 

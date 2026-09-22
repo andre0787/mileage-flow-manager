@@ -18,6 +18,7 @@ import { BalanceReconcileBanner } from "@/components/BalanceReconcileBanner";
 import { useHaptic } from "@/hooks/useHaptic";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useData } from "@/contexts/DataContext";
+import { getOwnerAccountIds } from "@/lib/dashboardSelectors";
 import { isTransferencia } from "@/lib/utils";
 import { computePerAccountBalance } from "@/lib/metrics";
 import { calculateRecurrence } from "@/lib/recurrence";
@@ -150,6 +151,10 @@ export default function Entradas() {
       };
     }
 
+    const isSplit =
+      form.isRecurrent && form.recurrenceValueMode === "split" && form.recurrenceCount > 1;
+    const divisor = isSplit ? form.recurrenceCount : 1;
+
     const ot = origemTypes.find((ot) => ot.id === form.origemTypeId);
     const isTransfer = ot ? isTransferencia(ot) : false;
     const entryType = accounts.find((a) => a.id === form.accountId)?.type;
@@ -159,15 +164,15 @@ export default function Entradas() {
       updates: {
         accountId: form.accountId,
         origemTypeId: form.origemTypeId,
-        amount: c.amount,
-        amountPaid: c.totalPaid,
+        amount: c.amount / divisor,
+        amountPaid: c.totalPaid / divisor,
         costPerThousand: c.costPerThousand,
         conversionRate: c.isTransfer
           ? 1 + parseFloat(form.bonusPercent || "0") / 100
           : entryType === "milhas"
             ? undefined
             : c.conversionRate,
-        milesGenerated: c.milesGenerated,
+        milesGenerated: c.milesGenerated / divisor,
         costPerMile: c.costPerMile,
         sourceAccountId: c.isTransfer ? form.sourceAccountId : undefined,
         bonusPercent: c.isTransfer ? parseFloat(form.bonusPercent || "0") : undefined,
@@ -238,25 +243,24 @@ export default function Entradas() {
     return id;
   };
 
-  const entriesByTab = useMemo(
-    () => entries.filter((e) => accounts.find((a) => a.id === e.accountId)?.type === activeTab),
-    [entries, accounts, activeTab],
-  );
+  const entriesByTab = useMemo(() => {
+    const tabAccountIds = new Set(accounts.filter((a) => a.type === activeTab).map((a) => a.id));
+    return entries.filter((e) => tabAccountIds.has(e.accountId));
+  }, [entries, accounts, activeTab]);
 
   const entriesFiltered = useMemo(() => {
     const ownerAccountIds =
-      ownerFilter === ALL_OWNERS
-        ? null
-        : new Set(accounts.filter((a) => a.ownerId === ownerFilter).map((a) => a.id));
+      ownerFilter === ALL_OWNERS ? null : getOwnerAccountIds(accounts, ownerFilter);
     const byOwner = ownerAccountIds
       ? entriesByTab.filter((e) => ownerAccountIds.has(e.accountId))
       : entriesByTab;
-    const byProgram =
+    const programAccountIds =
       programFilter === ALL_PROGRAMS
-        ? byOwner
-        : byOwner.filter(
-            (e) => accounts.find((a) => a.id === e.accountId)?.programId === programFilter,
-          );
+        ? null
+        : new Set(accounts.filter((a) => a.programId === programFilter).map((a) => a.id));
+    const byProgram = programAccountIds
+      ? byOwner.filter((e) => programAccountIds.has(e.accountId))
+      : byOwner;
     if (!debouncedSearch) return byProgram;
     const q = debouncedSearch.toLowerCase();
     return byProgram.filter((e) => {

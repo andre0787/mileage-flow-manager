@@ -105,31 +105,67 @@ export default function Relatorios() {
   }, [sales, dateCutoff]);
 
   const ownerReports = useMemo(() => {
+    const accountOwnerMap = new Map<string, string>();
+    for (const acc of accounts) {
+      if (acc.ownerId) {
+        accountOwnerMap.set(acc.id, acc.ownerId);
+      }
+    }
+
+    const entriesByOwner = new Map<
+      string,
+      { totalPointsAcquired: number; totalAmountInvested: number; totalMilesGenerated: number }
+    >();
+
+    for (const e of filteredEntries) {
+      const ownerId = accountOwnerMap.get(e.accountId);
+      if (!ownerId) continue;
+      let agg = entriesByOwner.get(ownerId);
+      if (!agg) {
+        agg = { totalPointsAcquired: 0, totalAmountInvested: 0, totalMilesGenerated: 0 };
+        entriesByOwner.set(ownerId, agg);
+      }
+      agg.totalPointsAcquired += e.amount;
+      agg.totalAmountInvested += e.amountPaid;
+      agg.totalMilesGenerated += e.milesGenerated ?? e.amount;
+    }
+
+    const salesByOwner = new Map<string, { totalRevenue: number; totalProfit: number }>();
+
+    for (const s of filteredSales) {
+      if (!s.accountId) continue;
+      const ownerId = accountOwnerMap.get(s.accountId);
+      if (!ownerId) continue;
+      let agg = salesByOwner.get(ownerId);
+      if (!agg) {
+        agg = { totalRevenue: 0, totalProfit: 0 };
+        salesByOwner.set(ownerId, agg);
+      }
+      agg.totalRevenue += s.saleValue;
+      agg.totalProfit += s.profit;
+    }
+
     return owners.map((owner) => {
-      const ownerAccountIds = accounts.filter((a) => a.ownerId === owner.id).map((a) => a.id);
+      const entryAgg = entriesByOwner.get(owner.id) ?? {
+        totalPointsAcquired: 0,
+        totalAmountInvested: 0,
+        totalMilesGenerated: 0,
+      };
+      const saleAgg = salesByOwner.get(owner.id) ?? {
+        totalRevenue: 0,
+        totalProfit: 0,
+      };
 
-      const ownerEntries = filteredEntries.filter((e) => ownerAccountIds.includes(e.accountId));
-      const totalPointsAcquired = ownerEntries.reduce((sum, e) => sum + e.amount, 0);
-      const totalAmountInvested = ownerEntries.reduce((sum, e) => sum + e.amountPaid, 0);
-      const totalMilesGenerated = ownerEntries.reduce(
-        (sum, e) => sum + (e.milesGenerated ?? e.amount),
-        0,
-      );
-
-      const ownerSales = filteredSales.filter((s) => ownerAccountIds.includes(s.accountId ?? ""));
-      const totalRevenue = ownerSales.reduce((sum, s) => sum + s.saleValue, 0);
-      const totalProfit = ownerSales.reduce((sum, s) => sum + s.profit, 0);
-
-      const profitMargin = calcProfitMargin(totalProfit, totalRevenue);
-      const roi = calcROI(totalProfit, totalAmountInvested);
+      const profitMargin = calcProfitMargin(saleAgg.totalProfit, saleAgg.totalRevenue);
+      const roi = calcROI(saleAgg.totalProfit, entryAgg.totalAmountInvested);
 
       return {
         ownerName: owner.name,
-        totalPointsAcquired,
-        totalAmountInvested,
-        totalMilesGenerated,
-        totalRevenue,
-        totalProfit,
+        totalPointsAcquired: entryAgg.totalPointsAcquired,
+        totalAmountInvested: entryAgg.totalAmountInvested,
+        totalMilesGenerated: entryAgg.totalMilesGenerated,
+        totalRevenue: saleAgg.totalRevenue,
+        totalProfit: saleAgg.totalProfit,
         profitMargin,
         roi,
       };
@@ -137,12 +173,32 @@ export default function Relatorios() {
   }, [owners, accounts, filteredEntries, filteredSales]);
 
   const programReports = useMemo(() => {
+    const accountsByProgramId = new Map<string, typeof accounts>();
+    for (const a of accounts) {
+      let group = accountsByProgramId.get(a.programId);
+      if (!group) {
+        group = [];
+        accountsByProgramId.set(a.programId, group);
+      }
+      group.push(a);
+    }
+
+    const salesByProgramName = new Map<string, typeof filteredSales>();
+    for (const s of filteredSales) {
+      let group = salesByProgramName.get(s.program);
+      if (!group) {
+        group = [];
+        salesByProgramName.set(s.program, group);
+      }
+      group.push(s);
+    }
+
     return programs.map((program) => {
-      const programAccounts = accounts.filter((a) => a.programId === program.id);
+      const programAccounts = accountsByProgramId.get(program.id) ?? [];
       const totalStock = programAccounts.reduce((sum, a) => sum + a.balance, 0);
       const averageCostPerMile = calcWeightedAverageCost(programAccounts);
 
-      const programSales = filteredSales.filter((s) => s.program === program.name);
+      const programSales = salesByProgramName.get(program.name) ?? [];
       const totalSold = programSales.reduce((sum, s) => sum + s.milesUsed, 0);
       const revenue = programSales.reduce((sum, s) => sum + s.saleValue, 0);
       const profit = programSales.reduce((sum, s) => sum + s.profit, 0);

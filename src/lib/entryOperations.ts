@@ -29,9 +29,9 @@ export function computeEntryValues(
 ): ComputedEntryValues {
   const ot = origemTypes.find((ot) => ot.id === form.origemTypeId);
   const isTransfer = ot ? isTransferencia(ot) : false;
-  const amount = parseFloat(form.amount);
+  const amount = parseFloat(form.amount || "0");
   const cartAmount = parseFloat(form.cartAmount || "0");
-  const amountPaid = parseFloat(form.amountPaid);
+  const amountPaid = parseFloat(form.amountPaid || "0");
   const cartCost = parseFloat(form.cartCost || "0");
   const conversionRate = parseFloat(form.conversionRate || "1");
   const bonusPercent = isTransfer ? parseFloat(form.bonusPercent || "0") : undefined;

@@ -99,16 +99,49 @@ describe("TransferForm Component", () => {
       />,
     );
 
-    // Sem cartCost: totalPaid = 2500, milhas = 78000 -> 2500 / 78000 * 1000 ≈ 32.05
     expect(screen.getByText("R$ 32.05")).toBeInTheDocument();
 
-    // Insere o valor do carrinho
     const cartCostInput = screen.getByPlaceholderText("Ex: 200.00");
     fireEvent.change(cartCostInput, { target: { value: "200" } });
 
-    // Custo total = 2500 + 200 = 2700 -> custo/milhar = 34.62, custo/milha = 0.0346, total = 2700.00
     expect(screen.getByText("R$ 34.62")).toBeInTheDocument();
     expect(screen.getByText("R$ 0.0346")).toBeInTheDocument();
     expect(screen.getByText("Total: R$ 2700.00")).toBeInTheDocument();
+  });
+
+  it("exibe mensagem quando o tipo de origem Transferência não for encontrado", () => {
+    render(
+      <TransferForm
+        mode="create"
+        onSubmit={vi.fn()}
+        onCancel={vi.fn()}
+        accounts={mockAccounts}
+        origemTypes={[]}
+        programs={mockPrograms}
+        owners={mockOwners}
+      />,
+    );
+
+    expect(
+      screen.getByText(/Tipo de origem "Transferência" não encontrado/i),
+    ).toBeInTheDocument();
+  });
+
+  it("chama onCancel ao clicar no botão Cancelar", () => {
+    const handleCancel = vi.fn();
+    render(
+      <TransferForm
+        mode="create"
+        onSubmit={vi.fn()}
+        onCancel={handleCancel}
+        accounts={mockAccounts}
+        origemTypes={mockOrigemTypes}
+        programs={mockPrograms}
+        owners={mockOwners}
+      />,
+    );
+
+    fireEvent.click(screen.getByText("Cancelar"));
+    expect(handleCancel).toHaveBeenCalledTimes(1);
   });
 });
