@@ -115,9 +115,11 @@ function computeLayout(): { nodes: NodeView[]; lines: LineView[] } {
     if (!moved) break;
   }
 
+  const branchMap = new Map(branches.map((b) => [b.id, b]));
+
   // puxa cada folha para o setor do seu ramo
   leaves.forEach((l) => {
-    const parent = branches.find((b) => b.id === l.parentId);
+    const parent = branchMap.get(l.parentId);
     if (!parent) return;
     const dx = l.x - MIND_CX;
     const dy = l.y - MIND_CY;
@@ -145,7 +147,7 @@ function computeLayout(): { nodes: NodeView[]; lines: LineView[] } {
 
   // linhas ramo→folha
   leaves.forEach((l) => {
-    const parent = branches.find((b) => b.id === l.parentId);
+    const parent = branchMap.get(l.parentId);
     if (!parent) return;
     const mx = (parent.x + l.x) / 2;
     const my = (parent.y + l.y) / 2;
@@ -176,7 +178,7 @@ function computeLayout(): { nodes: NodeView[]; lines: LineView[] } {
       h: 40,
     })),
     ...leaves.map((l) => {
-      const parent = branches.find((b) => b.id === l.parentId)!;
+      const parent = branchMap.get(l.parentId)!;
       return {
         id: l.id,
         label: l.label,
