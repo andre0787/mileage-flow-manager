@@ -17,7 +17,7 @@
  * ponytail: zero deps (gh + git + generateHTML reutilizado).
  */
 
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import { mkdirSync, writeFileSync, existsSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
@@ -41,24 +41,26 @@ function daysAgo(n) {
   return d.toISOString().slice(0, 10);
 }
 
-function gh(args) {
+export function gh(args) {
   try {
-    return execSync(`gh ${args}`, { cwd: ROOT, encoding: "utf8", timeout: 20_000 }).trim();
+    const argList = Array.isArray(args) ? args : [args];
+    return execFileSync("gh", argList, { cwd: ROOT, encoding: "utf8", timeout: 20_000 }).trim();
   } catch {
     return "";
   }
 }
 
-function git(args) {
+export function git(args) {
   try {
-    return execSync(`git ${args}`, { cwd: ROOT, encoding: "utf8", timeout: 20_000 }).trim();
+    const argList = Array.isArray(args) ? args : [args];
+    return execFileSync("git", argList, { cwd: ROOT, encoding: "utf8", timeout: 20_000 }).trim();
   } catch {
     return "";
   }
 }
 
 /** Busca PRs merged por intervalo de datas ou lista explícita. */
-function fetchMergedPRs(from, to) {
+export function fetchMergedPRs(from, to) {
   const prsArg = arg("--prs", "");
   if (prsArg) {
     const nums = prsArg
@@ -72,9 +74,15 @@ function fetchMergedPRs(from, to) {
         console.warn(`⚠️  --prs ignora valor inválido: "${n}"`);
         continue;
       }
-      const info = gh(
-        `pr view ${n} --json number,title,mergedAt,mergeCommit --jq '{number,title,mergedAt,mergeCommit}'`,
-      );
+      const info = gh([
+        "pr",
+        "view",
+        String(n),
+        "--json",
+        "number,title,mergedAt,mergeCommit",
+        "--jq",
+        "{number,title,mergedAt,mergeCommit}",
+      ]);
       if (!info) continue;
       const pr = JSON.parse(info);
       rows.push(pr);
@@ -83,38 +91,47 @@ function fetchMergedPRs(from, to) {
   }
 
   const search = `merged:${from}..${to}`;
-  const out = gh(
-    `pr list --state merged --search "${search}" --json number,title,mergedAt,mergeCommit --limit 100`,
-  );
+  const out = gh([
+    "pr",
+    "list",
+    "--state",
+    "merged",
+    "--search",
+    search,
+    "--json",
+    "number,title,mergedAt,mergeCommit",
+    "--limit",
+    "100",
+  ]);
   if (!out) return [];
   return JSON.parse(out).sort((a, b) => a.number - b.number);
 }
 
-// ── CLI ───────────────────────────────────────────────────────────────
-const FROM = arg("--from", daysAgo(1));
-const TO = arg("--to", today());
-const SHOULD_WRITE = process.argv.includes("--write");
-const TASK = arg("--task", `Consolidado de entregas ${FROM} → ${TO}`);
+function runCli() {
+  const FROM = arg("--from", daysAgo(1));
+  const TO = arg("--to", today());
+  const SHOULD_WRITE = process.argv.includes("--write");
+  const TASK = arg("--task", `Consolidado de entregas ${FROM} → ${TO}`);
 
-const prs = fetchMergedPRs(FROM, TO);
-if (prs.length === 0) {
-  console.error(`❌ Nenhum PR merged entre ${FROM} e ${TO}`);
-  process.exit(1);
-}
+  const prs = fetchMergedPRs(FROM, TO);
+  if (prs.length === 0) {
+    console.error(`❌ Nenhum PR merged entre ${FROM} e ${TO}`);
+    process.exit(1);
+  }
 
-// Linhas do Detalhamento por item — 1 linha por PR
-const rows = [];
-let totalLines = 0;
-let totalAdditions = 0;
-let totalDeletions = 0;
-for (const pr of prs) {
-  // Custo agregado: diff do merge (merge^1..merge)
-  const sha = pr.mergeCommit?.oid ?? "";
-  const numstat = sha ? git(`diff ${sha}^1..${sha} --numstat`) : "";
-  const lines = numstatLines(numstat);
-  totalLines += lines;
-  rows.push(buildPrRow({ number: pr.number, title: pr.title, lines }));
-}
+  // Linhas do Detalhamento por item — 1 linha por PR
+  const rows = [];
+  let totalLines = 0;
+  let totalAdditions = 0;
+  let totalDeletions = 0;
+  for (const pr of prs) {
+    // Custo agregado: diff do merge (merge^1..merge)
+    const sha = pr.mergeCommit?.oid ?? "";
+    const numstat = sha ? git(["diff", `${sha}^1..${sha}`, "--numstat"]) : "";
+    const lines = numstatLines(numstat);
+    totalLines += lines;
+    rows.push(buildPrRow({ number: pr.number, title: pr.title, lines }));
+  }
 
 // Tipos (para o KPI)
 const types = rows.map(
@@ -180,20 +197,25 @@ const html = generateHTML({
   session,
 });
 
-if (SHOULD_WRITE) {
-  const dir = resolve(ROOT, `docs/reports/${TO}`);
-  if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
-  const safe = TASK.toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-  const file = resolve(dir, `PR-CONSOLIDADO-${FROM}-${TO}-${safe}.html`);
-  writeFileSync(file, html);
-  console.log(`✅ Consolidado salvo: docs/reports/${TO}/${file.split("/").pop()}`);
-  console.log(
-    `   ${prs.length} PRs · ${metrics.tokens} tokens · ${rows.length} linhas no Detalhamento`,
-  );
-} else {
-  console.log(html);
+  if (SHOULD_WRITE) {
+    const dir = resolve(ROOT, `docs/reports/${TO}`);
+    if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+    const safe = TASK.toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+    const file = resolve(dir, `PR-CONSOLIDADO-${FROM}-${TO}-${safe}.html`);
+    writeFileSync(file, html);
+    console.log(`✅ Consolidado salvo: docs/reports/${TO}/${file.split("/").pop()}`);
+    console.log(
+      `   ${prs.length} PRs · ${metrics.tokens} tokens · ${rows.length} linhas no Detalhamento`,
+    );
+  } else {
+    console.log(html);
+  }
+}
+
+if (process.argv[1] && resolve(process.argv[1]) === resolve(fileURLToPath(import.meta.url))) {
+  runCli();
 }
