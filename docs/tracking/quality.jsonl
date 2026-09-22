@@ -503,9 +503,15 @@
 {"timestamp":"2026-09-14T12:37:28.081Z","rule":"rule-30","outcomeGrade":80}
 {"timestamp":"2026-09-14T12:37:28.139Z","rule":"rule-31","covered":43,"total":43,"pct":100}
 {"timestamp":"2026-09-14T12:37:28.195Z","rule":"rule-32","covered":4,"total":4,"pct":100}
+<<<<<<< HEAD
 {"timestamp":"2026-09-22T00:08:50.378Z","rule":"rule-30","outcomeGrade":80}
 {"timestamp":"2026-09-22T00:08:50.483Z","rule":"rule-31","covered":43,"total":43,"pct":100}
 {"timestamp":"2026-09-22T00:08:50.588Z","rule":"rule-32","covered":4,"total":4,"pct":100}
 {"timestamp":"2026-09-22T00:12:17.804Z","rule":"rule-30","outcomeGrade":80}
 {"timestamp":"2026-09-22T00:12:17.910Z","rule":"rule-31","covered":43,"total":43,"pct":100}
 {"timestamp":"2026-09-22T00:12:18.014Z","rule":"rule-32","covered":4,"total":4,"pct":100}
+=======
+{"timestamp":"2026-09-21T12:35:53.172Z","rule":"rule-30","outcomeGrade":100}
+{"timestamp":"2026-09-21T12:35:53.281Z","rule":"rule-31","covered":43,"total":43,"pct":100}
+{"timestamp":"2026-09-21T12:35:53.388Z","rule":"rule-32","covered":4,"total":4,"pct":100}
+>>>>>>> pr-663

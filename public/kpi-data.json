@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "generatedAt": "2026-09-22T00:14:45.923Z",
+=======
+  "generatedAt": "2026-09-21T12:38:26.893Z",
+>>>>>>> pr-663
   "currentMonth": "2026-09",
   "months": [
     {
@@ -149,11 +153,19 @@
       "testCoverageLibs": 99.9,
       "testCoverageComponents": 100,
       "gateActivations": {
+<<<<<<< HEAD
         "intent": 27,
         "twins": 26,
         "auth": 26
       },
       "avgOutcomeGrade": 88.3,
+=======
+        "intent": 26,
+        "twins": 25,
+        "auth": 25
+      },
+      "avgOutcomeGrade": 88.9,
+>>>>>>> pr-663
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
@@ -183,9 +195,15 @@
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 35,
+<<<<<<< HEAD
       "violationsCaught": 50,
       "healedRate": 28,
       "frictionPerPass": 0.53
+=======
+      "violationsCaught": 49,
+      "healedRate": 28.6,
+      "frictionPerPass": 0.52
+>>>>>>> pr-663
     }
   ],
   "daily": [
@@ -556,13 +574,14 @@
     {
       "day": "2026-09-21",
       "label": "21/09",
-      "prePrTotal": 0,
-      "prePrPass": 0,
+      "prePrTotal": 1,
+      "prePrPass": 1,
       "prePrFail": 0,
-      "prePrPassRate": null,
+      "prePrPassRate": 100,
       "ruleFails": 0,
       "healed": 0,
       "sessions": 0,
+<<<<<<< HEAD
       "merges": 0,
       "friction": null
     },
@@ -578,6 +597,10 @@
       "sessions": 0,
       "merges": 1,
       "friction": 1
+=======
+      "merges": 1,
+      "friction": 0
+>>>>>>> pr-663
     }
   ],
   "prs": [],
@@ -589,6 +612,7 @@
     "testFiles": 356,
     "skills": 27,
     "rules": 48,
+<<<<<<< HEAD
     "events": 391,
     "qualityNotes": 511
   },
@@ -598,6 +622,17 @@
     "sessions": 1,
     "violations": 91,
     "healed": 14,
+=======
+    "events": 550,
+    "qualityNotes": 582
+  },
+  "summary": {
+    "merges": 46,
+    "prs": 0,
+    "sessions": 2,
+    "violations": 115,
+    "healed": 17,
+>>>>>>> pr-663
     "prePrPassRate": 100
   },
   "telemetry": []

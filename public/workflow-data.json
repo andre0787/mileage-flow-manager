@@ -1,14 +1,26 @@
 {
+<<<<<<< HEAD
   "generatedAt": "2026-09-22T00:14:45.990Z",
   "dataDate": "2026-09-22",
   "kpiStats": [
     {
       "value": 391,
+=======
+  "generatedAt": "2026-09-21T12:38:26.973Z",
+  "dataDate": "2026-09-21",
+  "kpiStats": [
+    {
+      "value": 550,
+>>>>>>> pr-663
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
+<<<<<<< HEAD
       "value": 511,
+=======
+      "value": 582,
+>>>>>>> pr-663
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -28,7 +40,11 @@
       "sub": "desde o início"
     },
     {
+<<<<<<< HEAD
       "value": 31,
+=======
+      "value": 42,
+>>>>>>> pr-663
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,7 +57,11 @@
     },
     {
       "name": "pre-pr",
+<<<<<<< HEAD
       "n": 112,
+=======
+      "n": 122,
+>>>>>>> pr-663
       "color": "#8b5cf6"
     },
     {
@@ -56,12 +76,16 @@
     },
     {
       "name": "code-review:done",
-      "n": 34,
+      "n": 35,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
+<<<<<<< HEAD
       "n": 31,
+=======
+      "n": 34,
+>>>>>>> pr-663
       "color": "#22c55e"
     },
     {
@@ -71,7 +95,11 @@
     },
     {
       "name": "gate",
+<<<<<<< HEAD
       "n": 105,
+=======
+      "n": 101,
+>>>>>>> pr-663
       "color": "#f43f5e"
     },
     {
@@ -83,7 +111,11 @@
   "grades": [
     {
       "name": "100% — excelente",
+<<<<<<< HEAD
       "n": 32,
+=======
+      "n": 34,
+>>>>>>> pr-663
       "color": "#10b981"
     },
     {
@@ -99,31 +131,52 @@
   ],
   "recentTimeline": [
     {
+<<<<<<< HEAD
       "t": "2026-09-22 00:14:45",
+=======
+      "t": "2026-09-21 12:38:26",
+>>>>>>> pr-663
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
+<<<<<<< HEAD
       "t": "2026-09-22 00:12:19",
+=======
+      "t": "2026-09-21 12:35:54",
+>>>>>>> pr-663
       "d": "gate",
       "desc": "gate auth executado (rule-35-auth-gate)"
     },
     {
+<<<<<<< HEAD
       "t": "2026-09-22 00:12:19",
+=======
+      "t": "2026-09-21 12:35:54",
+>>>>>>> pr-663
       "d": "gate",
       "desc": "gate twins executado (rule-34-twins-check)"
     },
     {
+<<<<<<< HEAD
       "t": "2026-09-22 00:12:19",
+=======
+      "t": "2026-09-21 12:35:54",
+>>>>>>> pr-663
       "d": "gate",
       "desc": "gate intent executado (rule-33-intent-gate)"
     },
     {
+<<<<<<< HEAD
       "t": "2026-09-22 00:12:19",
+=======
+      "t": "2026-09-21 12:35:54",
+>>>>>>> pr-663
       "d": "gate",
       "desc": "gate council executado (rule-27-council-veredict)"
     },
     {
+<<<<<<< HEAD
       "t": "2026-09-22 00:11:54",
       "d": "code-review:done",
       "desc": "Review aprovado por subagente"
@@ -145,6 +198,29 @@
     "healedRate": 15.4,
     "prePrTotal": 112,
     "prePrPass": 112,
+=======
+      "t": "2026-09-21 12:35:10",
+      "d": "code-review:done",
+      "desc": "Reviewed fix for ai-p12.5-score.mjs spawnSync command injection"
+    },
+    {
+      "t": "2026-09-21 12:34:41",
+      "d": "coding:done",
+      "desc": "Fixed command injection risk in ai-p12.5-score.mjs"
+    },
+    {
+      "t": "2026-09-14 13:35:46",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    }
+  ],
+  "gateEfficiency": {
+    "ruleFails": 115,
+    "healed": 17,
+    "healedRate": 14.8,
+    "prePrTotal": 122,
+    "prePrPass": 122,
+>>>>>>> pr-663
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
@@ -184,7 +260,12 @@
     "testFiles": 356,
     "skills": 27,
     "rules": 48,
+<<<<<<< HEAD
     "events": 391,
     "qualityNotes": 511
+=======
+    "events": 550,
+    "qualityNotes": 582
+>>>>>>> pr-663
   }
 }
