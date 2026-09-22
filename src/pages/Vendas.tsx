@@ -352,10 +352,15 @@ export default function Vendas() {
 
   // Filtros
   const filteredSales = useMemo(() => {
-    const ownerAccountIds =
-      ownerFilter === ALL_OWNERS
-        ? null
-        : new Set(accounts.filter((a) => a.ownerId === ownerFilter).map((a) => a.id));
+    let ownerAccountIds: Set<string> | null = null;
+    if (ownerFilter !== ALL_OWNERS) {
+      ownerAccountIds = new Set();
+      for (let i = 0; i < accounts.length; i++) {
+        if (accounts[i].ownerId === ownerFilter) {
+          ownerAccountIds.add(accounts[i].id);
+        }
+      }
+    }
     // s.program guarda o nome do programa — compara normalizado com o nome do programa selecionado.
     const selectedProgramName =
       programFilter === ALL_PROGRAMS

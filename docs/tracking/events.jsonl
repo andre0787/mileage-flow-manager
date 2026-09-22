@@ -381,6 +381,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 {"timestamp":"2026-09-22T00:08:29.042Z","type":"coding:done","description":"Ajustes Auto Merge, Nightly e Normalize PR Report","branch":"jules-6442659352184321376-27ed2e7a","commit":"9d68653","agent":"human","scope":"ci-workflows"}
 {"timestamp":"2026-09-22T00:08:29.104Z","type":"code-review:done","description":"Revisão e validação dos workflows e filtros UI","branch":"jules-6442659352184321376-27ed2e7a","commit":"9d68653","agent":"human","scope":"ci-workflows"}
 {"timestamp":"2026-09-22T00:08:51.681Z","type":"gate","description":"gate council executado (rule-27-council-veredict)","branch":"jules-6442659352184321376-27ed2e7a","commit":"9d68653","agent":"human","gate":"council","rule":"rule-27-council-veredict"}
@@ -479,3 +480,13 @@
 >>>>>>> pr-680
 {"timestamp":"2026-09-22T04:17:12.384Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave-643-684","commit":"3eea399a","agent":"human","errors":0}
 {"timestamp":"2026-09-22T04:17:13.209Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave-643-684","commit":"5332f27b","agent":"human","errors":0}
+=======
+{"timestamp":"2026-09-21T12:32:41.351Z","type":"coding:done","description":"Refactored owner filtering in Vendas.tsx to single-pass Set","branch":"jules-4126888355368028390-aa879741","commit":"9d68653","agent":"human","subagent":true}
+{"timestamp":"2026-09-21T12:33:04.338Z","type":"code-review:done","description":"Code review passed for Vendas.tsx performance optimization","branch":"jules-4126888355368028390-aa879741","commit":"9d68653","agent":"human","subagent":true}
+{"timestamp":"2026-09-21T12:33:47.283Z","type":"gate","description":"gate council executado (rule-27-council-veredict)","branch":"jules-4126888355368028390-aa879741","commit":"9d68653","agent":"human","gate":"council","rule":"rule-27-council-veredict"}
+{"timestamp":"2026-09-21T12:33:47.351Z","type":"gate","description":"gate intent executado (rule-33-intent-gate)","branch":"jules-4126888355368028390-aa879741","commit":"9d68653","agent":"human","gate":"intent","rule":"rule-33-intent-gate"}
+{"timestamp":"2026-09-21T12:33:47.420Z","type":"gate","description":"gate twins executado (rule-34-twins-check)","branch":"jules-4126888355368028390-aa879741","commit":"9d68653","agent":"human","gate":"twins","rule":"rule-34-twins-check"}
+{"timestamp":"2026-09-21T12:33:47.489Z","type":"gate","description":"gate auth executado (rule-35-auth-gate)","branch":"jules-4126888355368028390-aa879741","commit":"9d68653","agent":"human","gate":"auth","rule":"rule-35-auth-gate"}
+{"timestamp":"2026-09-21T12:36:15.424Z","type":"pre-pr","description":"pre-pr PASS","branch":"jules-4126888355368028390-aa879741","commit":"9d68653","agent":"human","errors":0}
+>>>>>>> pr-656
+{"timestamp":"2026-09-22T04:18:23.136Z","type":"pre-pr","description":"pre-pr PASS","branch":"integrate/pr-wave-643-684","commit":"9a43d36f","agent":"human","errors":0}
