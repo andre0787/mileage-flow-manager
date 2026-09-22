@@ -1,29 +1,5 @@
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "generatedAt": "2026-09-22T00:14:45.923Z",
-=======
-  "generatedAt": "2026-09-21T12:38:26.893Z",
->>>>>>> pr-663
-=======
-  "generatedAt": "2026-09-21T12:42:25.643Z",
->>>>>>> pr-673
-=======
-  "generatedAt": "2026-09-21T12:44:33.413Z",
->>>>>>> pr-678
-=======
-  "generatedAt": "2026-09-21T12:39:34.018Z",
->>>>>>> pr-670
-=======
-  "generatedAt": "2026-09-21T13:22:48.828Z",
->>>>>>> pr-680
-=======
-  "generatedAt": "2026-09-21T12:36:15.664Z",
->>>>>>> pr-656
+  "generatedAt": "2026-09-22T04:43:33.046Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -121,8 +97,8 @@
     {
       "month": "2026-08",
       "prePrPassRate": 100,
-      "prePrTotal": 17,
-      "prePrPass": 17,
+      "prePrTotal": 61,
+      "prePrPass": 61,
       "prePrFail": 0,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -131,125 +107,68 @@
         "twins": 0,
         "auth": 0
       },
-      "avgOutcomeGrade": 90.8,
+      "avgOutcomeGrade": 91.2,
       "topViolations": [
         {
+          "rule": "rule-38-code-review-gate",
+          "count": 35
+        },
+        {
+          "rule": "rule-39-coding-gate",
+          "count": 17
+        },
+        {
           "rule": "rule-03-handoff-completeness",
-          "count": 6
-        },
-        {
-          "rule": "rule-31-lib-test-coverage",
-          "count": 6
-        },
-        {
-          "rule": "rule-36-process-evidence",
-          "count": 6
+          "count": 10
         },
         {
           "rule": "rule-26-session-started",
-          "count": 5
+          "count": 9
         },
         {
-          "rule": "rule-46-token-sentinel",
-          "count": 3
+          "rule": "rule-31-lib-test-coverage",
+          "count": 7
         }
       ],
-      "healedByRule": {},
+      "healedByRule": {
+        "rule-26": 7,
+        "rule-17-new-docs-valid": 5
+      },
       "gateBlockedByRule": {
         "rule-33-intent-gate": 2
       },
-      "avgCycleTimeHours": 1,
-      "branchesMerged": 7,
-      "violationsCaught": 41,
-      "healedRate": 0,
-      "frictionPerPass": 2.41
+      "avgCycleTimeHours": 0.9,
+      "branchesMerged": 23,
+      "violationsCaught": 123,
+      "healedRate": 9.8,
+      "frictionPerPass": 2.02
     },
     {
       "month": "2026-09",
-<<<<<<< HEAD
-      "prePrPassRate": 100,
-      "prePrTotal": 95,
-      "prePrPass": 95,
-      "prePrFail": 0,
-      "testCoverageLibs": 99.9,
-      "testCoverageComponents": 100,
-      "gateActivations": {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> pr-670
-        "intent": 27,
-        "twins": 26,
-        "auth": 26
-      },
-      "avgOutcomeGrade": 88.3,
-<<<<<<< HEAD
-=======
-        "intent": 26,
-        "twins": 25,
-        "auth": 25
-      },
-      "avgOutcomeGrade": 88.9,
->>>>>>> pr-663
-=======
-      "prePrPassRate": 97.9,
-      "prePrTotal": 97,
-      "prePrPass": 95,
+      "prePrPassRate": 98.3,
+      "prePrTotal": 120,
+      "prePrPass": 118,
       "prePrFail": 2,
-      "testCoverageLibs": 99.9,
+      "testCoverageLibs": 100,
       "testCoverageComponents": 100,
       "gateActivations": {
-        "intent": 28,
-        "twins": 27,
-        "auth": 27
+        "intent": 67,
+        "twins": 66,
+        "auth": 66
       },
-      "avgOutcomeGrade": 89.4,
->>>>>>> pr-673
-=======
->>>>>>> pr-670
-=======
-        "intent": 26,
-        "twins": 25,
-        "auth": 25
-      },
-      "avgOutcomeGrade": 88.9,
->>>>>>> pr-680
-=======
-        "intent": 26,
-        "twins": 25,
-        "auth": 25
-      },
-      "avgOutcomeGrade": 88.5,
->>>>>>> pr-656
+      "avgOutcomeGrade": 90.1,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
-          "count": 16
-<<<<<<< HEAD
-=======
-        "intent": 28,
-        "twins": 27,
-        "auth": 27
-      },
-      "avgOutcomeGrade": 89.4,
-      "topViolations": [
+          "count": 30
+        },
         {
-          "rule": "rule-38-code-review-gate",
-          "count": 17
->>>>>>> pr-678
-=======
->>>>>>> pr-670
+          "rule": "rule-39-coding-gate",
+          "count": 13
         },
         {
           "rule": "rule-14-orphan-files",
           "count": 7
-        },
-        {
-          "rule": "rule-39-coding-gate",
-          "count": 6
         },
         {
           "rule": "rule-26-session-started",
@@ -265,61 +184,15 @@
         "rule-26": 9
       },
       "gateBlockedByRule": {},
-      "avgCycleTimeHours": null,
-      "branchesMerged": 35,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "violationsCaught": 50,
-      "healedRate": 28,
-      "frictionPerPass": 0.53
-=======
-=======
->>>>>>> pr-680
-=======
->>>>>>> pr-656
-      "violationsCaught": 49,
-      "healedRate": 28.6,
-      "frictionPerPass": 0.52
->>>>>>> pr-663
-=======
-      "violationsCaught": 51,
-      "healedRate": 27.5,
-      "frictionPerPass": 0.54
->>>>>>> pr-673
-=======
-      "violationsCaught": 52,
-      "healedRate": 26.9,
-      "frictionPerPass": 0.55
->>>>>>> pr-678
-=======
-      "violationsCaught": 51,
-      "healedRate": 27.5,
-      "frictionPerPass": 0.54
->>>>>>> pr-670
+      "avgCycleTimeHours": 4,
+      "branchesMerged": 54,
+      "violationsCaught": 75,
+      "healedRate": 18.7,
+      "frictionPerPass": 0.64
     }
   ],
   "daily": [
     {
-<<<<<<< HEAD
-=======
-      "day": "2026-08-23",
-      "label": "23/08",
-      "prePrTotal": 11,
-      "prePrPass": 11,
-      "prePrFail": 0,
-      "prePrPassRate": 100,
-      "ruleFails": 1,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 4,
-      "friction": 0.09
-    },
-    {
->>>>>>> pr-656
       "day": "2026-08-24",
       "label": "24/08",
       "prePrTotal": 4,
@@ -686,182 +559,90 @@
     {
       "day": "2026-09-21",
       "label": "21/09",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> pr-678
-=======
->>>>>>> pr-670
-=======
->>>>>>> pr-680
-=======
->>>>>>> pr-656
-      "prePrTotal": 1,
-      "prePrPass": 1,
-      "prePrFail": 0,
-      "prePrPassRate": 100,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "ruleFails": 0,
+      "prePrTotal": 23,
+      "prePrPass": 21,
+      "prePrFail": 2,
+      "prePrPassRate": 91.3,
+      "ruleFails": 25,
       "healed": 0,
       "sessions": 0,
-<<<<<<< HEAD
-      "merges": 0,
-      "friction": null
+      "merges": 18,
+      "friction": 1.19
     },
     {
       "day": "2026-09-22",
       "label": "22/09",
-      "prePrTotal": 1,
-      "prePrPass": 1,
+      "prePrTotal": 3,
+      "prePrPass": 3,
       "prePrFail": 0,
       "prePrPassRate": 100,
       "ruleFails": 1,
       "healed": 0,
       "sessions": 0,
-      "merges": 1,
-      "friction": 1
-=======
-      "merges": 1,
-      "friction": 0
->>>>>>> pr-663
-=======
-      "prePrTotal": 3,
-      "prePrPass": 1,
-      "prePrFail": 2,
-      "prePrPassRate": 33.3,
-      "ruleFails": 2,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 1,
-      "friction": 2
->>>>>>> pr-673
-=======
-      "ruleFails": 3,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 1,
-      "friction": 3
->>>>>>> pr-678
-=======
-      "ruleFails": 2,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 1,
-      "friction": 2
->>>>>>> pr-670
-=======
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 1,
-      "friction": 0
->>>>>>> pr-680
-=======
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 1,
-      "friction": 0
->>>>>>> pr-656
+      "merges": 2,
+      "friction": 0.33
     }
   ],
-  "prs": [],
+  "prs": [
+    {
+      "number": 648,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-21",
+      "tokens": 380,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0
+    },
+    {
+      "number": 646,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-20",
+      "tokens": 368,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 644,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-19",
+      "tokens": 449,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 641,
+      "title": "Adjust Auto Merge conditions and Normalize PR Report logic",
+      "type": "other",
+      "date": "2026-09-18",
+      "tokens": 14,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 15.8
+    }
+  ],
   "repo": {
-    "components": 159,
+    "components": 178,
     "pages": 18,
     "libs": 50,
     "scripts": 124,
-    "testFiles": 358,
-    "skills": 27,
+    "testFiles": 372,
+    "skills": 28,
     "rules": 48,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "events": 391,
-    "qualityNotes": 511
-=======
-    "events": 385,
-    "qualityNotes": 508
->>>>>>> pr-656
+    "events": 815,
+    "qualityNotes": 706
   },
   "summary": {
-    "merges": 42,
-    "prs": 0,
+    "merges": 61,
+    "prs": 4,
     "sessions": 1,
-<<<<<<< HEAD
-    "violations": 91,
+    "violations": 116,
     "healed": 14,
-=======
-    "events": 550,
-    "qualityNotes": 582
+    "prePrPassRate": 98.5
   },
-  "summary": {
-=======
-    "events": 563,
-    "qualityNotes": 588
-  },
-  "summary": {
->>>>>>> pr-673
-=======
-    "events": 558,
-    "qualityNotes": 585
-  },
-  "summary": {
->>>>>>> pr-670
-=======
-    "events": 550,
-    "qualityNotes": 582
-  },
-  "summary": {
->>>>>>> pr-680
-    "merges": 46,
-    "prs": 0,
-    "sessions": 2,
-    "violations": 117,
-<<<<<<< HEAD
-    "healed": 17,
-<<<<<<< HEAD
->>>>>>> pr-663
-    "prePrPassRate": 100
-=======
-    "prePrPassRate": 98.4
->>>>>>> pr-673
-  },
-=======
-    "events": 561,
-    "qualityNotes": 588
-  },
-  "summary": {
-    "merges": 46,
-    "prs": 0,
-    "sessions": 2,
-    "violations": 118,
-    "healed": 17,
-    "prePrPassRate": 100
-  },
-<<<<<<< HEAD
->>>>>>> pr-678
-=======
-    "healed": 17,
-    "prePrPassRate": 100
-  },
->>>>>>> pr-670
-=======
->>>>>>> pr-680
-=======
-    "violations": 90,
-    "healed": 14,
-    "prePrPassRate": 100
-  },
->>>>>>> pr-656
   "telemetry": []
 }
