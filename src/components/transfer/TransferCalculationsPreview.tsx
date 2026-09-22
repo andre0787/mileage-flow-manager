@@ -3,6 +3,7 @@ import type { computeTransferCalc } from "@/lib/transferCalc";
 interface TransferCalculationsPreviewProps {
   amount: string;
   amountPaid: string;
+  baseAmountPaid: number;
   calc: ReturnType<typeof computeTransferCalc>;
   effectiveMiles: number;
   amountNum: number;
@@ -14,6 +15,7 @@ interface TransferCalculationsPreviewProps {
 export function TransferCalculationsPreview({
   amount,
   amountPaid,
+  baseAmountPaid,
   calc,
   effectiveMiles,
   amountNum,
@@ -54,9 +56,9 @@ export function TransferCalculationsPreview({
         <div>
           <span className="text-muted-foreground">Custo por milha:</span>
           <p className="font-semibold">R$ {calc.costPerMile.toFixed(4)}</p>
-          {cartAmountNum > 0 && (
+          {(cartAmountNum > 0 || cartCostNum > 0) && (
             <div className="mt-1 space-y-0.5 text-[10px] text-muted-foreground border-t border-success/20 pt-1">
-              <p>Transferência: R$ {parseFloat(amountPaid || "0").toFixed(2)}</p>
+              <p>Transferência: R$ {baseAmountPaid.toFixed(2)}</p>
               <p>Carrinho: R$ {cartCostNum.toFixed(2)}</p>
               <p className="font-semibold text-foreground">Total: R$ {calc.totalPaid.toFixed(2)}</p>
             </div>

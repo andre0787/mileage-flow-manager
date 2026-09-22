@@ -4,6 +4,7 @@ import { computeTransferCalc } from "@/lib/transferCalc";
 import type { Account, OrigemType, Program, Owner, EntryFormData } from "@/types";
 
 export interface UseTransferFormProps {
+  mode: "create" | "edit";
   initialData?: Partial<EntryFormData>;
   onSubmit: (data: EntryFormData) => void;
   accounts: Account[];
@@ -25,6 +26,7 @@ const defaultForm = {
 };
 
 export function useTransferForm({
+  mode,
   initialData,
   onSubmit,
   accounts,
@@ -63,11 +65,17 @@ export function useTransferForm({
   const cartCostNum = parseFloat(form.cartCost || "0");
   const bonusNum = parseFloat(form.bonusPercent || "0");
   const calculatedCost = amountNum * avgCostPerPoint;
+  // Port do PR #655: em create, se amountPaid vazio/zero, usa o custo calculado
+  // (evita NaN/0 e mantém o preview refletindo a realidade enquanto o usuário digita).
+  const baseAmountPaid =
+    mode === "create" && (!form.amountPaid || form.amountPaid === "0")
+      ? calculatedCost
+      : parseFloat(form.amountPaid || "0");
 
   const calc = computeTransferCalc({
     amount: amountNum,
     cartAmount: cartAmountNum,
-    amountPaid: parseFloat(form.amountPaid || "0"),
+    amountPaid: baseAmountPaid,
     cartCost: cartAmountNum > 0 || cartCostNum > 0 ? cartCostNum : 0,
     conversionRate: 1 + bonusNum / 100,
     bonusPercent: bonusNum,
@@ -94,6 +102,10 @@ export function useTransferForm({
       if (!validate()) return { ok: false };
       onSubmit({
         ...form,
+        amountPaid:
+          mode === "create" && (!form.amountPaid || form.amountPaid === "0")
+            ? String(calculatedCost)
+            : form.amountPaid,
         origemTypeId: transferType?.id ?? form.origemTypeId,
         conversionRate: "",
         isClube: false,
@@ -124,6 +136,7 @@ export function useTransferForm({
     cartCostNum,
     bonusNum,
     calculatedCost,
+    baseAmountPaid,
     calc,
     effectiveMiles,
     ownerName,

@@ -45,12 +45,14 @@ export function TransferForm({
     cartCostNum,
     bonusNum,
     calculatedCost,
+    baseAmountPaid,
     calc,
     effectiveMiles,
     ownerName,
     programName,
     formAction,
   } = useTransferForm({
+    mode,
     initialData,
     onSubmit,
     accounts,
@@ -101,6 +103,7 @@ export function TransferForm({
       <TransferCalculationsPreview
         amount={form.amount}
         amountPaid={form.amountPaid}
+        baseAmountPaid={baseAmountPaid}
         calc={calc}
         effectiveMiles={effectiveMiles}
         amountNum={amountNum}
