@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-22T04:43:33.080Z",
+  "generatedAt": "2026-09-22T10:51:31.731Z",
   "dataDate": "2026-09-22",
   "kpiStats": [
     {
-      "value": 815,
+      "value": 818,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 137,
+      "n": 140,
       "color": "#8b5cf6"
     },
     {
@@ -99,6 +99,21 @@
   ],
   "recentTimeline": [
     {
+      "t": "2026-09-22 04:58:15",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-22 04:48:12",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-09-22 04:44:24",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
       "t": "2026-09-22 04:43:31",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
@@ -122,30 +137,15 @@
       "t": "2026-09-22 04:42:51",
       "d": "gate",
       "desc": "gate council executado (rule-27-council-veredict)"
-    },
-    {
-      "t": "2026-09-22 04:42:37",
-      "d": "code-review:done",
-      "desc": "Review aprovado por subagente (wave 643-684: diffs validados, duplicatas #669/#679 fechadas, fixes portados)"
-    },
-    {
-      "t": "2026-09-22 04:42:37",
-      "d": "coding:done",
-      "desc": "Codificação por subagente concluída (wave 643-684, 37 PRs integrados + decomposição rule-41)"
-    },
-    {
-      "t": "2026-09-22 04:42:37",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 116,
     "healed": 14,
     "healedRate": 12.1,
-    "prePrTotal": 137,
-    "prePrPass": 135,
-    "prePrPassRate": 98.5,
+    "prePrTotal": 140,
+    "prePrPass": 138,
+    "prePrPassRate": 98.6,
     "gateBlocked": 2,
     "topViolations": [
       {
@@ -177,6 +177,26 @@
   },
   "lastPrs": [
     {
+      "number": 686,
+      "title": "docs: AI-SESSION-STATE pós-wave #685",
+      "type": "docs",
+      "date": "2026-09-22",
+      "tokens": 22,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 685,
+      "title": "chore: consolida lote de PRs #643–#684 (37 canônicas) + duplicatas fechadas",
+      "type": "chore",
+      "date": "2026-09-22",
+      "tokens": 6363,
+      "benefit": "Ajuste de processo validado",
+      "impact": "Processo mais confiável e audável",
+      "cycleHours": 0.1
+    },
+    {
       "number": 648,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
       "type": "other",
@@ -185,36 +205,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0
-    },
-    {
-      "number": 646,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-20",
-      "tokens": 368,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 644,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-19",
-      "tokens": 449,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 641,
-      "title": "Adjust Auto Merge conditions and Normalize PR Report logic",
-      "type": "other",
-      "date": "2026-09-18",
-      "tokens": 14,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 15.8
     }
   ],
   "overview": {
@@ -225,7 +215,7 @@
     "testFiles": 372,
     "skills": 28,
     "rules": 48,
-    "events": 815,
+    "events": 818,
     "qualityNotes": 706
   }
 }
