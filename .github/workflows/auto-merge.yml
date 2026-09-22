@@ -14,8 +14,8 @@ permissions:
 
 jobs:
   # ── Fluxo normal (run de push humano com jobs reais) ────────────────
-  # workflow_run dispara quando um run do CI completa (success/failure).
-  # O run do head final (push humano) completa success → merge.
+  # Restrição P0: workflow_run dispara apenas quando o evento do CI é 'pull_request'
+  # e a branch head não é 'main' (default_branch), eliminando falhas automáticas pós-merge.
   auto-merge:
     if: >
       github.event_name == 'workflow_run' &&
