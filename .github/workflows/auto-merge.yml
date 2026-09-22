@@ -21,6 +21,7 @@ jobs:
       github.event_name == 'workflow_run' &&
       github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch &&
       github.event.workflow_run.head_branch != github.event.repository.default_branch &&
       github.event.workflow_run.head_branch != 'main'
     runs-on: ubuntu-latest
@@ -33,6 +34,12 @@ jobs:
         run: |
           BRANCH="${{ github.event.workflow_run.head_branch }}"
           echo "🔍 Buscando PR aberto da branch: $BRANCH"
+          if [ -z "$BRANCH" ] || [ "$BRANCH" = "main" ] || [ "$BRANCH" = "${{ github.event.repository.default_branch }}" ]; then
+            echo "⚠️ Branch inválida ou main, ignorando"
+            echo "num=" >> "$GITHUB_OUTPUT"
+            echo "branch=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           PR_NUM=$(gh pr list \
             --repo "${{ github.repository }}" \
             --head "$BRANCH" \
@@ -95,6 +102,7 @@ jobs:
   mergeia-pr-ready:
     if: >
       github.event_name == 'repository_dispatch' &&
+      github.event.client_payload.branch &&
       github.event.client_payload.branch != github.event.repository.default_branch &&
       github.event.client_payload.branch != 'main'
     runs-on: ubuntu-latest
@@ -108,6 +116,12 @@ jobs:
         run: |
           BRANCH="${{ github.event.client_payload.branch }}"
           echo "🔍 Buscando PR aberto da branch: $BRANCH (pr-ready)"
+          if [ -z "$BRANCH" ] || [ "$BRANCH" = "main" ] || [ "$BRANCH" = "${{ github.event.repository.default_branch }}" ]; then
+            echo "⚠️ Branch inválida ou main, ignorando"
+            echo "num=" >> "$GITHUB_OUTPUT"
+            echo "branch=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           PR_NUM=$(gh pr list \
             --repo "${{ github.repository }}" \
             --head "$BRANCH" \
