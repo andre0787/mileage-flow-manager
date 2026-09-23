@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-22T10:51:31.731Z",
-  "dataDate": "2026-09-22",
+  "generatedAt": "2026-09-23T00:17:23.350Z",
+  "dataDate": "2026-09-23",
   "kpiStats": [
     {
-      "value": 818,
+      "value": 825,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 706,
+      "value": 709,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -28,7 +28,7 @@
       "sub": "desde o início"
     },
     {
-      "value": 65,
+      "value": 66,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -41,12 +41,12 @@
     },
     {
       "name": "pre-pr",
-      "n": 140,
+      "n": 130,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 116,
+      "n": 115,
       "color": "#ef4444"
     },
     {
@@ -56,12 +56,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 58,
+      "n": 59,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 55,
+      "n": 56,
       "color": "#22c55e"
     },
     {
@@ -71,7 +71,7 @@
     },
     {
       "name": "gate",
-      "n": 265,
+      "n": 269,
       "color": "#f43f5e"
     },
     {
@@ -88,7 +88,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 45,
+      "n": 46,
       "color": "#84cc16"
     },
     {
@@ -99,53 +99,53 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-09-22 04:58:15",
+      "t": "2026-09-23 00:17:23",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-22 04:48:12",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-22 04:44:24",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-22 04:43:31",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
-    },
-    {
-      "t": "2026-09-22 04:42:51",
+      "t": "2026-09-23 00:14:49",
       "d": "gate",
       "desc": "gate auth executado (rule-35-auth-gate)"
     },
     {
-      "t": "2026-09-22 04:42:51",
+      "t": "2026-09-23 00:14:49",
       "d": "gate",
       "desc": "gate twins executado (rule-34-twins-check)"
     },
     {
-      "t": "2026-09-22 04:42:51",
+      "t": "2026-09-23 00:14:49",
       "d": "gate",
       "desc": "gate intent executado (rule-33-intent-gate)"
     },
     {
-      "t": "2026-09-22 04:42:51",
+      "t": "2026-09-23 00:14:49",
       "d": "gate",
       "desc": "gate council executado (rule-27-council-veredict)"
+    },
+    {
+      "t": "2026-09-23 00:14:07",
+      "d": "code-review:done",
+      "desc": "Revisão de código realizada"
+    },
+    {
+      "t": "2026-09-23 00:13:39",
+      "d": "coding:done",
+      "desc": "Implementados os ajustes de workflow P0, P1, P2 e P3"
+    },
+    {
+      "t": "2026-09-22 04:58:15",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 116,
+    "ruleFails": 115,
     "healed": 14,
-    "healedRate": 12.1,
-    "prePrTotal": 140,
-    "prePrPass": 138,
-    "prePrPassRate": 98.6,
+    "healedRate": 12.2,
+    "prePrTotal": 130,
+    "prePrPass": 128,
+    "prePrPassRate": 98.5,
     "gateBlocked": 2,
     "topViolations": [
       {
@@ -175,38 +175,7 @@
       }
     ]
   },
-  "lastPrs": [
-    {
-      "number": 686,
-      "title": "docs: AI-SESSION-STATE pós-wave #685",
-      "type": "docs",
-      "date": "2026-09-22",
-      "tokens": 22,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 685,
-      "title": "chore: consolida lote de PRs #643–#684 (37 canônicas) + duplicatas fechadas",
-      "type": "chore",
-      "date": "2026-09-22",
-      "tokens": 6363,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 648,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-21",
-      "tokens": 380,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0
-    }
-  ],
+  "lastPrs": [],
   "overview": {
     "components": 178,
     "pages": 18,
@@ -215,7 +184,7 @@
     "testFiles": 372,
     "skills": 28,
     "rules": 48,
-    "events": 818,
-    "qualityNotes": 706
+    "events": 825,
+    "qualityNotes": 709
   }
 }
