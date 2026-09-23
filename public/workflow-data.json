@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-22T10:51:31.731Z",
-  "dataDate": "2026-09-22",
+  "generatedAt": "2026-09-23T10:41:36.111Z",
+  "dataDate": "2026-09-23",
   "kpiStats": [
     {
       "value": 818,
@@ -35,18 +35,13 @@
   ],
   "eventTypes": [
     {
-      "name": "session:start",
-      "n": 1,
-      "color": "#3b82f6"
-    },
-    {
       "name": "pre-pr",
-      "n": 140,
+      "n": 127,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 116,
+      "n": 87,
       "color": "#ef4444"
     },
     {
@@ -56,12 +51,12 @@
     },
     {
       "name": "code-review:done",
-      "n": 58,
+      "n": 57,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 55,
+      "n": 54,
       "color": "#22c55e"
     },
     {
@@ -73,22 +68,17 @@
       "name": "gate",
       "n": 265,
       "color": "#f43f5e"
-    },
-    {
-      "name": "gate:blocked",
-      "n": 2,
-      "color": "#b91c1c"
     }
   ],
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 55,
+      "n": 54,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 45,
+      "n": 39,
       "color": "#84cc16"
     },
     {
@@ -140,28 +130,23 @@
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 116,
+    "ruleFails": 87,
     "healed": 14,
-    "healedRate": 12.1,
-    "prePrTotal": 140,
-    "prePrPass": 138,
-    "prePrPassRate": 98.6,
-    "gateBlocked": 2,
+    "healedRate": 16.1,
+    "prePrTotal": 127,
+    "prePrPass": 125,
+    "prePrPassRate": 98.4,
+    "gateBlocked": 0,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 33,
+        "count": 31,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
         "rule": "rule-39-coding-gate",
-        "count": 16,
+        "count": 14,
         "hint": "faltou evento coding:done por subagente na branch"
-      },
-      {
-        "rule": "rule-31-lib-test-coverage",
-        "count": 10,
-        "hint": ""
       },
       {
         "rule": "rule-26-session-started",
@@ -170,12 +155,27 @@
       },
       {
         "rule": "rule-03-handoff-completeness",
-        "count": 8,
+        "count": 7,
+        "hint": ""
+      },
+      {
+        "rule": "rule-14-orphan-files",
+        "count": 7,
         "hint": ""
       }
     ]
   },
   "lastPrs": [
+    {
+      "number": 687,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-22",
+      "tokens": 582,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 686,
       "title": "docs: AI-SESSION-STATE pós-wave #685",
@@ -195,16 +195,6 @@
       "benefit": "Ajuste de processo validado",
       "impact": "Processo mais confiável e audável",
       "cycleHours": 0.1
-    },
-    {
-      "number": 648,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-09-21",
-      "tokens": 380,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0
     }
   ],
   "overview": {
