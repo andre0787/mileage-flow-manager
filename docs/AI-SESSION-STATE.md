@@ -1,21 +1,20 @@
-# AI Session State - 2026-09-24T02:30:00.000Z
+# AI Session State - 2026-09-24T03:05:00.000Z
 
 ## Última Task
-- **PR #690 MERGEADA EM PRODUÇÃO** (commit 4f803890, 02:07Z) — workflow normalize-pr-report hardened (git mv + guard de commit vazio + teste de guarda) e env fallback de credenciais Supabase no spec Playwright (conteúdo exclusivo do #688 incorporado).
-- **PR #688 fechada como superseded** (branch deletada; ruído de tracking/kpi regenerado pelos bots).
-- Backlog zerado: **0 PRs abertos, 0 issues abertas**. Deploy de produção: **success** + e2e-smoke-prod **success**.
+- **Pendências da sessão anterior resolvidas**: Radar de vulnerabilidades zerado (**0 vulnerabilities**, era 8) e stashes antigos auditados (recuperados e descartáveis).
+- vitest/@vitest/coverage-v8/@vitest/mocker 4.1.10→4.1.11, js-yaml 4.3.2, browserslist 4.29.0, fast-uri, postcss-selector-parser, baseline-browser-mapping 2.11.25.
+- **Workaround**: npm 10.9.8 crasha (`edgesOut`/`#loadPeerSet`) em install/update; usado `npx npm@11 install`. Considerar upgrade do npm no ambiente.
 
 ## Estado dos Testes & Qualidade
-- **Local:** typecheck ✅ | build ✅ | workflows-guard 24 testes ✅ | pre-pr **0 errors** | CI PR Check ✅ | e2e-smoke ✅
-- Gates rule-38 (`code-review:done`) e rule-39 (`coding:done`) registrados na branch do PR; pre-pr git status ZERO (rule-10).
+- **Local:** typecheck ✅ | build ✅ | **1567 testes** passando ✅ | `npm ci` reprodutível ✅ | npm audit **0** ✅
 
-## Fluxo Aplicado
-- stash do ruído de tracking → branch fix/pr690-finish da head do #690 → commit do conteúdo do #688 → pre-pr com evidências de gate → push fast-forward na head do PR → ready → CI verde → auto-merge → repository_dispatch deploy → produção.
+## Arquivos Modificados & Impacto
+- `package.json` + `package-lock.json`: patches de segurança (audit zero); override `minimatch@^10.2.4` preservado.
+- `docs/tracking/archive/`: recuperação de **448 registros** dos stashes wave-685/wave-2026-09-22 (events-08 +66, quality-08 +143, events-09 recriado com 239); JSON 100% válido.
 
 ## Pendências Imediatas
-- Monitorar nightly: coverage gate (rule-42) e Radar de vulnerabilidades (7 pacotes afetados, 11 advisories — npm update pendente).
-- Stash local `chore: noise tracking session-start` aguarda pop/descarte (ruído docs/tracking + RADAR).
+- Após merge: `git stash drop` dos stashes wave-685 e wave-2026-09-22 (conteúdo já recuperado na main).
+- Monitorar nightly (rule-42 coverage); stash legados restantes (handoff-autogen, wip) sem flagged, avaliar depois.
 
 ## Governança de Contexto
-- Sessão categoria chore; AUTH rule-35: "termina de implementar todas as prs abertas e pendencias do repo em prod".
-- Deploy via fluxo canônico do repo (auto-merge → dispatch deploy), sem push manual em main.
+- Categoria chore; gates rule-38/39 registrados; TWINS: apenas estes 2 stashes flagged tinham conteúdo; deps via fluxo canônico (branch → pre-pr → PR).
