@@ -1,23 +1,21 @@
-# AI Session State - 2026-09-22T05:00:00.000Z
+# AI Session State - 2026-09-24T02:30:00.000Z
 
 ## Última Task
-- **Wave #685 MERGEADA EM PRODUÇÃO** (commit d08b16ed, 04:52Z) — consolida 37 PRs canônicos #643–#684.
-- GitHub marcou os 37 PRs absorvidos como MERGED (head commits alcançaram main via #685); duplicatas #669/#679 fechadas como superseded.
-- Backlog zerado: **0 PRs abertos**. Deploy de produção: success. Auto-merge e Normalize (fixes #643/#645/#684) operando em produção.
+- **PR #690 MERGEADA EM PRODUÇÃO** (commit 4f803890, 02:07Z) — workflow normalize-pr-report hardened (git mv + guard de commit vazio + teste de guarda) e env fallback de credenciais Supabase no spec Playwright (conteúdo exclusivo do #688 incorporado).
+- **PR #688 fechada como superseded** (branch deletada; ruído de tracking/kpi regenerado pelos bots).
+- Backlog zerado: **0 PRs abertos, 0 issues abertas**. Deploy de produção: **success** + e2e-smoke-prod **success**.
 
 ## Estado dos Testes & Qualidade
-- **Local:** 209 arquivos / **1566 testes** ✅ | typecheck ✅ | build ✅ | CI PR Check ✅ | e2e-smoke ✅
-- Gates rule-38 (`code-review:done`) e rule-39 (`coding:done`) registrados; AUTH rule-35 registrado no comentário do #685.
+- **Local:** typecheck ✅ | build ✅ | workflows-guard 24 testes ✅ | pre-pr **0 errors** | CI PR Check ✅ | e2e-smoke ✅
+- Gates rule-38 (`code-review:done`) e rule-39 (`coding:done`) registrados na branch do PR; pre-pr git status ZERO (rule-10).
 
-## Arquivos Modificados & Impacto
-- Fixes de segurança (#660 #663 #673 #678), bugfixes (#655+port #681, #659), perf (#656 #657 #665–#682), refactors (#675 #677 #681), tests (#649–#654 #658 #661 #662 #664 #671 #674 #683), CI (#643 #645 #684 #647).
-- rule-41: SaleForm decomposto em `src/components/sales/form/` (7 módulos ≤150 linhas).
-- Tracking JSONLs reconstruídos (união dedup, JSON 100% válido); `docs/reports/` restaurado da main.
+## Fluxo Aplicado
+- stash do ruído de tracking → branch fix/pr690-finish da head do #690 → commit do conteúdo do #688 → pre-pr com evidências de gate → push fast-forward na head do PR → ready → CI verde → auto-merge → repository_dispatch deploy → produção.
 
 ## Pendências Imediatas
-- Pop do stash local `wave-2026-09-22` (ruído docs/tracking+RADAR pré-wave) — conferir antes de descartar.
-- Monitorar nightly: coverage gate (rule-42) e Radar de vulnerabilidades (7 pacotes afetados, npm update pendente).
+- Monitorar nightly: coverage gate (rule-42) e Radar de vulnerabilidades (7 pacotes afetados, 11 advisories — npm update pendente).
+- Stash local `chore: noise tracking session-start` aguarda pop/descarte (ruído docs/tracking + RADAR).
 
 ## Governança de Contexto
-- TWINS: duplicatas consolidadas (#669=#656, #679=#655); padrões owner-filter/cart-cost/workflows unificados.
-- Sessão encerrada com git status limpo em `main` local sincronizado com origem.
+- Sessão categoria chore; AUTH rule-35: "termina de implementar todas as prs abertas e pendencias do repo em prod".
+- Deploy via fluxo canônico do repo (auto-merge → dispatch deploy), sem push manual em main.
