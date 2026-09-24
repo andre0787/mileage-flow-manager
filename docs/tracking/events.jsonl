@@ -828,3 +828,5 @@
 {"timestamp":"2026-09-24T01:58:35.555Z","type":"gate","description":"gate auth executado (rule-35-auth-gate)","branch":"fix/pr690-finish","commit":"584a768e","agent":"human","gate":"auth","rule":"rule-35-auth-gate"}
 {"timestamp":"2026-09-24T01:58:35.588Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"fix/pr690-finish","commit":"584a768e","agent":"human","rule":"rule-38-code-review-gate"}
 {"timestamp":"2026-09-24T01:58:35.621Z","type":"rule:fail","description":"rule-39-coding-gate falhou","branch":"fix/pr690-finish","commit":"584a768e","agent":"human","rule":"rule-39-coding-gate"}
+{"timestamp":"2026-09-24T02:00:55.167Z","type":"coding:done","description":"Finalizacao PR690: workflow normalize + guard + env fallback e2e validados","branch":"fix/pr690-finish","commit":"c04fedc6","agent":"human","subagent":true,"skill":"subagent-driven-development"}
+{"timestamp":"2026-09-24T02:00:55.198Z","type":"code-review:done","description":"Review do diff combinado PR690 aprovado (workflow yml + teste de guarda + spec e2e)","branch":"fix/pr690-finish","commit":"c04fedc6","agent":"human","subagent":true,"verdict":"approved"}
