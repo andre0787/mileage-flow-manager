@@ -1,8 +1,8 @@
 import { test, expect, type Page } from "@playwright/test";
 
 const TEST_PASSWORD = "Test@123456";
-const SUPABASE_URL = "https://ohyplfpcwxzakujjfwdf.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs";
+const SUPABASE_URL = process.env.VITE_SUPABASE_URL || "https://ohyplfpcwxzakujjfwdf.supabase.co";
+const SUPABASE_ANON_KEY = process.env.VITE_SUPABASE_ANON_KEY || "sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs";
 
 async function registerUser(page: Page) {
   await page.goto("/login");
