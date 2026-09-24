@@ -41,6 +41,11 @@ describe("normalize-pr-report workflow (P0: PRs blocked por [skip ci])", () => {
     expect(content).toMatch(/pr-ready/);
     expect(content).toMatch(/client_payload\[branch\]/);
   });
+
+  it("verifica git diff --staged antes de commitar para evitar falha no git commit vazio", () => {
+    const content = readFileSync(WF, "utf8");
+    expect(content).toMatch(/git diff --staged --quiet/);
+  });
 });
 
 describe("deploy workflow (deploy automático pós-merge)", () => {

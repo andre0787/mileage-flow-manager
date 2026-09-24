@@ -48,10 +48,8 @@ jobs:
             fi
 
             if [ "$BASENAME" != "$NEW_NAME" ]; then
-              mv "$file" "$DIRNAME/$NEW_NAME"
+              git mv "$file" "$DIRNAME/$NEW_NAME" 2>/dev/null || { mv "$file" "$DIRNAME/$NEW_NAME" && git add "$DIRNAME/$NEW_NAME"; }
               echo "  🔄 $BASENAME → $NEW_NAME"
-              git add "$DIRNAME/$NEW_NAME"
-              git rm --cached "$file" 2>/dev/null || rm -f "$file"
               CHANGED=1
             fi
           done
@@ -61,10 +59,15 @@ jobs:
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git checkout -B "${{ github.head_ref }}"
             git add -A
-            git commit -m "chore: normalize report prefix to PR${PR_NUM}"
-            git push origin "HEAD:${{ github.head_ref }}"
-            echo "✅ Relatório(s) renomeado(s) para PR${PR_NUM} e commitado na branch"
-            echo "pushed=yes" >> "$GITHUB_OUTPUT"
+            if git diff --staged --quiet; then
+              echo "ℹ️  Nenhuma alteração a commitar"
+              echo "pushed=no" >> "$GITHUB_OUTPUT"
+            else
+              git commit -m "chore: normalize report prefix to PR${PR_NUM}"
+              git push origin "HEAD:${{ github.head_ref }}"
+              echo "✅ Relatório(s) renomeado(s) para PR${PR_NUM} e commitado na branch"
+              echo "pushed=yes" >> "$GITHUB_OUTPUT"
+            fi
           else
             echo "✅ Nenhum relatório para renomear"
             echo "pushed=no" >> "$GITHUB_OUTPUT"
