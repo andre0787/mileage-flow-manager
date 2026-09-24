@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T02:50:28.320Z",
+  "generatedAt": "2026-09-24T11:01:16.659Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -192,19 +192,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-08-25",
-      "label": "25/08",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-08-26",
       "label": "26/08",
@@ -581,9 +568,32 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
+    },
+    {
+      "day": "2026-09-24",
+      "label": "24/09",
+      "prePrTotal": 4,
+      "prePrPass": 4,
+      "prePrFail": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 5,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 2,
+      "friction": 1.25
     }
   ],
   "prs": [
+    {
+      "number": 692,
+      "title": "chore: zera vulnerabilidades do audit + recupera tracking dos stashes",
+      "type": "chore",
+      "date": "2026-09-24",
+      "tokens": 1289,
+      "benefit": "Ajuste de processo validado",
+      "impact": "Processo mais confiável e audável",
+      "cycleHours": 0.1
+    },
     {
       "number": 691,
       "title": "docs: session state pós PR690 (deploy em produção)",
@@ -658,11 +668,90 @@
   },
   "summary": {
     "merges": 59,
-    "prs": 6,
+    "prs": 7,
     "sessions": 0,
     "violations": 80,
     "healed": 14,
     "prePrPassRate": 98.4
   },
-  "telemetry": []
+  "telemetry": [
+    {
+      "area": "workflow",
+      "cost": 0.26902,
+      "executions": 19,
+      "avgExecutionMs": 1132515653
+    },
+    {
+      "area": "vendas",
+      "cost": 0.0287,
+      "executions": 1,
+      "avgExecutionMs": 16831791
+    },
+    {
+      "area": "graph-scout",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "test-scout",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "architect",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "implementer",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "tester",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "reviewer",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "task",
+      "cost": 0,
+      "executions": 7,
+      "avgExecutionMs": 0
+    },
+    {
+      "area": "classifier",
+      "cost": 0,
+      "executions": 7,
+      "avgExecutionMs": 0
+    },
+    {
+      "area": "tools",
+      "cost": 0,
+      "executions": 82,
+      "avgExecutionMs": 111825
+    },
+    {
+      "area": "result",
+      "cost": 0,
+      "executions": 5,
+      "avgExecutionMs": 0
+    },
+    {
+      "area": "final-validator",
+      "cost": 0,
+      "executions": 81,
+      "avgExecutionMs": 111627
+    }
+  ]
 }
