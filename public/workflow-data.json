@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T02:50:28.353Z",
+  "generatedAt": "2026-09-24T11:01:17.015Z",
   "dataDate": "2026-09-24",
   "kpiStats": [
     {
@@ -167,6 +167,16 @@
   },
   "lastPrs": [
     {
+      "number": 692,
+      "title": "chore: zera vulnerabilidades do audit + recupera tracking dos stashes",
+      "type": "chore",
+      "date": "2026-09-24",
+      "tokens": 1289,
+      "benefit": "Ajuste de processo validado",
+      "impact": "Processo mais confiável e audável",
+      "cycleHours": 0.1
+    },
+    {
       "number": 691,
       "title": "docs: session state pós PR690 (deploy em produção)",
       "type": "docs",
@@ -204,16 +214,6 @@
       "tokens": 582,
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 686,
-      "title": "docs: AI-SESSION-STATE pós-wave #685",
-      "type": "docs",
-      "date": "2026-09-22",
-      "tokens": 22,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança",
       "cycleHours": 0.1
     }
   ],
