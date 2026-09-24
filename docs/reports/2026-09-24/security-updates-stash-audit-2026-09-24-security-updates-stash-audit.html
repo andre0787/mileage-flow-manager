@@ -168,11 +168,11 @@
       <div class="hero">
         <div class="hero-top">
           <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">security-updates-stash-audit</span> <span class="badge risk" style="color:#fbbf24">Médio risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
-          <div class="hero-date">2026-09-24 · 23:48 · <span class="mono">chore/security-updates-stash-audit</span></div>
+          <div class="hero-date">2026-09-24 · 23:49 · <span class="mono">chore/security-updates-stash-audit</span></div>
         </div>
         <h1>security updates stash audit</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">3d198767 — chore(tracking): recupera eventos arquivados dos stashes wave-685/wave-2026-09-22 (merge dedup)</div>
+        <div class="hero-meta mono">39df24b7 — chore: session state (pendencias resolvidas) + relatorio pre-pr + tracking</div>
       </div>
       
     <div class="kpi-grid">
@@ -187,7 +187,7 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/2</div>
+        <div class="kpi-value">0/3</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
         <div class="kpi-sub">5 violações · 0 auto-corrigidas</div>
       </div>
@@ -251,7 +251,7 @@
       <td>security updates stash audit</td>
       <td>Alteração validada dentro do fluxo de qualidade do produto.</td>
       <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
-      <td><code>~1272</code></td>
+      <td><code>~1418</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.172 tokens (feature) · status pesado — tracking</p>
@@ -287,7 +287,7 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">2</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">3</span><span class="stat-l">rodadas de validação pré-PR</span></div>
             <div class="stat"><span class="stat-v">5</span><span class="stat-l">violações de regra encontradas</span></div>
             <div class="stat"><span class="stat-v green">0</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
@@ -312,7 +312,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 407 remoções — 1696 linhas tocadas</td><td>✨ 1011 adições — 7 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 422 remoções — 1891 linhas tocadas</td><td>✨ 1167 adições — 10 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -320,42 +320,46 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>7</td></tr>
-            <tr><td>Adições</td><td>+1011</td></tr>
-            <tr><td>Remoções</td><td>-407</td></tr>
-            <tr><td>Tokens estimados</td><td>~1272</td></tr>
+            <tr><td>Arquivos alterados</td><td>10</td></tr>
+            <tr><td>Adições</td><td>+1167</td></tr>
+            <tr><td>Remoções</td><td>-422</td></tr>
+            <tr><td>Tokens estimados</td><td>~1418</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:60">+758 add</div>
-        <div class="del" style="flex:24">-305 del</div>
-        <div class="overhead" style="flex:16">~209 ctx</div>
+        <div class="add" style="flex:62">+875 add</div>
+        <div class="del" style="flex:22">-317 del</div>
+        <div class="overhead" style="flex:16">~226 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+758</td><td>60%</td></tr>
-      <tr><td>Remoções</td><td>-305</td><td>24%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~209</td><td>16%</td></tr>
-      <tr><th>Total</th><th>~1272</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+875</td><td>62%</td></tr>
+      <tr><td>Remoções</td><td>-317</td><td>22%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~226</td><td>16%</td></tr>
+      <tr><th>Total</th><th>~1418</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
           <h3>📁 Arquivos</h3>
           <table>
             <tr><th>Status</th><th>Arquivo</th><th>+/-</th></tr>
-            <tr><td>A</td><td>docs/reports/2026-09-24/security-updates-stash-audit-2026-09-24-security-updates-stash-audit.html</td><td class="mono"><span class="ns-add">+427</span> <span class="ns-del">−0</span></td></tr>
+            <tr><td>M</td><td>docs/AI-SESSION-STATE.md</td><td class="mono"><span class="ns-add">+11</span> <span class="ns-del">−12</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-09-24/security-updates-stash-audit-2026-09-24-security-updates-stash-audit.html</td><td class="mono"><span class="ns-add">+558</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>M</td><td>docs/tracking/archive/events-2026-08.jsonl</td><td class="mono"><span class="ns-add">+66</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>A</td><td>docs/tracking/archive/events-2026-09.jsonl</td><td class="mono"><span class="ns-add">+239</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>M</td><td>docs/tracking/archive/quality-2026-08.jsonl</td><td class="mono"><span class="ns-add">+143</span> <span class="ns-del">−0</span></td></tr>
-<tr><td>M</td><td>docs/tracking/events.jsonl</td><td class="mono"><span class="ns-add">+2</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/envelopes.jsonl</td><td class="mono"><span class="ns-add">+2</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td><td class="mono"><span class="ns-add">+8</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td><td class="mono"><span class="ns-add">+3</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>M</td><td>package-lock.json</td><td class="mono"><span class="ns-add">+125</span> <span class="ns-del">−398</span></td></tr>
 <tr><td>M</td><td>package.json</td><td class="mono"><span class="ns-add">+2</span> <span class="ns-del">−2</span></td></tr>
           </table>
         </div>
         <div class="ap-card">
-          <h3>🔖 Commits da sessão (2)</h3>
+          <h3>🔖 Commits da sessão (3)</h3>
           <ul class="commit-list">
-            <li><code>3d198767</code> chore(tracking): recupera eventos arquivados dos stashes wave-685/wave-2026-09-22 (merge dedup)</li>
+            <li><code>39df24b7</code> chore: session state (pendencias resolvidas) + relatorio pre-pr + tracking</li>
+<li><code>3d198767</code> chore(tracking): recupera eventos arquivados dos stashes wave-685/wave-2026-09-22 (merge dedup)</li>
 <li><code>2c461f6c</code> chore(deps): zera 8 vulnerabilidades do audit (browserslist, fast-uri, js-yaml, vitest 4.1.11, baseline-browser-mapping, postcss-selector-parser)</li>
           </ul>
         </div>
@@ -371,12 +375,49 @@
       </div>
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
-        diff --git a/docs/reports/2026-09-24/security-updates-stash-audit-2026-09-24-security-updates-stash-audit.html b/docs/reports/2026-09-24/security-updates-stash-audit-2026-09-24-security-updates-stash-audit.html
+        diff --git a/docs/AI-SESSION-STATE.md b/docs/AI-SESSION-STATE.md
+index 8e1f2263..0fcb5920 100644
+<span class="del">--- a/docs/AI-SESSION-STATE.md</span>
+<span class="add">+++ b/docs/AI-SESSION-STATE.md</span>
+@@ -1,21 +1,20 @@
+<span class="del">-# AI Session State - 2026-09-24T02:30:00.000Z</span>
+<span class="add">+# AI Session State - 2026-09-24T03:05:00.000Z</span>
+ 
+ ## Última Task
+<span class="del">-- **PR #690 MERGEADA EM PRODUÇÃO** (commit 4f803890, 02:07Z) — workflow normalize-pr-report hardened (git mv + guard de commit vazio + teste de guarda) e env fallback de credenciais Supabase no spec Playwright (conteúdo exclusivo do #688 incorporado).</span>
+<span class="del">-- **PR #688 fechada como superseded** (branch deletada; ruído de tracking/kpi regenerado pelos bots).</span>
+<span class="del">-- Backlog zerado: **0 PRs abertos, 0 issues abertas**. Deploy de produção: **success** + e2e-smoke-prod **success**.</span>
+<span class="add">+- **Pendências da sessão anterior resolvidas**: Radar de vulnerabilidades zerado (**0 vulnerabilities**, era 8) e stashes antigos auditados (recuperados e descartáveis).</span>
+<span class="add">+- vitest/@vitest/coverage-v8/@vitest/mocker 4.1.10→4.1.11, js-yaml 4.3.2, browserslist 4.29.0, fast-uri, postcss-selector-parser, baseline-browser-mapping 2.11.25.</span>
+<span class="add">+- **Workaround**: npm 10.9.8 crasha (`edgesOut`/`#loadPeerSet`) em install/update; usado `npx npm@11 install`. Considerar upgrade do npm no ambiente.</span>
+ 
+ ## Estado dos Testes &amp; Qualidade
+<span class="del">-- **Local:** typecheck ✅ | build ✅ | workflows-guard 24 testes ✅ | pre-pr **0 errors** | CI PR Check ✅ | e2e-smoke ✅</span>
+<span class="del">-- Gates rule-38 (`code-review:done`) e rule-39 (`coding:done`) registrados na branch do PR; pre-pr git status ZERO (rule-10).</span>
+<span class="add">+- **Local:** typecheck ✅ | build ✅ | **1567 testes** passando ✅ | `npm ci` reprodutível ✅ | npm audit **0** ✅</span>
+ 
+<span class="del">-## Fluxo Aplicado</span>
+<span class="del">-- stash do ruído de tracking → branch fix/pr690-finish da head do #690 → commit do conteúdo do #688 → pre-pr com evidências de gate → push fast-forward na head do PR → ready → CI verde → auto-merge → repository_dispatch deploy → produção.</span>
+<span class="add">+## Arquivos Modificados &amp; Impacto</span>
+<span class="add">+- `package.json` + `package-lock.json`: patches de segurança (audit zero); override `minimatch@^10.2.4` preservado.</span>
+<span class="add">+- `docs/tracking/archive/`: recuperação de **448 registros** dos stashes wave-685/wave-2026-09-22 (events-08 +66, quality-08 +143, events-09 recriado com 239); JSON 100% válido.</span>
+ 
+ ## Pendências Imediatas
+<span class="del">-- Monitorar nightly: coverage gate (rule-42) e Radar de vulnerabilidades (7 pacotes afetados, 11 advisories — npm update pendente).</span>
+<span class="del">-- Stash local `chore: noise tracking session-start` aguarda pop/descarte (ruído docs/tracking + RADAR).</span>
+<span class="add">+- Após merge: `git stash drop` dos stashes wave-685 e wave-2026-09-22 (conteúdo já recuperado na main).</span>
+<span class="add">+- Monitorar nightly (rule-42 coverage); stash legados restantes (handoff-autogen, wip) sem flagged, avaliar depois.</span>
+ 
+ ## Governança de Contexto
+<span class="del">-- Sessão categoria chore; AUTH rule-35: &quot;termina de implementar todas as prs abertas e pendencias do repo em prod&quot;.</span>
+<span class="del">-- Deploy via fluxo canônico do repo (auto-merge → dispatch deploy), sem push manual em main.</span>
+<span class="add">+- Categoria chore; gates rule-38/39 registrados; TWINS: apenas estes 2 stashes flagged tinham conteúdo; deps via fluxo canônico (branch → pre-pr → PR).</span>
+diff --git a/docs/reports/2026-09-24/security-updates-stash-audit-2026-09-24-security-updates-stash-audit.html b/docs/reports/2026-09-24/security-updates-stash-audit-2026-09-24-security-updates-stash-audit.html
 new file mode 100644
-index 00000000..bfb536d4
+index 00000000..31973b4b
 <span class="del">--- /dev/null</span>
 <span class="add">+++ b/docs/reports/2026-09-24/security-updates-stash-audit-2026-09-24-security-updates-stash-audit.html</span>
-@@ -0,0 +1,427 @@
+@@ -0,0 +1,558 @@
 <span class="add">+&lt;!DOCTYPE html&gt;</span>
 <span class="add">+&lt;html lang=&quot;pt-BR&quot;&gt;</span>
 <span class="add">+&lt;head&gt;</span>
@@ -454,48 +495,11 @@ index 00000000..bfb536d4
 <span class="add">+    .slide-head h2{font-size:clamp(1.4rem,3vw,2.1rem);letter-spacing:-.02em;font-weight:800}</span>
 <span class="add">+    .impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}</span>
 <span class="add">+    .impact-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.4rem;display:flex;flex-direction:column;gap:.5rem}</span>
-<span class="add">+    .impact-icon{font-size:1.6rem}</span>
-<span class="add">+    .impact-card h3{font-size:1rem;font-weight:800;letter-spacing:-.01em}</span>
-<span class="add">+    .impact-card p{font-size:.9rem;color:var(--muted)}</span>
-<span class="add">+    .impact-card.blue{border-top:3px solid var(--blue)}</span>
-<span class="add">+    .impact-card.gold{border-top:3px solid var(--gold)}</span>
-<span class="add">+    .impact-card.teal{border-top:3px solid var(--teal)}</span>
-<span class="add">+    .split{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;align-items:start}</span>
-<span class="add">+    @media(max-width:760px){.split{grid-template-columns:1fr}}</span>
-<span class="add">+    .timeline{position:relative;padding-left:1.4rem;display:flex;flex-direction:column;gap:1.05rem}</span>
-<span class="add">+    .timeline::before{content:&quot;&quot;;position:absolute;left:.4rem;top:.3rem;bottom:.3rem;width:2px;background:linear-gradient(180deg,var(--blue),var(--green))}</span>
-<span class="add">+    .tl-item{position:relative;display:flex;align-items:center;gap:.9rem}</span>
-<span class="add">+    .tl-dot{position:absolute;left:-1.4rem;width:.85rem;height:.85rem;border-radius:50%;background:var(--card);border:2px solid var(--blue)}</span>
-<span class="add">+    .tl-item.pr\\:merge .tl-dot,.tl-item.pr-merge .tl-dot{border-color:var(--green);background:var(--green)}</span>
-<span class="add">+    .tl-item.pre-pr .tl-dot{border-color:var(--amber)}</span>
-<span class="add">+    .tl-body{display:flex;flex-direction:column}</span>
-<span class="add">+    .tl-time{font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:700}</span>
-<span class="add">+    .tl-label{font-size:.92rem;font-weight:600}</span>
-<span class="add">+    .tl-total{margin-top:.4rem;font-size:.85rem;color:var(--green);font-weight:700}</span>
-<span class="add">+    .empty-note{font-size:.9rem;color:var(--muted);border:1px dashed var(--line);border-radius:1rem;padding:1.2rem}</span>
-<span class="add">+    .stat-list{display:flex;flex-direction:column;gap:.8rem}</span>
-<span class="add">+    .stat{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1rem 1.2rem;display:flex;align-items:baseline;gap:.9rem}</span>
-<span class="add">+    .stat-v{font-size:1.7rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--blue)}</span>
-<span class="add">+    .stat-v.green{color:var(--green)}</span>
-<span class="add">+    .stat-l{font-size:.82rem;color:var(--muted)}</span>
-<span class="add">+    .appendix{justify-content:flex-start}</span>
-<span class="add">+    .appendix-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}</span>
-<span class="add">+    @media(max-width:860px){.appendix-grid{grid-template-columns:1fr}}</span>
-<span class="add">+    .ap-card{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}</span>
-<span class="add">+    .ap-card h3{font-size:.92rem;font-weight:800;margin-bottom:.6rem}</span>
-<span class="add">+    .detail-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.2rem;box-shadow:0 10px 30px rgba(0,0,0,.3)}</span>
-<span class="add">+    .detail-scroll{max-height:56vh;overflow:auto;border-radius:.8rem}</span>
-<span class="add">+    .detail-scroll table{margin:0}</span>
-<span class="add">+    .detail-note{font-size:.72rem;color:var(--muted);opacity:.8;margin-top:.7rem}</span>
-<span class="add">+    .checks{list-style:none;display:flex;flex-direction:column;gap:.35rem}</span>
-<span class="add">+    .checks li{font-size:.85rem;color:var(--muted)}</span>
-<span class="add">+    .ns-add{color:#34d399;font-weight:600}</span>
-<span class="add">+    .ns-del{color:#f87171;font-weight:600}</span>
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-09-24 23:48
+      Gerado por scripts/generate-report.mjs · 2026-09-24 23:49
     </div>
   </div>
 
