@@ -9,9 +9,9 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `docs/session-state-pr690-deploy`
-- **Último commit:** `56253124` — chore: session end
-- **Remote:** no remote
+- **Branch:** `chore/security-updates-stash-audit`
+- **Último commit:** `d12abec5` — chore: session end
+- **Remote:** origin/chore/security-updates-stash-audit
 ### 📋 PRs Abertos
 Nenhum PR aberto.
 ### 📊 Métricas (estimativa local)
@@ -19,7 +19,7 @@ Nenhum PR aberto.
 |---------|-------|
 | Total testes | 1460 |
 | Docs issues | 0 |
-| Branch | docs/session-state-pr690-deploy |
+| Branch | chore/security-updates-stash-audit |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
@@ -49,6 +49,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
 - **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
+
 
 
 
