@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T10:41:35.888Z",
+  "generatedAt": "2026-09-24T02:02:54.997Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -146,25 +146,25 @@
     {
       "month": "2026-09",
       "prePrPassRate": 98.4,
-      "prePrTotal": 123,
-      "prePrPass": 121,
+      "prePrTotal": 125,
+      "prePrPass": 123,
       "prePrFail": 2,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
       "gateActivations": {
-        "intent": 67,
-        "twins": 66,
-        "auth": 66
+        "intent": 71,
+        "twins": 70,
+        "auth": 70
       },
-      "avgOutcomeGrade": 90.1,
+      "avgOutcomeGrade": 90.5,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
-          "count": 30
+          "count": 32
         },
         {
           "rule": "rule-39-coding-gate",
-          "count": 13
+          "count": 15
         },
         {
           "rule": "rule-14-orphan-files",
@@ -185,10 +185,10 @@
       },
       "gateBlockedByRule": {},
       "avgCycleTimeHours": 0.1,
-      "branchesMerged": 55,
-      "violationsCaught": 75,
-      "healedRate": 18.7,
-      "frictionPerPass": 0.62
+      "branchesMerged": 56,
+      "violationsCaught": 79,
+      "healedRate": 17.7,
+      "frictionPerPass": 0.64
     }
   ],
   "daily": [
@@ -585,6 +585,16 @@
   ],
   "prs": [
     {
+      "number": 689,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-09-23",
+      "tokens": 411,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
       "number": 687,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
       "type": "other",
@@ -623,95 +633,16 @@
     "testFiles": 372,
     "skills": 28,
     "rules": 48,
-    "events": 818,
-    "qualityNotes": 706
+    "events": 842,
+    "qualityNotes": 718
   },
   "summary": {
-    "merges": 57,
-    "prs": 3,
+    "merges": 58,
+    "prs": 4,
     "sessions": 0,
-    "violations": 87,
+    "violations": 79,
     "healed": 14,
     "prePrPassRate": 98.4
   },
-  "telemetry": [
-    {
-      "area": "workflow",
-      "cost": 0.24786,
-      "executions": 18,
-      "avgExecutionMs": 1129071989
-    },
-    {
-      "area": "vendas",
-      "cost": 0.0287,
-      "executions": 1,
-      "avgExecutionMs": 16831791
-    },
-    {
-      "area": "graph-scout",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "test-scout",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "architect",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "implementer",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "tester",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "reviewer",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "task",
-      "cost": 0,
-      "executions": 7,
-      "avgExecutionMs": 0
-    },
-    {
-      "area": "classifier",
-      "cost": 0,
-      "executions": 7,
-      "avgExecutionMs": 0
-    },
-    {
-      "area": "tools",
-      "cost": 0,
-      "executions": 76,
-      "avgExecutionMs": 116936
-    },
-    {
-      "area": "result",
-      "cost": 0,
-      "executions": 3,
-      "avgExecutionMs": 0
-    },
-    {
-      "area": "final-validator",
-      "cost": 0,
-      "executions": 75,
-      "avgExecutionMs": 116700
-    }
-  ]
+  "telemetry": []
 }
