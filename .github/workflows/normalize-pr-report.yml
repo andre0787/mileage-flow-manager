@@ -25,6 +25,20 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_NUM="${{ github.event.pull_request.number }}"
+          HEAD_REF="${{ github.head_ref }}"
+
+          if [ -z "$PR_NUM" ]; then
+            echo "⚠️ PR_NUM não encontrado, cancelando normalização"
+            echo "pushed=no" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [ -z "$HEAD_REF" ]; then
+            echo "⚠️ HEAD_REF não encontrado, cancelando normalização"
+            echo "pushed=no" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           shopt -s nullglob
           CHANGED=0
 
