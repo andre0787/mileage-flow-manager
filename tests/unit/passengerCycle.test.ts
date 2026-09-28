@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { countPassengersInCycle, type CycleSale } from "@/lib/passengerCycle";
+import { countPassengersInCycle, getCycleLabel, isInCurrentCycle, type CycleSale } from "@/lib/passengerCycle";
+import type { Program } from "@/types";
 
 const mk = (
   id: string,
@@ -13,6 +14,93 @@ const mk = (
   program,
   date,
   passengers: Array.from({ length: n }, (_, i) => ({ i })),
+});
+
+describe("getCycleLabel", () => {
+  it("retorna 'Últimos N dias' quando cycleType for 'dias' e houver passengerCycleDays", () => {
+    const program: Program = {
+      id: "p1",
+      name: "Smiles",
+      type: "milhas",
+      passengerCycleType: "dias",
+      passengerCycleDays: 30,
+    };
+    expect(getCycleLabel(program)).toBe("Últimos 30 dias");
+  });
+
+  it("retorna o ano atual quando cycleType for 'anual'", () => {
+    const program: Program = {
+      id: "p2",
+      name: "Latam",
+      type: "milhas",
+      passengerCycleType: "anual",
+    };
+    const currentYear = new Date().getFullYear().toString();
+    expect(getCycleLabel(program)).toBe(currentYear);
+  });
+
+  it("retorna o ano atual quando cycleType for 'dias' mas sem passengerCycleDays", () => {
+    const program: Program = {
+      id: "p3",
+      name: "TudoAzul",
+      type: "milhas",
+      passengerCycleType: "dias",
+      passengerCycleDays: 0,
+    };
+    const currentYear = new Date().getFullYear().toString();
+    expect(getCycleLabel(program)).toBe(currentYear);
+  });
+
+  it("retorna o ano atual quando passengerCycleType for indefinido", () => {
+    const program: Program = {
+      id: "p4",
+      name: "TAP",
+      type: "milhas",
+    };
+    const currentYear = new Date().getFullYear().toString();
+    expect(getCycleLabel(program)).toBe(currentYear);
+  });
+});
+
+describe("isInCurrentCycle", () => {
+  const currentYear = new Date().getFullYear();
+
+  it("valida venda no ciclo anual pelo ano vigente", () => {
+    const program: Program = {
+      id: "p1",
+      name: "Smiles",
+      type: "milhas",
+      passengerCycleType: "anual",
+    };
+    expect(isInCurrentCycle(program, `${currentYear}-05-10`)).toBe(true);
+    expect(isInCurrentCycle(program, `${currentYear - 1}-12-31`)).toBe(false);
+  });
+
+  it("retorna true para ciclo em dias quando passengerCycleDays não é definido ou é <= 0", () => {
+    const program: Program = {
+      id: "p2",
+      name: "Latam",
+      type: "milhas",
+      passengerCycleType: "dias",
+    };
+    expect(isInCurrentCycle(program, "2020-01-01")).toBe(true);
+  });
+
+  it("valida venda no ciclo de dias considerando os dias decorridos", () => {
+    const program: Program = {
+      id: "p3",
+      name: "TudoAzul",
+      type: "milhas",
+      passengerCycleType: "dias",
+      passengerCycleDays: 30,
+    };
+    const today = new Date();
+    const recent = new Date(today.getTime() - 10 * 86400000).toISOString().split("T")[0];
+    const old = new Date(today.getTime() - 40 * 86400000).toISOString().split("T")[0];
+
+    expect(isInCurrentCycle(program, recent)).toBe(true);
+    expect(isInCurrentCycle(program, old)).toBe(false);
+  });
 });
 
 describe("countPassengersInCycle", () => {
