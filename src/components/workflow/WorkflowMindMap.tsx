@@ -277,7 +277,7 @@ export function WorkflowMindMap() {
       setSelected(null);
       return;
     }
-    const target = nodesRef.current.find((n) => n.id === id);
+    const target = nodesById.get(id);
     if (!target) {
       setActive(new Set());
       setSelected(null);
@@ -291,7 +291,7 @@ export function WorkflowMindMap() {
     }
     setActive(hl);
     setSelected(id);
-  }, []);
+  }, [nodesById]);
 
   const resetSelection = useCallback(() => applySelection(null), [applySelection]);
 
@@ -319,7 +319,7 @@ export function WorkflowMindMap() {
     const ctm = svg.getScreenCTM();
     if (!ctm) return;
     const p = pt.matrixTransform(ctm.inverse());
-    const n = nodesRef.current.find((x) => x.id === id);
+    const n = nodesById.get(id);
     if (!n) return;
     dragRef.current = {
       id,
@@ -329,7 +329,7 @@ export function WorkflowMindMap() {
       lastX: p.x,
       lastY: p.y,
     };
-  }, []);
+  }, [nodesById]);
 
   const onPointerMove = useCallback(
     (e: PointerEvent) => {
