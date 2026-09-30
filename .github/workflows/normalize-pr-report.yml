@@ -48,6 +48,10 @@ jobs:
             fi
 
             if [ "$BASENAME" != "$NEW_NAME" ]; then
+              if [ -f "$DIRNAME/$NEW_NAME" ]; then
+                echo "  ⚠️ Target $NEW_NAME já existe, limpando antes de renomear"
+                rm -f "$DIRNAME/$NEW_NAME" 2>/dev/null || true
+              fi
               git mv "$file" "$DIRNAME/$NEW_NAME" 2>/dev/null || { mv "$file" "$DIRNAME/$NEW_NAME" && git add "$DIRNAME/$NEW_NAME"; }
               echo "  🔄 $BASENAME → $NEW_NAME"
               CHANGED=1
