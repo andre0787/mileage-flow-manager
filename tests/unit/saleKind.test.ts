@@ -107,3 +107,20 @@ describe("helpers extraídos (rule-41)", () => {
     expect(errs).toEqual([]);
   });
 });
+
+describe("serviceTypeLabel", () => {
+  it("retorna o rótulo correto para tipos conhecidos", async () => {
+    const { serviceTypeLabel } = await import("@/lib/saleKind");
+    expect(serviceTypeLabel("consultoria")).toBe("Consultoria");
+    expect(serviceTypeLabel("taxa")).toBe("Taxa de embarque");
+    expect(serviceTypeLabel("outro")).toBe("Outro");
+  });
+
+  it("retorna 'Serviço' para null, undefined, texto vazio ou desconhecido", async () => {
+    const { serviceTypeLabel } = await import("@/lib/saleKind");
+    expect(serviceTypeLabel(null)).toBe("Serviço");
+    expect(serviceTypeLabel(undefined)).toBe("Serviço");
+    expect(serviceTypeLabel("")).toBe("Serviço");
+    expect(serviceTypeLabel("desconhecido")).toBe("Serviço");
+  });
+});
