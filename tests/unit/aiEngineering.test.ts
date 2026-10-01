@@ -17,6 +17,7 @@ import {
   computeReadinessUi,
   buildAiEngineeringDashboard,
 } from "@/lib/aiEngineering";
+import { isAgentEvent, avg, attemptsOf } from "@/lib/ai-engineering/shared";
 import { createTelemetryEnvelope, type TelemetryEnvelope } from "@/ai/telemetry/envelope";
 
 function sampleEnvelopes(): TelemetryEnvelope[] {
@@ -167,5 +168,50 @@ describe("buildAiEngineeringDashboard (P11-08)", () => {
     expect(Array.isArray(d.bottlenecks)).toBe(true);
     expect(d.graphRoi.graphQueries).toBe(2);
     expect(d.readiness.score).toBeGreaterThan(0);
+  });
+});
+
+describe("isAgentEvent (P11-08 shared helper)", () => {
+  const base = { taskId: "T1", runId: "R1", model: "pi-local", agentAdapter: "pi" };
+
+  it("retorna true para agent.completed e agent.failed", () => {
+    const completedEnv = createTelemetryEnvelope("agent.completed", base);
+    const failedEnv = createTelemetryEnvelope("agent.failed", base);
+
+    expect(isAgentEvent(completedEnv)).toBe(true);
+    expect(isAgentEvent(failedEnv)).toBe(true);
+  });
+
+  it("retorna false para outros tipos de evento de telemetria", () => {
+    const dispatchedEnv = createTelemetryEnvelope("agent.dispatched", base);
+    const queryStartedEnv = createTelemetryEnvelope("graph.query.started", base);
+    const queryCompletedEnv = createTelemetryEnvelope("graph.query.completed", { ...base, durationMs: 10 } as never);
+    const execCompletedEnv = createTelemetryEnvelope("execution.completed", base);
+
+    expect(isAgentEvent(dispatchedEnv)).toBe(false);
+    expect(isAgentEvent(queryStartedEnv)).toBe(false);
+    expect(isAgentEvent(queryCompletedEnv)).toBe(false);
+    expect(isAgentEvent(execCompletedEnv)).toBe(false);
+  });
+
+  it("retorna false para evento customizado ou desconhecido", () => {
+    const unknownEnv = { eventType: "custom.event" } as unknown as TelemetryEnvelope;
+    expect(isAgentEvent(unknownEnv)).toBe(false);
+  });
+});
+
+describe("shared helpers: avg e attemptsOf", () => {
+  it("calcula média arredondada corretamente e lida com array vazio", () => {
+    expect(avg([])).toBe(0);
+    expect(avg([10, 20, 30])).toBe(20);
+    expect(avg([10.123, 20.456])).toBe(15.3);
+  });
+
+  it("retorna tentativas de envelope ou default 1", () => {
+    const envWithoutAttempts = createTelemetryEnvelope("agent.completed", { taskId: "T1", runId: "R1" });
+    const envWithAttempts = createTelemetryEnvelope("agent.completed", { taskId: "T1", runId: "R1", attempts: 3 } as never);
+
+    expect(attemptsOf(envWithoutAttempts)).toBe(1);
+    expect(attemptsOf(envWithAttempts)).toBe(3);
   });
 });
