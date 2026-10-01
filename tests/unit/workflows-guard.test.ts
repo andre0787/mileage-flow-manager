@@ -46,6 +46,12 @@ describe("normalize-pr-report workflow (P0: PRs blocked por [skip ci])", () => {
     const content = readFileSync(WF, "utf8");
     expect(content).toMatch(/git diff --staged --quiet/);
   });
+
+  it("valida PR_NUM e HEAD_REF defensivamente antes de normalizar", () => {
+    const content = readFileSync(WF, "utf8");
+    expect(content).toMatch(/if \[ -z "\$PR_NUM" \]/);
+    expect(content).toMatch(/if \[ -z "\$HEAD_REF" \]/);
+  });
 });
 
 describe("deploy workflow (deploy automático pós-merge)", () => {
@@ -92,6 +98,7 @@ describe("auto-merge workflow (dispara deploy após merge)", () => {
 
   it("ignora execuções na branch default para evitar falhas pós-merge", () => {
     expect(content).toMatch(/github\.event\.workflow_run\.head_branch != github\.event\.repository\.default_branch/);
+    expect(content).toMatch(/github\.ref != 'refs\/heads\/main'/);
   });
 
   it("valida branch não vazia e ignora main defensivamente no script do Find open PR", () => {
