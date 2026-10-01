@@ -1,30 +1,7 @@
 {
-  "generatedAt": "2026-09-28T10:53:24.429Z",
-  "currentMonth": "2026-09",
+  "generatedAt": "2026-10-01T00:25:51.289Z",
+  "currentMonth": "2026-10",
   "months": [
-    {
-      "month": "2026-04",
-      "prePrPassRate": 0,
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "testCoverageLibs": null,
-      "testCoverageComponents": null,
-      "gateActivations": {
-        "intent": 0,
-        "twins": 0,
-        "auth": 0
-      },
-      "avgOutcomeGrade": null,
-      "topViolations": [],
-      "healedByRule": {},
-      "gateBlockedByRule": {},
-      "avgCycleTimeHours": null,
-      "branchesMerged": 0,
-      "violationsCaught": 0,
-      "healedRate": null,
-      "frictionPerPass": null
-    },
     {
       "month": "2026-05",
       "prePrPassRate": 0,
@@ -96,9 +73,9 @@
     },
     {
       "month": "2026-08",
-      "prePrPassRate": 0,
-      "prePrTotal": 0,
-      "prePrPass": 0,
+      "prePrPassRate": 100,
+      "prePrTotal": 61,
+      "prePrPass": 61,
       "prePrFail": 0,
       "testCoverageLibs": null,
       "testCoverageComponents": null,
@@ -107,103 +84,119 @@
         "twins": 0,
         "auth": 0
       },
-      "avgOutcomeGrade": 89.7,
-      "topViolations": [],
-      "healedByRule": {},
-      "gateBlockedByRule": {},
-      "avgCycleTimeHours": null,
-      "branchesMerged": 0,
-      "violationsCaught": 0,
-      "healedRate": null,
-      "frictionPerPass": null
+      "avgOutcomeGrade": 91.2,
+      "topViolations": [
+        {
+          "rule": "rule-38-code-review-gate",
+          "count": 35
+        },
+        {
+          "rule": "rule-39-coding-gate",
+          "count": 17
+        },
+        {
+          "rule": "rule-03-handoff-completeness",
+          "count": 10
+        },
+        {
+          "rule": "rule-26-session-started",
+          "count": 9
+        },
+        {
+          "rule": "rule-31-lib-test-coverage",
+          "count": 7
+        }
+      ],
+      "healedByRule": {
+        "rule-26": 7,
+        "rule-17-new-docs-valid": 5
+      },
+      "gateBlockedByRule": {
+        "rule-33-intent-gate": 2
+      },
+      "avgCycleTimeHours": 0.9,
+      "branchesMerged": 23,
+      "violationsCaught": 123,
+      "healedRate": 9.8,
+      "frictionPerPass": 2.02
     },
     {
       "month": "2026-09",
-      "prePrPassRate": 95,
-      "prePrTotal": 40,
-      "prePrPass": 38,
+      "prePrPassRate": 98.4,
+      "prePrTotal": 127,
+      "prePrPass": 125,
       "prePrFail": 2,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
       "gateActivations": {
-        "intent": 54,
-        "twins": 55,
-        "auth": 55
+        "intent": 73,
+        "twins": 72,
+        "auth": 72
       },
-      "avgOutcomeGrade": 90.7,
+      "avgOutcomeGrade": 90.8,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
-          "count": 19
+          "count": 32
         },
         {
           "rule": "rule-39-coding-gate",
-          "count": 11
+          "count": 15
+        },
+        {
+          "rule": "rule-14-orphan-files",
+          "count": 7
+        },
+        {
+          "rule": "rule-26-session-started",
+          "count": 4
         },
         {
           "rule": "rule-31-lib-test-coverage",
-          "count": 2
-        },
-        {
-          "rule": "rule-45-react19-compliance",
-          "count": 2
-        },
-        {
-          "rule": "rule-30-outcome-grade",
-          "count": 1
+          "count": 4
         }
       ],
       "healedByRule": {
-        "rule-17-new-docs-valid": 1
+        "rule-17-new-docs-valid": 5,
+        "rule-26": 9
       },
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
-      "branchesMerged": 28,
-      "violationsCaught": 36,
-      "healedRate": 2.8,
-      "frictionPerPass": 0.95
+      "branchesMerged": 57,
+      "violationsCaught": 80,
+      "healedRate": 17.5,
+      "frictionPerPass": 0.64
+    },
+    {
+      "month": "2026-10",
+      "prePrPassRate": 100,
+      "prePrTotal": 1,
+      "prePrPass": 1,
+      "prePrFail": 0,
+      "testCoverageLibs": 100,
+      "testCoverageComponents": 100,
+      "gateActivations": {
+        "intent": 3,
+        "twins": 3,
+        "auth": 3
+      },
+      "avgOutcomeGrade": 100,
+      "topViolations": [
+        {
+          "rule": "rule-38-code-review-gate",
+          "count": 2
+        }
+      ],
+      "healedByRule": {},
+      "gateBlockedByRule": {},
+      "avgCycleTimeHours": null,
+      "branchesMerged": 1,
+      "violationsCaught": 2,
+      "healedRate": 0,
+      "frictionPerPass": 2
     }
   ],
   "daily": [
-    {
-      "day": "2026-08-30",
-      "label": "30/08",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
-    {
-      "day": "2026-08-31",
-      "label": "31/08",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
-    {
-      "day": "2026-09-01",
-      "label": "01/09",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-09-02",
       "label": "02/09",
@@ -233,67 +226,67 @@
     {
       "day": "2026-09-04",
       "label": "04/09",
-      "prePrTotal": 0,
-      "prePrPass": 0,
+      "prePrTotal": 10,
+      "prePrPass": 10,
       "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 12,
+      "healed": 1,
       "sessions": 0,
-      "merges": 0,
-      "friction": null
+      "merges": 4,
+      "friction": 1.2
     },
     {
       "day": "2026-09-05",
       "label": "05/09",
-      "prePrTotal": 0,
-      "prePrPass": 0,
+      "prePrTotal": 9,
+      "prePrPass": 9,
       "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 3,
       "healed": 0,
       "sessions": 0,
-      "merges": 0,
-      "friction": null
+      "merges": 4,
+      "friction": 0.33
     },
     {
       "day": "2026-09-06",
       "label": "06/09",
-      "prePrTotal": 0,
-      "prePrPass": 0,
+      "prePrTotal": 35,
+      "prePrPass": 35,
       "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 16,
+      "healed": 3,
       "sessions": 0,
-      "merges": 0,
-      "friction": null
+      "merges": 10,
+      "friction": 0.46
     },
     {
       "day": "2026-09-07",
       "label": "07/09",
-      "prePrTotal": 0,
-      "prePrPass": 0,
+      "prePrTotal": 24,
+      "prePrPass": 24,
       "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 8,
+      "healed": 5,
       "sessions": 0,
-      "merges": 0,
-      "friction": null
+      "merges": 9,
+      "friction": 0.33
     },
     {
       "day": "2026-09-08",
       "label": "08/09",
-      "prePrTotal": 0,
-      "prePrPass": 0,
+      "prePrTotal": 10,
+      "prePrPass": 10,
       "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 6,
+      "healed": 4,
       "sessions": 0,
-      "merges": 0,
-      "friction": null
+      "merges": 3,
+      "friction": 0.6
     },
     {
       "day": "2026-09-09",
@@ -545,15 +538,54 @@
     {
       "day": "2026-09-28",
       "label": "28/09",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-09-29",
+      "label": "29/09",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-09-30",
+      "label": "30/09",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
+    },
+    {
+      "day": "2026-10-01",
+      "label": "01/10",
       "prePrTotal": 1,
       "prePrPass": 1,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 1,
+      "ruleFails": 2,
       "healed": 0,
       "sessions": 0,
       "merges": 1,
-      "friction": 1
+      "friction": 2
     }
   ],
   "prs": [],
@@ -565,16 +597,16 @@
     "testFiles": 372,
     "skills": 28,
     "rules": 48,
-    "events": 358,
-    "qualityNotes": 492
+    "events": 871,
+    "qualityNotes": 733
   },
   "summary": {
-    "merges": 28,
+    "merges": 58,
     "prs": 0,
     "sessions": 0,
-    "violations": 36,
-    "healed": 1,
-    "prePrPassRate": 95
+    "violations": 82,
+    "healed": 14,
+    "prePrPassRate": 98.4
   },
   "telemetry": []
 }
