@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-28T10:49:03.028Z",
+  "generatedAt": "2026-09-28T10:49:13.192Z",
   "currentMonth": "2026-09",
   "months": [
     {
@@ -126,15 +126,15 @@
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
       "gateActivations": {
-        "intent": 54,
-        "twins": 55,
-        "auth": 55
+        "intent": 53,
+        "twins": 54,
+        "auth": 54
       },
       "avgOutcomeGrade": 90.9,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
-          "count": 19
+          "count": 18
         },
         {
           "rule": "rule-39-coding-gate",
@@ -159,9 +159,9 @@
       "gateBlockedByRule": {},
       "avgCycleTimeHours": null,
       "branchesMerged": 28,
-      "violationsCaught": 36,
-      "healedRate": 2.8,
-      "frictionPerPass": 0.95
+      "violationsCaught": 35,
+      "healedRate": 2.9,
+      "frictionPerPass": 0.92
     }
   ],
   "daily": [
@@ -549,11 +549,11 @@
       "prePrPass": 1,
       "prePrFail": 0,
       "prePrPassRate": 100,
-      "ruleFails": 1,
+      "ruleFails": 0,
       "healed": 0,
       "sessions": 0,
       "merges": 1,
-      "friction": 1
+      "friction": 0
     }
   ],
   "prs": [],
@@ -562,17 +562,17 @@
     "pages": 18,
     "libs": 50,
     "scripts": 124,
-    "testFiles": 374,
+    "testFiles": 372,
     "skills": 28,
     "rules": 48,
-    "events": 358,
-    "qualityNotes": 492
+    "events": 353,
+    "qualityNotes": 489
   },
   "summary": {
     "merges": 28,
     "prs": 0,
     "sessions": 0,
-    "violations": 36,
+    "violations": 35,
     "healed": 1,
     "prePrPassRate": 95
   },
