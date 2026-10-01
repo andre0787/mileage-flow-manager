@@ -271,27 +271,32 @@ export function WorkflowMindMap() {
 
   const nodesById = useMemo(() => new Map(nodes.map((n) => [n.id, n])), [nodes]);
 
-  const applySelection = useCallback((id: string | null) => {
-    if (!id) {
-      setActive(new Set());
-      setSelected(null);
-      return;
-    }
-    const target = nodesRef.current.find((n) => n.id === id);
-    if (!target) {
-      setActive(new Set());
-      setSelected(null);
-      return;
-    }
-    const hl = new Set<string>([id]);
-    if (target.level === 1) {
-      nodesRef.current.filter((n) => n.id.startsWith(`${target.id}-`)).forEach((n) => hl.add(n.id));
-    } else {
-      hl.add(target.branchId);
-    }
-    setActive(hl);
-    setSelected(id);
-  }, []);
+  const applySelection = useCallback(
+    (id: string | null) => {
+      if (!id) {
+        setActive(new Set());
+        setSelected(null);
+        return;
+      }
+      const target = nodesById.get(id);
+      if (!target) {
+        setActive(new Set());
+        setSelected(null);
+        return;
+      }
+      const hl = new Set<string>([id]);
+      if (target.level === 1) {
+        nodesRef.current
+          .filter((n) => n.id.startsWith(`${target.id}-`))
+          .forEach((n) => hl.add(n.id));
+      } else {
+        hl.add(target.branchId);
+      }
+      setActive(hl);
+      setSelected(id);
+    },
+    [nodesById],
+  );
 
   const resetSelection = useCallback(() => applySelection(null), [applySelection]);
 
@@ -309,27 +314,30 @@ export function WorkflowMindMap() {
     setNodes((prev) => prev.map((n) => (n.id === id ? { ...n, cx: x, cy: y } : n)));
   }, []);
 
-  const onPointerDown = useCallback((e: React.PointerEvent, id: string) => {
-    if (e.button !== undefined && e.button !== 0) return;
-    const svg = svgRef.current;
-    if (!svg) return;
-    const pt = svg.createSVGPoint();
-    pt.x = e.clientX;
-    pt.y = e.clientY;
-    const ctm = svg.getScreenCTM();
-    if (!ctm) return;
-    const p = pt.matrixTransform(ctm.inverse());
-    const n = nodesRef.current.find((x) => x.id === id);
-    if (!n) return;
-    dragRef.current = {
-      id,
-      offX: p.x - n.cx,
-      offY: p.y - n.cy,
-      moved: false,
-      lastX: p.x,
-      lastY: p.y,
-    };
-  }, []);
+  const onPointerDown = useCallback(
+    (e: React.PointerEvent, id: string) => {
+      if (e.button !== undefined && e.button !== 0) return;
+      const svg = svgRef.current;
+      if (!svg) return;
+      const pt = svg.createSVGPoint();
+      pt.x = e.clientX;
+      pt.y = e.clientY;
+      const ctm = svg.getScreenCTM();
+      if (!ctm) return;
+      const p = pt.matrixTransform(ctm.inverse());
+      const n = nodesById.get(id);
+      if (!n) return;
+      dragRef.current = {
+        id,
+        offX: p.x - n.cx,
+        offY: p.y - n.cy,
+        moved: false,
+        lastX: p.x,
+        lastY: p.y,
+      };
+    },
+    [nodesById],
+  );
 
   const onPointerMove = useCallback(
     (e: PointerEvent) => {
