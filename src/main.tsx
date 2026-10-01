@@ -19,7 +19,6 @@ if (!root) {
   try {
     createRoot(root).render(<App />);
   } catch (err) {
-    console.error("[main] Fatal render error:", err);
     renderFatalError(root, err);
   }
 }

@@ -10,6 +10,7 @@ import {
   calcProportionalCost,
   calcWeightedAverageCost,
   calcRevenueChange,
+  computePerAccountBalance,
   filterActiveSales,
   filterSalesByMonth,
   computeDashboardMetrics,
@@ -158,6 +159,85 @@ describe("calcProportionalCost", () => {
   it("retorna 0 quando saldo ou amount é 0", () => {
     expect(calcProportionalCost(100, 0, 500)).toBe(0);
     expect(calcProportionalCost(0, 1000, 500)).toBe(0);
+  });
+});
+
+// ─── Cálculos de Saldo de Conta ───
+
+describe("computePerAccountBalance", () => {
+  const accountId = "acc-1";
+
+  it("retorna 0 quando não há entradas ou vendas para a conta", () => {
+    expect(computePerAccountBalance(accountId, [], [])).toBe(0);
+    expect(
+      computePerAccountBalance(
+        accountId,
+        [{ date: "2026-01-01", amount: 1000, accountId: "other-acc" }],
+        [{ status: "concluida", date: "2026-01-01", saleValue: 100, profit: 10, milesUsed: 500, accountId: "other-acc", passengers: [] }],
+      ),
+    ).toBe(0);
+  });
+
+  it("soma créditos de entradas confirmadas usando milesGenerated ou amount", () => {
+    const entries = [
+      { date: "2026-01-01", amount: 1000, milesGenerated: 1500, accountId, entryStatus: "confirmado" },
+      { date: "2026-01-02", amount: 2000, accountId, entryStatus: "confirmado" },
+    ];
+    // 1500 + 2000 = 3500
+    expect(computePerAccountBalance(accountId, entries, [])).toBe(3500);
+  });
+
+  it("ignora entradas com status 'aguardando'", () => {
+    const entries = [
+      { date: "2026-01-01", amount: 1000, accountId, entryStatus: "confirmado" },
+      { date: "2026-01-02", amount: 5000, accountId, entryStatus: "aguardando" },
+    ];
+    expect(computePerAccountBalance(accountId, entries, [])).toBe(1000);
+  });
+
+  it("subtrai valor de entradas onde a conta é conta de origem (transferência de saída)", () => {
+    const entries = [
+      { date: "2026-01-01", amount: 5000, accountId, entryStatus: "confirmado" },
+      // Transferência de acc-1 para acc-2
+      { date: "2026-01-02", amount: 2000, accountId: "acc-2", sourceAccountId: accountId, entryStatus: "confirmado" },
+    ];
+    // 5000 - 2000 = 3000
+    expect(computePerAccountBalance(accountId, entries, [])).toBe(3000);
+  });
+
+  it("subtrai milhas usadas em vendas ativas vinculadas à conta", () => {
+    const entries = [
+      { date: "2026-01-01", amount: 10000, accountId, entryStatus: "confirmado" },
+    ];
+    const sales = [
+      { status: "concluida", date: "2026-01-02", saleValue: 500, profit: 100, milesUsed: 3000, accountId, passengers: [] },
+      { status: "pendente", date: "2026-01-03", saleValue: 300, profit: 50, milesUsed: 2000, accountId, passengers: [] },
+    ];
+    // 10000 - 3000 - 2000 = 5000
+    expect(computePerAccountBalance(accountId, entries, sales)).toBe(5000);
+  });
+
+  it("ignora vendas com status 'cancelado'", () => {
+    const entries = [
+      { date: "2026-01-01", amount: 10000, accountId, entryStatus: "confirmado" },
+    ];
+    const sales = [
+      { status: "concluida", date: "2026-01-02", saleValue: 500, profit: 100, milesUsed: 3000, accountId, passengers: [] },
+      { status: "cancelado", date: "2026-01-03", saleValue: 300, profit: 50, milesUsed: 5000, accountId, passengers: [] },
+    ];
+    // 10000 - 3000 = 7000
+    expect(computePerAccountBalance(accountId, entries, sales)).toBe(7000);
+  });
+
+  it("aplica piso em 0 (clamp) se o saldo for negativo (vendas/débitos maiores que entradas)", () => {
+    const entries = [
+      { date: "2026-01-01", amount: 1000, accountId, entryStatus: "confirmado" },
+    ];
+    const sales = [
+      { status: "concluida", date: "2026-01-02", saleValue: 500, profit: 100, milesUsed: 3000, accountId, passengers: [] },
+    ];
+    // 1000 - 3000 = -2000 -> clamp Math.max(0, -2000) = 0
+    expect(computePerAccountBalance(accountId, entries, sales)).toBe(0);
   });
 });
 
