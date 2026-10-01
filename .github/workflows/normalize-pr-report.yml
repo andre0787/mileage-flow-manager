@@ -16,7 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref || github.head_ref }}
           fetch-depth: 0
 
       - name: Normalize report prefix to PR number
@@ -25,6 +26,20 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_NUM="${{ github.event.pull_request.number }}"
+          HEAD_REF="${{ github.head_ref }}"
+
+          if [ -z "$PR_NUM" ]; then
+            echo "⚠️ PR_NUM não encontrado, cancelando normalização"
+            echo "pushed=no" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [ -z "$HEAD_REF" ]; then
+            echo "⚠️ HEAD_REF não encontrado, cancelando normalização"
+            echo "pushed=no" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           shopt -s nullglob
           CHANGED=0
 
@@ -48,6 +63,10 @@ jobs:
             fi
 
             if [ "$BASENAME" != "$NEW_NAME" ]; then
+              if [ -f "$DIRNAME/$NEW_NAME" ]; then
+                echo "  ⚠️ Target $NEW_NAME já existe, limpando antes de renomear"
+                rm -f "$DIRNAME/$NEW_NAME" 2>/dev/null || true
+              fi
               git mv "$file" "$DIRNAME/$NEW_NAME" 2>/dev/null || { mv "$file" "$DIRNAME/$NEW_NAME" && git add "$DIRNAME/$NEW_NAME"; }
               echo "  🔄 $BASENAME → $NEW_NAME"
               CHANGED=1
