@@ -75,8 +75,25 @@ export const PIPELINE: PipelineNode[] = [
   },
 ];
 
+/** Papéis de agente mapeados para cada node do pipeline (busca O(1)). */
+const ROLE_TO_NODE_MAP = new Map<string, PipelineNode>(
+  PIPELINE.flatMap((node) => node.roles.map((role) => [role, node] as const)),
+);
+
+/** Nodes do pipeline por ID (busca O(1)). */
+const NODE_BY_ID_MAP = new Map<string, PipelineNode>(
+  PIPELINE.map((node) => [node.id, node] as const),
+);
+
+/** Node padrão de agentes para fallback. */
+export const DEFAULT_PIPELINE_NODE = NODE_BY_ID_MAP.get("agents");
+
 export function roleToNode(role: string): PipelineNode | undefined {
-  return PIPELINE.find((n) => n.roles.includes(role));
+  return ROLE_TO_NODE_MAP.get(role);
+}
+
+export function nodeById(id: string): PipelineNode | undefined {
+  return NODE_BY_ID_MAP.get(id);
 }
 
 export function formatMs(ms: number | undefined): string {

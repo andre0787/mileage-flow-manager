@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import type { TelemetryEnvelope } from "@/ai/telemetry/envelope";
 import PipelineNodeInspector from "./PipelineNodeInspector";
 import PipelineTimeline from "./PipelineTimeline";
-import { PIPELINE, roleToNode } from "./pipeline-definition";
+import { PIPELINE, roleToNode, DEFAULT_PIPELINE_NODE } from "./pipeline-definition";
 
 interface Props {
   envelopes: TelemetryEnvelope[];
@@ -31,7 +31,7 @@ export default function WorkflowPipelineDag({ envelopes, decisions = [] }: Props
   const byNode = useMemo(() => {
     const map = new Map<string, TelemetryEnvelope[]>();
     for (const env of envelopes) {
-      const node = roleToNode(env.agentRole ?? "") ?? PIPELINE.find((n) => n.id === "agents");
+      const node = roleToNode(env.agentRole ?? "") ?? DEFAULT_PIPELINE_NODE;
       if (!node) continue;
       const list = map.get(node.id) ?? [];
       list.push(env);
