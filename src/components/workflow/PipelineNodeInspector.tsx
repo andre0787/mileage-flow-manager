@@ -7,7 +7,7 @@
 
 import type { TelemetryEnvelope } from "@/ai/telemetry/envelope";
 import AgentBadge from "./AgentBadge";
-import { PIPELINE } from "./pipeline-definition";
+import { nodeById } from "./pipeline-definition";
 
 interface Props {
   nodeId: string;
@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default function PipelineNodeInspector({ nodeId, envelopes, decisions = [] }: Props) {
-  const node = PIPELINE.find((n) => n.id === nodeId);
+  const node = nodeById(nodeId);
   if (!node) return null;
   const why = decisions.filter((d) => {
     const role = d.role;

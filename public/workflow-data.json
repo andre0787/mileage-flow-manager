@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-28T10:51:51.923Z",
+  "generatedAt": "2026-09-28T10:53:24.499Z",
   "dataDate": "2026-09-28",
   "kpiStats": [
     {
-      "value": 862,
+      "value": 358,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 727,
+      "value": 492,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 26,
+      "value": 1,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 68,
+      "value": 29,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,37 +36,32 @@
   "eventTypes": [
     {
       "name": "pre-pr",
-      "n": 130,
+      "n": 40,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 80,
+      "n": 36,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 14,
+      "n": 1,
       "color": "#10b981"
     },
     {
       "name": "code-review:done",
-      "n": 59,
+      "n": 31,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 56,
+      "n": 32,
       "color": "#22c55e"
     },
     {
-      "name": "session:end",
-      "n": 1,
-      "color": "#f59e0b"
-    },
-    {
       "name": "gate",
-      "n": 293,
+      "n": 218,
       "color": "#f43f5e"
     }
   ],
@@ -78,7 +73,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 39,
+      "n": 40,
       "color": "#84cc16"
     },
     {
@@ -89,78 +84,78 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-09-28 10:51:51",
+      "t": "2026-09-28 10:53:24",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-28 10:49:20",
+      "t": "2026-09-28 10:50:47",
       "d": "gate",
       "desc": "gate auth executado (rule-35-auth-gate)"
     },
     {
-      "t": "2026-09-28 10:49:19",
+      "t": "2026-09-28 10:50:47",
       "d": "gate",
       "desc": "gate twins executado (rule-34-twins-check)"
     },
     {
-      "t": "2026-09-28 10:49:19",
+      "t": "2026-09-28 10:50:47",
       "d": "gate",
       "desc": "gate intent executado (rule-33-intent-gate)"
     },
     {
-      "t": "2026-09-28 10:49:19",
+      "t": "2026-09-28 10:50:46",
       "d": "gate",
       "desc": "gate council executado (rule-27-council-veredict)"
     },
     {
-      "t": "2026-09-28 10:48:04",
+      "t": "2026-09-28 10:50:01",
       "d": "code-review:done",
-      "desc": "Reviewed NotFound console.error removal and component test"
+      "desc": "Review aprovado por subagente"
     },
     {
-      "t": "2026-09-28 10:48:04",
+      "t": "2026-09-28 10:50:00",
       "d": "coding:done",
-      "desc": "Refactored NotFound page and added test"
+      "desc": "Otimização do mapeamento de pipeline DAG com Map O(1)"
     },
     {
-      "t": "2026-09-24 02:50:25",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
+      "t": "2026-09-28 10:40:06",
+      "d": "rule:fail",
+      "desc": "rule-38-code-review-gate falhou"
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 80,
-    "healed": 14,
-    "healedRate": 17.5,
-    "prePrTotal": 130,
-    "prePrPass": 128,
-    "prePrPassRate": 98.5,
+    "ruleFails": 36,
+    "healed": 1,
+    "healedRate": 2.8,
+    "prePrTotal": 40,
+    "prePrPass": 38,
+    "prePrPassRate": 95,
     "gateBlocked": 0,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 32,
+        "count": 19,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
         "rule": "rule-39-coding-gate",
-        "count": 15,
+        "count": 11,
         "hint": "faltou evento coding:done por subagente na branch"
       },
       {
-        "rule": "rule-14-orphan-files",
-        "count": 7,
+        "rule": "rule-31-lib-test-coverage",
+        "count": 2,
         "hint": ""
       },
       {
-        "rule": "rule-26-session-started",
-        "count": 4,
-        "hint": "timestamp de sessão ausente — npm run session:start"
+        "rule": "rule-45-react19-compliance",
+        "count": 2,
+        "hint": ""
       },
       {
-        "rule": "rule-31-lib-test-coverage",
-        "count": 4,
+        "rule": "rule-30-outcome-grade",
+        "count": 1,
         "hint": ""
       }
     ]
@@ -174,7 +169,7 @@
     "testFiles": 372,
     "skills": 28,
     "rules": 48,
-    "events": 862,
-    "qualityNotes": 727
+    "events": 358,
+    "qualityNotes": 492
   }
 }
