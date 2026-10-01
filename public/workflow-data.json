@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-28T10:49:13.258Z",
+  "generatedAt": "2026-09-28T10:51:51.923Z",
   "dataDate": "2026-09-28",
   "kpiStats": [
     {
-      "value": 353,
+      "value": 862,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 489,
+      "value": 727,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -23,12 +23,12 @@
       "sub": "tests/ + tests/unit/"
     },
     {
-      "value": 1,
+      "value": 26,
       "label": "auto-correções (healed)",
       "sub": "desde o início"
     },
     {
-      "value": 29,
+      "value": 68,
       "label": "branches com gates de evidência",
       "sub": "coding + code-review por subagente"
     }
@@ -36,32 +36,37 @@
   "eventTypes": [
     {
       "name": "pre-pr",
-      "n": 40,
+      "n": 130,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 35,
+      "n": 80,
       "color": "#ef4444"
     },
     {
       "name": "healed",
-      "n": 1,
+      "n": 14,
       "color": "#10b981"
     },
     {
       "name": "code-review:done",
-      "n": 31,
+      "n": 59,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 32,
+      "n": 56,
       "color": "#22c55e"
     },
     {
+      "name": "session:end",
+      "n": 1,
+      "color": "#f59e0b"
+    },
+    {
       "name": "gate",
-      "n": 214,
+      "n": 293,
       "color": "#f43f5e"
     }
   ],
@@ -84,39 +89,39 @@
   ],
   "recentTimeline": [
     {
-      "t": "2026-09-28 10:49:12",
+      "t": "2026-09-28 10:51:51",
       "d": "pre-pr",
       "desc": "pre-pr PASS"
     },
     {
-      "t": "2026-09-28 10:46:39",
+      "t": "2026-09-28 10:49:20",
       "d": "gate",
       "desc": "gate auth executado (rule-35-auth-gate)"
     },
     {
-      "t": "2026-09-28 10:46:39",
+      "t": "2026-09-28 10:49:19",
       "d": "gate",
       "desc": "gate twins executado (rule-34-twins-check)"
     },
     {
-      "t": "2026-09-28 10:46:39",
+      "t": "2026-09-28 10:49:19",
       "d": "gate",
       "desc": "gate intent executado (rule-33-intent-gate)"
     },
     {
-      "t": "2026-09-28 10:46:39",
+      "t": "2026-09-28 10:49:19",
       "d": "gate",
       "desc": "gate council executado (rule-27-council-veredict)"
     },
     {
-      "t": "2026-09-28 10:45:59",
+      "t": "2026-09-28 10:48:04",
       "d": "code-review:done",
-      "desc": "Code review completed for main.tsx console.error removal"
+      "desc": "Reviewed NotFound console.error removal and component test"
     },
     {
-      "t": "2026-09-28 10:45:59",
+      "t": "2026-09-28 10:48:04",
       "d": "coding:done",
-      "desc": "Removed leftover console.error statement from main.tsx"
+      "desc": "Refactored NotFound page and added test"
     },
     {
       "t": "2026-09-24 02:50:25",
@@ -125,37 +130,37 @@
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 35,
-    "healed": 1,
-    "healedRate": 2.9,
-    "prePrTotal": 40,
-    "prePrPass": 38,
-    "prePrPassRate": 95,
+    "ruleFails": 80,
+    "healed": 14,
+    "healedRate": 17.5,
+    "prePrTotal": 130,
+    "prePrPass": 128,
+    "prePrPassRate": 98.5,
     "gateBlocked": 0,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 18,
+        "count": 32,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
         "rule": "rule-39-coding-gate",
-        "count": 11,
+        "count": 15,
         "hint": "faltou evento coding:done por subagente na branch"
       },
       {
+        "rule": "rule-14-orphan-files",
+        "count": 7,
+        "hint": ""
+      },
+      {
+        "rule": "rule-26-session-started",
+        "count": 4,
+        "hint": "timestamp de sessão ausente — npm run session:start"
+      },
+      {
         "rule": "rule-31-lib-test-coverage",
-        "count": 2,
-        "hint": ""
-      },
-      {
-        "rule": "rule-45-react19-compliance",
-        "count": 2,
-        "hint": ""
-      },
-      {
-        "rule": "rule-30-outcome-grade",
-        "count": 1,
+        "count": 4,
         "hint": ""
       }
     ]
@@ -169,7 +174,7 @@
     "testFiles": 372,
     "skills": 28,
     "rules": 48,
-    "events": 353,
-    "qualityNotes": 489
+    "events": 862,
+    "qualityNotes": 727
   }
 }
