@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-10-01
-> Último commit: 82feaa7d-Merge pull request #693 from andre0787/chore/quality-nightly-update
+> Gerado em: 2026-10-02
+> Último commit: 5241b142-Merge pull request #710 from andre0787/chore/normalize-report-pr695
 
 ## Pipeline
 
@@ -15,9 +15,9 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 1359 |
+| Unit | 1394 |
 | E2E  | 101 |
-| **Total** | **1460** |
+| **Total** | **1495** |
 
 ## Bundle
 
@@ -39,8 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-09-25 | ✅ | 1460 | 1922kB | 0 issues |
-| 2026-10-01 | ✅ | 1460 | 1922kB | 0 issues |
+| 2026-10-02 | ✅ | 1495 | 1922kB | 0 issues |
 
 ---
 
