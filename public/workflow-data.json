@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-02T11:48:51.729Z",
-  "dataDate": "2026-10-02",
+  "generatedAt": "2026-10-03T11:02:13.851Z",
+  "dataDate": "2026-10-03",
   "kpiStats": [
     {
       "value": 419,
@@ -162,6 +162,16 @@
   },
   "lastPrs": [
     {
+      "number": 712,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-02",
+      "tokens": 774,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
       "number": 710,
       "title": "chore: normalize report prefix to PR695",
       "type": "chore",
@@ -200,16 +210,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 76.2
-    },
-    {
-      "number": 705,
-      "title": "🧹 remove leftover console statement in NotFound.tsx",
-      "type": "other",
-      "date": "2026-10-01",
-      "tokens": 545,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 76
     }
   ],
   "overview": {
