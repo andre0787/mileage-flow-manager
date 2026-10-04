@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-03T11:02:13.851Z",
-  "dataDate": "2026-10-03",
+  "generatedAt": "2026-10-04T11:44:24.984Z",
+  "dataDate": "2026-10-04",
   "kpiStats": [
     {
       "value": 419,
@@ -162,6 +162,16 @@
   },
   "lastPrs": [
     {
+      "number": 714,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-03",
+      "tokens": 369,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
       "number": 712,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
       "type": "other",
@@ -200,16 +210,6 @@
       "benefit": "Ajuste de processo validado",
       "impact": "Processo mais confiável e audável",
       "cycleHours": 14.8
-    },
-    {
-      "number": 706,
-      "title": "⚡ optimize pipeline node mapping with O(1) map lookups",
-      "type": "other",
-      "date": "2026-10-01",
-      "tokens": 583,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 76.2
     }
   ],
   "overview": {
