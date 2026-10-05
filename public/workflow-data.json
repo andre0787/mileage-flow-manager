@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-04T11:44:24.984Z",
-  "dataDate": "2026-10-04",
+  "generatedAt": "2026-10-05T13:23:49.381Z",
+  "dataDate": "2026-10-05",
   "kpiStats": [
     {
       "value": 419,
@@ -162,6 +162,16 @@
   },
   "lastPrs": [
     {
+      "number": 716,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-04",
+      "tokens": 369,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
       "number": 714,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
       "type": "other",
@@ -200,16 +210,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 148.5
-    },
-    {
-      "number": 709,
-      "title": "chore: validação dos itens P0 a P3",
-      "type": "chore",
-      "date": "2026-10-01",
-      "tokens": 941,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável",
-      "cycleHours": 14.8
     }
   ],
   "overview": {

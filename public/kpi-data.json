@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T11:44:24.810Z",
+  "generatedAt": "2026-10-05T13:23:49.009Z",
   "currentMonth": "2026-10",
   "months": [
     {
@@ -162,7 +162,7 @@
       ],
       "healedByRule": {},
       "gateBlockedByRule": {},
-      "avgCycleTimeHours": 57.8,
+      "avgCycleTimeHours": 46.8,
       "branchesMerged": 9,
       "violationsCaught": 2,
       "healedRate": 0,
@@ -170,19 +170,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-09-05",
-      "label": "05/09",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-09-06",
       "label": "06/09",
@@ -559,9 +546,32 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
+    },
+    {
+      "day": "2026-10-05",
+      "label": "05/10",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [
+    {
+      "number": 716,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-04",
+      "tokens": 369,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 714,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -651,16 +661,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 75.7
-    },
-    {
-      "number": 697,
-      "title": "Validar Auto Merge, Nightly e Filtros de UI",
-      "type": "other",
-      "date": "2026-10-01",
-      "tokens": 737,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 110.2
     }
   ],
   "repo": {
@@ -685,9 +685,9 @@
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.30553,
-      "executions": 22,
-      "avgExecutionMs": 978081700
+      "cost": 0.3177,
+      "executions": 23,
+      "avgExecutionMs": 935556409
     },
     {
       "area": "vendas",
