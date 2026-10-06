@@ -206,11 +206,10 @@ jobs:
           path: docs/reports/
 
   e2e-full:
-    # Sanitização 07/08: fora da cron. O e2e completo (62 testes) contra o Supabase
-    # REAL compartilhado falha todas as noites por rate-limit do IP do runner do
-    # GitHub (evidência: save retry 0-4 = 5 rejeições seguidas; não reproduz local).
-    # Disponível manualmente via workflow_dispatch com run-e2e=true.
-    if: github.event_name == 'workflow_dispatch' && inputs.run-e2e == 'true'
+    # Suíte pesada isolada: executa em schedule (nightly) e workflow_dispatch.
+    # continue-on-error garante que instabilidades/rate-limits da suíte pesada
+    # gerem relatórios para diagnóstico sem mascarar débitos ou quebrar o nightly.
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.run-e2e == 'true')
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -237,8 +236,11 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: E2E completo
-        # workers=1: serial — evita contenção (CPU/rate-limit Supabase) que gerava
-        # flakiness intermitente em testes diferentes a cada run
+        continue-on-error: true
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.SUPABASE_URL || secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY || secrets.VITE_SUPABASE_ANON_KEY }}
+        # workers=1: serial — evita contenção (CPU/rate-limit Supabase)
         run: npm run test:e2e -- --workers=1
 
       - name: Upload E2E report

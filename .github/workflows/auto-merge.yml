@@ -52,6 +52,7 @@ jobs:
           echo "branch=${BRANCH}" >> "$GITHUB_OUTPUT"
 
       - name: Merge PR
+        id: merge
         if: steps.pr.outputs.num != ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -64,6 +65,7 @@ jobs:
           STATE=$(gh pr view "$PR_NUM" --repo "${{ github.repository }}" --json state -q '.state' 2>/dev/null || echo "")
           if [ "$STATE" != "OPEN" ]; then
             echo "ℹ️ PR #${PR_NUM} não está mais aberto (estado: $STATE). Ignorando merge."
+            echo "merged=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -76,6 +78,7 @@ jobs:
               --merge \
               --delete-branch 2>/dev/null; then
               echo "✅ PR #${PR_NUM} merged e branch deletada (tentativa $i)"
+              echo "merged=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             echo "⏳ Tentativa $i falhou (checks em registro?) — aguardando 15s"
@@ -85,6 +88,7 @@ jobs:
           STATE=$(gh pr view "$PR_NUM" --repo "${{ github.repository }}" --json state -q '.state' 2>/dev/null || echo "")
           if [ "$STATE" != "OPEN" ]; then
             echo "✅ PR #${PR_NUM} já foi merged/fechado durante os retries."
+            echo "merged=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -93,9 +97,10 @@ jobs:
             --repo "${{ github.repository }}" \
             --merge \
             --delete-branch
+          echo "merged=true" >> "$GITHUB_OUTPUT"
 
       - name: Disparar deploy de produção
-        if: steps.pr.outputs.num != ''
+        if: steps.pr.outputs.num != '' && steps.merge.outputs.merged == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -149,6 +154,7 @@ jobs:
           echo "branch=${BRANCH}" >> "$GITHUB_OUTPUT"
 
       - name: Merge PR (checks verdes no head do bot)
+        id: merge
         if: steps.pr.outputs.num != ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -160,6 +166,7 @@ jobs:
           STATE=$(gh pr view "$PR_NUM" --repo "${{ github.repository }}" --json state -q '.state' 2>/dev/null || echo "")
           if [ "$STATE" != "OPEN" ]; then
             echo "ℹ️ PR #${PR_NUM} não está mais aberto (estado: $STATE). Ignorando merge."
+            echo "merged=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -170,6 +177,7 @@ jobs:
               --merge \
               --delete-branch 2>/dev/null; then
               echo "✅ PR #${PR_NUM} merged e branch deletada (tentativa $i)"
+              echo "merged=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             echo "⏳ Tentativa $i falhou (checks em registro?) — aguardando 15s"
@@ -179,6 +187,7 @@ jobs:
           STATE=$(gh pr view "$PR_NUM" --repo "${{ github.repository }}" --json state -q '.state' 2>/dev/null || echo "")
           if [ "$STATE" != "OPEN" ]; then
             echo "✅ PR #${PR_NUM} já foi merged/fechado durante os retries."
+            echo "merged=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -186,9 +195,10 @@ jobs:
             --repo "${{ github.repository }}" \
             --merge \
             --delete-branch
+          echo "merged=true" >> "$GITHUB_OUTPUT"
 
       - name: Disparar deploy de produção
-        if: steps.pr.outputs.num != ''
+        if: steps.pr.outputs.num != '' && steps.merge.outputs.merged == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
