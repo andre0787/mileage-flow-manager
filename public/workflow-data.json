@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-06T12:40:29.212Z",
-  "dataDate": "2026-10-06",
+  "generatedAt": "2026-10-07T12:33:52.428Z",
+  "dataDate": "2026-10-07",
   "kpiStats": [
     {
       "value": 419,
@@ -68,17 +68,17 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 59,
+      "n": 57,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 33,
+      "n": 26,
       "color": "#84cc16"
     },
     {
       "name": "abaixo de 80%",
-      "n": 2,
+      "n": 0,
       "color": "#ef4444"
     }
   ],
@@ -162,6 +162,16 @@
   },
   "lastPrs": [
     {
+      "number": 719,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-06",
+      "tokens": 372,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
       "number": 717,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
       "type": "other",
@@ -200,16 +210,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0.1
-    },
-    {
-      "number": 710,
-      "title": "chore: normalize report prefix to PR695",
-      "type": "chore",
-      "date": "2026-10-01",
-      "tokens": 0,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável",
-      "cycleHours": 0.3
     }
   ],
   "overview": {
