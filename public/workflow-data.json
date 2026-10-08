@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-07T12:33:52.428Z",
-  "dataDate": "2026-10-07",
+  "generatedAt": "2026-10-08T12:42:57.600Z",
+  "dataDate": "2026-10-08",
   "kpiStats": [
     {
       "value": 419,
@@ -68,12 +68,12 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 57,
+      "n": 41,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 26,
+      "n": 23,
       "color": "#84cc16"
     },
     {
@@ -162,6 +162,16 @@
   },
   "lastPrs": [
     {
+      "number": 720,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-07",
+      "tokens": 374,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0
+    },
+    {
       "number": 719,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
       "type": "other",
@@ -197,16 +207,6 @@
       "type": "other",
       "date": "2026-10-03",
       "tokens": 369,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 712,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-02",
-      "tokens": 774,
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0.1
