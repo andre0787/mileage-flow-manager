@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-08T12:42:57.335Z",
+  "generatedAt": "2026-10-09T00:15:51.226Z",
   "currentMonth": "2026-10",
   "months": [
     {
@@ -143,46 +143,33 @@
     {
       "month": "2026-10",
       "prePrPassRate": 100,
-      "prePrTotal": 9,
-      "prePrPass": 9,
+      "prePrTotal": 10,
+      "prePrPass": 10,
       "prePrFail": 0,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
       "gateActivations": {
-        "intent": 3,
-        "twins": 3,
-        "auth": 3
+        "intent": 5,
+        "twins": 5,
+        "auth": 5
       },
       "avgOutcomeGrade": 100,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
-          "count": 2
+          "count": 3
         }
       ],
       "healedByRule": {},
       "gateBlockedByRule": {},
-      "avgCycleTimeHours": 24,
-      "branchesMerged": 9,
-      "violationsCaught": 2,
+      "avgCycleTimeHours": null,
+      "branchesMerged": 10,
+      "violationsCaught": 3,
       "healedRate": 0,
-      "frictionPerPass": 0.22
+      "frictionPerPass": 0.3
     }
   ],
   "daily": [
-    {
-      "day": "2026-09-09",
-      "label": "09/09",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-09-10",
       "label": "10/09",
@@ -559,110 +546,22 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
+    },
+    {
+      "day": "2026-10-09",
+      "label": "09/10",
+      "prePrTotal": 1,
+      "prePrPass": 1,
+      "prePrFail": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 1,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 1,
+      "friction": 1
     }
   ],
-  "prs": [
-    {
-      "number": 720,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-07",
-      "tokens": 374,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0
-    },
-    {
-      "number": 719,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-06",
-      "tokens": 372,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 717,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-05",
-      "tokens": 369,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 716,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-04",
-      "tokens": 369,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 714,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-03",
-      "tokens": 369,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 712,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-02",
-      "tokens": 774,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 710,
-      "title": "chore: normalize report prefix to PR695",
-      "type": "chore",
-      "date": "2026-10-01",
-      "tokens": 0,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável",
-      "cycleHours": 0.3
-    },
-    {
-      "number": 695,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-01",
-      "tokens": 332,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 148.5
-    },
-    {
-      "number": 709,
-      "title": "chore: validação dos itens P0 a P3",
-      "type": "chore",
-      "date": "2026-10-01",
-      "tokens": 941,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável",
-      "cycleHours": 14.8
-    },
-    {
-      "number": 706,
-      "title": "⚡ optimize pipeline node mapping with O(1) map lookups",
-      "type": "other",
-      "date": "2026-10-01",
-      "tokens": 583,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 76.2
-    }
-  ],
+  "prs": [],
   "repo": {
     "components": 178,
     "pages": 18,
@@ -671,95 +570,16 @@
     "testFiles": 374,
     "skills": 28,
     "rules": 48,
-    "events": 419,
-    "qualityNotes": 522
+    "events": 431,
+    "qualityNotes": 528
   },
   "summary": {
-    "merges": 41,
-    "prs": 10,
+    "merges": 42,
+    "prs": 0,
     "sessions": 0,
-    "violations": 40,
+    "violations": 41,
     "healed": 1,
-    "prePrPassRate": 96.2
+    "prePrPassRate": 96.3
   },
-  "telemetry": [
-    {
-      "area": "workflow",
-      "cost": 0.35421,
-      "executions": 26,
-      "avgExecutionMs": 827607593
-    },
-    {
-      "area": "vendas",
-      "cost": 0.0287,
-      "executions": 1,
-      "avgExecutionMs": 16831791
-    },
-    {
-      "area": "graph-scout",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "test-scout",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "architect",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "implementer",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "tester",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "reviewer",
-      "cost": 0.0021,
-      "executions": 2,
-      "avgExecutionMs": 50
-    },
-    {
-      "area": "task",
-      "cost": 0,
-      "executions": 7,
-      "avgExecutionMs": 0
-    },
-    {
-      "area": "classifier",
-      "cost": 0,
-      "executions": 7,
-      "avgExecutionMs": 0
-    },
-    {
-      "area": "tools",
-      "cost": 0,
-      "executions": 93,
-      "avgExecutionMs": 118358
-    },
-    {
-      "area": "result",
-      "cost": 0,
-      "executions": 5,
-      "avgExecutionMs": 0
-    },
-    {
-      "area": "final-validator",
-      "cost": 0,
-      "executions": 92,
-      "avgExecutionMs": 118262
-    }
-  ]
+  "telemetry": []
 }
