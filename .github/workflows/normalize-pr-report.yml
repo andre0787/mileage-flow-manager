@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
           ref: ${{ github.event.pull_request.head.ref || github.head_ref }}
           fetch-depth: 0
 
@@ -26,7 +26,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_NUM="${{ github.event.pull_request.number }}"
-          HEAD_REF="${{ github.head_ref }}"
+          HEAD_REF="${{ github.event.pull_request.head.ref || github.head_ref }}"
 
           if [ -z "$PR_NUM" ]; then
             echo "⚠️ PR_NUM não encontrado, cancelando normalização"
@@ -76,14 +76,14 @@ jobs:
           if [ "$CHANGED" -eq 1 ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git checkout -B "${{ github.head_ref }}"
+            git checkout -B "$HEAD_REF"
             git add -A
             if git diff --staged --quiet; then
               echo "ℹ️  Nenhuma alteração a commitar"
               echo "pushed=no" >> "$GITHUB_OUTPUT"
             else
               git commit -m "chore: normalize report prefix to PR${PR_NUM}"
-              git push origin "HEAD:${{ github.head_ref }}"
+              git push origin "HEAD:$HEAD_REF"
               echo "✅ Relatório(s) renomeado(s) para PR${PR_NUM} e commitado na branch"
               echo "pushed=yes" >> "$GITHUB_OUTPUT"
             fi
@@ -104,7 +104,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          BRANCH="${{ github.head_ref }}"
+          BRANCH="${{ github.event.pull_request.head.ref || github.head_ref }}"
           NEW_SHA="$(git rev-parse HEAD)"
 
           # 1) Achar o run de CI criado para o SHA do push do bot
