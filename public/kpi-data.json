@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T12:30:58.195Z",
+  "generatedAt": "2026-10-10T11:49:35.709Z",
   "currentMonth": "2026-10",
   "months": [
     {
@@ -162,7 +162,7 @@
       ],
       "healedByRule": {},
       "gateBlockedByRule": {},
-      "avgCycleTimeHours": 16.4,
+      "avgCycleTimeHours": 15,
       "branchesMerged": 9,
       "violationsCaught": 2,
       "healedRate": 0,
@@ -170,19 +170,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-09-10",
-      "label": "10/09",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-09-11",
       "label": "11/09",
@@ -559,9 +546,32 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
+    },
+    {
+      "day": "2026-10-10",
+      "label": "10/10",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [
+    {
+      "number": 723,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-09",
+      "tokens": 369,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 721,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -651,16 +661,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 148.5
-    },
-    {
-      "number": 709,
-      "title": "chore: validação dos itens P0 a P3",
-      "type": "chore",
-      "date": "2026-10-01",
-      "tokens": 941,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável",
-      "cycleHours": 14.8
     }
   ],
   "repo": {
@@ -685,9 +685,9 @@
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.36638,
-      "executions": 27,
-      "avgExecutionMs": 796955459
+      "cost": 0.37855,
+      "executions": 28,
+      "avgExecutionMs": 768492764
     },
     {
       "area": "vendas",
