@@ -17,8 +17,8 @@ describe("normalize-pr-report workflow (P0: PRs blocked por [skip ci])", () => {
 
   it("garante checkout de branch e push com refspec HEAD explícito", () => {
     const content = readFileSync(WF, "utf8");
-    expect(content).toMatch(/git checkout -B "\$\{\{\s*github\.head_ref\s*\}\}"/);
-    expect(content).toMatch(/git push origin "HEAD:\$\{\{\s*github\.head_ref\s*\}\}"/);
+    expect(content).toMatch(/git checkout -B "(\$HEAD_REF|\$\{\{\s*github\.head_ref\s*\}\})"/);
+    expect(content).toMatch(/git push origin "HEAD:(\$HEAD_REF|\$\{\{\s*github\.head_ref\s*\}\})"/);
   });
 
   it("dispara em pull_request opened (documentando o gatilho)", () => {
@@ -51,6 +51,12 @@ describe("normalize-pr-report workflow (P0: PRs blocked por [skip ci])", () => {
     const content = readFileSync(WF, "utf8");
     expect(content).toMatch(/if \[ -z "\$PR_NUM" \]/);
     expect(content).toMatch(/if \[ -z "\$HEAD_REF" \]/);
+  });
+
+  it("utiliza fallback para repository e head.ref no checkout e no script", () => {
+    const content = readFileSync(WF, "utf8");
+    expect(content).toMatch(/repository:\s*\$\{\{\s*github\.event\.pull_request\.head\.repo\.full_name\s*\|\|\s*github\.repository\s*\}\}/);
+    expect(content).toMatch(/HEAD_REF="\$\{\{\s*github\.head_ref\s*\|\|\s*github\.event\.pull_request\.head\.ref\s*\}\}"/);
   });
 });
 
