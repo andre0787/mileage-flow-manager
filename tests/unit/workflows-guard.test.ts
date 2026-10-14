@@ -17,8 +17,8 @@ describe("normalize-pr-report workflow (P0: PRs blocked por [skip ci])", () => {
 
   it("garante checkout de branch e push com refspec HEAD explícito", () => {
     const content = readFileSync(WF, "utf8");
-    expect(content).toMatch(/git checkout -B "\$\{\{\s*github\.head_ref\s*\}\}"/);
-    expect(content).toMatch(/git push origin "HEAD:\$\{\{\s*github\.head_ref\s*\}\}"/);
+    expect(content).toMatch(/git checkout -B "\$HEAD_REF"/);
+    expect(content).toMatch(/git push origin "HEAD:\$HEAD_REF"/);
   });
 
   it("dispara em pull_request opened (documentando o gatilho)", () => {
