@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-14T11:05:21.289Z",
-  "dataDate": "2026-10-14",
+  "generatedAt": "2026-10-15T10:45:24.338Z",
+  "dataDate": "2026-10-15",
   "kpiStats": [
     {
       "value": 419,
@@ -36,32 +36,27 @@
   "eventTypes": [
     {
       "name": "pre-pr",
-      "n": 52,
+      "n": 47,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 38,
+      "n": 36,
       "color": "#ef4444"
     },
     {
-      "name": "healed",
-      "n": 1,
-      "color": "#10b981"
-    },
-    {
       "name": "code-review:done",
-      "n": 35,
+      "n": 34,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 34,
+      "n": 32,
       "color": "#22c55e"
     },
     {
       "name": "gate",
-      "n": 248,
+      "n": 236,
       "color": "#f43f5e"
     }
   ],
@@ -73,7 +68,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 21,
+      "n": 18,
       "color": "#84cc16"
     },
     {
@@ -125,12 +120,12 @@
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 38,
-    "healed": 1,
-    "healedRate": 2.6,
-    "prePrTotal": 52,
-    "prePrPass": 50,
-    "prePrPassRate": 96.2,
+    "ruleFails": 36,
+    "healed": 0,
+    "healedRate": 0,
+    "prePrTotal": 47,
+    "prePrPass": 45,
+    "prePrPassRate": 95.7,
     "gateBlocked": 0,
     "topViolations": [
       {
@@ -144,11 +139,6 @@
         "hint": "faltou evento coding:done por subagente na branch"
       },
       {
-        "rule": "rule-31-lib-test-coverage",
-        "count": 2,
-        "hint": ""
-      },
-      {
         "rule": "rule-45-react19-compliance",
         "count": 2,
         "hint": ""
@@ -157,10 +147,25 @@
         "rule": "rule-30-outcome-grade",
         "count": 1,
         "hint": ""
+      },
+      {
+        "rule": "rule-46-token-sentinel",
+        "count": 1,
+        "hint": ""
       }
     ]
   },
   "lastPrs": [
+    {
+      "number": 731,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-14",
+      "tokens": 389,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 729,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -196,16 +201,6 @@
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
       "type": "other",
       "date": "2026-10-10",
-      "tokens": 369,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 723,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-09",
       "tokens": 369,
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
