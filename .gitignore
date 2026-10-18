@@ -98,3 +98,6 @@ skills-lock.json
 
 # Freebuff tool config
 .freebuff/
+
+# Qoder IDE local config
+.qoder/
