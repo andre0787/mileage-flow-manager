@@ -9,8 +9,8 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `docs/session-state-pr690-deploy`
-- **Último commit:** `56253124` — chore: session end
+- **Branch:** `main`
+- **Último commit:** `5241b142 — Merge pull request #710 from andre0787/chore/normalize-report-pr695`
 - **Remote:** no remote
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,12 +24,12 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** chore (consolidação de PRs + deploy)
-**Objetivo:** implantar todas as PRs abertas em produção sem regressão
-**Status:** done
-**Iniciada em:** 2026-09-14
-**Branch:** `main` (consolidação via #633)
-**Último commit:** 20d19276 — Merge pull request #633
+**Categoria:** chore
+**Objetivo:** Avaliar e implementar todas as PRs abertas em producao via PR de consolidacao
+**Status:** in_progress
+**Iniciada em:** 2026-10-18T19:58:44.930Z
+**Branch:** `chore/consolidate-open-prs`
+**Último commit:** 5241b142 — Merge pull request #710 from andre0787/chore/normalize-report-pr695
 **Docs carregados:** AGENTS.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.

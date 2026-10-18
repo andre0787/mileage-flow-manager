@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
           ref: ${{ github.event.pull_request.head.ref || github.head_ref }}
           fetch-depth: 0
 
@@ -24,10 +24,9 @@ jobs:
         id: normalize
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_REF: ${{ github.head_ref || github.event.pull_request.head.ref }}
+          PR_NUM: ${{ github.event.pull_request.number }}
         run: |
-          PR_NUM="${{ github.event.pull_request.number }}"
-          HEAD_REF="${{ github.head_ref }}"
-
           if [ -z "$PR_NUM" ]; then
             echo "⚠️ PR_NUM não encontrado, cancelando normalização"
             echo "pushed=no" >> "$GITHUB_OUTPUT"
@@ -42,6 +41,7 @@ jobs:
 
           shopt -s nullglob
           CHANGED=0
+          RENAME_FAILED=0
 
           for file in docs/reports/*/*.html docs/reports/*.html; do
             [ -f "$file" ] || continue
@@ -57,7 +57,7 @@ jobs:
             if echo "$BASENAME" | grep -qE "^[0-9]{4}-[0-9]{2}-[0-9]{2}"; then
               NEW_NAME="PR${PR_NUM}-${BASENAME}"
             elif echo "$BASENAME" | grep -qE "^.+-([0-9]{4}-[0-9]{2}-[0-9]{2})"; then
-              NEW_NAME=$(echo "$BASENAME" | sed "s/^.\+-\([0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\)/PR${PR_NUM}-\1/")
+              NEW_NAME=$(echo "$BASENAME" | sed -E "s/^.+(-[0-9]{4}-[0-9]{2}-[0-9]{2})/PR${PR_NUM}\1/" 2>/dev/null || echo "PR${PR_NUM}-${BASENAME}")
             else
               NEW_NAME="PR${PR_NUM}-${BASENAME}"
             fi
@@ -67,28 +67,41 @@ jobs:
                 echo "  ⚠️ Target $NEW_NAME já existe, limpando antes de renomear"
                 rm -f "$DIRNAME/$NEW_NAME" 2>/dev/null || true
               fi
-              git mv "$file" "$DIRNAME/$NEW_NAME" 2>/dev/null || { mv "$file" "$DIRNAME/$NEW_NAME" && git add "$DIRNAME/$NEW_NAME"; }
-              echo "  🔄 $BASENAME → $NEW_NAME"
-              CHANGED=1
+              if git mv "$file" "$DIRNAME/$NEW_NAME" 2>/dev/null || { mv "$file" "$DIRNAME/$NEW_NAME" 2>/dev/null && git add "$DIRNAME/$NEW_NAME" 2>/dev/null; }; then
+                echo "  🔄 $BASENAME → $NEW_NAME"
+                CHANGED=1
+              else
+                echo "  ⚠️ rename falhou: $BASENAME → $NEW_NAME"
+                RENAME_FAILED=1
+                git checkout -- "$DIRNAME/$NEW_NAME" 2>/dev/null || true
+              fi
             fi
           done
 
           if [ "$CHANGED" -eq 1 ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git checkout -B "${{ github.head_ref }}"
+            git checkout -B "$HEAD_REF"
             git add -A
             if git diff --staged --quiet; then
               echo "ℹ️  Nenhuma alteração a commitar"
               echo "pushed=no" >> "$GITHUB_OUTPUT"
             else
               git commit -m "chore: normalize report prefix to PR${PR_NUM}"
-              git push origin "HEAD:${{ github.head_ref }}"
-              echo "✅ Relatório(s) renomeado(s) para PR${PR_NUM} e commitado na branch"
-              echo "pushed=yes" >> "$GITHUB_OUTPUT"
+              if git push origin "HEAD:$HEAD_REF"; then
+                echo "✅ Relatório(s) renomeado(s) para PR${PR_NUM} e commitado na branch"
+                echo "pushed=yes" >> "$GITHUB_OUTPUT"
+              else
+                echo "⚠️ Push de normalização falhou"
+                echo "pushed=no" >> "$GITHUB_OUTPUT"
+              fi
             fi
           else
-            echo "✅ Nenhum relatório para renomear"
+            if [ "$RENAME_FAILED" -eq 1 ]; then
+              echo "⚠️ Nenhum relatório renomeado com sucesso"
+            else
+              echo "✅ Nenhum relatório para renomear"
+            fi
             echo "pushed=no" >> "$GITHUB_OUTPUT"
           fi
 
@@ -103,8 +116,9 @@ jobs:
         if: steps.normalize.outputs.pushed == 'yes'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_REF: ${{ github.head_ref || github.event.pull_request.head.ref }}
         run: |
-          BRANCH="${{ github.head_ref }}"
+          BRANCH="$HEAD_REF"
           NEW_SHA="$(git rev-parse HEAD)"
 
           # 1) Achar o run de CI criado para o SHA do push do bot

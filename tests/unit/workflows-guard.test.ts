@@ -17,8 +17,24 @@ describe("normalize-pr-report workflow (P0: PRs blocked por [skip ci])", () => {
 
   it("garante checkout de branch e push com refspec HEAD explícito", () => {
     const content = readFileSync(WF, "utf8");
-    expect(content).toMatch(/git checkout -B "\$\{\{\s*github\.head_ref\s*\}\}"/);
-    expect(content).toMatch(/git push origin "HEAD:\$\{\{\s*github\.head_ref\s*\}\}"/);
+    expect(content).toMatch(/git checkout -B "\$HEAD_REF"/);
+    expect(content).toMatch(/git push origin "HEAD:\$HEAD_REF"/);
+  });
+
+  it("utiliza fallback para repository e head.ref no checkout e no env", () => {
+    const content = readFileSync(WF, "utf8");
+    expect(content).toMatch(
+      /repository:\s*\$\{\{\s*github\.event\.pull_request\.head\.repo\.full_name\s*\|\|\s*github\.repository\s*\}\}/,
+    );
+    expect(content).toMatch(
+      /HEAD_REF:\s*\$\{\{\s*github\.head_ref\s*\|\|\s*github\.event\.pull_request\.head\.ref\s*\}\}/,
+    );
+  });
+
+  it("trata falha de push de normalização sem quebrar o workflow", () => {
+    const content = readFileSync(WF, "utf8");
+    expect(content).toMatch(/if git push origin "HEAD:\$HEAD_REF"; then/);
+    expect(content).toMatch(/Push de normalização falhou/);
   });
 
   it("dispara em pull_request opened (documentando o gatilho)", () => {
@@ -97,7 +113,9 @@ describe("auto-merge workflow (dispara deploy após merge)", () => {
   });
 
   it("ignora execuções na branch default para evitar falhas pós-merge", () => {
-    expect(content).toMatch(/github\.event\.workflow_run\.head_branch != github\.event\.repository\.default_branch/);
+    expect(content).toMatch(
+      /github\.event\.workflow_run\.head_branch != github\.event\.repository\.default_branch/,
+    );
     expect(content).toMatch(/github\.ref != 'refs\/heads\/main'/);
   });
 
@@ -113,6 +131,13 @@ describe("auto-merge workflow (dispara deploy após merge)", () => {
     expect(content).toMatch(/mergeia-pr-ready/);
     expect(content).toMatch(/client_payload\.branch/);
     expect(content).toMatch(/gh pr merge/);
+  });
+
+  it("dispara deploy apenas quando o merge de fato aconteceu", () => {
+    // Gate pelo output merged=true do step de merge; desambiguação pós-retry
+    // usa mergedAt (não-OPEN pode ser merge feito por outro ou closed sem merge).
+    expect(content).toMatch(/steps\.merge\.outputs\.merged == 'true'/);
+    expect(content).toMatch(/json mergedAt/);
   });
 });
 
@@ -160,6 +185,14 @@ describe("nightly workflow (split paralelo)", () => {
   it("cacheia browsers do Playwright", () => {
     expect(content).toMatch(/Cache Playwright browsers/);
     expect(content).toMatch(/actions\/cache@v4/);
+  });
+
+  it("mantém e2e completo fora da cron (só workflow_dispatch run-e2e=true)", () => {
+    // P0-04: sem continue-on-error em check crítico; e2e contra Supabase real
+    // compartilhado rate-limita no cron — fica manual (ver job e2e-full).
+    expect(content).toMatch(
+      /if: github\.event_name == 'workflow_dispatch' && inputs\.run-e2e == 'true'/,
+    );
   });
 });
 
