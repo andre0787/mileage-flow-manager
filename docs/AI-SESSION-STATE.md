@@ -1,20 +1,30 @@
-# AI Session State - 2026-09-24T03:05:00.000Z
+# AI Session State - 2026-10-18T21:45:00.000Z
 
 ## Última Task
-- **Pendências da sessão anterior resolvidas**: Radar de vulnerabilidades zerado (**0 vulnerabilities**, era 8) e stashes antigos auditados (recuperados e descartáveis).
-- vitest/@vitest/coverage-v8/@vitest/mocker 4.1.10→4.1.11, js-yaml 4.3.2, browserslist 4.29.0, fast-uri, postcss-selector-parser, baseline-browser-mapping 2.11.25.
-- **Workaround**: npm 10.9.8 crasha (`edgesOut`/`#loadPeerSet`) em install/update; usado `npx npm@11 install`. Considerar upgrade do npm no ambiente.
+- **Avaliar e implementar todas as PRs abertas em produção** (categoria chore; autonomia total do usuário).
+- 9 PRs draft abertas (bot-generated, variantes do mesmo hardening de CI) avaliadas individualmente vs main.
+- Consolidação via **PR #737** (merge `aac062d9`): união das mudanças significativas + refinamentos do code review.
+- As 9 PRs (#711 #713 #715 #718 #722 #724 #728 #730 #732) fechadas como superseded com veredito individual por PR; branches remotas deletadas. 0 PRs abertas.
+
+## Decisões de Avaliação
+- **Rejeitado #718 nightly**: e2e-full em schedule com `continue-on-error` (viola P0-04 + sanitização documentada; segue manual via workflow_dispatch).
+- **Rejeitado #732 auto-merge**: `head_branch != ''` (mais fraco que truthiness original — null passa).
+- **Rejeitado #728**: rollback de QUALITY.md (artefato gerado; main mais novo).
+- Code review (subagente): 4 findings corrigidos — commit fatal (sem `pushed=yes` stale), rename failure reportada, gate de deploy por `mergedAt`, pins anti-regressão.
 
 ## Estado dos Testes & Qualidade
-- **Local:** typecheck ✅ | build ✅ | **1567 testes** passando ✅ | `npm ci` reprodutível ✅ | npm audit **0** ✅
+- **Local:** `npm run check` completo ✅ (EXIT=0) | 34 testes direcionados ✅ | YAML + `bash -n` ✅ | `npm run pre-pr` 0 errors ✅
+- **Produção:** deploy.yml run `39168108087` — `deploy` ✅ + `e2e-smoke-prod` ✅ (Vercel prod no head consolidado).
 
 ## Arquivos Modificados & Impacto
-- `package.json` + `package-lock.json`: patches de segurança (audit zero); override `minimatch@^10.2.4` preservado.
-- `docs/tracking/archive/`: recuperação de **448 registros** dos stashes wave-685/wave-2026-09-22 (events-08 +66, quality-08 +143, events-09 recriado com 239); JSON 100% válido.
+- `.github/workflows/normalize-pr-report.yml` (env HEAD_REF/PR_NUM, fallbacks, guards de rename/push)
+- `.github/workflows/auto-merge.yml` (outputs merged + gate de deploy por mergedAt, 2 jobs)
+- `.github/workflows/nightly.yml` (coverage && rule:42 sem pipe)
+- `tests/unit/workflows-guard.test.ts` (pins atualizados) + `tests/unit/program-filters-integration.test.tsx` (novo, da #718)
 
 ## Pendências Imediatas
-- Após merge: `git stash drop` dos stashes wave-685 e wave-2026-09-22 (conteúdo já recuperado na main).
-- Monitorar nightly (rule-42 coverage); stash legados restantes (handoff-autogen, wip) sem flagged, avaliar depois.
+- Nenhuma das 9 PRs — backlog de CI zerado. Observar próximo nightly (rule-42) e o fluxo normalize→auto-merge com os novos guards em produção.
 
 ## Governança de Contexto
-- Categoria chore; gates rule-38/39 registrados; TWINS: apenas estes 2 stashes flagged tinham conteúdo; deps via fluxo canônico (branch → pre-pr → PR).
+- AUTH: usuário disse "implementa todas em prod, tem total autonomia" (aplicado ao merge #737 + deploy).
+- Gates rule-38/39 registrados (eventos coding:done/code-review:done com subagent:true); fluxo canônico respeitado (branch → pre-pr → PR → CI → merge).
