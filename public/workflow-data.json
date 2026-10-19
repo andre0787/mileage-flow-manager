@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T11:52:15.312Z",
+  "generatedAt": "2026-10-19T13:13:20.582Z",
   "dataDate": "2026-10-19",
   "kpiStats": [
     {
@@ -162,6 +162,16 @@
   },
   "lastPrs": [
     {
+      "number": 738,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-19",
+      "tokens": 431,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
       "number": 737,
       "title": "chore: consolida hardening de CI das 9 PRs abertas (#711 #713 #715 #718 #722 #724 #728 #730 #732)",
       "type": "chore",
@@ -197,16 +207,6 @@
       "type": "other",
       "date": "2026-10-16",
       "tokens": 368,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 733,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-15",
-      "tokens": 401,
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0.1

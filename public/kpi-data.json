@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T11:52:15.123Z",
+  "generatedAt": "2026-10-19T13:13:20.305Z",
   "currentMonth": "2026-10",
   "months": [
     {
@@ -561,6 +561,16 @@
   ],
   "prs": [
     {
+      "number": 738,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-19",
+      "tokens": 431,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
       "number": 737,
       "title": "chore: consolida hardening de CI das 9 PRs abertas (#711 #713 #715 #718 #722 #724 #728 #730 #732)",
       "type": "chore",
@@ -649,16 +659,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0.1
-    },
-    {
-      "number": 725,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-10",
-      "tokens": 369,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
     }
   ],
   "repo": {
@@ -683,9 +683,9 @@
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.48634,
-      "executions": 37,
-      "avgExecutionMs": 583108150
+      "cost": 0.49677,
+      "executions": 38,
+      "avgExecutionMs": 569396603
     },
     {
       "area": "vendas",
@@ -744,8 +744,8 @@
     {
       "area": "tools",
       "cost": 0,
-      "executions": 94,
-      "avgExecutionMs": 117751
+      "executions": 97,
+      "avgExecutionMs": 116022
     },
     {
       "area": "result",
@@ -756,8 +756,8 @@
     {
       "area": "final-validator",
       "cost": 0,
-      "executions": 93,
-      "avgExecutionMs": 117664
+      "executions": 96,
+      "avgExecutionMs": 115953
     }
   ]
 }
