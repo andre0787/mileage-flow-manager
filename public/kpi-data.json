@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-18T20:24:41.604Z",
+  "generatedAt": "2026-10-19T11:52:15.123Z",
   "currentMonth": "2026-10",
   "months": [
     {
@@ -168,19 +168,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-09-19",
-      "label": "19/09",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-09-20",
       "label": "20/09",
@@ -557,9 +544,32 @@
       "sessions": 1,
       "merges": 1,
       "friction": 0
+    },
+    {
+      "day": "2026-10-19",
+      "label": "19/10",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [
+    {
+      "number": 737,
+      "title": "chore: consolida hardening de CI das 9 PRs abertas (#711 #713 #715 #718 #722 #724 #728 #730 #732)",
+      "type": "chore",
+      "date": "2026-10-18",
+      "tokens": 1074,
+      "benefit": "Ajuste de processo validado",
+      "impact": "Processo mais confiável e audável",
+      "cycleHours": 0.1
+    },
     {
       "number": 736,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -649,16 +659,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0.1
-    },
-    {
-      "number": 723,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-09",
-      "tokens": 369,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
     }
   ],
   "repo": {
@@ -680,5 +680,84 @@
     "healed": 0,
     "prePrPassRate": 100
   },
-  "telemetry": []
+  "telemetry": [
+    {
+      "area": "workflow",
+      "cost": 0.48634,
+      "executions": 37,
+      "avgExecutionMs": 583108150
+    },
+    {
+      "area": "vendas",
+      "cost": 0.0287,
+      "executions": 1,
+      "avgExecutionMs": 16831791
+    },
+    {
+      "area": "graph-scout",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "test-scout",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "architect",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "implementer",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "tester",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "reviewer",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "task",
+      "cost": 0,
+      "executions": 8,
+      "avgExecutionMs": 0
+    },
+    {
+      "area": "classifier",
+      "cost": 0,
+      "executions": 8,
+      "avgExecutionMs": 0
+    },
+    {
+      "area": "tools",
+      "cost": 0,
+      "executions": 94,
+      "avgExecutionMs": 117751
+    },
+    {
+      "area": "result",
+      "cost": 0,
+      "executions": 6,
+      "avgExecutionMs": 0
+    },
+    {
+      "area": "final-validator",
+      "cost": 0,
+      "executions": 93,
+      "avgExecutionMs": 117664
+    }
+  ]
 }
