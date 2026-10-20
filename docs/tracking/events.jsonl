@@ -355,3 +355,8 @@
 {"timestamp":"2026-10-20T13:15:46.906Z","type":"gate","description":"gate twins executado (rule-34-twins-check)","branch":"feat/venda-roi-toggle","commit":"bd11861a","agent":"human","gate":"twins","rule":"rule-34-twins-check"}
 {"timestamp":"2026-10-20T13:15:46.941Z","type":"gate","description":"gate auth executado (rule-35-auth-gate)","branch":"feat/venda-roi-toggle","commit":"bd11861a","agent":"human","gate":"auth","rule":"rule-35-auth-gate"}
 {"timestamp":"2026-10-20T13:16:32.664Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-roi-toggle","commit":"bd11861a","agent":"human","errors":0}
+{"timestamp":"2026-10-20T13:16:57.129Z","type":"gate","description":"gate council executado (rule-27-council-veredict)","branch":"feat/venda-roi-toggle","commit":"70e76c69","agent":"human","gate":"council","rule":"rule-27-council-veredict"}
+{"timestamp":"2026-10-20T13:16:57.164Z","type":"gate","description":"gate intent executado (rule-33-intent-gate)","branch":"feat/venda-roi-toggle","commit":"70e76c69","agent":"human","gate":"intent","rule":"rule-33-intent-gate"}
+{"timestamp":"2026-10-20T13:16:57.200Z","type":"gate","description":"gate twins executado (rule-34-twins-check)","branch":"feat/venda-roi-toggle","commit":"70e76c69","agent":"human","gate":"twins","rule":"rule-34-twins-check"}
+{"timestamp":"2026-10-20T13:16:57.238Z","type":"gate","description":"gate auth executado (rule-35-auth-gate)","branch":"feat/venda-roi-toggle","commit":"70e76c69","agent":"human","gate":"auth","rule":"rule-35-auth-gate"}
+{"timestamp":"2026-10-20T13:17:41.977Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/venda-roi-toggle","commit":"70e76c69","agent":"human","errors":0}
