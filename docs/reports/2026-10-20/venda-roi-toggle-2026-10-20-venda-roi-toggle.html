@@ -167,12 +167,12 @@
     <section class="slide" id="s1">
       <div class="hero">
         <div class="hero-top">
-          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">venda-roi-toggle</span> <span class="badge risk" style="color:#34d399">Baixo risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
-          <div class="hero-date">2026-10-20 · 09:52 · <span class="mono">feat/venda-roi-toggle</span></div>
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">venda-roi-toggle</span> <span class="badge risk" style="color:#f87171">Alto risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
+          <div class="hero-date">2026-10-20 · 10:01 · <span class="mono">feat/venda-roi-toggle</span></div>
         </div>
         <h1>venda roi toggle</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">fff39f7c — Merge pull request #741 from andre0787/chore/session-end-2026-10-18</div>
+        <div class="hero-meta mono">b7f4ad90 — test(vendas): asserts insert payload e ROI por dono com opt-out (code review #1)</div>
       </div>
       
     <div class="kpi-grid">
@@ -187,14 +187,14 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">—</div>
+        <div class="kpi-value">0/1</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
         <div class="kpi-sub">0 violações · 0 auto-corrigidas</div>
       </div>
       <div class="kpi">
         <div class="kpi-value amber">—</div>
         <div class="kpi-label">qualidade</div>
-        <div class="kpi-sub">baixo risco da mudança</div>
+        <div class="kpi-sub">alto risco da mudança</div>
       </div>
     </div>
       <div class="bluf">
@@ -208,7 +208,7 @@
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Riscos & trade-offs</div>
-          <p>Baixo risco de mudança · qualidade  · lead time —.</p>
+          <p>Alto risco de mudança · qualidade  · lead time —.</p>
         </div>
       </div>
     </section><section class="slide" id="s2">
@@ -270,12 +270,18 @@
                 <div class="tl-time">12:41</div>
                 <div class="tl-label">Início da sessão</div>
               </div>
+            </div><div class="tl-item pre-pr">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">12:53</div>
+                <div class="tl-label">Validação pré-PR</div>
+              </div>
             </div>
         
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">1</span><span class="stat-l">rodadas de validação pré-PR</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">violações de regra encontradas</span></div>
             <div class="stat"><span class="stat-v green">0</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
@@ -292,7 +298,11 @@
         <div class="ap-card">
           <h3>✅ Checklist de revisão</h3>
           <ul class="checks">
-            <li>🧪 Testes manuais realizados?</li>
+            <li>🔷 Migração de banco aplicada?</li>
+<li>🖼️ Renderização verificada em desktop e mobile?</li>
+<li>🔌 Hooks testados em tela real?</li>
+<li>📦 Biblioteca testada com casos de borda?</li>
+<li>🧪 Testes manuais realizados?</li>
 <li>📋 Regras de validação passam? (npm run pre-pr)</li>
           </ul>
         </div>
@@ -300,7 +310,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 22 remoções — 702 linhas tocadas</td><td>✨ 612 adições — 6 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 89 remoções — 1813 linhas tocadas</td><td>✨ 1434 adições — 23 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -308,23 +318,23 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>6</td></tr>
-            <tr><td>Adições</td><td>+612</td></tr>
-            <tr><td>Remoções</td><td>-22</td></tr>
-            <tr><td>Tokens estimados</td><td>~527</td></tr>
+            <tr><td>Arquivos alterados</td><td>23</td></tr>
+            <tr><td>Adições</td><td>+1434</td></tr>
+            <tr><td>Remoções</td><td>-89</td></tr>
+            <tr><td>Tokens estimados</td><td>~1360</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:87">+459 add</div>
-        <div class="del" style="flex:3">-17 del</div>
-        <div class="overhead" style="flex:10">~51 ctx</div>
+        <div class="add" style="flex:79">+1076 add</div>
+        <div class="del" style="flex:5">-67 del</div>
+        <div class="overhead" style="flex:16">~217 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+459</td><td>87%</td></tr>
-      <tr><td>Remoções</td><td>-17</td><td>3%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~51</td><td>10%</td></tr>
-      <tr><th>Total</th><th>~527</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+1076</td><td>79%</td></tr>
+      <tr><td>Remoções</td><td>-67</td><td>5%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~217</td><td>16%</td></tr>
+      <tr><th>Total</th><th>~1360</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
@@ -332,17 +342,36 @@
           <table>
             <tr><th>Status</th><th>Arquivo</th><th>+/-</th></tr>
             <tr><td>M</td><td>docs/AI-SESSION-STATE.md</td><td class="mono"><span class="ns-add">+20</span> <span class="ns-del">−10</span></td></tr>
-<tr><td>M</td><td>docs/handoff.md</td><td class="mono"><span class="ns-add">+7</span> <span class="ns-del">−6</span></td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−1</span></td></tr>
+<tr><td>A</td><td>docs/council/2026-10-20-venda-toggle-roi-veredito.md</td><td class="mono"><span class="ns-add">+39</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/handoff.md</td><td class="mono"><span class="ns-add">+12</span> <span class="ns-del">−11</span></td></tr>
 <tr><td>A</td><td>docs/reports/2026-10-19/PR741-2026-10-18.html</td><td class="mono"><span class="ns-add">+547</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-10-20/venda-roi-toggle-2026-10-20-venda-roi-toggle.html</td><td class="mono"><span class="ns-add">+550</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>M</td><td>docs/tracking/envelopes.jsonl</td><td class="mono"><span class="ns-add">+7</span> <span class="ns-del">−0</span></td></tr>
-<tr><td>M</td><td>docs/tracking/events.jsonl</td><td class="mono"><span class="ns-add">+16</span> <span class="ns-del">−0</span></td></tr>
-<tr><td>M</td><td>docs/tracking/quality.jsonl</td><td class="mono"><span class="ns-add">+9</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td><td class="mono"><span class="ns-add">+18</span> <span class="ns-del">−26</span></td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td><td class="mono"><span class="ns-add">+9</span> <span class="ns-del">−14</span></td></tr>
+<tr><td>M</td><td>src/components/sales/form/SaleFormCommonFields.tsx</td><td class="mono"><span class="ns-add">+14</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/components/sales/form/salesFormUtils.ts</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/features/vendas/addVenda.ts</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/features/vendas/buildVendaUpdate.ts</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/hooks/useDatabase/mappers.ts</td><td class="mono"><span class="ns-add">+2</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/lib/metrics.ts</td><td class="mono"><span class="ns-add">+9</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/lib/supabase-types.ts</td><td class="mono"><span class="ns-add">+3</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/pages/Relatorios.tsx</td><td class="mono"><span class="ns-add">+15</span> <span class="ns-del">−4</span></td></tr>
+<tr><td>M</td><td>src/pages/Vendas.tsx</td><td class="mono"><span class="ns-add">+5</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/types/index.ts</td><td class="mono"><span class="ns-add">+4</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>supabase/migrations/20261020000000_sale_include_in_roi.sql</td><td class="mono"><span class="ns-add">+4</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>tests/components/SaleForm.test.tsx</td><td class="mono"><span class="ns-add">+11</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>tests/unit/features-vendas-api.test.ts</td><td class="mono"><span class="ns-add">+27</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>tests/unit/saleRoiToggle.test.ts</td><td class="mono"><span class="ns-add">+111</span> <span class="ns-del">−0</span></td></tr>
           </table>
         </div>
         <div class="ap-card">
-          <h3>🔖 Commits da sessão (7)</h3>
+          <h3>🔖 Commits da sessão (9)</h3>
           <ul class="commit-list">
-            <li><code>fff39f7c</code> Merge pull request #741 from andre0787/chore/session-end-2026-10-18</li>
+            <li><code>b7f4ad90</code> test(vendas): asserts insert payload e ROI por dono com opt-out (code review #1)</li>
+<li><code>d2e720ef</code> feat(vendas): toggle considerar/não considerar venda no ROI</li>
+<li><code>fff39f7c</code> Merge pull request #741 from andre0787/chore/session-end-2026-10-18</li>
 <li><code>48963182</code> chore: normalize report prefix to PR741</li>
 <li><code>70bc2aa8</code> chore: re-trigger CI (runs não dispararam no opened)</li>
 <li><code>07414827</code> chore: evidência code-review:done da branch de docs</li>
@@ -408,8 +437,65 @@ index 0fcb5920..a7d974d3 100644
 <span class="del">-- Categoria chore; gates rule-38/39 registrados; TWINS: apenas estes 2 stashes flagged tinham conteúdo; deps via fluxo canônico (branch → pre-pr → PR).</span>
 <span class="add">+- AUTH: usuário disse &quot;implementa todas em prod, tem total autonomia&quot; (aplicado ao merge #737 + deploy).</span>
 <span class="add">+- Gates rule-38/39 registrados (eventos coding:done/code-review:done com subagent:true); fluxo canônico respeitado (branch → pre-pr → PR → CI → merge).</span>
+diff --git a/docs/RADAR.md b/docs/RADAR.md
+index de271f74..2b993b48 100644
+<span class="del">--- a/docs/RADAR.md</span>
+<span class="add">+++ b/docs/RADAR.md</span>
+@@ -1,6 +1,6 @@
+ # 🔭 Radar de Vulnerabilidades
+ 
+<span class="del">-&gt; Atualizado em: 2026-10-18T19:58:44.895Z</span>
+<span class="add">+&gt; Atualizado em: 2026-10-20T12:41:07.661Z</span>
+ 
+ ## ⚠️  Vulnerabilidades Ativas (5 pacotes)
+ 
+diff --git a/docs/council/2026-10-20-venda-toggle-roi-veredito.md b/docs/council/2026-10-20-venda-toggle-roi-veredito.md
+new file mode 100644
+index 00000000..87cbde5e
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/council/2026-10-20-venda-toggle-roi-veredito.md</span>
+@@ -0,0 +1,39 @@
+<span class="add">+# Council Veredito — Toggle de ROI na venda (2026-10-20)</span>
+<span class="add">+</span>
+<span class="add">+## Pergunta</span>
+<span class="add">+</span>
+<span class="add">+Incluir um controle na inserção/edição de venda para considerar ou não a</span>
+<span class="add">+venda no cálculo do ROI do dono em `Relatorios.tsx`.</span>
+<span class="add">+</span>
+<span class="add">+## Modelos consultados (veredito consolidado pelo agente da sessão, política</span>
+<span class="add">+ativa do repo — manifesto autoritativo, quórum portátil dispensado)</span>
+<span class="add">+</span>
+<span class="add">+- **Desenho A (escolhido):** coluna booleana `include_in_roi` default `true`</span>
+<span class="add">+  na tabela `sales`; flag é opt-out; ROI do owner = `sumRoiEligibleProfit` /</span>
+<span class="add">+  total investido. Linhas antigas permanecem no ROI sem migração de dados.</span>
+<span class="add">+- **Desenho B (rejeitado):** calcular ROI a partir de `amount_received`/status</span>
+<span class="add">+  — mudaria semântica do que o dono pediu e quebraria comparabilidade com</span>
+<span class="add">+  relatórios antigos.</span>
+<span class="add">+- **Desenho C (rejeitado):** categoria/tag de venda (&quot;venda interna&quot;) —</span>
+<span class="add">+  escopo maior (taxonomia nova) para uma necessidade binária.</span>
+<span class="add">+</span>
+<span class="add">+## Decisão</span>
+<span class="add">+</span>
+<span class="add">+- **Numerator do ROI** exclui vendas com `includeInRoi === false`;</span>
+<span class="add">+  **denominador** (investido das entradas) permanece intacto — o custo do</span>
+<span class="add">+  estoque comprado continua real, quem decide entrar no lucro do ROI é a</span>
+<span class="add">+  venda.</span>
+<span class="add">+- Flag NÃO afeta: receita, lucro, margem, extrato, CSV, tabela de vendas,</span>
+<span class="add">+  simulador (efêmero, sem persistência — fora de escopo).</span>
+<span class="add">+- UI: `Switch` (shadcn, já no design system) ao lado de &quot;Data da venda&quot; em</span>
+<span class="add">+  `SaleFormCommonFields` — aparece em criação E edição, rótulo</span>
+<span class="add">+  &quot;Considerar no ROI&quot; com helper text pt-BR.</span>
+<span class="add">+- Migration nova (imutável: nunca editar as existentes):</span>
+<span class="add">+  `ALTER TABLE sales ADD COLUMN IF NOT EXISTS include_in_roi boolean NOT NULL</span>
+<span class="add">+  DEFAULT true` — sem RLS novo (coluna em tabela existente; políticas por</span>
+<span class="add">+  `auth.uid()` já cobrem a tabela).</span>
+<span class="add">+</span>
+<span class="add">+## Confiança</span>
+<span class="add">+</span>
+<span class="add">+Alta. Reversível: default `true` preserva todos os números atuais até o dono</span>
+<span class="add">+marcar vendas específicas.</span>
 diff --git a/docs/handoff.md b/docs/handoff.md
-index c5e249bc..a451d2c3 100644
+index c5e249bc..547ff914 100644
 <span class="del">--- a/docs/handoff.md</span>
 <span class="add">+++ b/docs/handoff.md</span>
 @@ -1,5 +1,5 @@
@@ -419,75 +505,18 @@ index c5e249bc..a451d2c3 100644
  &gt; Anterior: 2026-09-24
  ---
  ## 🏗️ Projeto
-@@ -10,23 +10,23 @@
+@@ -10,27 +10,27 @@
  Consulte as GitHub Issues para a lista atual.
  ## 🧭 Estado Atual
  - **Branch:** `main`
 <span class="del">-- **Último commit:** `5241b142 — Merge pull request #710 from andre0787/chore/normalize-report-pr695`</span>
 <span class="del">-- **Remote:** no remote</span>
-<span class="add">+- **Último commit:** `34103f8b` — chore: session end</span>
-<span class="add">+- **Remote:** origin/main</span>
- ### 📋 PRs Abertos
- Nenhum PR aberto.
- ### 📊 Métricas (estimativa local)
- | Métrica | Valor |
- |---------|-------|
-<span class="del">-| Total testes | 1460 |</span>
-<span class="add">+| Total testes | 1499 |</span>
- | Docs issues | 0 |
-<span class="del">-| Branch | docs/session-state-pr690-deploy |</span>
-<span class="add">+| Branch | main |</span>
- 
- ---
- _Atualizado automaticamente por `scripts/update-handoff.mjs`_
- ## 🎯 Sessão Atual
- **Categoria:** chore
- **Objetivo:** Avaliar e implementar todas as PRs abertas em producao via PR de consolidacao
-<span class="del">-**Status:** in_progress</span>
-<span class="add">+**Status:** done</span>
- **Iniciada em:** 2026-10-18T19:58:44.930Z
- **Branch:** `chore/consolidate-open-prs`
- **Último commit:** 5241b142 — Merge pull request #710 from andre0787/chore/normalize-report-pr695
-@@ -75,5 +75,6 @@ Continue a tarefa ativa ou selecione o próximo task-card.
- 
- 
- 
-<span class="add">+</span>
- 
- 
-diff --git a/docs/reports/2026-10-19/PR741-2026-10-18.html b/docs/reports/2026-10-19/PR741-2026-10-18.html
-new file mode 100644
-index 00000000..4ccae592
-<span class="del">--- /dev/null</span>
-<span class="add">+++ b/docs/reports/2026-10-19/PR741-2026-10-18.html</span>
-@@ -0,0 +1,547 @@
-<span class="add">+&lt;!DOCTYPE html&gt;</span>
-<span class="add">+&lt;html lang=&quot;pt-BR&quot;&gt;</span>
-<span class="add">+&lt;head&gt;</span>
-<span class="add">+  &lt;meta charset=&quot;UTF-8&quot;&gt;</span>
-<span class="add">+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;</span>
-<span class="add">+  &lt;title&gt;session-end-2026-10-18 — session end 2026 10 18&lt;/title&gt;</span>
-<span class="add">+  &lt;style&gt;</span>
-<span class="add">+    :root{</span>
-<span class="add">+      --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;</span>
-<span class="add">+      --text:#e6edf7;--muted:#8fa3c0;--blue:#3b82f6;--green:#34d399;--amber:#fbbf24;--red:#f87171;--gold:#f59e0b;--teal:#2dd4bf;</span>
-<span class="add">+    }</span>
-<span class="add">+    *{box-sizing:border-box;margin:0;padding:0}</span>
-<span class="add">+    html,body{height:100%}</span>
-<span class="add">+    body{</span>
-<span class="add">+      font-family:ui-sans-serif,system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;</span>
-<span class="add">+      background:radial-gradient(1200px 600px at 15% -10%,#12203f 0%,transparent 55%),radial-gradient(1000px 500px at 110% 20%,#0f2440 0%,transparent 50%),var(--bg);</span>
-<span class="add">+      color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;</span>
-<span class="add">+    }</span>
-<span class="add">+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}</span>
-<span class="add">+    .deck{min-height:100vh;display:flex;flex-direction:column}</span>
-<span class="add">+    .slide{</span>
-<span class="add">+      flex:1 0 auto;min-height:100vh;padding:5.5rem clamp(1.25rem,5vw,4.5rem) 3.5rem;</span>
+<span class="add">+- **Último commit:** `fff39f7c — Merge pull request #741 from andre0787/chore/session-end-2026-10-18`</span>
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-10-20 09:52
+      Gerado por scripts/generate-report.mjs · 2026-10-20 10:01
     </div>
   </div>
 
