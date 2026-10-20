@@ -10,7 +10,7 @@
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
 - **Branch:** `main`
-- **Último commit:** `34103f8b` — chore: session end
+- **Último commit:** `fff39f7c — Merge pull request #741 from andre0787/chore/session-end-2026-10-18`
 - **Remote:** origin/main
 ### 📋 PRs Abertos
 Nenhum PR aberto.
@@ -24,13 +24,13 @@ Nenhum PR aberto.
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 ## 🎯 Sessão Atual
-**Categoria:** chore
-**Objetivo:** Avaliar e implementar todas as PRs abertas em producao via PR de consolidacao
-**Status:** done
-**Iniciada em:** 2026-10-18T19:58:44.930Z
-**Branch:** `chore/consolidate-open-prs`
-**Último commit:** 5241b142 — Merge pull request #710 from andre0787/chore/normalize-report-pr695
-**Docs carregados:** AGENTS.md
+**Categoria:** feature
+**Objetivo:** Incluir toggle considerar/não considerar venda no ROI na inserção de vendas
+**Status:** in_progress
+**Iniciada em:** 2026-10-20T12:41:07.704Z
+**Branch:** `feat/venda-roi-toggle`
+**Último commit:** fff39f7c — Merge pull request #741 from andre0787/chore/session-end-2026-10-18
+**Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 ## ✅ Última Sessão
 Estado atualizado automaticamente.
 ## 📌 Próxima Sessão

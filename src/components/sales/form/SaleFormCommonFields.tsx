@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { isValidISODate, todayISODate } from "@/lib/dateUtils";
+import { Switch } from "@/components/ui/switch";
 import type { Client, SaleFormData } from "@/types";
 
 interface SaleFormCommonFieldsProps {
@@ -91,6 +92,19 @@ export function SaleFormCommonFields({
           {form.date.trim() !== "" && !isValidISODate(form.date) && (
             <p className="text-xs text-destructive">Informe uma data válida.</p>
           )}
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="sale-include-in-roi">Considerar no ROI</Label>
+          <div className="flex items-center gap-2 h-10">
+            <Switch
+              id="sale-include-in-roi"
+              checked={form.includeInRoi !== false}
+              onCheckedChange={(checked) => update({ includeInRoi: checked })}
+            />
+            <span className="text-xs text-muted-foreground">
+              {form.includeInRoi !== false ? "Entra no lucro do ROI" : "Fora do cálculo do ROI"}
+            </span>
+          </div>
         </div>
       </div>
     </>

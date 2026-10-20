@@ -34,6 +34,7 @@ export function buildVendaUpdate(
   if (data.additionalCosts !== undefined) {
     applyAdditionalCosts(updateData as Record<string, unknown>, data.additionalCosts);
   }
+  if (data.includeInRoi !== undefined) updateData.include_in_roi = data.includeInRoi;
   const effectiveSaleValue = data.saleValue ?? Number(oldSale.sale_value);
   if (data.amountReceived !== undefined) {
     (updateData as Record<string, unknown>).amount_received = Math.min(

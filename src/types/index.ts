@@ -190,6 +190,8 @@ export interface SaleFormData {
   ticketLocator: string;
   passengers: { name: string; passengerId: string; cpf: string; clientId?: string }[];
   costPerMile?: number;
+  /** Opt-out do lucro desta venda no ROI dos relatórios (default via emptyForm). */
+  includeInRoi?: boolean;
 }
 
 export interface Sale {
@@ -216,6 +218,8 @@ export interface Sale {
   amountReceived?: number;
   profit: number;
   profitMargin: number;
+  /** false = venda fora do numerador do ROI (migration include_in_roi). */
+  includeInRoi?: boolean;
   status: "pendente" | "pago" | "concluido" | "cancelado";
   ticketLocator: string;
   passengers: { name: string; passengerId: string; cpf: string; clientId?: string }[];

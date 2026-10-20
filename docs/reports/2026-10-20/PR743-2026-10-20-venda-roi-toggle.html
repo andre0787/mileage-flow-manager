@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>venda-roi-toggle — venda roi toggle</title>
+  <style>
+    :root{
+      --bg:#0a0f1e;--bg2:#0d1526;--card:#111a2e;--card2:#16213a;--line:#1e2a44;
+      --text:#e6edf7;--muted:#8fa3c0;--blue:#3b82f6;--green:#34d399;--amber:#fbbf24;--red:#f87171;--gold:#f59e0b;--teal:#2dd4bf;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      background:radial-gradient(1200px 600px at 15% -10%,#12203f 0%,transparent 55%),radial-gradient(1000px 500px at 110% 20%,#0f2440 0%,transparent 50%),var(--bg);
+      color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;
+    }
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    .deck{min-height:100vh;display:flex;flex-direction:column}
+    .slide{
+      flex:1 0 auto;min-height:100vh;padding:5.5rem clamp(1.25rem,5vw,4.5rem) 3.5rem;
+      display:flex;flex-direction:column;justify-content:center;gap:1.4rem;
+      max-width:1180px;margin:0 auto;width:100%;
+      border-bottom:1px solid var(--line);
+    }
+    .deck-mode .slide{display:none}
+    .deck-mode .slide.active{display:flex}
+    .nav{
+      position:fixed;top:1rem;right:1rem;z-index:60;display:flex;gap:.4rem;align-items:center;
+      background:rgba(10,15,30,.85);backdrop-filter:blur(8px);border:1px solid var(--line);
+      border-radius:999px;padding:.35rem .5rem;box-shadow:0 8px 24px rgba(0,0,0,.45);
+    }
+    .nav button{
+      background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:1.05rem;
+      width:2.1rem;height:2.1rem;border-radius:999px;transition:all .15s;line-height:1;
+    }
+    .nav button:hover{background:var(--card2);color:var(--text)}
+    .nav .count{font-size:.72rem;color:var(--muted);min-width:2.6rem;text-align:center;font-variant-numeric:tabular-nums}
+    .nav .mode-btn{width:auto;padding:0 .7rem;font-size:.72rem;color:var(--muted)}
+    .hero{display:flex;flex-direction:column;gap:.9rem}
+    .hero-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+    .hero-badges{display:flex;gap:.5rem;flex-wrap:wrap}
+    .badge{
+      display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .7rem;border-radius:999px;
+      font-size:.72rem;font-weight:700;letter-spacing:.02em;border:1px solid var(--line);color:var(--muted);
+    }
+    .badge.pr{color:#93c5fd;border-color:rgba(59,130,246,.4);background:rgba(59,130,246,.12)}
+    .badge.feat{color:#6ee7b7;border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.1)}
+    .badge.fix{color:#fca5a5;border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.1)}
+    .badge.docs{color:#c4b5fd;border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.1)}
+    .badge.chore,.badge.auto{color:#a7b8d1;border-color:var(--line);background:rgba(255,255,255,.04)}
+    .badge.risk{border-style:dashed}
+    .badge.health{font-weight:800}
+    .hero-date{font-size:.78rem;color:var(--muted)}
+    h1{font-size:clamp(1.9rem,4.5vw,3.3rem);line-height:1.08;letter-spacing:-.03em;font-weight:800;text-wrap:balance}
+    .hero-summary{font-size:clamp(1rem,1.6vw,1.3rem);color:var(--muted);max-width:62ch;text-wrap:balance}
+    .hero-meta{font-size:.72rem;color:var(--muted);opacity:.8}
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin-top:.4rem}
+    .kpi{
+      background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);
+      border-radius:1rem;padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.2rem;
+      box-shadow:0 10px 30px rgba(0,0,0,.3);
+    }
+    .kpi-value{font-size:clamp(1.9rem,3vw,2.6rem);font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--text)}
+    .kpi-value.green{color:var(--green)}.kpi-value.amber{color:var(--amber)}
+    .kpi-label{font-size:.8rem;color:var(--muted);font-weight:600}
+    .kpi-sub{font-size:.7rem;color:var(--muted);opacity:.75}
+    .bluf{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem}
+    .bluf-col{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}
+    .bluf-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-weight:800;margin-bottom:.4rem}
+    .bluf-col p{font-size:.9rem;color:var(--text)}
+    .slide-head{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.6rem}
+    .slide-kicker{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);font-weight:800}
+    .slide-head h2{font-size:clamp(1.4rem,3vw,2.1rem);letter-spacing:-.02em;font-weight:800}
+    .impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+    .impact-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.4rem;display:flex;flex-direction:column;gap:.5rem}
+    .impact-icon{font-size:1.6rem}
+    .impact-card h3{font-size:1rem;font-weight:800;letter-spacing:-.01em}
+    .impact-card p{font-size:.9rem;color:var(--muted)}
+    .impact-card.blue{border-top:3px solid var(--blue)}
+    .impact-card.gold{border-top:3px solid var(--gold)}
+    .impact-card.teal{border-top:3px solid var(--teal)}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;align-items:start}
+    @media(max-width:760px){.split{grid-template-columns:1fr}}
+    .timeline{position:relative;padding-left:1.4rem;display:flex;flex-direction:column;gap:1.05rem}
+    .timeline::before{content:"";position:absolute;left:.4rem;top:.3rem;bottom:.3rem;width:2px;background:linear-gradient(180deg,var(--blue),var(--green))}
+    .tl-item{position:relative;display:flex;align-items:center;gap:.9rem}
+    .tl-dot{position:absolute;left:-1.4rem;width:.85rem;height:.85rem;border-radius:50%;background:var(--card);border:2px solid var(--blue)}
+    .tl-item.pr\\:merge .tl-dot,.tl-item.pr-merge .tl-dot{border-color:var(--green);background:var(--green)}
+    .tl-item.pre-pr .tl-dot{border-color:var(--amber)}
+    .tl-body{display:flex;flex-direction:column}
+    .tl-time{font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:700}
+    .tl-label{font-size:.92rem;font-weight:600}
+    .tl-total{margin-top:.4rem;font-size:.85rem;color:var(--green);font-weight:700}
+    .empty-note{font-size:.9rem;color:var(--muted);border:1px dashed var(--line);border-radius:1rem;padding:1.2rem}
+    .stat-list{display:flex;flex-direction:column;gap:.8rem}
+    .stat{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1rem 1.2rem;display:flex;align-items:baseline;gap:.9rem}
+    .stat-v{font-size:1.7rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--blue)}
+    .stat-v.green{color:var(--green)}
+    .stat-l{font-size:.82rem;color:var(--muted)}
+    .appendix{justify-content:flex-start}
+    .appendix-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:860px){.appendix-grid{grid-template-columns:1fr}}
+    .ap-card{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.1rem 1.2rem}
+    .ap-card h3{font-size:.92rem;font-weight:800;margin-bottom:.6rem}
+    .detail-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:1.2rem;padding:1.2rem;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+    .detail-scroll{max-height:56vh;overflow:auto;border-radius:.8rem}
+    .detail-scroll table{margin:0}
+    .detail-note{font-size:.72rem;color:var(--muted);opacity:.8;margin-top:.7rem}
+    .checks{list-style:none;display:flex;flex-direction:column;gap:.35rem}
+    .checks li{font-size:.85rem;color:var(--muted)}
+    .ns-add{color:#34d399;font-weight:600}
+    .ns-del{color:#f87171;font-weight:600}
+    .commit-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;max-height:260px;overflow-y:auto;margin:0;padding:0}
+    .commit-list li{font-size:.82rem;color:var(--muted);line-height:1.35}
+    .commit-list code{background:var(--border);border-radius:4px;padding:.05rem .35rem;font-size:.75rem;color:var(--fg);margin-right:.4rem}
+    table{width:100%;border-collapse:collapse;font-size:.8rem}
+    td,th{border:1px solid var(--line);padding:.45rem .6rem;text-align:left;vertical-align:top;color:var(--muted)}
+    th{color:var(--text);font-weight:700;background:rgba(255,255,255,.04)}
+    td code,code{color:#93c5fd;font-family:ui-monospace,Menlo,monospace;font-size:.78rem}
+    .evidence{max-width:100%;border:1px solid var(--line);border-radius:.8rem;margin-top:.7rem}
+    .token-bar{display:flex;border-radius:.6rem;overflow:hidden;margin:.7rem 0;font-size:.7rem}
+    .token-bar div{padding:.3rem .7rem;text-align:center;white-space:nowrap}
+    .token-bar .add{background:rgba(52,211,153,.18);color:#6ee7b7}
+    .token-bar .del{background:rgba(248,113,113,.16);color:#fca5a5}
+    .token-bar .overhead{background:rgba(255,255,255,.07);color:var(--muted)}
+    .diff-title{margin:1.2rem 0 .5rem;font-size:.92rem;font-weight:800}
+    .diff{background:#070b16;color:#c9d6ea;padding:.9rem;border-radius:.8rem;font:.74rem/1.5 ui-monospace,Menlo,monospace;overflow-x:auto;max-height:340px;border:1px solid var(--line)}
+    .diff .add{color:#4ade80}
+    .diff .del{color:#f87171}
+    .foot{margin:1.4rem auto 2.5rem;text-align:center;font-size:.7rem;color:var(--muted);opacity:.6}
+    .foot .scroll-hint{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3rem .9rem;margin-bottom:.8rem}
+    @page{size:A4 landscape;margin:12mm}
+    @media print{
+      html,body{background:#fff!important;color:#111}
+      .nav{display:none!important}
+      .slide{min-height:0;page-break-after:always;break-after:page;display:flex!important;border-bottom:0;padding:1.5rem 0}
+      .slide:last-child{page-break-after:auto;break-after:auto}
+      .hero h1{color:#0b1220}
+      .hero-summary,.hero-date,.hero-meta,.kpi-label,.kpi-sub,.bluf-col p,.impact-card p,.tl-time,.tl-label,.stat-l,.checks li,td,th,.foot{color:#334155}
+      .kpi,.impact-card,.bluf-col,.ap-card,.stat{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-card{background:#fff;border-color:#e2e8f0;box-shadow:none}
+      .detail-scroll{max-height:none;overflow:visible}
+      .bluf-col,.checks li{color:#334155}
+      .diff{background:#f8fafc;color:#0f172a;border-color:#e2e8f0}
+      .timeline::before{background:linear-gradient(180deg,#3b82f6,#16a34a)}
+      tr{break-inside:avoid;page-break-inside:avoid}
+      th,td{font-size:.72rem}
+      .detail-scroll table{margin:0}
+      img.evidence{max-height:120mm;object-fit:contain}
+    }
+  </style>
+</head>
+<body>
+  <div class="nav" id="deckNav">
+    <button id="prevBtn" title="Anterior (←)">←</button>
+    <span class="count" id="slideCount">1/5</span>
+    <button id="nextBtn" title="Próxima (→)">→</button>
+    <button id="fsBtn" title="Tela cheia (F)">⛶</button>
+    <button id="printBtn" title="Imprimir / PDF (P)">⎙</button>
+    <button class="mode-btn" id="modeBtn" title="Alternar modo documento">📄</button>
+  </div>
+
+  <div class="deck" id="deck">
+    
+    <section class="slide" id="s1">
+      <div class="hero">
+        <div class="hero-top">
+          <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">venda-roi-toggle</span> <span class="badge risk" style="color:#f87171">Alto risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
+          <div class="hero-date">2026-10-20 · 10:17 · <span class="mono">feat/venda-roi-toggle</span></div>
+        </div>
+        <h1>venda roi toggle</h1>
+        <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
+        <div class="hero-meta mono">70e76c69 — chore: pre-pr report + tracking artifacts (roi toggle)</div>
+      </div>
+      
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-value">0</div>
+        <div class="kpi-label">entregas em produção</div>
+        <div class="kpi-sub">1 implementações · 1 reviews</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value">—</div>
+        <div class="kpi-label">lead time (início → produção)</div>
+        <div class="kpi-sub">da sessão ao deploy</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value">0/3</div>
+        <div class="kpi-label">fricção pré-PR (fail/total)</div>
+        <div class="kpi-sub">0 violações · 0 auto-corrigidas</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value green">100</div>
+        <div class="kpi-label">outcome grade</div>
+        <div class="kpi-sub">alto risco da mudança</div>
+      </div>
+    </div>
+      <div class="bluf">
+        <div class="bluf-col">
+          <div class="bluf-label">Decisão & entregas</div>
+          <p>Nova capacidade entregue e validada para o produto.</p>
+        </div>
+        <div class="bluf-col">
+          <div class="bluf-label">Impacto esperado</div>
+          <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+        </div>
+        <div class="bluf-col">
+          <div class="bluf-label">Riscos & trade-offs</div>
+          <p>Alto risco de mudança · outcome grade = 100 · lead time —.</p>
+        </div>
+      </div>
+    </section><section class="slide" id="s2">
+        <div class="slide-head">
+          <span class="slide-kicker">Impacto da sessão</span>
+          <h2>O que isso significa para o negócio</h2>
+        </div>
+        <div class="impact-grid">
+          <div class="impact-card blue">
+                <div class="impact-icon">🎯</div>
+                <h3>Impacto de Produto</h3>
+                <p>Nova capacidade entregue e validada para o produto.</p>
+              </div><div class="impact-card gold">
+                <div class="impact-icon">🏢</div>
+                <h3>Impacto de Negócio</h3>
+                <p>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</p>
+              </div><div class="impact-card teal">
+                <div class="impact-icon">🌊</div>
+                <h3>Impacto de Processo</h3>
+                <p>Fluxo completo seguido: sessão → implementação → code review → pré-PR → PR. Detalhes nas métricas automáticas.</p>
+              </div>
+        </div>
+      </section>
+    <section class="slide" id="s3">
+      <div class="slide-head">
+        <span class="slide-kicker">Valor por entrega</span>
+        <h2>Detalhamento por item</h2>
+      </div>
+      <div class="detail-card">
+        <div class="detail-scroll"><table>
+    <tr>
+      <th style="width:16%">Item</th>
+      <th style="width:24%">Correção Efetuada</th>
+      <th style="width:20%">Benefício</th>
+      <th style="width:24%">Impacto no Negócio</th>
+      <th style="width:16%">Custo Token</th>
+    </tr>
+    <tr>
+      <td><strong>Entrega da sessão</strong></td>
+      <td>venda roi toggle</td>
+      <td>Nova capacidade entregue e validada para o produto.</td>
+      <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
+      <td><code>~1393</code></td>
+    </tr>
+  </table></div>
+        <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.172 tokens (feature) · status pesado — tracking</p>
+      </div>
+    </section>
+    <section class="slide" id="s4">
+      <div class="slide-head">
+        <span class="slide-kicker">Execução</span>
+        <h2>Timeline da sessão</h2>
+      </div>
+      <div class="split">
+        <div class="split-left"><div class="timeline">
+        <div class="tl-item session:start">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">12:41</div>
+                <div class="tl-label">Início da sessão</div>
+              </div>
+            </div><div class="tl-item coding:done">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">13:04</div>
+                <div class="tl-label">Implementação concluída</div>
+              </div>
+            </div><div class="tl-item code-review:done">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">13:04</div>
+                <div class="tl-label">Code review aprovado</div>
+              </div>
+            </div><div class="tl-item pre-pr">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">12:53</div>
+                <div class="tl-label">Validação pré-PR</div>
+              </div>
+            </div>
+        
+      </div></div>
+        <div class="split-right">
+          <div class="stat-list">
+            <div class="stat"><span class="stat-v">3</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">0</span><span class="stat-l">violações de regra encontradas</span></div>
+            <div class="stat"><span class="stat-v green">0</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
+            <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="slide appendix" id="s5">
+      <div class="slide-head">
+        <span class="slide-kicker">Apêndice técnico</span>
+        <h2>Detalhes da implementação</h2>
+      </div>
+      <div class="appendix-grid">
+        <div class="ap-card">
+          <h3>✅ Checklist de revisão</h3>
+          <ul class="checks">
+            <li>🔷 Migração de banco aplicada?</li>
+<li>🖼️ Renderização verificada em desktop e mobile?</li>
+<li>🔌 Hooks testados em tela real?</li>
+<li>📦 Biblioteca testada com casos de borda?</li>
+<li>🧪 Testes manuais realizados?</li>
+<li>📋 Regras de validação passam? (npm run pre-pr)</li>
+          </ul>
+        </div>
+        <div class="ap-card">
+          <h3>📸 Evidências — antes & depois</h3>
+          <table>
+            <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 256 remoções — 1857 linhas tocadas</td><td>✨ 1077 adições — 27 arquivo(s) alterado(s)</td></tr>
+          </table>
+          
+        </div>
+        <div class="ap-card">
+          <h3>📊 Métricas da mudança</h3>
+          <table>
+            <tr><th>Métrica</th><th>Valor</th></tr>
+            <tr><td>Arquivos alterados</td><td>27</td></tr>
+            <tr><td>Adições</td><td>+1077</td></tr>
+            <tr><td>Remoções</td><td>-256</td></tr>
+            <tr><td>Tokens estimados</td><td>~1393</td></tr>
+          </table>
+          <div class="token-bar">
+        <div class="add" style="flex:58">+808 add</div>
+        <div class="del" style="flex:14">-192 del</div>
+        <div class="overhead" style="flex:28">~393 ctx</div>
+      </div>
+          <h3>Breakdown de tokens</h3>
+    <table>
+      <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
+      <tr><td>Adições</td><td>+808</td><td>58%</td></tr>
+      <tr><td>Remoções</td><td>-192</td><td>14%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~393</td><td>28%</td></tr>
+      <tr><th>Total</th><th>~1393</th><th>100%</th></tr>
+    </table>
+        </div>
+        <div class="ap-card">
+          <h3>📁 Arquivos</h3>
+          <table>
+            <tr><th>Status</th><th>Arquivo</th><th>+/-</th></tr>
+            <tr><td>M</td><td>docs/MAP.md</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−1</span></td></tr>
+<tr><td>M</td><td>docs/RADAR.md</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−1</span></td></tr>
+<tr><td>A</td><td>docs/council/2026-10-20-venda-toggle-roi-veredito.md</td><td class="mono"><span class="ns-add">+86</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/handoff.md</td><td class="mono"><span class="ns-add">+8</span> <span class="ns-del">−8</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-10-20/venda-roi-toggle-2026-10-20-venda-roi-toggle.html</td><td class="mono"><span class="ns-add">+588</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/superpowers/specs/venda-servico.md</td><td class="mono"><span class="ns-add">+9</span> <span class="ns-del">−2</span></td></tr>
+<tr><td>M</td><td>docs/tracking/archive/events-2026-09.jsonl</td><td class="mono"><span class="ns-add">+26</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/archive/quality-2026-08.jsonl</td><td class="mono"><span class="ns-add">+14</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/envelopes.jsonl</td><td class="mono"><span class="ns-add">+4</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td><td class="mono"><span class="ns-add">+10</span> <span class="ns-del">−26</span></td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td><td class="mono"><span class="ns-add">+3</span> <span class="ns-del">−14</span></td></tr>
+<tr><td>M</td><td>public/kpi-data.json</td><td class="mono"><span class="ns-add">+47</span> <span class="ns-del">−126</span></td></tr>
+<tr><td>M</td><td>public/workflow-data.json</td><td class="mono"><span class="ns-add">+43</span> <span class="ns-del">−43</span></td></tr>
+<tr><td>M</td><td>src/components/sales/form/SaleFormCommonFields.tsx</td><td class="mono"><span class="ns-add">+14</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/components/sales/form/salesFormUtils.ts</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/features/vendas/addVenda.ts</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/features/vendas/buildVendaUpdate.ts</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/hooks/useDatabase/mappers.ts</td><td class="mono"><span class="ns-add">+4</span> <span class="ns-del">−4</span></td></tr>
+<tr><td>M</td><td>src/lib/metrics.ts</td><td class="mono"><span class="ns-add">+9</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/lib/supabase-types.ts</td><td class="mono"><span class="ns-add">+3</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/pages/Relatorios.tsx</td><td class="mono"><span class="ns-add">+15</span> <span class="ns-del">−4</span></td></tr>
+<tr><td>M</td><td>src/pages/Vendas.tsx</td><td class="mono"><span class="ns-add">+5</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/types/index.ts</td><td class="mono"><span class="ns-add">+4</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>supabase/migrations/20261020000000_sale_include_in_roi.sql</td><td class="mono"><span class="ns-add">+4</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>tests/components/SaleForm.test.tsx</td><td class="mono"><span class="ns-add">+11</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>tests/unit/features-vendas-api.test.ts</td><td class="mono"><span class="ns-add">+27</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>A</td><td>tests/unit/saleRoiToggle.test.ts</td><td class="mono"><span class="ns-add">+111</span> <span class="ns-del">−0</span></td></tr>
+          </table>
+        </div>
+        <div class="ap-card">
+          <h3>🔖 Commits da sessão (5)</h3>
+          <ul class="commit-list">
+            <li><code>70e76c69</code> chore: pre-pr report + tracking artifacts (roi toggle)</li>
+<li><code>bd11861a</code> fix: conform to pre-pr gates — canonical council sections, MAP reference, spec headings, mappers ≤150 linhas</li>
+<li><code>5ea3bf73</code> chore: evidence coding:done + code-review:done (roi toggle)</li>
+<li><code>224ffc61</code> test(vendas): asserts insert payload e ROI por dono com opt-out (code review #1)</li>
+<li><code>caa8e884</code> feat(vendas): toggle considerar/não considerar venda no ROI</li>
+          </ul>
+        </div>
+        <div class="ap-card">
+          <h3>🧪 Qualidade de hoje</h3>
+          <table>
+            <tr><th>Métrica</th><th>Valor</th></tr>
+            <tr><td>Cobertura libs (rule-31)</td><td>sem registro hoje</td></tr>
+            <tr><td>Cobertura componentes (rule-32)</td><td>sem registro hoje</td></tr>
+            <tr><td>Outcome grade (rule-30)</td><td>100</td></tr>
+          </table>
+        </div>
+      </div>
+      <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
+      <div class="diff">
+        diff --git a/docs/MAP.md b/docs/MAP.md
+index 31ce5a10..7ec1725d 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -53,7 +53,7 @@
+ | `docs/memory.md`                                     | Contexto de sessões anteriores           | Histórico de decisões, sprints, post-mortems                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+ | `docs/IDEIAS.md`                                     | Caixa de entrada de ideias               | Ideias humanas pendentes, lidas no início da sessão                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+ | `docs/FLUXO.md`                                      | Diagramas do ecossistema                 | Flowcharts Mermaid: visão geral, fluxo de dados, rotas                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+<span class="del">-| `docs/council/`                                      | Vereditos de decisões                    | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md`, `2026-08-01-llm-model-router-veredito.md`, `2026-08-03-process-kpis-router-sanitizacao-veredito.md`, `2026-08-04-ux-entradas-vendas-veredito.md`, `2026-08-05-process-violations-veredito.md`, `2026-09-08-vendas-programa-veredito.md`                                                          |</span>
+<span class="add">+| `docs/council/`                                      | Vereditos de decisões                    | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md`, `2026-08-01-llm-model-router-veredito.md`, `2026-08-03-process-kpis-router-sanitizacao-veredito.md`, `2026-08-04-ux-entradas-vendas-veredito.md`, `2026-08-05-process-violations-veredito.md`, `2026-09-08-vendas-programa-veredito.md`, `2026-10-20-venda-toggle-roi-veredito.md`                                                          |</span>
+ | `docs/superpowers/specs/`                            | Especificações técnicas                  | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md`, `2026-08-01-llm-model-router-design.md`, `2026-08-03-process-guardrails-design.md`, `2026-08-03-llm-router-kpi-design.md`, `2026-08-03-project-sanitization-design.md`, `2026-08-03-react-router-8-upgrade-design.md`, `2026-08-04-ux-entradas-vendas.md`, `2026-08-10-blueprint-v4-p0-design.md` |
+ | `docs/superpowers/plans/`                            | Planos de execução                       | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md`, `2026-07-29-auth-ci-plan.md`, `2026-07-29-fable-method-skill-plan.md`, `2026-08-01-llm-model-router-plan.md`, `2026-08-03-process-guardrails-plan.md`, `2026-08-03-llm-router-kpi-plan.md`, `2026-08-03-project-sanitization-plan.md`                                                                                                                                                                                                                                                   |
+ | `docs/fable-gates.md`                                | Gates INTENT/TWINS/AUTH                  | Declaração formal dos 3 gates do Fable Method aplicados no workflow                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+diff --git a/docs/RADAR.md b/docs/RADAR.md
+index de271f74..2b993b48 100644
+<span class="del">--- a/docs/RADAR.md</span>
+<span class="add">+++ b/docs/RADAR.md</span>
+@@ -1,6 +1,6 @@
+ # 🔭 Radar de Vulnerabilidades
+ 
+<span class="del">-&gt; Atualizado em: 2026-10-18T19:58:44.895Z</span>
+<span class="add">+&gt; Atualizado em: 2026-10-20T12:41:07.661Z</span>
+ 
+ ## ⚠️  Vulnerabilidades Ativas (5 pacotes)
+ 
+diff --git a/docs/council/2026-10-20-venda-toggle-roi-veredito.md b/docs/council/2026-10-20-venda-toggle-roi-veredito.md
+new file mode 100644
+index 00000000..b66cbd2b
+<span class="del">--- /dev/null</span>
+<span class="add">+++ b/docs/council/2026-10-20-venda-toggle-roi-veredito.md</span>
+@@ -0,0 +1,86 @@
+<span class="add">+# Veredito do Council — Toggle de ROI na venda (2026-10-20)</span>
+<span class="add">+</span>
+<span class="add">+Roster: análise direta sobre código (política ativa do repo — manifesto</span>
+<span class="add">+autoritativo, quórum portátil dispensado) · Branch:</span>
+<span class="add">+`feat/venda-roi-toggle`</span>
+<span class="add">+</span>
+<span class="add">+## Pergunta</span>
+<span class="add">+</span>
+<span class="add">+Incluir um controle na inserção/edição de venda para considerar ou não a</span>
+<span class="add">+venda no cálculo do ROI do dono em `Relatorios.tsx`.</span>
+<span class="add">+</span>
+<span class="add">+## Advisors</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Contrarian</span>
+<span class="add">+</span>
+<span class="add">+Excluir vendas do ROI pode &quot;maquiar&quot; o retorno real se o dono marcar vendas</span>
+<span class="add">+ruins para inflar o número. Mitigação: o flag é por venda, visível no</span>
+<span class="add">+formulário, e lucro/margem/receita permanecem completos nos relatórios — a</span>
+<span class="add">+manipulação fica restrita a uma métrica rotulada, não ao extrato.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: First Principles</span>
+<span class="add">+</span>
+<span class="add">+ROI = lucro gerado / capital investido. A venda é o numerador; o investimento</span>
+<span class="add">+vem das entradas (denominador). Um opt-out por venda só pode afetar o</span>
+<span class="add">+numerador. Qualquer desenho que toque o denominador viola a semântica.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Expansionist</span>
+<span class="add">+</span>
+<span class="add">+Alternativas consideradas e rejeitadas: Desenho B (ROI a partir de</span>
+<span class="add">+`amount_received`/status — mudaria a semântica pedida e quebraria</span>
+<span class="add">+comparabilidade histórica) e Desenho C (categoria/tag de venda tipo &quot;venda</span>
+<span class="add">+interna — escopo maior, taxonomia nova, para uma necessidade binária).</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Outsider</span>
+<span class="add">+</span>
+<span class="add">+Um usuário novo assume default &quot;considerar&quot; (ligado). Default `true` preserva</span>
+<span class="add">+todos os números atuais e toda a base existente; opt-out precisa ser</span>
+<span class="add">+intencional. Texto de ajuda em pt-BR deixa o efeito explícito.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Executor</span>
+<span class="add">+</span>
+<span class="add">+Caminho mais curto com persistência: coluna `include_in_roi boolean NOT NULL</span>
+<span class="add">+DEFAULT true` (migration aditiva, reversível), `Switch` shadcn em</span>
+<span class="add">+`SaleFormCommonFields` (aparece em criação E edição), leitura defensiva em</span>
+<span class="add">+`mapSale` (linhas pré-migration contam), numerador via</span>
+<span class="add">+`sumRoiEligibleProfit` no agregador por dono de `Relatorios`. Simulador é</span>
+<span class="add">+efêmero — fora de escopo.</span>
+<span class="add">+</span>
+<span class="add">+## Peer review anônimo</span>
+<span class="add">+</span>
+<span class="add">+- Revisão A: desenhos A/B/C avaliados; A vence por ser opt-out reversível.</span>
+<span class="add">+- Revisão B: sem RLS novo necessário (coluna em tabela existente; políticas</span>
+<span class="add">+  por `auth.uid()` já cobrem `sales`).</span>
+<span class="add">+- Revisão C: recomendei helper nomeado (`sumRoiEligibleProfit`) em vez de</span>
+<span class="add">+  filter inline — testável sem renderizar a página.</span>
+<span class="add">+- Revisão D: flag não deve afetar receita, lucro, margem, CSV, tabela nem</span>
+<span class="add">+  simulador; só o numerador do ROI. Confirmado no código.</span>
+<span class="add">+</span>
+<span class="add">+## Síntese do Chairman</span>
+<span class="add">+</span>
+<span class="add">+**Desenho A escolhido:** coluna booleana `include_in_roi` default `true` na</span>
+<span class="add">+tabela `sales`; flag é opt-out; ROI do dono =</span>
+<span class="add">+`sumRoiEligibleProfit(sales) / totalAmountInvested`.</span>
+<span class="add">+</span>
+<span class="add">+Decisões:</span>
+<span class="add">+</span>
+<span class="add">+- **Numerador do ROI** exclui vendas com `includeInRoi === false`;</span>
+<span class="add">+  **denominador** (investido das entradas) permanece intacto — o custo do</span>
+<span class="add">+  estoque comprado continua real, quem decide entrar no lucro do ROI é a</span>
+<span class="add">+  venda.</span>
+<span class="add">+- Flag NÃO afeta: receita, lucro, margem, extrato, CSV, tabela de vendas,</span>
+<span class="add">+  simulador (efêmero, sem persistência — fora de escopo).</span>
+<span class="add">+- UI: `Switch` (shadcn, já no design system) em `SaleFormCommonFields` —</span>
+<span class="add">+  criação E edição, rótulo &quot;Considerar no ROI&quot; com helper text pt-BR.</span>
+<span class="add">+- Migration nova (imutável: nunca editar as existentes):</span>
+<span class="add">+  `ALTER TABLE sales ADD COLUMN IF NOT EXISTS include_in_roi boolean NOT NULL</span>
+<span class="add">+  DEFAULT true`.</span>
+<span class="add">+</span>
+<span class="add">+Próximos passos: implementar types → mappers → addVenda/update → form →</span>
+<span class="add">+Relatorios; testes unitários do helper, do insert e do agregador; aplicar</span>
+<span class="add">+`supabase db push` em produção.</span>
+<span class="add">+</span>
+<span class="add">+## Confiança</span>
+<span class="add">+</span>
+<span class="add">+Alta. Reversível: default `true` preserva todos os números atuais até o dono</span>
+<span class="add">+marcar vendas específicas.</span>
+diff --git a/docs/handoff.md b/docs/handoff.md
+index a451d2c3..547ff914 100644
+<span class="del">--- a/docs/handoff.md</span>
+      </div>
+    </section>
+    <div class="foot">
+      <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
+      Gerado por scripts/generate-report.mjs · 2026-10-20 10:17
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+      var deck = document.getElementById("deck");
+      var count = document.getElementById("slideCount");
+      var nav = document.getElementById("deckNav");
+      var current = 0;
+      var deckMode = true;
+
+      function show(i) {
+        current = Math.max(0, Math.min(slides.length - 1, i));
+        slides.forEach(function (s, idx) {
+          s.classList.toggle("active", idx === current);
+        });
+        count.textContent = (current + 1) + "/" + slides.length;
+        if (deckMode) {
+          window.scrollTo(0, 0);
+        } else {
+          slides[current].scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      function toggleMode() {
+        deckMode = !deckMode;
+        deck.classList.toggle("deck-mode", deckMode);
+        document.body.classList.toggle("deck-mode", deckMode);
+        nav.style.display = deckMode ? "flex" : "none";
+        if (deckMode) show(current);
+      }
+
+      document.getElementById("nextBtn").addEventListener("click", function () { show(current + 1); });
+      document.getElementById("prevBtn").addEventListener("click", function () { show(current - 1); });
+      document.getElementById("fsBtn").addEventListener("click", function () {
+        if (document.fullscreenElement) document.exitFullscreen();
+        else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+      });
+      document.getElementById("printBtn").addEventListener("click", function () { window.print(); });
+      document.getElementById("modeBtn").addEventListener("click", toggleMode);
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); show(current + 1); }
+        else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); show(current - 1); }
+        else if (e.key === "Home") { e.preventDefault(); show(0); }
+        else if (e.key === "End") { e.preventDefault(); show(slides.length - 1); }
+        else if (e.key === "f" || e.key === "F") {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+        }
+        else if (e.key === "p" || e.key === "P") { window.print(); }
+      });
+
+      if (window.innerWidth < 640) toggleMode();
+      else { deck.classList.add("deck-mode"); document.body.classList.add("deck-mode"); show(0); }
+    })();
+  </script>
+</body>
+</html>

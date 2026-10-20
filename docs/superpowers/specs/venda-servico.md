@@ -1,4 +1,4 @@
-# Spec — Venda standalone de serviço (PR1)
+# Design — Spec: Venda standalone de serviço (PR1)
 
 > Veredito do council: `docs/council/2026-09-06-produtos-veredito.md` (Faça-condicionado).
 > Proposta A (receita adicional na mesma venda) **arquivada**. Escopo aqui = Proposta B.
@@ -7,7 +7,7 @@
 > Adaptação do skill brainstorming: o diálogo interativo foi substituído pelas
 > decisões registradas acima (sessão delegada, sem canal interativo).
 
-## Objetivo
+## Contexto
 
 Permitir vender um serviço/produto sem milhas (ex: consultoria, taxa de embarque
 paga pelo cliente) como venda standalone, reaproveitando recebimento, crédito do
@@ -19,6 +19,13 @@ cliente, extrato, estorno e listagens existentes. Lucro = 100% do valor (receita
 - Relatório de cobrança / repaginação de Relatórios — PR2.
 - Repasse com custo espelhado (receita + custo) — não implementado; se surgir,
   vira extensão com `service_nature` por produto.
+
+## Abordagem
+
+Venda com `kind = "servico"`: sem conta de milhas, sem custo por milha, sem
+debitar saldo — receita pura somada ao lucro da venda. Validação server-side
+espelha o mecanismo anti-forgery do lucro atual. Relatórios/KPIs de milhagem
+ficam isolados da receita de serviço. Fatiamento: relatório dedicado é PR2.
 
 ## Modelo de dados (migration NOVA, nunca editar existente — rule-43)
 
