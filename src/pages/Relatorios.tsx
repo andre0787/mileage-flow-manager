@@ -31,7 +31,12 @@ import { useData } from "@/contexts/DataContext";
 import { toast } from "sonner";
 import { SearchInput } from "@/components/ui/SearchInput";
 import { useSmartQuery, periodFromFilter } from "@/hooks/useSmartQuery";
-import { calcProfitMargin, calcROI, calcWeightedAverageCost } from "@/lib/metrics";
+import {
+  calcProfitMargin,
+  calcROI,
+  calcWeightedAverageCost,
+  sumRoiEligibleProfit,
+} from "@/lib/metrics";
 import { ownerColor } from "@/lib/ownerColors";
 import { downloadCSV } from "@/lib/utils";
 import { parseDateOnly } from "@/lib/dateUtils";
@@ -130,7 +135,10 @@ export default function Relatorios() {
       agg.totalMilesGenerated += e.milesGenerated ?? e.amount;
     }
 
-    const salesByOwner = new Map<string, { totalRevenue: number; totalProfit: number }>();
+    const salesByOwner = new Map<
+      string,
+      { totalRevenue: number; totalProfit: number; roiSales: typeof filteredSales }
+    >();
 
     for (const s of filteredSales) {
       if (!s.accountId) continue;
@@ -138,11 +146,12 @@ export default function Relatorios() {
       if (!ownerId) continue;
       let agg = salesByOwner.get(ownerId);
       if (!agg) {
-        agg = { totalRevenue: 0, totalProfit: 0 };
+        agg = { totalRevenue: 0, totalProfit: 0, roiSales: [] };
         salesByOwner.set(ownerId, agg);
       }
       agg.totalRevenue += s.saleValue;
       agg.totalProfit += s.profit;
+      agg.roiSales.push(s);
     }
 
     return owners.map((owner) => {
@@ -154,10 +163,12 @@ export default function Relatorios() {
       const saleAgg = salesByOwner.get(owner.id) ?? {
         totalRevenue: 0,
         totalProfit: 0,
+        roiSales: [],
       };
 
       const profitMargin = calcProfitMargin(saleAgg.totalProfit, saleAgg.totalRevenue);
-      const roi = calcROI(saleAgg.totalProfit, entryAgg.totalAmountInvested);
+      // Vendas com includeInRoi === false ficam fora do numerador do ROI.
+      const roi = calcROI(sumRoiEligibleProfit(saleAgg.roiSales), entryAgg.totalAmountInvested);
 
       return {
         ownerName: owner.name,

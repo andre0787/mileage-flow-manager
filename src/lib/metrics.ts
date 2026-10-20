@@ -47,6 +47,15 @@ export function calcROI(profit: number, totalInvested: number): number {
   return totalInvested > 0 ? (profit / totalInvested) * 100 : 0;
 }
 
+/**
+ * Lucro elegível para ROI: soma o lucro das vendas exceto as marcadas com
+ * `includeInRoi === false` (opt-out no formulário de venda). Linhas antigas
+ * sem o campo contam normalmente — default `true`.
+ */
+export function sumRoiEligibleProfit(sales: { profit: number; includeInRoi?: boolean }[]): number {
+  return sales.reduce((sum, s) => (s.includeInRoi === false ? sum : sum + s.profit), 0);
+}
+
 // ─── Cálculos de Entrada/Transferência ───
 
 /** Milhas geradas (com ou sem bônus de transferência) */

@@ -278,4 +278,15 @@ describe("SaleForm (básico)", () => {
     fireEvent.click(addClientBtn);
     expect(screen.getByText("Novo Cliente")).toBeDefined();
   });
+
+  it("toggle 'Considerar no ROI' vem ligado por padrão e alternável", () => {
+    render(<SaleForm {...mockProps} />);
+    const toggle = screen.getByRole("switch", { name: /Considerar no ROI/i });
+    expect(toggle).toBeChecked();
+    expect(screen.getByText("Entra no lucro do ROI")).toBeDefined();
+
+    fireEvent.click(toggle);
+    expect(toggle).not.toBeChecked();
+    expect(screen.getByText("Fora do cálculo do ROI")).toBeDefined();
+  });
 });

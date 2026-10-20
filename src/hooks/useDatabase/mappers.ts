@@ -137,6 +137,8 @@ export function mapSale(row: Database["public"]["Tables"]["sales"]["Row"]): Sale
     amountReceived: Number.isFinite(received) ? received : 0,
     profit: Number(row.profit),
     profitMargin: Number(row.profit_margin),
+    // Default true para linhas pré-migration (coluna pode faltar no banco).
+    includeInRoi: (row as { include_in_roi?: unknown }).include_in_roi !== false,
     status: row.status,
     kind: ((row as { sale_kind?: unknown }).sale_kind ?? "milhas") as SaleKind,
     serviceType:

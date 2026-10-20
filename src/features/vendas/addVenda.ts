@@ -72,6 +72,7 @@ export const addVendaEndpoint = (builder: VendasBuilder) => ({
         amount_received: amountReceived as unknown as never,
         profit: serverProfit,
         profit_margin: serverProfitMargin,
+        include_in_roi: sale.includeInRoi ?? true,
         status: initialPlan.fullyPaid ? "pago" : sale.status,
         ticket_locator: sale.ticketLocator,
         passengers: sale.passengers,

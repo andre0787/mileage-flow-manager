@@ -258,6 +258,7 @@ export interface Database {
           amount_received: number;
           profit: number;
           profit_margin: number;
+          include_in_roi: boolean;
           status: "pendente" | "pago" | "concluido" | "cancelado";
           ticket_locator: string;
           passengers: { name: string; passengerId: string; cpf: string; clientId?: string }[];
@@ -286,6 +287,7 @@ export interface Database {
           amount_received?: number;
           profit?: number;
           profit_margin?: number;
+          include_in_roi?: boolean;
           status?: "pendente" | "pago" | "concluido" | "cancelado";
           ticket_locator?: string;
           passengers?: { name: string; passengerId: string; cpf: string; clientId?: string }[];
@@ -313,6 +315,7 @@ export interface Database {
           amount_received?: number;
           profit?: number;
           profit_margin?: number;
+          include_in_roi?: boolean;
           status?: "pendente" | "pago" | "concluido" | "cancelado";
           ticket_locator?: string;
           passengers?: { name: string; passengerId: string; cpf: string; clientId?: string }[];

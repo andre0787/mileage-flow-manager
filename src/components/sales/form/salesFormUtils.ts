@@ -27,6 +27,7 @@ export const emptyForm: SaleFormData = {
   date: todayISODate(),
   ticketLocator: "",
   passengers: [emptyPassenger()],
+  includeInRoi: true,
 };
 
 export interface SwitchKindProps {
