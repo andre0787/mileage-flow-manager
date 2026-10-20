@@ -168,18 +168,18 @@
       <div class="hero">
         <div class="hero-top">
           <div class="hero-badges"><span class="badge auto">auto</span> <span class="badge auto">venda-roi-toggle</span> <span class="badge risk" style="color:#f87171">Alto risco</span> <span class="badge health green" style="color:#34d399">● Saudável</span></div>
-          <div class="hero-date">2026-10-20 · 10:01 · <span class="mono">feat/venda-roi-toggle</span></div>
+          <div class="hero-date">2026-10-20 · 10:16 · <span class="mono">feat/venda-roi-toggle</span></div>
         </div>
         <h1>venda roi toggle</h1>
         <p class="hero-summary">Entrega validada pelo fluxo de qualidade — métricas automáticas da sessão no relatório.</p>
-        <div class="hero-meta mono">b7f4ad90 — test(vendas): asserts insert payload e ROI por dono com opt-out (code review #1)</div>
+        <div class="hero-meta mono">bd11861a — fix: conform to pre-pr gates — canonical council sections, MAP reference, spec headings, mappers ≤150 linhas</div>
       </div>
       
     <div class="kpi-grid">
       <div class="kpi">
         <div class="kpi-value">0</div>
         <div class="kpi-label">entregas em produção</div>
-        <div class="kpi-sub">0 implementações · 0 reviews</div>
+        <div class="kpi-sub">1 implementações · 1 reviews</div>
       </div>
       <div class="kpi">
         <div class="kpi-value">—</div>
@@ -187,13 +187,13 @@
         <div class="kpi-sub">da sessão ao deploy</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value">0/1</div>
+        <div class="kpi-value">0/2</div>
         <div class="kpi-label">fricção pré-PR (fail/total)</div>
         <div class="kpi-sub">0 violações · 0 auto-corrigidas</div>
       </div>
       <div class="kpi">
-        <div class="kpi-value amber">—</div>
-        <div class="kpi-label">qualidade</div>
+        <div class="kpi-value green">100</div>
+        <div class="kpi-label">outcome grade</div>
         <div class="kpi-sub">alto risco da mudança</div>
       </div>
     </div>
@@ -208,7 +208,7 @@
         </div>
         <div class="bluf-col">
           <div class="bluf-label">Riscos & trade-offs</div>
-          <p>Alto risco de mudança · qualidade  · lead time —.</p>
+          <p>Alto risco de mudança · outcome grade = 100 · lead time —.</p>
         </div>
       </div>
     </section><section class="slide" id="s2">
@@ -247,11 +247,11 @@
       <th style="width:16%">Custo Token</th>
     </tr>
     <tr>
-      <td><strong>PR #741</strong></td>
-      <td>chore: encerramento de sessão 2026-10-18 (state, handoff, telemetry)</td>
-      <td>Ajuste de processo validado</td>
-      <td>Processo mais confiável e audável</td>
-      <td><code>~467</code></td>
+      <td><strong>Entrega da sessão</strong></td>
+      <td>venda roi toggle</td>
+      <td>Nova capacidade entregue e validada para o produto.</td>
+      <td>Mudança validada por 40+ regras de processo, build e suíte de testes — risco controlado antes da produção.</td>
+      <td><code>~1010</code></td>
     </tr>
   </table></div>
         <p class="detail-note">Custo token estimado por commit (linhas do diff × 0.75) · Benefício/Impacto mapeados pelo tipo da mudança · Linhas derivadas automaticamente dos commits. · Custo real da sessão (auditContext): 7.172 tokens (feature) · status pesado — tracking</p>
@@ -270,6 +270,18 @@
                 <div class="tl-time">12:41</div>
                 <div class="tl-label">Início da sessão</div>
               </div>
+            </div><div class="tl-item coding:done">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">13:04</div>
+                <div class="tl-label">Implementação concluída</div>
+              </div>
+            </div><div class="tl-item code-review:done">
+              <div class="tl-dot"></div>
+              <div class="tl-body">
+                <div class="tl-time">13:04</div>
+                <div class="tl-label">Code review aprovado</div>
+              </div>
             </div><div class="tl-item pre-pr">
               <div class="tl-dot"></div>
               <div class="tl-body">
@@ -281,7 +293,7 @@
       </div></div>
         <div class="split-right">
           <div class="stat-list">
-            <div class="stat"><span class="stat-v">1</span><span class="stat-l">rodadas de validação pré-PR</span></div>
+            <div class="stat"><span class="stat-v">2</span><span class="stat-l">rodadas de validação pré-PR</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">violações de regra encontradas</span></div>
             <div class="stat"><span class="stat-v green">0</span><span class="stat-l">violações mecânicas auto-corrigidas</span></div>
             <div class="stat"><span class="stat-v">0</span><span class="stat-l">rodadas que exigiram correção</span></div>
@@ -310,7 +322,7 @@
           <h3>📸 Evidências — antes & depois</h3>
           <table>
             <tr><th>Item</th><th>Antes</th><th>Depois</th></tr>
-            <tr><td><strong>Código</strong></td><td>🧹 89 remoções — 1813 linhas tocadas</td><td>✨ 1434 adições — 23 arquivo(s) alterado(s)</td></tr>
+            <tr><td><strong>Código</strong></td><td>🧹 85 remoções — 1347 linhas tocadas</td><td>✨ 966 adições — 25 arquivo(s) alterado(s)</td></tr>
           </table>
           
         </div>
@@ -318,43 +330,45 @@
           <h3>📊 Métricas da mudança</h3>
           <table>
             <tr><th>Métrica</th><th>Valor</th></tr>
-            <tr><td>Arquivos alterados</td><td>23</td></tr>
-            <tr><td>Adições</td><td>+1434</td></tr>
-            <tr><td>Remoções</td><td>-89</td></tr>
-            <tr><td>Tokens estimados</td><td>~1360</td></tr>
+            <tr><td>Arquivos alterados</td><td>25</td></tr>
+            <tr><td>Adições</td><td>+966</td></tr>
+            <tr><td>Remoções</td><td>-85</td></tr>
+            <tr><td>Tokens estimados</td><td>~1010</td></tr>
           </table>
           <div class="token-bar">
-        <div class="add" style="flex:79">+1076 add</div>
-        <div class="del" style="flex:5">-67 del</div>
-        <div class="overhead" style="flex:16">~217 ctx</div>
+        <div class="add" style="flex:72">+725 add</div>
+        <div class="del" style="flex:6">-64 del</div>
+        <div class="overhead" style="flex:22">~221 ctx</div>
       </div>
           <h3>Breakdown de tokens</h3>
     <table>
       <tr><th>Componente</th><th>Tokens</th><th>%</th></tr>
-      <tr><td>Adições</td><td>+1076</td><td>79%</td></tr>
-      <tr><td>Remoções</td><td>-67</td><td>5%</td></tr>
-      <tr><td>Contexto (overhead)</td><td>~217</td><td>16%</td></tr>
-      <tr><th>Total</th><th>~1360</th><th>100%</th></tr>
+      <tr><td>Adições</td><td>+725</td><td>72%</td></tr>
+      <tr><td>Remoções</td><td>-64</td><td>6%</td></tr>
+      <tr><td>Contexto (overhead)</td><td>~221</td><td>22%</td></tr>
+      <tr><th>Total</th><th>~1010</th><th>100%</th></tr>
     </table>
         </div>
         <div class="ap-card">
           <h3>📁 Arquivos</h3>
           <table>
             <tr><th>Status</th><th>Arquivo</th><th>+/-</th></tr>
-            <tr><td>M</td><td>docs/AI-SESSION-STATE.md</td><td class="mono"><span class="ns-add">+20</span> <span class="ns-del">−10</span></td></tr>
+            <tr><td>M</td><td>docs/MAP.md</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−1</span></td></tr>
 <tr><td>M</td><td>docs/RADAR.md</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−1</span></td></tr>
-<tr><td>A</td><td>docs/council/2026-10-20-venda-toggle-roi-veredito.md</td><td class="mono"><span class="ns-add">+39</span> <span class="ns-del">−0</span></td></tr>
-<tr><td>M</td><td>docs/handoff.md</td><td class="mono"><span class="ns-add">+12</span> <span class="ns-del">−11</span></td></tr>
-<tr><td>A</td><td>docs/reports/2026-10-19/PR741-2026-10-18.html</td><td class="mono"><span class="ns-add">+547</span> <span class="ns-del">−0</span></td></tr>
-<tr><td>A</td><td>docs/reports/2026-10-20/venda-roi-toggle-2026-10-20-venda-roi-toggle.html</td><td class="mono"><span class="ns-add">+550</span> <span class="ns-del">−0</span></td></tr>
-<tr><td>M</td><td>docs/tracking/envelopes.jsonl</td><td class="mono"><span class="ns-add">+7</span> <span class="ns-del">−0</span></td></tr>
-<tr><td>M</td><td>docs/tracking/events.jsonl</td><td class="mono"><span class="ns-add">+18</span> <span class="ns-del">−26</span></td></tr>
-<tr><td>M</td><td>docs/tracking/quality.jsonl</td><td class="mono"><span class="ns-add">+9</span> <span class="ns-del">−14</span></td></tr>
+<tr><td>A</td><td>docs/council/2026-10-20-venda-toggle-roi-veredito.md</td><td class="mono"><span class="ns-add">+86</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/handoff.md</td><td class="mono"><span class="ns-add">+8</span> <span class="ns-del">−8</span></td></tr>
+<tr><td>A</td><td>docs/reports/2026-10-20/venda-roi-toggle-2026-10-20-venda-roi-toggle.html</td><td class="mono"><span class="ns-add">+579</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/superpowers/specs/venda-servico.md</td><td class="mono"><span class="ns-add">+9</span> <span class="ns-del">−2</span></td></tr>
+<tr><td>M</td><td>docs/tracking/archive/events-2026-09.jsonl</td><td class="mono"><span class="ns-add">+26</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/archive/quality-2026-08.jsonl</td><td class="mono"><span class="ns-add">+14</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/envelopes.jsonl</td><td class="mono"><span class="ns-add">+2</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>docs/tracking/events.jsonl</td><td class="mono"><span class="ns-add">+5</span> <span class="ns-del">−26</span></td></tr>
+<tr><td>M</td><td>docs/tracking/quality.jsonl</td><td class="mono"><span class="ns-add">+0</span> <span class="ns-del">−14</span></td></tr>
 <tr><td>M</td><td>src/components/sales/form/SaleFormCommonFields.tsx</td><td class="mono"><span class="ns-add">+14</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>M</td><td>src/components/sales/form/salesFormUtils.ts</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>M</td><td>src/features/vendas/addVenda.ts</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>M</td><td>src/features/vendas/buildVendaUpdate.ts</td><td class="mono"><span class="ns-add">+1</span> <span class="ns-del">−0</span></td></tr>
-<tr><td>M</td><td>src/hooks/useDatabase/mappers.ts</td><td class="mono"><span class="ns-add">+2</span> <span class="ns-del">−0</span></td></tr>
+<tr><td>M</td><td>src/hooks/useDatabase/mappers.ts</td><td class="mono"><span class="ns-add">+4</span> <span class="ns-del">−4</span></td></tr>
 <tr><td>M</td><td>src/lib/metrics.ts</td><td class="mono"><span class="ns-add">+9</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>M</td><td>src/lib/supabase-types.ts</td><td class="mono"><span class="ns-add">+3</span> <span class="ns-del">−0</span></td></tr>
 <tr><td>M</td><td>src/pages/Relatorios.tsx</td><td class="mono"><span class="ns-add">+15</span> <span class="ns-del">−4</span></td></tr>
@@ -367,17 +381,12 @@
           </table>
         </div>
         <div class="ap-card">
-          <h3>🔖 Commits da sessão (9)</h3>
+          <h3>🔖 Commits da sessão (4)</h3>
           <ul class="commit-list">
-            <li><code>b7f4ad90</code> test(vendas): asserts insert payload e ROI por dono com opt-out (code review #1)</li>
-<li><code>d2e720ef</code> feat(vendas): toggle considerar/não considerar venda no ROI</li>
-<li><code>fff39f7c</code> Merge pull request #741 from andre0787/chore/session-end-2026-10-18</li>
-<li><code>48963182</code> chore: normalize report prefix to PR741</li>
-<li><code>70bc2aa8</code> chore: re-trigger CI (runs não dispararam no opened)</li>
-<li><code>07414827</code> chore: evidência code-review:done da branch de docs</li>
-<li><code>f3aaedfa</code> chore: artefatos do pre-pr (relatório, eventos, quality)</li>
-<li><code>c54c60cc</code> docs: update HANDOFF</li>
-<li><code>b8576cf5</code> chore: session end</li>
+            <li><code>bd11861a</code> fix: conform to pre-pr gates — canonical council sections, MAP reference, spec headings, mappers ≤150 linhas</li>
+<li><code>5ea3bf73</code> chore: evidence coding:done + code-review:done (roi toggle)</li>
+<li><code>224ffc61</code> test(vendas): asserts insert payload e ROI por dono com opt-out (code review #1)</li>
+<li><code>caa8e884</code> feat(vendas): toggle considerar/não considerar venda no ROI</li>
           </ul>
         </div>
         <div class="ap-card">
@@ -386,57 +395,25 @@
             <tr><th>Métrica</th><th>Valor</th></tr>
             <tr><td>Cobertura libs (rule-31)</td><td>sem registro hoje</td></tr>
             <tr><td>Cobertura componentes (rule-32)</td><td>sem registro hoje</td></tr>
-            <tr><td>Outcome grade (rule-30)</td><td>sem registro hoje</td></tr>
+            <tr><td>Outcome grade (rule-30)</td><td>100</td></tr>
           </table>
         </div>
       </div>
       <h3 class="diff-title">🔍 Diff (primeiras 120 linhas)</h3>
       <div class="diff">
-        diff --git a/docs/AI-SESSION-STATE.md b/docs/AI-SESSION-STATE.md
-index 0fcb5920..a7d974d3 100644
-<span class="del">--- a/docs/AI-SESSION-STATE.md</span>
-<span class="add">+++ b/docs/AI-SESSION-STATE.md</span>
-@@ -1,20 +1,30 @@
-<span class="del">-# AI Session State - 2026-09-24T03:05:00.000Z</span>
-<span class="add">+# AI Session State - 2026-10-18T21:45:00.000Z</span>
- 
- ## Última Task
-<span class="del">-- **Pendências da sessão anterior resolvidas**: Radar de vulnerabilidades zerado (**0 vulnerabilities**, era 8) e stashes antigos auditados (recuperados e descartáveis).</span>
-<span class="del">-- vitest/@vitest/coverage-v8/@vitest/mocker 4.1.10→4.1.11, js-yaml 4.3.2, browserslist 4.29.0, fast-uri, postcss-selector-parser, baseline-browser-mapping 2.11.25.</span>
-<span class="del">-- **Workaround**: npm 10.9.8 crasha (`edgesOut`/`#loadPeerSet`) em install/update; usado `npx npm@11 install`. Considerar upgrade do npm no ambiente.</span>
-<span class="add">+- **Avaliar e implementar todas as PRs abertas em produção** (categoria chore; autonomia total do usuário).</span>
-<span class="add">+- 9 PRs draft abertas (bot-generated, variantes do mesmo hardening de CI) avaliadas individualmente vs main.</span>
-<span class="add">+- Consolidação via **PR #737** (merge `aac062d9`): união das mudanças significativas + refinamentos do code review.</span>
-<span class="add">+- As 9 PRs (#711 #713 #715 #718 #722 #724 #728 #730 #732) fechadas como superseded com veredito individual por PR; branches remotas deletadas. 0 PRs abertas.</span>
-<span class="add">+</span>
-<span class="add">+## Decisões de Avaliação</span>
-<span class="add">+- **Rejeitado #718 nightly**: e2e-full em schedule com `continue-on-error` (viola P0-04 + sanitização documentada; segue manual via workflow_dispatch).</span>
-<span class="add">+- **Rejeitado #732 auto-merge**: `head_branch != ''` (mais fraco que truthiness original — null passa).</span>
-<span class="add">+- **Rejeitado #728**: rollback de QUALITY.md (artefato gerado; main mais novo).</span>
-<span class="add">+- Code review (subagente): 4 findings corrigidos — commit fatal (sem `pushed=yes` stale), rename failure reportada, gate de deploy por `mergedAt`, pins anti-regressão.</span>
- 
- ## Estado dos Testes &amp; Qualidade
-<span class="del">-- **Local:** typecheck ✅ | build ✅ | **1567 testes** passando ✅ | `npm ci` reprodutível ✅ | npm audit **0** ✅</span>
-<span class="add">+- **Local:** `npm run check` completo ✅ (EXIT=0) | 34 testes direcionados ✅ | YAML + `bash -n` ✅ | `npm run pre-pr` 0 errors ✅</span>
-<span class="add">+- **Produção:** deploy.yml run `39168108087` — `deploy` ✅ + `e2e-smoke-prod` ✅ (Vercel prod no head consolidado).</span>
- 
- ## Arquivos Modificados &amp; Impacto
-<span class="del">-- `package.json` + `package-lock.json`: patches de segurança (audit zero); override `minimatch@^10.2.4` preservado.</span>
-<span class="del">-- `docs/tracking/archive/`: recuperação de **448 registros** dos stashes wave-685/wave-2026-09-22 (events-08 +66, quality-08 +143, events-09 recriado com 239); JSON 100% válido.</span>
-<span class="add">+- `.github/workflows/normalize-pr-report.yml` (env HEAD_REF/PR_NUM, fallbacks, guards de rename/push)</span>
-<span class="add">+- `.github/workflows/auto-merge.yml` (outputs merged + gate de deploy por mergedAt, 2 jobs)</span>
-<span class="add">+- `.github/workflows/nightly.yml` (coverage &amp;&amp; rule:42 sem pipe)</span>
-<span class="add">+- `tests/unit/workflows-guard.test.ts` (pins atualizados) + `tests/unit/program-filters-integration.test.tsx` (novo, da #718)</span>
- 
- ## Pendências Imediatas
-<span class="del">-- Após merge: `git stash drop` dos stashes wave-685 e wave-2026-09-22 (conteúdo já recuperado na main).</span>
-<span class="del">-- Monitorar nightly (rule-42 coverage); stash legados restantes (handoff-autogen, wip) sem flagged, avaliar depois.</span>
-<span class="add">+- Nenhuma das 9 PRs — backlog de CI zerado. Observar próximo nightly (rule-42) e o fluxo normalize→auto-merge com os novos guards em produção.</span>
- 
- ## Governança de Contexto
-<span class="del">-- Categoria chore; gates rule-38/39 registrados; TWINS: apenas estes 2 stashes flagged tinham conteúdo; deps via fluxo canônico (branch → pre-pr → PR).</span>
-<span class="add">+- AUTH: usuário disse &quot;implementa todas em prod, tem total autonomia&quot; (aplicado ao merge #737 + deploy).</span>
-<span class="add">+- Gates rule-38/39 registrados (eventos coding:done/code-review:done com subagent:true); fluxo canônico respeitado (branch → pre-pr → PR → CI → merge).</span>
+        diff --git a/docs/MAP.md b/docs/MAP.md
+index 31ce5a10..7ec1725d 100644
+<span class="del">--- a/docs/MAP.md</span>
+<span class="add">+++ b/docs/MAP.md</span>
+@@ -53,7 +53,7 @@
+ | `docs/memory.md`                                     | Contexto de sessões anteriores           | Histórico de decisões, sprints, post-mortems                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+ | `docs/IDEIAS.md`                                     | Caixa de entrada de ideias               | Ideias humanas pendentes, lidas no início da sessão                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+ | `docs/FLUXO.md`                                      | Diagramas do ecossistema                 | Flowcharts Mermaid: visão geral, fluxo de dados, rotas                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+<span class="del">-| `docs/council/`                                      | Vereditos de decisões                    | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md`, `2026-08-01-llm-model-router-veredito.md`, `2026-08-03-process-kpis-router-sanitizacao-veredito.md`, `2026-08-04-ux-entradas-vendas-veredito.md`, `2026-08-05-process-violations-veredito.md`, `2026-09-08-vendas-programa-veredito.md`                                                          |</span>
+<span class="add">+| `docs/council/`                                      | Vereditos de decisões                    | Recomendações do LLM Council (feature planning). Atuais: `2026-07-16-ios-form-stability-veredito.md`, `2026-07-16-auto-refresh-after-mutations-veredito.md`, `2026-07-16-recorrencia-automatica-veredito.md`, `2026-07-19-p0-5-workflow-hardening-veredito.md`, `2026-07-24-entry-create-account-veredito.md`, `2026-08-01-llm-model-router-veredito.md`, `2026-08-03-process-kpis-router-sanitizacao-veredito.md`, `2026-08-04-ux-entradas-vendas-veredito.md`, `2026-08-05-process-violations-veredito.md`, `2026-09-08-vendas-programa-veredito.md`, `2026-10-20-venda-toggle-roi-veredito.md`                                                          |</span>
+ | `docs/superpowers/specs/`                            | Especificações técnicas                  | Specs de features avaliadas pelo council. Atuais: `2026-07-16-ios-form-stability-design.md`, `2026-07-24-entry-create-account-design.md`, `2026-07-28-prompt-versioning-design.md`, `2026-07-29-classification-nl-design-spec.md`, `2026-07-29-auth-ci-design.md`, `2026-07-29-fable-method-skill-design.md`, `2026-08-01-llm-model-router-design.md`, `2026-08-03-process-guardrails-design.md`, `2026-08-03-llm-router-kpi-design.md`, `2026-08-03-project-sanitization-design.md`, `2026-08-03-react-router-8-upgrade-design.md`, `2026-08-04-ux-entradas-vendas.md`, `2026-08-10-blueprint-v4-p0-design.md` |
+ | `docs/superpowers/plans/`                            | Planos de execução                       | Planos detalhados de implementação. Atuais: `2026-07-16-ios-form-stability.md`, `2026-07-28-prompt-versioning-plan.md`, `2026-07-29-auth-ci-plan.md`, `2026-07-29-fable-method-skill-plan.md`, `2026-08-01-llm-model-router-plan.md`, `2026-08-03-process-guardrails-plan.md`, `2026-08-03-llm-router-kpi-plan.md`, `2026-08-03-project-sanitization-plan.md`                                                                                                                                                                                                                                                   |
+ | `docs/fable-gates.md`                                | Gates INTENT/TWINS/AUTH                  | Declaração formal dos 3 gates do Fable Method aplicados no workflow                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 diff --git a/docs/RADAR.md b/docs/RADAR.md
 index de271f74..2b993b48 100644
 <span class="del">--- a/docs/RADAR.md</span>
@@ -451,72 +428,104 @@ index de271f74..2b993b48 100644
  
 diff --git a/docs/council/2026-10-20-venda-toggle-roi-veredito.md b/docs/council/2026-10-20-venda-toggle-roi-veredito.md
 new file mode 100644
-index 00000000..87cbde5e
+index 00000000..b66cbd2b
 <span class="del">--- /dev/null</span>
 <span class="add">+++ b/docs/council/2026-10-20-venda-toggle-roi-veredito.md</span>
-@@ -0,0 +1,39 @@
-<span class="add">+# Council Veredito — Toggle de ROI na venda (2026-10-20)</span>
+@@ -0,0 +1,86 @@
+<span class="add">+# Veredito do Council — Toggle de ROI na venda (2026-10-20)</span>
+<span class="add">+</span>
+<span class="add">+Roster: análise direta sobre código (política ativa do repo — manifesto</span>
+<span class="add">+autoritativo, quórum portátil dispensado) · Branch:</span>
+<span class="add">+`feat/venda-roi-toggle`</span>
 <span class="add">+</span>
 <span class="add">+## Pergunta</span>
 <span class="add">+</span>
 <span class="add">+Incluir um controle na inserção/edição de venda para considerar ou não a</span>
 <span class="add">+venda no cálculo do ROI do dono em `Relatorios.tsx`.</span>
 <span class="add">+</span>
-<span class="add">+## Modelos consultados (veredito consolidado pelo agente da sessão, política</span>
-<span class="add">+ativa do repo — manifesto autoritativo, quórum portátil dispensado)</span>
+<span class="add">+## Advisors</span>
 <span class="add">+</span>
-<span class="add">+- **Desenho A (escolhido):** coluna booleana `include_in_roi` default `true`</span>
-<span class="add">+  na tabela `sales`; flag é opt-out; ROI do owner = `sumRoiEligibleProfit` /</span>
-<span class="add">+  total investido. Linhas antigas permanecem no ROI sem migração de dados.</span>
-<span class="add">+- **Desenho B (rejeitado):** calcular ROI a partir de `amount_received`/status</span>
-<span class="add">+  — mudaria semântica do que o dono pediu e quebraria comparabilidade com</span>
-<span class="add">+  relatórios antigos.</span>
-<span class="add">+- **Desenho C (rejeitado):** categoria/tag de venda (&quot;venda interna&quot;) —</span>
-<span class="add">+  escopo maior (taxonomia nova) para uma necessidade binária.</span>
+<span class="add">+### Advisor: The Contrarian</span>
 <span class="add">+</span>
-<span class="add">+## Decisão</span>
+<span class="add">+Excluir vendas do ROI pode &quot;maquiar&quot; o retorno real se o dono marcar vendas</span>
+<span class="add">+ruins para inflar o número. Mitigação: o flag é por venda, visível no</span>
+<span class="add">+formulário, e lucro/margem/receita permanecem completos nos relatórios — a</span>
+<span class="add">+manipulação fica restrita a uma métrica rotulada, não ao extrato.</span>
 <span class="add">+</span>
-<span class="add">+- **Numerator do ROI** exclui vendas com `includeInRoi === false`;</span>
+<span class="add">+### Advisor: First Principles</span>
+<span class="add">+</span>
+<span class="add">+ROI = lucro gerado / capital investido. A venda é o numerador; o investimento</span>
+<span class="add">+vem das entradas (denominador). Um opt-out por venda só pode afetar o</span>
+<span class="add">+numerador. Qualquer desenho que toque o denominador viola a semântica.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Expansionist</span>
+<span class="add">+</span>
+<span class="add">+Alternativas consideradas e rejeitadas: Desenho B (ROI a partir de</span>
+<span class="add">+`amount_received`/status — mudaria a semântica pedida e quebraria</span>
+<span class="add">+comparabilidade histórica) e Desenho C (categoria/tag de venda tipo &quot;venda</span>
+<span class="add">+interna — escopo maior, taxonomia nova, para uma necessidade binária).</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Outsider</span>
+<span class="add">+</span>
+<span class="add">+Um usuário novo assume default &quot;considerar&quot; (ligado). Default `true` preserva</span>
+<span class="add">+todos os números atuais e toda a base existente; opt-out precisa ser</span>
+<span class="add">+intencional. Texto de ajuda em pt-BR deixa o efeito explícito.</span>
+<span class="add">+</span>
+<span class="add">+### Advisor: The Executor</span>
+<span class="add">+</span>
+<span class="add">+Caminho mais curto com persistência: coluna `include_in_roi boolean NOT NULL</span>
+<span class="add">+DEFAULT true` (migration aditiva, reversível), `Switch` shadcn em</span>
+<span class="add">+`SaleFormCommonFields` (aparece em criação E edição), leitura defensiva em</span>
+<span class="add">+`mapSale` (linhas pré-migration contam), numerador via</span>
+<span class="add">+`sumRoiEligibleProfit` no agregador por dono de `Relatorios`. Simulador é</span>
+<span class="add">+efêmero — fora de escopo.</span>
+<span class="add">+</span>
+<span class="add">+## Peer review anônimo</span>
+<span class="add">+</span>
+<span class="add">+- Revisão A: desenhos A/B/C avaliados; A vence por ser opt-out reversível.</span>
+<span class="add">+- Revisão B: sem RLS novo necessário (coluna em tabela existente; políticas</span>
+<span class="add">+  por `auth.uid()` já cobrem `sales`).</span>
+<span class="add">+- Revisão C: recomendei helper nomeado (`sumRoiEligibleProfit`) em vez de</span>
+<span class="add">+  filter inline — testável sem renderizar a página.</span>
+<span class="add">+- Revisão D: flag não deve afetar receita, lucro, margem, CSV, tabela nem</span>
+<span class="add">+  simulador; só o numerador do ROI. Confirmado no código.</span>
+<span class="add">+</span>
+<span class="add">+## Síntese do Chairman</span>
+<span class="add">+</span>
+<span class="add">+**Desenho A escolhido:** coluna booleana `include_in_roi` default `true` na</span>
+<span class="add">+tabela `sales`; flag é opt-out; ROI do dono =</span>
+<span class="add">+`sumRoiEligibleProfit(sales) / totalAmountInvested`.</span>
+<span class="add">+</span>
+<span class="add">+Decisões:</span>
+<span class="add">+</span>
+<span class="add">+- **Numerador do ROI** exclui vendas com `includeInRoi === false`;</span>
 <span class="add">+  **denominador** (investido das entradas) permanece intacto — o custo do</span>
 <span class="add">+  estoque comprado continua real, quem decide entrar no lucro do ROI é a</span>
 <span class="add">+  venda.</span>
 <span class="add">+- Flag NÃO afeta: receita, lucro, margem, extrato, CSV, tabela de vendas,</span>
 <span class="add">+  simulador (efêmero, sem persistência — fora de escopo).</span>
-<span class="add">+- UI: `Switch` (shadcn, já no design system) ao lado de &quot;Data da venda&quot; em</span>
-<span class="add">+  `SaleFormCommonFields` — aparece em criação E edição, rótulo</span>
-<span class="add">+  &quot;Considerar no ROI&quot; com helper text pt-BR.</span>
+<span class="add">+- UI: `Switch` (shadcn, já no design system) em `SaleFormCommonFields` —</span>
+<span class="add">+  criação E edição, rótulo &quot;Considerar no ROI&quot; com helper text pt-BR.</span>
 <span class="add">+- Migration nova (imutável: nunca editar as existentes):</span>
 <span class="add">+  `ALTER TABLE sales ADD COLUMN IF NOT EXISTS include_in_roi boolean NOT NULL</span>
-<span class="add">+  DEFAULT true` — sem RLS novo (coluna em tabela existente; políticas por</span>
-<span class="add">+  `auth.uid()` já cobrem a tabela).</span>
+<span class="add">+  DEFAULT true`.</span>
+<span class="add">+</span>
+<span class="add">+Próximos passos: implementar types → mappers → addVenda/update → form →</span>
+<span class="add">+Relatorios; testes unitários do helper, do insert e do agregador; aplicar</span>
+<span class="add">+`supabase db push` em produção.</span>
 <span class="add">+</span>
 <span class="add">+## Confiança</span>
 <span class="add">+</span>
 <span class="add">+Alta. Reversível: default `true` preserva todos os números atuais até o dono</span>
 <span class="add">+marcar vendas específicas.</span>
 diff --git a/docs/handoff.md b/docs/handoff.md
-index c5e249bc..547ff914 100644
+index a451d2c3..547ff914 100644
 <span class="del">--- a/docs/handoff.md</span>
-<span class="add">+++ b/docs/handoff.md</span>
-@@ -1,5 +1,5 @@
- # HANDOFF — MilesControl
-<span class="del">-&gt; ⏰ Última atualização: 2026-09-24</span>
-<span class="add">+&gt; ⏰ Última atualização: 2026-10-19</span>
- &gt; Anterior: 2026-09-24
- ---
- ## 🏗️ Projeto
-@@ -10,27 +10,27 @@
- Consulte as GitHub Issues para a lista atual.
- ## 🧭 Estado Atual
- - **Branch:** `main`
-<span class="del">-- **Último commit:** `5241b142 — Merge pull request #710 from andre0787/chore/normalize-report-pr695`</span>
-<span class="del">-- **Remote:** no remote</span>
-<span class="add">+- **Último commit:** `fff39f7c — Merge pull request #741 from andre0787/chore/session-end-2026-10-18`</span>
       </div>
     </section>
     <div class="foot">
       <div class="scroll-hint">Usa ← → (ou espaço) para navegar · F tela cheia · P imprime PDF · 📄 modo documento</div>
-      Gerado por scripts/generate-report.mjs · 2026-10-20 10:01
+      Gerado por scripts/generate-report.mjs · 2026-10-20 10:16
     </div>
   </div>
 
