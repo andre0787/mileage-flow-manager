@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { sumRoiEligibleProfit } from "@/lib/metrics";
+import { calcProfitMargin, calcROI, sumRoiEligibleProfit } from "@/lib/metrics";
 import { mapSale } from "@/hooks/useDatabase/mappers";
 import { buildVendaUpdate } from "@/features/vendas/buildVendaUpdate";
 
@@ -67,5 +67,45 @@ describe("buildVendaUpdate — include_in_roi", () => {
   it("omite o campo quando não informado (não sobrescreve)", () => {
     const payload = buildVendaUpdate({ sale_value: 200 }, { saleValue: 300 });
     expect("include_in_roi" in payload).toBe(false);
+  });
+});
+
+// ─── Espelho do agregador por dono de Relatorios.tsx (roi cai, resto intacto) ───
+
+describe("ownerReports — efeito do opt-out no ROI por dono", () => {
+  // Mesma fórmula do useMemo ownerReports: numerador filtra includeInRoi === false,
+  // denominador (investido das entradas) e demais métricas permanecem intactos.
+  function aggregate(sales: { saleValue: number; profit: number; includeInRoi?: boolean }[]) {
+    const totalRevenue = sales.reduce((sum, s) => sum + s.saleValue, 0);
+    const totalProfit = sales.reduce((sum, s) => sum + s.profit, 0);
+    const totalAmountInvested = 1000;
+    return {
+      totalRevenue,
+      totalProfit,
+      profitMargin: calcProfitMargin(totalProfit, totalRevenue),
+      roi: calcROI(sumRoiEligibleProfit(sales), totalAmountInvested),
+    };
+  }
+
+  const withAll = [
+    { saleValue: 500, profit: 200, includeInRoi: true },
+    { saleValue: 300, profit: 100, includeInRoi: true },
+  ];
+  const withOptOut = [
+    { saleValue: 500, profit: 200, includeInRoi: true },
+    { saleValue: 300, profit: 100, includeInRoi: false },
+  ];
+
+  it("ROI cai quando uma venda sai do cálculo", () => {
+    expect(aggregate(withAll).roi).toBe(30); // (200+100)/1000*100
+    expect(aggregate(withOptOut).roi).toBe(20); // só 200 no numerador
+  });
+
+  it("receita, lucro e margem não mudam com o opt-out", () => {
+    const all = aggregate(withAll);
+    const opted = aggregate(withOptOut);
+    expect(opted.totalRevenue).toBe(all.totalRevenue);
+    expect(opted.totalProfit).toBe(all.totalProfit);
+    expect(opted.profitMargin).toBe(all.profitMargin);
   });
 });

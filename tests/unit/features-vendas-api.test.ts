@@ -118,6 +118,33 @@ describe("vendasApi — addVenda", () => {
     expect(update).toHaveBeenCalled();
   });
 
+  it("grava include_in_roi no insert (default true, opt-out preservado)", async () => {
+    const insert = vi.fn().mockResolvedValue({ error: null });
+    const update = vi.fn().mockReturnValue({ eq: () => Promise.resolve({ error: null }) });
+    mockFrom.mockReturnValue({
+      insert,
+      select: () => ({
+        eq: () => ({
+          single: () =>
+            Promise.resolve({
+              data: { balance: 5000, total_invested: 0, average_cost_per_mile: 0 },
+              error: null,
+            }),
+        }),
+      }),
+      update,
+    });
+
+    await makeStore().dispatch(vendasApi.endpoints.addVenda.initiate(makeSale()));
+    expect(insert).toHaveBeenCalledWith(expect.objectContaining({ include_in_roi: true }));
+
+    insert.mockClear();
+    await makeStore().dispatch(
+      vendasApi.endpoints.addVenda.initiate({ ...makeSale(), includeInRoi: false }),
+    );
+    expect(insert).toHaveBeenCalledWith(expect.objectContaining({ include_in_roi: false }));
+  });
+
   it("propaga erro de inserção", async () => {
     mockFrom.mockReturnValue({
       insert: () => Promise.resolve({ error: { message: "db down" } }),
