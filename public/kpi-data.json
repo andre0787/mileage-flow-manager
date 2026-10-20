@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T13:13:20.305Z",
+  "generatedAt": "2026-10-20T10:53:26.811Z",
   "currentMonth": "2026-10",
   "months": [
     {
@@ -141,46 +141,33 @@
     {
       "month": "2026-10",
       "prePrPassRate": 100,
-      "prePrTotal": 11,
-      "prePrPass": 11,
+      "prePrTotal": 12,
+      "prePrPass": 12,
       "prePrFail": 0,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
       "gateActivations": {
-        "intent": 4,
-        "twins": 4,
-        "auth": 4
+        "intent": 7,
+        "twins": 7,
+        "auth": 7
       },
       "avgOutcomeGrade": 100,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
-          "count": 2
+          "count": 4
         }
       ],
       "healedByRule": {},
       "gateBlockedByRule": {},
-      "avgCycleTimeHours": 0.1,
-      "branchesMerged": 10,
-      "violationsCaught": 2,
+      "avgCycleTimeHours": 0.2,
+      "branchesMerged": 11,
+      "violationsCaught": 4,
       "healedRate": 0,
-      "frictionPerPass": 0.18
+      "frictionPerPass": 0.33
     }
   ],
   "daily": [
-    {
-      "day": "2026-09-20",
-      "label": "20/09",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-09-21",
       "label": "21/09",
@@ -548,6 +535,19 @@
     {
       "day": "2026-10-19",
       "label": "19/10",
+      "prePrTotal": 1,
+      "prePrPass": 1,
+      "prePrFail": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 2,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 1,
+      "friction": 2
+    },
+    {
+      "day": "2026-10-20",
+      "label": "20/10",
       "prePrTotal": 0,
       "prePrPass": 0,
       "prePrFail": 0,
@@ -560,6 +560,26 @@
     }
   ],
   "prs": [
+    {
+      "number": 741,
+      "title": "chore: encerramento de sessão 2026-10-18 (state, handoff, telemetry)",
+      "type": "chore",
+      "date": "2026-10-19",
+      "tokens": 467,
+      "benefit": "Ajuste de processo validado",
+      "impact": "Processo mais confiável e audável",
+      "cycleHours": 1.1
+    },
+    {
+      "number": 740,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-19",
+      "tokens": 350,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0
+    },
     {
       "number": 738,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -639,26 +659,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0.1
-    },
-    {
-      "number": 727,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-12",
-      "tokens": 368,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 726,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-11",
-      "tokens": 369,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
     }
   ],
   "repo": {
@@ -669,23 +669,23 @@
     "testFiles": 374,
     "skills": 28,
     "rules": 48,
-    "events": 357,
-    "qualityNotes": 485
+    "events": 373,
+    "qualityNotes": 494
   },
   "summary": {
-    "merges": 36,
+    "merges": 37,
     "prs": 10,
     "sessions": 1,
-    "violations": 33,
+    "violations": 35,
     "healed": 0,
     "prePrPassRate": 100
   },
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.49677,
-      "executions": 38,
-      "avgExecutionMs": 569396603
+      "cost": 0.50787,
+      "executions": 39,
+      "avgExecutionMs": 558388364
     },
     {
       "area": "vendas",
