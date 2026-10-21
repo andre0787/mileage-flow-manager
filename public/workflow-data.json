@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-20T13:17:47.482Z",
-  "dataDate": "2026-10-20",
+  "generatedAt": "2026-10-21T11:04:55.995Z",
+  "dataDate": "2026-10-21",
   "kpiStats": [
     {
       "value": 362,
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 48,
+      "n": 47,
       "color": "#8b5cf6"
     },
     {
@@ -51,24 +51,24 @@
     },
     {
       "name": "code-review:done",
-      "n": 31,
+      "n": 30,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 28,
+      "n": 27,
       "color": "#22c55e"
     },
     {
       "name": "gate",
-      "n": 221,
+      "n": 217,
       "color": "#f43f5e"
     }
   ],
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 47,
+      "n": 46,
       "color": "#10b981"
     },
     {
@@ -128,8 +128,8 @@
     "ruleFails": 32,
     "healed": 0,
     "healedRate": 0,
-    "prePrTotal": 48,
-    "prePrPass": 48,
+    "prePrTotal": 47,
+    "prePrPass": 47,
     "prePrPassRate": 100,
     "gateBlocked": 0,
     "topViolations": [
@@ -161,6 +161,16 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 743,
+      "title": "feat(vendas): toggle considerar/não considerar venda no ROI",
+      "type": "feat",
+      "date": "2026-10-20",
+      "tokens": 968,
+      "benefit": "Nova capacidade entregue e validada",
+      "impact": "Nova alavanca de uso/negócio",
+      "cycleHours": 0.1
+    },
     {
       "number": 742,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -199,16 +209,6 @@
       "tokens": 431,
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 737,
-      "title": "chore: consolida hardening de CI das 9 PRs abertas (#711 #713 #715 #718 #722 #724 #728 #730 #732)",
-      "type": "chore",
-      "date": "2026-10-18",
-      "tokens": 1074,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável",
       "cycleHours": 0.1
     }
   ],
