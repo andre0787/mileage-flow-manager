@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-21T11:04:55.995Z",
-  "dataDate": "2026-10-21",
+  "generatedAt": "2026-10-22T11:02:31.502Z",
+  "dataDate": "2026-10-22",
   "kpiStats": [
     {
       "value": 362,
@@ -41,39 +41,39 @@
     },
     {
       "name": "pre-pr",
-      "n": 47,
+      "n": 25,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 32,
+      "n": 12,
       "color": "#ef4444"
     },
     {
       "name": "code-review:done",
-      "n": 30,
+      "n": 11,
       "color": "#6366f1"
     },
     {
       "name": "coding:done",
-      "n": 27,
+      "n": 8,
       "color": "#22c55e"
     },
     {
       "name": "gate",
-      "n": 217,
+      "n": 92,
       "color": "#f43f5e"
     }
   ],
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 46,
+      "n": 23,
       "color": "#10b981"
     },
     {
       "name": "80% — aprovado",
-      "n": 18,
+      "n": 1,
       "color": "#84cc16"
     },
     {
@@ -125,33 +125,23 @@
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 32,
+    "ruleFails": 12,
     "healed": 0,
     "healedRate": 0,
-    "prePrTotal": 47,
-    "prePrPass": 47,
+    "prePrTotal": 25,
+    "prePrPass": 25,
     "prePrPassRate": 100,
     "gateBlocked": 0,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 20,
+        "count": 9,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
         "rule": "rule-39-coding-gate",
-        "count": 8,
-        "hint": "faltou evento coding:done por subagente na branch"
-      },
-      {
-        "rule": "rule-45-react19-compliance",
         "count": 2,
-        "hint": ""
-      },
-      {
-        "rule": "rule-30-outcome-grade",
-        "count": 1,
-        "hint": ""
+        "hint": "faltou evento coding:done por subagente na branch"
       },
       {
         "rule": "rule-46-token-sentinel",
@@ -161,6 +151,16 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 746,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-21",
+      "tokens": 448,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 743,
       "title": "feat(vendas): toggle considerar/não considerar venda no ROI",
@@ -200,16 +200,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0
-    },
-    {
-      "number": 738,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-19",
-      "tokens": 431,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
     }
   ],
   "overview": {

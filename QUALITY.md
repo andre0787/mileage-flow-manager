@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-10-21
-> Último commit: 16fda228-Merge pull request #743 from andre0787/feat/venda-roi-toggle
+> Gerado em: 2026-10-22
+> Último commit: cdc5cc7d-Merge pull request #746 from andre0787/chore/quality-nightly-update
 
 ## Pipeline
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-10-21 | ✅ | 1510 | 1923kB | 0 issues |
+| 2026-10-22 | ✅ | 1510 | 1923kB | 0 issues |
 
 ---
 
