@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T11:02:31.318Z",
+  "generatedAt": "2026-10-23T10:56:52.489Z",
   "currentMonth": "2026-10",
   "months": [
     {
@@ -168,19 +168,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-09-23",
-      "label": "23/09",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-09-24",
       "label": "24/09",
@@ -557,9 +544,32 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
+    },
+    {
+      "day": "2026-10-23",
+      "label": "23/10",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [
+    {
+      "number": 747,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-22",
+      "tokens": 396,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 746,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -649,16 +659,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0.1
-    },
-    {
-      "number": 734,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-16",
-      "tokens": 368,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
     }
   ],
   "repo": {
@@ -683,9 +683,9 @@
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.52977,
-      "executions": 41,
-      "avgExecutionMs": 537186519
+      "cost": 0.54072,
+      "executions": 42,
+      "avgExecutionMs": 530418733
     },
     {
       "area": "vendas",
