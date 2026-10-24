@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-23T10:56:52.489Z",
+  "generatedAt": "2026-10-24T10:11:44.052Z",
   "currentMonth": "2026-10",
   "months": [
     {
@@ -168,19 +168,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-09-24",
-      "label": "24/09",
-      "prePrTotal": 4,
-      "prePrPass": 4,
-      "prePrFail": 0,
-      "prePrPassRate": 100,
-      "ruleFails": 5,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 2,
-      "friction": 1.25
-    },
     {
       "day": "2026-09-25",
       "label": "25/09",
@@ -557,9 +544,32 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
+    },
+    {
+      "day": "2026-10-24",
+      "label": "24/10",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [
+    {
+      "number": 748,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-23",
+      "tokens": 368,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 747,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -649,16 +659,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0.1
-    },
-    {
-      "number": 735,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-17",
-      "tokens": 368,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
     }
   ],
   "repo": {
@@ -673,19 +673,19 @@
     "qualityNotes": 486
   },
   "summary": {
-    "merges": 19,
+    "merges": 17,
     "prs": 10,
     "sessions": 2,
-    "violations": 12,
+    "violations": 7,
     "healed": 0,
     "prePrPassRate": 100
   },
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.54072,
-      "executions": 42,
-      "avgExecutionMs": 530418733
+      "cost": 0.55167,
+      "executions": 43,
+      "avgExecutionMs": 525912056
     },
     {
       "area": "vendas",
