@@ -1,8 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { computeOwnerData } from "@/lib/dashboardSelectors";
+import { computeOwnerData, computeProgramData } from "@/lib/dashboardSelectors";
 import type { Account, Owner, Program, Sale } from "@/types";
 
-describe("computeOwnerData Benchmark", () => {
+describe("dashboardSelectors Benchmark", () => {
   it("measures performance of computeOwnerData with linear vs map lookup dataset", () => {
     const numOwners = 200;
     const numPrograms = 50;
@@ -78,7 +78,42 @@ describe("computeOwnerData Benchmark", () => {
     const duration = performance.now() - start;
 
     expect(resultRows).toBe(numOwners);
-    // Print timing info for reference
+    expect(duration).toBeGreaterThan(0);
+  });
+
+  it("measures performance of computeProgramData baseline with linear vs map lookup dataset", () => {
+    const numPrograms = 500;
+    const numAccounts = 5000;
+
+    const programs: Program[] = Array.from({ length: numPrograms }, (_, i) => ({
+      id: `prog-${i}`,
+      name: `Program Name ${i}`,
+      type: "milhas",
+      maxPassengers: 25,
+    }));
+
+    const accounts: Account[] = Array.from({ length: numAccounts }, (_, i) => ({
+      id: `acc-${i}`,
+      name: `Account ${i}`,
+      ownerId: `owner-${i % 100}`,
+      programId: `prog-${i % numPrograms}`,
+      type: "milhas",
+      balance: 1000 + (i % 500),
+      status: "ativa",
+      createdAt: "2026-01-01",
+    }));
+
+    const iterations = 50;
+
+    const start = performance.now();
+    let resultCount = 0;
+    for (let iter = 0; iter < iterations; iter++) {
+      const res = computeProgramData(accounts, programs);
+      resultCount = res.length;
+    }
+    const duration = performance.now() - start;
+
+    expect(resultCount).toBe(numPrograms);
     expect(duration).toBeGreaterThan(0);
   });
 });

@@ -101,9 +101,10 @@ export const computeProgramData = (
   accounts: Account[],
   programs: Program[],
 ): { name: string; value: number; color: string }[] => {
+  const nameMap = new Map<string, string>(programs.map((p) => [p.id, p.name]));
   const programMap = new Map<string, number>();
   accounts.forEach((a) => {
-    const progName = programs.find((p) => p.id === a.programId)?.name ?? "Desconhecido";
+    const progName = nameMap.get(a.programId) ?? "Desconhecido";
     programMap.set(progName, (programMap.get(progName) ?? 0) + a.balance);
   });
   return Array.from(programMap.entries()).map(([name, value]) => ({
