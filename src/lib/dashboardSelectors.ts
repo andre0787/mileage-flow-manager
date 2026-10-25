@@ -12,7 +12,7 @@ export const salesOfAccountType = (
   type: "milhas" | "pontos",
 ) => {
   const accountIdsOfType = new Set(accounts.filter((a) => a.type === type).map((a) => a.id));
-  return sales.filter((s) => accountIdsOfType.has(s.accountId));
+  return sales.filter((s) => s.accountId && accountIdsOfType.has(s.accountId));
 };
 
 export const entriesOfAccountType = (
@@ -46,7 +46,7 @@ export const getOwnerAccountIds = (accounts: Account[], ownerId: string): Set<st
 export const salesByOwner = (sales: Sale[], accounts: Account[], ownerId: string | null) => {
   if (!ownerId) return sales;
   const ownerAccountIds = getOwnerAccountIds(accounts, ownerId);
-  return sales.filter((s) => ownerAccountIds.has(s.accountId));
+  return sales.filter((s) => s.accountId && ownerAccountIds.has(s.accountId));
 };
 
 export const entriesByOwner = (
