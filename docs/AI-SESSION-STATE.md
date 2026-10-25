@@ -1,30 +1,25 @@
-# AI Session State - 2026-10-18T21:45:00.000Z
+# AI Session State - 2026-10-25T15:15:00.000Z
 
 ## Última Task
-- **Avaliar e implementar todas as PRs abertas em produção** (categoria chore; autonomia total do usuário).
-- 9 PRs draft abertas (bot-generated, variantes do mesmo hardening de CI) avaliadas individualmente vs main.
-- Consolidação via **PR #737** (merge `aac062d9`): união das mudanças significativas + refinamentos do code review.
-- As 9 PRs (#711 #713 #715 #718 #722 #724 #728 #730 #732) fechadas como superseded com veredito individual por PR; branches remotas deletadas. 0 PRs abertas.
+- **Implementar testes unitários para AI Engineering Graph ROI Metrics (`src/lib/ai-engineering/graph-roi.ts`)**.
+- Criado arquivo de teste unitário dedicado: `tests/unit/aiEngineeringGraphRoi.test.ts`.
+- Cobertura completa das funções `computeGraphRoi` e `computeReadinessUi`.
 
 ## Decisões de Avaliação
-- **Rejeitado #718 nightly**: e2e-full em schedule com `continue-on-error` (viola P0-04 + sanitização documentada; segue manual via workflow_dispatch).
-- **Rejeitado #732 auto-merge**: `head_branch != ''` (mais fraco que truthiness original — null passa).
-- **Rejeitado #728**: rollback de QUALITY.md (artefato gerado; main mais novo).
-- Code review (subagente): 4 findings corrigidos — commit fatal (sem `pushed=yes` stale), rename failure reportada, gate de deploy por `mergedAt`, pins anti-regressão.
+- `computeGraphRoi`: testado com lista vazia (fail-open), filtragem de eventos `graph.query.*`, soma de tokens (`tokensSaved`, `contextReuseTokens`), cálculo de `cacheHitRate` com arredondamento em 2 casas decimais, contagem de falhas de agente como `reworkDifference`.
+- `computeReadinessUi`: testados os seletores de driver (multi-hop ratio > 0.3, query p95 > 200ms, nodes > 1000) e limites de borda (boundary conditions), além da mensagem padrão "workload ainda pequeno".
 
 ## Estado dos Testes & Qualidade
-- **Local:** `npm run check` completo ✅ (EXIT=0) | 34 testes direcionados ✅ | YAML + `bash -n` ✅ | `npm run pre-pr` 0 errors ✅
-- **Produção:** deploy.yml run `39168108087` — `deploy` ✅ + `e2e-smoke-prod` ✅ (Vercel prod no head consolidado).
+- **Local:** `tests/unit/aiEngineeringGraphRoi.test.ts` (13 pass) ✅ | `npm run pre-pr` 0 errors ✅
+- **Suite completa:** 214 arquivos, 1637 testes unitários passando.
 
 ## Arquivos Modificados & Impacto
-- `.github/workflows/normalize-pr-report.yml` (env HEAD_REF/PR_NUM, fallbacks, guards de rename/push)
-- `.github/workflows/auto-merge.yml` (outputs merged + gate de deploy por mergedAt, 2 jobs)
-- `.github/workflows/nightly.yml` (coverage && rule:42 sem pipe)
-- `tests/unit/workflows-guard.test.ts` (pins atualizados) + `tests/unit/program-filters-integration.test.tsx` (novo, da #718)
+- `tests/unit/aiEngineeringGraphRoi.test.ts` (novo arquivo com 13 testes unitários)
+- `docs/AI-SESSION-STATE.md` (atualização de sessão)
 
 ## Pendências Imediatas
-- Nenhuma das 9 PRs — backlog de CI zerado. Observar próximo nightly (rule-42) e o fluxo normalize→auto-merge com os novos guards em produção.
+- Nenhuma. Submeter PR com as melhorias de teste.
 
 ## Governança de Contexto
-- AUTH: usuário disse "implementa todas em prod, tem total autonomia" (aplicado ao merge #737 + deploy).
-- Gates rule-38/39 registrados (eventos coding:done/code-review:done com subagent:true); fluxo canônico respeitado (branch → pre-pr → PR → CI → merge).
+- Gates rule-38/39 registrados (`coding:done`, `code-review:done`).
+- `pre-pr` validado com 0 erros.
