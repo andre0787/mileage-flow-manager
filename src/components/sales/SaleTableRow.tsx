@@ -1,22 +1,13 @@
 import { useState } from "react";
-import { Users } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { StatusBadge } from "@/components/ui/StatusBadge";
 import { SaleReceiveDialog, type CreditPayment } from "@/components/sales/SaleReceiveDialog";
 import { SaleRefundDialog } from "@/components/sales/SaleRefundDialog";
-import { CREDIT_EPSILON } from "@/lib/clientCredits";
 import { serviceTypeLabel } from "@/lib/saleKind";
 import { useClientBalanceQuery } from "@/features/clientes/hooks";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { formatDateBR } from "@/lib/dateUtils";
-import { ownerColor, ownerColorSoft } from "@/lib/ownerColors";
+import { OwnerBadge } from "@/components/sales/OwnerBadge";
+import { SaleStatusCell } from "@/components/sales/SaleStatusCell";
+import { SaleActionsCell } from "@/components/sales/SaleActionsCell";
 import type { Sale } from "@/types";
 
 interface SaleTableRowProps {
@@ -48,6 +39,7 @@ export function SaleTableRow({
   const pending = Math.max(0, sale.saleValue - amountReceived);
   const { balance: creditBalance, movements: creditMoves } = useClientBalanceQuery(sale.clientId);
   const hasCredit = creditMoves.some((m) => m.saleId === sale.id);
+
   return (
     <>
       <TableRow className={sale.status === "cancelado" ? "opacity-50" : ""}>
@@ -56,21 +48,7 @@ export function SaleTableRow({
           <p className="font-medium">
             {sale.kind === "servico" ? serviceTypeLabel(sale.serviceType) : sale.ownerName}
           </p>
-          <span
-            className="mt-1 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold"
-            style={{
-              backgroundColor: ownerColorSoft(sale.ownerName, customColorHex),
-              color: ownerColor(sale.ownerName, customColorHex),
-            }}
-          >
-            <span
-              className="h-1.5 w-1.5 rounded-full"
-              style={{
-                backgroundColor: ownerColor(sale.ownerName, customColorHex),
-              }}
-            />
-            {sale.ownerName}
-          </span>
+          <OwnerBadge ownerName={sale.ownerName} customColorHex={customColorHex} />
         </TableCell>
         <TableCell>
           <p className="font-medium">{sale.kind === "servico" ? "Serviço" : sale.program || "—"}</p>
@@ -103,115 +81,29 @@ export function SaleTableRow({
         </TableCell>
         <TableCell className="text-right tabular-nums">{sale.profitMargin.toFixed(1)}%</TableCell>
         <TableCell>
-          {sale.status === "cancelado" ? (
-            <StatusBadge status="cancelado" size="sm" />
-          ) : (
-            <Select
-              value={sale.status}
-              onValueChange={(v) =>
-                onStatusChange?.(sale.id, v as "pendente" | "pago" | "concluido")
-              }
-              disabled={!isOnline}
-            >
-              <SelectTrigger className="w-28" title={!isOnline ? "Requer conexão" : undefined}>
-                <span
-                  className={`h-2 w-2 rounded-full ${sale.status === "pendente" ? "bg-warning" : sale.status === "pago" ? "bg-primary" : "bg-success"}`}
-                />
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="pendente">Pendente</SelectItem>
-                <SelectItem value="pago">Pago</SelectItem>
-                <SelectItem value="concluido">Concluído</SelectItem>
-              </SelectContent>
-            </Select>
-          )}
+          <SaleStatusCell
+            saleId={sale.id}
+            status={sale.status}
+            isOnline={isOnline}
+            onStatusChange={onStatusChange}
+          />
         </TableCell>
         <TableCell>
-          <div className="flex items-center gap-2">
-            <Users className="h-3 w-3 text-muted-foreground" />
-            <span className="text-xs">{sale.passengers.length} pax</span>
-            {sale.kind === "servico" && (
-              <span
-                className="rounded-full bg-teal-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-teal-600 dark:text-teal-400"
-                title="Venda de serviço (sem milhas)"
-              >
-                Serviço
-              </span>
-            )}
-            {hasCredit && (
-              <span
-                className="rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary"
-                title="Venda com movimento de crédito"
-              >
-                Crédito
-              </span>
-            )}
-            {creditBalance > 0 && (
-              <span
-                className="rounded-full bg-success/10 px-1.5 py-0.5 text-[10px] font-semibold text-success"
-                title={`Cliente com saldo de crédito disponível: R$ ${creditBalance.toLocaleString("pt-BR")}`}
-              >
-                Crédito R$ {creditBalance.toLocaleString("pt-BR")}
-              </span>
-            )}
-            {sale.status !== "cancelado" && (
-              <>
-                {onReceive &&
-                  pending > 0 &&
-                  (sale.status === "pendente" || sale.status === "pago") && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-6 text-xs text-primary hover:text-primary"
-                      onClick={() => setReceiveOpen(true)}
-                      disabled={!isOnline}
-                      title={!isOnline ? "Requer conexão" : "Registrar recebimento"}
-                    >
-                      Receber
-                    </Button>
-                  )}
-                {onRefund && amountReceived > CREDIT_EPSILON && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-6 text-xs text-warning hover:text-warning"
-                    onClick={() => setRefundOpen(true)}
-                    disabled={!isOnline || refundPending || sale.status === "concluido"}
-                    title={
-                      !isOnline
-                        ? "Requer conexão"
-                        : sale.status === "concluido"
-                          ? "Reabra a venda para devolver"
-                          : "Devolver ao crédito do cliente"
-                    }
-                  >
-                    Devolver
-                  </Button>
-                )}
-                {onEdit && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-6 text-xs"
-                    onClick={() => onEdit(sale)}
-                  >
-                    Editar
-                  </Button>
-                )}
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-destructive hover:text-destructive h-6 text-xs"
-                  onClick={() => onCancelClick(sale.id)}
-                  disabled={!isOnline}
-                  title={!isOnline ? "Requer conexão" : undefined}
-                >
-                  Cancelar
-                </Button>
-              </>
-            )}
-          </div>
+          <SaleActionsCell
+            sale={sale}
+            isOnline={isOnline}
+            hasCredit={hasCredit}
+            creditBalance={creditBalance}
+            pending={pending}
+            amountReceived={amountReceived}
+            refundPending={refundPending}
+            canReceive={Boolean(onReceive)}
+            canRefund={Boolean(onRefund)}
+            onReceiveClick={() => setReceiveOpen(true)}
+            onRefundClick={() => setRefundOpen(true)}
+            onEdit={onEdit}
+            onCancelClick={onCancelClick}
+          />
         </TableCell>
       </TableRow>
       {onReceive && (
