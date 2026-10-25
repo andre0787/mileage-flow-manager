@@ -49,4 +49,16 @@ describe("AccountDialog", () => {
     fireEvent.click(screen.getByRole("button", { name: "Criar Conta" }));
     expect(screen.getByText("Selecione um programa")).toBeDefined();
   });
+
+  it("abre sub-diálogo de novo dono ao clicar no botão de adicionar", () => {
+    render(<AccountDialog mode="create" open onOpenChange={() => {}} />);
+    fireEvent.click(screen.getByRole("button", { name: "Novo dono" }));
+    expect(screen.getByText("Novo Dono")).toBeDefined();
+  });
+
+  it("abre sub-diálogo de novo programa ao clicar no botão de adicionar", () => {
+    render(<AccountDialog mode="create" open onOpenChange={() => {}} />);
+    fireEvent.click(screen.getByRole("button", { name: "Novo programa" }));
+    expect(screen.getByText("Novo Programa")).toBeDefined();
+  });
 });

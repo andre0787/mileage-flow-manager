@@ -13,12 +13,9 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useData } from "@/contexts/DataContext";
-import {
-  useAddOwnerMutation,
-  useAddProgramMutation,
-  useAddAccountMutation,
-  useUpdateAccountMutation,
-} from "@/hooks/useDatabase";
+import { useAddAccountMutation, useUpdateAccountMutation } from "@/hooks/useDatabase";
+import { NewOwnerDialog } from "@/components/accounts/NewOwnerDialog";
+import { NewProgramDialog } from "@/components/accounts/NewProgramDialog";
 import type { Account } from "@/types";
 
 interface AccountDialogProps {
@@ -30,8 +27,6 @@ interface AccountDialogProps {
 
 export default function AccountDialog({ mode, account, open, onOpenChange }: AccountDialogProps) {
   const { owners, programs } = useData();
-  const addOwnerM = useAddOwnerMutation();
-  const addProgramM = useAddProgramMutation();
   const addAccountM = useAddAccountMutation();
   const updateAccountM = useUpdateAccountMutation();
 
@@ -47,16 +42,8 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
   const [status, setStatus] = useState<"ativa" | "inativa">(account?.status ?? "ativa");
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
 
-  // Sub-dialogs
   const [ownerDialogOpen, setOwnerDialogOpen] = useState(false);
   const [programDialogOpen, setProgramDialogOpen] = useState(false);
-
-  // Sub-dialog fields
-  const [newOwnerName, setNewOwnerName] = useState("");
-  const [newOwnerCpf, setNewOwnerCpf] = useState("");
-  const [newOwnerPhone, setNewOwnerPhone] = useState("");
-  const [newProgramName, setNewProgramName] = useState("");
-  const [newProgramType, setNewProgramType] = useState<"pontos" | "milhas">("milhas");
 
   const formKey = mode === "edit" && account ? account.id : "create";
 
@@ -96,31 +83,6 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
       updateAccountM.mutate({ id: account.id, ...data });
     }
     onOpenChange(false);
-  };
-
-  const handleCreateOwner = () => {
-    if (!newOwnerName.trim()) return;
-    const id = crypto.randomUUID();
-    addOwnerM.mutate(
-      { id, name: newOwnerName.trim(), cpf: newOwnerCpf, phone: newOwnerPhone },
-      { onSuccess: () => setOwnerId(id) },
-    );
-    setNewOwnerName("");
-    setNewOwnerCpf("");
-    setNewOwnerPhone("");
-    setOwnerDialogOpen(false);
-  };
-
-  const handleCreateProgram = () => {
-    if (!newProgramName.trim()) return;
-    const id = crypto.randomUUID();
-    addProgramM.mutate(
-      { id, name: newProgramName.trim(), type: newProgramType },
-      { onSuccess: () => setProgramId(id) },
-    );
-    setNewProgramName("");
-    setNewProgramType("milhas");
-    setProgramDialogOpen(false);
   };
 
   const handleProgramChange = (value: string) => {
@@ -298,78 +260,17 @@ export default function AccountDialog({ mode, account, open, onOpenChange }: Acc
         </div>
       </FormDrawer>
 
-      <FormDrawer open={ownerDialogOpen} onOpenChange={setOwnerDialogOpen} title="Novo Dono">
-        <div className="grid gap-4 py-4">
-          <div className="space-y-2">
-            <Label>Nome</Label>
-            <Input
-              value={newOwnerName}
-              onChange={(e) => setNewOwnerName(e.target.value)}
-              placeholder="Nome do dono"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>CPF</Label>
-            <Input
-              value={newOwnerCpf}
-              onChange={(e) => setNewOwnerCpf(e.target.value)}
-              placeholder="000.000.000-00"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Telefone</Label>
-            <Input
-              value={newOwnerPhone}
-              onChange={(e) => setNewOwnerPhone(e.target.value)}
-              placeholder="(11) 99999-9999"
-            />
-          </div>
-        </div>
-        <div className="flex justify-end gap-2">
-          <Button variant="outline" onClick={() => setOwnerDialogOpen(false)}>
-            Cancelar
-          </Button>
-          <Button onClick={handleCreateOwner}>Salvar</Button>
-        </div>
-      </FormDrawer>
+      <NewOwnerDialog
+        open={ownerDialogOpen}
+        onOpenChange={setOwnerDialogOpen}
+        onSuccess={(id) => setOwnerId(id)}
+      />
 
-      <FormDrawer
+      <NewProgramDialog
         open={programDialogOpen}
         onOpenChange={setProgramDialogOpen}
-        title="Novo Programa"
-      >
-        <div className="grid gap-4 py-4">
-          <div className="space-y-2">
-            <Label>Nome</Label>
-            <Input
-              value={newProgramName}
-              onChange={(e) => setNewProgramName(e.target.value)}
-              placeholder="Nome do programa"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Tipo</Label>
-            <Select
-              value={newProgramType}
-              onValueChange={(v) => setNewProgramType(v as "pontos" | "milhas")}
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="pontos">Pontos</SelectItem>
-                <SelectItem value="milhas">Milhas</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-        <div className="flex justify-end gap-2">
-          <Button variant="outline" onClick={() => setProgramDialogOpen(false)}>
-            Cancelar
-          </Button>
-          <Button onClick={handleCreateProgram}>Salvar</Button>
-        </div>
-      </FormDrawer>
+        onSuccess={(id) => setProgramId(id)}
+      />
     </>
   );
 }
