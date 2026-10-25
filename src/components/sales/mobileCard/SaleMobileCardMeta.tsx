@@ -7,17 +7,11 @@ interface SaleMobileCardMetaProps {
   creditBalance: number;
 }
 
-export function SaleMobileCardMeta({
-  sale,
-  hasCredit,
-  creditBalance,
-}: SaleMobileCardMetaProps) {
+export function SaleMobileCardMeta({ sale, hasCredit, creditBalance }: SaleMobileCardMetaProps) {
   return (
     <div className="flex items-center justify-between text-xs text-muted-foreground">
       <div className="flex items-center gap-2 min-w-0 flex-1">
-        {sale.ticketLocator && (
-          <span className="truncate">Localizador: {sale.ticketLocator}</span>
-        )}
+        {sale.ticketLocator && <span className="truncate">Localizador: {sale.ticketLocator}</span>}
         {sale.kind !== "servico" && (
           <span className="flex items-center gap-1 shrink-0">
             <Users className="h-3 w-3" />

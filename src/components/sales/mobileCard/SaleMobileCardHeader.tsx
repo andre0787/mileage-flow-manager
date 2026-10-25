@@ -50,11 +50,7 @@ export function SaleMobileCardHeader({ sale, customColorHex = null }: SaleMobile
                 : "text-success border-success"
           }`}
         >
-          {sale.status === "pendente"
-            ? "Pendente"
-            : sale.status === "pago"
-              ? "Pago"
-              : "Concluído"}
+          {sale.status === "pendente" ? "Pendente" : sale.status === "pago" ? "Pago" : "Concluído"}
         </Badge>
       )}
     </div>

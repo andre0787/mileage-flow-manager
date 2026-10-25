@@ -38,18 +38,16 @@ export function SaleMobileCardActions({
 
   return (
     <div className="flex items-center gap-2 pt-1 border-t">
-      {onReceiveClick &&
-        pending > 0 &&
-        (sale.status === "pendente" || sale.status === "pago") && (
-          <Button
-            variant="outline"
-            size="sm"
-            className="h-9 px-3 min-h-[44px]"
-            onClick={onReceiveClick}
-          >
-            Receber
-          </Button>
-        )}
+      {onReceiveClick && pending > 0 && (sale.status === "pendente" || sale.status === "pago") && (
+        <Button
+          variant="outline"
+          size="sm"
+          className="h-9 px-3 min-h-[44px]"
+          onClick={onReceiveClick}
+        >
+          Receber
+        </Button>
+      )}
       {onRefundClick && amountReceived > CREDIT_EPSILON && (
         <Button
           variant="ghost"
@@ -83,9 +81,7 @@ export function SaleMobileCardActions({
       <div className="flex-1">
         <Select
           value={sale.status}
-          onValueChange={(v) =>
-            onStatusChange?.(sale.id, v as "pendente" | "pago" | "concluido")
-          }
+          onValueChange={(v) => onStatusChange?.(sale.id, v as "pendente" | "pago" | "concluido")}
         >
           <SelectTrigger className="w-full min-h-[44px]">
             <span

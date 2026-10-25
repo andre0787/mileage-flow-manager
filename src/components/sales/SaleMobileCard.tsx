@@ -46,11 +46,7 @@ export function SaleMobileCard({
       >
         <SaleMobileCardHeader sale={sale} customColorHex={customColorHex} />
         <SaleMobileCardDetails sale={sale} amountReceived={amountReceived} pending={pending} />
-        <SaleMobileCardMeta
-          sale={sale}
-          hasCredit={hasCredit}
-          creditBalance={creditBalance}
-        />
+        <SaleMobileCardMeta sale={sale} hasCredit={hasCredit} creditBalance={creditBalance} />
         <SaleMobileCardActions
           sale={sale}
           pending={pending}
