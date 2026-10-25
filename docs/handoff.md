@@ -28,7 +28,7 @@ _Atualizado automaticamente por `scripts/update-handoff.mjs`_
 **Objetivo:** Incluir toggle considerar/não considerar venda no ROI na inserção de vendas
 **Status:** in_progress
 **Iniciada em:** 2026-10-20T12:41:07.704Z
-**Branch:** `feat/venda-roi-toggle`
+**Branch:** `jules-10017910771387341139-d25a5f01`
 **Último commit:** fff39f7c — Merge pull request #741 from andre0787/chore/session-end-2026-10-18
 **Docs carregados:** WORKFLOW.md, conventions/common.md, conventions/feature.md
 ## ✅ Última Sessão
