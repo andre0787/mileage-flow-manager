@@ -90,12 +90,8 @@ export default function Clientes() {
           if (!open) setEditClientData(null);
         }}
         title="Editar Cliente"
-        formData={
-          editClientData ?? { name: "", cpf: "", email: "", phone: "", telegram: "" }
-        }
-        setFormData={
-          setEditClientData as React.Dispatch<React.SetStateAction<ClientFormData>>
-        }
+        formData={editClientData ?? { name: "", cpf: "", email: "", phone: "", telegram: "" }}
+        setFormData={setEditClientData as React.Dispatch<React.SetStateAction<ClientFormData>>}
         onSubmit={handleSaveEdit}
         submitLabel="Salvar"
       />

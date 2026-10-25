@@ -1,12 +1,6 @@
 import { Users, Search, UserPlus } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { EmptyState } from "@/components/EmptyState";
 import { Pagination } from "@/components/Pagination";
 import { ClientTableRow } from "@/components/clientes/ClientTableRow";
@@ -115,9 +109,7 @@ export function ClientTable({
                   : "Clientes são o coração do negócio. Cadastre o primeiro e comece a vender."
               }
               action={
-                searchTerm
-                  ? undefined
-                  : { label: "Cadastrar Cliente", onClick: onOpenCreateDialog }
+                searchTerm ? undefined : { label: "Cadastrar Cliente", onClick: onOpenCreateDialog }
               }
             />
           </div>
