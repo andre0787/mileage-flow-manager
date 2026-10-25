@@ -203,7 +203,7 @@ if (DRY_RUN || envelopes.length === 0) {
 }
 
 const url = process.env.SUPABASE_URL || "https://ohyplfpcwxzakujjfwdf.supabase.co";
-const anonKey = process.env.SUPABASE_ANON_KEY || "sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs";
+const anonKey = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || "mock-anon-key";
 const serviceKey = process.env.SUPABASE_SERVICE_KEY;
 
 let inserted = 0;

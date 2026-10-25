@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 
-export const SUPABASE_URL = "https://ohyplfpcwxzakujjfwdf.supabase.co";
-export const SUPABASE_ANON_KEY = "sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs";
+export const SUPABASE_URL = process.env.VITE_SUPABASE_URL || "https://ohyplfpcwxzakujjfwdf.supabase.co";
+export const SUPABASE_ANON_KEY = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || "";
 
 /**
  * Injeta as funções `post(table, body)` e `user_id` no contexto do navegador.

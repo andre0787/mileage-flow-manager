@@ -28,7 +28,7 @@ test.describe("Alertas por conta", () => {
     // 2. Criar dados de teste via Supabase JS client
     // ═══════════════════════════════════════
     const supabaseUrl = "https://ohyplfpcwxzakujjfwdf.supabase.co";
-    const supabaseAnonKey = "sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs";
+    const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || "";
 
     const testData = await page.evaluate(
       async ({ url, anonKey, accountName }) => {

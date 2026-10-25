@@ -14,7 +14,7 @@ const VIEWPORTS = {
 };
 
 const SUPABASE_URL = 'https://ohyplfpcwxzakujjfwdf.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs';
+const SUPABASE_ANON_KEY = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || '';
 
 async function criarDadosDeTeste(page: Page) {
   return await page.evaluate(async ({ url, anonKey }) => {

@@ -22,7 +22,7 @@ test("Criação inline de dono e programa ao registrar entrada @smoke-prod", asy
 
   // 2. Criar dados de teste mínimos via API (só origem_type, sem owner/program)
   const supabaseUrl = "https://ohyplfpcwxzakujjfwdf.supabase.co";
-  const supabaseAnonKey = "sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs";
+  const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || "";
 
   const { otId } = await page.evaluate(
     async ({ url, anonKey }) => {

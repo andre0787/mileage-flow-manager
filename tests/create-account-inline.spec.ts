@@ -21,8 +21,8 @@ test("Criação inline de conta ao registrar entrada", async ({ page }) => {
   await page.waitForLoadState("networkidle");
 
   // 2. Criar dados de teste (owner + program) via API
-  const supabaseUrl = 'https://ohyplfpcwxzakujjfwdf.supabase.co';
-  const supabaseAnonKey = 'sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs';
+  const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://ohyplfpcwxzakujjfwdf.supabase.co';
+  const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || '';
 
   const { ownerId, programId, otId } = await page.evaluate(async ({ url, anonKey }) => {
     const sessionStr = localStorage.getItem('sb-ohyplfpcwxzakujjfwdf-auth-token');

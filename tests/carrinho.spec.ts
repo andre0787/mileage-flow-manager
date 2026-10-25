@@ -25,7 +25,7 @@ test.describe("Transferência com Compra no Carrinho", () => {
     // 2. Criar dados + entrada com carrinho via API
     // ═══════════════════════════════════════
     const supabaseUrl = 'https://ohyplfpcwxzakujjfwdf.supabase.co';
-    const supabaseAnonKey = 'sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs';
+    const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || '';
 
     await page.evaluate(async ({ url, anonKey }) => {
       const sessionStr = localStorage.getItem('sb-ohyplfpcwxzakujjfwdf-auth-token');

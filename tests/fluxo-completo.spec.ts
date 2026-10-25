@@ -11,7 +11,7 @@ const REPORT_PATH = "tests/fluxo-relatorio.md";
 const SCREENSHOTS_DIR = "tests/screenshots";
 
 const SUPABASE_URL = "https://ohyplfpcwxzakujjfwdf.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs";
+const SUPABASE_ANON_KEY = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || "";
 
 let report: string[] = [];
 function log(...args: unknown[]) { report.push(`- ${args.join(" ")}`); }

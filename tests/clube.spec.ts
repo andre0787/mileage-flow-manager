@@ -25,7 +25,7 @@ test.describe("Recorrência", () => {
     // 2. Criar dados via API
     // ═══════════════════════════════════════
     const supabaseUrl = 'https://ohyplfpcwxzakujjfwdf.supabase.co';
-    const supabaseAnonKey = 'sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs';
+    const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || '';
 
     const { ownerId, programId, accountId, otId } = await page.evaluate(async ({ url, anonKey }) => {
       const sessionStr = localStorage.getItem('sb-ohyplfpcwxzakujjfwdf-auth-token');
