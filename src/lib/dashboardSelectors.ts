@@ -6,9 +6,13 @@ export const MAX_CPF_PER_OWNER = 22;
 export const accountsOfType = (accounts: Account[], type: "milhas" | "pontos") =>
   accounts.filter((a) => a.type === type);
 
-export const salesOfAccountType = (sales: Sale[], accounts: Account[], type: "milhas" | "pontos") => {
+export const salesOfAccountType = (
+  sales: Sale[],
+  accounts: Account[],
+  type: "milhas" | "pontos",
+) => {
   const accountTypeMap = new Map<string, "milhas" | "pontos">(accounts.map((a) => [a.id, a.type]));
-  return sales.filter((s) => accountTypeMap.get(s.accountId) === type);
+  return sales.filter((s) => s.accountId != null && accountTypeMap.get(s.accountId) === type);
 };
 
 export const entriesOfAccountType = (
