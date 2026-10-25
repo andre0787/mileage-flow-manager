@@ -20,10 +20,7 @@ export function NewOwnerDialog({ open, onOpenChange, onSuccess }: NewOwnerDialog
   const handleSave = () => {
     if (!name.trim()) return;
     const id = crypto.randomUUID();
-    addOwnerM.mutate(
-      { id, name: name.trim(), cpf, phone },
-      { onSuccess: () => onSuccess(id) },
-    );
+    addOwnerM.mutate({ id, name: name.trim(), cpf, phone }, { onSuccess: () => onSuccess(id) });
     setName("");
     setCpf("");
     setPhone("");

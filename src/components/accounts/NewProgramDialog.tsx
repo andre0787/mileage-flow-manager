@@ -26,10 +26,7 @@ export function NewProgramDialog({ open, onOpenChange, onSuccess }: NewProgramDi
   const handleSave = () => {
     if (!name.trim()) return;
     const id = crypto.randomUUID();
-    addProgramM.mutate(
-      { id, name: name.trim(), type },
-      { onSuccess: () => onSuccess(id) },
-    );
+    addProgramM.mutate({ id, name: name.trim(), type }, { onSuccess: () => onSuccess(id) });
     setName("");
     setType("milhas");
     onOpenChange(false);
@@ -48,10 +45,7 @@ export function NewProgramDialog({ open, onOpenChange, onSuccess }: NewProgramDi
         </div>
         <div className="space-y-2">
           <Label>Tipo</Label>
-          <Select
-            value={type}
-            onValueChange={(v) => setType(v as "pontos" | "milhas")}
-          >
+          <Select value={type} onValueChange={(v) => setType(v as "pontos" | "milhas")}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
