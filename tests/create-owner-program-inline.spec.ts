@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./helpers";
 
 const TEST_PASSWORD = "Test@123456";
 
@@ -21,8 +22,8 @@ test("Criação inline de dono e programa ao registrar entrada @smoke-prod", asy
   await page.waitForLoadState("networkidle");
 
   // 2. Criar dados de teste mínimos via API (só origem_type, sem owner/program)
-  const supabaseUrl = "https://ohyplfpcwxzakujjfwdf.supabase.co";
-  const supabaseAnonKey = "sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs";
+  const supabaseUrl = SUPABASE_URL;
+  const supabaseAnonKey = SUPABASE_ANON_KEY;
 
   const { otId } = await page.evaluate(
     async ({ url, anonKey }) => {

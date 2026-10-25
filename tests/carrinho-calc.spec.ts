@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { registerUser, API_SETUP } from "./helpers";
+import { registerUser, API_SETUP, SUPABASE_URL, SUPABASE_ANON_KEY } from "./helpers";
 
 const TEST_PASSWORD = "Test@123456";
 
@@ -19,8 +19,8 @@ test.describe("Transferência com Compra no Carrinho — Cálculos", () => {
     await page.waitForLoadState("networkidle");
 
     const ids = await page.evaluate(`
-      const SUPABASE_URL = 'https://ohyplfpcwxzakujjfwdf.supabase.co';
-      const SUPABASE_ANON_KEY = 'sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs';
+      const SUPABASE_URL = '${SUPABASE_URL}';
+      const SUPABASE_ANON_KEY = '${SUPABASE_ANON_KEY}';
       ${API_SETUP}
 
       async function ensureTransferType() {

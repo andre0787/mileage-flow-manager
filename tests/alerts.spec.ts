@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./helpers";
 
 const TEST_PASSWORD = "Test@123456";
 
@@ -27,8 +28,8 @@ test.describe("Alertas por conta", () => {
     // ═══════════════════════════════════════
     // 2. Criar dados de teste via Supabase JS client
     // ═══════════════════════════════════════
-    const supabaseUrl = "https://ohyplfpcwxzakujjfwdf.supabase.co";
-    const supabaseAnonKey = "sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs";
+    const supabaseUrl = SUPABASE_URL;
+    const supabaseAnonKey = SUPABASE_ANON_KEY;
 
     const testData = await page.evaluate(
       async ({ url, anonKey, accountName }) => {

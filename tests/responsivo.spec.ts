@@ -13,8 +13,7 @@ const VIEWPORTS = {
   desktopHD:  { width: 1280, height: 900 },
 };
 
-const SUPABASE_URL = 'https://ohyplfpcwxzakujjfwdf.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs';
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./helpers";
 
 async function criarDadosDeTeste(page: Page) {
   return await page.evaluate(async ({ url, anonKey }) => {

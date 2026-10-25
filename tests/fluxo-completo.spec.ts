@@ -10,8 +10,7 @@ const email = `fluxo_${Date.now()}@teste.com`;
 const REPORT_PATH = "tests/fluxo-relatorio.md";
 const SCREENSHOTS_DIR = "tests/screenshots";
 
-const SUPABASE_URL = "https://ohyplfpcwxzakujjfwdf.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_TpuJ6Mokci012dnOdyMfyA_F0e3dZVs";
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./helpers";
 
 let report: string[] = [];
 function log(...args: unknown[]) { report.push(`- ${args.join(" ")}`); }
