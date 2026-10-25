@@ -20,10 +20,19 @@ interface EntryFormFieldsProps {
   clearErr: (field: string) => void;
   availableAccounts: Account[];
   owners: Owner[];
-  onCreateAccount?: (data: { name: string; ownerId: string; programId: string }) => Promise<string | undefined>;
+  onCreateAccount?: (data: {
+    name: string;
+    ownerId: string;
+    programId: string;
+  }) => Promise<string | undefined>;
   setIsAccountOpen: (open: boolean) => void;
   currentOrigemTypes: OrigemType[];
-  onCreateOrigemType?: (data: { name: string; color: string; hasRecurrence: boolean; accountType?: "pontos" | "milhas" }) => Promise<string | undefined>;
+  onCreateOrigemType?: (data: {
+    name: string;
+    color: string;
+    hasRecurrence: boolean;
+    accountType?: "pontos" | "milhas";
+  }) => Promise<string | undefined>;
   onOrigemTypeChange: (id: string) => void;
   setIsOrigemTypeOpen: (open: boolean) => void;
   selectedAccount?: Account;
@@ -36,8 +45,15 @@ interface EntryFormFieldsProps {
   onCancel: () => void;
   isOrigemTypeOpen: boolean;
   isAccountOpen: boolean;
-  onCreateOwner?: (data: { name: string; cpf?: string; phone?: string }) => Promise<string | undefined>;
-  onCreateProgram?: (data: { name: string; type: "pontos" | "milhas" }) => Promise<string | undefined>;
+  onCreateOwner?: (data: {
+    name: string;
+    cpf?: string;
+    phone?: string;
+  }) => Promise<string | undefined>;
+  onCreateProgram?: (data: {
+    name: string;
+    type: "pontos" | "milhas";
+  }) => Promise<string | undefined>;
 }
 
 export function EntryFormFields(p: EntryFormFieldsProps) {

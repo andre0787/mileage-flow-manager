@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-25T15:26:00.138Z",
+  "generatedAt": "2026-10-25T16:11:20.304Z",
   "dataDate": "2026-10-25",
   "kpiStats": [
     {
-      "value": 354,
+      "value": 359,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 483,
+      "value": 486,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 22,
+      "n": 23,
       "color": "#8b5cf6"
     },
     {
@@ -61,7 +61,7 @@
     },
     {
       "name": "gate",
-      "n": 72,
+      "n": 76,
       "color": "#f43f5e"
     }
   ],
@@ -73,7 +73,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 2,
+      "n": 3,
       "color": "#84cc16"
     },
     {
@@ -83,6 +83,31 @@
     }
   ],
   "recentTimeline": [
+    {
+      "t": "2026-10-25 16:11:19",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-10-25 16:08:39",
+      "d": "gate",
+      "desc": "gate auth executado (rule-35-auth-gate)"
+    },
+    {
+      "t": "2026-10-25 16:08:39",
+      "d": "gate",
+      "desc": "gate twins executado (rule-34-twins-check)"
+    },
+    {
+      "t": "2026-10-25 16:08:39",
+      "d": "gate",
+      "desc": "gate intent executado (rule-33-intent-gate)"
+    },
+    {
+      "t": "2026-10-25 16:08:39",
+      "d": "gate",
+      "desc": "gate council executado (rule-27-council-veredict)"
+    },
     {
       "t": "2026-10-25 15:25:59",
       "d": "pre-pr",
@@ -97,39 +122,14 @@
       "t": "2026-10-25 15:23:23",
       "d": "gate",
       "desc": "gate twins executado (rule-34-twins-check)"
-    },
-    {
-      "t": "2026-10-25 15:23:23",
-      "d": "gate",
-      "desc": "gate intent executado (rule-33-intent-gate)"
-    },
-    {
-      "t": "2026-10-25 15:23:23",
-      "d": "gate",
-      "desc": "gate council executado (rule-27-council-veredict)"
-    },
-    {
-      "t": "2026-10-25 15:22:30",
-      "d": "code-review:done",
-      "desc": "Reviewed code refactoring for EntryForm"
-    },
-    {
-      "t": "2026-10-25 15:21:59",
-      "d": "coding:done",
-      "desc": "Refactor EntryForm to break down long function and file into modular components"
-    },
-    {
-      "t": "2026-10-20 13:17:41",
-      "d": "pre-pr",
-      "desc": "pre-pr PASS"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 7,
     "healed": 0,
     "healedRate": 0,
-    "prePrTotal": 22,
-    "prePrPass": 22,
+    "prePrTotal": 23,
+    "prePrPass": 23,
     "prePrPassRate": 100,
     "gateBlocked": 0,
     "topViolations": [
@@ -149,7 +149,7 @@
     "testFiles": 376,
     "skills": 28,
     "rules": 48,
-    "events": 354,
-    "qualityNotes": 483
+    "events": 359,
+    "qualityNotes": 486
   }
 }

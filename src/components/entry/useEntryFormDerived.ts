@@ -16,17 +16,11 @@ export function useEntryFormDerived({
   form,
 }: UseEntryFormDerivedProps) {
   const selectedAccount = accounts.find((a) => a.id === form.accountId);
-  const availableAccounts = accounts.filter(
-    (a) => a.type === formType && a.status === "ativa",
-  );
+  const availableAccounts = accounts.filter((a) => a.type === formType && a.status === "ativa");
   const currentOrigemTypes = filterToCleanOrigemTypes(
-    origemTypes.filter(
-      (ot) => ot.accountType === formType && !isTransferencia(ot),
-    ),
+    origemTypes.filter((ot) => ot.accountType === formType && !isTransferencia(ot)),
   );
-  const selectedOrigemType = origemTypes.find(
-    (ot) => ot.id === form.origemTypeId,
-  );
+  const selectedOrigemType = origemTypes.find((ot) => ot.id === form.origemTypeId);
   const selectedOrigemTypeHasRecurrence = selectedOrigemType
     ? parseOrigemTypeDescription(selectedOrigemType.description).hasRecurrence
     : false;
