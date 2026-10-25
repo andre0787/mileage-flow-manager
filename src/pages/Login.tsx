@@ -1,14 +1,13 @@
 import { useActionState, useState } from "react";
-import { useNavigate, Link } from "react-router";
+import { useNavigate } from "react-router";
 import { useAuth } from "@/features/auth";
 import { useI18n } from "@/contexts/I18nContext";
-import { Button } from "@/components/ui/button";
 import { FormSubmitButton } from "@/components/FormSubmitButton";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plane, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { logError } from "@/lib/logger";
+import { LoginBrandHeader } from "@/components/auth/LoginBrandHeader";
+import { LoginFormFields } from "@/components/auth/LoginFormFields";
 
 function mapAuthError(errMsg: string, t: (key: string) => string): string {
   if (errMsg.includes("Invalid login credentials")) return t("auth.invalidCredentials");
@@ -31,8 +30,6 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  // React 19 form action (rule-45): submit via <form action> — o botão deriva
-  // pending de useFormStatus, sem estado de carregamento manual.
   const [error, formAction] = useActionState<{ message: string | null }, FormData>(
     async (_prev, formData) => {
       const em = String(formData.get("email") ?? "");
@@ -51,23 +48,9 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-background via-background to-primary/[0.03] p-4 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid opacity-[0.08] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)]" />
-      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/[0.04] rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-gold/[0.04] rounded-full blur-3xl" />
+      <LoginBrandHeader />
 
       <div className="relative w-full max-w-md">
-        {/* Brand */}
-        <div className="text-center mb-8 animate-fade-in">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-primary rounded-2xl shadow-elegant mb-4">
-            <Plane className="w-7 h-7 text-white" />
-          </div>
-          <h1 className="text-2xl font-bold text-foreground font-display">MilesControl</h1>
-          <p className="text-sm text-muted-foreground mt-1 font-body">
-            Gestão inteligente de milhas aéreas
-          </p>
-        </div>
-
         <Card className="border-primary/10 shadow-elegant animate-slide-up">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg font-display">
@@ -81,64 +64,15 @@ export default function Login() {
           </CardHeader>
           <CardContent>
             <form action={formAction} className="space-y-4">
-              {mode === "register" && (
-                <div className="space-y-2">
-                  <Label htmlFor="name" className="text-xs font-medium">
-                    Nome
-                  </Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Seu nome"
-                    required
-                    className="h-11"
-                  />
-                </div>
-              )}
-
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-xs font-medium">
-                  Email
-                </Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="seu@email.com"
-                  required
-                  className="h-11"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="password" className="text-xs font-medium">
-                    Senha
-                  </Label>
-                  {mode === "login" && (
-                    <Link
-                      to="/forgot-password"
-                      className="text-xs text-primary hover:text-primary/80 font-medium transition-colors"
-                    >
-                      Esqueceu a senha?
-                    </Link>
-                  )}
-                </div>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Sua senha"
-                  required
-                  className="h-11"
-                />
-              </div>
+              <LoginFormFields
+                mode={mode}
+                name={name}
+                setName={setName}
+                email={email}
+                setEmail={setEmail}
+                password={password}
+                setPassword={setPassword}
+              />
 
               {error?.message && (
                 <div className="text-sm text-destructive bg-destructive/5 rounded-lg px-3 py-2 font-medium">
