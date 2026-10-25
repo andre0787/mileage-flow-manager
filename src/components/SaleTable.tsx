@@ -1,26 +1,25 @@
 import { useState, useMemo } from "react";
-import { Package, TrendingDown } from "lucide-react";
+import { TrendingDown } from "lucide-react";
 import { useOnlineStatus } from "@/contexts/OnlineContext";
-import { SortableHeader } from "@/components/ui/SortableHeader";
 import { sortByKey, type SortState } from "@/lib/sort";
-import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Pagination } from "@/components/Pagination";
-import { EmptyState } from "@/components/EmptyState";
 import { SaleTableRow } from "@/components/sales/SaleTableRow";
 import { SaleMobileCard } from "@/components/sales/SaleMobileCard";
 import { SaleCancelDialog } from "@/components/sales/SaleCancelDialog";
+import { SaleTableHeader } from "@/components/sales/SaleTableHeader";
+import { SaleTableEmpty } from "@/components/sales/SaleTableEmpty";
+import { getSaleSortValue } from "@/components/sales/saleSort";
 import type { Sale } from "@/types";
 
 interface SaleTableProps {
   sales: Sale[];
-  /** Mapa nome do dono → cor customizada (hex) ou null (fallback por hash). */
   ownerCustomColors?: Record<string, string | null>;
   onCancel?: (saleId: string) => void;
   onStatusChange?: (saleId: string, status: "pendente" | "pago" | "concluido") => void;
   onReceive?: (saleId: string, payment: { cash: number; useCredit: number }) => void;
   onRefund?: (saleId: string, amount: number) => void;
-  /** Desabilita Devolver/Confirmar enquanto um refund está em voo (anti-duplo-clique). */
   refundPending?: boolean;
   onCreateClick?: () => void;
   onEdit?: (sale: Sale) => void;
@@ -45,35 +44,8 @@ export function SaleTable({
   const [currentPage, setCurrentPage] = useState(1);
   const [sort, setSort] = useState<SortState>({ key: "Data", dir: "desc" });
 
-  const getSortValue = (sale: Sale, col: string): unknown => {
-    switch (col) {
-      case "Data":
-        return new Date(sale.date).getTime();
-      case "Dono":
-        return sale.ownerName.toLowerCase();
-      case "Programa":
-        return (sale.program ?? "").toLowerCase();
-      case "Cliente":
-        return sale.clientName.toLowerCase();
-      case "Milhas":
-        return sale.milesUsed;
-      case "Valor":
-        return sale.saleValue;
-      case "Pendente":
-        return sale.saleValue - (sale.amountReceived ?? 0);
-      case "Lucro":
-        return sale.profit;
-      case "Margem":
-        return sale.profitMargin;
-      case "Status":
-        return sale.status;
-      default:
-        return "";
-    }
-  };
-
   const sortedSales = useMemo(
-    () => sortByKey(sales, sort.key, sort.dir, (s) => getSortValue(s, sort.key)),
+    () => sortByKey(sales, sort.key, sort.dir, (s) => getSaleSortValue(s, sort.key)),
     [sales, sort],
   );
 
@@ -83,36 +55,13 @@ export function SaleTable({
     currentPage * ITEMS_PER_PAGE,
   );
 
-  const handleOpenChange = (open: boolean) => {
-    if (!open) setCancelConfirmId(null);
-  };
-
   const handleConfirmCancel = (saleId: string) => {
     onCancel?.(saleId);
     setCancelConfirmId(null);
   };
 
   if (sales.length === 0) {
-    return (
-      <Card className="shadow-card animate-appear animate-delay-600">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <TrendingDown className="h-5 w-5 text-primary" />
-            Histórico de Vendas
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="py-8">
-            <EmptyState
-              icon={Package}
-              title="Nenhuma venda encontrada"
-              description="Milhas no estoque esperando uma oportunidade. Registre sua primeira venda e veja o lucro acontecer."
-              action={onCreateClick ? { label: "Nova Venda", onClick: onCreateClick } : undefined}
-            />
-          </div>
-        </CardContent>
-      </Card>
-    );
+    return <SaleTableEmpty onCreateClick={onCreateClick} />;
   }
 
   return (
@@ -125,59 +74,9 @@ export function SaleTable({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {/* Desktop table */}
           <div className="overflow-x-auto hidden md:block">
             <Table striped>
-              <TableHeader>
-                <TableRow>
-                  <SortableHeader label="Data" sortKey="Data" sort={sort} onSort={setSort} />
-                  <SortableHeader label="Dono" sortKey="Dono" sort={sort} onSort={setSort} />
-                  <SortableHeader
-                    label="Programa"
-                    sortKey="Programa"
-                    sort={sort}
-                    onSort={setSort}
-                  />
-                  <SortableHeader label="Cliente" sortKey="Cliente" sort={sort} onSort={setSort} />
-                  <SortableHeader
-                    label="Milhas"
-                    sortKey="Milhas"
-                    sort={sort}
-                    onSort={setSort}
-                    className="text-right tabular-nums"
-                  />
-                  <SortableHeader
-                    label="Valor"
-                    sortKey="Valor"
-                    sort={sort}
-                    onSort={setSort}
-                    className="text-right tabular-nums"
-                  />
-                  <SortableHeader
-                    label="Pendente"
-                    sortKey="Pendente"
-                    sort={sort}
-                    onSort={setSort}
-                    className="text-right tabular-nums"
-                  />
-                  <SortableHeader
-                    label="Lucro"
-                    sortKey="Lucro"
-                    sort={sort}
-                    onSort={setSort}
-                    className="text-right tabular-nums"
-                  />
-                  <SortableHeader
-                    label="Margem"
-                    sortKey="Margem"
-                    sort={sort}
-                    onSort={setSort}
-                    className="text-right tabular-nums"
-                  />
-                  <SortableHeader label="Status" sortKey="Status" sort={sort} onSort={setSort} />
-                  <TableHead>Ações</TableHead>
-                </TableRow>
-              </TableHeader>
+              <SaleTableHeader sort={sort} onSort={setSort} />
               <TableBody>
                 {paginatedSales.map((sale) => (
                   <SaleTableRow
@@ -197,7 +96,6 @@ export function SaleTable({
             </Table>
           </div>
 
-          {/* Mobile card list */}
           <div className="md:hidden space-y-3">
             {paginatedSales.map((sale) => (
               <SaleMobileCard
@@ -232,7 +130,7 @@ export function SaleTable({
 
       <SaleCancelDialog
         cancelConfirmId={cancelConfirmId}
-        onOpenChange={handleOpenChange}
+        onOpenChange={(open) => !open && setCancelConfirmId(null)}
         onConfirmCancel={handleConfirmCancel}
       />
     </>
