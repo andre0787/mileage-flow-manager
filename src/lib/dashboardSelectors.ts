@@ -6,20 +6,27 @@ export const MAX_CPF_PER_OWNER = 22;
 export const accountsOfType = (accounts: Account[], type: "milhas" | "pontos") =>
   accounts.filter((a) => a.type === type);
 
-export const salesOfAccountType = (sales: Sale[], accounts: Account[], type: "milhas" | "pontos") =>
-  sales.filter((s) => accounts.find((a) => a.id === s.accountId)?.type === type);
+export const salesOfAccountType = (
+  sales: Sale[],
+  accounts: Account[],
+  type: "milhas" | "pontos",
+) => {
+  const accountIdsOfType = new Set(accounts.filter((a) => a.type === type).map((a) => a.id));
+  return sales.filter((s) => accountIdsOfType.has(s.accountId));
+};
 
 export const entriesOfAccountType = (
   entries: PointEntry[],
   accounts: Account[],
   type: "milhas" | "pontos",
-) =>
-  entries.filter(
+) => {
+  const accountIdsOfType = new Set(accounts.filter((a) => a.type === type).map((a) => a.id));
+  return entries.filter(
     (e) =>
-      accounts.find((a) => a.id === e.accountId)?.type === type ||
-      (e.sourceAccountId != null &&
-        accounts.find((a) => a.id === e.sourceAccountId)?.type === type),
+      accountIdsOfType.has(e.accountId) ||
+      (e.sourceAccountId != null && accountIdsOfType.has(e.sourceAccountId)),
   );
+};
 
 const byOwner = <T>(
   items: T[],
@@ -30,14 +37,17 @@ const byOwner = <T>(
 export const accountsByOwner = (accounts: Account[], ownerId: string | null) =>
   byOwner(accounts, ownerId, (a) => a.ownerId);
 
-export const salesByOwner = (sales: Sale[], accounts: Account[], ownerId: string | null) =>
-  byOwner(sales, ownerId, (s) => accounts.find((a) => a.id === s.accountId)?.ownerId);
-
 export const getOwnerAccountIds = (accounts: Account[], ownerId: string): Set<string> =>
   accounts.reduce((acc, a) => {
     if (a.ownerId === ownerId) acc.add(a.id);
     return acc;
   }, new Set<string>());
+
+export const salesByOwner = (sales: Sale[], accounts: Account[], ownerId: string | null) => {
+  if (!ownerId) return sales;
+  const ownerAccountIds = getOwnerAccountIds(accounts, ownerId);
+  return sales.filter((s) => ownerAccountIds.has(s.accountId));
+};
 
 export const entriesByOwner = (
   entries: PointEntry[],
