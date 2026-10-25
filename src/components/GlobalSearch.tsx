@@ -1,176 +1,18 @@
-import { useState, useRef, useEffect, useMemo } from "react";
-import { Search, SearchX, TrendingUp, TrendingDown, Users, CreditCard, X } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Search, SearchX, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { useData } from "@/contexts/DataContext";
 import { useNavigate } from "react-router";
-import { cn } from "@/lib/utils";
-import { formatDateBR } from "@/lib/dateUtils";
-
-interface SearchResult {
-  type: "entrada" | "venda" | "cliente" | "conta";
-  id: string;
-  title: string;
-  subtitle: string;
-  url: string;
-}
-
-const typeIcons = {
-  entrada: TrendingUp,
-  venda: TrendingDown,
-  cliente: Users,
-  conta: CreditCard,
-};
-
-const typeLabels = {
-  entrada: "Entradas",
-  venda: "Vendas",
-  cliente: "Clientes",
-  conta: "Contas",
-};
-
-interface SearchResultItemProps {
-  item: SearchResult;
-  active: boolean;
-  flatIdx: number;
-  onHover: (index: number) => void;
-  onSelect: (url: string) => void;
-}
-
-function SearchResultItem({ item, active, flatIdx, onHover, onSelect }: SearchResultItemProps) {
-  const Icon = typeIcons[item.type];
-
-  const setScrollRef = (el: HTMLButtonElement | null) => {
-    if (!active) return;
-    if (typeof el?.scrollIntoView !== "function") return;
-    el.scrollIntoView({ block: "nearest" });
-  };
-
-  return (
-    <button
-      id={`gs-result-${item.id}`}
-      role="option"
-      aria-selected={active}
-      ref={setScrollRef}
-      className={cn(
-        "w-full px-3 py-2 flex items-center gap-3 transition-colors text-left",
-        active
-          ? "bg-accent/60 text-accent-foreground"
-          : "hover:bg-accent/40 dark:hover:bg-accent/50",
-      )}
-      onMouseEnter={() => onHover(flatIdx)}
-      onClick={() => onSelect(item.url)}
-    >
-      <Icon
-        className={cn(
-          "h-4 w-4 shrink-0 transition-colors",
-          active ? "text-primary" : "text-muted-foreground",
-        )}
-      />
-      <div className="min-w-0 flex-1">
-        <p className="text-sm font-medium text-foreground truncate">{item.title}</p>
-        <p className="text-xs text-muted-foreground truncate">{item.subtitle}</p>
-      </div>
-    </button>
-  );
-}
+import { useGlobalSearch } from "@/hooks/useGlobalSearch";
+import { SearchResultItem, typeLabels } from "@/components/SearchResultItem";
 
 export function GlobalSearch() {
-  const [query, setQuery] = useState("");
+  const { query, setQuery, results, grouped, flatResults } = useGlobalSearch();
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-  const { entries, sales, clients, accounts, programs, origemTypes } = useData();
 
-  const accountById = useMemo(() => new Map(accounts.map((a) => [a.id, a])), [accounts]);
-  const origemTypeById = useMemo(
-    () => new Map(origemTypes.map((ot) => [ot.id, ot])),
-    [origemTypes],
-  );
-  const programById = useMemo(() => new Map(programs.map((p) => [p.id, p])), [programs]);
-
-  const results = useMemo(() => {
-    if (!query.trim()) return [];
-    const q = query.toLowerCase();
-    const items: SearchResult[] = [];
-
-    entries.forEach((e) => {
-      const account = accountById.get(e.accountId);
-      const origem =
-        origemTypeById.get(e.origemTypeId)?.name ?? programById.get(e.origemTypeId)?.name ?? "";
-      const text = `${account?.name ?? ""} ${origem} ${formatDateBR(e.date)}`.toLowerCase();
-      if (text.includes(q)) {
-        items.push({
-          type: "entrada",
-          id: e.id,
-          title: `${(e.milesGenerated ?? e.amount).toLocaleString("pt-BR")} milhas`,
-          subtitle: `${account?.name ?? ""} • ${origem}`,
-          url: "/entradas",
-        });
-      }
-    });
-
-    sales.forEach((s) => {
-      const text =
-        `${s.clientName} ${s.ownerName} ${s.program} ${s.ticketLocator ?? ""}`.toLowerCase();
-      if (text.includes(q)) {
-        items.push({
-          type: "venda",
-          id: s.id,
-          title: `${s.clientName} — ${s.milesUsed.toLocaleString("pt-BR")} milhas`,
-          subtitle: `${s.ownerName} • ${s.program}`,
-          url: "/vendas",
-        });
-      }
-    });
-
-    clients.forEach((c) => {
-      const text = `${c.name} ${c.cpf ?? ""} ${c.email ?? ""} ${c.phone}`.toLowerCase();
-      if (text.includes(q)) {
-        items.push({
-          type: "cliente",
-          id: c.id,
-          title: c.name,
-          subtitle: c.cpf ?? c.phone ?? "",
-          url: "/clientes",
-        });
-      }
-    });
-
-    accounts.forEach((a) => {
-      const text = `${a.name} ${a.type}`.toLowerCase();
-      if (text.includes(q)) {
-        items.push({
-          type: "conta",
-          id: a.id,
-          title: a.name,
-          subtitle: `${a.type === "milhas" ? "Milhas" : "Pontos"} • ${a.balance.toLocaleString("pt-BR")}`,
-          url: "/contas",
-        });
-      }
-    });
-
-    return items.slice(0, 20);
-  }, [query, entries, sales, clients, accounts, accountById, origemTypeById, programById]);
-
-  const grouped = useMemo(() => {
-    const map = new Map<string, SearchResult[]>();
-    results.forEach((r) => {
-      const arr = map.get(r.type) ?? [];
-      arr.push(r);
-      map.set(r.type, arr);
-    });
-    return map;
-  }, [results]);
-
-  // Lista plana (na ordem exibida) para navegação por teclado
-  const flatResults = useMemo(
-    () => Array.from(grouped.entries()).flatMap(([, items]) => items),
-    [grouped],
-  );
-
-  // Reset do cursor quando a query muda ou o dropdown fecha
   useEffect(() => {
     setActiveIndex(-1);
   }, [query, isOpen]);
