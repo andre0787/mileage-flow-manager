@@ -30,6 +30,77 @@ interface SaleReceiveDialogProps {
   onConfirm: (payment: CreditPayment) => void;
 }
 
+function getMovementDetails(m: ClientCredit) {
+  const isEarn = m.kind === "earn";
+  const isSpend = m.kind === "spend";
+  const isRevSpend = m.reversalOf === "spend";
+
+  const sign = isEarn || isRevSpend ? "+" : "−";
+  const label = isEarn
+    ? "Crédito gerado"
+    : isSpend
+      ? "Crédito usado"
+      : isRevSpend
+        ? "Estorno (devolução)"
+        : "Estorno (remoção)";
+
+  return { sign, label };
+}
+
+function SaleReceiveSummary({
+  saleValue,
+  amountReceived,
+  pending,
+  balance,
+  clientName,
+}: {
+  saleValue: number;
+  amountReceived: number;
+  pending: number;
+  balance: number;
+  clientName: string;
+}) {
+  return (
+    <div className="text-sm text-muted-foreground">
+      <p>
+        Valor da venda: <span className="font-semibold">R$ {saleValue.toFixed(2)}</span>
+      </p>
+      <p>
+        Já recebido: <span className="font-semibold">R$ {(amountReceived || 0).toFixed(2)}</span>
+      </p>
+      <p>
+        Saldo pendente: <span className="font-semibold">R$ {pending.toFixed(2)}</span>
+      </p>
+      {balance > 0 && (
+        <p>
+          Crédito de {clientName || "cliente"}:{" "}
+          <span className="font-semibold text-primary">R$ {balance.toFixed(2)}</span>
+        </p>
+      )}
+    </div>
+  );
+}
+
+function SaleReceiveStatement({ movements }: { movements: ClientCredit[] }) {
+  const statement = (movements ?? []).filter((m) => m && typeof m.amount === "number");
+  if (statement.length === 0) return null;
+
+  return (
+    <div className="space-y-1" aria-label="Extrato da venda">
+      <Label>Recibos desta venda</Label>
+      {statement.map((m) => {
+        const { sign, label } = getMovementDetails(m);
+        return (
+          <p key={m.id} className="text-xs text-muted-foreground">
+            {label}: {sign + "R$ "}
+            {Number(m.amount).toFixed(2)}
+          </p>
+        );
+      })}
+    </div>
+  );
+}
+
 export function SaleReceiveDialog({
   open,
   onOpenChange,
@@ -58,9 +129,6 @@ export function SaleReceiveDialog({
     }
   }, [open, pending]);
 
-  // Extrato da venda: só movimentos de crédito desta venda (ledger por saleId).
-
-  const saleStatement = (saleMovements ?? []).filter((m) => m && typeof m.amount === "number");
   const cashVal = Math.max(0, parseFloat(cash) || 0);
   const useCredit = payWithCredit ? Math.min(Math.max(0, parseFloat(credit) || 0), maxUse) : 0;
   const total = cashVal + useCredit;
@@ -78,24 +146,13 @@ export function SaleReceiveDialog({
       title="Registrar recebimento"
     >
       <div className="grid gap-4 py-4">
-        <div className="text-sm text-muted-foreground">
-          <p>
-            Valor da venda: <span className="font-semibold">R$ {saleValue.toFixed(2)}</span>
-          </p>
-          <p>
-            Já recebido:{" "}
-            <span className="font-semibold">R$ {(amountReceived || 0).toFixed(2)}</span>
-          </p>
-          <p>
-            Saldo pendente: <span className="font-semibold">R$ {pending.toFixed(2)}</span>
-          </p>
-          {balance > 0 && (
-            <p>
-              Crédito de {clientName || "cliente"}:{" "}
-              <span className="font-semibold text-primary">R$ {balance.toFixed(2)}</span>
-            </p>
-          )}
-        </div>
+        <SaleReceiveSummary
+          saleValue={saleValue}
+          amountReceived={amountReceived}
+          pending={pending}
+          balance={balance}
+          clientName={clientName}
+        />
         <div className="space-y-2 rounded-lg border border-border p-3">
           <p className="text-xs font-semibold text-muted-foreground">Caixa 1 · Dinheiro novo</p>
           <Label>Valor recebido agora (R$)</Label>
@@ -162,35 +219,7 @@ export function SaleReceiveDialog({
             {clientName ? ` de ${clientName}` : ""}.
           </p>
         )}
-        {saleStatement.length > 0 && (
-          <div className="space-y-1" aria-label="Extrato da venda">
-            <Label>Recibos desta venda</Label>
-            {saleStatement.map((m) => {
-              const sign =
-                m.kind === "earn"
-                  ? "+"
-                  : m.kind === "spend"
-                    ? "−"
-                    : m.reversalOf === "spend"
-                      ? "+"
-                      : "−";
-              const label =
-                m.kind === "earn"
-                  ? "Crédito gerado"
-                  : m.kind === "spend"
-                    ? "Crédito usado"
-                    : m.reversalOf === "spend"
-                      ? "Estorno (devolução)"
-                      : "Estorno (remoção)";
-              return (
-                <p key={m.id} className="text-xs text-muted-foreground">
-                  {label}: {sign + "R$ "}
-                  {Number(m.amount).toFixed(2)}
-                </p>
-              );
-            })}
-          </div>
-        )}
+        <SaleReceiveStatement movements={saleMovements} />
       </div>
       <div className="flex justify-end gap-2 mt-4">
         <Button variant="outline" onClick={() => onOpenChange(false)}>
