@@ -243,12 +243,11 @@ function loadPositions(): Record<string, Pos> | null {
   }
 }
 
-export function WorkflowMindMap() {
-  const layout = useMemo(computeLayout, []);
+function useMindMapInteractive(layoutNodes: NodeView[]) {
   const [nodes, setNodes] = useState<NodeView[]>(() => {
     const saved = loadPositions();
-    if (!saved) return layout.nodes;
-    return layout.nodes.map((n) => {
+    if (!saved) return layoutNodes;
+    return layoutNodes.map((n) => {
       const pos = saved[n.id];
       return pos ? { ...n, cx: pos.x, cy: pos.y } : n;
     });
@@ -306,9 +305,9 @@ export function WorkflowMindMap() {
     } catch {
       /* ignore */
     }
-    setNodes(layout.nodes);
+    setNodes(layoutNodes);
     resetSelection();
-  }, [layout.nodes, resetSelection]);
+  }, [layoutNodes, resetSelection]);
 
   const setNodePos = useCallback((id: string, x: number, y: number) => {
     setNodes((prev) => prev.map((n) => (n.id === id ? { ...n, cx: x, cy: y } : n)));
@@ -352,7 +351,7 @@ export function WorkflowMindMap() {
       const p = pt.matrixTransform(ctm.inverse());
       if (!drag.moved) {
         const dist = Math.hypot(p.x - drag.lastX, p.y - drag.lastY);
-        if (dist < 4) return; // limiar: não vira drag num clique simples
+        if (dist < 4) return;
         drag.moved = true;
       }
       setNodePos(drag.id, p.x - drag.offX, p.y - drag.offY);
@@ -389,13 +388,24 @@ export function WorkflowMindMap() {
     [applySelection],
   );
 
-  const selectedBranch = selected ? (nodesById.get(selected)?.branchId ?? null) : null;
-  const detailBranch = selectedBranch ? MIND.find((b) => b.id === selectedBranch) : null;
-  const selectedNode = selected ? nodesById.get(selected) : null;
-  const selectedLeafLabel = selectedNode && selectedNode.level === 2 ? selectedNode.label : null;
+  return {
+    nodes,
+    nodesById,
+    selected,
+    active,
+    svgRef,
+    dragRef,
+    applySelection,
+    resetSelection,
+    autoLayout,
+    onClickNode,
+    onPointerDown,
+  };
+}
 
+function MindMapHeader() {
   return (
-    <div className="space-y-3">
+    <>
       <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
         O mapa
       </span>
@@ -407,128 +417,221 @@ export function WorkflowMindMap() {
         para ver como ele se liga ao resto do fluxo. As linhas são as conexões reais entre sessão,
         categorias, gates, subagentes, qualidade, entrega e telemetria.
       </p>
+    </>
+  );
+}
 
-      <div className="relative rounded-xl border bg-card overflow-hidden">
-        <span className="absolute top-3 left-3 z-10 rounded-lg border bg-background/95 px-2.5 py-1 text-[11px] font-semibold text-muted-foreground shadow-sm pointer-events-none">
-          💡 Arraste os nós com o mouse para reorganizar — a posição fica salva no seu navegador.
-        </span>
-        <div className="absolute top-3 right-3 z-10 flex gap-2">
-          <button
-            type="button"
-            onClick={resetSelection}
-            className="rounded-lg border bg-background px-2.5 py-1 text-[11px] font-semibold text-muted-foreground shadow-sm hover:bg-muted"
-          >
-            🔄 Limpar seleção
-          </button>
-          <button
-            type="button"
-            onClick={autoLayout}
-            className="rounded-lg border bg-background px-2.5 py-1 text-[11px] font-semibold text-muted-foreground shadow-sm hover:bg-muted"
-          >
-            🧲 Reposicionar
-          </button>
-        </div>
+interface MindMapToolbarProps {
+  onResetSelection: () => void;
+  onAutoLayout: () => void;
+}
 
-        <svg
-          ref={svgRef}
-          viewBox={`0 0 ${MIND_W} ${MIND_H}`}
-          role="img"
-          aria-label="Mapa mental do workflow MilesControl"
-          className={cn("w-full h-auto bg-card", dragRef.current?.moved && "cursor-grabbing")}
+function MindMapToolbar({ onResetSelection, onAutoLayout }: MindMapToolbarProps) {
+  return (
+    <>
+      <span className="absolute top-3 left-3 z-10 rounded-lg border bg-background/95 px-2.5 py-1 text-[11px] font-semibold text-muted-foreground shadow-sm pointer-events-none">
+        💡 Arraste os nós com o mouse para reorganizar — a posição fica salva no seu navegador.
+      </span>
+      <div className="absolute top-3 right-3 z-10 flex gap-2">
+        <button
+          type="button"
+          onClick={onResetSelection}
+          className="rounded-lg border bg-background px-2.5 py-1 text-[11px] font-semibold text-muted-foreground shadow-sm hover:bg-muted"
         >
-          <rect x={0} y={0} width={MIND_W} height={MIND_H} fill="transparent" />
-          {layout.lines.map((l) => (
-            <path
-              key={`${l.from}->${l.to}`}
-              d={linePath(l, nodesById)}
-              fill="none"
-              stroke={
-                active.size
-                  ? active.has(l.to) || active.has(l.from)
-                    ? "#6366f1"
-                    : "#cbd5e1"
-                  : "#cbd5e1"
-              }
-              strokeWidth={active.has(l.to) || active.has(l.from) ? 2.5 : 1.5}
-              strokeLinecap="round"
-              className="transition-all"
-            />
-          ))}
-          {nodes.map((n) => {
-            const isActive = active.has(n.id);
-            const isDim = active.size > 0 && !isActive;
-            return (
-              <g
-                key={n.id}
-                className={cn("cursor-grab transition-opacity", isDim && "opacity-30")}
-                onClick={() => onClickNode(n.id)}
-                onPointerDown={(e) => onPointerDown(e, n.id)}
-              >
-                <rect
-                  x={n.cx - n.w / 2}
-                  y={n.cy - n.h / 2}
-                  width={n.w}
-                  height={n.h}
-                  rx={n.h / 2}
-                  fill={n.level === 1 ? n.color : "#ffffff"}
-                  stroke={n.color}
-                  strokeWidth={n.level === 1 ? 0 : 2.5}
-                  className={cn("transition-shadow", isActive && "drop-shadow-md")}
-                />
-                <text
-                  x={n.cx}
-                  y={n.cy}
-                  textAnchor="middle"
-                  dominantBaseline="central"
-                  fontSize={n.level === 1 ? 17 : 13.5}
-                  fontWeight={n.level === 1 ? 800 : 700}
-                  fill={n.level === 1 ? "#fff" : "#0f172a"}
-                >
-                  {n.label}
-                </text>
-                <title>{n.label}</title>
-              </g>
-            );
-          })}
-        </svg>
-
-        <div className="border-t bg-muted/40 p-4 min-h-[96px]">
-          {detailBranch ? (
-            <>
-              <h4 className="text-sm font-bold text-foreground">
-                {detailBranch.label}
-                {selectedLeafLabel ? ` · ${selectedLeafLabel}` : ""}
-              </h4>
-              <div className="mt-1 text-[13px] text-muted-foreground">{detailBranch.detail}</div>
-              <pre className="mt-2 whitespace-pre-wrap rounded bg-background border p-2 text-xs font-mono text-foreground leading-relaxed">
-                {detailBranch.ev}
-              </pre>
-            </>
-          ) : (
-            <>
-              <h4 className="text-sm font-bold text-foreground">👆 Clique em um nó</h4>
-              <div className="mt-1 text-[13px] text-muted-foreground">
-                Explore como cada parte do workflow se conecta às demais. O painel mostra o detalhe
-                e a evidência de telemetria.
-              </div>
-            </>
-          )}
-        </div>
+          🔄 Limpar seleção
+        </button>
+        <button
+          type="button"
+          onClick={onAutoLayout}
+          className="rounded-lg border bg-background px-2.5 py-1 text-[11px] font-semibold text-muted-foreground shadow-sm hover:bg-muted"
+        >
+          🧲 Reposicionar
+        </button>
       </div>
+    </>
+  );
+}
 
-      <div className="flex flex-wrap gap-2">
-        {MIND.map((b) => (
-          <button
-            key={b.id}
-            type="button"
-            onClick={() => applySelection(b.id)}
-            className="rounded-full border px-3 py-1 text-xs font-semibold text-white shadow-sm hover:opacity-90"
-            style={{ background: b.color }}
+interface MindMapCanvasProps {
+  svgRef: React.RefObject<SVGSVGElement | null>;
+  lines: LineView[];
+  nodes: NodeView[];
+  nodesById: Map<string, NodeView>;
+  active: Set<string>;
+  isDraggingMoved: boolean;
+  onClickNode: (id: string) => void;
+  onPointerDown: (e: React.PointerEvent, id: string) => void;
+}
+
+function MindMapCanvas({
+  svgRef,
+  lines,
+  nodes,
+  nodesById,
+  active,
+  isDraggingMoved,
+  onClickNode,
+  onPointerDown,
+}: MindMapCanvasProps) {
+  return (
+    <svg
+      ref={svgRef}
+      viewBox={`0 0 ${MIND_W} ${MIND_H}`}
+      role="img"
+      aria-label="Mapa mental do workflow MilesControl"
+      className={cn("w-full h-auto bg-card", isDraggingMoved && "cursor-grabbing")}
+    >
+      <rect x={0} y={0} width={MIND_W} height={MIND_H} fill="transparent" />
+      {lines.map((l) => (
+        <path
+          key={`${l.from}->${l.to}`}
+          d={linePath(l, nodesById)}
+          fill="none"
+          stroke={
+            active.size
+              ? active.has(l.to) || active.has(l.from)
+                ? "#6366f1"
+                : "#cbd5e1"
+              : "#cbd5e1"
+          }
+          strokeWidth={active.has(l.to) || active.has(l.from) ? 2.5 : 1.5}
+          strokeLinecap="round"
+          className="transition-all"
+        />
+      ))}
+      {nodes.map((n) => {
+        const isActive = active.has(n.id);
+        const isDim = active.size > 0 && !isActive;
+        return (
+          <g
+            key={n.id}
+            className={cn("cursor-grab transition-opacity", isDim && "opacity-30")}
+            onClick={() => onClickNode(n.id)}
+            onPointerDown={(e) => onPointerDown(e, n.id)}
           >
-            {b.label.replace(/^\S+\s/, "")}
-          </button>
-        ))}
+            <rect
+              x={n.cx - n.w / 2}
+              y={n.cy - n.h / 2}
+              width={n.w}
+              height={n.h}
+              rx={n.h / 2}
+              fill={n.level === 1 ? n.color : "#ffffff"}
+              stroke={n.color}
+              strokeWidth={n.level === 1 ? 0 : 2.5}
+              className={cn("transition-shadow", isActive && "drop-shadow-md")}
+            />
+            <text
+              x={n.cx}
+              y={n.cy}
+              textAnchor="middle"
+              dominantBaseline="central"
+              fontSize={n.level === 1 ? 17 : 13.5}
+              fontWeight={n.level === 1 ? 800 : 700}
+              fill={n.level === 1 ? "#fff" : "#0f172a"}
+            >
+              {n.label}
+            </text>
+            <title>{n.label}</title>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
+interface MindMapDetailPanelProps {
+  detailBranch: (typeof MIND)[number] | null;
+  selectedLeafLabel: string | null;
+}
+
+function MindMapDetailPanel({ detailBranch, selectedLeafLabel }: MindMapDetailPanelProps) {
+  return (
+    <div className="border-t bg-muted/40 p-4 min-h-[96px]">
+      {detailBranch ? (
+        <>
+          <h4 className="text-sm font-bold text-foreground">
+            {detailBranch.label}
+            {selectedLeafLabel ? ` · ${selectedLeafLabel}` : ""}
+          </h4>
+          <div className="mt-1 text-[13px] text-muted-foreground">{detailBranch.detail}</div>
+          <pre className="mt-2 whitespace-pre-wrap rounded bg-background border p-2 text-xs font-mono text-foreground leading-relaxed">
+            {detailBranch.ev}
+          </pre>
+        </>
+      ) : (
+        <>
+          <h4 className="text-sm font-bold text-foreground">👆 Clique em um nó</h4>
+          <div className="mt-1 text-[13px] text-muted-foreground">
+            Explore como cada parte do workflow se conecta às demais. O painel mostra o detalhe e a
+            evidência de telemetria.
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+interface MindMapBranchLegendProps {
+  onSelectBranch: (id: string) => void;
+}
+
+function MindMapBranchLegend({ onSelectBranch }: MindMapBranchLegendProps) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {MIND.map((b) => (
+        <button
+          key={b.id}
+          type="button"
+          onClick={() => onSelectBranch(b.id)}
+          className="rounded-full border px-3 py-1 text-xs font-semibold text-white shadow-sm hover:opacity-90"
+          style={{ background: b.color }}
+        >
+          {b.label.replace(/^\S+\s/, "")}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export function WorkflowMindMap() {
+  const layout = useMemo(computeLayout, []);
+  const {
+    nodes,
+    nodesById,
+    selected,
+    active,
+    svgRef,
+    dragRef,
+    applySelection,
+    resetSelection,
+    autoLayout,
+    onClickNode,
+    onPointerDown,
+  } = useMindMapInteractive(layout.nodes);
+
+  const selectedBranch = selected ? (nodesById.get(selected)?.branchId ?? null) : null;
+  const detailBranch = selectedBranch ? (MIND.find((b) => b.id === selectedBranch) ?? null) : null;
+  const selectedNode = selected ? nodesById.get(selected) : null;
+  const selectedLeafLabel = selectedNode && selectedNode.level === 2 ? selectedNode.label : null;
+
+  return (
+    <div className="space-y-3">
+      <MindMapHeader />
+      <div className="relative rounded-xl border bg-card overflow-hidden">
+        <MindMapToolbar onResetSelection={resetSelection} onAutoLayout={autoLayout} />
+        <MindMapCanvas
+          svgRef={svgRef}
+          lines={layout.lines}
+          nodes={nodes}
+          nodesById={nodesById}
+          active={active}
+          isDraggingMoved={Boolean(dragRef.current?.moved)}
+          onClickNode={onClickNode}
+          onPointerDown={onPointerDown}
+        />
+        <MindMapDetailPanel detailBranch={detailBranch} selectedLeafLabel={selectedLeafLabel} />
       </div>
+      <MindMapBranchLegend onSelectBranch={applySelection} />
     </div>
   );
 }
