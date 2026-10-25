@@ -59,7 +59,9 @@ describe("FeedbackDialog", () => {
         email: null,
         logs: null,
       });
-      expect(logError).toHaveBeenCalledWith("feedback_submit", { message: "Database error occurred" });
+      expect(logError).toHaveBeenCalledWith("feedback_submit", {
+        message: "Database error occurred",
+      });
       expect(screen.getByText("Não foi possível enviar. Tente novamente.")).toBeDefined();
     });
   });
@@ -83,7 +85,9 @@ describe("FeedbackDialog", () => {
 
     // Preenche mensagem e email
     const messageInput = screen.getByLabelText("Descreva sua sugestão");
-    fireEvent.change(messageInput, { target: { value: "Adicionar filtro por data nas entradas." } });
+    fireEvent.change(messageInput, {
+      target: { value: "Adicionar filtro por data nas entradas." },
+    });
 
     const emailInput = screen.getByLabelText(/Email/);
     fireEvent.change(emailInput, { target: { value: "teste@empresa.com" } });
@@ -104,7 +108,9 @@ describe("FeedbackDialog", () => {
       });
       expect(screen.getByText("Obrigado!")).toBeDefined();
       expect(
-        screen.getByText("Sua mensagem foi enviada. Sua contribuição nos ajuda a melhorar o MilesControl."),
+        screen.getByText(
+          "Sua mensagem foi enviada. Sua contribuição nos ajuda a melhorar o MilesControl.",
+        ),
       ).toBeDefined();
     });
   });
