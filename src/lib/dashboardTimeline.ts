@@ -86,15 +86,17 @@ export const computeRecentSales = (sales: Sale[]): RecentSaleRow[] =>
 export const computeRecentEntries = (
   entries: PointEntry[],
   accounts: Account[],
-): { id: string; amount: number; accountName: string }[] =>
-  [...entries]
+): { id: string; amount: number; accountName: string }[] => {
+  const accountMap = new Map(accounts.map((a) => [a.id, a]));
+  return [...entries]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 6)
     .map((e) => ({
       id: e.id,
       amount: e.amount,
-      accountName: accounts.find((a) => a.id === e.accountId)?.name ?? "",
+      accountName: accountMap.get(e.accountId)?.name ?? "",
     }));
+};
 
 export interface TransferRow {
   id: string;
@@ -111,6 +113,7 @@ export const computeRecentTransfers = (
   accounts: Account[],
   origemTypes: OrigemType[],
 ): TransferRow[] => {
+  const accountMap = new Map(accounts.map((a) => [a.id, a]));
   const transferOrigemIds = new Set(
     origemTypes.filter((ot) => isTransferencia(ot)).map((ot) => ot.id),
   );
@@ -121,10 +124,11 @@ export const computeRecentTransfers = (
     .map((e) => ({
       id: e.id,
       date: e.date,
-      sourceAccountName: accounts.find((a) => a.id === e.sourceAccountId)?.name ?? "",
+      sourceAccountName:
+        (e.sourceAccountId ? accountMap.get(e.sourceAccountId)?.name : undefined) ?? "",
       pointsDebited: e.amount,
       bonusPercent: e.bonusPercent,
       milesReceived: e.milesGenerated ?? e.amount,
-      destAccountName: accounts.find((a) => a.id === e.accountId)?.name ?? "",
+      destAccountName: accountMap.get(e.accountId)?.name ?? "",
     }));
 };
