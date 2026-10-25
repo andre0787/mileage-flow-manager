@@ -1,294 +1,50 @@
 import { useState, useMemo } from "react";
-import { useClientBalanceQuery } from "@/features/clientes/hooks";
+import { useClientManagement } from "./useClientManagement";
 import {
-  Plus,
-  Users,
-  Search,
-  Edit,
-  Trash2,
-  Phone,
-  AlertTriangle,
-  UserPlus,
-  Banknote,
-} from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { FormDrawer } from "@/components/FormDrawer";
-import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { EmptyState } from "@/components/EmptyState";
-import { Pagination } from "@/components/Pagination";
-import { SkeletonMetricCard, SkeletonTable } from "@/components/SkeletonLoader";
-import { useDebounce } from "@/hooks/useDebounce";
-import { useData } from "@/contexts/DataContext";
-import { SearchInput } from "@/components/ui/SearchInput";
-import {
-  useAddClientMutation,
-  useAddClientAdvanceMutation,
-  useUpdateClientCreditDateMutation,
-  useUpdateClientMutation,
-  useDeleteClientMutation,
-} from "@/hooks/useDatabase";
-import { formatDateBR, isValidISODate, todayISODate } from "@/lib/dateUtils";
-import { movementEffect } from "@/lib/clientCredits";
-import { formatCPF } from "@/lib/utils";
-
-const ITEMS_PER_PAGE = 20;
-
-/** Saldo + extrato de crédito de um cliente (hook por cliente: chamada legal). */
-function ClientCreditInfo({ clientId }: { clientId: string }) {
-  const { balance, movements } = useClientBalanceQuery(clientId);
-  const updateDateM = useUpdateClientCreditDateMutation();
-  const [editing, setEditing] = useState<{ id: string; date: string } | null>(null);
-  const handleSaveDate = () => {
-    if (!editing || !isValidISODate(editing.date)) return;
-    updateDateM.mutate(
-      { id: editing.id, clientId, date: editing.date },
-      { onSuccess: () => setEditing(null) },
-    );
-  };
-  return (
-    <>
-      <p className="font-semibold tabular-nums">R$ {balance.toFixed(2)}</p>
-      {movements.length > 0 && (
-        <details className="text-xs text-muted-foreground">
-          <summary className="cursor-pointer">Extrato</summary>
-          <ul className="mt-1 space-y-0.5 text-left">
-            {(() => {
-              let running = 0;
-              return movements.map((m) => {
-                running += movementEffect(m);
-                const advance = m.kind === "earn" && !m.saleId;
-                return (
-                  <li key={m.id} className="tabular-nums">
-                    {m.kind === "earn" ? "+" : m.kind === "spend" ? "−" : "↩"} R${" "}
-                    {m.amount.toFixed(2)}
-                    <span className="ml-1 text-[10px] opacity-70">
-                      {formatDateBR(m.createdAt)}
-                      {m.note ? ` · ${m.note}` : advance ? " · adiantamento" : ""}
-                    </span>
-                    {/* slice(0,10) estável: adiantamentos gravam meio-dia -03:00 (mesmo dia em UTC) */}
-                    {advance && (
-                      <button
-                        type="button"
-                        title="Editar data do adiantamento"
-                        aria-label={`Editar data do adiantamento de R$ ${m.amount.toFixed(2)}`}
-                        onClick={() => setEditing({ id: m.id, date: m.createdAt.slice(0, 10) })}
-                        className="ml-1 inline-flex align-middle opacity-60 hover:opacity-100"
-                      >
-                        <Edit className="h-3 w-3" />
-                      </button>
-                    )}
-                    <span className="float-right opacity-70">= R$ {running.toFixed(2)}</span>
-                  </li>
-                );
-              });
-            })()}
-          </ul>
-        </details>
-      )}
-      <FormDrawer
-        open={editing !== null}
-        onOpenChange={(open) => {
-          if (!open) setEditing(null);
-        }}
-        title="Editar data do adiantamento"
-      >
-        <div className="grid gap-4 py-4">
-          <div className="space-y-2">
-            <Label htmlFor="credit-date">Data do adiantamento</Label>
-            <Input
-              id="credit-date"
-              type="date"
-              value={editing?.date ?? ""}
-              onChange={(e) =>
-                setEditing((prev) => (prev ? { ...prev, date: e.target.value } : prev))
-              }
-            />
-          </div>
-          <p className="text-xs text-muted-foreground">
-            Só a data muda — valor e saldo derivado continuam iguais, e o extrato reordena pela nova
-            data.
-          </p>
-        </div>
-        <div className="mt-4 flex justify-end gap-2">
-          <Button variant="outline" onClick={() => setEditing(null)}>
-            Cancelar
-          </Button>
-          <Button
-            onClick={handleSaveDate}
-            disabled={!editing || !isValidISODate(editing.date) || updateDateM.isPending}
-            className="bg-gradient-primary hover:opacity-90"
-          >
-            {updateDateM.isPending ? "Salvando..." : "Salvar"}
-          </Button>
-        </div>
-      </FormDrawer>
-    </>
-  );
-}
+  ClientHeader,
+  ClientSearchInput,
+  ClientFormDrawer,
+  ClientFormData,
+  ClientAdvanceDrawer,
+  DeleteClientBlockedDialog,
+  ClientStatsCards,
+  ClientTable,
+} from "@/components/clientes";
 
 export default function Clientes() {
-  const { clients, sales, isLoading } = useData();
-
-  const addClientM = useAddClientMutation();
-  const advanceM = useAddClientAdvanceMutation();
-  const updateClientM = useUpdateClientMutation();
-  const deleteClientM = useDeleteClientMutation();
-
-  const [newClient, setNewClient] = useState({
-    name: "",
-    cpf: "",
-    email: "",
-    phone: "",
-    telegram: "",
-  });
-
-  const [editClientData, setEditClientData] = useState<{
-    id: string;
-    name: string;
-    cpf: string;
-    email: string;
-    phone: string;
-    telegram: string;
-  } | null>(null);
-
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [advanceClient, setAdvanceClient] = useState<{ id: string; name: string } | null>(null);
-  const [advanceForm, setAdvanceForm] = useState({ amount: "", note: "", date: todayISODate() });
-  const debouncedSearch = useDebounce(searchTerm, 300);
-  const [deleteBlocked, setDeleteBlocked] = useState<{
-    open: boolean;
-    clientName: string;
-    relatedSales: { id: string; ticketLocator: string; date: string; milesUsed: number }[];
-  }>({ open: false, clientName: "", relatedSales: [] });
-
-  const filteredClients = useMemo(() => {
-    if (!debouncedSearch) return clients;
-    const q = debouncedSearch.toLowerCase();
-    return clients.filter(
-      (client) =>
-        client.name.toLowerCase().includes(q) ||
-        (client.cpf && client.cpf.includes(q)) ||
-        (client.email && client.email.toLowerCase().includes(q)),
-    );
-  }, [clients, debouncedSearch]);
-
-  const totalPages = Math.ceil(filteredClients.length / ITEMS_PER_PAGE);
-  const paginatedClients = filteredClients.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE,
-  );
-
-  const handleCreateClient = () => {
-    if (newClient.name) {
-      addClientM.mutate({
-        id: crypto.randomUUID(),
-        name: newClient.name,
-        cpf: newClient.cpf,
-        email: newClient.email,
-        phone: newClient.phone,
-        telegram: newClient.telegram,
-        totalPurchases: 0,
-        usageHistory: [],
-      });
-      setNewClient({ name: "", cpf: "", email: "", phone: "", telegram: "" });
-      setIsCreateDialogOpen(false);
-    }
-  };
-
-  const handleEditClient = (client: (typeof clients)[number]) => {
-    setEditClientData({
-      id: client.id,
-      name: client.name,
-      cpf: client.cpf ?? "",
-      email: client.email ?? "",
-      phone: client.phone,
-      telegram: client.telegram ?? "",
-    });
-    setIsEditDialogOpen(true);
-  };
-
-  const handleSaveEdit = () => {
-    if (editClientData && editClientData.name) {
-      updateClientM.mutate({
-        id: editClientData.id,
-        name: editClientData.name,
-        cpf: editClientData.cpf,
-        email: editClientData.email,
-        phone: editClientData.phone,
-        telegram: editClientData.telegram,
-      });
-      setEditClientData(null);
-      setIsEditDialogOpen(false);
-    }
-  };
-
-  const handleDeleteClient = (id: string, name: string) => {
-    const relatedSales = sales
-      .filter((sale) => sale.clientId === id)
-      .map((sale) => ({
-        id: sale.id,
-        ticketLocator: sale.ticketLocator,
-        date: sale.date,
-        milesUsed: sale.milesUsed,
-      }));
-
-    if (relatedSales.length > 0) {
-      setDeleteBlocked({ open: true, clientName: name, relatedSales });
-    } else {
-      deleteClientM.mutate(id);
-    }
-  };
-
-  const handleCPFChange = (value: string) => {
-    setNewClient({ ...newClient, cpf: formatCPF(value) });
-  };
-
-  /** Adiantamento: dinheiro recebido do cliente antes de qualquer emissão. */
-  const handleAdvance = () => {
-    if (!advanceClient) return;
-    advanceM.mutate(
-      {
-        clientId: advanceClient.id,
-        amount: Number(advanceForm.amount),
-        note: advanceForm.note,
-        date: advanceForm.date || undefined,
-      },
-      {
-        onSuccess: () => {
-          setAdvanceClient(null);
-          setAdvanceForm({ amount: "", note: "", date: todayISODate() });
-        },
-      },
-    );
-  };
-
-  const openAdvanceDrawer = (client: { id: string; name: string }) => {
-    setAdvanceForm({ amount: "", note: "", date: todayISODate() });
-    setAdvanceClient(client);
-  };
+  const {
+    clients,
+    isLoading,
+    newClient,
+    setNewClient,
+    editClientData,
+    setEditClientData,
+    isCreateDialogOpen,
+    setIsCreateDialogOpen,
+    isEditDialogOpen,
+    setIsEditDialogOpen,
+    searchTerm,
+    setSearchTerm,
+    currentPage,
+    setCurrentPage,
+    advanceClient,
+    setAdvanceClient,
+    advanceForm,
+    setAdvanceForm,
+    deleteBlocked,
+    setDeleteBlocked,
+    filteredClients,
+    totalPages,
+    paginatedClients,
+    itemsPerPage,
+    handleCreateClient,
+    handleEditClient,
+    handleSaveEdit,
+    handleDeleteClient,
+    handleAdvance,
+    openAdvanceDrawer,
+    advanceM,
+  } = useClientManagement();
 
   if (isLoading) {
     return (
@@ -301,13 +57,13 @@ export default function Clientes() {
           <div className="h-10 w-32 bg-muted rounded-lg animate-pulse" />
         </div>
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
-          <SkeletonMetricCard />
-          <SkeletonMetricCard />
-          <SkeletonMetricCard />
+          <div className="h-24 bg-muted rounded-xl animate-pulse" />
+          <div className="h-24 bg-muted rounded-xl animate-pulse" />
+          <div className="h-24 bg-muted rounded-xl animate-pulse" />
         </div>
         <div className="rounded-xl border border-border p-6 space-y-4">
           <div className="h-6 w-40 bg-muted rounded animate-pulse" />
-          <SkeletonTable rows={4} cols={5} />
+          <div className="h-48 bg-muted rounded animate-pulse" />
         </div>
       </div>
     );
@@ -315,536 +71,68 @@ export default function Clientes() {
 
   return (
     <div className="space-y-6 animate-appear">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Clientes</h1>
-          <p className="text-sm text-muted-foreground">
-            Gerencie seus clientes e acompanhe o histórico de utilização
-          </p>
-        </div>
+      <ClientHeader onOpenCreate={() => setIsCreateDialogOpen(true)} />
 
-        <Button
-          className="gap-2 bg-gradient-primary hover:opacity-90 w-full sm:w-auto"
-          onClick={() => setIsCreateDialogOpen(true)}
-        >
-          <Plus className="h-4 w-4" />
-          Novo Cliente
-        </Button>
-      </div>
-
-      <FormDrawer
+      <ClientFormDrawer
         open={isCreateDialogOpen}
         onOpenChange={setIsCreateDialogOpen}
         title="Cadastrar Novo Cliente"
-      >
-        <div className="grid gap-4 py-4">
-          <div className="space-y-2">
-            <Label htmlFor="name">Nome Completo</Label>
-            <Input
-              id="name"
-              value={newClient.name}
-              onChange={(e) => setNewClient({ ...newClient, name: e.target.value })}
-              placeholder="Digite o nome completo"
-            />
-          </div>
+        formData={newClient}
+        setFormData={setNewClient}
+        onSubmit={handleCreateClient}
+        submitLabel="Cadastrar"
+      />
 
-          <div className="space-y-2">
-            <Label htmlFor="cpf">CPF</Label>
-            <Input
-              id="cpf"
-              value={newClient.cpf}
-              onChange={(e) => handleCPFChange(e.target.value)}
-              placeholder="000.000.000-00"
-              maxLength={14}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="email">E-mail</Label>
-            <Input
-              id="email"
-              type="email"
-              value={newClient.email}
-              onChange={(e) => setNewClient({ ...newClient, email: e.target.value })}
-              placeholder="cliente@email.com"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="phone">Telefone</Label>
-            <Input
-              id="phone"
-              value={newClient.phone}
-              onChange={(e) => setNewClient({ ...newClient, phone: e.target.value })}
-              placeholder="(11) 99999-9999"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="telegram">Contato Telegram</Label>
-            <Input
-              id="telegram"
-              value={newClient.telegram}
-              onChange={(e) => setNewClient({ ...newClient, telegram: e.target.value })}
-              placeholder="@usuario"
-            />
-          </div>
-        </div>
-
-        <div className="flex justify-end gap-2 mt-4">
-          <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
-            Cancelar
-          </Button>
-          <Button onClick={handleCreateClient} className="bg-gradient-primary hover:opacity-90">
-            Cadastrar
-          </Button>
-        </div>
-      </FormDrawer>
-      {/* Edit Dialog */}
-      <FormDrawer
+      <ClientFormDrawer
         open={isEditDialogOpen}
         onOpenChange={(open) => {
           setIsEditDialogOpen(open);
           if (!open) setEditClientData(null);
         }}
         title="Editar Cliente"
-      >
-        <div className="grid gap-4 py-4">
-          <div className="space-y-2">
-            <Label htmlFor="edit-name">Nome Completo</Label>
-            <Input
-              id="edit-name"
-              value={editClientData?.name ?? ""}
-              onChange={(e) =>
-                setEditClientData((prev) => (prev ? { ...prev, name: e.target.value } : null))
-              }
-              placeholder="Digite o nome completo"
-            />
-          </div>
+        formData={
+          editClientData ?? { name: "", cpf: "", email: "", phone: "", telegram: "" }
+        }
+        setFormData={
+          setEditClientData as React.Dispatch<React.SetStateAction<ClientFormData>>
+        }
+        onSubmit={handleSaveEdit}
+        submitLabel="Salvar"
+      />
 
-          <div className="space-y-2">
-            <Label htmlFor="edit-cpf">CPF</Label>
-            <Input
-              id="edit-cpf"
-              value={editClientData?.cpf ?? ""}
-              onChange={(e) => {
-                const formatted = formatCPF(e.target.value);
-                setEditClientData((prev) => (prev ? { ...prev, cpf: formatted } : null));
-              }}
-              placeholder="000.000.000-00"
-              maxLength={14}
-            />
-          </div>
+      <ClientAdvanceDrawer
+        client={advanceClient}
+        onClose={() => setAdvanceClient(null)}
+        advanceForm={advanceForm}
+        setAdvanceForm={setAdvanceForm}
+        onSubmit={handleAdvance}
+        isPending={advanceM.isPending}
+      />
 
-          <div className="space-y-2">
-            <Label htmlFor="edit-email">E-mail</Label>
-            <Input
-              id="edit-email"
-              type="email"
-              value={editClientData?.email ?? ""}
-              onChange={(e) =>
-                setEditClientData((prev) => (prev ? { ...prev, email: e.target.value } : null))
-              }
-              placeholder="cliente@email.com"
-            />
-          </div>
+      <ClientSearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-          <div className="space-y-2">
-            <Label htmlFor="edit-phone">Telefone</Label>
-            <Input
-              id="edit-phone"
-              value={editClientData?.phone ?? ""}
-              onChange={(e) =>
-                setEditClientData((prev) => (prev ? { ...prev, phone: e.target.value } : null))
-              }
-              placeholder="(11) 99999-9999"
-            />
-          </div>
+      <ClientStatsCards clients={clients} />
 
-          <div className="space-y-2">
-            <Label htmlFor="edit-telegram">Contato Telegram</Label>
-            <Input
-              id="edit-telegram"
-              value={editClientData?.telegram ?? ""}
-              onChange={(e) =>
-                setEditClientData((prev) => (prev ? { ...prev, telegram: e.target.value } : null))
-              }
-              placeholder="@usuario"
-            />
-          </div>
-        </div>
+      <ClientTable
+        filteredClients={filteredClients}
+        paginatedClients={paginatedClients}
+        searchTerm={searchTerm}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        itemsPerPage={itemsPerPage}
+        onPageChange={setCurrentPage}
+        onOpenCreateDialog={() => setIsCreateDialogOpen(true)}
+        onOpenAdvanceDrawer={openAdvanceDrawer}
+        onEditClient={handleEditClient}
+        onDeleteClient={handleDeleteClient}
+      />
 
-        <div className="flex justify-end gap-2 mt-4">
-          <Button
-            variant="outline"
-            onClick={() => {
-              setIsEditDialogOpen(false);
-              setEditClientData(null);
-            }}
-          >
-            Cancelar
-          </Button>
-          <Button onClick={handleSaveEdit} className="bg-gradient-primary hover:opacity-90">
-            Salvar
-          </Button>
-        </div>
-      </FormDrawer>
-
-      {/* Adiantamento — dinheiro recebido antes da emissão (crédito do cliente) */}
-      <FormDrawer
-        open={advanceClient !== null}
-        onOpenChange={(open) => {
-          if (!open) setAdvanceClient(null);
-        }}
-        title={`Registrar Adiantamento — ${advanceClient?.name ?? ""}`}
-      >
-        <div className="grid gap-4 py-4">
-          <div className="space-y-2">
-            <Label htmlFor="advance-amount">Valor recebido (R$)</Label>
-            <Input
-              id="advance-amount"
-              type="number"
-              min="0.01"
-              step="0.01"
-              value={advanceForm.amount}
-              onChange={(e) => setAdvanceForm({ ...advanceForm, amount: e.target.value })}
-              placeholder="0,00"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="advance-date">Data do pagamento</Label>
-            <Input
-              id="advance-date"
-              type="date"
-              value={advanceForm.date}
-              onChange={(e) => setAdvanceForm({ ...advanceForm, date: e.target.value })}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="advance-note">Observação (origem do dinheiro)</Label>
-            <Input
-              id="advance-note"
-              value={advanceForm.note}
-              onChange={(e) => setAdvanceForm({ ...advanceForm, note: e.target.value })}
-              placeholder="Ex.: PIX recebido — adiantamento"
-            />
-          </div>
-          <p className="text-xs text-muted-foreground">
-            O valor entra como crédito do cliente no extrato e pode ser abatido automaticamente ao
-            receber a emissão (venda).
-          </p>
-        </div>
-        <div className="mt-4 flex justify-end gap-2">
-          <Button variant="outline" onClick={() => setAdvanceClient(null)}>
-            Cancelar
-          </Button>
-          <Button
-            onClick={handleAdvance}
-            disabled={!advanceForm.amount || Number(advanceForm.amount) <= 0 || advanceM.isPending}
-            className="bg-gradient-primary hover:opacity-90"
-          >
-            {advanceM.isPending ? "Registrando..." : "Registrar"}
-          </Button>
-        </div>
-      </FormDrawer>
-
-      {/* Search - sticky on mobile */}
-      <div className="sticky top-0 z-10 bg-background py-2 -mx-4 px-4 md:static md:mx-0 md:px-0">
-        <div className="flex items-center gap-4">
-          <div className="flex-1 max-w-md">
-            <SearchInput
-              placeholder="Buscar por nome, CPF ou e-mail..."
-              value={searchTerm}
-              onChange={setSearchTerm}
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Stats Cards */}
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 animate-appear animate-delay-300">
-        <Card className="shadow-card">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              Total de Clientes
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-foreground">{clients.length}</div>
-          </CardContent>
-        </Card>
-
-        <Card className="shadow-card">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              Clientes Ativos
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-success">
-              {clients.filter((c) => c.totalPurchases > 0).length}
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="shadow-card">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              Total de Compras
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-foreground">
-              {clients.reduce((sum, client) => sum + client.totalPurchases, 0)}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Clients Table */}
-      <Card className="shadow-card animate-appear animate-delay-600">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Users className="h-5 w-5 text-primary" />
-            Lista de Clientes
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="hidden md:table-cell">Cliente</TableHead>
-                  <TableHead className="hidden md:table-cell">CPF</TableHead>
-                  <TableHead className="hidden md:table-cell">Contato</TableHead>
-                  <TableHead className="hidden md:table-cell">Compras</TableHead>
-                  <TableHead className="hidden md:table-cell text-right">Saldo</TableHead>
-                  <TableHead className="hidden md:table-cell">Histórico de Uso</TableHead>
-                  <TableHead className="hidden md:table-cell text-right">Ações</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredClients.map((client) => (
-                  <TableRow key={client.id} className="transition-colors">
-                    <TableCell className="hidden md:table-cell">
-                      <div className="flex items-center gap-3">
-                        <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-semibold text-primary">
-                          {client.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")
-                            .slice(0, 2)
-                            .toUpperCase()}
-                        </div>
-                        <div>
-                          <p className="font-medium">{client.name}</p>
-                          <p className="text-sm text-muted-foreground">{client.email ?? "-"}</p>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell font-mono">
-                      {client.cpf ?? "-"}
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      <div className="flex items-center gap-2">
-                        <Phone className="h-4 w-4 text-muted-foreground" />
-                        <span className="text-sm">{client.phone}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      <Badge variant="outline">{client.totalPurchases} compras</Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell text-right">
-                      <ClientCreditInfo clientId={client.id} />
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      <div className="flex flex-wrap gap-1">
-                        {client.usageHistory.map((usage, index) => (
-                          <Badge key={index} variant="secondary" className="text-xs">
-                            {usage.program}: {usage.count}x
-                          </Badge>
-                        ))}
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell text-right">
-                      <div className="flex justify-end gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          title="Registrar adiantamento (dinheiro recebido antes da emissão)"
-                          className="px-2 min-w-[44px] min-h-[44px]"
-                          onClick={() => openAdvanceDrawer(client)}
-                        >
-                          <Banknote className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="px-2 min-w-[44px] min-h-[44px]"
-                          onClick={() => handleEditClient(client)}
-                        >
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="px-2 text-destructive hover:text-destructive min-w-[44px] min-h-[44px]"
-                          onClick={() => handleDeleteClient(client.id, client.name)}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-
-          {/* Mobile card list */}
-          <div className="md:hidden space-y-3 mt-4">
-            {paginatedClients.map((client) => (
-              <div key={client.id} className="border rounded-lg p-4 space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-sm font-semibold text-primary">
-                      {client.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")
-                        .slice(0, 2)
-                        .toUpperCase()}
-                    </div>
-                    <div>
-                      <p className="font-medium">{client.name}</p>
-                      <p className="text-xs text-muted-foreground">{client.email ?? "-"}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-2 text-sm">
-                  <div>
-                    <span className="text-muted-foreground">CPF:</span>
-                    <p className="font-mono text-xs">{client.cpf ?? "-"}</p>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground">Saldo:</span>
-                    <ClientCreditInfo clientId={client.id} />
-                  </div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <Badge variant="outline">{client.totalPurchases} compras</Badge>
-                  <div className="flex gap-2">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      title="Registrar adiantamento (dinheiro recebido antes da emissão)"
-                      className="px-2 min-h-[44px] min-w-[44px]"
-                      onClick={() => openAdvanceDrawer(client)}
-                    >
-                      <Banknote className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="px-2 min-h-[44px] min-w-[44px]"
-                      onClick={() => handleEditClient(client)}
-                    >
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="px-2 text-destructive hover:text-destructive min-h-[44px] min-w-[44px]"
-                      onClick={() => handleDeleteClient(client.id, client.name)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {filteredClients.length > ITEMS_PER_PAGE && (
-            <div className="mt-4 flex flex-col items-center gap-2">
-              <span className="text-xs text-muted-foreground">
-                Mostrando {(currentPage - 1) * ITEMS_PER_PAGE + 1}–
-                {Math.min(currentPage * ITEMS_PER_PAGE, filteredClients.length)} de{" "}
-                {filteredClients.length}
-              </span>
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-              />
-            </div>
-          )}
-
-          {filteredClients.length === 0 && (
-            <div className="py-8">
-              <EmptyState
-                icon={searchTerm ? Search : UserPlus}
-                title={searchTerm ? "Nenhum cliente encontrado" : "Nenhum cliente cadastrado"}
-                description={
-                  searchTerm
-                    ? "Tente alterar o termo ou limpar a busca."
-                    : "Clientes são o coração do negócio. Cadastre o primeiro e comece a vender."
-                }
-                action={
-                  searchTerm
-                    ? undefined
-                    : { label: "Cadastrar Cliente", onClick: () => setIsCreateDialogOpen(true) }
-                }
-              />
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Delete Blocked Alert */}
-      <AlertDialog
+      <DeleteClientBlockedDialog
         open={deleteBlocked.open}
         onOpenChange={(open) => setDeleteBlocked((prev) => ({ ...prev, open }))}
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle className="flex items-center gap-2 text-destructive">
-              <AlertTriangle className="h-5 w-5" />
-              Exclusão não permitida
-            </AlertDialogTitle>
-            <AlertDialogDescription asChild>
-              <div className="space-y-3">
-                <span>
-                  O cliente <strong>{deleteBlocked.clientName}</strong> possui vendas associadas e
-                  não pode ser excluído.
-                </span>
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-foreground">Vendas vinculadas:</p>
-                  {deleteBlocked.relatedSales.map((sale) => (
-                    <div
-                      key={sale.id}
-                      className="flex items-center justify-between p-2 bg-muted/30 rounded text-sm"
-                    >
-                      <span className="text-muted-foreground">{formatDateBR(sale.date)}</span>
-                      <span className="font-mono text-xs">{sale.ticketLocator}</span>
-                      <span className="font-medium">
-                        {sale.milesUsed.toLocaleString("pt-BR")} milhas
-                      </span>
-                    </div>
-                  ))}
-                </div>
-                <span className="text-xs text-muted-foreground">
-                  Remova as vendas vinculadas antes de excluir este cliente.
-                </span>
-              </div>
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogAction>Entendi</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+        clientName={deleteBlocked.clientName}
+        relatedSales={deleteBlocked.relatedSales}
+      />
     </div>
   );
 }
