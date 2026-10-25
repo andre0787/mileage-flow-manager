@@ -13,13 +13,14 @@ export const entriesOfAccountType = (
   entries: PointEntry[],
   accounts: Account[],
   type: "milhas" | "pontos",
-) =>
-  entries.filter(
+) => {
+  const accountTypeMap = new Map<string, Account["type"]>(accounts.map((a) => [a.id, a.type]));
+  return entries.filter(
     (e) =>
-      accounts.find((a) => a.id === e.accountId)?.type === type ||
-      (e.sourceAccountId != null &&
-        accounts.find((a) => a.id === e.sourceAccountId)?.type === type),
+      accountTypeMap.get(e.accountId) === type ||
+      (e.sourceAccountId != null && accountTypeMap.get(e.sourceAccountId) === type),
   );
+};
 
 const byOwner = <T>(
   items: T[],

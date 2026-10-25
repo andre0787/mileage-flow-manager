@@ -1,8 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { computeOwnerData } from "@/lib/dashboardSelectors";
-import type { Account, Owner, Program, Sale } from "@/types";
+import { computeOwnerData, entriesOfAccountType } from "@/lib/dashboardSelectors";
+import type { Account, Owner, PointEntry, Program, Sale } from "@/types";
 
-describe("computeOwnerData Benchmark", () => {
+describe("dashboardSelectors Benchmark", () => {
   it("measures performance of computeOwnerData with linear vs map lookup dataset", () => {
     const numOwners = 200;
     const numPrograms = 50;
@@ -35,7 +35,7 @@ describe("computeOwnerData Benchmark", () => {
           name: `Account ${accId}`,
           ownerId: owner.id,
           programId: progId,
-          type: "milhas",
+          type: a % 2 === 0 ? "milhas" : "pontos",
           balance: 10000 + a,
           totalInvested: 500 + a,
           status: "ativa",
@@ -78,7 +78,47 @@ describe("computeOwnerData Benchmark", () => {
     const duration = performance.now() - start;
 
     expect(resultRows).toBe(numOwners);
-    // Print timing info for reference
+    expect(duration).toBeGreaterThan(0);
+  });
+
+  it("measures performance of entriesOfAccountType with array find vs Map lookup", () => {
+    const numAccounts = 500;
+    const numEntries = 5000;
+
+    const accounts: Account[] = Array.from({ length: numAccounts }, (_, i) => ({
+      id: `acc-${i}`,
+      name: `Account ${i}`,
+      ownerId: `owner-${i % 20}`,
+      programId: `prog-${i % 10}`,
+      type: i % 2 === 0 ? "milhas" : "pontos",
+      balance: 1000,
+      status: "ativa",
+      createdAt: "2026-01-01",
+    }));
+
+    const entries: PointEntry[] = Array.from({ length: numEntries }, (_, i) => ({
+      id: `entry-${i}`,
+      accountId: `acc-${i % numAccounts}`,
+      sourceAccountId: i % 3 === 0 ? `acc-${(i + 1) % numAccounts}` : undefined,
+      origemTypeId: "ot1",
+      amount: 1000,
+      amountPaid: 100,
+      costPerThousand: 100,
+      date: "2026-08-01",
+    }));
+
+    const iterations = 50;
+
+    const start = performance.now();
+    let count = 0;
+    for (let iter = 0; iter < iterations; iter++) {
+      const result = entriesOfAccountType(entries, accounts, "milhas");
+      count = result.length;
+    }
+    const duration = performance.now() - start;
+
+    expect(count).toBeGreaterThan(0);
+    // Baseline timing log or assertion
     expect(duration).toBeGreaterThan(0);
   });
 });
