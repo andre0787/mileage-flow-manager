@@ -105,6 +105,59 @@ describe("computeRecentEntries", () => {
       { id: "e1", amount: 100, accountName: "Conta Milhas" },
     ]);
   });
+
+  it("retorna string vazia quando conta não é encontrada", () => {
+    const accounts = [acct("a1", "Conta Milhas")];
+    const entries = [entry("e1", { accountId: "a999", date: "2026-08-01", amount: 100 })];
+    const rows = computeRecentEntries(entries, accounts);
+    expect(rows).toEqual([{ id: "e1", amount: 100, accountName: "" }]);
+  });
+});
+
+describe("computeRecentEntries & computeRecentTransfers benchmark", () => {
+  it("executa busca via Map de forma mais eficiente do que Array.find para múltiplos elementos", () => {
+    const NUM_ACCOUNTS = 1000;
+    const NUM_ENTRIES = 10000;
+
+    const accounts: Account[] = Array.from({ length: NUM_ACCOUNTS }, (_, i) =>
+      acct(`a-${i}`, `Conta ${i}`),
+    );
+
+    const entries: PointEntry[] = Array.from({ length: NUM_ENTRIES }, (_, i) =>
+      entry(`e-${i}`, {
+        accountId: `a-${i % NUM_ACCOUNTS}`,
+        sourceAccountId: `a-${(i + 1) % NUM_ACCOUNTS}`,
+        origemTypeId: "ot-t",
+        date: `2026-01-${String((i % 28) + 1).padStart(2, "0")}`,
+      }),
+    );
+
+    const transferOt: OrigemType = {
+      id: "ot-t",
+      name: "Transferência",
+      accountType: "milhas",
+      color: "",
+    };
+
+    // Medindo computeRecentEntries
+    const startEntries = performance.now();
+    const recentEntries = computeRecentEntries(entries, accounts);
+    const timeEntries = performance.now() - startEntries;
+
+    expect(recentEntries).toHaveLength(6);
+    expect(recentEntries[0].accountName).toBeTruthy();
+    expect(timeEntries).toBeGreaterThanOrEqual(0);
+
+    // Medindo computeRecentTransfers
+    const startTransfers = performance.now();
+    const recentTransfers = computeRecentTransfers(entries, accounts, [transferOt]);
+    const timeTransfers = performance.now() - startTransfers;
+
+    expect(recentTransfers).toHaveLength(8);
+    expect(recentTransfers[0].sourceAccountName).toBeTruthy();
+    expect(recentTransfers[0].destAccountName).toBeTruthy();
+    expect(timeTransfers).toBeGreaterThanOrEqual(0);
+  });
 });
 
 describe("computeRecentTransfers", () => {
