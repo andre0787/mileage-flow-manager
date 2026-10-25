@@ -170,6 +170,10 @@ describe("ci workflow (eficiência PR)", () => {
     expect(content).toMatch(/cancel-in-progress: false/);
     expect(content).not.toMatch(/cancel-in-progress: true/);
   });
+
+  it("não contém chave anon do Supabase hardcoded", () => {
+    expect(content).not.toMatch(/sb_publishable_/);
+  });
 });
 
 describe("nightly workflow (split paralelo)", () => {
