@@ -7,6 +7,8 @@ import { useSaleFormState, emptyForm } from "./sales/form/useSaleFormState";
 import { SaleFormCommonFields } from "./sales/form/SaleFormCommonFields";
 import { SaleFormMilesFields } from "./sales/form/SaleFormMilesFields";
 import { SaleFormServiceFields } from "./sales/form/SaleFormServiceFields";
+import { SaleFormKindToggle } from "./sales/form/SaleFormKindToggle";
+import { SaleFormProfitPreview } from "./sales/form/SaleFormProfitPreview";
 import type {
   Account,
   Owner,
@@ -14,7 +16,6 @@ import type {
   Client,
   Sale,
   SaleFormData,
-  SaleKind,
   AdditionalCostItem,
 } from "@/types";
 
@@ -35,145 +36,57 @@ interface SaleFormProps {
   editingSaleId?: string;
 }
 
-export function SaleForm({
-  open,
-  onOpenChange,
-  accounts,
-  owners,
-  programs,
-  clients,
-  sales,
-  onSubmit,
-  onCreateClient,
-  mode = "create",
-  initialData,
-  editingSaleId,
-}: SaleFormProps) {
-  // formAction is managed via useActionState inside useSaleFormState
-  const {
-    form,
-    setForm,
-    update,
-    switchKind,
-    isClientDialogOpen,
-    setIsClientDialogOpen,
-    ownersList,
-    selectedOwnerStock,
-    selectedProgramStock,
-    effectiveAvailableMiles,
-    additionalCostsTotal,
-    profitPreview,
-    handlePassengerClientChange,
-    formAction,
-    canSubmit,
-    usedPassengersInCycle,
-    newPassengersCount,
-    totalPassengersInCycle,
-    maxPassengersAllowed,
-    passengerLimitExceeded,
-  } = useSaleFormState({
-    accounts,
-    owners,
-    programs,
-    clients,
-    sales,
-    onSubmit,
-    mode,
-    initialData,
-    editingSaleId,
-  });
-
-  const isServico = form.kind === "servico";
+export function SaleForm(props: SaleFormProps) {
+  const { open, onOpenChange, onCreateClient, mode = "create" } = props;
+  const s = useSaleFormState(props);
+  const isServico = s.form.kind === "servico";
 
   return (
     <>
       <FormDrawer
         open={open}
         onOpenChange={(isOpen) => {
-          if (!isOpen) setForm({ ...emptyForm, date: todayISODate() });
+          if (!isOpen) s.setForm({ ...emptyForm, date: todayISODate() });
           onOpenChange(isOpen);
         }}
         title={mode === "edit" ? "Editar Venda" : "Registrar Nova Venda"}
       >
-        <form className="grid gap-4 py-4" action={formAction}>
-          {/* Tipo da venda: Milhas | Serviço */}
-          <div className="grid grid-cols-2 gap-2" role="group" aria-label="Tipo da venda">
-            {(
-              [
-                { value: "milhas", label: "Milhas" },
-                { value: "servico", label: "Serviço" },
-              ] as const
-            ).map((opt) => (
-              <Button
-                key={opt.value}
-                type="button"
-                variant={form.kind === opt.value ? "default" : "outline"}
-                className="min-h-[44px]"
-                disabled={mode === "edit"}
-                title={mode === "edit" ? "Tipo da venda não pode ser alterado" : undefined}
-                onClick={() => switchKind(opt.value)}
-              >
-                {opt.label}
-              </Button>
-            ))}
-          </div>
+        <form className="grid gap-4 py-4" action={s.formAction}>
+          <SaleFormKindToggle kind={s.form.kind} mode={mode} onSwitchKind={s.switchKind} />
 
-          {!isServico ? (
+          {!isServico && (
             <SaleFormMilesFields
-              form={form}
-              update={update}
-              ownersList={ownersList}
-              selectedOwnerStock={selectedOwnerStock}
-              selectedProgramStock={selectedProgramStock}
-              effectiveAvailableMiles={effectiveAvailableMiles}
-              additionalCostsTotal={additionalCostsTotal}
-              clients={clients}
-              handlePassengerClientChange={handlePassengerClientChange}
-              passengerLimitExceeded={passengerLimitExceeded}
-              maxPassengersAllowed={maxPassengersAllowed}
-              usedPassengersInCycle={usedPassengersInCycle}
-              newPassengersCount={newPassengersCount}
-              totalPassengersInCycle={totalPassengersInCycle}
+              form={s.form}
+              update={s.update}
+              ownersList={s.ownersList}
+              selectedOwnerStock={s.selectedOwnerStock}
+              selectedProgramStock={s.selectedProgramStock}
+              effectiveAvailableMiles={s.effectiveAvailableMiles}
+              additionalCostsTotal={s.additionalCostsTotal}
+              clients={props.clients}
+              handlePassengerClientChange={s.handlePassengerClientChange}
+              passengerLimitExceeded={s.passengerLimitExceeded}
+              maxPassengersAllowed={s.maxPassengersAllowed}
+              usedPassengersInCycle={s.usedPassengersInCycle}
+              newPassengersCount={s.newPassengersCount}
+              totalPassengersInCycle={s.totalPassengersInCycle}
             />
-          ) : null}
+          )}
 
           <SaleFormCommonFields
-            form={form}
-            update={update}
-            clients={clients}
+            form={s.form}
+            update={s.update}
+            clients={props.clients}
             isServico={isServico}
-            onOpenClientDialog={() => setIsClientDialogOpen(true)}
+            onOpenClientDialog={() => s.setIsClientDialogOpen(true)}
           />
 
-          {isServico ? <SaleFormServiceFields form={form} update={update} /> : null}
+          {isServico && <SaleFormServiceFields form={s.form} update={s.update} />}
 
-          {profitPreview && (
-            <div className="p-3 bg-success-light rounded-lg">
-              <h4 className="font-semibold text-sm mb-2">Cálculo de Lucro:</h4>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
-                <div>
-                  <span className="text-muted-foreground">Custo total:</span>
-                  <p className="font-semibold">R$ {profitPreview.costTotal.toFixed(2)}</p>
-                </div>
-                {additionalCostsTotal > 0 && (
-                  <div>
-                    <span className="text-muted-foreground">Custos adicionais:</span>
-                    <p className="font-semibold text-destructive">
-                      R$ {additionalCostsTotal.toFixed(2)}
-                    </p>
-                  </div>
-                )}
-                <div>
-                  <span className="text-muted-foreground">Lucro:</span>
-                  <p className="font-semibold text-success">R$ {profitPreview.profit.toFixed(2)}</p>
-                </div>
-                <div>
-                  <span className="text-muted-foreground">Margem:</span>
-                  <p className="font-semibold">{profitPreview.margin.toFixed(1)}%</p>
-                </div>
-              </div>
-            </div>
-          )}
+          <SaleFormProfitPreview
+            profitPreview={s.profitPreview}
+            additionalCostsTotal={s.additionalCostsTotal}
+          />
 
           <div className="flex justify-end gap-2 mt-4">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
@@ -181,7 +94,7 @@ export function SaleForm({
             </Button>
             <FormSubmitButton
               className="bg-gradient-primary hover:opacity-90"
-              disabled={!canSubmit || !!passengerLimitExceeded}
+              disabled={!s.canSubmit || !!s.passengerLimitExceeded}
             >
               {mode === "edit" ? "Atualizar Venda" : "Registrar Venda"}
             </FormSubmitButton>
@@ -190,10 +103,10 @@ export function SaleForm({
       </FormDrawer>
 
       <ClientCreationDrawer
-        open={isClientDialogOpen}
-        onOpenChange={setIsClientDialogOpen}
+        open={s.isClientDialogOpen}
+        onOpenChange={s.setIsClientDialogOpen}
         onCreateClient={onCreateClient}
-        onClientCreated={({ id, name }) => update({ clientId: id, clientName: name })}
+        onClientCreated={({ id, name }) => s.update({ clientId: id, clientName: name })}
       />
     </>
   );
