@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-25T15:29:15.276Z",
+  "generatedAt": "2026-10-25T16:10:42.030Z",
   "dataDate": "2026-10-25",
   "kpiStats": [
     {
-      "value": 359,
+      "value": 364,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 486,
+      "value": 489,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 22,
+      "n": 23,
       "color": "#8b5cf6"
     },
     {
@@ -61,7 +61,7 @@
     },
     {
       "name": "gate",
-      "n": 76,
+      "n": 80,
       "color": "#f43f5e"
     }
   ],
@@ -73,7 +73,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 2,
+      "n": 3,
       "color": "#84cc16"
     },
     {
@@ -83,6 +83,31 @@
     }
   ],
   "recentTimeline": [
+    {
+      "t": "2026-10-25 16:10:41",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-10-25 16:08:02",
+      "d": "gate",
+      "desc": "gate auth executado (rule-35-auth-gate)"
+    },
+    {
+      "t": "2026-10-25 16:08:02",
+      "d": "gate",
+      "desc": "gate twins executado (rule-34-twins-check)"
+    },
+    {
+      "t": "2026-10-25 16:08:02",
+      "d": "gate",
+      "desc": "gate intent executado (rule-33-intent-gate)"
+    },
+    {
+      "t": "2026-10-25 16:08:02",
+      "d": "gate",
+      "desc": "gate council executado (rule-27-council-veredict)"
+    },
     {
       "t": "2026-10-25 15:29:14",
       "d": "pre-pr",
@@ -97,39 +122,14 @@
       "t": "2026-10-25 15:26:18",
       "d": "gate",
       "desc": "gate twins executado (rule-34-twins-check)"
-    },
-    {
-      "t": "2026-10-25 15:26:18",
-      "d": "gate",
-      "desc": "gate intent executado (rule-33-intent-gate)"
-    },
-    {
-      "t": "2026-10-25 15:26:18",
-      "d": "gate",
-      "desc": "gate council executado (rule-27-council-veredict)"
-    },
-    {
-      "t": "2026-10-25 15:25:51",
-      "d": "code-review:done",
-      "desc": "Review aprovado por subagente"
-    },
-    {
-      "t": "2026-10-25 15:25:51",
-      "d": "coding:done",
-      "desc": "Subagente refatorou SaleTableRow em subcomponentes"
-    },
-    {
-      "t": "2026-10-25 15:14:35",
-      "d": "rule:fail",
-      "desc": "rule-38-code-review-gate falhou"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 8,
     "healed": 0,
     "healedRate": 0,
-    "prePrTotal": 22,
-    "prePrPass": 22,
+    "prePrTotal": 23,
+    "prePrPass": 23,
     "prePrPassRate": 100,
     "gateBlocked": 0,
     "topViolations": [
@@ -149,7 +149,7 @@
     "testFiles": 376,
     "skills": 28,
     "rules": 48,
-    "events": 359,
-    "qualityNotes": 486
+    "events": 364,
+    "qualityNotes": 489
   }
 }

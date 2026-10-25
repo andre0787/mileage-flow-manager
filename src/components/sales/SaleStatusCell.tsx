@@ -15,12 +15,7 @@ interface SaleStatusCellProps {
   onStatusChange?: (saleId: string, status: "pendente" | "pago" | "concluido") => void;
 }
 
-export function SaleStatusCell({
-  saleId,
-  status,
-  isOnline,
-  onStatusChange,
-}: SaleStatusCellProps) {
+export function SaleStatusCell({ saleId, status, isOnline, onStatusChange }: SaleStatusCellProps) {
   if (status === "cancelado") {
     return <StatusBadge status="cancelado" size="sm" />;
   }

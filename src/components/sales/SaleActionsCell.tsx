@@ -95,12 +95,7 @@ export function SaleActionsCell({
             </Button>
           )}
           {onEdit && (
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-6 text-xs"
-              onClick={() => onEdit(sale)}
-            >
+            <Button variant="ghost" size="sm" className="h-6 text-xs" onClick={() => onEdit(sale)}>
               Editar
             </Button>
           )}
