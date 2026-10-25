@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { User, Mail, Lock, Save } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 import { useAuth } from "@/features/auth";
 import { supabase } from "@/lib/supabase";
-import { toast } from "sonner";
+import { ProfilePersonalInfoCard } from "@/components/profile/ProfilePersonalInfoCard";
+import { ProfileEmailCard } from "@/components/profile/ProfileEmailCard";
+import { ProfilePasswordCard } from "@/components/profile/ProfilePasswordCard";
 
 export default function Perfil() {
   const { user } = useAuth();
@@ -57,7 +55,6 @@ export default function Perfil() {
     }
     setSaving("password");
 
-    // Verifica senha atual antes de alterar
     const { error: signInError } = await supabase.auth.signInWithPassword({
       email: user?.email ?? "",
       password: currentPassword,
@@ -88,123 +85,31 @@ export default function Perfil() {
         </div>
       </div>
 
-      {/* Nome */}
-      <Card className="shadow-card animate-appear animate-delay-200">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <User className="h-5 w-5 text-primary" />
-            Informações Pessoais
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="name">Nome</Label>
-            <div className="flex gap-2">
-              <Input
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Seu nome"
-                className="flex-1"
-              />
-              <Button
-                onClick={handleUpdateName}
-                disabled={saving === "name"}
-                className="shrink-0 min-h-[44px]"
-              >
-                {saving === "name" ? "Salvando..." : "Salvar"}
-              </Button>
-            </div>
-          </div>
-          <div className="p-3 bg-muted/30 rounded-lg text-sm text-muted-foreground">
-            <span className="font-medium text-foreground">Email atual:</span> {user?.email}
-          </div>
-        </CardContent>
-      </Card>
+      <ProfilePersonalInfoCard
+        user={user}
+        name={name}
+        setName={setName}
+        saving={saving}
+        onUpdateName={handleUpdateName}
+      />
 
-      {/* Email */}
-      <Card className="shadow-card animate-appear animate-delay-400">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Mail className="h-5 w-5 text-primary" />
-            Email
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Novo Email</Label>
-            <div className="flex gap-2">
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="seu@email.com"
-                className="flex-1"
-              />
-              <Button
-                onClick={handleUpdateEmail}
-                disabled={saving === "email"}
-                className="shrink-0 min-h-[44px]"
-              >
-                {saving === "email" ? "Salvando..." : "Salvar"}
-              </Button>
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Será enviado um email de confirmação para o novo endereço
-            </p>
-          </div>
-        </CardContent>
-      </Card>
+      <ProfileEmailCard
+        email={email}
+        setEmail={setEmail}
+        saving={saving}
+        onUpdateEmail={handleUpdateEmail}
+      />
 
-      {/* Senha */}
-      <Card className="shadow-card animate-appear animate-delay-600">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Lock className="h-5 w-5 text-primary" />
-            Alterar Senha
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="currentPassword">Senha Atual</Label>
-            <Input
-              id="currentPassword"
-              type="password"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-              placeholder="••••••"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="newPassword">Nova Senha</Label>
-            <Input
-              id="newPassword"
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              placeholder="Mínimo 6 caracteres"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirmar Nova Senha</Label>
-            <Input
-              id="confirmPassword"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Repita a nova senha"
-            />
-          </div>
-          <Button
-            onClick={handleUpdatePassword}
-            disabled={saving === "password"}
-            className="bg-gradient-primary hover:opacity-90 min-h-[44px]"
-          >
-            {saving === "password" ? "Alterando..." : "Alterar Senha"}
-          </Button>
-        </CardContent>
-      </Card>
+      <ProfilePasswordCard
+        currentPassword={currentPassword}
+        setCurrentPassword={setCurrentPassword}
+        newPassword={newPassword}
+        setNewPassword={setNewPassword}
+        confirmPassword={confirmPassword}
+        setConfirmPassword={setConfirmPassword}
+        saving={saving}
+        onUpdatePassword={handleUpdatePassword}
+      />
     </div>
   );
 }
