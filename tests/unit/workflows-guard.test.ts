@@ -120,6 +120,7 @@ describe("auto-merge workflow (dispara deploy após merge)", () => {
   });
 
   it("valida branch não vazia e ignora main defensivamente no script do Find open PR", () => {
+    expect(content).toMatch(/BRANCH="\$\{BRANCH#refs\/heads\/\}"/);
     expect(content).toMatch(/if \[ -z "\$BRANCH" \] \|\| \[ "\$BRANCH" = "main" \]/);
   });
 

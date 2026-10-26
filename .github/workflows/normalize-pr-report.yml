@@ -27,6 +27,7 @@ jobs:
           HEAD_REF: ${{ github.head_ref || github.event.pull_request.head.ref }}
           PR_NUM: ${{ github.event.pull_request.number }}
         run: |
+          HEAD_REF="${HEAD_REF#refs/heads/}"
           if [ -z "$PR_NUM" ]; then
             echo "⚠️ PR_NUM não encontrado, cancelando normalização"
             echo "pushed=no" >> "$GITHUB_OUTPUT"
@@ -62,7 +63,7 @@ jobs:
               NEW_NAME="PR${PR_NUM}-${BASENAME}"
             fi
 
-            if [ "$BASENAME" != "$NEW_NAME" ]; then
+            if [ -n "$NEW_NAME" ] && [ "$BASENAME" != "$NEW_NAME" ]; then
               if [ -f "$DIRNAME/$NEW_NAME" ]; then
                 echo "  ⚠️ Target $NEW_NAME já existe, limpando antes de renomear"
                 rm -f "$DIRNAME/$NEW_NAME" 2>/dev/null || true
@@ -118,7 +119,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HEAD_REF: ${{ github.head_ref || github.event.pull_request.head.ref }}
         run: |
-          BRANCH="$HEAD_REF"
+          BRANCH="${HEAD_REF#refs/heads/}"
           NEW_SHA="$(git rev-parse HEAD)"
 
           # 1) Achar o run de CI criado para o SHA do push do bot

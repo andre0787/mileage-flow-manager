@@ -24,6 +24,7 @@ jobs:
       github.event.workflow_run.head_branch &&
       github.event.workflow_run.head_branch != github.event.repository.default_branch &&
       github.event.workflow_run.head_branch != 'main' &&
+      github.event.workflow_run.head_branch != 'refs/heads/main' &&
       github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
 
@@ -34,6 +35,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           BRANCH="${{ github.event.workflow_run.head_branch }}"
+          BRANCH="${BRANCH#refs/heads/}"
           echo "🔍 Buscando PR aberto da branch: $BRANCH"
           # Guarda P0: ignora execuções pós-merge na main
           if [ -z "$BRANCH" ] || [ "$BRANCH" = "main" ] || [ "$BRANCH" = "${{ github.event.repository.default_branch }}" ]; then
@@ -132,7 +134,8 @@ jobs:
       github.event_name == 'repository_dispatch' &&
       github.event.client_payload.branch &&
       github.event.client_payload.branch != github.event.repository.default_branch &&
-      github.event.client_payload.branch != 'main'
+      github.event.client_payload.branch != 'main' &&
+      github.event.client_payload.branch != 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -143,6 +146,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           BRANCH="${{ github.event.client_payload.branch }}"
+          BRANCH="${BRANCH#refs/heads/}"
           echo "🔍 Buscando PR aberto da branch: $BRANCH (pr-ready)"
           if [ -z "$BRANCH" ] || [ "$BRANCH" = "main" ] || [ "$BRANCH" = "${{ github.event.repository.default_branch }}" ]; then
             echo "⚠️ Branch inválida ou main, ignorando"
