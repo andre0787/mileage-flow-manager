@@ -15,6 +15,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css,json}\"",
     "test": "vitest run",
+    "test:unit": "vitest run",
     "test:serial": "vitest run --no-file-parallelism",
     "coverage": "vitest run --coverage",
     "test:watch": "vitest",

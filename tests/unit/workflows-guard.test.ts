@@ -68,6 +68,11 @@ describe("normalize-pr-report workflow (P0: PRs blocked por [skip ci])", () => {
     expect(content).toMatch(/if \[ -z "\$PR_NUM" \]/);
     expect(content).toMatch(/if \[ -z "\$HEAD_REF" \]/);
   });
+
+  it("verifica existência do diretório docs/reports defensivamente", () => {
+    const content = readFileSync(WF, "utf8");
+    expect(content).toMatch(/if \[ ! -d "docs\/reports" \]/);
+  });
 });
 
 describe("deploy workflow (deploy automático pós-merge)", () => {
