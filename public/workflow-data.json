@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-25T10:37:03.503Z",
-  "dataDate": "2026-10-25",
+  "generatedAt": "2026-10-26T12:07:20.407Z",
+  "dataDate": "2026-10-26",
   "kpiStats": [
     {
       "value": 362,
@@ -142,6 +142,16 @@
   },
   "lastPrs": [
     {
+      "number": 750,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-25",
+      "tokens": 369,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
       "number": 749,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
       "type": "other",
@@ -179,16 +189,6 @@
       "tokens": 448,
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 743,
-      "title": "feat(vendas): toggle considerar/não considerar venda no ROI",
-      "type": "feat",
-      "date": "2026-10-20",
-      "tokens": 968,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio",
       "cycleHours": 0.1
     }
   ],
