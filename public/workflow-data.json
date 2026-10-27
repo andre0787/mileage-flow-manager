@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-27T05:06:29.518Z",
+  "generatedAt": "2026-10-27T05:09:50.850Z",
   "dataDate": "2026-10-27",
   "kpiStats": [
     {
-      "value": 406,
+      "value": 411,
       "label": "eventos registrados",
       "sub": "docs/tracking/events.jsonl"
     },
     {
-      "value": 507,
+      "value": 510,
       "label": "notas de qualidade",
       "sub": "docs/tracking/quality.jsonl"
     },
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 24,
+      "n": 25,
       "color": "#8b5cf6"
     },
     {
@@ -66,7 +66,7 @@
     },
     {
       "name": "gate",
-      "n": 88,
+      "n": 92,
       "color": "#f43f5e"
     },
     {
@@ -83,7 +83,7 @@
     },
     {
       "name": "80% — aprovado",
-      "n": 5,
+      "n": 6,
       "color": "#84cc16"
     },
     {
@@ -93,6 +93,31 @@
     }
   ],
   "recentTimeline": [
+    {
+      "t": "2026-10-27 05:09:46",
+      "d": "pre-pr",
+      "desc": "pre-pr PASS"
+    },
+    {
+      "t": "2026-10-27 05:09:05",
+      "d": "gate",
+      "desc": "gate auth executado (rule-35-auth-gate)"
+    },
+    {
+      "t": "2026-10-27 05:09:05",
+      "d": "gate",
+      "desc": "gate twins executado (rule-34-twins-check)"
+    },
+    {
+      "t": "2026-10-27 05:09:05",
+      "d": "gate",
+      "desc": "gate intent executado (rule-33-intent-gate)"
+    },
+    {
+      "t": "2026-10-27 05:09:05",
+      "d": "gate",
+      "desc": "gate council executado (rule-27-council-veredict)"
+    },
     {
       "t": "2026-10-27 05:06:25",
       "d": "pre-pr",
@@ -107,39 +132,14 @@
       "t": "2026-10-27 05:05:44",
       "d": "gate",
       "desc": "gate twins executado (rule-34-twins-check)"
-    },
-    {
-      "t": "2026-10-27 05:05:44",
-      "d": "gate",
-      "desc": "gate intent executado (rule-33-intent-gate)"
-    },
-    {
-      "t": "2026-10-27 05:05:44",
-      "d": "gate",
-      "desc": "gate council executado (rule-27-council-veredict)"
-    },
-    {
-      "t": "2026-10-27 05:04:38",
-      "d": "gate",
-      "desc": "gate auth executado (rule-35-auth-gate)"
-    },
-    {
-      "t": "2026-10-27 05:04:38",
-      "d": "gate",
-      "desc": "gate twins executado (rule-34-twins-check)"
-    },
-    {
-      "t": "2026-10-27 05:04:38",
-      "d": "gate",
-      "desc": "gate intent executado (rule-33-intent-gate)"
     }
   ],
   "gateEfficiency": {
     "ruleFails": 12,
     "healed": 2,
     "healedRate": 16.7,
-    "prePrTotal": 24,
-    "prePrPass": 24,
+    "prePrTotal": 25,
+    "prePrPass": 25,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
@@ -230,7 +230,7 @@
     "testFiles": 376,
     "skills": 28,
     "rules": 48,
-    "events": 406,
-    "qualityNotes": 507
+    "events": 411,
+    "qualityNotes": 510
   }
 }

@@ -4,7 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useData } from "@/contexts/DataContext";
 import { useAllClientCreditsQuery } from "@/features/clientes";
-import { buildCollectionReport, collectionCsvRows, collectionLineTypeLabel } from "@/lib/collections";
+import {
+  buildCollectionReport,
+  collectionCsvRows,
+  collectionLineTypeLabel,
+} from "@/lib/collections";
 import type { CollectionSale } from "@/lib/collections";
 import { downloadCSV } from "@/lib/utils";
 import { formatDateBR } from "@/lib/dateUtils";
@@ -19,16 +23,13 @@ export function CollectionSection({ sales: salesProp }: { sales?: CollectionSale
   const creditsQ = useAllClientCreditsQuery();
   const [openId, setOpenId] = useState<string | null>(null);
 
-  const rows = useMemo(
-    () => {
-      const clientNames = new Map(clients.map((client) => [client.id, client.name]));
-      return buildCollectionReport(sales, creditsQ.data ?? []).map((row) => ({
-        ...row,
-        clientName: clientNames.get(row.clientId) ?? row.clientName,
-      }));
-    },
-    [sales, creditsQ.data, clients],
-  );
+  const rows = useMemo(() => {
+    const clientNames = new Map(clients.map((client) => [client.id, client.name]));
+    return buildCollectionReport(sales, creditsQ.data ?? []).map((row) => ({
+      ...row,
+      clientName: clientNames.get(row.clientId) ?? row.clientName,
+    }));
+  }, [sales, creditsQ.data, clients]);
   const totalNet = useMemo(
     () => (creditsQ.isError ? null : rows.reduce((s, r) => s + r.net, 0)),
     [rows, creditsQ.isError],
@@ -86,28 +87,38 @@ export function CollectionSection({ sales: salesProp }: { sales?: CollectionSale
                   >
                     <div className="min-w-0">
                       <p className="font-semibold truncate">{r.clientName}</p>
-                      <p className="text-xs text-muted-foreground">Vendido R$ {r.totalSold.toLocaleString("pt-BR")} · Recebido/aplicado R$ {r.totalReceived.toLocaleString("pt-BR")}</p>
-                      <p className="text-xs text-muted-foreground">Pendente R$ {r.totalPending.toLocaleString("pt-BR")} · Crédito disponível R$ {r.creditBalance.toLocaleString("pt-BR")}</p>
+                      <p className="text-xs text-muted-foreground">
+                        Vendido R$ {r.totalSold.toLocaleString("pt-BR")} · Recebido/aplicado R${" "}
+                        {r.totalReceived.toLocaleString("pt-BR")}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        Pendente R$ {r.totalPending.toLocaleString("pt-BR")} · Crédito disponível R${" "}
+                        {r.creditBalance.toLocaleString("pt-BR")}
+                      </p>
                     </div>
                     <span className="text-sm font-bold text-primary whitespace-nowrap">
-                      {r.net > 0 ? "Devedor" : r.net < 0 ? "Credor" : "Quitado"} · R$ {Math.abs(r.net).toLocaleString("pt-BR")}
+                      {r.net > 0 ? "Devedor" : r.net < 0 ? "Credor" : "Quitado"} · R${" "}
+                      {Math.abs(r.net).toLocaleString("pt-BR")}
                     </span>
                   </button>
                   {open && (
                     <div className="border-t border-border px-3 py-2 space-y-1.5">
                       {r.lines.map((l) => (
-                        <div
-                          key={l.id}
-                          className="flex items-center justify-between gap-2 text-sm"
-                        >
+                        <div key={l.id} className="flex items-center justify-between gap-2 text-sm">
                           <div className="min-w-0">
-                            <p className="truncate">{formatDateBR(l.date)} · {collectionLineTypeLabel(l)} · {l.label}</p>
-                            <p className="text-xs text-muted-foreground">{l.type === "sale"
-                              ? `Débito R$ ${l.value.toLocaleString("pt-BR")} · Recebido/aplicado R$ ${l.received.toLocaleString("pt-BR")} · Pendente R$ ${l.pending.toLocaleString("pt-BR")}`
-                              : `Efeito no crédito: ${l.effect > 0 ? "+" : "−"}R$ ${Math.abs(l.effect).toLocaleString("pt-BR")}`}</p>
+                            <p className="truncate">
+                              {formatDateBR(l.date)} · {collectionLineTypeLabel(l)} · {l.label}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              {l.type === "sale"
+                                ? `Débito R$ ${l.value.toLocaleString("pt-BR")} · Recebido/aplicado R$ ${l.received.toLocaleString("pt-BR")} · Pendente R$ ${l.pending.toLocaleString("pt-BR")}`
+                                : `Efeito no crédito: ${l.effect > 0 ? "+" : "−"}R$ ${Math.abs(l.effect).toLocaleString("pt-BR")}`}
+                            </p>
                           </div>
                           <span className="tabular-nums font-semibold whitespace-nowrap">
-                            {l.type === "sale" ? `R$ ${l.value.toLocaleString("pt-BR")}` : `${l.effect > 0 ? "+" : "−"}R$ ${Math.abs(l.effect).toLocaleString("pt-BR")}`}
+                            {l.type === "sale"
+                              ? `R$ ${l.value.toLocaleString("pt-BR")}`
+                              : `${l.effect > 0 ? "+" : "−"}R$ ${Math.abs(l.effect).toLocaleString("pt-BR")}`}
                           </span>
                         </div>
                       ))}
