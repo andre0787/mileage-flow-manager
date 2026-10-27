@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T05:03:14.080Z",
+  "generatedAt": "2026-10-26T12:07:19.798Z",
   "currentMonth": "2026-10",
   "months": [
     {
@@ -141,42 +141,46 @@
     {
       "month": "2026-10",
       "prePrPassRate": 100,
-      "prePrTotal": 18,
-      "prePrPass": 18,
+      "prePrTotal": 16,
+      "prePrPass": 16,
       "prePrFail": 0,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
       "gateActivations": {
-        "intent": 14,
-        "twins": 14,
-        "auth": 14
+        "intent": 9,
+        "twins": 9,
+        "auth": 9
       },
-      "avgOutcomeGrade": 94.3,
+      "avgOutcomeGrade": 100,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
           "count": 4
-        },
-        {
-          "rule": "rule-17-new-docs-valid",
-          "count": 3
         }
       ],
-      "healedByRule": {
-        "rule-26": 1,
-        "rule-17-new-docs-valid": 1
-      },
-      "gateBlockedByRule": {
-        "rule-27-council-veredict": 2
-      },
+      "healedByRule": {},
+      "gateBlockedByRule": {},
       "avgCycleTimeHours": 0.2,
-      "branchesMerged": 13,
-      "violationsCaught": 7,
-      "healedRate": 28.6,
-      "frictionPerPass": 0.39
+      "branchesMerged": 12,
+      "violationsCaught": 4,
+      "healedRate": 0,
+      "frictionPerPass": 0.25
     }
   ],
   "daily": [
+    {
+      "day": "2026-09-27",
+      "label": "27/09",
+      "prePrTotal": 1,
+      "prePrPass": 1,
+      "prePrFail": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 1,
+      "friction": 0
+    },
     {
       "day": "2026-09-28",
       "label": "28/09",
@@ -553,22 +557,59 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
-    },
-    {
-      "day": "2026-10-27",
-      "label": "27/10",
-      "prePrTotal": 2,
-      "prePrPass": 2,
-      "prePrFail": 0,
-      "prePrPassRate": 100,
-      "ruleFails": 3,
-      "healed": 2,
-      "sessions": 0,
-      "merges": 1,
-      "friction": 1.5
     }
   ],
   "prs": [
+    {
+      "number": 750,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-25",
+      "tokens": 369,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 749,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-24",
+      "tokens": 393,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 748,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-23",
+      "tokens": 368,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 747,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-22",
+      "tokens": 396,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 746,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-21",
+      "tokens": 448,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 743,
       "title": "feat(vendas): toggle considerar/não considerar venda no ROI",
@@ -618,56 +659,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0.1
-    },
-    {
-      "number": 737,
-      "title": "chore: consolida hardening de CI das 9 PRs abertas (#711 #713 #715 #718 #722 #724 #728 #730 #732)",
-      "type": "chore",
-      "date": "2026-10-18",
-      "tokens": 1074,
-      "benefit": "Ajuste de processo validado",
-      "impact": "Processo mais confiável e audável",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 736,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-18",
-      "tokens": 368,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 735,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-17",
-      "tokens": 368,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 734,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-16",
-      "tokens": 368,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 733,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-15",
-      "tokens": 401,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
     }
   ],
   "repo": {
@@ -678,16 +669,95 @@
     "testFiles": 376,
     "skills": 28,
     "rules": 48,
-    "events": 393,
-    "qualityNotes": 501
+    "events": 362,
+    "qualityNotes": 486
   },
   "summary": {
     "merges": 17,
     "prs": 10,
     "sessions": 2,
-    "violations": 9,
-    "healed": 2,
+    "violations": 7,
+    "healed": 0,
     "prePrPassRate": 100
   },
-  "telemetry": []
+  "telemetry": [
+    {
+      "area": "workflow",
+      "cost": 0.57357,
+      "executions": 45,
+      "avgExecutionMs": 523447427
+    },
+    {
+      "area": "vendas",
+      "cost": 0.0287,
+      "executions": 1,
+      "avgExecutionMs": 16831791
+    },
+    {
+      "area": "graph-scout",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "test-scout",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "architect",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "implementer",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "tester",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "reviewer",
+      "cost": 0.0021,
+      "executions": 2,
+      "avgExecutionMs": 50
+    },
+    {
+      "area": "task",
+      "cost": 0,
+      "executions": 9,
+      "avgExecutionMs": 0
+    },
+    {
+      "area": "classifier",
+      "cost": 0,
+      "executions": 9,
+      "avgExecutionMs": 0
+    },
+    {
+      "area": "tools",
+      "cost": 0,
+      "executions": 102,
+      "avgExecutionMs": 112918
+    },
+    {
+      "area": "result",
+      "cost": 0,
+      "executions": 6,
+      "avgExecutionMs": 0
+    },
+    {
+      "area": "final-validator",
+      "cost": 0,
+      "executions": 101,
+      "avgExecutionMs": 112882
+    }
+  ]
 }
