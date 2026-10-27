@@ -386,3 +386,8 @@
 {"timestamp":"2026-10-27T04:58:23.430Z","type":"gate","description":"gate twins executado (rule-34-twins-check)","branch":"feat/relatorio-extrato-cliente","commit":"16fda228","agent":"human","gate":"twins","rule":"rule-34-twins-check"}
 {"timestamp":"2026-10-27T04:58:23.465Z","type":"gate","description":"gate auth executado (rule-35-auth-gate)","branch":"feat/relatorio-extrato-cliente","commit":"16fda228","agent":"human","gate":"auth","rule":"rule-35-auth-gate"}
 {"timestamp":"2026-10-27T04:59:04.568Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/relatorio-extrato-cliente","commit":"16fda228","agent":"human","errors":0}
+{"timestamp":"2026-10-27T05:02:28.699Z","type":"gate","description":"gate council executado (rule-27-council-veredict)","branch":"feat/relatorio-extrato-cliente","commit":"b8b89505","agent":"human","gate":"council","rule":"rule-27-council-veredict"}
+{"timestamp":"2026-10-27T05:02:28.734Z","type":"gate","description":"gate intent executado (rule-33-intent-gate)","branch":"feat/relatorio-extrato-cliente","commit":"b8b89505","agent":"human","gate":"intent","rule":"rule-33-intent-gate"}
+{"timestamp":"2026-10-27T05:02:28.769Z","type":"gate","description":"gate twins executado (rule-34-twins-check)","branch":"feat/relatorio-extrato-cliente","commit":"b8b89505","agent":"human","gate":"twins","rule":"rule-34-twins-check"}
+{"timestamp":"2026-10-27T05:02:28.804Z","type":"gate","description":"gate auth executado (rule-35-auth-gate)","branch":"feat/relatorio-extrato-cliente","commit":"b8b89505","agent":"human","gate":"auth","rule":"rule-35-auth-gate"}
+{"timestamp":"2026-10-27T05:03:09.393Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/relatorio-extrato-cliente","commit":"b8b89505","agent":"human","errors":0}

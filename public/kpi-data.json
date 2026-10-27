@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T04:59:09.935Z",
+  "generatedAt": "2026-10-27T05:03:14.080Z",
   "currentMonth": "2026-10",
   "months": [
     {
@@ -141,17 +141,17 @@
     {
       "month": "2026-10",
       "prePrPassRate": 100,
-      "prePrTotal": 17,
-      "prePrPass": 17,
+      "prePrTotal": 18,
+      "prePrPass": 18,
       "prePrFail": 0,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
       "gateActivations": {
-        "intent": 13,
-        "twins": 13,
-        "auth": 13
+        "intent": 14,
+        "twins": 14,
+        "auth": 14
       },
-      "avgOutcomeGrade": 93.8,
+      "avgOutcomeGrade": 94.3,
       "topViolations": [
         {
           "rule": "rule-38-code-review-gate",
@@ -173,7 +173,7 @@
       "branchesMerged": 13,
       "violationsCaught": 7,
       "healedRate": 28.6,
-      "frictionPerPass": 0.41
+      "frictionPerPass": 0.39
     }
   ],
   "daily": [
@@ -557,15 +557,15 @@
     {
       "day": "2026-10-27",
       "label": "27/10",
-      "prePrTotal": 1,
-      "prePrPass": 1,
+      "prePrTotal": 2,
+      "prePrPass": 2,
       "prePrFail": 0,
       "prePrPassRate": 100,
       "ruleFails": 3,
       "healed": 2,
       "sessions": 0,
       "merges": 1,
-      "friction": 3
+      "friction": 1.5
     }
   ],
   "prs": [
@@ -678,8 +678,8 @@
     "testFiles": 376,
     "skills": 28,
     "rules": 48,
-    "events": 388,
-    "qualityNotes": 498
+    "events": 393,
+    "qualityNotes": 501
   },
   "summary": {
     "merges": 17,
