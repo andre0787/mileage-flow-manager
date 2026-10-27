@@ -603,3 +603,5 @@ Docs novos registrados automaticamente pelo pre-pr (marcação `(auto)` — mova
 | `docs/superpowers/specs/pipeline-operacao.md` (auto)                              | 2026-09-06    |
 | `docs/superpowers/specs/relatorios-revamp.md` (auto)                              | 2026-09-06    |
 | `docs/superpowers/plans/2026-09-14-editar-data-saldo-cliente.md` (auto)           | 2026-09-14    |
+| `docs/superpowers/plans/2026-10-27-relatorio-extrato-cliente.md` (auto) | 2026-10-27 |
+| `docs/superpowers/specs/2026-10-27-relatorio-extrato-cliente-design.md` (auto) | 2026-10-27 |

@@ -1,18 +1,18 @@
-/**
- * Relatório de cobrança por cliente — funções PURAS (sem React/Supabase).
- * Ponto único das regras de débito: UI e CSV consomem daqui.
- * Cobrança mostra SOMENTE valores a cobrar — nunca lucro/margem/custos.
- */
-import { CREDIT_EPSILON, calcCreditBalance } from "@/lib/clientCredits";
+/** Agregador puro do extrato completo de cobrança por cliente. */
+import { CREDIT_EPSILON, calcCreditBalance, movementEffect } from "@/lib/clientCredits";
 import { parseDateOnly } from "@/lib/dateUtils";
 import type { ClientCredit } from "@/types";
 
 export interface CollectionLine {
-  saleId: string;
+  id: string;
+  saleId?: string;
   date: string;
+  type: "sale" | "credit";
   kind: string;
+  reversalOf?: "earn" | "spend";
   label: string;
   value: number;
+  effect: number;
   received: number;
   pending: number;
 }
@@ -21,8 +21,11 @@ export interface ClientCollection {
   clientId: string;
   clientName: string;
   lines: CollectionLine[];
+  totalSold: number;
+  totalReceived: number;
   totalPending: number;
   creditBalance: number;
+  /** Positivo = devedor; negativo = credor. */
   net: number;
   oldestOpenDate: string;
 }
@@ -39,123 +42,93 @@ export interface CollectionSale {
   amountReceived?: number;
   status: string;
   date: string;
-  /** Só para filtrar por dono/programa (espelha ownerSales/programSales). */
   accountId?: string | null;
   program?: string;
 }
 
-function saleLabel(s: CollectionSale): string {
-  if ((s.kind ?? "milhas") === "servico") return s.serviceType ?? "Serviço";
-  return s.ticketLocator ? `Bilhete ${s.ticketLocator}` : "Milhas";
+const amount = (n: unknown) => Math.max(0, Number(n) || 0);
+const saleLabel = (s: CollectionSale) =>
+  (s.kind ?? "milhas") === "servico" ? s.serviceType ?? "Serviço" :
+    s.ticketLocator ? `Bilhete ${s.ticketLocator}` : "Milhas";
+
+export function collectionLineTypeLabel(line: CollectionLine): string {
+  if (line.type === "sale") return line.kind === "servico" ? "Venda de serviço" : "Venda de milhas";
+  if (line.kind === "earn") return "Crédito gerado";
+  if (line.kind === "spend") return "Crédito utilizado";
+  if (line.kind === "reversal") {
+    return line.reversalOf === "earn" ? "Estorno de crédito gerado" :
+      line.reversalOf === "spend" ? "Estorno de crédito utilizado" : "Estorno de crédito";
+  }
+  return line.kind;
 }
 
-/** Monta o relatório de cobrança: vendas em aberto agrupadas por cliente. */
+/** Inclui vendas não canceladas e todo o ledger, sem somar ledger no fechamento. */
 export function buildCollectionReport(
   sales: CollectionSale[],
-  movements: Pick<ClientCredit, "clientId" | "kind" | "reversalOf" | "amount">[],
+  movements: Pick<ClientCredit, "id" | "clientId" | "kind" | "reversalOf" | "amount" | "note" | "createdAt">[],
 ): ClientCollection[] {
-  const byClient = new Map<string, ClientCredit[]>();
-  for (const m of movements ?? []) {
-    const list = byClient.get(m.clientId) ?? [];
-    list.push(m as ClientCredit);
-    byClient.set(m.clientId, list);
+  const groups = new Map<string, { name: string; sales: CollectionSale[]; credits: typeof movements }>();
+  const get = (id: string, name: string) => {
+    const group = groups.get(id) ?? { name, sales: [], credits: [] };
+    groups.set(id, group);
+    return group;
+  };
+  for (const sale of sales ?? []) {
+    if (sale.status !== "cancelado") get(sale.clientId, sale.clientName).sales.push(sale);
   }
+  for (const movement of movements ?? []) get(movement.clientId, movement.clientId).credits.push(movement);
 
-  const rows: ClientCollection[] = [];
-  const openByClient = new Map<string, CollectionSale[]>();
-  for (const s of sales ?? []) {
-    if (s.status === "cancelado") continue;
-    const pending =
-      Math.max(0, Number(s.saleValue) || 0) - Math.max(0, Number(s.amountReceived) || 0);
-    if (pending <= CREDIT_EPSILON) continue;
-    const list = openByClient.get(s.clientId) ?? [];
-    list.push(s);
-    openByClient.set(s.clientId, list);
-  }
-
-  for (const [clientId, open] of openByClient) {
-    const lines = open
-      .map((s) => {
-        const value = Math.max(0, Number(s.saleValue) || 0);
-        const received = Math.max(0, Number(s.amountReceived) || 0);
-        return {
-          saleId: s.id,
-          date: s.date,
-          kind: s.kind ?? "milhas",
-          label: saleLabel(s),
-          value,
-          received,
-          pending: value - received,
-        } satisfies CollectionLine;
-      })
-      .sort((a, b) => (a.date < b.date ? -1 : 1));
-    const totalPending = lines.reduce((sum, l) => sum + l.pending, 0);
-    const creditBalance = Math.max(0, calcCreditBalance(byClient.get(clientId) ?? []));
-    const net = Math.max(0, totalPending - creditBalance);
-    rows.push({
-      clientId,
-      clientName: open[0]?.clientName ?? clientId,
-      lines,
-      totalPending,
-      creditBalance,
-      net: Math.abs(net) < CREDIT_EPSILON ? 0 : net,
-      oldestOpenDate: lines[0]?.date ?? "",
+  return [...groups].map(([clientId, group]) => {
+    const saleLines = group.sales.map((s): CollectionLine => {
+      const value = amount(s.saleValue);
+      const received = amount(s.amountReceived);
+      return { id: `sale:${s.id}`, saleId: s.id, date: s.date, type: "sale", kind: s.kind ?? "milhas",
+        label: saleLabel(s), value, effect: -value, received, pending: Math.max(0, value - received) };
     });
-  }
-  // Dono da dor: débito mais antigo primeiro.
-  return rows.sort((a, b) => (a.oldestOpenDate < b.oldestOpenDate ? -1 : 1));
+    const creditLines = group.credits.map((m): CollectionLine => {
+      const effect = movementEffect(m);
+      return { id: `credit:${m.id}`, date: m.createdAt, type: "credit", kind: m.kind, reversalOf: m.reversalOf,
+        label: m.note?.trim() || "Movimento de crédito", value: amount(m.amount), effect, received: 0, pending: 0 };
+    });
+    const lines = [...saleLines, ...creditLines].sort((a, b) =>
+      b.date.localeCompare(a.date) || a.type.localeCompare(b.type) || a.id.localeCompare(b.id));
+    const totalSold = saleLines.reduce((sum, l) => sum + l.value, 0);
+    const totalReceived = saleLines.reduce((sum, l) => sum + l.received, 0);
+    const totalPending = saleLines.reduce((sum, l) => sum + l.pending, 0);
+    const creditBalance = Math.max(0, calcCreditBalance(group.credits));
+    const netValue = totalPending - creditBalance;
+    return { clientId, clientName: group.name, lines, totalSold, totalReceived, totalPending, creditBalance,
+      net: Math.abs(netValue) < CREDIT_EPSILON ? 0 : netValue,
+      oldestOpenDate: lines[lines.length - 1]?.date ?? "" };
+  }).sort((a, b) => b.lines[0]?.date.localeCompare(a.lines[0]?.date ?? "") || a.clientId.localeCompare(b.clientId));
 }
 
-/** Linhas do CSV de cobrança (só campos de cobrança — sem lucro/margem/custos). */
+/** CSV espelha lançamentos e fechamento da interface. */
 export function collectionCsvRows(rows: ClientCollection[]): Record<string, string | number>[] {
-  const out: Record<string, string | number>[] = [];
-  for (const r of rows) {
-    for (const l of r.lines) {
-      out.push({
-        Cliente: r.clientName,
-        Data: l.date,
-        Tipo: l.kind === "servico" ? "Serviço" : "Milhas",
-        Detalhe: l.label,
-        Valor: l.value.toFixed(2),
-        Recebido: l.received.toFixed(2),
-        Pendente: l.pending.toFixed(2),
-      });
-    }
-    out.push({
-      Cliente: r.clientName,
-      Data: "",
-      Tipo: "TOTAL",
-      Detalhe: `Crédito: ${r.creditBalance.toFixed(2)} · Líquido a cobrar`,
-      Valor: r.totalPending.toFixed(2),
-      Recebido: "",
-      Pendente: r.net.toFixed(2),
-    });
-  }
-  return out;
+  return rows.flatMap((r) => [
+    ...r.lines.map((l) => ({ Cliente: r.clientName, Data: l.date, Tipo: collectionLineTypeLabel(l),
+      Detalhe: l.label, Débito: l.type === "sale" ? l.value.toFixed(2) : "0.00",
+      "Crédito/efeito": l.type === "credit" ? l.effect.toFixed(2) : "0.00",
+      "Recebido/aplicado": l.received.toFixed(2), Pendente: l.pending.toFixed(2),
+      "Total vendido": "", "Total recebido/aplicado": "", "Pendente bruto": "",
+      "Crédito disponível": "", "Saldo final": "" })),
+    { Cliente: r.clientName, Data: "", Tipo: "FECHAMENTO", Detalhe: r.net > 0 ? "Saldo devedor" : r.net < 0 ? "Saldo credor" : "Quitado",
+      Débito: "", "Crédito/efeito": "", "Recebido/aplicado": "", Pendente: "",
+      "Total vendido": r.totalSold.toFixed(2), "Total recebido/aplicado": r.totalReceived.toFixed(2),
+      "Pendente bruto": r.totalPending.toFixed(2), "Crédito disponível": r.creditBalance.toFixed(2),
+      "Saldo final": r.net.toFixed(2) },
+  ]);
 }
 
 export interface CollectionSalesFilter {
-  /** Corte de período (mesmo dateCutoff da página). */
   cutoff: Date;
-  /** ids das contas do dono selecionado; null = todos os donos. */
   accountIds: string[] | null;
-  /** Nome do programa selecionado; null = todos os programas. */
   programName: string | null;
 }
 
-/**
- * Recorte de vendas para a Cobrança: período por data + dono (via conta) +
- * programa — mesma lógica de ownerSales/programSales de Relatorios.tsx.
- * Filtros nulos = passthrough (comportamento anterior).
- */
-export function filterCollectionSales(
-  sales: CollectionSale[],
-  filter: CollectionSalesFilter,
-): CollectionSale[] {
-  return (sales ?? []).filter((s) => {
-    if (parseDateOnly(s.date) < filter.cutoff) return false;
-    if (filter.accountIds !== null && !filter.accountIds.includes(s.accountId ?? "")) return false;
-    if (filter.programName !== null && s.program !== filter.programName) return false;
-    return true;
-  });
+/** Recorte usado por Pipeline; Cobrança recebe o histórico sem filtros. */
+export function filterCollectionSales(sales: CollectionSale[], filter: CollectionSalesFilter): CollectionSale[] {
+  return (sales ?? []).filter((s) => parseDateOnly(s.date) >= filter.cutoff &&
+    (filter.accountIds === null || filter.accountIds.includes(s.accountId ?? "")) &&
+    (filter.programName === null || s.program === filter.programName));
 }
