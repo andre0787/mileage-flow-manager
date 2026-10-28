@@ -9,10 +9,22 @@ import {
   collectionCsvRows,
   collectionLineTypeLabel,
 } from "@/lib/collections";
-import type { CollectionSale } from "@/lib/collections";
+import type { CollectionLine, CollectionSale } from "@/lib/collections";
 import { downloadCSV } from "@/lib/utils";
 import { formatDateBR } from "@/lib/dateUtils";
 import { SectionTitle, ReportEmpty } from "./ReportChrome";
+
+/** Crédito em verde, débito em vermelho; movimento nulo fica neutro. */
+const lineAmountTone = (line: CollectionLine) =>
+  line.type === "sale" || line.effect < 0
+    ? "text-destructive"
+    : line.effect > 0
+      ? "text-success"
+      : "text-muted-foreground";
+
+/** Saldo devedor em vermelho, credor em verde, quitado neutro. */
+const netTone = (net: number) =>
+  net > 0 ? "text-destructive" : net < 0 ? "text-success" : "text-muted-foreground";
 
 /**
  * Extrato integral por cliente com vendas e movimentos do ledger.
@@ -96,7 +108,7 @@ export function CollectionSection({ sales: salesProp }: { sales?: CollectionSale
                         {r.creditBalance.toLocaleString("pt-BR")}
                       </p>
                     </div>
-                    <span className="text-sm font-bold text-primary whitespace-nowrap">
+                    <span className={`text-sm font-bold whitespace-nowrap ${netTone(r.net)}`}>
                       {r.net > 0 ? "Devedor" : r.net < 0 ? "Credor" : "Quitado"} · R${" "}
                       {Math.abs(r.net).toLocaleString("pt-BR")}
                     </span>
@@ -115,7 +127,9 @@ export function CollectionSection({ sales: salesProp }: { sales?: CollectionSale
                                 : `Efeito no crédito: ${l.effect > 0 ? "+" : "−"}R$ ${Math.abs(l.effect).toLocaleString("pt-BR")}`}
                             </p>
                           </div>
-                          <span className="tabular-nums font-semibold whitespace-nowrap">
+                          <span
+                            className={`tabular-nums font-semibold whitespace-nowrap ${lineAmountTone(l)}`}
+                          >
                             {l.type === "sale"
                               ? `R$ ${l.value.toLocaleString("pt-BR")}`
                               : `${l.effect > 0 ? "+" : "−"}R$ ${Math.abs(l.effect).toLocaleString("pt-BR")}`}
