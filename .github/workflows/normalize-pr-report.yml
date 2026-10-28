@@ -43,6 +43,12 @@ jobs:
           CHANGED=0
           RENAME_FAILED=0
 
+          if [ ! -d "docs/reports" ]; then
+            echo "ℹ️  Diretório docs/reports não existe nesta branch, ignorando normalização"
+            echo "pushed=no" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           for file in docs/reports/*/*.html docs/reports/*.html; do
             [ -f "$file" ] || continue
             BASENAME=$(basename "$file")
