@@ -246,7 +246,7 @@ export default function Relatorios() {
     return programReports.filter((r) => r.program === selectedProgram);
   }, [programReports, selectedProgram]);
 
-  // Cobrança respeita os mesmos filtros da página (período/dono/programa).
+  // Recorte filtrado alimenta Pipeline; Cobrança usa sales completo para mostrar o histórico integral.
   const collectionSales = useMemo(() => {
     const owner = selectedOwner === "todos" ? null : owners.find((o) => o.name === selectedOwner);
     const accountIds = owner
@@ -558,7 +558,7 @@ export default function Relatorios() {
           ))}
         </TabsList>
         <TabsContent value="cobranca" className="mt-4">
-          <CollectionSection sales={collectionSales} />
+          <CollectionSection sales={sales} />
         </TabsContent>
         <TabsContent value="pipeline" className="mt-4">
           <div className="space-y-4">
