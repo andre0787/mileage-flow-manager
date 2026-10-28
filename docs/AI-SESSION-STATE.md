@@ -1,30 +1,29 @@
-# AI Session State - 2026-10-18T21:45:00.000Z
+# AI Session State - 2026-10-28
 
 ## Última Task
-- **Avaliar e implementar todas as PRs abertas em produção** (categoria chore; autonomia total do usuário).
-- 9 PRs draft abertas (bot-generated, variantes do mesmo hardening de CI) avaliadas individualmente vs main.
-- Consolidação via **PR #737** (merge `aac062d9`): união das mudanças significativas + refinamentos do code review.
-- As 9 PRs (#711 #713 #715 #718 #722 #724 #728 #730 #732) fechadas como superseded com veredito individual por PR; branches remotas deletadas. 0 PRs abertas.
-
-## Decisões de Avaliação
-- **Rejeitado #718 nightly**: e2e-full em schedule com `continue-on-error` (viola P0-04 + sanitização documentada; segue manual via workflow_dispatch).
-- **Rejeitado #732 auto-merge**: `head_branch != ''` (mais fraco que truthiness original — null passa).
-- **Rejeitado #728**: rollback de QUALITY.md (artefato gerado; main mais novo).
-- Code review (subagente): 4 findings corrigidos — commit fatal (sem `pushed=yes` stale), rename failure reportada, gate de deploy por `mergedAt`, pins anti-regressão.
+- Sinalização de crédito em verde e débito em vermelho no relatório de Cobrança (PR #797) publicada em produção.
+- Triagem e merge de 5 PRs seguras para produção: #751, #752, #756, #758, #772. Produção em `a81acc37`, deploy run `40630634276` success.
+- Limpeza do backlog: 31 PRs encerradas (refatorações sem mudança de comportamento, duplicatas e superadas por `main`), 7 mantidas.
 
 ## Estado dos Testes & Qualidade
-- **Local:** `npm run check` completo ✅ (EXIT=0) | 34 testes direcionados ✅ | YAML + `bash -n` ✅ | `npm run pre-pr` 0 errors ✅
-- **Produção:** deploy.yml run `39168108087` — `deploy` ✅ + `e2e-smoke-prod` ✅ (Vercel prod no head consolidado).
+- `npm run check:fast` verde antes dos merges: typecheck, lint, format, 1626 testes, verify-docs.
+- CI de cada PR mergeada: `check-pr`, `e2e-smoke` e Vercel SUCCESS antes do merge.
+- Deploy validado: `e2e-smoke-prod` passou contra `https://mileage-flow-manager.vercel.app` (HTTP 200).
+- `npm run pre-pr` roda com 0 erros de código; rules 38/39 (evidência de subagente) não são registráveis nesta sessão e foram justificadas no PR.
 
 ## Arquivos Modificados & Impacto
-- `.github/workflows/normalize-pr-report.yml` (env HEAD_REF/PR_NUM, fallbacks, guards de rename/push)
-- `.github/workflows/auto-merge.yml` (outputs merged + gate de deploy por mergedAt, 2 jobs)
-- `.github/workflows/nightly.yml` (coverage && rule:42 sem pipe)
-- `tests/unit/workflows-guard.test.ts` (pins atualizados) + `tests/unit/program-filters-integration.test.tsx` (novo, da #718)
+- Código: `src/components/reports/CollectionSection.tsx` (só apresentação, tokens `text-success`/`text-destructive`).
+- Mergeados de outras PRs: testes de AI Engineering, Executive Metrics, alertas de conta e `Map` em `dashboardTimeline` (`computeRecentEntries`/`computeRecentTransfers`).
+- Nenhuma migration, schema ou mutation financeira alterada.
 
 ## Pendências Imediatas
-- Nenhuma das 9 PRs — backlog de CI zerado. Observar próximo nightly (rule-42) e o fluxo normalize→auto-merge com os novos guards em produção.
+- Backlog aberto e curado (todas conflitantes apenas por artefatos gerados: `docs/handoff.md`, `docs/tracking/*.jsonl`, `public/*.json`):
+  - Testes: #753 (AI Bottlenecks), #755 (FeedbackDialog erro), #759 (AdminEventos), #771 (PipelineTab), #773 (Graph ROI).
+  - Perf: #789 (`dashboardSelectors` O(N²) → O(N+M)) — representante único do grupo.
+  - CI: #792 (guards do Auto Merge + `telemetry-sanity`).
+- `deploy.yml` não dispara em merge via `gh`: precisa de `repository_dispatch` da automação ou dispatch manual com a frase de AUTH.
 
 ## Governança de Contexto
-- AUTH: usuário disse "implementa todas em prod, tem total autonomia" (aplicado ao merge #737 + deploy).
-- Gates rule-38/39 registrados (eventos coding:done/code-review:done com subagent:true); fluxo canônico respeitado (branch → pre-pr → PR → CI → merge).
+- Categoria: chore/refactor de backlog — só `AGENTS.md` carregado, sem pré-carregar docs.
+- Descarte documentado no comentário de cada PR; branches preservadas para recuperação.
+- Publicação em produção autorizada explicitamente pelo usuário ("pode subir em prod"); descarte autorizado ("o que não for usar pode descartar a pr").
