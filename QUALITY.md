@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-10-27
-> Último commit: 8671f13f-Merge pull request #795 from andre0787/feat/relatorio-extrato-cliente
+> Gerado em: 2026-10-28
+> Último commit: bd79e3bd-Merge pull request #798 from andre0787/docs/session-state-backlog
 
 ## Pipeline
 
@@ -15,9 +15,9 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 1411 |
+| Unit | 1432 |
 | E2E  | 101 |
-| **Total** | **1512** |
+| **Total** | **1533** |
 
 ## Bundle
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-10-27 | ✅ | 1512 | 1925kB | 0 issues |
+| 2026-10-28 | ✅ | 1533 | 1925kB | 0 issues |
 
 ---
 
