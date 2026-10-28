@@ -1,5 +1,5 @@
 # HANDOFF — MilesControl
-> ⏰ Última atualização: 2026-10-27
+> ⏰ Última atualização: 2026-10-28
 > Anterior: 2026-10-27
 ---
 ## 🏗️ Projeto
@@ -9,46 +9,23 @@
 ### 🐞 Bugs Abertos
 Consulte as GitHub Issues para a lista atual.
 ## 🧭 Estado Atual
-- **Branch:** `feat/relatorio-extrato-cliente`
-- **Último commit:** `fa6d75cf` — Formatação corrigida após CI do PR 795
-- **Remote:** no remote
+- **Branch:** `main`
+- **Último commit:** `51df961a` — docs: estado da sessão com merges em produção e curadoria do backlog de PRs
+- **Remote:** origin/main
 ### 📋 PRs Abertos
-- #795 — feat: extrato completo de cobrança por cliente
-- #794 — Fix CI workflows, nightly test check script, and PR report normalization
 - #792 — Fix Auto Merge guards, telemetry sanity, and validate UX filters
-- #791 — 🧹 refactor: decompose AppSidebar into modular subcomponents
-- #790 — 🧹 Extract subcomponents from SaleTableRow
 - #789 — ⚡ optimize dashboard selectors lookup from O(N^2) to O(N+M)
-- #788 — 🧹 refactor GlobalSearch component to use custom hook and subcomponent
-- #787 — 🧹 [code health improvement] Refactor long ProgramSection component into modular helper components
-- #786 — 🔒 Fix hardcoded Supabase anon key in test files and scripts
-- #785 — 🧹 Refactor SaleMobileCard into modular sub-components
-- #784 — 🧹 refactor: extract subcomponents and hooks from Clientes page
-- #783 — ⚡ perf: optimize salesOfAccountType lookup in dashboardSelectors
-- #782 — 🧹 [code health improvement] Refactor SaleSimulator to reduce line count and improve readability
-- #781 — 🧹 Extract SaleTable subcomponents and sort helper
-- #780 — 🧹 Refactor EntryForm into modular sub-components
-- #779 — 🧹 refactor: decompose FlowMap component into focused subcomponents
-- #778 — 🧹 [Code Health] Refactor Vendas.tsx into modular helpers and components
-- #777 — 🧹 Refactor SaleForm component into smaller subcomponents
-- #776 — ⚡ Optimize account ID to type lookup in dashboard selectors
-- #775 — ⚡ optimize program lookup in computeProgramData to O(1)
-- #774 — 🔒 Fix hardcoded Supabase Anon Key in test config
 - #773 — 🧪 test: add unit tests for AI Engineering Graph ROI metrics
-- #772 — 🧪 test: add comprehensive unit tests for AccountAlertsDialog
 - #771 — 🧪 test: add unit tests for PipelineTab component
-- #770 — 🧹 refactor: extract subcomponents from SaleReceiveDialog
-- #769 — ⚡ perf: optimize account lookup in computeRecentEntries and computeRecentTransfers
-- #768 — 🧹 [code health] Refactor EntryTable into modular sub-components
-- #767 — 🧹 refactor(owners): extract OwnerSection helper components
-- #766 — 🧹 Refactor long AccountDialog component into smaller modular subcomponents
-- #765 — 🧪 test(ai): add unit tests for AI engineering agents performance
+- #759 — 🧪 test(pages): add unit tests for AdminEventos page component
+- #755 — 🧪 test(feedback): add error path test for FeedbackDialog
+- #753 — 🧪 Add unit tests for AI Engineering Bottlenecks
 ### 📊 Métricas (estimativa local)
 | Métrica | Valor |
 |---------|-------|
-| Total testes | 1512 |
+| Total testes | 1533 |
 | Docs issues | 0 |
-| Branch | feat/relatorio-extrato-cliente |
+| Branch | main |
 
 ---
 _Atualizado automaticamente por `scripts/update-handoff.mjs`_
@@ -78,6 +55,7 @@ Continue a tarefa ativa ou selecione o próximo task-card.
   **⚠️ Aviso:** o patch é local (arquivo git-ignored em node_modules). Será perdido ao atualizar o pacote webui (0.8.8+). Reportar upstream ao `@firstpick` quando conveniente.
 - **Estado pós-fix:** auditoria `phase: ready`, `installKind: upgrade`, summary `{ready:8, migratable:1, missing:11, conflicts:0, disabled:0, unknown:0}`; `remoteWebui` → `legacy-migratable` com `dismissedMigration` gravado (não reinstalar). Store: `~/.pi/agent/webui/optional-feature-migration.json`.
 - **Web UI ativo:** launcher PID 960277 (porta 31415, `--host 127.0.0.1 --cwd <repo>`).
+
 
 
 
