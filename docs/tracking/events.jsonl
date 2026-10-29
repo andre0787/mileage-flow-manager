@@ -422,3 +422,4 @@
 {"timestamp":"2026-10-28T03:22:23.997Z","type":"rule:fail","description":"rule-38-code-review-gate falhou","branch":"feat/cobranca-cores-saldo","commit":"1249c17d","agent":"human","rule":"rule-38-code-review-gate"}
 {"timestamp":"2026-10-28T03:22:24.030Z","type":"rule:fail","description":"rule-39-coding-gate falhou","branch":"feat/cobranca-cores-saldo","commit":"1249c17d","agent":"human","rule":"rule-39-coding-gate"}
 {"timestamp":"2026-10-28T03:23:46.082Z","type":"pre-pr","description":"pre-pr PASS","branch":"feat/cobranca-cores-saldo","commit":"1249c17d","agent":"human","errors":0}
+{"timestamp":"2026-10-29T02:21:13.023Z","type":"pre-pr","description":"pre-pr PASS","branch":"perf/dashboard-selectors-lookup","commit":"21848583","agent":"human","errors":0}
