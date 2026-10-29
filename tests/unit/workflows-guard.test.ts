@@ -83,8 +83,16 @@ describe("deploy workflow (deploy automático pós-merge)", () => {
     expect(content).toMatch(/repository_dispatch:\s*\n\s*types:\s*\[deploy\]/);
   });
 
-  it("não usa mais push como gatilho (evita deploy duplicado com dispatch)", () => {
-    expect(content).not.toMatch(/^\s*push:\s*$/m);
+  it("dispara em push na main para cobrir merge humano (bot não gera evento push)", () => {
+    expect(content).toMatch(/^\s*push:\s*$/m);
+    expect(content).toMatch(/branches:\s*\[main\]/);
+    expect(content).toMatch(/paths-ignore:/);
+  });
+
+  it("serializa deploys em produção para não sobrepor duas versões", () => {
+    expect(content).toMatch(/concurrency:/);
+    expect(content).toMatch(/group:\s*deploy-prod/);
+    expect(content).toMatch(/cancel-in-progress:\s*false/);
   });
 
   it("mantém AUTH Gate do workflow_dispatch (regra 35)", () => {
