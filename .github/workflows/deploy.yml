@@ -4,17 +4,29 @@ permissions:
   issues: write
 
 on:
-  # Disparado pelo auto-merge (repository_dispatch) após merge na main.
-  # Push de bot (GITHUB_TOKEN) não gera evento push → deploy só via dispatch
-  # evita deploy duplicado e garante produção automática de verdade.
+  # Merge humano (UI/gh) gera push na main → deploy automático.
+  # Merge do bot (GITHUB_TOKEN) NÃO gera evento push, por isso o
+  # repository_dispatch do auto-merge continua cobrindo esse caminho.
+  # Os dois gatilhos não se sobrepõem para a mesma execução.
+  push:
+    branches: [main]
+    paths-ignore:
+      - "docs/**"
+      - "**.md"
   repository_dispatch:
     types: [deploy]
   workflow_dispatch:
     inputs:
       auth_phrase:
-        description: '🔐 Frase de autorização para deploy manual'
+        description: "🔐 Frase de autorização para deploy manual"
         required: true
         type: string
+
+# Um deploy por vez em produção: um push logo após um merge do bot não pode
+# publicar duas versões concorrentes.
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
 
 jobs:
   deploy:
