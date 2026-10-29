@@ -30,32 +30,33 @@ try {
       }
     }
   }
-} catch { /* fail-open */ }
+} catch {
+  /* fail-open */
+}
 
-const key = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
+const key = process.env.SUPABASE_SERVICE_KEY;
 
 console.log("── TELEMETRY SANITY ──");
 
 if (!key) {
-  console.log("⚠️ Credenciais Supabase (SERVICE_KEY/ANON_KEY) ausentes — check ignorado (fail-open)");
+  console.log(
+    "⚠️ Credenciais Supabase (SUPABASE_SERVICE_KEY) ausentes — check ignorado (fail-open)",
+  );
   process.exit(0);
 }
 
 const since = new Date(Date.now() - WINDOW_HOURS * 3600_000).toISOString();
 
 try {
-  const res = await fetch(
-    `${url}/rest/v1/ai_telemetry?select=event_id&created_at=gte.${since}`,
-    {
-      headers: {
-        apikey: key,
-        Authorization: `Bearer ${key}`,
-        // Count exato em 1 requisição (sem baixar as linhas).
-        Prefer: "count=exact",
-        Range: "0-0",
-      },
+  const res = await fetch(`${url}/rest/v1/ai_telemetry?select=event_id&created_at=gte.${since}`, {
+    headers: {
+      apikey: key,
+      Authorization: `Bearer ${key}`,
+      // Count exato em 1 requisição (sem baixar as linhas).
+      Prefer: "count=exact",
+      Range: "0-0",
     },
-  );
+  });
   if (!res.ok) {
     console.log(`⚠️ query falhou (${res.status}) — check ignorado (fail-open)`);
     process.exit(0);
