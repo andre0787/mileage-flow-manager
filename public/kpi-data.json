@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-28T12:01:40.339Z",
+  "generatedAt": "2026-10-29T12:11:41.861Z",
   "currentMonth": "2026-10",
   "months": [
     {
@@ -141,8 +141,8 @@
     {
       "month": "2026-10",
       "prePrPassRate": 100,
-      "prePrTotal": 22,
-      "prePrPass": 22,
+      "prePrTotal": 26,
+      "prePrPass": 26,
       "prePrFail": 0,
       "testCoverageLibs": 100,
       "testCoverageComponents": 100,
@@ -181,27 +181,14 @@
       "gateBlockedByRule": {
         "rule-27-council-veredict": 2
       },
-      "avgCycleTimeHours": 30.4,
-      "branchesMerged": 14,
+      "avgCycleTimeHours": 12.2,
+      "branchesMerged": 18,
       "violationsCaught": 14,
       "healedRate": 14.3,
-      "frictionPerPass": 0.64
+      "frictionPerPass": 0.54
     }
   ],
   "daily": [
-    {
-      "day": "2026-09-29",
-      "label": "29/09",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-09-30",
       "label": "30/09",
@@ -578,9 +565,92 @@
       "sessions": 0,
       "merges": 1,
       "friction": 4
+    },
+    {
+      "day": "2026-10-29",
+      "label": "29/10",
+      "prePrTotal": 4,
+      "prePrPass": 4,
+      "prePrFail": 0,
+      "prePrPassRate": 100,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 4,
+      "friction": 0
     }
   ],
   "prs": [
+    {
+      "number": 806,
+      "title": "chore: session end 2026-10-29 (deploy em push + remote limpo)",
+      "type": "chore",
+      "date": "2026-10-29",
+      "tokens": 41,
+      "benefit": "Ajuste de processo validado",
+      "impact": "Processo mais confiável e audável",
+      "cycleHours": 0
+    },
+    {
+      "number": 805,
+      "title": "ci(deploy): publica em produção também em push na main",
+      "type": "other",
+      "date": "2026-10-28",
+      "tokens": 335,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 804,
+      "title": "docs: estado da sessão com backlog de PRs zerado",
+      "type": "docs",
+      "date": "2026-10-28",
+      "tokens": 27,
+      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
+      "impact": "Menos fricção e melhor governança",
+      "cycleHours": 0
+    },
+    {
+      "number": 803,
+      "title": "perf(dashboard): troca busca linear por Set/Map nos seletores",
+      "type": "other",
+      "date": "2026-10-28",
+      "tokens": 407,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.2
+    },
+    {
+      "number": 802,
+      "title": "fix(ci): normaliza refs/heads e endurece guards de auto-merge",
+      "type": "fix",
+      "date": "2026-10-28",
+      "tokens": 158,
+      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
+      "impact": "Menos risco de erro para o usuário e a operação",
+      "cycleHours": 0.2
+    },
+    {
+      "number": 801,
+      "title": "test: consolida cobertura de backlog pendente",
+      "type": "other",
+      "date": "2026-10-29",
+      "tokens": 805,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
+      "number": 799,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-28",
+      "tokens": 568,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0
+    },
     {
       "number": 798,
       "title": "docs: estado da sessão após publicação em produção e curadoria do backlog",
@@ -610,91 +680,21 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 60.7
-    },
-    {
-      "number": 756,
-      "title": "🧪 test: add missing error path test for clearing account data",
-      "type": "other",
-      "date": "2026-10-28",
-      "tokens": 125,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 60.7
-    },
-    {
-      "number": 752,
-      "title": "🧪 [test] add unit tests for AI Engineering Executive Metrics",
-      "type": "other",
-      "date": "2026-10-28",
-      "tokens": 122,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 60.7
-    },
-    {
-      "number": 751,
-      "title": "🧪 Add unit tests for AI Engineering model performance and agent performance",
-      "type": "other",
-      "date": "2026-10-28",
-      "tokens": 134,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 60.7
-    },
-    {
-      "number": 797,
-      "title": "feat: cobrança — créditos em verde e débitos em vermelho",
-      "type": "feat",
-      "date": "2026-10-28",
-      "tokens": 337,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 796,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-27",
-      "tokens": 441,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 795,
-      "title": "feat: extrato completo de cobrança por cliente",
-      "type": "feat",
-      "date": "2026-10-27",
-      "tokens": 1131,
-      "benefit": "Nova capacidade entregue e validada",
-      "impact": "Nova alavanca de uso/negócio",
-      "cycleHours": 0.2
-    },
-    {
-      "number": 793,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-26",
-      "tokens": 368,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
     }
   ],
   "repo": {
-    "components": 178,
+    "components": 179,
     "pages": 18,
     "libs": 50,
     "scripts": 124,
-    "testFiles": 382,
+    "testFiles": 390,
     "skills": 28,
     "rules": 48,
-    "events": 424,
+    "events": 428,
     "qualityNotes": 516
   },
   "summary": {
-    "merges": 14,
+    "merges": 18,
     "prs": 10,
     "sessions": 2,
     "violations": 14,
@@ -704,9 +704,9 @@
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.59861,
-      "executions": 47,
-      "avgExecutionMs": 528606146
+      "cost": 0.61134,
+      "executions": 48,
+      "avgExecutionMs": 533756635
     },
     {
       "area": "vendas",
@@ -771,7 +771,7 @@
     {
       "area": "result",
       "cost": 0,
-      "executions": 11,
+      "executions": 12,
       "avgExecutionMs": 0
     },
     {

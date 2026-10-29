@@ -1,7 +1,7 @@
 # 📊 QUALITY — MilesControl
 
-> Gerado em: 2026-10-28
-> Último commit: bd79e3bd-Merge pull request #798 from andre0787/docs/session-state-backlog
+> Gerado em: 2026-10-29
+> Último commit: 3f6b7e9f-Merge pull request #806 from andre0787/docs/session-end-2026-10-29
 
 ## Pipeline
 
@@ -15,9 +15,9 @@
 
 | Tipo | Casos |
 |------|-------|
-| Unit | 1432 |
+| Unit | 1461 |
 | E2E  | 101 |
-| **Total** | **1533** |
+| **Total** | **1562** |
 
 ## Bundle
 
@@ -39,7 +39,7 @@
 
 | Data | CI Status | Testes | Bundle | Docs |
 |------|-----------|--------|--------|------|
-| 2026-10-28 | ✅ | 1533 | 1925kB | 0 issues |
+| 2026-10-29 | ✅ | 1562 | 1925kB | 0 issues |
 
 ---
 
