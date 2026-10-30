@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-29T12:11:42.100Z",
-  "dataDate": "2026-10-29",
+  "generatedAt": "2026-10-30T12:04:13.022Z",
+  "dataDate": "2026-10-30",
   "kpiStats": [
     {
       "value": 428,
@@ -172,6 +172,16 @@
   },
   "lastPrs": [
     {
+      "number": 807,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-29",
+      "tokens": 536,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
       "number": 806,
       "title": "chore: session end 2026-10-29 (deploy em push + remote limpo)",
       "type": "chore",
@@ -209,16 +219,6 @@
       "tokens": 407,
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.2
-    },
-    {
-      "number": 802,
-      "title": "fix(ci): normaliza refs/heads e endurece guards de auto-merge",
-      "type": "fix",
-      "date": "2026-10-28",
-      "tokens": 158,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação",
       "cycleHours": 0.2
     }
   ],
