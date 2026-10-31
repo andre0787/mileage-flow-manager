@@ -122,6 +122,7 @@ describe("auto-merge workflow (dispara deploy após merge)", () => {
   });
 
   it("restringe workflow_run para disparar apenas no evento pull_request", () => {
+    expect(content).toMatch(/github\.event_name == 'workflow_run'/);
     expect(content).toMatch(/github\.event\.workflow_run\.event == 'pull_request'/);
   });
 
