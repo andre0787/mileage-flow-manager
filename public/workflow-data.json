@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-30T12:04:13.022Z",
-  "dataDate": "2026-10-30",
+  "generatedAt": "2026-10-31T11:38:23.806Z",
+  "dataDate": "2026-10-31",
   "kpiStats": [
     {
       "value": 428,
@@ -41,12 +41,12 @@
     },
     {
       "name": "pre-pr",
-      "n": 26,
+      "n": 25,
       "color": "#8b5cf6"
     },
     {
       "name": "rule:fail",
-      "n": 14,
+      "n": 12,
       "color": "#ef4444"
     },
     {
@@ -56,7 +56,7 @@
     },
     {
       "name": "code-review:done",
-      "n": 5,
+      "n": 4,
       "color": "#6366f1"
     },
     {
@@ -66,7 +66,7 @@
     },
     {
       "name": "gate",
-      "n": 76,
+      "n": 64,
       "color": "#f43f5e"
     },
     {
@@ -78,7 +78,7 @@
   "grades": [
     {
       "name": "100% — excelente",
-      "n": 12,
+      "n": 9,
       "color": "#10b981"
     },
     {
@@ -135,17 +135,17 @@
     }
   ],
   "gateEfficiency": {
-    "ruleFails": 14,
+    "ruleFails": 12,
     "healed": 2,
-    "healedRate": 14.3,
-    "prePrTotal": 26,
-    "prePrPass": 26,
+    "healedRate": 16.7,
+    "prePrTotal": 25,
+    "prePrPass": 25,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
       {
         "rule": "rule-38-code-review-gate",
-        "count": 6,
+        "count": 4,
         "hint": "faltou evento code-review:done por subagente na branch"
       },
       {
@@ -171,6 +171,16 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 809,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-30",
+      "tokens": 369,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 807,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -210,16 +220,6 @@
       "benefit": "Documentação/processo atualizados — mais rastreabilidade",
       "impact": "Menos fricção e melhor governança",
       "cycleHours": 0
-    },
-    {
-      "number": 803,
-      "title": "perf(dashboard): troca busca linear por Set/Map nos seletores",
-      "type": "other",
-      "date": "2026-10-28",
-      "tokens": 407,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.2
     }
   ],
   "overview": {
