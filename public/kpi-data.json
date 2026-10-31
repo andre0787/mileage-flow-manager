@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-30T12:04:12.601Z",
+  "generatedAt": "2026-10-31T11:38:23.390Z",
   "currentMonth": "2026-10",
   "months": [
     {
@@ -181,7 +181,7 @@
       "gateBlockedByRule": {
         "rule-27-council-veredict": 2
       },
-      "avgCycleTimeHours": 6.2,
+      "avgCycleTimeHours": 0.1,
       "branchesMerged": 18,
       "violationsCaught": 14,
       "healedRate": 14.3,
@@ -189,19 +189,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-10-01",
-      "label": "01/10",
-      "prePrTotal": 9,
-      "prePrPass": 9,
-      "prePrFail": 0,
-      "prePrPassRate": 100,
-      "ruleFails": 2,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 9,
-      "friction": 0.22
-    },
     {
       "day": "2026-10-02",
       "label": "02/10",
@@ -578,9 +565,32 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
+    },
+    {
+      "day": "2026-10-31",
+      "label": "31/10",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [
+    {
+      "number": 809,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-30",
+      "tokens": 369,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 807,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -670,16 +680,6 @@
       "benefit": "Documentação/processo atualizados — mais rastreabilidade",
       "impact": "Menos fricção e melhor governança",
       "cycleHours": 0.1
-    },
-    {
-      "number": 772,
-      "title": "🧪 test: add comprehensive unit tests for AccountAlertsDialog",
-      "type": "other",
-      "date": "2026-10-28",
-      "tokens": 80,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 60.7
     }
   ],
   "repo": {
@@ -694,19 +694,19 @@
     "qualityNotes": 516
   },
   "summary": {
-    "merges": 18,
+    "merges": 17,
     "prs": 10,
     "sessions": 2,
-    "violations": 14,
+    "violations": 12,
     "healed": 2,
     "prePrPassRate": 100
   },
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.62407,
-      "executions": 49,
-      "avgExecutionMs": 540450972
+      "cost": 0.6368,
+      "executions": 50,
+      "avgExecutionMs": 548574567
     },
     {
       "area": "vendas",
