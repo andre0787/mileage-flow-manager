@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-31T11:38:23.806Z",
-  "dataDate": "2026-10-31",
+  "generatedAt": "2026-11-01T12:36:23.609Z",
+  "dataDate": "2026-11-01",
   "kpiStats": [
     {
       "value": 428,
@@ -41,7 +41,7 @@
     },
     {
       "name": "pre-pr",
-      "n": 25,
+      "n": 17,
       "color": "#8b5cf6"
     },
     {
@@ -138,8 +138,8 @@
     "ruleFails": 12,
     "healed": 2,
     "healedRate": 16.7,
-    "prePrTotal": 25,
-    "prePrPass": 25,
+    "prePrTotal": 17,
+    "prePrPass": 17,
     "prePrPassRate": 100,
     "gateBlocked": 2,
     "topViolations": [
@@ -171,6 +171,16 @@
     ]
   },
   "lastPrs": [
+    {
+      "number": 810,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-31",
+      "tokens": 387,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 809,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -210,16 +220,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0.1
-    },
-    {
-      "number": 804,
-      "title": "docs: estado da sessão com backlog de PRs zerado",
-      "type": "docs",
-      "date": "2026-10-28",
-      "tokens": 27,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança",
-      "cycleHours": 0
     }
   ],
   "overview": {

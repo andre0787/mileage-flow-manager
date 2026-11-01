@@ -1,30 +1,7 @@
 {
-  "generatedAt": "2026-10-31T11:38:23.390Z",
-  "currentMonth": "2026-10",
+  "generatedAt": "2026-11-01T12:36:23.430Z",
+  "currentMonth": "2026-11",
   "months": [
-    {
-      "month": "2026-05",
-      "prePrPassRate": 0,
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "testCoverageLibs": null,
-      "testCoverageComponents": null,
-      "gateActivations": {
-        "intent": 0,
-        "twins": 0,
-        "auth": 0
-      },
-      "avgOutcomeGrade": null,
-      "topViolations": [],
-      "healedByRule": {},
-      "gateBlockedByRule": {},
-      "avgCycleTimeHours": null,
-      "branchesMerged": 0,
-      "violationsCaught": 0,
-      "healedRate": null,
-      "frictionPerPass": null
-    },
     {
       "month": "2026-06",
       "prePrPassRate": 0,
@@ -186,22 +163,32 @@
       "violationsCaught": 14,
       "healedRate": 14.3,
       "frictionPerPass": 0.54
-    }
-  ],
-  "daily": [
+    },
     {
-      "day": "2026-10-02",
-      "label": "02/10",
+      "month": "2026-11",
+      "prePrPassRate": 0,
       "prePrTotal": 0,
       "prePrPass": 0,
       "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
+      "testCoverageLibs": null,
+      "testCoverageComponents": null,
+      "gateActivations": {
+        "intent": 0,
+        "twins": 0,
+        "auth": 0
+      },
+      "avgOutcomeGrade": null,
+      "topViolations": [],
+      "healedByRule": {},
+      "gateBlockedByRule": {},
+      "avgCycleTimeHours": null,
+      "branchesMerged": 0,
+      "violationsCaught": 0,
+      "healedRate": null,
+      "frictionPerPass": null
+    }
+  ],
+  "daily": [
     {
       "day": "2026-10-03",
       "label": "03/10",
@@ -578,9 +565,32 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
+    },
+    {
+      "day": "2026-11-01",
+      "label": "01/11",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [
+    {
+      "number": 810,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-10-31",
+      "tokens": 387,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 809,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -670,16 +680,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0
-    },
-    {
-      "number": 798,
-      "title": "docs: estado da sessão após publicação em produção e curadoria do backlog",
-      "type": "docs",
-      "date": "2026-10-28",
-      "tokens": 67,
-      "benefit": "Documentação/processo atualizados — mais rastreabilidade",
-      "impact": "Menos fricção e melhor governança",
-      "cycleHours": 0.1
     }
   ],
   "repo": {
@@ -694,7 +694,7 @@
     "qualityNotes": 516
   },
   "summary": {
-    "merges": 17,
+    "merges": 9,
     "prs": 10,
     "sessions": 2,
     "violations": 12,
@@ -704,9 +704,9 @@
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.6368,
-      "executions": 50,
-      "avgExecutionMs": 548574567
+      "cost": 0.64953,
+      "executions": 51,
+      "avgExecutionMs": 558141955
     },
     {
       "area": "vendas",
