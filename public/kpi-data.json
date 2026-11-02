@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-01T12:36:23.430Z",
+  "generatedAt": "2026-11-02T14:36:09.463Z",
   "currentMonth": "2026-11",
   "months": [
     {
@@ -181,7 +181,7 @@
       "topViolations": [],
       "healedByRule": {},
       "gateBlockedByRule": {},
-      "avgCycleTimeHours": null,
+      "avgCycleTimeHours": 0.1,
       "branchesMerged": 0,
       "violationsCaught": 0,
       "healedRate": null,
@@ -189,19 +189,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-10-03",
-      "label": "03/10",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-10-04",
       "label": "04/10",
@@ -578,9 +565,32 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
+    },
+    {
+      "day": "2026-11-02",
+      "label": "02/11",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [
+    {
+      "number": 811,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-11-01",
+      "tokens": 408,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 810,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -670,16 +680,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0.1
-    },
-    {
-      "number": 799,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-28",
-      "tokens": 568,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0
     }
   ],
   "repo": {
@@ -704,9 +704,9 @@
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.64953,
-      "executions": 51,
-      "avgExecutionMs": 558141955
+      "cost": 0.66226,
+      "executions": 52,
+      "avgExecutionMs": 569141063
     },
     {
       "area": "vendas",
