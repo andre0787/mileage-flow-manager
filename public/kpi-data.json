@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-02T14:36:09.463Z",
+  "generatedAt": "2026-11-03T13:32:16.728Z",
   "currentMonth": "2026-11",
   "months": [
     {
@@ -189,19 +189,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-10-04",
-      "label": "04/10",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-10-05",
       "label": "05/10",
@@ -578,9 +565,32 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
+    },
+    {
+      "day": "2026-11-03",
+      "label": "03/11",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [
+    {
+      "number": 812,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-11-02",
+      "tokens": 369,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 811,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -593,13 +603,12 @@
     },
     {
       "number": 810,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "title": "Merge pull request #810 from andre0787/chore/quality-nightly-update",
       "type": "other",
       "date": "2026-10-31",
       "tokens": 387,
       "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
+      "impact": "Risco controlado antes da produção"
     },
     {
       "number": 809,
@@ -670,16 +679,6 @@
       "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
       "impact": "Menos risco de erro para o usuário e a operação",
       "cycleHours": 0.2
-    },
-    {
-      "number": 801,
-      "title": "test: consolida cobertura de backlog pendente",
-      "type": "other",
-      "date": "2026-10-29",
-      "tokens": 805,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
     }
   ],
   "repo": {
@@ -704,9 +703,9 @@
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.66226,
-      "executions": 52,
-      "avgExecutionMs": 569141063
+      "cost": 0.67499,
+      "executions": 53,
+      "avgExecutionMs": 581282976
     },
     {
       "area": "vendas",
