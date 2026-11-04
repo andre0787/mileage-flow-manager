@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T13:32:16.728Z",
+  "generatedAt": "2026-11-04T13:42:52.609Z",
   "currentMonth": "2026-11",
   "months": [
     {
@@ -189,19 +189,6 @@
     }
   ],
   "daily": [
-    {
-      "day": "2026-10-05",
-      "label": "05/10",
-      "prePrTotal": 0,
-      "prePrPass": 0,
-      "prePrFail": 0,
-      "prePrPassRate": null,
-      "ruleFails": 0,
-      "healed": 0,
-      "sessions": 0,
-      "merges": 0,
-      "friction": null
-    },
     {
       "day": "2026-10-06",
       "label": "06/10",
@@ -578,9 +565,32 @@
       "sessions": 0,
       "merges": 0,
       "friction": null
+    },
+    {
+      "day": "2026-11-04",
+      "label": "04/11",
+      "prePrTotal": 0,
+      "prePrPass": 0,
+      "prePrFail": 0,
+      "prePrPassRate": null,
+      "ruleFails": 0,
+      "healed": 0,
+      "sessions": 0,
+      "merges": 0,
+      "friction": null
     }
   ],
   "prs": [
+    {
+      "number": 813,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-11-03",
+      "tokens": 375,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
     {
       "number": 812,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
@@ -603,12 +613,13 @@
     },
     {
       "number": 810,
-      "title": "Merge pull request #810 from andre0787/chore/quality-nightly-update",
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
       "type": "other",
       "date": "2026-10-31",
       "tokens": 387,
       "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção"
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
     },
     {
       "number": 809,
@@ -669,16 +680,6 @@
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0.2
-    },
-    {
-      "number": 802,
-      "title": "fix(ci): normaliza refs/heads e endurece guards de auto-merge",
-      "type": "fix",
-      "date": "2026-10-28",
-      "tokens": 158,
-      "benefit": "Comportamento corrigido e validado — menos erro e retrabalho",
-      "impact": "Menos risco de erro para o usuário e a operação",
-      "cycleHours": 0.2
     }
   ],
   "repo": {
@@ -703,9 +704,9 @@
   "telemetry": [
     {
       "area": "workflow",
-      "cost": 0.67499,
-      "executions": 53,
-      "avgExecutionMs": 581282976
+      "cost": 0.68772,
+      "executions": 54,
+      "avgExecutionMs": 594586958
     },
     {
       "area": "vendas",

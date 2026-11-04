@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-03T13:32:17.113Z",
-  "dataDate": "2026-11-03",
+  "generatedAt": "2026-11-04T13:42:53.000Z",
+  "dataDate": "2026-11-04",
   "kpiStats": [
     {
       "value": 428,
@@ -172,6 +172,16 @@
   },
   "lastPrs": [
     {
+      "number": 813,
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
+      "type": "other",
+      "date": "2026-11-03",
+      "tokens": 375,
+      "benefit": "Mudança validada pelo fluxo de qualidade",
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
+    },
+    {
       "number": 812,
       "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
       "type": "other",
@@ -193,12 +203,13 @@
     },
     {
       "number": 810,
-      "title": "Merge pull request #810 from andre0787/chore/quality-nightly-update",
+      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
       "type": "other",
       "date": "2026-10-31",
       "tokens": 387,
       "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção"
+      "impact": "Risco controlado antes da produção",
+      "cycleHours": 0.1
     },
     {
       "number": 809,
@@ -206,16 +217,6 @@
       "type": "other",
       "date": "2026-10-30",
       "tokens": 369,
-      "benefit": "Mudança validada pelo fluxo de qualidade",
-      "impact": "Risco controlado antes da produção",
-      "cycleHours": 0.1
-    },
-    {
-      "number": 807,
-      "title": "📊 Atualização noturna QUALITY.md + dados (KPIs/Workflow)",
-      "type": "other",
-      "date": "2026-10-29",
-      "tokens": 536,
       "benefit": "Mudança validada pelo fluxo de qualidade",
       "impact": "Risco controlado antes da produção",
       "cycleHours": 0.1
